@@ -7,17 +7,20 @@ describe("Screen - admin_reconciliation", () => {
   it("opens and verifies screen admin_reconciliation", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Admin Reconciliation)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/admin/reconciliation (Admin Reconciliation)...");
+  cy.visitWithSemantics("/offices/franchise/roles/admin/reconciliation");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Admin Reconciliation...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("adminreconciliation-screen").should("be.visible");
+  cy.getCy("adminreconciliation-title").should("be.visible");
+  cy.getCy("adminreconciliation-content").should("be.visible");
+  cy.getCy("reconciliation-monitor").should("be.visible");
+  cy.getCy("reconciliation-report-viewer").should("be.visible");
+  cy.getCy("discrepancy-identifier").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Admin Reconciliation...");
   cy.waitAndSee();

@@ -19,6 +19,9 @@ describe("Role All Screens - bus_dev", () => {
   cy.getCy("businessdevelopmentdashboard-screen").should("be.visible");
   cy.getCy("businessdevelopmentdashboard-title").should("be.visible");
   cy.getCy("businessdevelopmentdashboard-content").should("be.visible");
+  cy.getCy("businessdashboard-btn-refresh").should("be.visible");
+  cy.getCy("businessdashboard-btn-viewproposal").should("be.visible");
+  cy.getCy("businessdashboard-btn-exportreport").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/12 | 8%] - Saving screenshot for BusinessDevelopmentDashboardScreen...");
   cy.waitAndSee();
@@ -26,8 +29,8 @@ describe("Role All Screens - bus_dev", () => {
   
   cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/12 | 8%] - Verified BusinessDevelopmentDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/12 | 16%] - Navigating to /management/head-of-bus-dev-dashboard (HeadOfBusDevDashboardScreen)...");
-  cy.visitWithSemantics("/management/head-of-bus-dev-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/12 | 16%] - Navigating to /offices/corporate/roles/head_of_bus_dev/dashboard (HeadOfBusDevDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/head_of_bus_dev/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/12 | 16%] - Checking shell & content for HeadOfBusDevDashboardScreen...");
@@ -37,6 +40,9 @@ describe("Role All Screens - bus_dev", () => {
   cy.getCy("headofbusdevdashboard-screen").should("be.visible");
   cy.getCy("headofbusdevdashboard-title").should("be.visible");
   cy.getCy("headofbusdevdashboard-content").should("be.visible");
+  cy.getCy("bd-dashboard-kpi-widget").should("be.visible");
+  cy.getCy("bd-dashboard-client-metrics").should("be.visible");
+  cy.getCy("bd-dashboard-market-trends").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/12 | 16%] - Saving screenshot for HeadOfBusDevDashboardScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - bus_dev", () => {
   cy.getCy("businessdevelopmentanalytics-screen").should("be.visible");
   cy.getCy("businessdevelopmentanalytics-title").should("be.visible");
   cy.getCy("businessdevelopmentanalytics-content").should("be.visible");
+  cy.getCy("bd-dashboard-sales-metrics").should("be.visible");
+  cy.getCy("bd-dashboard-client-data").should("be.visible");
+  cy.getCy("bd-dashboard-pipeline-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/12 | 25%] - Saving screenshot for BusinessDevelopmentAnalyticsScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - bus_dev", () => {
   cy.getCy("businessdevelopmentcompliance-screen").should("be.visible");
   cy.getCy("businessdevelopmentcompliance-title").should("be.visible");
   cy.getCy("businessdevelopmentcompliance-content").should("be.visible");
+  cy.getCy("businessdev-kpi-widget").should("be.visible");
+  cy.getCy("businessdev-customer-metrics").should("be.visible");
+  cy.getCy("businessdev-initiatives-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [4/12 | 33%] - Saving screenshot for BusinessDevelopmentComplianceScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - bus_dev", () => {
   cy.getCy("businessdevelopmentworkflow-screen").should("be.visible");
   cy.getCy("businessdevelopmentworkflow-title").should("be.visible");
   cy.getCy("businessdevelopmentworkflow-content").should("be.visible");
+  cy.getCy("bd-dashboard-kpi-chart").should("be.visible");
+  cy.getCy("bd-dashboard-opportunity-pipeline").should("be.visible");
+  cy.getCy("bd-dashboard-team-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [5/12 | 41%] - Saving screenshot for BusinessDevelopmentWorkflowScreen...");
   cy.waitAndSee();
@@ -109,6 +124,9 @@ describe("Role All Screens - bus_dev", () => {
   cy.getCy("headofbusdevanalytics-screen").should("be.visible");
   cy.getCy("headofbusdevanalytics-title").should("be.visible");
   cy.getCy("headofbusdevanalytics-content").should("be.visible");
+  cy.getCy("bd-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("bd-dashboard-btn-view-proposal").should("be.visible");
+  cy.getCy("bd-dashboard-btn-negotiate-contract").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [6/12 | 50%] - Saving screenshot for HeadOfBusDevAnalyticsScreen...");
   cy.waitAndSee();
@@ -127,6 +145,9 @@ describe("Role All Screens - bus_dev", () => {
   cy.getCy("headofbusdevcompliance-screen").should("be.visible");
   cy.getCy("headofbusdevcompliance-title").should("be.visible");
   cy.getCy("headofbusdevcompliance-content").should("be.visible");
+  cy.getCy("bd-dashboard-btn-view-proposal").should("be.visible");
+  cy.getCy("bd-dashboard-btn-negotiate-contract").should("be.visible");
+  cy.getCy("bd-dashboard-btn-track-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/12 | 58%] - Saving screenshot for HeadOfBusDevComplianceScreen...");
   cy.waitAndSee();
@@ -145,6 +166,9 @@ describe("Role All Screens - bus_dev", () => {
   cy.getCy("headofbusdevworkflow-screen").should("be.visible");
   cy.getCy("headofbusdevworkflow-title").should("be.visible");
   cy.getCy("headofbusdevworkflow-content").should("be.visible");
+  cy.getCy("bd-dashboard-kpi-chart").should("be.visible");
+  cy.getCy("bd-dashboard-pipeline-status").should("be.visible");
+  cy.getCy("bd-dashboard-client-engagement").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [8/12 | 66%] - Saving screenshot for HeadOfBusDevWorkflowScreen...");
   cy.waitAndSee();
@@ -163,6 +187,9 @@ describe("Role All Screens - bus_dev", () => {
   cy.getCy("franchiselead-screen").should("be.visible");
   cy.getCy("franchiselead-title").should("be.visible");
   cy.getCy("franchiselead-content").should("be.visible");
+  cy.getCy("franchiselead-kpi-chart").should("be.visible");
+  cy.getCy("franchiselead-opportunity-list").should("be.visible");
+  cy.getCy("franchiselead-client-management").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [9/12 | 75%] - Saving screenshot for FranchiseLeadScreen...");
   cy.waitAndSee();
@@ -181,6 +208,9 @@ describe("Role All Screens - bus_dev", () => {
   cy.getCy("partnershipmanagement-screen").should("be.visible");
   cy.getCy("partnershipmanagement-title").should("be.visible");
   cy.getCy("partnershipmanagement-content").should("be.visible");
+  cy.getCy("bdashboard-kpi-chart").should("be.visible");
+  cy.getCy("bdashboard-partner-satisfaction").should("be.visible");
+  cy.getCy("bdashboard-market-trend").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [10/12 | 83%] - Saving screenshot for PartnershipManagementScreen...");
   cy.waitAndSee();
@@ -199,6 +229,9 @@ describe("Role All Screens - bus_dev", () => {
   cy.getCy("growthanalytics-screen").should("be.visible");
   cy.getCy("growthanalytics-title").should("be.visible");
   cy.getCy("growthanalytics-content").should("be.visible");
+  cy.getCy("growthanalytics-btn-generate-report").should("be.visible");
+  cy.getCy("growthanalytics-btn-view-details").should("be.visible");
+  cy.getCy("growthanalytics-btn-update-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [11/12 | 91%] - Saving screenshot for GrowthAnalyticsScreen...");
   cy.waitAndSee();
@@ -217,6 +250,9 @@ describe("Role All Screens - bus_dev", () => {
   cy.getCy("outreachcampaign-screen").should("be.visible");
   cy.getCy("outreachcampaign-title").should("be.visible");
   cy.getCy("outreachcampaign-content").should("be.visible");
+  cy.getCy("bdashboard-btn-add-opportunity").should("be.visible");
+  cy.getCy("bdashboard-btn-view-reports").should("be.visible");
+  cy.getCy("bdashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [12/12 | 100%] - Saving screenshot for OutreachCampaignScreen...");
   cy.waitAndSee();

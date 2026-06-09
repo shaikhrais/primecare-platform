@@ -15,9 +15,11 @@ describe("Screen - supply_chain_cost_analyzer", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("supplychaincostanalyzer-screen").should("be.visible");
+  cy.getCy("supplychaincostanalyzer-title").should("be.visible");
+  cy.getCy("supplychaincostanalyzer-content").should("be.visible");
+  cy.getCy("supplychain-btn-refresh").should("be.visible");
+  cy.getCy("supplychain-btn-manage-vendors").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Supply Chain Cost Analyzer...");
   cy.waitAndSee();

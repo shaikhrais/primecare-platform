@@ -18,6 +18,9 @@ describe("Screen - receptionist_workflow", () => {
   cy.getCy("receptionistworkflow-screen").should("be.visible");
   cy.getCy("receptionistworkflow-title").should("be.visible");
   cy.getCy("receptionistworkflow-content").should("be.visible");
+  cy.getCy("admin-dashboard-btn-logcall").should("be.visible");
+  cy.getCy("admin-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("admin-dashboard-btn-sendemail").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ReceptionistWorkflowScreen...");
   cy.waitAndSee();

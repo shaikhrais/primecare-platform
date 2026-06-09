@@ -15,9 +15,12 @@ describe("Screen - medication_reconciliation_tool", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("medicationreconciliationtool-screen").should("be.visible");
+  cy.getCy("medicationreconciliationtool-title").should("be.visible");
+  cy.getCy("medicationreconciliationtool-content").should("be.visible");
+  cy.getCy("medication-history-input").should("be.visible");
+  cy.getCy("current-medications-review").should("be.visible");
+  cy.getCy("discrepancy-identifier").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Medication Reconciliation Tool...");
   cy.waitAndSee();

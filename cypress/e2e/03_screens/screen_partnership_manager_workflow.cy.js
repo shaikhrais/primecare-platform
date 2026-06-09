@@ -18,6 +18,9 @@ describe("Screen - partnership_manager_workflow", () => {
   cy.getCy("partnershipmanagerworkflow-screen").should("be.visible");
   cy.getCy("partnershipmanagerworkflow-title").should("be.visible");
   cy.getCy("partnershipmanagerworkflow-content").should("be.visible");
+  cy.getCy("partnerships-overview-card").should("be.visible");
+  cy.getCy("performance-metrics-chart").should("be.visible");
+  cy.getCy("alerts-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PartnershipManagerWorkflowScreen...");
   cy.waitAndSee();

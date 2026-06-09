@@ -18,6 +18,9 @@ describe("Screen - cfo_tax", () => {
   cy.getCy("cfotax-screen").should("be.visible");
   cy.getCy("cfotax-title").should("be.visible");
   cy.getCy("cfotax-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi-overview").should("be.visible");
+  cy.getCy("cfo-dashboard-revenue-expense-trend").should("be.visible");
+  cy.getCy("cfo-dashboard-cash-flow-projection").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CfoTaxScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - family_member_billing", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("familymemberbilling-screen").should("be.visible");
+  cy.getCy("familymemberbilling-title").should("be.visible");
+  cy.getCy("familymemberbilling-content").should("be.visible");
+  cy.getCy("billing-overview-card").should("be.visible");
+  cy.getCy("payment-method-update-btn").should("be.visible");
+  cy.getCy("billing-history-view-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Family Member Billing...");
   cy.waitAndSee();

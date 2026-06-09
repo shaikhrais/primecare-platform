@@ -15,9 +15,12 @@ describe("Screen - quality_assurance_reviews", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("qualityassurancereviews-screen").should("be.visible");
+  cy.getCy("qualityassurancereviews-title").should("be.visible");
+  cy.getCy("qualityassurancereviews-content").should("be.visible");
+  cy.getCy("quality-dashboard-btn-submit-findings").should("be.visible");
+  cy.getCy("quality-dashboard-btn-request-feedback").should("be.visible");
+  cy.getCy("quality-dashboard-btn-schedule-meeting").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Quality Assurance Reviews...");
   cy.waitAndSee();

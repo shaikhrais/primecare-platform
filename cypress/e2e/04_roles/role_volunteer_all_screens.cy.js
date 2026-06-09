@@ -8,8 +8,8 @@ describe("Role All Screens - volunteer", () => {
     cy.loginAsRole("volunteer");
 
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/11 | 9%] - Navigating to /staff/volunteer-coordinator-dashboard (VolunteerCoordinatorDashboardScreen)...");
-  cy.visitWithSemantics("/staff/volunteer-coordinator-dashboard");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/11 | 9%] - Navigating to /offices/corporate/roles/volunteer_coordinator/dashboard (VolunteerCoordinatorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/volunteer_coordinator/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/11 | 9%] - Checking shell & content for VolunteerCoordinatorDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - volunteer", () => {
   cy.getCy("volunteercoordinatordashboard-screen").should("be.visible");
   cy.getCy("volunteercoordinatordashboard-title").should("be.visible");
   cy.getCy("volunteercoordinatordashboard-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-add-volunteer").should("be.visible");
+  cy.getCy("volunteer-dashboard-schedule-shift").should("be.visible");
+  cy.getCy("volunteer-dashboard-send-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/11 | 9%] - Saving screenshot for VolunteerCoordinatorDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - volunteer", () => {
   cy.getCy("volunteerdashboard-screen").should("be.visible");
   cy.getCy("volunteerdashboard-title").should("be.visible");
   cy.getCy("volunteerdashboard-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-checkin").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-record-visit").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-run-compliance-scan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/11 | 18%] - Saving screenshot for VolunteerDashboardScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - volunteer", () => {
   cy.getCy("volunteercoordinatoranalytics-screen").should("be.visible");
   cy.getCy("volunteercoordinatoranalytics-title").should("be.visible");
   cy.getCy("volunteercoordinatoranalytics-content").should("be.visible");
+  cy.getCy("volunteer-attendance-tracker").should("be.visible");
+  cy.getCy("event-participation-stats").should("be.visible");
+  cy.getCy("feedback-rating-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/11 | 27%] - Saving screenshot for VolunteerCoordinatorAnalyticsScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - volunteer", () => {
   cy.getCy("volunteercoordinatorcompliance-screen").should("be.visible");
   cy.getCy("volunteercoordinatorcompliance-title").should("be.visible");
   cy.getCy("volunteercoordinatorcompliance-content").should("be.visible");
+  cy.getCy("compliance-status-card").should("be.visible");
+  cy.getCy("audit-log-viewer").should("be.visible");
+  cy.getCy("training-notification-banner").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [4/11 | 36%] - Saving screenshot for VolunteerCoordinatorComplianceScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - volunteer", () => {
   cy.getCy("volunteercoordinatorworkflow-screen").should("be.visible");
   cy.getCy("volunteercoordinatorworkflow-title").should("be.visible");
   cy.getCy("volunteercoordinatorworkflow-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-refresh").should("be.visible");
+  cy.getCy("volunteer-task-execute").should("be.visible");
+  cy.getCy("volunteer-sandbox-join").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [5/11 | 45%] - Saving screenshot for VolunteerCoordinatorWorkflowScreen...");
   cy.waitAndSee();
@@ -109,6 +124,9 @@ describe("Role All Screens - volunteer", () => {
   cy.getCy("intakecoordinatorreferrals-screen").should("be.visible");
   cy.getCy("intakecoordinatorreferrals-title").should("be.visible");
   cy.getCy("intakecoordinatorreferrals-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-add").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-track-hours").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [6/11 | 54%] - Saving screenshot for IntakeCoordinatorReferralsScreen...");
   cy.waitAndSee();
@@ -127,6 +145,9 @@ describe("Role All Screens - volunteer", () => {
   cy.getCy("intakecoordinatornewclientintake-screen").should("be.visible");
   cy.getCy("intakecoordinatornewclientintake-title").should("be.visible");
   cy.getCy("intakecoordinatornewclientintake-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-recruit").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-log-hours").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [7/11 | 63%] - Saving screenshot for IntakeCoordinatorNewClientIntakeScreen...");
   cy.waitAndSee();
@@ -145,6 +166,9 @@ describe("Role All Screens - volunteer", () => {
   cy.getCy("intakecoordinatorassessmentqueue-screen").should("be.visible");
   cy.getCy("intakecoordinatorassessmentqueue-title").should("be.visible");
   cy.getCy("intakecoordinatorassessmentqueue-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-add").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [8/11 | 72%] - Saving screenshot for IntakeCoordinatorAssessmentQueueScreen...");
   cy.waitAndSee();
@@ -163,6 +187,9 @@ describe("Role All Screens - volunteer", () => {
   cy.getCy("intakecoordinatorbooking-screen").should("be.visible");
   cy.getCy("intakecoordinatorbooking-title").should("be.visible");
   cy.getCy("intakecoordinatorbooking-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-add").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-log-hours").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [9/11 | 81%] - Saving screenshot for IntakeCoordinatorBookingScreen...");
   cy.waitAndSee();
@@ -181,6 +208,9 @@ describe("Role All Screens - volunteer", () => {
   cy.getCy("intakecoordinatordocuments-screen").should("be.visible");
   cy.getCy("intakecoordinatordocuments-title").should("be.visible");
   cy.getCy("intakecoordinatordocuments-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-recruit").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [10/11 | 90%] - Saving screenshot for IntakeCoordinatorDocumentsScreen...");
   cy.waitAndSee();
@@ -199,6 +229,9 @@ describe("Role All Screens - volunteer", () => {
   cy.getCy("intakecoordinatorfollowup-screen").should("be.visible");
   cy.getCy("intakecoordinatorfollowup-title").should("be.visible");
   cy.getCy("intakecoordinatorfollowup-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-add").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-update").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [11/11 | 100%] - Saving screenshot for IntakeCoordinatorFollowUpScreen...");
   cy.waitAndSee();

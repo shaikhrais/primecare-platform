@@ -18,6 +18,9 @@ describe("Screen - office_compliance", () => {
   cy.getCy("officecompliance-screen").should("be.visible");
   cy.getCy("officecompliance-title").should("be.visible");
   cy.getCy("officecompliance-content").should("be.visible");
+  cy.getCy("officecompliance-btn-addtask").should("be.visible");
+  cy.getCy("officecompliance-btn-logcommunication").should("be.visible");
+  cy.getCy("officecompliance-btn-schedulemeeting").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OfficeComplianceScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - nurse_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("nursedashboard-screen").should("be.visible");
+  cy.getCy("nursedashboard-title").should("be.visible");
+  cy.getCy("nursedashboard-content").should("be.visible");
+  cy.getCy("nurse-dashboard-patient-status").should("be.visible");
+  cy.getCy("nurse-dashboard-patient-records").should("be.visible");
+  cy.getCy("nurse-dashboard-medication-management").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Nurse Dashboard...");
   cy.waitAndSee();

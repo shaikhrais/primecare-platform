@@ -18,6 +18,9 @@ describe("Screen - chiropractor_exercise_plan", () => {
   cy.getCy("chiropractorexerciseplan-screen").should("be.visible");
   cy.getCy("chiropractorexerciseplan-title").should("be.visible");
   cy.getCy("chiropractorexerciseplan-content").should("be.visible");
+  cy.getCy("chiropractor-btn-add-assessment").should("be.visible");
+  cy.getCy("chiropractor-btn-update-plan").should("be.visible");
+  cy.getCy("chiropractor-btn-record-adjustment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ChiropractorExercisePlanScreen...");
   cy.waitAndSee();

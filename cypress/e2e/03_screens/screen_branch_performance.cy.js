@@ -18,6 +18,9 @@ describe("Screen - branch_performance", () => {
   cy.getCy("branchperformance-screen").should("be.visible");
   cy.getCy("branchperformance-title").should("be.visible");
   cy.getCy("branchperformance-content").should("be.visible");
+  cy.getCy("dashboard-btn-refresh").should("be.visible");
+  cy.getCy("dashboard-btn-report").should("be.visible");
+  cy.getCy("dashboard-btn-details").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for BranchPerformanceScreen...");
   cy.waitAndSee();

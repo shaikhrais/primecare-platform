@@ -7,17 +7,20 @@ describe("Screen - scheduler_coordinator_appointment_calendar", () => {
   it("opens and verifies screen scheduler_coordinator_appointment_calendar", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Scheduler Coordinator Appointment Calendar)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/scheduler_coordinator/appointment-calendar (Scheduler Coordinator Appointment Calendar)...");
+  cy.visitWithSemantics("/offices/franchise/roles/scheduler_coordinator/appointment-calendar");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Scheduler Coordinator Appointment Calendar...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("schedulercoordinatorappointmentcalendar-screen").should("be.visible");
+  cy.getCy("schedulercoordinatorappointmentcalendar-title").should("be.visible");
+  cy.getCy("schedulercoordinatorappointmentcalendar-content").should("be.visible");
+  cy.getCy("scheduler-btn-add-appointment").should("be.visible");
+  cy.getCy("scheduler-btn-edit-appointment").should("be.visible");
+  cy.getCy("scheduler-btn-delete-appointment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Scheduler Coordinator Appointment Calendar...");
   cy.waitAndSee();

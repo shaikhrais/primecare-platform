@@ -15,9 +15,12 @@ describe("Screen - lpn_workflow", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("licensed practical nurse (lpn) compliance workflow-screen").should("be.visible");
-  cy.getCy("licensed practical nurse (lpn) compliance workflow-title").should("be.visible");
-  cy.getCy("licensed practical nurse (lpn) compliance workflow-content").should("be.visible");
+  cy.getCy("lpnworkflow-screen").should("be.visible");
+  cy.getCy("lpnworkflow-title").should("be.visible");
+  cy.getCy("lpnworkflow-content").should("be.visible");
+  cy.getCy("lpn-dashboard-btn-update-status").should("be.visible");
+  cy.getCy("lpn-dashboard-btn-log-medication").should("be.visible");
+  cy.getCy("lpn-dashboard-btn-report-incident").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Licensed Practical Nurse (LPN) Compliance Workflow...");
   cy.waitAndSee();

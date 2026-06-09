@@ -7,17 +7,20 @@ describe("Screen - training_director_course_architect", () => {
   it("opens and verifies screen training_director_course_architect", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Training Director Course Architect)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/training_director/course-architect (Training Director Course Architect)...");
+  cy.visitWithSemantics("/offices/corporate/roles/training_director/course-architect");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Training Director Course Architect...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("trainingdirectorcoursearchitect-screen").should("be.visible");
+  cy.getCy("trainingdirectorcoursearchitect-title").should("be.visible");
+  cy.getCy("content-display").should("be.visible");
+  cy.getCy("loading-indicator").should("be.visible");
+  cy.getCy("error-message").should("be.visible");
+  cy.getCy("status-indicator").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Training Director Course Architect...");
   cy.waitAndSee();

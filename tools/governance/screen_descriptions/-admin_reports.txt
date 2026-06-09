@@ -1,0 +1,20 @@
+User Tasks:
+1. Monitor and analyze admin reports.
+2. Identify trends and anomalies in data.
+3. Generate and export reports as needed.
+4. Collaborate with team members to address issues highlighted in reports.
+5. Provide feedback for system improvements based on report findings.
+
+Red Flags of Operation:
+1. Frequent errors or failures in loading reports.
+2. Inconsistent data presentation or discrepancies in report figures.
+3. Slow performance or long loading times when accessing reports.
+4. Lack of user engagement or feedback on report usability.
+5. High frequency of support requests related to report functionalities.
+
+Dashboard Requirements:
+1. Overview of key metrics and performance indicators.
+2. Visual representations of data trends (charts, graphs).
+3. Alerts for anomalies or significant changes in data.
+4. Quick access to frequently used reports.
+5. User feedback section for continuous improvement suggestions.

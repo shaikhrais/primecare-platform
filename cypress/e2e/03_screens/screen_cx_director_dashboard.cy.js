@@ -7,8 +7,8 @@ describe("Screen - cx_director_dashboard", () => {
   it("opens and verifies screen cx_director_dashboard", () => {
     cy.loginAsRole("cx_director");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/cx-director-dashboard (CxDirectorDashboardScreen)...");
-  cy.visitWithSemantics("/executive/cx-director-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/cx_director/dashboard (CxDirectorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cx_director/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for CxDirectorDashboardScreen...");
@@ -18,6 +18,9 @@ describe("Screen - cx_director_dashboard", () => {
   cy.getCy("cxdirectordashboard-screen").should("be.visible");
   cy.getCy("cxdirectordashboard-title").should("be.visible");
   cy.getCy("cxdirectordashboard-content").should("be.visible");
+  cy.getCy("cxdashboard-widget-customer-satisfaction").should("be.visible");
+  cy.getCy("cxdashboard-widget-feedback-trends").should("be.visible");
+  cy.getCy("cxdashboard-widget-kpi").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CxDirectorDashboardScreen...");
   cy.waitAndSee();

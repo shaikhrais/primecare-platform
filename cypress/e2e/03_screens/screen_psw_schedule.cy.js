@@ -15,9 +15,12 @@ describe("Screen - psw_schedule", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pswschedule-screen").should("be.visible");
+  cy.getCy("pswschedule-title").should("be.visible");
+  cy.getCy("pswschedule-content").should("be.visible");
+  cy.getCy("pswschedule-btn-refresh").should("be.visible");
+  cy.getCy("pswschedule-btn-view-compliance").should("be.visible");
+  cy.getCy("pswschedule-btn-sync").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Psw Schedule...");
   cy.waitAndSee();

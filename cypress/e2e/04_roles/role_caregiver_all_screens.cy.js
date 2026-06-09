@@ -19,6 +19,9 @@ describe("Role All Screens - caregiver", () => {
   cy.getCy("caregiverdashboard-screen").should("be.visible");
   cy.getCy("caregiverdashboard-title").should("be.visible");
   cy.getCy("caregiverdashboard-content").should("be.visible");
+  cy.getCy("caregiver-dashboard-btn-record-activities").should("be.visible");
+  cy.getCy("caregiver-dashboard-btn-acknowledge-medications").should("be.visible");
+  cy.getCy("caregiver-dashboard-btn-run-compliance-scan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/8 | 12%] - Saving screenshot for CaregiverDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,8 @@ describe("Role All Screens - caregiver", () => {
   cy.getCy("caregivertasks-screen").should("be.visible");
   cy.getCy("caregivertasks-title").should("be.visible");
   cy.getCy("caregivertasks-content").should("be.visible");
+  cy.getCy("caregiver-btn-execute-compliance-scan").should("be.visible");
+  cy.getCy("caregiver-btn-refresh-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/8 | 25%] - Saving screenshot for CaregiverTasksScreen...");
   cy.waitAndSee();
@@ -55,6 +60,9 @@ describe("Role All Screens - caregiver", () => {
   cy.getCy("caregiverclientprofile-screen").should("be.visible");
   cy.getCy("caregiverclientprofile-title").should("be.visible");
   cy.getCy("caregiverclientprofile-content").should("be.visible");
+  cy.getCy("caregiver-task-list").should("be.visible");
+  cy.getCy("client-health-status").should("be.visible");
+  cy.getCy("medication-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/8 | 37%] - Saving screenshot for CaregiverClientProfileScreen...");
   cy.waitAndSee();
@@ -73,6 +81,9 @@ describe("Role All Screens - caregiver", () => {
   cy.getCy("caregivervisitnotes-screen").should("be.visible");
   cy.getCy("caregivervisitnotes-title").should("be.visible");
   cy.getCy("caregivervisitnotes-content").should("be.visible");
+  cy.getCy("caregiver-visit-notes-submit").should("be.visible");
+  cy.getCy("caregiver-compliance-scan").should("be.visible");
+  cy.getCy("caregiver-logs-view").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/8 | 50%] - Saving screenshot for CaregiverVisitNotesScreen...");
   cy.waitAndSee();
@@ -91,6 +102,9 @@ describe("Role All Screens - caregiver", () => {
   cy.getCy("caregiverschedule-screen").should("be.visible");
   cy.getCy("caregiverschedule-title").should("be.visible");
   cy.getCy("caregiverschedule-content").should("be.visible");
+  cy.getCy("caregiver-btn-log-health-update").should("be.visible");
+  cy.getCy("caregiver-btn-report-issue").should("be.visible");
+  cy.getCy("caregiver-btn-access-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [5/8 | 62%] - Saving screenshot for CaregiverScheduleScreen...");
   cy.waitAndSee();
@@ -109,6 +123,9 @@ describe("Role All Screens - caregiver", () => {
   cy.getCy("caregiverincidentreport-screen").should("be.visible");
   cy.getCy("caregiverincidentreport-title").should("be.visible");
   cy.getCy("caregiverincidentreport-content").should("be.visible");
+  cy.getCy("dashboard-btn-report-incident").should("be.visible");
+  cy.getCy("dashboard-btn-compliance-scan").should("be.visible");
+  cy.getCy("dashboard-btn-view-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [6/8 | 75%] - Saving screenshot for CaregiverIncidentReportScreen...");
   cy.waitAndSee();
@@ -127,6 +144,9 @@ describe("Role All Screens - caregiver", () => {
   cy.getCy("schedule-screen").should("be.visible");
   cy.getCy("schedule-title").should("be.visible");
   cy.getCy("schedule-content").should("be.visible");
+  cy.getCy("schedule-visit-btn").should("be.visible");
+  cy.getCy("report-health-btn").should("be.visible");
+  cy.getCy("administer-medication-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [7/8 | 87%] - Saving screenshot for ScheduleScreen...");
   cy.waitAndSee();
@@ -134,8 +154,8 @@ describe("Role All Screens - caregiver", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [7/8 | 87%] - Verified ScheduleScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [8/8 | 100%] - Navigating to /offices/clinical/roles/caregiver/messaging (MessagingScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/caregiver/messaging");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [8/8 | 100%] - Navigating to /clinic/messaging (MessagingScreen)...");
+  cy.visitWithSemantics("/clinic/messaging");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [8/8 | 100%] - Checking shell & content for MessagingScreen...");
@@ -145,6 +165,9 @@ describe("Role All Screens - caregiver", () => {
   cy.getCy("messaging-screen").should("be.visible");
   cy.getCy("messaging-title").should("be.visible");
   cy.getCy("messaging-content").should("be.visible");
+  cy.getCy("msg-dashboard-btn-view-client-profile").should("be.visible");
+  cy.getCy("msg-dashboard-btn-log-communication").should("be.visible");
+  cy.getCy("msg-dashboard-btn-report-incident").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [8/8 | 100%] - Saving screenshot for MessagingScreen...");
   cy.waitAndSee();

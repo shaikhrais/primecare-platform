@@ -15,9 +15,12 @@ describe("Screen - compliance_reports", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("compliancereports-screen").should("be.visible");
+  cy.getCy("compliancereports-title").should("be.visible");
+  cy.getCy("compliancereports-content").should("be.visible");
+  cy.getCy("compliance-reports-summary").should("be.visible");
+  cy.getCy("compliance-notifications").should("be.visible");
+  cy.getCy("recent-reports-list").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Compliance Reports...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - client_progress", () => {
   cy.getCy("clientprogress-screen").should("be.visible");
   cy.getCy("clientprogress-title").should("be.visible");
   cy.getCy("clientprogress-content").should("be.visible");
+  cy.getCy("client-appointment-scheduler").should("be.visible");
+  cy.getCy("client-assessment-tracker").should("be.visible");
+  cy.getCy("performance-metrics-card").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ClientProgressScreen...");
   cy.waitAndSee();

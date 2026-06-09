@@ -19,6 +19,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("systemdashboard-screen").should("be.visible");
   cy.getCy("systemdashboard-title").should("be.visible");
   cy.getCy("systemdashboard-content").should("be.visible");
+  cy.getCy("govdashboard-btn-refresh").should("be.visible");
+  cy.getCy("govdashboard-btn-view-audit").should("be.visible");
+  cy.getCy("govdashboard-btn-download-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/18 | 5%] - Saving screenshot for SystemDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("governanceofficerdashboard-screen").should("be.visible");
   cy.getCy("governanceofficerdashboard-title").should("be.visible");
   cy.getCy("governanceofficerdashboard-content").should("be.visible");
+  cy.getCy("govdashboard-btn-execute-compliance-scan").should("be.visible");
+  cy.getCy("govdashboard-btn-export-audit-logs").should("be.visible");
+  cy.getCy("govdashboard-btn-refresh-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/18 | 11%] - Saving screenshot for GovernanceOfficerDashboardScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("governanceofficeranalytics-screen").should("be.visible");
   cy.getCy("governanceofficeranalytics-title").should("be.visible");
   cy.getCy("governanceofficeranalytics-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("gov-dashboard-btn-send-alert").should("be.visible");
+  cy.getCy("gov-dashboard-btn-update-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/18 | 16%] - Saving screenshot for GovernanceOfficerAnalyticsScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("governanceofficercompliance-screen").should("be.visible");
   cy.getCy("governanceofficercompliance-title").should("be.visible");
   cy.getCy("governanceofficercompliance-content").should("be.visible");
+  cy.getCy("govdashboard-btn-start-audit").should("be.visible");
+  cy.getCy("govdashboard-btn-view-reports").should("be.visible");
+  cy.getCy("govdashboard-btn-generate-training-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/18 | 22%] - Saving screenshot for GovernanceOfficerComplianceScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("governanceofficerworkflow-screen").should("be.visible");
   cy.getCy("governanceofficerworkflow-title").should("be.visible");
   cy.getCy("governanceofficerworkflow-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("gov-dashboard-btn-submit-incident").should("be.visible");
+  cy.getCy("gov-dashboard-btn-update-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/18 | 27%] - Saving screenshot for GovernanceOfficerWorkflowScreen...");
   cy.waitAndSee();
@@ -109,6 +124,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("governancecontrolroom-screen").should("be.visible");
   cy.getCy("governancecontrolroom-title").should("be.visible");
   cy.getCy("governancecontrolroom-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-generate-audit").should("be.visible");
+  cy.getCy("gov-dashboard-btn-update-compliance").should("be.visible");
+  cy.getCy("gov-dashboard-btn-notify-stakeholders").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/18 | 33%] - Saving screenshot for GovernanceControlRoomScreen...");
   cy.waitAndSee();
@@ -127,6 +145,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("runtimeverification-screen").should("be.visible");
   cy.getCy("runtimeverification-title").should("be.visible");
   cy.getCy("runtimeverification-content").should("be.visible");
+  cy.getCy("gov-dashboard-compliance-status").should("be.visible");
+  cy.getCy("gov-dashboard-audit-log").should("be.visible");
+  cy.getCy("gov-dashboard-risk-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/18 | 38%] - Saving screenshot for RuntimeVerificationScreen...");
   cy.waitAndSee();
@@ -145,6 +166,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("driftfindings-screen").should("be.visible");
   cy.getCy("driftfindings-title").should("be.visible");
   cy.getCy("driftfindings-content").should("be.visible");
+  cy.getCy("gov-dashboard-compliance-status").should("be.visible");
+  cy.getCy("gov-dashboard-audit-logs").should("be.visible");
+  cy.getCy("gov-dashboard-kpi").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/18 | 44%] - Saving screenshot for DriftFindingsScreen...");
   cy.waitAndSee();
@@ -163,6 +187,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("pendingtaskqueue-screen").should("be.visible");
   cy.getCy("pendingtaskqueue-title").should("be.visible");
   cy.getCy("pendingtaskqueue-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("gov-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("gov-dashboard-btn-download-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/18 | 50%] - Saving screenshot for PendingTaskQueueScreen...");
   cy.waitAndSee();
@@ -181,6 +208,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("agentdispatch-screen").should("be.visible");
   cy.getCy("agentdispatch-title").should("be.visible");
   cy.getCy("agentdispatch-content").should("be.visible");
+  cy.getCy("gov-dashboard-compliance-status").should("be.visible");
+  cy.getCy("gov-dashboard-audit-log").should("be.visible");
+  cy.getCy("gov-dashboard-risk-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/18 | 55%] - Saving screenshot for AgentDispatchScreen...");
   cy.waitAndSee();
@@ -199,6 +229,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("audit-screen").should("be.visible");
   cy.getCy("audit-title").should("be.visible");
   cy.getCy("audit-content").should("be.visible");
+  cy.getCy("gov-dashboard-refresh-data").should("be.visible");
+  cy.getCy("gov-dashboard-generate-audit-report").should("be.visible");
+  cy.getCy("gov-dashboard-send-compliance-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/18 | 61%] - Saving screenshot for ScreenAuditScreen...");
   cy.waitAndSee();
@@ -217,6 +250,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("apihealthdashboard-screen").should("be.visible");
   cy.getCy("apihealthdashboard-title").should("be.visible");
   cy.getCy("apihealthdashboard-content").should("be.visible");
+  cy.getCy("govdashboard-btn-view-audit-logs").should("be.visible");
+  cy.getCy("govdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("govdashboard-btn-access-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/18 | 66%] - Saving screenshot for ApiHealthDashboardScreen...");
   cy.waitAndSee();
@@ -235,6 +271,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("releaseoperations-screen").should("be.visible");
   cy.getCy("releaseoperations-title").should("be.visible");
   cy.getCy("releaseoperations-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("gov-dashboard-btn-filter-logs").should("be.visible");
+  cy.getCy("gov-dashboard-btn-access-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [13/18 | 72%] - Saving screenshot for ReleaseOperationsScreen...");
   cy.waitAndSee();
@@ -253,6 +292,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("fileverificationdashboard-screen").should("be.visible");
   cy.getCy("fileverificationdashboard-title").should("be.visible");
   cy.getCy("fileverificationdashboard-content").should("be.visible");
+  cy.getCy("govdashboard-btn-view-audit-logs").should("be.visible");
+  cy.getCy("govdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("govdashboard-btn-access-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/18 | 77%] - Saving screenshot for FileVerificationDashboardScreen...");
   cy.waitAndSee();
@@ -271,6 +313,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("rolecoveragedashboard-screen").should("be.visible");
   cy.getCy("rolecoveragedashboard-title").should("be.visible");
   cy.getCy("rolecoveragedashboard-content").should("be.visible");
+  cy.getCy("govdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("govdashboard-btn-update-doc").should("be.visible");
+  cy.getCy("govdashboard-btn-conduct-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [15/18 | 83%] - Saving screenshot for RoleCoverageDashboardScreen...");
   cy.waitAndSee();
@@ -289,6 +334,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("responsivepreview-screen").should("be.visible");
   cy.getCy("responsivepreview-title").should("be.visible");
   cy.getCy("responsivepreview-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-view-compliance").should("be.visible");
+  cy.getCy("gov-dashboard-btn-export-audit").should("be.visible");
+  cy.getCy("gov-dashboard-btn-assess-risk").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/18 | 88%] - Saving screenshot for ResponsivePreviewScreen...");
   cy.waitAndSee();
@@ -307,6 +355,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("workflowexecution-screen").should("be.visible");
   cy.getCy("workflowexecution-title").should("be.visible");
   cy.getCy("workflowexecution-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-view-audit-logs").should("be.visible");
+  cy.getCy("gov-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("gov-dashboard-btn-request-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [17/18 | 94%] - Saving screenshot for WorkflowExecutionScreen...");
   cy.waitAndSee();
@@ -325,6 +376,9 @@ describe("Role All Screens - governance", () => {
   cy.getCy("governanceoperations4k-screen").should("be.visible");
   cy.getCy("governanceoperations4k-title").should("be.visible");
   cy.getCy("governanceoperations4k-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("gov-dashboard-btn-conduct-audit").should("be.visible");
+  cy.getCy("gov-dashboard-btn-update-docs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [18/18 | 100%] - Saving screenshot for GovernanceOperations4KScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - rmt_assessment", () => {
   cy.getCy("rmtassessment-screen").should("be.visible");
   cy.getCy("rmtassessment-title").should("be.visible");
   cy.getCy("rmtassessment-content").should("be.visible");
+  cy.getCy("rmt-dashboard-client-overview").should("be.visible");
+  cy.getCy("rmt-dashboard-compliance-status").should("be.visible");
+  cy.getCy("rmt-dashboard-performance-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RmtAssessmentScreen...");
   cy.waitAndSee();

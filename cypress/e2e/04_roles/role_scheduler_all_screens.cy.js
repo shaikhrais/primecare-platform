@@ -8,8 +8,8 @@ describe("Role All Screens - scheduler", () => {
     cy.loginAsRole("scheduler");
 
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/19 | 5%] - Navigating to /staff/scheduler-dashboard (SchedulerDashboardScreen)...");
-  cy.visitWithSemantics("/staff/scheduler-dashboard");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/19 | 5%] - Navigating to /offices/franchise/roles/scheduler/dashboard (SchedulerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/scheduler/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/19 | 5%] - Checking shell & content for SchedulerDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("schedulerdashboard-screen").should("be.visible");
   cy.getCy("schedulerdashboard-title").should("be.visible");
   cy.getCy("schedulerdashboard-content").should("be.visible");
+  cy.getCy("scheduler-dashboard-btn-resolve-conflict").should("be.visible");
+  cy.getCy("scheduler-dashboard-btn-optimize-schedule").should("be.visible");
+  cy.getCy("scheduler-dashboard-btn-view-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/19 | 5%] - Saving screenshot for SchedulerDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("coordinatordispatchmap-screen").should("be.visible");
   cy.getCy("coordinatordispatchmap-title").should("be.visible");
   cy.getCy("coordinatordispatchmap-content").should("be.visible");
+  cy.getCy("coordinator-dispatch-btn-assign-shift").should("be.visible");
+  cy.getCy("coordinator-dispatch-btn-send-alert").should("be.visible");
+  cy.getCy("coordinator-dispatch-btn-view-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/19 | 10%] - Saving screenshot for CoordinatorDispatchMapScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("coordinatorhub-screen").should("be.visible");
   cy.getCy("coordinatorhub-title").should("be.visible");
   cy.getCy("coordinatorhub-content").should("be.visible");
+  cy.getCy("coordinatorhub-btn-assign-shift").should("be.visible");
+  cy.getCy("coordinatorhub-btn-resolve-alert").should("be.visible");
+  cy.getCy("coordinatorhub-btn-view-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/19 | 15%] - Saving screenshot for CoordinatorHubScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("coordinatorsos-screen").should("be.visible");
   cy.getCy("coordinatorsos-title").should("be.visible");
   cy.getCy("coordinatorsos-content").should("be.visible");
+  cy.getCy("coordinator-sos-btn-report-incident").should("be.visible");
+  cy.getCy("coordinator-sos-btn-view-performance").should("be.visible");
+  cy.getCy("coordinator-sos-btn-update-schedule").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/19 | 21%] - Saving screenshot for CoordinatorSosScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("coordinatorwaitlist-screen").should("be.visible");
   cy.getCy("coordinatorwaitlist-title").should("be.visible");
   cy.getCy("coordinatorwaitlist-content").should("be.visible");
+  cy.getCy("coordinator-dashboard-btn-update-schedule").should("be.visible");
+  cy.getCy("coordinator-dashboard-btn-report-incident").should("be.visible");
+  cy.getCy("coordinator-dashboard-btn-order-supplies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/19 | 26%] - Saving screenshot for CoordinatorWaitlistScreen...");
   cy.waitAndSee();
@@ -109,6 +124,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("scheduleranalytics-screen").should("be.visible");
   cy.getCy("scheduleranalytics-title").should("be.visible");
   cy.getCy("scheduleranalytics-content").should("be.visible");
+  cy.getCy("scheduler-btn-update-schedule").should("be.visible");
+  cy.getCy("scheduler-btn-submit-incident").should("be.visible");
+  cy.getCy("scheduler-btn-view-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/19 | 31%] - Saving screenshot for SchedulerAnalyticsScreen...");
   cy.waitAndSee();
@@ -127,6 +145,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("schedulercompliance-screen").should("be.visible");
   cy.getCy("schedulercompliance-title").should("be.visible");
   cy.getCy("schedulercompliance-content").should("be.visible");
+  cy.getCy("scheduler-btn-add-schedule").should("be.visible");
+  cy.getCy("scheduler-btn-view-reports").should("be.visible");
+  cy.getCy("scheduler-btn-resolve-complaint").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/19 | 36%] - Saving screenshot for SchedulerComplianceScreen...");
   cy.waitAndSee();
@@ -145,6 +166,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("schedulerworkflow-screen").should("be.visible");
   cy.getCy("schedulerworkflow-title").should("be.visible");
   cy.getCy("schedulerworkflow-content").should("be.visible");
+  cy.getCy("scheduler-btn-update-schedule").should("be.visible");
+  cy.getCy("scheduler-btn-submit-incident").should("be.visible");
+  cy.getCy("scheduler-btn-view-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/19 | 42%] - Saving screenshot for SchedulerWorkflowScreen...");
   cy.waitAndSee();
@@ -163,6 +187,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("schedulercommandcenter-screen").should("be.visible");
   cy.getCy("schedulercommandcenter-title").should("be.visible");
   cy.getCy("schedulercommandcenter-content").should("be.visible");
+  cy.getCy("scheduler-btn-view-audit").should("be.visible");
+  cy.getCy("scheduler-btn-update-schedule").should("be.visible");
+  cy.getCy("scheduler-btn-resolve-complaint").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/19 | 47%] - Saving screenshot for SchedulerCommandCenterScreen...");
   cy.waitAndSee();
@@ -181,6 +208,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("schedulercalendar-screen").should("be.visible");
   cy.getCy("schedulercalendar-title").should("be.visible");
   cy.getCy("schedulercalendar-content").should("be.visible");
+  cy.getCy("scheduler-btn-view-attendance").should("be.visible");
+  cy.getCy("scheduler-btn-generate-report").should("be.visible");
+  cy.getCy("scheduler-btn-address-issue").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/19 | 52%] - Saving screenshot for SchedulerCalendarScreen...");
   cy.waitAndSee();
@@ -199,6 +229,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("schedulerbookingrequests-screen").should("be.visible");
   cy.getCy("schedulerbookingrequests-title").should("be.visible");
   cy.getCy("schedulerbookingrequests-content").should("be.visible");
+  cy.getCy("scheduler-btn-view-reports").should("be.visible");
+  cy.getCy("scheduler-btn-update-schedule").should("be.visible");
+  cy.getCy("scheduler-btn-resolve-complaint").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/19 | 57%] - Saving screenshot for SchedulerBookingRequestsScreen...");
   cy.waitAndSee();
@@ -217,6 +250,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("schedulerconflicts-screen").should("be.visible");
   cy.getCy("schedulerconflicts-title").should("be.visible");
   cy.getCy("schedulerconflicts-content").should("be.visible");
+  cy.getCy("scheduler-btn-resolve-conflict").should("be.visible");
+  cy.getCy("scheduler-btn-view-performance").should("be.visible");
+  cy.getCy("scheduler-btn-submit-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/19 | 63%] - Saving screenshot for SchedulerConflictsScreen...");
   cy.waitAndSee();
@@ -235,6 +271,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("scheduleropenshifts-screen").should("be.visible");
   cy.getCy("scheduleropenshifts-title").should("be.visible");
   cy.getCy("scheduleropenshifts-content").should("be.visible");
+  cy.getCy("scheduler-btn-view-performance").should("be.visible");
+  cy.getCy("scheduler-btn-conduct-audit").should("be.visible");
+  cy.getCy("scheduler-btn-update-schedule").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/19 | 68%] - Saving screenshot for SchedulerOpenShiftsScreen...");
   cy.waitAndSee();
@@ -253,6 +292,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("schedulerprovideravailability-screen").should("be.visible");
   cy.getCy("schedulerprovideravailability-title").should("be.visible");
   cy.getCy("schedulerprovideravailability-content").should("be.visible");
+  cy.getCy("scheduler-btn-view-schedule").should("be.visible");
+  cy.getCy("scheduler-btn-report-issue").should("be.visible");
+  cy.getCy("scheduler-btn-track-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/19 | 73%] - Saving screenshot for SchedulerProviderAvailabilityScreen...");
   cy.waitAndSee();
@@ -271,6 +313,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("schedulingdashboard-screen").should("be.visible");
   cy.getCy("schedulingdashboard-title").should("be.visible");
   cy.getCy("schedulingdashboard-content").should("be.visible");
+  cy.getCy("scheduling-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("scheduling-dashboard-btn-send-update").should("be.visible");
+  cy.getCy("scheduling-dashboard-btn-log-incident").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/19 | 78%] - Saving screenshot for SchedulingDashboardScreen...");
   cy.waitAndSee();
@@ -289,6 +334,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("calendarmanagement-screen").should("be.visible");
   cy.getCy("calendarmanagement-title").should("be.visible");
   cy.getCy("calendarmanagement-content").should("be.visible");
+  cy.getCy("calendar_management-btn-update-schedule").should("be.visible");
+  cy.getCy("calendar_management-btn-log-incident").should("be.visible");
+  cy.getCy("calendar_management-btn-view-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/19 | 84%] - Saving screenshot for CalendarManagementScreen...");
   cy.waitAndSee();
@@ -307,6 +355,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("conflictresolution-screen").should("be.visible");
   cy.getCy("conflictresolution-title").should("be.visible");
   cy.getCy("conflictresolution-content").should("be.visible");
+  cy.getCy("shift-supervisor-btn-add-incident").should("be.visible");
+  cy.getCy("shift-supervisor-btn-resolve-conflict").should("be.visible");
+  cy.getCy("shift-supervisor-btn-schedule-meeting").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/19 | 89%] - Saving screenshot for ConflictResolutionScreen...");
   cy.waitAndSee();
@@ -325,6 +376,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("openshift-screen").should("be.visible");
   cy.getCy("openshift-title").should("be.visible");
   cy.getCy("openshift-content").should("be.visible");
+  cy.getCy("shift-dashboard-btn-view-performance").should("be.visible");
+  cy.getCy("shift-dashboard-btn-report-incident").should("be.visible");
+  cy.getCy("shift-dashboard-btn-schedule-shift").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/19 | 94%] - Saving screenshot for OpenShiftScreen...");
   cy.waitAndSee();
@@ -343,6 +397,9 @@ describe("Role All Screens - scheduler", () => {
   cy.getCy("schedulingoperations4k-screen").should("be.visible");
   cy.getCy("schedulingoperations4k-title").should("be.visible");
   cy.getCy("schedulingoperations4k-content").should("be.visible");
+  cy.getCy("scheduling-overview").should("be.visible");
+  cy.getCy("incident-log").should("be.visible");
+  cy.getCy("customer-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [19/19 | 100%] - Saving screenshot for SchedulingOperations4KScreen...");
   cy.waitAndSee();

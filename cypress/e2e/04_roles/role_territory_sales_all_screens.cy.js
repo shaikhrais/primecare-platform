@@ -8,8 +8,8 @@ describe("Role All Screens - territory_sales", () => {
     cy.loginAsRole("territory_sales");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /management/territory-sales-manager-dashboard (TerritorySalesManagerDashboardScreen)...");
-  cy.visitWithSemantics("/management/territory-sales-manager-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /offices/marketing/roles/territory_sales_manager/dashboard (TerritorySalesManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/marketing/roles/territory_sales_manager/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Checking shell & content for TerritorySalesManagerDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - territory_sales", () => {
   cy.getCy("territorysalesmanagerdashboard-screen").should("be.visible");
   cy.getCy("territorysalesmanagerdashboard-title").should("be.visible");
   cy.getCy("territorysalesmanagerdashboard-content").should("be.visible");
+  cy.getCy("dashboard-sales-performance").should("be.visible");
+  cy.getCy("dashboard-customer-satisfaction").should("be.visible");
+  cy.getCy("dashboard-compliance-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for TerritorySalesManagerDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - territory_sales", () => {
   cy.getCy("territorysalesmanageranalytics-screen").should("be.visible");
   cy.getCy("territorysalesmanageranalytics-title").should("be.visible");
   cy.getCy("territorysalesmanageranalytics-content").should("be.visible");
+  cy.getCy("territory-sales-manager-btn-generate-report").should("be.visible");
+  cy.getCy("territory-sales-manager-btn-view-segmentation").should("be.visible");
+  cy.getCy("territory-sales-manager-btn-update-strategy").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for TerritorySalesManagerAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - territory_sales", () => {
   cy.getCy("territorysalesmanagercompliance-screen").should("be.visible");
   cy.getCy("territorysalesmanagercompliance-title").should("be.visible");
   cy.getCy("territorysalesmanagercompliance-content").should("be.visible");
+  cy.getCy("salesperformance-chart").should("be.visible");
+  cy.getCy("clientmanagement-tool").should("be.visible");
+  cy.getCy("leadtracking-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for TerritorySalesManagerComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - territory_sales", () => {
   cy.getCy("territorysalesmanagerworkflow-screen").should("be.visible");
   cy.getCy("territorysalesmanagerworkflow-title").should("be.visible");
   cy.getCy("territorysalesmanagerworkflow-content").should("be.visible");
+  cy.getCy("territory-sales-manager-btn-set-targets").should("be.visible");
+  cy.getCy("territory-sales-manager-btn-conduct-training").should("be.visible");
+  cy.getCy("territory-sales-manager-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for TerritorySalesManagerWorkflowScreen...");
   cy.waitAndSee();

@@ -19,6 +19,9 @@ describe("Role All Screens - customer_support", () => {
   cy.getCy("customersupportanalytics-screen").should("be.visible");
   cy.getCy("customersupportanalytics-title").should("be.visible");
   cy.getCy("customersupportanalytics-content").should("be.visible");
+  cy.getCy("customer-support-btn-respond").should("be.visible");
+  cy.getCy("customer-support-btn-escalate").should("be.visible");
+  cy.getCy("customer-support-btn-update-kb").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/10 | 10%] - Saving screenshot for CustomerSupportAnalyticsScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - customer_support", () => {
   cy.getCy("customersupportcompliance-screen").should("be.visible");
   cy.getCy("customersupportcompliance-title").should("be.visible");
   cy.getCy("customersupportcompliance-content").should("be.visible");
+  cy.getCy("customer-support-btn-respond").should("be.visible");
+  cy.getCy("customer-support-btn-audit").should("be.visible");
+  cy.getCy("customer-support-btn-update-security").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/10 | 20%] - Saving screenshot for CustomerSupportComplianceScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - customer_support", () => {
   cy.getCy("customersupportworkflow-screen").should("be.visible");
   cy.getCy("customersupportworkflow-title").should("be.visible");
   cy.getCy("customersupportworkflow-content").should("be.visible");
+  cy.getCy("support-dashboard-ticket-status").should("be.visible");
+  cy.getCy("support-dashboard-feedback").should("be.visible");
+  cy.getCy("support-dashboard-response-time").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/10 | 30%] - Saving screenshot for CustomerSupportWorkflowScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - customer_support", () => {
   cy.getCy("supportanalytics-screen").should("be.visible");
   cy.getCy("supportanalytics-title").should("be.visible");
   cy.getCy("supportanalytics-content").should("be.visible");
+  cy.getCy("support-analytics-btn-follow-up").should("be.visible");
+  cy.getCy("support-analytics-btn-gather-feedback").should("be.visible");
+  cy.getCy("support-analytics-btn-train-staff").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/10 | 40%] - Saving screenshot for SupportAnalyticsScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - customer_support", () => {
   cy.getCy("supportcompliance-screen").should("be.visible");
   cy.getCy("supportcompliance-title").should("be.visible");
   cy.getCy("supportcompliance-content").should("be.visible");
+  cy.getCy("support-btn-log-interaction").should("be.visible");
+  cy.getCy("support-btn-conduct-audit").should("be.visible");
+  cy.getCy("support-btn-provide-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/10 | 50%] - Saving screenshot for SupportComplianceScreen...");
   cy.waitAndSee();
@@ -109,6 +124,9 @@ describe("Role All Screens - customer_support", () => {
   cy.getCy("supportworkflow-screen").should("be.visible");
   cy.getCy("supportworkflow-title").should("be.visible");
   cy.getCy("supportworkflow-content").should("be.visible");
+  cy.getCy("support-dashboard-ticket-overview").should("be.visible");
+  cy.getCy("support-dashboard-response-time").should("be.visible");
+  cy.getCy("support-dashboard-customer-satisfaction").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/10 | 60%] - Saving screenshot for SupportWorkflowScreen...");
   cy.waitAndSee();
@@ -127,6 +145,9 @@ describe("Role All Screens - customer_support", () => {
   cy.getCy("ticketmanagement-screen").should("be.visible");
   cy.getCy("ticketmanagement-title").should("be.visible");
   cy.getCy("ticketmanagement-content").should("be.visible");
+  cy.getCy("ticket-status-overview").should("be.visible");
+  cy.getCy("response-time-chart").should("be.visible");
+  cy.getCy("customer-satisfaction-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/10 | 70%] - Saving screenshot for TicketManagementScreen...");
   cy.waitAndSee();
@@ -145,6 +166,9 @@ describe("Role All Screens - customer_support", () => {
   cy.getCy("clientissue-screen").should("be.visible");
   cy.getCy("clientissue-title").should("be.visible");
   cy.getCy("clientissue-content").should("be.visible");
+  cy.getCy("support-dashboard-btn-respond").should("be.visible");
+  cy.getCy("support-dashboard-btn-escalate").should("be.visible");
+  cy.getCy("support-dashboard-btn-document").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/10 | 80%] - Saving screenshot for ClientIssueScreen...");
   cy.waitAndSee();
@@ -163,6 +187,9 @@ describe("Role All Screens - customer_support", () => {
   cy.getCy("communication-screen").should("be.visible");
   cy.getCy("communication-title").should("be.visible");
   cy.getCy("communication-content").should("be.visible");
+  cy.getCy("support-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("support-dashboard-btn-export").should("be.visible");
+  cy.getCy("support-dashboard-btn-assign").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [9/10 | 90%] - Saving screenshot for CommunicationScreen...");
   cy.waitAndSee();
@@ -181,6 +208,9 @@ describe("Role All Screens - customer_support", () => {
   cy.getCy("resolutiontracking-screen").should("be.visible");
   cy.getCy("resolutiontracking-title").should("be.visible");
   cy.getCy("resolutiontracking-content").should("be.visible");
+  cy.getCy("support-btn-respond").should("be.visible");
+  cy.getCy("support-btn-followup").should("be.visible");
+  cy.getCy("support-btn-escalate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [10/10 | 100%] - Saving screenshot for ResolutionTrackingScreen...");
   cy.waitAndSee();

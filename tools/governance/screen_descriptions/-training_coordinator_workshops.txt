@@ -1,0 +1,20 @@
+User Tasks:
+1. Monitor the status of workshops.
+2. Schedule new workshops.
+3. Manage participant registrations.
+4. Review feedback from previous workshops.
+5. Generate reports on workshop effectiveness.
+
+Red Flags of Operation:
+1. Frequent loading errors when accessing workshop data.
+2. Delays in loading times for workshop schedules.
+3. Inconsistent data displayed on the dashboard.
+4. High number of participant dropouts.
+5. Negative feedback trends from participants.
+
+Dashboard Requirements:
+1. Overview of upcoming workshops with dates and times.
+2. Registration status for each workshop.
+3. Feedback summary from participants.
+4. Performance metrics (attendance rates, satisfaction scores).
+5. Alerts for any operational issues or red flags.

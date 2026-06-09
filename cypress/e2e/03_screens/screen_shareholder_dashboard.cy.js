@@ -7,8 +7,8 @@ describe("Screen - shareholder_dashboard", () => {
   it("opens and verifies screen shareholder_dashboard", () => {
     cy.loginAsRole("shareholder");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/shareholder-dashboard (ShareholderDashboardScreen)...");
-  cy.visitWithSemantics("/executive/shareholder-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/shareholder/dashboard (ShareholderDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/shareholder/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for ShareholderDashboardScreen...");
@@ -18,6 +18,9 @@ describe("Screen - shareholder_dashboard", () => {
   cy.getCy("shareholderdashboard-screen").should("be.visible");
   cy.getCy("shareholderdashboard-title").should("be.visible");
   cy.getCy("shareholderdashboard-content").should("be.visible");
+  cy.getCy("shareholder-btn-export-logs").should("be.visible");
+  cy.getCy("shareholder-btn-trigger-action").should("be.visible");
+  cy.getCy("shareholder-btn-refresh-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ShareholderDashboardScreen...");
   cy.waitAndSee();

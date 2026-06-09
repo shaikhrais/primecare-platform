@@ -15,9 +15,12 @@ describe("Screen - territory_sales_manager_field_activity", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("territorysalesmanagerfieldactivity-screen").should("be.visible");
+  cy.getCy("territorysalesmanagerfieldactivity-title").should("be.visible");
+  cy.getCy("territorysalesmanagerfieldactivity-content").should("be.visible");
+  cy.getCy("dashboard-sales-performance").should("be.visible");
+  cy.getCy("dashboard-task-management").should("be.visible");
+  cy.getCy("dashboard-customer-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Territory Sales Manager Field Activity...");
   cy.waitAndSee();

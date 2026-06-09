@@ -15,9 +15,12 @@ describe("Screen - community_health_needs_assessment", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("communityhealthneedsassessment-screen").should("be.visible");
+  cy.getCy("communityhealthneedsassessment-title").should("be.visible");
+  cy.getCy("communityhealthneedsassessment-content").should("be.visible");
+  cy.getCy("community-health-assessment-progress").should("be.visible");
+  cy.getCy("community-health-metrics-chart").should("be.visible");
+  cy.getCy("stakeholder-engagement-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Community Health Needs Assessment...");
   cy.waitAndSee();

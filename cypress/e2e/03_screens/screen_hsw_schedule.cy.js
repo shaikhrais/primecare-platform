@@ -18,6 +18,9 @@ describe("Screen - hsw_schedule", () => {
   cy.getCy("hswschedule-screen").should("be.visible");
   cy.getCy("hswschedule-title").should("be.visible");
   cy.getCy("hswschedule-content").should("be.visible");
+  cy.getCy("hsw-schedule-btn-swap").should("be.visible");
+  cy.getCy("hsw-schedule-btn-log-mileage").should("be.visible");
+  cy.getCy("hsw-schedule-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HswScheduleScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - volunteer_coordinator_compliance", () => {
   cy.getCy("volunteercoordinatorcompliance-screen").should("be.visible");
   cy.getCy("volunteercoordinatorcompliance-title").should("be.visible");
   cy.getCy("volunteercoordinatorcompliance-content").should("be.visible");
+  cy.getCy("compliance-status-card").should("be.visible");
+  cy.getCy("audit-log-viewer").should("be.visible");
+  cy.getCy("training-notification-banner").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for VolunteerCoordinatorComplianceScreen...");
   cy.waitAndSee();

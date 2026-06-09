@@ -7,17 +7,20 @@ describe("Screen - quality_metrics", () => {
   it("opens and verifies screen quality_metrics", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Quality Metrics)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /generated/quality-metrics (Quality Metrics)...");
+  cy.visitWithSemantics("/generated/quality-metrics");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Quality Metrics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("qualitymetrics-screen").should("be.visible");
+  cy.getCy("qualitymetrics-title").should("be.visible");
+  cy.getCy("qualitymetrics-content").should("be.visible");
+  cy.getCy("qualitymetrics-display").should("be.visible");
+  cy.getCy("qualityalerts").should("be.visible");
+  cy.getCy("historicaldata-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Quality Metrics...");
   cy.waitAndSee();

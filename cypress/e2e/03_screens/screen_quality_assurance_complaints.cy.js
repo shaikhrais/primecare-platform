@@ -15,9 +15,12 @@ describe("Screen - quality_assurance_complaints", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("qualityassurancecomplaints-screen").should("be.visible");
+  cy.getCy("qualityassurancecomplaints-title").should("be.visible");
+  cy.getCy("qualityassurancecomplaints-content").should("be.visible");
+  cy.getCy("qa-complaints-overview").should("be.visible");
+  cy.getCy("qa-complaints-category").should("be.visible");
+  cy.getCy("qa-response-time").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Quality Assurance Complaints...");
   cy.waitAndSee();

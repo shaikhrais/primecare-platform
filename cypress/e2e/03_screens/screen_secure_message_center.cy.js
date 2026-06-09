@@ -15,9 +15,12 @@ describe("Screen - secure_message_center", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("securemessagecenter-screen").should("be.visible");
+  cy.getCy("securemessagecenter-title").should("be.visible");
+  cy.getCy("securemessagecenter-content").should("be.visible");
+  cy.getCy("message-center-btn-refresh").should("be.visible");
+  cy.getCy("message-center-btn-compose").should("be.visible");
+  cy.getCy("message-center-btn-reply").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Secure Message Center...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - clinic_history_logs", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("clinichistorylogs-screen").should("be.visible");
+  cy.getCy("clinichistorylogs-title").should("be.visible");
+  cy.getCy("clinichistorylogs-content").should("be.visible");
+  cy.getCy("clinic-history-logs-list").should("be.visible");
+  cy.getCy("loading-indicator").should("be.visible");
+  cy.getCy("error-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Clinic History Logs...");
   cy.waitAndSee();

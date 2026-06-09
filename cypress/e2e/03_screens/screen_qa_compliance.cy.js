@@ -18,6 +18,9 @@ describe("Screen - qa_compliance", () => {
   cy.getCy("qacompliance-screen").should("be.visible");
   cy.getCy("qacompliance-title").should("be.visible");
   cy.getCy("qacompliance-content").should("be.visible");
+  cy.getCy("qa-compliance-status-indicator").should("be.visible");
+  cy.getCy("qa-audit-log-table").should("be.visible");
+  cy.getCy("qa-compliance-metrics-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for QaComplianceScreen...");
   cy.waitAndSee();

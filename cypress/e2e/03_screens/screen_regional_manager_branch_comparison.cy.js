@@ -7,17 +7,20 @@ describe("Screen - regional_manager_branch_comparison", () => {
   it("opens and verifies screen regional_manager_branch_comparison", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Regional Manager Branch Comparison)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/regional_manager/branch_comparison (Regional Manager Branch Comparison)...");
+  cy.visitWithSemantics("/offices/franchise/roles/regional_manager/branch_comparison");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Regional Manager Branch Comparison...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("regionalmanagerbranchcomparison-screen").should("be.visible");
+  cy.getCy("regionalmanagerbranchcomparison-title").should("be.visible");
+  cy.getCy("regionalmanagerbranchcomparison-content").should("be.visible");
+  cy.getCy("regional-manager-btn-generate-report").should("be.visible");
+  cy.getCy("regional-manager-btn-collaborate").should("be.visible");
+  cy.getCy("regional-manager-btn-review-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Regional Manager Branch Comparison...");
   cy.waitAndSee();

@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor and analyze demographic data for territory expansion.
+2. Identify potential areas for growth based on demographic trends.
+3. Collaborate with marketing and sales teams to align strategies with demographic insights.
+4. Regularly update the dashboard with new data and insights.
+5. Report findings and recommendations to management.
+
+Red flags of operation:
+1. Inconsistent or outdated demographic data.
+2. Lack of collaboration between teams leading to misaligned strategies.
+3. Slow response times in data loading or processing.
+4. High error rates in data reporting or analysis.
+5. Insufficient user engagement with the dashboard.
+
+What is needed on the user dashboard:
+1. Real-time demographic data visualization.
+2. Key performance indicators (KPIs) related to territory expansion.
+3. Alerts for significant changes in demographic trends.
+4. Collaboration tools for sharing insights with team members.
+5. User-friendly interface for easy navigation and data interpretation.

@@ -1,0 +1,30 @@
+List of work for the Employee Analytics screen:
+
+1. Monitor employee analytics operations.
+2. Execute compliance scans for employee data.
+3. Log operational telemetry and metrics.
+4. Refresh telemetry logs and metrics.
+5. Trigger governance actions as needed.
+6. Display real-time metrics and charts related to employee analytics.
+7. Handle API responses and errors effectively.
+8. Ensure user interface is responsive and user-friendly.
+
+Red flags of operation:
+
+1. High loading times during data scans.
+2. Frequent API errors or network issues.
+3. Inconsistent telemetry data or metrics.
+4. Lack of clear clearance status or flagged exceptions.
+5. Unresponsive UI elements during critical operations.
+6. Insufficient logging of operational activities.
+7. Failure to execute governance actions when required.
+
+Dashboard needs for the Employee Analytics screen:
+
+1. Real-time metrics display (e.g., active streams, clearance status).
+2. Telemetry charts showing hourly data trends.
+3. Operational logs with timestamps for tracking actions.
+4. Clear indicators for loading states during operations.
+5. Action buttons for executing tasks and refreshing data.
+6. Alerts or notifications for any operational issues or errors.
+7. User-friendly navigation and accessibility features.

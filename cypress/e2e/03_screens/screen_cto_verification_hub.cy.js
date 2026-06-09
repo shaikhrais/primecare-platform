@@ -7,17 +7,20 @@ describe("Screen - cto_verification_hub", () => {
   it("opens and verifies screen cto_verification_hub", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Cto Verification Hub)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/cto/verification-hub (Cto Verification Hub)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cto/verification-hub");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Cto Verification Hub...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ctoverificationhub-screen").should("be.visible");
+  cy.getCy("ctoverificationhub-title").should("be.visible");
+  cy.getCy("ctoverificationhub-content").should("be.visible");
+  cy.getCy("cto-verification-status").should("be.visible");
+  cy.getCy("cto-verification-refresh").should("be.visible");
+  cy.getCy("cto-verification-report-issue").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Cto Verification Hub...");
   cy.waitAndSee();

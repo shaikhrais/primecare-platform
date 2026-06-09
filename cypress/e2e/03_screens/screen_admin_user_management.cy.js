@@ -15,9 +15,12 @@ describe("Screen - admin_user_management", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("adminusermanagement-screen").should("be.visible");
+  cy.getCy("adminusermanagement-title").should("be.visible");
+  cy.getCy("adminusermanagement-content").should("be.visible");
+  cy.getCy("admin-user-list").should("be.visible");
+  cy.getCy("admin-provision-user-btn").should("be.visible");
+  cy.getCy("admin-edit-permissions-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Admin User Management...");
   cy.waitAndSee();

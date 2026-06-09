@@ -15,9 +15,11 @@ describe("Screen - resource_allocation_map", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("resourceallocationmap-screen").should("be.visible");
+  cy.getCy("resourceallocationmap-title").should("be.visible");
+  cy.getCy("resourceallocationmap-content").should("be.visible");
+  cy.getCy("resource-allocation-refresh").should("be.visible");
+  cy.getCy("resource-utilization-indicator").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Resource Allocation Map...");
   cy.waitAndSee();

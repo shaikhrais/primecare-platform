@@ -18,6 +18,9 @@ describe("Screen - cfo_compliance", () => {
   cy.getCy("cfocompliance-screen").should("be.visible");
   cy.getCy("cfocompliance-title").should("be.visible");
   cy.getCy("cfocompliance-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi-overview").should("be.visible");
+  cy.getCy("cfo-dashboard-financial-health").should("be.visible");
+  cy.getCy("cfo-dashboard-budget-actual").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CfoComplianceScreen...");
   cy.waitAndSee();

@@ -7,17 +7,20 @@ describe("Screen - operations_manager_daily_operations", () => {
   it("opens and verifies screen operations_manager_daily_operations", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Operations Manager Daily Operations)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/operations_manager/daily-operations (Operations Manager Daily Operations)...");
+  cy.visitWithSemantics("/offices/franchise/roles/operations_manager/daily-operations");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Operations Manager Daily Operations...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("operationsmanagerdailyoperations-screen").should("be.visible");
+  cy.getCy("operationsmanagerdailyoperations-title").should("be.visible");
+  cy.getCy("operationsmanagerdailyoperations-content").should("be.visible");
+  cy.getCy("operations-dashboard-performance").should("be.visible");
+  cy.getCy("operations-dashboard-issues-alert").should("be.visible");
+  cy.getCy("operations-dashboard-team-summary").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Operations Manager Daily Operations...");
   cy.waitAndSee();

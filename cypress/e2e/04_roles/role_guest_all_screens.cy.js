@@ -16,9 +16,12 @@ describe("Role All Screens - guest", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("dynamicdashboard-screen").should("be.visible");
-  cy.getCy("dynamicdashboard-title").should("be.visible");
-  cy.getCy("dynamicdashboard-content").should("be.visible");
+  cy.getCy("dynamicscreendashboard-screen").should("be.visible");
+  cy.getCy("dynamicscreendashboard-title").should("be.visible");
+  cy.getCy("dynamicscreendashboard-content").should("be.visible");
+  cy.getCy("dashboard-btn-run-compliance-scan").should("be.visible");
+  cy.getCy("dashboard-btn-sync-security-posture").should("be.visible");
+  cy.getCy("dashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/5 | 20%] - Saving screenshot for DynamicScreenDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - guest", () => {
   cy.getCy("guestdashboard-screen").should("be.visible");
   cy.getCy("guestdashboard-title").should("be.visible");
   cy.getCy("guestdashboard-content").should("be.visible");
+  cy.getCy("guestdashboard-btn-compliance-scan").should("be.visible");
+  cy.getCy("guestdashboard-btn-sync-security").should("be.visible");
+  cy.getCy("guestdashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [2/5 | 40%] - Saving screenshot for GuestDashboardScreen...");
   cy.waitAndSee();
@@ -55,6 +61,8 @@ describe("Role All Screens - guest", () => {
   cy.getCy("guestanalytics-screen").should("be.visible");
   cy.getCy("guestanalytics-title").should("be.visible");
   cy.getCy("guestanalytics-content").should("be.visible");
+  cy.getCy("analytics-refresh-btn").should("be.visible");
+  cy.getCy("analytics-execute-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [3/5 | 60%] - Saving screenshot for GuestAnalyticsScreen...");
   cy.waitAndSee();
@@ -73,6 +81,9 @@ describe("Role All Screens - guest", () => {
   cy.getCy("guestcompliance-screen").should("be.visible");
   cy.getCy("guestcompliance-title").should("be.visible");
   cy.getCy("guestcompliance-content").should("be.visible");
+  cy.getCy("compliance-scan-btn").should("be.visible");
+  cy.getCy("audit-logs-btn").should("be.visible");
+  cy.getCy("governance-update-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [4/5 | 80%] - Saving screenshot for GuestComplianceScreen...");
   cy.waitAndSee();
@@ -91,6 +102,8 @@ describe("Role All Screens - guest", () => {
   cy.getCy("guestworkflow-screen").should("be.visible");
   cy.getCy("guestworkflow-title").should("be.visible");
   cy.getCy("guestworkflow-content").should("be.visible");
+  cy.getCy("guestworkflow-btn-trigger-sweep").should("be.visible");
+  cy.getCy("guestworkflow-btn-refresh-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [5/5 | 100%] - Saving screenshot for GuestWorkflowScreen...");
   cy.waitAndSee();

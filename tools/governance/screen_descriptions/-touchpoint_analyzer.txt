@@ -1,0 +1,20 @@
+User Work List:
+1. Monitor touchpoint data and conversion rates.
+2. Analyze active marketing campaigns.
+3. Refresh data to ensure the latest information is displayed.
+4. Review conversion funnel visualizations.
+5. Access A/B testing details for campaigns.
+
+Red Flags of Operation:
+1. Failure to load touchpoint data.
+2. No active campaigns available for analysis.
+3. High error rates when fetching data from the API.
+4. Low conversion rates in active campaigns.
+5. Inconsistent or outdated data displayed on the dashboard.
+
+Dashboard Needs:
+1. Real-time touchpoint data and conversion metrics.
+2. Visual representation of the conversion funnel.
+3. List of active campaigns with conversion rates.
+4. Error notifications for data loading issues.
+5. Refresh button for updating data manually.

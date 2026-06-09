@@ -7,17 +7,20 @@ describe("Screen - franchise_sales_manager_follow_ups", () => {
   it("opens and verifies screen franchise_sales_manager_follow_ups", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Franchise Sales Manager Follow Ups)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/business_development/roles/franchise_sales_manager/follow-ups (Franchise Sales Manager Follow Ups)...");
+  cy.visitWithSemantics("/offices/business_development/roles/franchise_sales_manager/follow-ups");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Franchise Sales Manager Follow Ups...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("franchisesalesmanagerfollowups-screen").should("be.visible");
+  cy.getCy("franchisesalesmanagerfollowups-title").should("be.visible");
+  cy.getCy("franchisesalesmanagerfollowups-content").should("be.visible");
+  cy.getCy("franchise-lead-list").should("be.visible");
+  cy.getCy("followup-metrics-card").should("be.visible");
+  cy.getCy("alert-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Franchise Sales Manager Follow Ups...");
   cy.waitAndSee();

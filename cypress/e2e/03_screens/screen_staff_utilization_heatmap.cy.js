@@ -15,9 +15,12 @@ describe("Screen - staff_utilization_heatmap", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("staffutilizationheatmap-screen").should("be.visible");
+  cy.getCy("staffutilizationheatmap-title").should("be.visible");
+  cy.getCy("staffutilizationheatmap-content").should("be.visible");
+  cy.getCy("staff-utilization-heatmap").should("be.visible");
+  cy.getCy("btn-refresh-data").should("be.visible");
+  cy.getCy("btn-adjust-shifts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Staff Utilization Heatmap...");
   cy.waitAndSee();

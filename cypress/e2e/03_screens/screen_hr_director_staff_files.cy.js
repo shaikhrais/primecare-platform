@@ -18,6 +18,9 @@ describe("Screen - hr_director_staff_files", () => {
   cy.getCy("hrdirectorstafffiles-screen").should("be.visible");
   cy.getCy("hrdirectorstafffiles-title").should("be.visible");
   cy.getCy("hrdirectorstafffiles-content").should("be.visible");
+  cy.getCy("hr-dashboard-tasklist").should("be.visible");
+  cy.getCy("hr-dashboard-kpi").should("be.visible");
+  cy.getCy("hr-dashboard-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HrDirectorStaffFilesScreen...");
   cy.waitAndSee();

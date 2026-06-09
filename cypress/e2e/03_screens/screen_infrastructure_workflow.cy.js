@@ -18,6 +18,9 @@ describe("Screen - infrastructure_workflow", () => {
   cy.getCy("infrastructureworkflow-screen").should("be.visible");
   cy.getCy("infrastructureworkflow-title").should("be.visible");
   cy.getCy("infrastructureworkflow-content").should("be.visible");
+  cy.getCy("infrastructure-audit-btn-generate-report").should("be.visible");
+  cy.getCy("infrastructure-audit-btn-update-compliance").should("be.visible");
+  cy.getCy("infrastructure-audit-btn-view-findings").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for InfrastructureWorkflowScreen...");
   cy.waitAndSee();

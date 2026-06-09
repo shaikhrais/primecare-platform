@@ -19,6 +19,9 @@ describe("Role All Screens - cns", () => {
   cy.getCy("cnsdashboard-screen").should("be.visible");
   cy.getCy("cnsdashboard-title").should("be.visible");
   cy.getCy("cnsdashboard-content").should("be.visible");
+  cy.getCy("cns-dashboard-btn-update-care-plan").should("be.visible");
+  cy.getCy("cns-dashboard-btn-send-alert").should("be.visible");
+  cy.getCy("cns-dashboard-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Saving screenshot for CnsDashboardScreen...");
   cy.waitAndSee();
@@ -34,9 +37,12 @@ describe("Role All Screens - cns", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("clinical nurse specialist analytics-screen").should("be.visible");
-  cy.getCy("clinical nurse specialist analytics-title").should("be.visible");
-  cy.getCy("clinical nurse specialist analytics-content").should("be.visible");
+  cy.getCy("cnsanalytics-screen").should("be.visible");
+  cy.getCy("cnsanalytics-title").should("be.visible");
+  cy.getCy("cnsanalytics-content").should("be.visible");
+  cy.getCy("cns-dashboard-btn-update-care-plan").should("be.visible");
+  cy.getCy("cns-dashboard-btn-submit-feedback").should("be.visible");
+  cy.getCy("cns-dashboard-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Saving screenshot for Clinical Nurse Specialist Analytics...");
   cy.waitAndSee();
@@ -52,9 +58,12 @@ describe("Role All Screens - cns", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("clinical nurse specialist compliance workflow-screen").should("be.visible");
-  cy.getCy("clinical nurse specialist compliance workflow-title").should("be.visible");
-  cy.getCy("clinical nurse specialist compliance workflow-content").should("be.visible");
+  cy.getCy("cnsworkflow-screen").should("be.visible");
+  cy.getCy("cnsworkflow-title").should("be.visible");
+  cy.getCy("cnsworkflow-content").should("be.visible");
+  cy.getCy("cns-dashboard-btn-update-care-plan").should("be.visible");
+  cy.getCy("cns-dashboard-btn-report-red-flag").should("be.visible");
+  cy.getCy("cns-dashboard-btn-training-resources").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Saving screenshot for Clinical Nurse Specialist Compliance Workflow...");
   cy.waitAndSee();

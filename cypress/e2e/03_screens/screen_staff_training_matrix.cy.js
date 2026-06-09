@@ -15,9 +15,12 @@ describe("Screen - staff_training_matrix", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("stafftrainingmatrix-screen").should("be.visible");
+  cy.getCy("stafftrainingmatrix-title").should("be.visible");
+  cy.getCy("stafftrainingmatrix-content").should("be.visible");
+  cy.getCy("staff-training-matrix-overview").should("be.visible");
+  cy.getCy("staff-training-update-records").should("be.visible");
+  cy.getCy("staff-training-report-issue").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Staff Training Matrix...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - vip_manager_analytics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("vip client manager analytics-screen").should("be.visible");
-  cy.getCy("vip client manager analytics-title").should("be.visible");
-  cy.getCy("vip client manager analytics-content").should("be.visible");
+  cy.getCy("vipmanageranalytics-screen").should("be.visible");
+  cy.getCy("vipmanageranalytics-title").should("be.visible");
+  cy.getCy("vipmanageranalytics-content").should("be.visible");
+  cy.getCy("vip-dashboard-btn-send-feedback").should("be.visible");
+  cy.getCy("vip-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("vip-dashboard-btn-execute-scan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for VIP Client Manager Analytics...");
   cy.waitAndSee();

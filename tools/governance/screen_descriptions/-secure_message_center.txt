@@ -1,0 +1,25 @@
+User Tasks:
+1. View incoming messages in the inbox.
+2. Search for specific messages using the search bar.
+3. Refresh the inbox to load new messages.
+4. Compose a new message.
+5. Select a message to view its details.
+6. Reply to a message.
+7. Archive a message.
+8. Attach files to a reply.
+
+Red Flags of Operation:
+1. Slow loading times when fetching messages.
+2. Errors when loading messages, indicating potential API issues.
+3. Lack of feedback when sending a reply or composing a message.
+4. Inability to refresh the inbox if the refresh button is unresponsive.
+5. No indication of new messages if the inbox does not update automatically.
+
+Dashboard Needs:
+1. Display the number of unread messages.
+2. Show the last time the inbox was refreshed.
+3. Provide a summary of messages (e.g., unread, archived).
+4. Include notifications for new messages.
+5. Offer quick access to compose a new message.
+6. Display error messages or alerts for failed operations.
+7. Provide a search history for quick access to previously searched terms.

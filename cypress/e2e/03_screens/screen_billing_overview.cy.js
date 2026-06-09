@@ -18,6 +18,8 @@ describe("Screen - billing_overview", () => {
   cy.getCy("billingoverview-screen").should("be.visible");
   cy.getCy("billingoverview-title").should("be.visible");
   cy.getCy("billingoverview-content").should("be.visible");
+  cy.getCy("billing-overview-btn-execute-scan").should("be.visible");
+  cy.getCy("billing-overview-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for BillingOverviewScreen...");
   cy.waitAndSee();

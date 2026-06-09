@@ -15,9 +15,12 @@ describe("Screen - chemotherapy_protocol_builder", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("chemotherapyprotocolbuilder-screen").should("be.visible");
+  cy.getCy("chemotherapyprotocolbuilder-title").should("be.visible");
+  cy.getCy("chemotherapyprotocolbuilder-content").should("be.visible");
+  cy.getCy("protocol-builder-btn-create").should("be.visible");
+  cy.getCy("protocol-builder-btn-edit").should("be.visible");
+  cy.getCy("protocol-builder-btn-delete").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Chemotherapy Protocol Builder...");
   cy.waitAndSee();

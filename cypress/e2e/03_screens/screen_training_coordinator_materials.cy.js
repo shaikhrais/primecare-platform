@@ -15,9 +15,12 @@ describe("Screen - training_coordinator_materials", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("trainingcoordinatormaterials-screen").should("be.visible");
+  cy.getCy("trainingcoordinatormaterials-title").should("be.visible");
+  cy.getCy("trainingcoordinatormaterials-content").should("be.visible");
+  cy.getCy("training-coordinator-loading-indicator").should("be.visible");
+  cy.getCy("training-coordinator-error-message").should("be.visible");
+  cy.getCy("training-coordinator-feedback-form").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Training Coordinator Materials...");
   cy.waitAndSee();

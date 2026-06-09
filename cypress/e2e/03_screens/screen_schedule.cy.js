@@ -18,6 +18,9 @@ describe("Screen - schedule", () => {
   cy.getCy("schedule-screen").should("be.visible");
   cy.getCy("schedule-title").should("be.visible");
   cy.getCy("schedule-content").should("be.visible");
+  cy.getCy("schedule-visit-btn").should("be.visible");
+  cy.getCy("report-health-btn").should("be.visible");
+  cy.getCy("administer-medication-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ScheduleScreen...");
   cy.waitAndSee();

@@ -7,17 +7,20 @@ describe("Screen - it_admin_dashboard", () => {
   it("opens and verifies screen it_admin_dashboard", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (It Admin Dashboard)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/it_admin/dashboard (It Admin Dashboard)...");
+  cy.visitWithSemantics("/offices/corporate/roles/it_admin/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for It Admin Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("itadmindashboard-screen").should("be.visible");
+  cy.getCy("itadmindashboard-title").should("be.visible");
+  cy.getCy("itadmindashboard-content").should("be.visible");
+  cy.getCy("itadmin-dashboard-performance-metrics").should("be.visible");
+  cy.getCy("itadmin-dashboard-user-management").should("be.visible");
+  cy.getCy("itadmin-dashboard-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for It Admin Dashboard...");
   cy.waitAndSee();

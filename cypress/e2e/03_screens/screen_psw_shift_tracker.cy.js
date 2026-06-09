@@ -7,8 +7,8 @@ describe("Screen - psw_shift_tracker", () => {
   it("opens and verifies screen psw_shift_tracker", () => {
     cy.loginAsRole("psw");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/psw/schedule (PswShiftTrackerScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/psw/schedule");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/psw/check-in (PswShiftTrackerScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/psw/check-in");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for PswShiftTrackerScreen...");
@@ -18,6 +18,9 @@ describe("Screen - psw_shift_tracker", () => {
   cy.getCy("pswshifttracker-screen").should("be.visible");
   cy.getCy("pswshifttracker-title").should("be.visible");
   cy.getCy("pswshifttracker-content").should("be.visible");
+  cy.getCy("psw-btn-clockin").should("be.visible");
+  cy.getCy("psw-btn-clockout").should("be.visible");
+  cy.getCy("psw-btn-complete-task").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PswShiftTrackerScreen...");
   cy.waitAndSee();

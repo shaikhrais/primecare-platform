@@ -15,9 +15,12 @@ describe("Screen - np_workflow", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("nurse practitioner (np) compliance workflow-screen").should("be.visible");
-  cy.getCy("nurse practitioner (np) compliance workflow-title").should("be.visible");
-  cy.getCy("nurse practitioner (np) compliance workflow-content").should("be.visible");
+  cy.getCy("npworkflow-screen").should("be.visible");
+  cy.getCy("npworkflow-title").should("be.visible");
+  cy.getCy("npworkflow-content").should("be.visible");
+  cy.getCy("npworkflow-btn-submit-assessment").should("be.visible");
+  cy.getCy("npworkflow-btn-update-care-plan").should("be.visible");
+  cy.getCy("npworkflow-btn-prescribe-medication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Nurse Practitioner (NP) Compliance Workflow...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - protocol_resolution_log", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("protocolresolutionlog-screen").should("be.visible");
+  cy.getCy("protocolresolutionlog-title").should("be.visible");
+  cy.getCy("protocolresolutionlog-content").should("be.visible");
+  cy.getCy("protocol-resolution-log").should("be.visible");
+  cy.getCy("refresh-logs-btn").should("be.visible");
+  cy.getCy("download-report-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Protocol Resolution Log...");
   cy.waitAndSee();

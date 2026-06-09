@@ -8,8 +8,8 @@ describe("Role All Screens - marketing", () => {
     cy.loginAsRole("marketing");
 
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/12 | 8%] - Navigating to /management/head-of-marketing-dashboard (HeadOfMarketingDashboardScreen)...");
-  cy.visitWithSemantics("/management/head-of-marketing-dashboard");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/12 | 8%] - Navigating to /offices/corporate/roles/head_of_marketing/dashboard (HeadOfMarketingDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/head_of_marketing/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/12 | 8%] - Checking shell & content for HeadOfMarketingDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - marketing", () => {
   cy.getCy("headofmarketingdashboard-screen").should("be.visible");
   cy.getCy("headofmarketingdashboard-title").should("be.visible");
   cy.getCy("headofmarketingdashboard-content").should("be.visible");
+  cy.getCy("marketing-dashboard-campaigns").should("be.visible");
+  cy.getCy("marketing-dashboard-analytics").should("be.visible");
+  cy.getCy("marketing-dashboard-budget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/12 | 8%] - Saving screenshot for HeadOfMarketingDashboardScreen...");
   cy.waitAndSee();
@@ -26,8 +29,8 @@ describe("Role All Screens - marketing", () => {
   
   cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/12 | 8%] - Verified HeadOfMarketingDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/12 | 16%] - Navigating to /management/local-marketing-manager-dashboard (LocalMarketingManagerDashboardScreen)...");
-  cy.visitWithSemantics("/management/local-marketing-manager-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/12 | 16%] - Navigating to /offices/marketing/roles/local_marketing_manager/dashboard (LocalMarketingManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/marketing/roles/local_marketing_manager/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/12 | 16%] - Checking shell & content for LocalMarketingManagerDashboardScreen...");
@@ -37,6 +40,9 @@ describe("Role All Screens - marketing", () => {
   cy.getCy("localmarketingmanagerdashboard-screen").should("be.visible");
   cy.getCy("localmarketingmanagerdashboard-title").should("be.visible");
   cy.getCy("localmarketingmanagerdashboard-content").should("be.visible");
+  cy.getCy("localmarketing-dashboard-campaigns").should("be.visible");
+  cy.getCy("localmarketing-dashboard-socialmedia").should("be.visible");
+  cy.getCy("localmarketing-dashboard-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/12 | 16%] - Saving screenshot for LocalMarketingManagerDashboardScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - marketing", () => {
   cy.getCy("headofmarketinganalytics-screen").should("be.visible");
   cy.getCy("headofmarketinganalytics-title").should("be.visible");
   cy.getCy("headofmarketinganalytics-content").should("be.visible");
+  cy.getCy("marketing-dashboard-kpi").should("be.visible");
+  cy.getCy("marketing-dashboard-realtime-analytics").should("be.visible");
+  cy.getCy("marketing-dashboard-social-media").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/12 | 25%] - Saving screenshot for HeadOfMarketingAnalyticsScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - marketing", () => {
   cy.getCy("headofmarketingcompliance-screen").should("be.visible");
   cy.getCy("headofmarketingcompliance-title").should("be.visible");
   cy.getCy("headofmarketingcompliance-content").should("be.visible");
+  cy.getCy("marketing-dashboard-campaigns").should("be.visible");
+  cy.getCy("marketing-dashboard-kpis").should("be.visible");
+  cy.getCy("marketing-dashboard-analytics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [4/12 | 33%] - Saving screenshot for HeadOfMarketingComplianceScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - marketing", () => {
   cy.getCy("headofmarketingworkflow-screen").should("be.visible");
   cy.getCy("headofmarketingworkflow-title").should("be.visible");
   cy.getCy("headofmarketingworkflow-content").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-view-campaigns").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-analyze-kpis").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-check-budget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [5/12 | 41%] - Saving screenshot for HeadOfMarketingWorkflowScreen...");
   cy.waitAndSee();
@@ -109,6 +124,9 @@ describe("Role All Screens - marketing", () => {
   cy.getCy("localmarketingmanageranalytics-screen").should("be.visible");
   cy.getCy("localmarketingmanageranalytics-title").should("be.visible");
   cy.getCy("localmarketingmanageranalytics-content").should("be.visible");
+  cy.getCy("localmarketing-kpi-overview").should("be.visible");
+  cy.getCy("localmarketing-refresh-data").should("be.visible");
+  cy.getCy("localmarketing-export-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [6/12 | 50%] - Saving screenshot for LocalMarketingManagerAnalyticsScreen...");
   cy.waitAndSee();
@@ -127,6 +145,9 @@ describe("Role All Screens - marketing", () => {
   cy.getCy("localmarketingmanagercompliance-screen").should("be.visible");
   cy.getCy("localmarketingmanagercompliance-title").should("be.visible");
   cy.getCy("localmarketingmanagercompliance-content").should("be.visible");
+  cy.getCy("localmarketing-btn-generate-report").should("be.visible");
+  cy.getCy("localmarketing-btn-view-campaign").should("be.visible");
+  cy.getCy("localmarketing-btn-track-budget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/12 | 58%] - Saving screenshot for LocalMarketingManagerComplianceScreen...");
   cy.waitAndSee();
@@ -145,6 +166,9 @@ describe("Role All Screens - marketing", () => {
   cy.getCy("localmarketingmanagerworkflow-screen").should("be.visible");
   cy.getCy("localmarketingmanagerworkflow-title").should("be.visible");
   cy.getCy("localmarketingmanagerworkflow-content").should("be.visible");
+  cy.getCy("localmarketing-btn-addcampaign").should("be.visible");
+  cy.getCy("localmarketing-btn-viewreports").should("be.visible");
+  cy.getCy("localmarketing-btn-adjustbudget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [8/12 | 66%] - Saving screenshot for LocalMarketingManagerWorkflowScreen...");
   cy.waitAndSee();
@@ -163,6 +187,9 @@ describe("Role All Screens - marketing", () => {
   cy.getCy("campaigndashboard-screen").should("be.visible");
   cy.getCy("campaigndashboard-title").should("be.visible");
   cy.getCy("campaigndashboard-content").should("be.visible");
+  cy.getCy("campaign-dashboard-refresh").should("be.visible");
+  cy.getCy("campaign-dashboard-view-report").should("be.visible");
+  cy.getCy("campaign-dashboard-export-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [9/12 | 75%] - Saving screenshot for CampaignDashboardScreen...");
   cy.waitAndSee();
@@ -181,6 +208,9 @@ describe("Role All Screens - marketing", () => {
   cy.getCy("leadanalytics-screen").should("be.visible");
   cy.getCy("leadanalytics-title").should("be.visible");
   cy.getCy("leadanalytics-content").should("be.visible");
+  cy.getCy("leadanalytics-btn-refresh").should("be.visible");
+  cy.getCy("leadanalytics-btn-export").should("be.visible");
+  cy.getCy("leadanalytics-btn-viewdetails").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [10/12 | 83%] - Saving screenshot for LeadAnalyticsScreen...");
   cy.waitAndSee();
@@ -199,6 +229,9 @@ describe("Role All Screens - marketing", () => {
   cy.getCy("socialmedia-screen").should("be.visible");
   cy.getCy("socialmedia-title").should("be.visible");
   cy.getCy("socialmedia-content").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-view-campaign").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-export-reports").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-analyze-trends").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [11/12 | 91%] - Saving screenshot for SocialMediaScreen...");
   cy.waitAndSee();
@@ -217,6 +250,9 @@ describe("Role All Screens - marketing", () => {
   cy.getCy("brandmanagement-screen").should("be.visible");
   cy.getCy("brandmanagement-title").should("be.visible");
   cy.getCy("brandmanagement-content").should("be.visible");
+  cy.getCy("marketing-dashboard-campaign-overview").should("be.visible");
+  cy.getCy("marketing-dashboard-kpi-chart").should("be.visible");
+  cy.getCy("marketing-dashboard-real-time-analytics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [12/12 | 100%] - Saving screenshot for BrandManagementScreen...");
   cy.waitAndSee();

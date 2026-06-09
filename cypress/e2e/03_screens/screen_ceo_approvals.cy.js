@@ -7,17 +7,20 @@ describe("Screen - ceo_approvals", () => {
   it("opens and verifies screen ceo_approvals", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Ceo Approvals)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/ceo/approvals (Ceo Approvals)...");
+  cy.visitWithSemantics("/offices/corporate/roles/ceo/approvals");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Ceo Approvals...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ceoapprovals-screen").should("be.visible");
+  cy.getCy("ceoapprovals-title").should("be.visible");
+  cy.getCy("ceoapprovals-content").should("be.visible");
+  cy.getCy("ceoapprovals-btn-approve").should("be.visible");
+  cy.getCy("ceoapprovals-btn-reject").should("be.visible");
+  cy.getCy("ceoapprovals-btn-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Ceo Approvals...");
   cy.waitAndSee();

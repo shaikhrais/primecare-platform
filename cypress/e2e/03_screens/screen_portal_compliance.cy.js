@@ -18,6 +18,9 @@ describe("Screen - portal_compliance", () => {
   cy.getCy("portalcompliance-screen").should("be.visible");
   cy.getCy("portalcompliance-title").should("be.visible");
   cy.getCy("portalcompliance-content").should("be.visible");
+  cy.getCy("portal-compliance-btn-execute-audit").should("be.visible");
+  cy.getCy("portal-compliance-btn-trigger-action").should("be.visible");
+  cy.getCy("portal-compliance-btn-manage-directives").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PortalComplianceScreen...");
   cy.waitAndSee();

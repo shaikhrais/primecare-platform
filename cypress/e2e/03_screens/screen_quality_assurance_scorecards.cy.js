@@ -15,9 +15,12 @@ describe("Screen - quality_assurance_scorecards", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("qualityassurancescorecards-screen").should("be.visible");
+  cy.getCy("qualityassurancescorecards-title").should("be.visible");
+  cy.getCy("qualityassurancescorecards-content").should("be.visible");
+  cy.getCy("qa-dashboard-metrics-overview").should("be.visible");
+  cy.getCy("qa-dashboard-scorecard-chart").should("be.visible");
+  cy.getCy("qa-dashboard-red-flag-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Quality Assurance Scorecards...");
   cy.waitAndSee();

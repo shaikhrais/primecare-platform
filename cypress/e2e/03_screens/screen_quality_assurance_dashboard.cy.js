@@ -18,6 +18,8 @@ describe("Screen - quality_assurance_dashboard", () => {
   cy.getCy("qualityassurancedashboard-screen").should("be.visible");
   cy.getCy("qualityassurancedashboard-title").should("be.visible");
   cy.getCy("qualityassurancedashboard-content").should("be.visible");
+  cy.getCy("qa-dashboard-btn-execute-scan").should("be.visible");
+  cy.getCy("qa-dashboard-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for QualityAssuranceDashboardScreen...");
   cy.waitAndSee();

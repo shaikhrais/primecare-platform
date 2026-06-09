@@ -18,6 +18,9 @@ describe("Screen - premium_concierge_dashboard", () => {
   cy.getCy("premiumconciergedashboard-screen").should("be.visible");
   cy.getCy("premiumconciergedashboard-title").should("be.visible");
   cy.getCy("premiumconciergedashboard-content").should("be.visible");
+  cy.getCy("premium-concierge-btn-run-compliance-scan").should("be.visible");
+  cy.getCy("premium-concierge-btn-sync-security-posture").should("be.visible");
+  cy.getCy("premium-concierge-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PremiumConciergeDashboardScreen...");
   cy.waitAndSee();

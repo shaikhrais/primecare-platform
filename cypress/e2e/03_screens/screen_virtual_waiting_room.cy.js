@@ -15,9 +15,12 @@ describe("Screen - virtual_waiting_room", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("virtualwaitingroom-screen").should("be.visible");
+  cy.getCy("virtualwaitingroom-title").should("be.visible");
+  cy.getCy("virtualwaitingroom-content").should("be.visible");
+  cy.getCy("virtual-waiting-room-btn-checkin").should("be.visible");
+  cy.getCy("virtual-waiting-room-btn-checkout").should("be.visible");
+  cy.getCy("virtual-waiting-room-btn-send-message").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Virtual Waiting Room...");
   cy.waitAndSee();

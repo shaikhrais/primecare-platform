@@ -18,6 +18,9 @@ describe("Screen - clinical_operations4_k", () => {
   cy.getCy("clinicaloperations4k-screen").should("be.visible");
   cy.getCy("clinicaloperations4k-title").should("be.visible");
   cy.getCy("clinicaloperations4k-content").should("be.visible");
+  cy.getCy("clinical-dashboard-compliance-status").should("be.visible");
+  cy.getCy("clinical-dashboard-performance-metrics").should("be.visible");
+  cy.getCy("clinical-dashboard-staff-engagement").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ClinicalOperations4KScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - blueprint_sandbox", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("blueprintsandbox-screen").should("be.visible");
+  cy.getCy("blueprintsandbox-title").should("be.visible");
+  cy.getCy("blueprintsandbox-content").should("be.visible");
+  cy.getCy("blueprint-sandbox-lifecycle-status").should("be.visible");
+  cy.getCy("blueprint-sandbox-completion-percentage").should("be.visible");
+  cy.getCy("blueprint-sandbox-technical-manifest").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Blueprint Sandbox...");
   cy.waitAndSee();

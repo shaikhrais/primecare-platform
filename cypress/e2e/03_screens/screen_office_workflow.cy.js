@@ -18,6 +18,9 @@ describe("Screen - office_workflow", () => {
   cy.getCy("officeworkflow-screen").should("be.visible");
   cy.getCy("officeworkflow-title").should("be.visible");
   cy.getCy("officeworkflow-content").should("be.visible");
+  cy.getCy("officeworkflow-btn-add-appointment").should("be.visible");
+  cy.getCy("officeworkflow-btn-complete-task").should("be.visible");
+  cy.getCy("officeworkflow-btn-log-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OfficeWorkflowScreen...");
   cy.waitAndSee();

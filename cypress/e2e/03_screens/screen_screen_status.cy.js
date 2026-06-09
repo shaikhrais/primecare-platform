@@ -7,17 +7,20 @@ describe("Screen - screen_status", () => {
   it("opens and verifies screen screen_status", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Screen Status)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /governance/screen-status (Screen Status)...");
+  cy.visitWithSemantics("/governance/screen-status");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Screen Status...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("screen-details").should("be.visible");
+  cy.getCy("screenstatus-title").should("be.visible");
+  cy.getCy("screenstatus-content").should("be.visible");
+  cy.getCy("deployment-selector").should("be.visible");
+  cy.getCy("status-monitor").should("be.visible");
+  cy.getCy("error-message-display").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Screen Status...");
   cy.waitAndSee();

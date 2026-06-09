@@ -15,9 +15,12 @@ describe("Screen - client_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("clientdashboard-screen").should("be.visible");
+  cy.getCy("clientdashboard-title").should("be.visible");
+  cy.getCy("clientdashboard-content").should("be.visible");
+  cy.getCy("client-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("client-dashboard-btn-view-reports").should("be.visible");
+  cy.getCy("client-dashboard-btn-report-issue").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Client Dashboard...");
   cy.waitAndSee();

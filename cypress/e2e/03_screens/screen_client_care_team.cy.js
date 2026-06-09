@@ -15,9 +15,12 @@ describe("Screen - client_care_team", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("clientcareteam-screen").should("be.visible");
+  cy.getCy("clientcareteam-title").should("be.visible");
+  cy.getCy("clientcareteam-content").should("be.visible");
+  cy.getCy("clientcare-btn-respond").should("be.visible");
+  cy.getCy("clientcare-btn-document").should("be.visible");
+  cy.getCy("clientcare-btn-analyze").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Client Care Team...");
   cy.waitAndSee();

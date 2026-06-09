@@ -18,6 +18,9 @@ describe("Screen - scheduler_conflicts", () => {
   cy.getCy("schedulerconflicts-screen").should("be.visible");
   cy.getCy("schedulerconflicts-title").should("be.visible");
   cy.getCy("schedulerconflicts-content").should("be.visible");
+  cy.getCy("scheduler-btn-resolve-conflict").should("be.visible");
+  cy.getCy("scheduler-btn-view-performance").should("be.visible");
+  cy.getCy("scheduler-btn-submit-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerConflictsScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - pending_task_queue", () => {
   cy.getCy("pendingtaskqueue-screen").should("be.visible");
   cy.getCy("pendingtaskqueue-title").should("be.visible");
   cy.getCy("pendingtaskqueue-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("gov-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("gov-dashboard-btn-download-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PendingTaskQueueScreen...");
   cy.waitAndSee();

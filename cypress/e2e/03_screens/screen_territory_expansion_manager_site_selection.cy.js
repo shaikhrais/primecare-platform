@@ -7,17 +7,20 @@ describe("Screen - territory_expansion_manager_site_selection", () => {
   it("opens and verifies screen territory_expansion_manager_site_selection", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Territory Expansion Manager Site Selection)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/business_development/roles/territory_expansion_manager/site-selection (Territory Expansion Manager Site Selection)...");
+  cy.visitWithSemantics("/offices/business_development/roles/territory_expansion_manager/site-selection");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Territory Expansion Manager Site Selection...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("territoryexpansionmanagersiteselection-screen").should("be.visible");
+  cy.getCy("territoryexpansionmanagersiteselection-title").should("be.visible");
+  cy.getCy("territoryexpansionmanagersiteselection-content").should("be.visible");
+  cy.getCy("territory-expansion-analyze-btn").should("be.visible");
+  cy.getCy("territory-expansion-collaborate-btn").should("be.visible");
+  cy.getCy("territory-expansion-recommendation-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Territory Expansion Manager Site Selection...");
   cy.waitAndSee();

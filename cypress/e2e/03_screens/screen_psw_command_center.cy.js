@@ -7,8 +7,8 @@ describe("Screen - psw_command_center", () => {
   it("opens and verifies screen psw_command_center", () => {
     cy.loginAsRole("psw");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/psw/psw-command-center (PswCommandCenterScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/psw/psw-command-center");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/psw/system-logs (PswCommandCenterScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/psw/system-logs");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for PswCommandCenterScreen...");
@@ -18,6 +18,9 @@ describe("Screen - psw_command_center", () => {
   cy.getCy("pswcommandcenter-screen").should("be.visible");
   cy.getCy("pswcommandcenter-title").should("be.visible");
   cy.getCy("pswcommandcenter-content").should("be.visible");
+  cy.getCy("psw-dashboard-client-overview").should("be.visible");
+  cy.getCy("psw-dashboard-compliance-status").should("be.visible");
+  cy.getCy("psw-dashboard-care-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PswCommandCenterScreen...");
   cy.waitAndSee();

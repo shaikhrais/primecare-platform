@@ -18,6 +18,9 @@ describe("Screen - social_worker_workflow", () => {
   cy.getCy("socialworkerworkflow-screen").should("be.visible");
   cy.getCy("socialworkerworkflow-title").should("be.visible");
   cy.getCy("socialworkerworkflow-content").should("be.visible");
+  cy.getCy("socialworker-btn-add-task").should("be.visible");
+  cy.getCy("socialworker-btn-view-client").should("be.visible");
+  cy.getCy("socialworker-btn-send-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SocialWorkerWorkflowScreen...");
   cy.waitAndSee();

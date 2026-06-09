@@ -15,9 +15,12 @@ describe("Screen - grant_funding_allocation", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("grantfundingallocation-screen").should("be.visible");
+  cy.getCy("grantfundingallocation-title").should("be.visible");
+  cy.getCy("grantfundingallocation-content").should("be.visible");
+  cy.getCy("funding-overview-card").should("be.visible");
+  cy.getCy("funding-allocation-chart").should("be.visible");
+  cy.getCy("funding-status-table").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Grant Funding Allocation...");
   cy.waitAndSee();

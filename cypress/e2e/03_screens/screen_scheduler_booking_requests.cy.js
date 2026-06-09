@@ -18,6 +18,9 @@ describe("Screen - scheduler_booking_requests", () => {
   cy.getCy("schedulerbookingrequests-screen").should("be.visible");
   cy.getCy("schedulerbookingrequests-title").should("be.visible");
   cy.getCy("schedulerbookingrequests-content").should("be.visible");
+  cy.getCy("scheduler-btn-view-reports").should("be.visible");
+  cy.getCy("scheduler-btn-update-schedule").should("be.visible");
+  cy.getCy("scheduler-btn-resolve-complaint").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerBookingRequestsScreen...");
   cy.waitAndSee();

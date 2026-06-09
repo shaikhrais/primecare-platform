@@ -18,6 +18,9 @@ describe("Screen - portal_dashboard", () => {
   cy.getCy("portaldashboard-screen").should("be.visible");
   cy.getCy("portaldashboard-title").should("be.visible");
   cy.getCy("portaldashboard-content").should("be.visible");
+  cy.getCy("portal-dashboard-btn-run-compliance-scan").should("be.visible");
+  cy.getCy("portal-dashboard-btn-sync-security-posture").should("be.visible");
+  cy.getCy("portal-dashboard-btn-update-security-policy").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PortalDashboardScreen...");
   cy.waitAndSee();

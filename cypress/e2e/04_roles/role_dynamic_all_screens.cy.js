@@ -19,6 +19,9 @@ describe("Role All Screens - dynamic", () => {
   cy.getCy("customersupportdashboard-screen").should("be.visible");
   cy.getCy("customersupportdashboard-title").should("be.visible");
   cy.getCy("customersupportdashboard-content").should("be.visible");
+  cy.getCy("csdashboard-btn-compliance-scan").should("be.visible");
+  cy.getCy("csdashboard-btn-manual-sync").should("be.visible");
+  cy.getCy("csdashboard-btn-export-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/6 | 16%] - Saving screenshot for CustomerSupportDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - dynamic", () => {
   cy.getCy("supportdashboard-screen").should("be.visible");
   cy.getCy("supportdashboard-title").should("be.visible");
   cy.getCy("supportdashboard-content").should("be.visible");
+  cy.getCy("support-dashboard-loading").should("be.visible");
+  cy.getCy("support-dashboard-error").should("be.visible");
+  cy.getCy("support-dashboard-compliance-scan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [2/6 | 33%] - Saving screenshot for SupportDashboardScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - dynamic", () => {
   cy.getCy("dynamicanalytics-screen").should("be.visible");
   cy.getCy("dynamicanalytics-title").should("be.visible");
   cy.getCy("dynamicanalytics-content").should("be.visible");
+  cy.getCy("dynamic-analytics-btn-refresh").should("be.visible");
+  cy.getCy("dynamic-analytics-btn-customize").should("be.visible");
+  cy.getCy("dynamic-analytics-btn-search").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [3/6 | 50%] - Saving screenshot for DynamicScreenAnalyticsScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - dynamic", () => {
   cy.getCy("dynamiccompliance-screen").should("be.visible");
   cy.getCy("dynamiccompliance-title").should("be.visible");
   cy.getCy("dynamiccompliance-content").should("be.visible");
+  cy.getCy("dynamic-compliance-btn-execute-scan").should("be.visible");
+  cy.getCy("dynamic-compliance-btn-trigger-action").should("be.visible");
+  cy.getCy("dynamic-compliance-btn-refresh-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [4/6 | 66%] - Saving screenshot for DynamicScreenComplianceScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - dynamic", () => {
   cy.getCy("dynamicworkflow-screen").should("be.visible");
   cy.getCy("dynamicworkflow-title").should("be.visible");
   cy.getCy("dynamicworkflow-content").should("be.visible");
+  cy.getCy("dynamic-workflow-btn-start").should("be.visible");
+  cy.getCy("dynamic-workflow-btn-stop").should("be.visible");
+  cy.getCy("dynamic-workflow-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [5/6 | 83%] - Saving screenshot for DynamicScreenWorkflowScreen...");
   cy.waitAndSee();
@@ -109,6 +124,8 @@ describe("Role All Screens - dynamic", () => {
   cy.getCy("sharedstubs-screen").should("be.visible");
   cy.getCy("sharedstubs-title").should("be.visible");
   cy.getCy("sharedstubs-content").should("be.visible");
+  cy.getCy("sharedstubs-btn-trigger-scan").should("be.visible");
+  cy.getCy("sharedstubs-btn-manual-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [6/6 | 100%] - Saving screenshot for SharedScreenStubs...");
   cy.waitAndSee();

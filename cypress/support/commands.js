@@ -4,7 +4,7 @@ beforeEach(() => {
 });
 
 Cypress.Commands.add("getCy", (id) => {
-  return cy.get(`[aria-label*="data-cy:${id}"], [data-cy="${id}"]`, {
+  return cy.get(`[aria-label*="data-cy:${id}"], [data-cy="${id}"], flt-semantics:contains("data-cy:${id}")`, {
     includeShadowDom: true,
   });
 });

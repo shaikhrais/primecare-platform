@@ -7,17 +7,20 @@ describe("Screen - regional_manager_dashboard", () => {
   it("opens and verifies screen regional_manager_dashboard", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Regional Manager Dashboard)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/regional_manager/dashboard (Regional Manager Dashboard)...");
+  cy.visitWithSemantics("/offices/franchise/roles/regional_manager/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Regional Manager Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("regionalmanagerdashboard-screen").should("be.visible");
+  cy.getCy("regionalmanagerdashboard-title").should("be.visible");
+  cy.getCy("regionalmanagerdashboard-content").should("be.visible");
+  cy.getCy("dashboard-sales-performance").should("be.visible");
+  cy.getCy("dashboard-sales-trend").should("be.visible");
+  cy.getCy("dashboard-team-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Regional Manager Dashboard...");
   cy.waitAndSee();

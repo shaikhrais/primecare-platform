@@ -18,6 +18,9 @@ describe("Screen - financial_operations4_k", () => {
   cy.getCy("financialoperations4k-screen").should("be.visible");
   cy.getCy("financialoperations4k-title").should("be.visible");
   cy.getCy("financialoperations4k-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi").should("be.visible");
+  cy.getCy("cfo-dashboard-financial-statements").should("be.visible");
+  cy.getCy("cfo-dashboard-budget-comparison").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FinancialOperations4KScreen...");
   cy.waitAndSee();

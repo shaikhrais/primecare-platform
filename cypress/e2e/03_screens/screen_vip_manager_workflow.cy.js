@@ -15,9 +15,12 @@ describe("Screen - vip_manager_workflow", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("vip client manager compliance workflow-screen").should("be.visible");
-  cy.getCy("vip client manager compliance workflow-title").should("be.visible");
-  cy.getCy("vip client manager compliance workflow-content").should("be.visible");
+  cy.getCy("vipmanagerworkflow-screen").should("be.visible");
+  cy.getCy("vipmanagerworkflow-title").should("be.visible");
+  cy.getCy("vipmanagerworkflow-content").should("be.visible");
+  cy.getCy("vipmanager-btn-execute-scan").should("be.visible");
+  cy.getCy("vipmanager-btn-resolve-issue").should("be.visible");
+  cy.getCy("vipmanager-btn-update-dashboard").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for VIP Client Manager Compliance Workflow...");
   cy.waitAndSee();

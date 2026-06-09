@@ -18,6 +18,9 @@ describe("Screen - corrective_action", () => {
   cy.getCy("correctiveaction-screen").should("be.visible");
   cy.getCy("correctiveaction-title").should("be.visible");
   cy.getCy("correctiveaction-content").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-update-status").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-train-staff").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CorrectiveActionScreen...");
   cy.waitAndSee();

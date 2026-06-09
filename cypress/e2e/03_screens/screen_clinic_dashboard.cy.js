@@ -18,6 +18,9 @@ describe("Screen - clinic_dashboard", () => {
   cy.getCy("clinicdashboard-screen").should("be.visible");
   cy.getCy("clinicdashboard-title").should("be.visible");
   cy.getCy("clinicdashboard-content").should("be.visible");
+  cy.getCy("clinic-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("clinic-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("clinic-dashboard-btn-send-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ClinicDashboardScreen...");
   cy.waitAndSee();

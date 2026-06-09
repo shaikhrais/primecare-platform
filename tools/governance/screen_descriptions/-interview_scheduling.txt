@@ -1,0 +1,35 @@
+Talent Acquisition Manager Responsibilities:
+1. Develop and implement recruitment strategies.
+2. Collaborate with hiring managers to understand staffing needs.
+3. Source candidates through various channels (job boards, social media, etc.).
+4. Screen resumes and applications.
+5. Conduct interviews and assessments.
+6. Manage candidate experience throughout the hiring process.
+7. Maintain relationships with candidates and hiring managers.
+8. Analyze recruitment metrics and adjust strategies accordingly.
+9. Ensure compliance with hiring policies and regulations.
+10. Provide training and support to hiring teams.
+
+Red Flags in Operations:
+1. High turnover rates in new hires.
+2. Lengthy time-to-fill positions.
+3. Poor candidate experience feedback.
+4. Lack of diversity in candidate pools.
+5. Inconsistent communication with candidates.
+6. Frequent changes in hiring requirements.
+7. Low engagement from hiring managers.
+8. Inability to meet recruitment goals.
+9. Over-reliance on a single sourcing channel.
+10. Negative employer branding.
+
+Dashboard Needs for Talent Acquisition Manager:
+1. Key performance indicators (KPIs) for recruitment (time-to-fill, cost-per-hire, etc.).
+2. Candidate pipeline status and metrics.
+3. Source of hire analysis.
+4. Diversity metrics.
+5. Candidate experience ratings.
+6. Hiring manager satisfaction scores.
+7. Compliance and audit logs.
+8. Real-time updates on open positions.
+9. Recruitment budget tracking.
+10. Historical data trends for recruitment performance.

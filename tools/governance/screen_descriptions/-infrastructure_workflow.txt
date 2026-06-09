@@ -1,0 +1,35 @@
+List of tasks for an Infrastructure Auditor:
+1. Review infrastructure configurations and compliance with standards.
+2. Conduct risk assessments and identify vulnerabilities.
+3. Monitor system performance and availability.
+4. Evaluate security controls and access management.
+5. Analyze incident response and recovery procedures.
+6. Assess change management processes.
+7. Document findings and recommendations.
+8. Collaborate with IT teams for remediation efforts.
+9. Prepare audit reports for stakeholders.
+10. Stay updated on industry best practices and regulations.
+
+Red flags of operation:
+1. Frequent system outages or performance issues.
+2. Unpatched vulnerabilities or outdated software.
+3. Lack of documentation for changes and configurations.
+4. Inconsistent access controls or unauthorized access attempts.
+5. Delays in incident response or recovery.
+6. Non-compliance with regulatory requirements.
+7. Poor communication between teams.
+8. High turnover rates in IT staff.
+9. Insufficient training for personnel on security practices.
+10. Lack of regular audits or assessments.
+
+Dashboard needs for an Infrastructure Auditor:
+1. Overview of system health and performance metrics.
+2. Compliance status with regulatory standards.
+3. Real-time alerts for security incidents or breaches.
+4. Summary of audit findings and remediation status.
+5. Risk assessment scores and vulnerability reports.
+6. Change management logs and approval workflows.
+7. Access control reports and user activity logs.
+8. Historical data on incidents and resolutions.
+9. Integration with monitoring tools for proactive alerts.
+10. Visualizations for trends in system performance and security posture.

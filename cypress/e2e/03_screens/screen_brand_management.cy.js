@@ -18,6 +18,9 @@ describe("Screen - brand_management", () => {
   cy.getCy("brandmanagement-screen").should("be.visible");
   cy.getCy("brandmanagement-title").should("be.visible");
   cy.getCy("brandmanagement-content").should("be.visible");
+  cy.getCy("marketing-dashboard-campaign-overview").should("be.visible");
+  cy.getCy("marketing-dashboard-kpi-chart").should("be.visible");
+  cy.getCy("marketing-dashboard-real-time-analytics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for BrandManagementScreen...");
   cy.waitAndSee();

@@ -15,9 +15,10 @@ describe("Screen - billing_payments", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("billingpayments-screen").should("be.visible");
+  cy.getCy("billingpayments-title").should("be.visible");
+  cy.getCy("billingpayments-content").should("be.visible");
+  cy.getCy("billing_payments-btn-submitEventLog").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Billing Payments...");
   cy.waitAndSee();

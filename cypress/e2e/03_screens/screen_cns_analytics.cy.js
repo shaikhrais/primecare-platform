@@ -15,9 +15,12 @@ describe("Screen - cns_analytics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("clinical nurse specialist analytics-screen").should("be.visible");
-  cy.getCy("clinical nurse specialist analytics-title").should("be.visible");
-  cy.getCy("clinical nurse specialist analytics-content").should("be.visible");
+  cy.getCy("cnsanalytics-screen").should("be.visible");
+  cy.getCy("cnsanalytics-title").should("be.visible");
+  cy.getCy("cnsanalytics-content").should("be.visible");
+  cy.getCy("cns-dashboard-btn-update-care-plan").should("be.visible");
+  cy.getCy("cns-dashboard-btn-submit-feedback").should("be.visible");
+  cy.getCy("cns-dashboard-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Clinical Nurse Specialist Analytics...");
   cy.waitAndSee();

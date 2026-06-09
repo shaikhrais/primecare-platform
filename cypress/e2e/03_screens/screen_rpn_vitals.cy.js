@@ -18,6 +18,9 @@ describe("Screen - rpn_vitals", () => {
   cy.getCy("rpnvitals-screen").should("be.visible");
   cy.getCy("rpnvitals-title").should("be.visible");
   cy.getCy("rpnvitals-content").should("be.visible");
+  cy.getCy("rpn-vitals-monitor").should("be.visible");
+  cy.getCy("rpn-medication-track").should("be.visible");
+  cy.getCy("rpn-careplan-update").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RpnVitalsScreen...");
   cy.waitAndSee();

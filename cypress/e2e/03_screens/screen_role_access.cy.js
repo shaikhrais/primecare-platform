@@ -15,9 +15,12 @@ describe("Screen - role_access", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("roleaccess-btn-searchscreens").should("be.visible");
+  cy.getCy("roleaccess-title").should("be.visible");
+  cy.getCy("roleaccess-content").should("be.visible");
+  cy.getCy("roleaccess-btn-viewroles").should("be.visible");
+  cy.getCy("roleaccess-btn-assignaccess").should("be.visible");
+  cy.getCy("roleaccess-btn-reviewrouting").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Role Access...");
   cy.waitAndSee();

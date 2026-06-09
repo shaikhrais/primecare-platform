@@ -15,9 +15,12 @@ describe("Screen - psw_profile", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pswprofile-screen").should("be.visible");
+  cy.getCy("pswprofile-title").should("be.visible");
+  cy.getCy("pswprofile-content").should("be.visible");
+  cy.getCy("pswprofile-btn-edit").should("be.visible");
+  cy.getCy("pswprofile-btn-update-password").should("be.visible");
+  cy.getCy("pswprofile-btn-save").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Psw Profile...");
   cy.waitAndSee();

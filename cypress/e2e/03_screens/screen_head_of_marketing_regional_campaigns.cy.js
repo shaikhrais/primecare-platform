@@ -15,9 +15,12 @@ describe("Screen - head_of_marketing_regional_campaigns", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("headofmarketingregionalcampaigns-screen").should("be.visible");
+  cy.getCy("headofmarketingregionalcampaigns-title").should("be.visible");
+  cy.getCy("headofmarketingregionalcampaigns-content").should("be.visible");
+  cy.getCy("dashboard-btn-adjust-campaign").should("be.visible");
+  cy.getCy("dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("dashboard-btn-collaborate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Head Of Marketing Regional Campaigns...");
   cy.waitAndSee();

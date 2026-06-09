@@ -7,8 +7,8 @@ describe("Screen - cfo_profitability", () => {
   it("opens and verifies screen cfo_profitability", () => {
     cy.loginAsRole("cfo");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/cfo-profitability (CfoProfitabilityScreen)...");
-  cy.visitWithSemantics("/executive/cfo-profitability");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/cfo/profitability (CfoProfitabilityScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cfo/profitability");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for CfoProfitabilityScreen...");

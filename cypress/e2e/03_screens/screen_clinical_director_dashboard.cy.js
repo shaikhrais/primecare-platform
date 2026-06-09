@@ -7,17 +7,20 @@ describe("Screen - clinical_director_dashboard", () => {
   it("opens and verifies screen clinical_director_dashboard", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Clinical Director Dashboard)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/clinical_director/dashboard (Clinical Director Dashboard)...");
+  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Clinical Director Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("clinicaldirectordashboard-screen").should("be.visible");
+  cy.getCy("clinicaldirectordashboard-title").should("be.visible");
+  cy.getCy("clinicaldirectordashboard-content").should("be.visible");
+  cy.getCy("clinical-dashboard-metric-card").should("be.visible");
+  cy.getCy("clinical-dashboard-alert-box").should("be.visible");
+  cy.getCy("clinical-dashboard-trend-visualization").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Clinical Director Dashboard...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - staff_management", () => {
   cy.getCy("staffmanagement-screen").should("be.visible");
   cy.getCy("staffmanagement-title").should("be.visible");
   cy.getCy("staffmanagement-content").should("be.visible");
+  cy.getCy("franchise-kpi-dashboard").should("be.visible");
+  cy.getCy("franchise-staff-performance").should("be.visible");
+  cy.getCy("franchise-customer-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for StaffManagementScreen...");
   cy.waitAndSee();

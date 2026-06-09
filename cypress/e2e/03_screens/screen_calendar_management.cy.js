@@ -18,6 +18,9 @@ describe("Screen - calendar_management", () => {
   cy.getCy("calendarmanagement-screen").should("be.visible");
   cy.getCy("calendarmanagement-title").should("be.visible");
   cy.getCy("calendarmanagement-content").should("be.visible");
+  cy.getCy("calendar_management-btn-update-schedule").should("be.visible");
+  cy.getCy("calendar_management-btn-log-incident").should("be.visible");
+  cy.getCy("calendar_management-btn-view-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CalendarManagementScreen...");
   cy.waitAndSee();

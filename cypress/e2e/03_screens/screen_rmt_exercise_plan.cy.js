@@ -18,6 +18,9 @@ describe("Screen - rmt_exercise_plan", () => {
   cy.getCy("rmtexerciseplan-screen").should("be.visible");
   cy.getCy("rmtexerciseplan-title").should("be.visible");
   cy.getCy("rmtexerciseplan-content").should("be.visible");
+  cy.getCy("rmt-dashboard-client-overview").should("be.visible");
+  cy.getCy("rmt-dashboard-compliance-status").should("be.visible");
+  cy.getCy("rmt-dashboard-feedback-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RmtExercisePlanScreen...");
   cy.waitAndSee();

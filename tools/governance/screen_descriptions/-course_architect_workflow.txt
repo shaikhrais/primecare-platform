@@ -1,0 +1,35 @@
+Training Director Responsibilities:
+1. Develop and implement training programs.
+2. Assess training needs through surveys, interviews, and consultations.
+3. Design and deliver training sessions and workshops.
+4. Evaluate training effectiveness and make improvements.
+5. Manage training budgets and resources.
+6. Collaborate with other departments to align training with organizational goals.
+7. Stay updated on industry trends and best practices in training and development.
+8. Maintain training records and documentation.
+9. Provide coaching and support to trainers and facilitators.
+10. Foster a culture of continuous learning within the organization.
+
+Red Flags of Operation:
+1. High turnover rates among trained employees.
+2. Low engagement or participation in training programs.
+3. Negative feedback from training participants.
+4. Inconsistent training delivery across departments.
+5. Lack of measurable outcomes or improvements post-training.
+6. Insufficient resources allocated for training initiatives.
+7. Failure to adapt training programs based on feedback or changing needs.
+8. Poor communication regarding training opportunities.
+9. Limited access to training materials or resources.
+10. Inability to track training progress and effectiveness.
+
+Dashboard Needs for Training Director:
+1. Training program participation rates.
+2. Feedback scores from training sessions.
+3. Completion rates of training modules.
+4. Budget utilization for training initiatives.
+5. Employee performance metrics post-training.
+6. Trends in training needs assessments.
+7. Engagement levels in training activities.
+8. Resource allocation for training programs.
+9. Upcoming training schedules and deadlines.
+10. Reports on training effectiveness and ROI.

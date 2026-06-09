@@ -7,17 +7,19 @@ describe("Screen - cfo_financial_overview", () => {
   it("opens and verifies screen cfo_financial_overview", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Cfo Financial Overview)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/cfo/financial-overview (Cfo Financial Overview)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cfo/financial-overview");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Cfo Financial Overview...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("cfofinancialoverview-screen").should("be.visible");
+  cy.getCy("cfofinancialoverview-title").should("be.visible");
+  cy.getCy("cfofinancialoverview-content").should("be.visible");
+  cy.getCy("financial-overview-refresh").should("be.visible");
+  cy.getCy("financial-overview-customize").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Cfo Financial Overview...");
   cy.waitAndSee();

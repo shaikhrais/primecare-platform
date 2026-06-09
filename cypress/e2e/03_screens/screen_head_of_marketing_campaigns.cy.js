@@ -15,9 +15,12 @@ describe("Screen - head_of_marketing_campaigns", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("headofmarketingcampaigns-screen").should("be.visible");
+  cy.getCy("headofmarketingcampaigns-title").should("be.visible");
+  cy.getCy("headofmarketingcampaigns-content").should("be.visible");
+  cy.getCy("dashboard-btn-adjust-strategy").should("be.visible");
+  cy.getCy("dashboard-btn-review-budget").should("be.visible");
+  cy.getCy("dashboard-btn-report-results").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Head Of Marketing Campaigns...");
   cy.waitAndSee();

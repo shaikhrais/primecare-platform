@@ -18,6 +18,9 @@ describe("Screen - customer_support_analytics", () => {
   cy.getCy("customersupportanalytics-screen").should("be.visible");
   cy.getCy("customersupportanalytics-title").should("be.visible");
   cy.getCy("customersupportanalytics-content").should("be.visible");
+  cy.getCy("customer-support-btn-respond").should("be.visible");
+  cy.getCy("customer-support-btn-escalate").should("be.visible");
+  cy.getCy("customer-support-btn-update-kb").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CustomerSupportAnalyticsScreen...");
   cy.waitAndSee();

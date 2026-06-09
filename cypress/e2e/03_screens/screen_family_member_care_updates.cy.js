@@ -15,9 +15,12 @@ describe("Screen - family_member_care_updates", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("familymembercareupdates-screen").should("be.visible");
+  cy.getCy("familymembercareupdates-title").should("be.visible");
+  cy.getCy("familymembercareupdates-content").should("be.visible");
+  cy.getCy("family-member-care-status").should("be.visible");
+  cy.getCy("notification-alert").should("be.visible");
+  cy.getCy("activity-summary").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Family Member Care Updates...");
   cy.waitAndSee();

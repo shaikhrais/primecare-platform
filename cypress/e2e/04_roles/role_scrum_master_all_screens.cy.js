@@ -19,6 +19,9 @@ describe("Role All Screens - scrum_master", () => {
   cy.getCy("scrummasterdashboard-screen").should("be.visible");
   cy.getCy("scrummasterdashboard-title").should("be.visible");
   cy.getCy("scrummasterdashboard-content").should("be.visible");
+  cy.getCy("scrum-dashboard-burndown-chart").should("be.visible");
+  cy.getCy("scrum-dashboard-velocity-metric").should("be.visible");
+  cy.getCy("scrum-dashboard-impediment-list").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for ScrumMasterDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - scrum_master", () => {
   cy.getCy("scrummasteranalytics-screen").should("be.visible");
   cy.getCy("scrummasteranalytics-title").should("be.visible");
   cy.getCy("scrummasteranalytics-content").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-add-impediment").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-resolve-impediment").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-start-sprint-planning").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for ScrumMasterAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - scrum_master", () => {
   cy.getCy("scrummastercompliance-screen").should("be.visible");
   cy.getCy("scrummastercompliance-title").should("be.visible");
   cy.getCy("scrummastercompliance-content").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-add-impediment").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-resolve-impediment").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-record-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for ScrumMasterComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - scrum_master", () => {
   cy.getCy("scrummasterworkflow-screen").should("be.visible");
   cy.getCy("scrummasterworkflow-title").should("be.visible");
   cy.getCy("scrummasterworkflow-content").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-add-impediment").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-resolve-impediment").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-start-retrospective").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for ScrumMasterWorkflowScreen...");
   cy.waitAndSee();

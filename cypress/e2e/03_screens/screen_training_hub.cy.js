@@ -15,9 +15,12 @@ describe("Screen - training_hub", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("traininghub-screen").should("be.visible");
+  cy.getCy("traininghub-title").should("be.visible");
+  cy.getCy("traininghub-content-summary").should("be.visible");
+  cy.getCy("traininghub-loading-indicator").should("be.visible");
+  cy.getCy("traininghub-error-message").should("be.visible");
+  cy.getCy("traininghub-engagement-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Training Hub...");
   cy.waitAndSee();

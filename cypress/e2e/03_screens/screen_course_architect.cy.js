@@ -15,9 +15,12 @@ describe("Screen - course_architect", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("coursearchitect-screen").should("be.visible");
+  cy.getCy("coursearchitect-title").should("be.visible");
+  cy.getCy("coursearchitect-content").should("be.visible");
+  cy.getCy("course-architect-loading").should("be.visible");
+  cy.getCy("course-architect-error").should("be.visible");
+  cy.getCy("course-architect-feature-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Course Architect...");
   cy.waitAndSee();

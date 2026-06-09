@@ -1,0 +1,18 @@
+User Tasks:
+1. View the list of providers in the referral network.
+2. Refresh the referral network data.
+3. Add a new provider to the referral network.
+4. Monitor referral statistics for each provider, including year-to-date referrals and tier status.
+
+Red Flags of Operation:
+1. Frequent errors when loading data, indicating potential issues with the API or data integrity.
+2. Slow loading times, which may suggest performance bottlenecks in data retrieval.
+3. Inconsistent or missing data for providers, which could affect decision-making.
+4. High number of refresh actions, indicating users may not trust the data being displayed.
+
+Dashboard Needs:
+1. A summary of total referrals year-to-date across all providers.
+2. Alerts for providers with low referral counts or those falling below a certain tier.
+3. Visual indicators for data loading status and error messages.
+4. Quick access buttons for adding providers and refreshing data.
+5. Filters to sort providers by specialty, tier, or referral count.

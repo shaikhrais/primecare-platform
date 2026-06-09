@@ -18,6 +18,9 @@ describe("Screen - regional_manager_usa_workflow", () => {
   cy.getCy("regionalmanagerusaworkflow-screen").should("be.visible");
   cy.getCy("regionalmanagerusaworkflow-title").should("be.visible");
   cy.getCy("regionalmanagerusaworkflow-content").should("be.visible");
+  cy.getCy("dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("dashboard-btn-schedule-meeting").should("be.visible");
+  cy.getCy("dashboard-btn-allocate-resources").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RegionalManagerUsaWorkflowScreen...");
   cy.waitAndSee();

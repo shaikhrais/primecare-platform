@@ -7,8 +7,8 @@ describe("Screen - coo_operations_overview", () => {
   it("opens and verifies screen coo_operations_overview", () => {
     cy.loginAsRole("coo");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/coo-operations-overview (CooOperationsOverviewScreen)...");
-  cy.visitWithSemantics("/executive/coo-operations-overview");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/coo/operations-overview (CooOperationsOverviewScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/coo/operations-overview");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for CooOperationsOverviewScreen...");
@@ -18,6 +18,9 @@ describe("Screen - coo_operations_overview", () => {
   cy.getCy("coooperationsoverview-screen").should("be.visible");
   cy.getCy("coooperationsoverview-title").should("be.visible");
   cy.getCy("coooperationsoverview-content").should("be.visible");
+  cy.getCy("coo-dashboard-kpi-overview").should("be.visible");
+  cy.getCy("coo-dashboard-efficiency-metrics").should("be.visible");
+  cy.getCy("coo-dashboard-financial-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CooOperationsOverviewScreen...");
   cy.waitAndSee();

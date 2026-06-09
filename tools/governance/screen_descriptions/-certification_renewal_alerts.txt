@@ -1,0 +1,18 @@
+User Work List:
+1. Monitor certification renewal alerts.
+2. Review expiring certifications and licenses.
+3. Send reminders for critical alerts (less than 30 days remaining).
+4. Refresh the alert list to get the latest updates.
+
+Red Flags of Operation:
+1. Alerts not loading or displaying errors.
+2. Critical alerts not highlighted properly.
+3. Inability to send reminders for expiring certifications.
+4. Slow response time when refreshing the alert list.
+
+Dashboard Needs:
+1. Overview of total certifications and licenses.
+2. Breakdown of certifications by expiration status (critical, warning, safe).
+3. Quick access button to send reminders for critical alerts.
+4. Notification system for upcoming expirations.
+5. Performance metrics on alert refresh times and error occurrences.

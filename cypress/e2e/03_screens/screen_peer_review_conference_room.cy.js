@@ -15,9 +15,12 @@ describe("Screen - peer_review_conference_room", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("peerreviewconferenceroom-screen").should("be.visible");
+  cy.getCy("peerreviewconferenceroom-title").should("be.visible");
+  cy.getCy("peerreviewconferenceroom-content").should("be.visible");
+  cy.getCy("peerreview-btn-refresh").should("be.visible");
+  cy.getCy("peerreview-btn-submit").should("be.visible");
+  cy.getCy("peerreview-btn-join").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Peer Review Conference Room...");
   cy.waitAndSee();

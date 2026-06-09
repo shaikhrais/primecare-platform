@@ -15,9 +15,12 @@ describe("Screen - head_of_marketing_content_approval", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("headofmarketingcontentapproval-screen").should("be.visible");
+  cy.getCy("headofmarketingcontentapproval-title").should("be.visible");
+  cy.getCy("content-approval-list").should("be.visible");
+  cy.getCy("approval-metrics-card").should("be.visible");
+  cy.getCy("feedback-section").should("be.visible");
+  cy.getCy("collaboration-tool").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Head Of Marketing Content Approval...");
   cy.waitAndSee();

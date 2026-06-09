@@ -18,6 +18,9 @@ describe("Screen - territory_expansion_manager_compliance", () => {
   cy.getCy("territoryexpansionmanagercompliance-screen").should("be.visible");
   cy.getCy("territoryexpansionmanagercompliance-title").should("be.visible");
   cy.getCy("territoryexpansionmanagercompliance-content").should("be.visible");
+  cy.getCy("territory-expansion-btn-generate-report").should("be.visible");
+  cy.getCy("territory-expansion-btn-update-strategy").should("be.visible");
+  cy.getCy("territory-expansion-btn-request-resources").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TerritoryExpansionManagerComplianceScreen...");
   cy.waitAndSee();

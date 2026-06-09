@@ -1,0 +1,35 @@
+List of tasks for the Community Outreach Lead:
+1. Develop and implement community outreach strategies.
+2. Build and maintain relationships with community organizations and stakeholders.
+3. Organize and coordinate community events and activities.
+4. Collect and analyze feedback from community members.
+5. Monitor and evaluate the effectiveness of outreach programs.
+6. Prepare reports on outreach activities and outcomes.
+7. Collaborate with internal teams to align outreach efforts with organizational goals.
+8. Train and support volunteers and staff involved in outreach initiatives.
+9. Manage outreach budgets and resources effectively.
+10. Stay informed about community needs and trends.
+
+Red flags of operation:
+1. Lack of engagement or participation from the community.
+2. Negative feedback or complaints from community members.
+3. Inconsistent messaging or branding in outreach materials.
+4. Failure to meet outreach goals or objectives.
+5. High turnover of volunteers or staff involved in outreach.
+6. Insufficient resources allocated for outreach activities.
+7. Poor communication between the outreach team and other departments.
+8. Lack of data or metrics to measure outreach effectiveness.
+9. Limited diversity in outreach efforts or target audiences.
+10. Resistance to change or adapt outreach strategies based on feedback.
+
+Dashboard needs for the Community Outreach Lead:
+1. Key performance indicators (KPIs) for outreach activities.
+2. Community engagement metrics (e.g., event attendance, feedback scores).
+3. Budget tracking and resource allocation overview.
+4. Progress tracking against outreach goals and objectives.
+5. Reports on community needs and trends.
+6. Visualizations of outreach program effectiveness.
+7. Feedback collection tools from community members.
+8. Volunteer and staff management metrics.
+9. Communication logs with community partners.
+10. Alerts for any red flags or issues in outreach operations.

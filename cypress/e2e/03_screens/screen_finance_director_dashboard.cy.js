@@ -7,8 +7,8 @@ describe("Screen - finance_director_dashboard", () => {
   it("opens and verifies screen finance_director_dashboard", () => {
     cy.loginAsRole("finance_director");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/finance-director-dashboard (FinanceDirectorDashboardScreen)...");
-  cy.visitWithSemantics("/executive/finance-director-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/finance_director/dashboard (FinanceDirectorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/finance_director/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for FinanceDirectorDashboardScreen...");

@@ -15,9 +15,12 @@ describe("Screen - customer_support_issue_categories", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("customersupportissuecategories-screen").should("be.visible");
+  cy.getCy("customersupportissuecategories-title").should("be.visible");
+  cy.getCy("customersupportissuecategories-content").should("be.visible");
+  cy.getCy("support-issue-categories-overview").should("be.visible");
+  cy.getCy("support-issue-metrics").should("be.visible");
+  cy.getCy("support-user-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Customer Support Issue Categories...");
   cy.waitAndSee();

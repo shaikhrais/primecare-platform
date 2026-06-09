@@ -18,6 +18,9 @@ describe("Screen - service_issue", () => {
   cy.getCy("serviceissue-screen").should("be.visible");
   cy.getCy("serviceissue-title").should("be.visible");
   cy.getCy("serviceissue-content").should("be.visible");
+  cy.getCy("opsdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("opsdashboard-btn-view-compliance").should("be.visible");
+  cy.getCy("opsdashboard-btn-track-budget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ServiceIssueScreen...");
   cy.waitAndSee();

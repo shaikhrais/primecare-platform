@@ -18,6 +18,9 @@ describe("Screen - coordinator_sos", () => {
   cy.getCy("coordinatorsos-screen").should("be.visible");
   cy.getCy("coordinatorsos-title").should("be.visible");
   cy.getCy("coordinatorsos-content").should("be.visible");
+  cy.getCy("coordinator-sos-btn-report-incident").should("be.visible");
+  cy.getCy("coordinator-sos-btn-view-performance").should("be.visible");
+  cy.getCy("coordinator-sos-btn-update-schedule").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CoordinatorSosScreen...");
   cy.waitAndSee();

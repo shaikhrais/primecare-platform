@@ -15,9 +15,11 @@ describe("Screen - no_access", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("noaccess-screen").should("be.visible");
+  cy.getCy("noaccess-title").should("be.visible");
+  cy.getCy("noaccess-content").should("be.visible");
+  cy.getCy("no-access-btn-go-back").should("be.visible");
+  cy.getCy("no-access-btn-request-permissions").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for No Access...");
   cy.waitAndSee();

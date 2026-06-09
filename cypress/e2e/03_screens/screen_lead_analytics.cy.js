@@ -18,6 +18,9 @@ describe("Screen - lead_analytics", () => {
   cy.getCy("leadanalytics-screen").should("be.visible");
   cy.getCy("leadanalytics-title").should("be.visible");
   cy.getCy("leadanalytics-content").should("be.visible");
+  cy.getCy("leadanalytics-btn-refresh").should("be.visible");
+  cy.getCy("leadanalytics-btn-export").should("be.visible");
+  cy.getCy("leadanalytics-btn-viewdetails").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for LeadAnalyticsScreen...");
   cy.waitAndSee();

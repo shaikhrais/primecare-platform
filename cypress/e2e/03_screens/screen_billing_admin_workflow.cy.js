@@ -18,6 +18,9 @@ describe("Screen - billing_admin_workflow", () => {
   cy.getCy("billingadminworkflow-screen").should("be.visible");
   cy.getCy("billingadminworkflow-title").should("be.visible");
   cy.getCy("billingadminworkflow-content").should("be.visible");
+  cy.getCy("billing_admin_task_management").should("be.visible");
+  cy.getCy("billing_admin_calendar").should("be.visible");
+  cy.getCy("billing_admin_communication_log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for BillingAdminWorkflowScreen...");
   cy.waitAndSee();

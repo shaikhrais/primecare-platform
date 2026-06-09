@@ -7,17 +7,20 @@ describe("Screen - franchise_owner_hiring", () => {
   it("opens and verifies screen franchise_owner_hiring", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Franchise Owner Hiring)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/franchise_owner/hiring (Franchise Owner Hiring)...");
+  cy.visitWithSemantics("/offices/franchise/roles/franchise_owner/hiring");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Franchise Owner Hiring...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("franchiseownerhiring-screen").should("be.visible");
+  cy.getCy("franchiseownerhiring-title").should("be.visible");
+  cy.getCy("franchiseownerhiring-content").should("be.visible");
+  cy.getCy("franchise-hiring-review").should("be.visible");
+  cy.getCy("franchise-jobpostings-monitor").should("be.visible");
+  cy.getCy("franchise-candidates-evaluate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Franchise Owner Hiring...");
   cy.waitAndSee();

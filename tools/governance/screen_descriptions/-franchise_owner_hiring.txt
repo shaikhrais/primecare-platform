@@ -1,0 +1,20 @@
+List of work for the User:
+1. Review the hiring process for franchise owners.
+2. Monitor the status of job postings and applications.
+3. Evaluate candidate profiles and qualifications.
+4. Communicate with potential hires.
+5. Track hiring metrics and performance indicators.
+
+Red flags of operation:
+1. High number of unfilled positions over an extended period.
+2. Frequent candidate dropouts during the application process.
+3. Negative feedback from candidates regarding the hiring process.
+4. Lack of engagement from potential hires.
+5. Discrepancies in candidate qualifications versus job requirements.
+
+Dashboard needs for the User:
+1. Overview of current job postings and their statuses.
+2. Metrics on application rates and candidate engagement.
+3. Visual representation of hiring timelines and bottlenecks.
+4. Alerts for unresponsive candidates or overdue hiring tasks.
+5. Performance analytics comparing hiring success rates over time.

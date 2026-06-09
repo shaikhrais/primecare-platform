@@ -18,6 +18,9 @@ describe("Screen - documents", () => {
   cy.getCy("documents-screen").should("be.visible");
   cy.getCy("documents-title").should("be.visible");
   cy.getCy("documents-content").should("be.visible");
+  cy.getCy("docmanager-btn-review").should("be.visible");
+  cy.getCy("compliance-btn-scan").should("be.visible");
+  cy.getCy("audit-btn-participate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for DocumentsScreen...");
   cy.waitAndSee();

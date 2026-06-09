@@ -15,9 +15,11 @@ describe("Screen - lead_pipeline", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("leadpipeline-screen").should("be.visible");
+  cy.getCy("leadpipeline-title").should("be.visible");
+  cy.getCy("leadpipeline-content").should("be.visible");
+  cy.getCy("leadpipeline-btn-addnewlead").should("be.visible");
+  cy.getCy("leadpipeline-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Lead Pipeline...");
   cy.waitAndSee();

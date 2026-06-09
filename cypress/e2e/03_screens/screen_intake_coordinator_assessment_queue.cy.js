@@ -18,6 +18,9 @@ describe("Screen - intake_coordinator_assessment_queue", () => {
   cy.getCy("intakecoordinatorassessmentqueue-screen").should("be.visible");
   cy.getCy("intakecoordinatorassessmentqueue-title").should("be.visible");
   cy.getCy("intakecoordinatorassessmentqueue-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-add").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for IntakeCoordinatorAssessmentQueueScreen...");
   cy.waitAndSee();

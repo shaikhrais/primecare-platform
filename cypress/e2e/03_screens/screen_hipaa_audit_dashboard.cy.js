@@ -15,9 +15,11 @@ describe("Screen - hipaa_audit_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("hipaaauditdashboard-screen").should("be.visible");
+  cy.getCy("hipaaauditdashboard-title").should("be.visible");
+  cy.getCy("hipaaauditdashboard-content").should("be.visible");
+  cy.getCy("audit-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("audit-dashboard-btn-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Hipaa Audit Dashboard...");
   cy.waitAndSee();

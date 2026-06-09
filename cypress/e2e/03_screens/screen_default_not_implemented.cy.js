@@ -15,9 +15,12 @@ describe("Screen - default_not_implemented", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("dashboard-screen-status").should("be.visible");
+  cy.getCy("defaultnotimplemented-title").should("be.visible");
+  cy.getCy("defaultnotimplemented-content").should("be.visible");
+  cy.getCy("dashboard-error-messages").should("be.visible");
+  cy.getCy("dashboard-metrics").should("be.visible");
+  cy.getCy("dashboard-user-role-info").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Default Not Implemented...");
   cy.waitAndSee();

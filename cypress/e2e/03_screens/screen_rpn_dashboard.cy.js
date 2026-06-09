@@ -18,6 +18,9 @@ describe("Screen - rpn_dashboard", () => {
   cy.getCy("rpndashboard-screen").should("be.visible");
   cy.getCy("rpndashboard-title").should("be.visible");
   cy.getCy("rpndashboard-content").should("be.visible");
+  cy.getCy("rpn-dashboard-vital-signs").should("be.visible");
+  cy.getCy("rpn-dashboard-alerts").should("be.visible");
+  cy.getCy("rpn-dashboard-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RpnDashboardScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - business_development_analytics", () => {
   cy.getCy("businessdevelopmentanalytics-screen").should("be.visible");
   cy.getCy("businessdevelopmentanalytics-title").should("be.visible");
   cy.getCy("businessdevelopmentanalytics-content").should("be.visible");
+  cy.getCy("bd-dashboard-sales-metrics").should("be.visible");
+  cy.getCy("bd-dashboard-client-data").should("be.visible");
+  cy.getCy("bd-dashboard-pipeline-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for BusinessDevelopmentAnalyticsScreen...");
   cy.waitAndSee();

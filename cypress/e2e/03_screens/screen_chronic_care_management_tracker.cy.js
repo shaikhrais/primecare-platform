@@ -15,9 +15,12 @@ describe("Screen - chronic_care_management_tracker", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("chroniccaremanagementtracker-screen").should("be.visible");
+  cy.getCy("chroniccaremanagementtracker-title").should("be.visible");
+  cy.getCy("chroniccaremanagementtracker-content").should("be.visible");
+  cy.getCy("chroniccare-btn-schedule").should("be.visible");
+  cy.getCy("chroniccare-btn-update-medication").should("be.visible");
+  cy.getCy("chroniccare-btn-document").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Chronic Care Management Tracker...");
   cy.waitAndSee();

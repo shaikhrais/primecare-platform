@@ -1,0 +1,17 @@
+User Tasks:
+1. View surgical videos in the archive.
+2. Refresh the video list.
+3. Upload new surgical case videos.
+
+Red Flags of Operation:
+1. Slow loading times for video data.
+2. Frequent errors when fetching video data.
+3. Inability to upload videos due to errors or lack of permissions.
+4. Poor user interface responsiveness or crashes during video playback.
+
+Dashboard Needs:
+1. Total number of videos in the archive.
+2. Number of views for each video.
+3. Recent uploads and their details (title, surgeon, date).
+4. Error logs or alerts for failed video fetches or uploads.
+5. User activity metrics (e.g., number of uploads, views per user).

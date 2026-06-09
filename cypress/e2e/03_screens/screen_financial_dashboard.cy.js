@@ -18,6 +18,9 @@ describe("Screen - financial_dashboard", () => {
   cy.getCy("financialdashboard-screen").should("be.visible");
   cy.getCy("financialdashboard-title").should("be.visible");
   cy.getCy("financialdashboard-content").should("be.visible");
+  cy.getCy("financial-dashboard-kpi-overview").should("be.visible");
+  cy.getCy("financial-dashboard-revenue-expense-trend").should("be.visible");
+  cy.getCy("financial-dashboard-cash-flow").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FinancialDashboardScreen...");
   cy.waitAndSee();

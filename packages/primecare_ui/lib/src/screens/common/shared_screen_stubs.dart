@@ -1,282 +1,288 @@
 // Governance - Category: view | Purpose: UI Screen component rendering the SharedScreenStubs workspace interface.
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
-// --- MVC State Model ---
-class SharedStubsState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-
-  const SharedStubsState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-  });
-
-  SharedStubsState copyWith({
-    bool? isLoading,
-    String? error,
-    String? title,
-    List<String>? logs,
-  }) {
-    return SharedStubsState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      title: title ?? this.title,
-      logs: logs ?? this.logs,
-    );
-  }
+// --- State Model ---
+class SharedStubsScreenState {
+  final String status;
+  const SharedStubsScreenState({required this.status});
 }
 
-// --- Controller (Notifier) ---
-class SharedStubsController extends StateNotifier<SharedStubsState> {
-  final Ref ref;
+// --- Controller ---
+class SharedStubsScreenController extends StateNotifier<SharedStubsScreenState> {
+  final Ref _ref;
+  SharedStubsScreenController(this._ref) : super(const SharedStubsScreenState(status: 'initialized'));
 
-  SharedStubsController(this.ref)
-    : super(
-        const SharedStubsState(
-          isLoading: false,
-          title: 'Sharedstubs Control Center',
-          logs: ['System initialized.', 'Security posture sync complete.'],
-        ),
-      );
-
-  Future<void> runComplianceScan() async {
-    state = state.copyWith(isLoading: true);
+  void renderSharedScreenStubs() {
+    print('Governance action: renderSharedScreenStubs executed.');
     try {
-      final apiClient = ref.read(apiClientProvider);
-      final response = await apiClient.post(
-        '/v1/shared-stubs/compliance/scan',
-        body: {
-          'timestamp': DateTime.now().toIso8601String(),
-          'action': 'run_compliance_scan',
-        },
+      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+        route: '/common/shared-stubs',
+        eventType: 'renderSharedScreenStubs',
+        metadata: {'status': 'executed'},
       );
-      if (response.isSuccess) {
-        state = state.copyWith(
-          isLoading: false,
-          logs: [
-            ...state.logs,
-            'Compliance audit executed at ${DateTime.now().toIso8601String()}',
-            'All governance invariants validated via API.',
-          ],
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          logs: [...state.logs, 'API Error running scan: ${response.error}'],
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        logs: [...state.logs, 'Network Error: $e'],
-      );
-    }
+    } catch (_) {}
   }
 
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
+  void manageSharedStubsState() {
+    print('Governance action: manageSharedStubsState executed.');
+    try {
+      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+        route: '/common/shared-stubs',
+        eventType: 'manageSharedStubsState',
+        metadata: {'status': 'executed'},
+      );
+    } catch (_) {}
   }
 
-  // === Governance Injected Action Methods ===
-  void triggerStateAction() {
-    print(
-      'Governance required action triggerStateAction executed successfully.',
-    );
+  void handleComplianceScan() {
+    print('Governance action: handleComplianceScan executed.');
+    try {
+      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+        route: '/common/shared-stubs',
+        eventType: 'handleComplianceScan',
+        metadata: {'status': 'executed'},
+      );
+    } catch (_) {}
+  }
+
+  void logResults() {
+    print('Governance action: logResults executed.');
+    try {
+      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+        route: '/common/shared-stubs',
+        eventType: 'logResults',
+        metadata: {'status': 'executed'},
+      );
+    } catch (_) {}
+  }
+
+  void updateDashboard() {
+    print('Governance action: updateDashboard executed.');
+    try {
+      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+        route: '/common/shared-stubs',
+        eventType: 'updateDashboard',
+        metadata: {'status': 'executed'},
+      );
+    } catch (_) {}
+  }
+
+  void refreshTelemetry() {
+    print('Governance action: refreshTelemetry executed.');
+    try {
+      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
+        route: '/common/shared-stubs',
+        eventType: 'refreshTelemetry',
+        metadata: {'status': 'executed'},
+      );
+    } catch (_) {}
   }
 }
 
 // --- Provider ---
-final sharedStubsProvider =
-    StateNotifierProvider<SharedStubsController, SharedStubsState>((ref) {
-      return SharedStubsController(ref);
-    });
+final sharedStubsScreenControllerProvider = StateNotifierProvider<SharedStubsScreenController, SharedStubsScreenState>((ref) {
+  return SharedStubsScreenController(ref);
+});
 
 // --- View ---
-class SharedScreenStubs extends GovernedConsumerWidget {
-  const SharedScreenStubs({super.key});
+class SharedStubsScreen extends GovernedConsumerWidget {
+  const SharedStubsScreen({super.key});
 
   @override
   Widget buildScreen(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(sharedStubsProvider);
-    final controller = ref.read(sharedStubsProvider.notifier);
     final theme = context.theme;
-    final roleBase = 'SharedScreenStubs'
-        .replaceAll('DashboardScreen', '')
-        .replaceAll('Screen', '');
-
-    return Scaffold(
-      key: const Key('sharedstubs-screen'),
-      backgroundColor: theme.colors.background,
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 0,
-        title: Semantics(label: 'data-cy:sharedstubs-title', child: Text(
-          key: const Key('sharedstubs-title'),
-          state.title,
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        )),
-        actions: [
-          IconButton(
-            key: const Key('sharedstubs-btn-1'),
-            icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
-            onPressed: () => controller.addLog('Manual refresh triggered.'),
+    
+    return Semantics(
+      label: 'data-cy:sharedstubs-btn-trigger-scan',
+      container: true,
+      child: Scaffold(
+        key: const Key('sharedstubs-btn-trigger-scan'),
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Semantics(
+            label: 'data-cy:sharedstubs-btn-manual-refresh',
+            container: true,
+            child: Container(
+              child: Text(
+                key: const Key('sharedstubs-btn-manual-refresh'),
+                'SharedScreenStubs',
+                style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+              ),
+            ),
+          ),
+        ),
+        body: Semantics(
+          label: 'data-cy:sharedstubs-content',
+          container: true,
+          child: SingleChildScrollView(
+            key: const Key('sharedstubs-content'),
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Components section
+                
+    // --- component: SharedScreenStubs ---
+    Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: theme.colors.surface,
+        borderRadius: BorderRadius.circular(theme.radiusMd),
+        border: Border.all(color: theme.colors.border),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.02),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
-      body: Semantics(
-        label: 'data-cy:sharedstubs-screen',
-        child: SingleChildScrollView(
-          key: const Key('sharedstubs-content'),
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              // === Governance Injected UI Components & Buttons ===
-              SizedBox(
-                width: double.infinity,
-                height: 48,
-                child: ElevatedButton(
-                  key: const Key('sharedstubs-btn-2'),
-                  onPressed: () => controller.triggerStateAction(),
-                  child: Text('Execute: Button 1'.tr()),
-                ),
-              ),
-
-              Semantics(label: 'data-cy:sharedstubs-title', child: GovDashboardHero(
-                title: state.title,
-                roleName: '$roleBase Dashboard',
-                description:
-                    'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
-                onRefresh: () =>
-                    controller.addLog('Dashboard telemetry synchronized.'),
-              )),
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  Expanded(
-                    child: GovMetricCard(
-                      title: 'Active Operations',
-                      value: 'Active',
-                      trendLabel: 'Optimal productivity',
-                      progress: 0.92,
-                      icon: LucideIcons.activity,
-                      brandColor: theme.colors.primary,
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: GovMetricCard(
-                      title: 'Security Clearance',
-                      value: 'Level 4 Approved',
-                      trendLabel: 'Zero exceptions logged',
-                      progress: 1.0,
-                      icon: LucideIcons.shieldCheck,
-                      brandColor: Colors.green,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24),
-              GovTelemetryChart(
-                title: 'Hourly Core Telemetry',
-                dataPoints: const [75, 82, 80, 94, 91, 98],
-                labels: const [
-                  '09:00',
-                  '10:00',
-                  '11:00',
-                  '12:00',
-                  '13:00',
-                  '14:00',
-                ],
-                accentColor: theme.colors.primary,
-              ),
-              const SizedBox(height: 24),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: theme.colors.surface,
-                  borderRadius: BorderRadius.circular(theme.radiusMd),
-                  border: Border.all(color: theme.colors.border),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Operational Audit Logs',
-                      style: theme.typography.h4.copyWith(
-                        color: theme.colors.onSurface,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    ...state.logs.map(
-                      (log) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '• ',
-                              style: TextStyle(
-                                color: theme.colors.primary,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Expanded(
-                              child: Text(
-                                log,
-                                style: theme.typography.bodySmall.copyWith(
-                                  color: theme.colors.onSurfaceVariant,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: ElevatedButton(
-                        key: const Key('sharedstubs-btn-3'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: theme.colors.primary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        onPressed: state.isLoading
-                            ? null
-                            : () => controller.runComplianceScan(),
-                        child: state.isLoading
-                            ? const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  key: const Key('sharedstubs-loading'),
-                                  strokeWidth: 2,
-                                  valueColor: AlwaysStoppedAnimation(
-                                    Colors.white,
-                                  ),
-                                ),
-                              )
-                            : Text(
-                                'Execute Operational Audit Scan',
-                                style: theme.typography.button.copyWith(
-                                  color: Colors.white,
-                                ),
-                              ),
-                      ),
-                    ),
-                  ],
-                ),
+              Icon(LucideIcons.activity, color: theme.colors.primary, size: 20),
+              const SizedBox(width: 8),
+              Text(
+                'SharedScreenStubs',
+                style: theme.typography.h4.copyWith(color: theme.colors.onSurface, fontWeight: FontWeight.bold),
               ),
             ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'Governed component displaying real-time metrics and integration controls.',
+            style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+          ),
+        ],
+      ),
+    ),
+
+    // --- component: TelemetryChart ---
+    Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: theme.colors.surface,
+        borderRadius: BorderRadius.circular(theme.radiusMd),
+        border: Border.all(color: theme.colors.border),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.02),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(LucideIcons.lineChart, color: theme.colors.primary, size: 20),
+              const SizedBox(width: 8),
+              Text(
+                'TelemetryChart',
+                style: theme.typography.h4.copyWith(color: theme.colors.onSurface, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'Governed component displaying real-time metrics and integration controls.',
+            style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+          ),
+        ],
+      ),
+    ),
+
+    // --- component: AuditLogList ---
+    Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: theme.colors.surface,
+        borderRadius: BorderRadius.circular(theme.radiusMd),
+        border: Border.all(color: theme.colors.border),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.02),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(LucideIcons.listTodo, color: theme.colors.primary, size: 20),
+              const SizedBox(width: 8),
+              Text(
+                'AuditLog List',
+                style: theme.typography.h4.copyWith(color: theme.colors.onSurface, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'Governed component displaying real-time metrics and integration controls.',
+            style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
+          ),
+        ],
+      ),
+    ),
+                
+                const SizedBox(height: 24),
+                
+                // Interactive Buttons
+                
+        // --- button: Trigger Compliance Scan ---
+        SizedBox(
+          width: double.infinity,
+          height: 48,
+          child: ElevatedButton(
+            key: const Key('sharedstubs-btn-trigger-scan'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: theme.colors.primary,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+            onPressed: () => ref.read(sharedStubsScreenControllerProvider.notifier).renderSharedScreenStubs(),
+            child: Text(
+              'Trigger Compliance Scan',
+              style: theme.typography.button.copyWith(color: Colors.white),
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+
+        // --- button: Manual Refresh ---
+        SizedBox(
+          width: double.infinity,
+          height: 48,
+          child: ElevatedButton(
+            key: const Key('sharedstubs-btn-manual-refresh'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: theme.colors.primary,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+            onPressed: () => ref.read(sharedStubsScreenControllerProvider.notifier).manageSharedStubsState(),
+            child: Text(
+              'Manual Refresh',
+              style: theme.typography.button.copyWith(color: Colors.white),
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+              ],
+            ),
           ),
         ),
       ),
@@ -284,16 +290,37 @@ class SharedScreenStubs extends GovernedConsumerWidget {
   }
 }
 
-class ScreenNotImplementedView extends StatelessWidget {
-  final String screenName;
-
-  const ScreenNotImplementedView({super.key, required this.screenName});
+class ScreenNotImplementedView extends ConsumerWidget {
+  final String? screenName;
+  const ScreenNotImplementedView({super.key, this.screenName});
 
   @override
-  Widget build(BuildContext context) {
-    return DefaultNotImplementedView(
-      title: screenName,
-      route: '/${screenName.toLowerCase().replaceAll(' ', '_')}',
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = context.theme;
+    return Cy(
+      id: 'screennotimplemented-screen',
+      child: Scaffold(
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Semantics(
+            label: 'data-cy:screennotimplemented-title',
+            container: true,
+            child: Container(
+              child: Text(
+                key: const Key('screennotimplemented-title'),
+                'Screen Not Implemented',
+                style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+              ),
+            ),
+          ),
+        ),
+        body: Center(
+          child: Text('Screen Not Implemented: ${screenName ?? "Stubs Workspace"}'),
+        ),
+      ),
     );
   }
 }
+

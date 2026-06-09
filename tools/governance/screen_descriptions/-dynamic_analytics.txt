@@ -1,0 +1,24 @@
+List of work for Dynamic Screen Viewer:
+1. Render the Dynamic Screen Analytics Screen interface.
+2. Provide a centralized analytics operation for the DynamicScreen module.
+3. Allow users to execute actions through buttons.
+4. Display relevant analytics data and insights.
+5. Enable refreshing of the dashboard to show updated data.
+6. Provide a user-friendly interface with clear navigation and semantics.
+
+Red flags of operation:
+1. Lack of clear error handling for button actions.
+2. No feedback mechanism for users after executing actions.
+3. Potential performance issues with large datasets not being addressed.
+4. Insufficient accessibility features for users with disabilities.
+5. No indication of loading states or data fetching processes.
+6. Hardcoded strings that may not support localization properly.
+
+Dashboard requirements for Dynamic Screen Viewer:
+1. Real-time data updates and refresh capabilities.
+2. Visual representations of analytics data (charts, graphs).
+3. User activity logs to track actions taken on the dashboard.
+4. Customizable widgets to allow users to tailor their view.
+5. Alerts or notifications for significant changes in data.
+6. Search and filter functionalities for data exploration.
+7. User settings for personalization of the dashboard experience.

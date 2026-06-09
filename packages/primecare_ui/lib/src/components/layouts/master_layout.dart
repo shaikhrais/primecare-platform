@@ -35,107 +35,123 @@ class MasterLayout extends ConsumerWidget {
     final isOffline = connectivityState.value == false;
     final zoomFactor = ref.watch(contentZoomProvider);
 
+    final isHandheld = ScreenBreakpoints.isHandheld(context);
+    final sidebarWidget = drawer ?? _buildSidebar(context, authState, tenant);
+
     return Cy(
       id: 'app-shell',
       child: Scaffold(
         backgroundColor: theme.colors.background,
-        drawer: drawer ?? _buildSidebar(context, authState, tenant),
+        drawer: isHandheld ? sidebarWidget : null,
         endDrawer: endDrawer,
-        appBar: AppBar(
-          title: Cy(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: Cy(
             id: 'app-topbar',
-            child: Row(
-              children: [
-                Icon(
-                  LucideIcons.shieldCheck,
-                  color: theme.colors.topbarSelectedTextColor,
-                  size: 28,
-                ),
-                const SizedBox(width: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      tenant.name,
-                      style: theme.typography.h3.copyWith(
-                        color: theme.colors.topbarSelectedTextColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      _getDefaultTitle(shellType).tr(),
-                      style: theme.typography.bodyMedium.copyWith(
-                        color: theme.colors.topbarTextColor,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 16),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: theme.colors.topbarSelectedTextColor.withValues(alpha: 0.15),
-                    border: Border.all(
-                      color: theme.colors.topbarSelectedTextColor.withValues(alpha: 0.3),
-                    ),
-                    borderRadius: BorderRadius.circular(16),
+            child: AppBar(
+              title: Row(
+                children: [
+                  Icon(
+                    LucideIcons.shieldCheck,
+                    color: theme.colors.topbarSelectedTextColor,
+                    size: 28,
                   ),
-                  child: Text(
-                    app.name.toUpperCase(),
-                    style: theme.typography.labelBold.copyWith(
-                      color: theme.colors.topbarSelectedTextColor,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.1,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          backgroundColor: theme.colors.topbarBackground,
-          elevation: 0,
-          scrolledUnderElevation: 0,
-          actions: actions ?? _getDefaultActions(context, ref, authState, zoomFactor),
-          leading: Builder(
-            builder: (context) => IconButton(key: const Key('master_layout_iconbutton_button_1'), 
-              icon: Icon(LucideIcons.menu, color: theme.colors.topbarSelectedIconColor),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-            ),
-          ),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(1),
-            child: Divider(color: theme.colors.topbarDividerColor, height: 1),
-          ),
-        ),
-        floatingActionButton: floatingActionButton,
-        body: SafeArea(
-          child: Column(
-            children: [
-              if (isOffline)
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  color: theme.colors.error.withValues(alpha: 0.9),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  const SizedBox(width: 12),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(LucideIcons.wifiOff, color: Colors.white, size: 16),
-                      const SizedBox(width: 8),
                       Text(
-                        'Offline Mode - Viewing cached data. Changes will sync when reconnected.'.tr(),
-                        style: theme.typography.labelBold.copyWith(
-                          color: Colors.white,
+                        tenant.name,
+                        style: theme.typography.h3.copyWith(
+                          color: theme.colors.topbarSelectedTextColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        _getDefaultTitle(shellType).tr(),
+                        style: theme.typography.bodyMedium.copyWith(
+                          color: theme.colors.topbarTextColor,
+                          fontSize: 12,
                         ),
                       ),
                     ],
                   ),
-                ),
+                  const SizedBox(width: 16),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: theme.colors.topbarSelectedTextColor.withValues(alpha: 0.15),
+                      border: Border.all(
+                        color: theme.colors.topbarSelectedTextColor.withValues(alpha: 0.3),
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      app.name.toUpperCase(),
+                      style: theme.typography.labelBold.copyWith(
+                        color: theme.colors.topbarSelectedTextColor,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.1,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              backgroundColor: theme.colors.topbarBackground,
+              elevation: 0,
+              scrolledUnderElevation: 0,
+              actions: actions ?? _getDefaultActions(context, ref, authState, zoomFactor),
+              leading: isHandheld
+                  ? Builder(
+                      builder: (context) => IconButton(
+                        key: const Key('master_layout_iconbutton_button_1'),
+                        icon: Icon(LucideIcons.menu, color: theme.colors.topbarSelectedIconColor),
+                        onPressed: () => Scaffold.of(context).openDrawer(),
+                      ),
+                    )
+                  : null,
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(1),
+                child: Divider(color: theme.colors.topbarDividerColor, height: 1),
+              ),
+            ),
+          ),
+        ),
+        floatingActionButton: floatingActionButton,
+        body: SafeArea(
+          child: Row(
+            children: [
+              if (!isHandheld && sidebarWidget != null) sidebarWidget,
               Expanded(
-                child: Cy(
-                  id: 'app-content-slot',
-                  child: AppShellBoundary(child: OmniConstraintWrapper(child: child)),
+                child: Column(
+                  children: [
+                    if (isOffline)
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        color: theme.colors.error.withValues(alpha: 0.9),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(LucideIcons.wifiOff, color: Colors.white, size: 16),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Offline Mode - Viewing cached data. Changes will sync when reconnected.'.tr(),
+                              style: theme.typography.labelBold.copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    Expanded(
+                      child: Cy(
+                        id: 'app-content-slot',
+                        child: AppShellBoundary(child: OmniConstraintWrapper(child: child)),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

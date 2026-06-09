@@ -1,0 +1,27 @@
+List of tasks for therapists:
+1. Start therapy session
+2. Finalize clinical notes
+3. Run compliance scan
+4. Sync posture
+5. Update policy
+6. Export logs
+7. Add log entries
+8. Trigger state actions
+
+Red flags for operations:
+1. API errors during session start or note finalization
+2. Network errors when attempting to connect to the API
+3. High loading times for operations
+4. Incomplete or missing logs
+5. Non-compliance alerts from the compliance scan
+6. Security clearance issues
+
+Dashboard requirements for therapists:
+1. Title display
+2. Loading indicator
+3. Operational logs section
+4. Buttons for starting sessions, finalizing notes, running compliance scans, and triggering state actions
+5. Metrics for active operations and security clearance
+6. Telemetry chart for hourly performance
+7. Refresh button for manual updates
+8. Clear error messages for API and network issues

@@ -15,9 +15,12 @@ describe("Screen - community_outreach_reports", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("communityoutreachreports-screen").should("be.visible");
+  cy.getCy("communityoutreachreports-title").should("be.visible");
+  cy.getCy("communityoutreachreports-content").should("be.visible");
+  cy.getCy("outreach-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("outreach-dashboard-btn-download-report").should("be.visible");
+  cy.getCy("outreach-dashboard-btn-submit-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Community Outreach Reports...");
   cy.waitAndSee();

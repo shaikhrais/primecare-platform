@@ -1,0 +1,35 @@
+List of tasks for Regional BDM:
+1. Monitor regional sales performance.
+2. Develop and implement sales strategies.
+3. Build and maintain relationships with key clients.
+4. Conduct market research to identify new opportunities.
+5. Collaborate with marketing to align campaigns with sales goals.
+6. Provide training and support to sales teams.
+7. Analyze sales data and prepare reports for management.
+8. Attend industry events and conferences to network.
+9. Address customer inquiries and resolve issues.
+10. Set and track sales targets for the region.
+
+Red flags in operations:
+1. Declining sales figures over consecutive months.
+2. High turnover rates within the sales team.
+3. Lack of communication between regional and corporate teams.
+4. Inconsistent reporting of sales data.
+5. Customer complaints increasing in frequency.
+6. Failure to meet sales targets.
+7. Low engagement in training programs.
+8. Delays in responding to client inquiries.
+9. Poor feedback from client satisfaction surveys.
+10. Unclear or conflicting sales strategies.
+
+Dashboard needs for Regional BDM:
+1. Real-time sales performance metrics.
+2. Visual representation of sales trends over time.
+3. Client relationship management tools.
+4. Market analysis and opportunity identification features.
+5. Training and support resources for sales teams.
+6. Alerts for declining performance or red flags.
+7. Integration with marketing campaign data.
+8. Customer feedback and satisfaction scores.
+9. Sales target tracking and forecasting tools.
+10. Collaboration features for team communication.

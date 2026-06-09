@@ -9,16 +9,12 @@ def main():
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
-    cursor.execute("PRAGMA table_info(roles)")
-    for col in cursor.fetchall():
-        print(f"  - {col['name']} ({col['type']})")
-        
-    print("\nSample Rows:")
-    cursor.execute("SELECT * FROM roles LIMIT 3")
+    cursor.execute("SELECT id, role_code, role_name FROM roles ORDER BY id")
     for r in cursor.fetchall():
-        print(dict(r))
+        print(f"ID: {r['id']:<3} | Code: {r['role_code']:<30} | Name: {r['role_name']}")
         
     conn.close()
 
 if __name__ == '__main__':
     main()
+

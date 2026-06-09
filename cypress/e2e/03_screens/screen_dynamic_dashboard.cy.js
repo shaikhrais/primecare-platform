@@ -15,9 +15,12 @@ describe("Screen - dynamic_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("dynamicdashboard-screen").should("be.visible");
+  cy.getCy("dynamicdashboard-title").should("be.visible");
+  cy.getCy("dynamicdashboard-content").should("be.visible");
+  cy.getCy("dynamic_dashboard-btn-run-compliance-scan").should("be.visible");
+  cy.getCy("dynamic_dashboard-btn-sync-posture").should("be.visible");
+  cy.getCy("dynamic_dashboard-btn-update-policy").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Dynamic Dashboard...");
   cy.waitAndSee();

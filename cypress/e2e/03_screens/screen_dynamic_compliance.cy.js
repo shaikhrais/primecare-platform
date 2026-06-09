@@ -18,6 +18,9 @@ describe("Screen - dynamic_compliance", () => {
   cy.getCy("dynamiccompliance-screen").should("be.visible");
   cy.getCy("dynamiccompliance-title").should("be.visible");
   cy.getCy("dynamiccompliance-content").should("be.visible");
+  cy.getCy("dynamic-compliance-btn-execute-scan").should("be.visible");
+  cy.getCy("dynamic-compliance-btn-trigger-action").should("be.visible");
+  cy.getCy("dynamic-compliance-btn-refresh-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for DynamicScreenComplianceScreen...");
   cy.waitAndSee();

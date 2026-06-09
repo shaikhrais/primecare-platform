@@ -15,9 +15,12 @@ describe("Screen - remote_patient_monitoring_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("remotepatientmonitoringdashboard-screen").should("be.visible");
+  cy.getCy("remotepatientmonitoringdashboard-title").should("be.visible");
+  cy.getCy("remotepatientmonitoringdashboard-content").should("be.visible");
+  cy.getCy("dashboard-btn-update-care-plan").should("be.visible");
+  cy.getCy("dashboard-btn-schedule-appointment").should("be.visible");
+  cy.getCy("dashboard-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Remote Patient Monitoring Dashboard...");
   cy.waitAndSee();

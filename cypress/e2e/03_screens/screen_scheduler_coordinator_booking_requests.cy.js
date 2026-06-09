@@ -7,17 +7,20 @@ describe("Screen - scheduler_coordinator_booking_requests", () => {
   it("opens and verifies screen scheduler_coordinator_booking_requests", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Scheduler Coordinator Booking Requests)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/scheduler_coordinator/booking-requests (Scheduler Coordinator Booking Requests)...");
+  cy.visitWithSemantics("/offices/franchise/roles/scheduler_coordinator/booking-requests");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Scheduler Coordinator Booking Requests...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("schedulercoordinatorbookingrequests-screen").should("be.visible");
+  cy.getCy("schedulercoordinatorbookingrequests-title").should("be.visible");
+  cy.getCy("schedulercoordinatorbookingrequests-content").should("be.visible");
+  cy.getCy("booking-request-list").should("be.visible");
+  cy.getCy("btn-approve").should("be.visible");
+  cy.getCy("btn-reject").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Scheduler Coordinator Booking Requests...");
   cy.waitAndSee();

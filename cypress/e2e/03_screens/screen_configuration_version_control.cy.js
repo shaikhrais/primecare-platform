@@ -15,9 +15,12 @@ describe("Screen - configuration_version_control", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("configurationversioncontrol-screen").should("be.visible");
+  cy.getCy("configurationversioncontrol-title").should("be.visible");
+  cy.getCy("configurationversioncontrol-content").should("be.visible");
+  cy.getCy("configversion-btn-refresh").should("be.visible");
+  cy.getCy("configversion-btn-viewdiff").should("be.visible");
+  cy.getCy("configversion-btn-rollback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Configuration Version Control...");
   cy.waitAndSee();

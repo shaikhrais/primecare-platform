@@ -15,9 +15,12 @@ describe("Screen - local_marketing_manager_assets", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("localmarketingmanagerassets-screen").should("be.visible");
+  cy.getCy("localmarketingmanagerassets-title").should("be.visible");
+  cy.getCy("localmarketingmanagerassets-content").should("be.visible");
+  cy.getCy("localmarketing-assets-overview").should("be.visible");
+  cy.getCy("localmarketing-performance-metrics").should("be.visible");
+  cy.getCy("localmarketing-notifications").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Local Marketing Manager Assets...");
   cy.waitAndSee();

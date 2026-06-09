@@ -18,6 +18,9 @@ describe("Screen - file_verification_dashboard", () => {
   cy.getCy("fileverificationdashboard-screen").should("be.visible");
   cy.getCy("fileverificationdashboard-title").should("be.visible");
   cy.getCy("fileverificationdashboard-content").should("be.visible");
+  cy.getCy("govdashboard-btn-view-audit-logs").should("be.visible");
+  cy.getCy("govdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("govdashboard-btn-access-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FileVerificationDashboardScreen...");
   cy.waitAndSee();

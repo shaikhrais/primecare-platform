@@ -15,9 +15,12 @@ describe("Screen - head_of_marketing_funnel_analytics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("headofmarketingfunnelanalytics-screen").should("be.visible");
+  cy.getCy("headofmarketingfunnelanalytics-title").should("be.visible");
+  cy.getCy("headofmarketingfunnelanalytics-content").should("be.visible");
+  cy.getCy("funnel-metrics-card").should("be.visible");
+  cy.getCy("engagement-chart").should("be.visible");
+  cy.getCy("conversion-rate-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Head Of Marketing Funnel Analytics...");
   cy.waitAndSee();

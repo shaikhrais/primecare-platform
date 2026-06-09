@@ -7,8 +7,8 @@ describe("Screen - cto_dashboard", () => {
   it("opens and verifies screen cto_dashboard", () => {
     cy.loginAsRole("cto");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/cto-dashboard (CtoDashboardScreen)...");
-  cy.visitWithSemantics("/executive/cto-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/cto/dashboard (CtoDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cto/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for CtoDashboardScreen...");
@@ -18,6 +18,9 @@ describe("Screen - cto_dashboard", () => {
   cy.getCy("ctodashboard-screen").should("be.visible");
   cy.getCy("ctodashboard-title").should("be.visible");
   cy.getCy("ctodashboard-content").should("be.visible");
+  cy.getCy("cto-dashboard-kpi-widget").should("be.visible");
+  cy.getCy("cto-dashboard-performance-chart").should("be.visible");
+  cy.getCy("cto-dashboard-security-card").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CtoDashboardScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - architecture_planning_analytics", () => {
   cy.getCy("architectureplanninganalytics-screen").should("be.visible");
   cy.getCy("architectureplanninganalytics-title").should("be.visible");
   cy.getCy("architectureplanninganalytics-content").should("be.visible");
+  cy.getCy("infrastructure-health-overview").should("be.visible");
+  cy.getCy("security-alerts").should("be.visible");
+  cy.getCy("uptime-downtime-visualization").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ArchitecturePlanningAnalyticsScreen...");
   cy.waitAndSee();

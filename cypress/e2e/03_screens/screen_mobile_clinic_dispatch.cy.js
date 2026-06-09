@@ -15,9 +15,12 @@ describe("Screen - mobile_clinic_dispatch", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("mobileclinicdispatch-screen").should("be.visible");
+  cy.getCy("mobileclinicdispatch-title").should("be.visible");
+  cy.getCy("mobileclinicdispatch-content").should("be.visible");
+  cy.getCy("mobile-clinic-btn-schedule").should("be.visible");
+  cy.getCy("mobile-clinic-btn-assign").should("be.visible");
+  cy.getCy("mobile-clinic-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Mobile Clinic Dispatch...");
   cy.waitAndSee();

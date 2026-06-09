@@ -18,6 +18,9 @@ describe("Screen - attendance", () => {
   cy.getCy("attendance-screen").should("be.visible");
   cy.getCy("attendance-title").should("be.visible");
   cy.getCy("attendance-content").should("be.visible");
+  cy.getCy("attendance-dashboard-performance").should("be.visible");
+  cy.getCy("attendance-dashboard-compliance").should("be.visible");
+  cy.getCy("attendance-dashboard-engagement").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for AttendanceScreen...");
   cy.waitAndSee();

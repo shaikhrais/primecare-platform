@@ -1,0 +1,22 @@
+Dynamic Screen Viewer Tasks:
+1. Render the Customer Support Dashboard Screen.
+2. Display the title and logs of the dashboard.
+3. Provide buttons for executing actions like compliance scans and manual synchronization.
+4. Show operational metrics and telemetry charts.
+5. Allow exporting of logs and updating security policies.
+6. Handle loading states and errors effectively.
+
+Red Flags of Operation:
+1. Long loading times during compliance scans could indicate performance issues.
+2. Frequent errors in log entries may suggest underlying system problems.
+3. Lack of user feedback during operations could lead to confusion.
+4. Inconsistent data in metrics may point to data integrity issues.
+5. Unhandled exceptions could crash the dashboard or lead to data loss.
+
+Dashboard Requirements:
+1. Real-time updates for logs and metrics.
+2. Clear indicators for loading states and errors.
+3. User-friendly buttons for executing actions.
+4. Visual representation of telemetry data.
+5. Export functionality for audit logs.
+6. Notifications for successful or failed operations.

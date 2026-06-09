@@ -18,6 +18,9 @@ describe("Screen - care_updates", () => {
   cy.getCy("careupdates-screen").should("be.visible");
   cy.getCy("careupdates-title").should("be.visible");
   cy.getCy("careupdates-content").should("be.visible");
+  cy.getCy("compliance-scan-results").should("be.visible");
+  cy.getCy("performance-indicator-chart").should("be.visible");
+  cy.getCy("operational-audit-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CareUpdatesScreen...");
   cy.waitAndSee();

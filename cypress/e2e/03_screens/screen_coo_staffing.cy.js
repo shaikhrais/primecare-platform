@@ -18,6 +18,9 @@ describe("Screen - coo_staffing", () => {
   cy.getCy("coostaffing-screen").should("be.visible");
   cy.getCy("coostaffing-title").should("be.visible");
   cy.getCy("coostaffing-content").should("be.visible");
+  cy.getCy("coo-dashboard-refresh-metrics").should("be.visible");
+  cy.getCy("coo-dashboard-view-report").should("be.visible");
+  cy.getCy("coo-dashboard-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CooStaffingScreen...");
   cy.waitAndSee();

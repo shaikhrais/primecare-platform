@@ -15,9 +15,12 @@ describe("Screen - rn_messaging", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("rnmessaging-screen").should("be.visible");
+  cy.getCy("rnmessaging-title").should("be.visible");
+  cy.getCy("rnmessaging-content").should("be.visible");
+  cy.getCy("dashboard-btn-refresh-metrics").should("be.visible");
+  cy.getCy("dashboard-btn-view-compliance").should("be.visible");
+  cy.getCy("dashboard-btn-check-security").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Rn Messaging...");
   cy.waitAndSee();

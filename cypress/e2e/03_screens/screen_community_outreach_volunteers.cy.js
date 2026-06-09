@@ -15,9 +15,12 @@ describe("Screen - community_outreach_volunteers", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("communityoutreachvolunteers-screen").should("be.visible");
+  cy.getCy("communityoutreachvolunteers-title").should("be.visible");
+  cy.getCy("communityoutreachvolunteers-content").should("be.visible");
+  cy.getCy("volunteer-stats-card").should("be.visible");
+  cy.getCy("events-calendar").should("be.visible");
+  cy.getCy("feedback-summary").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Community Outreach Volunteers...");
   cy.waitAndSee();

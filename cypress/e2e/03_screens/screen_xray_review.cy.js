@@ -18,6 +18,9 @@ describe("Screen - xray_review", () => {
   cy.getCy("xrayreview-screen").should("be.visible");
   cy.getCy("xrayreview-title").should("be.visible");
   cy.getCy("xrayreview-content").should("be.visible");
+  cy.getCy("xrayreview-btn-save").should("be.visible");
+  cy.getCy("xrayreview-btn-review").should("be.visible");
+  cy.getCy("xrayreview-btn-logprogress").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for XrayReviewScreen...");
   cy.waitAndSee();

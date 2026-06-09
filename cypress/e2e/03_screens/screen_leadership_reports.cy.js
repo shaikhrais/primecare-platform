@@ -7,17 +7,20 @@ describe("Screen - leadership_reports", () => {
   it("opens and verifies screen leadership_reports", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Leadership Reports)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /generated/offices/corporate/roles/ceo/leadership-reports (Leadership Reports)...");
+  cy.visitWithSemantics("/generated/offices/corporate/roles/ceo/leadership-reports");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Leadership Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("leadershipreports-screen").should("be.visible");
+  cy.getCy("leadershipreports-title").should("be.visible");
+  cy.getCy("leadershipreports-content").should("be.visible");
+  cy.getCy("leadership-reports-analyze").should("be.visible");
+  cy.getCy("leadership-reports-feedback").should("be.visible");
+  cy.getCy("leadership-reports-collaborate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Leadership Reports...");
   cy.waitAndSee();

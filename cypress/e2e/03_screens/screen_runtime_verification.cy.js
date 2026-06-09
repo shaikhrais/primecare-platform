@@ -18,6 +18,9 @@ describe("Screen - runtime_verification", () => {
   cy.getCy("runtimeverification-screen").should("be.visible");
   cy.getCy("runtimeverification-title").should("be.visible");
   cy.getCy("runtimeverification-content").should("be.visible");
+  cy.getCy("gov-dashboard-compliance-status").should("be.visible");
+  cy.getCy("gov-dashboard-audit-log").should("be.visible");
+  cy.getCy("gov-dashboard-risk-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RuntimeVerificationScreen...");
   cy.waitAndSee();

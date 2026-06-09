@@ -1,0 +1,20 @@
+List of work for the user:
+1. Review the training coordinator certifications.
+2. Monitor the status of certifications.
+3. Update certification details as necessary.
+4. Generate reports on certification progress.
+5. Communicate with trainees regarding their certification status.
+
+Red flags of operation:
+1. Delays in certification processing.
+2. High error rates in certification data.
+3. Lack of communication from trainees.
+4. Incomplete certification records.
+5. Low engagement from trainees in certification activities.
+
+Dashboard needs for the user:
+1. Overview of certification statuses (completed, pending, failed).
+2. Notifications for upcoming certification deadlines.
+3. Metrics on trainee engagement and performance.
+4. Quick access to certification update forms.
+5. Visual representation of certification progress over time.

@@ -7,17 +7,20 @@ describe("Screen - cto_platform_usage", () => {
   it("opens and verifies screen cto_platform_usage", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Cto Platform Usage)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/cto/platform-usage (Cto Platform Usage)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cto/platform-usage");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Cto Platform Usage...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ctoplatformusage-screen").should("be.visible");
+  cy.getCy("ctoplatformusage-title").should("be.visible");
+  cy.getCy("ctoplatformusage-content").should("be.visible");
+  cy.getCy("platform-usage-metrics").should("be.visible");
+  cy.getCy("user-engagement-chart").should("be.visible");
+  cy.getCy("usage-trends-graph").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Cto Platform Usage...");
   cy.waitAndSee();

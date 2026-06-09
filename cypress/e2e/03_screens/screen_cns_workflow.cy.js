@@ -15,9 +15,12 @@ describe("Screen - cns_workflow", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("clinical nurse specialist compliance workflow-screen").should("be.visible");
-  cy.getCy("clinical nurse specialist compliance workflow-title").should("be.visible");
-  cy.getCy("clinical nurse specialist compliance workflow-content").should("be.visible");
+  cy.getCy("cnsworkflow-screen").should("be.visible");
+  cy.getCy("cnsworkflow-title").should("be.visible");
+  cy.getCy("cnsworkflow-content").should("be.visible");
+  cy.getCy("cns-dashboard-btn-update-care-plan").should("be.visible");
+  cy.getCy("cns-dashboard-btn-report-red-flag").should("be.visible");
+  cy.getCy("cns-dashboard-btn-training-resources").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Clinical Nurse Specialist Compliance Workflow...");
   cy.waitAndSee();

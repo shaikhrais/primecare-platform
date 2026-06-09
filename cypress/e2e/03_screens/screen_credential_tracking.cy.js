@@ -7,17 +7,20 @@ describe("Screen - credential_tracking", () => {
   it("opens and verifies screen credential_tracking", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Credential Tracking)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/compliance_manager/credential-tracking (Credential Tracking)...");
+  cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/credential-tracking");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Credential Tracking...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("credentialtracking-screen").should("be.visible");
+  cy.getCy("credentialtracking-title").should("be.visible");
+  cy.getCy("credentialtracking-content").should("be.visible");
+  cy.getCy("credential-status-overview").should("be.visible");
+  cy.getCy("credential-update-button").should("be.visible");
+  cy.getCy("credential-report-button").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Credential Tracking...");
   cy.waitAndSee();

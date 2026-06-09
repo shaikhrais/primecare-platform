@@ -18,6 +18,9 @@ describe("Screen - support_workflow", () => {
   cy.getCy("supportworkflow-screen").should("be.visible");
   cy.getCy("supportworkflow-title").should("be.visible");
   cy.getCy("supportworkflow-content").should("be.visible");
+  cy.getCy("support-dashboard-ticket-overview").should("be.visible");
+  cy.getCy("support-dashboard-response-time").should("be.visible");
+  cy.getCy("support-dashboard-customer-satisfaction").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SupportWorkflowScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - territory_sales_manager_analytics", () => {
   cy.getCy("territorysalesmanageranalytics-screen").should("be.visible");
   cy.getCy("territorysalesmanageranalytics-title").should("be.visible");
   cy.getCy("territorysalesmanageranalytics-content").should("be.visible");
+  cy.getCy("territory-sales-manager-btn-generate-report").should("be.visible");
+  cy.getCy("territory-sales-manager-btn-view-segmentation").should("be.visible");
+  cy.getCy("territory-sales-manager-btn-update-strategy").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TerritorySalesManagerAnalyticsScreen...");
   cy.waitAndSee();

@@ -15,9 +15,11 @@ describe("Screen - course_library", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("courselibrary-screen").should("be.visible");
+  cy.getCy("courselibrary-title").should("be.visible");
+  cy.getCy("courselibrary-content").should("be.visible");
+  cy.getCy("course-library-loading").should("be.visible");
+  cy.getCy("course-library-error").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Course Library...");
   cy.waitAndSee();

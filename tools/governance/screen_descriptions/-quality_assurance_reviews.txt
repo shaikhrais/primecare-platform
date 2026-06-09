@@ -1,0 +1,26 @@
+User Work List:
+1. Review quality assurance metrics and reports.
+2. Analyze feedback from quality assurance reviews.
+3. Identify areas for improvement in processes.
+4. Collaborate with team members to address quality issues.
+5. Document findings and recommendations for future reference.
+6. Monitor the implementation of quality assurance improvements.
+7. Participate in regular quality assurance meetings.
+
+Red Flags of Operation:
+1. Frequent errors or bugs reported in the system.
+2. Delays in the quality assurance review process.
+3. Lack of communication among team members regarding quality issues.
+4. Inconsistent quality metrics across different projects.
+5. Low engagement or participation in quality assurance activities.
+6. High turnover rate of quality assurance personnel.
+7. Negative feedback from stakeholders regarding quality outcomes.
+
+Dashboard Needs:
+1. Real-time quality assurance metrics and KPIs.
+2. Visual representation of trends in quality issues over time.
+3. Alerts for critical quality issues that need immediate attention.
+4. Summary of recent quality assurance reviews and outcomes.
+5. Feedback loop from team members on quality assurance processes.
+6. Action items and follow-up tasks related to quality improvements.
+7. Historical data for comparison and analysis of quality trends.

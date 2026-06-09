@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Review pending approvals.
+2. Approve or reject requests.
+3. Monitor the status of approvals.
+4. Provide feedback on requests if necessary.
+5. Access historical approval data for analysis.
+
+Red flags of operation:
+1. Delays in approval times.
+2. High number of rejected requests.
+3. Frequent errors or issues during the approval process.
+4. Lack of feedback from users on the approval process.
+5. Inconsistent data or discrepancies in historical approval records.
+
+What is needed on the dashboard for the user:
+1. Overview of pending approvals with timestamps.
+2. Statistics on approval times and rejection rates.
+3. Notifications for overdue approvals.
+4. Quick access to historical approval data.
+5. Feedback section for users to report issues or suggestions.

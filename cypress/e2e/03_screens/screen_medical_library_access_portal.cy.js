@@ -15,9 +15,12 @@ describe("Screen - medical_library_access_portal", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("medicallibraryaccessportal-screen").should("be.visible");
+  cy.getCy("medicallibraryaccessportal-title").should("be.visible");
+  cy.getCy("medicallibraryaccessportal-content").should("be.visible");
+  cy.getCy("medical-library-refresh-button").should("be.visible");
+  cy.getCy("medical-library-search-button").should("be.visible");
+  cy.getCy("medical-library-error-message").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Medical Library Access Portal...");
   cy.waitAndSee();

@@ -1,0 +1,23 @@
+List of work the user must do:
+1. Review and manage the content calendar for local marketing campaigns.
+2. Schedule posts and promotional content.
+3. Collaborate with team members on content ideas and strategies.
+4. Analyze performance metrics of past campaigns.
+5. Adjust content strategies based on performance data.
+6. Ensure all content aligns with brand guidelines and marketing goals.
+
+Red flags of operation:
+1. Delays in content approval processes.
+2. Inconsistent posting schedules.
+3. Low engagement rates on published content.
+4. Lack of collaboration or communication among team members.
+5. Missing deadlines for campaign launches.
+6. High volume of errors in scheduled content.
+
+What is needed on the user dashboard:
+1. Overview of upcoming scheduled posts and campaigns.
+2. Performance metrics for past content (engagement, reach, etc.).
+3. Notifications for pending approvals or deadlines.
+4. Collaboration tools for team discussions and feedback.
+5. A calendar view for easy visualization of content schedules.
+6. Alerts for any red flags or issues that need immediate attention.

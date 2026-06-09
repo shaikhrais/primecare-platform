@@ -18,6 +18,9 @@ describe("Screen - course_assignment", () => {
   cy.getCy("courseassignment-screen").should("be.visible");
   cy.getCy("courseassignment-title").should("be.visible");
   cy.getCy("courseassignment-content").should("be.visible");
+  cy.getCy("training-dashboard-metrics").should("be.visible");
+  cy.getCy("training-feedback-submit").should("be.visible");
+  cy.getCy("training-compliance-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CourseAssignmentScreen...");
   cy.waitAndSee();

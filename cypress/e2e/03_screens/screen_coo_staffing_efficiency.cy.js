@@ -7,17 +7,20 @@ describe("Screen - coo_staffing_efficiency", () => {
   it("opens and verifies screen coo_staffing_efficiency", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Coo Staffing Efficiency)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/coo/staffing-efficiency (Coo Staffing Efficiency)...");
+  cy.visitWithSemantics("/offices/corporate/roles/coo/staffing-efficiency");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Coo Staffing Efficiency...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("coostaffingefficiency-screen").should("be.visible");
+  cy.getCy("coostaffingefficiency-title").should("be.visible");
+  cy.getCy("coostaffingefficiency-content").should("be.visible");
+  cy.getCy("staffing-metrics-card").should("be.visible");
+  cy.getCy("trend-visualization-chart").should("be.visible");
+  cy.getCy("alerts-notification-panel").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Coo Staffing Efficiency...");
   cy.waitAndSee();

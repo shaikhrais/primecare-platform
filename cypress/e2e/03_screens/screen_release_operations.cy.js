@@ -18,6 +18,9 @@ describe("Screen - release_operations", () => {
   cy.getCy("releaseoperations-screen").should("be.visible");
   cy.getCy("releaseoperations-title").should("be.visible");
   cy.getCy("releaseoperations-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("gov-dashboard-btn-filter-logs").should("be.visible");
+  cy.getCy("gov-dashboard-btn-access-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ReleaseOperationsScreen...");
   cy.waitAndSee();

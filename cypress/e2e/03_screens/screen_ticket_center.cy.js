@@ -7,17 +7,20 @@ describe("Screen - ticket_center", () => {
   it("opens and verifies screen ticket_center", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Ticket Center)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /governance/tickets (Ticket Center)...");
+  cy.visitWithSemantics("/governance/tickets");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Ticket Center...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ticketcenter-screen").should("be.visible");
+  cy.getCy("ticketcenter-title").should("be.visible");
+  cy.getCy("ticketcenter-content").should("be.visible");
+  cy.getCy("ticketcenter-btn-create").should("be.visible");
+  cy.getCy("ticketcenter-btn-respond").should("be.visible");
+  cy.getCy("ticketcenter-btn-review").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Ticket Center...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - psw_incident_report", () => {
   cy.getCy("pswincidentreport-screen").should("be.visible");
   cy.getCy("pswincidentreport-title").should("be.visible");
   cy.getCy("pswincidentreport-content").should("be.visible");
+  cy.getCy("psw-dashboard-btn-report-incident").should("be.visible");
+  cy.getCy("psw-dashboard-btn-update-health-status").should("be.visible");
+  cy.getCy("psw-dashboard-btn-view-compliance-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PswIncidentReportScreen...");
   cy.waitAndSee();

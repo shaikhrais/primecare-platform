@@ -18,6 +18,9 @@ describe("Screen - scheduler_command_center", () => {
   cy.getCy("schedulercommandcenter-screen").should("be.visible");
   cy.getCy("schedulercommandcenter-title").should("be.visible");
   cy.getCy("schedulercommandcenter-content").should("be.visible");
+  cy.getCy("scheduler-btn-view-audit").should("be.visible");
+  cy.getCy("scheduler-btn-update-schedule").should("be.visible");
+  cy.getCy("scheduler-btn-resolve-complaint").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerCommandCenterScreen...");
   cy.waitAndSee();

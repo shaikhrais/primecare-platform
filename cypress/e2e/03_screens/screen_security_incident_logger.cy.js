@@ -15,9 +15,12 @@ describe("Screen - security_incident_logger", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("securityincidentlogger-screen").should("be.visible");
+  cy.getCy("securityincidentlogger-title").should("be.visible");
+  cy.getCy("securityincidentlogger-content").should("be.visible");
+  cy.getCy("incident-list").should("be.visible");
+  cy.getCy("btn-refresh-incidents").should("be.visible");
+  cy.getCy("btn-log-incident").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Security Incident Logger...");
   cy.waitAndSee();

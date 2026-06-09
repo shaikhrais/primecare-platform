@@ -15,9 +15,11 @@ describe("Screen - hr_applicants", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("hrapplicants-screen").should("be.visible");
+  cy.getCy("hrapplicants-title").should("be.visible");
+  cy.getCy("hrapplicants-content").should("be.visible");
+  cy.getCy("hrapplicants-btn-submit-event-log").should("be.visible");
+  cy.getCy("hrapplicants-btn-refresh-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Hr Applicants...");
   cy.waitAndSee();

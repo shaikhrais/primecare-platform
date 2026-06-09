@@ -1,0 +1,29 @@
+Physician Responsibilities:
+1. Submit e-prescriptions.
+2. Authorize lab orders.
+3. Run compliance scans.
+4. Sync security posture.
+5. Update policies.
+6. Export audit logs.
+7. Monitor operational metrics.
+
+Red Flags for Operations:
+1. API errors during prescription submission or lab order authorization.
+2. Network errors affecting communication with the API.
+3. High system latency.
+4. Low data integrity percentages.
+5. Non-compliance alerts from audits.
+6. Security clearance levels dropping below acceptable thresholds.
+
+Dashboard Requirements for Physicians:
+1. Title displaying "Physician Dashboard."
+2. Loading indicator for ongoing operations.
+3. Logs of recent actions and system events.
+4. Key performance indicators (KPIs) such as:
+   - Active operations status.
+   - Security clearance level.
+   - System latency.
+   - Data integrity percentage.
+5. Telemetry charts for monitoring performance over time.
+6. Action buttons for executing key functions like compliance scans and policy updates.
+7. Audit logs section for reviewing operational history.

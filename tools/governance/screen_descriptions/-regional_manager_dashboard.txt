@@ -1,0 +1,28 @@
+List of work the user must do:
+1. Monitor regional performance metrics.
+2. Analyze sales data and trends.
+3. Review team performance and productivity.
+4. Identify areas for improvement in operations.
+5. Communicate with team members and stakeholders.
+6. Set goals and objectives for the region.
+7. Prepare reports for upper management.
+8. Implement strategies to enhance regional performance.
+
+Red flags of operation:
+1. Declining sales figures over consecutive months.
+2. High employee turnover rates.
+3. Consistent delays in project timelines.
+4. Negative customer feedback or complaints.
+5. Low engagement levels among team members.
+6. Failure to meet set targets or KPIs.
+7. Increased operational costs without corresponding revenue growth.
+
+What is needed on the user dashboard:
+1. Real-time sales performance metrics.
+2. Visualizations of trends and forecasts.
+3. Team performance indicators and metrics.
+4. Alerts for any red flags or issues.
+5. A section for customer feedback and satisfaction scores.
+6. Goal tracking and progress indicators.
+7. Quick access to reports and analytics tools.
+8. Communication tools for team collaboration.

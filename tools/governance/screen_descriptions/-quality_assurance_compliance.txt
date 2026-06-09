@@ -1,0 +1,35 @@
+List of tasks a QA Specialist must perform:
+1. Conduct compliance audits to ensure adherence to standards.
+2. Monitor and log system performance and compliance metrics.
+3. Review and analyze audit logs for discrepancies.
+4. Collaborate with development teams to address identified issues.
+5. Maintain documentation of compliance processes and findings.
+6. Implement and monitor governance directives and policies.
+7. Provide training and support to staff on compliance requirements.
+8. Facilitate secure event reporting and ingestion of logs.
+9. Update and maintain the QA dashboard with relevant metrics.
+10. Communicate findings and recommendations to stakeholders.
+
+Red flags in operations that indicate ineffective work:
+1. Increased number of compliance violations or audit failures.
+2. Delays in compliance audit execution or reporting.
+3. Lack of clear documentation or updates on compliance processes.
+4. Inconsistent logging of operational activities.
+5. High volume of unresolved issues or discrepancies.
+6. Poor communication between QA and development teams.
+7. Frequent changes in governance policies without proper training.
+8. Low engagement from staff in compliance training sessions.
+9. Inadequate response to identified security vulnerabilities.
+10. Lack of updates or maintenance on the QA dashboard.
+
+Essential elements for a QA Specialist dashboard:
+1. Compliance audit status and results.
+2. Real-time system performance metrics.
+3. Log of recent compliance verification audits.
+4. Summary of governance directives and their statuses.
+5. Operational audit logs with timestamps and details.
+6. Alerts for compliance violations or issues needing attention.
+7. Metrics on staff engagement in compliance training.
+8. Historical data on compliance trends over time.
+9. Visual representation of compliance metrics (charts/graphs).
+10. Quick access to tools for conducting audits and logging findings.

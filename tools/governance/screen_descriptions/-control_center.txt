@@ -1,0 +1,23 @@
+User Tasks:
+1. Monitor overall governance score and compliance metrics.
+2. Review task queue for pending and completed tasks.
+3. Check health score and identify any drifts, warnings, or errors.
+4. Analyze phase progress of software factory lifecycle.
+5. Access agent HUD for real-time operational insights.
+6. Examine evidence panel for compliance documentation and reports.
+
+Red Flags of Operation:
+1. High number of compliance drifts.
+2. Increased warnings or mismatches detected.
+3. Errors in API endpoints.
+4. Low overall governance score.
+5. Significant delays in task completion.
+6. Unusual activity in agent HUD indicating potential issues.
+
+Dashboard Requirements:
+1. Real-time health score display.
+2. Task queue overview with status indicators.
+3. Compliance drift and warning metrics.
+4. Lifecycle progress visualization.
+5. Agent performance metrics.
+6. Evidence panel for compliance documentation.

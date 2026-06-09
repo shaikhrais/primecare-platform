@@ -18,6 +18,9 @@ describe("Screen - governance_officer_compliance", () => {
   cy.getCy("governanceofficercompliance-screen").should("be.visible");
   cy.getCy("governanceofficercompliance-title").should("be.visible");
   cy.getCy("governanceofficercompliance-content").should("be.visible");
+  cy.getCy("govdashboard-btn-start-audit").should("be.visible");
+  cy.getCy("govdashboard-btn-view-reports").should("be.visible");
+  cy.getCy("govdashboard-btn-generate-training-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for GovernanceOfficerComplianceScreen...");
   cy.waitAndSee();

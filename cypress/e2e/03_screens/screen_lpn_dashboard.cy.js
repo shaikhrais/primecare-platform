@@ -18,6 +18,9 @@ describe("Screen - lpn_dashboard", () => {
   cy.getCy("lpndashboard-screen").should("be.visible");
   cy.getCy("lpndashboard-title").should("be.visible");
   cy.getCy("lpndashboard-content").should("be.visible");
+  cy.getCy("lpn-dashboard-vital-signs").should("be.visible");
+  cy.getCy("lpn-dashboard-medication-log").should("be.visible");
+  cy.getCy("lpn-dashboard-compliance-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for LpnDashboardScreen...");
   cy.waitAndSee();

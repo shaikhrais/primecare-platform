@@ -15,9 +15,12 @@ describe("Screen - telemedicine_prescription_pad", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("telemedicineprescriptionpad-screen").should("be.visible");
+  cy.getCy("telemedicineprescriptionpad-title").should("be.visible");
+  cy.getCy("telemedicineprescriptionpad-content").should("be.visible");
+  cy.getCy("telemedicine-prescription-pad-submit").should("be.visible");
+  cy.getCy("telemedicine-prescription-pad-confirm").should("be.visible");
+  cy.getCy("telemedicine-prescription-pad-track").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Telemedicine Prescription Pad...");
   cy.waitAndSee();

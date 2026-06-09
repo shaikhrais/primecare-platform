@@ -18,6 +18,9 @@ describe("Screen - ticket_management", () => {
   cy.getCy("ticketmanagement-screen").should("be.visible");
   cy.getCy("ticketmanagement-title").should("be.visible");
   cy.getCy("ticketmanagement-content").should("be.visible");
+  cy.getCy("ticket-status-overview").should("be.visible");
+  cy.getCy("response-time-chart").should("be.visible");
+  cy.getCy("customer-satisfaction-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TicketManagementScreen...");
   cy.waitAndSee();

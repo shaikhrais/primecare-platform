@@ -7,8 +7,8 @@ describe("Screen - patient_profile", () => {
   it("opens and verifies screen patient_profile", () => {
     cy.loginAsRole("patient");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /common/patient-profile (PatientProfileScreen)...");
-  cy.visitWithSemantics("/common/patient-profile");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/client/roles/client/profile (PatientProfileScreen)...");
+  cy.visitWithSemantics("/offices/client/roles/client/profile");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for PatientProfileScreen...");
@@ -18,6 +18,8 @@ describe("Screen - patient_profile", () => {
   cy.getCy("patientprofile-screen").should("be.visible");
   cy.getCy("patientprofile-title").should("be.visible");
   cy.getCy("patientprofile-content").should("be.visible");
+  cy.getCy("patientprofile-btn-trigger-compliance-scan").should("be.visible");
+  cy.getCy("patientprofile-btn-refresh-dashboard").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PatientProfileScreen...");
   cy.waitAndSee();

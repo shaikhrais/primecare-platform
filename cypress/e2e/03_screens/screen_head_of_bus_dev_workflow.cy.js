@@ -18,6 +18,9 @@ describe("Screen - head_of_bus_dev_workflow", () => {
   cy.getCy("headofbusdevworkflow-screen").should("be.visible");
   cy.getCy("headofbusdevworkflow-title").should("be.visible");
   cy.getCy("headofbusdevworkflow-content").should("be.visible");
+  cy.getCy("bd-dashboard-kpi-chart").should("be.visible");
+  cy.getCy("bd-dashboard-pipeline-status").should("be.visible");
+  cy.getCy("bd-dashboard-client-engagement").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HeadOfBusDevWorkflowScreen...");
   cy.waitAndSee();

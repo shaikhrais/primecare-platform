@@ -18,6 +18,9 @@ describe("Screen - compliance_overview", () => {
   cy.getCy("complianceoverview-screen").should("be.visible");
   cy.getCy("complianceoverview-title").should("be.visible");
   cy.getCy("complianceoverview-content").should("be.visible");
+  cy.getCy("franchise-dashboard-sales").should("be.visible");
+  cy.getCy("franchise-dashboard-customer-feedback").should("be.visible");
+  cy.getCy("franchise-dashboard-inventory").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ComplianceOverviewScreen...");
   cy.waitAndSee();

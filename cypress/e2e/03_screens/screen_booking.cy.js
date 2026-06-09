@@ -18,6 +18,9 @@ describe("Screen - booking", () => {
   cy.getCy("booking-screen").should("be.visible");
   cy.getCy("booking-title").should("be.visible");
   cy.getCy("booking-content").should("be.visible");
+  cy.getCy("booking-btn-schedule").should("be.visible");
+  cy.getCy("booking-btn-verify").should("be.visible");
+  cy.getCy("booking-btn-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for BookingScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - incident_management", () => {
   cy.getCy("incidentmanagement-screen").should("be.visible");
   cy.getCy("incidentmanagement-title").should("be.visible");
   cy.getCy("incidentmanagement-content").should("be.visible");
+  cy.getCy("compliance-audit-status-card").should("be.visible");
+  cy.getCy("compliance-activity-log").should("be.visible");
+  cy.getCy("compliance-kpi-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for IncidentManagementScreen...");
   cy.waitAndSee();

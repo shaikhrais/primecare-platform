@@ -15,9 +15,12 @@ describe("Screen - telehealth_quality_metrics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("telehealthqualitymetrics-screen").should("be.visible");
+  cy.getCy("telehealthqualitymetrics-title").should("be.visible");
+  cy.getCy("telehealthqualitymetrics-content").should("be.visible");
+  cy.getCy("qualitymetrics-btn-generate-report").should("be.visible");
+  cy.getCy("qualitymetrics-btn-update-metrics").should("be.visible");
+  cy.getCy("qualitymetrics-btn-analyze-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Telehealth Quality Metrics...");
   cy.waitAndSee();

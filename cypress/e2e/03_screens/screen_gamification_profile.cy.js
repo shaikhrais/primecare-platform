@@ -15,9 +15,12 @@ describe("Screen - gamification_profile", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("gamificationprofile-screen").should("be.visible");
+  cy.getCy("gamificationprofile-title").should("be.visible");
+  cy.getCy("gamificationprofile-content").should("be.visible");
+  cy.getCy("gamification-profile-btn-award-points").should("be.visible");
+  cy.getCy("gamification-profile-btn-update-profile").should("be.visible");
+  cy.getCy("gamification-profile-leaderboard-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Gamification Profile...");
   cy.waitAndSee();

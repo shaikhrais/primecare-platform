@@ -1,0 +1,28 @@
+List of tasks for Regional BDM:
+1. Conduct compliance audits regularly.
+2. Monitor operational compliance checks.
+3. Ensure enforcement of multi-factor authentication.
+4. Stream real-time system audit telemetry.
+5. Manage secure event reporting ingestion.
+6. Update governance directives as necessary.
+7. Maintain operational audit logs.
+8. Trigger necessary governance actions.
+9. Refresh compliance status and logs.
+
+Red flags of operation:
+1. Delays in compliance audit execution.
+2. High number of non-compliant statuses in audits.
+3. Failure to enforce security policies like MFA.
+4. Incomplete or missing operational logs.
+5. Lack of real-time telemetry data.
+6. Frequent manual interventions required.
+
+Dashboard needs for Regional BDM:
+1. Compliance audit status overview.
+2. Real-time telemetry data display.
+3. Log of recent governance actions.
+4. Summary of operational compliance checks.
+5. Alerts for non-compliance issues.
+6. Visual representation of audit results.
+7. Access to secure event reporting submissions.
+8. Historical data on compliance trends.

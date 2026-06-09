@@ -1,0 +1,23 @@
+Home Support Worker Responsibilities:
+1. Manage active shifts and schedules.
+2. Track client locations and visits.
+3. Log travel mileage for reimbursement.
+4. Request schedule swaps when necessary.
+5. Utilize client map locator for efficient travel.
+6. Generate travel mileage reports for documentation.
+
+Red Flags of Operation:
+1. Frequent schedule changes or swaps indicating instability.
+2. High mileage logs suggesting inefficient routing.
+3. Missed visits or appointments.
+4. Lack of communication regarding client needs or changes.
+5. Inconsistent logging of travel mileage.
+6. Complaints from clients about missed or late visits.
+
+Dashboard Needs for Home Support Worker:
+1. Overview of active shifts and upcoming visits.
+2. Quick access to request schedule swaps.
+3. Mileage tracking and reporting tools.
+4. Client map locator for route optimization.
+5. Notifications for missed visits or schedule changes.
+6. Summary of client feedback and satisfaction metrics.

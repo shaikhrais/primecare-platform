@@ -15,9 +15,12 @@ describe("Screen - device_integration_hub", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("deviceintegrationhub-screen").should("be.visible");
+  cy.getCy("deviceintegrationhub-title").should("be.visible");
+  cy.getCy("deviceintegrationhub-content").should("be.visible");
+  cy.getCy("device-integration-status").should("be.visible");
+  cy.getCy("device-configure-settings").should("be.visible");
+  cy.getCy("user-permissions-manage").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Device Integration Hub...");
   cy.waitAndSee();

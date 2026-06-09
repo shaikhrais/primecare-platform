@@ -7,17 +7,20 @@ describe("Screen - governance_hud", () => {
   it("opens and verifies screen governance_hud", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Governance Hud)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /governance/hud (Governance Hud)...");
+  cy.visitWithSemantics("/governance/hud");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Governance Hud...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("governancehud-screen").should("be.visible");
+  cy.getCy("governancehud-title").should("be.visible");
+  cy.getCy("governancehud-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-submit-feedback").should("be.visible");
+  cy.getCy("gov-dashboard-btn-mark-action-complete").should("be.visible");
+  cy.getCy("gov-dashboard-btn-view-risk-mitigation").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Governance Hud...");
   cy.waitAndSee();

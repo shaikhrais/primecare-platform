@@ -18,6 +18,9 @@ describe("Screen - hr_director_hiring_pipeline", () => {
   cy.getCy("hrdirectorhiringpipeline-screen").should("be.visible");
   cy.getCy("hrdirectorhiringpipeline-title").should("be.visible");
   cy.getCy("hrdirectorhiringpipeline-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-report").should("be.visible");
+  cy.getCy("hrdashboard-btn-export-data").should("be.visible");
+  cy.getCy("hrdashboard-btn-refresh-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HrDirectorHiringPipelineScreen...");
   cy.waitAndSee();

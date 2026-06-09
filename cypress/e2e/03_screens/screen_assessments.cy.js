@@ -15,9 +15,12 @@ describe("Screen - assessments", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("assessments-screen").should("be.visible");
+  cy.getCy("assessments-title").should("be.visible");
+  cy.getCy("assessments-content").should("be.visible");
+  cy.getCy("assessments-loading-indicator").should("be.visible");
+  cy.getCy("assessments-error-message").should("be.visible");
+  cy.getCy("assessments-list").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Assessments...");
   cy.waitAndSee();

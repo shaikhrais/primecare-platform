@@ -18,6 +18,9 @@ describe("Screen - volunteer_dashboard", () => {
   cy.getCy("volunteerdashboard-screen").should("be.visible");
   cy.getCy("volunteerdashboard-title").should("be.visible");
   cy.getCy("volunteerdashboard-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-checkin").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-record-visit").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-run-compliance-scan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for VolunteerDashboardScreen...");
   cy.waitAndSee();

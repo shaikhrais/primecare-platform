@@ -15,9 +15,12 @@ describe("Screen - customer_support_templates", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("customersupporttemplates-screen").should("be.visible");
+  cy.getCy("customersupporttemplates-title").should("be.visible");
+  cy.getCy("customersupporttemplates-content").should("be.visible");
+  cy.getCy("customer-support-templates-list").should("be.visible");
+  cy.getCy("customer-support-feedback-btn").should("be.visible");
+  cy.getCy("customer-support-report-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Customer Support Templates...");
   cy.waitAndSee();

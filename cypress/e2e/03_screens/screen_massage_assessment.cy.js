@@ -18,6 +18,9 @@ describe("Screen - massage_assessment", () => {
   cy.getCy("massageassessment-screen").should("be.visible");
   cy.getCy("massageassessment-title").should("be.visible");
   cy.getCy("massageassessment-content").should("be.visible");
+  cy.getCy("massage-assessment-btn-save").should("be.visible");
+  cy.getCy("massage-assessment-btn-generate-plan").should("be.visible");
+  cy.getCy("massage-assessment-btn-record-session").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for MassageAssessmentScreen...");
   cy.waitAndSee();

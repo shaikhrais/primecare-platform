@@ -15,9 +15,12 @@ describe("Screen - pediatric_workflow", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("pediatric specialist compliance workflow-screen").should("be.visible");
-  cy.getCy("pediatric specialist compliance workflow-title").should("be.visible");
-  cy.getCy("pediatric specialist compliance workflow-content").should("be.visible");
+  cy.getCy("pediatricworkflow-screen").should("be.visible");
+  cy.getCy("pediatricworkflow-title").should("be.visible");
+  cy.getCy("pediatricworkflow-content").should("be.visible");
+  cy.getCy("pediatric-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("pediatric-dashboard-btn-record-immunization").should("be.visible");
+  cy.getCy("pediatric-dashboard-btn-submit-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Pediatric Specialist Compliance Workflow...");
   cy.waitAndSee();

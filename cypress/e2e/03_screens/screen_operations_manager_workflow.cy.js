@@ -18,6 +18,9 @@ describe("Screen - operations_manager_workflow", () => {
   cy.getCy("operationsmanagerworkflow-screen").should("be.visible");
   cy.getCy("operationsmanagerworkflow-title").should("be.visible");
   cy.getCy("operationsmanagerworkflow-content").should("be.visible");
+  cy.getCy("opsmanager-kpi-overview").should("be.visible");
+  cy.getCy("opsmanager-metrics-chart").should("be.visible");
+  cy.getCy("opsmanager-team-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OperationsManagerWorkflowScreen...");
   cy.waitAndSee();

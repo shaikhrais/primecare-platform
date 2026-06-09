@@ -18,6 +18,9 @@ describe("Screen - clinic_compliance", () => {
   cy.getCy("cliniccompliance-screen").should("be.visible");
   cy.getCy("cliniccompliance-title").should("be.visible");
   cy.getCy("cliniccompliance-content").should("be.visible");
+  cy.getCy("clinic-compliance-audit-results").should("be.visible");
+  cy.getCy("clinic-patient-satisfaction").should("be.visible");
+  cy.getCy("clinic-staff-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ClinicComplianceScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - system_compliance", () => {
   cy.getCy("systemcompliance-screen").should("be.visible");
   cy.getCy("systemcompliance-title").should("be.visible");
   cy.getCy("systemcompliance-content").should("be.visible");
+  cy.getCy("compliance-status-overview").should("be.visible");
+  cy.getCy("audit-log-list").should("be.visible");
+  cy.getCy("compliance-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SystemComplianceScreen...");
   cy.waitAndSee();

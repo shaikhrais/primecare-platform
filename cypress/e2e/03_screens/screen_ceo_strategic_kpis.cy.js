@@ -7,17 +7,20 @@ describe("Screen - ceo_strategic_kpis", () => {
   it("opens and verifies screen ceo_strategic_kpis", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Ceo Strategic Kpis)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/ceo/strategic-kpis (Ceo Strategic Kpis)...");
+  cy.visitWithSemantics("/offices/corporate/roles/ceo/strategic-kpis");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Ceo Strategic Kpis...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ceostrategickpis-screen").should("be.visible");
+  cy.getCy("ceostrategickpis-title").should("be.visible");
+  cy.getCy("ceostrategickpis-content").should("be.visible");
+  cy.getCy("kpi-display").should("be.visible");
+  cy.getCy("trend-analysis-chart").should("be.visible");
+  cy.getCy("alert-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Ceo Strategic Kpis...");
   cy.waitAndSee();

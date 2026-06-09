@@ -18,6 +18,9 @@ describe("Screen - territory_sales_manager_workflow", () => {
   cy.getCy("territorysalesmanagerworkflow-screen").should("be.visible");
   cy.getCy("territorysalesmanagerworkflow-title").should("be.visible");
   cy.getCy("territorysalesmanagerworkflow-content").should("be.visible");
+  cy.getCy("territory-sales-manager-btn-set-targets").should("be.visible");
+  cy.getCy("territory-sales-manager-btn-conduct-training").should("be.visible");
+  cy.getCy("territory-sales-manager-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TerritorySalesManagerWorkflowScreen...");
   cy.waitAndSee();

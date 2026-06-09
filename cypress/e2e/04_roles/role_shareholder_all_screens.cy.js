@@ -8,8 +8,8 @@ describe("Role All Screens - shareholder", () => {
     cy.loginAsRole("shareholder");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /executive/shareholder-dashboard (ShareholderDashboardScreen)...");
-  cy.visitWithSemantics("/executive/shareholder-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /offices/corporate/roles/shareholder/dashboard (ShareholderDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/shareholder/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Checking shell & content for ShareholderDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - shareholder", () => {
   cy.getCy("shareholderdashboard-screen").should("be.visible");
   cy.getCy("shareholderdashboard-title").should("be.visible");
   cy.getCy("shareholderdashboard-content").should("be.visible");
+  cy.getCy("shareholder-btn-export-logs").should("be.visible");
+  cy.getCy("shareholder-btn-trigger-action").should("be.visible");
+  cy.getCy("shareholder-btn-refresh-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for ShareholderDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - shareholder", () => {
   cy.getCy("shareholderanalytics-screen").should("be.visible");
   cy.getCy("shareholderanalytics-title").should("be.visible");
   cy.getCy("shareholderanalytics-content").should("be.visible");
+  cy.getCy("shareholder-compliance-status").should("be.visible");
+  cy.getCy("shareholder-performance-metrics").should("be.visible");
+  cy.getCy("shareholder-operational-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for ShareholderAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - shareholder", () => {
   cy.getCy("shareholdercompliance-screen").should("be.visible");
   cy.getCy("shareholdercompliance-title").should("be.visible");
   cy.getCy("shareholdercompliance-content").should("be.visible");
+  cy.getCy("compliance-audit-btn-execute").should("be.visible");
+  cy.getCy("governance-directives-btn-update").should("be.visible");
+  cy.getCy("compliance-status-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for ShareholderComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - shareholder", () => {
   cy.getCy("shareholderworkflow-screen").should("be.visible");
   cy.getCy("shareholderworkflow-title").should("be.visible");
   cy.getCy("shareholderworkflow-content").should("be.visible");
+  cy.getCy("shareholder-dashboard-compliance-metric").should("be.visible");
+  cy.getCy("shareholder-dashboard-log-viewer").should("be.visible");
+  cy.getCy("shareholder-dashboard-workflow-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for ShareholderWorkflowScreen...");
   cy.waitAndSee();

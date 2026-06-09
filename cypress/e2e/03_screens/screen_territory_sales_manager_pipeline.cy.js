@@ -15,9 +15,12 @@ describe("Screen - territory_sales_manager_pipeline", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("territorysalesmanagerpipeline-screen").should("be.visible");
+  cy.getCy("territorysalesmanagerpipeline-title").should("be.visible");
+  cy.getCy("territorysalesmanagerpipeline-content").should("be.visible");
+  cy.getCy("salespipeline-overview").should("be.visible");
+  cy.getCy("territory-performance-metrics").should("be.visible");
+  cy.getCy("leads-opportunities-list").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Territory Sales Manager Pipeline...");
   cy.waitAndSee();

@@ -1,0 +1,26 @@
+User Tasks:
+1. Draft research publications.
+2. Edit and revise drafts.
+3. Collaborate with co-authors.
+4. Submit drafts for review.
+5. Track submission status.
+6. Incorporate feedback from reviewers.
+7. Finalize and publish research papers.
+
+Red Flags of Operation:
+1. Lack of collaboration tools leading to communication issues.
+2. Delays in feedback from co-authors or reviewers.
+3. Difficulty in tracking submission status.
+4. Inconsistent formatting or citation styles.
+5. Limited access to necessary research resources.
+6. Technical issues with the drafting platform.
+7. Insufficient version control for drafts.
+
+Dashboard Requirements:
+1. Task progress tracker for each publication.
+2. Collaboration status indicators (e.g., pending feedback).
+3. Submission status overview (submitted, under review, accepted, rejected).
+4. Notifications for deadlines and feedback.
+5. Access to research resources and citation tools.
+6. Version history of drafts.
+7. Performance metrics (e.g., average time to publication).

@@ -18,6 +18,9 @@ describe("Screen - communication", () => {
   cy.getCy("communication-screen").should("be.visible");
   cy.getCy("communication-title").should("be.visible");
   cy.getCy("communication-content").should("be.visible");
+  cy.getCy("support-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("support-dashboard-btn-export").should("be.visible");
+  cy.getCy("support-dashboard-btn-assign").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CommunicationScreen...");
   cy.waitAndSee();

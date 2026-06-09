@@ -18,6 +18,9 @@ describe("Screen - support_analytics", () => {
   cy.getCy("supportanalytics-screen").should("be.visible");
   cy.getCy("supportanalytics-title").should("be.visible");
   cy.getCy("supportanalytics-content").should("be.visible");
+  cy.getCy("support-analytics-btn-follow-up").should("be.visible");
+  cy.getCy("support-analytics-btn-gather-feedback").should("be.visible");
+  cy.getCy("support-analytics-btn-train-staff").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SupportAnalyticsScreen...");
   cy.waitAndSee();

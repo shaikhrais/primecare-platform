@@ -15,9 +15,12 @@ describe("Screen - substance_abuse_prevention_tracker", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("substanceabusepreventiontracker-screen").should("be.visible");
+  cy.getCy("substanceabusepreventiontracker-title").should("be.visible");
+  cy.getCy("substanceabusepreventiontracker-content").should("be.visible");
+  cy.getCy("substance-abuse-btn-submit").should("be.visible");
+  cy.getCy("substance-abuse-btn-generate-report").should("be.visible");
+  cy.getCy("substance-abuse-btn-analyze-trends").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Substance Abuse Prevention Tracker...");
   cy.waitAndSee();

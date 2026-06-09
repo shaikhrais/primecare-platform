@@ -18,6 +18,9 @@ describe("Screen - volunteer_coordinator_analytics", () => {
   cy.getCy("volunteercoordinatoranalytics-screen").should("be.visible");
   cy.getCy("volunteercoordinatoranalytics-title").should("be.visible");
   cy.getCy("volunteercoordinatoranalytics-content").should("be.visible");
+  cy.getCy("volunteer-attendance-tracker").should("be.visible");
+  cy.getCy("event-participation-stats").should("be.visible");
+  cy.getCy("feedback-rating-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for VolunteerCoordinatorAnalyticsScreen...");
   cy.waitAndSee();

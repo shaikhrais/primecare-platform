@@ -15,9 +15,12 @@ describe("Screen - psw_notifications", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pswnotifications-screen").should("be.visible");
+  cy.getCy("pswnotifications-title").should("be.visible");
+  cy.getCy("pswnotifications-content").should("be.visible");
+  cy.getCy("psw_notifications-list").should("be.visible");
+  cy.getCy("psw_notifications-dismiss").should("be.visible");
+  cy.getCy("psw_notifications-settings").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Psw Notifications...");
   cy.waitAndSee();

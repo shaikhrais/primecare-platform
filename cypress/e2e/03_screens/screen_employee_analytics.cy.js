@@ -15,9 +15,12 @@ describe("Screen - employee_analytics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("employee analytics-screen").should("be.visible");
-  cy.getCy("employee analytics-title").should("be.visible");
-  cy.getCy("employee analytics-content").should("be.visible");
+  cy.getCy("employeeanalytics-screen").should("be.visible");
+  cy.getCy("employeeanalytics-title").should("be.visible");
+  cy.getCy("employeeanalytics-content").should("be.visible");
+  cy.getCy("employee-analytics-btn-execute-scan").should("be.visible");
+  cy.getCy("employee-analytics-btn-refresh-telemetry").should("be.visible");
+  cy.getCy("employee-analytics-btn-trigger-governance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Employee Analytics...");
   cy.waitAndSee();

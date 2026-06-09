@@ -1,0 +1,42 @@
+List of tasks for the HR Director:
+
+1. Oversee compliance with labor laws and regulations.
+2. Manage employee relations and conflict resolution.
+3. Develop and implement HR policies and procedures.
+4. Monitor and report on HR metrics and analytics.
+5. Ensure effective recruitment and onboarding processes.
+6. Conduct performance management and employee development programs.
+7. Facilitate training and development initiatives.
+8. Manage compensation and benefits programs.
+9. Ensure diversity and inclusion initiatives are in place.
+10. Conduct regular audits of HR processes and systems.
+11. Maintain employee records and HR documentation.
+12. Lead organizational change initiatives.
+13. Ensure workplace safety and health compliance.
+14. Foster a positive organizational culture.
+
+Red flags of operation:
+
+1. High employee turnover rates.
+2. Increased number of employee grievances or complaints.
+3. Non-compliance with labor laws or regulations.
+4. Poor employee engagement scores.
+5. Delays in recruitment processes.
+6. Lack of training and development opportunities.
+7. Inconsistent performance evaluations.
+8. Low participation in diversity and inclusion programs.
+9. High absenteeism rates.
+10. Negative feedback from exit interviews.
+
+Dashboard needs for the HR Director:
+
+1. Employee turnover rate.
+2. Compliance audit results.
+3. Employee engagement scores.
+4. Recruitment metrics (time to hire, cost per hire).
+5. Training and development participation rates.
+6. Performance management statistics.
+7. Diversity and inclusion metrics.
+8. Employee grievance statistics.
+9. Health and safety compliance status.
+10. Overall HR operational efficiency metrics.

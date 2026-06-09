@@ -18,6 +18,9 @@ describe("Screen - system_health", () => {
   cy.getCy("systemhealth-screen").should("be.visible");
   cy.getCy("systemhealth-title").should("be.visible");
   cy.getCy("systemhealth-content").should("be.visible");
+  cy.getCy("ctodashboard-btn-refresh").should("be.visible");
+  cy.getCy("ctodashboard-btn-view-report").should("be.visible");
+  cy.getCy("ctodashboard-btn-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SystemHealthScreen...");
   cy.waitAndSee();

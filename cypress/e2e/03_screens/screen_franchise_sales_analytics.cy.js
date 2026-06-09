@@ -15,9 +15,12 @@ describe("Screen - franchise_sales_analytics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("franchise sales manager analytics-screen").should("be.visible");
-  cy.getCy("franchise sales manager analytics-title").should("be.visible");
-  cy.getCy("franchise sales manager analytics-content").should("be.visible");
+  cy.getCy("franchisesalesanalytics-screen").should("be.visible");
+  cy.getCy("franchisesalesanalytics-title").should("be.visible");
+  cy.getCy("franchisesalesanalytics-content").should("be.visible");
+  cy.getCy("franchise-sales-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("franchise-sales-dashboard-btn-send-training-invite").should("be.visible");
+  cy.getCy("franchise-sales-dashboard-btn-resolve-issue").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Franchise Sales Manager Analytics...");
   cy.waitAndSee();

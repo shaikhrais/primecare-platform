@@ -18,6 +18,9 @@ describe("Screen - client_issue", () => {
   cy.getCy("clientissue-screen").should("be.visible");
   cy.getCy("clientissue-title").should("be.visible");
   cy.getCy("clientissue-content").should("be.visible");
+  cy.getCy("support-dashboard-btn-respond").should("be.visible");
+  cy.getCy("support-dashboard-btn-escalate").should("be.visible");
+  cy.getCy("support-dashboard-btn-document").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ClientIssueScreen...");
   cy.waitAndSee();

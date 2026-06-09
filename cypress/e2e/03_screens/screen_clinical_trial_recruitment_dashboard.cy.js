@@ -15,9 +15,11 @@ describe("Screen - clinical_trial_recruitment_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("clinicaltrialrecruitmentdashboard-screen").should("be.visible");
+  cy.getCy("clinicaltrialrecruitmentdashboard-title").should("be.visible");
+  cy.getCy("clinicaltrialrecruitmentdashboard-content").should("be.visible");
+  cy.getCy("dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("dashboard-btn-refresh-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Clinical Trial Recruitment Dashboard...");
   cy.waitAndSee();

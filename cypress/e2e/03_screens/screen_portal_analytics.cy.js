@@ -18,6 +18,9 @@ describe("Screen - portal_analytics", () => {
   cy.getCy("portalanalytics-screen").should("be.visible");
   cy.getCy("portalanalytics-title").should("be.visible");
   cy.getCy("portalanalytics-content").should("be.visible");
+  cy.getCy("portal-analytics-btn-execute-sweep").should("be.visible");
+  cy.getCy("portal-analytics-btn-refresh-logs").should("be.visible");
+  cy.getCy("portal-analytics-btn-trigger-manual-sweep").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PortalAnalyticsScreen...");
   cy.waitAndSee();

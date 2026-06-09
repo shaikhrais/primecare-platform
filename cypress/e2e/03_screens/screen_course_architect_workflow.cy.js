@@ -18,6 +18,9 @@ describe("Screen - course_architect_workflow", () => {
   cy.getCy("coursearchitectworkflow-screen").should("be.visible");
   cy.getCy("coursearchitectworkflow-title").should("be.visible");
   cy.getCy("coursearchitectworkflow-content").should("be.visible");
+  cy.getCy("trainingprogram-card").should("be.visible");
+  cy.getCy("feedbackscore-chart").should("be.visible");
+  cy.getCy("completionrate-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CourseArchitectWorkflowScreen...");
   cy.waitAndSee();

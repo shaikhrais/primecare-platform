@@ -15,9 +15,12 @@ describe("Screen - app_notification", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("appnotification-screen").should("be.visible");
+  cy.getCy("appnotification-title").should("be.visible");
+  cy.getCy("appnotification-content").should("be.visible");
+  cy.getCy("iot-notification-list").should("be.visible");
+  cy.getCy("alert-dispatch-btn").should("be.visible");
+  cy.getCy("resolve-event-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for App Notification...");
   cy.waitAndSee();

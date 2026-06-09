@@ -18,6 +18,9 @@ describe("Screen - community_outreach_compliance", () => {
   cy.getCy("communityoutreachcompliance-screen").should("be.visible");
   cy.getCy("communityoutreachcompliance-title").should("be.visible");
   cy.getCy("communityoutreachcompliance-content").should("be.visible");
+  cy.getCy("outreach-btn-add-event").should("be.visible");
+  cy.getCy("outreach-btn-submit-feedback").should("be.visible");
+  cy.getCy("outreach-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CommunityOutreachComplianceScreen...");
   cy.waitAndSee();

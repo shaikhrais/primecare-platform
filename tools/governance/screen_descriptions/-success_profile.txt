@@ -1,0 +1,20 @@
+User Work List:
+1. Log in to the application.
+2. Verify session status after logging in.
+3. View user details including username and assigned role.
+4. Access session token information.
+5. Sign out from the application.
+
+Red Flags of Operation:
+1. User is not redirected to the language selection if no language is selected.
+2. Forced logout may occur unexpectedly if the user is authenticated.
+3. Users may not be able to access the success profile if authentication state is not properly managed.
+4. Session token visibility may raise security concerns if not handled correctly.
+
+Dashboard Needs:
+1. User authentication status indicator.
+2. Session verification status.
+3. User details display (username, role).
+4. Session token display (with security measures).
+5. Sign-out option clearly visible.
+6. Notifications for any forced logouts or session issues.

@@ -18,6 +18,9 @@ describe("Screen - rn_analytics", () => {
   cy.getCy("rnanalytics-screen").should("be.visible");
   cy.getCy("rnanalytics-title").should("be.visible");
   cy.getCy("rnanalytics-content").should("be.visible");
+  cy.getCy("rn-dashboard-mmse-score").should("be.visible");
+  cy.getCy("rn-dashboard-completed-intakes").should("be.visible");
+  cy.getCy("rn-dashboard-active-care-plans").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RnAnalyticsScreen...");
   cy.waitAndSee();

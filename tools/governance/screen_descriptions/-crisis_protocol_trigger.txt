@@ -1,0 +1,20 @@
+User Work List:
+1. Review and understand the purpose of the Crisis Protocol Trigger Screen.
+2. Activate specific crisis workflows by selecting the appropriate protocol card.
+3. Monitor the outcomes of activated protocols, including staff check-ins and message broadcasts.
+4. Ensure that all necessary staff are informed and equipped to handle the crisis situation.
+5. Provide feedback on the effectiveness of the protocols post-activation.
+
+Red Flags of Operation:
+1. Delays in activating protocols could lead to worsening crisis situations.
+2. Lack of staff check-ins may indicate communication breakdowns.
+3. Incomplete or unclear protocol descriptions could lead to improper execution.
+4. Failure to reroute field staff or send alerts may compromise patient safety.
+5. Inadequate response to system security breaches could lead to data vulnerabilities.
+
+Dashboard Needs:
+1. Real-time status of activated protocols and their outcomes.
+2. Alerts for any delays or issues in protocol activation.
+3. Summary of staff check-ins and their locations.
+4. Metrics on the effectiveness of each protocol based on past activations.
+5. Visual indicators for ongoing crises and response times.

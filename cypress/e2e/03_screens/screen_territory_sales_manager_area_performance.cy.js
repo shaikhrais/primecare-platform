@@ -15,9 +15,12 @@ describe("Screen - territory_sales_manager_area_performance", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("territorysalesmanagerareaperformance-screen").should("be.visible");
+  cy.getCy("territorysalesmanagerareaperformance-title").should("be.visible");
+  cy.getCy("territorysalesmanagerareaperformance-content").should("be.visible");
+  cy.getCy("dashboard-sales-metrics").should("be.visible");
+  cy.getCy("dashboard-sales-trends").should("be.visible");
+  cy.getCy("dashboard-anomaly-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Territory Sales Manager Area Performance...");
   cy.waitAndSee();

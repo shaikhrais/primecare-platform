@@ -18,6 +18,9 @@ describe("Screen - patient_observation", () => {
   cy.getCy("patientobservation-screen").should("be.visible");
   cy.getCy("patientobservation-title").should("be.visible");
   cy.getCy("patientobservation-content").should("be.visible");
+  cy.getCy("patient-observation-vital-signs").should("be.visible");
+  cy.getCy("patient-observation-medication-tracker").should("be.visible");
+  cy.getCy("patient-observation-daily-activities").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PatientObservationScreen...");
   cy.waitAndSee();

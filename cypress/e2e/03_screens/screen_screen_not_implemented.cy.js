@@ -15,9 +15,12 @@ describe("Screen - screen_not_implemented", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("screennotimplemented-screen").should("be.visible");
+  cy.getCy("screennotimplemented-title").should("be.visible");
+  cy.getCy("screennotimplemented-content").should("be.visible");
+  cy.getCy("compliance-scan-status-widget").should("be.visible");
+  cy.getCy("operational-logs-widget").should("be.visible");
+  cy.getCy("performance-metrics-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Screen Not Implemented...");
   cy.waitAndSee();

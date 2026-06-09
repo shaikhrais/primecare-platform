@@ -7,17 +7,20 @@ describe("Screen - territory_expansion_manager_demographics", () => {
   it("opens and verifies screen territory_expansion_manager_demographics", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Territory Expansion Manager Demographics)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/business_development/roles/territory_expansion_manager/demographics (Territory Expansion Manager Demographics)...");
+  cy.visitWithSemantics("/offices/business_development/roles/territory_expansion_manager/demographics");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Territory Expansion Manager Demographics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("territoryexpansionmanagerdemographics-screen").should("be.visible");
+  cy.getCy("territoryexpansionmanagerdemographics-title").should("be.visible");
+  cy.getCy("territoryexpansionmanagerdemographics-content").should("be.visible");
+  cy.getCy("dashboard-btn-update-data").should("be.visible");
+  cy.getCy("dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("dashboard-btn-share-insights").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Territory Expansion Manager Demographics...");
   cy.waitAndSee();

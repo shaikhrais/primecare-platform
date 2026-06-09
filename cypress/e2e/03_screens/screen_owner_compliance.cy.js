@@ -18,6 +18,9 @@ describe("Screen - owner_compliance", () => {
   cy.getCy("ownercompliance-screen").should("be.visible");
   cy.getCy("ownercompliance-title").should("be.visible");
   cy.getCy("ownercompliance-content").should("be.visible");
+  cy.getCy("owner-compliance-status").should("be.visible");
+  cy.getCy("owner-audit-logs").should("be.visible");
+  cy.getCy("owner-performance-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OwnerComplianceScreen...");
   cy.waitAndSee();

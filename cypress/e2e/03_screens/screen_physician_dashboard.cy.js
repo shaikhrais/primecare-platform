@@ -18,6 +18,9 @@ describe("Screen - physician_dashboard", () => {
   cy.getCy("physiciandashboard-screen").should("be.visible");
   cy.getCy("physiciandashboard-title").should("be.visible");
   cy.getCy("physiciandashboard-content").should("be.visible");
+  cy.getCy("physician-dashboard-btn-submit-prescription").should("be.visible");
+  cy.getCy("physician-dashboard-btn-authorize-lab-order").should("be.visible");
+  cy.getCy("physician-dashboard-btn-run-compliance-scan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PhysicianDashboardScreen...");
   cy.waitAndSee();

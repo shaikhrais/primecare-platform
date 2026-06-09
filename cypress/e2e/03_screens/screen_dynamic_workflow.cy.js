@@ -18,6 +18,9 @@ describe("Screen - dynamic_workflow", () => {
   cy.getCy("dynamicworkflow-screen").should("be.visible");
   cy.getCy("dynamicworkflow-title").should("be.visible");
   cy.getCy("dynamicworkflow-content").should("be.visible");
+  cy.getCy("dynamic-workflow-btn-start").should("be.visible");
+  cy.getCy("dynamic-workflow-btn-stop").should("be.visible");
+  cy.getCy("dynamic-workflow-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for DynamicScreenWorkflowScreen...");
   cy.waitAndSee();

@@ -8,8 +8,8 @@ describe("Role All Screens - compliance", () => {
     cy.loginAsRole("compliance");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Navigating to /management/compliance-manager-dashboard (ComplianceManagerDashboardScreen)...");
-  cy.visitWithSemantics("/management/compliance-manager-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Navigating to /offices/corporate/roles/compliance_manager/dashboard (ComplianceManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Checking shell & content for ComplianceManagerDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("compliancemanagerdashboard-screen").should("be.visible");
   cy.getCy("compliancemanagerdashboard-title").should("be.visible");
   cy.getCy("compliancemanagerdashboard-content").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-execute-scan").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-export-logs").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Saving screenshot for ComplianceManagerDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("compliancemanageranalytics-screen").should("be.visible");
   cy.getCy("compliancemanageranalytics-title").should("be.visible");
   cy.getCy("compliancemanageranalytics-content").should("be.visible");
+  cy.getCy("compliance-violation-tracker").should("be.visible");
+  cy.getCy("audit-results-overview").should("be.visible");
+  cy.getCy("training-participation-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/9 | 22%] - Saving screenshot for ComplianceManagerAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +61,8 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("compliancemanagercompliance-screen").should("be.visible");
   cy.getCy("compliancemanagercompliance-title").should("be.visible");
   cy.getCy("compliancemanagercompliance-content").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-execute-scan").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/9 | 33%] - Saving screenshot for ComplianceManagerComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +81,9 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("compliancemanagerworkflow-screen").should("be.visible");
   cy.getCy("compliancemanagerworkflow-title").should("be.visible");
   cy.getCy("compliancemanagerworkflow-content").should("be.visible");
+  cy.getCy("compliance-status-indicator").should("be.visible");
+  cy.getCy("compliance-breach-counter").should("be.visible");
+  cy.getCy("audit-results-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/9 | 44%] - Saving screenshot for ComplianceManagerWorkflowScreen...");
   cy.waitAndSee();
@@ -91,6 +102,9 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("compliancedashboard-screen").should("be.visible");
   cy.getCy("compliancedashboard-title").should("be.visible");
   cy.getCy("compliancedashboard-content").should("be.visible");
+  cy.getCy("compliance-dashboard-status").should("be.visible");
+  cy.getCy("compliance-dashboard-audits").should("be.visible");
+  cy.getCy("compliance-dashboard-activities").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/9 | 55%] - Saving screenshot for ComplianceDashboardScreen...");
   cy.waitAndSee();
@@ -109,6 +123,9 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("auditreview-screen").should("be.visible");
   cy.getCy("auditreview-title").should("be.visible");
   cy.getCy("auditreview-content").should("be.visible");
+  cy.getCy("compliance-status-overview").should("be.visible");
+  cy.getCy("recent-audits-list").should("be.visible");
+  cy.getCy("compliance-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/9 | 66%] - Saving screenshot for AuditReviewScreen...");
   cy.waitAndSee();
@@ -127,6 +144,9 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("incidentmanagement-screen").should("be.visible");
   cy.getCy("incidentmanagement-title").should("be.visible");
   cy.getCy("incidentmanagement-content").should("be.visible");
+  cy.getCy("compliance-audit-status-card").should("be.visible");
+  cy.getCy("compliance-activity-log").should("be.visible");
+  cy.getCy("compliance-kpi-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/9 | 77%] - Saving screenshot for IncidentManagementScreen...");
   cy.waitAndSee();
@@ -145,6 +165,9 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("policymanagement-screen").should("be.visible");
   cy.getCy("policymanagement-title").should("be.visible");
   cy.getCy("policymanagement-content").should("be.visible");
+  cy.getCy("compliance-audit-status").should("be.visible");
+  cy.getCy("compliance-breach-count").should("be.visible");
+  cy.getCy("regulatory-change-overview").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/9 | 88%] - Saving screenshot for PolicyManagementScreen...");
   cy.waitAndSee();
@@ -163,6 +186,9 @@ describe("Role All Screens - compliance", () => {
   cy.getCy("correctiveaction-screen").should("be.visible");
   cy.getCy("correctiveaction-title").should("be.visible");
   cy.getCy("correctiveaction-content").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-update-status").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-train-staff").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [9/9 | 100%] - Saving screenshot for CorrectiveActionScreen...");
   cy.waitAndSee();

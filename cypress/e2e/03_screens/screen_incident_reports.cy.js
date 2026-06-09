@@ -7,17 +7,20 @@ describe("Screen - incident_reports", () => {
   it("opens and verifies screen incident_reports", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Incident Reports)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /generated/incident-reports (Incident Reports)...");
+  cy.visitWithSemantics("/generated/incident-reports");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Incident Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("incidentreports-screen").should("be.visible");
+  cy.getCy("incidentreports-title").should("be.visible");
+  cy.getCy("incidentreports-content").should("be.visible");
+  cy.getCy("incident-reports-data-display").should("be.visible");
+  cy.getCy("incident-reports-generate-report").should("be.visible");
+  cy.getCy("incident-reports-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Incident Reports...");
   cy.waitAndSee();

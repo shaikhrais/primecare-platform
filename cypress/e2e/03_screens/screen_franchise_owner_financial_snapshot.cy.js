@@ -7,17 +7,20 @@ describe("Screen - franchise_owner_financial_snapshot", () => {
   it("opens and verifies screen franchise_owner_financial_snapshot", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Franchise Owner Financial Snapshot)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/franchise_owner/financial-snapshot (Franchise Owner Financial Snapshot)...");
+  cy.visitWithSemantics("/offices/franchise/roles/franchise_owner/financial-snapshot");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Franchise Owner Financial Snapshot...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("franchiseownerfinancialsnapshot-screen").should("be.visible");
+  cy.getCy("franchiseownerfinancialsnapshot-title").should("be.visible");
+  cy.getCy("franchiseownerfinancialsnapshot-content").should("be.visible");
+  cy.getCy("franchise-financial-snapshot-refresh").should("be.visible");
+  cy.getCy("franchise-report-discrepancy").should("be.visible");
+  cy.getCy("franchise-view-historical-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Franchise Owner Financial Snapshot...");
   cy.waitAndSee();

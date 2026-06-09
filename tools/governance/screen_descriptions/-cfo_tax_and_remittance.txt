@@ -1,0 +1,26 @@
+User Work List:
+1. Review tax and remittance data.
+2. Ensure compliance with tax regulations.
+3. Generate tax reports.
+4. Submit remittance payments.
+5. Monitor deadlines for tax submissions.
+6. Communicate with tax authorities if needed.
+7. Update financial records related to tax and remittance.
+
+Red Flags of Operation:
+1. Delays in data loading or processing.
+2. Frequent errors when fetching tax data.
+3. Inconsistent or missing data in reports.
+4. Notifications of upcoming deadlines not being received.
+5. Issues with payment processing for remittances.
+6. Lack of communication from tax authorities.
+7. User interface not responding or crashing.
+
+Dashboard Needs:
+1. Overview of tax and remittance status.
+2. Alerts for upcoming deadlines.
+3. Quick access to generate reports.
+4. Summary of recent transactions and submissions.
+5. Notifications for any errors or issues.
+6. Visual indicators for compliance status.
+7. Access to historical data for analysis.

@@ -7,17 +7,20 @@ describe("Screen - corrective_actions", () => {
   it("opens and verifies screen corrective_actions", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Corrective Actions)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/compliance_manager/corrective-actions (Corrective Actions)...");
+  cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/corrective-actions");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Corrective Actions...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("correctiveactions-screen").should("be.visible");
+  cy.getCy("correctiveactions-title").should("be.visible");
+  cy.getCy("correctiveactions-content").should("be.visible");
+  cy.getCy("corrective-actions-overview").should("be.visible");
+  cy.getCy("trend-analysis-chart").should("be.visible");
+  cy.getCy("notifications-list").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Corrective Actions...");
   cy.waitAndSee();

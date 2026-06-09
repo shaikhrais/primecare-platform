@@ -18,6 +18,9 @@ describe("Screen - enterprise_health", () => {
   cy.getCy("enterprisehealth-screen").should("be.visible");
   cy.getCy("enterprisehealth-title").should("be.visible");
   cy.getCy("enterprisehealth-content").should("be.visible");
+  cy.getCy("dashboard-kpi-financial").should("be.visible");
+  cy.getCy("dashboard-metrics-operational").should("be.visible");
+  cy.getCy("dashboard-engagement-employee").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for EnterpriseHealthScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - hsw_care_plans", () => {
   cy.getCy("hswcareplans-screen").should("be.visible");
   cy.getCy("hswcareplans-title").should("be.visible");
   cy.getCy("hswcareplans-content").should("be.visible");
+  cy.getCy("pswdashboard-btn-record-progress").should("be.visible");
+  cy.getCy("pswdashboard-btn-send-reminder").should("be.visible");
+  cy.getCy("pswdashboard-btn-log-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HswCarePlansScreen...");
   cy.waitAndSee();

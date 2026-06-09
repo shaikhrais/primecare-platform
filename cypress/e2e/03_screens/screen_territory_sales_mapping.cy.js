@@ -15,9 +15,12 @@ describe("Screen - territory_sales_mapping", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("territorysalesmapping-screen").should("be.visible");
+  cy.getCy("territorysalesmapping-title").should("be.visible");
+  cy.getCy("territorysalesmapping-content").should("be.visible");
+  cy.getCy("territory-map").should("be.visible");
+  cy.getCy("refresh-button").should("be.visible");
+  cy.getCy("performance-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Territory Sales Mapping...");
   cy.waitAndSee();

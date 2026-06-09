@@ -1,0 +1,26 @@
+User Work List:
+1. Monitor patient health metrics.
+2. Schedule and track care management appointments.
+3. Document patient interactions and care plans.
+4. Review and update patient medication lists.
+5. Communicate with healthcare providers and patients.
+6. Analyze patient data for trends and outcomes.
+7. Generate reports on patient progress and care effectiveness.
+
+Red Flags of Operation:
+1. Incomplete or missing patient data.
+2. Delays in appointment scheduling or follow-ups.
+3. High rates of missed appointments.
+4. Lack of communication between care team members.
+5. Inconsistent documentation practices.
+6. Unresolved patient queries or concerns.
+7. Poor patient engagement or adherence to care plans.
+
+Dashboard Needs:
+1. Real-time patient health metrics overview.
+2. Appointment scheduling and reminders.
+3. Documentation status indicators.
+4. Communication logs between patients and providers.
+5. Analytics on patient outcomes and trends.
+6. Alerts for red flags in patient care.
+7. User activity tracking for accountability.

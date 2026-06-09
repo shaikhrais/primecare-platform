@@ -15,9 +15,12 @@ describe("Screen - pediatric_analytics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("pediatric specialist analytics-screen").should("be.visible");
-  cy.getCy("pediatric specialist analytics-title").should("be.visible");
-  cy.getCy("pediatric specialist analytics-content").should("be.visible");
+  cy.getCy("pediatricanalytics-screen").should("be.visible");
+  cy.getCy("pediatricanalytics-title").should("be.visible");
+  cy.getCy("pediatricanalytics-content").should("be.visible");
+  cy.getCy("pediatric-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("pediatric-dashboard-btn-view-records").should("be.visible");
+  cy.getCy("pediatric-dashboard-btn-send-reminder").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Pediatric Specialist Analytics...");
   cy.waitAndSee();

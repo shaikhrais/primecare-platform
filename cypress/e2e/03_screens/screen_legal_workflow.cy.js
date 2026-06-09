@@ -18,6 +18,9 @@ describe("Screen - legal_workflow", () => {
   cy.getCy("legalworkflow-screen").should("be.visible");
   cy.getCy("legalworkflow-title").should("be.visible");
   cy.getCy("legalworkflow-content").should("be.visible");
+  cy.getCy("legalworkflow-btn-addtask").should("be.visible");
+  cy.getCy("legalworkflow-btn-reviewdocument").should("be.visible");
+  cy.getCy("legalworkflow-btn-providelegaladvice").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for LegalWorkflowScreen...");
   cy.waitAndSee();

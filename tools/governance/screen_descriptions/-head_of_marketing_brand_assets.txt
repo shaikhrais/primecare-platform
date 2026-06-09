@@ -1,0 +1,23 @@
+List of work the user must do:
+1. Monitor brand assets and ensure they are up to date.
+2. Review marketing materials for consistency with brand guidelines.
+3. Collaborate with design and content teams to create new assets.
+4. Analyze the performance of existing brand assets.
+5. Provide feedback on brand asset usage and effectiveness.
+6. Ensure compliance with legal and copyright regulations regarding brand assets.
+
+Red flags of operation:
+1. Delays in asset updates or approvals.
+2. Inconsistent branding across different marketing materials.
+3. Lack of collaboration or communication with design and content teams.
+4. Poor performance metrics for brand assets.
+5. Frequent errors or issues reported by users regarding brand assets.
+6. Non-compliance with legal requirements related to branding.
+
+What is needed on the user dashboard:
+1. Overview of current brand assets and their status (up to date, needs review, etc.).
+2. Performance metrics for each asset (engagement, reach, etc.).
+3. Notifications for pending approvals or updates.
+4. Collaboration tools for feedback and discussions with team members.
+5. Access to brand guidelines and legal compliance information.
+6. Quick links to frequently used assets or templates.

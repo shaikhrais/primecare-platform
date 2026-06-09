@@ -18,6 +18,9 @@ describe("Screen - responsive_preview", () => {
   cy.getCy("responsivepreview-screen").should("be.visible");
   cy.getCy("responsivepreview-title").should("be.visible");
   cy.getCy("responsivepreview-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-view-compliance").should("be.visible");
+  cy.getCy("gov-dashboard-btn-export-audit").should("be.visible");
+  cy.getCy("gov-dashboard-btn-assess-risk").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ResponsivePreviewScreen...");
   cy.waitAndSee();

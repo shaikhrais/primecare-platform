@@ -18,6 +18,9 @@ describe("Screen - customer_support_dashboard", () => {
   cy.getCy("customersupportdashboard-screen").should("be.visible");
   cy.getCy("customersupportdashboard-title").should("be.visible");
   cy.getCy("customersupportdashboard-content").should("be.visible");
+  cy.getCy("csdashboard-btn-compliance-scan").should("be.visible");
+  cy.getCy("csdashboard-btn-manual-sync").should("be.visible");
+  cy.getCy("csdashboard-btn-export-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CustomerSupportDashboardScreen...");
   cy.waitAndSee();

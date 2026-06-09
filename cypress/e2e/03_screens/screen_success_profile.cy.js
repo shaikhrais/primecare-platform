@@ -15,9 +15,12 @@ describe("Screen - success_profile", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("successprofile-screen").should("be.visible");
+  cy.getCy("successprofile-title").should("be.visible");
+  cy.getCy("successprofile-content").should("be.visible");
+  cy.getCy("user-auth-status-indicator").should("be.visible");
+  cy.getCy("session-verification-status").should("be.visible");
+  cy.getCy("user-details-display").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Success Profile...");
   cy.waitAndSee();

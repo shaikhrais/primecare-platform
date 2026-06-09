@@ -18,6 +18,9 @@ describe("Screen - onboarding", () => {
   cy.getCy("onboarding-screen").should("be.visible");
   cy.getCy("onboarding-title").should("be.visible");
   cy.getCy("onboarding-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-details").should("be.visible");
+  cy.getCy("hrdashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OnboardingScreen...");
   cy.waitAndSee();

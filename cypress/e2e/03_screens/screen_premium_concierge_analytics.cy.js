@@ -15,9 +15,11 @@ describe("Screen - premium_concierge_analytics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("premium concierge care coordinator analytics-screen").should("be.visible");
-  cy.getCy("premium concierge care coordinator analytics-title").should("be.visible");
-  cy.getCy("premium concierge care coordinator analytics-content").should("be.visible");
+  cy.getCy("premiumconciergeanalytics-screen").should("be.visible");
+  cy.getCy("premiumconciergeanalytics-title").should("be.visible");
+  cy.getCy("premiumconciergeanalytics-content").should("be.visible");
+  cy.getCy("premium-concierge-btn-refresh").should("be.visible");
+  cy.getCy("premium-concierge-btn-run-scan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Premium Concierge Care Coordinator Analytics...");
   cy.waitAndSee();

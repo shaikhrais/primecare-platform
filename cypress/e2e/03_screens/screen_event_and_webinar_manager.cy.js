@@ -15,9 +15,11 @@ describe("Screen - event_and_webinar_manager", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("eventandwebinarmanager-screen").should("be.visible");
+  cy.getCy("eventandwebinarmanager-title").should("be.visible");
+  cy.getCy("eventandwebinarmanager-content").should("be.visible");
+  cy.getCy("eventmanager-btn-refresh").should("be.visible");
+  cy.getCy("eventmanager-btn-schedule").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Event And Webinar Manager...");
   cy.waitAndSee();

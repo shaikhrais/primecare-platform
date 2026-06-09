@@ -7,17 +7,20 @@ describe("Screen - audit_dashboard", () => {
   it("opens and verifies screen audit_dashboard", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Audit Dashboard)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /generated/audit-dashboard (Audit Dashboard)...");
+  cy.visitWithSemantics("/generated/audit-dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Audit Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("auditdashboard-screen").should("be.visible");
+  cy.getCy("auditdashboard-title").should("be.visible");
+  cy.getCy("auditdashboard-content").should("be.visible");
+  cy.getCy("audit-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("audit-dashboard-btn-review-activities").should("be.visible");
+  cy.getCy("audit-dashboard-alert-suspicious-activity").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Audit Dashboard...");
   cy.waitAndSee();

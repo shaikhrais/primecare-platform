@@ -7,17 +7,20 @@ describe("Screen - family_profile", () => {
   it("opens and verifies screen family_profile", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Family Profile)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/client/roles/family_member/profile (Family Profile)...");
+  cy.visitWithSemantics("/offices/client/roles/family_member/profile");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Family Profile...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("familyprofile-screen").should("be.visible");
+  cy.getCy("familyprofile-title").should("be.visible");
+  cy.getCy("familyprofile-content").should("be.visible");
+  cy.getCy("familyprofile-loading-indicator").should("be.visible");
+  cy.getCy("familyprofile-error-notification").should("be.visible");
+  cy.getCy("familyprofile-summary").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Family Profile...");
   cy.waitAndSee();

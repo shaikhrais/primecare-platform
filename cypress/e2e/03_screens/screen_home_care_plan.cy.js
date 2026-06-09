@@ -18,6 +18,9 @@ describe("Screen - home_care_plan", () => {
   cy.getCy("homecareplan-screen").should("be.visible");
   cy.getCy("homecareplan-title").should("be.visible");
   cy.getCy("homecareplan-content").should("be.visible");
+  cy.getCy("homecareplan-btn-view-client").should("be.visible");
+  cy.getCy("homecareplan-btn-schedule-appointment").should("be.visible");
+  cy.getCy("homecareplan-btn-update-treatment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HomeCarePlanScreen...");
   cy.waitAndSee();

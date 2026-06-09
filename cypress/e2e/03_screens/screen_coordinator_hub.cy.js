@@ -18,6 +18,9 @@ describe("Screen - coordinator_hub", () => {
   cy.getCy("coordinatorhub-screen").should("be.visible");
   cy.getCy("coordinatorhub-title").should("be.visible");
   cy.getCy("coordinatorhub-content").should("be.visible");
+  cy.getCy("coordinatorhub-btn-assign-shift").should("be.visible");
+  cy.getCy("coordinatorhub-btn-resolve-alert").should("be.visible");
+  cy.getCy("coordinatorhub-btn-view-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CoordinatorHubScreen...");
   cy.waitAndSee();

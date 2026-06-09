@@ -18,6 +18,9 @@ describe("Screen - governance_operations4_k", () => {
   cy.getCy("governanceoperations4k-screen").should("be.visible");
   cy.getCy("governanceoperations4k-title").should("be.visible");
   cy.getCy("governanceoperations4k-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("gov-dashboard-btn-conduct-audit").should("be.visible");
+  cy.getCy("gov-dashboard-btn-update-docs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for GovernanceOperations4KScreen...");
   cy.waitAndSee();

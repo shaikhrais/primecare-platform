@@ -1,0 +1,23 @@
+User Work List:
+1. Access the Telehealth Consultation Room.
+2. Initiate a telehealth consultation.
+3. Communicate with healthcare providers via video/audio.
+4. View patient information and medical history.
+5. Schedule follow-up appointments.
+6. Provide feedback on the consultation experience.
+
+Red Flags of Operation:
+1. Inability to connect to video/audio during consultations.
+2. Delays in loading patient information.
+3. Frequent disconnections during sessions.
+4. Poor audio/video quality affecting communication.
+5. User interface issues that hinder navigation.
+6. Lack of timely notifications for upcoming appointments.
+
+Dashboard Requirements for User:
+1. Real-time status of ongoing consultations.
+2. Notifications for scheduled appointments and reminders.
+3. Access to previous consultation records.
+4. Feedback submission option for consultations.
+5. Quick access to technical support or help resources.
+6. Overview of upcoming appointments and follow-ups.

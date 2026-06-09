@@ -1,0 +1,17 @@
+User Work List:
+1. View the available roles in the system.
+2. Search for specific screens in the registry.
+3. Assign view access to screens for selected roles.
+4. Review the routing matrix for role access.
+
+Red Flags of Operation:
+1. Lack of clarity on which roles have access to which screens.
+2. Difficulty in finding specific screens due to inadequate search functionality.
+3. Potential for misconfiguration if access is not properly assigned.
+4. User interface may be overwhelming if too many roles or screens are displayed without proper categorization.
+
+Dashboard Needs:
+1. Overview of roles and their assigned screen access.
+2. Search functionality for quick access to specific screens.
+3. Alerts or notifications for any access conflicts or misconfigurations.
+4. Analytics on role access patterns and usage statistics.

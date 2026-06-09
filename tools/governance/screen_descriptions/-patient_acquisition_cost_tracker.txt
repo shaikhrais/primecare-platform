@@ -1,0 +1,20 @@
+User Tasks:
+1. Monitor overall Patient Acquisition Cost (CAC).
+2. Analyze total spending on patient acquisition.
+3. Track the number of new patients acquired.
+4. Review CAC by marketing channel.
+5. Refresh data to ensure up-to-date information.
+
+Red Flags of Operation:
+1. High overall CAC indicating inefficient spending.
+2. Low number of new patients relative to total spend.
+3. Significant discrepancies in CAC across different channels.
+4. Frequent errors when loading data indicating potential API issues.
+5. Slow loading times affecting user experience.
+
+Dashboard Requirements:
+1. Display overall CAC, total spend, and new patients prominently.
+2. Provide a refresh button for real-time data updates.
+3. Visual representation of CAC by channel for quick analysis.
+4. Error messages for failed data loads.
+5. Loading indicators to enhance user experience during data fetching.

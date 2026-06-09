@@ -18,6 +18,9 @@ describe("Screen - general_manager_compliance", () => {
   cy.getCy("generalmanagercompliance-screen").should("be.visible");
   cy.getCy("generalmanagercompliance-title").should("be.visible");
   cy.getCy("generalmanagercompliance-content").should("be.visible");
+  cy.getCy("gm-dashboard-performance-metrics").should("be.visible");
+  cy.getCy("gm-dashboard-compliance-status").should("be.visible");
+  cy.getCy("gm-dashboard-employee-satisfaction").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for GeneralManagerComplianceScreen...");
   cy.waitAndSee();

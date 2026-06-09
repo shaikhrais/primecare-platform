@@ -15,9 +15,11 @@ describe("Screen - patient_retention_analytics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("patientretentionanalytics-screen").should("be.visible");
+  cy.getCy("patientretentionanalytics-title").should("be.visible");
+  cy.getCy("patientretentionanalytics-content").should("be.visible");
+  cy.getCy("analytics-btn-refresh").should("be.visible");
+  cy.getCy("analytics-error-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Patient Retention Analytics...");
   cy.waitAndSee();

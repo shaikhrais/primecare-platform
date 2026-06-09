@@ -7,17 +7,19 @@ describe("Screen - ceo_alerts_and_risks", () => {
   it("opens and verifies screen ceo_alerts_and_risks", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Ceo Alerts And Risks)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/ceo/alerts-and-risks (Ceo Alerts And Risks)...");
+  cy.visitWithSemantics("/offices/corporate/roles/ceo/alerts-and-risks");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Ceo Alerts And Risks...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ceoalertsandrisks-screen").should("be.visible");
+  cy.getCy("ceoalertsandrisks-title").should("be.visible");
+  cy.getCy("ceoalertsandrisks-content").should("be.visible");
+  cy.getCy("ceo-alerts-btn-respond").should("be.visible");
+  cy.getCy("ceo-feedback-btn-submit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Ceo Alerts And Risks...");
   cy.waitAndSee();

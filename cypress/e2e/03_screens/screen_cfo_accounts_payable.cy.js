@@ -7,17 +7,20 @@ describe("Screen - cfo_accounts_payable", () => {
   it("opens and verifies screen cfo_accounts_payable", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Cfo Accounts Payable)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/cfo/accounts-payable (Cfo Accounts Payable)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cfo/accounts-payable");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Cfo Accounts Payable...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("cfoaccountspayable-screen").should("be.visible");
+  cy.getCy("cfoaccountspayable-title").should("be.visible");
+  cy.getCy("cfoaccountspayable-content").should("be.visible");
+  cy.getCy("cfo_accounts_payable-btn-approve-invoice").should("be.visible");
+  cy.getCy("cfo_accounts_payable-btn-manage-payments").should("be.visible");
+  cy.getCy("cfo_accounts_payable-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Cfo Accounts Payable...");
   cy.waitAndSee();

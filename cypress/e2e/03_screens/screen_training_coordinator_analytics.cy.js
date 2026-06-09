@@ -18,6 +18,9 @@ describe("Screen - training_coordinator_analytics", () => {
   cy.getCy("trainingcoordinatoranalytics-screen").should("be.visible");
   cy.getCy("trainingcoordinatoranalytics-title").should("be.visible");
   cy.getCy("trainingcoordinatoranalytics-content").should("be.visible");
+  cy.getCy("training-analytics-btn-attendance").should("be.visible");
+  cy.getCy("training-analytics-btn-assessment").should("be.visible");
+  cy.getCy("training-analytics-btn-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TrainingCoordinatorAnalyticsScreen...");
   cy.waitAndSee();

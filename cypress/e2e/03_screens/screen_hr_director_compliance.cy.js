@@ -18,6 +18,9 @@ describe("Screen - hr_director_compliance", () => {
   cy.getCy("hrdirectorcompliance-screen").should("be.visible");
   cy.getCy("hrdirectorcompliance-title").should("be.visible");
   cy.getCy("hrdirectorcompliance-content").should("be.visible");
+  cy.getCy("hrdirector-btn-generate-report").should("be.visible");
+  cy.getCy("hrdirector-btn-view-audit").should("be.visible");
+  cy.getCy("hrdirector-btn-initiate-recruitment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HrDirectorComplianceScreen...");
   cy.waitAndSee();

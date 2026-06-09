@@ -18,6 +18,9 @@ describe("Screen - territory_expansion_manager_workflow", () => {
   cy.getCy("territoryexpansionmanagerworkflow-screen").should("be.visible");
   cy.getCy("territoryexpansionmanagerworkflow-title").should("be.visible");
   cy.getCy("territoryexpansionmanagerworkflow-content").should("be.visible");
+  cy.getCy("territory-expansion-btn-generate-report").should("be.visible");
+  cy.getCy("territory-expansion-btn-update-strategy").should("be.visible");
+  cy.getCy("territory-expansion-btn-monitor-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TerritoryExpansionManagerWorkflowScreen...");
   cy.waitAndSee();

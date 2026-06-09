@@ -18,6 +18,9 @@ describe("Screen - staff_performance", () => {
   cy.getCy("staffperformance-screen").should("be.visible");
   cy.getCy("staffperformance-title").should("be.visible");
   cy.getCy("staffperformance-content").should("be.visible");
+  cy.getCy("staffperformance-kpi-widget").should("be.visible");
+  cy.getCy("staffperformance-compliance-card").should("be.visible");
+  cy.getCy("staffperformance-satisfaction-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for StaffPerformanceScreen...");
   cy.waitAndSee();

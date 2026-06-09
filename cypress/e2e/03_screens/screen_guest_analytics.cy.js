@@ -18,6 +18,8 @@ describe("Screen - guest_analytics", () => {
   cy.getCy("guestanalytics-screen").should("be.visible");
   cy.getCy("guestanalytics-title").should("be.visible");
   cy.getCy("guestanalytics-content").should("be.visible");
+  cy.getCy("analytics-refresh-btn").should("be.visible");
+  cy.getCy("analytics-execute-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for GuestAnalyticsScreen...");
   cy.waitAndSee();

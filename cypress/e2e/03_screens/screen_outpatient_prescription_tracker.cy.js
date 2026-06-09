@@ -15,9 +15,12 @@ describe("Screen - outpatient_prescription_tracker", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("outpatientprescriptiontracker-screen").should("be.visible");
+  cy.getCy("outpatientprescriptiontracker-title").should("be.visible");
+  cy.getCy("outpatientprescriptiontracker-content").should("be.visible");
+  cy.getCy("outpatient-prescription-btn-update-status").should("be.visible");
+  cy.getCy("outpatient-prescription-btn-view-details").should("be.visible");
+  cy.getCy("outpatient-prescription-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Outpatient Prescription Tracker...");
   cy.waitAndSee();

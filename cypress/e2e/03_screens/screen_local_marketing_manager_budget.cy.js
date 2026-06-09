@@ -15,9 +15,12 @@ describe("Screen - local_marketing_manager_budget", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("localmarketingmanagerbudget-screen").should("be.visible");
+  cy.getCy("localmarketingmanagerbudget-title").should("be.visible");
+  cy.getCy("localmarketingmanagerbudget-content").should("be.visible");
+  cy.getCy("budget-overview").should("be.visible");
+  cy.getCy("campaign-performance").should("be.visible");
+  cy.getCy("budget-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Local Marketing Manager Budget...");
   cy.waitAndSee();

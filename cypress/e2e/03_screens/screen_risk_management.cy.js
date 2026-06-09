@@ -18,6 +18,9 @@ describe("Screen - risk_management", () => {
   cy.getCy("riskmanagement-screen").should("be.visible");
   cy.getCy("riskmanagement-title").should("be.visible");
   cy.getCy("riskmanagement-content").should("be.visible");
+  cy.getCy("dashboard-kpi-view").should("be.visible");
+  cy.getCy("dashboard-employee-engagement").should("be.visible");
+  cy.getCy("dashboard-customer-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RiskManagementScreen...");
   cy.waitAndSee();

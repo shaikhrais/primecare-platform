@@ -18,6 +18,9 @@ describe("Screen - deployment_center", () => {
   cy.getCy("deploymentcenter-screen").should("be.visible");
   cy.getCy("deploymentcenter-title").should("be.visible");
   cy.getCy("deploymentcenter-content").should("be.visible");
+  cy.getCy("ctodashboard-kpi").should("be.visible");
+  cy.getCy("ctodashboard-performance").should("be.visible");
+  cy.getCy("ctodashboard-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for DeploymentCenterScreen...");
   cy.waitAndSee();

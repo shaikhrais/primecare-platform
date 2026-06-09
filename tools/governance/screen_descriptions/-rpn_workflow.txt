@@ -1,0 +1,35 @@
+Registered Practical Nurse (RPN) Responsibilities:
+1. Document dressing changes.
+2. Administer vaccines and maintain immunization logs.
+3. Monitor patient conditions and report changes.
+4. Provide patient education and support.
+5. Collaborate with healthcare teams.
+6. Maintain accurate patient records.
+7. Ensure compliance with health regulations and protocols.
+8. Assist in patient assessments and care planning.
+9. Manage medication reminders and verifications.
+10. Participate in quality improvement initiatives.
+
+Red Flags in Operations:
+1. Delays in logging patient care activities.
+2. Incomplete or inaccurate documentation.
+3. High rates of patient complaints or adverse events.
+4. Non-compliance with infection control protocols.
+5. Lack of communication among team members.
+6. Inconsistent patient monitoring and follow-up.
+7. Failure to adhere to medication administration guidelines.
+8. Insufficient training or knowledge gaps among staff.
+9. Overwhelming workload leading to burnout.
+10. Poor patient outcomes or satisfaction scores.
+
+Dashboard Requirements for RPN:
+1. Overview of pending and completed dressing logs.
+2. Immunization log summary with recent entries.
+3. Alerts for overdue vaccinations or follow-ups.
+4. Patient feedback and satisfaction metrics.
+5. Compliance tracking for protocols and guidelines.
+6. Performance metrics for individual RPNs.
+7. Notifications for training and development opportunities.
+8. Access to patient education resources.
+9. Real-time updates on patient conditions.
+10. Integration with electronic health records for seamless data entry.

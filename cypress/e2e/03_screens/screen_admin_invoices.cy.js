@@ -7,17 +7,20 @@ describe("Screen - admin_invoices", () => {
   it("opens and verifies screen admin_invoices", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Admin Invoices)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/admin/invoices (Admin Invoices)...");
+  cy.visitWithSemantics("/offices/franchise/roles/admin/invoices");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Admin Invoices...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("admininvoices-screen").should("be.visible");
+  cy.getCy("admininvoices-title").should("be.visible");
+  cy.getCy("admininvoices-content").should("be.visible");
+  cy.getCy("invoice-status-overview").should("be.visible");
+  cy.getCy("btn-approve").should("be.visible");
+  cy.getCy("btn-reject").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Admin Invoices...");
   cy.waitAndSee();

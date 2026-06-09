@@ -15,9 +15,12 @@ describe("Screen - dynamic_screen_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("dynamicdashboard-screen").should("be.visible");
-  cy.getCy("dynamicdashboard-title").should("be.visible");
-  cy.getCy("dynamicdashboard-content").should("be.visible");
+  cy.getCy("dynamicscreendashboard-screen").should("be.visible");
+  cy.getCy("dynamicscreendashboard-title").should("be.visible");
+  cy.getCy("dynamicscreendashboard-content").should("be.visible");
+  cy.getCy("dashboard-btn-run-compliance-scan").should("be.visible");
+  cy.getCy("dashboard-btn-sync-security-posture").should("be.visible");
+  cy.getCy("dashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for DynamicScreenDashboardScreen...");
   cy.waitAndSee();

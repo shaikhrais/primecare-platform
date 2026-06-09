@@ -15,9 +15,12 @@ describe("Screen - school_health_program_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("schoolhealthprogramdashboard-screen").should("be.visible");
+  cy.getCy("schoolhealthprogramdashboard-title").should("be.visible");
+  cy.getCy("schoolhealthprogramdashboard-content").should("be.visible");
+  cy.getCy("dashboard-kpi-widget").should("be.visible");
+  cy.getCy("dashboard-health-chart").should("be.visible");
+  cy.getCy("dashboard-alert-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for School Health Program Dashboard...");
   cy.waitAndSee();

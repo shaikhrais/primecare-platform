@@ -1,0 +1,20 @@
+User Work List:
+1. Customize colors and themes for the tenant.
+2. Select a theme preset from the available options.
+3. Enter custom brand colors in HEX format for primary accent, primary container, sidebar background, and topbar background.
+4. Validate the form before saving settings.
+5. Save the settings and handle success or failure notifications.
+
+Red Flags of Operation:
+1. Form validation failure may prevent saving settings.
+2. API call failures could lead to unsaved configurations.
+3. User interface may not provide clear feedback on errors or successes.
+4. Potential for incorrect color input formats leading to unexpected results.
+5. Performance issues if the UI is not responsive during saving operations.
+
+Dashboard Needs:
+1. Display current theme preset and custom colors.
+2. Show success or error messages related to settings changes.
+3. Provide a preview of the selected theme and custom colors.
+4. Include a loading indicator while saving settings.
+5. Offer quick access to revert to default settings if needed.

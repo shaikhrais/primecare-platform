@@ -5,25 +5,28 @@
 
 describe("Screen - patient_charting", () => {
   it("opens and verifies screen patient_charting", () => {
-    cy.loginAsRole("rn");
+    cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/rn/patient-charting (PatientChartingScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/rn/patient-charting");
+  cy.task("log", "⏳ PROGRESS: - Navigating to None (Patient Charting)...");
+  cy.visitWithSemantics("");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for PatientChartingScreen...");
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Patient Charting...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
   cy.getCy("patientcharting-screen").should("be.visible");
   cy.getCy("patientcharting-title").should("be.visible");
   cy.getCy("patientcharting-content").should("be.visible");
+  cy.getCy("patient-charting-loading-state").should("be.visible");
+  cy.getCy("patient-charting-refresh-dashboard").should("be.visible");
+  cy.getCy("patient-charting-trigger-scan").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for PatientChartingScreen...");
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for Patient Charting...");
   cy.waitAndSee();
   cy.screenshot("patient_charting");
   
-  cy.task("log", "✅ PROGRESS: - Verified PatientChartingScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: - Verified Patient Charting successfully!\n");
 
   });
 });

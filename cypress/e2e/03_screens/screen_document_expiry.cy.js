@@ -7,17 +7,20 @@ describe("Screen - document_expiry", () => {
   it("opens and verifies screen document_expiry", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Document Expiry)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/compliance_manager/document-expiry (Document Expiry)...");
+  cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/document-expiry");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Document Expiry...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("documentexpiry-screen").should("be.visible");
+  cy.getCy("documentexpiry-title").should("be.visible");
+  cy.getCy("documentexpiry-content").should("be.visible");
+  cy.getCy("document-expiry-overview").should("be.visible");
+  cy.getCy("document-notification-section").should("be.visible");
+  cy.getCy("document-renew-button").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Document Expiry...");
   cy.waitAndSee();

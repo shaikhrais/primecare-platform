@@ -15,9 +15,11 @@ describe("Screen - predictive_analytics_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("predictiveanalyticsdashboard-screen").should("be.visible");
+  cy.getCy("predictiveanalyticsdashboard-title").should("be.visible");
+  cy.getCy("predictiveanalyticsdashboard-content").should("be.visible");
+  cy.getCy("analytics-btn-refresh").should("be.visible");
+  cy.getCy("analytics-btn-run-model").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Predictive Analytics Dashboard...");
   cy.waitAndSee();

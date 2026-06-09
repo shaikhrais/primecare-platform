@@ -15,9 +15,11 @@ describe("Screen - virtual_consult", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("virtualconsult-screen").should("be.visible");
+  cy.getCy("virtualconsult-title").should("be.visible");
+  cy.getCy("virtualconsult-content").should("be.visible");
+  cy.getCy("telehealth-btn-reschedule").should("be.visible");
+  cy.getCy("telehealth-btn-update-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Virtual Consult...");
   cy.waitAndSee();

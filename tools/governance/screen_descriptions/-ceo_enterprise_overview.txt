@@ -1,0 +1,26 @@
+List of work the user must do:
+1. Monitor enterprise performance metrics.
+2. Review operational efficiency indicators.
+3. Analyze financial reports and trends.
+4. Evaluate team performance and productivity.
+5. Identify areas for improvement and growth.
+6. Make strategic decisions based on data insights.
+7. Communicate with stakeholders about enterprise status.
+
+Red flags of operation:
+1. Declining performance metrics over time.
+2. Increased operational costs without corresponding revenue growth.
+3. Low team productivity or high turnover rates.
+4. Frequent errors or issues reported in operations.
+5. Negative feedback from stakeholders or customers.
+6. Inconsistent data reporting or analysis results.
+7. Failure to meet key performance indicators (KPIs).
+
+What is needed on the user dashboard:
+1. Real-time performance metrics and KPIs.
+2. Visualizations of financial trends (graphs/charts).
+3. Alerts for any operational red flags.
+4. Team performance statistics and feedback.
+5. Summary of recent operational issues and resolutions.
+6. Strategic recommendations based on data analysis.
+7. Communication tools for stakeholder engagement.

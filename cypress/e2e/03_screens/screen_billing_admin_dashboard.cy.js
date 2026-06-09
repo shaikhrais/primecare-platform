@@ -7,8 +7,8 @@ describe("Screen - billing_admin_dashboard", () => {
   it("opens and verifies screen billing_admin_dashboard", () => {
     cy.loginAsRole("admin");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/billing-admin-dashboard (BillingAdminDashboardScreen)...");
-  cy.visitWithSemantics("/staff/billing-admin-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/billing_admin/dashboard (BillingAdminDashboardScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/billing_admin/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for BillingAdminDashboardScreen...");
@@ -18,6 +18,9 @@ describe("Screen - billing_admin_dashboard", () => {
   cy.getCy("billingadmindashboard-screen").should("be.visible");
   cy.getCy("billingadmindashboard-title").should("be.visible");
   cy.getCy("billingadmindashboard-content").should("be.visible");
+  cy.getCy("billing-dashboard-status-overview").should("be.visible");
+  cy.getCy("billing-dashboard-discrepancy-metrics").should("be.visible");
+  cy.getCy("billing-dashboard-activity-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for BillingAdminDashboardScreen...");
   cy.waitAndSee();

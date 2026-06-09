@@ -18,6 +18,9 @@ describe("Screen - infrastructure_analytics", () => {
   cy.getCy("infrastructureanalytics-screen").should("be.visible");
   cy.getCy("infrastructureanalytics-title").should("be.visible");
   cy.getCy("infrastructureanalytics-content").should("be.visible");
+  cy.getCy("infrastructure-dashboard-health").should("be.visible");
+  cy.getCy("infrastructure-dashboard-compliance").should("be.visible");
+  cy.getCy("infrastructure-dashboard-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for InfrastructureAnalyticsScreen...");
   cy.waitAndSee();

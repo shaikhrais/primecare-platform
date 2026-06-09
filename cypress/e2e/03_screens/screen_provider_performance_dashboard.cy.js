@@ -15,9 +15,11 @@ describe("Screen - provider_performance_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("providerperformancedashboard-screen").should("be.visible");
+  cy.getCy("providerperformancedashboard-title").should("be.visible");
+  cy.getCy("providerperformancedashboard-content").should("be.visible");
+  cy.getCy("provider-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("provider-dashboard-error-message").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Provider Performance Dashboard...");
   cy.waitAndSee();

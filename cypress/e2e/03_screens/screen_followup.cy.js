@@ -18,6 +18,9 @@ describe("Screen - followup", () => {
   cy.getCy("followup-screen").should("be.visible");
   cy.getCy("followup-title").should("be.visible");
   cy.getCy("followup-content").should("be.visible");
+  cy.getCy("followup-btn-schedule").should("be.visible");
+  cy.getCy("followup-btn-verify").should("be.visible");
+  cy.getCy("followup-btn-send").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FollowupScreen...");
   cy.waitAndSee();

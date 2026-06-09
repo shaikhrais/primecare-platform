@@ -15,9 +15,11 @@ describe("Screen - certificates", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("certificates-screen").should("be.visible");
+  cy.getCy("certificates-title").should("be.visible");
+  cy.getCy("certificates-content").should("be.visible");
+  cy.getCy("certificates-loading-indicator").should("be.visible");
+  cy.getCy("certificates-error-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Certificates...");
   cy.waitAndSee();

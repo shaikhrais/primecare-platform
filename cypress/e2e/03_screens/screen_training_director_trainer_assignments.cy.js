@@ -7,17 +7,20 @@ describe("Screen - training_director_trainer_assignments", () => {
   it("opens and verifies screen training_director_trainer_assignments", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Training Director Trainer Assignments)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/training_director/trainer-assignments (Training Director Trainer Assignments)...");
+  cy.visitWithSemantics("/offices/corporate/roles/training_director/trainer-assignments");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Training Director Trainer Assignments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("trainingdirectortrainerassignments-screen").should("be.visible");
+  cy.getCy("trainingdirectortrainerassignments-title").should("be.visible");
+  cy.getCy("trainingdirectortrainerassignments-content").should("be.visible");
+  cy.getCy("trainer-assignments-list").should("be.visible");
+  cy.getCy("assign-trainer-btn").should("be.visible");
+  cy.getCy("update-trainer-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Training Director Trainer Assignments...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - volunteer_coordinator_workflow", () => {
   cy.getCy("volunteercoordinatorworkflow-screen").should("be.visible");
   cy.getCy("volunteercoordinatorworkflow-title").should("be.visible");
   cy.getCy("volunteercoordinatorworkflow-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-refresh").should("be.visible");
+  cy.getCy("volunteer-task-execute").should("be.visible");
+  cy.getCy("volunteer-sandbox-join").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for VolunteerCoordinatorWorkflowScreen...");
   cy.waitAndSee();

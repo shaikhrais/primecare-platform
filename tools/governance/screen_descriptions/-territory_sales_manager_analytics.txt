@@ -1,0 +1,35 @@
+Territory Sales Manager Responsibilities:
+1. Develop and implement sales strategies for assigned territories.
+2. Identify and target potential customers within the territory.
+3. Build and maintain relationships with existing clients.
+4. Monitor market trends and competitor activities.
+5. Analyze sales data to forecast future sales and set targets.
+6. Collaborate with marketing teams to create promotional materials.
+7. Conduct sales presentations and product demonstrations.
+8. Provide training and support to sales representatives.
+9. Prepare regular reports on sales performance and territory status.
+10. Attend industry events and trade shows to network and promote products.
+
+Red Flags of Operation:
+1. Declining sales figures over consecutive months.
+2. High turnover rate among sales staff.
+3. Lack of communication between sales and marketing teams.
+4. Inconsistent reporting and data inaccuracies.
+5. Low customer satisfaction and high complaint rates.
+6. Failure to meet sales targets and quotas.
+7. Poor territory coverage and missed opportunities.
+8. Resistance to adopting new sales technologies or tools.
+9. Limited engagement with key accounts.
+10. Inadequate training and development for sales staff.
+
+Dashboard Requirements for Territory Sales Manager:
+1. Sales performance metrics (monthly, quarterly, yearly).
+2. Customer acquisition and retention rates.
+3. Territory coverage maps and customer segmentation.
+4. Sales pipeline status and forecasts.
+5. Competitor analysis and market trends.
+6. Customer feedback and satisfaction scores.
+7. Activity logs of sales representatives.
+8. Key performance indicators (KPIs) tracking.
+9. Integration with CRM systems for real-time data.
+10. Alerts for red flags and operational issues.

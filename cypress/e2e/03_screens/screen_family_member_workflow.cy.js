@@ -18,6 +18,9 @@ describe("Screen - family_member_workflow", () => {
   cy.getCy("familymemberworkflow-screen").should("be.visible");
   cy.getCy("familymemberworkflow-title").should("be.visible");
   cy.getCy("familymemberworkflow-content").should("be.visible");
+  cy.getCy("family-member-btn-execute-1").should("be.visible");
+  cy.getCy("family-member-btn-action-sweep").should("be.visible");
+  cy.getCy("family-member-dashboard-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FamilyMemberWorkflowScreen...");
   cy.waitAndSee();

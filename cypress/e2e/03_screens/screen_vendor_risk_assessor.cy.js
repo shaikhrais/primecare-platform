@@ -15,9 +15,11 @@ describe("Screen - vendor_risk_assessor", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("vendorriskassessor-screen").should("be.visible");
+  cy.getCy("vendorriskassessor-title").should("be.visible");
+  cy.getCy("vendorriskassessor-content").should("be.visible");
+  cy.getCy("vendor-risk-assessor-refresh").should("be.visible");
+  cy.getCy("vendor-risk-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Vendor Risk Assessor...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - system_workflow", () => {
   cy.getCy("systemworkflow-screen").should("be.visible");
   cy.getCy("systemworkflow-title").should("be.visible");
   cy.getCy("systemworkflow-content").should("be.visible");
+  cy.getCy("sysworkflow-btn-generate-report").should("be.visible");
+  cy.getCy("sysworkflow-btn-request-support").should("be.visible");
+  cy.getCy("sysworkflow-btn-update-docs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SystemWorkflowScreen...");
   cy.waitAndSee();

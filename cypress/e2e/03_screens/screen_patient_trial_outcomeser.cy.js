@@ -15,9 +15,12 @@ describe("Screen - patient_trial_outcomeser", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("patienttrialoutcomeser-screen").should("be.visible");
+  cy.getCy("patienttrialoutcomeser-title").should("be.visible");
+  cy.getCy("patienttrialoutcomeser-content").should("be.visible");
+  cy.getCy("patienttrial-outcomes-view").should("be.visible");
+  cy.getCy("patienttrial-analyze-data").should("be.visible");
+  cy.getCy("patienttrial-filter-outcomes").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Patient Trial Outcomeser...");
   cy.waitAndSee();

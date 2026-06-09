@@ -1,0 +1,18 @@
+List of work the user must do:
+1. Complete the compliance training modules.
+2. Review any related documentation or resources provided.
+3. Submit any required assessments or quizzes.
+4. Track progress and ensure all modules are completed by the deadline.
+
+Red flags of operation:
+1. Frequent loading errors or issues when accessing the training modules.
+2. Lack of user engagement or low completion rates.
+3. Negative feedback from users regarding the training content or interface.
+4. Delays in updating training materials or addressing user concerns.
+
+What is needed on the user dashboard:
+1. Progress tracker showing completion percentage of training modules.
+2. Notifications for upcoming deadlines or required assessments.
+3. Access to resources and documentation related to compliance training.
+4. Feedback section for users to report issues or suggest improvements.
+5. Summary of completed modules and scores from assessments.

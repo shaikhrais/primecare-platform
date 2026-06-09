@@ -15,9 +15,11 @@ describe("Screen - competitor_analysis_board", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("competitoranalysisboard-screen").should("be.visible");
+  cy.getCy("competitoranalysisboard-title").should("be.visible");
+  cy.getCy("competitoranalysisboard-content").should("be.visible");
+  cy.getCy("competitor-analysis-refresh").should("be.visible");
+  cy.getCy("competitor-analysis-add").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Competitor Analysis Board...");
   cy.waitAndSee();

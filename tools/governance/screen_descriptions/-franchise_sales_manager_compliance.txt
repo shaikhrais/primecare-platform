@@ -1,0 +1,35 @@
+Franchise Owner Responsibilities:
+1. Ensure compliance with operational standards and policies.
+2. Conduct regular audits and assessments of franchise operations.
+3. Maintain accurate records of compliance activities and logs.
+4. Implement security measures, including multi-factor authentication.
+5. Monitor and report on operational performance metrics.
+6. Engage in continuous training and development for staff.
+7. Address any compliance issues or breaches promptly.
+8. Facilitate communication between franchisees and corporate management.
+9. Participate in franchise meetings and governance discussions.
+10. Utilize the compliance dashboard for real-time insights and reporting.
+
+Red Flags of Operation:
+1. Increased frequency of compliance breaches or issues.
+2. Delays in audit completion or reporting.
+3. Lack of engagement or communication from franchisees.
+4. High turnover rates among staff or franchisees.
+5. Inconsistent application of policies across locations.
+6. Negative feedback from customers regarding service or compliance.
+7. Failure to implement recommended security measures.
+8. Unresolved compliance logs or issues over extended periods.
+9. Discrepancies in operational metrics or performance reports.
+10. Resistance to change or improvement initiatives.
+
+Dashboard Requirements for Franchise Owner:
+1. Real-time compliance status indicators.
+2. Audit logs and history of compliance checks.
+3. Performance metrics and KPIs for franchise operations.
+4. Alerts for any compliance breaches or issues.
+5. Security policy compliance status (e.g., MFA enforcement).
+6. Summary of recent audits and their outcomes.
+7. Communication tools for engaging with franchisees.
+8. Training and development resources for staff.
+9. Reporting tools for operational performance.
+10. Access to governance directives and updates.

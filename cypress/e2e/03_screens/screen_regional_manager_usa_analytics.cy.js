@@ -18,6 +18,9 @@ describe("Screen - regional_manager_usa_analytics", () => {
   cy.getCy("regionalmanagerusaanalytics-screen").should("be.visible");
   cy.getCy("regionalmanagerusaanalytics-title").should("be.visible");
   cy.getCy("regionalmanagerusaanalytics-content").should("be.visible");
+  cy.getCy("regionalmanager-sales-performance").should("be.visible");
+  cy.getCy("regionalmanager-customer-feedback").should("be.visible");
+  cy.getCy("regionalmanager-budget-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RegionalManagerUsaAnalyticsScreen...");
   cy.waitAndSee();

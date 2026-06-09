@@ -18,6 +18,8 @@ describe("Screen - patient_care_plan", () => {
   cy.getCy("patientcareplan-screen").should("be.visible");
   cy.getCy("patientcareplan-title").should("be.visible");
   cy.getCy("patientcareplan-content").should("be.visible");
+  cy.getCy("patientcareplan-btn-execute-compliance-scan").should("be.visible");
+  cy.getCy("patientcareplan-btn-refresh-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PatientCarePlanScreen...");
   cy.waitAndSee();

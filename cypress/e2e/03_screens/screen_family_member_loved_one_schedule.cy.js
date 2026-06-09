@@ -15,9 +15,12 @@ describe("Screen - family_member_loved_one_schedule", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("familymemberlovedoneschedule-screen").should("be.visible");
+  cy.getCy("familymemberlovedoneschedule-title").should("be.visible");
+  cy.getCy("familymemberlovedoneschedule-content").should("be.visible");
+  cy.getCy("family-schedule-view").should("be.visible");
+  cy.getCy("appointment-add-btn").should("be.visible");
+  cy.getCy("appointment-edit-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Family Member Loved One Schedule...");
   cy.waitAndSee();

@@ -1,0 +1,21 @@
+User Work List:
+1. View archived messages.
+2. Search messages by User ID, Date Range, or Keywords.
+3. Apply filters to narrow down search results.
+4. Export message data for legal discovery.
+5. Refresh the message archive data.
+
+Red Flags of Operation:
+1. Slow loading times when fetching archived messages.
+2. Errors in loading data, indicated by error messages.
+3. Lack of search results or filters not functioning as expected.
+4. Inability to export data or failure during export process.
+5. Unresponsive UI elements, such as buttons or text fields.
+
+Dashboard Needs:
+1. Loading indicator for data fetching.
+2. Error messages displayed clearly when data fails to load.
+3. Search functionality with real-time feedback.
+4. Filter options that are easily accessible and functional.
+5. Export status notifications to confirm successful or failed exports.
+6. Summary statistics of archived messages (e.g., total count, recent messages).

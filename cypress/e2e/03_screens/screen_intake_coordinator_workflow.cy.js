@@ -18,6 +18,9 @@ describe("Screen - intake_coordinator_workflow", () => {
   cy.getCy("intakecoordinatorworkflow-screen").should("be.visible");
   cy.getCy("intakecoordinatorworkflow-title").should("be.visible");
   cy.getCy("intakecoordinatorworkflow-content").should("be.visible");
+  cy.getCy("intake-coordinator-btn-schedule").should("be.visible");
+  cy.getCy("intake-coordinator-btn-verify").should("be.visible");
+  cy.getCy("intake-coordinator-btn-communicate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for IntakeCoordinatorWorkflowScreen...");
   cy.waitAndSee();

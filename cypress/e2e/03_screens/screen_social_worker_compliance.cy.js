@@ -18,6 +18,9 @@ describe("Screen - social_worker_compliance", () => {
   cy.getCy("socialworkercompliance-screen").should("be.visible");
   cy.getCy("socialworkercompliance-title").should("be.visible");
   cy.getCy("socialworkercompliance-content").should("be.visible");
+  cy.getCy("socialworker-btn-report-incident").should("be.visible");
+  cy.getCy("socialworker-btn-update-security").should("be.visible");
+  cy.getCy("socialworker-btn-access-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SocialWorkerComplianceScreen...");
   cy.waitAndSee();

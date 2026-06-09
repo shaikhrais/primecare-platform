@@ -15,9 +15,12 @@ describe("Screen - family_member_profile", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("familymemberprofile-screen").should("be.visible");
+  cy.getCy("familymemberprofile-title").should("be.visible");
+  cy.getCy("familymemberprofile-content").should("be.visible");
+  cy.getCy("family-member-profile-loading").should("be.visible");
+  cy.getCy("family-member-profile-error").should("be.visible");
+  cy.getCy("family-member-profile-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Family Member Profile...");
   cy.waitAndSee();

@@ -15,9 +15,11 @@ describe("Screen - hr_staff_files", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("hrstafffiles-screen").should("be.visible");
+  cy.getCy("hrstafffiles-title").should("be.visible");
+  cy.getCy("hrstafffiles-content").should("be.visible");
+  cy.getCy("hrstafffiles-btn-submit-event-log").should("be.visible");
+  cy.getCy("hrstafffiles-btn-refresh-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Hr Staff Files...");
   cy.waitAndSee();

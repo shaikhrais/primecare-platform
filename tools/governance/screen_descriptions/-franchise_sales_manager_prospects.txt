@@ -1,0 +1,20 @@
+User Tasks:
+1. Monitor franchise sales prospects.
+2. Analyze data related to franchise sales.
+3. Communicate with potential franchisees.
+4. Update the status of prospects.
+5. Generate reports on franchise sales activities.
+
+Red Flags of Operation:
+1. High error rates when loading data.
+2. Slow response times when accessing the dashboard.
+3. Inconsistent data displayed on the screen.
+4. Frequent crashes or application freezes.
+5. Lack of updates or stale data.
+
+Dashboard Requirements:
+1. Overview of active prospects.
+2. Status indicators for each prospect (e.g., contacted, in negotiation, closed).
+3. Performance metrics (e.g., number of prospects contacted, conversion rates).
+4. Alerts for any issues or errors in data loading.
+5. Visualizations for sales trends and forecasts.

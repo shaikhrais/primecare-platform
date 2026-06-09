@@ -18,6 +18,9 @@ describe("Screen - staff_progress", () => {
   cy.getCy("staffprogress-screen").should("be.visible");
   cy.getCy("staffprogress-title").should("be.visible");
   cy.getCy("staffprogress-content").should("be.visible");
+  cy.getCy("training-overview").should("be.visible");
+  cy.getCy("engagement-metrics").should("be.visible");
+  cy.getCy("feedback-results").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for StaffProgressScreen...");
   cy.waitAndSee();

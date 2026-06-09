@@ -7,17 +7,20 @@ describe("Screen - admin_outstanding_balances", () => {
   it("opens and verifies screen admin_outstanding_balances", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Admin Outstanding Balances)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/admin/outstanding-balances (Admin Outstanding Balances)...");
+  cy.visitWithSemantics("/offices/franchise/roles/admin/outstanding-balances");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Admin Outstanding Balances...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("adminoutstandingbalances-screen").should("be.visible");
+  cy.getCy("adminoutstandingbalances-title").should("be.visible");
+  cy.getCy("adminoutstandingbalances-content").should("be.visible");
+  cy.getCy("admin-outstanding-balances-overview").should("be.visible");
+  cy.getCy("admin-balance-breakdown").should("be.visible");
+  cy.getCy("admin-balance-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Admin Outstanding Balances...");
   cy.waitAndSee();

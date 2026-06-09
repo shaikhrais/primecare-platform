@@ -18,6 +18,9 @@ describe("Screen - scheduler_analytics", () => {
   cy.getCy("scheduleranalytics-screen").should("be.visible");
   cy.getCy("scheduleranalytics-title").should("be.visible");
   cy.getCy("scheduleranalytics-content").should("be.visible");
+  cy.getCy("scheduler-btn-update-schedule").should("be.visible");
+  cy.getCy("scheduler-btn-submit-incident").should("be.visible");
+  cy.getCy("scheduler-btn-view-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerAnalyticsScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - psw_observation_vitals_log", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pswobservationvitalslog-screen").should("be.visible");
+  cy.getCy("pswobservationvitalslog-title").should("be.visible");
+  cy.getCy("pswobservationvitalslog-content").should("be.visible");
+  cy.getCy("psw-observation-log-btn-log").should("be.visible");
+  cy.getCy("psw-observation-log-btn-report").should("be.visible");
+  cy.getCy("psw-observation-log-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Psw Observation Vitals Log...");
   cy.waitAndSee();

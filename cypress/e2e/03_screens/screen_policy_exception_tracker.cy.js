@@ -15,9 +15,12 @@ describe("Screen - policy_exception_tracker", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("policyexceptiontracker-screen").should("be.visible");
+  cy.getCy("policyexceptiontracker-title").should("be.visible");
+  cy.getCy("policyexceptiontracker-content").should("be.visible");
+  cy.getCy("policy-exemption-refresh").should("be.visible");
+  cy.getCy("policy-exemption-revoke").should("be.visible");
+  cy.getCy("policy-exemption-extend").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Policy Exception Tracker...");
   cy.waitAndSee();

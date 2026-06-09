@@ -1,0 +1,20 @@
+List of work the user must do:
+1. View the schedule of family members or loved ones.
+2. Interact with the schedule to add, edit, or remove appointments.
+3. Monitor notifications or reminders related to the schedule.
+4. Access detailed information about each family member or loved one.
+5. Provide feedback or report issues regarding the schedule.
+
+Red flags of operation:
+1. Slow loading times when accessing the schedule.
+2. Frequent errors when trying to load data.
+3. Inconsistent data display or missing information.
+4. Difficulty in navigating the interface or finding features.
+5. Lack of responsiveness on different devices or screen sizes.
+
+What is needed on the user dashboard:
+1. Overview of upcoming appointments and schedules.
+2. Quick access buttons for adding or editing appointments.
+3. Notifications or alerts for upcoming events or changes.
+4. Summary statistics (e.g., number of appointments, missed events).
+5. User feedback section for reporting issues or suggestions.

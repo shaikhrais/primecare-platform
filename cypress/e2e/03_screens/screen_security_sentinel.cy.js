@@ -7,17 +7,20 @@ describe("Screen - security_sentinel", () => {
   it("opens and verifies screen security_sentinel", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Security Sentinel)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /governance/security (Security Sentinel)...");
+  cy.visitWithSemantics("/governance/security");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Security Sentinel...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("securitysentinel-screen").should("be.visible");
+  cy.getCy("securitysentinel-title").should("be.visible");
+  cy.getCy("securitysentinel-content").should("be.visible");
+  cy.getCy("security-alerts-widget").should("be.visible");
+  cy.getCy("incident-summary-widget").should("be.visible");
+  cy.getCy("security-status-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Security Sentinel...");
   cy.waitAndSee();

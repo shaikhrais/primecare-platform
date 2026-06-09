@@ -18,6 +18,9 @@ describe("Screen - medication", () => {
   cy.getCy("medication-screen").should("be.visible");
   cy.getCy("medication-title").should("be.visible");
   cy.getCy("medication-content").should("be.visible");
+  cy.getCy("medication-log").should("be.visible");
+  cy.getCy("vital-sign-trend").should("be.visible");
+  cy.getCy("alert-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for MedicationScreen...");
   cy.waitAndSee();

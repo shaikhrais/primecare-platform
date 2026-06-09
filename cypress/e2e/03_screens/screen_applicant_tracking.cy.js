@@ -18,6 +18,9 @@ describe("Screen - applicant_tracking", () => {
   cy.getCy("applicanttracking-screen").should("be.visible");
   cy.getCy("applicanttracking-title").should("be.visible");
   cy.getCy("applicanttracking-content").should("be.visible");
+  cy.getCy("applicanttracking-btn-refresh").should("be.visible");
+  cy.getCy("applicanttracking-btn-export").should("be.visible");
+  cy.getCy("applicanttracking-btn-viewfeedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ApplicantTrackingScreen...");
   cy.waitAndSee();

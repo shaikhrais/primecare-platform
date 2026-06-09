@@ -18,6 +18,9 @@ describe("Screen - credential_expiry", () => {
   cy.getCy("credentialexpiry-screen").should("be.visible");
   cy.getCy("credentialexpiry-title").should("be.visible");
   cy.getCy("credentialexpiry-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-refresh").should("be.visible");
+  cy.getCy("hrdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-details").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CredentialExpiryScreen...");
   cy.waitAndSee();

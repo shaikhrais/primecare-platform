@@ -18,6 +18,9 @@ describe("Screen - exercise_prescription", () => {
   cy.getCy("exerciseprescription-screen").should("be.visible");
   cy.getCy("exerciseprescription-title").should("be.visible");
   cy.getCy("exerciseprescription-content").should("be.visible");
+  cy.getCy("pswdashboard-btn-update-status").should("be.visible");
+  cy.getCy("pswdashboard-btn-log-compliance").should("be.visible");
+  cy.getCy("pswdashboard-btn-view-kpis").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ExercisePrescriptionScreen...");
   cy.waitAndSee();

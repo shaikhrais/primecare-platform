@@ -18,6 +18,9 @@ describe("Screen - office_analytics", () => {
   cy.getCy("officeanalytics-screen").should("be.visible");
   cy.getCy("officeanalytics-title").should("be.visible");
   cy.getCy("officeanalytics-content").should("be.visible");
+  cy.getCy("officeanalytics-btn-addtask").should("be.visible");
+  cy.getCy("officeanalytics-btn-schedule").should("be.visible");
+  cy.getCy("officeanalytics-btn-logcommunication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OfficeAnalyticsScreen...");
   cy.waitAndSee();

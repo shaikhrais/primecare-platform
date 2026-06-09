@@ -19,6 +19,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("officedashboard-screen").should("be.visible");
   cy.getCy("officedashboard-title").should("be.visible");
   cy.getCy("officedashboard-content").should("be.visible");
+  cy.getCy("office_dashboard-btn-add-task").should("be.visible");
+  cy.getCy("office_dashboard-btn-schedule-appointment").should("be.visible");
+  cy.getCy("office_dashboard-btn-log-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/16 | 6%] - Saving screenshot for OfficeDashboardScreen...");
   cy.waitAndSee();
@@ -26,8 +29,8 @@ describe("Role All Screens - admin", () => {
   
   cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/16 | 6%] - Verified OfficeDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Navigating to /staff/billing-admin-dashboard (BillingAdminDashboardScreen)...");
-  cy.visitWithSemantics("/staff/billing-admin-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Navigating to /offices/franchise/roles/billing_admin/dashboard (BillingAdminDashboardScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/billing_admin/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Checking shell & content for BillingAdminDashboardScreen...");
@@ -37,6 +40,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("billingadmindashboard-screen").should("be.visible");
   cy.getCy("billingadmindashboard-title").should("be.visible");
   cy.getCy("billingadmindashboard-content").should("be.visible");
+  cy.getCy("billing-dashboard-status-overview").should("be.visible");
+  cy.getCy("billing-dashboard-discrepancy-metrics").should("be.visible");
+  cy.getCy("billing-dashboard-activity-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Saving screenshot for BillingAdminDashboardScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("receptionistdashboard-screen").should("be.visible");
   cy.getCy("receptionistdashboard-title").should("be.visible");
   cy.getCy("receptionistdashboard-content").should("be.visible");
+  cy.getCy("receptionist-dashboard-btn-add-appointment").should("be.visible");
+  cy.getCy("receptionist-dashboard-btn-send-message").should("be.visible");
+  cy.getCy("receptionist-dashboard-btn-upload-document").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/16 | 18%] - Saving screenshot for ReceptionistDashboardScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("officeanalytics-screen").should("be.visible");
   cy.getCy("officeanalytics-title").should("be.visible");
   cy.getCy("officeanalytics-content").should("be.visible");
+  cy.getCy("officeanalytics-btn-addtask").should("be.visible");
+  cy.getCy("officeanalytics-btn-schedule").should("be.visible");
+  cy.getCy("officeanalytics-btn-logcommunication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/16 | 25%] - Saving screenshot for OfficeAnalyticsScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("officecompliance-screen").should("be.visible");
   cy.getCy("officecompliance-title").should("be.visible");
   cy.getCy("officecompliance-content").should("be.visible");
+  cy.getCy("officecompliance-btn-addtask").should("be.visible");
+  cy.getCy("officecompliance-btn-logcommunication").should("be.visible");
+  cy.getCy("officecompliance-btn-schedulemeeting").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/16 | 31%] - Saving screenshot for OfficeComplianceScreen...");
   cy.waitAndSee();
@@ -109,6 +124,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("officeworkflow-screen").should("be.visible");
   cy.getCy("officeworkflow-title").should("be.visible");
   cy.getCy("officeworkflow-content").should("be.visible");
+  cy.getCy("officeworkflow-btn-add-appointment").should("be.visible");
+  cy.getCy("officeworkflow-btn-complete-task").should("be.visible");
+  cy.getCy("officeworkflow-btn-log-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/16 | 37%] - Saving screenshot for OfficeWorkflowScreen...");
   cy.waitAndSee();
@@ -127,6 +145,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("billingadminanalytics-screen").should("be.visible");
   cy.getCy("billingadminanalytics-title").should("be.visible");
   cy.getCy("billingadminanalytics-content").should("be.visible");
+  cy.getCy("billing_admin_btn_add_task").should("be.visible");
+  cy.getCy("billing_admin_btn_schedule").should("be.visible");
+  cy.getCy("billing_admin_btn_send_message").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/16 | 43%] - Saving screenshot for BillingAdminAnalyticsScreen...");
   cy.waitAndSee();
@@ -145,6 +166,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("billingadmincompliance-screen").should("be.visible");
   cy.getCy("billingadmincompliance-title").should("be.visible");
   cy.getCy("billingadmincompliance-content").should("be.visible");
+  cy.getCy("billing_admin_btn_add_task").should("be.visible");
+  cy.getCy("billing_admin_btn_schedule_appointment").should("be.visible");
+  cy.getCy("billing_admin_btn_log_communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/16 | 50%] - Saving screenshot for BillingAdminComplianceScreen...");
   cy.waitAndSee();
@@ -163,6 +187,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("billingadminworkflow-screen").should("be.visible");
   cy.getCy("billingadminworkflow-title").should("be.visible");
   cy.getCy("billingadminworkflow-content").should("be.visible");
+  cy.getCy("billing_admin_task_management").should("be.visible");
+  cy.getCy("billing_admin_calendar").should("be.visible");
+  cy.getCy("billing_admin_communication_log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/16 | 56%] - Saving screenshot for BillingAdminWorkflowScreen...");
   cy.waitAndSee();
@@ -181,6 +208,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("receptionistanalytics-screen").should("be.visible");
   cy.getCy("receptionistanalytics-title").should("be.visible");
   cy.getCy("receptionistanalytics-content").should("be.visible");
+  cy.getCy("receptionist-analytics-btn-add-task").should("be.visible");
+  cy.getCy("receptionist-analytics-btn-schedule-appointment").should("be.visible");
+  cy.getCy("receptionist-analytics-btn-send-message").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/16 | 62%] - Saving screenshot for ReceptionistAnalyticsScreen...");
   cy.waitAndSee();
@@ -199,6 +229,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("receptionistcompliance-screen").should("be.visible");
   cy.getCy("receptionistcompliance-title").should("be.visible");
   cy.getCy("receptionistcompliance-content").should("be.visible");
+  cy.getCy("receptionist-btn-add-appointment").should("be.visible");
+  cy.getCy("receptionist-btn-send-email").should("be.visible");
+  cy.getCy("receptionist-btn-upload-document").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/16 | 68%] - Saving screenshot for ReceptionistComplianceScreen...");
   cy.waitAndSee();
@@ -217,6 +250,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("receptionistworkflow-screen").should("be.visible");
   cy.getCy("receptionistworkflow-title").should("be.visible");
   cy.getCy("receptionistworkflow-content").should("be.visible");
+  cy.getCy("admin-dashboard-btn-logcall").should("be.visible");
+  cy.getCy("admin-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("admin-dashboard-btn-sendemail").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Saving screenshot for ReceptionistWorkflowScreen...");
   cy.waitAndSee();
@@ -235,6 +271,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("invoicemanagement-screen").should("be.visible");
   cy.getCy("invoicemanagement-title").should("be.visible");
   cy.getCy("invoicemanagement-content").should("be.visible");
+  cy.getCy("invoice_management-btn-add-task").should("be.visible");
+  cy.getCy("invoice_management-btn-schedule-appointment").should("be.visible");
+  cy.getCy("invoice_management-btn-upload-document").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/16 | 81%] - Saving screenshot for InvoiceManagementScreen...");
   cy.waitAndSee();
@@ -253,6 +292,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("claimsprocessing-screen").should("be.visible");
   cy.getCy("claimsprocessing-title").should("be.visible");
   cy.getCy("claimsprocessing-content").should("be.visible");
+  cy.getCy("claims-processing-btn-add-task").should("be.visible");
+  cy.getCy("claims-processing-btn-schedule-appointment").should("be.visible");
+  cy.getCy("claims-processing-btn-log-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Saving screenshot for ClaimsProcessingScreen...");
   cy.waitAndSee();
@@ -271,6 +313,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("paymenttracking-screen").should("be.visible");
   cy.getCy("paymenttracking-title").should("be.visible");
   cy.getCy("paymenttracking-content").should("be.visible");
+  cy.getCy("paymenttracking-btn-addtask").should("be.visible");
+  cy.getCy("paymenttracking-btn-schedulemeeting").should("be.visible");
+  cy.getCy("paymenttracking-btn-sendcommunication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [15/16 | 93%] - Saving screenshot for PaymentTrackingScreen...");
   cy.waitAndSee();
@@ -289,6 +334,9 @@ describe("Role All Screens - admin", () => {
   cy.getCy("refundmanagement-screen").should("be.visible");
   cy.getCy("refundmanagement-title").should("be.visible");
   cy.getCy("refundmanagement-content").should("be.visible");
+  cy.getCy("refundmanagement-btn-addtask").should("be.visible");
+  cy.getCy("refundmanagement-btn-schedulemeeting").should("be.visible");
+  cy.getCy("refundmanagement-btn-generatereport").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [16/16 | 100%] - Saving screenshot for RefundManagementScreen...");
   cy.waitAndSee();

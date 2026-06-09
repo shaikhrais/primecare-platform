@@ -15,9 +15,12 @@ describe("Screen - simulation_lab_scheduler", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("simulationlabscheduler-screen").should("be.visible");
+  cy.getCy("simulationlabscheduler-title").should("be.visible");
+  cy.getCy("simulationlabscheduler-content").should("be.visible");
+  cy.getCy("simulationlab-btn-refresh").should("be.visible");
+  cy.getCy("simulationlab-btn-book").should("be.visible");
+  cy.getCy("simulationlab-btn-details").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Simulation Lab Scheduler...");
   cy.waitAndSee();

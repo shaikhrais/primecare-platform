@@ -18,6 +18,9 @@ describe("Screen - system_analytics", () => {
   cy.getCy("systemanalytics-screen").should("be.visible");
   cy.getCy("systemanalytics-title").should("be.visible");
   cy.getCy("systemanalytics-content").should("be.visible");
+  cy.getCy("sysanalytics-btn-generate-report").should("be.visible");
+  cy.getCy("sysanalytics-btn-update-system").should("be.visible");
+  cy.getCy("sysanalytics-btn-train-users").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SystemAnalyticsScreen...");
   cy.waitAndSee();

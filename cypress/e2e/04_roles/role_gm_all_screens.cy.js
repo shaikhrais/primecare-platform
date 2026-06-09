@@ -8,8 +8,8 @@ describe("Role All Screens - gm", () => {
     cy.loginAsRole("gm");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /management/general-manager-dashboard (GeneralManagerDashboardScreen)...");
-  cy.visitWithSemantics("/management/general-manager-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /offices/business_development/roles/general_manager/dashboard (GeneralManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/business_development/roles/general_manager/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Checking shell & content for GeneralManagerDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - gm", () => {
   cy.getCy("generalmanagerdashboard-screen").should("be.visible");
   cy.getCy("generalmanagerdashboard-title").should("be.visible");
   cy.getCy("generalmanagerdashboard-content").should("be.visible");
+  cy.getCy("gm-dashboard-kpi").should("be.visible");
+  cy.getCy("gm-dashboard-operational-metrics").should("be.visible");
+  cy.getCy("gm-dashboard-compliance-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for GeneralManagerDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - gm", () => {
   cy.getCy("generalmanageranalytics-screen").should("be.visible");
   cy.getCy("generalmanageranalytics-title").should("be.visible");
   cy.getCy("generalmanageranalytics-content").should("be.visible");
+  cy.getCy("gm-analytics-kpi").should("be.visible");
+  cy.getCy("gm-analytics-employee-performance").should("be.visible");
+  cy.getCy("gm-analytics-customer-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for GeneralManagerAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - gm", () => {
   cy.getCy("generalmanagercompliance-screen").should("be.visible");
   cy.getCy("generalmanagercompliance-title").should("be.visible");
   cy.getCy("generalmanagercompliance-content").should("be.visible");
+  cy.getCy("gm-dashboard-performance-metrics").should("be.visible");
+  cy.getCy("gm-dashboard-compliance-status").should("be.visible");
+  cy.getCy("gm-dashboard-employee-satisfaction").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for GeneralManagerComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - gm", () => {
   cy.getCy("generalmanagerworkflow-screen").should("be.visible");
   cy.getCy("generalmanagerworkflow-title").should("be.visible");
   cy.getCy("generalmanagerworkflow-content").should("be.visible");
+  cy.getCy("gm-dashboard-kpi-chart").should("be.visible");
+  cy.getCy("gm-dashboard-financial-performance").should("be.visible");
+  cy.getCy("gm-dashboard-employee-engagement").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for GeneralManagerWorkflowScreen...");
   cy.waitAndSee();

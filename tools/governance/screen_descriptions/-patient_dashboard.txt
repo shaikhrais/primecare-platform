@@ -1,0 +1,25 @@
+List of work for the patient:
+1. Review key performance indicators.
+2. Monitor live telemetry logs.
+3. Check compliance standings.
+4. Trigger manual refresh of the dashboard.
+5. Execute operational audit scan.
+6. Synchronize security posture.
+7. Update security policies.
+8. Export audit logs.
+
+Red flags for operation:
+1. High number of active operations without resolution.
+2. Security clearance below acceptable levels.
+3. Any exceptions logged during security audits.
+4. Significant deviations in telemetry data.
+5. Delays in compliance audit execution.
+6. Errors or warnings in operational logs.
+
+Dashboard needs:
+1. Display of active operations and their statuses.
+2. Security clearance level indicator.
+3. Telemetry chart for real-time monitoring.
+4. Operational audit logs with timestamps.
+5. Buttons for executing compliance scans and refreshing data.
+6. Notifications for any red flags or alerts.

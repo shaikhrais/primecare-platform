@@ -15,9 +15,12 @@ describe("Screen - quality_assurance_metrics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("qualityassurancemetrics-screen").should("be.visible");
+  cy.getCy("qualityassurancemetrics-title").should("be.visible");
+  cy.getCy("qualityassurancemetrics-content").should("be.visible");
+  cy.getCy("qa-metric-error-rate").should("be.visible");
+  cy.getCy("qa-metric-test-coverage").should("be.visible");
+  cy.getCy("qa-metric-mttr").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Quality Assurance Metrics...");
   cy.waitAndSee();

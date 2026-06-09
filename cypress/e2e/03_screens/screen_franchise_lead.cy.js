@@ -18,6 +18,9 @@ describe("Screen - franchise_lead", () => {
   cy.getCy("franchiselead-screen").should("be.visible");
   cy.getCy("franchiselead-title").should("be.visible");
   cy.getCy("franchiselead-content").should("be.visible");
+  cy.getCy("franchiselead-kpi-chart").should("be.visible");
+  cy.getCy("franchiselead-opportunity-list").should("be.visible");
+  cy.getCy("franchiselead-client-management").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FranchiseLeadScreen...");
   cy.waitAndSee();

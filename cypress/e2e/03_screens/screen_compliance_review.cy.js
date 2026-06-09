@@ -18,6 +18,9 @@ describe("Screen - compliance_review", () => {
   cy.getCy("compliancereview-screen").should("be.visible");
   cy.getCy("compliancereview-title").should("be.visible");
   cy.getCy("compliancereview-content").should("be.visible");
+  cy.getCy("compliance-status-card").should("be.visible");
+  cy.getCy("audit-results-chart").should("be.visible");
+  cy.getCy("kpi-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ComplianceReviewScreen...");
   cy.waitAndSee();

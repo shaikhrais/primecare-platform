@@ -15,9 +15,12 @@ describe("Screen - informed_consent_tracker", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("informedconsenttracker-screen").should("be.visible");
+  cy.getCy("informedconsenttracker-title").should("be.visible");
+  cy.getCy("informedconsenttracker-content").should("be.visible");
+  cy.getCy("consent-status-overview").should("be.visible");
+  cy.getCy("consent-alerts").should("be.visible");
+  cy.getCy("consent-metrics-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Informed Consent Tracker...");
   cy.waitAndSee();

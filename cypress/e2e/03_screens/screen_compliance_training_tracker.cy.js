@@ -15,9 +15,11 @@ describe("Screen - compliance_training_tracker", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("compliancetrainingtracker-screen").should("be.visible");
+  cy.getCy("compliancetrainingtracker-title").should("be.visible");
+  cy.getCy("compliancetrainingtracker-content").should("be.visible");
+  cy.getCy("compliance-training-refresh").should("be.visible");
+  cy.getCy("compliance-training-send-reminders").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Compliance Training Tracker...");
   cy.waitAndSee();

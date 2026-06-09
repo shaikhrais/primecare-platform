@@ -15,9 +15,12 @@ describe("Screen - receptionist_visitors", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("receptionistvisitors-screen").should("be.visible");
+  cy.getCy("receptionistvisitors-title").should("be.visible");
+  cy.getCy("receptionistvisitors-content").should("be.visible");
+  cy.getCy("receptionist-btn-manage-settings").should("be.visible");
+  cy.getCy("receptionist-btn-conduct-audit").should("be.visible");
+  cy.getCy("receptionist-btn-log-event").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Receptionist Visitors...");
   cy.waitAndSee();

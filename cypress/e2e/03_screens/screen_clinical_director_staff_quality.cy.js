@@ -18,6 +18,9 @@ describe("Screen - clinical_director_staff_quality", () => {
   cy.getCy("clinicaldirectorstaffquality-screen").should("be.visible");
   cy.getCy("clinicaldirectorstaffquality-title").should("be.visible");
   cy.getCy("clinicaldirectorstaffquality-content").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-send-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ClinicalDirectorStaffQualityScreen...");
   cy.waitAndSee();

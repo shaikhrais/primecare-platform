@@ -18,6 +18,9 @@ describe("Screen - rmt_dashboard", () => {
   cy.getCy("rmtdashboard-screen").should("be.visible");
   cy.getCy("rmtdashboard-title").should("be.visible");
   cy.getCy("rmtdashboard-content").should("be.visible");
+  cy.getCy("rmt-dashboard-btn-schedule-appointment").should("be.visible");
+  cy.getCy("rmt-dashboard-btn-submit-soap-notes").should("be.visible");
+  cy.getCy("rmt-dashboard-btn-view-patient-history").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RmtDashboardScreen...");
   cy.waitAndSee();

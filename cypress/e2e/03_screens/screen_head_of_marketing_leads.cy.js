@@ -15,9 +15,12 @@ describe("Screen - head_of_marketing_leads", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("headofmarketingleads-screen").should("be.visible");
+  cy.getCy("headofmarketingleads-title").should("be.visible");
+  cy.getCy("headofmarketingleads-content").should("be.visible");
+  cy.getCy("lead-status-overview").should("be.visible");
+  cy.getCy("conversion-rate-metric").should("be.visible");
+  cy.getCy("campaign-performance-analytics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Head Of Marketing Leads...");
   cy.waitAndSee();

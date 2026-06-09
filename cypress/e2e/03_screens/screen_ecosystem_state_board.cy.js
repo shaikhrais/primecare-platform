@@ -15,9 +15,10 @@ describe("Screen - ecosystem_state_board", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ecosystemstateboard-screen").should("be.visible");
+  cy.getCy("ecosystemstateboard-title").should("be.visible");
+  cy.getCy("ecosystemstateboard-content").should("be.visible");
+  cy.getCy("ecosystem-state-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Ecosystem State Board...");
   cy.waitAndSee();

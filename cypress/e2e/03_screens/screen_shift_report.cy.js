@@ -18,6 +18,9 @@ describe("Screen - shift_report", () => {
   cy.getCy("shiftreport-screen").should("be.visible");
   cy.getCy("shiftreport-title").should("be.visible");
   cy.getCy("shiftreport-content").should("be.visible");
+  cy.getCy("rn-dashboard-patient-health-status").should("be.visible");
+  cy.getCy("rn-dashboard-compliance-metrics").should("be.visible");
+  cy.getCy("rn-dashboard-patient-satisfaction").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ShiftReportScreen...");
   cy.waitAndSee();

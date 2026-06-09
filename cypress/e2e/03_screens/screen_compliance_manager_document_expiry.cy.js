@@ -15,9 +15,12 @@ describe("Screen - compliance_manager_document_expiry", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("compliancemanagerdocumentexpiry-screen").should("be.visible");
+  cy.getCy("compliancemanagerdocumentexpiry-title").should("be.visible");
+  cy.getCy("compliancemanagerdocumentexpiry-content").should("be.visible");
+  cy.getCy("compliance-doc-expiry-overview").should("be.visible");
+  cy.getCy("compliance-doc-update-btn").should("be.visible");
+  cy.getCy("compliance-report-generate-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Compliance Manager Document Expiry...");
   cy.waitAndSee();

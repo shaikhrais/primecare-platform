@@ -7,8 +7,8 @@ describe("Screen - hr_director_dashboard", () => {
   it("opens and verifies screen hr_director_dashboard", () => {
     cy.loginAsRole("hr_director");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/hr-director-dashboard (HrDirectorDashboardScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/hr_director/dashboard (HrDirectorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/hr_director/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for HrDirectorDashboardScreen...");
@@ -18,6 +18,9 @@ describe("Screen - hr_director_dashboard", () => {
   cy.getCy("hrdirectordashboard-screen").should("be.visible");
   cy.getCy("hrdirectordashboard-title").should("be.visible");
   cy.getCy("hrdirectordashboard-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-feedback").should("be.visible");
+  cy.getCy("hrdashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HrDirectorDashboardScreen...");
   cy.waitAndSee();

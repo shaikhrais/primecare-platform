@@ -18,6 +18,9 @@ describe("Screen - hr_director_credential_expiry", () => {
   cy.getCy("hrdirectorcredentialexpiry-screen").should("be.visible");
   cy.getCy("hrdirectorcredentialexpiry-title").should("be.visible");
   cy.getCy("hrdirectorcredentialexpiry-content").should("be.visible");
+  cy.getCy("hr-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hr-dashboard-btn-view-details").should("be.visible");
+  cy.getCy("hr-dashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HrDirectorCredentialExpiryScreen...");
   cy.waitAndSee();

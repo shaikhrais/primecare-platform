@@ -18,6 +18,9 @@ describe("Screen - referral_management", () => {
   cy.getCy("referralmanagement-screen").should("be.visible");
   cy.getCy("referralmanagement-title").should("be.visible");
   cy.getCy("referralmanagement-content").should("be.visible");
+  cy.getCy("referral-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("referral-dashboard-btn-reminder").should("be.visible");
+  cy.getCy("referral-dashboard-btn-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ReferralManagementScreen...");
   cy.waitAndSee();

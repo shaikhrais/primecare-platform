@@ -15,9 +15,12 @@ describe("Screen - np_analytics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("nurse practitioner (np) analytics-screen").should("be.visible");
-  cy.getCy("nurse practitioner (np) analytics-title").should("be.visible");
-  cy.getCy("nurse practitioner (np) analytics-content").should("be.visible");
+  cy.getCy("npanalytics-screen").should("be.visible");
+  cy.getCy("npanalytics-title").should("be.visible");
+  cy.getCy("npanalytics-content").should("be.visible");
+  cy.getCy("np-dashboard-btn-view-records").should("be.visible");
+  cy.getCy("np-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("np-dashboard-btn-send-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Nurse Practitioner (NP) Analytics...");
   cy.waitAndSee();

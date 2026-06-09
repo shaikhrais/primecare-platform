@@ -8,8 +8,8 @@ describe("Role All Screens - ops_manager", () => {
     cy.loginAsRole("ops_manager");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/8 | 12%] - Navigating to /management/operations-manager-dashboard (OperationsManagerDashboardScreen)...");
-  cy.visitWithSemantics("/management/operations-manager-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/8 | 12%] - Navigating to /offices/franchise/roles/operations_manager/dashboard (OperationsManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/operations_manager/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/8 | 12%] - Checking shell & content for OperationsManagerDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - ops_manager", () => {
   cy.getCy("operationsmanagerdashboard-screen").should("be.visible");
   cy.getCy("operationsmanagerdashboard-title").should("be.visible");
   cy.getCy("operationsmanagerdashboard-content").should("be.visible");
+  cy.getCy("operations-dashboard-kpi").should("be.visible");
+  cy.getCy("operations-dashboard-compliance").should("be.visible");
+  cy.getCy("operations-dashboard-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/8 | 12%] - Saving screenshot for OperationsManagerDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - ops_manager", () => {
   cy.getCy("operationsmanageranalytics-screen").should("be.visible");
   cy.getCy("operationsmanageranalytics-title").should("be.visible");
   cy.getCy("operationsmanageranalytics-content").should("be.visible");
+  cy.getCy("opsmanager-btn-refresh").should("be.visible");
+  cy.getCy("opsmanager-btn-view-report").should("be.visible");
+  cy.getCy("opsmanager-btn-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/8 | 25%] - Saving screenshot for OperationsManagerAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - ops_manager", () => {
   cy.getCy("operationsmanagercompliance-screen").should("be.visible");
   cy.getCy("operationsmanagercompliance-title").should("be.visible");
   cy.getCy("operationsmanagercompliance-content").should("be.visible");
+  cy.getCy("operations-compliance-status-card").should("be.visible");
+  cy.getCy("operations-audit-log-table").should("be.visible");
+  cy.getCy("operations-performance-metrics-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/8 | 37%] - Saving screenshot for OperationsManagerComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - ops_manager", () => {
   cy.getCy("operationsmanagerworkflow-screen").should("be.visible");
   cy.getCy("operationsmanagerworkflow-title").should("be.visible");
   cy.getCy("operationsmanagerworkflow-content").should("be.visible");
+  cy.getCy("opsmanager-kpi-overview").should("be.visible");
+  cy.getCy("opsmanager-metrics-chart").should("be.visible");
+  cy.getCy("opsmanager-team-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/8 | 50%] - Saving screenshot for OperationsManagerWorkflowScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - ops_manager", () => {
   cy.getCy("dailyoperations-screen").should("be.visible");
   cy.getCy("dailyoperations-title").should("be.visible");
   cy.getCy("dailyoperations-content").should("be.visible");
+  cy.getCy("operations-kpi-widget").should("be.visible");
+  cy.getCy("operations-compliance-status").should("be.visible");
+  cy.getCy("operations-metrics-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [5/8 | 62%] - Saving screenshot for DailyOperationsScreen...");
   cy.waitAndSee();
@@ -109,6 +124,9 @@ describe("Role All Screens - ops_manager", () => {
   cy.getCy("attendance-screen").should("be.visible");
   cy.getCy("attendance-title").should("be.visible");
   cy.getCy("attendance-content").should("be.visible");
+  cy.getCy("attendance-dashboard-performance").should("be.visible");
+  cy.getCy("attendance-dashboard-compliance").should("be.visible");
+  cy.getCy("attendance-dashboard-engagement").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [6/8 | 75%] - Saving screenshot for AttendanceScreen...");
   cy.waitAndSee();
@@ -127,6 +145,9 @@ describe("Role All Screens - ops_manager", () => {
   cy.getCy("schedulinghealth-screen").should("be.visible");
   cy.getCy("schedulinghealth-title").should("be.visible");
   cy.getCy("schedulinghealth-content").should("be.visible");
+  cy.getCy("ops-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("ops-dashboard-btn-conduct-audit").should("be.visible");
+  cy.getCy("ops-dashboard-btn-train-staff").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [7/8 | 87%] - Saving screenshot for SchedulingHealthScreen...");
   cy.waitAndSee();
@@ -145,6 +166,9 @@ describe("Role All Screens - ops_manager", () => {
   cy.getCy("serviceissue-screen").should("be.visible");
   cy.getCy("serviceissue-title").should("be.visible");
   cy.getCy("serviceissue-content").should("be.visible");
+  cy.getCy("opsdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("opsdashboard-btn-view-compliance").should("be.visible");
+  cy.getCy("opsdashboard-btn-track-budget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [8/8 | 100%] - Saving screenshot for ServiceIssueScreen...");
   cy.waitAndSee();

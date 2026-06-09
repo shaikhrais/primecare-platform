@@ -15,9 +15,12 @@ describe("Screen - client_payments", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("clientpayments-screen").should("be.visible");
+  cy.getCy("clientpayments-title").should("be.visible");
+  cy.getCy("clientpayments-content").should("be.visible");
+  cy.getCy("clientpayments-btn-review").should("be.visible");
+  cy.getCy("clientpayments-btn-report").should("be.visible");
+  cy.getCy("clientpayments-btn-manage").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Client Payments...");
   cy.waitAndSee();

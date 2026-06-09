@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor refund requests submitted by users.
+2. Approve or reject refund requests based on predefined criteria.
+3. Communicate with users regarding the status of their refund requests.
+4. Analyze refund trends and patterns for operational insights.
+5. Ensure compliance with refund policies and regulations.
+
+Red flags of operation:
+1. High volume of refund requests indicating potential issues with products or services.
+2. Frequent rejections of refund requests suggesting unclear policies or user misunderstandings.
+3. Delays in processing refunds leading to user dissatisfaction.
+4. Lack of communication with users regarding their refund status.
+5. Inconsistent approval rates among different staff members.
+
+What is needed on the user dashboard:
+1. Overview of pending refund requests with status indicators.
+2. Metrics on refund request volume and trends over time.
+3. Notifications for urgent or high-priority refund requests.
+4. Communication tools for interacting with users about their requests.
+5. Access to refund policy documentation for quick reference.

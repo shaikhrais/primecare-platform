@@ -18,6 +18,9 @@ describe("Screen - scrum_master_analytics", () => {
   cy.getCy("scrummasteranalytics-screen").should("be.visible");
   cy.getCy("scrummasteranalytics-title").should("be.visible");
   cy.getCy("scrummasteranalytics-content").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-add-impediment").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-resolve-impediment").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-start-sprint-planning").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ScrumMasterAnalyticsScreen...");
   cy.waitAndSee();

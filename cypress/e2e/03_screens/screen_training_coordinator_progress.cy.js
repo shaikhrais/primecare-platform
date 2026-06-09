@@ -15,9 +15,12 @@ describe("Screen - training_coordinator_progress", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("trainingcoordinatorprogress-screen").should("be.visible");
+  cy.getCy("trainingcoordinatorprogress-title").should("be.visible");
+  cy.getCy("trainingcoordinatorprogress-content").should("be.visible");
+  cy.getCy("training-dashboard-completion-rate").should("be.visible");
+  cy.getCy("training-dashboard-feedback-summary").should("be.visible");
+  cy.getCy("training-dashboard-performance-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Training Coordinator Progress...");
   cy.waitAndSee();

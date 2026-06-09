@@ -1,0 +1,17 @@
+User Tasks:
+1. View upcoming and past events.
+2. Refresh the event list.
+3. Schedule a new event.
+4. Monitor event details including title, date, type, registrants, and attendees.
+
+Red Flags of Operation:
+1. Frequent errors when fetching event data.
+2. Slow loading times for the event list.
+3. Inconsistent data display (e.g., missing attendees).
+4. Lack of user feedback on actions (e.g., scheduling an event).
+
+Dashboard Needs:
+1. Summary of upcoming events with key details.
+2. Notifications for errors or loading issues.
+3. Quick access to schedule new events.
+4. Visual indicators for event status (upcoming, past).

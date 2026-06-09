@@ -18,6 +18,9 @@ describe("Screen - ciso_compliance", () => {
   cy.getCy("cisocompliance-screen").should("be.visible");
   cy.getCy("cisocompliance-title").should("be.visible");
   cy.getCy("cisocompliance-content").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-initiate-risk-assessment").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-start-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CisoComplianceScreen...");
   cy.waitAndSee();

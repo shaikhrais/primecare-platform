@@ -7,17 +7,20 @@ describe("Screen - ceo_revenue_summary", () => {
   it("opens and verifies screen ceo_revenue_summary", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Ceo Revenue Summary)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/ceo/revenue-summary (Ceo Revenue Summary)...");
+  cy.visitWithSemantics("/offices/corporate/roles/ceo/revenue-summary");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Ceo Revenue Summary...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ceorevenuesummary-screen").should("be.visible");
+  cy.getCy("ceorevenuesummary-title").should("be.visible");
+  cy.getCy("ceorevenuesummary-content").should("be.visible");
+  cy.getCy("revenue-summary-card").should("be.visible");
+  cy.getCy("revenue-trend-chart").should("be.visible");
+  cy.getCy("kpi-indicator").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Ceo Revenue Summary...");
   cy.waitAndSee();

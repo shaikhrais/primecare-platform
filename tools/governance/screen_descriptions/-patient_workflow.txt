@@ -1,0 +1,23 @@
+List of work for the patient:
+1. Complete pre-operative assessments.
+2. Review and sign consent forms.
+3. Attend pre-operative education sessions.
+4. Schedule and attend follow-up appointments.
+5. Monitor and report any changes in health status.
+6. Follow post-operative care instructions.
+
+Red flags for operation:
+1. Uncontrolled pain or discomfort.
+2. Signs of infection (fever, redness, swelling).
+3. Unexpected bleeding or discharge.
+4. Severe allergic reactions.
+5. Difficulty breathing or chest pain.
+6. Non-compliance with pre-operative instructions.
+
+Dashboard needs for the patient:
+1. Overview of upcoming appointments and tasks.
+2. Notifications for pre-operative and post-operative instructions.
+3. Health status tracking and reporting feature.
+4. Access to educational resources and consent forms.
+5. Communication channel with healthcare providers.
+6. Summary of completed tasks and next steps.

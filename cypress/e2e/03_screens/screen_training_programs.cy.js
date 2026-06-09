@@ -15,9 +15,12 @@ describe("Screen - training_programs", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("trainingprograms-screen").should("be.visible");
+  cy.getCy("trainingprograms-title").should("be.visible");
+  cy.getCy("trainingprograms-content").should("be.visible");
+  cy.getCy("loading-indicator").should("be.visible");
+  cy.getCy("error-alert").should("be.visible");
+  cy.getCy("training-program-list").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Training Programs...");
   cy.waitAndSee();

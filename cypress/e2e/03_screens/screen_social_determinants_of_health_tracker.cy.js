@@ -15,9 +15,12 @@ describe("Screen - social_determinants_of_health_tracker", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("socialdeterminantsofhealthtracker-screen").should("be.visible");
+  cy.getCy("socialdeterminantsofhealthtracker-title").should("be.visible");
+  cy.getCy("socialdeterminantsofhealthtracker-content").should("be.visible");
+  cy.getCy("healthtracker-btn-submit").should("be.visible");
+  cy.getCy("healthtracker-btn-generate-report").should("be.visible");
+  cy.getCy("healthtracker-btn-update-info").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Social Determinants Of Health Tracker...");
   cy.waitAndSee();

@@ -1,0 +1,35 @@
+List of tasks for Premium Concierge Care Coordinator:
+1. Run compliance scans.
+2. Sync security posture.
+3. Update policies.
+4. Export audit logs.
+5. Dispatch specialty providers.
+6. Escalate VIP requests.
+7. Monitor operational logs.
+8. Manage dashboard updates.
+9. Trigger state actions.
+10. Respond to system alerts.
+
+Red flags of operation:
+1. High number of API errors.
+2. Network issues affecting service.
+3. Delays in compliance scan execution.
+4. Low security clearance levels.
+5. Inconsistent operational logs.
+6. Unresolved VIP requests.
+7. Lack of timely updates on policies.
+8. Decreased productivity metrics.
+9. Unusual spikes in telemetry data.
+10. Failure to sync security posture.
+
+Dashboard needs:
+1. Real-time operational metrics.
+2. Compliance scan status.
+3. Security clearance levels.
+4. Recent logs and alerts.
+5. Performance trends and analytics.
+6. Quick action buttons for key tasks.
+7. Visual representation of telemetry data.
+8. Notifications for red flags.
+9. User activity tracking.
+10. Export options for logs and reports.

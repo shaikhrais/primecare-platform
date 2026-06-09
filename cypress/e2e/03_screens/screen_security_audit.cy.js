@@ -18,6 +18,9 @@ describe("Screen - security_audit", () => {
   cy.getCy("securityaudit-screen").should("be.visible");
   cy.getCy("securityaudit-title").should("be.visible");
   cy.getCy("securityaudit-content").should("be.visible");
+  cy.getCy("ctodashboard-btn-refresh").should("be.visible");
+  cy.getCy("ctodashboard-btn-view-report").should("be.visible");
+  cy.getCy("ctodashboard-btn-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SecurityAuditScreen...");
   cy.waitAndSee();

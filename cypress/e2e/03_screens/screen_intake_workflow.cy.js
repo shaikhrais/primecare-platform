@@ -18,6 +18,9 @@ describe("Screen - intake_workflow", () => {
   cy.getCy("intakeworkflow-screen").should("be.visible");
   cy.getCy("intakeworkflow-title").should("be.visible");
   cy.getCy("intakeworkflow-content").should("be.visible");
+  cy.getCy("intake-dashboard-referral-status").should("be.visible");
+  cy.getCy("intake-dashboard-appointment-calendar").should("be.visible");
+  cy.getCy("intake-dashboard-patient-summary").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for IntakeWorkflowScreen...");
   cy.waitAndSee();

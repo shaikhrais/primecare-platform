@@ -18,6 +18,9 @@ describe("Screen - pediatric_dashboard", () => {
   cy.getCy("pediatricdashboard-screen").should("be.visible");
   cy.getCy("pediatricdashboard-title").should("be.visible");
   cy.getCy("pediatricdashboard-content").should("be.visible");
+  cy.getCy("pediatric-dashboard-btn-record-growth").should("be.visible");
+  cy.getCy("pediatric-dashboard-btn-administer-vaccination").should("be.visible");
+  cy.getCy("pediatric-dashboard-btn-schedule-appointment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PediatricDashboardScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - board_of_directors_summary", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("boardofdirectorssummary-screen").should("be.visible");
+  cy.getCy("boardofdirectorssummary-title").should("be.visible");
+  cy.getCy("boardofdirectorssummary-content").should("be.visible");
+  cy.getCy("kpi-overview").should("be.visible");
+  cy.getCy("refresh-data-btn").should("be.visible");
+  cy.getCy("generate-pdf-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Board Of Directors Summary...");
   cy.waitAndSee();

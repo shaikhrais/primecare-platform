@@ -1,0 +1,35 @@
+Franchise Owner Responsibilities:
+1. Oversee daily operations of the franchise.
+2. Ensure compliance with franchise agreements and standards.
+3. Manage staff recruitment, training, and performance.
+4. Monitor financial performance and manage budgets.
+5. Implement marketing strategies to drive sales.
+6. Maintain customer satisfaction and handle complaints.
+7. Conduct regular audits and assessments of operations.
+8. Communicate with the franchisor and attend training sessions.
+9. Manage inventory and supply chain logistics.
+10. Develop and maintain relationships with local businesses and community.
+
+Red Flags of Operation:
+1. Declining sales or revenue trends.
+2. High employee turnover rates.
+3. Frequent customer complaints or negative feedback.
+4. Inconsistent adherence to franchise standards.
+5. Poor inventory management leading to stockouts or excess.
+6. Lack of engagement or communication with staff.
+7. Failure to implement marketing initiatives.
+8. Unresolved operational issues or inefficiencies.
+9. Inadequate financial reporting or budgeting practices.
+10. Non-compliance with health and safety regulations.
+
+Dashboard Needs for Franchise Owner:
+1. Sales performance metrics (daily, weekly, monthly).
+2. Employee performance and turnover statistics.
+3. Customer satisfaction scores and feedback trends.
+4. Inventory levels and supply chain status.
+5. Financial reports (profit and loss, budget vs. actual).
+6. Marketing campaign performance analytics.
+7. Compliance checklists and audit results.
+8. Operational efficiency indicators.
+9. Alerts for any red flags or issues needing attention.
+10. Communication tools for staff and franchisor engagement.

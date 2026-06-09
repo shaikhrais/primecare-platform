@@ -1,0 +1,18 @@
+User Tasks:
+1. Manage institutional settings.
+2. Track real-time clinical workflows.
+3. Verify live compliance standing.
+4. Submit secure operational event logs.
+
+Red Flags of Operation:
+1. Operational Status not marked as ACTIVE.
+2. Verification Audits showing non-compliance or issues detected.
+3. Significant drop in SLA uptime below acceptable thresholds.
+4. Unusual spikes or drops in hourly transaction flow.
+
+Dashboard Needs:
+1. Clear display of Operational Status.
+2. Verification Audits status with issue alerts.
+3. Real-time SLA uptime metrics.
+4. Visual representation of transaction flow trends.
+5. Secure event logging feature with submission confirmation.

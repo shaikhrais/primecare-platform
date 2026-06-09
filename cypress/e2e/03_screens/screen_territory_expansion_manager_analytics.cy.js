@@ -18,6 +18,9 @@ describe("Screen - territory_expansion_manager_analytics", () => {
   cy.getCy("territoryexpansionmanageranalytics-screen").should("be.visible");
   cy.getCy("territoryexpansionmanageranalytics-title").should("be.visible");
   cy.getCy("territoryexpansionmanageranalytics-content").should("be.visible");
+  cy.getCy("territory-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("territory-dashboard-btn-update-strategy").should("be.visible");
+  cy.getCy("territory-dashboard-btn-train-teams").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TerritoryExpansionManagerAnalyticsScreen...");
   cy.waitAndSee();

@@ -1,0 +1,35 @@
+Licensed Practical Nurse (LPN) Responsibilities:
+1. Administer medications and injections as prescribed.
+2. Monitor patients' vital signs and report changes to the healthcare team.
+3. Assist with daily living activities such as bathing, dressing, and eating.
+4. Maintain patient records and documentation.
+5. Provide basic wound care and assist with medical procedures.
+6. Educate patients and families about health management and care plans.
+7. Collaborate with registered nurses and other healthcare professionals.
+8. Ensure compliance with healthcare regulations and standards.
+9. Participate in patient assessments and care planning.
+10. Maintain a clean and safe environment for patients.
+
+Red Flags of Operation:
+1. Increased patient complaints or dissatisfaction.
+2. Frequent medication errors or adverse drug reactions.
+3. High turnover rates among nursing staff.
+4. Inconsistent documentation or missing patient records.
+5. Delays in patient care or treatment.
+6. Lack of communication among healthcare team members.
+7. Non-compliance with safety protocols and procedures.
+8. Elevated rates of hospital readmissions.
+9. Inadequate training or support for new staff.
+10. Signs of burnout or low morale among nursing staff.
+
+Dashboard Needs for Licensed Practical Nurse (LPN):
+1. Real-time patient monitoring metrics (vital signs, medication administration).
+2. Compliance tracking for medication and treatment protocols.
+3. Patient satisfaction scores and feedback.
+4. Incident reporting and tracking system for errors or adverse events.
+5. Staffing levels and workload indicators.
+6. Training and certification status of nursing staff.
+7. Alerts for overdue tasks or assessments.
+8. Performance metrics for individual LPNs and teams.
+9. Access to patient care plans and documentation.
+10. Communication tools for collaboration with healthcare team members.

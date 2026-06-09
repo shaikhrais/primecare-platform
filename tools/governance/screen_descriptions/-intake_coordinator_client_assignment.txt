@@ -1,0 +1,21 @@
+List of work the user must do:
+1. Monitor client assignments and ensure they are correctly allocated.
+2. Review incoming client requests and prioritize them based on urgency.
+3. Communicate with clients to gather necessary information for assignments.
+4. Update the status of client assignments in the system.
+5. Collaborate with other team members to resolve any issues related to client assignments.
+6. Generate reports on client assignment metrics and performance.
+
+Red flags of operation:
+1. Delays in client assignment processing.
+2. High volume of client complaints or inquiries.
+3. Frequent errors in assignment allocations.
+4. Lack of communication or collaboration among team members.
+5. Inconsistent data or metrics reported in the system.
+
+What is needed on the user dashboard:
+1. Overview of current client assignments and their statuses.
+2. Alerts for any overdue assignments or pending requests.
+3. Performance metrics such as average assignment time and client satisfaction scores.
+4. Communication tools for easy interaction with clients and team members.
+5. Access to reports and analytics for informed decision-making.

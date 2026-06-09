@@ -18,6 +18,9 @@ describe("Screen - agent_dispatch", () => {
   cy.getCy("agentdispatch-screen").should("be.visible");
   cy.getCy("agentdispatch-title").should("be.visible");
   cy.getCy("agentdispatch-content").should("be.visible");
+  cy.getCy("gov-dashboard-compliance-status").should("be.visible");
+  cy.getCy("gov-dashboard-audit-log").should("be.visible");
+  cy.getCy("gov-dashboard-risk-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for AgentDispatchScreen...");
   cy.waitAndSee();

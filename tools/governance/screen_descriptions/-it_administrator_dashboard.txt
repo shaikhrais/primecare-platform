@@ -1,0 +1,27 @@
+List of work for the User:
+1. Monitor system performance and health.
+2. Manage user accounts and permissions.
+3. Oversee software updates and installations.
+4. Respond to IT support requests and incidents.
+5. Analyze system logs for security and performance issues.
+6. Ensure data backup and recovery processes are in place.
+7. Maintain documentation for IT processes and systems.
+8. Conduct regular security audits and assessments.
+
+Red flags of operation:
+1. Frequent system outages or downtime.
+2. Delays in responding to support requests.
+3. Unusual spikes in system resource usage.
+4. Unauthorized access attempts or security breaches.
+5. Inconsistent data backup and recovery failures.
+6. Lack of documentation or outdated procedures.
+7. High turnover of IT staff or knowledge gaps.
+
+Dashboard needs for the User:
+1. Real-time system performance metrics (CPU, memory, disk usage).
+2. User account status and activity logs.
+3. Alerts for critical incidents or security breaches.
+4. Summary of pending support requests and response times.
+5. Status of software updates and patch management.
+6. Backup status and recovery options.
+7. Documentation access for IT processes and procedures.

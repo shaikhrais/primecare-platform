@@ -1,6 +1,7 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/routes/auth_callback_view.dart';
 import '../ui/dynamic_screen_view.dart';
 import '../ui/language_selector.dart';
 import '../../features/qa/screens/audit_dashboard_screen.dart';
@@ -75,6 +76,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
+      GoRoute(
+        path: CommonRoutes.authCallback,
+        builder: (context, state) => AuthCallbackView(
+          queryParameters: state.uri.queryParameters,
+        ),
+      ),
       GoRoute(
         path: ScreenRegistry.screens['LOGIN']?.routePath ?? '/login',
         builder: (context, state) => const LoginView(),

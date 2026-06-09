@@ -15,9 +15,11 @@ describe("Screen - system_capacity_planner", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("systemcapacityplanner-screen").should("be.visible");
+  cy.getCy("systemcapacityplanner-title").should("be.visible");
+  cy.getCy("systemcapacityplanner-content").should("be.visible");
+  cy.getCy("capacity-monitor-refresh").should("be.visible");
+  cy.getCy("capacity-error-message").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for System Capacity Planner...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - billing_claims", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("billingclaims-screen").should("be.visible");
+  cy.getCy("billingclaims-title").should("be.visible");
+  cy.getCy("billingclaims-content").should("be.visible");
+  cy.getCy("billing-claims-btn-submit").should("be.visible");
+  cy.getCy("billing-claims-btn-clear").should("be.visible");
+  cy.getCy("billing-claims-btn-reconcile").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Billing Claims...");
   cy.waitAndSee();

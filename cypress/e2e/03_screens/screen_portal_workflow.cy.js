@@ -18,6 +18,9 @@ describe("Screen - portal_workflow", () => {
   cy.getCy("portalworkflow-screen").should("be.visible");
   cy.getCy("portalworkflow-title").should("be.visible");
   cy.getCy("portalworkflow-content").should("be.visible");
+  cy.getCy("portal-session-monitor").should("be.visible");
+  cy.getCy("workflow-sync-indicator").should("be.visible");
+  cy.getCy("manual-refresh-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PortalWorkflowScreen...");
   cy.waitAndSee();

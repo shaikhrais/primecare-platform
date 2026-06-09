@@ -18,6 +18,9 @@ describe("Screen - scheduler_workflow", () => {
   cy.getCy("schedulerworkflow-screen").should("be.visible");
   cy.getCy("schedulerworkflow-title").should("be.visible");
   cy.getCy("schedulerworkflow-content").should("be.visible");
+  cy.getCy("scheduler-btn-update-schedule").should("be.visible");
+  cy.getCy("scheduler-btn-submit-incident").should("be.visible");
+  cy.getCy("scheduler-btn-view-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerWorkflowScreen...");
   cy.waitAndSee();

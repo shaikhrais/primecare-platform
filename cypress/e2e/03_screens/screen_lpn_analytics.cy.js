@@ -15,9 +15,12 @@ describe("Screen - lpn_analytics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("licensed practical nurse (lpn) analytics-screen").should("be.visible");
-  cy.getCy("licensed practical nurse (lpn) analytics-title").should("be.visible");
-  cy.getCy("licensed practical nurse (lpn) analytics-content").should("be.visible");
+  cy.getCy("lpnanalytics-screen").should("be.visible");
+  cy.getCy("lpnanalytics-title").should("be.visible");
+  cy.getCy("lpnanalytics-content").should("be.visible");
+  cy.getCy("lpn-dashboard-btn-report-incident").should("be.visible");
+  cy.getCy("lpn-dashboard-btn-view-care-plan").should("be.visible");
+  cy.getCy("lpn-dashboard-btn-track-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Licensed Practical Nurse (LPN) Analytics...");
   cy.waitAndSee();

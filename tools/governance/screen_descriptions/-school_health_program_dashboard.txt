@@ -1,0 +1,29 @@
+User Work Tasks:
+1. Monitor health program metrics.
+2. Review student health records.
+3. Analyze program effectiveness.
+4. Manage health resources and supplies.
+5. Communicate with health professionals and educators.
+6. Update program policies and procedures.
+7. Conduct health assessments and screenings.
+8. Organize health education workshops.
+
+Red Flags of Operation:
+1. Low participation rates in health programs.
+2. High incidence of health issues among students.
+3. Delayed reporting of health data.
+4. Inconsistent communication with stakeholders.
+5. Lack of resources or supplies for health initiatives.
+6. Poor feedback from program participants.
+7. Non-compliance with health regulations.
+8. Insufficient training for staff on health protocols.
+
+Dashboard Requirements:
+1. Key performance indicators (KPIs) for health programs.
+2. Visual representation of health metrics (charts/graphs).
+3. Alerts for low participation or high incidence rates.
+4. Quick access to student health records.
+5. Resource management tools for tracking supplies.
+6. Communication tools for stakeholder engagement.
+7. Feedback collection mechanism from program participants.
+8. Compliance tracking for health regulations.

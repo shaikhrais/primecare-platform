@@ -15,9 +15,11 @@ describe("Screen - message_archiveer", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("messagearchiveer-screen").should("be.visible");
+  cy.getCy("messagearchiveer-title").should("be.visible");
+  cy.getCy("messagearchiveer-content").should("be.visible");
+  cy.getCy("message-archive-refresh").should("be.visible");
+  cy.getCy("message-archive-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Message Archiveer...");
   cy.waitAndSee();

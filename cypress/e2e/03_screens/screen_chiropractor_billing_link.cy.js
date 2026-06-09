@@ -18,6 +18,9 @@ describe("Screen - chiropractor_billing_link", () => {
   cy.getCy("chiropractorbillinglink-screen").should("be.visible");
   cy.getCy("chiropractorbillinglink-title").should("be.visible");
   cy.getCy("chiropractorbillinglink-content").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-compliance-scan").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-operational-action").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-view-patient-records").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ChiropractorBillingLinkScreen...");
   cy.waitAndSee();

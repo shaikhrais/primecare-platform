@@ -7,8 +7,8 @@ describe("Screen - messaging", () => {
   it("opens and verifies screen messaging", () => {
     cy.loginAsRole("caregiver");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/caregiver/messaging (MessagingScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/caregiver/messaging");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /clinic/messaging (MessagingScreen)...");
+  cy.visitWithSemantics("/clinic/messaging");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for MessagingScreen...");
@@ -18,6 +18,9 @@ describe("Screen - messaging", () => {
   cy.getCy("messaging-screen").should("be.visible");
   cy.getCy("messaging-title").should("be.visible");
   cy.getCy("messaging-content").should("be.visible");
+  cy.getCy("msg-dashboard-btn-view-client-profile").should("be.visible");
+  cy.getCy("msg-dashboard-btn-log-communication").should("be.visible");
+  cy.getCy("msg-dashboard-btn-report-incident").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for MessagingScreen...");
   cy.waitAndSee();

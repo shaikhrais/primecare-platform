@@ -18,6 +18,9 @@ describe("Screen - psw_care_plan", () => {
   cy.getCy("pswcareplan-screen").should("be.visible");
   cy.getCy("pswcareplan-title").should("be.visible");
   cy.getCy("pswcareplan-content").should("be.visible");
+  cy.getCy("psw-tasklist").should("be.visible");
+  cy.getCy("psw-health-status").should("be.visible");
+  cy.getCy("psw-performance-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PswCarePlanScreen...");
   cy.waitAndSee();

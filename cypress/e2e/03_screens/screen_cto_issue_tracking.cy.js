@@ -7,17 +7,20 @@ describe("Screen - cto_issue_tracking", () => {
   it("opens and verifies screen cto_issue_tracking", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Cto Issue Tracking)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/cto/issue-tracking (Cto Issue Tracking)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cto/issue-tracking");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Cto Issue Tracking...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ctoissuetracking-screen").should("be.visible");
+  cy.getCy("ctoissuetracking-title").should("be.visible");
+  cy.getCy("ctoissuetracking-content").should("be.visible");
+  cy.getCy("issue-status-overview").should("be.visible");
+  cy.getCy("issue-notification-widget").should("be.visible");
+  cy.getCy("issue-analytics-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Cto Issue Tracking...");
   cy.waitAndSee();

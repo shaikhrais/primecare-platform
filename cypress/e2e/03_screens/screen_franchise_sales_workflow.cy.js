@@ -15,9 +15,12 @@ describe("Screen - franchise_sales_workflow", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("franchise sales manager compliance workflow-screen").should("be.visible");
-  cy.getCy("franchise sales manager compliance workflow-title").should("be.visible");
-  cy.getCy("franchise sales manager compliance workflow-content").should("be.visible");
+  cy.getCy("franchisesalesworkflow-screen").should("be.visible");
+  cy.getCy("franchisesalesworkflow-title").should("be.visible");
+  cy.getCy("franchisesalesworkflow-content").should("be.visible");
+  cy.getCy("franchise-sales-metric-card").should("be.visible");
+  cy.getCy("franchise-compliance-status").should("be.visible");
+  cy.getCy("franchise-engagement-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Franchise Sales Manager Compliance Workflow...");
   cy.waitAndSee();

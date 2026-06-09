@@ -18,6 +18,9 @@ describe("Screen - hsw_adl_logger", () => {
   cy.getCy("hswadllogger-screen").should("be.visible");
   cy.getCy("hswadllogger-title").should("be.visible");
   cy.getCy("hswadllogger-content").should("be.visible");
+  cy.getCy("adl-log-save-draft").should("be.visible");
+  cy.getCy("adl-log-submit").should("be.visible");
+  cy.getCy("adl-log-view-drafts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HswAdlLoggerScreen...");
   cy.waitAndSee();

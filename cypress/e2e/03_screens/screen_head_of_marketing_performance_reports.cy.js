@@ -15,9 +15,12 @@ describe("Screen - head_of_marketing_performance_reports", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("headofmarketingperformancereports-screen").should("be.visible");
+  cy.getCy("headofmarketingperformancereports-title").should("be.visible");
+  cy.getCy("headofmarketingperformancereports-content").should("be.visible");
+  cy.getCy("marketing-reports-btn-generate").should("be.visible");
+  cy.getCy("marketing-btn-collaborate").should("be.visible");
+  cy.getCy("marketing-btn-monitor").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Head Of Marketing Performance Reports...");
   cy.waitAndSee();

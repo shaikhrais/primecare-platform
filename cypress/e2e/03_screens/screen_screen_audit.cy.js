@@ -15,9 +15,12 @@ describe("Screen - screen_audit", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("screenaudit-screen").should("be.visible");
+  cy.getCy("screenaudit-title").should("be.visible");
+  cy.getCy("screenaudit-content").should("be.visible");
+  cy.getCy("compliance-scan-status").should("be.visible");
+  cy.getCy("audit-log-summary").should("be.visible");
+  cy.getCy("kpi-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Screen Audit...");
   cy.waitAndSee();

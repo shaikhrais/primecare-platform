@@ -19,6 +19,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicaldashboard-screen").should("be.visible");
   cy.getCy("clinicaldashboard-title").should("be.visible");
   cy.getCy("clinicaldashboard-content").should("be.visible");
+  cy.getCy("clinical-dashboard-compliance-status").should("be.visible");
+  cy.getCy("clinical-dashboard-performance-metrics").should("be.visible");
+  cy.getCy("clinical-dashboard-activity-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/76 | 1%] - Saving screenshot for ClinicalDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("architectureplanningdashboard-screen").should("be.visible");
   cy.getCy("architectureplanningdashboard-title").should("be.visible");
   cy.getCy("architectureplanningdashboard-content").should("be.visible");
+  cy.getCy("ctodashboard-btn-refresh").should("be.visible");
+  cy.getCy("ctodashboard-btn-view-report").should("be.visible");
+  cy.getCy("ctodashboard-btn-export-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/76 | 2%] - Saving screenshot for ArchitecturePlanningDashboardScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropractordashboard-screen").should("be.visible");
   cy.getCy("chiropractordashboard-title").should("be.visible");
   cy.getCy("chiropractordashboard-content").should("be.visible");
+  cy.getCy("chiropractor-btn-assessment").should("be.visible");
+  cy.getCy("chiropractor-btn-treatment").should("be.visible");
+  cy.getCy("chiropractor-btn-adjust").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/76 | 3%] - Saving screenshot for ChiropractorDashboardScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicdashboard-screen").should("be.visible");
   cy.getCy("clinicdashboard-title").should("be.visible");
   cy.getCy("clinicdashboard-content").should("be.visible");
+  cy.getCy("clinic-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("clinic-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("clinic-dashboard-btn-send-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/76 | 5%] - Saving screenshot for ClinicDashboardScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("coursearchitectdashboard-screen").should("be.visible");
   cy.getCy("coursearchitectdashboard-title").should("be.visible");
   cy.getCy("coursearchitectdashboard-content").should("be.visible");
+  cy.getCy("dashboard-participation-metric").should("be.visible");
+  cy.getCy("dashboard-feedback-score").should("be.visible");
+  cy.getCy("dashboard-effectiveness-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/76 | 6%] - Saving screenshot for CourseArchitectDashboardScreen...");
   cy.waitAndSee();
@@ -98,8 +113,8 @@ describe("Role All Screens - cto", () => {
   
   cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/76 | 6%] - Verified CourseArchitectDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/76 | 7%] - Navigating to /executive/cto-dashboard (CtoDashboardScreen)...");
-  cy.visitWithSemantics("/executive/cto-dashboard");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/76 | 7%] - Navigating to /offices/corporate/roles/cto/dashboard (CtoDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cto/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/76 | 7%] - Checking shell & content for CtoDashboardScreen...");
@@ -109,6 +124,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("ctodashboard-screen").should("be.visible");
   cy.getCy("ctodashboard-title").should("be.visible");
   cy.getCy("ctodashboard-content").should("be.visible");
+  cy.getCy("cto-dashboard-kpi-widget").should("be.visible");
+  cy.getCy("cto-dashboard-performance-chart").should("be.visible");
+  cy.getCy("cto-dashboard-security-card").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/76 | 7%] - Saving screenshot for CtoDashboardScreen...");
   cy.waitAndSee();
@@ -116,8 +134,8 @@ describe("Role All Screens - cto", () => {
   
   cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/76 | 7%] - Verified CtoDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/76 | 9%] - Navigating to /executive/cx-director-dashboard (CxDirectorDashboardScreen)...");
-  cy.visitWithSemantics("/executive/cx-director-dashboard");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/76 | 9%] - Navigating to /offices/corporate/roles/cx_director/dashboard (CxDirectorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cx_director/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/76 | 9%] - Checking shell & content for CxDirectorDashboardScreen...");
@@ -127,6 +145,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("cxdirectordashboard-screen").should("be.visible");
   cy.getCy("cxdirectordashboard-title").should("be.visible");
   cy.getCy("cxdirectordashboard-content").should("be.visible");
+  cy.getCy("cxdashboard-widget-customer-satisfaction").should("be.visible");
+  cy.getCy("cxdashboard-widget-feedback-trends").should("be.visible");
+  cy.getCy("cxdashboard-widget-kpi").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/76 | 9%] - Saving screenshot for CxDirectorDashboardScreen...");
   cy.waitAndSee();
@@ -134,8 +155,8 @@ describe("Role All Screens - cto", () => {
   
   cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/76 | 9%] - Verified CxDirectorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/76 | 10%] - Navigating to /executive/finance-director-dashboard (FinanceDirectorDashboardScreen)...");
-  cy.visitWithSemantics("/executive/finance-director-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/76 | 10%] - Navigating to /offices/corporate/roles/finance_director/dashboard (FinanceDirectorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/finance_director/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/76 | 10%] - Checking shell & content for FinanceDirectorDashboardScreen...");
@@ -152,8 +173,8 @@ describe("Role All Screens - cto", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/76 | 10%] - Verified FinanceDirectorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/76 | 11%] - Navigating to /executive/hr-director-dashboard (HrDirectorDashboardScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/76 | 11%] - Navigating to /offices/corporate/roles/hr_director/dashboard (HrDirectorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/hr_director/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/76 | 11%] - Checking shell & content for HrDirectorDashboardScreen...");
@@ -163,6 +184,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrdirectordashboard-screen").should("be.visible");
   cy.getCy("hrdirectordashboard-title").should("be.visible");
   cy.getCy("hrdirectordashboard-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-feedback").should("be.visible");
+  cy.getCy("hrdashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/76 | 11%] - Saving screenshot for HrDirectorDashboardScreen...");
   cy.waitAndSee();
@@ -170,8 +194,8 @@ describe("Role All Screens - cto", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/76 | 11%] - Verified HrDirectorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/76 | 13%] - Navigating to /executive/training-director-dashboard (TrainingDirectorDashboardScreen)...");
-  cy.visitWithSemantics("/executive/training-director-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/76 | 13%] - Navigating to /offices/corporate/roles/training_director/dashboard (TrainingDirectorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/training_director/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/76 | 13%] - Checking shell & content for TrainingDirectorDashboardScreen...");
@@ -181,6 +205,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("trainingdirectordashboard-screen").should("be.visible");
   cy.getCy("trainingdirectordashboard-title").should("be.visible");
   cy.getCy("trainingdirectordashboard-content").should("be.visible");
+  cy.getCy("training-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("training-dashboard-btn-adjust-program").should("be.visible");
+  cy.getCy("training-dashboard-btn-view-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/76 | 13%] - Saving screenshot for TrainingDirectorDashboardScreen...");
   cy.waitAndSee();
@@ -188,8 +215,8 @@ describe("Role All Screens - cto", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/76 | 13%] - Verified TrainingDirectorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/76 | 14%] - Navigating to /staff/hr-manager-dashboard (HrManagerDashboardScreen)...");
-  cy.visitWithSemantics("/staff/hr-manager-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/76 | 14%] - Navigating to /offices/corporate/roles/hr_manager/dashboard (HrManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/hr_manager/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/76 | 14%] - Checking shell & content for HrManagerDashboardScreen...");
@@ -199,6 +226,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrmanagerdashboard-screen").should("be.visible");
   cy.getCy("hrmanagerdashboard-title").should("be.visible");
   cy.getCy("hrmanagerdashboard-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-reports").should("be.visible");
+  cy.getCy("hrdashboard-btn-export-data").should("be.visible");
+  cy.getCy("hrdashboard-btn-initiate-recruitment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/76 | 14%] - Saving screenshot for HrManagerDashboardScreen...");
   cy.waitAndSee();
@@ -217,6 +247,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicalanalytics-screen").should("be.visible");
   cy.getCy("clinicalanalytics-title").should("be.visible");
   cy.getCy("clinicalanalytics-content").should("be.visible");
+  cy.getCy("clinical-analytics-kpi-chart").should("be.visible");
+  cy.getCy("clinical-analytics-staff-performance").should("be.visible");
+  cy.getCy("clinical-analytics-compliance-tracker").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/76 | 15%] - Saving screenshot for ClinicalAnalyticsScreen...");
   cy.waitAndSee();
@@ -235,6 +268,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicalcompliance-screen").should("be.visible");
   cy.getCy("clinicalcompliance-title").should("be.visible");
   cy.getCy("clinicalcompliance-content").should("be.visible");
+  cy.getCy("clinical-compliance-audit-results").should("be.visible");
+  cy.getCy("clinical-compliance-alert").should("be.visible");
+  cy.getCy("clinical-training-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/76 | 17%] - Saving screenshot for ClinicalComplianceScreen...");
   cy.waitAndSee();
@@ -253,6 +289,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicalworkflow-screen").should("be.visible");
   cy.getCy("clinicalworkflow-title").should("be.visible");
   cy.getCy("clinicalworkflow-content").should("be.visible");
+  cy.getCy("clinical-dashboard-kpi").should("be.visible");
+  cy.getCy("clinical-dashboard-policies").should("be.visible");
+  cy.getCy("clinical-dashboard-budgets").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/76 | 18%] - Saving screenshot for ClinicalWorkflowScreen...");
   cy.waitAndSee();
@@ -271,6 +310,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropractoranalytics-screen").should("be.visible");
   cy.getCy("chiropractoranalytics-title").should("be.visible");
   cy.getCy("chiropractoranalytics-content").should("be.visible");
+  cy.getCy("chiropractor-btn-add-patient").should("be.visible");
+  cy.getCy("chiropractor-btn-update-treatment").should("be.visible");
+  cy.getCy("chiropractor-btn-record-progress").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/76 | 19%] - Saving screenshot for ChiropractorAnalyticsScreen...");
   cy.waitAndSee();
@@ -289,6 +331,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropractorcompliance-screen").should("be.visible");
   cy.getCy("chiropractorcompliance-title").should("be.visible");
   cy.getCy("chiropractorcompliance-content").should("be.visible");
+  cy.getCy("chiropractor-btn-schedule-appointment").should("be.visible");
+  cy.getCy("chiropractor-btn-generate-report").should("be.visible");
+  cy.getCy("chiropractor-btn-update-treatment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [16/76 | 21%] - Saving screenshot for ChiropractorComplianceScreen...");
   cy.waitAndSee();
@@ -307,6 +352,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropractorworkflow-screen").should("be.visible");
   cy.getCy("chiropractorworkflow-title").should("be.visible");
   cy.getCy("chiropractorworkflow-content").should("be.visible");
+  cy.getCy("chiropractor-btn-schedule-appointment").should("be.visible");
+  cy.getCy("chiropractor-btn-modify-treatment").should("be.visible");
+  cy.getCy("chiropractor-btn-record-progress").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [17/76 | 22%] - Saving screenshot for ChiropractorWorkflowScreen...");
   cy.waitAndSee();
@@ -325,6 +373,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicanalytics-screen").should("be.visible");
   cy.getCy("clinicanalytics-title").should("be.visible");
   cy.getCy("clinicanalytics-content").should("be.visible");
+  cy.getCy("clinic-analytics-btn-view-reports").should("be.visible");
+  cy.getCy("clinic-analytics-btn-manage-budgets").should("be.visible");
+  cy.getCy("clinic-analytics-btn-staff-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [18/76 | 23%] - Saving screenshot for ClinicAnalyticsScreen...");
   cy.waitAndSee();
@@ -343,6 +394,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("cliniccompliance-screen").should("be.visible");
   cy.getCy("cliniccompliance-title").should("be.visible");
   cy.getCy("cliniccompliance-content").should("be.visible");
+  cy.getCy("clinic-compliance-audit-results").should("be.visible");
+  cy.getCy("clinic-patient-satisfaction").should("be.visible");
+  cy.getCy("clinic-staff-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [19/76 | 25%] - Saving screenshot for ClinicComplianceScreen...");
   cy.waitAndSee();
@@ -361,6 +415,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicworkflow-screen").should("be.visible");
   cy.getCy("clinicworkflow-title").should("be.visible");
   cy.getCy("clinicworkflow-content").should("be.visible");
+  cy.getCy("clinic-dashboard-kpi").should("be.visible");
+  cy.getCy("clinic-dashboard-budget").should("be.visible");
+  cy.getCy("clinic-dashboard-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/76 | 26%] - Saving screenshot for ClinicWorkflowScreen...");
   cy.waitAndSee();
@@ -379,6 +436,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("coursearchitectanalytics-screen").should("be.visible");
   cy.getCy("coursearchitectanalytics-title").should("be.visible");
   cy.getCy("coursearchitectanalytics-content").should("be.visible");
+  cy.getCy("training-participation-metric").should("be.visible");
+  cy.getCy("feedback-score-card").should("be.visible");
+  cy.getCy("effectiveness-metric-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/76 | 27%] - Saving screenshot for CourseArchitectAnalyticsScreen...");
   cy.waitAndSee();
@@ -397,6 +457,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("coursearchitectcompliance-screen").should("be.visible");
   cy.getCy("coursearchitectcompliance-title").should("be.visible");
   cy.getCy("coursearchitectcompliance-content").should("be.visible");
+  cy.getCy("trainingprogram-card").should("be.visible");
+  cy.getCy("feedback-chart").should("be.visible");
+  cy.getCy("compliance-status-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/76 | 28%] - Saving screenshot for CourseArchitectComplianceScreen...");
   cy.waitAndSee();
@@ -415,6 +478,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("coursearchitectworkflow-screen").should("be.visible");
   cy.getCy("coursearchitectworkflow-title").should("be.visible");
   cy.getCy("coursearchitectworkflow-content").should("be.visible");
+  cy.getCy("trainingprogram-card").should("be.visible");
+  cy.getCy("feedbackscore-chart").should("be.visible");
+  cy.getCy("completionrate-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [23/76 | 30%] - Saving screenshot for CourseArchitectWorkflowScreen...");
   cy.waitAndSee();
@@ -433,6 +499,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("ctoanalytics-screen").should("be.visible");
   cy.getCy("ctoanalytics-title").should("be.visible");
   cy.getCy("ctoanalytics-content").should("be.visible");
+  cy.getCy("cto-dashboard-project-status").should("be.visible");
+  cy.getCy("cto-dashboard-budget-utilization").should("be.visible");
+  cy.getCy("cto-dashboard-team-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [24/76 | 31%] - Saving screenshot for CtoAnalyticsScreen...");
   cy.waitAndSee();
@@ -451,6 +520,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("ctocompliance-screen").should("be.visible");
   cy.getCy("ctocompliance-title").should("be.visible");
   cy.getCy("ctocompliance-content").should("be.visible");
+  cy.getCy("cto-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("cto-dashboard-btn-audit-logs").should("be.visible");
+  cy.getCy("cto-dashboard-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [25/76 | 32%] - Saving screenshot for CtoComplianceScreen...");
   cy.waitAndSee();
@@ -469,6 +541,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("ctoworkflow-screen").should("be.visible");
   cy.getCy("ctoworkflow-title").should("be.visible");
   cy.getCy("ctoworkflow-content").should("be.visible");
+  cy.getCy("ctoworkflow-btn-refresh").should("be.visible");
+  cy.getCy("ctoworkflow-btn-view-reports").should("be.visible");
+  cy.getCy("ctoworkflow-btn-add-technology").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [26/76 | 34%] - Saving screenshot for CtoWorkflowScreen...");
   cy.waitAndSee();
@@ -487,6 +562,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("cxdirectoranalytics-screen").should("be.visible");
   cy.getCy("cxdirectoranalytics-title").should("be.visible");
   cy.getCy("cxdirectoranalytics-content").should("be.visible");
+  cy.getCy("cxdashboard-btn-refresh").should("be.visible");
+  cy.getCy("cxdashboard-btn-export").should("be.visible");
+  cy.getCy("cxdashboard-btn-viewdetails").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [27/76 | 35%] - Saving screenshot for CxDirectorAnalyticsScreen...");
   cy.waitAndSee();
@@ -505,6 +583,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("cxdirectorcompliance-screen").should("be.visible");
   cy.getCy("cxdirectorcompliance-title").should("be.visible");
   cy.getCy("cxdirectorcompliance-content").should("be.visible");
+  cy.getCy("cxdirector-btn-generate-report").should("be.visible");
+  cy.getCy("cxdirector-btn-initiate-audit").should("be.visible");
+  cy.getCy("cxdirector-btn-send-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [28/76 | 36%] - Saving screenshot for CxDirectorComplianceScreen...");
   cy.waitAndSee();
@@ -523,6 +604,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("cxdirectorworkflow-screen").should("be.visible");
   cy.getCy("cxdirectorworkflow-title").should("be.visible");
   cy.getCy("cxdirectorworkflow-content").should("be.visible");
+  cy.getCy("cxdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("cxdashboard-btn-view-details").should("be.visible");
+  cy.getCy("cxdashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [29/76 | 38%] - Saving screenshot for CxDirectorWorkflowScreen...");
   cy.waitAndSee();
@@ -541,6 +625,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("financedirectoranalytics-screen").should("be.visible");
   cy.getCy("financedirectoranalytics-title").should("be.visible");
   cy.getCy("financedirectoranalytics-content").should("be.visible");
+  cy.getCy("finance-kpi-widget").should("be.visible");
+  cy.getCy("finance-cashflow-monitor").should("be.visible");
+  cy.getCy("finance-budget-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/76 | 39%] - Saving screenshot for FinanceDirectorAnalyticsScreen...");
   cy.waitAndSee();
@@ -559,6 +646,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("financedirectorcompliance-screen").should("be.visible");
   cy.getCy("financedirectorcompliance-title").should("be.visible");
   cy.getCy("financedirectorcompliance-content").should("be.visible");
+  cy.getCy("finance-kpi-widget").should("be.visible");
+  cy.getCy("finance-cashflow-chart").should("be.visible");
+  cy.getCy("finance-budget-tracker").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [31/76 | 40%] - Saving screenshot for FinanceDirectorComplianceScreen...");
   cy.waitAndSee();
@@ -577,6 +667,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("financedirectorworkflow-screen").should("be.visible");
   cy.getCy("financedirectorworkflow-title").should("be.visible");
   cy.getCy("financedirectorworkflow-content").should("be.visible");
+  cy.getCy("finance-kpi-widget").should("be.visible");
+  cy.getCy("finance-cashflow-monitor").should("be.visible");
+  cy.getCy("finance-budget-tracker").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [32/76 | 42%] - Saving screenshot for FinanceDirectorWorkflowScreen...");
   cy.waitAndSee();
@@ -595,6 +688,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrdirectoranalytics-screen").should("be.visible");
   cy.getCy("hrdirectoranalytics-title").should("be.visible");
   cy.getCy("hrdirectoranalytics-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-details").should("be.visible");
+  cy.getCy("hrdashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [33/76 | 43%] - Saving screenshot for HrDirectorAnalyticsScreen...");
   cy.waitAndSee();
@@ -613,6 +709,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrdirectorcompliance-screen").should("be.visible");
   cy.getCy("hrdirectorcompliance-title").should("be.visible");
   cy.getCy("hrdirectorcompliance-content").should("be.visible");
+  cy.getCy("hrdirector-btn-generate-report").should("be.visible");
+  cy.getCy("hrdirector-btn-view-audit").should("be.visible");
+  cy.getCy("hrdirector-btn-initiate-recruitment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [34/76 | 44%] - Saving screenshot for HrDirectorComplianceScreen...");
   cy.waitAndSee();
@@ -631,6 +730,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrdirectorworkflow-screen").should("be.visible");
   cy.getCy("hrdirectorworkflow-title").should("be.visible");
   cy.getCy("hrdirectorworkflow-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-reports").should("be.visible");
+  cy.getCy("hrdashboard-btn-manage-policies").should("be.visible");
+  cy.getCy("hrdashboard-btn-initiate-recruitment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [35/76 | 46%] - Saving screenshot for HrDirectorWorkflowScreen...");
   cy.waitAndSee();
@@ -649,6 +751,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrmanageranalytics-screen").should("be.visible");
   cy.getCy("hrmanageranalytics-title").should("be.visible");
   cy.getCy("hrmanageranalytics-content").should("be.visible");
+  cy.getCy("hr-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hr-dashboard-btn-view-details").should("be.visible");
+  cy.getCy("hr-dashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [36/76 | 47%] - Saving screenshot for HrManagerAnalyticsScreen...");
   cy.waitAndSee();
@@ -667,6 +772,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrmanagercompliance-screen").should("be.visible");
   cy.getCy("hrmanagercompliance-title").should("be.visible");
   cy.getCy("hrmanagercompliance-content").should("be.visible");
+  cy.getCy("hr-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hr-dashboard-btn-view-details").should("be.visible");
+  cy.getCy("hr-dashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [37/76 | 48%] - Saving screenshot for HrManagerComplianceScreen...");
   cy.waitAndSee();
@@ -685,6 +793,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrmanagerworkflow-screen").should("be.visible");
   cy.getCy("hrmanagerworkflow-title").should("be.visible");
   cy.getCy("hrmanagerworkflow-content").should("be.visible");
+  cy.getCy("hr-dashboard-btn-view-reports").should("be.visible");
+  cy.getCy("hr-dashboard-btn-manage-policies").should("be.visible");
+  cy.getCy("hr-dashboard-btn-initiate-recruitment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [38/76 | 50%] - Saving screenshot for HrManagerWorkflowScreen...");
   cy.waitAndSee();
@@ -703,6 +814,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropractorcommandcenter-screen").should("be.visible");
   cy.getCy("chiropractorcommandcenter-title").should("be.visible");
   cy.getCy("chiropractorcommandcenter-content").should("be.visible");
+  cy.getCy("chiropractor-btn-add-assessment").should("be.visible");
+  cy.getCy("chiropractor-btn-update-plan").should("be.visible");
+  cy.getCy("chiropractor-btn-record-adjustment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [39/76 | 51%] - Saving screenshot for ChiropractorCommandCenterScreen...");
   cy.waitAndSee();
@@ -721,6 +835,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropractorappointments-screen").should("be.visible");
   cy.getCy("chiropractorappointments-title").should("be.visible");
   cy.getCy("chiropractorappointments-content").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-compliance").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-kpi").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [40/76 | 52%] - Saving screenshot for ChiropractorAppointmentsScreen...");
   cy.waitAndSee();
@@ -739,6 +856,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropractorclientintake-screen").should("be.visible");
   cy.getCy("chiropractorclientintake-title").should("be.visible");
   cy.getCy("chiropractorclientintake-content").should("be.visible");
+  cy.getCy("chiropractor-btn-submit-assessment").should("be.visible");
+  cy.getCy("chiropractor-btn-review-history").should("be.visible");
+  cy.getCy("chiropractor-btn-perform-examination").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [41/76 | 53%] - Saving screenshot for ChiropractorClientIntakeScreen...");
   cy.waitAndSee();
@@ -757,6 +877,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropractorassessment-screen").should("be.visible");
   cy.getCy("chiropractorassessment-title").should("be.visible");
   cy.getCy("chiropractorassessment-content").should("be.visible");
+  cy.getCy("chiropractor-dashboard-active-operations").should("be.visible");
+  cy.getCy("chiropractor-dashboard-security-status").should("be.visible");
+  cy.getCy("chiropractor-dashboard-telemetry-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [42/76 | 55%] - Saving screenshot for ChiropractorAssessmentScreen...");
   cy.waitAndSee();
@@ -775,6 +898,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropractortreatmentnotes-screen").should("be.visible");
   cy.getCy("chiropractortreatmentnotes-title").should("be.visible");
   cy.getCy("chiropractortreatmentnotes-content").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-run-compliance-scan").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-view-feedback").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-generate-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [43/76 | 56%] - Saving screenshot for ChiropractorTreatmentNotesScreen...");
   cy.waitAndSee();
@@ -793,6 +919,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropractorexerciseplan-screen").should("be.visible");
   cy.getCy("chiropractorexerciseplan-title").should("be.visible");
   cy.getCy("chiropractorexerciseplan-content").should("be.visible");
+  cy.getCy("chiropractor-btn-add-assessment").should("be.visible");
+  cy.getCy("chiropractor-btn-update-plan").should("be.visible");
+  cy.getCy("chiropractor-btn-record-adjustment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [44/76 | 57%] - Saving screenshot for ChiropractorExercisePlanScreen...");
   cy.waitAndSee();
@@ -811,6 +940,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropractorbillinglink-screen").should("be.visible");
   cy.getCy("chiropractorbillinglink-title").should("be.visible");
   cy.getCy("chiropractorbillinglink-content").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-compliance-scan").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-operational-action").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-view-patient-records").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [45/76 | 59%] - Saving screenshot for ChiropractorBillingLinkScreen...");
   cy.waitAndSee();
@@ -829,6 +961,8 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropractorreports-screen").should("be.visible");
   cy.getCy("chiropractorreports-title").should("be.visible");
   cy.getCy("chiropractorreports-content").should("be.visible");
+  cy.getCy("chiropractor-btn-compliance-scan").should("be.visible");
+  cy.getCy("chiropractor-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [46/76 | 60%] - Saving screenshot for ChiropractorReportsScreen...");
   cy.waitAndSee();
@@ -847,6 +981,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicaldirectorstaffquality-screen").should("be.visible");
   cy.getCy("clinicaldirectorstaffquality-title").should("be.visible");
   cy.getCy("clinicaldirectorstaffquality-content").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-send-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [47/76 | 61%] - Saving screenshot for ClinicalDirectorStaffQualityScreen...");
   cy.waitAndSee();
@@ -865,6 +1002,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicaldirectorincidentreview-screen").should("be.visible");
   cy.getCy("clinicaldirectorincidentreview-title").should("be.visible");
   cy.getCy("clinicaldirectorincidentreview-content").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-view-incidents").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-conduct-audit").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-generate-kpi").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [48/76 | 63%] - Saving screenshot for ClinicalDirectorIncidentReviewScreen...");
   cy.waitAndSee();
@@ -883,6 +1023,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicaldirectorcompliance-screen").should("be.visible");
   cy.getCy("clinicaldirectorcompliance-title").should("be.visible");
   cy.getCy("clinicaldirectorcompliance-content").should("be.visible");
+  cy.getCy("clinical-dashboard-compliance-status").should("be.visible");
+  cy.getCy("clinical-dashboard-performance-metrics").should("be.visible");
+  cy.getCy("clinical-dashboard-audit-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [49/76 | 64%] - Saving screenshot for ClinicalDirectorComplianceScreen...");
   cy.waitAndSee();
@@ -901,6 +1044,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicaldirectorreports-screen").should("be.visible");
   cy.getCy("clinicaldirectorreports-title").should("be.visible");
   cy.getCy("clinicaldirectorreports-content").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-send-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [50/76 | 65%] - Saving screenshot for ClinicalDirectorReportsScreen...");
   cy.waitAndSee();
@@ -919,6 +1065,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicaldirectorapprovals-screen").should("be.visible");
   cy.getCy("clinicaldirectorapprovals-title").should("be.visible");
   cy.getCy("clinicaldirectorapprovals-content").should("be.visible");
+  cy.getCy("clinical-director-btn-approve-protocols").should("be.visible");
+  cy.getCy("clinical-director-btn-conduct-audit").should("be.visible");
+  cy.getCy("clinical-director-btn-view-reports").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [51/76 | 67%] - Saving screenshot for ClinicalDirectorApprovalsScreen...");
   cy.waitAndSee();
@@ -937,6 +1086,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicaldirectorperformance-screen").should("be.visible");
   cy.getCy("clinicaldirectorperformance-title").should("be.visible");
   cy.getCy("clinicaldirectorperformance-content").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-send-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [52/76 | 68%] - Saving screenshot for ClinicalDirectorPerformanceScreen...");
   cy.waitAndSee();
@@ -955,6 +1107,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrdirectorhiringpipeline-screen").should("be.visible");
   cy.getCy("hrdirectorhiringpipeline-title").should("be.visible");
   cy.getCy("hrdirectorhiringpipeline-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-report").should("be.visible");
+  cy.getCy("hrdashboard-btn-export-data").should("be.visible");
+  cy.getCy("hrdashboard-btn-refresh-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [53/76 | 69%] - Saving screenshot for HrDirectorHiringPipelineScreen...");
   cy.waitAndSee();
@@ -973,6 +1128,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrdirectorstafffiles-screen").should("be.visible");
   cy.getCy("hrdirectorstafffiles-title").should("be.visible");
   cy.getCy("hrdirectorstafffiles-content").should("be.visible");
+  cy.getCy("hr-dashboard-tasklist").should("be.visible");
+  cy.getCy("hr-dashboard-kpi").should("be.visible");
+  cy.getCy("hr-dashboard-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [54/76 | 71%] - Saving screenshot for HrDirectorStaffFilesScreen...");
   cy.waitAndSee();
@@ -991,6 +1149,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrdirectortraining-screen").should("be.visible");
   cy.getCy("hrdirectortraining-title").should("be.visible");
   cy.getCy("hrdirectortraining-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-details").should("be.visible");
+  cy.getCy("hrdashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [55/76 | 72%] - Saving screenshot for HrDirectorTrainingScreen...");
   cy.waitAndSee();
@@ -1009,6 +1170,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrdirectorcredentialexpiry-screen").should("be.visible");
   cy.getCy("hrdirectorcredentialexpiry-title").should("be.visible");
   cy.getCy("hrdirectorcredentialexpiry-content").should("be.visible");
+  cy.getCy("hr-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hr-dashboard-btn-view-details").should("be.visible");
+  cy.getCy("hr-dashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [56/76 | 73%] - Saving screenshot for HrDirectorCredentialExpiryScreen...");
   cy.waitAndSee();
@@ -1027,6 +1191,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrdirectoronboarding-screen").should("be.visible");
   cy.getCy("hrdirectoronboarding-title").should("be.visible");
   cy.getCy("hrdirectoronboarding-content").should("be.visible");
+  cy.getCy("hrdirector-btn-add-task").should("be.visible");
+  cy.getCy("hrdirector-btn-generate-report").should("be.visible");
+  cy.getCy("hrdirector-btn-view-details").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [57/76 | 75%] - Saving screenshot for HrDirectorOnboardingScreen...");
   cy.waitAndSee();
@@ -1045,6 +1212,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("systemhealth-screen").should("be.visible");
   cy.getCy("systemhealth-title").should("be.visible");
   cy.getCy("systemhealth-content").should("be.visible");
+  cy.getCy("ctodashboard-btn-refresh").should("be.visible");
+  cy.getCy("ctodashboard-btn-view-report").should("be.visible");
+  cy.getCy("ctodashboard-btn-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [58/76 | 76%] - Saving screenshot for SystemHealthScreen...");
   cy.waitAndSee();
@@ -1063,6 +1233,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("apimonitoring-screen").should("be.visible");
   cy.getCy("apimonitoring-title").should("be.visible");
   cy.getCy("apimonitoring-content").should("be.visible");
+  cy.getCy("ctodashboard-btn-refresh").should("be.visible");
+  cy.getCy("ctodashboard-btn-export").should("be.visible");
+  cy.getCy("ctodashboard-btn-view-details").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [59/76 | 77%] - Saving screenshot for ApiMonitoringScreen...");
   cy.waitAndSee();
@@ -1081,6 +1254,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("deploymentcenter-screen").should("be.visible");
   cy.getCy("deploymentcenter-title").should("be.visible");
   cy.getCy("deploymentcenter-content").should("be.visible");
+  cy.getCy("ctodashboard-kpi").should("be.visible");
+  cy.getCy("ctodashboard-performance").should("be.visible");
+  cy.getCy("ctodashboard-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [60/76 | 78%] - Saving screenshot for DeploymentCenterScreen...");
   cy.waitAndSee();
@@ -1099,6 +1275,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("securityaudit-screen").should("be.visible");
   cy.getCy("securityaudit-title").should("be.visible");
   cy.getCy("securityaudit-content").should("be.visible");
+  cy.getCy("ctodashboard-btn-refresh").should("be.visible");
+  cy.getCy("ctodashboard-btn-view-report").should("be.visible");
+  cy.getCy("ctodashboard-btn-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [61/76 | 80%] - Saving screenshot for SecurityAuditScreen...");
   cy.waitAndSee();
@@ -1117,6 +1296,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("releasemanagement-screen").should("be.visible");
   cy.getCy("releasemanagement-title").should("be.visible");
   cy.getCy("releasemanagement-content").should("be.visible");
+  cy.getCy("ctodashboard-btn-refresh").should("be.visible");
+  cy.getCy("ctodashboard-btn-view-report").should("be.visible");
+  cy.getCy("ctodashboard-btn-export-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [62/76 | 81%] - Saving screenshot for ReleaseManagementScreen...");
   cy.waitAndSee();
@@ -1135,6 +1317,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hiringpipeline-screen").should("be.visible");
   cy.getCy("hiringpipeline-title").should("be.visible");
   cy.getCy("hiringpipeline-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-report").should("be.visible");
+  cy.getCy("hrdashboard-btn-export-data").should("be.visible");
+  cy.getCy("hrdashboard-btn-initiate-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [63/76 | 82%] - Saving screenshot for HiringPipelineScreen...");
   cy.waitAndSee();
@@ -1153,6 +1338,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("employeerecords-screen").should("be.visible");
   cy.getCy("employeerecords-title").should("be.visible");
   cy.getCy("employeerecords-content").should("be.visible");
+  cy.getCy("hr-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hr-dashboard-btn-view-details").should("be.visible");
+  cy.getCy("hr-dashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [64/76 | 84%] - Saving screenshot for EmployeeRecordsScreen...");
   cy.waitAndSee();
@@ -1171,6 +1359,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("credentialexpiry-screen").should("be.visible");
   cy.getCy("credentialexpiry-title").should("be.visible");
   cy.getCy("credentialexpiry-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-refresh").should("be.visible");
+  cy.getCy("hrdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-details").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [65/76 | 85%] - Saving screenshot for CredentialExpiryScreen...");
   cy.waitAndSee();
@@ -1189,6 +1380,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("trainingmanagement-screen").should("be.visible");
   cy.getCy("trainingmanagement-title").should("be.visible");
   cy.getCy("trainingmanagement-content").should("be.visible");
+  cy.getCy("hr-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hr-dashboard-btn-view-details").should("be.visible");
+  cy.getCy("hr-dashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [66/76 | 86%] - Saving screenshot for TrainingManagementScreen...");
   cy.waitAndSee();
@@ -1207,6 +1401,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("onboarding-screen").should("be.visible");
   cy.getCy("onboarding-title").should("be.visible");
   cy.getCy("onboarding-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-details").should("be.visible");
+  cy.getCy("hrdashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [67/76 | 88%] - Saving screenshot for OnboardingScreen...");
   cy.waitAndSee();
@@ -1225,6 +1422,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropracticassessment-screen").should("be.visible");
   cy.getCy("chiropracticassessment-title").should("be.visible");
   cy.getCy("chiropracticassessment-content").should("be.visible");
+  cy.getCy("chiropractic-assessment-save").should("be.visible");
+  cy.getCy("chiropractic-treatment-update").should("be.visible");
+  cy.getCy("chiropractic-adjustment-record").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [68/76 | 89%] - Saving screenshot for ChiropracticAssessmentScreen...");
   cy.waitAndSee();
@@ -1243,6 +1443,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("adjustmentnotes-screen").should("be.visible");
   cy.getCy("adjustmentnotes-title").should("be.visible");
   cy.getCy("adjustmentnotes-content").should("be.visible");
+  cy.getCy("dashboard-btn-view-records").should("be.visible");
+  cy.getCy("dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("dashboard-btn-update-treatment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [69/76 | 90%] - Saving screenshot for AdjustmentNotesScreen...");
   cy.waitAndSee();
@@ -1261,6 +1464,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("xrayreview-screen").should("be.visible");
   cy.getCy("xrayreview-title").should("be.visible");
   cy.getCy("xrayreview-content").should("be.visible");
+  cy.getCy("xrayreview-btn-save").should("be.visible");
+  cy.getCy("xrayreview-btn-review").should("be.visible");
+  cy.getCy("xrayreview-btn-logprogress").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [70/76 | 92%] - Saving screenshot for XrayReviewScreen...");
   cy.waitAndSee();
@@ -1279,6 +1485,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("chiropracticprogresstracking-screen").should("be.visible");
   cy.getCy("chiropracticprogresstracking-title").should("be.visible");
   cy.getCy("chiropracticprogresstracking-content").should("be.visible");
+  cy.getCy("chiropractic-btn-save-assessment").should("be.visible");
+  cy.getCy("chiropractic-btn-update-treatment").should("be.visible");
+  cy.getCy("chiropractic-btn-record-progress").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [71/76 | 93%] - Saving screenshot for ChiropracticProgressTrackingScreen...");
   cy.waitAndSee();
@@ -1297,6 +1506,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicalquality-screen").should("be.visible");
   cy.getCy("clinicalquality-title").should("be.visible");
   cy.getCy("clinicalquality-content").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-view-audit-logs").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-send-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [72/76 | 94%] - Saving screenshot for ClinicalQualityScreen...");
   cy.waitAndSee();
@@ -1315,6 +1527,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("staffperformance-screen").should("be.visible");
   cy.getCy("staffperformance-title").should("be.visible");
   cy.getCy("staffperformance-content").should("be.visible");
+  cy.getCy("staffperformance-kpi-widget").should("be.visible");
+  cy.getCy("staffperformance-compliance-card").should("be.visible");
+  cy.getCy("staffperformance-satisfaction-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [73/76 | 96%] - Saving screenshot for StaffPerformanceScreen...");
   cy.waitAndSee();
@@ -1333,6 +1548,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("compliancereview-screen").should("be.visible");
   cy.getCy("compliancereview-title").should("be.visible");
   cy.getCy("compliancereview-content").should("be.visible");
+  cy.getCy("compliance-status-card").should("be.visible");
+  cy.getCy("audit-results-chart").should("be.visible");
+  cy.getCy("kpi-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [74/76 | 97%] - Saving screenshot for ComplianceReviewScreen...");
   cy.waitAndSee();
@@ -1351,6 +1569,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("incidentoversight-screen").should("be.visible");
   cy.getCy("incidentoversight-title").should("be.visible");
   cy.getCy("incidentoversight-content").should("be.visible");
+  cy.getCy("incident-report-widget").should("be.visible");
+  cy.getCy("compliance-scan-results-widget").should("be.visible");
+  cy.getCy("kpi-metrics-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [75/76 | 98%] - Saving screenshot for IncidentOversightScreen...");
   cy.waitAndSee();
@@ -1369,6 +1590,9 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicaloperations4k-screen").should("be.visible");
   cy.getCy("clinicaloperations4k-title").should("be.visible");
   cy.getCy("clinicaloperations4k-content").should("be.visible");
+  cy.getCy("clinical-dashboard-compliance-status").should("be.visible");
+  cy.getCy("clinical-dashboard-performance-metrics").should("be.visible");
+  cy.getCy("clinical-dashboard-staff-engagement").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [76/76 | 100%] - Saving screenshot for ClinicalOperations4KScreen...");
   cy.waitAndSee();

@@ -7,17 +7,20 @@ describe("Screen - ceo_region_performance", () => {
   it("opens and verifies screen ceo_region_performance", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Ceo Region Performance)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/ceo/region-performance (Ceo Region Performance)...");
+  cy.visitWithSemantics("/offices/corporate/roles/ceo/region-performance");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Ceo Region Performance...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ceoregionperformance-screen").should("be.visible");
+  cy.getCy("ceoregionperformance-title").should("be.visible");
+  cy.getCy("ceoregionperformance-content").should("be.visible");
+  cy.getCy("ceo-region-performance-metric").should("be.visible");
+  cy.getCy("ceo-region-alert-notification").should("be.visible");
+  cy.getCy("ceo-region-report-generator").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Ceo Region Performance...");
   cy.waitAndSee();

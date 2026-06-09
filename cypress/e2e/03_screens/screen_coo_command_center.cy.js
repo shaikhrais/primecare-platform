@@ -18,6 +18,9 @@ describe("Screen - coo_command_center", () => {
   cy.getCy("coocommandcenter-screen").should("be.visible");
   cy.getCy("coocommandcenter-title").should("be.visible");
   cy.getCy("coocommandcenter-content").should("be.visible");
+  cy.getCy("coo-dashboard-refresh-metrics").should("be.visible");
+  cy.getCy("coo-dashboard-view-audit").should("be.visible");
+  cy.getCy("coo-dashboard-export-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CooCommandCenterScreen...");
   cy.waitAndSee();

@@ -7,17 +7,20 @@ describe("Screen - franchise_sales_manager_sales_pipeline", () => {
   it("opens and verifies screen franchise_sales_manager_sales_pipeline", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Franchise Sales Manager Sales Pipeline)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/business_development/roles/franchise_sales_manager/sales-pipeline (Franchise Sales Manager Sales Pipeline)...");
+  cy.visitWithSemantics("/offices/business_development/roles/franchise_sales_manager/sales-pipeline");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Franchise Sales Manager Sales Pipeline...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("franchisesalesmanagersalespipeline-screen").should("be.visible");
+  cy.getCy("franchisesalesmanagersalespipeline-title").should("be.visible");
+  cy.getCy("franchisesalesmanagersalespipeline-content").should("be.visible");
+  cy.getCy("franchise-sales-pipeline-chart").should("be.visible");
+  cy.getCy("franchise-kpi-widget").should("be.visible");
+  cy.getCy("franchise-task-alert-list").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Franchise Sales Manager Sales Pipeline...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - finance_director_analytics", () => {
   cy.getCy("financedirectoranalytics-screen").should("be.visible");
   cy.getCy("financedirectoranalytics-title").should("be.visible");
   cy.getCy("financedirectoranalytics-content").should("be.visible");
+  cy.getCy("finance-kpi-widget").should("be.visible");
+  cy.getCy("finance-cashflow-monitor").should("be.visible");
+  cy.getCy("finance-budget-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FinanceDirectorAnalyticsScreen...");
   cy.waitAndSee();

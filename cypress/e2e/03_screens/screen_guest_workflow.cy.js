@@ -18,6 +18,8 @@ describe("Screen - guest_workflow", () => {
   cy.getCy("guestworkflow-screen").should("be.visible");
   cy.getCy("guestworkflow-title").should("be.visible");
   cy.getCy("guestworkflow-content").should("be.visible");
+  cy.getCy("guestworkflow-btn-trigger-sweep").should("be.visible");
+  cy.getCy("guestworkflow-btn-refresh-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for GuestWorkflowScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - f_a_q_manager", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("faqmanager-screen").should("be.visible");
+  cy.getCy("faqmanager-title").should("be.visible");
+  cy.getCy("faqmanager-content").should("be.visible");
+  cy.getCy("faq-manager-btn-add").should("be.visible");
+  cy.getCy("faq-manager-btn-edit").should("be.visible");
+  cy.getCy("faq-manager-btn-delete").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for F A Q Manager...");
   cy.waitAndSee();

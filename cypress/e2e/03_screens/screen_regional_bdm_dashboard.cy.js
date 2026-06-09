@@ -7,8 +7,8 @@ describe("Screen - regional_bdm_dashboard", () => {
   it("opens and verifies screen regional_bdm_dashboard", () => {
     cy.loginAsRole("regional_bdm");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /management/regional-bdm-dashboard (RegionalBdmDashboardScreen)...");
-  cy.visitWithSemantics("/management/regional-bdm-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/business_development/roles/regional_bdm/dashboard (RegionalBdmDashboardScreen)...");
+  cy.visitWithSemantics("/offices/business_development/roles/regional_bdm/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for RegionalBdmDashboardScreen...");
@@ -18,6 +18,9 @@ describe("Screen - regional_bdm_dashboard", () => {
   cy.getCy("regionalbdmdashboard-screen").should("be.visible");
   cy.getCy("regionalbdmdashboard-title").should("be.visible");
   cy.getCy("regionalbdmdashboard-content").should("be.visible");
+  cy.getCy("dashboard-active-operations").should("be.visible");
+  cy.getCy("dashboard-productivity-metric").should("be.visible");
+  cy.getCy("dashboard-security-clearance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RegionalBdmDashboardScreen...");
   cy.waitAndSee();

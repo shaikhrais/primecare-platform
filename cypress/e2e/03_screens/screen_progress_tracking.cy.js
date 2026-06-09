@@ -18,6 +18,9 @@ describe("Screen - progress_tracking", () => {
   cy.getCy("progresstracking-screen").should("be.visible");
   cy.getCy("progresstracking-title").should("be.visible");
   cy.getCy("progresstracking-content").should("be.visible");
+  cy.getCy("progress-tracking-btn-add-task").should("be.visible");
+  cy.getCy("progress-tracking-btn-update-treatment").should("be.visible");
+  cy.getCy("progress-tracking-btn-monitor").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ProgressTrackingScreen...");
   cy.waitAndSee();

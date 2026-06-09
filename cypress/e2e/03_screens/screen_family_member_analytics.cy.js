@@ -18,6 +18,8 @@ describe("Screen - family_member_analytics", () => {
   cy.getCy("familymemberanalytics-screen").should("be.visible");
   cy.getCy("familymemberanalytics-title").should("be.visible");
   cy.getCy("familymemberanalytics-content").should("be.visible");
+  cy.getCy("family-member-analytics-refresh").should("be.visible");
+  cy.getCy("family-member-sandbox-access").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FamilyMemberAnalyticsScreen...");
   cy.waitAndSee();

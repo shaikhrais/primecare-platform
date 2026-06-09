@@ -18,6 +18,9 @@ describe("Screen - physiotherapist_treatment_notes", () => {
   cy.getCy("physiotherapisttreatmentnotes-screen").should("be.visible");
   cy.getCy("physiotherapisttreatmentnotes-title").should("be.visible");
   cy.getCy("physiotherapisttreatmentnotes-content").should("be.visible");
+  cy.getCy("physio-btn-save-treatment").should("be.visible");
+  cy.getCy("physio-btn-update-progress").should("be.visible");
+  cy.getCy("physio-btn-refer-specialist").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PhysiotherapistTreatmentNotesScreen...");
   cy.waitAndSee();

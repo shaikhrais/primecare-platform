@@ -15,9 +15,12 @@ describe("Screen - client_treatment_history", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("clienttreatmenthistory-screen").should("be.visible");
+  cy.getCy("clienttreatmenthistory-title").should("be.visible");
+  cy.getCy("clienttreatmenthistory-content").should("be.visible");
+  cy.getCy("client-treatment-history-summary").should("be.visible");
+  cy.getCy("loading-indicator").should("be.visible");
+  cy.getCy("error-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Client Treatment History...");
   cy.waitAndSee();

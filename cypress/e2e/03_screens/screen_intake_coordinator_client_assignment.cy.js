@@ -15,9 +15,12 @@ describe("Screen - intake_coordinator_client_assignment", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("intakecoordinatorclientassignment-screen").should("be.visible");
+  cy.getCy("intakecoordinatorclientassignment-title").should("be.visible");
+  cy.getCy("intakecoordinatorclientassignment-content").should("be.visible");
+  cy.getCy("clientassignment-overview").should("be.visible");
+  cy.getCy("clientassignment-alerts").should("be.visible");
+  cy.getCy("clientassignment-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Intake Coordinator Client Assignment...");
   cy.waitAndSee();

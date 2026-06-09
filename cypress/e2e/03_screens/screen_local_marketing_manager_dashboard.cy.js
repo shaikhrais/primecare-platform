@@ -7,8 +7,8 @@ describe("Screen - local_marketing_manager_dashboard", () => {
   it("opens and verifies screen local_marketing_manager_dashboard", () => {
     cy.loginAsRole("local_marketing");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /management/local-marketing-manager-dashboard (LocalMarketingManagerDashboardScreen)...");
-  cy.visitWithSemantics("/management/local-marketing-manager-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/marketing/roles/local_marketing_manager/dashboard (LocalMarketingManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/marketing/roles/local_marketing_manager/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for LocalMarketingManagerDashboardScreen...");
@@ -18,6 +18,9 @@ describe("Screen - local_marketing_manager_dashboard", () => {
   cy.getCy("localmarketingmanagerdashboard-screen").should("be.visible");
   cy.getCy("localmarketingmanagerdashboard-title").should("be.visible");
   cy.getCy("localmarketingmanagerdashboard-content").should("be.visible");
+  cy.getCy("localmarketing-dashboard-campaigns").should("be.visible");
+  cy.getCy("localmarketing-dashboard-socialmedia").should("be.visible");
+  cy.getCy("localmarketing-dashboard-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for LocalMarketingManagerDashboardScreen...");
   cy.waitAndSee();

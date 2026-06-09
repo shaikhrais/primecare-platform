@@ -12,10 +12,11 @@ void main() {
     return;
   }
   
-  final enumValues = enumMatch.group(1)!
+  final enumSection = enumMatch.group(1)!.split(';').first;
+  final enumValues = enumSection
     .split(',')
     .map((s) => s.trim())
-    .where((s) => s.isNotEmpty && !s.startsWith('//') && s != 'unknown' && !s.contains(';'))
+    .where((s) => s.isNotEmpty && !s.startsWith('//') && s != 'unknown')
     .toList();
 
   print('Total Roles to process: ${enumValues.length}');

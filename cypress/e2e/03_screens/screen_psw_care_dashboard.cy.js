@@ -15,9 +15,12 @@ describe("Screen - psw_care_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pswcaredashboard-screen").should("be.visible");
+  cy.getCy("pswcaredashboard-title").should("be.visible");
+  cy.getCy("pswcaredashboard-content").should("be.visible");
+  cy.getCy("psw-dashboard-btn-update-record").should("be.visible");
+  cy.getCy("psw-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("psw-dashboard-btn-collaborate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Psw Care Dashboard...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - sso_redirect", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ssoredirect-screen").should("be.visible");
+  cy.getCy("ssoredirect-title").should("be.visible");
+  cy.getCy("ssoredirect-content").should("be.visible");
+  cy.getCy("sso-redirect-monitor").should("be.visible");
+  cy.getCy("sso-error-log").should("be.visible");
+  cy.getCy("sso-feedback-collector").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Sso Redirect...");
   cy.waitAndSee();

@@ -18,6 +18,8 @@ describe("Screen - family_member_dashboard", () => {
   cy.getCy("familymemberdashboard-screen").should("be.visible");
   cy.getCy("familymemberdashboard-title").should("be.visible");
   cy.getCy("familymemberdashboard-content").should("be.visible");
+  cy.getCy("family_member_dashboard-btn-execute-audit").should("be.visible");
+  cy.getCy("family_member_dashboard-btn-refresh-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FamilyMemberDashboardScreen...");
   cy.waitAndSee();

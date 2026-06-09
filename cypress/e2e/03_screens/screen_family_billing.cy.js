@@ -7,17 +7,20 @@ describe("Screen - family_billing", () => {
   it("opens and verifies screen family_billing", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Family Billing)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/client/roles/family_member/billing (Family Billing)...");
+  cy.visitWithSemantics("/offices/client/roles/family_member/billing");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Family Billing...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("familybilling-screen").should("be.visible");
+  cy.getCy("familybilling-title").should("be.visible");
+  cy.getCy("familybilling-content").should("be.visible");
+  cy.getCy("billing-summary-card").should("be.visible");
+  cy.getCy("billing-notification-panel").should("be.visible");
+  cy.getCy("billing-history-list").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Family Billing...");
   cy.waitAndSee();

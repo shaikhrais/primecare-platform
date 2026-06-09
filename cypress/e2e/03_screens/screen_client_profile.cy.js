@@ -7,17 +7,20 @@ describe("Screen - client_profile", () => {
   it("opens and verifies screen client_profile", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Client Profile)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /clinic/client-profile (Client Profile)...");
+  cy.visitWithSemantics("/clinic/client-profile");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Client Profile...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("clientprofile-screen").should("be.visible");
+  cy.getCy("clientprofile-title").should("be.visible");
+  cy.getCy("clientprofile-content").should("be.visible");
+  cy.getCy("clientprofile-btn-update").should("be.visible");
+  cy.getCy("clientprofile-btn-viewfeedback").should("be.visible");
+  cy.getCy("clientprofile-btn-edit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Client Profile...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - training_coordinator_workflow", () => {
   cy.getCy("trainingcoordinatorworkflow-screen").should("be.visible");
   cy.getCy("trainingcoordinatorworkflow-title").should("be.visible");
   cy.getCy("trainingcoordinatorworkflow-content").should("be.visible");
+  cy.getCy("training-progress-tracker").should("be.visible");
+  cy.getCy("training-session-calendar").should("be.visible");
+  cy.getCy("training-notification-panel").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TrainingCoordinatorWorkflowScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - ai_chatbot", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("aichatbot-screen").should("be.visible");
+  cy.getCy("aichatbot-title").should("be.visible");
+  cy.getCy("aichatbot-content").should("be.visible");
+  cy.getCy("ai_chatbot-performance-metrics").should("be.visible");
+  cy.getCy("ai_chatbot-user-engagement").should("be.visible");
+  cy.getCy("ai_chatbot-error-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Ai Chatbot...");
   cy.waitAndSee();

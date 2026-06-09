@@ -18,6 +18,9 @@ describe("Screen - api_monitoring", () => {
   cy.getCy("apimonitoring-screen").should("be.visible");
   cy.getCy("apimonitoring-title").should("be.visible");
   cy.getCy("apimonitoring-content").should("be.visible");
+  cy.getCy("ctodashboard-btn-refresh").should("be.visible");
+  cy.getCy("ctodashboard-btn-export").should("be.visible");
+  cy.getCy("ctodashboard-btn-view-details").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ApiMonitoringScreen...");
   cy.waitAndSee();

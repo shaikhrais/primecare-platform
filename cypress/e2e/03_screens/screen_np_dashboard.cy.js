@@ -18,6 +18,9 @@ describe("Screen - np_dashboard", () => {
   cy.getCy("npdashboard-screen").should("be.visible");
   cy.getCy("npdashboard-title").should("be.visible");
   cy.getCy("npdashboard-content").should("be.visible");
+  cy.getCy("npdashboard-btn-view-records").should("be.visible");
+  cy.getCy("npdashboard-btn-log-activity").should("be.visible");
+  cy.getCy("npdashboard-btn-send-referral").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for NpDashboardScreen...");
   cy.waitAndSee();

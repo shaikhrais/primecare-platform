@@ -1,0 +1,19 @@
+User Work List:
+1. Review compliance checklists for each clinic.
+2. Schedule audits for clinics that require them.
+3. Update compliance statuses in the checklist.
+4. Monitor overall readiness percentage across clinics.
+5. Address any critical violations reported.
+
+Red Flags of Operation:
+1. Low readiness percentage (below 45%).
+2. Clinics with multiple compliance checklist items marked as false.
+3. Clinics with audits scheduled far in the future or not scheduled at all.
+4. High number of critical violations reported.
+
+Dashboard Requirements:
+1. Display overall readiness average percentage.
+2. Show number of scheduled audits and their dates.
+3. Highlight critical violations and their status.
+4. Provide a detailed view of compliance checklists for each clinic.
+5. Allow for easy scheduling of audits and updating of compliance statuses.

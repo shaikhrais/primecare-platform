@@ -7,8 +7,8 @@ describe("Screen - franchise_owner_reports", () => {
   it("opens and verifies screen franchise_owner_reports", () => {
     cy.loginAsRole("owner");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/franchise-owner-reports (FranchiseOwnerReportsScreen)...");
-  cy.visitWithSemantics("/executive/franchise-owner-reports");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/franchise_owner/reports (FranchiseOwnerReportsScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/franchise_owner/reports");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for FranchiseOwnerReportsScreen...");
@@ -18,6 +18,9 @@ describe("Screen - franchise_owner_reports", () => {
   cy.getCy("franchiseownerreports-screen").should("be.visible");
   cy.getCy("franchiseownerreports-title").should("be.visible");
   cy.getCy("franchiseownerreports-content").should("be.visible");
+  cy.getCy("franchise-owner-btn-execute-scan").should("be.visible");
+  cy.getCy("franchise-owner-btn-execute-audit").should("be.visible");
+  cy.getCy("franchise-owner-btn-refresh-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FranchiseOwnerReportsScreen...");
   cy.waitAndSee();

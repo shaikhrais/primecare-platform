@@ -15,9 +15,12 @@ describe("Screen - site_readiness", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("sitereadiness-screen").should("be.visible");
+  cy.getCy("sitereadiness-title").should("be.visible");
+  cy.getCy("sitereadiness-content").should("be.visible");
+  cy.getCy("site-readiness-btn-schedule-audit").should("be.visible");
+  cy.getCy("site-readiness-btn-update-status").should("be.visible");
+  cy.getCy("site-readiness-btn-view-details").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Site Readiness...");
   cy.waitAndSee();

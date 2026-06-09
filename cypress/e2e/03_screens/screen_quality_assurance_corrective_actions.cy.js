@@ -15,9 +15,12 @@ describe("Screen - quality_assurance_corrective_actions", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("qualityassurancecorrectiveactions-screen").should("be.visible");
+  cy.getCy("qualityassurancecorrectiveactions-title").should("be.visible");
+  cy.getCy("qualityassurancecorrectiveactions-content").should("be.visible");
+  cy.getCy("qa-corrective-actions-overview").should("be.visible");
+  cy.getCy("qa-effectiveness-metrics").should("be.visible");
+  cy.getCy("qa-alerts-list").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Quality Assurance Corrective Actions...");
   cy.waitAndSee();

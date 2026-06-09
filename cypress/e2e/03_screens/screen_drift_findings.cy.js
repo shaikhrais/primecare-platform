@@ -18,6 +18,9 @@ describe("Screen - drift_findings", () => {
   cy.getCy("driftfindings-screen").should("be.visible");
   cy.getCy("driftfindings-title").should("be.visible");
   cy.getCy("driftfindings-content").should("be.visible");
+  cy.getCy("gov-dashboard-compliance-status").should("be.visible");
+  cy.getCy("gov-dashboard-audit-logs").should("be.visible");
+  cy.getCy("gov-dashboard-kpi").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for DriftFindingsScreen...");
   cy.waitAndSee();

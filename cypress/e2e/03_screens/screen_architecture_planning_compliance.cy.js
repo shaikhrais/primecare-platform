@@ -18,6 +18,9 @@ describe("Screen - architecture_planning_compliance", () => {
   cy.getCy("architectureplanningcompliance-screen").should("be.visible");
   cy.getCy("architectureplanningcompliance-title").should("be.visible");
   cy.getCy("architectureplanningcompliance-content").should("be.visible");
+  cy.getCy("compliance-status-indicator").should("be.visible");
+  cy.getCy("audit-logs-table").should("be.visible");
+  cy.getCy("alerts-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ArchitecturePlanningComplianceScreen...");
   cy.waitAndSee();

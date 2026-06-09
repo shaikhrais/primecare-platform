@@ -18,6 +18,9 @@ describe("Screen - scrum_master_workflow", () => {
   cy.getCy("scrummasterworkflow-screen").should("be.visible");
   cy.getCy("scrummasterworkflow-title").should("be.visible");
   cy.getCy("scrummasterworkflow-content").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-add-impediment").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-resolve-impediment").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-start-retrospective").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ScrumMasterWorkflowScreen...");
   cy.waitAndSee();

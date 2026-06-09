@@ -15,9 +15,12 @@ describe("Screen - compliance_manager_credential_tracking", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("compliancemanagercredentialtracking-screen").should("be.visible");
+  cy.getCy("compliancemanagercredentialtracking-title").should("be.visible");
+  cy.getCy("compliancemanagercredentialtracking-content").should("be.visible");
+  cy.getCy("compliance-dashboard-status").should("be.visible");
+  cy.getCy("compliance-dashboard-update").should("be.visible");
+  cy.getCy("compliance-dashboard-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Compliance Manager Credential Tracking...");
   cy.waitAndSee();

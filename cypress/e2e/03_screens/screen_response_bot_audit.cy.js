@@ -15,9 +15,12 @@ describe("Screen - response_bot_audit", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("responsebotaudit-screen").should("be.visible");
+  cy.getCy("responsebotaudit-title").should("be.visible");
+  cy.getCy("responsebotaudit-content").should("be.visible");
+  cy.getCy("responsebot-btn-approve").should("be.visible");
+  cy.getCy("responsebot-btn-flag").should("be.visible");
+  cy.getCy("responsebot-input-search").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Response Bot Audit...");
   cy.waitAndSee();

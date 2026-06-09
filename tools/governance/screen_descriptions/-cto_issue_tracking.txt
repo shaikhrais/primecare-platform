@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor the status of issues tracked in the system.
+2. Update the status of issues as they progress.
+3. Review and analyze issue reports for trends and patterns.
+4. Communicate with team members regarding issue resolutions.
+5. Provide feedback on the effectiveness of the tracking system.
+
+Red flags of operation:
+1. Frequent loading errors indicating potential backend issues.
+2. Delays in updating issue statuses, suggesting bottlenecks in the workflow.
+3. Lack of communication or updates from team members on issue resolutions.
+4. High volume of unresolved issues over an extended period.
+5. Inconsistent data being displayed on the dashboard.
+
+What is needed on the user dashboard:
+1. Overview of current issues with their statuses (open, in progress, resolved).
+2. Notifications for any updates or changes to issue statuses.
+3. Analytics on issue resolution times and team performance.
+4. A section for team communication or comments on specific issues.
+5. Quick access buttons for updating issue statuses and adding new issues.

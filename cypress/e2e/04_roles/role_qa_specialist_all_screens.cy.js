@@ -19,6 +19,9 @@ describe("Role All Screens - qa_specialist", () => {
   cy.getCy("qaanalytics-screen").should("be.visible");
   cy.getCy("qaanalytics-title").should("be.visible");
   cy.getCy("qaanalytics-content").should("be.visible");
+  cy.getCy("qa-dashboard-testcase-status").should("be.visible");
+  cy.getCy("qa-dashboard-defect-metrics").should("be.visible");
+  cy.getCy("qa-dashboard-testcoverage").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/10 | 10%] - Saving screenshot for QaAnalyticsScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - qa_specialist", () => {
   cy.getCy("qacompliance-screen").should("be.visible");
   cy.getCy("qacompliance-title").should("be.visible");
   cy.getCy("qacompliance-content").should("be.visible");
+  cy.getCy("qa-compliance-status-indicator").should("be.visible");
+  cy.getCy("qa-audit-log-table").should("be.visible");
+  cy.getCy("qa-compliance-metrics-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/10 | 20%] - Saving screenshot for QaComplianceScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - qa_specialist", () => {
   cy.getCy("qaworkflow-screen").should("be.visible");
   cy.getCy("qaworkflow-title").should("be.visible");
   cy.getCy("qaworkflow-content").should("be.visible");
+  cy.getCy("qa-tasklist").should("be.visible");
+  cy.getCy("qa-defect-tracker").should("be.visible");
+  cy.getCy("qa-test-coverage-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/10 | 30%] - Saving screenshot for QaWorkflowScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - qa_specialist", () => {
   cy.getCy("qualityassuranceanalytics-screen").should("be.visible");
   cy.getCy("qualityassuranceanalytics-title").should("be.visible");
   cy.getCy("qualityassuranceanalytics-content").should("be.visible");
+  cy.getCy("qa-dashboard-btn-view-test-plans").should("be.visible");
+  cy.getCy("qa-dashboard-btn-run-tests").should("be.visible");
+  cy.getCy("qa-dashboard-btn-log-defect").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/10 | 40%] - Saving screenshot for QualityAssuranceAnalyticsScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - qa_specialist", () => {
   cy.getCy("qualityassurancecompliance-screen").should("be.visible");
   cy.getCy("qualityassurancecompliance-title").should("be.visible");
   cy.getCy("qualityassurancecompliance-content").should("be.visible");
+  cy.getCy("qa-dashboard-compliance-status").should("be.visible");
+  cy.getCy("qa-dashboard-performance-metrics").should("be.visible");
+  cy.getCy("qa-dashboard-audit-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/10 | 50%] - Saving screenshot for QualityAssuranceComplianceScreen...");
   cy.waitAndSee();
@@ -109,6 +124,9 @@ describe("Role All Screens - qa_specialist", () => {
   cy.getCy("qualityassuranceworkflow-screen").should("be.visible");
   cy.getCy("qualityassuranceworkflow-title").should("be.visible");
   cy.getCy("qualityassuranceworkflow-content").should("be.visible");
+  cy.getCy("qa-dashboard-btn-execute-test").should("be.visible");
+  cy.getCy("qa-dashboard-btn-track-defects").should("be.visible");
+  cy.getCy("qa-dashboard-btn-view-reports").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/10 | 60%] - Saving screenshot for QualityAssuranceWorkflowScreen...");
   cy.waitAndSee();
@@ -127,6 +145,9 @@ describe("Role All Screens - qa_specialist", () => {
   cy.getCy("qualityaudit-screen").should("be.visible");
   cy.getCy("qualityaudit-title").should("be.visible");
   cy.getCy("qualityaudit-content").should("be.visible");
+  cy.getCy("qa-compliance-scan-btn").should("be.visible");
+  cy.getCy("qa-review-logs-btn").should("be.visible");
+  cy.getCy("qa-generate-kpi-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/10 | 70%] - Saving screenshot for QualityAuditScreen...");
   cy.waitAndSee();
@@ -145,6 +166,9 @@ describe("Role All Screens - qa_specialist", () => {
   cy.getCy("failedworkflow-screen").should("be.visible");
   cy.getCy("failedworkflow-title").should("be.visible");
   cy.getCy("failedworkflow-content").should("be.visible");
+  cy.getCy("qa-tasklist").should("be.visible");
+  cy.getCy("qa-defect-metrics").should("be.visible");
+  cy.getCy("qa-test-coverage").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/10 | 80%] - Saving screenshot for FailedWorkflowScreen...");
   cy.waitAndSee();
@@ -163,6 +187,9 @@ describe("Role All Screens - qa_specialist", () => {
   cy.getCy("testingoverview-screen").should("be.visible");
   cy.getCy("testingoverview-title").should("be.visible");
   cy.getCy("testingoverview-content").should("be.visible");
+  cy.getCy("qa-dashboard-refresh-status").should("be.visible");
+  cy.getCy("qa-dashboard-view-defects").should("be.visible");
+  cy.getCy("qa-dashboard-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [9/10 | 90%] - Saving screenshot for TestingOverviewScreen...");
   cy.waitAndSee();
@@ -181,6 +208,9 @@ describe("Role All Screens - qa_specialist", () => {
   cy.getCy("defecttracking-screen").should("be.visible");
   cy.getCy("defecttracking-title").should("be.visible");
   cy.getCy("defecttracking-content").should("be.visible");
+  cy.getCy("qa-dashboard-btn-execute-test").should("be.visible");
+  cy.getCy("qa-dashboard-btn-document-defect").should("be.visible");
+  cy.getCy("qa-dashboard-btn-resolve-issue").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [10/10 | 100%] - Saving screenshot for DefectTrackingScreen...");
   cy.waitAndSee();

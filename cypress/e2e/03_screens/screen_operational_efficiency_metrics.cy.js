@@ -15,9 +15,11 @@ describe("Screen - operational_efficiency_metrics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("operationalefficiencymetrics-screen").should("be.visible");
+  cy.getCy("operationalefficiencymetrics-title").should("be.visible");
+  cy.getCy("operationalefficiencymetrics-content").should("be.visible");
+  cy.getCy("operational-efficiency-refresh").should("be.visible");
+  cy.getCy("operational-efficiency-compare").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Operational Efficiency Metrics...");
   cy.waitAndSee();

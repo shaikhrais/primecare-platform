@@ -15,9 +15,12 @@ describe("Screen - physician_workflow", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("physician compliance workflow-screen").should("be.visible");
-  cy.getCy("physician compliance workflow-title").should("be.visible");
-  cy.getCy("physician compliance workflow-content").should("be.visible");
+  cy.getCy("physicianworkflow-screen").should("be.visible");
+  cy.getCy("physicianworkflow-title").should("be.visible");
+  cy.getCy("physicianworkflow-content").should("be.visible");
+  cy.getCy("physician-dashboard-btn-update-status").should("be.visible");
+  cy.getCy("physician-dashboard-btn-view-compliance").should("be.visible");
+  cy.getCy("physician-dashboard-btn-log-activity").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Physician Compliance Workflow...");
   cy.waitAndSee();

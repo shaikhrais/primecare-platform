@@ -15,9 +15,12 @@ describe("Screen - formulary_compliance_manager", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("formularycompliancemanager-screen").should("be.visible");
+  cy.getCy("formularycompliancemanager-title").should("be.visible");
+  cy.getCy("formularycompliancemanager-content").should("be.visible");
+  cy.getCy("compliance-metrics-overview").should("be.visible");
+  cy.getCy("non-compliance-alerts").should("be.visible");
+  cy.getCy("formulary-updates-summary").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Formulary Compliance Manager...");
   cy.waitAndSee();

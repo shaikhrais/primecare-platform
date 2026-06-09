@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Review and approve hiring staff documents.
+2. Upload necessary documents for new hires.
+3. Monitor the status of document submissions.
+4. Ensure compliance with HR policies regarding documentation.
+5. Communicate with candidates regarding document requirements.
+
+Red flags of operation:
+1. Delays in document submission from candidates.
+2. Frequent errors in uploaded documents.
+3. Lack of communication from candidates regarding document status.
+4. Non-compliance with HR policies.
+5. High turnover rates due to documentation issues.
+
+What is needed on the user dashboard:
+1. Overview of document submission status for each candidate.
+2. Notifications for pending document approvals.
+3. Alerts for overdue document submissions.
+4. Compliance checklist for HR documentation.
+5. Analytics on document submission trends and issues.

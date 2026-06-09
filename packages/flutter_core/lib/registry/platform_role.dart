@@ -124,7 +124,15 @@ enum PlatformRole {
   static PlatformRole fromName(String? roleName) {
     if (roleName == null || roleName.isEmpty) return PlatformRole.guest;
 
-    final normalized = roleName
+    // Strip any surrounding single or double quotes
+    var cleaned = roleName.trim();
+    while ((cleaned.startsWith('"') && cleaned.endsWith('"') && cleaned.length >= 2) ||
+           (cleaned.startsWith("'") && cleaned.endsWith("'") && cleaned.length >= 2)) {
+      cleaned = cleaned.substring(1, cleaned.length - 1);
+      cleaned = cleaned.trim();
+    }
+
+    final normalized = cleaned
         .toLowerCase()
         .replaceAll('_', '')
         .replaceAll(' ', '');
@@ -150,6 +158,13 @@ enum PlatformRole {
     if (normalized == 'family') return PlatformRole.familyMember;
     if (normalized == 'training') return PlatformRole.trainingHub;
     if (normalized == 'dynamic') return PlatformRole.dynamicScreen;
+    if (normalized == 'owner') return PlatformRole.franchiseOwner;
+    if (normalized == 'franchisesales') return PlatformRole.franchiseSalesManager;
+    if (normalized == 'partnership') return PlatformRole.partnershipManager;
+    if (normalized == 'premiumconcierge') return PlatformRole.premiumConcierge;
+    if (normalized == 'vipmanager') return PlatformRole.vipManager;
+    if (normalized == 'qaspecialist') return PlatformRole.qaSpecialist;
+    if (normalized == 'localmarketing') return PlatformRole.localMarketingManager;
 
     for (final role in PlatformRole.values) {
       if (role.name.toLowerCase() == normalized ||

@@ -7,17 +7,20 @@ describe("Screen - franchise_owner_dashboard", () => {
   it("opens and verifies screen franchise_owner_dashboard", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Franchise Owner Dashboard)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/franchise_owner/dashboard (Franchise Owner Dashboard)...");
+  cy.visitWithSemantics("/offices/franchise/roles/franchise_owner/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Franchise Owner Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("franchiseownerdashboard-screen").should("be.visible");
+  cy.getCy("franchiseownerdashboard-title").should("be.visible");
+  cy.getCy("franchiseownerdashboard-content").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-review-sales").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-manage-communications").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-access-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Franchise Owner Dashboard...");
   cy.waitAndSee();

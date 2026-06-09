@@ -7,17 +7,20 @@ describe("Screen - regional_bdm_reports", () => {
   it("opens and verifies screen regional_bdm_reports", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Regional Bdm Reports)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/business_development/roles/regional_bdm/reports (Regional Bdm Reports)...");
+  cy.visitWithSemantics("/offices/business_development/roles/regional_bdm/reports");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Regional Bdm Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("regionalbdmreports-screen").should("be.visible");
+  cy.getCy("regionalbdmreports-title").should("be.visible");
+  cy.getCy("regionalbdmreports-content").should("be.visible");
+  cy.getCy("regional-reports-loading").should("be.visible");
+  cy.getCy("regional-reports-error").should("be.visible");
+  cy.getCy("regional-reports-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Regional Bdm Reports...");
   cy.waitAndSee();

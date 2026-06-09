@@ -15,9 +15,12 @@ describe("Screen - certification_renewal_alerts", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("certificationrenewalalerts-screen").should("be.visible");
+  cy.getCy("certificationrenewalalerts-title").should("be.visible");
+  cy.getCy("certificationrenewalalerts-content").should("be.visible");
+  cy.getCy("certification-alerts-list").should("be.visible");
+  cy.getCy("send-reminder-btn").should("be.visible");
+  cy.getCy("refresh-alerts-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Certification Renewal Alerts...");
   cy.waitAndSee();

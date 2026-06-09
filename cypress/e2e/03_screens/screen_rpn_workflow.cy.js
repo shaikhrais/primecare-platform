@@ -18,6 +18,9 @@ describe("Screen - rpn_workflow", () => {
   cy.getCy("rpnworkflow-screen").should("be.visible");
   cy.getCy("rpnworkflow-title").should("be.visible");
   cy.getCy("rpnworkflow-content").should("be.visible");
+  cy.getCy("rpn-dashboard-dressing-log").should("be.visible");
+  cy.getCy("rpn-dashboard-immunization-summary").should("be.visible");
+  cy.getCy("rpn-dashboard-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RpnWorkflowScreen...");
   cy.waitAndSee();

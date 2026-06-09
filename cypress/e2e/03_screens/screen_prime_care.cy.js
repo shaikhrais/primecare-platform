@@ -15,9 +15,11 @@ describe("Screen - prime_care", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("primecare-screen").should("be.visible");
+  cy.getCy("primecare-title").should("be.visible");
+  cy.getCy("primecare-content").should("be.visible");
+  cy.getCy("primecare-btn-back").should("be.visible");
+  cy.getCy("primecare-btn-navigate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Prime Care...");
   cy.waitAndSee();

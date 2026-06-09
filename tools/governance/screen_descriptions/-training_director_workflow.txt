@@ -1,0 +1,20 @@
+List of work for Training Candidates:
+1. Execute compliance scans to ensure adherence to training standards.
+2. Monitor operational logs for any anomalies or issues.
+3. Review and validate telemetry data for accuracy.
+4. Trigger manual sweeps for additional verification.
+5. Maintain clear communication regarding the status of training operations.
+
+Red flags of operation:
+1. Frequent API errors during compliance scans.
+2. High number of network errors indicating connectivity issues.
+3. Inconsistencies in telemetry data or operational logs.
+4. Delays in executing scheduled tasks or scans.
+5. Low clearance status indicating potential exceptions flagged.
+
+Dashboard needs for Training Candidates:
+1. Real-time status of compliance scans and their results.
+2. Operational logs with timestamps for tracking issues.
+3. Metrics on active training streams and their performance.
+4. Alerts for any red flags or issues that require immediate attention.
+5. Historical data trends for telemetry to identify patterns over time.

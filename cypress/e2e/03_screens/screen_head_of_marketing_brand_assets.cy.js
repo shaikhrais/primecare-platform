@@ -15,9 +15,12 @@ describe("Screen - head_of_marketing_brand_assets", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("headofmarketingbrandassets-screen").should("be.visible");
+  cy.getCy("headofmarketingbrandassets-title").should("be.visible");
+  cy.getCy("headofmarketingbrandassets-content").should("be.visible");
+  cy.getCy("brandasset-overview").should("be.visible");
+  cy.getCy("performance-metrics-chart").should("be.visible");
+  cy.getCy("approval-notifications").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Head Of Marketing Brand Assets...");
   cy.waitAndSee();

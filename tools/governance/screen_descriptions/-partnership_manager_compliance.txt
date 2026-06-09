@@ -1,0 +1,28 @@
+Partnership Manager Responsibilities:
+1. Conduct compliance audits.
+2. Monitor operational compliance checks.
+3. Manage security policies and ensure they are up to date.
+4. Facilitate secure event reporting and ingestion.
+5. Maintain logs of operational activities and compliance status.
+6. Trigger necessary governance actions.
+7. Update and enforce governance directives.
+8. Collaborate with other departments for compliance-related issues.
+
+Red Flags of Operation:
+1. Frequent compliance audit failures.
+2. Delays in executing compliance scans.
+3. Inconsistent logging of operational activities.
+4. High number of security policy violations.
+5. Lack of real-time telemetry data.
+6. Unresolved issues from previous audits.
+7. Low engagement in secure event reporting.
+
+Dashboard Requirements for Partnership Manager:
+1. Real-time compliance audit status.
+2. Summary of recent compliance verification audits.
+3. Logs of operational activities with timestamps.
+4. Alerts for any compliance failures or issues.
+5. Status of governance directives (enabled/disabled).
+6. Metrics on the number of secure event reports submitted.
+7. Visual representation of compliance trends over time.
+8. Quick access buttons for executing compliance scans and triggering governance actions.

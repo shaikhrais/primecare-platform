@@ -1,0 +1,22 @@
+List of work for the User:
+1. Monitor and manage local marketing leads.
+2. Analyze lead performance and conversion rates.
+3. Update lead information and status.
+4. Collaborate with the marketing team for campaign strategies.
+5. Generate reports on lead metrics and effectiveness.
+6. Identify trends and opportunities in local marketing.
+
+Red flags of operation:
+1. High lead drop-off rates indicating potential issues in the marketing funnel.
+2. Low conversion rates suggesting ineffective lead engagement strategies.
+3. Delays in updating lead statuses which can lead to outdated information.
+4. Frequent errors or crashes when loading data, indicating potential bugs.
+5. Lack of engagement from leads, suggesting a need for improved marketing tactics.
+
+Dashboard needs for the User:
+1. Overview of total leads and their current statuses.
+2. Conversion rate metrics and trends over time.
+3. Performance indicators for different marketing campaigns.
+4. Alerts for leads that require immediate attention.
+5. Visual representation of lead engagement and drop-off points.
+6. Access to detailed reports for in-depth analysis of lead performance.

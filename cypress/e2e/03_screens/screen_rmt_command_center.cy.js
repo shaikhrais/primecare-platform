@@ -18,6 +18,9 @@ describe("Screen - rmt_command_center", () => {
   cy.getCy("rmtcommandcenter-screen").should("be.visible");
   cy.getCy("rmtcommandcenter-title").should("be.visible");
   cy.getCy("rmtcommandcenter-content").should("be.visible");
+  cy.getCy("rmt-dashboard-btn-schedule-appointment").should("be.visible");
+  cy.getCy("rmt-dashboard-btn-view-client-records").should("be.visible");
+  cy.getCy("rmt-dashboard-btn-update-treatment-plan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RmtCommandCenterScreen...");
   cy.waitAndSee();

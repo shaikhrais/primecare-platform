@@ -18,6 +18,9 @@ describe("Screen - scrum_master_dashboard", () => {
   cy.getCy("scrummasterdashboard-screen").should("be.visible");
   cy.getCy("scrummasterdashboard-title").should("be.visible");
   cy.getCy("scrummasterdashboard-content").should("be.visible");
+  cy.getCy("scrum-dashboard-burndown-chart").should("be.visible");
+  cy.getCy("scrum-dashboard-velocity-metric").should("be.visible");
+  cy.getCy("scrum-dashboard-impediment-list").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ScrumMasterDashboardScreen...");
   cy.waitAndSee();

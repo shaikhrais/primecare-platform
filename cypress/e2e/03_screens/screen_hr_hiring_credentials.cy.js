@@ -7,8 +7,8 @@ describe("Screen - hr_hiring_credentials", () => {
   it("opens and verifies screen hr_hiring_credentials", () => {
     cy.loginAsRole("hr_hiring");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/hr-hiring-credentials (HrHiringCredentialsScreen)...");
-  cy.visitWithSemantics("/staff/hr-hiring-credentials");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/hr_hiring/credentials (HrHiringCredentialsScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/hr_hiring/credentials");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for HrHiringCredentialsScreen...");
@@ -18,6 +18,9 @@ describe("Screen - hr_hiring_credentials", () => {
   cy.getCy("hrhiringcredentials-screen").should("be.visible");
   cy.getCy("hrhiringcredentials-title").should("be.visible");
   cy.getCy("hrhiringcredentials-content").should("be.visible");
+  cy.getCy("hr_hiring_btn_add_job").should("be.visible");
+  cy.getCy("hr_hiring_btn_view_candidate").should("be.visible");
+  cy.getCy("hr_hiring_btn_export_metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HrHiringCredentialsScreen...");
   cy.waitAndSee();

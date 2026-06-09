@@ -18,6 +18,9 @@ describe("Screen - scheduler_open_shifts", () => {
   cy.getCy("scheduleropenshifts-screen").should("be.visible");
   cy.getCy("scheduleropenshifts-title").should("be.visible");
   cy.getCy("scheduleropenshifts-content").should("be.visible");
+  cy.getCy("scheduler-btn-view-performance").should("be.visible");
+  cy.getCy("scheduler-btn-conduct-audit").should("be.visible");
+  cy.getCy("scheduler-btn-update-schedule").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerOpenShiftsScreen...");
   cy.waitAndSee();

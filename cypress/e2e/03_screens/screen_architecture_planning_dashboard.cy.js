@@ -18,6 +18,9 @@ describe("Screen - architecture_planning_dashboard", () => {
   cy.getCy("architectureplanningdashboard-screen").should("be.visible");
   cy.getCy("architectureplanningdashboard-title").should("be.visible");
   cy.getCy("architectureplanningdashboard-content").should("be.visible");
+  cy.getCy("ctodashboard-btn-refresh").should("be.visible");
+  cy.getCy("ctodashboard-btn-view-report").should("be.visible");
+  cy.getCy("ctodashboard-btn-export-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ArchitecturePlanningDashboardScreen...");
   cy.waitAndSee();

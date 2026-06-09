@@ -18,6 +18,9 @@ describe("Screen - rn_command_center", () => {
   cy.getCy("rncommandcenter-screen").should("be.visible");
   cy.getCy("rncommandcenter-title").should("be.visible");
   cy.getCy("rncommandcenter-content").should("be.visible");
+  cy.getCy("rn-dashboard-btn-view-status").should("be.visible");
+  cy.getCy("rn-dashboard-btn-audit-compliance").should("be.visible");
+  cy.getCy("rn-dashboard-btn-view-kpis").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RnCommandCenterScreen...");
   cy.waitAndSee();

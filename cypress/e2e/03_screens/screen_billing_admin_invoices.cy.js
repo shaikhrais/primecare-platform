@@ -7,17 +7,20 @@ describe("Screen - billing_admin_invoices", () => {
   it("opens and verifies screen billing_admin_invoices", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Billing Admin Invoices)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/billing_admin/invoices (Billing Admin Invoices)...");
+  cy.visitWithSemantics("/offices/franchise/roles/billing_admin/invoices");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Billing Admin Invoices...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("billingadmininvoices-screen").should("be.visible");
+  cy.getCy("billingadmininvoices-title").should("be.visible");
+  cy.getCy("billingadmininvoices-content").should("be.visible");
+  cy.getCy("billing-admin-invoices").should("be.visible");
+  cy.getCy("billing-invoice-review").should("be.visible");
+  cy.getCy("billing-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Billing Admin Invoices...");
   cy.waitAndSee();

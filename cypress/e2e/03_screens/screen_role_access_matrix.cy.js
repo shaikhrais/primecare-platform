@@ -15,9 +15,12 @@ describe("Screen - role_access_matrix", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("roleaccessmatrix-screen").should("be.visible");
+  cy.getCy("roleaccessmatrix-title").should("be.visible");
+  cy.getCy("roleaccessmatrix-content").should("be.visible");
+  cy.getCy("role-access-matrix").should("be.visible");
+  cy.getCy("btn-save-permissions").should("be.visible");
+  cy.getCy("btn-refresh-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Role Access Matrix...");
   cy.waitAndSee();

@@ -1,0 +1,35 @@
+Registered Nurse (RN) Field Supervisor responsibilities:
+1. Conduct field audits and assessments.
+2. Ensure compliance with healthcare regulations and policies.
+3. Monitor and evaluate nursing staff performance.
+4. Provide training and support to nursing staff.
+5. Document and report operational activities and incidents.
+6. Coordinate with healthcare teams for patient care.
+7. Manage and resolve issues related to nursing operations.
+8. Maintain accurate records of nursing assessments and audits.
+9. Communicate effectively with staff and management.
+10. Implement quality improvement initiatives.
+
+Red flags of operation:
+1. High number of compliance violations.
+2. Increased incidents of patient complaints.
+3. Low staff morale or high turnover rates.
+4. Inconsistent documentation practices.
+5. Delays in reporting or addressing issues.
+6. Lack of communication among team members.
+7. Failure to meet operational benchmarks.
+8. Poor performance in audits or assessments.
+9. Unresolved conflicts within the nursing team.
+10. Inadequate training or support for staff.
+
+Dashboard needs for Registered Nurse (RN) Field Supervisor:
+1. Overview of active operations and compliance status.
+2. Real-time logs of operational activities.
+3. Metrics on staff performance and patient outcomes.
+4. Alerts for compliance issues or operational red flags.
+5. Access to audit logs and historical data.
+6. Tools for submitting and tracking field audits.
+7. Options for updating policies and procedures.
+8. Visual representation of key performance indicators.
+9. Communication tools for team collaboration.
+10. Functionality for exporting logs and reports.

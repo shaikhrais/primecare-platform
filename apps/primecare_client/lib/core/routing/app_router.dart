@@ -49,7 +49,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   final activeRole = ref.watch(activeRoleProvider);
   final application = ref.read(clientApplicationProvider);
 
-  final dashboardRoute = activeRole == PlatformRole.guest
+  final dashboardRoute = !ref.watch(authProvider).isAuthenticated
       ? CommonRoutes.login
       : application.getDefinition(activeRole)?.dashboardRoute ??
             CommonRoutes.login;
@@ -101,59 +101,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       return null;
     },
     publicRoutes: [
-      GoRoute(
-        path: '/offices/client/roles/client/dashboard',
-        builder: (context, state) => const PatientDashboardScreen(),
-      ),
-      GoRoute(
-        path: '/offices/client/roles/client/book-appointment',
-        builder: (context, state) => const PatientBookAppointmentScreen(),
-      ),
-      GoRoute(
-        path: '/offices/client/roles/client/my-appointments',
-        builder: (context, state) => const PatientMyAppointmentsScreen(),
-      ),
-      GoRoute(
-        path: '/offices/client/roles/client/care-team',
-        builder: (context, state) => const PatientCareTeamScreen(),
-      ),
-      GoRoute(
-        path: '/offices/client/roles/client/treatment-history',
-        builder: (context, state) => const PatientTreatmentHistoryScreen(),
-      ),
-      GoRoute(
-        path: '/offices/client/roles/client/payments',
-        builder: (context, state) => const PatientPaymentsScreen(),
-      ),
-      GoRoute(
-        path: '/offices/client/roles/client/profile',
-        builder: (context, state) => const PatientProfileScreen(),
-      ),
-      GoRoute(
-        path: '/offices/client/roles/family_member/dashboard',
-        builder: (context, state) => const FamilyDashboardScreen(),
-      ),
-      GoRoute(
-        path: '/offices/client/roles/family_member/loved-one-schedule',
-        builder: (context, state) => const FamilyLovedOneScheduleScreen(),
-      ),
-      GoRoute(
-        path: '/offices/client/roles/family_member/care-updates',
-        builder: (context, state) => const FamilyCareUpdatesScreen(),
-      ),
-      GoRoute(
-        path: '/offices/client/roles/family_member/billing',
-        builder: (context, state) => const FamilyBillingScreen(),
-      ),
-      GoRoute(
-        path: '/offices/client/roles/family_member/emergency-contacts',
-        builder: (context, state) => const FamilyEmergencyContactsScreen(),
-      ),
-      GoRoute(
-        path: '/offices/client/roles/family_member/profile',
-        builder: (context, state) => const FamilyProfileScreen(),
-      ),
-
       GoRoute(
         path: CommonRoutes.ssoRedirect,
         builder: (context, state) {

@@ -18,6 +18,9 @@ describe("Screen - territory_sales_manager_compliance", () => {
   cy.getCy("territorysalesmanagercompliance-screen").should("be.visible");
   cy.getCy("territorysalesmanagercompliance-title").should("be.visible");
   cy.getCy("territorysalesmanagercompliance-content").should("be.visible");
+  cy.getCy("salesperformance-chart").should("be.visible");
+  cy.getCy("clientmanagement-tool").should("be.visible");
+  cy.getCy("leadtracking-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TerritorySalesManagerComplianceScreen...");
   cy.waitAndSee();

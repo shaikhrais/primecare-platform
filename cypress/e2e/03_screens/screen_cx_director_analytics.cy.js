@@ -18,6 +18,9 @@ describe("Screen - cx_director_analytics", () => {
   cy.getCy("cxdirectoranalytics-screen").should("be.visible");
   cy.getCy("cxdirectoranalytics-title").should("be.visible");
   cy.getCy("cxdirectoranalytics-content").should("be.visible");
+  cy.getCy("cxdashboard-btn-refresh").should("be.visible");
+  cy.getCy("cxdashboard-btn-export").should("be.visible");
+  cy.getCy("cxdashboard-btn-viewdetails").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CxDirectorAnalyticsScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - head_of_marketing_analytics", () => {
   cy.getCy("headofmarketinganalytics-screen").should("be.visible");
   cy.getCy("headofmarketinganalytics-title").should("be.visible");
   cy.getCy("headofmarketinganalytics-content").should("be.visible");
+  cy.getCy("marketing-dashboard-kpi").should("be.visible");
+  cy.getCy("marketing-dashboard-realtime-analytics").should("be.visible");
+  cy.getCy("marketing-dashboard-social-media").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HeadOfMarketingAnalyticsScreen...");
   cy.waitAndSee();

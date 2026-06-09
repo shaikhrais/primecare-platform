@@ -18,6 +18,9 @@ describe("Screen - training_director_compliance", () => {
   cy.getCy("trainingdirectorcompliance-screen").should("be.visible");
   cy.getCy("trainingdirectorcompliance-title").should("be.visible");
   cy.getCy("trainingdirectorcompliance-content").should("be.visible");
+  cy.getCy("training-dashboard-btn-feedback").should("be.visible");
+  cy.getCy("training-dashboard-btn-resources").should("be.visible");
+  cy.getCy("training-dashboard-btn-register").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TrainingDirectorComplianceScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - community_outreach_analytics", () => {
   cy.getCy("communityoutreachanalytics-screen").should("be.visible");
   cy.getCy("communityoutreachanalytics-title").should("be.visible");
   cy.getCy("communityoutreachanalytics-content").should("be.visible");
+  cy.getCy("communityoutreach-kpi-chart").should("be.visible");
+  cy.getCy("communityoutreach-engagement-metrics").should("be.visible");
+  cy.getCy("communityoutreach-budget-tracker").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CommunityOutreachAnalyticsScreen...");
   cy.waitAndSee();

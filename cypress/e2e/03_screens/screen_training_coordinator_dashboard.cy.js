@@ -7,8 +7,8 @@ describe("Screen - training_coordinator_dashboard", () => {
   it("opens and verifies screen training_coordinator_dashboard", () => {
     cy.loginAsRole("training");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/training-coordinator-dashboard (TrainingCoordinatorDashboardScreen)...");
-  cy.visitWithSemantics("/staff/training-coordinator-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/support/roles/training_coordinator/dashboard (TrainingCoordinatorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/support/roles/training_coordinator/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for TrainingCoordinatorDashboardScreen...");
@@ -18,6 +18,9 @@ describe("Screen - training_coordinator_dashboard", () => {
   cy.getCy("trainingcoordinatordashboard-screen").should("be.visible");
   cy.getCy("trainingcoordinatordashboard-title").should("be.visible");
   cy.getCy("trainingcoordinatordashboard-content").should("be.visible");
+  cy.getCy("training-dashboard-btn-update-progress").should("be.visible");
+  cy.getCy("training-dashboard-btn-submit-feedback").should("be.visible");
+  cy.getCy("training-dashboard-btn-access-materials").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TrainingCoordinatorDashboardScreen...");
   cy.waitAndSee();

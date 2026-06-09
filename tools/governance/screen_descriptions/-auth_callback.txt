@@ -1,0 +1,20 @@
+User Tasks:
+1. Ensure that the SSO authorization callback is correctly configured to receive query parameters.
+2. Verify that the token, role, and userId are being passed correctly in the callback URL.
+3. Monitor the authentication process to ensure users are redirected to the appropriate dashboard based on their role.
+4. Handle cases where the required parameters are missing by redirecting users to the login page.
+5. Test the functionality across different user roles to ensure proper access control.
+
+Red Flags of Operation:
+1. Missing or empty token or role parameters in the callback URL.
+2. Failure to redirect users to the correct dashboard based on their role.
+3. Users being redirected to the login page unexpectedly.
+4. Errors during the authentication process that are not handled gracefully.
+5. Performance issues during the loading of the authentication process.
+
+Dashboard Needs:
+1. Display the current authentication status of the user.
+2. Show any errors or warnings related to the authentication process.
+3. Provide logs of recent authentication attempts for troubleshooting.
+4. Include metrics on successful and failed logins.
+5. Allow users to see their assigned role and access level.

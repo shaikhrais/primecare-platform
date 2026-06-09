@@ -18,6 +18,9 @@ describe("Screen - support_compliance", () => {
   cy.getCy("supportcompliance-screen").should("be.visible");
   cy.getCy("supportcompliance-title").should("be.visible");
   cy.getCy("supportcompliance-content").should("be.visible");
+  cy.getCy("support-btn-log-interaction").should("be.visible");
+  cy.getCy("support-btn-conduct-audit").should("be.visible");
+  cy.getCy("support-btn-provide-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SupportComplianceScreen...");
   cy.waitAndSee();

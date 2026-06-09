@@ -7,17 +7,20 @@ describe("Screen - family_emergency_contacts", () => {
   it("opens and verifies screen family_emergency_contacts", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Family Emergency Contacts)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/client/roles/family_member/emergency-contacts (Family Emergency Contacts)...");
+  cy.visitWithSemantics("/offices/client/roles/family_member/emergency-contacts");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Family Emergency Contacts...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("familyemergencycontacts-screen").should("be.visible");
+  cy.getCy("familyemergencycontacts-title").should("be.visible");
+  cy.getCy("familyemergencycontacts-content").should("be.visible");
+  cy.getCy("family-emergency-contacts-list").should("be.visible");
+  cy.getCy("loading-indicator").should("be.visible");
+  cy.getCy("error-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Family Emergency Contacts...");
   cy.waitAndSee();

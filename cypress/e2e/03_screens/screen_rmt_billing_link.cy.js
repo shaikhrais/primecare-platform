@@ -18,6 +18,9 @@ describe("Screen - rmt_billing_link", () => {
   cy.getCy("rmtbillinglink-screen").should("be.visible");
   cy.getCy("rmtbillinglink-title").should("be.visible");
   cy.getCy("rmtbillinglink-content").should("be.visible");
+  cy.getCy("rmt-dashboard-btn-add-client").should("be.visible");
+  cy.getCy("rmt-dashboard-btn-update-treatment").should("be.visible");
+  cy.getCy("rmt-dashboard-btn-submit-billing").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RmtBillingLinkScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - residency_program_tracker", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("residencyprogramtracker-screen").should("be.visible");
+  cy.getCy("residencyprogramtracker-title").should("be.visible");
+  cy.getCy("residencyprogramtracker-content").should("be.visible");
+  cy.getCy("resident-list").should("be.visible");
+  cy.getCy("resident-card").should("be.visible");
+  cy.getCy("completion-percentage").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Residency Program Tracker...");
   cy.waitAndSee();

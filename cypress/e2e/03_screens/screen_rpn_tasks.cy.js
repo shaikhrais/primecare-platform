@@ -18,6 +18,9 @@ describe("Screen - rpn_tasks", () => {
   cy.getCy("rpntasks-screen").should("be.visible");
   cy.getCy("rpntasks-title").should("be.visible");
   cy.getCy("rpntasks-content").should("be.visible");
+  cy.getCy("rpn-tasks-btn-assessment").should("be.visible");
+  cy.getCy("rpn-tasks-btn-medication").should("be.visible");
+  cy.getCy("rpn-tasks-btn-vitals").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RpnTasksScreen...");
   cy.waitAndSee();

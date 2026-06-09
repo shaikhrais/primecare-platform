@@ -18,6 +18,9 @@ describe("Screen - invoice_management", () => {
   cy.getCy("invoicemanagement-screen").should("be.visible");
   cy.getCy("invoicemanagement-title").should("be.visible");
   cy.getCy("invoicemanagement-content").should("be.visible");
+  cy.getCy("invoice_management-btn-add-task").should("be.visible");
+  cy.getCy("invoice_management-btn-schedule-appointment").should("be.visible");
+  cy.getCy("invoice_management-btn-upload-document").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for InvoiceManagementScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - training_analytics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("traininganalytics-screen").should("be.visible");
+  cy.getCy("traininganalytics-title").should("be.visible");
+  cy.getCy("traininganalytics-content").should("be.visible");
+  cy.getCy("training-analytics-chart").should("be.visible");
+  cy.getCy("engagement-metrics-card").should("be.visible");
+  cy.getCy("trend-analysis-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Training Analytics...");
   cy.waitAndSee();

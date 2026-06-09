@@ -15,9 +15,12 @@ describe("Screen - scheduler_shifts", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("schedulershifts-screen").should("be.visible");
+  cy.getCy("schedulershifts-title").should("be.visible");
+  cy.getCy("schedulershifts-content").should("be.visible");
+  cy.getCy("scheduler-btn-submit-event-log").should("be.visible");
+  cy.getCy("scheduler-btn-conduct-audit").should("be.visible");
+  cy.getCy("scheduler-btn-verify-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Scheduler Shifts...");
   cy.waitAndSee();

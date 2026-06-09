@@ -18,6 +18,9 @@ describe("Screen - caregiver_dashboard", () => {
   cy.getCy("caregiverdashboard-screen").should("be.visible");
   cy.getCy("caregiverdashboard-title").should("be.visible");
   cy.getCy("caregiverdashboard-content").should("be.visible");
+  cy.getCy("caregiver-dashboard-btn-record-activities").should("be.visible");
+  cy.getCy("caregiver-dashboard-btn-acknowledge-medications").should("be.visible");
+  cy.getCy("caregiver-dashboard-btn-run-compliance-scan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CaregiverDashboardScreen...");
   cy.waitAndSee();

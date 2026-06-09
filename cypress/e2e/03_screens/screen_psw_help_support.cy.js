@@ -15,9 +15,12 @@ describe("Screen - psw_help_support", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pswhelpsupport-screen").should("be.visible");
+  cy.getCy("pswhelpsupport-title").should("be.visible");
+  cy.getCy("pswhelpsupport-content").should("be.visible");
+  cy.getCy("pswhelp-btn-submit-feedback").should("be.visible");
+  cy.getCy("pswhelp-btn-access-faqs").should("be.visible");
+  cy.getCy("pswhelp-btn-contact-support").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Psw Help Support...");
   cy.waitAndSee();

@@ -15,9 +15,11 @@ describe("Screen - employee_workflow", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("employee compliance workflow-screen").should("be.visible");
-  cy.getCy("employee compliance workflow-title").should("be.visible");
-  cy.getCy("employee compliance workflow-content").should("be.visible");
+  cy.getCy("employeeworkflow-screen").should("be.visible");
+  cy.getCy("employeeworkflow-title").should("be.visible");
+  cy.getCy("employeeworkflow-content").should("be.visible");
+  cy.getCy("employee-workflow-btn-execute-scan").should("be.visible");
+  cy.getCy("employee-workflow-btn-trigger-action").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Employee Compliance Workflow...");
   cy.waitAndSee();

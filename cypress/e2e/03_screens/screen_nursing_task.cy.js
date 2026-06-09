@@ -18,6 +18,9 @@ describe("Screen - nursing_task", () => {
   cy.getCy("nursingtask-screen").should("be.visible");
   cy.getCy("nursingtask-title").should("be.visible");
   cy.getCy("nursingtask-content").should("be.visible");
+  cy.getCy("nursingtask-btn-administer-medication").should("be.visible");
+  cy.getCy("nursingtask-btn-document-care").should("be.visible");
+  cy.getCy("nursingtask-btn-report-incident").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for NursingTaskScreen...");
   cy.waitAndSee();

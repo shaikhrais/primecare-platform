@@ -7,17 +7,20 @@ describe("Screen - franchise_sales_manager_leads", () => {
   it("opens and verifies screen franchise_sales_manager_leads", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Franchise Sales Manager Leads)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/business_development/roles/franchise_sales_manager/leads (Franchise Sales Manager Leads)...");
+  cy.visitWithSemantics("/offices/business_development/roles/franchise_sales_manager/leads");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Franchise Sales Manager Leads...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("franchisesalesmanagerleads-screen").should("be.visible");
+  cy.getCy("franchisesalesmanagerleads-title").should("be.visible");
+  cy.getCy("franchisesalesmanagerleads-content").should("be.visible");
+  cy.getCy("franchise-sales-manager-btn-update-status").should("be.visible");
+  cy.getCy("franchise-sales-manager-btn-generate-report").should("be.visible");
+  cy.getCy("franchise-sales-manager-btn-send-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Franchise Sales Manager Leads...");
   cy.waitAndSee();

@@ -7,17 +7,20 @@ describe("Screen - admin_payments", () => {
   it("opens and verifies screen admin_payments", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Admin Payments)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/admin/payments (Admin Payments)...");
+  cy.visitWithSemantics("/offices/franchise/roles/admin/payments");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Admin Payments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("adminpayments-screen").should("be.visible");
+  cy.getCy("adminpayments-title").should("be.visible");
+  cy.getCy("adminpayments-content").should("be.visible");
+  cy.getCy("admin-payments-btn-generate-report").should("be.visible");
+  cy.getCy("admin-payments-btn-update-settings").should("be.visible");
+  cy.getCy("admin-payments-btn-manage-disputes").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Admin Payments...");
   cy.waitAndSee();

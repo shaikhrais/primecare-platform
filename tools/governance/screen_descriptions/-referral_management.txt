@@ -1,0 +1,29 @@
+Intake Coordinator Responsibilities:
+1. Manage incoming referrals and ensure proper documentation.
+2. Coordinate communication between patients, healthcare providers, and insurance companies.
+3. Schedule appointments and follow-up visits.
+4. Maintain accurate and up-to-date patient records.
+5. Monitor referral status and ensure timely processing.
+6. Conduct compliance scans and audits to ensure adherence to regulations.
+7. Provide support and guidance to patients throughout the referral process.
+8. Collaborate with clinical teams to address any issues related to referrals.
+9. Track and report on key performance indicators related to referral management.
+
+Red Flags of Operation:
+1. Increased number of referral rejections or delays.
+2. High volume of patient complaints regarding the referral process.
+3. Frequent errors in patient documentation or scheduling.
+4. Lack of communication between departments involved in the referral process.
+5. Inconsistent tracking of referral status and outcomes.
+6. Low compliance audit scores or findings.
+7. High turnover rate among staff handling referrals.
+
+Dashboard Requirements for Intake Coordinator:
+1. Overview of active referrals and their statuses.
+2. Key performance indicators (KPIs) such as average processing time, referral acceptance rates, and patient satisfaction scores.
+3. Real-time logs of referral activities and communications.
+4. Compliance audit results and alerts for any issues.
+5. Metrics on appointment scheduling and follow-up visits.
+6. Alerts for overdue referrals or pending actions.
+7. Visualizations of referral trends over time.
+8. Access to patient feedback and complaints related to the referral process.

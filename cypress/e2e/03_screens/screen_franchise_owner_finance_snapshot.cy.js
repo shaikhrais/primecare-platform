@@ -18,6 +18,9 @@ describe("Screen - franchise_owner_finance_snapshot", () => {
   cy.getCy("franchiseownerfinancesnapshot-screen").should("be.visible");
   cy.getCy("franchiseownerfinancesnapshot-title").should("be.visible");
   cy.getCy("franchiseownerfinancesnapshot-content").should("be.visible");
+  cy.getCy("franchise-finance-performance").should("be.visible");
+  cy.getCy("franchise-compliance-status").should("be.visible");
+  cy.getCy("franchise-operational-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FranchiseOwnerFinanceSnapshotScreen...");
   cy.waitAndSee();

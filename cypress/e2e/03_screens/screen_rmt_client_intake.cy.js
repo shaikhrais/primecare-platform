@@ -18,6 +18,9 @@ describe("Screen - rmt_client_intake", () => {
   cy.getCy("rmtclientintake-screen").should("be.visible");
   cy.getCy("rmtclientintake-title").should("be.visible");
   cy.getCy("rmtclientintake-content").should("be.visible");
+  cy.getCy("rmt-intake-form-submit").should("be.visible");
+  cy.getCy("rmt-treatment-plan-save").should("be.visible");
+  cy.getCy("rmt-appointment-schedule").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RmtClientIntakeScreen...");
   cy.waitAndSee();

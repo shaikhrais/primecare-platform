@@ -18,6 +18,9 @@ describe("Screen - care_plan_review", () => {
   cy.getCy("careplanreview-screen").should("be.visible");
   cy.getCy("careplanreview-title").should("be.visible");
   cy.getCy("careplanreview-content").should("be.visible");
+  cy.getCy("dashboard-btn-view-patient").should("be.visible");
+  cy.getCy("dashboard-btn-audit-compliance").should("be.visible");
+  cy.getCy("dashboard-btn-record-medication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CarePlanReviewScreen...");
   cy.waitAndSee();

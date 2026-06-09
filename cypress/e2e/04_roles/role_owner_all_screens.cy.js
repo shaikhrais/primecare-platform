@@ -19,6 +19,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchisedashboard-screen").should("be.visible");
   cy.getCy("franchisedashboard-title").should("be.visible");
   cy.getCy("franchisedashboard-content").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-export-logs").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-review-audit").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/25 | 4%] - Saving screenshot for FranchiseDashboardScreen...");
   cy.waitAndSee();
@@ -26,8 +29,8 @@ describe("Role All Screens - owner", () => {
   
   cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/25 | 4%] - Verified FranchiseDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/25 | 8%] - Navigating to /executive/owner-dashboard (OwnerDashboardScreen)...");
-  cy.visitWithSemantics("/executive/owner-dashboard");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/25 | 8%] - Navigating to /offices/corporate/roles/owner/dashboard (OwnerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/owner/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/25 | 8%] - Checking shell & content for OwnerDashboardScreen...");
@@ -37,6 +40,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("ownerdashboard-screen").should("be.visible");
   cy.getCy("ownerdashboard-title").should("be.visible");
   cy.getCy("ownerdashboard-content").should("be.visible");
+  cy.getCy("owner-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("owner-dashboard-btn-compliance-scan").should("be.visible");
+  cy.getCy("owner-dashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/25 | 8%] - Saving screenshot for OwnerDashboardScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchiseanalytics-screen").should("be.visible");
   cy.getCy("franchiseanalytics-title").should("be.visible");
   cy.getCy("franchiseanalytics-content").should("be.visible");
+  cy.getCy("franchise-analytics-kpi").should("be.visible");
+  cy.getCy("franchise-analytics-sales-trend").should("be.visible");
+  cy.getCy("franchise-analytics-satisfaction").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/25 | 12%] - Saving screenshot for FranchiseAnalyticsScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchisecompliance-screen").should("be.visible");
   cy.getCy("franchisecompliance-title").should("be.visible");
   cy.getCy("franchisecompliance-content").should("be.visible");
+  cy.getCy("franchise-compliance-status-indicator").should("be.visible");
+  cy.getCy("franchise-audit-log-viewer").should("be.visible");
+  cy.getCy("franchise-compliance-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/25 | 16%] - Saving screenshot for FranchiseComplianceScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchiseworkflow-screen").should("be.visible");
   cy.getCy("franchiseworkflow-title").should("be.visible");
   cy.getCy("franchiseworkflow-content").should("be.visible");
+  cy.getCy("franchise-dashboard-sales").should("be.visible");
+  cy.getCy("franchise-dashboard-employees").should("be.visible");
+  cy.getCy("franchise-dashboard-customers").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/25 | 20%] - Saving screenshot for FranchiseWorkflowScreen...");
   cy.waitAndSee();
@@ -109,6 +124,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("owneranalytics-screen").should("be.visible");
   cy.getCy("owneranalytics-title").should("be.visible");
   cy.getCy("owneranalytics-content").should("be.visible");
+  cy.getCy("owneranalytics-btn-view-reports").should("be.visible");
+  cy.getCy("owneranalytics-btn-update-compliance").should("be.visible");
+  cy.getCy("owneranalytics-btn-manage-budget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [6/25 | 24%] - Saving screenshot for OwnerAnalyticsScreen...");
   cy.waitAndSee();
@@ -127,6 +145,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("ownercompliance-screen").should("be.visible");
   cy.getCy("ownercompliance-title").should("be.visible");
   cy.getCy("ownercompliance-content").should("be.visible");
+  cy.getCy("owner-compliance-status").should("be.visible");
+  cy.getCy("owner-audit-logs").should("be.visible");
+  cy.getCy("owner-performance-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [7/25 | 28%] - Saving screenshot for OwnerComplianceScreen...");
   cy.waitAndSee();
@@ -145,6 +166,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("ownerworkflow-screen").should("be.visible");
   cy.getCy("ownerworkflow-title").should("be.visible");
   cy.getCy("ownerworkflow-content").should("be.visible");
+  cy.getCy("franchise-dashboard-sales-report").should("be.visible");
+  cy.getCy("franchise-dashboard-employee-report").should("be.visible");
+  cy.getCy("franchise-dashboard-customer-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [8/25 | 32%] - Saving screenshot for OwnerWorkflowScreen...");
   cy.waitAndSee();
@@ -163,6 +187,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchisesalesmanageranalytics-screen").should("be.visible");
   cy.getCy("franchisesalesmanageranalytics-title").should("be.visible");
   cy.getCy("franchisesalesmanageranalytics-content").should("be.visible");
+  cy.getCy("franchise-sales-performance-chart").should("be.visible");
+  cy.getCy("franchise-employee-turnover-stats").should("be.visible");
+  cy.getCy("franchise-customer-satisfaction-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [9/25 | 36%] - Saving screenshot for FranchiseSalesManagerAnalyticsScreen...");
   cy.waitAndSee();
@@ -181,6 +208,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchisesalesmanagercompliance-screen").should("be.visible");
   cy.getCy("franchisesalesmanagercompliance-title").should("be.visible");
   cy.getCy("franchisesalesmanagercompliance-content").should("be.visible");
+  cy.getCy("franchise-compliance-status").should("be.visible");
+  cy.getCy("franchise-audit-logs").should("be.visible");
+  cy.getCy("franchise-performance-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [10/25 | 40%] - Saving screenshot for FranchiseSalesManagerComplianceScreen...");
   cy.waitAndSee();
@@ -199,6 +229,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchisesalesmanagerworkflow-screen").should("be.visible");
   cy.getCy("franchisesalesmanagerworkflow-title").should("be.visible");
   cy.getCy("franchisesalesmanagerworkflow-content").should("be.visible");
+  cy.getCy("franchise-sales-metrics").should("be.visible");
+  cy.getCy("franchise-customer-feedback").should("be.visible");
+  cy.getCy("franchise-employee-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [11/25 | 44%] - Saving screenshot for FranchiseSalesManagerWorkflowScreen...");
   cy.waitAndSee();
@@ -217,6 +250,8 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchiseownercommandcenter-screen").should("be.visible");
   cy.getCy("franchiseownercommandcenter-title").should("be.visible");
   cy.getCy("franchiseownercommandcenter-content").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-run-scan").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [12/25 | 48%] - Saving screenshot for FranchiseOwnerCommandCenterScreen...");
   cy.waitAndSee();
@@ -224,8 +259,8 @@ describe("Role All Screens - owner", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [12/25 | 48%] - Verified FranchiseOwnerCommandCenterScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [13/25 | 52%] - Navigating to /executive/franchise-owner-branch-overview (FranchiseOwnerBranchOverviewScreen)...");
-  cy.visitWithSemantics("/executive/franchise-owner-branch-overview");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [13/25 | 52%] - Navigating to /offices/franchise/roles/franchise_owner/branch-overview (FranchiseOwnerBranchOverviewScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/franchise_owner/branch-overview");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [13/25 | 52%] - Checking shell & content for FranchiseOwnerBranchOverviewScreen...");
@@ -235,6 +270,8 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchiseownerbranchoverview-screen").should("be.visible");
   cy.getCy("franchiseownerbranchoverview-title").should("be.visible");
   cy.getCy("franchiseownerbranchoverview-content").should("be.visible");
+  cy.getCy("franchise-owner-btn-trigger-scan").should("be.visible");
+  cy.getCy("franchise-owner-btn-refresh-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [13/25 | 52%] - Saving screenshot for FranchiseOwnerBranchOverviewScreen...");
   cy.waitAndSee();
@@ -242,8 +279,8 @@ describe("Role All Screens - owner", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [13/25 | 52%] - Verified FranchiseOwnerBranchOverviewScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [14/25 | 56%] - Navigating to /executive/franchise-owner-staff (FranchiseOwnerStaffScreen)...");
-  cy.visitWithSemantics("/executive/franchise-owner-staff");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [14/25 | 56%] - Navigating to /offices/franchise/roles/franchise_owner/staff (FranchiseOwnerStaffScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/franchise_owner/staff");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [14/25 | 56%] - Checking shell & content for FranchiseOwnerStaffScreen...");
@@ -253,6 +290,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchiseownerstaff-screen").should("be.visible");
   cy.getCy("franchiseownerstaff-title").should("be.visible");
   cy.getCy("franchiseownerstaff-content").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-manage-staff").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [14/25 | 56%] - Saving screenshot for FranchiseOwnerStaffScreen...");
   cy.waitAndSee();
@@ -260,8 +300,8 @@ describe("Role All Screens - owner", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [14/25 | 56%] - Verified FranchiseOwnerStaffScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [15/25 | 60%] - Navigating to /executive/franchise-owner-clients (FranchiseOwnerClientsScreen)...");
-  cy.visitWithSemantics("/executive/franchise-owner-clients");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [15/25 | 60%] - Navigating to /offices/franchise/roles/franchise_owner/clients (FranchiseOwnerClientsScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/franchise_owner/clients");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [15/25 | 60%] - Checking shell & content for FranchiseOwnerClientsScreen...");
@@ -271,6 +311,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchiseownerclients-screen").should("be.visible");
   cy.getCy("franchiseownerclients-title").should("be.visible");
   cy.getCy("franchiseownerclients-content").should("be.visible");
+  cy.getCy("franchise-compliance-status").should("be.visible");
+  cy.getCy("franchise-audit-results").should("be.visible");
+  cy.getCy("franchise-kpi-tracking").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [15/25 | 60%] - Saving screenshot for FranchiseOwnerClientsScreen...");
   cy.waitAndSee();
@@ -278,8 +321,8 @@ describe("Role All Screens - owner", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [15/25 | 60%] - Verified FranchiseOwnerClientsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [16/25 | 64%] - Navigating to /executive/franchise-owner-appointments (FranchiseOwnerAppointmentsScreen)...");
-  cy.visitWithSemantics("/executive/franchise-owner-appointments");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [16/25 | 64%] - Navigating to /offices/franchise/roles/franchise_owner/appointments (FranchiseOwnerAppointmentsScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/franchise_owner/appointments");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [16/25 | 64%] - Checking shell & content for FranchiseOwnerAppointmentsScreen...");
@@ -289,6 +332,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchiseownerappointments-screen").should("be.visible");
   cy.getCy("franchiseownerappointments-title").should("be.visible");
   cy.getCy("franchiseownerappointments-content").should("be.visible");
+  cy.getCy("franchise-appointments-scheduler").should("be.visible");
+  cy.getCy("franchise-compliance-status").should("be.visible");
+  cy.getCy("franchise-feedback-tracker").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [16/25 | 64%] - Saving screenshot for FranchiseOwnerAppointmentsScreen...");
   cy.waitAndSee();
@@ -307,6 +353,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchiseownerfinancesnapshot-screen").should("be.visible");
   cy.getCy("franchiseownerfinancesnapshot-title").should("be.visible");
   cy.getCy("franchiseownerfinancesnapshot-content").should("be.visible");
+  cy.getCy("franchise-finance-performance").should("be.visible");
+  cy.getCy("franchise-compliance-status").should("be.visible");
+  cy.getCy("franchise-operational-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [17/25 | 68%] - Saving screenshot for FranchiseOwnerFinanceSnapshotScreen...");
   cy.waitAndSee();
@@ -314,8 +363,8 @@ describe("Role All Screens - owner", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [17/25 | 68%] - Verified FranchiseOwnerFinanceSnapshotScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [18/25 | 72%] - Navigating to /executive/franchise-owner-compliance (FranchiseOwnerComplianceScreen)...");
-  cy.visitWithSemantics("/executive/franchise-owner-compliance");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [18/25 | 72%] - Navigating to /offices/franchise/roles/franchise_owner/compliance (FranchiseOwnerComplianceScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/franchise_owner/compliance");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [18/25 | 72%] - Checking shell & content for FranchiseOwnerComplianceScreen...");
@@ -325,6 +374,8 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchiseownercompliance-screen").should("be.visible");
   cy.getCy("franchiseownercompliance-title").should("be.visible");
   cy.getCy("franchiseownercompliance-content").should("be.visible");
+  cy.getCy("franchise-compliance-btn-execute-scan").should("be.visible");
+  cy.getCy("franchise-compliance-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [18/25 | 72%] - Saving screenshot for FranchiseOwnerComplianceScreen...");
   cy.waitAndSee();
@@ -332,8 +383,8 @@ describe("Role All Screens - owner", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [18/25 | 72%] - Verified FranchiseOwnerComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [19/25 | 76%] - Navigating to /executive/franchise-owner-reports (FranchiseOwnerReportsScreen)...");
-  cy.visitWithSemantics("/executive/franchise-owner-reports");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [19/25 | 76%] - Navigating to /offices/franchise/roles/franchise_owner/reports (FranchiseOwnerReportsScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/franchise_owner/reports");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [19/25 | 76%] - Checking shell & content for FranchiseOwnerReportsScreen...");
@@ -343,6 +394,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchiseownerreports-screen").should("be.visible");
   cy.getCy("franchiseownerreports-title").should("be.visible");
   cy.getCy("franchiseownerreports-content").should("be.visible");
+  cy.getCy("franchise-owner-btn-execute-scan").should("be.visible");
+  cy.getCy("franchise-owner-btn-execute-audit").should("be.visible");
+  cy.getCy("franchise-owner-btn-refresh-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [19/25 | 76%] - Saving screenshot for FranchiseOwnerReportsScreen...");
   cy.waitAndSee();
@@ -361,6 +415,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchisecommandcenter-screen").should("be.visible");
   cy.getCy("franchisecommandcenter-title").should("be.visible");
   cy.getCy("franchisecommandcenter-content").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-request-training").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-send-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [20/25 | 80%] - Saving screenshot for FranchiseCommandCenterScreen...");
   cy.waitAndSee();
@@ -379,6 +436,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("revenuesnapshot-screen").should("be.visible");
   cy.getCy("revenuesnapshot-title").should("be.visible");
   cy.getCy("revenuesnapshot-content").should("be.visible");
+  cy.getCy("revenue-metric-card").should("be.visible");
+  cy.getCy("compliance-status-widget").should("be.visible");
+  cy.getCy("operational-log-table").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [21/25 | 84%] - Saving screenshot for RevenueSnapshotScreen...");
   cy.waitAndSee();
@@ -397,6 +457,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("staffmanagement-screen").should("be.visible");
   cy.getCy("staffmanagement-title").should("be.visible");
   cy.getCy("staffmanagement-content").should("be.visible");
+  cy.getCy("franchise-kpi-dashboard").should("be.visible");
+  cy.getCy("franchise-staff-performance").should("be.visible");
+  cy.getCy("franchise-customer-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [22/25 | 88%] - Saving screenshot for StaffManagementScreen...");
   cy.waitAndSee();
@@ -415,6 +478,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("appointmentoverview-screen").should("be.visible");
   cy.getCy("appointmentoverview-title").should("be.visible");
   cy.getCy("appointmentoverview-content").should("be.visible");
+  cy.getCy("franchise-dashboard-sales").should("be.visible");
+  cy.getCy("franchise-dashboard-employees").should("be.visible");
+  cy.getCy("franchise-dashboard-customers").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [23/25 | 92%] - Saving screenshot for AppointmentOverviewScreen...");
   cy.waitAndSee();
@@ -433,6 +499,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("complianceoverview-screen").should("be.visible");
   cy.getCy("complianceoverview-title").should("be.visible");
   cy.getCy("complianceoverview-content").should("be.visible");
+  cy.getCy("franchise-dashboard-sales").should("be.visible");
+  cy.getCy("franchise-dashboard-customer-feedback").should("be.visible");
+  cy.getCy("franchise-dashboard-inventory").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [24/25 | 96%] - Saving screenshot for ComplianceOverviewScreen...");
   cy.waitAndSee();
@@ -451,6 +520,9 @@ describe("Role All Screens - owner", () => {
   cy.getCy("franchisecommandcenter4k-screen").should("be.visible");
   cy.getCy("franchisecommandcenter4k-title").should("be.visible");
   cy.getCy("franchisecommandcenter4k-content").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-manage-training").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-review-financials").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [25/25 | 100%] - Saving screenshot for FranchiseCommandCenter4KScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - territory_sales_manager_competitors", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("territorysalesmanagercompetitors-screen").should("be.visible");
+  cy.getCy("territorysalesmanagercompetitors-title").should("be.visible");
+  cy.getCy("territorysalesmanagercompetitors-content").should("be.visible");
+  cy.getCy("competitor-activity-feed").should("be.visible");
+  cy.getCy("competitor-profile-editor").should("be.visible");
+  cy.getCy("generate-report-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Territory Sales Manager Competitors...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - dynamic", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("dynamic-screen").should("be.visible");
+  cy.getCy("dynamic-title").should("be.visible");
+  cy.getCy("dynamic-content").should("be.visible");
+  cy.getCy("project-dashboard-btn-update-metadata").should("be.visible");
+  cy.getCy("project-dashboard-btn-view-details").should("be.visible");
+  cy.getCy("project-dashboard-btn-track-completion").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Dynamic...");
   cy.waitAndSee();

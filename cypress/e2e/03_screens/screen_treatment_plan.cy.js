@@ -18,6 +18,9 @@ describe("Screen - treatment_plan", () => {
   cy.getCy("treatmentplan-screen").should("be.visible");
   cy.getCy("treatmentplan-title").should("be.visible");
   cy.getCy("treatmentplan-content").should("be.visible");
+  cy.getCy("treatmentplan-btn-save").should("be.visible");
+  cy.getCy("treatmentplan-btn-adjust").should("be.visible");
+  cy.getCy("treatmentplan-btn-loginteraction").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TreatmentPlanScreen...");
   cy.waitAndSee();

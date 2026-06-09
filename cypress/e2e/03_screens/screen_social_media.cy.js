@@ -18,6 +18,9 @@ describe("Screen - social_media", () => {
   cy.getCy("socialmedia-screen").should("be.visible");
   cy.getCy("socialmedia-title").should("be.visible");
   cy.getCy("socialmedia-content").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-view-campaign").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-export-reports").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-analyze-trends").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SocialMediaScreen...");
   cy.waitAndSee();

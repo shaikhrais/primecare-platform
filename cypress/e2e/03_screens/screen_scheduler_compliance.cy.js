@@ -18,6 +18,9 @@ describe("Screen - scheduler_compliance", () => {
   cy.getCy("schedulercompliance-screen").should("be.visible");
   cy.getCy("schedulercompliance-title").should("be.visible");
   cy.getCy("schedulercompliance-content").should("be.visible");
+  cy.getCy("scheduler-btn-add-schedule").should("be.visible");
+  cy.getCy("scheduler-btn-view-reports").should("be.visible");
+  cy.getCy("scheduler-btn-resolve-complaint").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerComplianceScreen...");
   cy.waitAndSee();

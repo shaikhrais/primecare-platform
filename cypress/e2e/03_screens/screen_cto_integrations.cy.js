@@ -7,17 +7,20 @@ describe("Screen - cto_integrations", () => {
   it("opens and verifies screen cto_integrations", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Cto Integrations)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/cto/integrations (Cto Integrations)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cto/integrations");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Cto Integrations...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ctointegrations-screen").should("be.visible");
+  cy.getCy("ctointegrations-title").should("be.visible");
+  cy.getCy("ctointegrations-content").should("be.visible");
+  cy.getCy("integration-status-indicator").should("be.visible");
+  cy.getCy("error-log-summary").should("be.visible");
+  cy.getCy("data-sync-metric").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Cto Integrations...");
   cy.waitAndSee();

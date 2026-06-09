@@ -18,6 +18,9 @@ describe("Screen - rn_reports", () => {
   cy.getCy("rnreports-screen").should("be.visible");
   cy.getCy("rnreports-title").should("be.visible");
   cy.getCy("rnreports-content").should("be.visible");
+  cy.getCy("rn-dashboard-btn-submit-medication").should("be.visible");
+  cy.getCy("rn-dashboard-btn-report-incident").should("be.visible");
+  cy.getCy("rn-dashboard-btn-view-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RnReportsScreen...");
   cy.waitAndSee();

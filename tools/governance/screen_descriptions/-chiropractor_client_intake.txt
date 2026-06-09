@@ -1,0 +1,35 @@
+List of work Chiropractor must do:
+1. Conduct client intake assessments.
+2. Review patient history and current health status.
+3. Perform physical examinations.
+4. Develop treatment plans based on assessments.
+5. Educate patients about chiropractic care and wellness.
+6. Monitor patient progress and adjust treatment plans as necessary.
+7. Document patient interactions and treatment outcomes.
+8. Ensure compliance with healthcare regulations and standards.
+9. Collaborate with other healthcare professionals when necessary.
+10. Maintain a clean and safe treatment environment.
+
+Red flags of operation:
+1. Inconsistent patient records or documentation.
+2. High rate of patient complaints or dissatisfaction.
+3. Frequent cancellations or no-shows by patients.
+4. Lack of compliance with health regulations.
+5. Unusual patterns in patient treatment outcomes.
+6. Insufficient follow-up on patient progress.
+7. Poor communication with patients or staff.
+8. Inadequate training or knowledge of chiropractic practices.
+9. Equipment malfunctions or safety hazards in the clinic.
+10. Financial discrepancies or billing issues.
+
+Dashboard needs for Chiropractor:
+1. Overview of active operations and patient load.
+2. Compliance status and audit logs.
+3. Patient satisfaction metrics and feedback.
+4. Treatment plan effectiveness and patient progress tracking.
+5. Real-time telemetry data on clinic operations.
+6. Security clearance status and any exceptions logged.
+7. Alerts for any red flags or operational issues.
+8. Access to patient history and treatment records.
+9. Metrics on appointment scheduling and cancellations.
+10. Tools for communication and collaboration with other healthcare providers.

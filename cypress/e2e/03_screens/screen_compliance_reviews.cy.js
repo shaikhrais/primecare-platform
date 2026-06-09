@@ -7,17 +7,20 @@ describe("Screen - compliance_reviews", () => {
   it("opens and verifies screen compliance_reviews", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Compliance Reviews)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /generated/compliance-reviews (Compliance Reviews)...");
+  cy.visitWithSemantics("/generated/compliance-reviews");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Compliance Reviews...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("compliancereviews-screen").should("be.visible");
+  cy.getCy("compliancereviews-title").should("be.visible");
+  cy.getCy("compliancereviews-content").should("be.visible");
+  cy.getCy("compliance-dashboard-overview").should("be.visible");
+  cy.getCy("compliance-kpi-alerts").should("be.visible");
+  cy.getCy("compliance-reports-access").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Compliance Reviews...");
   cy.waitAndSee();

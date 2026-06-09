@@ -18,6 +18,9 @@ describe("Screen - head_of_bus_dev_compliance", () => {
   cy.getCy("headofbusdevcompliance-screen").should("be.visible");
   cy.getCy("headofbusdevcompliance-title").should("be.visible");
   cy.getCy("headofbusdevcompliance-content").should("be.visible");
+  cy.getCy("bd-dashboard-btn-view-proposal").should("be.visible");
+  cy.getCy("bd-dashboard-btn-negotiate-contract").should("be.visible");
+  cy.getCy("bd-dashboard-btn-track-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HeadOfBusDevComplianceScreen...");
   cy.waitAndSee();

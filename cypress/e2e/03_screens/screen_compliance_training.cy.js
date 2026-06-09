@@ -15,9 +15,12 @@ describe("Screen - compliance_training", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("compliancetraining-screen").should("be.visible");
+  cy.getCy("compliancetraining-title").should("be.visible");
+  cy.getCy("compliancetraining-content").should("be.visible");
+  cy.getCy("compliance-training-btn-submit-assessment").should("be.visible");
+  cy.getCy("compliance-training-btn-review-docs").should("be.visible");
+  cy.getCy("compliance-training-btn-track-progress").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Compliance Training...");
   cy.waitAndSee();

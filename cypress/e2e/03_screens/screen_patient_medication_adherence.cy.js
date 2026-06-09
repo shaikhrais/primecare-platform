@@ -15,9 +15,12 @@ describe("Screen - patient_medication_adherence", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("patientmedicationadherence-screen").should("be.visible");
+  cy.getCy("patientmedicationadherence-title").should("be.visible");
+  cy.getCy("patientmedicationadherence-content").should("be.visible");
+  cy.getCy("patient-adherence-overview").should("be.visible");
+  cy.getCy("patient-list-table").should("be.visible");
+  cy.getCy("missed-reminders-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Patient Medication Adherence...");
   cy.waitAndSee();

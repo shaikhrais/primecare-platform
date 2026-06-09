@@ -1,0 +1,35 @@
+List of tasks Legal Counsel must perform:
+1. Review and draft legal documents.
+2. Provide legal advice to management and staff.
+3. Ensure compliance with laws and regulations.
+4. Manage legal risks and disputes.
+5. Conduct legal research.
+6. Liaise with external legal counsel when necessary.
+7. Monitor changes in legislation that may affect the organization.
+8. Develop and implement legal policies and procedures.
+9. Train staff on legal compliance and best practices.
+10. Maintain records of legal documents and correspondence.
+
+Red flags of operation:
+1. Increased frequency of legal disputes or litigation.
+2. Non-compliance with regulatory requirements.
+3. Lack of documentation for legal processes.
+4. Delays in contract reviews or approvals.
+5. Poor communication between legal and other departments.
+6. High turnover of legal staff.
+7. Inadequate training on legal matters for employees.
+8. Failure to keep up with changes in laws and regulations.
+9. Unclear roles and responsibilities within the legal team.
+10. Insufficient resources allocated to the legal department.
+
+Dashboard needs for Legal Counsel:
+1. Overview of ongoing legal cases and their statuses.
+2. Compliance tracking metrics.
+3. Key performance indicators (KPIs) for legal operations.
+4. Document management system for easy access to legal documents.
+5. Alerts for upcoming deadlines and important dates.
+6. Reporting tools for legal expenses and budget tracking.
+7. Integration with other departments for seamless communication.
+8. Training resources and compliance materials for staff.
+9. Analytics on legal risks and dispute trends.
+10. Feedback mechanism for continuous improvement of legal processes.

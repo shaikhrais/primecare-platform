@@ -7,17 +7,19 @@ describe("Screen - family_care_updates", () => {
   it("opens and verifies screen family_care_updates", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Family Care Updates)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/client/roles/family_member/care-updates (Family Care Updates)...");
+  cy.visitWithSemantics("/offices/client/roles/family_member/care-updates");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Family Care Updates...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("familycareupdates-screen").should("be.visible");
+  cy.getCy("familycareupdates-title").should("be.visible");
+  cy.getCy("familycareupdates-content").should("be.visible");
+  cy.getCy("familycare-btn-report-issue").should("be.visible");
+  cy.getCy("familycare-btn-provide-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Family Care Updates...");
   cy.waitAndSee();

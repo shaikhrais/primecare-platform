@@ -18,6 +18,9 @@ describe("Screen - open_shift", () => {
   cy.getCy("openshift-screen").should("be.visible");
   cy.getCy("openshift-title").should("be.visible");
   cy.getCy("openshift-content").should("be.visible");
+  cy.getCy("shift-dashboard-btn-view-performance").should("be.visible");
+  cy.getCy("shift-dashboard-btn-report-incident").should("be.visible");
+  cy.getCy("shift-dashboard-btn-schedule-shift").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OpenShiftScreen...");
   cy.waitAndSee();

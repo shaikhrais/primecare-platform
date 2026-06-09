@@ -15,9 +15,12 @@ describe("Screen - epidemiological_surveillance_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("epidemiologicalsurveillancedashboard-screen").should("be.visible");
+  cy.getCy("epidemiologicalsurveillancedashboard-title").should("be.visible");
+  cy.getCy("epidemiologicalsurveillancedashboard-content").should("be.visible");
+  cy.getCy("epidashboard-btn-generate-report").should("be.visible");
+  cy.getCy("epidashboard-btn-set-alert").should("be.visible");
+  cy.getCy("epidashboard-btn-update-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Epidemiological Surveillance Dashboard...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - business_development_workflow", () => {
   cy.getCy("businessdevelopmentworkflow-screen").should("be.visible");
   cy.getCy("businessdevelopmentworkflow-title").should("be.visible");
   cy.getCy("businessdevelopmentworkflow-content").should("be.visible");
+  cy.getCy("bd-dashboard-kpi-chart").should("be.visible");
+  cy.getCy("bd-dashboard-opportunity-pipeline").should("be.visible");
+  cy.getCy("bd-dashboard-team-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for BusinessDevelopmentWorkflowScreen...");
   cy.waitAndSee();

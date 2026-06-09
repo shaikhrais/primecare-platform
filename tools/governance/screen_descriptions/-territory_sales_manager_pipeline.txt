@@ -1,0 +1,26 @@
+List of work for the User:
+1. Monitor sales pipeline progress.
+2. Analyze territory performance metrics.
+3. Identify potential leads and opportunities.
+4. Collaborate with team members on sales strategies.
+5. Update and maintain customer information.
+6. Generate sales reports for management review.
+7. Attend training sessions for new tools and techniques.
+
+Red flags of operation:
+1. Declining sales numbers over consecutive periods.
+2. High turnover rates among sales staff.
+3. Inconsistent data entry or updates in the system.
+4. Lack of communication within the sales team.
+5. Missed deadlines for follow-ups with leads.
+6. Low engagement with customers or prospects.
+7. Frequent errors in reporting or data analysis.
+
+What is needed on the User dashboard:
+1. Real-time sales pipeline overview.
+2. Key performance indicators (KPIs) for territories.
+3. Alerts for overdue follow-ups or tasks.
+4. Visualizations of sales trends and forecasts.
+5. Quick access to customer profiles and history.
+6. Collaboration tools for team communication.
+7. Reporting tools for generating insights and summaries.

@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor and manage assignments for coordinators.
+2. Review the status of ongoing assignments.
+3. Update or modify assignments as necessary.
+4. Communicate with team members regarding assignment details.
+5. Analyze performance metrics related to assignments.
+
+Red flags of operation:
+1. Frequent errors or failures in loading assignment data.
+2. Delays in assignment updates or modifications.
+3. Lack of communication or feedback from team members.
+4. High turnover or dissatisfaction among coordinators.
+5. Inconsistent performance metrics or unexpected results.
+
+What is needed on the user dashboard:
+1. Overview of current assignments and their statuses.
+2. Notifications for any errors or issues with assignments.
+3. Performance metrics and analytics for assignments.
+4. Communication tools for interacting with team members.
+5. Quick access to modify or update assignments.

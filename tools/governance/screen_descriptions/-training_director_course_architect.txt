@@ -1,0 +1,15 @@
+User Tasks:
+1. Monitor the loading state of the screen to ensure data is fetched successfully.
+2. Review the displayed content to confirm that the screen is fully implemented and functioning as expected.
+3. Handle any errors that may arise during data loading and ensure appropriate error messages are displayed.
+
+Red Flags of Operation:
+1. Frequent loading states that do not resolve, indicating potential issues with data fetching.
+2. Error messages that appear frequently, suggesting problems with the backend or data source.
+3. Inconsistent or missing data in the displayed content, which could indicate issues in data processing or retrieval.
+
+Dashboard Needs:
+1. Real-time status indicators for data loading and error occurrences.
+2. Metrics on the frequency and types of errors encountered.
+3. Performance metrics for data fetching times to identify potential bottlenecks.
+4. User feedback options to report issues directly from the dashboard.

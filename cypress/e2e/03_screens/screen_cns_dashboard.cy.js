@@ -18,6 +18,9 @@ describe("Screen - cns_dashboard", () => {
   cy.getCy("cnsdashboard-screen").should("be.visible");
   cy.getCy("cnsdashboard-title").should("be.visible");
   cy.getCy("cnsdashboard-content").should("be.visible");
+  cy.getCy("cns-dashboard-btn-update-care-plan").should("be.visible");
+  cy.getCy("cns-dashboard-btn-send-alert").should("be.visible");
+  cy.getCy("cns-dashboard-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CnsDashboardScreen...");
   cy.waitAndSee();

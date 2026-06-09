@@ -1,5 +1,4 @@
 import 'package:flutter_core/registry/platform_role.dart';
-import 'package:flutter_core/registry/platform_screen_registry.dart';
 import 'package:flutter_core/models/governance_role.dart';
 import 'package:flutter_test/flutter_test.dart';
 

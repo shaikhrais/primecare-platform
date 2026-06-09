@@ -7,17 +7,20 @@ describe("Screen - escalation_dashboard", () => {
   it("opens and verifies screen escalation_dashboard", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Escalation Dashboard)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to SupportRoutes.escalationDashboard (Escalation Dashboard)...");
+  cy.visitWithSemantics("SupportRoutes.escalationDashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Escalation Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("escalationdashboard-screen").should("be.visible");
+  cy.getCy("escalationdashboard-title").should("be.visible");
+  cy.getCy("escalationdashboard-content").should("be.visible");
+  cy.getCy("escalation-dashboard-status").should("be.visible");
+  cy.getCy("escalation-dashboard-metrics").should("be.visible");
+  cy.getCy("escalation-dashboard-trends").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Escalation Dashboard...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - payment_tracking", () => {
   cy.getCy("paymenttracking-screen").should("be.visible");
   cy.getCy("paymenttracking-title").should("be.visible");
   cy.getCy("paymenttracking-content").should("be.visible");
+  cy.getCy("paymenttracking-btn-addtask").should("be.visible");
+  cy.getCy("paymenttracking-btn-schedulemeeting").should("be.visible");
+  cy.getCy("paymenttracking-btn-sendcommunication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PaymentTrackingScreen...");
   cy.waitAndSee();

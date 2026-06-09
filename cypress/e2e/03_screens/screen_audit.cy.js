@@ -18,6 +18,9 @@ describe("Screen - audit", () => {
   cy.getCy("audit-screen").should("be.visible");
   cy.getCy("audit-title").should("be.visible");
   cy.getCy("audit-content").should("be.visible");
+  cy.getCy("gov-dashboard-refresh-data").should("be.visible");
+  cy.getCy("gov-dashboard-generate-audit-report").should("be.visible");
+  cy.getCy("gov-dashboard-send-compliance-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ScreenAuditScreen...");
   cy.waitAndSee();

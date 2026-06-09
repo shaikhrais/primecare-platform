@@ -18,6 +18,9 @@ describe("Screen - shift_tasks", () => {
   cy.getCy("shifttasks-screen").should("be.visible");
   cy.getCy("shifttasks-title").should("be.visible");
   cy.getCy("shifttasks-content").should("be.visible");
+  cy.getCy("pswdashboard-client-overview").should("be.visible");
+  cy.getCy("pswdashboard-health-status").should("be.visible");
+  cy.getCy("pswdashboard-activity-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ShiftTasksScreen...");
   cy.waitAndSee();

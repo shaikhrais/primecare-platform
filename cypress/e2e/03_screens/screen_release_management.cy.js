@@ -18,6 +18,9 @@ describe("Screen - release_management", () => {
   cy.getCy("releasemanagement-screen").should("be.visible");
   cy.getCy("releasemanagement-title").should("be.visible");
   cy.getCy("releasemanagement-content").should("be.visible");
+  cy.getCy("ctodashboard-btn-refresh").should("be.visible");
+  cy.getCy("ctodashboard-btn-view-report").should("be.visible");
+  cy.getCy("ctodashboard-btn-export-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ReleaseManagementScreen...");
   cy.waitAndSee();

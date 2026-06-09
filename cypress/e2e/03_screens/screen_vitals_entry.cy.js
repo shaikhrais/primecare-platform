@@ -18,6 +18,9 @@ describe("Screen - vitals_entry", () => {
   cy.getCy("vitalsentry-screen").should("be.visible");
   cy.getCy("vitalsentry-title").should("be.visible");
   cy.getCy("vitalsentry-content").should("be.visible");
+  cy.getCy("pswdashboard-btn-logvitals").should("be.visible");
+  cy.getCy("pswdashboard-btn-addcarenote").should("be.visible");
+  cy.getCy("pswdashboard-btn-sendmessage").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for VitalsEntryScreen...");
   cy.waitAndSee();

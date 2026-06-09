@@ -15,9 +15,12 @@ describe("Screen - rn_field_supervisor_analytics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("registered nurse (rn) field supervisor analytics-screen").should("be.visible");
-  cy.getCy("registered nurse (rn) field supervisor analytics-title").should("be.visible");
-  cy.getCy("registered nurse (rn) field supervisor analytics-content").should("be.visible");
+  cy.getCy("rnfieldsupervisoranalytics-screen").should("be.visible");
+  cy.getCy("rnfieldsupervisoranalytics-title").should("be.visible");
+  cy.getCy("rnfieldsupervisoranalytics-content").should("be.visible");
+  cy.getCy("rnfieldsupervisor-btn-view-metrics").should("be.visible");
+  cy.getCy("rnfieldsupervisor-btn-report-incident").should("be.visible");
+  cy.getCy("rnfieldsupervisor-btn-log-visit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Registered Nurse (RN) Field Supervisor Analytics...");
   cy.waitAndSee();

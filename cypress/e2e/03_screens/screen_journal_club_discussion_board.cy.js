@@ -15,9 +15,11 @@ describe("Screen - journal_club_discussion_board", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("journalclubdiscussionboard-screen").should("be.visible");
+  cy.getCy("journalclubdiscussionboard-title").should("be.visible");
+  cy.getCy("journalclubdiscussionboard-content").should("be.visible");
+  cy.getCy("journalclub-btn-refresh").should("be.visible");
+  cy.getCy("journalclub-btn-create").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Journal Club Discussion Board...");
   cy.waitAndSee();

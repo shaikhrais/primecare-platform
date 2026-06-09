@@ -15,9 +15,12 @@ describe("Screen - public_health_alert_broadcaster", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("publichealthalertbroadcaster-screen").should("be.visible");
+  cy.getCy("publichealthalertbroadcaster-title").should("be.visible");
+  cy.getCy("publichealthalertbroadcaster-content").should("be.visible");
+  cy.getCy("publichealth-alert-monitor").should("be.visible");
+  cy.getCy("publichealth-alert-create").should("be.visible");
+  cy.getCy("publichealth-alert-send").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Public Health Alert Broadcaster...");
   cy.waitAndSee();

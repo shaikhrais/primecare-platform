@@ -7,17 +7,20 @@ describe("Screen - training_director_staff_training_matrix", () => {
   it("opens and verifies screen training_director_staff_training_matrix", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Training Director Staff Training Matrix)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/training_director/staff-training-matrix (Training Director Staff Training Matrix)...");
+  cy.visitWithSemantics("/offices/corporate/roles/training_director/staff-training-matrix");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Training Director Staff Training Matrix...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("trainingdirectorstafftrainingmatrix-screen").should("be.visible");
+  cy.getCy("trainingdirectorstafftrainingmatrix-title").should("be.visible");
+  cy.getCy("trainingdirectorstafftrainingmatrix-content").should("be.visible");
+  cy.getCy("training-matrix-review").should("be.visible");
+  cy.getCy("training-completion-status").should("be.visible");
+  cy.getCy("training-needs-identification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Training Director Staff Training Matrix...");
   cy.waitAndSee();

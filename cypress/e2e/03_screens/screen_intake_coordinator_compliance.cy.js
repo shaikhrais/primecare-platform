@@ -18,6 +18,9 @@ describe("Screen - intake_coordinator_compliance", () => {
   cy.getCy("intakecoordinatorcompliance-screen").should("be.visible");
   cy.getCy("intakecoordinatorcompliance-title").should("be.visible");
   cy.getCy("intakecoordinatorcompliance-content").should("be.visible");
+  cy.getCy("compliance-audit-status-card").should("be.visible");
+  cy.getCy("operational-log-widget").should("be.visible");
+  cy.getCy("compliance-violation-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for IntakeCoordinatorComplianceScreen...");
   cy.waitAndSee();

@@ -1,0 +1,20 @@
+User Tasks:
+1. Monitor open shifts and their statuses.
+2. Assign shifts to available staff.
+3. Review and manage shift requests from employees.
+4. Communicate with team members regarding shift changes.
+5. Analyze shift coverage and identify gaps.
+
+Red Flags of Operation:
+1. Frequent errors in loading data indicating potential backend issues.
+2. Delays in shift assignment leading to understaffing.
+3. High number of unassigned shifts indicating poor communication or engagement.
+4. Repeated complaints from staff about shift management.
+5. Inconsistent data displayed on the dashboard.
+
+Dashboard Needs:
+1. Real-time overview of open shifts and their statuses.
+2. Notifications for unassigned shifts and pending requests.
+3. Performance metrics for shift assignments and employee engagement.
+4. Visual representation of shift coverage across different time periods.
+5. Quick access to communication tools for team coordination.

@@ -15,9 +15,12 @@ describe("Screen - customer_support_tickets", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("customersupporttickets-screen").should("be.visible");
+  cy.getCy("customersupporttickets-title").should("be.visible");
+  cy.getCy("customersupporttickets-content").should("be.visible");
+  cy.getCy("support-dashboard-ticket-overview").should("be.visible");
+  cy.getCy("support-dashboard-response-time").should("be.visible");
+  cy.getCy("support-dashboard-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Customer Support Tickets...");
   cy.waitAndSee();

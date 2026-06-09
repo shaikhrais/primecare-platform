@@ -15,9 +15,12 @@ describe("Screen - clinical_director_staffing", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("clinicaldirectorstaffing-screen").should("be.visible");
+  cy.getCy("clinicaldirectorstaffing-title").should("be.visible");
+  cy.getCy("clinicaldirectorstaffing-content").should("be.visible");
+  cy.getCy("staffing-levels-card").should("be.visible");
+  cy.getCy("staffing-request-approve-btn").should("be.visible");
+  cy.getCy("staffing-report-generate-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Clinical Director Staffing...");
   cy.waitAndSee();

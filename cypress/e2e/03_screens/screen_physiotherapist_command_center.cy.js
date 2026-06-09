@@ -18,6 +18,9 @@ describe("Screen - physiotherapist_command_center", () => {
   cy.getCy("physiotherapistcommandcenter-screen").should("be.visible");
   cy.getCy("physiotherapistcommandcenter-title").should("be.visible");
   cy.getCy("physiotherapistcommandcenter-content").should("be.visible");
+  cy.getCy("physio-btn-save-treatment").should("be.visible");
+  cy.getCy("physio-btn-update-progress").should("be.visible");
+  cy.getCy("physio-btn-send-message").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PhysiotherapistCommandCenterScreen...");
   cy.waitAndSee();

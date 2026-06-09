@@ -18,6 +18,9 @@ describe("Screen - employee_dashboard", () => {
   cy.getCy("employeedashboard-screen").should("be.visible");
   cy.getCy("employeedashboard-title").should("be.visible");
   cy.getCy("employeedashboard-content").should("be.visible");
+  cy.getCy("employee-dashboard-btn-run-compliance-scan").should("be.visible");
+  cy.getCy("employee-dashboard-btn-sync-security-posture").should("be.visible");
+  cy.getCy("employee-dashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for EmployeeDashboardScreen...");
   cy.waitAndSee();

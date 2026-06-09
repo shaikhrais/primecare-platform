@@ -1,0 +1,20 @@
+Home Support Worker Responsibilities:
+1. Log Activities of Daily Living (ADLs) including hygiene assistance and meals.
+2. Save drafts of ADL logs for later completion.
+3. Submit completed ADL logs for review.
+4. Track meals assistance and intake.
+5. Complete hygiene support checklists.
+
+Red Flags of Operation:
+1. Incomplete or missing ADL logs.
+2. Delays in submitting completed logs.
+3. Frequent errors in logged data.
+4. Lack of updates or drafts saved.
+5. Inconsistent tracking of meals assistance.
+
+Dashboard Needs for Home Support Worker:
+1. Overview of logged ADLs and their statuses.
+2. Alerts for incomplete or overdue logs.
+3. Summary of meals assistance provided.
+4. Checklist completion rates for hygiene support.
+5. Quick access to save and submit buttons for efficiency.

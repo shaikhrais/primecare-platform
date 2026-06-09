@@ -8,8 +8,8 @@ describe("Role All Screens - coo", () => {
     cy.loginAsRole("coo");
 
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/26 | 3%] - Navigating to /executive/coo-dashboard (CooDashboardScreen)...");
-  cy.visitWithSemantics("/executive/coo-dashboard");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/26 | 3%] - Navigating to /offices/corporate/roles/coo/dashboard (CooDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/coo/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/26 | 3%] - Checking shell & content for CooDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("coodashboard-screen").should("be.visible");
   cy.getCy("coodashboard-title").should("be.visible");
   cy.getCy("coodashboard-content").should("be.visible");
+  cy.getCy("coo-dashboard-active-operations").should("be.visible");
+  cy.getCy("coo-dashboard-productivity-metric").should("be.visible");
+  cy.getCy("coo-dashboard-security-clearance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/26 | 3%] - Saving screenshot for CooDashboardScreen...");
   cy.waitAndSee();
@@ -26,8 +29,8 @@ describe("Role All Screens - coo", () => {
   
   cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/26 | 3%] - Verified CooDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/26 | 7%] - Navigating to /staff/volunteer-coordinator-dashboard (VolunteerCoordinatorDashboardScreen)...");
-  cy.visitWithSemantics("/staff/volunteer-coordinator-dashboard");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/26 | 7%] - Navigating to /offices/corporate/roles/volunteer_coordinator/dashboard (VolunteerCoordinatorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/volunteer_coordinator/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/26 | 7%] - Checking shell & content for VolunteerCoordinatorDashboardScreen...");
@@ -37,6 +40,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("volunteercoordinatordashboard-screen").should("be.visible");
   cy.getCy("volunteercoordinatordashboard-title").should("be.visible");
   cy.getCy("volunteercoordinatordashboard-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-add-volunteer").should("be.visible");
+  cy.getCy("volunteer-dashboard-schedule-shift").should("be.visible");
+  cy.getCy("volunteer-dashboard-send-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/26 | 7%] - Saving screenshot for VolunteerCoordinatorDashboardScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("cooanalytics-screen").should("be.visible");
   cy.getCy("cooanalytics-title").should("be.visible");
   cy.getCy("cooanalytics-content").should("be.visible");
+  cy.getCy("coo-dashboard-refresh").should("be.visible");
+  cy.getCy("coo-dashboard-view-report").should("be.visible");
+  cy.getCy("coo-dashboard-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/26 | 11%] - Saving screenshot for CooAnalyticsScreen...");
   cy.waitAndSee();
@@ -62,8 +71,8 @@ describe("Role All Screens - coo", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/26 | 11%] - Verified CooAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/26 | 15%] - Navigating to /executive/coo-compliance (CooComplianceScreen)...");
-  cy.visitWithSemantics("/executive/coo-compliance");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/26 | 15%] - Navigating to /offices/corporate/roles/coo/compliance-view (CooComplianceScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/coo/compliance-view");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/26 | 15%] - Checking shell & content for CooComplianceScreen...");
@@ -73,6 +82,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("coocompliance-screen").should("be.visible");
   cy.getCy("coocompliance-title").should("be.visible");
   cy.getCy("coocompliance-content").should("be.visible");
+  cy.getCy("coo-dashboard-kpi-widget").should("be.visible");
+  cy.getCy("coo-dashboard-financial-metrics").should("be.visible");
+  cy.getCy("coo-dashboard-compliance-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/26 | 15%] - Saving screenshot for CooComplianceScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("cooworkflow-screen").should("be.visible");
   cy.getCy("cooworkflow-title").should("be.visible");
   cy.getCy("cooworkflow-content").should("be.visible");
+  cy.getCy("coo-dashboard-refresh-data").should("be.visible");
+  cy.getCy("coo-dashboard-export-report").should("be.visible");
+  cy.getCy("coo-dashboard-set-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/26 | 19%] - Saving screenshot for CooWorkflowScreen...");
   cy.waitAndSee();
@@ -109,6 +124,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("coocommandcenter-screen").should("be.visible");
   cy.getCy("coocommandcenter-title").should("be.visible");
   cy.getCy("coocommandcenter-content").should("be.visible");
+  cy.getCy("coo-dashboard-refresh-metrics").should("be.visible");
+  cy.getCy("coo-dashboard-view-audit").should("be.visible");
+  cy.getCy("coo-dashboard-export-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [6/26 | 23%] - Saving screenshot for CooCommandCenterScreen...");
   cy.waitAndSee();
@@ -116,8 +134,8 @@ describe("Role All Screens - coo", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [6/26 | 23%] - Verified CooCommandCenterScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [7/26 | 26%] - Navigating to /executive/coo-operations-overview (CooOperationsOverviewScreen)...");
-  cy.visitWithSemantics("/executive/coo-operations-overview");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [7/26 | 26%] - Navigating to /offices/corporate/roles/coo/operations-overview (CooOperationsOverviewScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/coo/operations-overview");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [7/26 | 26%] - Checking shell & content for CooOperationsOverviewScreen...");
@@ -127,6 +145,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("coooperationsoverview-screen").should("be.visible");
   cy.getCy("coooperationsoverview-title").should("be.visible");
   cy.getCy("coooperationsoverview-content").should("be.visible");
+  cy.getCy("coo-dashboard-kpi-overview").should("be.visible");
+  cy.getCy("coo-dashboard-efficiency-metrics").should("be.visible");
+  cy.getCy("coo-dashboard-financial-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [7/26 | 26%] - Saving screenshot for CooOperationsOverviewScreen...");
   cy.waitAndSee();
@@ -145,6 +166,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("coostaffing-screen").should("be.visible");
   cy.getCy("coostaffing-title").should("be.visible");
   cy.getCy("coostaffing-content").should("be.visible");
+  cy.getCy("coo-dashboard-refresh-metrics").should("be.visible");
+  cy.getCy("coo-dashboard-view-report").should("be.visible");
+  cy.getCy("coo-dashboard-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [8/26 | 30%] - Saving screenshot for CooStaffingScreen...");
   cy.waitAndSee();
@@ -152,8 +176,8 @@ describe("Role All Screens - coo", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [8/26 | 30%] - Verified CooStaffingScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [9/26 | 34%] - Navigating to /executive/coo-scheduling-health (CooSchedulingHealthScreen)...");
-  cy.visitWithSemantics("/executive/coo-scheduling-health");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [9/26 | 34%] - Navigating to /offices/corporate/roles/coo/scheduling-health (CooSchedulingHealthScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/coo/scheduling-health");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [9/26 | 34%] - Checking shell & content for CooSchedulingHealthScreen...");
@@ -163,6 +187,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("cooschedulinghealth-screen").should("be.visible");
   cy.getCy("cooschedulinghealth-title").should("be.visible");
   cy.getCy("cooschedulinghealth-content").should("be.visible");
+  cy.getCy("dashboard-btn-refresh").should("be.visible");
+  cy.getCy("dashboard-btn-view-report").should("be.visible");
+  cy.getCy("dashboard-btn-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [9/26 | 34%] - Saving screenshot for CooSchedulingHealthScreen...");
   cy.waitAndSee();
@@ -181,6 +208,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("cooworkflowissues-screen").should("be.visible");
   cy.getCy("cooworkflowissues-title").should("be.visible");
   cy.getCy("cooworkflowissues-content").should("be.visible");
+  cy.getCy("coo-dashboard-kpi-overview").should("be.visible");
+  cy.getCy("coo-dashboard-metrics").should("be.visible");
+  cy.getCy("coo-dashboard-compliance-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [10/26 | 38%] - Saving screenshot for CooWorkflowIssuesScreen...");
   cy.waitAndSee();
@@ -188,8 +218,8 @@ describe("Role All Screens - coo", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [10/26 | 38%] - Verified CooWorkflowIssuesScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [11/26 | 42%] - Navigating to /executive/coo-branch-comparison (CooBranchComparisonScreen)...");
-  cy.visitWithSemantics("/executive/coo-branch-comparison");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [11/26 | 42%] - Navigating to /offices/corporate/roles/coo/branch-comparison (CooBranchComparisonScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/coo/branch-comparison");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [11/26 | 42%] - Checking shell & content for CooBranchComparisonScreen...");
@@ -199,6 +229,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("coobranchcomparison-screen").should("be.visible");
   cy.getCy("coobranchcomparison-title").should("be.visible");
   cy.getCy("coobranchcomparison-content").should("be.visible");
+  cy.getCy("dashboard-kpi-widget").should("be.visible");
+  cy.getCy("dashboard-financial-metrics").should("be.visible");
+  cy.getCy("dashboard-compliance-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [11/26 | 42%] - Saving screenshot for CooBranchComparisonScreen...");
   cy.waitAndSee();
@@ -217,6 +250,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("intakecoordinatorreferrals-screen").should("be.visible");
   cy.getCy("intakecoordinatorreferrals-title").should("be.visible");
   cy.getCy("intakecoordinatorreferrals-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-add").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-track-hours").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [12/26 | 46%] - Saving screenshot for IntakeCoordinatorReferralsScreen...");
   cy.waitAndSee();
@@ -235,6 +271,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("intakecoordinatornewclientintake-screen").should("be.visible");
   cy.getCy("intakecoordinatornewclientintake-title").should("be.visible");
   cy.getCy("intakecoordinatornewclientintake-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-recruit").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-log-hours").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [13/26 | 50%] - Saving screenshot for IntakeCoordinatorNewClientIntakeScreen...");
   cy.waitAndSee();
@@ -253,6 +292,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("intakecoordinatorassessmentqueue-screen").should("be.visible");
   cy.getCy("intakecoordinatorassessmentqueue-title").should("be.visible");
   cy.getCy("intakecoordinatorassessmentqueue-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-add").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [14/26 | 53%] - Saving screenshot for IntakeCoordinatorAssessmentQueueScreen...");
   cy.waitAndSee();
@@ -271,6 +313,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("intakecoordinatorbooking-screen").should("be.visible");
   cy.getCy("intakecoordinatorbooking-title").should("be.visible");
   cy.getCy("intakecoordinatorbooking-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-add").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-log-hours").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [15/26 | 57%] - Saving screenshot for IntakeCoordinatorBookingScreen...");
   cy.waitAndSee();
@@ -289,6 +334,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("intakecoordinatordocuments-screen").should("be.visible");
   cy.getCy("intakecoordinatordocuments-title").should("be.visible");
   cy.getCy("intakecoordinatordocuments-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-recruit").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [16/26 | 61%] - Saving screenshot for IntakeCoordinatorDocumentsScreen...");
   cy.waitAndSee();
@@ -307,6 +355,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("intakecoordinatorfollowup-screen").should("be.visible");
   cy.getCy("intakecoordinatorfollowup-title").should("be.visible");
   cy.getCy("intakecoordinatorfollowup-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-add").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-update").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [17/26 | 65%] - Saving screenshot for IntakeCoordinatorFollowUpScreen...");
   cy.waitAndSee();
@@ -325,6 +376,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("operationscommandcenter-screen").should("be.visible");
   cy.getCy("operationscommandcenter-title").should("be.visible");
   cy.getCy("operationscommandcenter-content").should("be.visible");
+  cy.getCy("operations-dashboard-kpi").should("be.visible");
+  cy.getCy("operations-dashboard-metrics").should("be.visible");
+  cy.getCy("operations-dashboard-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [18/26 | 69%] - Saving screenshot for OperationsCommandCenterScreen...");
   cy.waitAndSee();
@@ -343,6 +397,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("staffingoverview-screen").should("be.visible");
   cy.getCy("staffingoverview-title").should("be.visible");
   cy.getCy("staffingoverview-content").should("be.visible");
+  cy.getCy("dashboard-kpi-overview").should("be.visible");
+  cy.getCy("dashboard-efficiency-chart").should("be.visible");
+  cy.getCy("dashboard-financial-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [19/26 | 73%] - Saving screenshot for StaffingOverviewScreen...");
   cy.waitAndSee();
@@ -361,6 +418,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("workflowissue-screen").should("be.visible");
   cy.getCy("workflowissue-title").should("be.visible");
   cy.getCy("workflowissue-content").should("be.visible");
+  cy.getCy("coo-dashboard-kpi").should("be.visible");
+  cy.getCy("coo-dashboard-financials").should("be.visible");
+  cy.getCy("coo-dashboard-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [20/26 | 76%] - Saving screenshot for WorkflowIssueScreen...");
   cy.waitAndSee();
@@ -379,6 +439,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("servicequality-screen").should("be.visible");
   cy.getCy("servicequality-title").should("be.visible");
   cy.getCy("servicequality-content").should("be.visible");
+  cy.getCy("c-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("c-dashboard-btn-export").should("be.visible");
+  cy.getCy("c-dashboard-btn-view-details").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [21/26 | 80%] - Saving screenshot for ServiceQualityScreen...");
   cy.waitAndSee();
@@ -397,6 +460,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("branchperformance-screen").should("be.visible");
   cy.getCy("branchperformance-title").should("be.visible");
   cy.getCy("branchperformance-content").should("be.visible");
+  cy.getCy("dashboard-btn-refresh").should("be.visible");
+  cy.getCy("dashboard-btn-report").should("be.visible");
+  cy.getCy("dashboard-btn-details").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [22/26 | 84%] - Saving screenshot for BranchPerformanceScreen...");
   cy.waitAndSee();
@@ -415,6 +481,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("trainingdashboard-screen").should("be.visible");
   cy.getCy("trainingdashboard-title").should("be.visible");
   cy.getCy("trainingdashboard-content").should("be.visible");
+  cy.getCy("training-dashboard-btn-add-session").should("be.visible");
+  cy.getCy("training-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("training-dashboard-btn-send-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [23/26 | 88%] - Saving screenshot for TrainingDashboardScreen...");
   cy.waitAndSee();
@@ -433,6 +502,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("courseassignment-screen").should("be.visible");
   cy.getCy("courseassignment-title").should("be.visible");
   cy.getCy("courseassignment-content").should("be.visible");
+  cy.getCy("training-dashboard-metrics").should("be.visible");
+  cy.getCy("training-feedback-submit").should("be.visible");
+  cy.getCy("training-compliance-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [24/26 | 92%] - Saving screenshot for CourseAssignmentScreen...");
   cy.waitAndSee();
@@ -451,6 +523,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("certificationtracking-screen").should("be.visible");
   cy.getCy("certificationtracking-title").should("be.visible");
   cy.getCy("certificationtracking-content").should("be.visible");
+  cy.getCy("training-session-overview").should("be.visible");
+  cy.getCy("participation-metrics-chart").should("be.visible");
+  cy.getCy("feedback-evaluation-card").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [25/26 | 96%] - Saving screenshot for CertificationTrackingScreen...");
   cy.waitAndSee();
@@ -469,6 +544,9 @@ describe("Role All Screens - coo", () => {
   cy.getCy("staffprogress-screen").should("be.visible");
   cy.getCy("staffprogress-title").should("be.visible");
   cy.getCy("staffprogress-content").should("be.visible");
+  cy.getCy("training-overview").should("be.visible");
+  cy.getCy("engagement-metrics").should("be.visible");
+  cy.getCy("feedback-results").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [26/26 | 100%] - Saving screenshot for StaffProgressScreen...");
   cy.waitAndSee();

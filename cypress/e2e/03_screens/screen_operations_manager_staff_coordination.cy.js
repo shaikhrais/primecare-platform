@@ -7,17 +7,20 @@ describe("Screen - operations_manager_staff_coordination", () => {
   it("opens and verifies screen operations_manager_staff_coordination", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Operations Manager Staff Coordination)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/operations_manager/staff-coordination (Operations Manager Staff Coordination)...");
+  cy.visitWithSemantics("/offices/franchise/roles/operations_manager/staff-coordination");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Operations Manager Staff Coordination...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("operationsmanagerstaffcoordination-screen").should("be.visible");
+  cy.getCy("operationsmanagerstaffcoordination-title").should("be.visible");
+  cy.getCy("operationsmanagerstaffcoordination-content").should("be.visible");
+  cy.getCy("staff-performance-metric-card").should("be.visible");
+  cy.getCy("staff-schedule-chart").should("be.visible");
+  cy.getCy("operational-issue-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Operations Manager Staff Coordination...");
   cy.waitAndSee();

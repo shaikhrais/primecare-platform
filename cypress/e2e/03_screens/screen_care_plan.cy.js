@@ -7,8 +7,8 @@ describe("Screen - care_plan", () => {
   it("opens and verifies screen care_plan", () => {
     cy.loginAsRole("patient");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /common/care-plan (CarePlanScreen)...");
-  cy.visitWithSemantics("/common/care-plan");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /clinic/care-plan (CarePlanScreen)...");
+  cy.visitWithSemantics("/clinic/care-plan");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for CarePlanScreen...");
@@ -18,6 +18,9 @@ describe("Screen - care_plan", () => {
   cy.getCy("careplan-screen").should("be.visible");
   cy.getCy("careplan-title").should("be.visible");
   cy.getCy("careplan-content").should("be.visible");
+  cy.getCy("careplan-btn-refresh").should("be.visible");
+  cy.getCy("careplan-btn-execute-compliance").should("be.visible");
+  cy.getCy("careplan-btn-execute-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CarePlanScreen...");
   cy.waitAndSee();

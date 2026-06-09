@@ -18,6 +18,9 @@ describe("Screen - policy_management", () => {
   cy.getCy("policymanagement-screen").should("be.visible");
   cy.getCy("policymanagement-title").should("be.visible");
   cy.getCy("policymanagement-content").should("be.visible");
+  cy.getCy("compliance-audit-status").should("be.visible");
+  cy.getCy("compliance-breach-count").should("be.visible");
+  cy.getCy("regulatory-change-overview").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PolicyManagementScreen...");
   cy.waitAndSee();

@@ -8,8 +8,8 @@ describe("Role All Screens - finance_director", () => {
     cy.loginAsRole("finance_director");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /executive/finance-director-dashboard (FinanceDirectorDashboardScreen)...");
-  cy.visitWithSemantics("/executive/finance-director-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /offices/corporate/roles/finance_director/dashboard (FinanceDirectorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/finance_director/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Checking shell & content for FinanceDirectorDashboardScreen...");
@@ -37,6 +37,9 @@ describe("Role All Screens - finance_director", () => {
   cy.getCy("financedirectoranalytics-screen").should("be.visible");
   cy.getCy("financedirectoranalytics-title").should("be.visible");
   cy.getCy("financedirectoranalytics-content").should("be.visible");
+  cy.getCy("finance-kpi-widget").should("be.visible");
+  cy.getCy("finance-cashflow-monitor").should("be.visible");
+  cy.getCy("finance-budget-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for FinanceDirectorAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +58,9 @@ describe("Role All Screens - finance_director", () => {
   cy.getCy("financedirectorcompliance-screen").should("be.visible");
   cy.getCy("financedirectorcompliance-title").should("be.visible");
   cy.getCy("financedirectorcompliance-content").should("be.visible");
+  cy.getCy("finance-kpi-widget").should("be.visible");
+  cy.getCy("finance-cashflow-chart").should("be.visible");
+  cy.getCy("finance-budget-tracker").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for FinanceDirectorComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +79,9 @@ describe("Role All Screens - finance_director", () => {
   cy.getCy("financedirectorworkflow-screen").should("be.visible");
   cy.getCy("financedirectorworkflow-title").should("be.visible");
   cy.getCy("financedirectorworkflow-content").should("be.visible");
+  cy.getCy("finance-kpi-widget").should("be.visible");
+  cy.getCy("finance-cashflow-monitor").should("be.visible");
+  cy.getCy("finance-budget-tracker").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for FinanceDirectorWorkflowScreen...");
   cy.waitAndSee();

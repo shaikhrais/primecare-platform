@@ -37,6 +37,9 @@ describe("Role All Screens - ceo", () => {
   cy.getCy("enterprisehealth-screen").should("be.visible");
   cy.getCy("enterprisehealth-title").should("be.visible");
   cy.getCy("enterprisehealth-content").should("be.visible");
+  cy.getCy("dashboard-kpi-financial").should("be.visible");
+  cy.getCy("dashboard-metrics-operational").should("be.visible");
+  cy.getCy("dashboard-engagement-employee").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [2/6 | 33%] - Saving screenshot for EnterpriseHealthScreen...");
   cy.waitAndSee();
@@ -55,6 +58,9 @@ describe("Role All Screens - ceo", () => {
   cy.getCy("revenueanalytics-screen").should("be.visible");
   cy.getCy("revenueanalytics-title").should("be.visible");
   cy.getCy("revenueanalytics-content").should("be.visible");
+  cy.getCy("revenue-analytics-btn-view-reports").should("be.visible");
+  cy.getCy("revenue-analytics-btn-export-data").should("be.visible");
+  cy.getCy("revenue-analytics-btn-set-goals").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [3/6 | 50%] - Saving screenshot for RevenueAnalyticsScreen...");
   cy.waitAndSee();
@@ -73,6 +79,9 @@ describe("Role All Screens - ceo", () => {
   cy.getCy("riskmanagement-screen").should("be.visible");
   cy.getCy("riskmanagement-title").should("be.visible");
   cy.getCy("riskmanagement-content").should("be.visible");
+  cy.getCy("dashboard-kpi-view").should("be.visible");
+  cy.getCy("dashboard-employee-engagement").should("be.visible");
+  cy.getCy("dashboard-customer-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [4/6 | 66%] - Saving screenshot for RiskManagementScreen...");
   cy.waitAndSee();
@@ -91,6 +100,9 @@ describe("Role All Screens - ceo", () => {
   cy.getCy("franchiseoverview-screen").should("be.visible");
   cy.getCy("franchiseoverview-title").should("be.visible");
   cy.getCy("franchiseoverview-content").should("be.visible");
+  cy.getCy("franchise-overview-btn-refresh").should("be.visible");
+  cy.getCy("franchise-overview-btn-report").should("be.visible");
+  cy.getCy("franchise-overview-btn-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [5/6 | 83%] - Saving screenshot for FranchiseOverviewScreen...");
   cy.waitAndSee();
@@ -109,6 +121,9 @@ describe("Role All Screens - ceo", () => {
   cy.getCy("enterprisecommandcenter4k-screen").should("be.visible");
   cy.getCy("enterprisecommandcenter4k-title").should("be.visible");
   cy.getCy("enterprisecommandcenter4k-content").should("be.visible");
+  cy.getCy("dashboard-kpi-refresh").should("be.visible");
+  cy.getCy("dashboard-employee-satisfaction").should("be.visible");
+  cy.getCy("dashboard-customer-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [6/6 | 100%] - Saving screenshot for EnterpriseCommandCenter4KScreen...");
   cy.waitAndSee();

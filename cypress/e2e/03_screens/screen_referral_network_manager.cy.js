@@ -15,9 +15,11 @@ describe("Screen - referral_network_manager", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("referralnetworkmanager-screen").should("be.visible");
+  cy.getCy("referralnetworkmanager-title").should("be.visible");
+  cy.getCy("referralnetworkmanager-content").should("be.visible");
+  cy.getCy("referral-network-btn-refresh").should("be.visible");
+  cy.getCy("referral-network-btn-add-provider").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Referral Network Manager...");
   cy.waitAndSee();

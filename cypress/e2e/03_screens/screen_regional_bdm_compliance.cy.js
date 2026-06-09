@@ -18,6 +18,9 @@ describe("Screen - regional_bdm_compliance", () => {
   cy.getCy("regionalbdmcompliance-screen").should("be.visible");
   cy.getCy("regionalbdmcompliance-title").should("be.visible");
   cy.getCy("regionalbdmcompliance-content").should("be.visible");
+  cy.getCy("compliance-audit-status").should("be.visible");
+  cy.getCy("telemetry-data-display").should("be.visible");
+  cy.getCy("governance-actions-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RegionalBdmComplianceScreen...");
   cy.waitAndSee();

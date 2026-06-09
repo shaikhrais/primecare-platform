@@ -18,6 +18,9 @@ describe("Screen - partnership_management", () => {
   cy.getCy("partnershipmanagement-screen").should("be.visible");
   cy.getCy("partnershipmanagement-title").should("be.visible");
   cy.getCy("partnershipmanagement-content").should("be.visible");
+  cy.getCy("bdashboard-kpi-chart").should("be.visible");
+  cy.getCy("bdashboard-partner-satisfaction").should("be.visible");
+  cy.getCy("bdashboard-market-trend").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PartnershipManagementScreen...");
   cy.waitAndSee();

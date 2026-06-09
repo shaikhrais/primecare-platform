@@ -1,0 +1,18 @@
+User Tasks:
+1. View the Marketing ROI Report.
+2. Refresh the data by clicking the refresh icon.
+3. Export campaign data using the export button.
+4. Analyze campaign performance and conversion rates.
+
+Red Flags of Operation:
+1. Data loading issues leading to a failure message.
+2. Inconsistent or missing data in the campaigns list.
+3. Negative ROI values indicating poor campaign performance.
+4. Long loading times affecting user experience.
+
+Dashboard Needs:
+1. Real-time data updates for accurate reporting.
+2. Visual indicators for campaign performance (e.g., color-coded ROI).
+3. Summary statistics (total spend, total leads, total conversions).
+4. Filters to sort campaigns by channel, spend, or performance metrics.
+5. Downloadable reports in various formats (CSV, PDF).

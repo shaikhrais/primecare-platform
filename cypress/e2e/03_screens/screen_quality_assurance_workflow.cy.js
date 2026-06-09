@@ -18,6 +18,9 @@ describe("Screen - quality_assurance_workflow", () => {
   cy.getCy("qualityassuranceworkflow-screen").should("be.visible");
   cy.getCy("qualityassuranceworkflow-title").should("be.visible");
   cy.getCy("qualityassuranceworkflow-content").should("be.visible");
+  cy.getCy("qa-dashboard-btn-execute-test").should("be.visible");
+  cy.getCy("qa-dashboard-btn-track-defects").should("be.visible");
+  cy.getCy("qa-dashboard-btn-view-reports").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for QualityAssuranceWorkflowScreen...");
   cy.waitAndSee();

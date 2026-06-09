@@ -7,8 +7,8 @@ describe("Screen - volunteer_coordinator_dashboard", () => {
   it("opens and verifies screen volunteer_coordinator_dashboard", () => {
     cy.loginAsRole("volunteer_coordinator");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /staff/volunteer-coordinator-dashboard (VolunteerCoordinatorDashboardScreen)...");
-  cy.visitWithSemantics("/staff/volunteer-coordinator-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/volunteer_coordinator/dashboard (VolunteerCoordinatorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/volunteer_coordinator/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for VolunteerCoordinatorDashboardScreen...");
@@ -18,6 +18,9 @@ describe("Screen - volunteer_coordinator_dashboard", () => {
   cy.getCy("volunteercoordinatordashboard-screen").should("be.visible");
   cy.getCy("volunteercoordinatordashboard-title").should("be.visible");
   cy.getCy("volunteercoordinatordashboard-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-add-volunteer").should("be.visible");
+  cy.getCy("volunteer-dashboard-schedule-shift").should("be.visible");
+  cy.getCy("volunteer-dashboard-send-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for VolunteerCoordinatorDashboardScreen...");
   cy.waitAndSee();

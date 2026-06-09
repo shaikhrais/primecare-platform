@@ -15,9 +15,12 @@ describe("Screen - trial_data_collection_c_r_f", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("trialdatacollectioncrf-screen").should("be.visible");
+  cy.getCy("trialdatacollectioncrf-title").should("be.visible");
+  cy.getCy("trialdatacollectioncrf-content").should("be.visible");
+  cy.getCy("trialdata-btn-submit").should("be.visible");
+  cy.getCy("trialdata-btn-validate").should("be.visible");
+  cy.getCy("trialdata-btn-historical").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Trial Data Collection C R F...");
   cy.waitAndSee();

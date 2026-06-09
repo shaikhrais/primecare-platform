@@ -1,0 +1,26 @@
+List of work the user must do:
+1. Monitor service quality metrics.
+2. Analyze operational data for trends and anomalies.
+3. Identify areas for improvement in service delivery.
+4. Collaborate with team members to address service quality issues.
+5. Generate reports on service quality performance.
+6. Implement corrective actions based on findings.
+7. Communicate with stakeholders regarding service quality status.
+
+Red flags of operation:
+1. Increased number of customer complaints.
+2. Decline in service delivery speed.
+3. Frequent service interruptions or outages.
+4. Low employee engagement or morale.
+5. Inconsistent service quality across different teams or locations.
+6. High turnover rates among service staff.
+7. Failure to meet service level agreements (SLAs).
+
+What is needed on the user dashboard:
+1. Real-time service quality metrics (e.g., customer satisfaction scores, response times).
+2. Alerts for any red flags or anomalies detected.
+3. Visualizations of trends over time (e.g., graphs showing service quality changes).
+4. Summary of recent customer feedback and complaints.
+5. Action items or recommendations based on data analysis.
+6. Performance comparison against established benchmarks or SLAs.
+7. Access to detailed reports for deeper analysis.

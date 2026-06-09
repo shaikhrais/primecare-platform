@@ -18,6 +18,9 @@ describe("Screen - testing_overview", () => {
   cy.getCy("testingoverview-screen").should("be.visible");
   cy.getCy("testingoverview-title").should("be.visible");
   cy.getCy("testingoverview-content").should("be.visible");
+  cy.getCy("qa-dashboard-refresh-status").should("be.visible");
+  cy.getCy("qa-dashboard-view-defects").should("be.visible");
+  cy.getCy("qa-dashboard-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TestingOverviewScreen...");
   cy.waitAndSee();

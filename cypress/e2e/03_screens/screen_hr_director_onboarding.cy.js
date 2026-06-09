@@ -18,6 +18,9 @@ describe("Screen - hr_director_onboarding", () => {
   cy.getCy("hrdirectoronboarding-screen").should("be.visible");
   cy.getCy("hrdirectoronboarding-title").should("be.visible");
   cy.getCy("hrdirectoronboarding-content").should("be.visible");
+  cy.getCy("hrdirector-btn-add-task").should("be.visible");
+  cy.getCy("hrdirector-btn-generate-report").should("be.visible");
+  cy.getCy("hrdirector-btn-view-details").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HrDirectorOnboardingScreen...");
   cy.waitAndSee();

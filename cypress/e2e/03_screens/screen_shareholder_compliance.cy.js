@@ -18,6 +18,9 @@ describe("Screen - shareholder_compliance", () => {
   cy.getCy("shareholdercompliance-screen").should("be.visible");
   cy.getCy("shareholdercompliance-title").should("be.visible");
   cy.getCy("shareholdercompliance-content").should("be.visible");
+  cy.getCy("compliance-audit-btn-execute").should("be.visible");
+  cy.getCy("governance-directives-btn-update").should("be.visible");
+  cy.getCy("compliance-status-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ShareholderComplianceScreen...");
   cy.waitAndSee();

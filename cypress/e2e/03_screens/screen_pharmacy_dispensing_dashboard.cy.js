@@ -15,9 +15,12 @@ describe("Screen - pharmacy_dispensing_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pharmacydispensingdashboard-screen").should("be.visible");
+  cy.getCy("pharmacydispensingdashboard-title").should("be.visible");
+  cy.getCy("pharmacydispensingdashboard-content").should("be.visible");
+  cy.getCy("pharmacy-dashboard-btn-dispense").should("be.visible");
+  cy.getCy("pharmacy-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("pharmacy-dashboard-btn-track-inventory").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Pharmacy Dispensing Dashboard...");
   cy.waitAndSee();

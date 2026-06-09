@@ -1,0 +1,27 @@
+Caregiver Responsibilities:
+1. Monitor patient health and report any changes.
+2. Assist with daily living activities (bathing, dressing, grooming).
+3. Administer medications as prescribed.
+4. Provide companionship and emotional support.
+5. Maintain a clean and safe environment.
+6. Document care provided and any incidents.
+7. Communicate effectively with healthcare professionals and family members.
+8. Attend training and stay updated on best practices.
+
+Red Flags of Operation:
+1. Frequent incidents reported in logs.
+2. Delays in compliance scans or audits.
+3. High turnover of caregivers.
+4. Negative feedback from patients or families.
+5. Inconsistent documentation of care provided.
+6. Lack of communication among team members.
+7. Unresolved errors or issues in the system.
+
+Dashboard Needs for Caregiver:
+1. Overview of active operations and patient statuses.
+2. Real-time telemetry logs and compliance standings.
+3. Alerts for any red flags or incidents.
+4. Access to operational audit logs.
+5. Metrics on caregiver performance and patient satisfaction.
+6. Quick access buttons for compliance scans and incident reporting.
+7. User-friendly interface for easy navigation and updates.

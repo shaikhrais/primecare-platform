@@ -15,9 +15,12 @@ describe("Screen - data_privacy_monitor", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("dataprivacymonitor-screen").should("be.visible");
+  cy.getCy("dataprivacymonitor-title").should("be.visible");
+  cy.getCy("dataprivacymonitor-content").should("be.visible");
+  cy.getCy("data-privacy-metrics-card").should("be.visible");
+  cy.getCy("data-privacy-alerts-section").should("be.visible");
+  cy.getCy("data-privacy-risk-cards").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Data Privacy Monitor...");
   cy.waitAndSee();

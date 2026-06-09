@@ -1,0 +1,23 @@
+List of work the user must do:
+1. Monitor and manage the operations schedule.
+2. Review and approve schedules submitted by team members.
+3. Identify and address scheduling conflicts.
+4. Analyze operational efficiency and make adjustments as needed.
+5. Communicate with team members regarding schedule changes or updates.
+6. Generate reports on operational performance.
+
+Red flags of operation:
+1. Frequent scheduling conflicts or overlaps.
+2. Delays in schedule approvals.
+3. High levels of employee dissatisfaction with schedules.
+4. Inconsistent operational performance metrics.
+5. Lack of communication regarding schedule changes.
+6. Increased number of errors in scheduling data.
+
+What we need on the dashboard of the user:
+1. Overview of the current operations schedule.
+2. Notifications for pending approvals or conflicts.
+3. Performance metrics and analytics related to scheduling efficiency.
+4. A communication panel for team interactions.
+5. Quick access to generate and view reports.
+6. Visual indicators for red flags in operations (e.g., conflict alerts, approval delays).

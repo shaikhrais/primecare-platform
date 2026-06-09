@@ -1,0 +1,21 @@
+List of work for the patient:
+1. Review key performance indicators.
+2. Monitor live telemetry logs.
+3. Validate compliance standings.
+4. Trigger manual refresh of the dashboard.
+5. Execute operational audit scans.
+
+Red flags for operation:
+1. API errors during compliance scans.
+2. Network errors affecting data retrieval.
+3. Low security clearance levels.
+4. High number of exceptions logged.
+5. Decreased productivity in active operations.
+
+Dashboard needs:
+1. Title of the care plan.
+2. Logs of operational audits.
+3. Active operations status.
+4. Security clearance level.
+5. Telemetry chart for hourly core metrics.
+6. Buttons for executing scans and refreshing data.

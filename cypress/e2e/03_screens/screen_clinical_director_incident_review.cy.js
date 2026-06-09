@@ -18,6 +18,9 @@ describe("Screen - clinical_director_incident_review", () => {
   cy.getCy("clinicaldirectorincidentreview-screen").should("be.visible");
   cy.getCy("clinicaldirectorincidentreview-title").should("be.visible");
   cy.getCy("clinicaldirectorincidentreview-content").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-view-incidents").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-conduct-audit").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-generate-kpi").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ClinicalDirectorIncidentReviewScreen...");
   cy.waitAndSee();

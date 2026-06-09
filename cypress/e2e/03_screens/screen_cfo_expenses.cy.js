@@ -7,8 +7,8 @@ describe("Screen - cfo_expenses", () => {
   it("opens and verifies screen cfo_expenses", () => {
     cy.loginAsRole("cfo");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/cfo-expenses (CfoExpensesScreen)...");
-  cy.visitWithSemantics("/executive/cfo-expenses");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/cfo/expenses (CfoExpensesScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cfo/expenses");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for CfoExpensesScreen...");
@@ -18,6 +18,9 @@ describe("Screen - cfo_expenses", () => {
   cy.getCy("cfoexpenses-screen").should("be.visible");
   cy.getCy("cfoexpenses-title").should("be.visible");
   cy.getCy("cfoexpenses-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi-overview").should("be.visible");
+  cy.getCy("cfo-dashboard-financial-metrics").should("be.visible");
+  cy.getCy("cfo-dashboard-budget-analysis").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CfoExpensesScreen...");
   cy.waitAndSee();

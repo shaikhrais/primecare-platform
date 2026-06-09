@@ -15,9 +15,12 @@ describe("Screen - audit_sandbox", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("auditsandbox-screen").should("be.visible");
+  cy.getCy("auditsandbox-title").should("be.visible");
+  cy.getCy("auditsandbox-content").should("be.visible");
+  cy.getCy("audit-sandbox-lifecycle-status").should("be.visible");
+  cy.getCy("audit-sandbox-completion-percentage").should("be.visible");
+  cy.getCy("audit-sandbox-technical-manifest").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Audit Sandbox...");
   cy.waitAndSee();

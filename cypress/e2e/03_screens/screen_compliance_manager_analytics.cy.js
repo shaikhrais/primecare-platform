@@ -18,6 +18,9 @@ describe("Screen - compliance_manager_analytics", () => {
   cy.getCy("compliancemanageranalytics-screen").should("be.visible");
   cy.getCy("compliancemanageranalytics-title").should("be.visible");
   cy.getCy("compliancemanageranalytics-content").should("be.visible");
+  cy.getCy("compliance-violation-tracker").should("be.visible");
+  cy.getCy("audit-results-overview").should("be.visible");
+  cy.getCy("training-participation-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ComplianceManagerAnalyticsScreen...");
   cy.waitAndSee();

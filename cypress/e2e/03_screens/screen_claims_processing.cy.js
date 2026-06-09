@@ -18,6 +18,9 @@ describe("Screen - claims_processing", () => {
   cy.getCy("claimsprocessing-screen").should("be.visible");
   cy.getCy("claimsprocessing-title").should("be.visible");
   cy.getCy("claimsprocessing-content").should("be.visible");
+  cy.getCy("claims-processing-btn-add-task").should("be.visible");
+  cy.getCy("claims-processing-btn-schedule-appointment").should("be.visible");
+  cy.getCy("claims-processing-btn-log-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ClaimsProcessingScreen...");
   cy.waitAndSee();

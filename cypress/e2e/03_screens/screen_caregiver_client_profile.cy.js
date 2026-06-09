@@ -18,6 +18,9 @@ describe("Screen - caregiver_client_profile", () => {
   cy.getCy("caregiverclientprofile-screen").should("be.visible");
   cy.getCy("caregiverclientprofile-title").should("be.visible");
   cy.getCy("caregiverclientprofile-content").should("be.visible");
+  cy.getCy("caregiver-task-list").should("be.visible");
+  cy.getCy("client-health-status").should("be.visible");
+  cy.getCy("medication-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CaregiverClientProfileScreen...");
   cy.waitAndSee();

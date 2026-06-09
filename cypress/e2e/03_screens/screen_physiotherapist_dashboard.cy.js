@@ -18,6 +18,9 @@ describe("Screen - physiotherapist_dashboard", () => {
   cy.getCy("physiotherapistdashboard-screen").should("be.visible");
   cy.getCy("physiotherapistdashboard-title").should("be.visible");
   cy.getCy("physiotherapistdashboard-content").should("be.visible");
+  cy.getCy("physio-dashboard-btn-sync").should("be.visible");
+  cy.getCy("physio-dashboard-btn-export").should("be.visible");
+  cy.getCy("physio-dashboard-btn-educational-resources").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PhysiotherapistDashboardScreen...");
   cy.waitAndSee();

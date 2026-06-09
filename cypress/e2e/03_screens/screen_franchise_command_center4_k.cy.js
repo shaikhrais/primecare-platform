@@ -18,6 +18,9 @@ describe("Screen - franchise_command_center4_k", () => {
   cy.getCy("franchisecommandcenter4k-screen").should("be.visible");
   cy.getCy("franchisecommandcenter4k-title").should("be.visible");
   cy.getCy("franchisecommandcenter4k-content").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-manage-training").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-review-financials").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FranchiseCommandCenter4KScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - course_architect_dashboard", () => {
   cy.getCy("coursearchitectdashboard-screen").should("be.visible");
   cy.getCy("coursearchitectdashboard-title").should("be.visible");
   cy.getCy("coursearchitectdashboard-content").should("be.visible");
+  cy.getCy("dashboard-participation-metric").should("be.visible");
+  cy.getCy("dashboard-feedback-score").should("be.visible");
+  cy.getCy("dashboard-effectiveness-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CourseArchitectDashboardScreen...");
   cy.waitAndSee();

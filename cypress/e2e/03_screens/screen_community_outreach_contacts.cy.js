@@ -15,9 +15,11 @@ describe("Screen - community_outreach_contacts", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("communityoutreachcontacts-screen").should("be.visible");
+  cy.getCy("communityoutreachcontacts-title").should("be.visible");
+  cy.getCy("communityoutreachcontacts-content").should("be.visible");
+  cy.getCy("community-outreach-btn-update-contact").should("be.visible");
+  cy.getCy("community-outreach-btn-view-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Community Outreach Contacts...");
   cy.waitAndSee();

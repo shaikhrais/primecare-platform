@@ -18,6 +18,9 @@ describe("Screen - scheduling_operations4_k", () => {
   cy.getCy("schedulingoperations4k-screen").should("be.visible");
   cy.getCy("schedulingoperations4k-title").should("be.visible");
   cy.getCy("schedulingoperations4k-content").should("be.visible");
+  cy.getCy("scheduling-overview").should("be.visible");
+  cy.getCy("incident-log").should("be.visible");
+  cy.getCy("customer-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulingOperations4KScreen...");
   cy.waitAndSee();

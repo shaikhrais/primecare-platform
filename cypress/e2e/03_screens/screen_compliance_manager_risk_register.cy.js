@@ -15,9 +15,12 @@ describe("Screen - compliance_manager_risk_register", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("compliancemanagerriskregister-screen").should("be.visible");
+  cy.getCy("compliancemanagerriskregister-title").should("be.visible");
+  cy.getCy("compliancemanagerriskregister-content").should("be.visible");
+  cy.getCy("compliance-risk-overview").should("be.visible");
+  cy.getCy("risk-trend-chart").should("be.visible");
+  cy.getCy("notification-panel").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Compliance Manager Risk Register...");
   cy.waitAndSee();

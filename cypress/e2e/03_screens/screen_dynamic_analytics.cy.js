@@ -18,6 +18,9 @@ describe("Screen - dynamic_analytics", () => {
   cy.getCy("dynamicanalytics-screen").should("be.visible");
   cy.getCy("dynamicanalytics-title").should("be.visible");
   cy.getCy("dynamicanalytics-content").should("be.visible");
+  cy.getCy("dynamic-analytics-btn-refresh").should("be.visible");
+  cy.getCy("dynamic-analytics-btn-customize").should("be.visible");
+  cy.getCy("dynamic-analytics-btn-search").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for DynamicScreenAnalyticsScreen...");
   cy.waitAndSee();

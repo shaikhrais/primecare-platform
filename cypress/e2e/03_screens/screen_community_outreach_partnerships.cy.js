@@ -15,9 +15,12 @@ describe("Screen - community_outreach_partnerships", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("communityoutreachpartnerships-screen").should("be.visible");
+  cy.getCy("communityoutreachpartnerships-title").should("be.visible");
+  cy.getCy("communityoutreachpartnerships-content").should("be.visible");
+  cy.getCy("community-outreach-btn-update").should("be.visible");
+  cy.getCy("community-outreach-btn-analyze").should("be.visible");
+  cy.getCy("community-outreach-btn-engage").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Community Outreach Partnerships...");
   cy.waitAndSee();

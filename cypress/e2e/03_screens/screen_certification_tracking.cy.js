@@ -18,6 +18,9 @@ describe("Screen - certification_tracking", () => {
   cy.getCy("certificationtracking-screen").should("be.visible");
   cy.getCy("certificationtracking-title").should("be.visible");
   cy.getCy("certificationtracking-content").should("be.visible");
+  cy.getCy("training-session-overview").should("be.visible");
+  cy.getCy("participation-metrics-chart").should("be.visible");
+  cy.getCy("feedback-evaluation-card").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CertificationTrackingScreen...");
   cy.waitAndSee();

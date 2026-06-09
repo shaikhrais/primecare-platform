@@ -18,6 +18,9 @@ describe("Screen - physiotherapist_compliance", () => {
   cy.getCy("physiotherapistcompliance-screen").should("be.visible");
   cy.getCy("physiotherapistcompliance-title").should("be.visible");
   cy.getCy("physiotherapistcompliance-content").should("be.visible");
+  cy.getCy("physio-btn-save-treatment").should("be.visible");
+  cy.getCy("physio-btn-monitor-progress").should("be.visible");
+  cy.getCy("physio-btn-educate-patient").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PhysiotherapistComplianceScreen...");
   cy.waitAndSee();

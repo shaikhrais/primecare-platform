@@ -15,9 +15,12 @@ describe("Screen - billing_invoices", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("billinginvoices-screen").should("be.visible");
+  cy.getCy("billinginvoices-title").should("be.visible");
+  cy.getCy("billinginvoices-content").should("be.visible");
+  cy.getCy("billing-invoices-status").should("be.visible");
+  cy.getCy("billing-audit-alert").should("be.visible");
+  cy.getCy("billing-transaction-flow").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Billing Invoices...");
   cy.waitAndSee();

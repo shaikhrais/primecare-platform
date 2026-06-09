@@ -447,6 +447,96 @@ class ClinicalDirectorDashboardController
   void addLog(String entry) {
     state = state.copyWith(logs: [...state.logs, entry]);
   }
+
+  void triggerEmergencyAlert({required String type, required String wing}) {
+    final newLogs = [
+      ...state.logs,
+      '🚨 CRITICAL EMERGENCY: Broadcasted $type for $wing at ${DateTime.now().toLocal().toString().substring(11, 19)}',
+    ];
+    final newRedFlags = [
+      {
+        'id': DateTime.now().millisecondsSinceEpoch.toString(),
+        'level': 'danger',
+        'type': 'safety',
+        'message': '$type activated in $wing! Response teams dispatched immediately.',
+      },
+      ...state.redFlags,
+    ];
+    state = state.copyWith(
+      logs: newLogs,
+      redFlags: newRedFlags,
+    );
+  }
+
+  void submitIncident({
+    required String resident,
+    required String type,
+    required String severity,
+    required String details,
+  }) {
+    final isFall = type.toLowerCase().contains('fall');
+    final isHospitalTransfer = type.toLowerCase().contains('transfer');
+    final newLogs = [
+      ...state.logs,
+      'Reported incident ($type) for resident $resident. Severity: $severity.',
+    ];
+    final newRedFlags = severity.toLowerCase() == 'critical' || severity.toLowerCase() == 'danger'
+        ? [
+            {
+              'id': DateTime.now().millisecondsSinceEpoch.toString(),
+              'level': 'danger',
+              'type': 'safety',
+              'message': 'CRITICAL INCIDENT: $type logged for $resident. Details: $details',
+            },
+            ...state.redFlags,
+          ]
+        : state.redFlags;
+
+    state = state.copyWith(
+      incidentsToday: state.incidentsToday + 1,
+      fallsToday: isFall ? state.fallsToday + 1 : state.fallsToday,
+      hospitalTransfers: isHospitalTransfer ? state.hospitalTransfers + 1 : state.hospitalTransfers,
+      logs: newLogs,
+      redFlags: newRedFlags,
+    );
+  }
+
+  void submitStaffCallOff({
+    required String name,
+    required String shift,
+    required bool autoSuggest,
+  }) {
+    final newLogs = [
+      ...state.logs,
+      'Staff call-off registered: $name on $shift shift.',
+      if (autoSuggest) 'AI auto-suggested replacement coverage list dispatched to team leads.',
+    ];
+    state = state.copyWith(
+      sickCalls: state.sickCalls + 1,
+      staffOnShift: (state.staffOnShift - 1).clamp(0, 100),
+      openShifts: state.openShifts + 1,
+      logs: newLogs,
+    );
+  }
+
+  void submitResidentLookup({required String query}) {
+    state = state.copyWith(
+      logs: [
+        ...state.logs,
+        'Resident lookup query executed for: "$query".',
+      ],
+    );
+  }
+
+  void resolveMissingCharting({required String description}) {
+    state = state.copyWith(
+      missingADLChartingCount: (state.missingADLChartingCount - 1).clamp(0, 100),
+      logs: [
+        ...state.logs,
+        'Resolved ADL documentation gap: $description.',
+      ],
+    );
+  }
 }
 
 // --- Provider ---
@@ -469,17 +559,21 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
     final theme = context.theme;
 
     return Cy(
-      id: 'clinicaldirectordashboard-screen data-cy:clinicaldashboard-screen',
+      id: 'clinicaldashboard-screen',
       child: Scaffold(
         key: const Key('clinicaldirectordashboard-screen'),
         backgroundColor: theme.colors.background,
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
-            key: const Key('clinicaldirectordashboard-title'),
-            state.title.tr(),
-            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          title: Semantics(
+            container: true,
+            label: 'data-cy:clinicaldashboard-title',
+            child: Text(
+              key: const Key('clinicaldirectordashboard-title'),
+              state.title.tr(),
+              style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+            ),
           ),
           actions: [
             IconButton(
@@ -489,7 +583,9 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
             ),
           ],
         ),
-        body: ResponsiveSplitDashboard(
+        body: Cy(
+          id: 'clinicaldashboard-content',
+          child: ResponsiveSplitDashboard(
           metrics: [
             GovMetricCard(
               title: 'Residents Census'.tr(),
@@ -536,6 +632,8 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
                   onRefresh: () => controller.loadDashboardMetrics(),
                 ),
               ),
+              const SizedBox(height: 24),
+              GovQuickActionBar(controller: controller, state: state),
               const SizedBox(height: 24),
               // --- Scrollable Tab Selector ---
               SingleChildScrollView(
@@ -668,6 +766,7 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
+        ),
         ),
       ),
     );
@@ -1430,6 +1529,942 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class GovQuickActionBar extends StatefulWidget {
+  final ClinicalDirectorDashboardController controller;
+  final ClinicalDirectorDashboardState state;
+
+  const GovQuickActionBar({
+    super.key,
+    required this.controller,
+    required this.state,
+  });
+
+  @override
+  State<GovQuickActionBar> createState() => _GovQuickActionBarState();
+}
+
+class _GovQuickActionBarState extends State<GovQuickActionBar> {
+  int _selectedCategory = 0; // 0: Emergency, 1: Staffing, 2: Resident, 3: Compliance, 4: Operations
+
+  void _showEmergencyDialog(BuildContext context, ClinicalDirectorDashboardController controller) {
+    final theme = context.theme;
+    String selectedCode = 'Code Blue - Medical Alert';
+    String selectedWing = 'Memory Care Unit';
+
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              backgroundColor: theme.colors.surface,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusMd)),
+              title: Row(
+                children: [
+                  const Icon(LucideIcons.alertTriangle, color: Color(0xFFDC2626), size: 28),
+                  const SizedBox(width: 10),
+                  Text('Trigger Safety Code'.tr(), style: theme.typography.h3.copyWith(color: theme.colors.onSurface)),
+                ],
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Select safety code and facility area to broadcast alert.'.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant)),
+                  const SizedBox(height: 16),
+                  Text('Emergency Code'.tr(), style: theme.typography.labelBold.copyWith(color: theme.colors.onSurface)),
+                  const SizedBox(height: 8),
+                  DropdownButtonFormField<String>(
+                    dropdownColor: theme.colors.surface,
+                    value: selectedCode,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: theme.colors.background,
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: theme.colors.border)),
+                    ),
+                    items: <String>[
+                      'Code Blue - Medical Alert',
+                      'Code White - Resident Aggression',
+                      'Code Yellow - Missing Resident',
+                      'Call 911 Distress Log',
+                      'Abuse Concern Review Alert'
+                    ].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface)),
+                      );
+                    }).toList(),
+                    onChanged: (val) {
+                      if (val != null) setState(() => selectedCode = val);
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  Text('Assigned Wing / Location'.tr(), style: theme.typography.labelBold.copyWith(color: theme.colors.onSurface)),
+                  const SizedBox(height: 8),
+                  DropdownButtonFormField<String>(
+                    dropdownColor: theme.colors.surface,
+                    value: selectedWing,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: theme.colors.background,
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8), borderSide: BorderSide(color: theme.colors.border)),
+                    ),
+                    items: <String>[
+                      'Memory Care Unit',
+                      'East Wing (Retirement)',
+                      'West Wing (Assisted Living)',
+                      'South Wing (Long-Term Care)',
+                      'Facility-Wide Broadcast'
+                    ].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface)),
+                      );
+                    }).toList(),
+                    onChanged: (val) {
+                      if (val != null) setState(() => selectedWing = val);
+                    },
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext),
+                  child: Text('Cancel'.tr(), style: TextStyle(color: theme.colors.onSurfaceVariant)),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFDC2626),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                  onPressed: () {
+                    controller.triggerEmergencyAlert(type: selectedCode, wing: selectedWing);
+                    Navigator.pop(dialogContext);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: const Color(0xFFDC2626),
+                        content: Text('Safety Alarm Broadcasted successfully!'.tr()),
+                      ),
+                    );
+                  },
+                  child: Text('Broadcast Alert'.tr()),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showNewIncidentDialog(BuildContext context, ClinicalDirectorDashboardController controller) {
+    final theme = context.theme;
+    final residentController = TextEditingController(text: 'John Smith');
+    final detailsController = TextEditingController(text: 'Resident experienced minor loss of balance in common room.');
+    String selectedType = 'Resident Fall';
+    String selectedSeverity = 'Critical';
+
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              backgroundColor: theme.colors.surface,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusMd)),
+              title: Row(
+                children: [
+                  const Icon(LucideIcons.fileSpreadsheet, color: Color(0xFFDC2626), size: 28),
+                  const SizedBox(width: 10),
+                  Text('Report New Incident'.tr(), style: theme.typography.h3.copyWith(color: theme.colors.onSurface)),
+                ],
+              ),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Log fall, injury, or abuse concerns directly to compliance database.'.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant)),
+                    const SizedBox(height: 16),
+                    Text('Resident Name'.tr(), style: theme.typography.labelBold.copyWith(color: theme.colors.onSurface)),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: residentController,
+                      style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: theme.colors.background,
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Text('Incident Type'.tr(), style: theme.typography.labelBold.copyWith(color: theme.colors.onSurface)),
+                    const SizedBox(height: 8),
+                    DropdownButtonFormField<String>(
+                      dropdownColor: theme.colors.surface,
+                      value: selectedType,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: theme.colors.background,
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      items: <String>[
+                        'Resident Fall',
+                        'Resident Wandering Alert',
+                        'Injury of Unknown Origin',
+                        'Abuse / Harassment Allegation',
+                        'Medication Refusal / Issue',
+                        'Infection Outbreak Case',
+                        'Hospital Emergency Transfer'
+                      ].map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface)),
+                        );
+                      }).toList(),
+                      onChanged: (val) {
+                        if (val != null) setState(() => selectedType = val);
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    Text('Severity Level'.tr(), style: theme.typography.labelBold.copyWith(color: theme.colors.onSurface)),
+                    const SizedBox(height: 8),
+                    DropdownButtonFormField<String>(
+                      dropdownColor: theme.colors.surface,
+                      value: selectedSeverity,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: theme.colors.background,
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      items: <String>['Low', 'Medium', 'Critical', 'Danger'].map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface)),
+                        );
+                      }).toList(),
+                      onChanged: (val) {
+                        if (val != null) setState(() => selectedSeverity = val);
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    Text('Incident Details / Comments'.tr(), style: theme.typography.labelBold.copyWith(color: theme.colors.onSurface)),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: detailsController,
+                      style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface),
+                      maxLines: 3,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: theme.colors.background,
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext),
+                  child: Text('Cancel'.tr(), style: TextStyle(color: theme.colors.onSurfaceVariant)),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.colors.primary,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                  onPressed: () {
+                    controller.submitIncident(
+                      resident: residentController.text,
+                      type: selectedType,
+                      severity: selectedSeverity,
+                      details: detailsController.text,
+                    );
+                    Navigator.pop(dialogContext);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: theme.colors.primary,
+                        content: Text('Incident logged and flagged successfully!'.tr()),
+                      ),
+                    );
+                  },
+                  child: Text('Submit Report'.tr()),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showStaffCallOffDialog(BuildContext context, ClinicalDirectorDashboardController controller) {
+    final theme = context.theme;
+    final staffController = TextEditingController(text: 'Emily Watson (PSW)');
+    String selectedShift = 'Day Shift (07:00 - 15:00)';
+    bool autoSuggest = true;
+
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              backgroundColor: theme.colors.surface,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusMd)),
+              title: Row(
+                children: [
+                  const Icon(LucideIcons.userMinus, color: Color(0xFF2563EB), size: 28),
+                  const SizedBox(width: 10),
+                  Text('Register Staff Call-Off'.tr(), style: theme.typography.h3.copyWith(color: theme.colors.onSurface)),
+                ],
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Log sudden sickness calls or shift call-offs to adjust live coverage levels.'.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant)),
+                  const SizedBox(height: 16),
+                  Text('Absent Staff Name'.tr(), style: theme.typography.labelBold.copyWith(color: theme.colors.onSurface)),
+                  const SizedBox(height: 8),
+                  TextField(
+                    controller: staffController,
+                    style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: theme.colors.background,
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text('Assigned Shift'.tr(), style: theme.typography.labelBold.copyWith(color: theme.colors.onSurface)),
+                  const SizedBox(height: 8),
+                  DropdownButtonFormField<String>(
+                    dropdownColor: theme.colors.surface,
+                    value: selectedShift,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: theme.colors.background,
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                    ),
+                    items: <String>[
+                      'Day Shift (07:00 - 15:00)',
+                      'Evening Shift (15:00 - 23:00)',
+                      'Night Shift (23:00 - 07:00)'
+                    ].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface)),
+                      );
+                    }).toList(),
+                    onChanged: (val) {
+                      if (val != null) setState(() => selectedShift = val);
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  CheckboxListTile(
+                    title: Text('Find Available Replacement PSWs'.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface)),
+                    subtitle: Text('Leverage smart scheduling to ping available staff on standby.'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                    value: autoSuggest,
+                    activeColor: theme.colors.primary,
+                    onChanged: (val) {
+                      if (val != null) setState(() => autoSuggest = val);
+                    },
+                    contentPadding: EdgeInsets.zero,
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext),
+                  child: Text('Cancel'.tr(), style: TextStyle(color: theme.colors.onSurfaceVariant)),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF2563EB),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                  ),
+                  onPressed: () {
+                    controller.submitStaffCallOff(
+                      name: staffController.text,
+                      shift: selectedShift,
+                      autoSuggest: autoSuggest,
+                    );
+                    Navigator.pop(dialogContext);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: const Color(0xFF2563EB),
+                        content: Text('Staff Call-Off logged. Staffing updated.'.tr()),
+                      ),
+                    );
+                  },
+                  child: Text('Register Absentee'.tr()),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showResidentLookupDialog(BuildContext context, ClinicalDirectorDashboardController controller, ClinicalDirectorDashboardState state) {
+    final theme = context.theme;
+    final searchController = TextEditingController();
+    List<Map<String, dynamic>> filteredResidents = List.from(state.highRiskResidentsList);
+
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              backgroundColor: theme.colors.surface,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusMd)),
+              title: Row(
+                children: [
+                  const Icon(LucideIcons.search, color: Color(0xFF16A34A), size: 28),
+                  const SizedBox(width: 10),
+                  Text('Resident Search Station'.tr(), style: theme.typography.h3.copyWith(color: theme.colors.onSurface)),
+                ],
+              ),
+              content: SizedBox(
+                width: 400,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Look up resident charts, fall parameters, and daily ADL checklists.'.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant)),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: searchController,
+                      style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface),
+                      decoration: InputDecoration(
+                        hintText: 'Type name to search...'.tr(),
+                        prefixIcon: const Icon(LucideIcons.search),
+                        filled: true,
+                        fillColor: theme.colors.background,
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                      ),
+                      onChanged: (val) {
+                        setState(() {
+                          filteredResidents = state.highRiskResidentsList
+                              .where((res) => (res['name'] as String).toLowerCase().contains(val.toLowerCase()))
+                              .toList();
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    Text('Active Care Rosters'.tr(), style: theme.typography.labelBold.copyWith(color: theme.colors.onSurface)),
+                    const SizedBox(height: 8),
+                    Container(
+                      constraints: const BoxConstraints(maxHeight: 200),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: theme.colors.border),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: filteredResidents.isEmpty ? 1 : filteredResidents.length,
+                        separatorBuilder: (context, idx) => const Divider(height: 1),
+                        itemBuilder: (context, idx) {
+                          if (filteredResidents.isEmpty) {
+                            return Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Text('No residents match query.'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                            );
+                          }
+                          final res = filteredResidents[idx];
+                          return ListTile(
+                            title: Text(res['name'] as String, style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface, fontWeight: FontWeight.bold)),
+                            subtitle: Text('${res['riskType']} • ${res['status']}'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                            trailing: Icon(LucideIcons.chevronRight, size: 16, color: theme.colors.primary),
+                            onTap: () {
+                              controller.submitResidentLookup(query: res['name'] as String);
+                              Navigator.pop(dialogContext);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: const Color(0xFF16A34A),
+                                  content: Text('Resident profile details retrieved for ${res['name']}.'.tr()),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext),
+                  child: Text('Close'.tr(), style: TextStyle(color: theme.colors.onSurfaceVariant)),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  void _showMissingChartingDialog(BuildContext context, ClinicalDirectorDashboardController controller, ClinicalDirectorDashboardState state) {
+    final theme = context.theme;
+    final List<Map<String, String>> outstandingLogs = [
+      {'patient': 'Margaret Sullivan', 'task': 'Lunch Hydration ADL Intake missing'},
+      {'patient': 'John Smith', 'task': 'Morning Repositioning log missing'},
+      {'patient': 'Alice Miller', 'task': 'Evening Medication adherence check missing'},
+      {'patient': 'Robert Chen', 'task': 'Night Safety check-in missing'}
+    ];
+
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              backgroundColor: theme.colors.surface,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusMd)),
+              title: Row(
+                children: [
+                  const Icon(LucideIcons.clipboardList, color: Color(0xFFEA580C), size: 28),
+                  const SizedBox(width: 10),
+                  Text('Missing Documentation Hub'.tr(), style: theme.typography.h3.copyWith(color: theme.colors.onSurface)),
+                ],
+              ),
+              content: SizedBox(
+                width: 450,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Outstanding ADL tasks require validation for Ministry standard compliance.'.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant)),
+                    const SizedBox(height: 16),
+                    Text('Missing Records Checklist (${state.missingADLChartingCount} remaining)'.tr(), style: theme.typography.labelBold.copyWith(color: theme.colors.onSurface)),
+                    const SizedBox(height: 8),
+                    Container(
+                      constraints: const BoxConstraints(maxHeight: 250),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: theme.colors.border),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        itemCount: outstandingLogs.length,
+                        separatorBuilder: (context, idx) => const Divider(height: 1),
+                        itemBuilder: (context, idx) {
+                          final log = outstandingLogs[idx];
+                          return ListTile(
+                            title: Text(log['patient']!, style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface, fontWeight: FontWeight.bold)),
+                            subtitle: Text(log['task']!.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                            trailing: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFFEA580C),
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                              ),
+                              onPressed: () {
+                                controller.resolveMissingCharting(description: '${log['task']} for ${log['patient']}');
+                                setState(() {
+                                  outstandingLogs.removeAt(idx);
+                                });
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    backgroundColor: const Color(0xFFEA580C),
+                                    content: Text('ADL task signed and synchronized!'.tr()),
+                                  ),
+                                );
+                              },
+                              child: Text('Sign off'.tr(), style: const TextStyle(fontSize: 12)),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext),
+                  child: Text('Close'.tr(), style: TextStyle(color: theme.colors.onSurfaceVariant)),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    
+    // Category configs
+    final List<Map<String, dynamic>> categories = [
+      {
+        'label': 'Emergency',
+        'icon': LucideIcons.alertTriangle,
+        'color': const Color(0xFFDC2626),
+        'bg': const Color(0xFFFEE2E2),
+        'border': const Color(0xFFFCA5A5),
+      },
+      {
+        'label': 'Staffing',
+        'icon': LucideIcons.users,
+        'color': const Color(0xFF2563EB),
+        'bg': const Color(0xFFDBEAFE),
+        'border': const Color(0xFF93C5FD),
+      },
+      {
+        'label': 'Resident',
+        'icon': LucideIcons.heart,
+        'color': const Color(0xFF16A34A),
+        'bg': const Color(0xFFDCFCE7),
+        'border': const Color(0xFF86EFAC),
+      },
+      {
+        'label': 'Compliance',
+        'icon': LucideIcons.clipboardList,
+        'color': const Color(0xFFEA580C),
+        'bg': const Color(0xFFFFEDD5),
+        'border': const Color(0xFFFDBA74),
+      },
+      {
+        'label': 'Operations',
+        'icon': LucideIcons.cog,
+        'color': const Color(0xFF4B5563),
+        'bg': const Color(0xFFF3F4F6),
+        'border': const Color(0xFFD1D5DB),
+      },
+    ];
+
+    // Actions configs for each category
+    final List<List<Map<String, dynamic>>> actionGroups = [
+      // Emergency Actions
+      [
+        {
+          'label': 'Emergency Alert',
+          'icon': LucideIcons.phoneCall,
+          'action': () => widget.controller.triggerEmergencyAlert(type: 'Code Blue - Medical Alert', wing: 'Memory Care Unit'),
+        },
+        {
+          'label': 'New Incident',
+          'icon': LucideIcons.fileSpreadsheet,
+          'action': null,
+        },
+        {
+          'label': 'Abuse Concern',
+          'icon': LucideIcons.shieldAlert,
+          'action': () => widget.controller.submitIncident(resident: 'Audit Board', type: 'Abuse Allegation Audit', severity: 'Critical', details: 'Immediate supervisor review required.'),
+        },
+        {
+          'label': 'Missing Resident',
+          'icon': LucideIcons.footprints,
+          'action': () => widget.controller.triggerEmergencyAlert(type: 'Code Yellow - Missing Resident', wing: 'East Wing'),
+        },
+        {
+          'label': 'Call 911 Log',
+          'icon': LucideIcons.phone,
+          'action': () => widget.controller.addLog('Log created: 911 emergency services contacted for medical transfer.'),
+        },
+      ],
+      // Staffing Actions
+      [
+        {
+          'label': 'Staff Call-Off',
+          'icon': LucideIcons.userMinus,
+          'action': null,
+        },
+        {
+          'label': 'Open Shift',
+          'icon': LucideIcons.calendarPlus,
+          'action': () => widget.controller.addLog('Open Shift posted to agency pool for weekend coverage.'),
+        },
+        {
+          'label': 'Find Available PSW',
+          'icon': LucideIcons.userCheck,
+          'action': () => widget.controller.addLog('AI search executed: identified 3 off-duty PSWs with matching credentials.'),
+        },
+        {
+          'label': 'Shift Swap',
+          'icon': LucideIcons.refreshCw,
+          'action': () => widget.controller.addLog('Shift swap request approved for Memory Care unit team leads.'),
+        },
+        {
+          'label': 'Overtime Approval',
+          'icon': LucideIcons.dollarSign,
+          'action': () => widget.controller.addLog('Overtime approved for Sarah Connor (PSW) to complete documentation sweep.'),
+        },
+      ],
+      // Resident Actions
+      [
+        {
+          'label': 'Resident Lookup',
+          'icon': LucideIcons.search,
+          'action': null,
+        },
+        {
+          'label': 'Add Care Note',
+          'icon': LucideIcons.fileText,
+          'action': () => widget.controller.addLog('Direct care note posted to resident John Smith\'s chart.'),
+        },
+        {
+          'label': 'Transfer Request',
+          'icon': LucideIcons.arrowLeftRight,
+          'action': () => widget.controller.addLog('Resident room transfer requested from East Wing to Memory Care.'),
+        },
+        {
+          'label': 'Care Escalation',
+          'icon': LucideIcons.trendingUp,
+          'action': () => widget.controller.addLog('Care escalation triggered: care plan review scheduled with RPN supervisor.'),
+        },
+        {
+          'label': 'Family Update',
+          'icon': LucideIcons.phoneOutgoing,
+          'action': () => widget.controller.addLog('Family outreach logged: updated John Smith\'s family regarding fall assessment.'),
+        },
+      ],
+      // Compliance Actions
+      [
+        {
+          'label': 'Missing Charting',
+          'icon': LucideIcons.clipboardList,
+          'action': null,
+        },
+        {
+          'label': 'Incident Audit',
+          'icon': LucideIcons.checkSquare,
+          'action': () => widget.controller.runComplianceScan(),
+        },
+        {
+          'label': 'Infection Audit',
+          'icon': LucideIcons.shieldCheck,
+          'action': () => widget.controller.addLog('Infection audit sweep: validated hand-hygiene records in West Wing.'),
+        },
+        {
+          'label': 'Expired Certs',
+          'icon': LucideIcons.award,
+          'action': () => widget.controller.addLog('Credential review: flagged 2 expiring CPR certifications for staff reminder.'),
+        },
+        {
+          'label': 'PHIPA Alert',
+          'icon': LucideIcons.lock,
+          'action': () => widget.controller.addLog('PHIPA warning: cleared active session timeout limits on administrative terminal.'),
+        },
+      ],
+      // Operations Actions
+      [
+        {
+          'label': 'PPE Inventory',
+          'icon': LucideIcons.box,
+          'action': () => widget.controller.addLog('PPE check: counts validated, 30-day stock level secured.'),
+        },
+        {
+          'label': 'Laundry Status',
+          'icon': LucideIcons.shirt,
+          'action': () => widget.controller.addLog('Laundry service audit: East Wing resident clothing batch complete.'),
+        },
+        {
+          'label': 'Maintenance Request',
+          'icon': LucideIcons.wrench,
+          'action': () => widget.controller.addLog('Work order submitted: repair call for room 204 grab bar loose.'),
+        },
+        {
+          'label': 'Meal Service Issue',
+          'icon': LucideIcons.utensils,
+          'action': () => widget.controller.addLog('Dietary request: logged pureed meal alternative requirements for lunch shift.'),
+        },
+        {
+          'label': 'Transport Request',
+          'icon': LucideIcons.bus,
+          'action': () => widget.controller.addLog('Transportation log: booked clinic shuttle for hospital follow-up check-in.'),
+        },
+      ],
+    ];
+
+    final activeCategory = categories[_selectedCategory];
+    final activeActions = actionGroups[_selectedCategory];
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: theme.colors.surface,
+        borderRadius: BorderRadius.circular(theme.radiusMd),
+        border: Border.all(color: theme.colors.border),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Care Director Quick Action Bar'.tr(),
+                style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: activeCategory['bg'] as Color,
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(color: activeCategory['border'] as Color),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(activeCategory['icon'] as IconData, size: 12, color: activeCategory['color'] as Color),
+                    const SizedBox(width: 4),
+                    Text(
+                      (activeCategory['label'] as String).tr(),
+                      style: theme.typography.labelBold.copyWith(color: activeCategory['color'] as Color, fontSize: 11),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 14),
+          
+          // Category Tab Selector
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: List.generate(categories.length, (idx) {
+                final cat = categories[idx];
+                final isSelected = _selectedCategory == idx;
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: InkWell(
+                    onTap: () => setState(() => _selectedCategory = idx),
+                    borderRadius: BorderRadius.circular(8),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: isSelected ? cat['bg'] as Color : theme.colors.background,
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(
+                          color: isSelected ? cat['border'] as Color : theme.colors.border,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(cat['icon'] as IconData, size: 14, color: isSelected ? cat['color'] as Color : theme.colors.onSurfaceVariant),
+                          const SizedBox(width: 6),
+                          Text(
+                            (cat['label'] as String).tr(),
+                            style: theme.typography.bodySmall.copyWith(
+                              color: isSelected ? cat['color'] as Color : theme.colors.onSurfaceVariant,
+                              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }),
+            ),
+          ),
+          const SizedBox(height: 18),
+          
+          // Action Buttons Wrap Grid
+          Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: activeActions.map((act) {
+              final label = act['label'] as String;
+              final icon = act['icon'] as IconData;
+              final action = act['action'] as void Function()?;
+
+              // Check if button corresponds to one of the top 5 with custom interactive popups
+              final bool isEmergencyDialog = label == 'Emergency Alert';
+              final bool isIncidentDialog = label == 'New Incident';
+              final bool isCallOffDialog = label == 'Staff Call-Off';
+              final bool isLookupDialog = label == 'Resident Lookup';
+              final bool isChartingDialog = label == 'Missing Charting';
+
+              final bool hasCustomDialog = isEmergencyDialog || isIncidentDialog || isCallOffDialog || isLookupDialog || isChartingDialog;
+
+              return InkWell(
+                onTap: () {
+                  if (hasCustomDialog) {
+                    if (isEmergencyDialog) {
+                      _showEmergencyDialog(context, widget.controller);
+                    } else if (isIncidentDialog) {
+                      _showNewIncidentDialog(context, widget.controller);
+                    } else if (isCallOffDialog) {
+                      _showStaffCallOffDialog(context, widget.controller);
+                    } else if (isLookupDialog) {
+                      _showResidentLookupDialog(context, widget.controller, widget.state);
+                    } else if (isChartingDialog) {
+                      _showMissingChartingDialog(context, widget.controller, widget.state);
+                    }
+                  } else {
+                    if (action != null) {
+                      action();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: activeCategory['color'] as Color,
+                          content: Text('Action "$label" executed successfully!'.tr()),
+                        ),
+                      );
+                    }
+                  }
+                },
+                borderRadius: BorderRadius.circular(theme.radiusMd),
+                child: Container(
+                  width: 156,
+                  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+                  decoration: BoxDecoration(
+                    color: theme.colors.background,
+                    borderRadius: BorderRadius.circular(theme.radiusMd),
+                    border: Border.all(color: theme.colors.border),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(icon, size: 24, color: activeCategory['color'] as Color),
+                      const SizedBox(height: 8),
+                      Text(
+                        label.tr(),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.typography.bodySmall.copyWith(
+                          color: theme.colors.onSurface,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ],
+      ),
     );
   }
 }

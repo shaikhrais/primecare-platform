@@ -15,9 +15,12 @@ describe("Screen - adverse_event_reporting_portal", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("adverseeventreportingportal-screen").should("be.visible");
+  cy.getCy("adverseeventreportingportal-title").should("be.visible");
+  cy.getCy("adverseeventreportingportal-content").should("be.visible");
+  cy.getCy("adverse-event-report-btn").should("be.visible");
+  cy.getCy("adverse-event-review-btn").should("be.visible");
+  cy.getCy("guidelines-access-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Adverse Event Reporting Portal...");
   cy.waitAndSee();

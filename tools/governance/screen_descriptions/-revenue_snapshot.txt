@@ -1,0 +1,35 @@
+Franchise Owner Responsibilities:
+1. Monitor revenue performance and trends.
+2. Ensure compliance with operational standards.
+3. Conduct regular audits and assessments.
+4. Manage and respond to operational logs.
+5. Oversee security clearance levels.
+6. Facilitate communication between staff and management.
+7. Implement corrective actions based on audit findings.
+8. Maintain up-to-date knowledge of industry regulations.
+9. Provide training and support to staff as needed.
+10. Analyze key performance indicators (KPIs) for decision-making.
+
+Red Flags of Operation:
+1. Declining revenue trends over consecutive periods.
+2. Increased frequency of compliance issues or audit failures.
+3. Significant discrepancies in operational logs.
+4. Low security clearance levels or exceptions logged.
+5. High employee turnover or dissatisfaction.
+6. Delays in responding to operational issues.
+7. Lack of transparency in financial reporting.
+8. Inconsistent communication from management.
+9. Failure to implement corrective actions in a timely manner.
+10. Negative customer feedback or reviews.
+
+Dashboard Requirements for Franchise Owner:
+1. Real-time revenue metrics and trends.
+2. Compliance status and audit results.
+3. Operational logs with timestamps and actions taken.
+4. Security clearance levels and any exceptions.
+5. Key performance indicators (KPIs) visualizations.
+6. Alerts for any red flags or issues needing attention.
+7. Historical data for trend analysis.
+8. User-friendly interface for quick navigation.
+9. Access to training resources and support materials.
+10. Communication tools for staff engagement and feedback.

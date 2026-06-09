@@ -15,9 +15,12 @@ describe("Screen - therapist_workflow", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("therapist compliance workflow-screen").should("be.visible");
-  cy.getCy("therapist compliance workflow-title").should("be.visible");
-  cy.getCy("therapist compliance workflow-content").should("be.visible");
+  cy.getCy("therapistworkflow-screen").should("be.visible");
+  cy.getCy("therapistworkflow-title").should("be.visible");
+  cy.getCy("therapistworkflow-content").should("be.visible");
+  cy.getCy("therapist-dashboard-btn-quality-sweep").should("be.visible");
+  cy.getCy("therapist-dashboard-btn-view-progress").should("be.visible");
+  cy.getCy("therapist-dashboard-btn-respond-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Therapist Compliance Workflow...");
   cy.waitAndSee();

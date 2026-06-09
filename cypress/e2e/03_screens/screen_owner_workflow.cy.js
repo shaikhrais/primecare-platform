@@ -18,6 +18,9 @@ describe("Screen - owner_workflow", () => {
   cy.getCy("ownerworkflow-screen").should("be.visible");
   cy.getCy("ownerworkflow-title").should("be.visible");
   cy.getCy("ownerworkflow-content").should("be.visible");
+  cy.getCy("franchise-dashboard-sales-report").should("be.visible");
+  cy.getCy("franchise-dashboard-employee-report").should("be.visible");
+  cy.getCy("franchise-dashboard-customer-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OwnerWorkflowScreen...");
   cy.waitAndSee();

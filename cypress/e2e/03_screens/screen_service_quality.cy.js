@@ -18,6 +18,9 @@ describe("Screen - service_quality", () => {
   cy.getCy("servicequality-screen").should("be.visible");
   cy.getCy("servicequality-title").should("be.visible");
   cy.getCy("servicequality-content").should("be.visible");
+  cy.getCy("c-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("c-dashboard-btn-export").should("be.visible");
+  cy.getCy("c-dashboard-btn-view-details").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ServiceQualityScreen...");
   cy.waitAndSee();

@@ -7,17 +7,20 @@ describe("Screen - help_desk_dashboard", () => {
   it("opens and verifies screen help_desk_dashboard", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Help Desk Dashboard)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to SupportRoutes.helpDeskDashboard (Help Desk Dashboard)...");
+  cy.visitWithSemantics("SupportRoutes.helpDeskDashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Help Desk Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("helpdeskdashboard-screen").should("be.visible");
+  cy.getCy("helpdeskdashboard-title").should("be.visible");
+  cy.getCy("helpdeskdashboard-content").should("be.visible");
+  cy.getCy("helpdesk-dashboard-ticket-status").should("be.visible");
+  cy.getCy("helpdesk-dashboard-resolution-time").should("be.visible");
+  cy.getCy("helpdesk-dashboard-user-satisfaction").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Help Desk Dashboard...");
   cy.waitAndSee();

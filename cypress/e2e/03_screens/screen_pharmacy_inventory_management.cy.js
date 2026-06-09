@@ -15,9 +15,12 @@ describe("Screen - pharmacy_inventory_management", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pharmacyinventorymanagement-screen").should("be.visible");
+  cy.getCy("pharmacyinventorymanagement-title").should("be.visible");
+  cy.getCy("pharmacyinventorymanagement-content").should("be.visible");
+  cy.getCy("pharmacy-inventory-monitor").should("be.visible");
+  cy.getCy("pharmacy-stock-update").should("be.visible");
+  cy.getCy("pharmacy-expiration-tracker").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Pharmacy Inventory Management...");
   cy.waitAndSee();

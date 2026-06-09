@@ -18,6 +18,9 @@ describe("Screen - operations_manager_analytics", () => {
   cy.getCy("operationsmanageranalytics-screen").should("be.visible");
   cy.getCy("operationsmanageranalytics-title").should("be.visible");
   cy.getCy("operationsmanageranalytics-content").should("be.visible");
+  cy.getCy("opsmanager-btn-refresh").should("be.visible");
+  cy.getCy("opsmanager-btn-view-report").should("be.visible");
+  cy.getCy("opsmanager-btn-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OperationsManagerAnalyticsScreen...");
   cy.waitAndSee();

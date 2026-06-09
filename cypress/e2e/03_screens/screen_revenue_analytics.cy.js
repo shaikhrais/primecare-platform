@@ -18,6 +18,9 @@ describe("Screen - revenue_analytics", () => {
   cy.getCy("revenueanalytics-screen").should("be.visible");
   cy.getCy("revenueanalytics-title").should("be.visible");
   cy.getCy("revenueanalytics-content").should("be.visible");
+  cy.getCy("revenue-analytics-btn-view-reports").should("be.visible");
+  cy.getCy("revenue-analytics-btn-export-data").should("be.visible");
+  cy.getCy("revenue-analytics-btn-set-goals").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RevenueAnalyticsScreen...");
   cy.waitAndSee();

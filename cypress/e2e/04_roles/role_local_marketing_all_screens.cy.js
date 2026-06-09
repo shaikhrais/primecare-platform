@@ -8,8 +8,8 @@ describe("Role All Screens - local_marketing", () => {
     cy.loginAsRole("local_marketing");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /management/local-marketing-manager-dashboard (LocalMarketingManagerDashboardScreen)...");
-  cy.visitWithSemantics("/management/local-marketing-manager-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /offices/marketing/roles/local_marketing_manager/dashboard (LocalMarketingManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/marketing/roles/local_marketing_manager/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Checking shell & content for LocalMarketingManagerDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - local_marketing", () => {
   cy.getCy("localmarketingmanagerdashboard-screen").should("be.visible");
   cy.getCy("localmarketingmanagerdashboard-title").should("be.visible");
   cy.getCy("localmarketingmanagerdashboard-content").should("be.visible");
+  cy.getCy("localmarketing-dashboard-campaigns").should("be.visible");
+  cy.getCy("localmarketing-dashboard-socialmedia").should("be.visible");
+  cy.getCy("localmarketing-dashboard-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for LocalMarketingManagerDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - local_marketing", () => {
   cy.getCy("localmarketingmanageranalytics-screen").should("be.visible");
   cy.getCy("localmarketingmanageranalytics-title").should("be.visible");
   cy.getCy("localmarketingmanageranalytics-content").should("be.visible");
+  cy.getCy("localmarketing-kpi-overview").should("be.visible");
+  cy.getCy("localmarketing-refresh-data").should("be.visible");
+  cy.getCy("localmarketing-export-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for LocalMarketingManagerAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - local_marketing", () => {
   cy.getCy("localmarketingmanagercompliance-screen").should("be.visible");
   cy.getCy("localmarketingmanagercompliance-title").should("be.visible");
   cy.getCy("localmarketingmanagercompliance-content").should("be.visible");
+  cy.getCy("localmarketing-btn-generate-report").should("be.visible");
+  cy.getCy("localmarketing-btn-view-campaign").should("be.visible");
+  cy.getCy("localmarketing-btn-track-budget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for LocalMarketingManagerComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - local_marketing", () => {
   cy.getCy("localmarketingmanagerworkflow-screen").should("be.visible");
   cy.getCy("localmarketingmanagerworkflow-title").should("be.visible");
   cy.getCy("localmarketingmanagerworkflow-content").should("be.visible");
+  cy.getCy("localmarketing-btn-addcampaign").should("be.visible");
+  cy.getCy("localmarketing-btn-viewreports").should("be.visible");
+  cy.getCy("localmarketing-btn-adjustbudget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for LocalMarketingManagerWorkflowScreen...");
   cy.waitAndSee();

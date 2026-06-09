@@ -1,0 +1,20 @@
+List of work for the user:
+1. Review financial data and metrics displayed on the CFO Financial Overview screen.
+2. Monitor loading states and handle any errors that may arise during data fetching.
+3. Ensure the screen is user-friendly and provides clear insights into financial performance.
+4. Utilize the dashboard to track key performance indicators (KPIs) relevant to financial health.
+5. Provide feedback on the usability and functionality of the screen.
+
+Red flags of operation:
+1. Frequent loading states indicating potential performance issues or slow data retrieval.
+2. Error messages that may suggest underlying problems with data sources or API integrations.
+3. Lack of clarity in the displayed financial metrics, leading to confusion or misinterpretation.
+4. Inconsistent data updates that could mislead decision-making processes.
+5. User complaints regarding navigation or accessibility of the financial overview features.
+
+What is needed on the user dashboard:
+1. Real-time financial metrics and KPIs for quick assessment.
+2. Visual representations (charts, graphs) to enhance data comprehension.
+3. Alerts or notifications for significant changes in financial data.
+4. User customization options for displaying preferred metrics.
+5. Historical data comparisons to track trends over time.

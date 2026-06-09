@@ -15,9 +15,11 @@ describe("Screen - integration_health_monitor", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("integrationhealthmonitor-screen").should("be.visible");
+  cy.getCy("integrationhealthmonitor-title").should("be.visible");
+  cy.getCy("integrationhealthmonitor-content").should("be.visible");
+  cy.getCy("integration-health-refresh").should("be.visible");
+  cy.getCy("integration-view-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Integration Health Monitor...");
   cy.waitAndSee();

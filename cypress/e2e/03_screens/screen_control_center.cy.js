@@ -7,17 +7,17 @@ describe("Screen - control_center", () => {
   it("opens and verifies screen control_center", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Control Center)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /governance/control-center (Control Center)...");
+  cy.visitWithSemantics("/governance/control-center");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Control Center...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("controlcenter-screen").should("be.visible");
+  cy.getCy("controlcenter-title").should("be.visible");
+  cy.getCy("controlcenter-content").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Control Center...");
   cy.waitAndSee();

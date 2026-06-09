@@ -18,6 +18,9 @@ describe("Screen - adjustment_notes", () => {
   cy.getCy("adjustmentnotes-screen").should("be.visible");
   cy.getCy("adjustmentnotes-title").should("be.visible");
   cy.getCy("adjustmentnotes-content").should("be.visible");
+  cy.getCy("dashboard-btn-view-records").should("be.visible");
+  cy.getCy("dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("dashboard-btn-update-treatment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for AdjustmentNotesScreen...");
   cy.waitAndSee();

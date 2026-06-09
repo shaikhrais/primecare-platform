@@ -18,6 +18,9 @@ describe("Screen - audit_review", () => {
   cy.getCy("auditreview-screen").should("be.visible");
   cy.getCy("auditreview-title").should("be.visible");
   cy.getCy("auditreview-content").should("be.visible");
+  cy.getCy("compliance-status-overview").should("be.visible");
+  cy.getCy("recent-audits-list").should("be.visible");
+  cy.getCy("compliance-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for AuditReviewScreen...");
   cy.waitAndSee();

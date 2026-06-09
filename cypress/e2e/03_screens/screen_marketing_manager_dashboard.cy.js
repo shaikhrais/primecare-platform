@@ -7,17 +7,20 @@ describe("Screen - marketing_manager_dashboard", () => {
   it("opens and verifies screen marketing_manager_dashboard", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Marketing Manager Dashboard)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/marketing_manager/dashboard (Marketing Manager Dashboard)...");
+  cy.visitWithSemantics("/offices/franchise/roles/marketing_manager/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Marketing Manager Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("marketingmanagerdashboard-screen").should("be.visible");
+  cy.getCy("marketingmanagerdashboard-title").should("be.visible");
+  cy.getCy("marketingmanagerdashboard-content").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-adjust-tactics").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-collaborate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Marketing Manager Dashboard...");
   cy.waitAndSee();

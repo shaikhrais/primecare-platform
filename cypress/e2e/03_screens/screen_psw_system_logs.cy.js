@@ -15,9 +15,11 @@ describe("Screen - psw_system_logs", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pswsystemlogs-screen").should("be.visible");
+  cy.getCy("pswsystemlogs-title").should("be.visible");
+  cy.getCy("pswsystemlogs-content").should("be.visible");
+  cy.getCy("pswlogs-btn-export").should("be.visible");
+  cy.getCy("pswlogs-btn-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Psw System Logs...");
   cy.waitAndSee();

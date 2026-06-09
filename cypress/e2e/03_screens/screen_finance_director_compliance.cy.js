@@ -18,6 +18,9 @@ describe("Screen - finance_director_compliance", () => {
   cy.getCy("financedirectorcompliance-screen").should("be.visible");
   cy.getCy("financedirectorcompliance-title").should("be.visible");
   cy.getCy("financedirectorcompliance-content").should("be.visible");
+  cy.getCy("finance-kpi-widget").should("be.visible");
+  cy.getCy("finance-cashflow-chart").should("be.visible");
+  cy.getCy("finance-budget-tracker").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FinanceDirectorComplianceScreen...");
   cy.waitAndSee();

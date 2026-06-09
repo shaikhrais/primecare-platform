@@ -18,6 +18,9 @@ describe("Screen - cto_analytics", () => {
   cy.getCy("ctoanalytics-screen").should("be.visible");
   cy.getCy("ctoanalytics-title").should("be.visible");
   cy.getCy("ctoanalytics-content").should("be.visible");
+  cy.getCy("cto-dashboard-project-status").should("be.visible");
+  cy.getCy("cto-dashboard-budget-utilization").should("be.visible");
+  cy.getCy("cto-dashboard-team-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CtoAnalyticsScreen...");
   cy.waitAndSee();

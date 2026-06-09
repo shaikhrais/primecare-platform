@@ -18,6 +18,9 @@ describe("Screen - psw_my_shifts", () => {
   cy.getCy("pswmyshifts-screen").should("be.visible");
   cy.getCy("pswmyshifts-title").should("be.visible");
   cy.getCy("pswmyshifts-content").should("be.visible");
+  cy.getCy("psw-dashboard-btn-view-shift").should("be.visible");
+  cy.getCy("psw-dashboard-btn-audit-compliance").should("be.visible");
+  cy.getCy("psw-dashboard-btn-update-health").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PswMyShiftsScreen...");
   cy.waitAndSee();

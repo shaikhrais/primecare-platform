@@ -15,9 +15,12 @@ describe("Screen - access_review_certifier", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("accessreviewcertifier-screen").should("be.visible");
+  cy.getCy("accessreviewcertifier-title").should("be.visible");
+  cy.getCy("accessreviewcertifier-content").should("be.visible");
+  cy.getCy("accessreview-btn-review").should("be.visible");
+  cy.getCy("accessreview-btn-certify").should("be.visible");
+  cy.getCy("accessreview-btn-revoke").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Access Review Certifier...");
   cy.waitAndSee();

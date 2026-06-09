@@ -18,6 +18,9 @@ describe("Screen - ciso_workflow", () => {
   cy.getCy("cisoworkflow-screen").should("be.visible");
   cy.getCy("cisoworkflow-title").should("be.visible");
   cy.getCy("cisoworkflow-content").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-view-reports").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-send-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CisoWorkflowScreen...");
   cy.waitAndSee();

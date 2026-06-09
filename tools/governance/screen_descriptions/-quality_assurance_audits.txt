@@ -1,0 +1,21 @@
+User Work List:
+1. Review quality assurance audit reports.
+2. Conduct audits on various processes.
+3. Document findings and recommendations.
+4. Collaborate with team members to implement improvements.
+5. Monitor the effectiveness of implemented changes.
+6. Provide feedback on audit processes.
+
+Red Flags of Operation:
+1. Frequent errors or inconsistencies in audit reports.
+2. Delays in completing audits or reporting findings.
+3. Lack of communication among team members.
+4. Resistance to implementing recommended changes.
+5. Inconsistent follow-up on previous audits.
+
+Dashboard Needs:
+1. Overview of current audit status (completed, in progress, pending).
+2. Key performance indicators (KPIs) related to audit effectiveness.
+3. Alerts for overdue audits or follow-ups.
+4. Summary of findings from recent audits.
+5. User feedback section for continuous improvement suggestions.

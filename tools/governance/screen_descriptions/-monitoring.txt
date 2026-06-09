@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor system performance and health.
+2. Identify and address any operational issues.
+3. Review alerts and notifications for anomalies.
+4. Analyze data trends for proactive management.
+5. Generate reports on system status and performance metrics.
+
+Red flags of operation:
+1. Frequent errors or failures in system processes.
+2. Unusual spikes in resource usage (CPU, memory, etc.).
+3. Delays in response times or service availability.
+4. High rates of user complaints or support tickets.
+5. Inconsistent data or reporting discrepancies.
+
+What we need on the dashboard of the user:
+1. Real-time performance metrics (CPU, memory, disk usage).
+2. Alerts and notifications for critical issues.
+3. Visual representation of data trends (graphs/charts).
+4. Summary of recent operational incidents and resolutions.
+5. Access to detailed logs for troubleshooting purposes.

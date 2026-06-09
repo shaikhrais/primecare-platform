@@ -1,0 +1,35 @@
+Infrastructure Auditor Responsibilities:
+1. Conduct regular audits of infrastructure components.
+2. Assess compliance with security policies and regulations.
+3. Identify vulnerabilities and risks in the infrastructure.
+4. Review and analyze system performance metrics.
+5. Ensure proper documentation of infrastructure configurations.
+6. Evaluate disaster recovery and business continuity plans.
+7. Collaborate with IT teams to implement corrective actions.
+8. Maintain an inventory of all infrastructure assets.
+9. Report findings and recommendations to management.
+10. Stay updated on industry best practices and emerging technologies.
+
+Red Flags of Operation:
+1. Frequent system outages or downtime.
+2. Unpatched vulnerabilities in software or hardware.
+3. Inconsistent documentation or lack of documentation.
+4. Unauthorized access attempts or security breaches.
+5. Poor performance metrics indicating resource bottlenecks.
+6. Non-compliance with regulatory requirements.
+7. Lack of a clear disaster recovery plan.
+8. High turnover rates in IT staff.
+9. Inadequate training for personnel on infrastructure management.
+10. Insufficient monitoring of infrastructure components.
+
+Dashboard Requirements for Infrastructure Auditor:
+1. Overview of infrastructure health and performance metrics.
+2. Alerts for security incidents or compliance violations.
+3. Visualization of system uptime and downtime statistics.
+4. Inventory of infrastructure assets with status indicators.
+5. Reports on audit findings and remediation actions.
+6. Historical data trends for performance and security metrics.
+7. Integration with monitoring tools for real-time data.
+8. Access to documentation and policies related to infrastructure.
+9. User activity logs for auditing access and changes.
+10. Summary of ongoing and completed audit activities.

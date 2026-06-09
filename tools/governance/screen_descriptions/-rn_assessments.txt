@@ -1,0 +1,25 @@
+Registered Nurse (RN) Responsibilities:
+1. Conduct patient assessments (mobility, cognitive, nutritional).
+2. Record and track assessment scores.
+3. Submit assessments for documentation.
+4. Monitor and update patient health status.
+5. Communicate with healthcare team regarding patient care.
+6. Maintain accurate assessment history.
+7. Ensure compliance with healthcare regulations and standards.
+
+Red Flags in Operations:
+1. High variability in assessment scores indicating inconsistent evaluations.
+2. Delays in submitting assessments leading to incomplete patient records.
+3. Frequent errors in recorded data.
+4. Lack of communication with the healthcare team.
+5. Inability to access historical assessment data.
+6. High number of patients with low scores in critical categories (mobility, cognitive, nutritional).
+
+Dashboard Needs for Registered Nurse (RN):
+1. Overview of current patient assessments and scores.
+2. Quick access to assessment history.
+3. Alerts for patients with critical scores.
+4. Submission status of assessments.
+5. Visual representation of trends in patient scores over time.
+6. Communication tools for collaboration with the healthcare team.
+7. Access to educational resources for improving assessment skills.

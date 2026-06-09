@@ -7,8 +7,8 @@ describe("Screen - head_of_marketing_dashboard", () => {
   it("opens and verifies screen head_of_marketing_dashboard", () => {
     cy.loginAsRole("marketing");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /management/head-of-marketing-dashboard (HeadOfMarketingDashboardScreen)...");
-  cy.visitWithSemantics("/management/head-of-marketing-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/head_of_marketing/dashboard (HeadOfMarketingDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/head_of_marketing/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for HeadOfMarketingDashboardScreen...");
@@ -18,6 +18,9 @@ describe("Screen - head_of_marketing_dashboard", () => {
   cy.getCy("headofmarketingdashboard-screen").should("be.visible");
   cy.getCy("headofmarketingdashboard-title").should("be.visible");
   cy.getCy("headofmarketingdashboard-content").should("be.visible");
+  cy.getCy("marketing-dashboard-campaigns").should("be.visible");
+  cy.getCy("marketing-dashboard-analytics").should("be.visible");
+  cy.getCy("marketing-dashboard-budget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HeadOfMarketingDashboardScreen...");
   cy.waitAndSee();

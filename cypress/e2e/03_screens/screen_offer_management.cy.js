@@ -18,6 +18,9 @@ describe("Screen - offer_management", () => {
   cy.getCy("offermanagement-screen").should("be.visible");
   cy.getCy("offermanagement-title").should("be.visible");
   cy.getCy("offermanagement-content").should("be.visible");
+  cy.getCy("recruitment-metrics-card").should("be.visible");
+  cy.getCy("candidate-pipeline-chart").should("be.visible");
+  cy.getCy("diversity-metrics-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OfferManagementScreen...");
   cy.waitAndSee();

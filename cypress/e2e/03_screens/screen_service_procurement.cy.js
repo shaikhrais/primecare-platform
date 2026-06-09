@@ -15,9 +15,12 @@ describe("Screen - service_procurement", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("serviceprocurement-screen").should("be.visible");
+  cy.getCy("serviceprocurement-title").should("be.visible");
+  cy.getCy("serviceprocurement-content").should("be.visible");
+  cy.getCy("procurement-btn-submit").should("be.visible");
+  cy.getCy("procurement-btn-approve").should("be.visible");
+  cy.getCy("procurement-btn-update-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Service Procurement...");
   cy.waitAndSee();

@@ -15,9 +15,11 @@ describe("Screen - regulatory_change_radar", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("regulatorychangeradar-screen").should("be.visible");
+  cy.getCy("regulatorychangeradar-title").should("be.visible");
+  cy.getCy("regulatorychangeradar-content").should("be.visible");
+  cy.getCy("regulatory-change-refresh").should("be.visible");
+  cy.getCy("regulatory-change-error").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Regulatory Change Radar...");
   cy.waitAndSee();

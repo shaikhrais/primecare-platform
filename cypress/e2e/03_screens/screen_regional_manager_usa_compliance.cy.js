@@ -18,6 +18,9 @@ describe("Screen - regional_manager_usa_compliance", () => {
   cy.getCy("regionalmanagerusacompliance-screen").should("be.visible");
   cy.getCy("regionalmanagerusacompliance-title").should("be.visible");
   cy.getCy("regionalmanagerusacompliance-content").should("be.visible");
+  cy.getCy("compliance-audit-status").should("be.visible");
+  cy.getCy("telemetry-log-widget").should("be.visible");
+  cy.getCy("security-policy-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RegionalManagerUsaComplianceScreen...");
   cy.waitAndSee();

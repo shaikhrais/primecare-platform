@@ -18,6 +18,9 @@ describe("Screen - general_manager_analytics", () => {
   cy.getCy("generalmanageranalytics-screen").should("be.visible");
   cy.getCy("generalmanageranalytics-title").should("be.visible");
   cy.getCy("generalmanageranalytics-content").should("be.visible");
+  cy.getCy("gm-analytics-kpi").should("be.visible");
+  cy.getCy("gm-analytics-employee-performance").should("be.visible");
+  cy.getCy("gm-analytics-customer-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for GeneralManagerAnalyticsScreen...");
   cy.waitAndSee();

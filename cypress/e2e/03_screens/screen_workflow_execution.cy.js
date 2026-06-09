@@ -18,6 +18,9 @@ describe("Screen - workflow_execution", () => {
   cy.getCy("workflowexecution-screen").should("be.visible");
   cy.getCy("workflowexecution-title").should("be.visible");
   cy.getCy("workflowexecution-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-view-audit-logs").should("be.visible");
+  cy.getCy("gov-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("gov-dashboard-btn-request-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for WorkflowExecutionScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - governed", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("governed-screen").should("be.visible");
+  cy.getCy("governed-title").should("be.visible");
+  cy.getCy("governed-content").should("be.visible");
+  cy.getCy("gov-btn-validate-policies").should("be.visible");
+  cy.getCy("gov-btn-enforce-policies").should("be.visible");
+  cy.getCy("gov-btn-monitor-access").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Governed...");
   cy.waitAndSee();

@@ -18,6 +18,8 @@ describe("Screen - compliance_manager_compliance", () => {
   cy.getCy("compliancemanagercompliance-screen").should("be.visible");
   cy.getCy("compliancemanagercompliance-title").should("be.visible");
   cy.getCy("compliancemanagercompliance-content").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-execute-scan").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ComplianceManagerComplianceScreen...");
   cy.waitAndSee();

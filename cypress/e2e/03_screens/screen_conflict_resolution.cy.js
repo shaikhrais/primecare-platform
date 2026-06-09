@@ -18,6 +18,9 @@ describe("Screen - conflict_resolution", () => {
   cy.getCy("conflictresolution-screen").should("be.visible");
   cy.getCy("conflictresolution-title").should("be.visible");
   cy.getCy("conflictresolution-content").should("be.visible");
+  cy.getCy("shift-supervisor-btn-add-incident").should("be.visible");
+  cy.getCy("shift-supervisor-btn-resolve-conflict").should("be.visible");
+  cy.getCy("shift-supervisor-btn-schedule-meeting").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ConflictResolutionScreen...");
   cy.waitAndSee();

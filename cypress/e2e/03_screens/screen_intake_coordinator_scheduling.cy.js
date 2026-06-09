@@ -15,9 +15,12 @@ describe("Screen - intake_coordinator_scheduling", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("intakecoordinatorscheduling-screen").should("be.visible");
+  cy.getCy("intakecoordinatorscheduling-title").should("be.visible");
+  cy.getCy("intakecoordinatorscheduling-content").should("be.visible");
+  cy.getCy("intake-scheduler-btn-schedule").should("be.visible");
+  cy.getCy("intake-manager-btn-update").should("be.visible");
+  cy.getCy("intake-communication-btn-send").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Intake Coordinator Scheduling...");
   cy.waitAndSee();

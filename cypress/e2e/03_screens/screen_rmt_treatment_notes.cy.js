@@ -18,6 +18,9 @@ describe("Screen - rmt_treatment_notes", () => {
   cy.getCy("rmttreatmentnotes-screen").should("be.visible");
   cy.getCy("rmttreatmentnotes-title").should("be.visible");
   cy.getCy("rmttreatmentnotes-content").should("be.visible");
+  cy.getCy("rmt-dashboard-client-overview").should("be.visible");
+  cy.getCy("rmt-dashboard-compliance-status").should("be.visible");
+  cy.getCy("rmt-dashboard-kpi-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RmtTreatmentNotesScreen...");
   cy.waitAndSee();

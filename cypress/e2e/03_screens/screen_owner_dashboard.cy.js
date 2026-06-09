@@ -7,8 +7,8 @@ describe("Screen - owner_dashboard", () => {
   it("opens and verifies screen owner_dashboard", () => {
     cy.loginAsRole("owner");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/owner-dashboard (OwnerDashboardScreen)...");
-  cy.visitWithSemantics("/executive/owner-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/owner/dashboard (OwnerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/owner/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for OwnerDashboardScreen...");
@@ -18,6 +18,9 @@ describe("Screen - owner_dashboard", () => {
   cy.getCy("ownerdashboard-screen").should("be.visible");
   cy.getCy("ownerdashboard-title").should("be.visible");
   cy.getCy("ownerdashboard-content").should("be.visible");
+  cy.getCy("owner-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("owner-dashboard-btn-compliance-scan").should("be.visible");
+  cy.getCy("owner-dashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OwnerDashboardScreen...");
   cy.waitAndSee();

@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor community outreach contacts.
+2. Review and update contact information as necessary.
+3. Engage with community members through outreach efforts.
+4. Analyze outreach effectiveness and gather feedback.
+5. Report on outreach activities and outcomes.
+
+Red flags of operation:
+1. Frequent errors loading features or data.
+2. Delays in updating contact information.
+3. Low engagement rates with community members.
+4. Negative feedback from community outreach efforts.
+5. Inconsistent data displayed on the dashboard.
+
+What we need on the user dashboard:
+1. Overview of community outreach contacts.
+2. Status indicators for data loading and updates.
+3. Engagement metrics (e.g., number of interactions, feedback scores).
+4. Alerts for any errors or issues encountered.
+5. Quick access to update contact information and outreach reports.

@@ -7,8 +7,8 @@ describe("Screen - territory_sales_manager_dashboard", () => {
   it("opens and verifies screen territory_sales_manager_dashboard", () => {
     cy.loginAsRole("territory_sales");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /management/territory-sales-manager-dashboard (TerritorySalesManagerDashboardScreen)...");
-  cy.visitWithSemantics("/management/territory-sales-manager-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/marketing/roles/territory_sales_manager/dashboard (TerritorySalesManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/marketing/roles/territory_sales_manager/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for TerritorySalesManagerDashboardScreen...");
@@ -18,6 +18,9 @@ describe("Screen - territory_sales_manager_dashboard", () => {
   cy.getCy("territorysalesmanagerdashboard-screen").should("be.visible");
   cy.getCy("territorysalesmanagerdashboard-title").should("be.visible");
   cy.getCy("territorysalesmanagerdashboard-content").should("be.visible");
+  cy.getCy("dashboard-sales-performance").should("be.visible");
+  cy.getCy("dashboard-customer-satisfaction").should("be.visible");
+  cy.getCy("dashboard-compliance-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TerritorySalesManagerDashboardScreen...");
   cy.waitAndSee();

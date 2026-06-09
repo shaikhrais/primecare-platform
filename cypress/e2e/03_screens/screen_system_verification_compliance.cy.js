@@ -18,6 +18,9 @@ describe("Screen - system_verification_compliance", () => {
   cy.getCy("systemverificationcompliance-screen").should("be.visible");
   cy.getCy("systemverificationcompliance-title").should("be.visible");
   cy.getCy("systemverificationcompliance-content").should("be.visible");
+  cy.getCy("compliance-audit-status-card").should("be.visible");
+  cy.getCy("security-incident-summary").should("be.visible");
+  cy.getCy("governance-directive-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SystemVerificationComplianceScreen...");
   cy.waitAndSee();

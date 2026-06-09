@@ -18,6 +18,9 @@ describe("Screen - compliance_manager_workflow", () => {
   cy.getCy("compliancemanagerworkflow-screen").should("be.visible");
   cy.getCy("compliancemanagerworkflow-title").should("be.visible");
   cy.getCy("compliancemanagerworkflow-content").should("be.visible");
+  cy.getCy("compliance-status-indicator").should("be.visible");
+  cy.getCy("compliance-breach-counter").should("be.visible");
+  cy.getCy("audit-results-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ComplianceManagerWorkflowScreen...");
   cy.waitAndSee();

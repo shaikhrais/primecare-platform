@@ -18,6 +18,9 @@ describe("Screen - hr_manager_analytics", () => {
   cy.getCy("hrmanageranalytics-screen").should("be.visible");
   cy.getCy("hrmanageranalytics-title").should("be.visible");
   cy.getCy("hrmanageranalytics-content").should("be.visible");
+  cy.getCy("hr-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hr-dashboard-btn-view-details").should("be.visible");
+  cy.getCy("hr-dashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HrManagerAnalyticsScreen...");
   cy.waitAndSee();

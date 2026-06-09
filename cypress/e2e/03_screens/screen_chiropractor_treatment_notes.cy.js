@@ -18,6 +18,9 @@ describe("Screen - chiropractor_treatment_notes", () => {
   cy.getCy("chiropractortreatmentnotes-screen").should("be.visible");
   cy.getCy("chiropractortreatmentnotes-title").should("be.visible");
   cy.getCy("chiropractortreatmentnotes-content").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-run-compliance-scan").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-view-feedback").should("be.visible");
+  cy.getCy("chiropractor-dashboard-btn-generate-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ChiropractorTreatmentNotesScreen...");
   cy.waitAndSee();

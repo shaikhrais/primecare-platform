@@ -18,6 +18,9 @@ describe("Screen - rn_medications", () => {
   cy.getCy("rnmedications-screen").should("be.visible");
   cy.getCy("rnmedications-title").should("be.visible");
   cy.getCy("rnmedications-content").should("be.visible");
+  cy.getCy("rn-dashboard-patient-status").should("be.visible");
+  cy.getCy("rn-dashboard-medication-compliance").should("be.visible");
+  cy.getCy("rn-dashboard-assessment-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RnMedicationsScreen...");
   cy.waitAndSee();

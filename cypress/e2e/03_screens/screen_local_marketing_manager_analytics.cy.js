@@ -18,6 +18,9 @@ describe("Screen - local_marketing_manager_analytics", () => {
   cy.getCy("localmarketingmanageranalytics-screen").should("be.visible");
   cy.getCy("localmarketingmanageranalytics-title").should("be.visible");
   cy.getCy("localmarketingmanageranalytics-content").should("be.visible");
+  cy.getCy("localmarketing-kpi-overview").should("be.visible");
+  cy.getCy("localmarketing-refresh-data").should("be.visible");
+  cy.getCy("localmarketing-export-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for LocalMarketingManagerAnalyticsScreen...");
   cy.waitAndSee();

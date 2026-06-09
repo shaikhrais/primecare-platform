@@ -1,0 +1,23 @@
+List of work for the User:
+1. Monitor staffing levels and ensure adequate coverage.
+2. Review and approve staffing requests.
+3. Analyze staffing data to identify trends and needs.
+4. Communicate with team members regarding staffing changes.
+5. Address any staffing-related issues or concerns.
+6. Generate reports on staffing efficiency and effectiveness.
+
+Red flags of operation:
+1. High turnover rates among staff.
+2. Frequent understaffing or overstaffing situations.
+3. Delays in staffing requests being processed.
+4. Increased number of complaints related to staffing.
+5. Lack of communication regarding staffing changes.
+6. Inconsistent data reporting on staffing levels.
+
+What is needed on the User dashboard:
+1. Real-time staffing levels and availability.
+2. Alerts for understaffing or overstaffing situations.
+3. Quick access to staffing request approvals.
+4. Visualizations of staffing trends over time.
+5. Communication tools for team updates.
+6. Summary reports on staffing efficiency and issues.

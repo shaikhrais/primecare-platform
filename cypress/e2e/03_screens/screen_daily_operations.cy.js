@@ -18,6 +18,9 @@ describe("Screen - daily_operations", () => {
   cy.getCy("dailyoperations-screen").should("be.visible");
   cy.getCy("dailyoperations-title").should("be.visible");
   cy.getCy("dailyoperations-content").should("be.visible");
+  cy.getCy("operations-kpi-widget").should("be.visible");
+  cy.getCy("operations-compliance-status").should("be.visible");
+  cy.getCy("operations-metrics-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for DailyOperationsScreen...");
   cy.waitAndSee();

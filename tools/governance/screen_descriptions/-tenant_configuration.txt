@@ -1,0 +1,18 @@
+User Tasks:
+1. View active tenants and their statuses.
+2. Add new tenants.
+3. Monitor billing status of tenants.
+4. Access the financial hub for detailed billing information.
+
+Red Flags of Operation:
+1. Failure to load tenant data, indicated by an error message.
+2. No tenants configured, which may suggest a lack of setup or data entry.
+3. Any discrepancies in tenant status that could indicate issues with tenant management.
+
+Dashboard Requirements:
+1. Display a loading indicator while fetching tenant data.
+2. Show error messages clearly when data fails to load.
+3. List active tenants with their names and statuses.
+4. Provide an option to add new tenants.
+5. Indicate billing status and provide access to the financial hub.
+6. Ensure the interface is user-friendly and responsive for various screen sizes.

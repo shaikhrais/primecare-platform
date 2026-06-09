@@ -18,6 +18,9 @@ describe("Screen - shareholder_workflow", () => {
   cy.getCy("shareholderworkflow-screen").should("be.visible");
   cy.getCy("shareholderworkflow-title").should("be.visible");
   cy.getCy("shareholderworkflow-content").should("be.visible");
+  cy.getCy("shareholder-dashboard-compliance-metric").should("be.visible");
+  cy.getCy("shareholder-dashboard-log-viewer").should("be.visible");
+  cy.getCy("shareholder-dashboard-workflow-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ShareholderWorkflowScreen...");
   cy.waitAndSee();

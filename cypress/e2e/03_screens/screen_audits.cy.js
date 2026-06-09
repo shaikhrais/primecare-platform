@@ -7,17 +7,20 @@ describe("Screen - audits", () => {
   it("opens and verifies screen audits", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Audits)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/compliance_manager/audits (Audits)...");
+  cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/audits");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Audits...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("audits-screen").should("be.visible");
+  cy.getCy("audits-title").should("be.visible");
+  cy.getCy("audits-content").should("be.visible");
+  cy.getCy("audit-status-overview").should("be.visible");
+  cy.getCy("audit-kpi-chart").should("be.visible");
+  cy.getCy("red-flag-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Audits...");
   cy.waitAndSee();

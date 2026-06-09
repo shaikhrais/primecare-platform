@@ -15,9 +15,12 @@ describe("Screen - email_marketing_automator", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("emailmarketingautomator-screen").should("be.visible");
+  cy.getCy("emailmarketingautomator-title").should("be.visible");
+  cy.getCy("emailmarketingautomator-content").should("be.visible");
+  cy.getCy("emailjourney-btn-refresh").should("be.visible");
+  cy.getCy("emailjourney-btn-create").should("be.visible");
+  cy.getCy("emailjourney-btn-toggle").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Email Marketing Automator...");
   cy.waitAndSee();

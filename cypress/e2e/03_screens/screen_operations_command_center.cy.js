@@ -18,6 +18,9 @@ describe("Screen - operations_command_center", () => {
   cy.getCy("operationscommandcenter-screen").should("be.visible");
   cy.getCy("operationscommandcenter-title").should("be.visible");
   cy.getCy("operationscommandcenter-content").should("be.visible");
+  cy.getCy("operations-dashboard-kpi").should("be.visible");
+  cy.getCy("operations-dashboard-metrics").should("be.visible");
+  cy.getCy("operations-dashboard-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OperationsCommandCenterScreen...");
   cy.waitAndSee();

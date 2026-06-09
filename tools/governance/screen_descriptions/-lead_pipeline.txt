@@ -1,0 +1,18 @@
+User Tasks:
+1. View the lead pipeline stages: Prospect, Contacted, Negotiation, Closed Won, Closed Lost.
+2. Add a new lead using the "Add New Lead" button.
+3. Refresh the lead data using the "Refresh Pipeline" button.
+4. Review leads in each stage, including company name, contact name, and expected value.
+
+Red Flags of Operation:
+1. Loading errors when fetching leads, indicated by an error message.
+2. No leads displayed in any stage, which may indicate data retrieval issues.
+3. Performance issues when rendering large numbers of leads or stages.
+4. Inconsistent data display, such as missing company or contact names.
+
+Dashboard Requirements:
+1. Display total number of leads in each stage.
+2. Show a loading indicator while fetching data.
+3. Provide error messages for failed data retrieval.
+4. Include a summary of leads with key metrics (e.g., total expected value, number of leads per stage).
+5. Allow for easy navigation to add new leads or refresh the data.

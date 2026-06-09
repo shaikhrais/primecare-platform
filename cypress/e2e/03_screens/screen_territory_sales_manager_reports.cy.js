@@ -15,9 +15,12 @@ describe("Screen - territory_sales_manager_reports", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("territorysalesmanagerreports-screen").should("be.visible");
+  cy.getCy("territorysalesmanagerreports-title").should("be.visible");
+  cy.getCy("territorysalesmanagerreports-content").should("be.visible");
+  cy.getCy("salesreport-btn-refresh").should("be.visible");
+  cy.getCy("salesreport-btn-download").should("be.visible");
+  cy.getCy("salesreport-btn-customize").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Territory Sales Manager Reports...");
   cy.waitAndSee();

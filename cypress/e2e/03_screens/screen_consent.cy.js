@@ -15,9 +15,12 @@ describe("Screen - consent", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("consent-screen").should("be.visible");
+  cy.getCy("consent-title").should("be.visible");
+  cy.getCy("consent-content").should("be.visible");
+  cy.getCy("consent-btn-login").should("be.visible");
+  cy.getCy("consent-btn-signout").should("be.visible");
+  cy.getCy("consent-btn-continue").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Consent...");
   cy.waitAndSee();

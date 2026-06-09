@@ -18,6 +18,9 @@ describe("Screen - scrum_master_compliance", () => {
   cy.getCy("scrummastercompliance-screen").should("be.visible");
   cy.getCy("scrummastercompliance-title").should("be.visible");
   cy.getCy("scrummastercompliance-content").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-add-impediment").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-resolve-impediment").should("be.visible");
+  cy.getCy("scrum-dashboard-btn-record-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ScrumMasterComplianceScreen...");
   cy.waitAndSee();

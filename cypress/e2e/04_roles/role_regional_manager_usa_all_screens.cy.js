@@ -8,8 +8,8 @@ describe("Role All Screens - regional_manager_usa", () => {
     cy.loginAsRole("regional_manager_usa");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /management/regional-manager-usa-dashboard (RegionalManagerUsaDashboardScreen)...");
-  cy.visitWithSemantics("/management/regional-manager-usa-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /offices/business_development/roles/regional_manager_usa/dashboard (RegionalManagerUsaDashboardScreen)...");
+  cy.visitWithSemantics("/offices/business_development/roles/regional_manager_usa/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Checking shell & content for RegionalManagerUsaDashboardScreen...");
@@ -19,6 +19,8 @@ describe("Role All Screens - regional_manager_usa", () => {
   cy.getCy("regionalmanagerusadashboard-screen").should("be.visible");
   cy.getCy("regionalmanagerusadashboard-title").should("be.visible");
   cy.getCy("regionalmanagerusadashboard-content").should("be.visible");
+  cy.getCy("dashboard-btn-run-compliance-scan").should("be.visible");
+  cy.getCy("dashboard-btn-export-audit-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for RegionalManagerUsaDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +39,9 @@ describe("Role All Screens - regional_manager_usa", () => {
   cy.getCy("regionalmanagerusaanalytics-screen").should("be.visible");
   cy.getCy("regionalmanagerusaanalytics-title").should("be.visible");
   cy.getCy("regionalmanagerusaanalytics-content").should("be.visible");
+  cy.getCy("regionalmanager-sales-performance").should("be.visible");
+  cy.getCy("regionalmanager-customer-feedback").should("be.visible");
+  cy.getCy("regionalmanager-budget-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for RegionalManagerUsaAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +60,9 @@ describe("Role All Screens - regional_manager_usa", () => {
   cy.getCy("regionalmanagerusacompliance-screen").should("be.visible");
   cy.getCy("regionalmanagerusacompliance-title").should("be.visible");
   cy.getCy("regionalmanagerusacompliance-content").should("be.visible");
+  cy.getCy("compliance-audit-status").should("be.visible");
+  cy.getCy("telemetry-log-widget").should("be.visible");
+  cy.getCy("security-policy-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for RegionalManagerUsaComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +81,9 @@ describe("Role All Screens - regional_manager_usa", () => {
   cy.getCy("regionalmanagerusaworkflow-screen").should("be.visible");
   cy.getCy("regionalmanagerusaworkflow-title").should("be.visible");
   cy.getCy("regionalmanagerusaworkflow-content").should("be.visible");
+  cy.getCy("dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("dashboard-btn-schedule-meeting").should("be.visible");
+  cy.getCy("dashboard-btn-allocate-resources").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for RegionalManagerUsaWorkflowScreen...");
   cy.waitAndSee();

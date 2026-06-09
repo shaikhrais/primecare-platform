@@ -15,9 +15,12 @@ describe("Screen - quality_assurance_reports", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("qualityassurancereports-screen").should("be.visible");
+  cy.getCy("qualityassurancereports-title").should("be.visible");
+  cy.getCy("qualityassurancereports-content").should("be.visible");
+  cy.getCy("qa-reports-btn-submit").should("be.visible");
+  cy.getCy("qa-reports-btn-generate").should("be.visible");
+  cy.getCy("qa-reports-btn-collaborate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Quality Assurance Reports...");
   cy.waitAndSee();

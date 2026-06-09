@@ -15,9 +15,12 @@ describe("Screen - research_publication_drafting", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("researchpublicationdrafting-screen").should("be.visible");
+  cy.getCy("researchpublicationdrafting-title").should("be.visible");
+  cy.getCy("researchpublicationdrafting-content").should("be.visible");
+  cy.getCy("publication-draft-btn").should("be.visible");
+  cy.getCy("publication-edit-btn").should("be.visible");
+  cy.getCy("publication-submit-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Research Publication Drafting...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - local_marketing_manager_content_calendar", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("localmarketingmanagercontentcalendar-screen").should("be.visible");
+  cy.getCy("localmarketingmanagercontentcalendar-title").should("be.visible");
+  cy.getCy("localmarketingmanagercontentcalendar-content").should("be.visible");
+  cy.getCy("localmarketing-btn-schedule").should("be.visible");
+  cy.getCy("localmarketing-btn-approve").should("be.visible");
+  cy.getCy("localmarketing-btn-viewmetrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Local Marketing Manager Content Calendar...");
   cy.waitAndSee();

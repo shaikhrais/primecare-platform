@@ -15,9 +15,12 @@ describe("Screen - crisis_protocol_trigger", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("crisisprotocoltrigger-screen").should("be.visible");
+  cy.getCy("crisisprotocoltrigger-title").should("be.visible");
+  cy.getCy("crisisprotocoltrigger-content").should("be.visible");
+  cy.getCy("crisisprotocol-btn-activate").should("be.visible");
+  cy.getCy("crisisprotocol-btn-checkin").should("be.visible");
+  cy.getCy("crisisprotocol-btn-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Crisis Protocol Trigger...");
   cy.waitAndSee();

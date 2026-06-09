@@ -18,6 +18,9 @@ describe("Screen - client_intake", () => {
   cy.getCy("clientintake-screen").should("be.visible");
   cy.getCy("clientintake-title").should("be.visible");
   cy.getCy("clientintake-content").should("be.visible");
+  cy.getCy("client-intake-status-card").should("be.visible");
+  cy.getCy("compliance-scan-results-table").should("be.visible");
+  cy.getCy("operational-metrics-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ClientIntakeScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - premium_concierge_workflow", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("premium concierge care coordinator compliance workflow-screen").should("be.visible");
-  cy.getCy("premium concierge care coordinator compliance workflow-title").should("be.visible");
-  cy.getCy("premium concierge care coordinator compliance workflow-content").should("be.visible");
+  cy.getCy("premiumconciergeworkflow-screen").should("be.visible");
+  cy.getCy("premiumconciergeworkflow-title").should("be.visible");
+  cy.getCy("premiumconciergeworkflow-content").should("be.visible");
+  cy.getCy("premium-concierge-btn-quality-verification").should("be.visible");
+  cy.getCy("premium-concierge-loading-indicator").should("be.visible");
+  cy.getCy("premium-concierge-log-history").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Premium Concierge Care Coordinator Compliance Workflow...");
   cy.waitAndSee();

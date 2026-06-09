@@ -18,6 +18,9 @@ describe("Screen - training_director_workflow", () => {
   cy.getCy("trainingdirectorworkflow-screen").should("be.visible");
   cy.getCy("trainingdirectorworkflow-title").should("be.visible");
   cy.getCy("trainingdirectorworkflow-content").should("be.visible");
+  cy.getCy("training-dashboard-btn-trigger-sweep").should("be.visible");
+  cy.getCy("training-dashboard-btn-refresh-logs").should("be.visible");
+  cy.getCy("training-dashboard-btn-view-historical").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TrainingDirectorWorkflowScreen...");
   cy.waitAndSee();

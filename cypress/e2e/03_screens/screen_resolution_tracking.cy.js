@@ -18,6 +18,9 @@ describe("Screen - resolution_tracking", () => {
   cy.getCy("resolutiontracking-screen").should("be.visible");
   cy.getCy("resolutiontracking-title").should("be.visible");
   cy.getCy("resolutiontracking-content").should("be.visible");
+  cy.getCy("support-btn-respond").should("be.visible");
+  cy.getCy("support-btn-followup").should("be.visible");
+  cy.getCy("support-btn-escalate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ResolutionTrackingScreen...");
   cy.waitAndSee();

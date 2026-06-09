@@ -1,0 +1,26 @@
+List of work for the Patient:
+1. Complete any required pre-operative assessments.
+2. Attend scheduled follow-up appointments.
+3. Adhere to prescribed medication regimens.
+4. Participate in any necessary rehabilitation or therapy sessions.
+5. Maintain a healthy lifestyle, including diet and exercise as advised.
+
+Red flags for operation:
+1. Sudden increase in pain or discomfort.
+2. Unexplained swelling or redness at the surgical site.
+3. Fever or signs of infection.
+4. Unusual bleeding or discharge.
+5. Difficulty breathing or chest pain.
+
+Effective work strategies:
+1. Regular monitoring of patient progress.
+2. Clear communication of expectations and responsibilities.
+3. Timely follow-up on any concerns raised by the patient.
+4. Use of technology for reminders and updates.
+
+Dashboard needs for the Patient:
+1. Overview of upcoming appointments and tasks.
+2. Alerts for any red flags or concerns.
+3. Summary of medications and adherence tracking.
+4. Access to educational resources related to their condition.
+5. Communication tools for reaching healthcare providers.

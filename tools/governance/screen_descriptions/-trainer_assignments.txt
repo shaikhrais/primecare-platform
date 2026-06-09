@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor trainer assignments.
+2. Review the status of each assignment.
+3. Update or modify assignments as necessary.
+4. Communicate with trainers regarding their assignments.
+5. Analyze performance metrics related to trainer assignments.
+
+Red flags of operation:
+1. Frequent errors loading data, indicating potential backend issues.
+2. Long loading times, suggesting performance bottlenecks.
+3. Inconsistent data displayed, which may indicate synchronization problems.
+4. Lack of updates or communication from trainers.
+5. High turnover rates among trainers, which could affect assignment stability.
+
+What is needed on the user dashboard:
+1. Overview of current trainer assignments.
+2. Status indicators for each assignment (e.g., active, completed, overdue).
+3. Performance metrics (e.g., completion rates, feedback scores).
+4. Notifications for any updates or changes in assignments.
+5. Quick access to communication tools for reaching out to trainers.

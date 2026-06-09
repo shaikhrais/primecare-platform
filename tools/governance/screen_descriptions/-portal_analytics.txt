@@ -1,0 +1,22 @@
+List of tasks for Portal User:
+1. Monitor active streams and ensure optimal transaction levels.
+2. Check clearance status for exceptions and compliance.
+3. Execute quality verification sweeps to validate compliance invariants.
+4. Review operational telemetry logs for any anomalies or issues.
+5. Trigger manual sweeps as needed for additional verification.
+6. Refresh telemetry logs to ensure data is up-to-date.
+
+Red flags of operation:
+1. High number of exceptions flagged in clearance status.
+2. Significant deviations in telemetry metrics.
+3. Failure of quality verification sweeps.
+4. Network errors or API errors during operations.
+5. Long loading times or unresponsive UI components.
+
+Dashboard needs for Portal User:
+1. Real-time metrics on active streams and clearance status.
+2. Visual representation of telemetry data (charts/graphs).
+3. Log entries for operational telemetry with timestamps.
+4. Notifications for any errors or warnings.
+5. Quick action buttons for executing tasks like scans or sweeps.
+6. Refresh button for updating telemetry logs.

@@ -15,9 +15,12 @@ describe("Screen - psw_messaging", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pswmessaging-screen").should("be.visible");
+  cy.getCy("pswmessaging-title").should("be.visible");
+  cy.getCy("pswmessaging-content").should("be.visible");
+  cy.getCy("psw-messaging-btn-send").should("be.visible");
+  cy.getCy("psw-messaging-btn-refresh").should("be.visible");
+  cy.getCy("psw-messaging-notification-panel").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Psw Messaging...");
   cy.waitAndSee();

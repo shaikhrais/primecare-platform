@@ -18,6 +18,9 @@ describe("Screen - general_manager_workflow", () => {
   cy.getCy("generalmanagerworkflow-screen").should("be.visible");
   cy.getCy("generalmanagerworkflow-title").should("be.visible");
   cy.getCy("generalmanagerworkflow-content").should("be.visible");
+  cy.getCy("gm-dashboard-kpi-chart").should("be.visible");
+  cy.getCy("gm-dashboard-financial-performance").should("be.visible");
+  cy.getCy("gm-dashboard-employee-engagement").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for GeneralManagerWorkflowScreen...");
   cy.waitAndSee();

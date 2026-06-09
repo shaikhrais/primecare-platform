@@ -18,6 +18,9 @@ describe("Screen - office_dashboard", () => {
   cy.getCy("officedashboard-screen").should("be.visible");
   cy.getCy("officedashboard-title").should("be.visible");
   cy.getCy("officedashboard-content").should("be.visible");
+  cy.getCy("office_dashboard-btn-add-task").should("be.visible");
+  cy.getCy("office_dashboard-btn-schedule-appointment").should("be.visible");
+  cy.getCy("office_dashboard-btn-log-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OfficeDashboardScreen...");
   cy.waitAndSee();

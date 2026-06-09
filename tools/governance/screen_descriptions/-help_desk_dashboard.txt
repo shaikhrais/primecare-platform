@@ -1,0 +1,26 @@
+List of work the user must do:
+1. Monitor incoming help desk tickets.
+2. Track ticket resolution times.
+3. Analyze user feedback on resolved tickets.
+4. Identify recurring issues and trends.
+5. Communicate with team members regarding ticket status.
+6. Update ticket statuses as they progress.
+7. Generate reports on help desk performance.
+
+Red flags of operation:
+1. High volume of unresolved tickets.
+2. Increased average resolution time.
+3. Frequent escalations to higher support tiers.
+4. Low user satisfaction ratings.
+5. Recurring issues that are not being addressed.
+6. Lack of communication among team members.
+7. Inconsistent ticket updates.
+
+What is needed on the dashboard:
+1. Real-time ticket status overview (open, in progress, resolved).
+2. Average resolution time metrics.
+3. User satisfaction ratings and feedback summaries.
+4. Alerts for tickets that exceed expected resolution times.
+5. Visual representation of recurring issues and trends.
+6. Team member workload distribution.
+7. Quick access to communication tools for team collaboration.

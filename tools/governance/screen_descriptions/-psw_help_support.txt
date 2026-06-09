@@ -1,0 +1,17 @@
+List of work for the user:
+1. Access the Psw Help Support screen.
+2. Read the information provided about password help and support.
+3. Utilize any available features or links for further assistance.
+4. Provide feedback or report issues related to password support.
+
+Red flags of operation:
+1. Slow loading times for the screen.
+2. Inaccessibility of features or links.
+3. Lack of clear information or guidance on password support.
+4. User complaints about the usability of the interface.
+
+Dashboard needs for the user:
+1. Quick access to frequently asked questions (FAQs) related to password support.
+2. A feedback section to report issues or suggestions.
+3. Status updates on any ongoing support requests.
+4. Contact information for direct support if needed.

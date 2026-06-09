@@ -1,0 +1,27 @@
+List of tasks a physiotherapist must perform:
+1. Assess patient conditions and needs.
+2. Develop personalized treatment plans.
+3. Implement therapeutic exercises and techniques.
+4. Monitor patient progress and adjust treatments as necessary.
+5. Educate patients on injury prevention and rehabilitation.
+6. Collaborate with other healthcare professionals.
+7. Maintain accurate patient records and documentation.
+8. Stay updated with the latest physiotherapy practices and research.
+
+Red flags for operations:
+1. Sudden changes in patient condition.
+2. Lack of progress in treatment.
+3. Patient complaints of increased pain or discomfort.
+4. Non-compliance with treatment plans.
+5. Unusual side effects from treatments.
+6. Incomplete or inaccurate patient records.
+7. Failure to communicate effectively with the healthcare team.
+
+Dashboard requirements for physiotherapists:
+1. Patient progress tracking metrics.
+2. Compliance audit logs.
+3. Alerts for red flags in patient conditions.
+4. Performance indicators for treatment effectiveness.
+5. Access to patient history and treatment plans.
+6. Communication tools for collaboration with other healthcare providers.
+7. Educational resources for ongoing professional development.

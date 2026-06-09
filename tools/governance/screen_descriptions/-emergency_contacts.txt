@@ -1,0 +1,24 @@
+List of work Family Member must do:
+1. Monitor and manage emergency contacts.
+2. Run compliance scans to ensure governance and security.
+3. Review operational audit logs for any anomalies.
+4. Trigger state actions as required by governance.
+5. Synchronize dashboard telemetry and logs.
+6. Respond to any errors or issues reported in the logs.
+
+Red flags of operation:
+1. Frequent API errors during compliance scans.
+2. Network errors that prevent successful operations.
+3. Logs indicating security exceptions or anomalies.
+4. High loading times or unresponsive UI components.
+5. Inconsistent telemetry data or performance metrics.
+6. Lack of updates or stale logs indicating inactivity.
+
+Dashboard needs for Family Member:
+1. Real-time status of emergency contacts.
+2. Compliance scan results and history.
+3. Operational audit logs with timestamps.
+4. Key performance indicators (KPIs) for active operations.
+5. Security clearance status and any exceptions.
+6. Telemetry charts showing performance trends over time.
+7. Manual refresh option for logs and telemetry data.

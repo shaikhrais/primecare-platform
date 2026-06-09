@@ -1,0 +1,21 @@
+List of work for the user:
+1. Monitor patient parameters.
+2. Review compliance posture.
+3. Maintain Zero-Trust synchronization.
+
+Red flags of operation:
+1. Inconsistent patient parameter readings.
+2. Non-compliance with established protocols.
+3. Security breaches or unauthorized access attempts.
+
+Effective work indicators:
+1. Timely updates on patient parameters.
+2. Clear compliance reports.
+3. Alerts for any security issues.
+
+Dashboard needs for the user:
+1. Real-time patient parameter metrics.
+2. Compliance status overview.
+3. Security alerts and logs.
+4. User activity tracking.
+5. Quick access to messaging features.

@@ -1,0 +1,33 @@
+Registered Nurse (RN) Responsibilities:
+1. Conduct patient assessments and evaluations.
+2. Develop and implement care plans.
+3. Monitor and document patient progress.
+4. Administer medications and treatments.
+5. Educate patients and families about health conditions and care plans.
+6. Collaborate with interdisciplinary teams.
+7. Respond to patient needs and emergencies.
+8. Maintain patient records and documentation.
+9. Participate in quality improvement initiatives.
+10. Stay updated with medical knowledge and best practices.
+
+Red Flags in Operations:
+1. High number of escalated alerts indicating potential patient risk.
+2. Low average MMSE scores suggesting cognitive decline.
+3. Delays in completing intakes or care plans.
+4. Inconsistent documentation or missing patient records.
+5. Increased frequency of patient complaints or dissatisfaction.
+6. Lack of communication among team members.
+7. Failure to follow up on escalated cases.
+8. Inadequate training or resources for staff.
+
+Dashboard Needs for Registered Nurse (RN):
+1. Average MMSE Score display.
+2. Count of completed intakes.
+3. Number of active care plans.
+4. Count of high-risk escalations.
+5. Evaluation logs with patient status and last tested dates.
+6. Category filter for evaluations (All, Escalated, Stable).
+7. Alerts for overdue assessments or follow-ups.
+8. Performance metrics for care plans and patient outcomes.
+9. Access to educational resources and updates.
+10. Communication tools for team collaboration.

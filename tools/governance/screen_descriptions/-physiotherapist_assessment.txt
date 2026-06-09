@@ -1,0 +1,28 @@
+Physiotherapist Responsibilities:
+1. Conduct patient assessments and evaluations.
+2. Develop personalized treatment plans.
+3. Implement therapeutic exercises and modalities.
+4. Monitor patient progress and adjust treatments as necessary.
+5. Educate patients on injury prevention and rehabilitation.
+6. Collaborate with other healthcare professionals.
+7. Maintain accurate patient records and documentation.
+8. Stay updated with the latest physiotherapy practices and research.
+
+Red Flags for Operations:
+1. Sudden changes in patient condition or response to treatment.
+2. Inconsistent patient progress or lack of improvement.
+3. Patient complaints about treatment pain or discomfort.
+4. Non-compliance with prescribed treatment plans.
+5. Unusual patterns in patient attendance or engagement.
+6. Documentation errors or missing records.
+7. Equipment malfunctions or safety concerns.
+
+Dashboard Requirements for Physiotherapists:
+1. Overview of active patient cases and their statuses.
+2. Key performance indicators (KPIs) for treatment outcomes.
+3. Compliance audit results and logs.
+4. Real-time telemetry data on patient progress.
+5. Alerts for red flags or critical patient updates.
+6. Access to educational resources and latest research.
+7. Tools for scheduling and managing patient appointments.
+8. Communication tools for collaboration with other healthcare providers.

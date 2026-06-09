@@ -18,6 +18,9 @@ describe("Screen - franchise_compliance", () => {
   cy.getCy("franchisecompliance-screen").should("be.visible");
   cy.getCy("franchisecompliance-title").should("be.visible");
   cy.getCy("franchisecompliance-content").should("be.visible");
+  cy.getCy("franchise-compliance-status-indicator").should("be.visible");
+  cy.getCy("franchise-audit-log-viewer").should("be.visible");
+  cy.getCy("franchise-compliance-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FranchiseComplianceScreen...");
   cy.waitAndSee();

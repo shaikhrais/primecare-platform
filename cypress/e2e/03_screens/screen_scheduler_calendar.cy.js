@@ -18,6 +18,9 @@ describe("Screen - scheduler_calendar", () => {
   cy.getCy("schedulercalendar-screen").should("be.visible");
   cy.getCy("schedulercalendar-title").should("be.visible");
   cy.getCy("schedulercalendar-content").should("be.visible");
+  cy.getCy("scheduler-btn-view-attendance").should("be.visible");
+  cy.getCy("scheduler-btn-generate-report").should("be.visible");
+  cy.getCy("scheduler-btn-address-issue").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerCalendarScreen...");
   cy.waitAndSee();

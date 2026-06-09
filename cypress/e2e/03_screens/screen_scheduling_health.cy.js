@@ -18,6 +18,9 @@ describe("Screen - scheduling_health", () => {
   cy.getCy("schedulinghealth-screen").should("be.visible");
   cy.getCy("schedulinghealth-title").should("be.visible");
   cy.getCy("schedulinghealth-content").should("be.visible");
+  cy.getCy("ops-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("ops-dashboard-btn-conduct-audit").should("be.visible");
+  cy.getCy("ops-dashboard-btn-train-staff").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulingHealthScreen...");
   cy.waitAndSee();

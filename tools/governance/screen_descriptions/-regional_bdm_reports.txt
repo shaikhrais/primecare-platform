@@ -1,0 +1,19 @@
+User Tasks:
+1. Access the Regional Bdm Reports screen.
+2. Review the displayed reports and data.
+3. Monitor loading indicators for data retrieval.
+4. Identify and address any errors that may arise during data loading.
+5. Utilize the information presented for decision-making and reporting purposes.
+
+Red Flags of Operation:
+1. Frequent loading indicators may indicate performance issues or slow data retrieval.
+2. Errors during data loading could signify underlying problems with data sources or connectivity.
+3. Lack of relevant data or incomplete reports may hinder effective decision-making.
+4. User interface issues that affect usability could lead to user frustration.
+
+Dashboard Requirements:
+1. Real-time data updates to ensure users have the latest information.
+2. Visual indicators for loading status and error messages.
+3. Summary statistics or key performance indicators (KPIs) relevant to regional business development.
+4. User-friendly navigation to access different reports or sections easily.
+5. Options for exporting or sharing reports for collaboration.

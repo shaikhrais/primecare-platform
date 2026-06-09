@@ -1,0 +1,26 @@
+Premium Concierge Care Coordinator Responsibilities:
+1. Manage compliance workflow operations.
+2. Execute task scans for compliance verification.
+3. Monitor and log operational telemetry.
+4. Respond to API errors and network issues.
+5. Trigger governance actions as required.
+6. Maintain and update the dashboard with relevant metrics and logs.
+7. Facilitate communication between stakeholders.
+
+Red Flags of Operation:
+1. High frequency of API errors.
+2. Increased loading times during task execution.
+3. Unusual patterns in operational logs.
+4. Failure to execute compliance scans.
+5. Lack of updates or stale data on the dashboard.
+6. Inconsistent telemetry data.
+
+Dashboard Requirements:
+1. Title and description of the workflow.
+2. Active streams metric.
+3. Clearance status metric.
+4. Hourly telemetry index chart.
+5. Operational telemetry invariants log.
+6. Button for executing quality verification sweep.
+7. Loading indicator for ongoing tasks.
+8. Log history for tracking past actions and errors.

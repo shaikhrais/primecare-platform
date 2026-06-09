@@ -7,17 +7,20 @@ describe("Screen - scheduler_coordinator_conflicts", () => {
   it("opens and verifies screen scheduler_coordinator_conflicts", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Scheduler Coordinator Conflicts)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/scheduler_coordinator/conflicts (Scheduler Coordinator Conflicts)...");
+  cy.visitWithSemantics("/offices/franchise/roles/scheduler_coordinator/conflicts");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Scheduler Coordinator Conflicts...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("schedulercoordinatorconflicts-screen").should("be.visible");
+  cy.getCy("schedulercoordinatorconflicts-title").should("be.visible");
+  cy.getCy("schedulercoordinatorconflicts-content").should("be.visible");
+  cy.getCy("scheduler-btn-resolve").should("be.visible");
+  cy.getCy("scheduler-btn-update").should("be.visible");
+  cy.getCy("scheduler-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Scheduler Coordinator Conflicts...");
   cy.waitAndSee();

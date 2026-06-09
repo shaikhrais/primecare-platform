@@ -18,6 +18,9 @@ describe("Screen - enterprise_command_center4_k", () => {
   cy.getCy("enterprisecommandcenter4k-screen").should("be.visible");
   cy.getCy("enterprisecommandcenter4k-title").should("be.visible");
   cy.getCy("enterprisecommandcenter4k-content").should("be.visible");
+  cy.getCy("dashboard-kpi-refresh").should("be.visible");
+  cy.getCy("dashboard-employee-satisfaction").should("be.visible");
+  cy.getCy("dashboard-customer-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for EnterpriseCommandCenter4KScreen...");
   cy.waitAndSee();

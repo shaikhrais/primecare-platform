@@ -15,9 +15,12 @@ describe("Screen - quality_assurance_compliance_checks", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("qualityassurancecompliancechecks-screen").should("be.visible");
+  cy.getCy("qualityassurancecompliancechecks-title").should("be.visible");
+  cy.getCy("qualityassurancecompliancechecks-content").should("be.visible");
+  cy.getCy("compliance-check-summary").should("be.visible");
+  cy.getCy("compliance-status-indicator").should("be.visible");
+  cy.getCy("compliance-report-access").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Quality Assurance Compliance Checks...");
   cy.waitAndSee();

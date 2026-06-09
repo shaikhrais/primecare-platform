@@ -7,17 +7,20 @@ describe("Screen - partnership_manager_outreach", () => {
   it("opens and verifies screen partnership_manager_outreach", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Partnership Manager Outreach)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/business_development/roles/partnership_manager/outreach (Partnership Manager Outreach)...");
+  cy.visitWithSemantics("/offices/business_development/roles/partnership_manager/outreach");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Partnership Manager Outreach...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("partnershipmanageroutreach-screen").should("be.visible");
+  cy.getCy("partnershipmanageroutreach-title").should("be.visible");
+  cy.getCy("partnershipmanageroutreach-content").should("be.visible");
+  cy.getCy("partnerships-overview-card").should("be.visible");
+  cy.getCy("engagement-metrics-chart").should("be.visible");
+  cy.getCy("task-notification-list").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Partnership Manager Outreach...");
   cy.waitAndSee();

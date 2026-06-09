@@ -15,9 +15,12 @@ describe("Screen - intake_coordinator_reports", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("intakecoordinatorreports-screen").should("be.visible");
+  cy.getCy("intakecoordinatorreports-title").should("be.visible");
+  cy.getCy("intakecoordinatorreports-content").should("be.visible");
+  cy.getCy("intake-dashboard-metrics").should("be.visible");
+  cy.getCy("intake-dashboard-alerts").should("be.visible");
+  cy.getCy("intake-dashboard-reports").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Intake Coordinator Reports...");
   cy.waitAndSee();

@@ -1,0 +1,22 @@
+List of work the user must do:
+1. Monitor area performance metrics for sales.
+2. Analyze sales data to identify trends and opportunities.
+3. Address any discrepancies or issues in sales reporting.
+4. Collaborate with team members to strategize improvements.
+5. Review and adjust sales targets based on performance data.
+6. Provide feedback and insights to upper management.
+
+Red flags of operation:
+1. Significant drop in sales performance compared to previous periods.
+2. High variance in sales data across different territories.
+3. Frequent errors or discrepancies in reported sales figures.
+4. Low engagement or participation from team members in sales activities.
+5. Delays in reporting or data updates.
+
+What is needed on the user dashboard:
+1. Real-time sales performance metrics and KPIs.
+2. Visualizations of sales trends over time.
+3. Alerts for any anomalies or red flags in sales data.
+4. Comparison tools for different territories or time periods.
+5. Collaboration features for team communication and feedback.
+6. Access to historical data for trend analysis.

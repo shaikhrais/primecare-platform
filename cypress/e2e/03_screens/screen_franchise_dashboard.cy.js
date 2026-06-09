@@ -18,6 +18,9 @@ describe("Screen - franchise_dashboard", () => {
   cy.getCy("franchisedashboard-screen").should("be.visible");
   cy.getCy("franchisedashboard-title").should("be.visible");
   cy.getCy("franchisedashboard-content").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-export-logs").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-review-audit").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FranchiseDashboardScreen...");
   cy.waitAndSee();

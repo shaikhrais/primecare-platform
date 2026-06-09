@@ -18,6 +18,9 @@ describe("Screen - cx_director_workflow", () => {
   cy.getCy("cxdirectorworkflow-screen").should("be.visible");
   cy.getCy("cxdirectorworkflow-title").should("be.visible");
   cy.getCy("cxdirectorworkflow-content").should("be.visible");
+  cy.getCy("cxdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("cxdashboard-btn-view-details").should("be.visible");
+  cy.getCy("cxdashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CxDirectorWorkflowScreen...");
   cy.waitAndSee();

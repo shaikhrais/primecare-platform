@@ -18,6 +18,9 @@ describe("Screen - system_dashboard", () => {
   cy.getCy("systemdashboard-screen").should("be.visible");
   cy.getCy("systemdashboard-title").should("be.visible");
   cy.getCy("systemdashboard-content").should("be.visible");
+  cy.getCy("govdashboard-btn-refresh").should("be.visible");
+  cy.getCy("govdashboard-btn-view-audit").should("be.visible");
+  cy.getCy("govdashboard-btn-download-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SystemDashboardScreen...");
   cy.waitAndSee();

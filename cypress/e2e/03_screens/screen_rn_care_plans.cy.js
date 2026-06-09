@@ -18,6 +18,9 @@ describe("Screen - rn_care_plans", () => {
   cy.getCy("rncareplans-screen").should("be.visible");
   cy.getCy("rncareplans-title").should("be.visible");
   cy.getCy("rncareplans-content").should("be.visible");
+  cy.getCy("rn-dashboard-careplan-overview").should("be.visible");
+  cy.getCy("rn-dashboard-patient-demographics").should("be.visible");
+  cy.getCy("rn-dashboard-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RnCarePlansScreen...");
   cy.waitAndSee();

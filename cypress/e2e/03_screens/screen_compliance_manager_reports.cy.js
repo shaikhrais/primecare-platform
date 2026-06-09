@@ -7,17 +7,20 @@ describe("Screen - compliance_manager_reports", () => {
   it("opens and verifies screen compliance_manager_reports", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Compliance Manager Reports)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/compliance_manager/reports (Compliance Manager Reports)...");
+  cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/reports");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Compliance Manager Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("compliancemanagerreports-screen").should("be.visible");
+  cy.getCy("compliancemanagerreports-title").should("be.visible");
+  cy.getCy("compliancemanagerreports-content").should("be.visible");
+  cy.getCy("compliance-metrics-card").should("be.visible");
+  cy.getCy("compliance-alerts-list").should("be.visible");
+  cy.getCy("data-trends-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Compliance Manager Reports...");
   cy.waitAndSee();

@@ -7,17 +7,20 @@ describe("Screen - admin_reports", () => {
   it("opens and verifies screen admin_reports", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Admin Reports)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/admin/reports (Admin Reports)...");
+  cy.visitWithSemantics("/offices/franchise/roles/admin/reports");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Admin Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("adminreports-screen").should("be.visible");
+  cy.getCy("adminreports-title").should("be.visible");
+  cy.getCy("adminreports-content").should("be.visible");
+  cy.getCy("adminreports-btn-generate").should("be.visible");
+  cy.getCy("adminreports-btn-export").should("be.visible");
+  cy.getCy("adminreports-btn-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Admin Reports...");
   cy.waitAndSee();

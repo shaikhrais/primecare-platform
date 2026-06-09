@@ -1,0 +1,23 @@
+List of work the user must do:
+1. Monitor audit logs for any discrepancies.
+2. Review user activities and access patterns.
+3. Identify and investigate any anomalies in the data.
+4. Generate reports based on audit findings.
+5. Ensure compliance with relevant regulations and standards.
+6. Collaborate with other teams to address any identified issues.
+
+Red flags of operation:
+1. Unusual spikes in user activity or access attempts.
+2. Unauthorized access to sensitive data.
+3. Inconsistent data entries or logs.
+4. Failure to generate reports on time.
+5. Lack of response to identified issues or anomalies.
+6. Non-compliance with audit requirements or standards.
+
+What we need on the dashboard for the user:
+1. Overview of recent audit activities.
+2. Alerts for any suspicious activities or anomalies.
+3. Quick access to generate reports.
+4. Visual representation of user access patterns.
+5. Compliance status indicators.
+6. Historical data trends for audit logs.

@@ -18,6 +18,9 @@ describe("Screen - cfo_cashflow", () => {
   cy.getCy("cfocashflow-screen").should("be.visible");
   cy.getCy("cfocashflow-title").should("be.visible");
   cy.getCy("cfocashflow-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi-widget").should("be.visible");
+  cy.getCy("cfo-dashboard-cashflow-chart").should("be.visible");
+  cy.getCy("cfo-dashboard-budget-comparison").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CfoCashflowScreen...");
   cy.waitAndSee();

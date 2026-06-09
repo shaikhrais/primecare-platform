@@ -18,6 +18,9 @@ describe("Screen - local_marketing_manager_compliance", () => {
   cy.getCy("localmarketingmanagercompliance-screen").should("be.visible");
   cy.getCy("localmarketingmanagercompliance-title").should("be.visible");
   cy.getCy("localmarketingmanagercompliance-content").should("be.visible");
+  cy.getCy("localmarketing-btn-generate-report").should("be.visible");
+  cy.getCy("localmarketing-btn-view-campaign").should("be.visible");
+  cy.getCy("localmarketing-btn-track-budget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for LocalMarketingManagerComplianceScreen...");
   cy.waitAndSee();

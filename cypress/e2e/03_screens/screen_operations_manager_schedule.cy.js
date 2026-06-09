@@ -7,17 +7,20 @@ describe("Screen - operations_manager_schedule", () => {
   it("opens and verifies screen operations_manager_schedule", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Operations Manager Schedule)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/operations_manager/schedule (Operations Manager Schedule)...");
+  cy.visitWithSemantics("/offices/franchise/roles/operations_manager/schedule");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Operations Manager Schedule...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("operationsmanagerschedule-screen").should("be.visible");
+  cy.getCy("operationsmanagerschedule-title").should("be.visible");
+  cy.getCy("operationsmanagerschedule-content").should("be.visible");
+  cy.getCy("operations-schedule-overview").should("be.visible");
+  cy.getCy("operations-btn-approve").should("be.visible");
+  cy.getCy("operations-btn-reject").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Operations Manager Schedule...");
   cy.waitAndSee();

@@ -1,0 +1,17 @@
+User Work List:
+1. Select preferred language from the options provided (English, French, Spanish).
+2. Confirm selection by clicking the "Continue" button to proceed to the login view.
+
+Red Flags of Operation:
+1. Language options not displaying correctly or missing translations.
+2. System language detection fails or does not match available options.
+3. The "Continue" button is unresponsive or leads to an incorrect route.
+4. UI elements not rendering properly on different devices (mobile, tablet, desktop).
+5. Performance issues, such as lag during language selection or transitions.
+
+Dashboard Needs:
+1. User's selected language preference.
+2. System language detected and its status.
+3. Error logs related to language selection or UI rendering.
+4. Performance metrics for loading times and responsiveness.
+5. User engagement metrics, such as how many users select each language option.

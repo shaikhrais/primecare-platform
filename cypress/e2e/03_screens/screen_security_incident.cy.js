@@ -15,9 +15,12 @@ describe("Screen - security_incident", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("securityincident-screen").should("be.visible");
+  cy.getCy("securityincident-title").should("be.visible");
+  cy.getCy("securityincident-content").should("be.visible");
+  cy.getCy("security-incident-btn-submit").should("be.visible");
+  cy.getCy("security-incident-btn-update").should("be.visible");
+  cy.getCy("security-incident-filter").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Security Incident...");
   cy.waitAndSee();

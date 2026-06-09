@@ -15,9 +15,12 @@ describe("Screen - brand_asset_library", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("brandassetlibrary-screen").should("be.visible");
+  cy.getCy("brandassetlibrary-title").should("be.visible");
+  cy.getCy("brandassetlibrary-content").should("be.visible");
+  cy.getCy("asset-library-btn-refresh").should("be.visible");
+  cy.getCy("asset-library-btn-upload").should("be.visible");
+  cy.getCy("asset-library-btn-download").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Brand Asset Library...");
   cy.waitAndSee();

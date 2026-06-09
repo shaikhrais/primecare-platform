@@ -1,0 +1,23 @@
+List of work for Dynamic Screen Viewer:
+1. Render the Dynamic Screen Workflow interface.
+2. Handle user interactions through buttons.
+3. Display a dashboard with relevant information.
+4. Provide a centralized workflow for operations.
+5. Allow for state actions to be triggered.
+6. Support integration with other modules.
+
+Red flags of operation:
+1. Lack of user feedback on button actions.
+2. Poor error handling for state actions.
+3. Inconsistent UI elements or themes.
+4. Slow performance during heavy operations.
+5. Accessibility issues with screen elements.
+6. Insufficient data validation before executing actions.
+
+Requirements for the dashboard of Dynamic Screen Viewer:
+1. Clear display of current workflow status.
+2. Quick access buttons for common actions.
+3. Notifications for successful or failed operations.
+4. User role information and permissions.
+5. Refresh functionality to update displayed data.
+6. Integration metrics and logs for monitoring performance.

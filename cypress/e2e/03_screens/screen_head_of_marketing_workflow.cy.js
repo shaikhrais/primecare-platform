@@ -18,6 +18,9 @@ describe("Screen - head_of_marketing_workflow", () => {
   cy.getCy("headofmarketingworkflow-screen").should("be.visible");
   cy.getCy("headofmarketingworkflow-title").should("be.visible");
   cy.getCy("headofmarketingworkflow-content").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-view-campaigns").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-analyze-kpis").should("be.visible");
+  cy.getCy("marketing-dashboard-btn-check-budget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HeadOfMarketingWorkflowScreen...");
   cy.waitAndSee();

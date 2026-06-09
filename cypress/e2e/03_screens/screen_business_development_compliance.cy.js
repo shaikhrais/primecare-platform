@@ -18,6 +18,9 @@ describe("Screen - business_development_compliance", () => {
   cy.getCy("businessdevelopmentcompliance-screen").should("be.visible");
   cy.getCy("businessdevelopmentcompliance-title").should("be.visible");
   cy.getCy("businessdevelopmentcompliance-content").should("be.visible");
+  cy.getCy("businessdev-kpi-widget").should("be.visible");
+  cy.getCy("businessdev-customer-metrics").should("be.visible");
+  cy.getCy("businessdev-initiatives-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for BusinessDevelopmentComplianceScreen...");
   cy.waitAndSee();

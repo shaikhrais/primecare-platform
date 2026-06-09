@@ -18,6 +18,9 @@ describe("Screen - hr_director_workflow", () => {
   cy.getCy("hrdirectorworkflow-screen").should("be.visible");
   cy.getCy("hrdirectorworkflow-title").should("be.visible");
   cy.getCy("hrdirectorworkflow-content").should("be.visible");
+  cy.getCy("hrdashboard-btn-view-reports").should("be.visible");
+  cy.getCy("hrdashboard-btn-manage-policies").should("be.visible");
+  cy.getCy("hrdashboard-btn-initiate-recruitment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HrDirectorWorkflowScreen...");
   cy.waitAndSee();

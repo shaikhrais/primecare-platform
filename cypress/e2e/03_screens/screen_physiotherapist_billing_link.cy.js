@@ -18,6 +18,9 @@ describe("Screen - physiotherapist_billing_link", () => {
   cy.getCy("physiotherapistbillinglink-screen").should("be.visible");
   cy.getCy("physiotherapistbillinglink-title").should("be.visible");
   cy.getCy("physiotherapistbillinglink-content").should("be.visible");
+  cy.getCy("physio-dashboard-btn-update-treatment").should("be.visible");
+  cy.getCy("physio-dashboard-btn-log-progress").should("be.visible");
+  cy.getCy("physio-dashboard-btn-view-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PhysiotherapistBillingLinkScreen...");
   cy.waitAndSee();

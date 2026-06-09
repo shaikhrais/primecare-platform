@@ -18,6 +18,9 @@ describe("Screen - chiropractor_workflow", () => {
   cy.getCy("chiropractorworkflow-screen").should("be.visible");
   cy.getCy("chiropractorworkflow-title").should("be.visible");
   cy.getCy("chiropractorworkflow-content").should("be.visible");
+  cy.getCy("chiropractor-btn-schedule-appointment").should("be.visible");
+  cy.getCy("chiropractor-btn-modify-treatment").should("be.visible");
+  cy.getCy("chiropractor-btn-record-progress").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ChiropractorWorkflowScreen...");
   cy.waitAndSee();

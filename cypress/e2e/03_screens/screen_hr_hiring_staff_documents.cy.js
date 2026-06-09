@@ -7,17 +7,20 @@ describe("Screen - hr_hiring_staff_documents", () => {
   it("opens and verifies screen hr_hiring_staff_documents", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Hr Hiring Staff Documents)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/hr_hiring/staff-documents (Hr Hiring Staff Documents)...");
+  cy.visitWithSemantics("/offices/franchise/roles/hr_hiring/staff-documents");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Hr Hiring Staff Documents...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("hrhiringstaffdocuments-screen").should("be.visible");
+  cy.getCy("hrhiringstaffdocuments-title").should("be.visible");
+  cy.getCy("hrhiringstaffdocuments-content").should("be.visible");
+  cy.getCy("hiring-docs-btn-approve").should("be.visible");
+  cy.getCy("hiring-docs-btn-upload").should("be.visible");
+  cy.getCy("hiring-docs-btn-reminder").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Hr Hiring Staff Documents...");
   cy.waitAndSee();

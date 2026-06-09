@@ -7,17 +7,20 @@ describe("Screen - patient_care_team", () => {
   it("opens and verifies screen patient_care_team", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Patient Care Team)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/client/roles/client/care-team (Patient Care Team)...");
+  cy.visitWithSemantics("/offices/client/roles/client/care-team");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Patient Care Team...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("patientcareteam-screen").should("be.visible");
+  cy.getCy("patientcareteam-title").should("be.visible");
+  cy.getCy("patientcareteam-content").should("be.visible");
+  cy.getCy("patientcare-btn-accessrecords").should("be.visible");
+  cy.getCy("patientcare-btn-sendupdate").should("be.visible");
+  cy.getCy("patientcare-btn-reportissue").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Patient Care Team...");
   cy.waitAndSee();

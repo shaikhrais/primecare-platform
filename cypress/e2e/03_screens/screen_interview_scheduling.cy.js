@@ -18,6 +18,9 @@ describe("Screen - interview_scheduling", () => {
   cy.getCy("interviewscheduling-screen").should("be.visible");
   cy.getCy("interviewscheduling-title").should("be.visible");
   cy.getCy("interviewscheduling-content").should("be.visible");
+  cy.getCy("ta-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("ta-dashboard-btn-update-metrics").should("be.visible");
+  cy.getCy("ta-dashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for InterviewSchedulingScreen...");
   cy.waitAndSee();

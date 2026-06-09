@@ -15,9 +15,12 @@ describe("Screen - forgot_password", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("forgotpassword-screen").should("be.visible");
+  cy.getCy("forgotpassword-title").should("be.visible");
+  cy.getCy("forgotpassword-content").should("be.visible");
+  cy.getCy("forgot-password-email-input").should("be.visible");
+  cy.getCy("forgot-password-send-button").should("be.visible");
+  cy.getCy("forgot-password-status-message").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Forgot Password...");
   cy.waitAndSee();

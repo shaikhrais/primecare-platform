@@ -1,0 +1,35 @@
+Administrative Assistant Responsibilities:
+1. Answering phone calls and directing them to the appropriate personnel.
+2. Managing schedules and appointments for staff.
+3. Handling correspondence, including emails and letters.
+4. Maintaining filing systems and databases.
+5. Preparing reports and presentations.
+6. Assisting with the onboarding of new employees.
+7. Coordinating office activities and events.
+8. Ordering and managing office supplies.
+9. Providing support to other departments as needed.
+10. Ensuring compliance with company policies and procedures.
+
+Red Flags of Operation:
+1. Frequent missed calls or unanswered inquiries.
+2. Overlapping appointments or scheduling conflicts.
+3. Delays in responding to emails or correspondence.
+4. Disorganization in filing systems or databases.
+5. Inaccurate or incomplete reports.
+6. High turnover of new employees due to poor onboarding.
+7. Lack of communication between departments.
+8. Insufficient office supplies leading to operational delays.
+9. Low morale or dissatisfaction among staff.
+10. Non-compliance with company policies.
+
+Dashboard Needs for Administrative Assistant:
+1. Call log and response tracking.
+2. Calendar view for appointments and meetings.
+3. Email response time metrics.
+4. Filing system status and organization metrics.
+5. Report generation and accuracy tracking.
+6. Onboarding progress tracker for new employees.
+7. Office supply inventory and reorder alerts.
+8. Task management and prioritization tool.
+9. Communication logs between departments.
+10. Compliance checklist for company policies.

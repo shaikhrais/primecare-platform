@@ -15,9 +15,10 @@ describe("Screen - social_media_sentiment_analyzer", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("socialmediasentimentanalyzer-screen").should("be.visible");
+  cy.getCy("socialmediasentimentanalyzer-title").should("be.visible");
+  cy.getCy("socialmediasentimentanalyzer-content").should("be.visible");
+  cy.getCy("socialmedia-sentiment-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Social Media Sentiment Analyzer...");
   cy.waitAndSee();

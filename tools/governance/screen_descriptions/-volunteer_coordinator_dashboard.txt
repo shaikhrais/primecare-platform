@@ -1,0 +1,35 @@
+Volunteer Coordinator Responsibilities:
+1. Manage volunteer recruitment and onboarding.
+2. Coordinate volunteer training and development.
+3. Schedule volunteer shifts and assignments.
+4. Maintain communication with volunteers.
+5. Track volunteer hours and contributions.
+6. Organize volunteer appreciation events.
+7. Ensure compliance with organizational policies and regulations.
+8. Monitor volunteer performance and provide feedback.
+9. Address volunteer concerns and resolve conflicts.
+10. Report on volunteer program outcomes and metrics.
+
+Red Flags of Operation:
+1. High volunteer turnover rates.
+2. Inconsistent communication with volunteers.
+3. Lack of engagement or participation from volunteers.
+4. Missed deadlines for volunteer-related tasks.
+5. Negative feedback from volunteers regarding their experience.
+6. Compliance issues or failure to meet regulatory requirements.
+7. Insufficient tracking of volunteer hours and contributions.
+8. Low attendance at volunteer training sessions.
+9. Difficulty in scheduling or filling volunteer shifts.
+10. Limited recognition or appreciation for volunteer efforts.
+
+Dashboard Needs for Volunteer Coordinator:
+1. Overview of active volunteers and their roles.
+2. Metrics on volunteer hours logged and contributions.
+3. Compliance status and audit results.
+4. Communication logs with volunteers.
+5. Upcoming volunteer events and training sessions.
+6. Feedback and satisfaction ratings from volunteers.
+7. Alerts for any compliance issues or red flags.
+8. Historical data on volunteer engagement and turnover.
+9. Tools for scheduling and shift management.
+10. Resources for volunteer training and development.

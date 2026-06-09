@@ -15,9 +15,12 @@ describe("Screen - remote_diagnosticser", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("remotediagnosticser-screen").should("be.visible");
+  cy.getCy("remotediagnosticser-title").should("be.visible");
+  cy.getCy("remotediagnosticser-content").should("be.visible");
+  cy.getCy("remote-diagnostics-btn-view-reports").should("be.visible");
+  cy.getCy("remote-diagnostics-btn-generate-report").should("be.visible");
+  cy.getCy("remote-diagnostics-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Remote Diagnosticser...");
   cy.waitAndSee();

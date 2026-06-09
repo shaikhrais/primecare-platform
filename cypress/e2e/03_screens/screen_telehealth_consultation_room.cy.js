@@ -15,9 +15,12 @@ describe("Screen - telehealth_consultation_room", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("telehealthconsultationroom-screen").should("be.visible");
+  cy.getCy("telehealthconsultationroom-title").should("be.visible");
+  cy.getCy("telehealthconsultationroom-content").should("be.visible");
+  cy.getCy("telehealth-btn-start-consultation").should("be.visible");
+  cy.getCy("telehealth-btn-schedule-followup").should("be.visible");
+  cy.getCy("telehealth-btn-submit-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Telehealth Consultation Room...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - infection_control_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("infectioncontroldashboard-screen").should("be.visible");
+  cy.getCy("infectioncontroldashboard-title").should("be.visible");
+  cy.getCy("infectioncontroldashboard-content").should("be.visible");
+  cy.getCy("infection-dashboard-btn-view-reports").should("be.visible");
+  cy.getCy("infection-dashboard-btn-collaborate").should("be.visible");
+  cy.getCy("infection-dashboard-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Infection Control Dashboard...");
   cy.waitAndSee();

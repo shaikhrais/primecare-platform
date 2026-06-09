@@ -15,9 +15,11 @@ describe("Screen - consent_management_console", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("consentmanagementconsole-screen").should("be.visible");
+  cy.getCy("consentmanagementconsole-title").should("be.visible");
+  cy.getCy("consentmanagementconsole-content").should("be.visible");
+  cy.getCy("consent-management-refresh").should("be.visible");
+  cy.getCy("consent-management-view-details").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Consent Management Console...");
   cy.waitAndSee();

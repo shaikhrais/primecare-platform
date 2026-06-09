@@ -18,6 +18,9 @@ describe("Screen - psw_vitals_log", () => {
   cy.getCy("pswvitalslog-screen").should("be.visible");
   cy.getCy("pswvitalslog-title").should("be.visible");
   cy.getCy("pswvitalslog-content").should("be.visible");
+  cy.getCy("psw-dashboard-client-overview").should("be.visible");
+  cy.getCy("psw-dashboard-vital-signs").should("be.visible");
+  cy.getCy("psw-dashboard-medication-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PswVitalsLogScreen...");
   cy.waitAndSee();

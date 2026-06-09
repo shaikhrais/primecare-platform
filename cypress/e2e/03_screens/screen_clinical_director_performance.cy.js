@@ -18,6 +18,9 @@ describe("Screen - clinical_director_performance", () => {
   cy.getCy("clinicaldirectorperformance-screen").should("be.visible");
   cy.getCy("clinicaldirectorperformance-title").should("be.visible");
   cy.getCy("clinicaldirectorperformance-content").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-view-audit").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("clinical-dashboard-btn-send-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ClinicalDirectorPerformanceScreen...");
   cy.waitAndSee();

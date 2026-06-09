@@ -15,9 +15,12 @@ describe("Screen - training_coordinator_certifications", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("trainingcoordinatorcertifications-screen").should("be.visible");
+  cy.getCy("trainingcoordinatorcertifications-title").should("be.visible");
+  cy.getCy("trainingcoordinatorcertifications-content").should("be.visible");
+  cy.getCy("certification-status-overview").should("be.visible");
+  cy.getCy("certification-update-btn").should("be.visible");
+  cy.getCy("generate-report-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Training Coordinator Certifications...");
   cy.waitAndSee();

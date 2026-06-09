@@ -18,6 +18,9 @@ describe("Screen - operations_manager_compliance", () => {
   cy.getCy("operationsmanagercompliance-screen").should("be.visible");
   cy.getCy("operationsmanagercompliance-title").should("be.visible");
   cy.getCy("operationsmanagercompliance-content").should("be.visible");
+  cy.getCy("operations-compliance-status-card").should("be.visible");
+  cy.getCy("operations-audit-log-table").should("be.visible");
+  cy.getCy("operations-performance-metrics-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OperationsManagerComplianceScreen...");
   cy.waitAndSee();

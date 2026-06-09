@@ -8,8 +8,8 @@ describe("Role All Screens - community_outreach", () => {
     cy.loginAsRole("community_outreach");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /management/community-outreach-dashboard (CommunityOutreachDashboardScreen)...");
-  cy.visitWithSemantics("/management/community-outreach-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /offices/marketing/roles/community_outreach/dashboard (CommunityOutreachDashboardScreen)...");
+  cy.visitWithSemantics("/offices/marketing/roles/community_outreach/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Checking shell & content for CommunityOutreachDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - community_outreach", () => {
   cy.getCy("communityoutreachdashboard-screen").should("be.visible");
   cy.getCy("communityoutreachdashboard-title").should("be.visible");
   cy.getCy("communityoutreachdashboard-content").should("be.visible");
+  cy.getCy("community-outreach-btn-add-event").should("be.visible");
+  cy.getCy("community-outreach-btn-collect-feedback").should("be.visible");
+  cy.getCy("community-outreach-btn-view-reports").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for CommunityOutreachDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - community_outreach", () => {
   cy.getCy("communityoutreachanalytics-screen").should("be.visible");
   cy.getCy("communityoutreachanalytics-title").should("be.visible");
   cy.getCy("communityoutreachanalytics-content").should("be.visible");
+  cy.getCy("communityoutreach-kpi-chart").should("be.visible");
+  cy.getCy("communityoutreach-engagement-metrics").should("be.visible");
+  cy.getCy("communityoutreach-budget-tracker").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for CommunityOutreachAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - community_outreach", () => {
   cy.getCy("communityoutreachcompliance-screen").should("be.visible");
   cy.getCy("communityoutreachcompliance-title").should("be.visible");
   cy.getCy("communityoutreachcompliance-content").should("be.visible");
+  cy.getCy("outreach-btn-add-event").should("be.visible");
+  cy.getCy("outreach-btn-submit-feedback").should("be.visible");
+  cy.getCy("outreach-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for CommunityOutreachComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - community_outreach", () => {
   cy.getCy("communityoutreachworkflow-screen").should("be.visible");
   cy.getCy("communityoutreachworkflow-title").should("be.visible");
   cy.getCy("communityoutreachworkflow-content").should("be.visible");
+  cy.getCy("community-outreach-btn-add-event").should("be.visible");
+  cy.getCy("community-outreach-btn-submit-feedback").should("be.visible");
+  cy.getCy("community-outreach-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for CommunityOutreachWorkflowScreen...");
   cy.waitAndSee();

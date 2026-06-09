@@ -1,0 +1,33 @@
+List of tasks Personal Support Workers (PSWs) must do:
+1. Clock in and clock out for shifts.
+2. Complete assigned tasks for each client.
+3. Record the duration of active shifts.
+4. Update shift status (completed, pending).
+5. Communicate with clients and their families.
+6. Document any changes in client condition or needs.
+7. Report any incidents or concerns to supervisors.
+8. Maintain confidentiality and privacy of client information.
+9. Participate in training and development sessions.
+10. Follow health and safety protocols.
+
+Red flags of operation for effective work:
+1. Frequent clocking in/out without completing shifts.
+2. Inconsistent task completion rates.
+3. High number of pending shifts.
+4. Lack of communication with clients or families.
+5. Unreported incidents or changes in client condition.
+6. Non-compliance with health and safety protocols.
+7. Low engagement in training and development.
+8. High turnover of PSWs in a specific area or team.
+
+Dashboard needs for Personal Support Workers (PSWs):
+1. Current clock-in status and active shift details.
+2. List of today's shifts with status updates.
+3. Task completion tracking (completed vs. total tasks).
+4. Notifications for upcoming shifts and reminders.
+5. Summary of active duration for each shift.
+6. Alerts for any red flags (e.g., pending tasks, incidents).
+7. Access to client information (name, address, needs).
+8. Reporting tools for incidents or concerns.
+9. Training and development resources.
+10. Health and safety compliance checklists.

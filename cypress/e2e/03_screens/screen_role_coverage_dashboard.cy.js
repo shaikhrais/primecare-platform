@@ -18,6 +18,9 @@ describe("Screen - role_coverage_dashboard", () => {
   cy.getCy("rolecoveragedashboard-screen").should("be.visible");
   cy.getCy("rolecoveragedashboard-title").should("be.visible");
   cy.getCy("rolecoveragedashboard-content").should("be.visible");
+  cy.getCy("govdashboard-btn-generate-report").should("be.visible");
+  cy.getCy("govdashboard-btn-update-doc").should("be.visible");
+  cy.getCy("govdashboard-btn-conduct-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RoleCoverageDashboardScreen...");
   cy.waitAndSee();

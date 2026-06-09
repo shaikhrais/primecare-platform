@@ -15,9 +15,12 @@ describe("Screen - research_protocol_manager", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("researchprotocolmanager-screen").should("be.visible");
+  cy.getCy("researchprotocolmanager-title").should("be.visible");
+  cy.getCy("researchprotocolmanager-content").should("be.visible");
+  cy.getCy("researchprotocols-btn-create").should("be.visible");
+  cy.getCy("researchprotocols-btn-edit").should("be.visible");
+  cy.getCy("researchprotocols-btn-approve").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Research Protocol Manager...");
   cy.waitAndSee();

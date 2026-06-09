@@ -15,9 +15,12 @@ describe("Screen - territory_sales_manager_leads", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("territorysalesmanagerleads-screen").should("be.visible");
+  cy.getCy("territorysalesmanagerleads-title").should("be.visible");
+  cy.getCy("territorysalesmanagerleads-content").should("be.visible");
+  cy.getCy("lead-overview-card").should("be.visible");
+  cy.getCy("btn-update-lead").should("be.visible");
+  cy.getCy("btn-communicate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Territory Sales Manager Leads...");
   cy.waitAndSee();

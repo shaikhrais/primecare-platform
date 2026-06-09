@@ -15,9 +15,12 @@ describe("Screen - api_key_manager", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("apikeymanager-screen").should("be.visible");
+  cy.getCy("apikeymanager-title").should("be.visible");
+  cy.getCy("apikeymanager-content").should("be.visible");
+  cy.getCy("api-key-manager-btn-generate").should("be.visible");
+  cy.getCy("api-key-manager-btn-rotate").should("be.visible");
+  cy.getCy("api-key-manager-btn-revoke").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Api Key Manager...");
   cy.waitAndSee();

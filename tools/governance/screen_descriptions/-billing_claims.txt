@@ -1,0 +1,21 @@
+User Tasks:
+1. Review outstanding claims and their statuses.
+2. Select claims for batch submission.
+3. Submit selected claims for reimbursement.
+4. Manually reconcile claims as necessary.
+5. Monitor claims rejection rate and outstanding claims value.
+
+Red Flags of Operation:
+1. High number of claims in 'auditing' or 'rejected' status.
+2. Delays in processing claims leading to increased outstanding claims value.
+3. Frequent manual reconciliations indicating potential issues in the claims process.
+4. Low reimbursement amounts compared to outstanding claims.
+
+Dashboard Needs:
+1. Display total outstanding claims value.
+2. Show total reimbursed amount for the current month.
+3. Highlight claims rejection rate.
+4. Provide visual indicators for claims status (e.g., auditing, reimbursed, rejected).
+5. Allow for bulk selection and submission of claims.
+6. Include a progress indicator during batch submission.
+7. Show selected claims count and provide an option to clear selection.

@@ -18,6 +18,9 @@ describe("Screen - cto_workflow", () => {
   cy.getCy("ctoworkflow-screen").should("be.visible");
   cy.getCy("ctoworkflow-title").should("be.visible");
   cy.getCy("ctoworkflow-content").should("be.visible");
+  cy.getCy("ctoworkflow-btn-refresh").should("be.visible");
+  cy.getCy("ctoworkflow-btn-view-reports").should("be.visible");
+  cy.getCy("ctoworkflow-btn-add-technology").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CtoWorkflowScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - customer_support_reports", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("customersupportreports-screen").should("be.visible");
+  cy.getCy("customersupportreports-title").should("be.visible");
+  cy.getCy("customersupportreports-content").should("be.visible");
+  cy.getCy("customer-support-report-card").should("be.visible");
+  cy.getCy("customer-support-trend-chart").should("be.visible");
+  cy.getCy("alert-high-unresolved-issues").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Customer Support Reports...");
   cy.waitAndSee();

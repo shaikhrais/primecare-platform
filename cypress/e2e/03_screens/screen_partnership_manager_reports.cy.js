@@ -7,17 +7,20 @@ describe("Screen - partnership_manager_reports", () => {
   it("opens and verifies screen partnership_manager_reports", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Partnership Manager Reports)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/business_development/roles/partnership_manager/reports (Partnership Manager Reports)...");
+  cy.visitWithSemantics("/offices/business_development/roles/partnership_manager/reports");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Partnership Manager Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("partnershipmanagerreports-screen").should("be.visible");
+  cy.getCy("partnershipmanagerreports-title").should("be.visible");
+  cy.getCy("partnershipmanagerreports-content").should("be.visible");
+  cy.getCy("partnerships-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("partnerships-dashboard-btn-export-pdf").should("be.visible");
+  cy.getCy("partnerships-dashboard-btn-export-csv").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Partnership Manager Reports...");
   cy.waitAndSee();

@@ -15,9 +15,10 @@ describe("Screen - touchpoint_analyzer", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("touchpointanalyzer-screen").should("be.visible");
+  cy.getCy("touchpointanalyzer-title").should("be.visible");
+  cy.getCy("touchpointanalyzer-content").should("be.visible");
+  cy.getCy("touchpoint-analyzer-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Touchpoint Analyzer...");
   cy.waitAndSee();

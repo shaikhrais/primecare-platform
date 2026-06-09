@@ -18,6 +18,9 @@ describe("Screen - billing_admin_analytics", () => {
   cy.getCy("billingadminanalytics-screen").should("be.visible");
   cy.getCy("billingadminanalytics-title").should("be.visible");
   cy.getCy("billingadminanalytics-content").should("be.visible");
+  cy.getCy("billing_admin_btn_add_task").should("be.visible");
+  cy.getCy("billing_admin_btn_schedule").should("be.visible");
+  cy.getCy("billing_admin_btn_send_message").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for BillingAdminAnalyticsScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - staffing_overview", () => {
   cy.getCy("staffingoverview-screen").should("be.visible");
   cy.getCy("staffingoverview-title").should("be.visible");
   cy.getCy("staffingoverview-content").should("be.visible");
+  cy.getCy("dashboard-kpi-overview").should("be.visible");
+  cy.getCy("dashboard-efficiency-chart").should("be.visible");
+  cy.getCy("dashboard-financial-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for StaffingOverviewScreen...");
   cy.waitAndSee();

@@ -8,8 +8,8 @@ describe("Role All Screens - legal", () => {
     cy.loginAsRole("legal");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /executive/legal-dashboard (LegalDashboardScreen)...");
-  cy.visitWithSemantics("/executive/legal-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /offices/corporate/roles/legal/dashboard (LegalDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/legal/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Checking shell & content for LegalDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - legal", () => {
   cy.getCy("legaldashboard-screen").should("be.visible");
   cy.getCy("legaldashboard-title").should("be.visible");
   cy.getCy("legaldashboard-content").should("be.visible");
+  cy.getCy("legal-dashboard-compliance-status").should("be.visible");
+  cy.getCy("legal-dashboard-dispute-status").should("be.visible");
+  cy.getCy("legal-dashboard-performance-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for LegalDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - legal", () => {
   cy.getCy("legalanalytics-screen").should("be.visible");
   cy.getCy("legalanalytics-title").should("be.visible");
   cy.getCy("legalanalytics-content").should("be.visible");
+  cy.getCy("legal-dashboard-kpi-chart").should("be.visible");
+  cy.getCy("legal-dashboard-litigation-status").should("be.visible");
+  cy.getCy("legal-dashboard-compliance-tracker").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for LegalAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - legal", () => {
   cy.getCy("legalcompliance-screen").should("be.visible");
   cy.getCy("legalcompliance-title").should("be.visible");
   cy.getCy("legalcompliance-content").should("be.visible");
+  cy.getCy("legalcompliance-btn-update").should("be.visible");
+  cy.getCy("legalcompliance-btn-train").should("be.visible");
+  cy.getCy("legalcompliance-btn-review").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for LegalComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - legal", () => {
   cy.getCy("legalworkflow-screen").should("be.visible");
   cy.getCy("legalworkflow-title").should("be.visible");
   cy.getCy("legalworkflow-content").should("be.visible");
+  cy.getCy("legalworkflow-btn-addtask").should("be.visible");
+  cy.getCy("legalworkflow-btn-reviewdocument").should("be.visible");
+  cy.getCy("legalworkflow-btn-providelegaladvice").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for LegalWorkflowScreen...");
   cy.waitAndSee();

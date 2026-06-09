@@ -1,0 +1,20 @@
+List of work for the user:
+1. Monitor alerts and risks related to the organization's operations.
+2. Review the data presented on the dashboard for insights into potential issues.
+3. Respond to alerts in a timely manner to mitigate risks.
+4. Collaborate with relevant teams based on alerts received.
+5. Provide feedback on the effectiveness of the alerts and dashboard features.
+
+Red flags of operation:
+1. Frequent errors loading data on the dashboard.
+2. Delays in receiving alerts or notifications.
+3. Inconsistent data presentation or unclear information.
+4. Lack of actionable insights from the alerts.
+5. User feedback indicating difficulty in navigating the dashboard.
+
+What is needed on the user dashboard:
+1. Real-time alerts and notifications for critical risks.
+2. Clear visual indicators for the status of alerts (e.g., resolved, pending).
+3. Historical data trends to identify recurring issues.
+4. User-friendly navigation and layout for quick access to information.
+5. Feedback mechanism for users to report issues or suggest improvements.

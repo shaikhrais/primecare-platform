@@ -15,9 +15,12 @@ describe("Screen - drug_interaction_alert_center", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("druginteractionalertcenter-screen").should("be.visible");
+  cy.getCy("druginteractionalertcenter-title").should("be.visible");
+  cy.getCy("druginteractionalertcenter-content").should("be.visible");
+  cy.getCy("druginteraction-alert-summary").should("be.visible");
+  cy.getCy("druginteraction-alert-statistics").should("be.visible");
+  cy.getCy("user-engagement-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Drug Interaction Alert Center...");
   cy.waitAndSee();

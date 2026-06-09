@@ -18,6 +18,9 @@ describe("Screen - local_marketing_manager_workflow", () => {
   cy.getCy("localmarketingmanagerworkflow-screen").should("be.visible");
   cy.getCy("localmarketingmanagerworkflow-title").should("be.visible");
   cy.getCy("localmarketingmanagerworkflow-content").should("be.visible");
+  cy.getCy("localmarketing-btn-addcampaign").should("be.visible");
+  cy.getCy("localmarketing-btn-viewreports").should("be.visible");
+  cy.getCy("localmarketing-btn-adjustbudget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for LocalMarketingManagerWorkflowScreen...");
   cy.waitAndSee();

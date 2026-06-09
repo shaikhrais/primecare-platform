@@ -18,6 +18,9 @@ describe("Screen - campaign_dashboard", () => {
   cy.getCy("campaigndashboard-screen").should("be.visible");
   cy.getCy("campaigndashboard-title").should("be.visible");
   cy.getCy("campaigndashboard-content").should("be.visible");
+  cy.getCy("campaign-dashboard-refresh").should("be.visible");
+  cy.getCy("campaign-dashboard-view-report").should("be.visible");
+  cy.getCy("campaign-dashboard-export-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CampaignDashboardScreen...");
   cy.waitAndSee();

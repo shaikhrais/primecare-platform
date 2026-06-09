@@ -7,17 +7,20 @@ describe("Screen - finance_director_cashflow", () => {
   it("opens and verifies screen finance_director_cashflow", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Finance Director Cashflow)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/finance_director/cashflow (Finance Director Cashflow)...");
+  cy.visitWithSemantics("/offices/corporate/roles/finance_director/cashflow");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Finance Director Cashflow...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("financedirectorcashflow-screen").should("be.visible");
+  cy.getCy("financedirectorcashflow-title").should("be.visible");
+  cy.getCy("financedirectorcashflow-content").should("be.visible");
+  cy.getCy("cashflow-metrics").should("be.visible");
+  cy.getCy("cashflow-alerts").should("be.visible");
+  cy.getCy("cashflow-trends").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Finance Director Cashflow...");
   cy.waitAndSee();

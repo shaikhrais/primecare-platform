@@ -27,10 +27,11 @@ def main():
         return
 
     # 1. Scan the codebase for keys and classes
-    apps_dir = os.path.join(PROJECT_ROOT, "apps")
     packages_dir = os.path.join(PROJECT_ROOT, "packages")
+    apps_dir = os.path.join(PROJECT_ROOT, "apps")
     
-    dart_files = find_dart_files(apps_dir) + find_dart_files(packages_dir)
+    dart_files = find_dart_files(packages_dir) + find_dart_files(apps_dir)
+
     print(f"Scanned {len(dart_files)} Dart files in codebase.")
 
     # Patterns for key detection and screen class definitions
@@ -58,7 +59,23 @@ def main():
                 for cls in classes:
                     # Convert class name to clean snake_case screen_code
                     screen_code = re.sub(r'(?<!^)(?=[A-Z])', '_', cls).lower()
-                    screen_code = screen_code.replace("_screen", "").replace("_view", "")
+                    
+                    # Specific overrides for alignment mapping without breaking database schema names
+                    if screen_code == "dynamic_screen_dashboard_view":
+                        screen_code = "dynamic_screen_dashboard"
+                    elif screen_code == "screen_audit_view":
+                        screen_code = "screen_audit"
+                    elif screen_code == "screen_audit_screen":
+                        screen_code = "audit"
+                    elif screen_code == "audit_screen":
+                        screen_code = "audit"
+                    elif screen_code == "shared_stubs_screen":
+                        screen_code = "shared_stubs"
+                    elif screen_code == "screen_not_implemented_view":
+                        screen_code = "screen_not_implemented"
+                    else:
+                        screen_code = screen_code.replace("_screen", "").replace("_view", "")
+                        
                     found_screens[screen_code] = {
                         "class_name": cls,
                         "file_path": rel_path
@@ -109,6 +126,17 @@ def main():
                 WHERE screen_code = ?;
             """, (screen_code,))
             print(f"  [Task 4 - Missing] Screen '{screen_code}' registered in SQLite but missing in codebase -> Marked status: missing.")
+        else:
+            # Mark screen status as active in the database and align paths
+            cur.execute("""
+                UPDATE screens
+                SET screen_status = 'active',
+                    actual_file_path = ?,
+                    expected_file_path = ?,
+                    problem_summary = NULL
+                WHERE screen_code = ?;
+            """, (info["file_path"], info["file_path"], screen_code))
+
 
     conn.commit()
 

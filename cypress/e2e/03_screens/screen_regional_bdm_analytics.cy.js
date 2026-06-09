@@ -18,6 +18,9 @@ describe("Screen - regional_bdm_analytics", () => {
   cy.getCy("regionalbdmanalytics-screen").should("be.visible");
   cy.getCy("regionalbdmanalytics-title").should("be.visible");
   cy.getCy("regionalbdmanalytics-content").should("be.visible");
+  cy.getCy("regional-bdm-btn-generate-report").should("be.visible");
+  cy.getCy("regional-bdm-btn-send-feedback").should("be.visible");
+  cy.getCy("regional-bdm-btn-update-strategy").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RegionalBdmAnalyticsScreen...");
   cy.waitAndSee();

@@ -131,17 +131,21 @@ class PswDashboardScreen extends GovernedConsumerWidget {
     final roleBase = 'PSW';
 
     return Cy(
-      id: 'pswdashboard-screen data-cy:pswdashboard-screen',
+      id: 'pswdashboard-screen',
       child: Scaffold(
         key: const Key('pswdashboard-screen'),
         backgroundColor: theme.colors.background,
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Text(
-            key: const Key('pswdashboard-title'),
-            state.title.tr(),
-            style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+          title: Semantics(
+            container: true,
+            label: 'data-cy:pswdashboard-title',
+            child: Text(
+              key: const Key('pswdashboard-title'),
+              state.title.tr(),
+              style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+            ),
           ),
           actions: [
             IconButton(
@@ -151,7 +155,9 @@ class PswDashboardScreen extends GovernedConsumerWidget {
             ),
           ],
         ),
-        body: ResponsiveSplitDashboard(
+        body: Cy(
+          id: 'pswdashboard-content',
+          child: ResponsiveSplitDashboard(
           metrics: [
             GovMetricCard(
               title: 'Shift Status'.tr(),
@@ -389,6 +395,7 @@ class PswDashboardScreen extends GovernedConsumerWidget {
               ),
             ),
           ],
+        ),
         ),
       ),
     );

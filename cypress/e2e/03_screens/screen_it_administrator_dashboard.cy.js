@@ -15,9 +15,12 @@ describe("Screen - it_administrator_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("itadministratordashboard-screen").should("be.visible");
+  cy.getCy("itadministratordashboard-title").should("be.visible");
+  cy.getCy("itadministratordashboard-content").should("be.visible");
+  cy.getCy("itdashboard-btn-refresh-metrics").should("be.visible");
+  cy.getCy("itdashboard-btn-view-user-accounts").should("be.visible");
+  cy.getCy("itdashboard-btn-check-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for It Administrator Dashboard...");
   cy.waitAndSee();

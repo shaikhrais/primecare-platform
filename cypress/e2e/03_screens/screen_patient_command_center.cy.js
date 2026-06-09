@@ -18,6 +18,9 @@ describe("Screen - patient_command_center", () => {
   cy.getCy("patientcommandcenter-screen").should("be.visible");
   cy.getCy("patientcommandcenter-title").should("be.visible");
   cy.getCy("patientcommandcenter-content").should("be.visible");
+  cy.getCy("patient-command-center-btn-trigger-audit").should("be.visible");
+  cy.getCy("patient-command-center-btn-refresh-telemetry").should("be.visible");
+  cy.getCy("patient-command-center-btn-execute-scan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PatientCommandCenterScreen...");
   cy.waitAndSee();

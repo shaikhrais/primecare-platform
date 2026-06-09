@@ -18,6 +18,9 @@ describe("Screen - vitals_tracking", () => {
   cy.getCy("vitalstracking-screen").should("be.visible");
   cy.getCy("vitalstracking-title").should("be.visible");
   cy.getCy("vitalstracking-content").should("be.visible");
+  cy.getCy("vitals-tracking-btn-record-vital-signs").should("be.visible");
+  cy.getCy("vitals-tracking-btn-administer-medication").should("be.visible");
+  cy.getCy("vitals-tracking-btn-document-care").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for VitalsTrackingScreen...");
   cy.waitAndSee();

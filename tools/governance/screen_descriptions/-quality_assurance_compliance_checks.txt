@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor the quality assurance compliance checks.
+2. Review the results of compliance checks.
+3. Identify any compliance issues or errors.
+4. Take corrective actions based on the compliance check results.
+5. Document findings and actions taken for future reference.
+
+Red flags of operation:
+1. Frequent errors or failures during compliance checks.
+2. Delays in loading data or processing compliance checks.
+3. Inconsistent results across different compliance checks.
+4. Lack of documentation or unclear action items from previous checks.
+5. User feedback indicating confusion or difficulty in using the compliance check features.
+
+What is needed on the dashboard of the user:
+1. Summary of the latest compliance check results.
+2. Visual indicators for compliance status (e.g., green for compliant, red for non-compliant).
+3. Quick access to detailed reports of past compliance checks.
+4. Notifications for any urgent compliance issues that need immediate attention.
+5. A section for user feedback or comments regarding the compliance checks.

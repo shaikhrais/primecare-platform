@@ -15,9 +15,12 @@ describe("Screen - client_my_appointments", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("clientmyappointments-screen").should("be.visible");
+  cy.getCy("clientmyappointments-title").should("be.visible");
+  cy.getCy("clientmyappointments-content").should("be.visible");
+  cy.getCy("appointment-list").should("be.visible");
+  cy.getCy("btn-cancel-appointment").should("be.visible");
+  cy.getCy("btn-reschedule-appointment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Client My Appointments...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - legal_analytics", () => {
   cy.getCy("legalanalytics-screen").should("be.visible");
   cy.getCy("legalanalytics-title").should("be.visible");
   cy.getCy("legalanalytics-content").should("be.visible");
+  cy.getCy("legal-dashboard-kpi-chart").should("be.visible");
+  cy.getCy("legal-dashboard-litigation-status").should("be.visible");
+  cy.getCy("legal-dashboard-compliance-tracker").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for LegalAnalyticsScreen...");
   cy.waitAndSee();

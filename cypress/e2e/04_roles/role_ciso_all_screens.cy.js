@@ -8,8 +8,8 @@ describe("Role All Screens - ciso", () => {
     cy.loginAsRole("ciso");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /executive/ciso-dashboard (CisoDashboardScreen)...");
-  cy.visitWithSemantics("/executive/ciso-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /offices/corporate/roles/ciso/dashboard (CisoDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/ciso/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Checking shell & content for CisoDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - ciso", () => {
   cy.getCy("cisodashboard-screen").should("be.visible");
   cy.getCy("cisodashboard-title").should("be.visible");
   cy.getCy("cisodashboard-content").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-view-report").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for CisoDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - ciso", () => {
   cy.getCy("cisoanalytics-screen").should("be.visible");
   cy.getCy("cisoanalytics-title").should("be.visible");
   cy.getCy("cisoanalytics-content").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-view-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for CisoAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - ciso", () => {
   cy.getCy("cisocompliance-screen").should("be.visible");
   cy.getCy("cisocompliance-title").should("be.visible");
   cy.getCy("cisocompliance-content").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-initiate-risk-assessment").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-start-training").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for CisoComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - ciso", () => {
   cy.getCy("cisoworkflow-screen").should("be.visible");
   cy.getCy("cisoworkflow-title").should("be.visible");
   cy.getCy("cisoworkflow-content").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-view-reports").should("be.visible");
+  cy.getCy("ciso-dashboard-btn-send-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for CisoWorkflowScreen...");
   cy.waitAndSee();

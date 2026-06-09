@@ -18,6 +18,9 @@ describe("Screen - family_member_compliance", () => {
   cy.getCy("familymembercompliance-screen").should("be.visible");
   cy.getCy("familymembercompliance-title").should("be.visible");
   cy.getCy("familymembercompliance-content").should("be.visible");
+  cy.getCy("family_member_compliance-scan-status").should("be.visible");
+  cy.getCy("family_member_compliance-log-summary").should("be.visible");
+  cy.getCy("family_member_compliance-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FamilyMemberComplianceScreen...");
   cy.waitAndSee();

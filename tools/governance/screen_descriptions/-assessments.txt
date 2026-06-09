@@ -1,0 +1,17 @@
+List of work the user must do:
+1. Monitor the loading state of the assessments.
+2. Handle any errors that may occur during data fetching.
+3. Review the displayed assessments once loaded.
+4. Interact with the assessments if applicable (e.g., taking assessments, viewing results).
+
+Red flags of operation:
+1. Prolonged loading times indicating potential performance issues.
+2. Frequent error messages suggesting backend or network problems.
+3. Lack of data or empty states when assessments should be available.
+4. Unresponsive UI elements that hinder user interaction.
+
+What we need on the dashboard of the user:
+1. Real-time loading indicators to show data fetching status.
+2. Clear error messages with actionable steps if something goes wrong.
+3. Summary of available assessments with options to start or review them.
+4. Performance metrics such as loading times and error rates for ongoing monitoring.

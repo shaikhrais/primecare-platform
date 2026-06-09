@@ -15,9 +15,12 @@ describe("Screen - community_outreach_events", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("communityoutreachevents-screen").should("be.visible");
+  cy.getCy("communityoutreachevents-title").should("be.visible");
+  cy.getCy("communityoutreachevents-content").should("be.visible");
+  cy.getCy("community-outreach-btn-update-event").should("be.visible");
+  cy.getCy("community-outreach-btn-schedule-event").should("be.visible");
+  cy.getCy("community-outreach-btn-view-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Community Outreach Events...");
   cy.waitAndSee();

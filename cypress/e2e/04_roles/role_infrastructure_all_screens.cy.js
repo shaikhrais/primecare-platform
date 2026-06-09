@@ -19,6 +19,9 @@ describe("Role All Screens - infrastructure", () => {
   cy.getCy("infrastructuredashboard-screen").should("be.visible");
   cy.getCy("infrastructuredashboard-title").should("be.visible");
   cy.getCy("infrastructuredashboard-content").should("be.visible");
+  cy.getCy("infrastructure-dashboard-btn-execute-scan").should("be.visible");
+  cy.getCy("infrastructure-dashboard-btn-sync-posture").should("be.visible");
+  cy.getCy("infrastructure-dashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/7 | 14%] - Saving screenshot for InfrastructureDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - infrastructure", () => {
   cy.getCy("architectureplanninganalytics-screen").should("be.visible");
   cy.getCy("architectureplanninganalytics-title").should("be.visible");
   cy.getCy("architectureplanninganalytics-content").should("be.visible");
+  cy.getCy("infrastructure-health-overview").should("be.visible");
+  cy.getCy("security-alerts").should("be.visible");
+  cy.getCy("uptime-downtime-visualization").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/7 | 28%] - Saving screenshot for ArchitecturePlanningAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - infrastructure", () => {
   cy.getCy("architectureplanningcompliance-screen").should("be.visible");
   cy.getCy("architectureplanningcompliance-title").should("be.visible");
   cy.getCy("architectureplanningcompliance-content").should("be.visible");
+  cy.getCy("compliance-status-indicator").should("be.visible");
+  cy.getCy("audit-logs-table").should("be.visible");
+  cy.getCy("alerts-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Saving screenshot for ArchitecturePlanningComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - infrastructure", () => {
   cy.getCy("architectureplanningworkflow-screen").should("be.visible");
   cy.getCy("architectureplanningworkflow-title").should("be.visible");
   cy.getCy("architectureplanningworkflow-content").should("be.visible");
+  cy.getCy("infrastructure-health-overview").should("be.visible");
+  cy.getCy("compliance-status-card").should("be.visible");
+  cy.getCy("alerts-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Saving screenshot for ArchitecturePlanningWorkflowScreen...");
   cy.waitAndSee();
@@ -91,6 +103,9 @@ describe("Role All Screens - infrastructure", () => {
   cy.getCy("infrastructureanalytics-screen").should("be.visible");
   cy.getCy("infrastructureanalytics-title").should("be.visible");
   cy.getCy("infrastructureanalytics-content").should("be.visible");
+  cy.getCy("infrastructure-dashboard-health").should("be.visible");
+  cy.getCy("infrastructure-dashboard-compliance").should("be.visible");
+  cy.getCy("infrastructure-dashboard-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Saving screenshot for InfrastructureAnalyticsScreen...");
   cy.waitAndSee();
@@ -109,6 +124,9 @@ describe("Role All Screens - infrastructure", () => {
   cy.getCy("infrastructurecompliance-screen").should("be.visible");
   cy.getCy("infrastructurecompliance-title").should("be.visible");
   cy.getCy("infrastructurecompliance-content").should("be.visible");
+  cy.getCy("infrastructure-compliance-status").should("be.visible");
+  cy.getCy("infrastructure-audit-logs").should("be.visible");
+  cy.getCy("infrastructure-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Saving screenshot for InfrastructureComplianceScreen...");
   cy.waitAndSee();
@@ -127,6 +145,9 @@ describe("Role All Screens - infrastructure", () => {
   cy.getCy("infrastructureworkflow-screen").should("be.visible");
   cy.getCy("infrastructureworkflow-title").should("be.visible");
   cy.getCy("infrastructureworkflow-content").should("be.visible");
+  cy.getCy("infrastructure-audit-btn-generate-report").should("be.visible");
+  cy.getCy("infrastructure-audit-btn-update-compliance").should("be.visible");
+  cy.getCy("infrastructure-audit-btn-view-findings").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Saving screenshot for InfrastructureWorkflowScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - biospecimen_inventory_tracker", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("biospecimeninventorytracker-screen").should("be.visible");
+  cy.getCy("biospecimeninventorytracker-title").should("be.visible");
+  cy.getCy("biospecimeninventorytracker-content").should("be.visible");
+  cy.getCy("biospecimen-inventory-card").should("be.visible");
+  cy.getCy("biospecimen-search-filter").should("be.visible");
+  cy.getCy("biospecimen-report-generator").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Biospecimen Inventory Tracker...");
   cy.waitAndSee();

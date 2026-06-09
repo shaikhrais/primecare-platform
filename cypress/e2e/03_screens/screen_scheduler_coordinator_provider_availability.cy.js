@@ -7,17 +7,20 @@ describe("Screen - scheduler_coordinator_provider_availability", () => {
   it("opens and verifies screen scheduler_coordinator_provider_availability", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Scheduler Coordinator Provider Availability)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/scheduler_coordinator/provider-availability (Scheduler Coordinator Provider Availability)...");
+  cy.visitWithSemantics("/offices/franchise/roles/scheduler_coordinator/provider-availability");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Scheduler Coordinator Provider Availability...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("schedulercoordinatorprovideravailability-screen").should("be.visible");
+  cy.getCy("schedulercoordinatorprovideravailability-title").should("be.visible");
+  cy.getCy("schedulercoordinatorprovideravailability-content").should("be.visible");
+  cy.getCy("provider-availability-list").should("be.visible");
+  cy.getCy("conflict-notification").should("be.visible");
+  cy.getCy("schedule-summary").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Scheduler Coordinator Provider Availability...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - vip_manager_dashboard", () => {
   cy.getCy("vipmanagerdashboard-screen").should("be.visible");
   cy.getCy("vipmanagerdashboard-title").should("be.visible");
   cy.getCy("vipmanagerdashboard-content").should("be.visible");
+  cy.getCy("vipmanager-btn-compliance-scan").should("be.visible");
+  cy.getCy("vipmanager-btn-log-touchpoint").should("be.visible");
+  cy.getCy("vipmanager-btn-export-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for VipManagerDashboardScreen...");
   cy.waitAndSee();

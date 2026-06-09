@@ -15,9 +15,12 @@ describe("Screen - asynchronous_consultation_inbox", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("asynchronousconsultationinbox-screen").should("be.visible");
+  cy.getCy("asynchronousconsultationinbox-title").should("be.visible");
+  cy.getCy("asynchronousconsultationinbox-content").should("be.visible");
+  cy.getCy("consultation-inbox").should("be.visible");
+  cy.getCy("consultation-respond-btn").should("be.visible");
+  cy.getCy("consultation-archive-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Asynchronous Consultation Inbox...");
   cy.waitAndSee();

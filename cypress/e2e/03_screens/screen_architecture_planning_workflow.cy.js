@@ -18,6 +18,9 @@ describe("Screen - architecture_planning_workflow", () => {
   cy.getCy("architectureplanningworkflow-screen").should("be.visible");
   cy.getCy("architectureplanningworkflow-title").should("be.visible");
   cy.getCy("architectureplanningworkflow-content").should("be.visible");
+  cy.getCy("infrastructure-health-overview").should("be.visible");
+  cy.getCy("compliance-status-card").should("be.visible");
+  cy.getCy("alerts-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ArchitecturePlanningWorkflowScreen...");
   cy.waitAndSee();

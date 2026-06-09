@@ -7,17 +7,20 @@ describe("Screen - monitoring", () => {
   it("opens and verifies screen monitoring", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Monitoring)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /governance/monitoring (Monitoring)...");
+  cy.visitWithSemantics("/governance/monitoring");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Monitoring...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("monitoring-screen").should("be.visible");
+  cy.getCy("monitoring-title").should("be.visible");
+  cy.getCy("monitoring-content").should("be.visible");
+  cy.getCy("dashboard-btn-refresh-metrics").should("be.visible");
+  cy.getCy("dashboard-btn-view-logs").should("be.visible");
+  cy.getCy("dashboard-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Monitoring...");
   cy.waitAndSee();

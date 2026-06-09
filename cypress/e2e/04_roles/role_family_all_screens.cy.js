@@ -19,6 +19,8 @@ describe("Role All Screens - family", () => {
   cy.getCy("familymemberanalytics-screen").should("be.visible");
   cy.getCy("familymemberanalytics-title").should("be.visible");
   cy.getCy("familymemberanalytics-content").should("be.visible");
+  cy.getCy("family-member-analytics-refresh").should("be.visible");
+  cy.getCy("family-member-sandbox-access").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/7 | 14%] - Saving screenshot for FamilyMemberAnalyticsScreen...");
   cy.waitAndSee();
@@ -37,6 +39,9 @@ describe("Role All Screens - family", () => {
   cy.getCy("familymembercompliance-screen").should("be.visible");
   cy.getCy("familymembercompliance-title").should("be.visible");
   cy.getCy("familymembercompliance-content").should("be.visible");
+  cy.getCy("family_member_compliance-scan-status").should("be.visible");
+  cy.getCy("family_member_compliance-log-summary").should("be.visible");
+  cy.getCy("family_member_compliance-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/7 | 28%] - Saving screenshot for FamilyMemberComplianceScreen...");
   cy.waitAndSee();
@@ -55,6 +60,9 @@ describe("Role All Screens - family", () => {
   cy.getCy("familymemberworkflow-screen").should("be.visible");
   cy.getCy("familymemberworkflow-title").should("be.visible");
   cy.getCy("familymemberworkflow-content").should("be.visible");
+  cy.getCy("family-member-btn-execute-1").should("be.visible");
+  cy.getCy("family-member-btn-action-sweep").should("be.visible");
+  cy.getCy("family-member-dashboard-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Saving screenshot for FamilyMemberWorkflowScreen...");
   cy.waitAndSee();
@@ -73,6 +81,9 @@ describe("Role All Screens - family", () => {
   cy.getCy("familyoverview-screen").should("be.visible");
   cy.getCy("familyoverview-title").should("be.visible");
   cy.getCy("familyoverview-content").should("be.visible");
+  cy.getCy("family-overview-btn-run-scan").should("be.visible");
+  cy.getCy("family-overview-btn-trigger-action").should("be.visible");
+  cy.getCy("family-overview-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Saving screenshot for FamilyOverviewScreen...");
   cy.waitAndSee();
@@ -91,6 +102,9 @@ describe("Role All Screens - family", () => {
   cy.getCy("careupdates-screen").should("be.visible");
   cy.getCy("careupdates-title").should("be.visible");
   cy.getCy("careupdates-content").should("be.visible");
+  cy.getCy("compliance-scan-results").should("be.visible");
+  cy.getCy("performance-indicator-chart").should("be.visible");
+  cy.getCy("operational-audit-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Saving screenshot for CareUpdatesScreen...");
   cy.waitAndSee();
@@ -109,6 +123,8 @@ describe("Role All Screens - family", () => {
   cy.getCy("billingoverview-screen").should("be.visible");
   cy.getCy("billingoverview-title").should("be.visible");
   cy.getCy("billingoverview-content").should("be.visible");
+  cy.getCy("billing-overview-btn-execute-scan").should("be.visible");
+  cy.getCy("billing-overview-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Saving screenshot for BillingOverviewScreen...");
   cy.waitAndSee();
@@ -127,6 +143,9 @@ describe("Role All Screens - family", () => {
   cy.getCy("emergencycontacts-screen").should("be.visible");
   cy.getCy("emergencycontacts-title").should("be.visible");
   cy.getCy("emergencycontacts-content").should("be.visible");
+  cy.getCy("emergency-contacts-list").should("be.visible");
+  cy.getCy("compliance-scan-results").should("be.visible");
+  cy.getCy("audit-log-viewer").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Saving screenshot for EmergencyContactsScreen...");
   cy.waitAndSee();

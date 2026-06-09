@@ -18,6 +18,9 @@ describe("Screen - guest_dashboard", () => {
   cy.getCy("guestdashboard-screen").should("be.visible");
   cy.getCy("guestdashboard-title").should("be.visible");
   cy.getCy("guestdashboard-content").should("be.visible");
+  cy.getCy("guestdashboard-btn-compliance-scan").should("be.visible");
+  cy.getCy("guestdashboard-btn-sync-security").should("be.visible");
+  cy.getCy("guestdashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for GuestDashboardScreen...");
   cy.waitAndSee();

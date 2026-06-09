@@ -18,6 +18,9 @@ describe("Screen - shareholder_analytics", () => {
   cy.getCy("shareholderanalytics-screen").should("be.visible");
   cy.getCy("shareholderanalytics-title").should("be.visible");
   cy.getCy("shareholderanalytics-content").should("be.visible");
+  cy.getCy("shareholder-compliance-status").should("be.visible");
+  cy.getCy("shareholder-performance-metrics").should("be.visible");
+  cy.getCy("shareholder-operational-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ShareholderAnalyticsScreen...");
   cy.waitAndSee();

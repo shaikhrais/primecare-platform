@@ -15,9 +15,12 @@ describe("Screen - hr_onboarding", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("hronboarding-screen").should("be.visible");
+  cy.getCy("hronboarding-title").should("be.visible");
+  cy.getCy("hronboarding-content").should("be.visible");
+  cy.getCy("hr-onboarding-btn-promote").should("be.visible");
+  cy.getCy("hr-onboarding-btn-view-details").should("be.visible");
+  cy.getCy("hr-onboarding-filter-applicants").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Hr Onboarding...");
   cy.waitAndSee();

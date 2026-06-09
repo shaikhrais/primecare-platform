@@ -15,9 +15,12 @@ describe("Screen - reset_password", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("resetpassword-screen").should("be.visible");
+  cy.getCy("resetpassword-title").should("be.visible");
+  cy.getCy("resetpassword-content").should("be.visible");
+  cy.getCy("reset-password-new-password").should("be.visible");
+  cy.getCy("reset-password-confirm-password").should("be.visible");
+  cy.getCy("reset-password-update-button").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Reset Password...");
   cy.waitAndSee();

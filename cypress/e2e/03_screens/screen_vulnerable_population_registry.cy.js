@@ -15,9 +15,12 @@ describe("Screen - vulnerable_population_registry", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("vulnerablepopulationregistry-screen").should("be.visible");
+  cy.getCy("vulnerablepopulationregistry-title").should("be.visible");
+  cy.getCy("vulnerablepopulationregistry-content").should("be.visible");
+  cy.getCy("vulnerable-registry-btn-add").should("be.visible");
+  cy.getCy("vulnerable-registry-btn-edit").should("be.visible");
+  cy.getCy("vulnerable-registry-btn-delete").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Vulnerable Population Registry...");
   cy.waitAndSee();

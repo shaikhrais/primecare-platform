@@ -15,9 +15,11 @@ describe("Screen - population_health_analyzer", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("populationhealthanalyzer-screen").should("be.visible");
+  cy.getCy("populationhealthanalyzer-title").should("be.visible");
+  cy.getCy("populationhealthanalyzer-content").should("be.visible");
+  cy.getCy("populationhealth-btn-refresh").should("be.visible");
+  cy.getCy("populationhealth-btn-export").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Population Health Analyzer...");
   cy.waitAndSee();

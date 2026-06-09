@@ -18,6 +18,9 @@ describe("Screen - scheduler_provider_availability", () => {
   cy.getCy("schedulerprovideravailability-screen").should("be.visible");
   cy.getCy("schedulerprovideravailability-title").should("be.visible");
   cy.getCy("schedulerprovideravailability-content").should("be.visible");
+  cy.getCy("scheduler-btn-view-schedule").should("be.visible");
+  cy.getCy("scheduler-btn-report-issue").should("be.visible");
+  cy.getCy("scheduler-btn-track-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulerProviderAvailabilityScreen...");
   cy.waitAndSee();

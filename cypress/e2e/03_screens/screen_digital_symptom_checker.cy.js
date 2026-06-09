@@ -15,9 +15,12 @@ describe("Screen - digital_symptom_checker", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("digitalsymptomchecker-screen").should("be.visible");
+  cy.getCy("digitalsymptomchecker-title").should("be.visible");
+  cy.getCy("digitalsymptomchecker-content").should("be.visible");
+  cy.getCy("symptom-input").should("be.visible");
+  cy.getCy("submit-button").should("be.visible");
+  cy.getCy("save-button").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Digital Symptom Checker...");
   cy.waitAndSee();

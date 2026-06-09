@@ -18,6 +18,9 @@ describe("Screen - partnership_manager_compliance", () => {
   cy.getCy("partnershipmanagercompliance-screen").should("be.visible");
   cy.getCy("partnershipmanagercompliance-title").should("be.visible");
   cy.getCy("partnershipmanagercompliance-content").should("be.visible");
+  cy.getCy("compliance-audit-status-card").should("be.visible");
+  cy.getCy("recent-audit-summary-card").should("be.visible");
+  cy.getCy("operational-logs-table").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PartnershipManagerComplianceScreen...");
   cy.waitAndSee();

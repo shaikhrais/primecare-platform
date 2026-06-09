@@ -18,6 +18,9 @@ describe("Screen - defect_tracking", () => {
   cy.getCy("defecttracking-screen").should("be.visible");
   cy.getCy("defecttracking-title").should("be.visible");
   cy.getCy("defecttracking-content").should("be.visible");
+  cy.getCy("qa-dashboard-btn-execute-test").should("be.visible");
+  cy.getCy("qa-dashboard-btn-document-defect").should("be.visible");
+  cy.getCy("qa-dashboard-btn-resolve-issue").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for DefectTrackingScreen...");
   cy.waitAndSee();

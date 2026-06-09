@@ -18,6 +18,9 @@ describe("Screen - intake_dashboard", () => {
   cy.getCy("intakedashboard-screen").should("be.visible");
   cy.getCy("intakedashboard-title").should("be.visible");
   cy.getCy("intakedashboard-content").should("be.visible");
+  cy.getCy("intake-dashboard-active-requests").should("be.visible");
+  cy.getCy("intake-dashboard-appointment-metrics").should("be.visible");
+  cy.getCy("intake-dashboard-compliance-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for IntakeDashboardScreen...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - receptionist_analytics", () => {
   cy.getCy("receptionistanalytics-screen").should("be.visible");
   cy.getCy("receptionistanalytics-title").should("be.visible");
   cy.getCy("receptionistanalytics-content").should("be.visible");
+  cy.getCy("receptionist-analytics-btn-add-task").should("be.visible");
+  cy.getCy("receptionist-analytics-btn-schedule-appointment").should("be.visible");
+  cy.getCy("receptionist-analytics-btn-send-message").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ReceptionistAnalyticsScreen...");
   cy.waitAndSee();

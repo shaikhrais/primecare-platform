@@ -18,6 +18,9 @@ describe("Screen - scheduling_dashboard", () => {
   cy.getCy("schedulingdashboard-screen").should("be.visible");
   cy.getCy("schedulingdashboard-title").should("be.visible");
   cy.getCy("schedulingdashboard-content").should("be.visible");
+  cy.getCy("scheduling-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("scheduling-dashboard-btn-send-update").should("be.visible");
+  cy.getCy("scheduling-dashboard-btn-log-incident").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SchedulingDashboardScreen...");
   cy.waitAndSee();

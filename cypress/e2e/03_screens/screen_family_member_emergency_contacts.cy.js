@@ -15,9 +15,12 @@ describe("Screen - family_member_emergency_contacts", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("familymemberemergencycontacts-screen").should("be.visible");
+  cy.getCy("familymemberemergencycontacts-title").should("be.visible");
+  cy.getCy("familymemberemergencycontacts-content").should("be.visible");
+  cy.getCy("emergency-contact-list").should("be.visible");
+  cy.getCy("add-contact-btn").should("be.visible");
+  cy.getCy("edit-contact-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Family Member Emergency Contacts...");
   cy.waitAndSee();

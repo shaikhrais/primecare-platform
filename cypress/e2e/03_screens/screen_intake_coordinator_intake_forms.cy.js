@@ -15,9 +15,12 @@ describe("Screen - intake_coordinator_intake_forms", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("intakecoordinatorintakeforms-screen").should("be.visible");
+  cy.getCy("intakecoordinatorintakeforms-title").should("be.visible");
+  cy.getCy("intakecoordinatorintakeforms-content").should("be.visible");
+  cy.getCy("intake-form-submit").should("be.visible");
+  cy.getCy("intake-form-review").should("be.visible");
+  cy.getCy("intake-follow-up").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Intake Coordinator Intake Forms...");
   cy.waitAndSee();

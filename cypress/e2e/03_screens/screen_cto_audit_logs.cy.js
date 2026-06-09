@@ -7,17 +7,20 @@ describe("Screen - cto_audit_logs", () => {
   it("opens and verifies screen cto_audit_logs", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Cto Audit Logs)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/cto/audit-logs (Cto Audit Logs)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cto/audit-logs");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Cto Audit Logs...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ctoauditlogs-screen").should("be.visible");
+  cy.getCy("ctoauditlogs-title").should("be.visible");
+  cy.getCy("ctoauditlogs-content").should("be.visible");
+  cy.getCy("auditlog-summary").should("be.visible");
+  cy.getCy("suspicious-activity-alert").should("be.visible");
+  cy.getCy("access-pattern-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Cto Audit Logs...");
   cy.waitAndSee();

@@ -15,9 +15,11 @@ describe("Screen - clinical_guideline_library", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("clinicalguidelinelibrary-screen").should("be.visible");
+  cy.getCy("clinicalguidelinelibrary-title").should("be.visible");
+  cy.getCy("clinicalguidelinelibrary-content").should("be.visible");
+  cy.getCy("clinical-guideline-library-refresh").should("be.visible");
+  cy.getCy("clinical-guideline-library-search").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Clinical Guideline Library...");
   cy.waitAndSee();

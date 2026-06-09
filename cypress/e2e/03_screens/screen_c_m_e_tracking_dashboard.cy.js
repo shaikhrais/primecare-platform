@@ -15,9 +15,12 @@ describe("Screen - c_m_e_tracking_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("cmetrackingdashboard-screen").should("be.visible");
+  cy.getCy("cmetrackingdashboard-title").should("be.visible");
+  cy.getCy("cmetrackingdashboard-content").should("be.visible");
+  cy.getCy("cme-dashboard-earned-credits").should("be.visible");
+  cy.getCy("cme-dashboard-required-credits").should("be.visible");
+  cy.getCy("cme-dashboard-renewal-deadline").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for C M E Tracking Dashboard...");
   cy.waitAndSee();

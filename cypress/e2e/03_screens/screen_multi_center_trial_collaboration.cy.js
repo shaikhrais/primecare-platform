@@ -15,9 +15,12 @@ describe("Screen - multi_center_trial_collaboration", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("multicentertrialcollaboration-screen").should("be.visible");
+  cy.getCy("multicentertrialcollaboration-title").should("be.visible");
+  cy.getCy("multicentertrialcollaboration-content").should("be.visible");
+  cy.getCy("trial-dashboard-btn-update-data").should("be.visible");
+  cy.getCy("trial-dashboard-btn-monitor-progress").should("be.visible");
+  cy.getCy("trial-dashboard-btn-send-message").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Multi Center Trial Collaboration...");
   cy.waitAndSee();

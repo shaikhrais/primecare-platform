@@ -18,6 +18,9 @@ describe("Screen - employee_records", () => {
   cy.getCy("employeerecords-screen").should("be.visible");
   cy.getCy("employeerecords-title").should("be.visible");
   cy.getCy("employeerecords-content").should("be.visible");
+  cy.getCy("hr-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("hr-dashboard-btn-view-details").should("be.visible");
+  cy.getCy("hr-dashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for EmployeeRecordsScreen...");
   cy.waitAndSee();

@@ -1,0 +1,25 @@
+User Work List:
+1. Review and validate organizational policies.
+2. Enforce global policies across applications.
+3. Ensure compliance of applications with enforced policies.
+4. Monitor application access and permissions.
+5. Verify translations and localization for screens.
+6. Conduct security audits for screens.
+7. Validate responsive layouts for different devices.
+8. Log telemetry events for governance auditing.
+
+Red Flags of Operation:
+1. Non-compliance with organizational policies.
+2. Lack of access control to applications.
+3. Unverified translations leading to inconsistencies.
+4. Unaddressed security vulnerabilities.
+5. Poor responsiveness across devices.
+6. Missing telemetry logs for governance events.
+
+Dashboard Needs:
+1. Overview of active policies and their compliance status.
+2. Access control metrics for applications.
+3. Translation verification status for each screen.
+4. Security audit results and outstanding issues.
+5. Responsive layout verification status.
+6. Telemetry event logs and analytics for governance.

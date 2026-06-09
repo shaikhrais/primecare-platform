@@ -15,9 +15,12 @@ describe("Screen - clinic_incident_report", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("clinicincidentreport-screen").should("be.visible");
+  cy.getCy("clinicincidentreport-title").should("be.visible");
+  cy.getCy("clinicincidentreport-content").should("be.visible");
+  cy.getCy("clinic-incident-report-table").should("be.visible");
+  cy.getCy("loading-indicator").should("be.visible");
+  cy.getCy("error-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Clinic Incident Report...");
   cy.waitAndSee();

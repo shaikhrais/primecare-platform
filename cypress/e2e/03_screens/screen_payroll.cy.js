@@ -18,6 +18,9 @@ describe("Screen - payroll", () => {
   cy.getCy("payroll-screen").should("be.visible");
   cy.getCy("payroll-title").should("be.visible");
   cy.getCy("payroll-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi").should("be.visible");
+  cy.getCy("cfo-dashboard-financial-statements").should("be.visible");
+  cy.getCy("cfo-dashboard-budget-vs-actual").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PayrollScreen...");
   cy.waitAndSee();

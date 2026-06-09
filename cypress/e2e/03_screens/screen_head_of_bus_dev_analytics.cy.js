@@ -18,6 +18,9 @@ describe("Screen - head_of_bus_dev_analytics", () => {
   cy.getCy("headofbusdevanalytics-screen").should("be.visible");
   cy.getCy("headofbusdevanalytics-title").should("be.visible");
   cy.getCy("headofbusdevanalytics-content").should("be.visible");
+  cy.getCy("bd-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("bd-dashboard-btn-view-proposal").should("be.visible");
+  cy.getCy("bd-dashboard-btn-negotiate-contract").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HeadOfBusDevAnalyticsScreen...");
   cy.waitAndSee();

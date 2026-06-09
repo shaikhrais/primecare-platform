@@ -18,6 +18,9 @@ describe("Screen - coordinator_waitlist", () => {
   cy.getCy("coordinatorwaitlist-screen").should("be.visible");
   cy.getCy("coordinatorwaitlist-title").should("be.visible");
   cy.getCy("coordinatorwaitlist-content").should("be.visible");
+  cy.getCy("coordinator-dashboard-btn-update-schedule").should("be.visible");
+  cy.getCy("coordinator-dashboard-btn-report-incident").should("be.visible");
+  cy.getCy("coordinator-dashboard-btn-order-supplies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CoordinatorWaitlistScreen...");
   cy.waitAndSee();

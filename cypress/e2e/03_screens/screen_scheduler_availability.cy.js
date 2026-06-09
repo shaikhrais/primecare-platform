@@ -15,9 +15,11 @@ describe("Screen - scheduler_availability", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("scheduleravailability-screen").should("be.visible");
+  cy.getCy("scheduleravailability-title").should("be.visible");
+  cy.getCy("scheduleravailability-content").should("be.visible");
+  cy.getCy("scheduler-btn-submit-event-log").should("be.visible");
+  cy.getCy("scheduler-btn-refresh-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Scheduler Availability...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - intake_coordinator_assessments", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("intakecoordinatorassessments-screen").should("be.visible");
+  cy.getCy("intakecoordinatorassessments-title").should("be.visible");
+  cy.getCy("intakecoordinatorassessments-content").should("be.visible");
+  cy.getCy("assessment-list").should("be.visible");
+  cy.getCy("status-monitor").should("be.visible");
+  cy.getCy("communication-tool").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Intake Coordinator Assessments...");
   cy.waitAndSee();

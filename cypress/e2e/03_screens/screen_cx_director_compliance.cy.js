@@ -18,6 +18,9 @@ describe("Screen - cx_director_compliance", () => {
   cy.getCy("cxdirectorcompliance-screen").should("be.visible");
   cy.getCy("cxdirectorcompliance-title").should("be.visible");
   cy.getCy("cxdirectorcompliance-content").should("be.visible");
+  cy.getCy("cxdirector-btn-generate-report").should("be.visible");
+  cy.getCy("cxdirector-btn-initiate-audit").should("be.visible");
+  cy.getCy("cxdirector-btn-send-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CxDirectorComplianceScreen...");
   cy.waitAndSee();

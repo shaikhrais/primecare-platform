@@ -1,0 +1,35 @@
+List of tasks Registered Nurse (RN) must do:
+1. Assess patient health and medical histories.
+2. Develop and implement nursing care plans.
+3. Administer medications and treatments.
+4. Monitor patient progress and vital signs.
+5. Collaborate with healthcare team members.
+6. Educate patients and families on health management.
+7. Document patient care and progress.
+8. Participate in quality improvement initiatives.
+9. Ensure compliance with healthcare regulations.
+10. Provide emotional support to patients and families.
+
+Red flags of operation for effective work:
+1. Delays in patient care or treatment.
+2. High rates of medication errors.
+3. Incomplete or inaccurate documentation.
+4. Poor communication among team members.
+5. Increased patient complaints or dissatisfaction.
+6. Frequent changes in patient conditions without proper monitoring.
+7. Lack of adherence to care protocols.
+8. Inadequate staffing levels leading to burnout.
+9. Unresolved conflicts within the healthcare team.
+10. Failure to follow up on critical lab results.
+
+Dashboard needs for Registered Nurse (RN):
+1. Patient list with current status and alerts.
+2. Medication administration records.
+3. Care plan revisions and approval statuses.
+4. Goal-setting and tracking tools.
+5. Communication logs with other healthcare providers.
+6. Performance metrics and quality indicators.
+7. Patient education resources and materials.
+8. Access to clinical guidelines and protocols.
+9. Incident reporting and tracking system.
+10. Tools for scheduling and managing patient appointments.

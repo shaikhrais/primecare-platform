@@ -15,9 +15,12 @@ describe("Screen - training_coordinator_workshops", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("trainingcoordinatorworkshops-screen").should("be.visible");
+  cy.getCy("trainingcoordinatorworkshops-title").should("be.visible");
+  cy.getCy("trainingcoordinatorworkshops-content").should("be.visible");
+  cy.getCy("workshop-status-monitor").should("be.visible");
+  cy.getCy("schedule-workshop-btn").should("be.visible");
+  cy.getCy("manage-registrations-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Training Coordinator Workshops...");
   cy.waitAndSee();

@@ -18,6 +18,9 @@ describe("Screen - regional_bdm_workflow", () => {
   cy.getCy("regionalbdmworkflow-screen").should("be.visible");
   cy.getCy("regionalbdmworkflow-title").should("be.visible");
   cy.getCy("regionalbdmworkflow-content").should("be.visible");
+  cy.getCy("regional-bdm-sales-metric").should("be.visible");
+  cy.getCy("regional-bdm-sales-trend").should("be.visible");
+  cy.getCy("regional-bdm-client-manager").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RegionalBdmWorkflowScreen...");
   cy.waitAndSee();

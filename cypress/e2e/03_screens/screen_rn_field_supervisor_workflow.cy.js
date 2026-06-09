@@ -15,9 +15,12 @@ describe("Screen - rn_field_supervisor_workflow", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("registered nurse (rn) field supervisor compliance workflow-screen").should("be.visible");
-  cy.getCy("registered nurse (rn) field supervisor compliance workflow-title").should("be.visible");
-  cy.getCy("registered nurse (rn) field supervisor compliance workflow-content").should("be.visible");
+  cy.getCy("rnfieldsupervisorworkflow-screen").should("be.visible");
+  cy.getCy("rnfieldsupervisorworkflow-title").should("be.visible");
+  cy.getCy("rnfieldsupervisorworkflow-content").should("be.visible");
+  cy.getCy("rnfieldsupervisor-btn-submit-compliance").should("be.visible");
+  cy.getCy("rnfieldsupervisor-btn-request-training").should("be.visible");
+  cy.getCy("rnfieldsupervisor-btn-log-field-visit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Registered Nurse (RN) Field Supervisor Compliance Workflow...");
   cy.waitAndSee();

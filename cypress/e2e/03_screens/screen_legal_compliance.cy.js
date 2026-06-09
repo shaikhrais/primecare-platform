@@ -18,6 +18,9 @@ describe("Screen - legal_compliance", () => {
   cy.getCy("legalcompliance-screen").should("be.visible");
   cy.getCy("legalcompliance-title").should("be.visible");
   cy.getCy("legalcompliance-content").should("be.visible");
+  cy.getCy("legalcompliance-btn-update").should("be.visible");
+  cy.getCy("legalcompliance-btn-train").should("be.visible");
+  cy.getCy("legalcompliance-btn-review").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for LegalComplianceScreen...");
   cy.waitAndSee();

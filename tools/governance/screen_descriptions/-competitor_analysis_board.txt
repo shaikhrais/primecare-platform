@@ -1,0 +1,15 @@
+User Tasks:
+1. View competitor analysis data including market share, patient satisfaction, pricing index, and trends.
+2. Refresh the data by clicking the refresh icon.
+3. Add a new competitor using the "Add Competitor" button.
+
+Red Flags of Operation:
+1. Loading state may indicate slow API response or connectivity issues.
+2. Error state could signify problems with the API or data retrieval.
+3. Trends showing competitors' performance going up may indicate a threat to the user's market position.
+
+Dashboard Needs:
+1. Real-time competitor data updates.
+2. Visual indicators for market share and trends.
+3. Alerts for significant changes in competitor performance.
+4. User-friendly interface for adding and managing competitors.

@@ -18,6 +18,9 @@ describe("Screen - revenue_snapshot", () => {
   cy.getCy("revenuesnapshot-screen").should("be.visible");
   cy.getCy("revenuesnapshot-title").should("be.visible");
   cy.getCy("revenuesnapshot-content").should("be.visible");
+  cy.getCy("revenue-metric-card").should("be.visible");
+  cy.getCy("compliance-status-widget").should("be.visible");
+  cy.getCy("operational-log-table").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RevenueSnapshotScreen...");
   cy.waitAndSee();

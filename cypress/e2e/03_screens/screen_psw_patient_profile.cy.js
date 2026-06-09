@@ -15,9 +15,12 @@ describe("Screen - psw_patient_profile", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pswpatientprofile-screen").should("be.visible");
+  cy.getCy("pswpatientprofile-title").should("be.visible");
+  cy.getCy("pswpatientprofile-content").should("be.visible");
+  cy.getCy("pswpatient-btn-refresh").should("be.visible");
+  cy.getCy("pswpatient-btn-view-compliance").should("be.visible");
+  cy.getCy("pswpatient-btn-access-profile").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Psw Patient Profile...");
   cy.waitAndSee();

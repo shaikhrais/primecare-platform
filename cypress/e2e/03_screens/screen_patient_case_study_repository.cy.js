@@ -15,9 +15,12 @@ describe("Screen - patient_case_study_repository", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("patientcasestudyrepository-screen").should("be.visible");
+  cy.getCy("patientcasestudyrepository-title").should("be.visible");
+  cy.getCy("patientcasestudyrepository-content").should("be.visible");
+  cy.getCy("case-study-list").should("be.visible");
+  cy.getCy("loading-indicator").should("be.visible");
+  cy.getCy("error-message").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Patient Case Study Repository...");
   cy.waitAndSee();

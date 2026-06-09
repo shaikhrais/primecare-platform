@@ -15,9 +15,12 @@ describe("Screen - compliance_manager_audits", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("compliancemanageraudits-screen").should("be.visible");
+  cy.getCy("compliancemanageraudits-title").should("be.visible");
+  cy.getCy("compliancemanageraudits-content").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-update-documentation").should("be.visible");
+  cy.getCy("compliance-dashboard-btn-submit-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Compliance Manager Audits...");
   cy.waitAndSee();

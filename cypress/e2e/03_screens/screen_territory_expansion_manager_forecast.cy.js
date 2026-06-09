@@ -7,17 +7,20 @@ describe("Screen - territory_expansion_manager_forecast", () => {
   it("opens and verifies screen territory_expansion_manager_forecast", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Territory Expansion Manager Forecast)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/business_development/roles/territory_expansion_manager/forecast (Territory Expansion Manager Forecast)...");
+  cy.visitWithSemantics("/offices/business_development/roles/territory_expansion_manager/forecast");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Territory Expansion Manager Forecast...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("territoryexpansionmanagerforecast-screen").should("be.visible");
+  cy.getCy("territoryexpansionmanagerforecast-title").should("be.visible");
+  cy.getCy("territoryexpansionmanagerforecast-content").should("be.visible");
+  cy.getCy("territory-expansion-forecast-chart").should("be.visible");
+  cy.getCy("data-trend-analyzer").should("be.visible");
+  cy.getCy("expansion-area-identifier").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Territory Expansion Manager Forecast...");
   cy.waitAndSee();

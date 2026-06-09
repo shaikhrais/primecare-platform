@@ -15,9 +15,12 @@ describe("Screen - rn_charting", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("rncharting-screen").should("be.visible");
+  cy.getCy("rncharting-title").should("be.visible");
+  cy.getCy("rncharting-content").should("be.visible");
+  cy.getCy("rn-charting-btn-submit-feedback").should("be.visible");
+  cy.getCy("rn-charting-btn-report-issue").should("be.visible");
+  cy.getCy("rn-charting-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Rn Charting...");
   cy.waitAndSee();

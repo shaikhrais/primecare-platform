@@ -19,6 +19,8 @@ describe("Role All Screens - patient", () => {
   cy.getCy("familymemberdashboard-screen").should("be.visible");
   cy.getCy("familymemberdashboard-title").should("be.visible");
   cy.getCy("familymemberdashboard-content").should("be.visible");
+  cy.getCy("family_member_dashboard-btn-execute-audit").should("be.visible");
+  cy.getCy("family_member_dashboard-btn-refresh-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/16 | 6%] - Saving screenshot for FamilyMemberDashboardScreen...");
   cy.waitAndSee();
@@ -26,8 +28,8 @@ describe("Role All Screens - patient", () => {
   
   cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/16 | 6%] - Verified FamilyMemberDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Navigating to /common/patient-dashboard (PatientDashboardScreen)...");
-  cy.visitWithSemantics("/common/patient-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Navigating to /offices/client/roles/client/dashboard (PatientDashboardScreen)...");
+  cy.visitWithSemantics("/offices/client/roles/client/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Checking shell & content for PatientDashboardScreen...");
@@ -37,6 +39,9 @@ describe("Role All Screens - patient", () => {
   cy.getCy("patientdashboard-screen").should("be.visible");
   cy.getCy("patientdashboard-title").should("be.visible");
   cy.getCy("patientdashboard-content").should("be.visible");
+  cy.getCy("patientdashboard-btn-refresh").should("be.visible");
+  cy.getCy("patientdashboard-btn-audit").should("be.visible");
+  cy.getCy("patientdashboard-btn-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Saving screenshot for PatientDashboardScreen...");
   cy.waitAndSee();
@@ -55,6 +60,9 @@ describe("Role All Screens - patient", () => {
   cy.getCy("patientanalytics-screen").should("be.visible");
   cy.getCy("patientanalytics-title").should("be.visible");
   cy.getCy("patientanalytics-content").should("be.visible");
+  cy.getCy("patient-analytics-btn-complete-assessment").should("be.visible");
+  cy.getCy("patient-analytics-btn-schedule-appointment").should("be.visible");
+  cy.getCy("patient-analytics-btn-report-concern").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/16 | 18%] - Saving screenshot for PatientAnalyticsScreen...");
   cy.waitAndSee();
@@ -73,6 +81,9 @@ describe("Role All Screens - patient", () => {
   cy.getCy("patientcompliance-screen").should("be.visible");
   cy.getCy("patientcompliance-title").should("be.visible");
   cy.getCy("patientcompliance-content").should("be.visible");
+  cy.getCy("compliance-status-overview").should("be.visible");
+  cy.getCy("audit-results-chart").should("be.visible");
+  cy.getCy("governance-directives-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/16 | 25%] - Saving screenshot for PatientComplianceScreen...");
   cy.waitAndSee();
@@ -91,6 +102,9 @@ describe("Role All Screens - patient", () => {
   cy.getCy("patientworkflow-screen").should("be.visible");
   cy.getCy("patientworkflow-title").should("be.visible");
   cy.getCy("patientworkflow-content").should("be.visible");
+  cy.getCy("patient-workflow-btn-complete-assessment").should("be.visible");
+  cy.getCy("patient-workflow-btn-sign-consent").should("be.visible");
+  cy.getCy("patient-workflow-btn-schedule-appointment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/16 | 31%] - Saving screenshot for PatientWorkflowScreen...");
   cy.waitAndSee();
@@ -109,6 +123,9 @@ describe("Role All Screens - patient", () => {
   cy.getCy("patientcommandcenter-screen").should("be.visible");
   cy.getCy("patientcommandcenter-title").should("be.visible");
   cy.getCy("patientcommandcenter-content").should("be.visible");
+  cy.getCy("patient-command-center-btn-trigger-audit").should("be.visible");
+  cy.getCy("patient-command-center-btn-refresh-telemetry").should("be.visible");
+  cy.getCy("patient-command-center-btn-execute-scan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/16 | 37%] - Saving screenshot for PatientCommandCenterScreen...");
   cy.waitAndSee();
@@ -127,6 +144,9 @@ describe("Role All Screens - patient", () => {
   cy.getCy("patientappointments-screen").should("be.visible");
   cy.getCy("patientappointments-title").should("be.visible");
   cy.getCy("patientappointments-content").should("be.visible");
+  cy.getCy("patientappointments-btn-review").should("be.visible");
+  cy.getCy("patientappointments-btn-attend").should("be.visible");
+  cy.getCy("patientappointments-btn-submit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/16 | 43%] - Saving screenshot for PatientAppointmentsScreen...");
   cy.waitAndSee();
@@ -145,6 +165,8 @@ describe("Role All Screens - patient", () => {
   cy.getCy("patientcareplan-screen").should("be.visible");
   cy.getCy("patientcareplan-title").should("be.visible");
   cy.getCy("patientcareplan-content").should("be.visible");
+  cy.getCy("patientcareplan-btn-execute-compliance-scan").should("be.visible");
+  cy.getCy("patientcareplan-btn-refresh-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/16 | 50%] - Saving screenshot for PatientCarePlanScreen...");
   cy.waitAndSee();
@@ -163,6 +185,8 @@ describe("Role All Screens - patient", () => {
   cy.getCy("patientmessages-screen").should("be.visible");
   cy.getCy("patientmessages-title").should("be.visible");
   cy.getCy("patientmessages-content").should("be.visible");
+  cy.getCy("patientmessages-btn-trigger-audit").should("be.visible");
+  cy.getCy("patientmessages-btn-refresh-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/16 | 56%] - Saving screenshot for PatientMessagesScreen...");
   cy.waitAndSee();
@@ -181,6 +205,8 @@ describe("Role All Screens - patient", () => {
   cy.getCy("patientdocuments-screen").should("be.visible");
   cy.getCy("patientdocuments-title").should("be.visible");
   cy.getCy("patientdocuments-content").should("be.visible");
+  cy.getCy("patient-documents-btn-run-scan").should("be.visible");
+  cy.getCy("patient-documents-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/16 | 62%] - Saving screenshot for PatientDocumentsScreen...");
   cy.waitAndSee();
@@ -199,6 +225,9 @@ describe("Role All Screens - patient", () => {
   cy.getCy("patientbilling-screen").should("be.visible");
   cy.getCy("patientbilling-title").should("be.visible");
   cy.getCy("patientbilling-content").should("be.visible");
+  cy.getCy("billing-overview-card").should("be.visible");
+  cy.getCy("billing-statement-list").should("be.visible");
+  cy.getCy("notification-banner").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/16 | 68%] - Saving screenshot for PatientBillingScreen...");
   cy.waitAndSee();
@@ -206,8 +235,8 @@ describe("Role All Screens - patient", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/16 | 68%] - Verified PatientBillingScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Navigating to /common/patient-profile (PatientProfileScreen)...");
-  cy.visitWithSemantics("/common/patient-profile");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Navigating to /offices/client/roles/client/profile (PatientProfileScreen)...");
+  cy.visitWithSemantics("/offices/client/roles/client/profile");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Checking shell & content for PatientProfileScreen...");
@@ -217,6 +246,8 @@ describe("Role All Screens - patient", () => {
   cy.getCy("patientprofile-screen").should("be.visible");
   cy.getCy("patientprofile-title").should("be.visible");
   cy.getCy("patientprofile-content").should("be.visible");
+  cy.getCy("patientprofile-btn-trigger-compliance-scan").should("be.visible");
+  cy.getCy("patientprofile-btn-refresh-dashboard").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Saving screenshot for PatientProfileScreen...");
   cy.waitAndSee();
@@ -235,6 +266,9 @@ describe("Role All Screens - patient", () => {
   cy.getCy("appointment-screen").should("be.visible");
   cy.getCy("appointment-title").should("be.visible");
   cy.getCy("appointment-content").should("be.visible");
+  cy.getCy("appointment-btn-schedule").should("be.visible");
+  cy.getCy("appointment-btn-confirm").should("be.visible");
+  cy.getCy("appointment-btn-complete-paperwork").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/16 | 81%] - Saving screenshot for AppointmentScreen...");
   cy.waitAndSee();
@@ -242,8 +276,8 @@ describe("Role All Screens - patient", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/16 | 81%] - Verified AppointmentScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Navigating to /common/care-plan (CarePlanScreen)...");
-  cy.visitWithSemantics("/common/care-plan");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Navigating to /clinic/care-plan (CarePlanScreen)...");
+  cy.visitWithSemantics("/clinic/care-plan");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Checking shell & content for CarePlanScreen...");
@@ -253,6 +287,9 @@ describe("Role All Screens - patient", () => {
   cy.getCy("careplan-screen").should("be.visible");
   cy.getCy("careplan-title").should("be.visible");
   cy.getCy("careplan-content").should("be.visible");
+  cy.getCy("careplan-btn-refresh").should("be.visible");
+  cy.getCy("careplan-btn-execute-compliance").should("be.visible");
+  cy.getCy("careplan-btn-execute-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Saving screenshot for CarePlanScreen...");
   cy.waitAndSee();
@@ -271,6 +308,9 @@ describe("Role All Screens - patient", () => {
   cy.getCy("billing-screen").should("be.visible");
   cy.getCy("billing-title").should("be.visible");
   cy.getCy("billing-content").should("be.visible");
+  cy.getCy("billing-overview").should("be.visible");
+  cy.getCy("billing-detail-table").should("be.visible");
+  cy.getCy("payment-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [15/16 | 93%] - Saving screenshot for BillingScreen...");
   cy.waitAndSee();
@@ -289,6 +329,9 @@ describe("Role All Screens - patient", () => {
   cy.getCy("documents-screen").should("be.visible");
   cy.getCy("documents-title").should("be.visible");
   cy.getCy("documents-content").should("be.visible");
+  cy.getCy("docmanager-btn-review").should("be.visible");
+  cy.getCy("compliance-btn-scan").should("be.visible");
+  cy.getCy("audit-btn-participate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [16/16 | 100%] - Saving screenshot for DocumentsScreen...");
   cy.waitAndSee();

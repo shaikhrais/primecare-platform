@@ -8,8 +8,8 @@ describe("Role All Screens - hr_hiring", () => {
     cy.loginAsRole("hr_hiring");
 
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/13 | 7%] - Navigating to /staff/hr-hiring-dashboard (HrHiringDashboardScreen)...");
-  cy.visitWithSemantics("/staff/hr-hiring-dashboard");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/13 | 7%] - Navigating to /offices/franchise/roles/hr_hiring/dashboard (HrHiringDashboardScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/hr_hiring/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/13 | 7%] - Checking shell & content for HrHiringDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - hr_hiring", () => {
   cy.getCy("hrhiringdashboard-screen").should("be.visible");
   cy.getCy("hrhiringdashboard-title").should("be.visible");
   cy.getCy("hrhiringdashboard-content").should("be.visible");
+  cy.getCy("hr_dashboard-kpi-widget").should("be.visible");
+  cy.getCy("hr_dashboard-candidate-pipeline").should("be.visible");
+  cy.getCy("hr_dashboard-source-analysis").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/13 | 7%] - Saving screenshot for HrHiringDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - hr_hiring", () => {
   cy.getCy("hrhiringanalytics-screen").should("be.visible");
   cy.getCy("hrhiringanalytics-title").should("be.visible");
   cy.getCy("hrhiringanalytics-content").should("be.visible");
+  cy.getCy("hr_hiring_analytics-btn-refresh").should("be.visible");
+  cy.getCy("hr_hiring_analytics-btn-export").should("be.visible");
+  cy.getCy("hr_hiring_analytics-btn-add_position").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/13 | 15%] - Saving screenshot for HrHiringAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - hr_hiring", () => {
   cy.getCy("hrhiringcompliance-screen").should("be.visible");
   cy.getCy("hrhiringcompliance-title").should("be.visible");
   cy.getCy("hrhiringcompliance-content").should("be.visible");
+  cy.getCy("hr_hiring_compliance-btn-refresh").should("be.visible");
+  cy.getCy("hr_hiring_compliance-btn-export").should("be.visible");
+  cy.getCy("hr_hiring_compliance-btn-view_feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/13 | 23%] - Saving screenshot for HrHiringComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - hr_hiring", () => {
   cy.getCy("hrhiringworkflow-screen").should("be.visible");
   cy.getCy("hrhiringworkflow-title").should("be.visible");
   cy.getCy("hrhiringworkflow-content").should("be.visible");
+  cy.getCy("ta-dashboard-btn-view-details").should("be.visible");
+  cy.getCy("ta-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("ta-dashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [4/13 | 30%] - Saving screenshot for HrHiringWorkflowScreen...");
   cy.waitAndSee();
@@ -80,8 +92,8 @@ describe("Role All Screens - hr_hiring", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [4/13 | 30%] - Verified HrHiringWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/13 | 38%] - Navigating to /staff/hr-hiring-applicants (HrHiringApplicantsScreen)...");
-  cy.visitWithSemantics("/staff/hr-hiring-applicants");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/13 | 38%] - Navigating to /offices/franchise/roles/hr_hiring/applicants (HrHiringApplicantsScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/hr_hiring/applicants");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/13 | 38%] - Checking shell & content for HrHiringApplicantsScreen...");
@@ -91,6 +103,9 @@ describe("Role All Screens - hr_hiring", () => {
   cy.getCy("hrhiringapplicants-screen").should("be.visible");
   cy.getCy("hrhiringapplicants-title").should("be.visible");
   cy.getCy("hrhiringapplicants-content").should("be.visible");
+  cy.getCy("recruitment-kpi-chart").should("be.visible");
+  cy.getCy("candidate-pipeline-visualization").should("be.visible");
+  cy.getCy("diversity-metrics-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/13 | 38%] - Saving screenshot for HrHiringApplicantsScreen...");
   cy.waitAndSee();
@@ -98,8 +113,8 @@ describe("Role All Screens - hr_hiring", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/13 | 38%] - Verified HrHiringApplicantsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/13 | 46%] - Navigating to /staff/hr-hiring-interviews (HrHiringInterviewsScreen)...");
-  cy.visitWithSemantics("/staff/hr-hiring-interviews");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/13 | 46%] - Navigating to /offices/franchise/roles/hr_hiring/interviews (HrHiringInterviewsScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/hr_hiring/interviews");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/13 | 46%] - Checking shell & content for HrHiringInterviewsScreen...");
@@ -109,6 +124,9 @@ describe("Role All Screens - hr_hiring", () => {
   cy.getCy("hrhiringinterviews-screen").should("be.visible");
   cy.getCy("hrhiringinterviews-title").should("be.visible");
   cy.getCy("hrhiringinterviews-content").should("be.visible");
+  cy.getCy("recruitment-kpi-chart").should("be.visible");
+  cy.getCy("recruitment-funnel-chart").should("be.visible");
+  cy.getCy("diversity-metrics-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/13 | 46%] - Saving screenshot for HrHiringInterviewsScreen...");
   cy.waitAndSee();
@@ -116,8 +134,8 @@ describe("Role All Screens - hr_hiring", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/13 | 46%] - Verified HrHiringInterviewsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/13 | 53%] - Navigating to /staff/hr-hiring-offers (HrHiringOffersScreen)...");
-  cy.visitWithSemantics("/staff/hr-hiring-offers");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/13 | 53%] - Navigating to /offices/franchise/roles/hr_hiring/offers (HrHiringOffersScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/hr_hiring/offers");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/13 | 53%] - Checking shell & content for HrHiringOffersScreen...");
@@ -127,6 +145,9 @@ describe("Role All Screens - hr_hiring", () => {
   cy.getCy("hrhiringoffers-screen").should("be.visible");
   cy.getCy("hrhiringoffers-title").should("be.visible");
   cy.getCy("hrhiringoffers-content").should("be.visible");
+  cy.getCy("recruitment-kpi-chart").should("be.visible");
+  cy.getCy("candidate-pipeline-chart").should("be.visible");
+  cy.getCy("diversity-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/13 | 53%] - Saving screenshot for HrHiringOffersScreen...");
   cy.waitAndSee();
@@ -134,8 +155,8 @@ describe("Role All Screens - hr_hiring", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/13 | 53%] - Verified HrHiringOffersScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [8/13 | 61%] - Navigating to /staff/hr-hiring-onboarding (HrHiringOnboardingScreen)...");
-  cy.visitWithSemantics("/staff/hr-hiring-onboarding");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [8/13 | 61%] - Navigating to /offices/franchise/roles/hr_hiring/onboarding (HrHiringOnboardingScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/hr_hiring/onboarding");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [8/13 | 61%] - Checking shell & content for HrHiringOnboardingScreen...");
@@ -145,6 +166,9 @@ describe("Role All Screens - hr_hiring", () => {
   cy.getCy("hrhiringonboarding-screen").should("be.visible");
   cy.getCy("hrhiringonboarding-title").should("be.visible");
   cy.getCy("hrhiringonboarding-content").should("be.visible");
+  cy.getCy("ta-dashboard-btn-add-candidate").should("be.visible");
+  cy.getCy("ta-dashboard-btn-schedule-interview").should("be.visible");
+  cy.getCy("ta-dashboard-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [8/13 | 61%] - Saving screenshot for HrHiringOnboardingScreen...");
   cy.waitAndSee();
@@ -152,8 +176,8 @@ describe("Role All Screens - hr_hiring", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [8/13 | 61%] - Verified HrHiringOnboardingScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/13 | 69%] - Navigating to /staff/hr-hiring-credentials (HrHiringCredentialsScreen)...");
-  cy.visitWithSemantics("/staff/hr-hiring-credentials");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/13 | 69%] - Navigating to /offices/franchise/roles/hr_hiring/credentials (HrHiringCredentialsScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/hr_hiring/credentials");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/13 | 69%] - Checking shell & content for HrHiringCredentialsScreen...");
@@ -163,6 +187,9 @@ describe("Role All Screens - hr_hiring", () => {
   cy.getCy("hrhiringcredentials-screen").should("be.visible");
   cy.getCy("hrhiringcredentials-title").should("be.visible");
   cy.getCy("hrhiringcredentials-content").should("be.visible");
+  cy.getCy("hr_hiring_btn_add_job").should("be.visible");
+  cy.getCy("hr_hiring_btn_view_candidate").should("be.visible");
+  cy.getCy("hr_hiring_btn_export_metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/13 | 69%] - Saving screenshot for HrHiringCredentialsScreen...");
   cy.waitAndSee();
@@ -181,6 +208,9 @@ describe("Role All Screens - hr_hiring", () => {
   cy.getCy("applicanttracking-screen").should("be.visible");
   cy.getCy("applicanttracking-title").should("be.visible");
   cy.getCy("applicanttracking-content").should("be.visible");
+  cy.getCy("applicanttracking-btn-refresh").should("be.visible");
+  cy.getCy("applicanttracking-btn-export").should("be.visible");
+  cy.getCy("applicanttracking-btn-viewfeedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [10/13 | 76%] - Saving screenshot for ApplicantTrackingScreen...");
   cy.waitAndSee();
@@ -199,6 +229,9 @@ describe("Role All Screens - hr_hiring", () => {
   cy.getCy("interviewscheduling-screen").should("be.visible");
   cy.getCy("interviewscheduling-title").should("be.visible");
   cy.getCy("interviewscheduling-content").should("be.visible");
+  cy.getCy("ta-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("ta-dashboard-btn-update-metrics").should("be.visible");
+  cy.getCy("ta-dashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [11/13 | 84%] - Saving screenshot for InterviewSchedulingScreen...");
   cy.waitAndSee();
@@ -217,6 +250,9 @@ describe("Role All Screens - hr_hiring", () => {
   cy.getCy("offermanagement-screen").should("be.visible");
   cy.getCy("offermanagement-title").should("be.visible");
   cy.getCy("offermanagement-content").should("be.visible");
+  cy.getCy("recruitment-metrics-card").should("be.visible");
+  cy.getCy("candidate-pipeline-chart").should("be.visible");
+  cy.getCy("diversity-metrics-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [12/13 | 92%] - Saving screenshot for OfferManagementScreen...");
   cy.waitAndSee();
@@ -235,6 +271,9 @@ describe("Role All Screens - hr_hiring", () => {
   cy.getCy("onboardingchecklist-screen").should("be.visible");
   cy.getCy("onboardingchecklist-title").should("be.visible");
   cy.getCy("onboardingchecklist-content").should("be.visible");
+  cy.getCy("ta-dashboard-kpi-chart").should("be.visible");
+  cy.getCy("ta-dashboard-candidate-pipeline").should("be.visible");
+  cy.getCy("ta-dashboard-diversity-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [13/13 | 100%] - Saving screenshot for OnboardingChecklistScreen...");
   cy.waitAndSee();

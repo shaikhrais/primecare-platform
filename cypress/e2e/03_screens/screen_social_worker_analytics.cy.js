@@ -18,6 +18,9 @@ describe("Screen - social_worker_analytics", () => {
   cy.getCy("socialworkeranalytics-screen").should("be.visible");
   cy.getCy("socialworkeranalytics-title").should("be.visible");
   cy.getCy("socialworkeranalytics-content").should("be.visible");
+  cy.getCy("socialworker-btn-add-assessment").should("be.visible");
+  cy.getCy("socialworker-btn-schedule-appointment").should("be.visible");
+  cy.getCy("socialworker-btn-log-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SocialWorkerAnalyticsScreen...");
   cy.waitAndSee();

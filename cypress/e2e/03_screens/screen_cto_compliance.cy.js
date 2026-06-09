@@ -18,6 +18,9 @@ describe("Screen - cto_compliance", () => {
   cy.getCy("ctocompliance-screen").should("be.visible");
   cy.getCy("ctocompliance-title").should("be.visible");
   cy.getCy("ctocompliance-content").should("be.visible");
+  cy.getCy("cto-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("cto-dashboard-btn-audit-logs").should("be.visible");
+  cy.getCy("cto-dashboard-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CtoComplianceScreen...");
   cy.waitAndSee();

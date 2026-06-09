@@ -15,9 +15,11 @@ describe("Screen - unknown_dashboard", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("unknowndashboard-screen").should("be.visible");
+  cy.getCy("unknowndashboard-title").should("be.visible");
+  cy.getCy("unknowndashboard-content").should("be.visible");
+  cy.getCy("dashboard-btn-log-event").should("be.visible");
+  cy.getCy("dashboard-btn-view-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Unknown Dashboard...");
   cy.waitAndSee();

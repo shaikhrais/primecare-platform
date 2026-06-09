@@ -15,9 +15,12 @@ describe("Screen - compliance_manager_compliance_cases", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("compliancemanagercompliancecases-screen").should("be.visible");
+  cy.getCy("compliancemanagercompliancecases-title").should("be.visible");
+  cy.getCy("compliancemanagercompliancecases-content").should("be.visible");
+  cy.getCy("compliance-dashboard-overview").should("be.visible");
+  cy.getCy("compliance-status-indicator").should("be.visible");
+  cy.getCy("compliance-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Compliance Manager Compliance Cases...");
   cy.waitAndSee();

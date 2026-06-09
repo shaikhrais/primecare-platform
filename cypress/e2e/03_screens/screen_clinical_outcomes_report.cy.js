@@ -15,9 +15,11 @@ describe("Screen - clinical_outcomes_report", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("clinicaloutcomesreport-screen").should("be.visible");
+  cy.getCy("clinicaloutcomesreport-title").should("be.visible");
+  cy.getCy("clinicaloutcomesreport-content").should("be.visible");
+  cy.getCy("clinical-outcomes-refresh-btn").should("be.visible");
+  cy.getCy("clinical-outcomes-export-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Clinical Outcomes Report...");
   cy.waitAndSee();

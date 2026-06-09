@@ -18,6 +18,9 @@ describe("Screen - system_verification_workflow", () => {
   cy.getCy("systemverificationworkflow-screen").should("be.visible");
   cy.getCy("systemverificationworkflow-title").should("be.visible");
   cy.getCy("systemverificationworkflow-content").should("be.visible");
+  cy.getCy("sysverif-btn-review").should("be.visible");
+  cy.getCy("sysverif-btn-validate").should("be.visible");
+  cy.getCy("sysverif-btn-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SystemVerificationWorkflowScreen...");
   cy.waitAndSee();

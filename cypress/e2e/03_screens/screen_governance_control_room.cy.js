@@ -18,6 +18,9 @@ describe("Screen - governance_control_room", () => {
   cy.getCy("governancecontrolroom-screen").should("be.visible");
   cy.getCy("governancecontrolroom-title").should("be.visible");
   cy.getCy("governancecontrolroom-content").should("be.visible");
+  cy.getCy("gov-dashboard-btn-generate-audit").should("be.visible");
+  cy.getCy("gov-dashboard-btn-update-compliance").should("be.visible");
+  cy.getCy("gov-dashboard-btn-notify-stakeholders").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for GovernanceControlRoomScreen...");
   cy.waitAndSee();

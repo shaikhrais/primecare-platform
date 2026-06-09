@@ -15,9 +15,12 @@ describe("Screen - feature_flag_controller", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("featureflagcontroller-screen").should("be.visible");
+  cy.getCy("featureflagcontroller-title").should("be.visible");
+  cy.getCy("featureflagcontroller-content").should("be.visible");
+  cy.getCy("feature-flag-list").should("be.visible");
+  cy.getCy("feature-flag-toggle").should("be.visible");
+  cy.getCy("error-notification").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Feature Flag Controller...");
   cy.waitAndSee();

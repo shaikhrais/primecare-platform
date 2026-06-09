@@ -1,0 +1,21 @@
+User Work List:
+1. Review the current lifecycle status of the project.
+2. Analyze the completion percentage of the project.
+3. Examine the technical manifest and development pipeline.
+4. Monitor platform integrity and governance actions.
+5. Identify any red flags in the lifecycle status, such as being in backlog, research, or design phases.
+6. Ensure all sections of the audit sandbox are completed and up to date.
+
+Red Flags of Operation:
+1. Project status is in backlog, research, or design phases indicating delays.
+2. Low completion percentage suggesting insufficient progress.
+3. Inconsistencies in the technical manifest or development pipeline.
+4. Lack of governance actions or unresolved issues in platform integrity.
+
+Dashboard Requirements:
+1. Current lifecycle status display.
+2. Completion percentage indicator.
+3. Technical manifest overview.
+4. Development pipeline status.
+5. Governance actions and platform integrity metrics.
+6. Alerts for any red flags or issues requiring attention.

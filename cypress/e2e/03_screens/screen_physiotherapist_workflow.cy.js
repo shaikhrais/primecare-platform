@@ -18,6 +18,9 @@ describe("Screen - physiotherapist_workflow", () => {
   cy.getCy("physiotherapistworkflow-screen").should("be.visible");
   cy.getCy("physiotherapistworkflow-title").should("be.visible");
   cy.getCy("physiotherapistworkflow-content").should("be.visible");
+  cy.getCy("physio-dashboard-btn-view-records").should("be.visible");
+  cy.getCy("physio-dashboard-btn-alert-redflag").should("be.visible");
+  cy.getCy("physio-dashboard-btn-track-progress").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PhysiotherapistWorkflowScreen...");
   cy.waitAndSee();

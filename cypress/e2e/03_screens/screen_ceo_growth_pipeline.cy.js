@@ -7,17 +7,20 @@ describe("Screen - ceo_growth_pipeline", () => {
   it("opens and verifies screen ceo_growth_pipeline", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Ceo Growth Pipeline)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/ceo/growth-pipeline (Ceo Growth Pipeline)...");
+  cy.visitWithSemantics("/offices/corporate/roles/ceo/growth-pipeline");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Ceo Growth Pipeline...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ceogrowthpipeline-screen").should("be.visible");
+  cy.getCy("ceogrowthpipeline-title").should("be.visible");
+  cy.getCy("ceogrowthpipeline-content").should("be.visible");
+  cy.getCy("growthpipeline-btn-reviewgoals").should("be.visible");
+  cy.getCy("growthpipeline-btn-analyzetrends").should("be.visible");
+  cy.getCy("growthpipeline-btn-implementchanges").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Ceo Growth Pipeline...");
   cy.waitAndSee();

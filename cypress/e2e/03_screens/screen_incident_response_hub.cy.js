@@ -15,9 +15,12 @@ describe("Screen - incident_response_hub", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("incidentresponsehub-screen").should("be.visible");
+  cy.getCy("incidentresponsehub-title").should("be.visible");
+  cy.getCy("incidentresponsehub-content").should("be.visible");
+  cy.getCy("incident-response-btn-refresh").should("be.visible");
+  cy.getCy("incident-response-btn-declare").should("be.visible");
+  cy.getCy("incident-response-btn-join-war-room").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Incident Response Hub...");
   cy.waitAndSee();

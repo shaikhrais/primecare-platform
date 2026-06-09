@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor family care updates regularly.
+2. Interact with the dashboard to view updates and notifications.
+3. Report any discrepancies or issues encountered in the updates.
+4. Provide feedback on the updates for continuous improvement.
+5. Ensure that the application is functioning correctly and report any errors.
+
+Red flags of operation:
+1. Frequent loading errors or timeouts when accessing updates.
+2. Inconsistent data displayed on the dashboard.
+3. Lack of timely updates or notifications.
+4. User reports of application crashes or bugs.
+5. Low user engagement or feedback on updates.
+
+What is needed on the user dashboard:
+1. Real-time notifications of family care updates.
+2. A summary of recent updates and changes.
+3. A feedback section for users to report issues or suggestions.
+4. Performance metrics indicating the reliability of updates.
+5. A help or support section for troubleshooting common issues.

@@ -15,9 +15,12 @@ describe("Screen - tenant_configuration", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("tenantconfiguration-screen").should("be.visible");
+  cy.getCy("tenantconfiguration-title").should("be.visible");
+  cy.getCy("tenantconfiguration-content").should("be.visible");
+  cy.getCy("tenant-list").should("be.visible");
+  cy.getCy("add-tenant-btn").should("be.visible");
+  cy.getCy("billing-status-indicator").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Tenant Configuration...");
   cy.waitAndSee();

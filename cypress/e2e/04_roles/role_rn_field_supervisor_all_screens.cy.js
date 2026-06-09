@@ -19,6 +19,9 @@ describe("Role All Screens - rn_field_supervisor", () => {
   cy.getCy("rnfieldsupervisordashboard-screen").should("be.visible");
   cy.getCy("rnfieldsupervisordashboard-title").should("be.visible");
   cy.getCy("rnfieldsupervisordashboard-content").should("be.visible");
+  cy.getCy("rnfdashboard-btn-submit-audit").should("be.visible");
+  cy.getCy("rnfdashboard-btn-update-policy").should("be.visible");
+  cy.getCy("rnfdashboard-btn-export-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Saving screenshot for RnFieldSupervisorDashboardScreen...");
   cy.waitAndSee();
@@ -34,9 +37,12 @@ describe("Role All Screens - rn_field_supervisor", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("registered nurse (rn) field supervisor analytics-screen").should("be.visible");
-  cy.getCy("registered nurse (rn) field supervisor analytics-title").should("be.visible");
-  cy.getCy("registered nurse (rn) field supervisor analytics-content").should("be.visible");
+  cy.getCy("rnfieldsupervisoranalytics-screen").should("be.visible");
+  cy.getCy("rnfieldsupervisoranalytics-title").should("be.visible");
+  cy.getCy("rnfieldsupervisoranalytics-content").should("be.visible");
+  cy.getCy("rnfieldsupervisor-btn-view-metrics").should("be.visible");
+  cy.getCy("rnfieldsupervisor-btn-report-incident").should("be.visible");
+  cy.getCy("rnfieldsupervisor-btn-log-visit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Saving screenshot for Registered Nurse (RN) Field Supervisor Analytics...");
   cy.waitAndSee();
@@ -52,9 +58,12 @@ describe("Role All Screens - rn_field_supervisor", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("registered nurse (rn) field supervisor compliance workflow-screen").should("be.visible");
-  cy.getCy("registered nurse (rn) field supervisor compliance workflow-title").should("be.visible");
-  cy.getCy("registered nurse (rn) field supervisor compliance workflow-content").should("be.visible");
+  cy.getCy("rnfieldsupervisorworkflow-screen").should("be.visible");
+  cy.getCy("rnfieldsupervisorworkflow-title").should("be.visible");
+  cy.getCy("rnfieldsupervisorworkflow-content").should("be.visible");
+  cy.getCy("rnfieldsupervisor-btn-submit-compliance").should("be.visible");
+  cy.getCy("rnfieldsupervisor-btn-request-training").should("be.visible");
+  cy.getCy("rnfieldsupervisor-btn-log-field-visit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Saving screenshot for Registered Nurse (RN) Field Supervisor Compliance Workflow...");
   cy.waitAndSee();

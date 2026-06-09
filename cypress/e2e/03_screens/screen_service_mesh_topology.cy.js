@@ -15,9 +15,11 @@ describe("Screen - service_mesh_topology", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("servicemeshtopology-screen").should("be.visible");
+  cy.getCy("servicemeshtopology-title").should("be.visible");
+  cy.getCy("servicemeshtopology-content").should("be.visible");
+  cy.getCy("service-mesh-btn-refresh").should("be.visible");
+  cy.getCy("service-mesh-error-message").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Service Mesh Topology...");
   cy.waitAndSee();

@@ -1,0 +1,35 @@
+Compliance Manager Responsibilities:
+1. Conduct regular compliance audits.
+2. Monitor adherence to regulatory requirements.
+3. Implement corrective actions for compliance failures.
+4. Maintain documentation of compliance activities.
+5. Train staff on compliance policies and procedures.
+6. Report compliance status to management.
+7. Collaborate with other departments to ensure compliance.
+8. Stay updated on changes in regulations and standards.
+9. Manage compliance-related incidents and investigations.
+10. Develop and maintain compliance metrics and dashboards.
+
+Red Flags of Operations:
+1. Increased number of compliance violations.
+2. Delays in corrective action implementation.
+3. Lack of employee training on compliance matters.
+4. Inconsistent documentation practices.
+5. High turnover in compliance staff.
+6. Poor communication between departments regarding compliance.
+7. Failure to address audit findings in a timely manner.
+8. Lack of updates on regulatory changes.
+9. Insufficient resources allocated to compliance activities.
+10. Negative feedback from compliance audits.
+
+Dashboard Needs for Compliance Manager:
+1. Compliance audit results and trends.
+2. Status of corrective actions and timelines.
+3. Training completion rates for staff.
+4. Metrics on compliance violations and incidents.
+5. Regulatory updates and changes.
+6. Documentation status and accessibility.
+7. Communication logs between departments.
+8. Resource allocation for compliance activities.
+9. Employee feedback on compliance training.
+10. Visual representation of compliance metrics over time.

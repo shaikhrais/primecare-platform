@@ -15,9 +15,12 @@ describe("Screen - training_coordinator_training_schedule", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("trainingcoordinatortrainingschedule-screen").should("be.visible");
+  cy.getCy("trainingcoordinatortrainingschedule-title").should("be.visible");
+  cy.getCy("trainingcoordinatortrainingschedule-content").should("be.visible");
+  cy.getCy("training-schedule-overview").should("be.visible");
+  cy.getCy("attendance-tracker").should("be.visible");
+  cy.getCy("feedback-collection").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Training Coordinator Training Schedule...");
   cy.waitAndSee();

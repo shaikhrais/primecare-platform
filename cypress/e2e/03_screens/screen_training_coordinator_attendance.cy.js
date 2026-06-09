@@ -15,9 +15,12 @@ describe("Screen - training_coordinator_attendance", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("trainingcoordinatorattendance-screen").should("be.visible");
+  cy.getCy("trainingcoordinatorattendance-title").should("be.visible");
+  cy.getCy("trainingcoordinatorattendance-content").should("be.visible");
+  cy.getCy("attendance-monitor").should("be.visible");
+  cy.getCy("attendance-update-btn").should("be.visible");
+  cy.getCy("discrepancy-report-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Training Coordinator Attendance...");
   cy.waitAndSee();

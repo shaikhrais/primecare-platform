@@ -18,6 +18,9 @@ describe("Screen - psw_tasks", () => {
   cy.getCy("pswtasks-screen").should("be.visible");
   cy.getCy("pswtasks-title").should("be.visible");
   cy.getCy("pswtasks-content").should("be.visible");
+  cy.getCy("psw-tasks-complete").should("be.visible");
+  cy.getCy("psw-alert-high-priority").should("be.visible");
+  cy.getCy("psw-client-notes").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PswTasksScreen...");
   cy.waitAndSee();

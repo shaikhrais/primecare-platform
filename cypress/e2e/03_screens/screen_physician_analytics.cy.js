@@ -15,9 +15,12 @@ describe("Screen - physician_analytics", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("physician analytics-screen").should("be.visible");
-  cy.getCy("physician analytics-title").should("be.visible");
-  cy.getCy("physician analytics-content").should("be.visible");
+  cy.getCy("physiciananalytics-screen").should("be.visible");
+  cy.getCy("physiciananalytics-title").should("be.visible");
+  cy.getCy("physiciananalytics-content").should("be.visible");
+  cy.getCy("physician-dashboard-healthmetrics").should("be.visible");
+  cy.getCy("physician-dashboard-compliance").should("be.visible");
+  cy.getCy("physician-dashboard-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Physician Analytics...");
   cy.waitAndSee();

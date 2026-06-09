@@ -15,9 +15,12 @@ describe("Screen - registry_entry_editor", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("registryentryeditor-screen").should("be.visible");
+  cy.getCy("registryentryeditor-title").should("be.visible");
+  cy.getCy("registryentryeditor-content").should("be.visible");
+  cy.getCy("registry-entry-input").should("be.visible");
+  cy.getCy("registry-update-button").should("be.visible");
+  cy.getCy("validation-console").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Registry Entry Editor...");
   cy.waitAndSee();

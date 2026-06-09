@@ -15,9 +15,12 @@ describe("Screen - psw_visit_checklist", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pswvisitchecklist-screen").should("be.visible");
+  cy.getCy("pswvisitchecklist-title").should("be.visible");
+  cy.getCy("pswvisitchecklist-content").should("be.visible");
+  cy.getCy("psw-visit-checklist-complete").should("be.visible");
+  cy.getCy("psw-visit-report-issue").should("be.visible");
+  cy.getCy("psw-visit-submit-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Psw Visit Checklist...");
   cy.waitAndSee();

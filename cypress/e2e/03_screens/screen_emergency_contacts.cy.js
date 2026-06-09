@@ -18,6 +18,9 @@ describe("Screen - emergency_contacts", () => {
   cy.getCy("emergencycontacts-screen").should("be.visible");
   cy.getCy("emergencycontacts-title").should("be.visible");
   cy.getCy("emergencycontacts-content").should("be.visible");
+  cy.getCy("emergency-contacts-list").should("be.visible");
+  cy.getCy("compliance-scan-results").should("be.visible");
+  cy.getCy("audit-log-viewer").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for EmergencyContactsScreen...");
   cy.waitAndSee();

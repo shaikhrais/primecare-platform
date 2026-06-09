@@ -18,6 +18,9 @@ describe("Screen - appointment_overview", () => {
   cy.getCy("appointmentoverview-screen").should("be.visible");
   cy.getCy("appointmentoverview-title").should("be.visible");
   cy.getCy("appointmentoverview-content").should("be.visible");
+  cy.getCy("franchise-dashboard-sales").should("be.visible");
+  cy.getCy("franchise-dashboard-employees").should("be.visible");
+  cy.getCy("franchise-dashboard-customers").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for AppointmentOverviewScreen...");
   cy.waitAndSee();

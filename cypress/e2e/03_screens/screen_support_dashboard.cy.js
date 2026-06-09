@@ -18,6 +18,9 @@ describe("Screen - support_dashboard", () => {
   cy.getCy("supportdashboard-screen").should("be.visible");
   cy.getCy("supportdashboard-title").should("be.visible");
   cy.getCy("supportdashboard-content").should("be.visible");
+  cy.getCy("support-dashboard-loading").should("be.visible");
+  cy.getCy("support-dashboard-error").should("be.visible");
+  cy.getCy("support-dashboard-compliance-scan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SupportDashboardScreen...");
   cy.waitAndSee();

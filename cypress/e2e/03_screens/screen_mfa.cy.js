@@ -15,9 +15,12 @@ describe("Screen - mfa", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("mfa-screen").should("be.visible");
+  cy.getCy("mfa-title").should("be.visible");
+  cy.getCy("mfa-content").should("be.visible");
+  cy.getCy("mfa-code-input").should("be.visible");
+  cy.getCy("mfa-submit-button").should("be.visible");
+  cy.getCy("mfa-verification-status").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Mfa...");
   cy.waitAndSee();

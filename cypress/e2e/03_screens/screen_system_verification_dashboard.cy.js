@@ -18,6 +18,7 @@ describe("Screen - system_verification_dashboard", () => {
   cy.getCy("systemverificationdashboard-screen").should("be.visible");
   cy.getCy("systemverificationdashboard-title").should("be.visible");
   cy.getCy("systemverificationdashboard-content").should("be.visible");
+  cy.getCy("sysver-dashboard-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SystemVerificationDashboardScreen...");
   cy.waitAndSee();

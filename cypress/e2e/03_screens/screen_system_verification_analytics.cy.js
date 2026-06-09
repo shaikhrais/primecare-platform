@@ -18,6 +18,9 @@ describe("Screen - system_verification_analytics", () => {
   cy.getCy("systemverificationanalytics-screen").should("be.visible");
   cy.getCy("systemverificationanalytics-title").should("be.visible");
   cy.getCy("systemverificationanalytics-content").should("be.visible");
+  cy.getCy("sysverif-dashboard-performance").should("be.visible");
+  cy.getCy("sysverif-dashboard-status").should("be.visible");
+  cy.getCy("sysverif-dashboard-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SystemVerificationAnalyticsScreen...");
   cy.waitAndSee();

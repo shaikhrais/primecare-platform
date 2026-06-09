@@ -1,0 +1,22 @@
+List of work for Family Member:
+1. Monitor billing operations and ensure compliance with regulations.
+2. Execute operational audit scans to validate governance invariants.
+3. Review and analyze telemetry logs for performance insights.
+4. Maintain security clearance and ensure zero exceptions are logged.
+5. Update and manage operational audit logs.
+6. Trigger state actions as required for governance.
+
+Red flags of operation:
+1. High error rates during compliance scans.
+2. Delays in executing operational audit scans.
+3. Inconsistent telemetry data indicating potential issues.
+4. Low security clearance levels or exceptions logged.
+5. Lack of timely updates in operational audit logs.
+
+Dashboard needs for Family Member:
+1. Real-time updates on active operations and their statuses.
+2. Visual representation of security clearance levels.
+3. Telemetry charts showing performance trends over time.
+4. A section for operational audit logs with timestamps and details.
+5. Notifications for any compliance scan failures or errors.
+6. Quick access buttons for executing scans and refreshing data.

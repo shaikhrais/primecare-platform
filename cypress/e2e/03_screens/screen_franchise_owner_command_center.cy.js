@@ -18,6 +18,8 @@ describe("Screen - franchise_owner_command_center", () => {
   cy.getCy("franchiseownercommandcenter-screen").should("be.visible");
   cy.getCy("franchiseownercommandcenter-title").should("be.visible");
   cy.getCy("franchiseownercommandcenter-content").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-run-scan").should("be.visible");
+  cy.getCy("franchise-dashboard-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FranchiseOwnerCommandCenterScreen...");
   cy.waitAndSee();

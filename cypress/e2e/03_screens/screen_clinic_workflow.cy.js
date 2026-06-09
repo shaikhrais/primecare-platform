@@ -18,6 +18,9 @@ describe("Screen - clinic_workflow", () => {
   cy.getCy("clinicworkflow-screen").should("be.visible");
   cy.getCy("clinicworkflow-title").should("be.visible");
   cy.getCy("clinicworkflow-content").should("be.visible");
+  cy.getCy("clinic-dashboard-kpi").should("be.visible");
+  cy.getCy("clinic-dashboard-budget").should("be.visible");
+  cy.getCy("clinic-dashboard-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for ClinicWorkflowScreen...");
   cy.waitAndSee();

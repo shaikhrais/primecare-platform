@@ -18,6 +18,8 @@ describe("Screen - shared_stubs", () => {
   cy.getCy("sharedstubs-screen").should("be.visible");
   cy.getCy("sharedstubs-title").should("be.visible");
   cy.getCy("sharedstubs-content").should("be.visible");
+  cy.getCy("sharedstubs-btn-trigger-scan").should("be.visible");
+  cy.getCy("sharedstubs-btn-manual-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for SharedScreenStubs...");
   cy.waitAndSee();

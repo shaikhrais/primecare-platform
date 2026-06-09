@@ -7,17 +7,20 @@ describe("Screen - cto_access_control", () => {
   it("opens and verifies screen cto_access_control", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Cto Access Control)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/cto/access-control (Cto Access Control)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cto/access-control");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Cto Access Control...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("ctoaccesscontrol-screen").should("be.visible");
+  cy.getCy("ctoaccesscontrol-title").should("be.visible");
+  cy.getCy("ctoaccesscontrol-content").should("be.visible");
+  cy.getCy("accesscontrol-overview").should("be.visible");
+  cy.getCy("pending-requests-notification").should("be.visible");
+  cy.getCy("security-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Cto Access Control...");
   cy.waitAndSee();

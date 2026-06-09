@@ -18,6 +18,8 @@ describe("Screen - patient_documents", () => {
   cy.getCy("patientdocuments-screen").should("be.visible");
   cy.getCy("patientdocuments-title").should("be.visible");
   cy.getCy("patientdocuments-content").should("be.visible");
+  cy.getCy("patient-documents-btn-run-scan").should("be.visible");
+  cy.getCy("patient-documents-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PatientDocumentsScreen...");
   cy.waitAndSee();

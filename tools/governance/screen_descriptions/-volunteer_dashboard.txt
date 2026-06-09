@@ -1,0 +1,29 @@
+List of work volunteers must do:
+1. Check-in for volunteer shifts.
+2. Record social visits.
+3. Run compliance scans.
+4. Sync security posture.
+5. Update policies.
+6. Export audit logs.
+7. Add logs for manual actions.
+
+Red flags of operation:
+1. API errors during check-in or logging visits.
+2. Network errors that prevent successful API calls.
+3. High loading times during compliance scans.
+4. Inconsistent logs indicating potential issues in operations.
+5. Low security clearance levels or exceptions logged.
+
+Effectiveness metrics for the dashboard:
+1. Active operations status.
+2. Security clearance level.
+3. Compliance scan results.
+4. Number of successful check-ins and logged visits.
+5. Audit log entries and their statuses.
+
+Needed features on the Volunteer Dashboard:
+1. Real-time updates on active operations.
+2. Visual representation of compliance and security metrics.
+3. Easy access to logs and audit history.
+4. Notifications for any errors or issues encountered.
+5. Buttons for quick actions like check-in and logging visits.

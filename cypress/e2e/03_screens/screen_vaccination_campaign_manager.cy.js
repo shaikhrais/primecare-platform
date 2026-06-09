@@ -15,9 +15,12 @@ describe("Screen - vaccination_campaign_manager", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("vaccinationcampaignmanager-screen").should("be.visible");
+  cy.getCy("vaccinationcampaignmanager-title").should("be.visible");
+  cy.getCy("vaccinationcampaignmanager-content").should("be.visible");
+  cy.getCy("campaign-manager-btn-create").should("be.visible");
+  cy.getCy("campaign-manager-btn-schedule").should("be.visible");
+  cy.getCy("campaign-manager-btn-update").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Vaccination Campaign Manager...");
   cy.waitAndSee();

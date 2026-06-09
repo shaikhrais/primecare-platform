@@ -15,9 +15,12 @@ describe("Screen - inpatient_pharmacy_queue", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("inpatientpharmacyqueue-screen").should("be.visible");
+  cy.getCy("inpatientpharmacyqueue-title").should("be.visible");
+  cy.getCy("inpatientpharmacyqueue-content").should("be.visible");
+  cy.getCy("pharmacy-queue-list").should("be.visible");
+  cy.getCy("btn-verify-prescription").should("be.visible");
+  cy.getCy("btn-prepare-medication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Inpatient Pharmacy Queue...");
   cy.waitAndSee();

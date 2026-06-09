@@ -8,8 +8,8 @@ describe("Role All Screens - cfo", () => {
     cy.loginAsRole("cfo");
 
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/17 | 5%] - Navigating to /executive/cfo-dashboard (CfoDashboardScreen)...");
-  cy.visitWithSemantics("/executive/cfo-dashboard");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/17 | 5%] - Navigating to /offices/corporate/roles/cfo/dashboard (CfoDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cfo/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/17 | 5%] - Checking shell & content for CfoDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - cfo", () => {
   cy.getCy("cfodashboard-screen").should("be.visible");
   cy.getCy("cfodashboard-title").should("be.visible");
   cy.getCy("cfodashboard-content").should("be.visible");
+  cy.getCy("cfo-dashboard-cash-balance").should("be.visible");
+  cy.getCy("cfo-dashboard-growth-rate").should("be.visible");
+  cy.getCy("cfo-dashboard-expense-buffer").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/17 | 5%] - Saving screenshot for CfoDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,9 @@ describe("Role All Screens - cfo", () => {
   cy.getCy("cfoanalytics-screen").should("be.visible");
   cy.getCy("cfoanalytics-title").should("be.visible");
   cy.getCy("cfoanalytics-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi").should("be.visible");
+  cy.getCy("cfo-dashboard-financial-statement").should("be.visible");
+  cy.getCy("cfo-dashboard-budget-actual").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/17 | 11%] - Saving screenshot for CfoAnalyticsScreen...");
   cy.waitAndSee();
@@ -55,6 +61,9 @@ describe("Role All Screens - cfo", () => {
   cy.getCy("cfocompliance-screen").should("be.visible");
   cy.getCy("cfocompliance-title").should("be.visible");
   cy.getCy("cfocompliance-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi-overview").should("be.visible");
+  cy.getCy("cfo-dashboard-financial-health").should("be.visible");
+  cy.getCy("cfo-dashboard-budget-actual").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/17 | 17%] - Saving screenshot for CfoComplianceScreen...");
   cy.waitAndSee();
@@ -73,6 +82,9 @@ describe("Role All Screens - cfo", () => {
   cy.getCy("cfoworkflow-screen").should("be.visible");
   cy.getCy("cfoworkflow-title").should("be.visible");
   cy.getCy("cfoworkflow-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi-widget").should("be.visible");
+  cy.getCy("cfo-dashboard-budget-analysis").should("be.visible");
+  cy.getCy("cfo-dashboard-cash-flow").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/17 | 23%] - Saving screenshot for CfoWorkflowScreen...");
   cy.waitAndSee();
@@ -80,8 +92,8 @@ describe("Role All Screens - cfo", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/17 | 23%] - Verified CfoWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/17 | 29%] - Navigating to /executive/cfo-revenue (CfoRevenueScreen)...");
-  cy.visitWithSemantics("/executive/cfo-revenue");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/17 | 29%] - Navigating to /offices/corporate/roles/cfo/revenue (CfoRevenueScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cfo/revenue");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/17 | 29%] - Checking shell & content for CfoRevenueScreen...");
@@ -91,6 +103,9 @@ describe("Role All Screens - cfo", () => {
   cy.getCy("cforevenue-screen").should("be.visible");
   cy.getCy("cforevenue-title").should("be.visible");
   cy.getCy("cforevenue-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi").should("be.visible");
+  cy.getCy("cfo-dashboard-compliance").should("be.visible");
+  cy.getCy("cfo-dashboard-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/17 | 29%] - Saving screenshot for CfoRevenueScreen...");
   cy.waitAndSee();
@@ -98,8 +113,8 @@ describe("Role All Screens - cfo", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/17 | 29%] - Verified CfoRevenueScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/17 | 35%] - Navigating to /executive/cfo-expenses (CfoExpensesScreen)...");
-  cy.visitWithSemantics("/executive/cfo-expenses");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/17 | 35%] - Navigating to /offices/corporate/roles/cfo/expenses (CfoExpensesScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cfo/expenses");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/17 | 35%] - Checking shell & content for CfoExpensesScreen...");
@@ -109,6 +124,9 @@ describe("Role All Screens - cfo", () => {
   cy.getCy("cfoexpenses-screen").should("be.visible");
   cy.getCy("cfoexpenses-title").should("be.visible");
   cy.getCy("cfoexpenses-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi-overview").should("be.visible");
+  cy.getCy("cfo-dashboard-financial-metrics").should("be.visible");
+  cy.getCy("cfo-dashboard-budget-analysis").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/17 | 35%] - Saving screenshot for CfoExpensesScreen...");
   cy.waitAndSee();
@@ -116,8 +134,8 @@ describe("Role All Screens - cfo", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/17 | 35%] - Verified CfoExpensesScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/17 | 41%] - Navigating to /executive/cfo-payroll (CfoPayrollScreen)...");
-  cy.visitWithSemantics("/executive/cfo-payroll");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/17 | 41%] - Navigating to /offices/corporate/roles/cfo/payroll (CfoPayrollScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cfo/payroll");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/17 | 41%] - Checking shell & content for CfoPayrollScreen...");
@@ -127,6 +145,9 @@ describe("Role All Screens - cfo", () => {
   cy.getCy("cfopayroll-screen").should("be.visible");
   cy.getCy("cfopayroll-title").should("be.visible");
   cy.getCy("cfopayroll-content").should("be.visible");
+  cy.getCy("cfo-dashboard-btn-refresh").should("be.visible");
+  cy.getCy("cfo-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("cfo-dashboard-btn-view-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/17 | 41%] - Saving screenshot for CfoPayrollScreen...");
   cy.waitAndSee();
@@ -134,8 +155,8 @@ describe("Role All Screens - cfo", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/17 | 41%] - Verified CfoPayrollScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/17 | 47%] - Navigating to /executive/cfo-invoices (CfoInvoicesScreen)...");
-  cy.visitWithSemantics("/executive/cfo-invoices");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/17 | 47%] - Navigating to /offices/corporate/roles/cfo/invoices (CfoInvoicesScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cfo/invoices");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/17 | 47%] - Checking shell & content for CfoInvoicesScreen...");
@@ -145,6 +166,9 @@ describe("Role All Screens - cfo", () => {
   cy.getCy("cfoinvoices-screen").should("be.visible");
   cy.getCy("cfoinvoices-title").should("be.visible");
   cy.getCy("cfoinvoices-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi").should("be.visible");
+  cy.getCy("cfo-dashboard-cashflow").should("be.visible");
+  cy.getCy("cfo-dashboard-budget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/17 | 47%] - Saving screenshot for CfoInvoicesScreen...");
   cy.waitAndSee();
@@ -163,6 +187,9 @@ describe("Role All Screens - cfo", () => {
   cy.getCy("cfotax-screen").should("be.visible");
   cy.getCy("cfotax-title").should("be.visible");
   cy.getCy("cfotax-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi-overview").should("be.visible");
+  cy.getCy("cfo-dashboard-revenue-expense-trend").should("be.visible");
+  cy.getCy("cfo-dashboard-cash-flow-projection").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/17 | 52%] - Saving screenshot for CfoTaxScreen...");
   cy.waitAndSee();
@@ -170,8 +197,8 @@ describe("Role All Screens - cfo", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/17 | 52%] - Verified CfoTaxScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/17 | 58%] - Navigating to /executive/cfo-profitability (CfoProfitabilityScreen)...");
-  cy.visitWithSemantics("/executive/cfo-profitability");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/17 | 58%] - Navigating to /offices/corporate/roles/cfo/profitability (CfoProfitabilityScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cfo/profitability");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/17 | 58%] - Checking shell & content for CfoProfitabilityScreen...");
@@ -199,6 +226,9 @@ describe("Role All Screens - cfo", () => {
   cy.getCy("cfocashflow-screen").should("be.visible");
   cy.getCy("cfocashflow-title").should("be.visible");
   cy.getCy("cfocashflow-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi-widget").should("be.visible");
+  cy.getCy("cfo-dashboard-cashflow-chart").should("be.visible");
+  cy.getCy("cfo-dashboard-budget-comparison").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/17 | 64%] - Saving screenshot for CfoCashflowScreen...");
   cy.waitAndSee();
@@ -217,6 +247,9 @@ describe("Role All Screens - cfo", () => {
   cy.getCy("financialdashboard-screen").should("be.visible");
   cy.getCy("financialdashboard-title").should("be.visible");
   cy.getCy("financialdashboard-content").should("be.visible");
+  cy.getCy("financial-dashboard-kpi-overview").should("be.visible");
+  cy.getCy("financial-dashboard-revenue-expense-trend").should("be.visible");
+  cy.getCy("financial-dashboard-cash-flow").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/17 | 70%] - Saving screenshot for FinancialDashboardScreen...");
   cy.waitAndSee();
@@ -271,6 +304,9 @@ describe("Role All Screens - cfo", () => {
   cy.getCy("payroll-screen").should("be.visible");
   cy.getCy("payroll-title").should("be.visible");
   cy.getCy("payroll-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi").should("be.visible");
+  cy.getCy("cfo-dashboard-financial-statements").should("be.visible");
+  cy.getCy("cfo-dashboard-budget-vs-actual").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [15/17 | 88%] - Saving screenshot for PayrollScreen...");
   cy.waitAndSee();
@@ -307,6 +343,9 @@ describe("Role All Screens - cfo", () => {
   cy.getCy("financialoperations4k-screen").should("be.visible");
   cy.getCy("financialoperations4k-title").should("be.visible");
   cy.getCy("financialoperations4k-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi").should("be.visible");
+  cy.getCy("cfo-dashboard-financial-statements").should("be.visible");
+  cy.getCy("cfo-dashboard-budget-comparison").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [17/17 | 100%] - Saving screenshot for FinancialOperations4KScreen...");
   cy.waitAndSee();

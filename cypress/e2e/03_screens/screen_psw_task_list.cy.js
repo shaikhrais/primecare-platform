@@ -15,9 +15,12 @@ describe("Screen - psw_task_list", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pswtasklist-screen").should("be.visible");
+  cy.getCy("pswtasklist-title").should("be.visible");
+  cy.getCy("pswtasklist-content").should("be.visible");
+  cy.getCy("tasklist-btn-add").should("be.visible");
+  cy.getCy("tasklist-btn-update").should("be.visible");
+  cy.getCy("tasklist-btn-remove").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Psw Task List...");
   cy.waitAndSee();

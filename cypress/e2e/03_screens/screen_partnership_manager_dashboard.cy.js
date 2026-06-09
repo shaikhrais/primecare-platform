@@ -7,8 +7,8 @@ describe("Screen - partnership_manager_dashboard", () => {
   it("opens and verifies screen partnership_manager_dashboard", () => {
     cy.loginAsRole("partnership");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /management/partnership-manager-dashboard (PartnershipManagerDashboardScreen)...");
-  cy.visitWithSemantics("/management/partnership-manager-dashboard");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/business_development/roles/partnership_manager/dashboard (PartnershipManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/business_development/roles/partnership_manager/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for PartnershipManagerDashboardScreen...");
@@ -18,6 +18,9 @@ describe("Screen - partnership_manager_dashboard", () => {
   cy.getCy("partnershipmanagerdashboard-screen").should("be.visible");
   cy.getCy("partnershipmanagerdashboard-title").should("be.visible");
   cy.getCy("partnershipmanagerdashboard-content").should("be.visible");
+  cy.getCy("partnership-dashboard-btn-export-logs").should("be.visible");
+  cy.getCy("partnership-dashboard-btn-refresh-data").should("be.visible");
+  cy.getCy("partnership-dashboard-btn-view-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PartnershipManagerDashboardScreen...");
   cy.waitAndSee();

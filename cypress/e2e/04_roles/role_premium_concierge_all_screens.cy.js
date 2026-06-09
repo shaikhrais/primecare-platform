@@ -19,6 +19,9 @@ describe("Role All Screens - premium_concierge", () => {
   cy.getCy("premiumconciergedashboard-screen").should("be.visible");
   cy.getCy("premiumconciergedashboard-title").should("be.visible");
   cy.getCy("premiumconciergedashboard-content").should("be.visible");
+  cy.getCy("premium-concierge-btn-run-compliance-scan").should("be.visible");
+  cy.getCy("premium-concierge-btn-sync-security-posture").should("be.visible");
+  cy.getCy("premium-concierge-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Saving screenshot for PremiumConciergeDashboardScreen...");
   cy.waitAndSee();
@@ -34,9 +37,11 @@ describe("Role All Screens - premium_concierge", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("premium concierge care coordinator analytics-screen").should("be.visible");
-  cy.getCy("premium concierge care coordinator analytics-title").should("be.visible");
-  cy.getCy("premium concierge care coordinator analytics-content").should("be.visible");
+  cy.getCy("premiumconciergeanalytics-screen").should("be.visible");
+  cy.getCy("premiumconciergeanalytics-title").should("be.visible");
+  cy.getCy("premiumconciergeanalytics-content").should("be.visible");
+  cy.getCy("premium-concierge-btn-refresh").should("be.visible");
+  cy.getCy("premium-concierge-btn-run-scan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Saving screenshot for Premium Concierge Care Coordinator Analytics...");
   cy.waitAndSee();
@@ -52,9 +57,12 @@ describe("Role All Screens - premium_concierge", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("premium concierge care coordinator compliance workflow-screen").should("be.visible");
-  cy.getCy("premium concierge care coordinator compliance workflow-title").should("be.visible");
-  cy.getCy("premium concierge care coordinator compliance workflow-content").should("be.visible");
+  cy.getCy("premiumconciergeworkflow-screen").should("be.visible");
+  cy.getCy("premiumconciergeworkflow-title").should("be.visible");
+  cy.getCy("premiumconciergeworkflow-content").should("be.visible");
+  cy.getCy("premium-concierge-btn-quality-verification").should("be.visible");
+  cy.getCy("premium-concierge-loading-indicator").should("be.visible");
+  cy.getCy("premium-concierge-log-history").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Saving screenshot for Premium Concierge Care Coordinator Compliance Workflow...");
   cy.waitAndSee();

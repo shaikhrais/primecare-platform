@@ -1,0 +1,26 @@
+List of work the user must do:
+1. Monitor shift schedules for operations staff.
+2. Ensure proper staffing levels are maintained.
+3. Address any staffing issues or conflicts that arise.
+4. Review performance metrics related to shift operations.
+5. Communicate with team members regarding shift changes or updates.
+6. Analyze operational efficiency and identify areas for improvement.
+7. Generate reports on shift performance and staffing levels.
+
+Red flags of operation:
+1. Frequent understaffing or overstaffing situations.
+2. High turnover rates among shift staff.
+3. Consistent delays in shift handovers.
+4. Increased number of complaints from staff regarding scheduling.
+5. Low morale or engagement levels among team members.
+6. Missed deadlines for operational tasks.
+7. Inconsistent performance metrics across shifts.
+
+What is needed on the user dashboard:
+1. Real-time shift schedule overview.
+2. Staffing level indicators (understaffed, adequately staffed, overstaffed).
+3. Alerts for any staffing issues or conflicts.
+4. Performance metrics dashboard (e.g., efficiency ratings, completion rates).
+5. Communication tools for team updates and announcements.
+6. Historical data and trends on staffing and performance.
+7. Quick access to generate reports on shift operations.

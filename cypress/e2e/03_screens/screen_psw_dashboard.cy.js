@@ -18,6 +18,9 @@ describe("Screen - psw_dashboard", () => {
   cy.getCy("pswdashboard-screen").should("be.visible");
   cy.getCy("pswdashboard-title").should("be.visible");
   cy.getCy("pswdashboard-content").should("be.visible");
+  cy.getCy("pswdashboard-btn-checkin").should("be.visible");
+  cy.getCy("pswdashboard-btn-checkout").should("be.visible");
+  cy.getCy("pswdashboard-btn-log-incident").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PswDashboardScreen...");
   cy.waitAndSee();

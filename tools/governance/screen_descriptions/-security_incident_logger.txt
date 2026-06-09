@@ -1,0 +1,18 @@
+User Tasks:
+1. View reported security incidents.
+2. Refresh the list of incidents.
+3. Log a new security incident.
+4. Update the status of an existing incident.
+
+Red Flags of Operation:
+1. Failure to load incidents (error state).
+2. Long loading times (indicated by loading spinner).
+3. Inconsistent or missing incident data (e.g., title, description).
+4. Issues with updating incident status.
+
+Dashboard Needs:
+1. Summary of total incidents reported.
+2. Breakdown of incidents by severity (critical, high, medium, low).
+3. Recent incidents with timestamps.
+4. Quick access buttons for logging new incidents and refreshing the list.
+5. Visual indicators for incident severity.

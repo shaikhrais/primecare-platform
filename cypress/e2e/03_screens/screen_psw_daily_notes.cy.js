@@ -15,9 +15,12 @@ describe("Screen - psw_daily_notes", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pswdailynotes-screen").should("be.visible");
+  cy.getCy("pswdailynotes-title").should("be.visible");
+  cy.getCy("pswdailynotes-content").should("be.visible");
+  cy.getCy("psw_daily_notes-add_note").should("be.visible");
+  cy.getCy("psw_daily_notes-save").should("be.visible");
+  cy.getCy("psw_daily_notes-update").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Psw Daily Notes...");
   cy.waitAndSee();

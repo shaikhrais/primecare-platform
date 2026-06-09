@@ -1,0 +1,35 @@
+General Manager Responsibilities:
+1. Oversee daily operations and ensure compliance with regulations.
+2. Manage and lead the team to achieve operational goals.
+3. Monitor performance metrics and implement improvements.
+4. Conduct regular compliance audits and risk assessments.
+5. Ensure effective communication across departments.
+6. Develop and implement strategic plans for growth.
+7. Maintain relationships with stakeholders and partners.
+8. Address and resolve operational issues promptly.
+9. Ensure adherence to company policies and procedures.
+10. Prepare reports for upper management and stakeholders.
+
+Red Flags in Operations:
+1. Frequent compliance violations or audit failures.
+2. High employee turnover or dissatisfaction.
+3. Inconsistent performance metrics or declining trends.
+4. Delayed project timelines or missed deadlines.
+5. Poor communication or collaboration among teams.
+6. Increased customer complaints or negative feedback.
+7. Lack of adherence to safety and security protocols.
+8. Unresolved operational issues or bottlenecks.
+9. Insufficient training or resources for staff.
+10. Inadequate response to market changes or competition.
+
+Dashboard Requirements for General Manager:
+1. Real-time performance metrics (KPIs).
+2. Compliance audit results and status.
+3. Employee satisfaction and turnover rates.
+4. Operational issue tracking and resolution status.
+5. Financial performance indicators (revenue, expenses).
+6. Customer feedback and complaint trends.
+7. Project timelines and milestones.
+8. Risk assessment and mitigation strategies.
+9. Team performance and productivity metrics.
+10. Strategic plan progress and updates.

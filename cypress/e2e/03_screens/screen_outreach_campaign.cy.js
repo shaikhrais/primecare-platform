@@ -18,6 +18,9 @@ describe("Screen - outreach_campaign", () => {
   cy.getCy("outreachcampaign-screen").should("be.visible");
   cy.getCy("outreachcampaign-title").should("be.visible");
   cy.getCy("outreachcampaign-content").should("be.visible");
+  cy.getCy("bdashboard-btn-add-opportunity").should("be.visible");
+  cy.getCy("bdashboard-btn-view-reports").should("be.visible");
+  cy.getCy("bdashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OutreachCampaignScreen...");
   cy.waitAndSee();

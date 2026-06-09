@@ -18,6 +18,9 @@ describe("Screen - course_architect_compliance", () => {
   cy.getCy("coursearchitectcompliance-screen").should("be.visible");
   cy.getCy("coursearchitectcompliance-title").should("be.visible");
   cy.getCy("coursearchitectcompliance-content").should("be.visible");
+  cy.getCy("trainingprogram-card").should("be.visible");
+  cy.getCy("feedback-chart").should("be.visible");
+  cy.getCy("compliance-status-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CourseArchitectComplianceScreen...");
   cy.waitAndSee();

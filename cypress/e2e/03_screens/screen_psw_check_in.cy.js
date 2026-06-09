@@ -15,9 +15,12 @@ describe("Screen - psw_check_in", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("pswcheckin-screen").should("be.visible");
+  cy.getCy("pswcheckin-title").should("be.visible");
+  cy.getCy("pswcheckin-content").should("be.visible");
+  cy.getCy("pswcheckin-btn-checkin").should("be.visible");
+  cy.getCy("pswcheckin-btn-help").should("be.visible");
+  cy.getCy("pswcheckin-btn-history").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Psw Check In...");
   cy.waitAndSee();

@@ -1,0 +1,21 @@
+List of work employees must do:
+1. Run compliance scans.
+2. Sync security posture.
+3. Update policies.
+4. Export audit logs.
+5. Request PTO days.
+6. Download tax documents.
+
+Red flags of operation:
+1. High loading times during compliance scans.
+2. Frequent API errors when requesting PTO or downloading documents.
+3. Inconsistent logs indicating potential security issues.
+4. Low productivity metrics.
+5. Unapproved security clearance levels.
+
+Dashboard needs:
+1. Real-time operational metrics (e.g., active operations, security clearance).
+2. Telemetry charts for performance tracking.
+3. Audit logs for transparency.
+4. Action buttons for compliance scans and other operations.
+5. Notifications for errors or issues encountered during operations.

@@ -15,9 +15,12 @@ describe("Screen - customer_support_escalations", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("customersupportescalations-screen").should("be.visible");
+  cy.getCy("customersupportescalations-title").should("be.visible");
+  cy.getCy("customersupportescalations-content").should("be.visible");
+  cy.getCy("customer-support-escalations-overview").should("be.visible");
+  cy.getCy("customer-support-escalations-response").should("be.visible");
+  cy.getCy("customer-support-escalations-trends").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Customer Support Escalations...");
   cy.waitAndSee();

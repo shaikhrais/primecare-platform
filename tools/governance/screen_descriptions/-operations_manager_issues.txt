@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor operational issues reported by team members.
+2. Analyze the data to identify trends and recurring problems.
+3. Communicate with relevant departments to resolve issues.
+4. Track the resolution status of reported issues.
+5. Generate reports on operational performance and issues.
+
+Red flags of operation:
+1. High frequency of recurring issues indicating systemic problems.
+2. Delays in issue resolution beyond acceptable timeframes.
+3. Lack of communication or updates from team members on issue status.
+4. Significant discrepancies in reported issues versus resolved issues.
+5. Negative feedback from team members regarding issue handling.
+
+What is needed on the user dashboard:
+1. Overview of current operational issues with status indicators.
+2. Metrics on issue resolution times and trends.
+3. Alerts for high-priority or overdue issues.
+4. A summary of communication logs related to issue resolution.
+5. Visual representations (charts/graphs) of operational performance over time.

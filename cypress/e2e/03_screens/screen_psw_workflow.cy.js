@@ -18,6 +18,9 @@ describe("Screen - psw_workflow", () => {
   cy.getCy("pswworkflow-screen").should("be.visible");
   cy.getCy("pswworkflow-title").should("be.visible");
   cy.getCy("pswworkflow-content").should("be.visible");
+  cy.getCy("psw-btn-clockin").should("be.visible");
+  cy.getCy("psw-btn-clockout").should("be.visible");
+  cy.getCy("psw-btn-submitADLs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PswWorkflowScreen...");
   cy.waitAndSee();

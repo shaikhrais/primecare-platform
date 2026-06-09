@@ -18,6 +18,9 @@ describe("Screen - training_dashboard", () => {
   cy.getCy("trainingdashboard-screen").should("be.visible");
   cy.getCy("trainingdashboard-title").should("be.visible");
   cy.getCy("trainingdashboard-content").should("be.visible");
+  cy.getCy("training-dashboard-btn-add-session").should("be.visible");
+  cy.getCy("training-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("training-dashboard-btn-send-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TrainingDashboardScreen...");
   cy.waitAndSee();

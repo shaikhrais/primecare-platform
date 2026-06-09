@@ -18,6 +18,9 @@ describe("Screen - hr_hiring_workflow", () => {
   cy.getCy("hrhiringworkflow-screen").should("be.visible");
   cy.getCy("hrhiringworkflow-title").should("be.visible");
   cy.getCy("hrhiringworkflow-content").should("be.visible");
+  cy.getCy("ta-dashboard-btn-view-details").should("be.visible");
+  cy.getCy("ta-dashboard-btn-generate-report").should("be.visible");
+  cy.getCy("ta-dashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for HrHiringWorkflowScreen...");
   cy.waitAndSee();

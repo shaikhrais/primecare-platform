@@ -18,6 +18,9 @@ describe("Screen - onboarding_checklist", () => {
   cy.getCy("onboardingchecklist-screen").should("be.visible");
   cy.getCy("onboardingchecklist-title").should("be.visible");
   cy.getCy("onboardingchecklist-content").should("be.visible");
+  cy.getCy("ta-dashboard-kpi-chart").should("be.visible");
+  cy.getCy("ta-dashboard-candidate-pipeline").should("be.visible");
+  cy.getCy("ta-dashboard-diversity-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for OnboardingChecklistScreen...");
   cy.waitAndSee();

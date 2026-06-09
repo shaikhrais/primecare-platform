@@ -7,8 +7,8 @@ describe("Screen - psw_client_profile", () => {
   it("opens and verifies screen psw_client_profile", () => {
     cy.loginAsRole("psw");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/psw/psw-client-profile (PswClientProfileScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/psw/psw-client-profile");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/psw/profile (PswClientProfileScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/psw/profile");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for PswClientProfileScreen...");
@@ -18,6 +18,9 @@ describe("Screen - psw_client_profile", () => {
   cy.getCy("pswclientprofile-screen").should("be.visible");
   cy.getCy("pswclientprofile-title").should("be.visible");
   cy.getCy("pswclientprofile-content").should("be.visible");
+  cy.getCy("psw-status-update-btn").should("be.visible");
+  cy.getCy("psw-charting-complete-btn").should("be.visible");
+  cy.getCy("psw-certification-add-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PswClientProfileScreen...");
   cy.waitAndSee();

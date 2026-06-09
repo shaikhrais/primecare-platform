@@ -18,6 +18,9 @@ describe("Screen - cfo_workflow", () => {
   cy.getCy("cfoworkflow-screen").should("be.visible");
   cy.getCy("cfoworkflow-title").should("be.visible");
   cy.getCy("cfoworkflow-content").should("be.visible");
+  cy.getCy("cfo-dashboard-kpi-widget").should("be.visible");
+  cy.getCy("cfo-dashboard-budget-analysis").should("be.visible");
+  cy.getCy("cfo-dashboard-cash-flow").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CfoWorkflowScreen...");
   cy.waitAndSee();

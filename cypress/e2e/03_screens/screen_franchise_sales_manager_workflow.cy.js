@@ -18,6 +18,9 @@ describe("Screen - franchise_sales_manager_workflow", () => {
   cy.getCy("franchisesalesmanagerworkflow-screen").should("be.visible");
   cy.getCy("franchisesalesmanagerworkflow-title").should("be.visible");
   cy.getCy("franchisesalesmanagerworkflow-content").should("be.visible");
+  cy.getCy("franchise-sales-metrics").should("be.visible");
+  cy.getCy("franchise-customer-feedback").should("be.visible");
+  cy.getCy("franchise-employee-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FranchiseSalesManagerWorkflowScreen...");
   cy.waitAndSee();

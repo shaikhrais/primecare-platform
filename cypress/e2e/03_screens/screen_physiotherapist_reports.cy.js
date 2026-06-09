@@ -18,6 +18,9 @@ describe("Screen - physiotherapist_reports", () => {
   cy.getCy("physiotherapistreports-screen").should("be.visible");
   cy.getCy("physiotherapistreports-title").should("be.visible");
   cy.getCy("physiotherapistreports-content").should("be.visible");
+  cy.getCy("physio-dashboard-btn-update-treatment").should("be.visible");
+  cy.getCy("physio-dashboard-btn-log-progress").should("be.visible");
+  cy.getCy("physio-dashboard-btn-view-records").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PhysiotherapistReportsScreen...");
   cy.waitAndSee();

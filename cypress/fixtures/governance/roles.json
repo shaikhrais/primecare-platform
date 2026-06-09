@@ -451,7 +451,7 @@
     "primary_app_code": "client",
     "primary_app_url": "https://primecare-client.pages.dev",
     "auth_redirect_url": "https://primecare-client.pages.dev/auth/callback",
-    "post_login_route": "/common/dynamic-dashboard",
+    "post_login_route": "/offices/client/roles/client/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -486,7 +486,7 @@
     "primary_app_code": "client",
     "primary_app_url": "https://primecare-client.pages.dev",
     "auth_redirect_url": "https://primecare-client.pages.dev/auth/callback",
-    "post_login_route": "/common/portal-dashboard",
+    "post_login_route": "/offices/client/roles/client/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -521,7 +521,7 @@
     "primary_app_code": "client",
     "primary_app_url": "https://primecare-client.pages.dev",
     "auth_redirect_url": "https://primecare-client.pages.dev/auth/callback",
-    "post_login_route": "/common/family-member-dashboard",
+    "post_login_route": "/offices/client/roles/client/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -553,10 +553,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.530714Z",
-    "primary_app_code": "support",
-    "primary_app_url": "https://primecare-support.pages.dev",
-    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
-    "post_login_route": "/common/customer-support-dashboard",
+    "primary_app_code": "governance",
+    "primary_app_url": "https://primecare-governance.pages.dev",
+    "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
+    "post_login_route": "/roles/dynamic_screen/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -591,7 +591,7 @@
     "primary_app_code": "governance",
     "primary_app_url": "https://primecare-governance.pages.dev",
     "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/common/infrastructure-dashboard",
+    "post_login_route": "/roles/infrastructure/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -626,7 +626,7 @@
     "primary_app_code": "governance",
     "primary_app_url": "https://primecare-governance.pages.dev",
     "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/common/qa-dashboard",
+    "post_login_route": "/roles/system_verification/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -661,7 +661,7 @@
     "primary_app_code": "governance",
     "primary_app_url": "https://primecare-governance.pages.dev",
     "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/common/training-hub-dashboard",
+    "post_login_route": "/roles/training_hub/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -696,7 +696,7 @@
     "primary_app_code": "corporate",
     "primary_app_url": "https://primecare-corporate.pages.dev",
     "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/executive/executive-command-center",
+    "post_login_route": "/offices/corporate/roles/ceo/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -731,7 +731,7 @@
     "primary_app_code": "corporate",
     "primary_app_url": "https://primecare-corporate.pages.dev",
     "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/executive/cfo-dashboard",
+    "post_login_route": "/offices/corporate/roles/cfo/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -766,7 +766,7 @@
     "primary_app_code": "corporate",
     "primary_app_url": "https://primecare-corporate.pages.dev",
     "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/executive/ciso-dashboard",
+    "post_login_route": "/offices/corporate/roles/ciso/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -801,7 +801,7 @@
     "primary_app_code": "corporate",
     "primary_app_url": "https://primecare-corporate.pages.dev",
     "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/executive/coo-dashboard",
+    "post_login_route": "/offices/corporate/roles/coo/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -836,7 +836,7 @@
     "primary_app_code": "corporate",
     "primary_app_url": "https://primecare-corporate.pages.dev",
     "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/common/architecture-planning-dashboard",
+    "post_login_route": "/offices/corporate/roles/cto/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -871,7 +871,7 @@
     "primary_app_code": "corporate",
     "primary_app_url": "https://primecare-corporate.pages.dev",
     "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/executive/cx-director-dashboard",
+    "post_login_route": "/offices/corporate/roles/cx_director/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -906,7 +906,7 @@
     "primary_app_code": "corporate",
     "primary_app_url": "https://primecare-corporate.pages.dev",
     "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/executive/finance-director-dashboard",
+    "post_login_route": "/offices/corporate/roles/finance_director/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -941,7 +941,7 @@
     "primary_app_code": "corporate",
     "primary_app_url": "https://primecare-corporate.pages.dev",
     "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/executive/hr-director-dashboard",
+    "post_login_route": "/offices/corporate/roles/hr_director/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -976,7 +976,7 @@
     "primary_app_code": "corporate",
     "primary_app_url": "https://primecare-corporate.pages.dev",
     "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/executive/legal-dashboard",
+    "post_login_route": "/offices/corporate/roles/legal/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1011,7 +1011,7 @@
     "primary_app_code": "franchise",
     "primary_app_url": "https://primecare-franchise.pages.dev",
     "auth_redirect_url": "https://primecare-franchise.pages.dev/auth/callback",
-    "post_login_route": "/common/franchise-dashboard",
+    "post_login_route": "/offices/franchise/roles/franchise_owner/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1046,7 +1046,7 @@
     "primary_app_code": "corporate",
     "primary_app_url": "https://primecare-corporate.pages.dev",
     "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/executive/shareholder-dashboard",
+    "post_login_route": "/offices/corporate/roles/shareholder/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1081,7 +1081,7 @@
     "primary_app_code": "corporate",
     "primary_app_url": "https://primecare-corporate.pages.dev",
     "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/common/course-architect-dashboard",
+    "post_login_route": "/offices/corporate/roles/training_director/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1116,7 +1116,7 @@
     "primary_app_code": "marketing",
     "primary_app_url": "https://primecare-marketing.pages.dev",
     "auth_redirect_url": "https://primecare-marketing.pages.dev/auth/callback",
-    "post_login_route": "/management/community-outreach-dashboard",
+    "post_login_route": "/offices/marketing/roles/community_outreach/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1148,10 +1148,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532012Z",
-    "primary_app_code": "governance",
-    "primary_app_url": "https://primecare-governance.pages.dev",
-    "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/management/compliance-manager-dashboard",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/offices/corporate/roles/compliance_manager/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1183,10 +1183,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532066Z",
-    "primary_app_code": "franchise",
-    "primary_app_url": "https://primecare-franchise.pages.dev",
-    "auth_redirect_url": "https://primecare-franchise.pages.dev/auth/callback",
-    "post_login_route": "/management/franchise-sales-manager-dashboard",
+    "primary_app_code": "business_development",
+    "primary_app_url": "https://primecare-business-development.pages.dev",
+    "auth_redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
+    "post_login_route": "/offices/business_development/roles/franchise_sales_manager/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1218,10 +1218,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532095Z",
-    "primary_app_code": "support",
-    "primary_app_url": "https://primecare-support.pages.dev",
-    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
-    "post_login_route": "/management/general-manager-dashboard",
+    "primary_app_code": "business_development",
+    "primary_app_url": "https://primecare-business-development.pages.dev",
+    "auth_redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
+    "post_login_route": "/offices/business_development/roles/general_manager/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1256,7 +1256,7 @@
     "primary_app_code": "governance",
     "primary_app_url": "https://primecare-governance.pages.dev",
     "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/common/system-dashboard",
+    "post_login_route": "/roles/system/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1288,10 +1288,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532178Z",
-    "primary_app_code": "business_development",
-    "primary_app_url": "https://primecare-business-development.pages.dev",
-    "auth_redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
-    "post_login_route": "/common/business-development-dashboard",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/offices/corporate/roles/head_of_bus_dev/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1323,10 +1323,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532252Z",
-    "primary_app_code": "marketing",
-    "primary_app_url": "https://primecare-marketing.pages.dev",
-    "auth_redirect_url": "https://primecare-marketing.pages.dev/auth/callback",
-    "post_login_route": "/management/head-of-marketing-dashboard",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/offices/corporate/roles/head_of_marketing/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1361,7 +1361,7 @@
     "primary_app_code": "marketing",
     "primary_app_url": "https://primecare-marketing.pages.dev",
     "auth_redirect_url": "https://primecare-marketing.pages.dev/auth/callback",
-    "post_login_route": "/management/local-marketing-manager-dashboard",
+    "post_login_route": "/offices/marketing/roles/local_marketing_manager/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1393,10 +1393,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532406Z",
-    "primary_app_code": "support",
-    "primary_app_url": "https://primecare-support.pages.dev",
-    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
-    "post_login_route": "/management/operations-manager-dashboard",
+    "primary_app_code": "franchise",
+    "primary_app_url": "https://primecare-franchise.pages.dev",
+    "auth_redirect_url": "https://primecare-franchise.pages.dev/auth/callback",
+    "post_login_route": "/offices/franchise/roles/operations_manager/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1431,7 +1431,7 @@
     "primary_app_code": "business_development",
     "primary_app_url": "https://primecare-business-development.pages.dev",
     "auth_redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
-    "post_login_route": "/management/partnership-manager-dashboard",
+    "post_login_route": "/offices/business_development/roles/partnership_manager/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1466,7 +1466,7 @@
     "primary_app_code": "business_development",
     "primary_app_url": "https://primecare-business-development.pages.dev",
     "auth_redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
-    "post_login_route": "/management/regional-bdm-dashboard",
+    "post_login_route": "/offices/business_development/roles/regional_bdm/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1498,10 +1498,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532510Z",
-    "primary_app_code": "support",
-    "primary_app_url": "https://primecare-support.pages.dev",
-    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
-    "post_login_route": "/management/regional-manager-usa-dashboard",
+    "primary_app_code": "business_development",
+    "primary_app_url": "https://primecare-business-development.pages.dev",
+    "auth_redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
+    "post_login_route": "/offices/business_development/roles/regional_manager_usa/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1533,10 +1533,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532520Z",
-    "primary_app_code": "support",
-    "primary_app_url": "https://primecare-support.pages.dev",
-    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
-    "post_login_route": "/management/scrum-master-dashboard",
+    "primary_app_code": "governance",
+    "primary_app_url": "https://primecare-governance.pages.dev",
+    "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
+    "post_login_route": "/roles/scrum_master/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1568,10 +1568,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532538Z",
-    "primary_app_code": "support",
-    "primary_app_url": "https://primecare-support.pages.dev",
-    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
-    "post_login_route": "/staff/hr-hiring-dashboard",
+    "primary_app_code": "franchise",
+    "primary_app_url": "https://primecare-franchise.pages.dev",
+    "auth_redirect_url": "https://primecare-franchise.pages.dev/auth/callback",
+    "post_login_route": "/offices/franchise/roles/hr_hiring/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1606,7 +1606,7 @@
     "primary_app_code": "business_development",
     "primary_app_url": "https://primecare-business-development.pages.dev",
     "auth_redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
-    "post_login_route": "/management/territory-expansion-manager-dashboard",
+    "post_login_route": "/offices/business_development/roles/territory_expansion_manager/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1641,7 +1641,7 @@
     "primary_app_code": "business_development",
     "primary_app_url": "https://primecare-business-development.pages.dev",
     "auth_redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
-    "post_login_route": "/management/territory-sales-manager-dashboard",
+    "post_login_route": "/offices/business_development/roles/territory_sales_manager/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1673,10 +1673,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532608Z",
-    "primary_app_code": "support",
-    "primary_app_url": "https://primecare-support.pages.dev",
-    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
-    "post_login_route": "/staff/volunteer-coordinator-dashboard",
+    "primary_app_code": "corporate",
+    "primary_app_url": "https://primecare-corporate.pages.dev",
+    "auth_redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
+    "post_login_route": "/offices/corporate/roles/volunteer_coordinator/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -1988,10 +1988,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532781Z",
-    "primary_app_code": "support",
-    "primary_app_url": "https://primecare-support.pages.dev",
-    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
-    "post_login_route": "/staff/employee-dashboard",
+    "primary_app_code": "governance",
+    "primary_app_url": "https://primecare-governance.pages.dev",
+    "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
+    "post_login_route": "/roles/employee/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -2023,10 +2023,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532798Z",
-    "primary_app_code": "support",
-    "primary_app_url": "https://primecare-support.pages.dev",
-    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
-    "post_login_route": "/staff/volunteer-dashboard",
+    "primary_app_code": "governance",
+    "primary_app_url": "https://primecare-governance.pages.dev",
+    "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
+    "post_login_route": "/roles/volunteer/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -2058,10 +2058,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532809Z",
-    "primary_app_code": "support",
-    "primary_app_url": "https://primecare-support.pages.dev",
-    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
-    "post_login_route": "/common/office-dashboard",
+    "primary_app_code": "governance",
+    "primary_app_url": "https://primecare-governance.pages.dev",
+    "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
+    "post_login_route": "/roles/office/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -2093,10 +2093,10 @@
     "test_login_last_status": "passed",
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532870Z",
-    "primary_app_code": "support",
-    "primary_app_url": "https://primecare-support.pages.dev",
-    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
-    "post_login_route": "/staff/scheduler-dashboard",
+    "primary_app_code": "franchise",
+    "primary_app_url": "https://primecare-franchise.pages.dev",
+    "auth_redirect_url": "https://primecare-franchise.pages.dev/auth/callback",
+    "post_login_route": "/offices/franchise/roles/scheduler/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -2131,7 +2131,7 @@
     "primary_app_code": "support",
     "primary_app_url": "https://primecare-support.pages.dev",
     "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
-    "post_login_route": "/common/customer-support-analytics",
+    "post_login_route": "/offices/support/roles/customer_support/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -2164,9 +2164,9 @@
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532920Z",
     "primary_app_code": "governance",
-    "primary_app_url": "https://primecare-clinic.pages.dev",
-    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/staff/training-dashboard",
+    "primary_app_url": "https://primecare-governance.pages.dev",
+    "auth_redirect_url": "https://primecare-governance.pages.dev/auth/callback",
+    "post_login_route": "/roles/training_coordinator/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -2199,9 +2199,9 @@
     "test_login_last_error": null,
     "test_login_last_run_at": "2026-05-28T18:01:37.532931Z",
     "primary_app_code": "support",
-    "primary_app_url": "https://primecare-clinic.pages.dev",
-    "auth_redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/common/qa-analytics",
+    "primary_app_url": "https://primecare-support.pages.dev",
+    "auth_redirect_url": "https://primecare-support.pages.dev/auth/callback",
+    "post_login_route": "/offices/support/roles/quality_assurance/dashboard",
     "test_password": "Test@12345"
   },
   {
@@ -2236,7 +2236,7 @@
     "primary_app_code": "client",
     "primary_app_url": "https://primecare-client.pages.dev",
     "auth_redirect_url": "https://primecare-client.pages.dev/auth/callback",
-    "post_login_route": "/common/family-member-analytics",
+    "post_login_route": "/offices/client/roles/family_member/dashboard",
     "test_password": "Test@12345"
   }
 ]

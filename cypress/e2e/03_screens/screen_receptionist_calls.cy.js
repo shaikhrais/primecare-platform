@@ -15,9 +15,12 @@ describe("Screen - receptionist_calls", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("receptionistcalls-screen").should("be.visible");
+  cy.getCy("receptionistcalls-title").should("be.visible");
+  cy.getCy("receptionistcalls-content").should("be.visible");
+  cy.getCy("receptionist-calls-status-indicator").should("be.visible");
+  cy.getCy("receptionist-calls-audit-status").should("be.visible");
+  cy.getCy("receptionist-calls-telemetry-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Receptionist Calls...");
   cy.waitAndSee();

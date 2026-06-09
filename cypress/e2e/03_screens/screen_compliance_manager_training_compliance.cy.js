@@ -15,9 +15,12 @@ describe("Screen - compliance_manager_training_compliance", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("compliancemanagertrainingcompliance-screen").should("be.visible");
+  cy.getCy("compliancemanagertrainingcompliance-title").should("be.visible");
+  cy.getCy("compliancemanagertrainingcompliance-content").should("be.visible");
+  cy.getCy("compliance-dashboard-training-completion").should("be.visible");
+  cy.getCy("compliance-dashboard-deadline-alerts").should("be.visible");
+  cy.getCy("compliance-dashboard-training-materials").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Compliance Manager Training Compliance...");
   cy.waitAndSee();

@@ -1,0 +1,29 @@
+List of work a Caregiver must do:
+1. Monitor patient health and well-being.
+2. Assist with daily living activities (bathing, dressing, eating).
+3. Administer medications as prescribed.
+4. Maintain accurate records of patient care.
+5. Communicate effectively with healthcare professionals and family members.
+6. Ensure a safe and clean environment for patients.
+7. Provide emotional support and companionship.
+8. Report any changes in patient condition to the healthcare team.
+9. Participate in training and continuing education.
+
+Red flags of operation:
+1. Frequent medication errors or missed doses.
+2. Unexplained changes in patient behavior or health.
+3. Inconsistent documentation or missing records.
+4. High turnover rates among caregivers.
+5. Complaints from patients or families about care quality.
+6. Lack of communication among the care team.
+7. Non-compliance with safety protocols.
+
+Dashboard needs for Caregiver:
+1. Overview of patient assignments and schedules.
+2. Alerts for medication administration times.
+3. Log of patient health updates and incidents.
+4. Compliance scan results and audit logs.
+5. Performance metrics (e.g., patient satisfaction scores).
+6. Access to training resources and updates.
+7. Communication tools for team collaboration.
+8. Visual representation of workload and tasks.

@@ -18,6 +18,9 @@ describe("Screen - guest_compliance", () => {
   cy.getCy("guestcompliance-screen").should("be.visible");
   cy.getCy("guestcompliance-title").should("be.visible");
   cy.getCy("guestcompliance-content").should("be.visible");
+  cy.getCy("compliance-scan-btn").should("be.visible");
+  cy.getCy("audit-logs-btn").should("be.visible");
+  cy.getCy("governance-update-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for GuestComplianceScreen...");
   cy.waitAndSee();

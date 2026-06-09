@@ -18,6 +18,9 @@ describe("Screen - coordinator_dispatch_map", () => {
   cy.getCy("coordinatordispatchmap-screen").should("be.visible");
   cy.getCy("coordinatordispatchmap-title").should("be.visible");
   cy.getCy("coordinatordispatchmap-content").should("be.visible");
+  cy.getCy("coordinator-dispatch-btn-assign-shift").should("be.visible");
+  cy.getCy("coordinator-dispatch-btn-send-alert").should("be.visible");
+  cy.getCy("coordinator-dispatch-btn-view-performance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for CoordinatorDispatchMapScreen...");
   cy.waitAndSee();

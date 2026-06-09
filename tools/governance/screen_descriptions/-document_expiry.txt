@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor document expiry dates.
+2. Review notifications for upcoming expirations.
+3. Update or renew documents as necessary.
+4. Access and view the status of all documents.
+5. Report any discrepancies or issues with documents.
+
+Red flags of operation:
+1. Delays in updating document statuses.
+2. Inconsistent notifications for document expirations.
+3. Errors in loading document data.
+4. Lack of user engagement with the dashboard.
+5. High frequency of error messages during data retrieval.
+
+What we need on the dashboard for the user:
+1. Overview of all documents with their expiry dates.
+2. Notification section for upcoming expirations.
+3. Quick access buttons for renewing or updating documents.
+4. Status indicators for each document (e.g., valid, expired, pending).
+5. Analytics on user engagement and document management efficiency.

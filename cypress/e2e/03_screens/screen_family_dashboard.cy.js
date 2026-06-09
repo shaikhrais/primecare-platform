@@ -7,17 +7,20 @@ describe("Screen - family_dashboard", () => {
   it("opens and verifies screen family_dashboard", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Family Dashboard)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/client/roles/family_member/dashboard (Family Dashboard)...");
+  cy.visitWithSemantics("/offices/client/roles/family_member/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Family Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("familydashboard-screen").should("be.visible");
+  cy.getCy("familydashboard-title").should("be.visible");
+  cy.getCy("familydashboard-content").should("be.visible");
+  cy.getCy("family-dashboard-btn-view-contributions").should("be.visible");
+  cy.getCy("family-dashboard-btn-send-message").should("be.visible");
+  cy.getCy("family-dashboard-btn-access-resources").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Family Dashboard...");
   cy.waitAndSee();

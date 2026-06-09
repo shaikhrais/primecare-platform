@@ -7,17 +7,20 @@ describe("Screen - scheduler_coordinator_reports", () => {
   it("opens and verifies screen scheduler_coordinator_reports", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Scheduler Coordinator Reports)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/scheduler_coordinator/reports (Scheduler Coordinator Reports)...");
+  cy.visitWithSemantics("/offices/franchise/roles/scheduler_coordinator/reports");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Scheduler Coordinator Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("schedulercoordinatorreports-screen").should("be.visible");
+  cy.getCy("schedulercoordinatorreports-title").should("be.visible");
+  cy.getCy("schedulercoordinatorreports-content").should("be.visible");
+  cy.getCy("scheduler-reports-status").should("be.visible");
+  cy.getCy("scheduler-notify-team").should("be.visible");
+  cy.getCy("scheduler-analyze-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Scheduler Coordinator Reports...");
   cy.waitAndSee();

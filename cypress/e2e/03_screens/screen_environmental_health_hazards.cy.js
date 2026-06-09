@@ -15,9 +15,12 @@ describe("Screen - environmental_health_hazards", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("environmentalhealthhazards-screen").should("be.visible");
+  cy.getCy("environmentalhealthhazards-title").should("be.visible");
+  cy.getCy("environmentalhealthhazards-content").should("be.visible");
+  cy.getCy("ehhazards-btn-report").should("be.visible");
+  cy.getCy("ehhazards-btn-update").should("be.visible");
+  cy.getCy("ehhazards-btn-viewreports").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Environmental Health Hazards...");
   cy.waitAndSee();

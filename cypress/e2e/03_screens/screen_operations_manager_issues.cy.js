@@ -7,17 +7,20 @@ describe("Screen - operations_manager_issues", () => {
   it("opens and verifies screen operations_manager_issues", () => {
     cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Operations Manager Issues)...");
-  cy.visitWithSemantics("");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/operations_manager/issues (Operations Manager Issues)...");
+  cy.visitWithSemantics("/offices/franchise/roles/operations_manager/issues");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: - Checking shell & content for Operations Manager Issues...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("operationsmanagerissues-screen").should("be.visible");
+  cy.getCy("operationsmanagerissues-title").should("be.visible");
+  cy.getCy("operationsmanagerissues-content").should("be.visible");
+  cy.getCy("opsmanager-btn-refresh").should("be.visible");
+  cy.getCy("opsmanager-btn-generate-report").should("be.visible");
+  cy.getCy("opsmanager-btn-communicate").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Operations Manager Issues...");
   cy.waitAndSee();

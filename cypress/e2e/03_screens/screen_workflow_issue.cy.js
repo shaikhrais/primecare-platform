@@ -18,6 +18,9 @@ describe("Screen - workflow_issue", () => {
   cy.getCy("workflowissue-screen").should("be.visible");
   cy.getCy("workflowissue-title").should("be.visible");
   cy.getCy("workflowissue-content").should("be.visible");
+  cy.getCy("coo-dashboard-kpi").should("be.visible");
+  cy.getCy("coo-dashboard-financials").should("be.visible");
+  cy.getCy("coo-dashboard-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for WorkflowIssueScreen...");
   cy.waitAndSee();

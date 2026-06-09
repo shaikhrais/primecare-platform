@@ -18,6 +18,9 @@ describe("Screen - family_overview", () => {
   cy.getCy("familyoverview-screen").should("be.visible");
   cy.getCy("familyoverview-title").should("be.visible");
   cy.getCy("familyoverview-content").should("be.visible");
+  cy.getCy("family-overview-btn-run-scan").should("be.visible");
+  cy.getCy("family-overview-btn-trigger-action").should("be.visible");
+  cy.getCy("family-overview-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FamilyOverviewScreen...");
   cy.waitAndSee();

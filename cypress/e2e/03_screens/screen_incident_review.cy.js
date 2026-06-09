@@ -18,6 +18,9 @@ describe("Screen - incident_review", () => {
   cy.getCy("incidentreview-screen").should("be.visible");
   cy.getCy("incidentreview-title").should("be.visible");
   cy.getCy("incidentreview-content").should("be.visible");
+  cy.getCy("incidentreview-btn-view-records").should("be.visible");
+  cy.getCy("incidentreview-btn-log-medication").should("be.visible");
+  cy.getCy("incidentreview-btn-track-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for IncidentReviewScreen...");
   cy.waitAndSee();

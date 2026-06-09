@@ -18,6 +18,9 @@ describe("Screen - patient_appointments", () => {
   cy.getCy("patientappointments-screen").should("be.visible");
   cy.getCy("patientappointments-title").should("be.visible");
   cy.getCy("patientappointments-content").should("be.visible");
+  cy.getCy("patientappointments-btn-review").should("be.visible");
+  cy.getCy("patientappointments-btn-attend").should("be.visible");
+  cy.getCy("patientappointments-btn-submit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for PatientAppointmentsScreen...");
   cy.waitAndSee();

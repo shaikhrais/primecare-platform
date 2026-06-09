@@ -18,6 +18,9 @@ describe("Screen - rpn_care_plan_review", () => {
   cy.getCy("rpncareplanreview-screen").should("be.visible");
   cy.getCy("rpncareplanreview-title").should("be.visible");
   cy.getCy("rpncareplanreview-content").should("be.visible");
+  cy.getCy("rpn-dashboard-btn-view-metrics").should("be.visible");
+  cy.getCy("rpn-dashboard-btn-audit-compliance").should("be.visible");
+  cy.getCy("rpn-dashboard-btn-view-kpis").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for RpnCarePlanReviewScreen...");
   cy.waitAndSee();

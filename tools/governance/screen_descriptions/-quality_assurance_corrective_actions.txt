@@ -1,0 +1,20 @@
+User Tasks:
+1. Review and analyze corrective actions related to quality assurance.
+2. Document findings and recommendations based on the analysis.
+3. Collaborate with team members to implement corrective actions.
+4. Monitor the effectiveness of implemented actions.
+5. Report any ongoing issues or new findings to the management.
+
+Red Flags of Operation:
+1. Frequent errors or defects in products/services.
+2. Delays in implementing corrective actions.
+3. Lack of communication among team members regarding quality issues.
+4. Inconsistent documentation of quality assurance processes.
+5. Low engagement or feedback from team members on quality initiatives.
+
+Dashboard Requirements:
+1. Overview of current corrective actions and their statuses.
+2. Metrics on the effectiveness of past corrective actions.
+3. Alerts for overdue or pending actions.
+4. User engagement statistics related to quality assurance activities.
+5. Visual representation of trends in quality issues over time.

@@ -1,0 +1,26 @@
+VIP Client Manager Responsibilities:
+1. Monitor and manage VIP client interactions.
+2. Conduct compliance audits and scans.
+3. Sync security posture and update policies.
+4. Log VIP client touchpoints and issues.
+5. Resolve VIP client issues through API interactions.
+6. Export audit logs for review.
+7. Maintain operational audit logs and ensure transparency.
+8. Provide timely updates and reports to stakeholders.
+
+Red Flags of Operation:
+1. Increased number of unresolved VIP client issues.
+2. Frequent API errors during touchpoint logging or issue resolution.
+3. Delays in compliance audit execution.
+4. Low security clearance levels or exceptions logged.
+5. High loading times for dashboard operations.
+6. Lack of timely updates in operational logs.
+
+Dashboard Requirements for VIP Client Manager:
+1. Title and status indicators (loading, title).
+2. Real-time logs of actions taken and system events.
+3. Metrics for active operations and security clearance levels.
+4. Telemetry charts for monitoring performance over time.
+5. Buttons for executing key actions (e.g., compliance scans, logging touchpoints).
+6. Display of operational audit logs with timestamps.
+7. Alerts for any operational red flags or issues.

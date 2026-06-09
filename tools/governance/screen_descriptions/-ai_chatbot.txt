@@ -1,0 +1,20 @@
+List of work User must do:
+1. Monitor the performance of the AI chatbot.
+2. Interact with the chatbot to test its responses.
+3. Report any bugs or issues encountered during usage.
+4. Provide feedback on the chatbot's performance and usability.
+5. Review analytics and usage statistics to understand user engagement.
+
+Red flags of operation:
+1. Slow response times from the chatbot.
+2. Frequent errors or crashes during interactions.
+3. Inconsistent or irrelevant responses from the chatbot.
+4. Low user engagement or high drop-off rates.
+5. Negative feedback from users regarding the chatbot experience.
+
+What we need on the dashboard of User:
+1. Real-time performance metrics (response time, uptime).
+2. User engagement statistics (number of interactions, active users).
+3. Error logs and bug reports for troubleshooting.
+4. Feedback section for users to submit their experiences.
+5. Analytics on common queries and chatbot performance trends.

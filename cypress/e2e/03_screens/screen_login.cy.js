@@ -15,9 +15,12 @@ describe("Screen - login", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("login-screen").should("be.visible");
+  cy.getCy("login-title").should("be.visible");
+  cy.getCy("login-content").should("be.visible");
+  cy.getCy("login-email-input").should("be.visible");
+  cy.getCy("login-password-input").should("be.visible");
+  cy.getCy("login-button").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Login...");
   cy.waitAndSee();

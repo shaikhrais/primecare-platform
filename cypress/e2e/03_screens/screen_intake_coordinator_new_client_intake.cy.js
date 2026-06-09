@@ -18,6 +18,9 @@ describe("Screen - intake_coordinator_new_client_intake", () => {
   cy.getCy("intakecoordinatornewclientintake-screen").should("be.visible");
   cy.getCy("intakecoordinatornewclientintake-title").should("be.visible");
   cy.getCy("intakecoordinatornewclientintake-content").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-recruit").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-schedule").should("be.visible");
+  cy.getCy("volunteer-dashboard-btn-log-hours").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for IntakeCoordinatorNewClientIntakeScreen...");
   cy.waitAndSee();

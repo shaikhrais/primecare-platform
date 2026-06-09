@@ -18,6 +18,9 @@ describe("Screen - therapist_dashboard", () => {
   cy.getCy("therapistdashboard-screen").should("be.visible");
   cy.getCy("therapistdashboard-title").should("be.visible");
   cy.getCy("therapistdashboard-content").should("be.visible");
+  cy.getCy("therapist-dashboard-btn-start-session").should("be.visible");
+  cy.getCy("therapist-dashboard-btn-finalize-notes").should("be.visible");
+  cy.getCy("therapist-dashboard-btn-run-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for TherapistDashboardScreen...");
   cy.waitAndSee();

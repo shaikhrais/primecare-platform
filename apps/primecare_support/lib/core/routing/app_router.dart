@@ -32,7 +32,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   final activeRole = ref.watch(activeRoleProvider);
   final application = ref.read(supportApplicationProvider);
 
-  final dashboardRoute = activeRole == PlatformRole.guest
+  final dashboardRoute = !ref.watch(authProvider).isAuthenticated
       ? CommonRoutes.login
       : application.getDefinition(activeRole)?.dashboardRoute ??
             CommonRoutes.login;

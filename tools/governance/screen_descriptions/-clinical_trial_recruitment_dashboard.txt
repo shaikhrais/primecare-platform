@@ -1,0 +1,20 @@
+User Tasks:
+1. Monitor clinical trial recruitment metrics.
+2. Analyze participant demographics and engagement.
+3. Track recruitment timelines and milestones.
+4. Identify and address recruitment challenges.
+5. Generate reports on recruitment effectiveness.
+
+Red Flags of Operation:
+1. Low participant enrollment rates.
+2. High dropout rates from trials.
+3. Delays in recruitment timelines.
+4. Inconsistent data reporting.
+5. Lack of engagement from targeted demographics.
+
+Dashboard Requirements:
+1. Real-time recruitment metrics display.
+2. Visual representation of participant demographics.
+3. Timeline tracking for recruitment phases.
+4. Alerts for recruitment challenges or delays.
+5. Reporting tools for analyzing recruitment effectiveness.

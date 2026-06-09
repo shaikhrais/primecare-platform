@@ -1,0 +1,21 @@
+User Work List:
+1. Review quality assurance reports.
+2. Analyze data trends and patterns.
+3. Identify areas for improvement in quality processes.
+4. Collaborate with team members to address quality issues.
+5. Document findings and recommendations.
+6. Monitor the implementation of quality improvements.
+
+Red Flags of Operation:
+1. Frequent errors or bugs reported in the quality assurance reports.
+2. Delays in report generation or data retrieval.
+3. Lack of communication among team members regarding quality issues.
+4. Inconsistent data or discrepancies in reports.
+5. Low engagement or feedback from users on quality processes.
+
+Dashboard Requirements:
+1. Overview of key quality metrics (e.g., defect rates, test coverage).
+2. Real-time status of ongoing quality assurance activities.
+3. Alerts for critical issues or anomalies in quality data.
+4. Historical data trends for comparison and analysis.
+5. User feedback section for continuous improvement suggestions.

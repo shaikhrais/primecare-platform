@@ -18,6 +18,9 @@ describe("Screen - franchise_analytics", () => {
   cy.getCy("franchiseanalytics-screen").should("be.visible");
   cy.getCy("franchiseanalytics-title").should("be.visible");
   cy.getCy("franchiseanalytics-content").should("be.visible");
+  cy.getCy("franchise-analytics-kpi").should("be.visible");
+  cy.getCy("franchise-analytics-sales-trend").should("be.visible");
+  cy.getCy("franchise-analytics-satisfaction").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FranchiseAnalyticsScreen...");
   cy.waitAndSee();

@@ -1,0 +1,17 @@
+List of work for the user:
+1. View today's schedule of simulation lab sessions.
+2. Refresh the schedule to get the latest data.
+3. Book a new session by clicking the "Book Session" button.
+4. View details of each session by clicking the "Details" button.
+
+Red flags of operation:
+1. Loading state: If the schedule takes too long to load, it may indicate performance issues with the API or the application.
+2. Error state: If errors frequently occur while fetching data, it may suggest problems with the API or network connectivity.
+3. Lack of session data: If the list of sessions is empty, it could indicate scheduling issues or misconfigurations.
+
+Dashboard needs for the user:
+1. A summary of the number of sessions scheduled for the day.
+2. Notifications for any canceled or rescheduled sessions.
+3. A visual representation of session availability (e.g., booked vs. available slots).
+4. Quick access to frequently booked sessions or preferred instructors.
+5. Performance metrics, such as average loading time for the schedule.

@@ -18,6 +18,9 @@ describe("Screen - franchise_sales_manager_analytics", () => {
   cy.getCy("franchisesalesmanageranalytics-screen").should("be.visible");
   cy.getCy("franchisesalesmanageranalytics-title").should("be.visible");
   cy.getCy("franchisesalesmanageranalytics-content").should("be.visible");
+  cy.getCy("franchise-sales-performance-chart").should("be.visible");
+  cy.getCy("franchise-employee-turnover-stats").should("be.visible");
+  cy.getCy("franchise-customer-satisfaction-widget").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for FranchiseSalesManagerAnalyticsScreen...");
   cy.waitAndSee();

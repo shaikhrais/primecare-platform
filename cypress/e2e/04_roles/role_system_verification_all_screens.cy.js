@@ -8,8 +8,8 @@ describe("Role All Screens - system_verification", () => {
     cy.loginAsRole("system_verification");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Navigating to /common/qa-dashboard (QaDashboardScreen)...");
-  cy.visitWithSemantics("/common/qa-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Navigating to /offices/support/roles/quality_assurance/dashboard (QaDashboardScreen)...");
+  cy.visitWithSemantics("/offices/support/roles/quality_assurance/dashboard");
   cy.waitAndSee();
   
   cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Checking shell & content for QaDashboardScreen...");
@@ -19,6 +19,9 @@ describe("Role All Screens - system_verification", () => {
   cy.getCy("qadashboard-screen").should("be.visible");
   cy.getCy("qadashboard-title").should("be.visible");
   cy.getCy("qadashboard-content").should("be.visible");
+  cy.getCy("qa_dashboard-btn-execute-scan").should("be.visible");
+  cy.getCy("qa_dashboard-btn-sync-posture").should("be.visible");
+  cy.getCy("qa_dashboard-btn-export-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Saving screenshot for QaDashboardScreen...");
   cy.waitAndSee();
@@ -37,6 +40,7 @@ describe("Role All Screens - system_verification", () => {
   cy.getCy("systemverificationdashboard-screen").should("be.visible");
   cy.getCy("systemverificationdashboard-title").should("be.visible");
   cy.getCy("systemverificationdashboard-content").should("be.visible");
+  cy.getCy("sysver-dashboard-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/9 | 22%] - Saving screenshot for SystemVerificationDashboardScreen...");
   cy.waitAndSee();
@@ -55,6 +59,8 @@ describe("Role All Screens - system_verification", () => {
   cy.getCy("qualityassurancedashboard-screen").should("be.visible");
   cy.getCy("qualityassurancedashboard-title").should("be.visible");
   cy.getCy("qualityassurancedashboard-content").should("be.visible");
+  cy.getCy("qa-dashboard-btn-execute-scan").should("be.visible");
+  cy.getCy("qa-dashboard-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/9 | 33%] - Saving screenshot for QualityAssuranceDashboardScreen...");
   cy.waitAndSee();
@@ -73,6 +79,9 @@ describe("Role All Screens - system_verification", () => {
   cy.getCy("systemanalytics-screen").should("be.visible");
   cy.getCy("systemanalytics-title").should("be.visible");
   cy.getCy("systemanalytics-content").should("be.visible");
+  cy.getCy("sysanalytics-btn-generate-report").should("be.visible");
+  cy.getCy("sysanalytics-btn-update-system").should("be.visible");
+  cy.getCy("sysanalytics-btn-train-users").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/9 | 44%] - Saving screenshot for SystemAnalyticsScreen...");
   cy.waitAndSee();
@@ -91,6 +100,9 @@ describe("Role All Screens - system_verification", () => {
   cy.getCy("systemcompliance-screen").should("be.visible");
   cy.getCy("systemcompliance-title").should("be.visible");
   cy.getCy("systemcompliance-content").should("be.visible");
+  cy.getCy("compliance-status-overview").should("be.visible");
+  cy.getCy("audit-log-list").should("be.visible");
+  cy.getCy("compliance-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/9 | 55%] - Saving screenshot for SystemComplianceScreen...");
   cy.waitAndSee();
@@ -109,6 +121,9 @@ describe("Role All Screens - system_verification", () => {
   cy.getCy("systemverificationanalytics-screen").should("be.visible");
   cy.getCy("systemverificationanalytics-title").should("be.visible");
   cy.getCy("systemverificationanalytics-content").should("be.visible");
+  cy.getCy("sysverif-dashboard-performance").should("be.visible");
+  cy.getCy("sysverif-dashboard-status").should("be.visible");
+  cy.getCy("sysverif-dashboard-alerts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/9 | 66%] - Saving screenshot for SystemVerificationAnalyticsScreen...");
   cy.waitAndSee();
@@ -127,6 +142,9 @@ describe("Role All Screens - system_verification", () => {
   cy.getCy("systemverificationcompliance-screen").should("be.visible");
   cy.getCy("systemverificationcompliance-title").should("be.visible");
   cy.getCy("systemverificationcompliance-content").should("be.visible");
+  cy.getCy("compliance-audit-status-card").should("be.visible");
+  cy.getCy("security-incident-summary").should("be.visible");
+  cy.getCy("governance-directive-log").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/9 | 77%] - Saving screenshot for SystemVerificationComplianceScreen...");
   cy.waitAndSee();
@@ -145,6 +163,9 @@ describe("Role All Screens - system_verification", () => {
   cy.getCy("systemverificationworkflow-screen").should("be.visible");
   cy.getCy("systemverificationworkflow-title").should("be.visible");
   cy.getCy("systemverificationworkflow-content").should("be.visible");
+  cy.getCy("sysverif-btn-review").should("be.visible");
+  cy.getCy("sysverif-btn-validate").should("be.visible");
+  cy.getCy("sysverif-btn-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/9 | 88%] - Saving screenshot for SystemVerificationWorkflowScreen...");
   cy.waitAndSee();
@@ -163,6 +184,9 @@ describe("Role All Screens - system_verification", () => {
   cy.getCy("systemworkflow-screen").should("be.visible");
   cy.getCy("systemworkflow-title").should("be.visible");
   cy.getCy("systemworkflow-content").should("be.visible");
+  cy.getCy("sysworkflow-btn-generate-report").should("be.visible");
+  cy.getCy("sysworkflow-btn-request-support").should("be.visible");
+  cy.getCy("sysworkflow-btn-update-docs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [9/9 | 100%] - Saving screenshot for SystemWorkflowScreen...");
   cy.waitAndSee();

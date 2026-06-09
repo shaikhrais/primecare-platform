@@ -15,9 +15,12 @@ describe("Screen - trainer_assignments", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("trainerassignments-screen").should("be.visible");
+  cy.getCy("trainerassignments-title").should("be.visible");
+  cy.getCy("trainerassignments-content").should("be.visible");
+  cy.getCy("trainer-assignments-list").should("be.visible");
+  cy.getCy("assignment-status-indicator").should("be.visible");
+  cy.getCy("performance-metrics-card").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Trainer Assignments...");
   cy.waitAndSee();

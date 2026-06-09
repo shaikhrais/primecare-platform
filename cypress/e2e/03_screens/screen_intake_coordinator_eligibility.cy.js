@@ -15,9 +15,12 @@ describe("Screen - intake_coordinator_eligibility", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("intakecoordinatoreligibility-screen").should("be.visible");
+  cy.getCy("intakecoordinatoreligibility-title").should("be.visible");
+  cy.getCy("intakecoordinatoreligibility-content").should("be.visible");
+  cy.getCy("loading-indicator").should("be.visible");
+  cy.getCy("error-log").should("be.visible");
+  cy.getCy("user-feedback-section").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Intake Coordinator Eligibility...");
   cy.waitAndSee();

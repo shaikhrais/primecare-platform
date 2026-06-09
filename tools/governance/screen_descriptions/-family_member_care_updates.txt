@@ -1,0 +1,18 @@
+List of work the user must do:
+1. Monitor updates related to family member care.
+2. Review the data presented on the screen.
+3. Report any issues or errors encountered during usage.
+4. Provide feedback on the functionality and usability of the screen.
+
+Red flags of operation:
+1. Frequent loading states indicating potential performance issues.
+2. Errors displayed when loading features, suggesting backend or data retrieval problems.
+3. Lack of updates or stale data, indicating potential issues with data synchronization.
+4. User complaints regarding the clarity or usefulness of the information presented.
+
+What is needed on the dashboard of the user:
+1. Real-time updates on family member care status.
+2. Notifications for any changes or important alerts.
+3. A summary of recent activities or updates for quick reference.
+4. A feedback mechanism for users to report issues or suggest improvements.
+5. Performance metrics to track loading times and error occurrences.

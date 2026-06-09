@@ -18,6 +18,9 @@ describe("Screen - growth_analytics", () => {
   cy.getCy("growthanalytics-screen").should("be.visible");
   cy.getCy("growthanalytics-title").should("be.visible");
   cy.getCy("growthanalytics-content").should("be.visible");
+  cy.getCy("growthanalytics-btn-generate-report").should("be.visible");
+  cy.getCy("growthanalytics-btn-view-details").should("be.visible");
+  cy.getCy("growthanalytics-btn-update-metrics").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for GrowthAnalyticsScreen...");
   cy.waitAndSee();

@@ -15,9 +15,12 @@ describe("Screen - patient_acquisition_cost_tracker", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("patientacquisitioncosttracker-screen").should("be.visible");
+  cy.getCy("patientacquisitioncosttracker-title").should("be.visible");
+  cy.getCy("patientacquisitioncosttracker-content").should("be.visible");
+  cy.getCy("cac-overview-card").should("be.visible");
+  cy.getCy("total-spend-card").should("be.visible");
+  cy.getCy("new-patients-card").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Patient Acquisition Cost Tracker...");
   cy.waitAndSee();

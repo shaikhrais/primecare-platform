@@ -1,0 +1,20 @@
+List of work employees must do:
+1. Execute compliance scans.
+2. Monitor operational logs.
+3. Trigger state actions as needed.
+4. Refresh telemetry logs.
+5. Review clearance status and active streams.
+
+Red flags of operation:
+1. API errors during compliance scans.
+2. Network errors affecting task execution.
+3. High loading times indicating performance issues.
+4. Flags in clearance status indicating exceptions.
+5. Inconsistent telemetry data.
+
+Dashboard needs:
+1. Title and description of the Employee Workflow.
+2. Active streams and clearance status metrics.
+3. Telemetry charts for performance monitoring.
+4. Operational telemetry logs for tracking actions and errors.
+5. Buttons for executing scans and triggering actions.

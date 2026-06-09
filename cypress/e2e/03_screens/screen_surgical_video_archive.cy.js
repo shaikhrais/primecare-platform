@@ -15,9 +15,11 @@ describe("Screen - surgical_video_archive", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  // No screen_root data-cy found
-  // No page_title data-cy found
-  // No primary_content data-cy found
+  cy.getCy("surgicalvideoarchive-screen").should("be.visible");
+  cy.getCy("surgicalvideoarchive-title").should("be.visible");
+  cy.getCy("surgicalvideoarchive-content").should("be.visible");
+  cy.getCy("surgical-video-archive-refresh").should("be.visible");
+  cy.getCy("surgical-video-archive-upload").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for Surgical Video Archive...");
   cy.waitAndSee();

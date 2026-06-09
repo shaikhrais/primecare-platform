@@ -19,6 +19,9 @@ describe("Role All Screens - employee", () => {
   cy.getCy("employeedashboard-screen").should("be.visible");
   cy.getCy("employeedashboard-title").should("be.visible");
   cy.getCy("employeedashboard-content").should("be.visible");
+  cy.getCy("employee-dashboard-btn-run-compliance-scan").should("be.visible");
+  cy.getCy("employee-dashboard-btn-sync-security-posture").should("be.visible");
+  cy.getCy("employee-dashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Saving screenshot for EmployeeDashboardScreen...");
   cy.waitAndSee();
@@ -34,9 +37,12 @@ describe("Role All Screens - employee", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("employee analytics-screen").should("be.visible");
-  cy.getCy("employee analytics-title").should("be.visible");
-  cy.getCy("employee analytics-content").should("be.visible");
+  cy.getCy("employeeanalytics-screen").should("be.visible");
+  cy.getCy("employeeanalytics-title").should("be.visible");
+  cy.getCy("employeeanalytics-content").should("be.visible");
+  cy.getCy("employee-analytics-btn-execute-scan").should("be.visible");
+  cy.getCy("employee-analytics-btn-refresh-telemetry").should("be.visible");
+  cy.getCy("employee-analytics-btn-trigger-governance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Saving screenshot for Employee Analytics...");
   cy.waitAndSee();
@@ -52,9 +58,11 @@ describe("Role All Screens - employee", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("employee compliance workflow-screen").should("be.visible");
-  cy.getCy("employee compliance workflow-title").should("be.visible");
-  cy.getCy("employee compliance workflow-content").should("be.visible");
+  cy.getCy("employeeworkflow-screen").should("be.visible");
+  cy.getCy("employeeworkflow-title").should("be.visible");
+  cy.getCy("employeeworkflow-content").should("be.visible");
+  cy.getCy("employee-workflow-btn-execute-scan").should("be.visible");
+  cy.getCy("employee-workflow-btn-trigger-action").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Saving screenshot for Employee Compliance Workflow...");
   cy.waitAndSee();

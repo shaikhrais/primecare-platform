@@ -18,6 +18,9 @@ describe("Screen - incident_oversight", () => {
   cy.getCy("incidentoversight-screen").should("be.visible");
   cy.getCy("incidentoversight-title").should("be.visible");
   cy.getCy("incidentoversight-content").should("be.visible");
+  cy.getCy("incident-report-widget").should("be.visible");
+  cy.getCy("compliance-scan-results-widget").should("be.visible");
+  cy.getCy("kpi-metrics-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: - Saving screenshot for IncidentOversightScreen...");
   cy.waitAndSee();

@@ -5,25 +5,28 @@
 
 describe("Screen - visit_notes", () => {
   it("opens and verifies screen visit_notes", () => {
-    cy.loginAsRole("psw");
+    cy.loginAsRole("chiropractor");
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/psw/visit-notes (VisitNotesScreen)...");
+  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/psw/visit-notes (Visit Notes)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/visit-notes");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for VisitNotesScreen...");
+  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Visit Notes...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
   cy.getCy("visitnotes-screen").should("be.visible");
   cy.getCy("visitnotes-title").should("be.visible");
   cy.getCy("visitnotes-content").should("be.visible");
+  cy.getCy("visitnotes-loading-indicator").should("be.visible");
+  cy.getCy("visitnotes-logs").should("be.visible");
+  cy.getCy("visitnotes-compliance-scan-btn").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for VisitNotesScreen...");
+  cy.task("log", "📸 PROGRESS: - Saving screenshot for Visit Notes...");
   cy.waitAndSee();
   cy.screenshot("visit_notes");
   
-  cy.task("log", "✅ PROGRESS: - Verified VisitNotesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: - Verified Visit Notes successfully!\n");
 
   });
 });
