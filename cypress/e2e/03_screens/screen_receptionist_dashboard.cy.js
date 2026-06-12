@@ -23,9 +23,9 @@ describe("Screen - receptionist_dashboard", () => {
 
       // 2. Type credentials
       cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.typeIntoField("login-email", user.email);
       cy.wait(500);
-      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.typeIntoField("login-password", user.password);
       cy.wait(500);
 
       // Click submit
@@ -33,8 +33,8 @@ describe("Screen - receptionist_dashboard", () => {
       cy.wait(6000);
 
       // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /staff/receptionist-dashboard...");
-      cy.visitWithSemantics(targetBaseUrl + "/staff/receptionist-dashboard");
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/staff/receptionist_dashboard_screen.dart...");
+      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/staff/receptionist_dashboard_screen.dart");
       cy.waitAndSee();
 
       cy.verifyShellExists();

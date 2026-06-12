@@ -8,11 +8,11 @@ describe("Role All Screens - hr_director", () => {
     cy.loginAsRole("hr_director");
 
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/14 | 7%] - Navigating to /offices/corporate/roles/hr_director/dashboard (HrDirectorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [1/2 | 50%] - Navigating to /offices/corporate/roles/hr_director/dashboard (HrDirectorDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/hr_director/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/14 | 7%] - Checking shell & content for HrDirectorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [1/2 | 50%] - Checking shell & content for HrDirectorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -20,245 +20,29 @@ describe("Role All Screens - hr_director", () => {
   cy.getCy("hrdirectordashboard-title").should("be.visible");
   cy.getCy("hrdirectordashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/14 | 7%] - Saving screenshot for HrDirectorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [1/2 | 50%] - Saving screenshot for HrDirectorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_director_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/14 | 7%] - Verified HrDirectorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [1/2 | 50%] - Verified HrDirectorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/14 | 14%] - Navigating to /executive/hr-director-analytics (HrDirectorAnalyticsScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-analytics");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [2/2 | 100%] - Navigating to /offices/corporate/roles/hr_manager/dashboard (HrManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/hr_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/14 | 14%] - Checking shell & content for HrDirectorAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [2/2 | 100%] - Checking shell & content for HrManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("hrdirectoranalytics-screen").should("be.visible");
-  cy.getCy("hrdirectoranalytics-title").should("be.visible");
-  cy.getCy("hrdirectoranalytics-content").should("be.visible");
+  cy.getCy("hrmanagerdashboard-screen").should("be.visible");
+  cy.getCy("hrmanagerdashboard-title").should("be.visible");
+  cy.getCy("hrmanagerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/14 | 14%] - Saving screenshot for HrDirectorAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [2/2 | 100%] - Saving screenshot for HrManagerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("hr_director_analytics");
+  cy.screenshot("hr_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/14 | 14%] - Verified HrDirectorAnalyticsScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/14 | 21%] - Navigating to /executive/hr-director-compliance (HrDirectorComplianceScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-compliance");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/14 | 21%] - Checking shell & content for HrDirectorComplianceScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrdirectorcompliance-screen").should("be.visible");
-  cy.getCy("hrdirectorcompliance-title").should("be.visible");
-  cy.getCy("hrdirectorcompliance-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/14 | 21%] - Saving screenshot for HrDirectorComplianceScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_director_compliance");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/14 | 21%] - Verified HrDirectorComplianceScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/14 | 28%] - Navigating to /executive/hr-director-workflow (HrDirectorWorkflowScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-workflow");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/14 | 28%] - Checking shell & content for HrDirectorWorkflowScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrdirectorworkflow-screen").should("be.visible");
-  cy.getCy("hrdirectorworkflow-title").should("be.visible");
-  cy.getCy("hrdirectorworkflow-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/14 | 28%] - Saving screenshot for HrDirectorWorkflowScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_director_workflow");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/14 | 28%] - Verified HrDirectorWorkflowScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/14 | 35%] - Navigating to /staff/hr-manager-analytics (HrManagerAnalyticsScreen)...");
-  cy.visitWithSemantics("/staff/hr-manager-analytics");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/14 | 35%] - Checking shell & content for HrManagerAnalyticsScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrmanageranalytics-screen").should("be.visible");
-  cy.getCy("hrmanageranalytics-title").should("be.visible");
-  cy.getCy("hrmanageranalytics-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/14 | 35%] - Saving screenshot for HrManagerAnalyticsScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_manager_analytics");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/14 | 35%] - Verified HrManagerAnalyticsScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/14 | 42%] - Navigating to /staff/hr-manager-workflow (HrManagerWorkflowScreen)...");
-  cy.visitWithSemantics("/staff/hr-manager-workflow");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/14 | 42%] - Checking shell & content for HrManagerWorkflowScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrmanagerworkflow-screen").should("be.visible");
-  cy.getCy("hrmanagerworkflow-title").should("be.visible");
-  cy.getCy("hrmanagerworkflow-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/14 | 42%] - Saving screenshot for HrManagerWorkflowScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_manager_workflow");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [6/14 | 42%] - Verified HrManagerWorkflowScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/14 | 50%] - Navigating to /executive/hr-director-hiring-pipeline (HrDirectorHiringPipelineScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-hiring-pipeline");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/14 | 50%] - Checking shell & content for HrDirectorHiringPipelineScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrdirectorhiringpipeline-screen").should("be.visible");
-  cy.getCy("hrdirectorhiringpipeline-title").should("be.visible");
-  cy.getCy("hrdirectorhiringpipeline-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/14 | 50%] - Saving screenshot for HrDirectorHiringPipelineScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_director_hiring_pipeline");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/14 | 50%] - Verified HrDirectorHiringPipelineScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/14 | 57%] - Navigating to /executive/hr-director-staff-files (HrDirectorStaffFilesScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-staff-files");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/14 | 57%] - Checking shell & content for HrDirectorStaffFilesScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrdirectorstafffiles-screen").should("be.visible");
-  cy.getCy("hrdirectorstafffiles-title").should("be.visible");
-  cy.getCy("hrdirectorstafffiles-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/14 | 57%] - Saving screenshot for HrDirectorStaffFilesScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_director_staff_files");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/14 | 57%] - Verified HrDirectorStaffFilesScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/14 | 64%] - Navigating to /executive/hr-director-training (HrDirectorTrainingScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-training");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/14 | 64%] - Checking shell & content for HrDirectorTrainingScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrdirectortraining-screen").should("be.visible");
-  cy.getCy("hrdirectortraining-title").should("be.visible");
-  cy.getCy("hrdirectortraining-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/14 | 64%] - Saving screenshot for HrDirectorTrainingScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_director_training");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [9/14 | 64%] - Verified HrDirectorTrainingScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [10/14 | 71%] - Navigating to /executive/hr-director-credential-expiry (HrDirectorCredentialExpiryScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-credential-expiry");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [10/14 | 71%] - Checking shell & content for HrDirectorCredentialExpiryScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrdirectorcredentialexpiry-screen").should("be.visible");
-  cy.getCy("hrdirectorcredentialexpiry-title").should("be.visible");
-  cy.getCy("hrdirectorcredentialexpiry-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [10/14 | 71%] - Saving screenshot for HrDirectorCredentialExpiryScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_director_credential_expiry");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [10/14 | 71%] - Verified HrDirectorCredentialExpiryScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [11/14 | 78%] - Navigating to /executive/hr-director-onboarding (HrDirectorOnboardingScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-onboarding");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [11/14 | 78%] - Checking shell & content for HrDirectorOnboardingScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrdirectoronboarding-screen").should("be.visible");
-  cy.getCy("hrdirectoronboarding-title").should("be.visible");
-  cy.getCy("hrdirectoronboarding-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [11/14 | 78%] - Saving screenshot for HrDirectorOnboardingScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_director_onboarding");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [11/14 | 78%] - Verified HrDirectorOnboardingScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [12/14 | 85%] - Navigating to /management/hiring-pipeline (HiringPipelineScreen)...");
-  cy.visitWithSemantics("/management/hiring-pipeline");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [12/14 | 85%] - Checking shell & content for HiringPipelineScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hiringpipeline-screen").should("be.visible");
-  cy.getCy("hiringpipeline-title").should("be.visible");
-  cy.getCy("hiringpipeline-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [12/14 | 85%] - Saving screenshot for HiringPipelineScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hiring_pipeline");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [12/14 | 85%] - Verified HiringPipelineScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [13/14 | 92%] - Navigating to /management/credential-expiry (CredentialExpiryScreen)...");
-  cy.visitWithSemantics("/management/credential-expiry");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [13/14 | 92%] - Checking shell & content for CredentialExpiryScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("credentialexpiry-screen").should("be.visible");
-  cy.getCy("credentialexpiry-title").should("be.visible");
-  cy.getCy("credentialexpiry-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [13/14 | 92%] - Saving screenshot for CredentialExpiryScreen...");
-  cy.waitAndSee();
-  cy.screenshot("credential_expiry");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [13/14 | 92%] - Verified CredentialExpiryScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [14/14 | 100%] - Navigating to /management/onboarding (OnboardingScreen)...");
-  cy.visitWithSemantics("/management/onboarding");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [14/14 | 100%] - Checking shell & content for OnboardingScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("onboarding-screen").should("be.visible");
-  cy.getCy("onboarding-title").should("be.visible");
-  cy.getCy("onboarding-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [14/14 | 100%] - Saving screenshot for OnboardingScreen...");
-  cy.waitAndSee();
-  cy.screenshot("onboarding");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [14/14 | 100%] - Verified OnboardingScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [2/2 | 100%] - Verified HrManagerDashboardScreen successfully!\n");
 
   });
 });

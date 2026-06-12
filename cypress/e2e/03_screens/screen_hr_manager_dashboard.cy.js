@@ -6,7 +6,7 @@
 describe("Screen - hr_manager_dashboard", () => {
   it("opens and verifies screen hr_manager_dashboard via real credentials login and logout", () => {
     cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "admin");
+      const user = users.find((u) => u.role_code === "hr_director");
       const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
       // 1. Visit login page
@@ -23,9 +23,9 @@ describe("Screen - hr_manager_dashboard", () => {
 
       // 2. Type credentials
       cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.typeIntoField("login-email", user.email);
       cy.wait(500);
-      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.typeIntoField("login-password", user.password);
       cy.wait(500);
 
       // Click submit

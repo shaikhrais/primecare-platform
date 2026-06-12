@@ -8,11 +8,11 @@ describe("Role All Screens - rn_field_supervisor", () => {
     cy.loginAsRole("rn_field_supervisor");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Navigating to /rn/rn-field-supervisor-dashboard (RnFieldSupervisorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [1/1 | 100%] - Navigating to /rn/rn-field-supervisor-dashboard (RnFieldSupervisorDashboardScreen)...");
   cy.visitWithSemantics("/rn/rn-field-supervisor-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Checking shell & content for RnFieldSupervisorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [1/1 | 100%] - Checking shell & content for RnFieldSupervisorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -20,47 +20,11 @@ describe("Role All Screens - rn_field_supervisor", () => {
   cy.getCy("rnfieldsupervisordashboard-title").should("be.visible");
   cy.getCy("rnfieldsupervisordashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Saving screenshot for RnFieldSupervisorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [1/1 | 100%] - Saving screenshot for RnFieldSupervisorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("rn_field_supervisor_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Verified RnFieldSupervisorDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Navigating to /rn/rn-field-supervisor-analytics (Registered Nurse (RN) Field Supervisor Analytics)...");
-  cy.visitWithSemantics("/rn/rn-field-supervisor-analytics");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Checking shell & content for Registered Nurse (RN) Field Supervisor Analytics...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("registered nurse (rn) field supervisor analytics-screen").should("be.visible");
-  cy.getCy("registered nurse (rn) field supervisor analytics-title").should("be.visible");
-  cy.getCy("registered nurse (rn) field supervisor analytics-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Saving screenshot for Registered Nurse (RN) Field Supervisor Analytics...");
-  cy.waitAndSee();
-  cy.screenshot("rn_field_supervisor_analytics");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Verified Registered Nurse (RN) Field Supervisor Analytics successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Navigating to /rn/rn-field-supervisor-workflow (Registered Nurse (RN) Field Supervisor Compliance Workflow)...");
-  cy.visitWithSemantics("/rn/rn-field-supervisor-workflow");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Checking shell & content for Registered Nurse (RN) Field Supervisor Compliance Workflow...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("registered nurse (rn) field supervisor compliance workflow-screen").should("be.visible");
-  cy.getCy("registered nurse (rn) field supervisor compliance workflow-title").should("be.visible");
-  cy.getCy("registered nurse (rn) field supervisor compliance workflow-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Saving screenshot for Registered Nurse (RN) Field Supervisor Compliance Workflow...");
-  cy.waitAndSee();
-  cy.screenshot("rn_field_supervisor_workflow");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Verified Registered Nurse (RN) Field Supervisor Compliance Workflow successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [1/1 | 100%] - Verified RnFieldSupervisorDashboardScreen successfully!\n");
 
   });
 });

@@ -109,17 +109,16 @@ def main():
     cur = conn.cursor()
 
     screens = cur.execute("""
-        SELECT id, screen_name, actual_file_path, required_components_json,
-               required_buttons_json, required_apis_json
+        SELECT id, screen_name, file_path
         FROM screens
-        WHERE actual_file_path IS NOT NULL
-          AND actual_file_path != ''
+        WHERE file_path IS NOT NULL
+          AND file_path != ''
     """).fetchall()
 
     scan_results = []
 
     for screen in screens:
-        result = scan_file(screen["actual_file_path"])
+        result = scan_file(screen["file_path"])
 
         screen_code = screen['screen_name'].lower().replace('screen','').replace('_','-')
         if screen_code.endswith('-'):

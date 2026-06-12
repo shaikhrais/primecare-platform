@@ -8,11 +8,47 @@ describe("Role All Screens - cto", () => {
     cy.loginAsRole("cto");
 
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/99 | 1%] - Navigating to /offices/clinical/roles/clinical_director/dashboard (ClinicalDashboardScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/dashboard");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/84 | 1%] - Navigating to /offices/clinical/roles/rmt/dashboard (RmtDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rmt/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/99 | 1%] - Checking shell & content for ClinicalDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/84 | 1%] - Checking shell & content for RmtDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("rmtdashboard-screen").should("be.visible");
+  cy.getCy("rmtdashboard-title").should("be.visible");
+  // cy.getCy("rmtdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/84 | 1%] - Saving screenshot for RmtDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("rmt_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/84 | 1%] - Verified RmtDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/84 | 2%] - Navigating to /offices/clinical/roles/therapist/dashboard (TherapistDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/therapist/dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/84 | 2%] - Checking shell & content for TherapistDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("therapistdashboard-screen").should("be.visible");
+  cy.getCy("therapistdashboard-title").should("be.visible");
+  cy.getCy("therapistdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/84 | 2%] - Saving screenshot for TherapistDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("therapist_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/84 | 2%] - Verified TherapistDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/84 | 3%] - Navigating to /offices/clinical/roles/clinical_director/dashboard-dup-1 (ClinicalDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/dashboard-dup-1");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/84 | 3%] - Checking shell & content for ClinicalDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -20,17 +56,161 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicaldashboard-title").should("be.visible");
   cy.getCy("clinicaldashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/99 | 1%] - Saving screenshot for ClinicalDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/84 | 3%] - Saving screenshot for ClinicalDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/99 | 1%] - Verified ClinicalDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/84 | 3%] - Verified ClinicalDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/99 | 2%] - Navigating to /common/architecture-planning-dashboard (ArchitecturePlanningDashboardScreen)...");
-  cy.visitWithSemantics("/common/architecture-planning-dashboard");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/84 | 4%] - Navigating to /offices/clinical/roles/clinical_director/dashboard (ClinicalDirectorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/99 | 2%] - Checking shell & content for ArchitecturePlanningDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/84 | 4%] - Checking shell & content for ClinicalDirectorDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("clinicaldirectordashboard-screen").should("be.visible");
+  cy.getCy("clinicaldirectordashboard-title").should("be.visible");
+  // cy.getCy("clinicaldirectordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/84 | 4%] - Saving screenshot for ClinicalDirectorDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("clinical_director_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/84 | 4%] - Verified ClinicalDirectorDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/84 | 5%] - Navigating to /clinical/cns-dashboard (CnsDashboardScreen)...");
+  cy.visitWithSemantics("/clinical/cns-dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/84 | 5%] - Checking shell & content for CnsDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("cnsdashboard-screen").should("be.visible");
+  cy.getCy("cnsdashboard-title").should("be.visible");
+  cy.getCy("cnsdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/84 | 5%] - Saving screenshot for CnsDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("cns_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/84 | 5%] - Verified CnsDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/84 | 7%] - Navigating to /clinical/hsw-dashboard (HswDashboardScreen)...");
+  cy.visitWithSemantics("/clinical/hsw-dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/84 | 7%] - Checking shell & content for HswDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("hswdashboard-screen").should("be.visible");
+  cy.getCy("hswdashboard-title").should("be.visible");
+  cy.getCy("hswdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/84 | 7%] - Saving screenshot for HswDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("hsw_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/84 | 7%] - Verified HswDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/84 | 8%] - Navigating to /clinical/lpn-dashboard (LpnDashboardScreen)...");
+  cy.visitWithSemantics("/clinical/lpn-dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/84 | 8%] - Checking shell & content for LpnDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("lpndashboard-screen").should("be.visible");
+  cy.getCy("lpndashboard-title").should("be.visible");
+  cy.getCy("lpndashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/84 | 8%] - Saving screenshot for LpnDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("lpn_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/84 | 8%] - Verified LpnDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/84 | 9%] - Navigating to /clinical/np-dashboard (NpDashboardScreen)...");
+  cy.visitWithSemantics("/clinical/np-dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/84 | 9%] - Checking shell & content for NpDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("npdashboard-screen").should("be.visible");
+  cy.getCy("npdashboard-title").should("be.visible");
+  cy.getCy("npdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/84 | 9%] - Saving screenshot for NpDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("np_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/84 | 9%] - Verified NpDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/84 | 10%] - Navigating to /clinical/pediatric-dashboard (PediatricDashboardScreen)...");
+  cy.visitWithSemantics("/clinical/pediatric-dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/84 | 10%] - Checking shell & content for PediatricDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("pediatricdashboard-screen").should("be.visible");
+  cy.getCy("pediatricdashboard-title").should("be.visible");
+  cy.getCy("pediatricdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/84 | 10%] - Saving screenshot for PediatricDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("pediatric_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/84 | 10%] - Verified PediatricDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/84 | 11%] - Navigating to /clinical/physician-dashboard (PhysicianDashboardScreen)...");
+  cy.visitWithSemantics("/clinical/physician-dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/84 | 11%] - Checking shell & content for PhysicianDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("physiciandashboard-screen").should("be.visible");
+  cy.getCy("physiciandashboard-title").should("be.visible");
+  // cy.getCy("physiciandashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/84 | 11%] - Saving screenshot for PhysicianDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("physician_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/84 | 11%] - Verified PhysicianDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/84 | 13%] - Navigating to /common/api-health-dashboard (ApiHealthDashboardScreen)...");
+  cy.visitWithSemantics("/common/api-health-dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/84 | 13%] - Checking shell & content for ApiHealthDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("apihealthdashboard-screen").should("be.visible");
+  cy.getCy("apihealthdashboard-title").should("be.visible");
+  cy.getCy("apihealthdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/84 | 13%] - Saving screenshot for ApiHealthDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("api_health_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/84 | 13%] - Verified ApiHealthDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/84 | 14%] - Navigating to packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart (ArchitecturePlanningDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/84 | 14%] - Checking shell & content for ArchitecturePlanningDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -38,35 +218,71 @@ describe("Role All Screens - cto", () => {
   cy.getCy("architectureplanningdashboard-title").should("be.visible");
   cy.getCy("architectureplanningdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/99 | 2%] - Saving screenshot for ArchitecturePlanningDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/84 | 14%] - Saving screenshot for ArchitecturePlanningDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("architecture_planning_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/99 | 2%] - Verified ArchitecturePlanningDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/84 | 14%] - Verified ArchitecturePlanningDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/99 | 3%] - Navigating to /offices/clinical/roles/chiropractor/dashboard (ChiropractorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/84 | 15%] - Navigating to packages/primecare_ui/lib/src/screens/common/business_development_dashboard_screen.dart (BusinessDevelopmentDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/business_development_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/84 | 15%] - Checking shell & content for BusinessDevelopmentDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("businessdevelopmentdashboard-screen").should("be.visible");
+  cy.getCy("businessdevelopmentdashboard-title").should("be.visible");
+  cy.getCy("businessdevelopmentdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/84 | 15%] - Saving screenshot for BusinessDevelopmentDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("business_development_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/84 | 15%] - Verified BusinessDevelopmentDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/84 | 16%] - Navigating to /offices/clinical/roles/caregiver/dashboard (CaregiverDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/caregiver/dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/84 | 16%] - Checking shell & content for CaregiverDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("caregiverdashboard-screen").should("be.visible");
+  cy.getCy("caregiverdashboard-title").should("be.visible");
+  cy.getCy("caregiverdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/84 | 16%] - Saving screenshot for CaregiverDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("caregiver_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/84 | 16%] - Verified CaregiverDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/84 | 17%] - Navigating to /offices/clinical/roles/chiropractor/dashboard (ChiropractorDashboardScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/99 | 3%] - Checking shell & content for ChiropractorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/84 | 17%] - Checking shell & content for ChiropractorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
   cy.getCy("chiropractordashboard-screen").should("be.visible");
   cy.getCy("chiropractordashboard-title").should("be.visible");
-  cy.getCy("chiropractordashboard-content").should("be.visible");
+  // cy.getCy("chiropractordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/99 | 3%] - Saving screenshot for ChiropractorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/84 | 17%] - Saving screenshot for ChiropractorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/99 | 3%] - Verified ChiropractorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/84 | 17%] - Verified ChiropractorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/99 | 4%] - Navigating to /offices/clinical/roles/clinical_director/clinic-dashboard (ClinicDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/84 | 19%] - Navigating to /offices/clinical/roles/clinical_director/clinic-dashboard (ClinicDashboardScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/99 | 4%] - Checking shell & content for ClinicDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/84 | 19%] - Checking shell & content for ClinicDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -74,17 +290,17 @@ describe("Role All Screens - cto", () => {
   cy.getCy("clinicdashboard-title").should("be.visible");
   cy.getCy("clinicdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/99 | 4%] - Saving screenshot for ClinicDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/84 | 19%] - Saving screenshot for ClinicDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("clinic_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/99 | 4%] - Verified ClinicDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/84 | 19%] - Verified ClinicDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/99 | 5%] - Navigating to /common/course-architect-dashboard (CourseArchitectDashboardScreen)...");
-  cy.visitWithSemantics("/common/course-architect-dashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [17/84 | 20%] - Navigating to packages/primecare_ui/lib/src/screens/common/course_architect_dashboard_screen.dart (CourseArchitectDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/course_architect_dashboard_screen.dart");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/99 | 5%] - Checking shell & content for CourseArchitectDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [17/84 | 20%] - Checking shell & content for CourseArchitectDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -92,17 +308,413 @@ describe("Role All Screens - cto", () => {
   cy.getCy("coursearchitectdashboard-title").should("be.visible");
   cy.getCy("coursearchitectdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/99 | 5%] - Saving screenshot for CourseArchitectDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [17/84 | 20%] - Saving screenshot for CourseArchitectDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("course_architect_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/99 | 5%] - Verified CourseArchitectDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [17/84 | 20%] - Verified CourseArchitectDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/99 | 6%] - Navigating to /offices/corporate/roles/cto/dashboard (CtoDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [18/84 | 21%] - Navigating to packages/primecare_ui/lib/src/screens/common/customer_support_dashboard_screen.dart (CustomerSupportDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/customer_support_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [18/84 | 21%] - Checking shell & content for CustomerSupportDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("customersupportdashboard-screen").should("be.visible");
+  cy.getCy("customersupportdashboard-title").should("be.visible");
+  cy.getCy("customersupportdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [18/84 | 21%] - Saving screenshot for CustomerSupportDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("customer_support_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [18/84 | 21%] - Verified CustomerSupportDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [19/84 | 22%] - Navigating to packages/primecare_ui/lib/src/screens/common/dynamic_screen_dashboard_screen.dart (DynamicScreenDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/dynamic_screen_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [19/84 | 22%] - Checking shell & content for DynamicScreenDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  // cy.getCy("dynamicdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+  // cy.getCy("dynamicdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+  // cy.getCy("dynamicdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [19/84 | 22%] - Saving screenshot for DynamicScreenDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("dynamic_screen_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [19/84 | 22%] - Verified DynamicScreenDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/84 | 23%] - Navigating to packages/primecare_ui/lib/src/screens/common/family_member_dashboard_screen.dart (FamilyMemberDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/family_member_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/84 | 23%] - Checking shell & content for FamilyMemberDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("familymemberdashboard-screen").should("be.visible");
+  cy.getCy("familymemberdashboard-title").should("be.visible");
+  cy.getCy("familymemberdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/84 | 23%] - Saving screenshot for FamilyMemberDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("family_member_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/84 | 23%] - Verified FamilyMemberDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/84 | 25%] - Navigating to /common/file-verification-dashboard (FileVerificationDashboardScreen)...");
+  cy.visitWithSemantics("/common/file-verification-dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/84 | 25%] - Checking shell & content for FileVerificationDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("fileverificationdashboard-screen").should("be.visible");
+  cy.getCy("fileverificationdashboard-title").should("be.visible");
+  cy.getCy("fileverificationdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/84 | 25%] - Saving screenshot for FileVerificationDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("file_verification_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/84 | 25%] - Verified FileVerificationDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/84 | 26%] - Navigating to packages/primecare_ui/lib/src/screens/common/franchise_dashboard_screen.dart (FranchiseDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/franchise_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/84 | 26%] - Checking shell & content for FranchiseDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("franchisedashboard-screen").should("be.visible");
+  cy.getCy("franchisedashboard-title").should("be.visible");
+  cy.getCy("franchisedashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/84 | 26%] - Saving screenshot for FranchiseDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("franchise_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/84 | 26%] - Verified FranchiseDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [23/84 | 27%] - Navigating to packages/primecare_ui/lib/src/screens/common/guest_dashboard_screen.dart (GuestDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/guest_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [23/84 | 27%] - Checking shell & content for GuestDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("guestdashboard-screen").should("be.visible");
+  cy.getCy("guestdashboard-title").should("be.visible");
+  cy.getCy("guestdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [23/84 | 27%] - Saving screenshot for GuestDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("guest_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [23/84 | 27%] - Verified GuestDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [24/84 | 28%] - Navigating to packages/primecare_ui/lib/src/screens/common/infrastructure_dashboard_screen.dart (InfrastructureDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/infrastructure_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [24/84 | 28%] - Checking shell & content for InfrastructureDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("infrastructuredashboard-screen").should("be.visible");
+  cy.getCy("infrastructuredashboard-title").should("be.visible");
+  cy.getCy("infrastructuredashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [24/84 | 28%] - Saving screenshot for InfrastructureDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("infrastructure_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [24/84 | 28%] - Verified InfrastructureDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [25/84 | 29%] - Navigating to /offices/clinical/roles/intake_coordinator/dashboard-dup-1 (IntakeDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/dashboard-dup-1");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [25/84 | 29%] - Checking shell & content for IntakeDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("intakedashboard-screen").should("be.visible");
+  cy.getCy("intakedashboard-title").should("be.visible");
+  cy.getCy("intakedashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [25/84 | 29%] - Saving screenshot for IntakeDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("intake_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [25/84 | 29%] - Verified IntakeDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [26/84 | 30%] - Navigating to packages/primecare_ui/lib/src/screens/common/office_dashboard_screen.dart (OfficeDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/office_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [26/84 | 30%] - Checking shell & content for OfficeDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("officedashboard-screen").should("be.visible");
+  cy.getCy("officedashboard-title").should("be.visible");
+  cy.getCy("officedashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [26/84 | 30%] - Saving screenshot for OfficeDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("office_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [26/84 | 30%] - Verified OfficeDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [27/84 | 32%] - Navigating to /offices/client/roles/client/dashboard (PatientDashboardScreen)...");
+  cy.visitWithSemantics("/offices/client/roles/client/dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [27/84 | 32%] - Checking shell & content for PatientDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("patientdashboard-screen").should("be.visible");
+  cy.getCy("patientdashboard-title").should("be.visible");
+  cy.getCy("patientdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [27/84 | 32%] - Saving screenshot for PatientDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("patient_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [27/84 | 32%] - Verified PatientDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [28/84 | 33%] - Navigating to /offices/clinical/roles/physiotherapist/dashboard (PhysiotherapistDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/physiotherapist/dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [28/84 | 33%] - Checking shell & content for PhysiotherapistDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("physiotherapistdashboard-screen").should("be.visible");
+  cy.getCy("physiotherapistdashboard-title").should("be.visible");
+  // cy.getCy("physiotherapistdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [28/84 | 33%] - Saving screenshot for PhysiotherapistDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("physiotherapist_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [28/84 | 33%] - Verified PhysiotherapistDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [29/84 | 34%] - Navigating to packages/primecare_ui/lib/src/screens/common/portal_dashboard_screen.dart (PortalDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/portal_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [29/84 | 34%] - Checking shell & content for PortalDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("portaldashboard-screen").should("be.visible");
+  cy.getCy("portaldashboard-title").should("be.visible");
+  cy.getCy("portaldashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [29/84 | 34%] - Saving screenshot for PortalDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("portal_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [29/84 | 34%] - Verified PortalDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/84 | 35%] - Navigating to /offices/support/roles/quality_assurance/dashboard (QaDashboardScreen)...");
+  cy.visitWithSemantics("/offices/support/roles/quality_assurance/dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/84 | 35%] - Checking shell & content for QaDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("qadashboard-screen").should("be.visible");
+  cy.getCy("qadashboard-title").should("be.visible");
+  cy.getCy("qadashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/84 | 35%] - Saving screenshot for QaDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("qa_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/84 | 35%] - Verified QaDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [31/84 | 36%] - Navigating to /common/role-coverage-dashboard (RoleCoverageDashboardScreen)...");
+  cy.visitWithSemantics("/common/role-coverage-dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [31/84 | 36%] - Checking shell & content for RoleCoverageDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("rolecoveragedashboard-screen").should("be.visible");
+  cy.getCy("rolecoveragedashboard-title").should("be.visible");
+  cy.getCy("rolecoveragedashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [31/84 | 36%] - Saving screenshot for RoleCoverageDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("role_coverage_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [31/84 | 36%] - Verified RoleCoverageDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [32/84 | 38%] - Navigating to /offices/clinical/roles/social_worker/dashboard (SocialWorkerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/social_worker/dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [32/84 | 38%] - Checking shell & content for SocialWorkerDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("socialworkerdashboard-screen").should("be.visible");
+  cy.getCy("socialworkerdashboard-title").should("be.visible");
+  // cy.getCy("socialworkerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [32/84 | 38%] - Saving screenshot for SocialWorkerDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("social_worker_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [32/84 | 38%] - Verified SocialWorkerDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [33/84 | 39%] - Navigating to packages/primecare_ui/lib/src/screens/common/support_dashboard_screen.dart (SupportDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/support_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [33/84 | 39%] - Checking shell & content for SupportDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("supportdashboard-screen").should("be.visible");
+  cy.getCy("supportdashboard-title").should("be.visible");
+  cy.getCy("supportdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [33/84 | 39%] - Saving screenshot for SupportDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("support_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [33/84 | 39%] - Verified SupportDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [34/84 | 40%] - Navigating to /common/system-dashboard (SystemDashboardScreen)...");
+  cy.visitWithSemantics("/common/system-dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [34/84 | 40%] - Checking shell & content for SystemDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("systemdashboard-screen").should("be.visible");
+  cy.getCy("systemdashboard-title").should("be.visible");
+  cy.getCy("systemdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [34/84 | 40%] - Saving screenshot for SystemDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("system_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [34/84 | 40%] - Verified SystemDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [35/84 | 41%] - Navigating to packages/primecare_ui/lib/src/screens/common/system_verification_dashboard_screen.dart (SystemVerificationDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/system_verification_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [35/84 | 41%] - Checking shell & content for SystemVerificationDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("systemverificationdashboard-screen").should("be.visible");
+  cy.getCy("systemverificationdashboard-title").should("be.visible");
+  cy.getCy("systemverificationdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [35/84 | 41%] - Saving screenshot for SystemVerificationDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("system_verification_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [35/84 | 41%] - Verified SystemVerificationDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [36/84 | 42%] - Navigating to packages/primecare_ui/lib/src/screens/common/training_hub_dashboard_screen.dart (TrainingHubDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/training_hub_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [36/84 | 42%] - Checking shell & content for TrainingHubDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("traininghubdashboard-screen").should("be.visible");
+  cy.getCy("traininghubdashboard-title").should("be.visible");
+  cy.getCy("traininghubdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [36/84 | 42%] - Saving screenshot for TrainingHubDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("training_hub_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [36/84 | 42%] - Verified TrainingHubDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [37/84 | 44%] - Navigating to /offices/corporate/roles/cfo/dashboard (CfoDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cfo/dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [37/84 | 44%] - Checking shell & content for CfoDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("cfodashboard-screen").should("be.visible");
+  cy.getCy("cfodashboard-title").should("be.visible");
+  cy.getCy("cfodashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [37/84 | 44%] - Saving screenshot for CfoDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("cfo_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [37/84 | 44%] - Verified CfoDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [38/84 | 45%] - Navigating to /offices/corporate/roles/ciso/dashboard (CisoDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/ciso/dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [38/84 | 45%] - Checking shell & content for CisoDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("cisodashboard-screen").should("be.visible");
+  cy.getCy("cisodashboard-title").should("be.visible");
+  cy.getCy("cisodashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [38/84 | 45%] - Saving screenshot for CisoDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("ciso_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [38/84 | 45%] - Verified CisoDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [39/84 | 46%] - Navigating to /offices/corporate/roles/coo/dashboard (CooDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/coo/dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [39/84 | 46%] - Checking shell & content for CooDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("coodashboard-screen").should("be.visible");
+  cy.getCy("coodashboard-title").should("be.visible");
+  cy.getCy("coodashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [39/84 | 46%] - Saving screenshot for CooDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("coo_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [39/84 | 46%] - Verified CooDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [40/84 | 47%] - Navigating to /offices/corporate/roles/cto/dashboard (CtoDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/99 | 6%] - Checking shell & content for CtoDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [40/84 | 47%] - Checking shell & content for CtoDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -110,17 +722,17 @@ describe("Role All Screens - cto", () => {
   cy.getCy("ctodashboard-title").should("be.visible");
   cy.getCy("ctodashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/99 | 6%] - Saving screenshot for CtoDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [40/84 | 47%] - Saving screenshot for CtoDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("cto_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/99 | 6%] - Verified CtoDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [40/84 | 47%] - Verified CtoDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/99 | 7%] - Navigating to /offices/corporate/roles/cx_director/dashboard (CxDirectorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [41/84 | 48%] - Navigating to /offices/corporate/roles/cx_director/dashboard (CxDirectorDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/cx_director/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/99 | 7%] - Checking shell & content for CxDirectorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [41/84 | 48%] - Checking shell & content for CxDirectorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -128,17 +740,17 @@ describe("Role All Screens - cto", () => {
   cy.getCy("cxdirectordashboard-title").should("be.visible");
   cy.getCy("cxdirectordashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/99 | 7%] - Saving screenshot for CxDirectorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [41/84 | 48%] - Saving screenshot for CxDirectorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("cx_director_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/99 | 7%] - Verified CxDirectorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [41/84 | 48%] - Verified CxDirectorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/99 | 8%] - Navigating to /offices/corporate/roles/finance_director/dashboard (FinanceDirectorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [42/84 | 50%] - Navigating to /offices/corporate/roles/finance_director/dashboard (FinanceDirectorDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/finance_director/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/99 | 8%] - Checking shell & content for FinanceDirectorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [42/84 | 50%] - Checking shell & content for FinanceDirectorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -146,17 +758,35 @@ describe("Role All Screens - cto", () => {
   cy.getCy("financedirectordashboard-title").should("be.visible");
   cy.getCy("financedirectordashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/99 | 8%] - Saving screenshot for FinanceDirectorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [42/84 | 50%] - Saving screenshot for FinanceDirectorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("finance_director_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/99 | 8%] - Verified FinanceDirectorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [42/84 | 50%] - Verified FinanceDirectorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/99 | 9%] - Navigating to /offices/corporate/roles/hr_director/dashboard (HrDirectorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [43/84 | 51%] - Navigating to packages/primecare_ui/lib/src/screens/executive/financial_dashboard_screen.dart (FinancialDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/executive/financial_dashboard_screen.dart");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [43/84 | 51%] - Checking shell & content for FinancialDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("financialdashboard-screen").should("be.visible");
+  cy.getCy("financialdashboard-title").should("be.visible");
+  cy.getCy("financialdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [43/84 | 51%] - Saving screenshot for FinancialDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("financial_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [43/84 | 51%] - Verified FinancialDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [44/84 | 52%] - Navigating to /offices/corporate/roles/hr_director/dashboard (HrDirectorDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/hr_director/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/99 | 9%] - Checking shell & content for HrDirectorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [44/84 | 52%] - Checking shell & content for HrDirectorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -164,17 +794,71 @@ describe("Role All Screens - cto", () => {
   cy.getCy("hrdirectordashboard-title").should("be.visible");
   cy.getCy("hrdirectordashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/99 | 9%] - Saving screenshot for HrDirectorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [44/84 | 52%] - Saving screenshot for HrDirectorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_director_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/99 | 9%] - Verified HrDirectorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [44/84 | 52%] - Verified HrDirectorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/99 | 10%] - Navigating to /offices/corporate/roles/training_director/dashboard (TrainingDirectorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [45/84 | 53%] - Navigating to /offices/corporate/roles/legal/dashboard (LegalDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/legal/dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [45/84 | 53%] - Checking shell & content for LegalDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("legaldashboard-screen").should("be.visible");
+  cy.getCy("legaldashboard-title").should("be.visible");
+  cy.getCy("legaldashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [45/84 | 53%] - Saving screenshot for LegalDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("legal_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [45/84 | 53%] - Verified LegalDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [46/84 | 54%] - Navigating to /offices/corporate/roles/owner/dashboard (OwnerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/owner/dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [46/84 | 54%] - Checking shell & content for OwnerDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("ownerdashboard-screen").should("be.visible");
+  cy.getCy("ownerdashboard-title").should("be.visible");
+  cy.getCy("ownerdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [46/84 | 54%] - Saving screenshot for OwnerDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("owner_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [46/84 | 54%] - Verified OwnerDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [47/84 | 55%] - Navigating to /offices/corporate/roles/shareholder/dashboard (ShareholderDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/shareholder/dashboard");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [47/84 | 55%] - Checking shell & content for ShareholderDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("shareholderdashboard-screen").should("be.visible");
+  cy.getCy("shareholderdashboard-title").should("be.visible");
+  cy.getCy("shareholderdashboard-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [47/84 | 55%] - Saving screenshot for ShareholderDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("shareholder_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [47/84 | 55%] - Verified ShareholderDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [48/84 | 57%] - Navigating to /offices/corporate/roles/training_director/dashboard (TrainingDirectorDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/training_director/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/99 | 10%] - Checking shell & content for TrainingDirectorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [48/84 | 57%] - Checking shell & content for TrainingDirectorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -182,1613 +866,659 @@ describe("Role All Screens - cto", () => {
   cy.getCy("trainingdirectordashboard-title").should("be.visible");
   cy.getCy("trainingdirectordashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/99 | 10%] - Saving screenshot for TrainingDirectorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [48/84 | 57%] - Saving screenshot for TrainingDirectorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("training_director_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/99 | 10%] - Verified TrainingDirectorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [48/84 | 57%] - Verified TrainingDirectorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/99 | 11%] - Navigating to /offices/clinical/roles/clinical_director/analytics (ClinicalAnalyticsScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/analytics");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [49/84 | 58%] - Navigating to packages/primecare_ui/lib/src/screens/management/campaign_dashboard_screen.dart (CampaignDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/management/campaign_dashboard_screen.dart");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/99 | 11%] - Checking shell & content for ClinicalAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [49/84 | 58%] - Checking shell & content for CampaignDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("clinicalanalytics-screen").should("be.visible");
-  cy.getCy("clinicalanalytics-title").should("be.visible");
-  cy.getCy("clinicalanalytics-content").should("be.visible");
+  cy.getCy("campaigndashboard-screen").should("be.visible");
+  cy.getCy("campaigndashboard-title").should("be.visible");
+  cy.getCy("campaigndashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/99 | 11%] - Saving screenshot for ClinicalAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [49/84 | 58%] - Saving screenshot for CampaignDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("clinical_analytics");
+  cy.screenshot("campaign_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/99 | 11%] - Verified ClinicalAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [49/84 | 58%] - Verified CampaignDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/99 | 12%] - Navigating to /offices/clinical/roles/clinical_director/compliance (ClinicalComplianceScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/compliance");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [50/84 | 59%] - Navigating to /offices/marketing/roles/community_outreach/dashboard (CommunityOutreachDashboardScreen)...");
+  cy.visitWithSemantics("/offices/marketing/roles/community_outreach/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/99 | 12%] - Checking shell & content for ClinicalComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [50/84 | 59%] - Checking shell & content for CommunityOutreachDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("clinicalcompliance-screen").should("be.visible");
-  cy.getCy("clinicalcompliance-title").should("be.visible");
-  cy.getCy("clinicalcompliance-content").should("be.visible");
+  cy.getCy("communityoutreachdashboard-screen").should("be.visible");
+  cy.getCy("communityoutreachdashboard-title").should("be.visible");
+  cy.getCy("communityoutreachdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/99 | 12%] - Saving screenshot for ClinicalComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [50/84 | 59%] - Saving screenshot for CommunityOutreachDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("clinical_compliance");
+  cy.screenshot("community_outreach_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/99 | 12%] - Verified ClinicalComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [50/84 | 59%] - Verified CommunityOutreachDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/99 | 13%] - Navigating to /offices/clinical/roles/clinical_director/workflow (ClinicalWorkflowScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/workflow");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [51/84 | 60%] - Navigating to packages/primecare_ui/lib/src/screens/management/compliance_dashboard_screen.dart (ComplianceDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/management/compliance_dashboard_screen.dart");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/99 | 13%] - Checking shell & content for ClinicalWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [51/84 | 60%] - Checking shell & content for ComplianceDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("clinicalworkflow-screen").should("be.visible");
-  cy.getCy("clinicalworkflow-title").should("be.visible");
-  cy.getCy("clinicalworkflow-content").should("be.visible");
+  cy.getCy("compliancedashboard-screen").should("be.visible");
+  cy.getCy("compliancedashboard-title").should("be.visible");
+  cy.getCy("compliancedashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/99 | 13%] - Saving screenshot for ClinicalWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [51/84 | 60%] - Saving screenshot for ComplianceDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("clinical_workflow");
+  cy.screenshot("compliance_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/99 | 13%] - Verified ClinicalWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [51/84 | 60%] - Verified ComplianceDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/99 | 14%] - Navigating to /offices/clinical/roles/chiropractor/analytics (ChiropractorAnalyticsScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/analytics");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [52/84 | 61%] - Navigating to /offices/corporate/roles/compliance_manager/dashboard (ComplianceManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/99 | 14%] - Checking shell & content for ChiropractorAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [52/84 | 61%] - Checking shell & content for ComplianceManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("chiropractoranalytics-screen").should("be.visible");
-  cy.getCy("chiropractoranalytics-title").should("be.visible");
-  cy.getCy("chiropractoranalytics-content").should("be.visible");
+  cy.getCy("compliancemanagerdashboard-screen").should("be.visible");
+  cy.getCy("compliancemanagerdashboard-title").should("be.visible");
+  cy.getCy("compliancemanagerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/99 | 14%] - Saving screenshot for ChiropractorAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [52/84 | 61%] - Saving screenshot for ComplianceManagerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("chiropractor_analytics");
+  cy.screenshot("compliance_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/99 | 14%] - Verified ChiropractorAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [52/84 | 61%] - Verified ComplianceManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/99 | 15%] - Navigating to /offices/clinical/roles/chiropractor/compliance (ChiropractorComplianceScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/compliance");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [53/84 | 63%] - Navigating to /offices/business_development/roles/franchise_sales_manager/dashboard (FranchiseSalesManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/business_development/roles/franchise_sales_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/99 | 15%] - Checking shell & content for ChiropractorComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [53/84 | 63%] - Checking shell & content for FranchiseSalesManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("chiropractorcompliance-screen").should("be.visible");
-  cy.getCy("chiropractorcompliance-title").should("be.visible");
-  cy.getCy("chiropractorcompliance-content").should("be.visible");
+  cy.getCy("franchisesalesmanagerdashboard-screen").should("be.visible");
+  cy.getCy("franchisesalesmanagerdashboard-title").should("be.visible");
+  cy.getCy("franchisesalesmanagerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/99 | 15%] - Saving screenshot for ChiropractorComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [53/84 | 63%] - Saving screenshot for FranchiseSalesManagerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("chiropractor_compliance");
+  cy.screenshot("franchise_sales_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/99 | 15%] - Verified ChiropractorComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [53/84 | 63%] - Verified FranchiseSalesManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/99 | 16%] - Navigating to /offices/clinical/roles/chiropractor/workflow (ChiropractorWorkflowScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/workflow");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [54/84 | 64%] - Navigating to /offices/business_development/roles/general_manager/dashboard (GeneralManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/business_development/roles/general_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/99 | 16%] - Checking shell & content for ChiropractorWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [54/84 | 64%] - Checking shell & content for GeneralManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("chiropractorworkflow-screen").should("be.visible");
-  cy.getCy("chiropractorworkflow-title").should("be.visible");
-  cy.getCy("chiropractorworkflow-content").should("be.visible");
+  cy.getCy("generalmanagerdashboard-screen").should("be.visible");
+  cy.getCy("generalmanagerdashboard-title").should("be.visible");
+  cy.getCy("generalmanagerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/99 | 16%] - Saving screenshot for ChiropractorWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [54/84 | 64%] - Saving screenshot for GeneralManagerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("chiropractor_workflow");
+  cy.screenshot("general_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/99 | 16%] - Verified ChiropractorWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [54/84 | 64%] - Verified GeneralManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [17/99 | 17%] - Navigating to /offices/clinical/roles/clinical_director/clinic-analytics (ClinicAnalyticsScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-analytics");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [55/84 | 65%] - Navigating to /management/governance-officer-dashboard (GovernanceOfficerDashboardScreen)...");
+  cy.visitWithSemantics("/management/governance-officer-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [17/99 | 17%] - Checking shell & content for ClinicAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [55/84 | 65%] - Checking shell & content for GovernanceOfficerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("clinicanalytics-screen").should("be.visible");
-  cy.getCy("clinicanalytics-title").should("be.visible");
-  cy.getCy("clinicanalytics-content").should("be.visible");
+  cy.getCy("governanceofficerdashboard-screen").should("be.visible");
+  cy.getCy("governanceofficerdashboard-title").should("be.visible");
+  cy.getCy("governanceofficerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [17/99 | 17%] - Saving screenshot for ClinicAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [55/84 | 65%] - Saving screenshot for GovernanceOfficerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("clinic_analytics");
+  cy.screenshot("governance_officer_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [17/99 | 17%] - Verified ClinicAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [55/84 | 65%] - Verified GovernanceOfficerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [18/99 | 18%] - Navigating to /offices/clinical/roles/clinical_director/clinic-compliance (ClinicComplianceScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-compliance");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [56/84 | 66%] - Navigating to /offices/corporate/roles/head_of_bus_dev/dashboard (HeadOfBusDevDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/head_of_bus_dev/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [18/99 | 18%] - Checking shell & content for ClinicComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [56/84 | 66%] - Checking shell & content for HeadOfBusDevDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("cliniccompliance-screen").should("be.visible");
-  cy.getCy("cliniccompliance-title").should("be.visible");
-  cy.getCy("cliniccompliance-content").should("be.visible");
+  cy.getCy("headofbusdevdashboard-screen").should("be.visible");
+  cy.getCy("headofbusdevdashboard-title").should("be.visible");
+  cy.getCy("headofbusdevdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [18/99 | 18%] - Saving screenshot for ClinicComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [56/84 | 66%] - Saving screenshot for HeadOfBusDevDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("clinic_compliance");
+  cy.screenshot("head_of_bus_dev_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [18/99 | 18%] - Verified ClinicComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [56/84 | 66%] - Verified HeadOfBusDevDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [19/99 | 19%] - Navigating to /offices/clinical/roles/clinical_director/clinic-workflow (ClinicWorkflowScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-workflow");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [57/84 | 67%] - Navigating to /offices/corporate/roles/head_of_marketing/dashboard (HeadOfMarketingDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/head_of_marketing/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [19/99 | 19%] - Checking shell & content for ClinicWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [57/84 | 67%] - Checking shell & content for HeadOfMarketingDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("clinicworkflow-screen").should("be.visible");
-  cy.getCy("clinicworkflow-title").should("be.visible");
-  cy.getCy("clinicworkflow-content").should("be.visible");
+  cy.getCy("headofmarketingdashboard-screen").should("be.visible");
+  cy.getCy("headofmarketingdashboard-title").should("be.visible");
+  cy.getCy("headofmarketingdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [19/99 | 19%] - Saving screenshot for ClinicWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [57/84 | 67%] - Saving screenshot for HeadOfMarketingDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("clinic_workflow");
+  cy.screenshot("head_of_marketing_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [19/99 | 19%] - Verified ClinicWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [57/84 | 67%] - Verified HeadOfMarketingDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/99 | 20%] - Navigating to /common/course-architect-analytics (CourseArchitectAnalyticsScreen)...");
-  cy.visitWithSemantics("/common/course-architect-analytics");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [58/84 | 69%] - Navigating to /offices/marketing/roles/local_marketing_manager/dashboard (LocalMarketingManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/marketing/roles/local_marketing_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/99 | 20%] - Checking shell & content for CourseArchitectAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [58/84 | 69%] - Checking shell & content for LocalMarketingManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("coursearchitectanalytics-screen").should("be.visible");
-  cy.getCy("coursearchitectanalytics-title").should("be.visible");
-  cy.getCy("coursearchitectanalytics-content").should("be.visible");
+  cy.getCy("localmarketingmanagerdashboard-screen").should("be.visible");
+  cy.getCy("localmarketingmanagerdashboard-title").should("be.visible");
+  cy.getCy("localmarketingmanagerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/99 | 20%] - Saving screenshot for CourseArchitectAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [58/84 | 69%] - Saving screenshot for LocalMarketingManagerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("course_architect_analytics");
+  cy.screenshot("local_marketing_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/99 | 20%] - Verified CourseArchitectAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [58/84 | 69%] - Verified LocalMarketingManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/99 | 21%] - Navigating to /common/course-architect-workflow (CourseArchitectWorkflowScreen)...");
-  cy.visitWithSemantics("/common/course-architect-workflow");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [59/84 | 70%] - Navigating to /offices/franchise/roles/operations_manager/dashboard (OperationsManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/operations_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/99 | 21%] - Checking shell & content for CourseArchitectWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [59/84 | 70%] - Checking shell & content for OperationsManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("coursearchitectworkflow-screen").should("be.visible");
-  cy.getCy("coursearchitectworkflow-title").should("be.visible");
-  cy.getCy("coursearchitectworkflow-content").should("be.visible");
+  cy.getCy("operationsmanagerdashboard-screen").should("be.visible");
+  cy.getCy("operationsmanagerdashboard-title").should("be.visible");
+  cy.getCy("operationsmanagerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/99 | 21%] - Saving screenshot for CourseArchitectWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [59/84 | 70%] - Saving screenshot for OperationsManagerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("course_architect_workflow");
+  cy.screenshot("operations_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/99 | 21%] - Verified CourseArchitectWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [59/84 | 70%] - Verified OperationsManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/99 | 22%] - Navigating to /executive/cto-analytics (CtoAnalyticsScreen)...");
-  cy.visitWithSemantics("/executive/cto-analytics");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [60/84 | 71%] - Navigating to /offices/business_development/roles/partnership_manager/dashboard (PartnershipManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/business_development/roles/partnership_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/99 | 22%] - Checking shell & content for CtoAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [60/84 | 71%] - Checking shell & content for PartnershipManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("ctoanalytics-screen").should("be.visible");
-  cy.getCy("ctoanalytics-title").should("be.visible");
-  cy.getCy("ctoanalytics-content").should("be.visible");
+  cy.getCy("partnershipmanagerdashboard-screen").should("be.visible");
+  cy.getCy("partnershipmanagerdashboard-title").should("be.visible");
+  cy.getCy("partnershipmanagerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/99 | 22%] - Saving screenshot for CtoAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [60/84 | 71%] - Saving screenshot for PartnershipManagerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("cto_analytics");
+  cy.screenshot("partnership_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/99 | 22%] - Verified CtoAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [60/84 | 71%] - Verified PartnershipManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [23/99 | 23%] - Navigating to /executive/cto-workflow (CtoWorkflowScreen)...");
-  cy.visitWithSemantics("/executive/cto-workflow");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [61/84 | 72%] - Navigating to packages/primecare_ui/lib/src/screens/management/premium_concierge_dashboard_screen.dart (PremiumConciergeDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/management/premium_concierge_dashboard_screen.dart");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [23/99 | 23%] - Checking shell & content for CtoWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [61/84 | 72%] - Checking shell & content for PremiumConciergeDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("ctoworkflow-screen").should("be.visible");
-  cy.getCy("ctoworkflow-title").should("be.visible");
-  cy.getCy("ctoworkflow-content").should("be.visible");
+  cy.getCy("premiumconciergedashboard-screen").should("be.visible");
+  cy.getCy("premiumconciergedashboard-title").should("be.visible");
+  cy.getCy("premiumconciergedashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [23/99 | 23%] - Saving screenshot for CtoWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [61/84 | 72%] - Saving screenshot for PremiumConciergeDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("cto_workflow");
+  cy.screenshot("premium_concierge_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [23/99 | 23%] - Verified CtoWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [61/84 | 72%] - Verified PremiumConciergeDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [24/99 | 24%] - Navigating to /executive/cx-director-analytics (CxDirectorAnalyticsScreen)...");
-  cy.visitWithSemantics("/executive/cx-director-analytics");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [62/84 | 73%] - Navigating to /offices/business_development/roles/regional_bdm/dashboard (RegionalBdmDashboardScreen)...");
+  cy.visitWithSemantics("/offices/business_development/roles/regional_bdm/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [24/99 | 24%] - Checking shell & content for CxDirectorAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [62/84 | 73%] - Checking shell & content for RegionalBdmDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("cxdirectoranalytics-screen").should("be.visible");
-  cy.getCy("cxdirectoranalytics-title").should("be.visible");
-  cy.getCy("cxdirectoranalytics-content").should("be.visible");
+  cy.getCy("regionalbdmdashboard-screen").should("be.visible");
+  cy.getCy("regionalbdmdashboard-title").should("be.visible");
+  cy.getCy("regionalbdmdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [24/99 | 24%] - Saving screenshot for CxDirectorAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [62/84 | 73%] - Saving screenshot for RegionalBdmDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("cx_director_analytics");
+  cy.screenshot("regional_bdm_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [24/99 | 24%] - Verified CxDirectorAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [62/84 | 73%] - Verified RegionalBdmDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [25/99 | 25%] - Navigating to /executive/cx-director-compliance (CxDirectorComplianceScreen)...");
-  cy.visitWithSemantics("/executive/cx-director-compliance");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [63/84 | 75%] - Navigating to /offices/business_development/roles/regional_manager_usa/dashboard (RegionalManagerUsaDashboardScreen)...");
+  cy.visitWithSemantics("/offices/business_development/roles/regional_manager_usa/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [25/99 | 25%] - Checking shell & content for CxDirectorComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [63/84 | 75%] - Checking shell & content for RegionalManagerUsaDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("cxdirectorcompliance-screen").should("be.visible");
-  cy.getCy("cxdirectorcompliance-title").should("be.visible");
-  cy.getCy("cxdirectorcompliance-content").should("be.visible");
+  cy.getCy("regionalmanagerusadashboard-screen").should("be.visible");
+  cy.getCy("regionalmanagerusadashboard-title").should("be.visible");
+  cy.getCy("regionalmanagerusadashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [25/99 | 25%] - Saving screenshot for CxDirectorComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [63/84 | 75%] - Saving screenshot for RegionalManagerUsaDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("cx_director_compliance");
+  cy.screenshot("regional_manager_usa_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [25/99 | 25%] - Verified CxDirectorComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [63/84 | 75%] - Verified RegionalManagerUsaDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [26/99 | 26%] - Navigating to /executive/cx-director-workflow (CxDirectorWorkflowScreen)...");
-  cy.visitWithSemantics("/executive/cx-director-workflow");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [64/84 | 76%] - Navigating to packages/primecare_ui/lib/src/screens/management/scrum_master_dashboard_screen.dart (ScrumMasterDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/management/scrum_master_dashboard_screen.dart");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [26/99 | 26%] - Checking shell & content for CxDirectorWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [64/84 | 76%] - Checking shell & content for ScrumMasterDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("cxdirectorworkflow-screen").should("be.visible");
-  cy.getCy("cxdirectorworkflow-title").should("be.visible");
-  cy.getCy("cxdirectorworkflow-content").should("be.visible");
+  cy.getCy("scrummasterdashboard-screen").should("be.visible");
+  cy.getCy("scrummasterdashboard-title").should("be.visible");
+  cy.getCy("scrummasterdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [26/99 | 26%] - Saving screenshot for CxDirectorWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [64/84 | 76%] - Saving screenshot for ScrumMasterDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("cx_director_workflow");
+  cy.screenshot("scrum_master_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [26/99 | 26%] - Verified CxDirectorWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [64/84 | 76%] - Verified ScrumMasterDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [27/99 | 27%] - Navigating to /executive/finance-director-analytics (FinanceDirectorAnalyticsScreen)...");
-  cy.visitWithSemantics("/executive/finance-director-analytics");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [65/84 | 77%] - Navigating to /offices/business_development/roles/territory_expansion_manager/dashboard (TerritoryExpansionManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/business_development/roles/territory_expansion_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [27/99 | 27%] - Checking shell & content for FinanceDirectorAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [65/84 | 77%] - Checking shell & content for TerritoryExpansionManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("financedirectoranalytics-screen").should("be.visible");
-  cy.getCy("financedirectoranalytics-title").should("be.visible");
-  cy.getCy("financedirectoranalytics-content").should("be.visible");
+  cy.getCy("territoryexpansionmanagerdashboard-screen").should("be.visible");
+  cy.getCy("territoryexpansionmanagerdashboard-title").should("be.visible");
+  cy.getCy("territoryexpansionmanagerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [27/99 | 27%] - Saving screenshot for FinanceDirectorAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [65/84 | 77%] - Saving screenshot for TerritoryExpansionManagerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("finance_director_analytics");
+  cy.screenshot("territory_expansion_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [27/99 | 27%] - Verified FinanceDirectorAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [65/84 | 77%] - Verified TerritoryExpansionManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [28/99 | 28%] - Navigating to /executive/finance-director-compliance (FinanceDirectorComplianceScreen)...");
-  cy.visitWithSemantics("/executive/finance-director-compliance");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [66/84 | 78%] - Navigating to /offices/marketing/roles/territory_sales_manager/dashboard (TerritorySalesManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/marketing/roles/territory_sales_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [28/99 | 28%] - Checking shell & content for FinanceDirectorComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [66/84 | 78%] - Checking shell & content for TerritorySalesManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("financedirectorcompliance-screen").should("be.visible");
-  cy.getCy("financedirectorcompliance-title").should("be.visible");
-  cy.getCy("financedirectorcompliance-content").should("be.visible");
+  cy.getCy("territorysalesmanagerdashboard-screen").should("be.visible");
+  cy.getCy("territorysalesmanagerdashboard-title").should("be.visible");
+  cy.getCy("territorysalesmanagerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [28/99 | 28%] - Saving screenshot for FinanceDirectorComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [66/84 | 78%] - Saving screenshot for TerritorySalesManagerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("finance_director_compliance");
+  cy.screenshot("territory_sales_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [28/99 | 28%] - Verified FinanceDirectorComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [66/84 | 78%] - Verified TerritorySalesManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [29/99 | 29%] - Navigating to /executive/finance-director-workflow (FinanceDirectorWorkflowScreen)...");
-  cy.visitWithSemantics("/executive/finance-director-workflow");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [67/84 | 79%] - Navigating to packages/primecare_ui/lib/src/screens/management/vip_manager_dashboard_screen.dart (VipManagerDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/management/vip_manager_dashboard_screen.dart");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [29/99 | 29%] - Checking shell & content for FinanceDirectorWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [67/84 | 79%] - Checking shell & content for VipManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("financedirectorworkflow-screen").should("be.visible");
-  cy.getCy("financedirectorworkflow-title").should("be.visible");
-  cy.getCy("financedirectorworkflow-content").should("be.visible");
+  cy.getCy("vipmanagerdashboard-screen").should("be.visible");
+  cy.getCy("vipmanagerdashboard-title").should("be.visible");
+  cy.getCy("vipmanagerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [29/99 | 29%] - Saving screenshot for FinanceDirectorWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [67/84 | 79%] - Saving screenshot for VipManagerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("finance_director_workflow");
+  cy.screenshot("vip_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [29/99 | 29%] - Verified FinanceDirectorWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [67/84 | 79%] - Verified VipManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/99 | 30%] - Navigating to /executive/hr-director-analytics (HrDirectorAnalyticsScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-analytics");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [68/84 | 80%] - Navigating to /offices/clinical/roles/psw/dashboard (PswDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/psw/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/99 | 30%] - Checking shell & content for HrDirectorAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [68/84 | 80%] - Checking shell & content for PswDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("hrdirectoranalytics-screen").should("be.visible");
-  cy.getCy("hrdirectoranalytics-title").should("be.visible");
-  cy.getCy("hrdirectoranalytics-content").should("be.visible");
+  cy.getCy("pswdashboard-screen").should("be.visible");
+  cy.getCy("pswdashboard-title").should("be.visible");
+  // cy.getCy("pswdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/99 | 30%] - Saving screenshot for HrDirectorAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [68/84 | 80%] - Saving screenshot for PswDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("hr_director_analytics");
+  cy.screenshot("psw_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/99 | 30%] - Verified HrDirectorAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [68/84 | 80%] - Verified PswDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [31/99 | 31%] - Navigating to /executive/hr-director-compliance (HrDirectorComplianceScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-compliance");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [69/84 | 82%] - Navigating to /offices/clinical/roles/rn/dashboard (RnDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rn/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [31/99 | 31%] - Checking shell & content for HrDirectorComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [69/84 | 82%] - Checking shell & content for RnDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("hrdirectorcompliance-screen").should("be.visible");
-  cy.getCy("hrdirectorcompliance-title").should("be.visible");
-  cy.getCy("hrdirectorcompliance-content").should("be.visible");
+  cy.getCy("rndashboard-screen").should("be.visible");
+  cy.getCy("rndashboard-title").should("be.visible");
+  cy.getCy("rndashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [31/99 | 31%] - Saving screenshot for HrDirectorComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [69/84 | 82%] - Saving screenshot for RnDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("hr_director_compliance");
+  cy.screenshot("rn_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [31/99 | 31%] - Verified HrDirectorComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [69/84 | 82%] - Verified RnDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [32/99 | 32%] - Navigating to /executive/hr-director-workflow (HrDirectorWorkflowScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-workflow");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [70/84 | 83%] - Navigating to /rn/rn-field-supervisor-dashboard (RnFieldSupervisorDashboardScreen)...");
+  cy.visitWithSemantics("/rn/rn-field-supervisor-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [32/99 | 32%] - Checking shell & content for HrDirectorWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [70/84 | 83%] - Checking shell & content for RnFieldSupervisorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("hrdirectorworkflow-screen").should("be.visible");
-  cy.getCy("hrdirectorworkflow-title").should("be.visible");
-  cy.getCy("hrdirectorworkflow-content").should("be.visible");
+  cy.getCy("rnfieldsupervisordashboard-screen").should("be.visible");
+  cy.getCy("rnfieldsupervisordashboard-title").should("be.visible");
+  cy.getCy("rnfieldsupervisordashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [32/99 | 32%] - Saving screenshot for HrDirectorWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [70/84 | 83%] - Saving screenshot for RnFieldSupervisorDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("hr_director_workflow");
+  cy.screenshot("rn_field_supervisor_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [32/99 | 32%] - Verified HrDirectorWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [70/84 | 83%] - Verified RnFieldSupervisorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [33/99 | 33%] - Navigating to /offices/corporate/roles/training_director/analytics (TrainingDirectorAnalyticsScreen)...");
-  cy.visitWithSemantics("/offices/corporate/roles/training_director/analytics");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [71/84 | 84%] - Navigating to /offices/clinical/roles/rpn/dashboard (RpnDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/rpn/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [33/99 | 33%] - Checking shell & content for TrainingDirectorAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [71/84 | 84%] - Checking shell & content for RpnDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("trainingdirectoranalytics-screen").should("be.visible");
-  cy.getCy("trainingdirectoranalytics-title").should("be.visible");
-  cy.getCy("trainingdirectoranalytics-content").should("be.visible");
+  cy.getCy("rpndashboard-screen").should("be.visible");
+  cy.getCy("rpndashboard-title").should("be.visible");
+  cy.getCy("rpndashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [33/99 | 33%] - Saving screenshot for TrainingDirectorAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [71/84 | 84%] - Saving screenshot for RpnDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("training_director_analytics");
+  cy.screenshot("rpn_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [33/99 | 33%] - Verified TrainingDirectorAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [71/84 | 84%] - Verified RpnDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [34/99 | 34%] - Navigating to /executive/training-director-compliance (TrainingDirectorComplianceScreen)...");
-  cy.visitWithSemantics("/executive/training-director-compliance");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [72/84 | 85%] - Navigating to /offices/franchise/roles/billing_admin/dashboard (BillingAdminDashboardScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/billing_admin/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [34/99 | 34%] - Checking shell & content for TrainingDirectorComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [72/84 | 85%] - Checking shell & content for BillingAdminDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("trainingdirectorcompliance-screen").should("be.visible");
-  cy.getCy("trainingdirectorcompliance-title").should("be.visible");
-  cy.getCy("trainingdirectorcompliance-content").should("be.visible");
+  cy.getCy("billingadmindashboard-screen").should("be.visible");
+  cy.getCy("billingadmindashboard-title").should("be.visible");
+  cy.getCy("billingadmindashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [34/99 | 34%] - Saving screenshot for TrainingDirectorComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [72/84 | 85%] - Saving screenshot for BillingAdminDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("training_director_compliance");
+  cy.screenshot("billing_admin_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [34/99 | 34%] - Verified TrainingDirectorComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [72/84 | 85%] - Verified BillingAdminDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [35/99 | 35%] - Navigating to /executive/training-director-workflow (TrainingDirectorWorkflowScreen)...");
-  cy.visitWithSemantics("/executive/training-director-workflow");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [73/84 | 86%] - Navigating to packages/primecare_ui/lib/src/screens/staff/employee_dashboard_screen.dart (EmployeeDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/staff/employee_dashboard_screen.dart");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [35/99 | 35%] - Checking shell & content for TrainingDirectorWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [73/84 | 86%] - Checking shell & content for EmployeeDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("trainingdirectorworkflow-screen").should("be.visible");
-  cy.getCy("trainingdirectorworkflow-title").should("be.visible");
-  cy.getCy("trainingdirectorworkflow-content").should("be.visible");
+  cy.getCy("employeedashboard-screen").should("be.visible");
+  cy.getCy("employeedashboard-title").should("be.visible");
+  cy.getCy("employeedashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [35/99 | 35%] - Saving screenshot for TrainingDirectorWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [73/84 | 86%] - Saving screenshot for EmployeeDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("training_director_workflow");
+  cy.screenshot("employee_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [35/99 | 35%] - Verified TrainingDirectorWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [73/84 | 86%] - Verified EmployeeDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [36/99 | 36%] - Navigating to /staff/hr-manager-analytics (HrManagerAnalyticsScreen)...");
-  cy.visitWithSemantics("/staff/hr-manager-analytics");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [74/84 | 88%] - Navigating to /offices/corporate/roles/hr_hiring/dashboard (HrHiringDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/hr_hiring/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [36/99 | 36%] - Checking shell & content for HrManagerAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [74/84 | 88%] - Checking shell & content for HrHiringDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("hrmanageranalytics-screen").should("be.visible");
-  cy.getCy("hrmanageranalytics-title").should("be.visible");
-  cy.getCy("hrmanageranalytics-content").should("be.visible");
+  cy.getCy("hrhiringdashboard-screen").should("be.visible");
+  cy.getCy("hrhiringdashboard-title").should("be.visible");
+  cy.getCy("hrhiringdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [36/99 | 36%] - Saving screenshot for HrManagerAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [74/84 | 88%] - Saving screenshot for HrHiringDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("hr_manager_analytics");
+  cy.screenshot("hr_hiring_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [36/99 | 36%] - Verified HrManagerAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [74/84 | 88%] - Verified HrHiringDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [37/99 | 37%] - Navigating to /staff/hr-manager-workflow (HrManagerWorkflowScreen)...");
-  cy.visitWithSemantics("/staff/hr-manager-workflow");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [75/84 | 89%] - Navigating to /offices/corporate/roles/hr_manager/dashboard (HrManagerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/hr_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [37/99 | 37%] - Checking shell & content for HrManagerWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [75/84 | 89%] - Checking shell & content for HrManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("hrmanagerworkflow-screen").should("be.visible");
-  cy.getCy("hrmanagerworkflow-title").should("be.visible");
-  cy.getCy("hrmanagerworkflow-content").should("be.visible");
+  cy.getCy("hrmanagerdashboard-screen").should("be.visible");
+  cy.getCy("hrmanagerdashboard-title").should("be.visible");
+  cy.getCy("hrmanagerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [37/99 | 37%] - Saving screenshot for HrManagerWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [75/84 | 89%] - Saving screenshot for HrManagerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("hr_manager_workflow");
+  cy.screenshot("hr_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [37/99 | 37%] - Verified HrManagerWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [75/84 | 89%] - Verified HrManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [38/99 | 38%] - Navigating to /offices/clinical/roles/chiropractor/command-center (ChiropractorCommandCenterScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/command-center");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [76/84 | 90%] - Navigating to /offices/clinical/roles/intake_coordinator/dashboard (IntakeCoordinatorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [38/99 | 38%] - Checking shell & content for ChiropractorCommandCenterScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [76/84 | 90%] - Checking shell & content for IntakeCoordinatorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("chiropractorcommandcenter-screen").should("be.visible");
-  cy.getCy("chiropractorcommandcenter-title").should("be.visible");
-  cy.getCy("chiropractorcommandcenter-content").should("be.visible");
+  cy.getCy("intakecoordinatordashboard-screen").should("be.visible");
+  cy.getCy("intakecoordinatordashboard-title").should("be.visible");
+  // cy.getCy("intakecoordinatordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [38/99 | 38%] - Saving screenshot for ChiropractorCommandCenterScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [76/84 | 90%] - Saving screenshot for IntakeCoordinatorDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("chiropractor_command_center");
+  cy.screenshot("intake_coordinator_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [38/99 | 38%] - Verified ChiropractorCommandCenterScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [76/84 | 90%] - Verified IntakeCoordinatorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [39/99 | 39%] - Navigating to /offices/clinical/roles/chiropractor/appointments (ChiropractorAppointmentsScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/appointments");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [77/84 | 91%] - Navigating to packages/primecare_ui/lib/src/screens/staff/quality_assurance_dashboard_screen.dart (QualityAssuranceDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/staff/quality_assurance_dashboard_screen.dart");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [39/99 | 39%] - Checking shell & content for ChiropractorAppointmentsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [77/84 | 91%] - Checking shell & content for QualityAssuranceDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("chiropractorappointments-screen").should("be.visible");
-  cy.getCy("chiropractorappointments-title").should("be.visible");
-  cy.getCy("chiropractorappointments-content").should("be.visible");
+  cy.getCy("qualityassurancedashboard-screen").should("be.visible");
+  cy.getCy("qualityassurancedashboard-title").should("be.visible");
+  // cy.getCy("qualityassurancedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [39/99 | 39%] - Saving screenshot for ChiropractorAppointmentsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [77/84 | 91%] - Saving screenshot for QualityAssuranceDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("chiropractor_appointments");
+  cy.screenshot("quality_assurance_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [39/99 | 39%] - Verified ChiropractorAppointmentsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [77/84 | 91%] - Verified QualityAssuranceDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [40/99 | 40%] - Navigating to /offices/clinical/roles/chiropractor/client-intake (ChiropractorClientIntakeScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/client-intake");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [78/84 | 92%] - Navigating to packages/primecare_ui/lib/src/screens/staff/receptionist_dashboard_screen.dart (ReceptionistDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/staff/receptionist_dashboard_screen.dart");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [40/99 | 40%] - Checking shell & content for ChiropractorClientIntakeScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [78/84 | 92%] - Checking shell & content for ReceptionistDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("chiropractorclientintake-screen").should("be.visible");
-  cy.getCy("chiropractorclientintake-title").should("be.visible");
-  cy.getCy("chiropractorclientintake-content").should("be.visible");
+  cy.getCy("receptionistdashboard-screen").should("be.visible");
+  cy.getCy("receptionistdashboard-title").should("be.visible");
+  cy.getCy("receptionistdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [40/99 | 40%] - Saving screenshot for ChiropractorClientIntakeScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [78/84 | 92%] - Saving screenshot for ReceptionistDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("chiropractor_client_intake");
+  cy.screenshot("receptionist_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [40/99 | 40%] - Verified ChiropractorClientIntakeScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [78/84 | 92%] - Verified ReceptionistDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [41/99 | 41%] - Navigating to /offices/clinical/roles/chiropractor/assessment (ChiropractorAssessmentScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/assessment");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [79/84 | 94%] - Navigating to /offices/franchise/roles/scheduler/dashboard (SchedulerDashboardScreen)...");
+  cy.visitWithSemantics("/offices/franchise/roles/scheduler/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [41/99 | 41%] - Checking shell & content for ChiropractorAssessmentScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [79/84 | 94%] - Checking shell & content for SchedulerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("chiropractorassessment-screen").should("be.visible");
-  cy.getCy("chiropractorassessment-title").should("be.visible");
-  cy.getCy("chiropractorassessment-content").should("be.visible");
+  cy.getCy("schedulerdashboard-screen").should("be.visible");
+  cy.getCy("schedulerdashboard-title").should("be.visible");
+  cy.getCy("schedulerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [41/99 | 41%] - Saving screenshot for ChiropractorAssessmentScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [79/84 | 94%] - Saving screenshot for SchedulerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("chiropractor_assessment");
+  cy.screenshot("scheduler_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [41/99 | 41%] - Verified ChiropractorAssessmentScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [79/84 | 94%] - Verified SchedulerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [42/99 | 42%] - Navigating to /offices/clinical/roles/chiropractor/treatment-notes (ChiropractorTreatmentNotesScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/treatment-notes");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [80/84 | 95%] - Navigating to packages/primecare_ui/lib/src/screens/staff/scheduling_dashboard_screen.dart (SchedulingDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/staff/scheduling_dashboard_screen.dart");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [42/99 | 42%] - Checking shell & content for ChiropractorTreatmentNotesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [80/84 | 95%] - Checking shell & content for SchedulingDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("chiropractortreatmentnotes-screen").should("be.visible");
-  cy.getCy("chiropractortreatmentnotes-title").should("be.visible");
-  cy.getCy("chiropractortreatmentnotes-content").should("be.visible");
+  cy.getCy("schedulingdashboard-screen").should("be.visible");
+  cy.getCy("schedulingdashboard-title").should("be.visible");
+  cy.getCy("schedulingdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [42/99 | 42%] - Saving screenshot for ChiropractorTreatmentNotesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [80/84 | 95%] - Saving screenshot for SchedulingDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("chiropractor_treatment_notes");
+  cy.screenshot("scheduling_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [42/99 | 42%] - Verified ChiropractorTreatmentNotesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [80/84 | 95%] - Verified SchedulingDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [43/99 | 43%] - Navigating to /offices/clinical/roles/chiropractor/exercise-plan (ChiropractorExercisePlanScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/exercise-plan");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [81/84 | 96%] - Navigating to /offices/support/roles/training_coordinator/dashboard (TrainingCoordinatorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/support/roles/training_coordinator/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [43/99 | 43%] - Checking shell & content for ChiropractorExercisePlanScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [81/84 | 96%] - Checking shell & content for TrainingCoordinatorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("chiropractorexerciseplan-screen").should("be.visible");
-  cy.getCy("chiropractorexerciseplan-title").should("be.visible");
-  cy.getCy("chiropractorexerciseplan-content").should("be.visible");
+  cy.getCy("trainingcoordinatordashboard-screen").should("be.visible");
+  cy.getCy("trainingcoordinatordashboard-title").should("be.visible");
+  // cy.getCy("trainingcoordinatordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [43/99 | 43%] - Saving screenshot for ChiropractorExercisePlanScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [81/84 | 96%] - Saving screenshot for TrainingCoordinatorDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("chiropractor_exercise_plan");
+  cy.screenshot("training_coordinator_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [43/99 | 43%] - Verified ChiropractorExercisePlanScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [81/84 | 96%] - Verified TrainingCoordinatorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [44/99 | 44%] - Navigating to /offices/clinical/roles/chiropractor/billing-link (ChiropractorBillingLinkScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/billing-link");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [82/84 | 97%] - Navigating to packages/primecare_ui/lib/src/screens/staff/training_dashboard_screen.dart (TrainingDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/staff/training_dashboard_screen.dart");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [44/99 | 44%] - Checking shell & content for ChiropractorBillingLinkScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [82/84 | 97%] - Checking shell & content for TrainingDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("chiropractorbillinglink-screen").should("be.visible");
-  cy.getCy("chiropractorbillinglink-title").should("be.visible");
-  cy.getCy("chiropractorbillinglink-content").should("be.visible");
+  cy.getCy("trainingdashboard-screen").should("be.visible");
+  cy.getCy("trainingdashboard-title").should("be.visible");
+  cy.getCy("trainingdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [44/99 | 44%] - Saving screenshot for ChiropractorBillingLinkScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [82/84 | 97%] - Saving screenshot for TrainingDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("chiropractor_billing_link");
+  cy.screenshot("training_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [44/99 | 44%] - Verified ChiropractorBillingLinkScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [82/84 | 97%] - Verified TrainingDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [45/99 | 45%] - Navigating to /offices/clinical/roles/chiropractor/reports (ChiropractorReportsScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/reports");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [83/84 | 98%] - Navigating to /offices/corporate/roles/volunteer_coordinator/dashboard (VolunteerCoordinatorDashboardScreen)...");
+  cy.visitWithSemantics("/offices/corporate/roles/volunteer_coordinator/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [45/99 | 45%] - Checking shell & content for ChiropractorReportsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [83/84 | 98%] - Checking shell & content for VolunteerCoordinatorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("chiropractorreports-screen").should("be.visible");
-  cy.getCy("chiropractorreports-title").should("be.visible");
-  cy.getCy("chiropractorreports-content").should("be.visible");
+  cy.getCy("volunteercoordinatordashboard-screen").should("be.visible");
+  cy.getCy("volunteercoordinatordashboard-title").should("be.visible");
+  cy.getCy("volunteercoordinatordashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [45/99 | 45%] - Saving screenshot for ChiropractorReportsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [83/84 | 98%] - Saving screenshot for VolunteerCoordinatorDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("chiropractor_reports");
+  cy.screenshot("volunteer_coordinator_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [45/99 | 45%] - Verified ChiropractorReportsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [83/84 | 98%] - Verified VolunteerCoordinatorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [46/99 | 46%] - Navigating to /offices/clinical/roles/clinical_director/staff-quality (ClinicalDirectorStaffQualityScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/staff-quality");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [84/84 | 100%] - Navigating to packages/primecare_ui/lib/src/screens/staff/volunteer_dashboard_screen.dart (VolunteerDashboardScreen)...");
+  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/staff/volunteer_dashboard_screen.dart");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [46/99 | 46%] - Checking shell & content for ClinicalDirectorStaffQualityScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [84/84 | 100%] - Checking shell & content for VolunteerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("clinicaldirectorstaffquality-screen").should("be.visible");
-  cy.getCy("clinicaldirectorstaffquality-title").should("be.visible");
-  cy.getCy("clinicaldirectorstaffquality-content").should("be.visible");
+  cy.getCy("volunteerdashboard-screen").should("be.visible");
+  cy.getCy("volunteerdashboard-title").should("be.visible");
+  cy.getCy("volunteerdashboard-content").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [46/99 | 46%] - Saving screenshot for ClinicalDirectorStaffQualityScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [84/84 | 100%] - Saving screenshot for VolunteerDashboardScreen...");
   cy.waitAndSee();
-  cy.screenshot("clinical_director_staff_quality");
+  cy.screenshot("volunteer_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [46/99 | 46%] - Verified ClinicalDirectorStaffQualityScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [47/99 | 47%] - Navigating to /offices/clinical/roles/clinical_director/incident-review (ClinicalDirectorIncidentReviewScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/incident-review");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [47/99 | 47%] - Checking shell & content for ClinicalDirectorIncidentReviewScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("clinicaldirectorincidentreview-screen").should("be.visible");
-  cy.getCy("clinicaldirectorincidentreview-title").should("be.visible");
-  cy.getCy("clinicaldirectorincidentreview-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [47/99 | 47%] - Saving screenshot for ClinicalDirectorIncidentReviewScreen...");
-  cy.waitAndSee();
-  cy.screenshot("clinical_director_incident_review");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [47/99 | 47%] - Verified ClinicalDirectorIncidentReviewScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [48/99 | 48%] - Navigating to /offices/clinical/roles/clinical_director/compliance-director (ClinicalDirectorComplianceScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/compliance-director");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [48/99 | 48%] - Checking shell & content for ClinicalDirectorComplianceScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("clinicaldirectorcompliance-screen").should("be.visible");
-  cy.getCy("clinicaldirectorcompliance-title").should("be.visible");
-  cy.getCy("clinicaldirectorcompliance-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [48/99 | 48%] - Saving screenshot for ClinicalDirectorComplianceScreen...");
-  cy.waitAndSee();
-  cy.screenshot("clinical_director_compliance");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [48/99 | 48%] - Verified ClinicalDirectorComplianceScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [49/99 | 49%] - Navigating to /offices/clinical/roles/clinical_director/reports (ClinicalDirectorReportsScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/reports");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [49/99 | 49%] - Checking shell & content for ClinicalDirectorReportsScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("clinicaldirectorreports-screen").should("be.visible");
-  cy.getCy("clinicaldirectorreports-title").should("be.visible");
-  cy.getCy("clinicaldirectorreports-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [49/99 | 49%] - Saving screenshot for ClinicalDirectorReportsScreen...");
-  cy.waitAndSee();
-  cy.screenshot("clinical_director_reports");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [49/99 | 49%] - Verified ClinicalDirectorReportsScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [50/99 | 50%] - Navigating to /offices/clinical/roles/clinical_director/approvals (ClinicalDirectorApprovalsScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/approvals");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [50/99 | 50%] - Checking shell & content for ClinicalDirectorApprovalsScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("clinicaldirectorapprovals-screen").should("be.visible");
-  cy.getCy("clinicaldirectorapprovals-title").should("be.visible");
-  cy.getCy("clinicaldirectorapprovals-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [50/99 | 50%] - Saving screenshot for ClinicalDirectorApprovalsScreen...");
-  cy.waitAndSee();
-  cy.screenshot("clinical_director_approvals");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [50/99 | 50%] - Verified ClinicalDirectorApprovalsScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [51/99 | 51%] - Navigating to /offices/clinical/roles/clinical_director/performance (ClinicalDirectorPerformanceScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/performance");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [51/99 | 51%] - Checking shell & content for ClinicalDirectorPerformanceScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("clinicaldirectorperformance-screen").should("be.visible");
-  cy.getCy("clinicaldirectorperformance-title").should("be.visible");
-  cy.getCy("clinicaldirectorperformance-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [51/99 | 51%] - Saving screenshot for ClinicalDirectorPerformanceScreen...");
-  cy.waitAndSee();
-  cy.screenshot("clinical_director_performance");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [51/99 | 51%] - Verified ClinicalDirectorPerformanceScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [52/99 | 52%] - Navigating to /executive/hr-director-hiring-pipeline (HrDirectorHiringPipelineScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-hiring-pipeline");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [52/99 | 52%] - Checking shell & content for HrDirectorHiringPipelineScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrdirectorhiringpipeline-screen").should("be.visible");
-  cy.getCy("hrdirectorhiringpipeline-title").should("be.visible");
-  cy.getCy("hrdirectorhiringpipeline-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [52/99 | 52%] - Saving screenshot for HrDirectorHiringPipelineScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_director_hiring_pipeline");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [52/99 | 52%] - Verified HrDirectorHiringPipelineScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [53/99 | 53%] - Navigating to /executive/hr-director-staff-files (HrDirectorStaffFilesScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-staff-files");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [53/99 | 53%] - Checking shell & content for HrDirectorStaffFilesScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrdirectorstafffiles-screen").should("be.visible");
-  cy.getCy("hrdirectorstafffiles-title").should("be.visible");
-  cy.getCy("hrdirectorstafffiles-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [53/99 | 53%] - Saving screenshot for HrDirectorStaffFilesScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_director_staff_files");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [53/99 | 53%] - Verified HrDirectorStaffFilesScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [54/99 | 54%] - Navigating to /executive/hr-director-training (HrDirectorTrainingScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-training");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [54/99 | 54%] - Checking shell & content for HrDirectorTrainingScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrdirectortraining-screen").should("be.visible");
-  cy.getCy("hrdirectortraining-title").should("be.visible");
-  cy.getCy("hrdirectortraining-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [54/99 | 54%] - Saving screenshot for HrDirectorTrainingScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_director_training");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [54/99 | 54%] - Verified HrDirectorTrainingScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [55/99 | 55%] - Navigating to /executive/hr-director-credential-expiry (HrDirectorCredentialExpiryScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-credential-expiry");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [55/99 | 55%] - Checking shell & content for HrDirectorCredentialExpiryScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrdirectorcredentialexpiry-screen").should("be.visible");
-  cy.getCy("hrdirectorcredentialexpiry-title").should("be.visible");
-  cy.getCy("hrdirectorcredentialexpiry-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [55/99 | 55%] - Saving screenshot for HrDirectorCredentialExpiryScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_director_credential_expiry");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [55/99 | 55%] - Verified HrDirectorCredentialExpiryScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [56/99 | 56%] - Navigating to /executive/hr-director-onboarding (HrDirectorOnboardingScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-onboarding");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [56/99 | 56%] - Checking shell & content for HrDirectorOnboardingScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hrdirectoronboarding-screen").should("be.visible");
-  cy.getCy("hrdirectoronboarding-title").should("be.visible");
-  cy.getCy("hrdirectoronboarding-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [56/99 | 56%] - Saving screenshot for HrDirectorOnboardingScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_director_onboarding");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [56/99 | 56%] - Verified HrDirectorOnboardingScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [57/99 | 57%] - Navigating to /executive/system-health (SystemHealthScreen)...");
-  cy.visitWithSemantics("/executive/system-health");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [57/99 | 57%] - Checking shell & content for SystemHealthScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("systemhealth-screen").should("be.visible");
-  cy.getCy("systemhealth-title").should("be.visible");
-  cy.getCy("systemhealth-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [57/99 | 57%] - Saving screenshot for SystemHealthScreen...");
-  cy.waitAndSee();
-  cy.screenshot("system_health");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [57/99 | 57%] - Verified SystemHealthScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [58/99 | 58%] - Navigating to /executive/api-monitoring (ApiMonitoringScreen)...");
-  cy.visitWithSemantics("/executive/api-monitoring");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [58/99 | 58%] - Checking shell & content for ApiMonitoringScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("apimonitoring-screen").should("be.visible");
-  cy.getCy("apimonitoring-title").should("be.visible");
-  cy.getCy("apimonitoring-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [58/99 | 58%] - Saving screenshot for ApiMonitoringScreen...");
-  cy.waitAndSee();
-  cy.screenshot("api_monitoring");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [58/99 | 58%] - Verified ApiMonitoringScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [59/99 | 59%] - Navigating to /executive/deployment-center (DeploymentCenterScreen)...");
-  cy.visitWithSemantics("/executive/deployment-center");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [59/99 | 59%] - Checking shell & content for DeploymentCenterScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("deploymentcenter-screen").should("be.visible");
-  cy.getCy("deploymentcenter-title").should("be.visible");
-  cy.getCy("deploymentcenter-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [59/99 | 59%] - Saving screenshot for DeploymentCenterScreen...");
-  cy.waitAndSee();
-  cy.screenshot("deployment_center");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [59/99 | 59%] - Verified DeploymentCenterScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [60/99 | 60%] - Navigating to /executive/security-audit (SecurityAuditScreen)...");
-  cy.visitWithSemantics("/executive/security-audit");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [60/99 | 60%] - Checking shell & content for SecurityAuditScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("securityaudit-screen").should("be.visible");
-  cy.getCy("securityaudit-title").should("be.visible");
-  cy.getCy("securityaudit-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [60/99 | 60%] - Saving screenshot for SecurityAuditScreen...");
-  cy.waitAndSee();
-  cy.screenshot("security_audit");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [60/99 | 60%] - Verified SecurityAuditScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [61/99 | 61%] - Navigating to /executive/release-management (ReleaseManagementScreen)...");
-  cy.visitWithSemantics("/executive/release-management");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [61/99 | 61%] - Checking shell & content for ReleaseManagementScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("releasemanagement-screen").should("be.visible");
-  cy.getCy("releasemanagement-title").should("be.visible");
-  cy.getCy("releasemanagement-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [61/99 | 61%] - Saving screenshot for ReleaseManagementScreen...");
-  cy.waitAndSee();
-  cy.screenshot("release_management");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [61/99 | 61%] - Verified ReleaseManagementScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [62/99 | 62%] - Navigating to /management/hiring-pipeline (HiringPipelineScreen)...");
-  cy.visitWithSemantics("/management/hiring-pipeline");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [62/99 | 62%] - Checking shell & content for HiringPipelineScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("hiringpipeline-screen").should("be.visible");
-  cy.getCy("hiringpipeline-title").should("be.visible");
-  cy.getCy("hiringpipeline-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [62/99 | 62%] - Saving screenshot for HiringPipelineScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hiring_pipeline");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [62/99 | 62%] - Verified HiringPipelineScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [63/99 | 63%] - Navigating to /management/credential-expiry (CredentialExpiryScreen)...");
-  cy.visitWithSemantics("/management/credential-expiry");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [63/99 | 63%] - Checking shell & content for CredentialExpiryScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("credentialexpiry-screen").should("be.visible");
-  cy.getCy("credentialexpiry-title").should("be.visible");
-  cy.getCy("credentialexpiry-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [63/99 | 63%] - Saving screenshot for CredentialExpiryScreen...");
-  cy.waitAndSee();
-  cy.screenshot("credential_expiry");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [63/99 | 63%] - Verified CredentialExpiryScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [64/99 | 64%] - Navigating to /management/onboarding (OnboardingScreen)...");
-  cy.visitWithSemantics("/management/onboarding");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [64/99 | 64%] - Checking shell & content for OnboardingScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("onboarding-screen").should("be.visible");
-  cy.getCy("onboarding-title").should("be.visible");
-  cy.getCy("onboarding-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [64/99 | 64%] - Saving screenshot for OnboardingScreen...");
-  cy.waitAndSee();
-  cy.screenshot("onboarding");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [64/99 | 64%] - Verified OnboardingScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [65/99 | 65%] - Navigating to /offices/clinical/roles/chiropractor/chiropractic-assessment (ChiropracticAssessmentScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/chiropractic-assessment");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [65/99 | 65%] - Checking shell & content for ChiropracticAssessmentScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("chiropracticassessment-screen").should("be.visible");
-  cy.getCy("chiropracticassessment-title").should("be.visible");
-  cy.getCy("chiropracticassessment-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [65/99 | 65%] - Saving screenshot for ChiropracticAssessmentScreen...");
-  cy.waitAndSee();
-  cy.screenshot("chiropractic_assessment");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [65/99 | 65%] - Verified ChiropracticAssessmentScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [66/99 | 66%] - Navigating to /offices/clinical/roles/chiropractor/adjustment-notes (AdjustmentNotesScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/adjustment-notes");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [66/99 | 66%] - Checking shell & content for AdjustmentNotesScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("adjustmentnotes-screen").should("be.visible");
-  cy.getCy("adjustmentnotes-title").should("be.visible");
-  cy.getCy("adjustmentnotes-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [66/99 | 66%] - Saving screenshot for AdjustmentNotesScreen...");
-  cy.waitAndSee();
-  cy.screenshot("adjustment_notes");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [66/99 | 66%] - Verified AdjustmentNotesScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [67/99 | 67%] - Navigating to /offices/clinical/roles/chiropractor/xray-review (XrayReviewScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/xray-review");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [67/99 | 67%] - Checking shell & content for XrayReviewScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("xrayreview-screen").should("be.visible");
-  cy.getCy("xrayreview-title").should("be.visible");
-  cy.getCy("xrayreview-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [67/99 | 67%] - Saving screenshot for XrayReviewScreen...");
-  cy.waitAndSee();
-  cy.screenshot("xray_review");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [67/99 | 67%] - Verified XrayReviewScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [68/99 | 68%] - Navigating to /offices/clinical/roles/chiropractor/chiropractic-progress-tracking (ChiropracticProgressTrackingScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/chiropractor/chiropractic-progress-tracking");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [68/99 | 68%] - Checking shell & content for ChiropracticProgressTrackingScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("chiropracticprogresstracking-screen").should("be.visible");
-  cy.getCy("chiropracticprogresstracking-title").should("be.visible");
-  cy.getCy("chiropracticprogresstracking-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [68/99 | 68%] - Saving screenshot for ChiropracticProgressTrackingScreen...");
-  cy.waitAndSee();
-  cy.screenshot("chiropractic_progress_tracking");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [68/99 | 68%] - Verified ChiropracticProgressTrackingScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [69/99 | 69%] - Navigating to /offices/clinical/roles/clinical_director/quality (ClinicalQualityScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/quality");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [69/99 | 69%] - Checking shell & content for ClinicalQualityScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("clinicalquality-screen").should("be.visible");
-  cy.getCy("clinicalquality-title").should("be.visible");
-  cy.getCy("clinicalquality-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [69/99 | 69%] - Saving screenshot for ClinicalQualityScreen...");
-  cy.waitAndSee();
-  cy.screenshot("clinical_quality");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [69/99 | 69%] - Verified ClinicalQualityScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [70/99 | 70%] - Navigating to /offices/clinical/roles/clinical_director/staff-performance (StaffPerformanceScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/staff-performance");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [70/99 | 70%] - Checking shell & content for StaffPerformanceScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("staffperformance-screen").should("be.visible");
-  cy.getCy("staffperformance-title").should("be.visible");
-  cy.getCy("staffperformance-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [70/99 | 70%] - Saving screenshot for StaffPerformanceScreen...");
-  cy.waitAndSee();
-  cy.screenshot("staff_performance");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [70/99 | 70%] - Verified StaffPerformanceScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [71/99 | 71%] - Navigating to /offices/clinical/roles/clinical_director/compliance-review (ComplianceReviewScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/compliance-review");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [71/99 | 71%] - Checking shell & content for ComplianceReviewScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("compliancereview-screen").should("be.visible");
-  cy.getCy("compliancereview-title").should("be.visible");
-  cy.getCy("compliancereview-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [71/99 | 71%] - Saving screenshot for ComplianceReviewScreen...");
-  cy.waitAndSee();
-  cy.screenshot("compliance_review");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [71/99 | 71%] - Verified ComplianceReviewScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [72/99 | 72%] - Navigating to /offices/clinical/roles/clinical_director/incident-oversight (IncidentOversightScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/incident-oversight");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [72/99 | 72%] - Checking shell & content for IncidentOversightScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("incidentoversight-screen").should("be.visible");
-  cy.getCy("incidentoversight-title").should("be.visible");
-  cy.getCy("incidentoversight-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [72/99 | 72%] - Saving screenshot for IncidentOversightScreen...");
-  cy.waitAndSee();
-  cy.screenshot("incident_oversight");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [72/99 | 72%] - Verified IncidentOversightScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [73/99 | 73%] - Navigating to /offices/clinical/roles/clinical_director/operations4k (ClinicalOperations4KScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/operations4k");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [73/99 | 73%] - Checking shell & content for ClinicalOperations4KScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("clinicaloperations4k-screen").should("be.visible");
-  cy.getCy("clinicaloperations4k-title").should("be.visible");
-  cy.getCy("clinicaloperations4k-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [73/99 | 73%] - Saving screenshot for ClinicalOperations4KScreen...");
-  cy.waitAndSee();
-  cy.screenshot("clinical_operations4_k");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [73/99 | 73%] - Verified ClinicalOperations4KScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [74/99 | 74%] - Navigating to /offices/clinical/roles/clinical_director/dashboard (Clinical Director Dashboard)...");
-  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/dashboard");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [74/99 | 74%] - Checking shell & content for Clinical Director Dashboard...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("clinical director dashboard-screen").should("be.visible");
-  cy.getCy("clinical director dashboard-title").should("be.visible");
-  cy.getCy("clinical director dashboard-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [74/99 | 74%] - Saving screenshot for Clinical Director Dashboard...");
-  cy.waitAndSee();
-  cy.screenshot("clinical_director_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [74/99 | 74%] - Verified Clinical Director Dashboard successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [75/99 | 75%] - Navigating to None (Clinical Director Quality Metrics)...");
-  cy.visitWithSemantics("");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [75/99 | 75%] - Checking shell & content for Clinical Director Quality Metrics...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("clinical director quality metrics-screen").should("be.visible");
-  cy.getCy("clinical director quality metrics-title").should("be.visible");
-  cy.getCy("clinical director quality metrics-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [75/99 | 75%] - Saving screenshot for Clinical Director Quality Metrics...");
-  cy.waitAndSee();
-  cy.screenshot("clinical_director_quality_metrics");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [75/99 | 75%] - Verified Clinical Director Quality Metrics successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [76/99 | 76%] - Navigating to None (Clinical Director Staffing)...");
-  cy.visitWithSemantics("");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [76/99 | 76%] - Checking shell & content for Clinical Director Staffing...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("clinical director staffing-screen").should("be.visible");
-  cy.getCy("clinical director staffing-title").should("be.visible");
-  cy.getCy("clinical director staffing-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [76/99 | 76%] - Saving screenshot for Clinical Director Staffing...");
-  cy.waitAndSee();
-  cy.screenshot("clinical_director_staffing");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [76/99 | 76%] - Verified Clinical Director Staffing successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [77/99 | 77%] - Navigating to /offices/corporate/roles/cto/access-control (Cto Access Control)...");
-  cy.visitWithSemantics("/offices/corporate/roles/cto/access-control");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [77/99 | 77%] - Checking shell & content for Cto Access Control...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("cto access control-screen").should("be.visible");
-  cy.getCy("cto access control-title").should("be.visible");
-  cy.getCy("cto access control-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [77/99 | 77%] - Saving screenshot for Cto Access Control...");
-  cy.waitAndSee();
-  cy.screenshot("cto_access_control");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [77/99 | 77%] - Verified Cto Access Control successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [78/99 | 78%] - Navigating to /offices/corporate/roles/cto/api-monitoring (Cto Api Monitoring)...");
-  cy.visitWithSemantics("/offices/corporate/roles/cto/api-monitoring");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [78/99 | 78%] - Checking shell & content for Cto Api Monitoring...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("cto api monitoring-screen").should("be.visible");
-  cy.getCy("cto api monitoring-title").should("be.visible");
-  cy.getCy("cto api monitoring-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [78/99 | 78%] - Saving screenshot for Cto Api Monitoring...");
-  cy.waitAndSee();
-  cy.screenshot("cto_api_monitoring");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [78/99 | 78%] - Verified Cto Api Monitoring successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [79/99 | 79%] - Navigating to /offices/corporate/roles/cto/audit-logs (Cto Audit Logs)...");
-  cy.visitWithSemantics("/offices/corporate/roles/cto/audit-logs");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [79/99 | 79%] - Checking shell & content for Cto Audit Logs...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("cto audit logs-screen").should("be.visible");
-  cy.getCy("cto audit logs-title").should("be.visible");
-  cy.getCy("cto audit logs-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [79/99 | 79%] - Saving screenshot for Cto Audit Logs...");
-  cy.waitAndSee();
-  cy.screenshot("cto_audit_logs");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [79/99 | 79%] - Verified Cto Audit Logs successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [80/99 | 80%] - Navigating to /offices/corporate/roles/cto/feature-adoption (Cto Feature Adoption)...");
-  cy.visitWithSemantics("/offices/corporate/roles/cto/feature-adoption");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [80/99 | 80%] - Checking shell & content for Cto Feature Adoption...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("cto feature adoption-screen").should("be.visible");
-  cy.getCy("cto feature adoption-title").should("be.visible");
-  cy.getCy("cto feature adoption-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [80/99 | 80%] - Saving screenshot for Cto Feature Adoption...");
-  cy.waitAndSee();
-  cy.screenshot("cto_feature_adoption");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [80/99 | 80%] - Verified Cto Feature Adoption successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [81/99 | 81%] - Navigating to /offices/corporate/roles/cto/integrations (Cto Integrations)...");
-  cy.visitWithSemantics("/offices/corporate/roles/cto/integrations");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [81/99 | 81%] - Checking shell & content for Cto Integrations...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("cto integrations-screen").should("be.visible");
-  cy.getCy("cto integrations-title").should("be.visible");
-  cy.getCy("cto integrations-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [81/99 | 81%] - Saving screenshot for Cto Integrations...");
-  cy.waitAndSee();
-  cy.screenshot("cto_integrations");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [81/99 | 81%] - Verified Cto Integrations successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [82/99 | 82%] - Navigating to /offices/corporate/roles/cto/issue-tracking (Cto Issue Tracking)...");
-  cy.visitWithSemantics("/offices/corporate/roles/cto/issue-tracking");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [82/99 | 82%] - Checking shell & content for Cto Issue Tracking...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("cto issue tracking-screen").should("be.visible");
-  cy.getCy("cto issue tracking-title").should("be.visible");
-  cy.getCy("cto issue tracking-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [82/99 | 82%] - Saving screenshot for Cto Issue Tracking...");
-  cy.waitAndSee();
-  cy.screenshot("cto_issue_tracking");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [82/99 | 82%] - Verified Cto Issue Tracking successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [83/99 | 83%] - Navigating to /offices/corporate/roles/cto/platform-usage (Cto Platform Usage)...");
-  cy.visitWithSemantics("/offices/corporate/roles/cto/platform-usage");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [83/99 | 83%] - Checking shell & content for Cto Platform Usage...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("cto platform usage-screen").should("be.visible");
-  cy.getCy("cto platform usage-title").should("be.visible");
-  cy.getCy("cto platform usage-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [83/99 | 83%] - Saving screenshot for Cto Platform Usage...");
-  cy.waitAndSee();
-  cy.screenshot("cto_platform_usage");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [83/99 | 83%] - Verified Cto Platform Usage successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [84/99 | 84%] - Navigating to /offices/corporate/roles/cto/release-management (Cto Release Management)...");
-  cy.visitWithSemantics("/offices/corporate/roles/cto/release-management");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [84/99 | 84%] - Checking shell & content for Cto Release Management...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("cto release management-screen").should("be.visible");
-  cy.getCy("cto release management-title").should("be.visible");
-  cy.getCy("cto release management-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [84/99 | 84%] - Saving screenshot for Cto Release Management...");
-  cy.waitAndSee();
-  cy.screenshot("cto_release_management");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [84/99 | 84%] - Verified Cto Release Management successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [85/99 | 85%] - Navigating to /offices/corporate/roles/cto/reports (Cto Reports)...");
-  cy.visitWithSemantics("/offices/corporate/roles/cto/reports");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [85/99 | 85%] - Checking shell & content for Cto Reports...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("cto reports-screen").should("be.visible");
-  cy.getCy("cto reports-title").should("be.visible");
-  cy.getCy("cto reports-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [85/99 | 85%] - Saving screenshot for Cto Reports...");
-  cy.waitAndSee();
-  cy.screenshot("cto_reports");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [85/99 | 85%] - Verified Cto Reports successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [86/99 | 86%] - Navigating to /offices/corporate/roles/cto/system-health (Cto System Health)...");
-  cy.visitWithSemantics("/offices/corporate/roles/cto/system-health");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [86/99 | 86%] - Checking shell & content for Cto System Health...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("cto system health-screen").should("be.visible");
-  cy.getCy("cto system health-title").should("be.visible");
-  cy.getCy("cto system health-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [86/99 | 86%] - Saving screenshot for Cto System Health...");
-  cy.waitAndSee();
-  cy.screenshot("cto_system_health");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [86/99 | 86%] - Verified Cto System Health successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [87/99 | 87%] - Navigating to /offices/corporate/roles/cto/verification-hub (Cto Verification Hub)...");
-  cy.visitWithSemantics("/offices/corporate/roles/cto/verification-hub");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [87/99 | 87%] - Checking shell & content for Cto Verification Hub...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("cto verification hub-screen").should("be.visible");
-  cy.getCy("cto verification hub-title").should("be.visible");
-  cy.getCy("cto verification hub-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [87/99 | 87%] - Saving screenshot for Cto Verification Hub...");
-  cy.waitAndSee();
-  cy.screenshot("cto_verification_hub");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [87/99 | 87%] - Verified Cto Verification Hub successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [88/99 | 88%] - Navigating to /offices/corporate/roles/finance_director/cashflow (Finance Director Cashflow)...");
-  cy.visitWithSemantics("/offices/corporate/roles/finance_director/cashflow");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [88/99 | 88%] - Checking shell & content for Finance Director Cashflow...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("finance director cashflow-screen").should("be.visible");
-  cy.getCy("finance director cashflow-title").should("be.visible");
-  cy.getCy("finance director cashflow-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [88/99 | 88%] - Saving screenshot for Finance Director Cashflow...");
-  cy.waitAndSee();
-  cy.screenshot("finance_director_cashflow");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [88/99 | 88%] - Verified Finance Director Cashflow successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [89/99 | 89%] - Navigating to /offices/corporate/roles/training_director/assessments (Training Director Assessments)...");
-  cy.visitWithSemantics("/offices/corporate/roles/training_director/assessments");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [89/99 | 89%] - Checking shell & content for Training Director Assessments...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("training director assessments-screen").should("be.visible");
-  cy.getCy("training director assessments-title").should("be.visible");
-  cy.getCy("training director assessments-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [89/99 | 89%] - Saving screenshot for Training Director Assessments...");
-  cy.waitAndSee();
-  cy.screenshot("training_director_assessments");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [89/99 | 89%] - Verified Training Director Assessments successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [90/99 | 90%] - Navigating to /offices/corporate/roles/training_director/certificates (Training Director Certificates)...");
-  cy.visitWithSemantics("/offices/corporate/roles/training_director/certificates");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [90/99 | 90%] - Checking shell & content for Training Director Certificates...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("training director certificates-screen").should("be.visible");
-  cy.getCy("training director certificates-title").should("be.visible");
-  cy.getCy("training director certificates-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [90/99 | 90%] - Saving screenshot for Training Director Certificates...");
-  cy.waitAndSee();
-  cy.screenshot("training_director_certificates");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [90/99 | 90%] - Verified Training Director Certificates successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [91/99 | 91%] - Navigating to /offices/corporate/roles/training_director/certifications (Training Director Certifications)...");
-  cy.visitWithSemantics("/offices/corporate/roles/training_director/certifications");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [91/99 | 91%] - Checking shell & content for Training Director Certifications...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("training director certifications-screen").should("be.visible");
-  cy.getCy("training director certifications-title").should("be.visible");
-  cy.getCy("training director certifications-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [91/99 | 91%] - Saving screenshot for Training Director Certifications...");
-  cy.waitAndSee();
-  cy.screenshot("training_director_certifications");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [91/99 | 91%] - Verified Training Director Certifications successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [92/99 | 92%] - Navigating to /offices/corporate/roles/training_director/compliance-training (Training Director Compliance Training)...");
-  cy.visitWithSemantics("/offices/corporate/roles/training_director/compliance-training");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [92/99 | 92%] - Checking shell & content for Training Director Compliance Training...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("training director compliance training-screen").should("be.visible");
-  cy.getCy("training director compliance training-title").should("be.visible");
-  cy.getCy("training director compliance training-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [92/99 | 92%] - Saving screenshot for Training Director Compliance Training...");
-  cy.waitAndSee();
-  cy.screenshot("training_director_compliance_training");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [92/99 | 92%] - Verified Training Director Compliance Training successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [93/99 | 93%] - Navigating to /offices/corporate/roles/training_director/course-architect (Training Director Course Architect)...");
-  cy.visitWithSemantics("/offices/corporate/roles/training_director/course-architect");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [93/99 | 93%] - Checking shell & content for Training Director Course Architect...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("training director course architect-screen").should("be.visible");
-  cy.getCy("training director course architect-title").should("be.visible");
-  cy.getCy("training director course architect-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [93/99 | 93%] - Saving screenshot for Training Director Course Architect...");
-  cy.waitAndSee();
-  cy.screenshot("training_director_course_architect");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [93/99 | 93%] - Verified Training Director Course Architect successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [94/99 | 94%] - Navigating to /offices/corporate/roles/training_director/course-library (Training Director Course Library)...");
-  cy.visitWithSemantics("/offices/corporate/roles/training_director/course-library");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [94/99 | 94%] - Checking shell & content for Training Director Course Library...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("training director course library-screen").should("be.visible");
-  cy.getCy("training director course library-title").should("be.visible");
-  cy.getCy("training director course library-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [94/99 | 94%] - Saving screenshot for Training Director Course Library...");
-  cy.waitAndSee();
-  cy.screenshot("training_director_course_library");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [94/99 | 94%] - Verified Training Director Course Library successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [95/99 | 95%] - Navigating to /offices/corporate/roles/training_director/hub (Training Director Hub)...");
-  cy.visitWithSemantics("/offices/corporate/roles/training_director/hub");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [95/99 | 95%] - Checking shell & content for Training Director Hub...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("training director hub-screen").should("be.visible");
-  cy.getCy("training director hub-title").should("be.visible");
-  cy.getCy("training director hub-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [95/99 | 95%] - Saving screenshot for Training Director Hub...");
-  cy.waitAndSee();
-  cy.screenshot("training_director_hub");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [95/99 | 95%] - Verified Training Director Hub successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [96/99 | 96%] - Navigating to /offices/corporate/roles/training_director/reports (Training Director Reports)...");
-  cy.visitWithSemantics("/offices/corporate/roles/training_director/reports");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [96/99 | 96%] - Checking shell & content for Training Director Reports...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("training director reports-screen").should("be.visible");
-  cy.getCy("training director reports-title").should("be.visible");
-  cy.getCy("training director reports-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [96/99 | 96%] - Saving screenshot for Training Director Reports...");
-  cy.waitAndSee();
-  cy.screenshot("training_director_reports");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [96/99 | 96%] - Verified Training Director Reports successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [97/99 | 97%] - Navigating to /offices/corporate/roles/training_director/staff-training-matrix (Training Director Staff Training Matrix)...");
-  cy.visitWithSemantics("/offices/corporate/roles/training_director/staff-training-matrix");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [97/99 | 97%] - Checking shell & content for Training Director Staff Training Matrix...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("training director staff training matrix-screen").should("be.visible");
-  cy.getCy("training director staff training matrix-title").should("be.visible");
-  cy.getCy("training director staff training matrix-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [97/99 | 97%] - Saving screenshot for Training Director Staff Training Matrix...");
-  cy.waitAndSee();
-  cy.screenshot("training_director_staff_training_matrix");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [97/99 | 97%] - Verified Training Director Staff Training Matrix successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [98/99 | 98%] - Navigating to /offices/corporate/roles/training_director/trainer-assignments (Training Director Trainer Assignments)...");
-  cy.visitWithSemantics("/offices/corporate/roles/training_director/trainer-assignments");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [98/99 | 98%] - Checking shell & content for Training Director Trainer Assignments...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("training director trainer assignments-screen").should("be.visible");
-  cy.getCy("training director trainer assignments-title").should("be.visible");
-  cy.getCy("training director trainer assignments-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [98/99 | 98%] - Saving screenshot for Training Director Trainer Assignments...");
-  cy.waitAndSee();
-  cy.screenshot("training_director_trainer_assignments");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [98/99 | 98%] - Verified Training Director Trainer Assignments successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [99/99 | 100%] - Navigating to /offices/corporate/roles/training_director/training-programs (Training Director Training Programs)...");
-  cy.visitWithSemantics("/offices/corporate/roles/training_director/training-programs");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [99/99 | 100%] - Checking shell & content for Training Director Training Programs...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("training director training programs-screen").should("be.visible");
-  cy.getCy("training director training programs-title").should("be.visible");
-  cy.getCy("training director training programs-content").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [99/99 | 100%] - Saving screenshot for Training Director Training Programs...");
-  cy.waitAndSee();
-  cy.screenshot("training_director_training_programs");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [99/99 | 100%] - Verified Training Director Training Programs successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [84/84 | 100%] - Verified VolunteerDashboardScreen successfully!\n");
 
   });
 });

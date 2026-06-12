@@ -6,7 +6,7 @@
 describe("Screen - scheduling_dashboard", () => {
   it("opens and verifies screen scheduling_dashboard via real credentials login and logout", () => {
     cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "scheduler");
+      const user = users.find((u) => u.role_code === "guest");
       const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
       // 1. Visit login page
@@ -23,9 +23,9 @@ describe("Screen - scheduling_dashboard", () => {
 
       // 2. Type credentials
       cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.typeIntoField("login-email", user.email);
       cy.wait(500);
-      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.typeIntoField("login-password", user.password);
       cy.wait(500);
 
       // Click submit
@@ -33,8 +33,8 @@ describe("Screen - scheduling_dashboard", () => {
       cy.wait(6000);
 
       // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /staff/scheduling-dashboard...");
-      cy.visitWithSemantics(targetBaseUrl + "/staff/scheduling-dashboard");
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/staff/scheduling_dashboard_screen.dart...");
+      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/staff/scheduling_dashboard_screen.dart");
       cy.waitAndSee();
 
       cy.verifyShellExists();

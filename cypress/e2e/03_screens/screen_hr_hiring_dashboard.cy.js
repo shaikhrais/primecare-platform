@@ -23,9 +23,9 @@ describe("Screen - hr_hiring_dashboard", () => {
 
       // 2. Type credentials
       cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.typeIntoField("login-email", user.email);
       cy.wait(500);
-      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.typeIntoField("login-password", user.password);
       cy.wait(500);
 
       // Click submit
@@ -33,8 +33,8 @@ describe("Screen - hr_hiring_dashboard", () => {
       cy.wait(6000);
 
       // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /offices/franchise/roles/hr_hiring/dashboard...");
-      cy.visitWithSemantics(targetBaseUrl + "/offices/franchise/roles/hr_hiring/dashboard");
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /offices/corporate/roles/hr_hiring/dashboard...");
+      cy.visitWithSemantics(targetBaseUrl + "/offices/corporate/roles/hr_hiring/dashboard");
       cy.waitAndSee();
 
       cy.verifyShellExists();

@@ -586,7 +586,7 @@ def scan_software_governance(conn, parsed_screens, anomalies):
 
     # 5. Populate Drift Findings and Implementation Tasks
     print("Synchronizing outstanding drift findings and implementation tasks checklist...")
-    cursor.execute("DELETE FROM drift_findings WHERE status = 'open';")
+    cursor.execute("DELETE FROM governance_findings WHERE finding_category = 'drift' AND status = 'open';")
     cursor.execute("DELETE FROM implementation_tasks WHERE status = 'pending';")
     
     # Track physical vs database screens
@@ -597,7 +597,7 @@ def scan_software_governance(conn, parsed_screens, anomalies):
     for scr_code, parsed in parsed_screens.items():
         if scr_code not in db_codes:
             msg = f"Screen {parsed['screen_name']} exists on disk but is missing in the database registry."
-            cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, message, status) VALUES (1, 'missing_db_record', 'high', ?, 'open');",
+            cursor.execute("INSERT INTO governance_findings (app_id, finding_category, finding_code, title, severity, description, status) VALUES (1, 'drift', 'missing_db_record', 'Drift Finding: missing_db_record', 'high', ?, 'open');",
                            (msg,))
             cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, task_type, assigned_agent, status) VALUES (1, ?, ?, 'high', 'reconciliation', 'AI Agent', 'pending');",
                            (f"Register {parsed['screen_name']} in Database", msg))
@@ -607,7 +607,7 @@ def scan_software_governance(conn, parsed_screens, anomalies):
         if db_scr[1] != 'global_shared_components' and db_scr[3]:
             if not os.path.exists(db_scr[3]):
                 msg = f"Database screen {db_scr[2]} refers to route_path '{db_scr[3]}' which does not exist on disk."
-                cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, related_screen_id, message, status) VALUES (1, 'missing_physical_file', 'high', ?, ?, 'open');",
+                cursor.execute("INSERT INTO governance_findings (app_id, finding_category, finding_code, title, severity, related_screen_id, description, status) VALUES (1, 'drift', 'missing_physical_file', 'Drift Finding: missing_physical_file', 'high', ?, ?, 'open');",
                                (db_scr[0], msg))
                 cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, task_type, related_screen_id, assigned_agent, status) VALUES (1, ?, ?, 'high', 'reconciliation', ?, 'AI Agent', 'pending');",
                                (f"Scaffold Screen File for {db_scr[2]}", msg, db_scr[0]))
@@ -623,7 +623,7 @@ def scan_software_governance(conn, parsed_screens, anomalies):
     
     for action in stub_actions:
         msg = f"Action handler '{action[2]}' in screen '{action[0]}' is currently wired to a mock stub: '{action[3]}'"
-        cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, message, status) VALUES (1, 'mock_api_connected', 'medium', ?, 'open');",
+        cursor.execute("INSERT INTO governance_findings (app_id, finding_category, finding_code, title, severity, description, status) VALUES (1, 'drift', 'mock_api_connected', 'Drift Finding: mock_api_connected', 'medium', ?, 'open');",
                        (msg,))
         cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, task_type, assigned_agent, status) VALUES (1, ?, ?, 'medium', 'reconciliation', 'AI Agent', 'pending');",
                        (f"Harden API handler {action[2]} in {action[0]}", msg))
@@ -1071,7 +1071,7 @@ def reconcile():
             msg = f"Undocumented Screen: Physical dashboard screen '{parsed['screen_name']}' is missing in the database registry."
             anomalies.append(f"- **[ERROR]** {msg}")
             
-            cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, message, status) VALUES (1, 'missing_route', 'high', ?, 'open');", (msg,))
+            cursor.execute("INSERT INTO governance_findings (app_id, finding_category, finding_code, title, severity, description, status) VALUES (1, 'drift', 'missing_route', 'Drift Finding: missing_route', 'high', ?, 'open');", (msg,))
             cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, task_type, assigned_agent, status) VALUES (1, ?, ?, 'high', 'reconciliation', 'AI Agent', 'pending');", (f"Register {parsed['screen_name']} in Database", msg))
             
             role_code = resolve_role_id(screen_code)
@@ -1081,7 +1081,7 @@ def reconcile():
             # Auto-reconcile: insert stub screen and permissions
             layout_key = 'clinicalLayout' if parsed['has_physical_sidebar'] else 'masterLayout'
             cursor.execute("""
-            INSERT OR IGNORE INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, implementation_status)
+            INSERT OR IGNORE INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, screen_status)
             VALUES (?, ?, ?, ?, 'dashboard', ?, 'active')
             """, (app_db_id, screen_code, parsed['screen_name'], parsed['path'], layout_key))
             screen_db_id = cursor.lastrowid
@@ -1123,7 +1123,7 @@ def reconcile():
             msg = f"Mismatched Registry: Expected dashboard screen '{screen_code}' at path '{db_screen['route_path']}' is missing on disk."
             anomalies.append(f"- **[ERROR]** {msg}")
             
-            cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, related_screen_id, message, status) VALUES (1, 'missing_route', 'high', ?, ?, 'open');", (db_screen['id'], msg))
+            cursor.execute("INSERT INTO governance_findings (app_id, finding_category, finding_code, title, severity, related_screen_id, description, status) VALUES (1, 'drift', 'missing_route', 'Drift Finding: missing_route', 'high', ?, ?, 'open');", (db_screen['id'], msg))
             cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, related_screen_id, status) VALUES (1, ?, ?, 'high', ?, 'pending');", (f"Restore physical file for {db_screen['screen_name']}", msg, db_screen['id']))
             conn.commit()
 
@@ -1146,7 +1146,7 @@ def reconcile():
             msg = f"Layout Mismatch: Dashboard '{parsed['screen_name']}' is '{'Split Dual-Panel' if has_physical else 'Single-Column'}' in code, but database expects '{'Split Dual-Panel' if expected_sidebar else 'Single-Column'}'"
             anomalies.append(f"- **[ERROR]** {msg}")
             
-            cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, related_screen_id, message, status) VALUES (1, 'layout_mismatch', 'high', ?, ?, 'open');", (screen_db_id, msg))
+            cursor.execute("INSERT INTO governance_findings (app_id, finding_category, finding_code, title, severity, related_screen_id, description, status) VALUES (1, 'drift', 'layout_mismatch', 'Drift Finding: layout_mismatch', 'high', ?, ?, 'open');", (screen_db_id, msg))
             cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, related_screen_id, status) VALUES (1, ?, ?, 'high', ?, 'pending');", (f"Fix Layout for {parsed['screen_name']}", msg, screen_db_id))
             conn.commit()
 
@@ -1164,7 +1164,7 @@ def reconcile():
                 msg = f"Missing Widget Action: Expected action handler '{db_func['function_name']}' (Code: '{func_code}') in dashboard '{parsed['screen_name']}' is missing in the code."
                 anomalies.append(f"- **[WARNING]** {msg}")
                 
-                cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, related_screen_id, message, status) VALUES (1, 'missing_widget', 'medium', ?, ?, 'open');", (screen_db_id, msg))
+                cursor.execute("INSERT INTO governance_findings (app_id, finding_category, finding_code, title, severity, related_screen_id, description, status) VALUES (1, 'drift', 'missing_widget', 'Drift Finding: missing_widget', 'medium', ?, ?, 'open');", (screen_db_id, msg))
                 cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, related_screen_id, status) VALUES (1, ?, ?, 'medium', ?, 'pending');", (f"Implement {db_func['function_name']} widget", msg, screen_db_id))
                 
                 # Update status to pending
@@ -1189,7 +1189,7 @@ def reconcile():
                 msg = f"Undocumented Widget: Sidebar item '{phys['label']}' (ID: '{phys_code}') in screen '{parsed['screen_name']}' exists in code but is not declared in the database spec."
                 anomalies.append(f"- **[WARNING]** {msg}")
                 
-                cursor.execute("INSERT INTO drift_findings (app_id, finding_type, severity, related_screen_id, message, status) VALUES (1, 'undocumented_widget', 'low', ?, ?, 'open');", (screen_db_id, msg))
+                cursor.execute("INSERT INTO governance_findings (app_id, finding_category, finding_code, title, severity, related_screen_id, description, status) VALUES (1, 'drift', 'undocumented_widget', 'Drift Finding: undocumented_widget', 'low', ?, ?, 'open');", (screen_db_id, msg))
                 cursor.execute("INSERT INTO implementation_tasks (app_id, task_title, task_description, priority, related_screen_id, status) VALUES (1, ?, ?, 'low', ?, 'pending');", (f"Register widget {phys['label']} in DB", msg, screen_db_id))
                 conn.commit()
 
@@ -1201,7 +1201,7 @@ def reconcile():
     cursor.execute("SELECT COUNT(*) FROM screens WHERE screen_type = 'dashboard';")
     total_dashboards = cursor.fetchone()[0] or 1
     
-    cursor.execute("SELECT COUNT(DISTINCT related_screen_id) FROM drift_findings WHERE finding_type = 'layout_mismatch';")
+    cursor.execute("SELECT COUNT(DISTINCT related_screen_id) FROM governance_findings WHERE finding_category = 'drift' AND finding_code = 'layout_mismatch';")
     mismatched_db_count = cursor.fetchone()[0] or 0
     layout_compliance_score = ((total_dashboards - mismatched_db_count) / total_dashboards) * 100.0
 
@@ -1230,7 +1230,7 @@ def reconcile():
         if cat_total == 0:
             continue
             
-        cursor.execute("SELECT COUNT(DISTINCT related_screen_id) FROM drift_findings WHERE finding_type = 'layout_mismatch' AND related_screen_id IN ({});".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 0;")
+        cursor.execute("SELECT COUNT(DISTINCT related_screen_id) FROM governance_findings WHERE finding_category = 'drift' AND finding_code = 'layout_mismatch' AND related_screen_id IN ({});".format(','.join(map(str, cat_ids))) if cat_ids else "SELECT 0;")
         cat_mismatches = cursor.fetchone()[0] or 0
         cat_compliant = cat_total - cat_mismatches
         

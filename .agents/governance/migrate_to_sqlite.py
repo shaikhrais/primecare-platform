@@ -408,21 +408,34 @@ def migrate():
     
     apps_mapping = {}  # short_code -> DB ID
     
+    public_url_map = {
+        'au': 'https://primecare-auth.pages.dev',
+        'go': 'https://primecare-governance.pages.dev',
+        'cl': 'https://primecare-client.pages.dev',
+        'ci': 'https://primecare-clinic.pages.dev',
+        'co': 'https://primecare-corporate.pages.dev',
+        'ma': 'https://primecare-marketing.pages.dev',
+        'su': 'https://primecare-support.pages.dev',
+        'fr': 'https://primecare-franchise.pages.dev',
+        'bd': 'https://primecare-business-development.pages.dev',
+        'eb': 'https://primecare-enterprise-blueprint.pages.dev',
+        'wa': 'https://admin.primecare.io',
+        'ui': 'https://play.google.com/store/apps/details?id=io.primecare.client',
+        'wo': 'https://api.primecare.io'
+    }
+
     def _seed_app(app_code, name, platform):
         logo = f"/assets/logos/{app_code}.png"
-        pub_url = f"https://{app_code}.primecare.io"
+        pub_url = public_url_map.get(app_code, f"https://{app_code}.primecare.io")
         api_url = f"https://api.primecare.io/v1/{app_code}"
         
         if app_code == 'ui':
-            pub_url = "https://play.google.com/store/apps/details?id=io.primecare.client"
             api_url = "https://api.primecare.io/v1"
             logo = "/assets/logos/primecare_ui.png"
         elif app_code == 'wa':
-            pub_url = "https://admin.primecare.io"
             api_url = "https://api.primecare.io/v1/admin"
             logo = "/assets/logos/web_admin.png"
         elif app_code == 'wo':
-            pub_url = "https://api.primecare.io"
             api_url = "https://api.primecare.io/v1/health"
             logo = "/assets/logos/worker_api.png"
             
@@ -680,7 +693,8 @@ def migrate():
             app_db_id = apps_mapping.get(app_code_for_screen, ui_app_db_id)
 
             # 4a. Insert Screen
-            deep_link = f"https://{app_code_for_screen}.primecare.io/dashboard/{screen_code}"
+            app_pub_url = public_url_map.get(app_code_for_screen, f"https://{app_code_for_screen}.primecare.io")
+            deep_link = f"{app_pub_url}/dashboard/{screen_code}"
             icon_name = 'stethoscope' if layout_key == 'clinicalLayout' else ('shield' if layout_key == 'adminLayout' else 'home')
             
             cursor.execute("""
