@@ -33,17 +33,17 @@ describe("Screen - dynamic_screen_dashboard", () => {
       cy.wait(6000);
 
       // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/common/dynamic_screen_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/common/dynamic_screen_dashboard_screen.dart");
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /common/dynamic-dashboard...");
+      cy.visitWithSemantics(targetBaseUrl + "/common/dynamic-dashboard");
       cy.waitAndSee();
 
       cy.verifyShellExists();
       cy.verifyNotBlank();
 
       // Screen assertions
-      // cy.getCy("dynamicdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("dynamicdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("dynamicdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+      // cy.getCy("dynamicscreendashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+      // cy.getCy("dynamicscreendashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+      // cy.getCy("dynamicscreendashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
       // Take screen screenshot
       cy.screenshot("dynamic_screen_dashboard");

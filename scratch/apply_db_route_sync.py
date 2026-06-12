@@ -163,7 +163,9 @@ def main():
         if not target_route:
             continue
             
+        is_duplicate = False
         if (app_id, target_route) in occupied_routes:
+            is_duplicate = True
             suffix_idx = 1
             while True:
                 modified_route = f"{target_route}-dup-{suffix_idx}"
@@ -179,11 +181,19 @@ def main():
             "screen_code": up["screen_code"],
             "old_route": up["old_route"],
             "new_route": target_route,
-            "role_code": up["role_code"]
+            "role_code": up["role_code"],
+            "is_route_active": 0 if is_duplicate else 1
         })
         
-    # Perform updates in database
+    # Perform updates in database using a two-pass approach to avoid UNIQUE constraint violations
     updated_count = 0
+    
+    # Pass 1: Set temporary route paths
+    for up in final_updates:
+        temp_route = f"/temp-sync-route-{up['id']}"
+        cur.execute("UPDATE screens SET route_path = ? WHERE id = ?;", (temp_route, up["id"]))
+        
+    # Pass 2: Set final route paths, deep links, and is_route_active
     for up in final_updates:
         publish_url = app_url_map.get(up["app_id"], "")
         if publish_url.endswith("/"):
@@ -195,9 +205,10 @@ def main():
             
         new_deep_link = f"{publish_url}{new_route}"
         
-        cur.execute("UPDATE screens SET route_path = ?, deep_link_url = ? WHERE id = ?;", (up["new_route"], new_deep_link, up["id"]))
+        cur.execute("UPDATE screens SET route_path = ?, deep_link_url = ?, is_route_active = ? WHERE id = ?;", 
+                    (up["new_route"], new_deep_link, up["is_route_active"], up["id"]))
         updated_count += 1
-        print(f"Updated {up['screen_code']} ({up['role_code']}): route={up['new_route']} | Deep Link: {new_deep_link}")
+        print(f"Updated {up['screen_code']} ({up['role_code']}): route={up['new_route']} | active={up['is_route_active']} | Deep Link: {new_deep_link}")
             
     conn.commit()
     conn.close()
