@@ -1,0 +1,28 @@
+Screen Code: global_settings
+Screen Name: Global Settings
+
+Required Components:
+- ColorPicker
+- ThemeSelector
+- NotificationBanner
+- LoadingIndicator
+- ThemePreview
+
+Required Functions/Handlers:
+- validateForm
+- saveSettings
+- showSuccessMessage
+- showErrorMessage
+- previewTheme
+
+Required Buttons:
+- Save Settings
+- Revert to Default
+
+Required APIs:
+- /v1/settings/save
+- /v1/settings/get
+
+Required Semantic Keys (data-cy):
+- globalsettings-btn-save
+- globalsettings-btn-revert

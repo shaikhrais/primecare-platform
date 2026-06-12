@@ -1,0 +1,34 @@
+Screen Code: regional_manager_branch_comparison
+Screen Name: Regional Manager Branch Comparison
+
+Required Components:
+- KPIOverview
+- PerformanceComparisonChart
+- AlertsWidget
+- DetailedReports
+- UserFeedbackSection
+- RealTimeDataDisplay
+
+Required Functions/Handlers:
+- monitorBranchPerformance
+- compareBranchPerformance
+- analyzeTrends
+- generateReports
+- addressPerformanceIssues
+- reviewUserFeedback
+
+Required Buttons:
+- Generate Report
+- Collaborate with Branch Managers
+- Review Feedback
+
+Required APIs:
+- /v1/branches/performance
+- /v1/branches/comparison
+- /v1/reports/generate
+- /v1/feedback/review
+
+Required Semantic Keys (data-cy):
+- regional-manager-btn-generate-report
+- regional-manager-btn-collaborate
+- regional-manager-btn-review-feedback

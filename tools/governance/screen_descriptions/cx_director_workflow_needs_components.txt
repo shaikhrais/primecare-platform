@@ -1,0 +1,44 @@
+Screen Code: cx_director_workflow
+Screen Name: CxDirectorWorkflowScreen
+
+Required Components:
+- CustomerSatisfactionCard
+- NetPromoterScoreChart
+- RetentionRateGraph
+- FeedbackTrendsWidget
+- ResponseTimeTracker
+- EmployeeSatisfactionCard
+- EngagementMetricsChart
+- ComplianceScoreCard
+- OperationalLogsViewer
+- RealTimeAlertsPanel
+
+Required Functions/Handlers:
+- fetchCustomerMetrics
+- generateReport
+- setAlert
+- exportData
+
+Required Buttons:
+- Generate Report
+- View Details
+- Export Data
+- Set Alerts
+
+Required APIs:
+- /v1/customer/satisfaction
+- /v1/customer/nps
+- /v1/customer/retention
+- /v1/customer/feedback
+- /v1/customer/response-times
+- /v1/employee/satisfaction
+- /v1/customer/engagement
+- /v1/compliance/quality
+- /v1/operational/logs
+- /v1/alerts
+
+Required Semantic Keys (data-cy):
+- cxdashboard-btn-generate-report
+- cxdashboard-btn-view-details
+- cxdashboard-btn-export-data
+- cxdashboard-btn-set-alerts

@@ -1,0 +1,52 @@
+Screen Code: rn_care_plan_review
+Screen Name: RnCarePlanReviewScreen
+
+Required Components:
+- PatientStatusOverview
+- ComplianceAuditResults
+- MedicationRecords
+- PatientEducationResources
+- TelemetryLogs
+- OperationalAuditLogs
+- KPIWidget
+- CriticalAlerts
+- TeamCommunicationTool
+- TrainingResources
+
+Required Functions/Handlers:
+- submitCarePlan
+- viewPatientRecords
+- logMedication
+- accessTraining
+- sendAlert
+
+Required Buttons:
+- Submit Care Plan
+- View Patient Records
+- Log Medication
+- Access Training
+- Send Alert
+
+Required APIs:
+- /v1/patient/status
+- /v1/compliance/audit
+- /v1/medications/records
+- /v1/patient/education
+- /v1/telemetry/logs
+- /v1/audit/operational
+- /v1/kpi
+- /v1/alerts/critical
+- /v1/team/communication
+- /v1/training/resources
+
+Required Semantic Keys (data-cy):
+- rn-dashboard-patient-status
+- rn-dashboard-compliance-audit
+- rn-dashboard-medication-records
+- rn-dashboard-education-resources
+- rn-dashboard-telemetry-logs
+- rn-dashboard-operational-logs
+- rn-dashboard-kpi
+- rn-dashboard-critical-alerts
+- rn-dashboard-team-communication
+- rn-dashboard-training-resources

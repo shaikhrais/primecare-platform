@@ -1,0 +1,46 @@
+Screen Code: customer_support_analytics
+Screen Name: CustomerSupportAnalyticsScreen
+
+Required Components:
+- TicketVolumeStatusOverview
+- ResponseTimeChart
+- CustomerSatisfactionScore
+- EscalationRateChart
+- AgentPerformanceMetrics
+- KnowledgeBaseUsageStats
+- CommonIssuesReport
+- SLAComplianceRate
+- TrainingResourceAvailability
+- IntegrationTools
+
+Required Functions/Handlers:
+- respondToInquiry
+- escalateIssue
+- updateKnowledgeBase
+- conductFollowUp
+- analyzeFeedback
+- trainStaff
+
+Required Buttons:
+- Respond to Inquiry
+- Escalate Issue
+- Update Knowledge Base
+- Conduct Follow-Up
+- Analyze Feedback
+- Train Staff
+
+Required APIs:
+- /v1/support/tickets
+- /v1/support/feedback
+- /v1/support/escalations
+- /v1/support/performance
+- /v1/support/knowledgebase
+- /v1/support/slas
+
+Required Semantic Keys (data-cy):
+- customer-support-btn-respond
+- customer-support-btn-escalate
+- customer-support-btn-update-kb
+- customer-support-btn-followup
+- customer-support-btn-analyze
+- customer-support-btn-train

@@ -1,0 +1,43 @@
+Screen Code: local_marketing_manager_analytics
+Screen Name: LocalMarketingManagerAnalyticsScreen
+
+Required Components:
+- KPIOverviewCard
+- RealTimeAnalyticsChart
+- BudgetTrackingWidget
+- SocialMediaMetricsCard
+- LocalSEORankingChart
+- CommunityEngagementStats
+- CompetitorAnalysisWidget
+- CustomerFeedbackCard
+- CampaignPerformanceComparisonChart
+- PerformanceAlertsWidget
+
+Required Functions/Handlers:
+- refreshDashboardData
+- viewDetailedReport
+- exportMetrics
+- setBudgetAlerts
+
+Required Buttons:
+- Refresh Data
+- View Detailed Report
+- Export Metrics
+- Set Budget Alerts
+
+Required APIs:
+- /v1/local_marketing/kpi
+- /v1/local_marketing/analytics
+- /v1/local_marketing/budget
+- /v1/local_marketing/social_media
+- /v1/local_marketing/seo
+- /v1/local_marketing/community_engagement
+- /v1/local_marketing/competitor_analysis
+- /v1/local_marketing/customer_feedback
+- /v1/local_marketing/campaign_performance
+
+Required Semantic Keys (data-cy):
+- localmarketing-kpi-overview
+- localmarketing-refresh-data
+- localmarketing-export-metrics
+- localmarketing-budget-alerts

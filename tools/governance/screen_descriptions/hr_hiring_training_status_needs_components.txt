@@ -1,0 +1,31 @@
+Screen Code: hr_hiring_training_status
+Screen Name: Hr Hiring Training Status
+
+Required Components:
+- TrainingCompletionChart
+- TrainingProgressGraph
+- UserFeedbackSection
+- TrainingResourcesAccess
+- EngagementMetricsSummary
+
+Required Functions/Handlers:
+- fetchTrainingCompletionStats
+- generateTrainingProgressReport
+- alertOverdueTraining
+- submitUserFeedback
+
+Required Buttons:
+- Update Training Materials
+- Submit Feedback
+
+Required APIs:
+- /v1/hr/training/completion
+- /v1/hr/training/resources
+- /v1/hr/training/feedback
+
+Required Semantic Keys (data-cy):
+- training-completion-chart
+- training-progress-graph
+- user-feedback-section
+- training-resources-access
+- engagement-metrics-summary

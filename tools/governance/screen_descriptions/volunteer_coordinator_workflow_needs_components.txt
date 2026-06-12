@@ -1,0 +1,32 @@
+Screen Code: volunteer_coordinator_workflow
+Screen Name: VolunteerCoordinatorWorkflowScreen
+
+Required Components:
+- TaskList
+- Dashboard
+- NotificationPanel
+- CollaborationTool
+- PerformanceMetrics
+
+Required Functions/Handlers:
+- executeTask
+- refreshDashboard
+- joinSandbox
+- sendNotification
+
+Required Buttons:
+- Execute Task
+- Refresh Dashboard
+- Join Sandbox
+- Collaborate
+
+Required APIs:
+- /v1/volunteers/tasks
+- /v1/volunteers/dashboard
+- /v1/volunteers/notifications
+
+Required Semantic Keys (data-cy):
+- volunteer-dashboard-refresh
+- volunteer-task-execute
+- volunteer-sandbox-join
+- volunteer-collaborate

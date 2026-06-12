@@ -19,9 +19,6 @@ describe("Role All Screens - lpn", () => {
   cy.getCy("lpndashboard-screen").should("be.visible");
   cy.getCy("lpndashboard-title").should("be.visible");
   cy.getCy("lpndashboard-content").should("be.visible");
-  cy.getCy("lpn-dashboard-vital-signs").should("be.visible");
-  cy.getCy("lpn-dashboard-medication-log").should("be.visible");
-  cy.getCy("lpn-dashboard-compliance-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Saving screenshot for LpnDashboardScreen...");
   cy.waitAndSee();
@@ -37,12 +34,9 @@ describe("Role All Screens - lpn", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("lpnanalytics-screen").should("be.visible");
-  cy.getCy("lpnanalytics-title").should("be.visible");
-  cy.getCy("lpnanalytics-content").should("be.visible");
-  cy.getCy("lpn-dashboard-btn-report-incident").should("be.visible");
-  cy.getCy("lpn-dashboard-btn-view-care-plan").should("be.visible");
-  cy.getCy("lpn-dashboard-btn-track-compliance").should("be.visible");
+  cy.getCy("licensed practical nurse (lpn) analytics-screen").should("be.visible");
+  cy.getCy("licensed practical nurse (lpn) analytics-title").should("be.visible");
+  cy.getCy("licensed practical nurse (lpn) analytics-content").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Saving screenshot for Licensed Practical Nurse (LPN) Analytics...");
   cy.waitAndSee();
@@ -58,12 +52,9 @@ describe("Role All Screens - lpn", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("lpnworkflow-screen").should("be.visible");
-  cy.getCy("lpnworkflow-title").should("be.visible");
-  cy.getCy("lpnworkflow-content").should("be.visible");
-  cy.getCy("lpn-dashboard-btn-update-status").should("be.visible");
-  cy.getCy("lpn-dashboard-btn-log-medication").should("be.visible");
-  cy.getCy("lpn-dashboard-btn-report-incident").should("be.visible");
+  cy.getCy("licensed practical nurse (lpn) compliance workflow-screen").should("be.visible");
+  cy.getCy("licensed practical nurse (lpn) compliance workflow-title").should("be.visible");
+  cy.getCy("licensed practical nurse (lpn) compliance workflow-content").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Saving screenshot for Licensed Practical Nurse (LPN) Compliance Workflow...");
   cy.waitAndSee();

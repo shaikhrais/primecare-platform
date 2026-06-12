@@ -1,0 +1,57 @@
+Screen Code: owner_compliance
+Screen Name: OwnerComplianceScreen
+
+Required Components:
+- ComplianceStatusCard
+- AuditLogTable
+- PerformanceMetricsChart
+- SecurityStatusIndicator
+- AlertsNotificationPanel
+- EmployeeTrainingTracker
+- FinancialPerformanceDashboard
+- CustomerFeedbackWidget
+- ActionItemsList
+- HistoricalDataChart
+
+Required Functions/Handlers:
+- fetchComplianceStatus
+- fetchAuditLogs
+- fetchPerformanceMetrics
+- fetchSecurityStatus
+- fetchAlerts
+- fetchEmployeeTrainingProgress
+- fetchFinancialIndicators
+- fetchCustomerFeedback
+- fetchActionItems
+- fetchHistoricalData
+
+Required Buttons:
+- View Audit Logs
+- Update Compliance Status
+- Track Employee Performance
+- Submit Feedback
+- Generate Report
+
+Required APIs:
+- /v1/franchise/compliance/status
+- /v1/franchise/audit/logs
+- /v1/franchise/performance/metrics
+- /v1/franchise/security/status
+- /v1/franchise/alerts
+- /v1/franchise/employee/training
+- /v1/franchise/financial/performance
+- /v1/franchise/customer/feedback
+- /v1/franchise/action/items
+- /v1/franchise/historical/data
+
+Required Semantic Keys (data-cy):
+- owner-compliance-status
+- owner-audit-logs
+- owner-performance-metrics
+- owner-security-status
+- owner-alerts
+- owner-employee-training
+- owner-financial-performance
+- owner-customer-feedback
+- owner-action-items
+- owner-historical-data

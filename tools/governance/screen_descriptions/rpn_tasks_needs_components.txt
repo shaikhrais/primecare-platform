@@ -1,0 +1,62 @@
+Screen Code: rpn_tasks
+Screen Name: RpnTasksScreen
+
+Required Components:
+- PatientAssessmentCard
+- MedicationAdministrationWidget
+- VitalSignsMonitor
+- DailyLivingActivitiesTracker
+- HealthcareTeamCollaborationTool
+- PatientEducationModule
+- PatientRecordsViewer
+- ComplianceStatusIndicator
+- CarePlanningDashboard
+- EmergencyResponseAlert
+
+Required Functions/Handlers:
+- conductPatientAssessment
+- administerMedication
+- documentVitalSigns
+- assistDailyLiving
+- collaborateWithTeam
+- providePatientEducation
+- maintainPatientRecords
+- checkCompliance
+- participateInCarePlanning
+- respondToEmergency
+
+Required Buttons:
+- Conduct Assessment
+- Administer Medication
+- Document Vital Signs
+- Assist with Daily Living
+- Collaborate with Team
+- Provide Education
+- View Records
+- Check Compliance
+- Participate in Care Planning
+- Respond to Emergency
+
+Required APIs:
+- /v1/patient/assessments
+- /v1/patient/medications
+- /v1/patient/vitals
+- /v1/patient/daily-living
+- /v1/team/collaboration
+- /v1/patient/education
+- /v1/patient/records
+- /v1/compliance/status
+- /v1/care/planning
+- /v1/emergency/response
+
+Required Semantic Keys (data-cy):
+- rpn-tasks-btn-assessment
+- rpn-tasks-btn-medication
+- rpn-tasks-btn-vitals
+- rpn-tasks-btn-daily-living
+- rpn-tasks-btn-collaborate
+- rpn-tasks-btn-education
+- rpn-tasks-btn-records
+- rpn-tasks-btn-compliance
+- rpn-tasks-btn-care-planning
+- rpn-tasks-btn-emergency

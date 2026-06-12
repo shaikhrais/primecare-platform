@@ -1,0 +1,33 @@
+Screen Code: scheduler_coordinator_open_shifts
+Screen Name: Scheduler Coordinator Open Shifts
+
+Required Components:
+- ShiftStatusOverview
+- ShiftAssignmentPanel
+- ShiftRequestManagement
+- TeamCommunicationTool
+- ShiftCoverageAnalysisChart
+
+Required Functions/Handlers:
+- monitorOpenShifts
+- assignShift
+- manageShiftRequests
+- communicateShiftChanges
+- analyzeShiftCoverage
+
+Required Buttons:
+- Assign Shift
+- Review Requests
+- Notify Team
+
+Required APIs:
+- /v1/shifts/open
+- /v1/shifts/assign
+- /v1/shifts/requests
+- /v1/communication/team
+- /v1/shifts/coverage
+
+Required Semantic Keys (data-cy):
+- scheduler-btn-assign-shift
+- scheduler-btn-review-requests
+- scheduler-btn-notify-team

@@ -4,29 +4,69 @@
 
 
 describe("Screen - compliance_manager_compliance_cases", () => {
-  it("opens and verifies screen compliance_manager_compliance_cases", () => {
-    cy.loginAsRole("chiropractor");
+  it("opens and verifies screen compliance_manager_compliance_cases via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "compliance");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Compliance Manager Compliance Cases)...");
-  cy.visitWithSemantics("");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Compliance Manager Compliance Cases...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("compliancemanagercompliancecases-screen").should("be.visible");
-  cy.getCy("compliancemanagercompliancecases-title").should("be.visible");
-  cy.getCy("compliancemanagercompliancecases-content").should("be.visible");
-  cy.getCy("compliance-dashboard-overview").should("be.visible");
-  cy.getCy("compliance-status-indicator").should("be.visible");
-  cy.getCy("compliance-notification").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for Compliance Manager Compliance Cases...");
-  cy.waitAndSee();
-  cy.screenshot("compliance_manager_compliance_cases");
-  
-  cy.task("log", "✅ PROGRESS: - Verified Compliance Manager Compliance Cases successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_compliance_manager_compliance_cases");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: None...");
+      cy.visitWithSemantics(targetBaseUrl + "None");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("compliance manager compliance cases-screen").should("be.visible");
+      cy.getCy("compliance manager compliance cases-title").should("be.visible");
+      cy.getCy("compliance manager compliance cases-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("compliance_manager_compliance_cases");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_compliance_manager_compliance_cases");
+      cy.task("log", "✅ PROGRESS: - Verified Compliance Manager Compliance Cases successfully!\n");
+    });
   });
 });

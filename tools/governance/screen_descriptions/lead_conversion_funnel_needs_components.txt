@@ -1,0 +1,26 @@
+Screen Code: lead_conversion_funnel
+Screen Name: Lead Conversion Funnel
+
+Required Components:
+- ImpressionMetricCard
+- WebsiteVisitChart
+- LeadAnalysisCard
+- AppointmentReviewCard
+- ConversionRateChart
+
+Required Functions/Handlers:
+- refreshData
+- alertSignificantChange
+
+Required Buttons:
+- Refresh Data
+
+Required APIs:
+- /v1/metrics/impressions
+- /v1/metrics/website-visits
+- /v1/metrics/leads
+- /v1/metrics/appointments
+- /v1/metrics/conversion-rate
+
+Required Semantic Keys (data-cy):
+- leadconversionfunnel-btn-refresh

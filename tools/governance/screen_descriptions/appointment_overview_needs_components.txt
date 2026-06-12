@@ -1,0 +1,58 @@
+Screen Code: appointment_overview
+Screen Name: AppointmentOverviewScreen
+
+Required Components:
+- SalesRevenueMetric
+- EmployeePerformanceChart
+- CustomerSatisfactionWidget
+- ComplianceStatusCard
+- InventoryManagementAlert
+- MarketingCampaignAnalytics
+- OperationalIssueTracker
+- FinancialPerformanceOverview
+- KPIsDashboard
+- OperationalLogs
+
+Required Functions/Handlers:
+- fetchSalesRevenueData
+- fetchEmployeePerformanceData
+- fetchCustomerFeedback
+- fetchComplianceStatus
+- fetchInventoryData
+- fetchMarketingAnalytics
+- trackOperationalIssues
+- fetchFinancialOverview
+- trackKPIs
+- logOperationalActivity
+
+Required Buttons:
+- View Detailed Reports
+- Address Operational Issues
+- Update Marketing Strategies
+- Manage Inventory
+- Conduct Audit
+- Generate Financial Report
+
+Required APIs:
+- /v1/franchise/sales
+- /v1/franchise/employees
+- /v1/franchise/customers
+- /v1/franchise/compliance
+- /v1/franchise/inventory
+- /v1/franchise/marketing
+- /v1/franchise/issues
+- /v1/franchise/financials
+- /v1/franchise/kpis
+- /v1/franchise/logs
+
+Required Semantic Keys (data-cy):
+- franchise-dashboard-sales
+- franchise-dashboard-employees
+- franchise-dashboard-customers
+- franchise-dashboard-compliance
+- franchise-dashboard-inventory
+- franchise-dashboard-marketing
+- franchise-dashboard-issues
+- franchise-dashboard-financials
+- franchise-dashboard-kpis
+- franchise-dashboard-logs

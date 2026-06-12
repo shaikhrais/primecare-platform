@@ -1,0 +1,47 @@
+Screen Code: offer_management
+Screen Name: OfferManagementScreen
+
+Required Components:
+- RecruitmentMetricsCard
+- CandidatePipelineChart
+- DiversityMetricsWidget
+- OfferAcceptanceRateCard
+- CandidateExperienceFeedbackCard
+- JobPostingsStatusList
+- ComplianceStatusWidget
+- RecruitmentBudgetTracker
+- TeamPerformanceMetricsCard
+- UpcomingEventsCalendar
+
+Required Functions/Handlers:
+- fetchRecruitmentMetrics
+- updateCandidateStatus
+- exportMetricsData
+- scheduleRecruitmentEvent
+- sendCandidateCommunication
+
+Required Buttons:
+- View Metrics
+- Update Status
+- Export Data
+- Schedule Event
+- Send Communication
+
+Required APIs:
+- /v1/recruitment/metrics
+- /v1/candidates/status
+- /v1/recruitment/events
+- /v1/candidates/communication
+- /v1/recruitment/budget
+
+Required Semantic Keys (data-cy):
+- recruitment-metrics-card
+- candidate-pipeline-chart
+- diversity-metrics-widget
+- offer-acceptance-rate-card
+- candidate-experience-feedback-card
+- job-postings-status-list
+- compliance-status-widget
+- recruitment-budget-tracker
+- team-performance-metrics-card
+- upcoming-events-calendar

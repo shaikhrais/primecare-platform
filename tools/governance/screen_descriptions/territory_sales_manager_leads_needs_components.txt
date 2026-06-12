@@ -1,0 +1,30 @@
+Screen Code: territory_sales_manager_leads
+Screen Name: Territory Sales Manager Leads
+
+Required Components:
+- LeadOverviewCard
+- PerformanceMetricsChart
+- AlertsNotification
+- TeamCommunicationTool
+- LeadProgressTimeline
+
+Required Functions/Handlers:
+- updateLeadInfo
+- sendCommunication
+- fetchPerformanceMetrics
+
+Required Buttons:
+- Update Lead
+- Communicate
+- Analyze Metrics
+
+Required APIs:
+- /v1/leads/overview
+- /v1/leads/update
+- /v1/leads/metrics
+
+Required Semantic Keys (data-cy):
+- lead-overview-card
+- btn-update-lead
+- btn-communicate
+- btn-analyze-metrics

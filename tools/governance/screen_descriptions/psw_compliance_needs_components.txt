@@ -1,0 +1,52 @@
+Screen Code: psw_compliance
+Screen Name: PswComplianceScreen
+
+Required Components:
+- ClientAssignmentOverview
+- ComplianceStatusIndicator
+- ActivityLog
+- MedicationAlert
+- PerformanceMetrics
+- TrainingResources
+- CommunicationTool
+- IncidentReportingSystem
+- ComplianceAuditSummary
+- TrainingProgressTracker
+
+Required Functions/Handlers:
+- fetchClientAssignments
+- updateComplianceStatus
+- logRecentActivity
+- triggerMedicationAlert
+- retrievePerformanceMetrics
+- accessTrainingResources
+- sendCommunication
+- reportIncident
+- fetchComplianceAudit
+- trackTrainingProgress
+
+Required Buttons:
+- View Schedule
+- Report Issue
+- Log Activity
+- Access Training
+- Send Message
+
+Required APIs:
+- /v1/clients/assignments
+- /v1/compliance/status
+- /v1/activities/log
+- /v1/medications/alerts
+- /v1/performance/metrics
+- /v1/training/resources
+- /v1/communication/send
+- /v1/incidents/report
+- /v1/compliance/audits
+- /v1/training/progress
+
+Required Semantic Keys (data-cy):
+- psw-dashboard-btn-view-schedule
+- psw-dashboard-btn-report-issue
+- psw-dashboard-btn-log-activity
+- psw-dashboard-btn-access-training
+- psw-dashboard-btn-send-message

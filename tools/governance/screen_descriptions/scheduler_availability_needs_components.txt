@@ -1,0 +1,30 @@
+Screen Code: scheduler_availability
+Screen Name: Scheduler Availability
+
+Required Components:
+- OperationalStatusCard
+- SLACard
+- ComplianceStatusCard
+- TransactionFlowChart
+- EventLogForm
+- RedFlagAlert
+
+Required Functions/Handlers:
+- submitEventLog
+- refreshStatus
+- checkCompliance
+- monitorTransactionFlow
+
+Required Buttons:
+- Submit Event Log
+- Refresh Status
+
+Required APIs:
+- /v1/operations/status
+- /v1/compliance/check
+- /v1/transactions/flow
+- /v1/eventlogs/submit
+
+Required Semantic Keys (data-cy):
+- scheduler-btn-submit-event-log
+- scheduler-btn-refresh-status

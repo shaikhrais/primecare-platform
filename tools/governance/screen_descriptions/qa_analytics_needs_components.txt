@@ -1,0 +1,55 @@
+Screen Code: qa_analytics
+Screen Name: QaAnalyticsScreen
+
+Required Components:
+- TestCaseExecutionStatus
+- DefectTrackingMetrics
+- TestCoverageReport
+- RegressionTestResults
+- PerformanceTestingMetrics
+- HistoricalDefectTrends
+- TeamWorkloadDistribution
+- AutomatedTestResults
+- FeedbackLoop
+- ComplianceMetrics
+
+Required Functions/Handlers:
+- fetchTestCaseStatus
+- fetchDefectMetrics
+- fetchTestCoverage
+- fetchRegressionResults
+- fetchPerformanceMetrics
+- fetchHistoricalTrends
+- fetchWorkloadDistribution
+- fetchAutomatedResults
+- fetchFeedback
+- fetchComplianceMetrics
+
+Required Buttons:
+- Refresh Data
+- Export Report
+- View Details
+
+Required APIs:
+- /v1/qa/testcase/status
+- /v1/qa/defects/metrics
+- /v1/qa/testcoverage
+- /v1/qa/regression/results
+- /v1/qa/performance/metrics
+- /v1/qa/defects/trends
+- /v1/qa/workload/distribution
+- /v1/qa/automated/results
+- /v1/qa/feedback
+- /v1/qa/compliance/metrics
+
+Required Semantic Keys (data-cy):
+- qa-dashboard-testcase-status
+- qa-dashboard-defect-metrics
+- qa-dashboard-testcoverage
+- qa-dashboard-regression-results
+- qa-dashboard-performance-metrics
+- qa-dashboard-historical-trends
+- qa-dashboard-workload-distribution
+- qa-dashboard-automated-results
+- qa-dashboard-feedback
+- qa-dashboard-compliance-metrics

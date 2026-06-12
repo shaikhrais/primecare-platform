@@ -1,0 +1,32 @@
+Screen Code: territory_sales_manager_reports
+Screen Name: Territory Sales Manager Reports
+
+Required Components:
+- SalesReportTable
+- LoadingIndicator
+- ErrorNotification
+- PerformanceGraph
+- UserActivityLog
+- CustomViewSelector
+
+Required Functions/Handlers:
+- loadSalesReports
+- handleLoadingError
+- updatePerformanceMetrics
+- logUserActivity
+- customizeView
+
+Required Buttons:
+- Refresh Reports
+- Download Report
+- Customize View
+
+Required APIs:
+- /v1/reports/territory_sales
+- /v1/reports/loading_status
+- /v1/reports/user_activity
+
+Required Semantic Keys (data-cy):
+- salesreport-btn-refresh
+- salesreport-btn-download
+- salesreport-btn-customize

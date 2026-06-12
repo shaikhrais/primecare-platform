@@ -1,0 +1,57 @@
+Screen Code: hr_hiring_dashboard
+Screen Name: HrHiringDashboardScreen
+
+Required Components:
+- KPIWidget
+- CandidatePipelineChart
+- SourceOfHireAnalysis
+- DiversityMetricsWidget
+- CandidateFeedbackScores
+- ComplianceStatusWidget
+- OpenPositionsUpdates
+- HistoricalDataTrends
+- AlertsWidget
+- ATSIntegration
+
+Required Functions/Handlers:
+- fetchKPIs
+- updateCandidatePipeline
+- analyzeSourceOfHire
+- trackDiversityMetrics
+- collectCandidateFeedback
+- checkComplianceStatus
+- refreshOpenPositions
+- retrieveHistoricalData
+- triggerAlerts
+- integrateATS
+
+Required Buttons:
+- View Candidate Pipeline
+- Analyze Recruitment Metrics
+- Generate Compliance Report
+- Send Feedback Request
+- Update Hiring Status
+
+Required APIs:
+- /v1/recruitment/kpis
+- /v1/candidates/pipeline
+- /v1/recruitment/source-analysis
+- /v1/diversity/metrics
+- /v1/candidates/feedback
+- /v1/compliance/status
+- /v1/positions/open
+- /v1/recruitment/trends
+- /v1/recruitment/alerts
+- /v1/ats/integration
+
+Required Semantic Keys (data-cy):
+- hr_dashboard-kpi-widget
+- hr_dashboard-candidate-pipeline
+- hr_dashboard-source-analysis
+- hr_dashboard-diversity-metrics
+- hr_dashboard-candidate-feedback
+- hr_dashboard-compliance-status
+- hr_dashboard-open-positions
+- hr_dashboard-historical-data
+- hr_dashboard-alerts
+- hr_dashboard-ats-integration

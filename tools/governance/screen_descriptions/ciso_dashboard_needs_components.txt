@@ -1,0 +1,41 @@
+Screen Code: ciso_dashboard
+Screen Name: CisoDashboardScreen
+
+Required Components:
+- SecurityPostureCard
+- ActiveAlertsList
+- KPIMetricsWidget
+- IncidentResponseMetricsChart
+- ComplianceStatusIndicator
+- TrainingCompletionChart
+- AuditLogsTable
+- TelemetryDataStream
+- BudgetUtilizationChart
+- HistoricalTrendsGraph
+
+Required Functions/Handlers:
+- refreshDashboardData
+- viewDetailedReport
+- exportDashboardData
+
+Required Buttons:
+- Refresh Data
+- View Detailed Report
+- Export Data
+
+Required APIs:
+- /v1/security/posture
+- /v1/security/alerts
+- /v1/security/kpis
+- /v1/security/incident-response
+- /v1/security/compliance
+- /v1/security/training
+- /v1/security/audit-logs
+- /v1/security/telemetry
+- /v1/security/budget
+- /v1/security/trends
+
+Required Semantic Keys (data-cy):
+- ciso-dashboard-btn-refresh
+- ciso-dashboard-btn-view-report
+- ciso-dashboard-btn-export

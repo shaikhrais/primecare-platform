@@ -1,0 +1,33 @@
+Screen Code: digital_symptom_checker
+Screen Name: Digital Symptom Checker
+
+Required Components:
+- SymptomInputField
+- RecommendationsDisplay
+- FeedbackForm
+- UserHistoryChart
+- PerformanceMetricsCard
+
+Required Functions/Handlers:
+- submitSymptoms
+- saveResults
+- shareResults
+- provideFeedback
+
+Required Buttons:
+- Submit Symptoms
+- Save Results
+- Share Results
+- Provide Feedback
+
+Required APIs:
+- /v1/symptoms/check
+- /v1/recommendations
+- /v1/feedback
+
+Required Semantic Keys (data-cy):
+- symptom-input
+- submit-button
+- save-button
+- share-button
+- feedback-button

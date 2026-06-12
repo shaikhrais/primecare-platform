@@ -1,0 +1,37 @@
+Screen Code: audit_sandbox
+Screen Name: Audit Sandbox
+
+Required Components:
+- LifecycleStatusDisplay
+- CompletionPercentageIndicator
+- TechnicalManifestOverview
+- DevelopmentPipelineStatus
+- GovernanceActionsMetrics
+- RedFlagsAlert
+
+Required Functions/Handlers:
+- fetchLifecycleStatus
+- fetchCompletionPercentage
+- fetchTechnicalManifest
+- fetchDevelopmentPipeline
+- fetchGovernanceMetrics
+- checkForRedFlags
+
+Required Buttons:
+- [None specified]
+
+Required APIs:
+- /v1/project/lifecycle/status
+- /v1/project/completion/percentage
+- /v1/project/technical/manifest
+- /v1/project/development/pipeline
+- /v1/platform/governance/actions
+- /v1/platform/integrity/metrics
+
+Required Semantic Keys (data-cy):
+- audit-sandbox-lifecycle-status
+- audit-sandbox-completion-percentage
+- audit-sandbox-technical-manifest
+- audit-sandbox-development-pipeline
+- audit-sandbox-governance-metrics
+- audit-sandbox-red-flags-alert

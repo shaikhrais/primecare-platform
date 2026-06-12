@@ -9,7 +9,7 @@ class SsoRedirectView extends GovernedConsumerStatefulWidget {
   const SsoRedirectView({super.key, required this.redirectUrl});
 
   @override
-  State<SsoRedirectView> createState() => _SsoRedirectViewState();
+  ConsumerState<SsoRedirectView> createState() => _SsoRedirectViewState();
 }
 
 class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {

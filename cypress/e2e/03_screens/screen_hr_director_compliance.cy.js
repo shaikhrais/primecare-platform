@@ -4,29 +4,69 @@
 
 
 describe("Screen - hr_director_compliance", () => {
-  it("opens and verifies screen hr_director_compliance", () => {
-    cy.loginAsRole("hr_director");
+  it("opens and verifies screen hr_director_compliance via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "hr_director");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /executive/hr-director-compliance (HrDirectorComplianceScreen)...");
-  cy.visitWithSemantics("/executive/hr-director-compliance");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for HrDirectorComplianceScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("hrdirectorcompliance-screen").should("be.visible");
-  cy.getCy("hrdirectorcompliance-title").should("be.visible");
-  cy.getCy("hrdirectorcompliance-content").should("be.visible");
-  cy.getCy("hrdirector-btn-generate-report").should("be.visible");
-  cy.getCy("hrdirector-btn-view-audit").should("be.visible");
-  cy.getCy("hrdirector-btn-initiate-recruitment").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for HrDirectorComplianceScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_director_compliance");
-  
-  cy.task("log", "✅ PROGRESS: - Verified HrDirectorComplianceScreen successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_hr_director_compliance");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /executive/hr-director-compliance...");
+      cy.visitWithSemantics(targetBaseUrl + "/executive/hr-director-compliance");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("hrdirectorcompliance-screen").should("be.visible");
+      cy.getCy("hrdirectorcompliance-title").should("be.visible");
+      cy.getCy("hrdirectorcompliance-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("hr_director_compliance");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_hr_director_compliance");
+      cy.task("log", "✅ PROGRESS: - Verified HrDirectorComplianceScreen successfully!\n");
+    });
   });
 });

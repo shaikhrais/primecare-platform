@@ -1,0 +1,53 @@
+Screen Code: local_marketing_manager_compliance
+Screen Name: LocalMarketingManagerComplianceScreen
+
+Required Components:
+- CampaignOverviewWidget
+- PerformanceMetricsChart
+- ComplianceStatusCard
+- SocialMediaMetricsWidget
+- BudgetTrackingWidget
+- EventParticipationWidget
+- CollaborationToolsWidget
+- AlertsWidget
+- HistoricalDataChart
+- RealTimeUpdatesWidget
+
+Required Functions/Handlers:
+- generateReport
+- viewCampaignDetails
+- trackBudget
+- analyzePerformance
+- manageEvents
+- collaborateWithPartners
+- addressComplianceIssues
+
+Required Buttons:
+- Generate Report
+- View Campaign Details
+- Track Budget
+- Analyze Performance
+- Manage Events
+- Collaborate with Partners
+- Address Compliance Issues
+
+Required APIs:
+- /v1/marketing/campaigns
+- /v1/marketing/performance
+- /v1/marketing/compliance
+- /v1/socialmedia/metrics
+- /v1/budget/tracking
+- /v1/events/participation
+- /v1/collaboration/tools
+- /v1/alerts/issues
+- /v1/data/historical
+- /v1/marketing/updates
+
+Required Semantic Keys (data-cy):
+- localmarketing-btn-generate-report
+- localmarketing-btn-view-campaign
+- localmarketing-btn-track-budget
+- localmarketing-btn-analyze-performance
+- localmarketing-btn-manage-events
+- localmarketing-btn-collaborate
+- localmarketing-btn-address-compliance

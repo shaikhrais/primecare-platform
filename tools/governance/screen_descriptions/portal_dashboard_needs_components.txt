@@ -1,0 +1,42 @@
+Screen Code: portal_dashboard
+Screen Name: PortalDashboardScreen
+
+Required Components:
+- TaskList
+- ComplianceStatusIndicator
+- SecurityClearanceLevel
+- ActivityLog
+- AuditScanResults
+- TelemetryChart
+
+Required Functions/Handlers:
+- runComplianceScan
+- syncSecurityPosture
+- updateSecurityPolicy
+- exportAuditLogs
+- triggerStateActions
+- refreshDashboardTelemetry
+
+Required Buttons:
+- Run Compliance Scan
+- Sync Security Posture
+- Update Security Policy
+- Export Audit Logs
+- Trigger State Actions
+- Refresh Dashboard Telemetry
+
+Required APIs:
+- /v1/compliance/scan
+- /v1/security/sync
+- /v1/security/policy/update
+- /v1/audit/logs/export
+- /v1/state/actions/trigger
+- /v1/dashboard/telemetry/refresh
+
+Required Semantic Keys (data-cy):
+- portal-dashboard-btn-run-compliance-scan
+- portal-dashboard-btn-sync-security-posture
+- portal-dashboard-btn-update-security-policy
+- portal-dashboard-btn-export-audit-logs
+- portal-dashboard-btn-trigger-state-actions
+- portal-dashboard-btn-refresh-telemetry

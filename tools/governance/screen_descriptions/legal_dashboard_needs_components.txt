@@ -1,0 +1,55 @@
+Screen Code: legal_dashboard
+Screen Name: LegalDashboardScreen
+
+Required Components:
+- ComplianceStatusIndicator
+- LegalDisputeStatusCard
+- PerformanceMetricsChart
+- RecentDocumentsList
+- AuditLogViewer
+- DeadlineAlert
+- TrainingCompletionChart
+- LegalResearchSummary
+- ExternalCounselMetrics
+- LegalRiskVisualization
+
+Required Functions/Handlers:
+- fetchComplianceStatus
+- fetchLegalDisputeStatus
+- fetchPerformanceMetrics
+- fetchRecentDocuments
+- fetchAuditLogs
+- setDeadlineAlert
+- fetchTrainingCompletion
+- fetchLegalResearch
+- fetchExternalCounselMetrics
+- fetchLegalRisks
+
+Required Buttons:
+- Refresh Data
+- View Details
+- Export Report
+
+Required APIs:
+- /v1/legal/compliance/status
+- /v1/legal/disputes
+- /v1/legal/performance/metrics
+- /v1/legal/documents/recent
+- /v1/legal/audit/logs
+- /v1/legal/deadlines
+- /v1/legal/training/completion
+- /v1/legal/research
+- /v1/legal/external/counsel
+- /v1/legal/risks
+
+Required Semantic Keys (data-cy):
+- legal-dashboard-compliance-status
+- legal-dashboard-dispute-status
+- legal-dashboard-performance-metrics
+- legal-dashboard-recent-documents
+- legal-dashboard-audit-logs
+- legal-dashboard-deadline-alert
+- legal-dashboard-training-completion
+- legal-dashboard-research-summary
+- legal-dashboard-external-counsel
+- legal-dashboard-legal-risks

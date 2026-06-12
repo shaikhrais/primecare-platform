@@ -1,0 +1,32 @@
+Screen Code: family_member_profile
+Screen Name: Family Member Profile
+
+Required Components:
+- ProgressIndicator
+- ErrorMessage
+- DataDisplay
+- ResponsiveUI
+- PerformanceMetrics
+- UserEngagementStats
+- FeedbackForm
+- Alerts
+
+Required Functions/Handlers:
+- loadData
+- handleError
+- checkResponsiveness
+- fetchData
+
+Required Buttons:
+- Refresh Data
+- Report Issue
+
+Required APIs:
+- /v1/family/member/profile
+- /v1/performance/metrics
+- /v1/user/engagement
+
+Required Semantic Keys (data-cy):
+- family-member-profile-loading
+- family-member-profile-error
+- family-member-profile-data

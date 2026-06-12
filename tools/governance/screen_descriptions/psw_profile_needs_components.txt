@@ -1,0 +1,37 @@
+Screen Code: psw_profile
+Screen Name: Psw Profile
+
+Required Components:
+- ProfileInfoCard
+- ProfileEditForm
+- PasswordUpdateForm
+- AccountSettingsPanel
+- HelpSupportLink
+
+Required Functions/Handlers:
+- viewProfile
+- editProfile
+- updatePassword
+- manageSettings
+- accessHelp
+
+Required Buttons:
+- Edit Profile
+- Update Password
+- Save Changes
+- Manage Settings
+- Access Help
+
+Required APIs:
+- /v1/user/profile/view
+- /v1/user/profile/edit
+- /v1/user/password/update
+- /v1/user/settings/manage
+- /v1/help/support
+
+Required Semantic Keys (data-cy):
+- pswprofile-btn-edit
+- pswprofile-btn-update-password
+- pswprofile-btn-save
+- pswprofile-btn-manage-settings
+- pswprofile-btn-help

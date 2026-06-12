@@ -1,0 +1,41 @@
+Screen Code: medication_reconciliation_tool
+Screen Name: Medication Reconciliation Tool
+
+Required Components:
+- MedicationHistoryInput
+- CurrentMedicationsReview
+- DiscrepancyIdentifier
+- MedicationListUpdater
+- ReconciliationReportGenerator
+- CommunicationLog
+
+Required Functions/Handlers:
+- inputMedicationHistory
+- reviewCurrentMedications
+- identifyDiscrepancies
+- updateMedicationList
+- generateReconciliationReport
+- communicateWithProviders
+
+Required Buttons:
+- Submit History
+- Review Medications
+- Update List
+- Generate Report
+- Communicate Changes
+
+Required APIs:
+- /v1/patient/medications/history
+- /v1/patient/medications/current
+- /v1/medications/discrepancies
+- /v1/medications/update
+- /v1/reports/reconciliation
+- /v1/communication/providers
+
+Required Semantic Keys (data-cy):
+- medication-history-input
+- current-medications-review
+- discrepancy-identifier
+- medication-list-updater
+- reconciliation-report-generator
+- communication-log

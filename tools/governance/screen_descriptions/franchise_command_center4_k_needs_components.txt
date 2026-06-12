@@ -1,0 +1,58 @@
+Screen Code: franchise_command_center4_k
+Screen Name: FranchiseCommandCenter4KScreen
+
+Required Components:
+- PerformanceMetricCard
+- ComplianceStatusWidget
+- EmployeePerformanceChart
+- FinancialOverviewPanel
+- CustomerFeedbackTracker
+- InventoryManagementAlert
+- MarketingCampaignMetrics
+- OperationalLogsViewer
+- RedFlagAlertSystem
+- CommunicationTool
+
+Required Functions/Handlers:
+- fetchPerformanceMetrics
+- getComplianceStatus
+- updateEmployeeTraining
+- retrieveFinancialOverview
+- trackCustomerFeedback
+- alertInventoryIssues
+- evaluateMarketingCampaigns
+- logOperationalIncidents
+- checkRedFlags
+- sendCommunication
+
+Required Buttons:
+- View Audit Results
+- Manage Staff Training
+- Review Financials
+- Track Customer Feedback
+- Check Inventory Levels
+- Analyze Marketing Performance
+- Report Issues
+- Communicate with Franchisor
+
+Required APIs:
+- /v1/franchise/performance/metrics
+- /v1/franchise/compliance/status
+- /v1/franchise/employee/training
+- /v1/franchise/financial/overview
+- /v1/franchise/customer/feedback
+- /v1/franchise/inventory/alerts
+- /v1/franchise/marketing/campaigns
+- /v1/franchise/operations/logs
+- /v1/franchise/redflags
+- /v1/franchise/communication
+
+Required Semantic Keys (data-cy):
+- franchise-dashboard-btn-view-audit
+- franchise-dashboard-btn-manage-training
+- franchise-dashboard-btn-review-financials
+- franchise-dashboard-btn-track-feedback
+- franchise-dashboard-btn-check-inventory
+- franchise-dashboard-btn-analyze-marketing
+- franchise-dashboard-btn-report-issues
+- franchise-dashboard-btn-communicate

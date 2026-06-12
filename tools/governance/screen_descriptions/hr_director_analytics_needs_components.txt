@@ -1,0 +1,38 @@
+Screen Code: hr_director_analytics
+Screen Name: HrDirectorAnalyticsScreen
+
+Required Components:
+- EmployeeTurnoverChart
+- EmployeeEngagementGauge
+- RecruitmentPipelineWidget
+- PerformanceManagementStats
+- ComplianceStatusIndicator
+- TrainingParticipationChart
+- DiversityInclusionMetrics
+- EmployeeSatisfactionSurvey
+- HRBudgetOverview
+- HRMetricsAnalytics
+
+Required Functions/Handlers:
+- fetchHRMetrics
+- updateRecruitmentStatus
+- analyzeEmployeeEngagement
+- monitorCompliance
+- trackTrainingParticipation
+
+Required Buttons:
+- Generate Report
+- View Details
+- Export Data
+
+Required APIs:
+- /v1/hr/metrics
+- /v1/hr/recruitment/status
+- /v1/hr/engagement
+- /v1/hr/compliance
+- /v1/hr/training/participation
+
+Required Semantic Keys (data-cy):
+- hrdashboard-btn-generate-report
+- hrdashboard-btn-view-details
+- hrdashboard-btn-export-data

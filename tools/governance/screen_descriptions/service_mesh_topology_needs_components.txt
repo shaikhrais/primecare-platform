@@ -1,0 +1,25 @@
+Screen Code: service_mesh_topology
+Screen Name: Service Mesh Topology
+
+Required Components:
+- ActiveNodesCount
+- RoutesCount
+- LoadingStatus
+- ErrorMessages
+- RefreshButton
+- PerformanceMetrics
+- InteractiveNetworkGraph
+
+Required Functions/Handlers:
+- refreshTopologyData
+- handleLoadingErrors
+
+Required Buttons:
+- Refresh
+
+Required APIs:
+- /v1/service_mesh/topology
+
+Required Semantic Keys (data-cy):
+- service-mesh-btn-refresh
+- service-mesh-error-message

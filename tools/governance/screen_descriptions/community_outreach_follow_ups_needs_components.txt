@@ -1,0 +1,35 @@
+Screen Code: community_outreach_follow_ups
+Screen Name: Community Outreach Follow Ups
+
+Required Components:
+- OutreachInitiativeOverview
+- FollowUpStatusIndicator
+- EngagementMetricsChart
+- OverdueFollowUpNotification
+- TeamCollaborationTool
+
+Required Functions/Handlers:
+- monitorOutreachFollowUps
+- reviewOutreachStatus
+- analyzeFeedback
+- updateFollowUpRecords
+- coordinateWithTeam
+
+Required Buttons:
+- Update Follow-Up
+- Review Feedback
+- Coordinate with Team
+
+Required APIs:
+- /v1/community/outreach/followups
+- /v1/community/outreach/status
+- /v1/community/feedback
+- /v1/community/outreach/update
+- /v1/community/team/coordinate
+
+Required Semantic Keys (data-cy):
+- community-outreach-followups
+- community-outreach-status
+- community-feedback-analysis
+- community-followup-update
+- community-team-coordination

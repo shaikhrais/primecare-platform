@@ -1,0 +1,33 @@
+Screen Code: psw_tasks
+Screen Name: PswTasksScreen
+
+Required Components:
+- TaskList
+- ProgressTracker
+- AlertNotification
+- ClientNotes
+- CommunicationLog
+- PerformanceMetrics
+
+Required Functions/Handlers:
+- markTaskComplete
+- reportHighPriorityTask
+- addClientNote
+- logCommunication
+
+Required Buttons:
+- Complete Task
+- Report Issue
+- Add Note
+
+Required APIs:
+- /v1/psw/tasks
+- /v1/psw/alerts
+- /v1/psw/client-notes
+- /v1/psw/communication-log
+
+Required Semantic Keys (data-cy):
+- psw-tasks-complete
+- psw-alert-high-priority
+- psw-client-notes
+- psw-communication-log

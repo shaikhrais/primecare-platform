@@ -1,0 +1,60 @@
+Screen Code: territory_sales_manager_compliance
+Screen Name: TerritorySalesManagerComplianceScreen
+
+Required Components:
+- SalesPerformanceChart
+- ClientManagementTool
+- LeadTrackingWidget
+- MarketAnalysisDashboard
+- ComplianceStatusPanel
+- TeamPerformanceTracker
+- CustomerFeedbackWidget
+- SalesStrategyIndicator
+- MarketTrendsFeed
+- AlertsNotificationSystem
+
+Required Functions/Handlers:
+- generateSalesReport
+- addClient
+- trackLead
+- conductMarketResearch
+- updateComplianceStatus
+- viewTrainingProgress
+- submitFeedback
+- adjustSalesStrategy
+- viewAlerts
+
+Required Buttons:
+- Generate Report
+- Add Client
+- Track Lead
+- Conduct Market Research
+- Update Compliance Status
+- View Training Progress
+- Submit Feedback
+- Adjust Strategy
+- View Alerts
+
+Required APIs:
+- /v1/sales/performance
+- /v1/clients/manage
+- /v1/leads/track
+- /v1/market/research
+- /v1/compliance/status
+- /v1/team/performance
+- /v1/customer/feedback
+- /v1/sales/strategy
+- /v1/market/trends
+- /v1/alerts
+
+Required Semantic Keys (data-cy):
+- salesperformance-chart
+- clientmanagement-tool
+- leadtracking-widget
+- marketanalysis-dashboard
+- compliancestatus-panel
+- teamperformance-tracker
+- customerfeedback-widget
+- salesstrategy-indicator
+- markettrends-feed
+- alerts-notification-system

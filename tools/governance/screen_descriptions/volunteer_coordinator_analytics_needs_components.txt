@@ -1,0 +1,44 @@
+Screen Code: volunteer_coordinator_analytics
+Screen Name: VolunteerCoordinatorAnalyticsScreen
+
+Required Components:
+- VolunteerAttendanceTracker
+- EventParticipationStats
+- FeedbackRatingChart
+- TaskCompletionList
+- CommunicationLog
+- AlertNotification
+- RecognitionRewardsTracker
+
+Required Functions/Handlers:
+- trackVolunteerAttendance
+- fetchEventStats
+- submitFeedback
+- updateTaskStatus
+- logCommunication
+- setAlert
+- trackRecognition
+
+Required Buttons:
+- Submit Feedback
+- Report Issue
+- View Training Schedule
+- Mark Attendance
+
+Required APIs:
+- /v1/volunteers/attendance
+- /v1/events/participation
+- /v1/feedback/submit
+- /v1/tasks/update
+- /v1/communication/log
+- /v1/alerts/set
+- /v1/recognition/track
+
+Required Semantic Keys (data-cy):
+- volunteer-attendance-tracker
+- event-participation-stats
+- feedback-rating-chart
+- task-completion-list
+- communication-log
+- alert-notification
+- recognition-rewards-tracker

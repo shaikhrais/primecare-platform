@@ -1,0 +1,36 @@
+Screen Code: treatment_notes
+Screen Name: Treatment Notes
+
+Required Components:
+- TreatmentNotesMonitor
+- ComplianceScanTrigger
+- TelemetryDataRefresh
+- AuditLogViewer
+- AuditScanExecutor
+
+Required Functions/Handlers:
+- monitorTreatmentNotes
+- triggerComplianceScan
+- refreshTelemetryData
+- reviewAuditLogs
+- executeAuditScan
+
+Required Buttons:
+- Trigger Compliance Scan
+- Refresh Telemetry Data
+- View Audit Logs
+- Execute Audit Scan
+
+Required APIs:
+- /v1/treatment/notes
+- /v1/compliance/scan
+- /v1/telemetry/data
+- /v1/audit/logs
+- /v1/audit/scan
+
+Required Semantic Keys (data-cy):
+- treatment-notes-monitor
+- compliance-scan-trigger
+- telemetry-data-refresh
+- audit-log-viewer
+- audit-scan-executor

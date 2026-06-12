@@ -1,0 +1,29 @@
+Screen Code: journal_club_discussion_board
+Screen Name: Journal Club Discussion Board
+
+Required Components:
+- TopicList
+- ActivityFeed
+- EngagementMetrics
+- NotificationPanel
+
+Required Functions/Handlers:
+- fetchTopics
+- refreshTopicList
+- createDiscussionTopic
+- fetchActivityFeed
+- fetchEngagementMetrics
+
+Required Buttons:
+- Refresh Topics
+- Create New Topic
+
+Required APIs:
+- /v1/journalclub/topics
+- /v1/journalclub/create
+- /v1/journalclub/activity
+- /v1/journalclub/engagement
+
+Required Semantic Keys (data-cy):
+- journalclub-btn-refresh
+- journalclub-btn-create

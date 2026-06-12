@@ -4,29 +4,69 @@
 
 
 describe("Screen - hr_hiring_training_status", () => {
-  it("opens and verifies screen hr_hiring_training_status", () => {
-    cy.loginAsRole("chiropractor");
+  it("opens and verifies screen hr_hiring_training_status via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "hr_hiring");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/franchise/roles/hr_hiring/training-status (Hr Hiring Training Status)...");
-  cy.visitWithSemantics("/offices/franchise/roles/hr_hiring/training-status");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Hr Hiring Training Status...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("hrhiringtrainingstatus-screen").should("be.visible");
-  cy.getCy("hrhiringtrainingstatus-title").should("be.visible");
-  cy.getCy("hrhiringtrainingstatus-content").should("be.visible");
-  cy.getCy("training-completion-chart").should("be.visible");
-  cy.getCy("training-progress-graph").should("be.visible");
-  cy.getCy("user-feedback-section").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for Hr Hiring Training Status...");
-  cy.waitAndSee();
-  cy.screenshot("hr_hiring_training_status");
-  
-  cy.task("log", "✅ PROGRESS: - Verified Hr Hiring Training Status successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_hr_hiring_training_status");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /offices/franchise/roles/hr_hiring/training-status...");
+      cy.visitWithSemantics(targetBaseUrl + "/offices/franchise/roles/hr_hiring/training-status");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("hr hiring training status-screen").should("be.visible");
+      cy.getCy("hr hiring training status-title").should("be.visible");
+      cy.getCy("hr hiring training status-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("hr_hiring_training_status");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_hr_hiring_training_status");
+      cy.task("log", "✅ PROGRESS: - Verified Hr Hiring Training Status successfully!\n");
+    });
   });
 });

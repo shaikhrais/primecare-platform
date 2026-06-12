@@ -1,0 +1,45 @@
+Screen Code: system_workflow
+Screen Name: SystemWorkflowScreen
+
+Required Components:
+- PerformanceMetricCard
+- ErrorAlertWidget
+- ComplianceStatusIndicator
+- AuditTrailViewer
+- FeedbackTracker
+- IntegrationStatusPanel
+- PerformanceReportChart
+- WorkflowEfficiencyChart
+- DocumentationAccessPanel
+- CommunicationTool
+
+Required Functions/Handlers:
+- generateReport
+- requestSupport
+- updateDocumentation
+- trainUsers
+- monitorWorkflows
+
+Required Buttons:
+- Generate Report
+- Request Support
+- Update Documentation
+- Train Users
+- Monitor Workflows
+
+Required APIs:
+- /v1/system/performance
+- /v1/system/errors
+- /v1/system/compliance
+- /v1/system/audit
+- /v1/system/feedback
+- /v1/system/integration
+- /v1/system/reports
+- /v1/system/workflows
+
+Required Semantic Keys (data-cy):
+- sysworkflow-btn-generate-report
+- sysworkflow-btn-request-support
+- sysworkflow-btn-update-docs
+- sysworkflow-btn-train-users
+- sysworkflow-btn-monitor

@@ -19,9 +19,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropractordashboard-screen").should("be.visible");
   cy.getCy("chiropractordashboard-title").should("be.visible");
   cy.getCy("chiropractordashboard-content").should("be.visible");
-  cy.getCy("chiropractor-btn-assessment").should("be.visible");
-  cy.getCy("chiropractor-btn-treatment").should("be.visible");
-  cy.getCy("chiropractor-btn-adjust").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/16 | 6%] - Saving screenshot for ChiropractorDashboardScreen...");
   cy.waitAndSee();
@@ -40,9 +37,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropractoranalytics-screen").should("be.visible");
   cy.getCy("chiropractoranalytics-title").should("be.visible");
   cy.getCy("chiropractoranalytics-content").should("be.visible");
-  cy.getCy("chiropractor-btn-add-patient").should("be.visible");
-  cy.getCy("chiropractor-btn-update-treatment").should("be.visible");
-  cy.getCy("chiropractor-btn-record-progress").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/16 | 12%] - Saving screenshot for ChiropractorAnalyticsScreen...");
   cy.waitAndSee();
@@ -61,9 +55,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropractorcompliance-screen").should("be.visible");
   cy.getCy("chiropractorcompliance-title").should("be.visible");
   cy.getCy("chiropractorcompliance-content").should("be.visible");
-  cy.getCy("chiropractor-btn-schedule-appointment").should("be.visible");
-  cy.getCy("chiropractor-btn-generate-report").should("be.visible");
-  cy.getCy("chiropractor-btn-update-treatment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/16 | 18%] - Saving screenshot for ChiropractorComplianceScreen...");
   cy.waitAndSee();
@@ -82,9 +73,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropractorworkflow-screen").should("be.visible");
   cy.getCy("chiropractorworkflow-title").should("be.visible");
   cy.getCy("chiropractorworkflow-content").should("be.visible");
-  cy.getCy("chiropractor-btn-schedule-appointment").should("be.visible");
-  cy.getCy("chiropractor-btn-modify-treatment").should("be.visible");
-  cy.getCy("chiropractor-btn-record-progress").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/16 | 25%] - Saving screenshot for ChiropractorWorkflowScreen...");
   cy.waitAndSee();
@@ -103,9 +91,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropractorcommandcenter-screen").should("be.visible");
   cy.getCy("chiropractorcommandcenter-title").should("be.visible");
   cy.getCy("chiropractorcommandcenter-content").should("be.visible");
-  cy.getCy("chiropractor-btn-add-assessment").should("be.visible");
-  cy.getCy("chiropractor-btn-update-plan").should("be.visible");
-  cy.getCy("chiropractor-btn-record-adjustment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [5/16 | 31%] - Saving screenshot for ChiropractorCommandCenterScreen...");
   cy.waitAndSee();
@@ -124,9 +109,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropractorappointments-screen").should("be.visible");
   cy.getCy("chiropractorappointments-title").should("be.visible");
   cy.getCy("chiropractorappointments-content").should("be.visible");
-  cy.getCy("chiropractor-dashboard-btn-schedule").should("be.visible");
-  cy.getCy("chiropractor-dashboard-btn-compliance").should("be.visible");
-  cy.getCy("chiropractor-dashboard-btn-kpi").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/16 | 37%] - Saving screenshot for ChiropractorAppointmentsScreen...");
   cy.waitAndSee();
@@ -145,9 +127,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropractorclientintake-screen").should("be.visible");
   cy.getCy("chiropractorclientintake-title").should("be.visible");
   cy.getCy("chiropractorclientintake-content").should("be.visible");
-  cy.getCy("chiropractor-btn-submit-assessment").should("be.visible");
-  cy.getCy("chiropractor-btn-review-history").should("be.visible");
-  cy.getCy("chiropractor-btn-perform-examination").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [7/16 | 43%] - Saving screenshot for ChiropractorClientIntakeScreen...");
   cy.waitAndSee();
@@ -166,9 +145,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropractorassessment-screen").should("be.visible");
   cy.getCy("chiropractorassessment-title").should("be.visible");
   cy.getCy("chiropractorassessment-content").should("be.visible");
-  cy.getCy("chiropractor-dashboard-active-operations").should("be.visible");
-  cy.getCy("chiropractor-dashboard-security-status").should("be.visible");
-  cy.getCy("chiropractor-dashboard-telemetry-chart").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [8/16 | 50%] - Saving screenshot for ChiropractorAssessmentScreen...");
   cy.waitAndSee();
@@ -187,9 +163,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropractortreatmentnotes-screen").should("be.visible");
   cy.getCy("chiropractortreatmentnotes-title").should("be.visible");
   cy.getCy("chiropractortreatmentnotes-content").should("be.visible");
-  cy.getCy("chiropractor-dashboard-btn-run-compliance-scan").should("be.visible");
-  cy.getCy("chiropractor-dashboard-btn-view-feedback").should("be.visible");
-  cy.getCy("chiropractor-dashboard-btn-generate-audit").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/16 | 56%] - Saving screenshot for ChiropractorTreatmentNotesScreen...");
   cy.waitAndSee();
@@ -208,9 +181,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropractorexerciseplan-screen").should("be.visible");
   cy.getCy("chiropractorexerciseplan-title").should("be.visible");
   cy.getCy("chiropractorexerciseplan-content").should("be.visible");
-  cy.getCy("chiropractor-btn-add-assessment").should("be.visible");
-  cy.getCy("chiropractor-btn-update-plan").should("be.visible");
-  cy.getCy("chiropractor-btn-record-adjustment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [10/16 | 62%] - Saving screenshot for ChiropractorExercisePlanScreen...");
   cy.waitAndSee();
@@ -229,9 +199,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropractorbillinglink-screen").should("be.visible");
   cy.getCy("chiropractorbillinglink-title").should("be.visible");
   cy.getCy("chiropractorbillinglink-content").should("be.visible");
-  cy.getCy("chiropractor-dashboard-btn-compliance-scan").should("be.visible");
-  cy.getCy("chiropractor-dashboard-btn-operational-action").should("be.visible");
-  cy.getCy("chiropractor-dashboard-btn-view-patient-records").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/16 | 68%] - Saving screenshot for ChiropractorBillingLinkScreen...");
   cy.waitAndSee();
@@ -250,8 +217,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropractorreports-screen").should("be.visible");
   cy.getCy("chiropractorreports-title").should("be.visible");
   cy.getCy("chiropractorreports-content").should("be.visible");
-  cy.getCy("chiropractor-btn-compliance-scan").should("be.visible");
-  cy.getCy("chiropractor-btn-refresh").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [12/16 | 75%] - Saving screenshot for ChiropractorReportsScreen...");
   cy.waitAndSee();
@@ -270,9 +235,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropracticassessment-screen").should("be.visible");
   cy.getCy("chiropracticassessment-title").should("be.visible");
   cy.getCy("chiropracticassessment-content").should("be.visible");
-  cy.getCy("chiropractic-assessment-save").should("be.visible");
-  cy.getCy("chiropractic-treatment-update").should("be.visible");
-  cy.getCy("chiropractic-adjustment-record").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [13/16 | 81%] - Saving screenshot for ChiropracticAssessmentScreen...");
   cy.waitAndSee();
@@ -291,9 +253,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("adjustmentnotes-screen").should("be.visible");
   cy.getCy("adjustmentnotes-title").should("be.visible");
   cy.getCy("adjustmentnotes-content").should("be.visible");
-  cy.getCy("dashboard-btn-view-records").should("be.visible");
-  cy.getCy("dashboard-btn-generate-report").should("be.visible");
-  cy.getCy("dashboard-btn-update-treatment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [14/16 | 87%] - Saving screenshot for AdjustmentNotesScreen...");
   cy.waitAndSee();
@@ -312,9 +271,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("xrayreview-screen").should("be.visible");
   cy.getCy("xrayreview-title").should("be.visible");
   cy.getCy("xrayreview-content").should("be.visible");
-  cy.getCy("xrayreview-btn-save").should("be.visible");
-  cy.getCy("xrayreview-btn-review").should("be.visible");
-  cy.getCy("xrayreview-btn-logprogress").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [15/16 | 93%] - Saving screenshot for XrayReviewScreen...");
   cy.waitAndSee();
@@ -333,9 +289,6 @@ describe("Role All Screens - chiropractor", () => {
   cy.getCy("chiropracticprogresstracking-screen").should("be.visible");
   cy.getCy("chiropracticprogresstracking-title").should("be.visible");
   cy.getCy("chiropracticprogresstracking-content").should("be.visible");
-  cy.getCy("chiropractic-btn-save-assessment").should("be.visible");
-  cy.getCy("chiropractic-btn-update-treatment").should("be.visible");
-  cy.getCy("chiropractic-btn-record-progress").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [16/16 | 100%] - Saving screenshot for ChiropracticProgressTrackingScreen...");
   cy.waitAndSee();

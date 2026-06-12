@@ -1,0 +1,41 @@
+Screen Code: support_analytics
+Screen Name: SupportAnalyticsScreen
+
+Required Components:
+- TicketStatusOverview
+- ResponseTimeChart
+- CustomerSatisfactionWidget
+- TicketVolumeChart
+- AgentPerformanceMetrics
+- EscalationRatesChart
+- HighPriorityAlerts
+
+Required Functions/Handlers:
+- fetchTicketStatus
+- calculateAverageResponseTime
+- fetchCustomerSatisfaction
+- trackIncomingTickets
+- fetchAgentPerformance
+- monitorEscalationRates
+- sendHighPriorityAlert
+
+Required Buttons:
+- Follow Up
+- Gather Feedback
+- Train Staff
+- View Metrics
+
+Required APIs:
+- /v1/support/tickets/status
+- /v1/support/metrics/response-time
+- /v1/support/customer-satisfaction
+- /v1/support/tickets/incoming
+- /v1/support/agents/performance
+- /v1/support/escalations
+- /v1/support/alerts/high-priority
+
+Required Semantic Keys (data-cy):
+- support-analytics-btn-follow-up
+- support-analytics-btn-gather-feedback
+- support-analytics-btn-train-staff
+- support-analytics-btn-view-metrics

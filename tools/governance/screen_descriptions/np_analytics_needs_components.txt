@@ -1,0 +1,46 @@
+Screen Code: np_analytics
+Screen Name: Nurse Practitioner (NP) Analytics
+
+Required Components:
+- PatientDemographicsWidget
+- ComplianceMetricsCard
+- QualityOfCareIndicatorChart
+- PatientSatisfactionScoreCard
+- OperationalLogsTable
+- PerformanceMetricsDashboard
+- PatientRecordsAccessPanel
+- AlertsNotificationWidget
+- ResourceAllocationChart
+- EHRIntegrationComponent
+
+Required Functions/Handlers:
+- fetchPatientDemographics
+- updateComplianceMetrics
+- generateQualityReport
+- logOperationalIncident
+- sendAlerts
+- accessPatientRecords
+- allocateResources
+
+Required Buttons:
+- View Patient Records
+- Generate Report
+- Send Alert
+- Update Compliance Metrics
+- Log Incident
+
+Required APIs:
+- /v1/patients/demographics
+- /v1/compliance/metrics
+- /v1/quality/report
+- /v1/incidents/log
+- /v1/alerts/send
+- /v1/patients/records
+- /v1/resources/allocation
+
+Required Semantic Keys (data-cy):
+- np-dashboard-btn-view-records
+- np-dashboard-btn-generate-report
+- np-dashboard-btn-send-alert
+- np-dashboard-btn-update-compliance
+- np-dashboard-btn-log-incident

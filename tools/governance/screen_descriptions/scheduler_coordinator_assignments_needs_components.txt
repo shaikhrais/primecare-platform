@@ -1,0 +1,32 @@
+Screen Code: scheduler_coordinator_assignments
+Screen Name: Scheduler Coordinator Assignments
+
+Required Components:
+- AssignmentList
+- AssignmentStatusOverview
+- ErrorNotification
+- PerformanceMetricsChart
+- CommunicationTool
+- AssignmentModificationPanel
+
+Required Functions/Handlers:
+- loadAssignments
+- updateAssignment
+- sendNotification
+- fetchPerformanceMetrics
+
+Required Buttons:
+- Update Assignment
+- Notify Team
+- View Performance Metrics
+
+Required APIs:
+- /v1/assignments
+- /v1/assignments/update
+- /v1/assignments/notifications
+- /v1/assignments/performance
+
+Required Semantic Keys (data-cy):
+- scheduler-btn-update-assignment
+- scheduler-btn-notify-team
+- scheduler-metrics-performance

@@ -1,0 +1,52 @@
+Screen Code: chiropractor_compliance
+Screen Name: ChiropractorComplianceScreen
+
+Required Components:
+- PatientManagementSystem
+- ComplianceAuditLog
+- TreatmentPlanUpdate
+- AlertsDashboard
+- EducationalResources
+- PerformanceMetrics
+- IncidentManagementTool
+- BillingIntegration
+
+Required Functions/Handlers:
+- scheduleAppointment
+- generateComplianceReport
+- updateTreatmentPlan
+- checkAlerts
+- accessResources
+- viewPerformanceMetrics
+- reportIncident
+- processBilling
+
+Required Buttons:
+- Schedule Appointment
+- Generate Compliance Report
+- Update Treatment Plan
+- View Alerts
+- Access Resources
+- View Performance Metrics
+- Report Incident
+- Process Billing
+
+Required APIs:
+- /v1/patients/schedule
+- /v1/compliance/audit
+- /v1/treatment/plans/update
+- /v1/alerts/check
+- /v1/resources/access
+- /v1/performance/metrics
+- /v1/incidents/report
+- /v1/billing/process
+
+Required Semantic Keys (data-cy):
+- chiropractor-btn-schedule-appointment
+- chiropractor-btn-generate-report
+- chiropractor-btn-update-treatment
+- chiropractor-btn-view-alerts
+- chiropractor-btn-access-resources
+- chiropractor-btn-view-metrics
+- chiropractor-btn-report-incident
+- chiropractor-btn-process-billing

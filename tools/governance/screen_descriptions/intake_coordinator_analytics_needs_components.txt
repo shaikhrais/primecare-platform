@@ -1,0 +1,35 @@
+Screen Code: intake_coordinator_analytics
+Screen Name: IntakeCoordinatorAnalyticsScreen
+
+Required Components:
+- ReferralVolumeChart
+- AppointmentSchedulingWidget
+- PatientDemographicsTable
+- MissedAppointmentsTracker
+- PendingReferralsStatus
+- PerformanceIndicatorsCard
+- AlertsNotification
+
+Required Functions/Handlers:
+- scheduleAppointment
+- followUpReferral
+- viewPatientDetails
+- generateAnalyticsReport
+
+Required Buttons:
+- Schedule Appointment
+- Follow Up
+- View Patient Details
+- Generate Report
+
+Required APIs:
+- /v1/referrals
+- /v1/appointments
+- /v1/patients
+- /v1/analytics
+
+Required Semantic Keys (data-cy):
+- intake-coordinator-btn-schedule
+- intake-coordinator-btn-follow-up
+- intake-coordinator-btn-view-patient
+- intake-coordinator-btn-generate-report

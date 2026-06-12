@@ -1,0 +1,51 @@
+Screen Code: finance_director_analytics
+Screen Name: FinanceDirectorAnalyticsScreen
+
+Required Components:
+- KPIWidget
+- CashFlowMonitor
+- BudgetPerformanceChart
+- ComplianceStatusIndicator
+- TrendAnalysisChart
+- AuditTrackingWidget
+- ExpenseBreakdownChart
+- RevenueForecastWidget
+- AnomalyAlertSystem
+- FinancialSummaryReport
+
+Required Functions/Handlers:
+- generateFinancialReport
+- viewAuditFindings
+- updateBudget
+- notifyStakeholders
+- refreshData
+
+Required Buttons:
+- Generate Report
+- View Audit Findings
+- Update Budget
+- Notify Stakeholders
+- Refresh Data
+
+Required APIs:
+- /v1/finance/kpis
+- /v1/finance/cashflow
+- /v1/finance/budget
+- /v1/finance/compliance
+- /v1/finance/trends
+- /v1/finance/audit
+- /v1/finance/expenses
+- /v1/finance/revenue
+- /v1/finance/anomalies
+
+Required Semantic Keys (data-cy):
+- finance-kpi-widget
+- finance-cashflow-monitor
+- finance-budget-performance
+- finance-compliance-status
+- finance-trend-analysis
+- finance-audit-tracking
+- finance-expense-breakdown
+- finance-revenue-forecast
+- finance-anomaly-alert
+- finance-summary-report

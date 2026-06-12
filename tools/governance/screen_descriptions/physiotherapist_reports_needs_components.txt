@@ -1,0 +1,41 @@
+Screen Code: physiotherapist_reports
+Screen Name: PhysiotherapistReportsScreen
+
+Required Components:
+- PatientStatusOverview
+- ComplianceAuditLog
+- KPIChart
+- TelemetryDataDisplay
+- RedFlagAlert
+- PatientRecordsAccess
+- ProgressTrackingTool
+
+Required Functions/Handlers:
+- updateTreatmentPlan
+- logPatientProgress
+- viewPatientRecords
+- generateComplianceReport
+- alertRedFlag
+
+Required Buttons:
+- Update Treatment Plan
+- Log Patient Progress
+- View Patient Records
+- Generate Compliance Report
+- Alert Red Flag
+
+Required APIs:
+- /v1/physiotherapy/patient/status
+- /v1/physiotherapy/compliance/audit
+- /v1/physiotherapy/kpi/effectiveness
+- /v1/physiotherapy/telemetry/data
+- /v1/physiotherapy/redflags/alerts
+- /v1/physiotherapy/patient/records
+- /v1/physiotherapy/progress/log
+
+Required Semantic Keys (data-cy):
+- physio-dashboard-btn-update-treatment
+- physio-dashboard-btn-log-progress
+- physio-dashboard-btn-view-records
+- physio-dashboard-btn-generate-report
+- physio-dashboard-btn-alert-redflag

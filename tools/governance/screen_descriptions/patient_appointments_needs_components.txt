@@ -1,0 +1,36 @@
+Screen Code: patient_appointments
+Screen Name: PatientAppointmentsScreen
+
+Required Components:
+- AppointmentList
+- ComplianceScanStatus
+- OperationalLogs
+- AttendanceMetrics
+- AlertsDashboard
+
+Required Functions/Handlers:
+- reviewAppointmentSchedules
+- attendScheduledAppointments
+- submitMedicalHistory
+- followUpInstructions
+- engageComplianceScan
+
+Required Buttons:
+- Review Schedule
+- Attend Appointment
+- Submit Documentation
+- Follow Up
+- Engage Compliance Scan
+
+Required APIs:
+- /v1/patient/appointments
+- /v1/patient/compliance/scans
+- /v1/patient/operational/logs
+- /v1/patient/attendance/metrics
+
+Required Semantic Keys (data-cy):
+- patientappointments-btn-review
+- patientappointments-btn-attend
+- patientappointments-btn-submit
+- patientappointments-btn-followup
+- patientappointments-btn-engage

@@ -1,0 +1,50 @@
+Screen Code: hr_hiring_applicants
+Screen Name: HrHiringApplicantsScreen
+
+Required Components:
+- KPIChart
+- CandidatePipelineVisualization
+- DiversityMetricsWidget
+- SourceOfHireAnalysis
+- CandidateFeedbackWidget
+- ComplianceAuditLog
+- RecruitmentPerformanceMetrics
+- HistoricalDataTrendsChart
+- AlertsWidget
+
+Required Functions/Handlers:
+- fetchKPIData
+- updateCandidateStatus
+- generateReport
+- scheduleInterview
+- fetchDiversityMetrics
+- sendAlerts
+
+Required Buttons:
+- View Candidate Feedback
+- Generate Recruitment Report
+- Update Recruitment Strategy
+- Schedule Interview
+- Export Metrics
+
+Required APIs:
+- /v1/recruitment/kpis
+- /v1/recruitment/candidates
+- /v1/recruitment/diversity
+- /v1/recruitment/source-analysis
+- /v1/recruitment/feedback
+- /v1/recruitment/compliance
+- /v1/recruitment/performance
+- /v1/recruitment/historical-data
+- /v1/recruitment/alerts
+
+Required Semantic Keys (data-cy):
+- recruitment-kpi-chart
+- candidate-pipeline-visualization
+- diversity-metrics-widget
+- source-of-hire-analysis
+- candidate-feedback-widget
+- compliance-audit-log
+- recruitment-performance-metrics
+- historical-data-trends-chart
+- alerts-widget

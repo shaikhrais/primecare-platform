@@ -1,0 +1,54 @@
+Screen Code: schedule
+Screen Name: ScheduleScreen
+
+Required Components:
+- TaskList
+- PatientVisitScheduler
+- HealthMonitor
+- MedicationAdmin
+- PatientRecords
+- CommunicationTool
+- SafetyChecklist
+- AuditLog
+- PerformanceMetrics
+- TrainingResources
+
+Required Functions/Handlers:
+- schedulePatientVisit
+- reportHealthChange
+- administerMedication
+- updatePatientRecords
+- communicateWithHealthcareTeam
+- conductComplianceAudit
+- accessTrainingResources
+- logDailyActivity
+
+Required Buttons:
+- Schedule Visit
+- Report Health Change
+- Administer Medication
+- Update Records
+- Communicate with Team
+- Conduct Audit
+- Access Training
+- Log Activity
+
+Required APIs:
+- /v1/patient/schedule
+- /v1/patient/report
+- /v1/medication/administer
+- /v1/patient/records
+- /v1/communication/send
+- /v1/audit/conduct
+- /v1/training/access
+- /v1/activity/log
+
+Required Semantic Keys (data-cy):
+- schedule-visit-btn
+- report-health-btn
+- administer-medication-btn
+- update-records-btn
+- communicate-team-btn
+- conduct-audit-btn
+- access-training-btn
+- log-activity-btn

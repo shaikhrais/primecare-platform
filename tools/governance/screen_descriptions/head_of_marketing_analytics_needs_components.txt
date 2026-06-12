@@ -1,0 +1,55 @@
+Screen Code: head_of_marketing_analytics
+Screen Name: HeadOfMarketingAnalyticsScreen
+
+Required Components:
+- KPIWidget
+- RealTimeAnalyticsChart
+- SocialMediaMetricsCard
+- BudgetTrackingWidget
+- CustomerFeedbackWidget
+- MarketResearchInsightsCard
+- CampaignComparisonChart
+- TeamPerformanceMetricsCard
+- CompetitorAnalysisWidget
+- AlertsNotification
+
+Required Functions/Handlers:
+- fetchKPIData
+- fetchRealTimeAnalytics
+- fetchSocialMediaMetrics
+- fetchBudgetTracking
+- fetchCustomerFeedback
+- fetchMarketResearchInsights
+- fetchCampaignComparisons
+- fetchTeamPerformanceMetrics
+- fetchCompetitorAnalysis
+- checkForAlerts
+
+Required Buttons:
+- Refresh Data
+- Export Report
+- View Detailed Analytics
+
+Required APIs:
+- /v1/marketing/kpis
+- /v1/analytics/realtime
+- /v1/socialmedia/performance
+- /v1/budget/tracking
+- /v1/customer/feedback
+- /v1/marketresearch/insights
+- /v1/campaign/comparisons
+- /v1/team/performance
+- /v1/competitor/analysis
+- /v1/alerts/check
+
+Required Semantic Keys (data-cy):
+- marketing-dashboard-kpi
+- marketing-dashboard-realtime-analytics
+- marketing-dashboard-social-media
+- marketing-dashboard-budget
+- marketing-dashboard-feedback
+- marketing-dashboard-research
+- marketing-dashboard-comparisons
+- marketing-dashboard-team-performance
+- marketing-dashboard-competitor-analysis
+- marketing-dashboard-alerts

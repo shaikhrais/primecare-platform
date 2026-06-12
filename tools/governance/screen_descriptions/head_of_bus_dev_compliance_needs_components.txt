@@ -1,0 +1,47 @@
+Screen Code: head_of_bus_dev_compliance
+Screen Name: HeadOfBusDevComplianceScreen
+
+Required Components:
+- SalesPerformanceMetricCard
+- CustomerAcquisitionRetentionChart
+- PipelineForecastWidget
+- MarketAnalysisOverview
+- KPIDashboard
+- ClientFeedbackScoreCard
+- TeamPerformanceMetricCard
+- FinancialProjectionTracker
+- BusinessDevelopmentInitiativesTimeline
+- OperationalRedFlagsAlert
+
+Required Functions/Handlers:
+- viewProposalDetails
+- negotiateContract
+- trackBusinessMetrics
+- generateBusinessReport
+- submitClientFeedback
+
+Required Buttons:
+- View Proposal
+- Negotiate Contract
+- Track Metrics
+- Generate Report
+- Submit Feedback
+
+Required APIs:
+- /v1/business-development/sales-performance
+- /v1/business-development/customer-acquisition
+- /v1/business-development/pipeline-status
+- /v1/business-development/market-analysis
+- /v1/business-development/kpis
+- /v1/business-development/client-feedback
+- /v1/business-development/team-performance
+- /v1/business-development/financial-projections
+- /v1/business-development/initiatives
+- /v1/business-development/red-flags
+
+Required Semantic Keys (data-cy):
+- bd-dashboard-btn-view-proposal
+- bd-dashboard-btn-negotiate-contract
+- bd-dashboard-btn-track-metrics
+- bd-dashboard-btn-generate-report
+- bd-dashboard-btn-submit-feedback

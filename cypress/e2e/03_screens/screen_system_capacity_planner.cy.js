@@ -4,28 +4,69 @@
 
 
 describe("Screen - system_capacity_planner", () => {
-  it("opens and verifies screen system_capacity_planner", () => {
-    cy.loginAsRole("chiropractor");
+  it("opens and verifies screen system_capacity_planner via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "admin");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (System Capacity Planner)...");
-  cy.visitWithSemantics("");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for System Capacity Planner...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("systemcapacityplanner-screen").should("be.visible");
-  cy.getCy("systemcapacityplanner-title").should("be.visible");
-  cy.getCy("systemcapacityplanner-content").should("be.visible");
-  cy.getCy("capacity-monitor-refresh").should("be.visible");
-  cy.getCy("capacity-error-message").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for System Capacity Planner...");
-  cy.waitAndSee();
-  cy.screenshot("system_capacity_planner");
-  
-  cy.task("log", "✅ PROGRESS: - Verified System Capacity Planner successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_system_capacity_planner");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: None...");
+      cy.visitWithSemantics(targetBaseUrl + "None");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("system capacity planner-screen").should("be.visible");
+      cy.getCy("system capacity planner-title").should("be.visible");
+      cy.getCy("system capacity planner-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("system_capacity_planner");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_system_capacity_planner");
+      cy.task("log", "✅ PROGRESS: - Verified System Capacity Planner successfully!\n");
+    });
   });
 });

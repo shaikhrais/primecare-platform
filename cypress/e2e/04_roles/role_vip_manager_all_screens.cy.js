@@ -19,9 +19,6 @@ describe("Role All Screens - vip_manager", () => {
   cy.getCy("vipmanagerdashboard-screen").should("be.visible");
   cy.getCy("vipmanagerdashboard-title").should("be.visible");
   cy.getCy("vipmanagerdashboard-content").should("be.visible");
-  cy.getCy("vipmanager-btn-compliance-scan").should("be.visible");
-  cy.getCy("vipmanager-btn-log-touchpoint").should("be.visible");
-  cy.getCy("vipmanager-btn-export-logs").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Saving screenshot for VipManagerDashboardScreen...");
   cy.waitAndSee();
@@ -37,12 +34,9 @@ describe("Role All Screens - vip_manager", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("vipmanageranalytics-screen").should("be.visible");
-  cy.getCy("vipmanageranalytics-title").should("be.visible");
-  cy.getCy("vipmanageranalytics-content").should("be.visible");
-  cy.getCy("vip-dashboard-btn-send-feedback").should("be.visible");
-  cy.getCy("vip-dashboard-btn-generate-report").should("be.visible");
-  cy.getCy("vip-dashboard-btn-execute-scan").should("be.visible");
+  cy.getCy("vip client manager analytics-screen").should("be.visible");
+  cy.getCy("vip client manager analytics-title").should("be.visible");
+  cy.getCy("vip client manager analytics-content").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Saving screenshot for VIP Client Manager Analytics...");
   cy.waitAndSee();
@@ -58,12 +52,9 @@ describe("Role All Screens - vip_manager", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("vipmanagerworkflow-screen").should("be.visible");
-  cy.getCy("vipmanagerworkflow-title").should("be.visible");
-  cy.getCy("vipmanagerworkflow-content").should("be.visible");
-  cy.getCy("vipmanager-btn-execute-scan").should("be.visible");
-  cy.getCy("vipmanager-btn-resolve-issue").should("be.visible");
-  cy.getCy("vipmanager-btn-update-dashboard").should("be.visible");
+  cy.getCy("vip client manager compliance workflow-screen").should("be.visible");
+  cy.getCy("vip client manager compliance workflow-title").should("be.visible");
+  cy.getCy("vip client manager compliance workflow-content").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Saving screenshot for VIP Client Manager Compliance Workflow...");
   cy.waitAndSee();

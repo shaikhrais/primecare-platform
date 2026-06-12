@@ -1,0 +1,37 @@
+Screen Code: regional_bdm_meetings
+Screen Name: Regional Bdm Meetings
+
+Required Components:
+- MeetingScheduleWidget
+- AgendaViewer
+- AttendanceTracker
+- ActionItemsList
+- DecisionsSummary
+- NotificationsPanel
+
+Required Functions/Handlers:
+- fetchMeetingSchedule
+- trackAttendance
+- updateActionItem
+- getMeetingSummary
+- sendNotifications
+
+Required Buttons:
+- Submit Feedback
+- Follow Up
+- View Agenda
+- Mark Action Item Complete
+
+Required APIs:
+- /v1/meetings/upcoming
+- /v1/meetings/attendance
+- /v1/meetings/action-items
+- /v1/meetings/decisions
+- /v1/meetings/notifications
+
+Required Semantic Keys (data-cy):
+- meeting-schedule-widget
+- attendance-tracker-btn
+- action-item-btn
+- decisions-summary-widget
+- notifications-panel

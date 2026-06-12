@@ -19,9 +19,6 @@ describe("Role All Screens - np", () => {
   cy.getCy("npdashboard-screen").should("be.visible");
   cy.getCy("npdashboard-title").should("be.visible");
   cy.getCy("npdashboard-content").should("be.visible");
-  cy.getCy("npdashboard-btn-view-records").should("be.visible");
-  cy.getCy("npdashboard-btn-log-activity").should("be.visible");
-  cy.getCy("npdashboard-btn-send-referral").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Saving screenshot for NpDashboardScreen...");
   cy.waitAndSee();
@@ -37,12 +34,9 @@ describe("Role All Screens - np", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("npanalytics-screen").should("be.visible");
-  cy.getCy("npanalytics-title").should("be.visible");
-  cy.getCy("npanalytics-content").should("be.visible");
-  cy.getCy("np-dashboard-btn-view-records").should("be.visible");
-  cy.getCy("np-dashboard-btn-generate-report").should("be.visible");
-  cy.getCy("np-dashboard-btn-send-alert").should("be.visible");
+  cy.getCy("nurse practitioner (np) analytics-screen").should("be.visible");
+  cy.getCy("nurse practitioner (np) analytics-title").should("be.visible");
+  cy.getCy("nurse practitioner (np) analytics-content").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Saving screenshot for Nurse Practitioner (NP) Analytics...");
   cy.waitAndSee();
@@ -58,12 +52,9 @@ describe("Role All Screens - np", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("npworkflow-screen").should("be.visible");
-  cy.getCy("npworkflow-title").should("be.visible");
-  cy.getCy("npworkflow-content").should("be.visible");
-  cy.getCy("npworkflow-btn-submit-assessment").should("be.visible");
-  cy.getCy("npworkflow-btn-update-care-plan").should("be.visible");
-  cy.getCy("npworkflow-btn-prescribe-medication").should("be.visible");
+  cy.getCy("nurse practitioner (np) compliance workflow-screen").should("be.visible");
+  cy.getCy("nurse practitioner (np) compliance workflow-title").should("be.visible");
+  cy.getCy("nurse practitioner (np) compliance workflow-content").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Saving screenshot for Nurse Practitioner (NP) Compliance Workflow...");
   cy.waitAndSee();

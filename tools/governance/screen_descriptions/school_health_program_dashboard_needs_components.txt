@@ -1,0 +1,47 @@
+Screen Code: school_health_program_dashboard
+Screen Name: School Health Program Dashboard
+
+Required Components:
+- KPIWidget
+- HealthMetricChart
+- AlertNotification
+- StudentRecordAccess
+- ResourceTracker
+- CommunicationTool
+- FeedbackForm
+- ComplianceTracker
+
+Required Functions/Handlers:
+- monitorHealthMetrics
+- reviewStudentRecords
+- analyzeProgramEffectiveness
+- manageHealthResources
+- communicateWithStakeholders
+- updateProgramPolicies
+- conductHealthAssessments
+- organizeHealthWorkshops
+
+Required Buttons:
+- View Records
+- Send Alert
+- Collect Feedback
+- Manage Resources
+- Update Policies
+
+Required APIs:
+- /v1/health/program/metrics
+- /v1/students/health/records
+- /v1/health/resources
+- /v1/communication/send
+- /v1/feedback/collect
+- /v1/compliance/check
+
+Required Semantic Keys (data-cy):
+- dashboard-kpi-widget
+- dashboard-health-chart
+- dashboard-alert-notification
+- dashboard-student-records
+- dashboard-resource-tracker
+- dashboard-communication-tool
+- dashboard-feedback-form
+- dashboard-compliance-tracker

@@ -1,0 +1,32 @@
+Screen Code: training_coordinator_dashboard
+Screen Name: TrainingCoordinatorDashboardScreen
+
+Required Components:
+- TrainingProgressOverview
+- ComplianceStatusCard
+- TrainingMaterialsAccess
+- FeedbackSummaryWidget
+- EventNotificationList
+- PerformanceMetricsChart
+- TrainingActivityLog
+
+Required Functions/Handlers:
+- updateTrainingProgress
+- submitFeedback
+- fetchTrainingMaterials
+
+Required Buttons:
+- Update Progress
+- Submit Feedback
+- Access Training Materials
+
+Required APIs:
+- /v1/training/progress
+- /v1/compliance/status
+- /v1/training/materials
+- /v1/feedback/summary
+
+Required Semantic Keys (data-cy):
+- training-dashboard-btn-update-progress
+- training-dashboard-btn-submit-feedback
+- training-dashboard-btn-access-materials

@@ -1,0 +1,35 @@
+Screen Code: regional_bdm_territory_growth
+Screen Name: Regional Bdm Territory Growth
+
+Required Components:
+- SalesPerformanceMetricCard
+- GrowthTrendChart
+- AlertsNotification
+- CollaborationTool
+- ReportingSummary
+
+Required Functions/Handlers:
+- monitorSalesMetrics
+- analyzeGrowthData
+- identifyImprovementAreas
+- collaborateOnStrategies
+- reviewTerritoryAssignments
+- reportToManagement
+
+Required Buttons:
+- Adjust Territory Assignments
+- Report Findings
+- Collaborate with Local Teams
+
+Required APIs:
+- /v1/sales/performance
+- /v1/territory/growth
+- /v1/teams/collaboration
+- /v1/reports/findings
+
+Required Semantic Keys (data-cy):
+- regional-bdm-sales-metrics
+- regional-bdm-growth-trends
+- regional-bdm-alerts
+- regional-bdm-collaboration
+- regional-bdm-reporting

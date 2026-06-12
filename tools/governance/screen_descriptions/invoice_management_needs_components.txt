@@ -1,0 +1,62 @@
+Screen Code: invoice_management
+Screen Name: InvoiceManagementScreen
+
+Required Components:
+- TaskManagementOverview
+- CalendarIntegration
+- DocumentManagementSystem
+- CommunicationLogs
+- PerformanceMetrics
+- ComplianceTracking
+- InventoryManagement
+- CustomerFeedback
+- TeamCollaborationTools
+- Alerts
+
+Required Functions/Handlers:
+- addTask
+- scheduleAppointment
+- uploadDocument
+- sendMessage
+- viewMetrics
+- checkCompliance
+- manageInventory
+- submitFeedback
+- collaborate
+- setAlert
+
+Required Buttons:
+- Add Task
+- Schedule Appointment
+- Upload Document
+- Send Message
+- View Metrics
+- Check Compliance
+- Manage Inventory
+- Submit Feedback
+- Collaborate
+- Set Alert
+
+Required APIs:
+- /v1/tasks
+- /v1/appointments
+- /v1/documents
+- /v1/communication
+- /v1/metrics
+- /v1/compliance
+- /v1/inventory
+- /v1/feedback
+- /v1/collaboration
+- /v1/alerts
+
+Required Semantic Keys (data-cy):
+- invoice_management-btn-add-task
+- invoice_management-btn-schedule-appointment
+- invoice_management-btn-upload-document
+- invoice_management-btn-send-message
+- invoice_management-btn-view-metrics
+- invoice_management-btn-check-compliance
+- invoice_management-btn-manage-inventory
+- invoice_management-btn-submit-feedback
+- invoice_management-btn-collaborate
+- invoice_management-btn-set-alert

@@ -1,0 +1,58 @@
+Screen Code: refund_management
+Screen Name: RefundManagementScreen
+
+Required Components:
+- TaskManagementOverview
+- CalendarIntegration
+- PerformanceMetricsCard
+- CommunicationLog
+- DocumentManagementStatus
+- BudgetTrackingReport
+- InventoryLevelsCard
+- ClientFeedbackScore
+- ComplianceAuditLog
+- DeadlineAlerts
+
+Required Functions/Handlers:
+- addTask
+- scheduleMeeting
+- generateReport
+- sendCommunication
+- updateInventory
+- trackBudget
+- viewFeedback
+- logCompliance
+- setAlert
+
+Required Buttons:
+- Add Task
+- Schedule Meeting
+- Generate Report
+- Send Communication
+- Update Inventory
+- Track Budget
+- View Feedback
+- Log Compliance
+- Set Alert
+
+Required APIs:
+- /v1/tasks
+- /v1/meetings
+- /v1/reports
+- /v1/communications
+- /v1/inventory
+- /v1/budget
+- /v1/feedback
+- /v1/compliance
+- /v1/alerts
+
+Required Semantic Keys (data-cy):
+- refundmanagement-btn-addtask
+- refundmanagement-btn-schedulemeeting
+- refundmanagement-btn-generatereport
+- refundmanagement-btn-sendcommunication
+- refundmanagement-btn-updateinventory
+- refundmanagement-btn-trackbudget
+- refundmanagement-btn-viewfeedback
+- refundmanagement-btn-logcompliance
+- refundmanagement-btn-setalert

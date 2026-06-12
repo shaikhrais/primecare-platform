@@ -1,0 +1,63 @@
+Screen Code: np_workflow
+Screen Name: Nurse Practitioner (NP) Compliance Workflow
+
+Required Components:
+- PatientAssessmentWidget
+- CarePlanWidget
+- MedicationPrescriptionWidget
+- DiagnosticTestWidget
+- PatientEducationWidget
+- CollaborationToolWidget
+- ProgressMonitoringWidget
+- DocumentationWidget
+- ComplianceTrackerWidget
+- RedFlagAlertWidget
+- DashboardMetricsWidget
+
+Required Functions/Handlers:
+- submitAssessment
+- updateCarePlan
+- prescribeMedication
+- performDiagnosticTest
+- educatePatient
+- collaborateWithTeam
+- monitorProgress
+- documentInteraction
+- checkCompliance
+- viewRedFlags
+
+Required Buttons:
+- Submit Assessment
+- Update Care Plan
+- Prescribe Medication
+- Perform Diagnostic Test
+- Educate Patient
+- Collaborate with Team
+- Monitor Progress
+- Document Interaction
+- Check Compliance
+- View Red Flags
+
+Required APIs:
+- /v1/patient/assessment
+- /v1/patient/careplan
+- /v1/patient/prescription
+- /v1/patient/diagnostics
+- /v1/patient/education
+- /v1/team/collaboration
+- /v1/patient/progress
+- /v1/documentation/interaction
+- /v1/compliance/check
+- /v1/redflags/view
+
+Required Semantic Keys (data-cy):
+- npworkflow-btn-submit-assessment
+- npworkflow-btn-update-care-plan
+- npworkflow-btn-prescribe-medication
+- npworkflow-btn-perform-diagnostic-test
+- npworkflow-btn-educate-patient
+- npworkflow-btn-collaborate-team
+- npworkflow-btn-monitor-progress
+- npworkflow-btn-document-interaction
+- npworkflow-btn-check-compliance
+- npworkflow-btn-view-red-flags

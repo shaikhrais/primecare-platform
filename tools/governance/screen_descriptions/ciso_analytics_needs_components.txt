@@ -1,0 +1,44 @@
+Screen Code: ciso_analytics
+Screen Name: CisoAnalyticsScreen
+
+Required Components:
+- IncidentOverviewCard
+- ComplianceStatusWidget
+- RiskAssessmentChart
+- IncidentResponseMetricsPanel
+- TrainingCompletionChart
+- VulnerabilityManagementWidget
+- BudgetAllocationChart
+- ThreatIntelligenceFeed
+- PolicyAdherenceMetrics
+- KPIOverviewPanel
+
+Required Functions/Handlers:
+- refreshDashboardData
+- generateSecurityReport
+- viewTrainingDetails
+- manageBudget
+
+Required Buttons:
+- Refresh Data
+- Generate Report
+- View Training Details
+- Manage Budget
+
+Required APIs:
+- /v1/security/incidents
+- /v1/security/compliance
+- /v1/security/risk-assessment
+- /v1/security/incident-response
+- /v1/security/training
+- /v1/security/vulnerabilities
+- /v1/security/budget
+- /v1/security/threat-intelligence
+- /v1/security/policy-adherence
+- /v1/security/kpis
+
+Required Semantic Keys (data-cy):
+- ciso-dashboard-btn-refresh
+- ciso-dashboard-btn-generate-report
+- ciso-dashboard-btn-view-training
+- ciso-dashboard-btn-manage-budget

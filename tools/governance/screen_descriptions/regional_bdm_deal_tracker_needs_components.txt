@@ -1,0 +1,34 @@
+Screen Code: regional_bdm_deal_tracker
+Screen Name: Regional Bdm Deal Tracker
+
+Required Components:
+- DealList
+- DealStatusIndicator
+- PerformanceMetrics
+- Alerts
+- CollaborationTools
+- DealTrendVisualization
+
+Required Functions/Handlers:
+- updateDealStatus
+- addNewDeal
+- generateDealReport
+- sendCollaborationMessage
+
+Required Buttons:
+- Update Status
+- Add Deal
+- Generate Report
+- Collaborate
+
+Required APIs:
+- /v1/deals/update
+- /v1/deals/add
+- /v1/deals/report
+- /v1/deals/collaborate
+
+Required Semantic Keys (data-cy):
+- dealtracker-btn-update-status
+- dealtracker-btn-add-deal
+- dealtracker-btn-generate-report
+- dealtracker-btn-collaborate

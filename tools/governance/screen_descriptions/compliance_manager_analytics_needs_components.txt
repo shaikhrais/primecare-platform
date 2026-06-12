@@ -1,0 +1,57 @@
+Screen Code: compliance_manager_analytics
+Screen Name: ComplianceManagerAnalyticsScreen
+
+Required Components:
+- ComplianceViolationTracker
+- AuditResultsOverview
+- TrainingParticipationMetrics
+- RiskAssessmentTool
+- RegulatoryUpdatesAlert
+- DocumentManagementSystem
+- CommunicationLogs
+- PerformanceMetricsDashboard
+- UserFriendlyInterface
+- IntegrationModule
+
+Required Functions/Handlers:
+- trackComplianceViolations
+- overviewAuditResults
+- updateTrainingParticipation
+- assessRisk
+- getRegulatoryUpdates
+- manageDocuments
+- logCommunication
+- evaluatePerformance
+- accessKeyInformation
+- integrateWithManagementSystems
+
+Required Buttons:
+- Generate Report
+- Schedule Audit
+- Update Training
+- View Compliance Risks
+- Send Inquiry
+- Access Documentation
+
+Required APIs:
+- /v1/compliance/violations
+- /v1/audits/schedule
+- /v1/training/participation
+- /v1/risk/assessment
+- /v1/regulatory/updates
+- /v1/documents/manage
+- /v1/communication/logs
+- /v1/performance/metrics
+- /v1/integration/manage
+
+Required Semantic Keys (data-cy):
+- compliance-violation-tracker
+- audit-results-overview
+- training-participation-metrics
+- risk-assessment-tool
+- regulatory-updates-alert
+- document-management-system
+- communication-logs
+- performance-metrics-dashboard
+- user-friendly-interface
+- integration-module

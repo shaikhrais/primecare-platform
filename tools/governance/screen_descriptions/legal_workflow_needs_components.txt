@@ -1,0 +1,62 @@
+Screen Code: legal_workflow
+Screen Name: LegalWorkflowScreen
+
+Required Components:
+- TaskList
+- ComplianceMetrics
+- KPIChart
+- DocumentManagementSystem
+- DeadlineAlerts
+- ExpenseReportingTool
+- DepartmentIntegration
+- TrainingResources
+- RiskAnalytics
+- FeedbackMechanism
+
+Required Functions/Handlers:
+- addTask
+- reviewDocument
+- provideLegalAdvice
+- manageLegalRisks
+- conductLegalResearch
+- liaiseWithCounsel
+- monitorLegislation
+- developPolicies
+- trainStaff
+- maintainRecords
+
+Required Buttons:
+- Add Task
+- Review Document
+- Provide Legal Advice
+- Manage Risks
+- Conduct Research
+- Liaise with Counsel
+- Monitor Legislation
+- Develop Policies
+- Train Staff
+- Maintain Records
+
+Required APIs:
+- /v1/legal/tasks
+- /v1/legal/compliance
+- /v1/legal/kpis
+- /v1/legal/documents
+- /v1/legal/deadlines
+- /v1/legal/expenses
+- /v1/legal/integration
+- /v1/legal/training
+- /v1/legal/analytics
+- /v1/legal/feedback
+
+Required Semantic Keys (data-cy):
+- legalworkflow-btn-addtask
+- legalworkflow-btn-reviewdocument
+- legalworkflow-btn-providelegaladvice
+- legalworkflow-btn-managelegalrisks
+- legalworkflow-btn-conductresearch
+- legalworkflow-btn-liaisewithcounsel
+- legalworkflow-btn-monitorlegislation
+- legalworkflow-btn-developpolicies
+- legalworkflow-btn-trainstaff
+- legalworkflow-btn-maintainrecords

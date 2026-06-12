@@ -1,0 +1,30 @@
+Screen Code: client_treatment_history
+Screen Name: Client Treatment History
+
+Required Components:
+- ClientTreatmentHistorySummary
+- LoadingIndicator
+- ErrorNotification
+- FilterOptions
+- NavigationMenu
+
+Required Functions/Handlers:
+- loadTreatmentHistory
+- handleLoadingError
+- filterTreatmentHistory
+- searchTreatmentHistory
+
+Required Buttons:
+- Refresh
+- Filter
+- Search
+
+Required APIs:
+- /v1/client/treatment/history
+
+Required Semantic Keys (data-cy):
+- client-treatment-history-summary
+- loading-indicator
+- error-notification
+- filter-options
+- search-input

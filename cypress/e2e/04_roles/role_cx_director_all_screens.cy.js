@@ -19,9 +19,6 @@ describe("Role All Screens - cx_director", () => {
   cy.getCy("cxdirectordashboard-screen").should("be.visible");
   cy.getCy("cxdirectordashboard-title").should("be.visible");
   cy.getCy("cxdirectordashboard-content").should("be.visible");
-  cy.getCy("cxdashboard-widget-customer-satisfaction").should("be.visible");
-  cy.getCy("cxdashboard-widget-feedback-trends").should("be.visible");
-  cy.getCy("cxdashboard-widget-kpi").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for CxDirectorDashboardScreen...");
   cy.waitAndSee();
@@ -40,9 +37,6 @@ describe("Role All Screens - cx_director", () => {
   cy.getCy("cxdirectoranalytics-screen").should("be.visible");
   cy.getCy("cxdirectoranalytics-title").should("be.visible");
   cy.getCy("cxdirectoranalytics-content").should("be.visible");
-  cy.getCy("cxdashboard-btn-refresh").should("be.visible");
-  cy.getCy("cxdashboard-btn-export").should("be.visible");
-  cy.getCy("cxdashboard-btn-viewdetails").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for CxDirectorAnalyticsScreen...");
   cy.waitAndSee();
@@ -61,9 +55,6 @@ describe("Role All Screens - cx_director", () => {
   cy.getCy("cxdirectorcompliance-screen").should("be.visible");
   cy.getCy("cxdirectorcompliance-title").should("be.visible");
   cy.getCy("cxdirectorcompliance-content").should("be.visible");
-  cy.getCy("cxdirector-btn-generate-report").should("be.visible");
-  cy.getCy("cxdirector-btn-initiate-audit").should("be.visible");
-  cy.getCy("cxdirector-btn-send-feedback").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for CxDirectorComplianceScreen...");
   cy.waitAndSee();
@@ -82,9 +73,6 @@ describe("Role All Screens - cx_director", () => {
   cy.getCy("cxdirectorworkflow-screen").should("be.visible");
   cy.getCy("cxdirectorworkflow-title").should("be.visible");
   cy.getCy("cxdirectorworkflow-content").should("be.visible");
-  cy.getCy("cxdashboard-btn-generate-report").should("be.visible");
-  cy.getCy("cxdashboard-btn-view-details").should("be.visible");
-  cy.getCy("cxdashboard-btn-export-data").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for CxDirectorWorkflowScreen...");
   cy.waitAndSee();

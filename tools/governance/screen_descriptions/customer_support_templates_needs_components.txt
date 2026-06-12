@@ -1,0 +1,28 @@
+Screen Code: customer_support_templates
+Screen Name: Customer Support Templates
+
+Required Components:
+- TemplateList
+- TemplatePerformanceMetrics
+- NotificationBanner
+- FeedbackForm
+- VisualIndicator
+
+Required Functions/Handlers:
+- loadTemplates
+- submitFeedback
+- reportIssue
+
+Required Buttons:
+- Provide Feedback
+- Report Issue
+
+Required APIs:
+- /v1/support/templates
+- /v1/support/templates/feedback
+- /v1/support/templates/report
+
+Required Semantic Keys (data-cy):
+- customer-support-templates-list
+- customer-support-feedback-btn
+- customer-support-report-btn

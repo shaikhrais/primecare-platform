@@ -1,0 +1,34 @@
+Screen Code: informed_consent_tracker
+Screen Name: Informed Consent Tracker
+
+Required Components:
+- ConsentStatusOverview
+- ConsentAlerts
+- ConsentMetricsChart
+- PatientConsentHistory
+- ComplianceReportTool
+- CommunicationLog
+
+Required Functions/Handlers:
+- trackConsentStatus
+- updatePatientRecords
+- generateComplianceReport
+- logCommunication
+
+Required Buttons:
+- Update Consent
+- Generate Report
+- Communicate with Patient
+
+Required APIs:
+- /v1/patients/consent/status
+- /v1/patients/consent/update
+- /v1/reports/compliance
+
+Required Semantic Keys (data-cy):
+- consent-status-overview
+- consent-alerts
+- consent-metrics-chart
+- patient-consent-history
+- compliance-report-tool
+- communication-log

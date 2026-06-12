@@ -273,16 +273,19 @@ class PswDashboardScreen extends GovernedConsumerWidget {
                   SizedBox(
                     width: double.infinity,
                     height: 48,
-                    child: ElevatedButton.icon(
-                      key: const Key('pswdashboard-btn-checkin'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: state.isCheckedIn ? const Color(0xFFDC2626) : const Color(0xFF16A34A),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    child: Cy(
+                      id: 'pswdashboard-btn-checkin',
+                      child: ElevatedButton.icon(
+                        key: const Key('pswdashboard-btn-checkin'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: state.isCheckedIn ? const Color(0xFFDC2626) : const Color(0xFF16A34A),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        ),
+                        icon: Icon(state.isCheckedIn ? LucideIcons.logOut : LucideIcons.checkCircle),
+                        onPressed: () => controller.toggleCheckIn(),
+                        label: Text(state.isCheckedIn ? 'Check-Out Shift'.tr() : 'Check-In Shift'.tr()),
                       ),
-                      icon: Icon(state.isCheckedIn ? LucideIcons.logOut : LucideIcons.checkCircle),
-                      onPressed: () => controller.toggleCheckIn(),
-                      label: Text(state.isCheckedIn ? 'Check-Out Shift'.tr() : 'Check-In Shift'.tr()),
                     ),
                   ),
                 ],
@@ -327,16 +330,19 @@ class PswDashboardScreen extends GovernedConsumerWidget {
                   SizedBox(
                     width: double.infinity,
                     height: 48,
-                    child: ElevatedButton.icon(
-                      key: const Key('pswdashboard-btn-emergency'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFB91C1C),
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    child: Cy(
+                      id: 'pswdashboard-btn-emergency',
+                      child: ElevatedButton.icon(
+                        key: const Key('pswdashboard-btn-emergency'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFB91C1C),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        ),
+                        icon: const Icon(LucideIcons.phoneCall),
+                        onPressed: () => controller.triggerEmergencyAlert(),
+                        label: Text('Trigger Emergency Alert'.tr()),
                       ),
-                      icon: const Icon(LucideIcons.phoneCall),
-                      onPressed: () => controller.triggerEmergencyAlert(),
-                      label: Text('Trigger Emergency Alert'.tr()),
                     ),
                   ),
                 ],
@@ -391,29 +397,32 @@ class PswDashboardScreen extends GovernedConsumerWidget {
                   SizedBox(
                     width: double.infinity,
                     height: 48,
-                    child: ElevatedButton(
-                      key: const Key('pswdashboard-btn-3'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.colors.primary,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                      ),
-                      onPressed: state.isLoading
-                          ? null
-                          : () => controller.runComplianceScan(),
-                      child: state.isLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                key: Key('pswdashboard-loading'),
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation(Colors.white),
+                    child: Cy(
+                      id: 'pswdashboard-btn-compliance',
+                      child: ElevatedButton(
+                        key: const Key('pswdashboard-btn-3'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: theme.colors.primary,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        ),
+                        onPressed: state.isLoading
+                            ? null
+                            : () => controller.runComplianceScan(),
+                        child: state.isLoading
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  key: Key('pswdashboard-loading'),
+                                  strokeWidth: 2,
+                                  valueColor: AlwaysStoppedAnimation(Colors.white),
+                                ),
+                              )
+                            : Text(
+                                'Run Shift Compliance Audit'.tr(),
+                                style: theme.typography.button.copyWith(color: Colors.white),
                               ),
-                            )
-                          : Text(
-                              'Run Shift Compliance Audit'.tr(),
-                              style: theme.typography.button.copyWith(color: Colors.white),
-                            ),
+                      ),
                     ),
                   ),
                 ],

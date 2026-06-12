@@ -28,7 +28,7 @@ class GlobalSettingsScreen extends GovernedConsumerStatefulWidget {
   const GlobalSettingsScreen({super.key});
 
   @override
-  GovernedConsumerState<GlobalSettingsScreen> createState() => _GlobalSettingsScreenState();
+  ConsumerState<GlobalSettingsScreen> createState() => _GlobalSettingsScreenState();
 }
 
 class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScreen> {

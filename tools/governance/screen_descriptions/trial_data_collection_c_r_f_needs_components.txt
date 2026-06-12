@@ -1,0 +1,36 @@
+Screen Code: trial_data_collection_c_r_f
+Screen Name: Trial Data Collection C R F
+
+Required Components:
+- DataEntryForm
+- DataValidationPanel
+- SubmissionStatusTracker
+- HistoricalDataAccess
+- ReportGenerator
+
+Required Functions/Handlers:
+- collectTrialData
+- validateData
+- submitData
+- monitorSubmissionStatus
+- accessHistoricalData
+- generateReports
+
+Required Buttons:
+- Submit Data
+- Validate Data
+- Access Historical Data
+- Generate Report
+
+Required APIs:
+- /v1/trialdata/submit
+- /v1/trialdata/validate
+- /v1/trialdata/status
+- /v1/trialdata/historical
+- /v1/trialdata/reports
+
+Required Semantic Keys (data-cy):
+- trialdata-btn-submit
+- trialdata-btn-validate
+- trialdata-btn-historical
+- trialdata-btn-generate-report

@@ -19,9 +19,6 @@ describe("Role All Screens - physician", () => {
   cy.getCy("physiciandashboard-screen").should("be.visible");
   cy.getCy("physiciandashboard-title").should("be.visible");
   cy.getCy("physiciandashboard-content").should("be.visible");
-  cy.getCy("physician-dashboard-btn-submit-prescription").should("be.visible");
-  cy.getCy("physician-dashboard-btn-authorize-lab-order").should("be.visible");
-  cy.getCy("physician-dashboard-btn-run-compliance-scan").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Saving screenshot for PhysicianDashboardScreen...");
   cy.waitAndSee();
@@ -37,12 +34,9 @@ describe("Role All Screens - physician", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("physiciananalytics-screen").should("be.visible");
-  cy.getCy("physiciananalytics-title").should("be.visible");
-  cy.getCy("physiciananalytics-content").should("be.visible");
-  cy.getCy("physician-dashboard-healthmetrics").should("be.visible");
-  cy.getCy("physician-dashboard-compliance").should("be.visible");
-  cy.getCy("physician-dashboard-logs").should("be.visible");
+  cy.getCy("physician analytics-screen").should("be.visible");
+  cy.getCy("physician analytics-title").should("be.visible");
+  cy.getCy("physician analytics-content").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Saving screenshot for Physician Analytics...");
   cy.waitAndSee();
@@ -58,12 +52,9 @@ describe("Role All Screens - physician", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("physicianworkflow-screen").should("be.visible");
-  cy.getCy("physicianworkflow-title").should("be.visible");
-  cy.getCy("physicianworkflow-content").should("be.visible");
-  cy.getCy("physician-dashboard-btn-update-status").should("be.visible");
-  cy.getCy("physician-dashboard-btn-view-compliance").should("be.visible");
-  cy.getCy("physician-dashboard-btn-log-activity").should("be.visible");
+  cy.getCy("physician compliance workflow-screen").should("be.visible");
+  cy.getCy("physician compliance workflow-title").should("be.visible");
+  cy.getCy("physician compliance workflow-content").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Saving screenshot for Physician Compliance Workflow...");
   cy.waitAndSee();

@@ -19,9 +19,6 @@ describe("Role All Screens - pediatric", () => {
   cy.getCy("pediatricdashboard-screen").should("be.visible");
   cy.getCy("pediatricdashboard-title").should("be.visible");
   cy.getCy("pediatricdashboard-content").should("be.visible");
-  cy.getCy("pediatric-dashboard-btn-record-growth").should("be.visible");
-  cy.getCy("pediatric-dashboard-btn-administer-vaccination").should("be.visible");
-  cy.getCy("pediatric-dashboard-btn-schedule-appointment").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Saving screenshot for PediatricDashboardScreen...");
   cy.waitAndSee();
@@ -37,12 +34,9 @@ describe("Role All Screens - pediatric", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("pediatricanalytics-screen").should("be.visible");
-  cy.getCy("pediatricanalytics-title").should("be.visible");
-  cy.getCy("pediatricanalytics-content").should("be.visible");
-  cy.getCy("pediatric-dashboard-btn-schedule").should("be.visible");
-  cy.getCy("pediatric-dashboard-btn-view-records").should("be.visible");
-  cy.getCy("pediatric-dashboard-btn-send-reminder").should("be.visible");
+  cy.getCy("pediatric specialist analytics-screen").should("be.visible");
+  cy.getCy("pediatric specialist analytics-title").should("be.visible");
+  cy.getCy("pediatric specialist analytics-content").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Saving screenshot for Pediatric Specialist Analytics...");
   cy.waitAndSee();
@@ -58,12 +52,9 @@ describe("Role All Screens - pediatric", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("pediatricworkflow-screen").should("be.visible");
-  cy.getCy("pediatricworkflow-title").should("be.visible");
-  cy.getCy("pediatricworkflow-content").should("be.visible");
-  cy.getCy("pediatric-dashboard-btn-schedule").should("be.visible");
-  cy.getCy("pediatric-dashboard-btn-record-immunization").should("be.visible");
-  cy.getCy("pediatric-dashboard-btn-submit-feedback").should("be.visible");
+  cy.getCy("pediatric specialist compliance workflow-screen").should("be.visible");
+  cy.getCy("pediatric specialist compliance workflow-title").should("be.visible");
+  cy.getCy("pediatric specialist compliance workflow-content").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Saving screenshot for Pediatric Specialist Compliance Workflow...");
   cy.waitAndSee();

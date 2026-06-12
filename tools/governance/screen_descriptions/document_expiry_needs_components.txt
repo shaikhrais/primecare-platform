@@ -1,0 +1,34 @@
+Screen Code: document_expiry
+Screen Name: Document Expiry
+
+Required Components:
+- DocumentOverview
+- NotificationSection
+- QuickAccessButtons
+- StatusIndicators
+- UserEngagementAnalytics
+
+Required Functions/Handlers:
+- monitorDocumentExpiry
+- reviewNotifications
+- updateOrRenewDocuments
+- viewDocumentStatus
+- reportDiscrepancies
+
+Required Buttons:
+- Renew Document
+- Update Document
+
+Required APIs:
+- /v1/documents/expiry
+- /v1/documents/notifications
+- /v1/documents/update
+- /v1/documents/status
+- /v1/documents/report
+
+Required Semantic Keys (data-cy):
+- document-expiry-overview
+- document-notification-section
+- document-renew-button
+- document-update-button
+- document-status-indicator

@@ -1,0 +1,39 @@
+Screen Code: marketing_manager_dashboard
+Screen Name: Marketing Manager Dashboard
+
+Required Components:
+- CampaignPerformanceMetricCard
+- EngagementTrendChart
+- BudgetTracker
+- SocialMediaAnalytics
+- EmailPerformanceSummary
+- CollaborationTool
+- CustomReportGenerator
+
+Required Functions/Handlers:
+- fetchCampaignMetrics
+- analyzeEngagementData
+- trackBudget
+- getSocialMediaStats
+- evaluateEmailCampaigns
+- generateReports
+- collaborateOnStrategies
+
+Required Buttons:
+- Generate Report
+- Adjust Tactics
+- Collaborate
+
+Required APIs:
+- /v1/marketing/campaigns/performance
+- /v1/marketing/engagement
+- /v1/marketing/budget
+- /v1/marketing/socialmedia
+- /v1/marketing/email
+- /v1/marketing/reports
+- /v1/marketing/collaboration
+
+Required Semantic Keys (data-cy):
+- marketing-dashboard-btn-generate-report
+- marketing-dashboard-btn-adjust-tactics
+- marketing-dashboard-btn-collaborate

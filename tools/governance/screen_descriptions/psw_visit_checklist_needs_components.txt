@@ -1,0 +1,30 @@
+Screen Code: psw_visit_checklist
+Screen Name: Psw Visit Checklist
+
+Required Components:
+- ChecklistReview
+- ChecklistItem
+- ErrorReport
+- FeedbackForm
+- PerformanceMetrics
+
+Required Functions/Handlers:
+- completeChecklistItem
+- reportIssue
+- submitFeedback
+- fetchChecklistData
+
+Required Buttons:
+- Complete Checklist
+- Report Issue
+- Submit Feedback
+
+Required APIs:
+- /v1/visit/checklist
+- /v1/visit/report
+- /v1/visit/feedback
+
+Required Semantic Keys (data-cy):
+- psw-visit-checklist-complete
+- psw-visit-report-issue
+- psw-visit-submit-feedback

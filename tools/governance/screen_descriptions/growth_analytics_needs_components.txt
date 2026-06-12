@@ -1,0 +1,44 @@
+Screen Code: growth_analytics
+Screen Name: GrowthAnalyticsScreen
+
+Required Components:
+- KPIChart
+- CustomerMetricsCard
+- MarketAnalysisWidget
+- ProgressTracker
+- SalesPipelineChart
+- ClientFeedbackWidget
+- TeamPerformanceDashboard
+- BudgetUtilizationChart
+- AlertsWidget
+- ActivitySummaryCard
+
+Required Functions/Handlers:
+- generateReport
+- viewDetails
+- updateMetrics
+- setAlerts
+
+Required Buttons:
+- Generate Report
+- View Details
+- Update Metrics
+- Set Alerts
+
+Required APIs:
+- /v1/business-development/kpis
+- /v1/business-development/customer-metrics
+- /v1/business-development/market-analysis
+- /v1/business-development/progress
+- /v1/business-development/sales-pipeline
+- /v1/business-development/client-feedback
+- /v1/business-development/team-performance
+- /v1/business-development/budget-utilization
+- /v1/business-development/alerts
+- /v1/business-development/activity-summary
+
+Required Semantic Keys (data-cy):
+- growthanalytics-btn-generate-report
+- growthanalytics-btn-view-details
+- growthanalytics-btn-update-metrics
+- growthanalytics-btn-set-alerts

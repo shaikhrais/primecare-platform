@@ -1,0 +1,27 @@
+Screen Code: quality_assurance_metrics
+Screen Name: Quality Assurance Metrics
+
+Required Components:
+- ErrorRateMetric
+- TestCoverageMetric
+- MTTRMetric
+- UptimeMetric
+- AuditLogViewer
+
+Required Functions/Handlers:
+- fetchMetrics
+- handleError
+
+Required Buttons:
+- Refresh
+
+Required APIs:
+- /v1/quality_assurance/metrics
+- /v1/quality_assurance/audit_logs
+
+Required Semantic Keys (data-cy):
+- qa-metric-error-rate
+- qa-metric-test-coverage
+- qa-metric-mttr
+- qa-metric-uptime
+- qa-audit-log-viewer

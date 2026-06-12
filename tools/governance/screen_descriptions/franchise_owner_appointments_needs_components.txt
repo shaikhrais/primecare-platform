@@ -1,0 +1,41 @@
+Screen Code: franchise_owner_appointments
+Screen Name: FranchiseOwnerAppointmentsScreen
+
+Required Components:
+- PerformanceMetricCard
+- ComplianceStatusWidget
+- AppointmentScheduler
+- CustomerFeedbackTracker
+- OperationalLogViewer
+- AlertNotificationSystem
+- FinancialPerformanceIndicator
+- TrainingResourceCenter
+- CommunicationTool
+
+Required Functions/Handlers:
+- manageAppointments
+- trackCustomerFeedback
+- viewComplianceStatus
+- generatePerformanceReport
+- sendCommunication
+
+Required Buttons:
+- Schedule Appointment
+- View Audit Results
+- Submit Feedback
+- Generate Report
+- Send Communication
+
+Required APIs:
+- /v1/franchise/appointments
+- /v1/franchise/compliance
+- /v1/franchise/feedback
+- /v1/franchise/performance
+- /v1/franchise/communication
+
+Required Semantic Keys (data-cy):
+- franchise-appointments-scheduler
+- franchise-compliance-status
+- franchise-feedback-tracker
+- franchise-performance-report
+- franchise-communication-tool

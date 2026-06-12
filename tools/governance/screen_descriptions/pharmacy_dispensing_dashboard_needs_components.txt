@@ -1,0 +1,51 @@
+Screen Code: pharmacy_dispensing_dashboard
+Screen Name: Pharmacy Dispensing Dashboard
+
+Required Components:
+- PrescriptionList
+- MedicationDispenseForm
+- InventoryTracker
+- PatientProfileManager
+- ReportGenerator
+- ExpirationMonitor
+- CommunicationLog
+- RefillRenewalHandler
+- PatientInquiryManager
+
+Required Functions/Handlers:
+- viewCurrentPrescriptions
+- dispenseMedication
+- trackInventory
+- managePatientProfile
+- generateReports
+- monitorExpirationDates
+- communicateWithProviders
+- handleRefills
+- addressPatientInquiries
+
+Required Buttons:
+- Dispense Medication
+- Generate Report
+- Track Inventory
+- Manage Patient Profile
+- Handle Refill
+- Communicate with Provider
+
+Required APIs:
+- /v1/pharmacy/prescriptions
+- /v1/pharmacy/dispense
+- /v1/pharmacy/inventory
+- /v1/patients/profiles
+- /v1/reports/dispensing
+- /v1/medications/expiration
+- /v1/communications/providers
+- /v1/refills
+- /v1/patient/inquiries
+
+Required Semantic Keys (data-cy):
+- pharmacy-dashboard-btn-dispense
+- pharmacy-dashboard-btn-generate-report
+- pharmacy-dashboard-btn-track-inventory
+- pharmacy-dashboard-btn-manage-profile
+- pharmacy-dashboard-btn-handle-refill
+- pharmacy-dashboard-btn-communicate

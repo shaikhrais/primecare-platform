@@ -1,0 +1,50 @@
+Screen Code: pharmacy_inventory_management
+Screen Name: Pharmacy Inventory Management
+
+Required Components:
+- InventoryLevelMonitor
+- StockUpdateForm
+- ExpirationTracker
+- ReportGenerator
+- ReorderAlertManager
+- SupplierInfoManager
+- AuditManager
+- ReturnsDisposalHandler
+
+Required Functions/Handlers:
+- monitorInventoryLevels
+- updateStockQuantities
+- trackExpirationDates
+- generateReports
+- setReorderAlerts
+- manageSupplierInfo
+- conductAudits
+- handleReturns
+
+Required Buttons:
+- Update Stock
+- Generate Report
+- Set Reorder Alert
+- Manage Supplier
+- Conduct Audit
+- Handle Returns
+
+Required APIs:
+- /v1/pharmacy/inventory/monitor
+- /v1/pharmacy/inventory/update
+- /v1/pharmacy/inventory/expiration
+- /v1/pharmacy/reports/generate
+- /v1/pharmacy/reorder/alerts
+- /v1/pharmacy/supplier/manage
+- /v1/pharmacy/audit/conduct
+- /v1/pharmacy/returns/handle
+
+Required Semantic Keys (data-cy):
+- pharmacy-inventory-monitor
+- pharmacy-stock-update
+- pharmacy-expiration-tracker
+- pharmacy-report-generator
+- pharmacy-reorder-alert
+- pharmacy-supplier-info
+- pharmacy-audit-manager
+- pharmacy-returns-handler

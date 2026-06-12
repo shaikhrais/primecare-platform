@@ -1,0 +1,47 @@
+Screen Code: partnership_manager_dashboard
+Screen Name: PartnershipManagerDashboardScreen
+
+Required Components:
+- PartnershipOverviewCard
+- ComplianceAuditHistory
+- SecurityClearanceLevels
+- KPIChart
+- TelemetryLogViewer
+- OperationalAuditLog
+- ComplianceAlerts
+- EngagementMetrics
+- LogExportTool
+- PerformanceTrendVisualization
+
+Required Functions/Handlers:
+- exportLogs
+- refreshPartnershipData
+- viewAuditDetails
+- sendCommunication
+- resolvePartnershipIssue
+
+Required Buttons:
+- Export Logs
+- Refresh Data
+- View Audit Details
+- Send Communication
+- Resolve Issue
+
+Required APIs:
+- /v1/partnerships/overview
+- /v1/partnerships/audit/history
+- /v1/partnerships/security/clearance
+- /v1/partnerships/kpi
+- /v1/partnerships/telemetry/logs
+- /v1/partnerships/audit/logs
+- /v1/partnerships/compliance/alerts
+- /v1/partnerships/engagement/metrics
+- /v1/partnerships/logs/export
+- /v1/partnerships/performance/trends
+
+Required Semantic Keys (data-cy):
+- partnership-dashboard-btn-export-logs
+- partnership-dashboard-btn-refresh-data
+- partnership-dashboard-btn-view-audit
+- partnership-dashboard-btn-send-communication
+- partnership-dashboard-btn-resolve-issue

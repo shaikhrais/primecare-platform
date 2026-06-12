@@ -1,0 +1,43 @@
+Screen Code: head_of_marketing_content_approval
+Screen Name: Head Of Marketing Content Approval
+
+Required Components:
+- ContentApprovalList
+- ApprovalMetricsCard
+- FeedbackSection
+- CollaborationTool
+- PerformanceAnalyticsChart
+- DeadlineNotification
+- ApprovalTrendChart
+
+Required Functions/Handlers:
+- approveContent
+- rejectContent
+- provideFeedback
+- fetchPendingApprovals
+- fetchApprovalMetrics
+- sendNotification
+- analyzePerformance
+
+Required Buttons:
+- Approve
+- Reject
+- Provide Feedback
+- View Details
+- Collaborate
+
+Required APIs:
+- /v1/content/approvals/pending
+- /v1/content/approvals/metrics
+- /v1/content/feedback
+- /v1/content/collaboration
+- /v1/content/performance
+
+Required Semantic Keys (data-cy):
+- content-approval-list
+- approval-metrics-card
+- feedback-section
+- collaboration-tool
+- performance-analytics-chart
+- deadline-notification
+- approval-trend-chart

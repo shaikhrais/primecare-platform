@@ -1,0 +1,49 @@
+Screen Code: portal_compliance
+Screen Name: PortalComplianceScreen
+
+Required Components:
+- ComplianceAuditList
+- GovernanceActionTrigger
+- GovernanceDirectiveManager
+- SecureEventReportSubmission
+- ComplianceVerificationReview
+- OperationalAuditLogMonitor
+- ComplianceStatusRefresher
+- ComplianceAuditStatusCard
+- GovernanceFailureAlert
+- ComplianceVerificationSummary
+- GovernanceDirectiveSettingsAccess
+- OperationalLogVisualization
+- ActionNotification
+
+Required Functions/Handlers:
+- executeComplianceAudit
+- triggerGovernanceAction
+- manageGovernanceDirectives
+- submitSecureEventReport
+- reviewComplianceVerification
+- monitorOperationalLogs
+- refreshComplianceStatus
+
+Required Buttons:
+- Execute Audit
+- Trigger Action
+- Manage Directives
+- Submit Report
+- Refresh Status
+
+Required APIs:
+- /v1/compliance/audit/execute
+- /v1/governance/action/trigger
+- /v1/governance/directives/manage
+- /v1/reports/secure/event/submit
+- /v1/compliance/verification/review
+- /v1/audit/logs/monitor
+- /v1/compliance/status/refresh
+
+Required Semantic Keys (data-cy):
+- portal-compliance-btn-execute-audit
+- portal-compliance-btn-trigger-action
+- portal-compliance-btn-manage-directives
+- portal-compliance-btn-submit-report
+- portal-compliance-btn-refresh-status

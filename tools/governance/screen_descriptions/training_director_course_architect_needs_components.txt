@@ -1,0 +1,31 @@
+Screen Code: training_director_course_architect
+Screen Name: Training Director Course Architect
+
+Required Components:
+- LoadingIndicator
+- ErrorMessageDisplay
+- ContentDisplay
+- StatusIndicator
+- MetricsDashboard
+- UserFeedbackForm
+
+Required Functions/Handlers:
+- monitorLoadingState
+- handleErrors
+- fetchData
+- submitFeedback
+
+Required Buttons:
+- Report Issue
+
+Required APIs:
+- /v1/data/fetch
+- /v1/errors/report
+
+Required Semantic Keys (data-cy):
+- loading-indicator
+- error-message
+- content-display
+- status-indicator
+- metrics-dashboard
+- user-feedback-form

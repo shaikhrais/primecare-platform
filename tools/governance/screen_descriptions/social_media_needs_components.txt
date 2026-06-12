@@ -1,0 +1,52 @@
+Screen Code: social_media
+Screen Name: SocialMediaScreen
+
+Required Components:
+- CampaignStatusCard
+- KPIChart
+- BudgetTracker
+- SocialMediaMetrics
+- MarketResearchInsights
+- CustomerFeedbackAnalysis
+- TeamPerformanceMetrics
+- CampaignTimeline
+- ComplianceStatus
+- RealTimeAnalytics
+
+Required Functions/Handlers:
+- fetchCampaignStatus
+- calculateKPIs
+- trackBudget
+- retrieveSocialMediaMetrics
+- analyzeMarketResearch
+- gatherCustomerFeedback
+- evaluateTeamPerformance
+- updateCampaignTimeline
+- checkComplianceStatus
+- generateRealTimeReports
+
+Required Buttons:
+- View Campaign Details
+- Export Reports
+- Analyze Trends
+- Manage Budget
+- Provide Feedback
+
+Required APIs:
+- /v1/marketing/campaigns/status
+- /v1/marketing/kpis
+- /v1/marketing/budget
+- /v1/socialmedia/metrics
+- /v1/marketresearch/insights
+- /v1/customer/feedback
+- /v1/team/performance
+- /v1/campaigns/timeline
+- /v1/compliance/status
+- /v1/analytics/realtime
+
+Required Semantic Keys (data-cy):
+- marketing-dashboard-btn-view-campaign
+- marketing-dashboard-btn-export-reports
+- marketing-dashboard-btn-analyze-trends
+- marketing-dashboard-btn-manage-budget
+- marketing-dashboard-btn-provide-feedback

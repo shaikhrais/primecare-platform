@@ -33,7 +33,7 @@ DateTime getLatestModifiedTime(String appPath) {
   return latest;
 }
 
-void main() async {
+void main(List<String> args) async {
   final apps = [
     'primecare_auth',
     'primecare_governance',
@@ -115,24 +115,29 @@ void main() async {
     final appUrl = appUrls[app]!;
 
     // 2. Build web
-    print('   - Building for web...');
-    final buildResult = await Process.run(
-      'flutter',
-      [
-        'build',
-        'web',
-        '--release',
-        '--dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api',
-        '--dart-define=SSO_PORTAL_URL=$ssoUrl',
-        '--dart-define=APP_BASE_URL=$appUrl',
-      ],
-      workingDirectory: appPath,
-      runInShell: true,
-    );
-    if (buildResult.exitCode != 0) {
-      print('   ❌ Error: build web failed for $app');
-      print(buildResult.stderr);
-      continue;
+    final skipBuild = args.contains('--skip-build');
+    if (!skipBuild) {
+      print('   - Building for web...');
+      final buildResult = await Process.run(
+        'flutter',
+        [
+          'build',
+          'web',
+          '--release',
+          '--dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api',
+          '--dart-define=SSO_PORTAL_URL=$ssoUrl',
+          '--dart-define=APP_BASE_URL=$appUrl',
+        ],
+        workingDirectory: appPath,
+        runInShell: true,
+      );
+      if (buildResult.exitCode != 0) {
+        print('   ❌ Error: build web failed for $app');
+        print(buildResult.stderr);
+        continue;
+      }
+    } else {
+      print('   - Skipping build step as requested (--skip-build).');
     }
 
     // 3. Deploy to Cloudflare

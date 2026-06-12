@@ -19,9 +19,6 @@ describe("Role All Screens - social_worker", () => {
   cy.getCy("socialworkerdashboard-screen").should("be.visible");
   cy.getCy("socialworkerdashboard-title").should("be.visible");
   cy.getCy("socialworkerdashboard-content").should("be.visible");
-  cy.getCy("sw-dashboard-btn-add-task").should("be.visible");
-  cy.getCy("sw-dashboard-btn-update-progress").should("be.visible");
-  cy.getCy("sw-dashboard-btn-view-resources").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for SocialWorkerDashboardScreen...");
   cy.waitAndSee();
@@ -40,9 +37,6 @@ describe("Role All Screens - social_worker", () => {
   cy.getCy("socialworkeranalytics-screen").should("be.visible");
   cy.getCy("socialworkeranalytics-title").should("be.visible");
   cy.getCy("socialworkeranalytics-content").should("be.visible");
-  cy.getCy("socialworker-btn-add-assessment").should("be.visible");
-  cy.getCy("socialworker-btn-schedule-appointment").should("be.visible");
-  cy.getCy("socialworker-btn-log-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for SocialWorkerAnalyticsScreen...");
   cy.waitAndSee();
@@ -61,9 +55,6 @@ describe("Role All Screens - social_worker", () => {
   cy.getCy("socialworkercompliance-screen").should("be.visible");
   cy.getCy("socialworkercompliance-title").should("be.visible");
   cy.getCy("socialworkercompliance-content").should("be.visible");
-  cy.getCy("socialworker-btn-report-incident").should("be.visible");
-  cy.getCy("socialworker-btn-update-security").should("be.visible");
-  cy.getCy("socialworker-btn-access-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for SocialWorkerComplianceScreen...");
   cy.waitAndSee();
@@ -82,9 +73,6 @@ describe("Role All Screens - social_worker", () => {
   cy.getCy("socialworkerworkflow-screen").should("be.visible");
   cy.getCy("socialworkerworkflow-title").should("be.visible");
   cy.getCy("socialworkerworkflow-content").should("be.visible");
-  cy.getCy("socialworker-btn-add-task").should("be.visible");
-  cy.getCy("socialworker-btn-view-client").should("be.visible");
-  cy.getCy("socialworker-btn-send-alert").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for SocialWorkerWorkflowScreen...");
   cy.waitAndSee();

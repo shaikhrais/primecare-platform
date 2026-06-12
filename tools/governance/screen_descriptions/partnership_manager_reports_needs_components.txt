@@ -1,0 +1,33 @@
+Screen Code: partnership_manager_reports
+Screen Name: Partnership Manager Reports
+
+Required Components:
+- PartnershipMetricsCard
+- PartnershipTrendsChart
+- PartnershipAlertsWidget
+- ReportExportButton
+- UserFeedbackForm
+
+Required Functions/Handlers:
+- fetchPartnershipMetrics
+- generatePartnershipReport
+- analyzePartnershipData
+- exportReport
+- submitUserFeedback
+
+Required Buttons:
+- Generate Report
+- Export PDF
+- Export CSV
+- Submit Feedback
+
+Required APIs:
+- /v1/partnerships/metrics
+- /v1/partnerships/reports
+- /v1/partnerships/feedback
+
+Required Semantic Keys (data-cy):
+- partnerships-dashboard-btn-generate-report
+- partnerships-dashboard-btn-export-pdf
+- partnerships-dashboard-btn-export-csv
+- partnerships-dashboard-btn-submit-feedback

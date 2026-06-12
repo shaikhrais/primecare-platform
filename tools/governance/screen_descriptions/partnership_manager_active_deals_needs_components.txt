@@ -1,0 +1,35 @@
+Screen Code: partnership_manager_active_deals
+Screen Name: Partnership Manager Active Deals
+
+Required Components:
+- ActiveDealsOverview
+- PartnershipPerformanceMetrics
+- RedFlagAlerts
+- CommunicationLogs
+- HistoricalTrendAnalysis
+
+Required Functions/Handlers:
+- fetchActiveDeals
+- updateDealStatus
+- sendMessageToPartner
+- analyzePerformanceMetrics
+- checkForRedFlags
+
+Required Buttons:
+- Update Deal Status
+- Send Message to Partner
+- Analyze Performance
+- View Historical Data
+
+Required APIs:
+- /v1/partnerships/active-deals
+- /v1/partnerships/performance-metrics
+- /v1/partnerships/communication-logs
+- /v1/partnerships/red-flags
+
+Required Semantic Keys (data-cy):
+- partnerships-active-deals-overview
+- partnerships-performance-metrics
+- partnerships-red-flags-alerts
+- partnerships-communication-logs
+- partnerships-historical-data

@@ -1,0 +1,33 @@
+Screen Code: client_dashboard
+Screen Name: Client Dashboard
+
+Required Components:
+- ClientDataMonitor
+- PerformanceMetricsChart
+- ReportAnalyzer
+- IssueIdentifier
+- TeamCommunicationPanel
+
+Required Functions/Handlers:
+- loadClientData
+- generateReports
+- identifyIssues
+- sendTeamUpdate
+
+Required Buttons:
+- Refresh Data
+- View Reports
+- Report Issue
+- Contact Team
+
+Required APIs:
+- /v1/client/data
+- /v1/reports/generate
+- /v1/issues/report
+- /v1/team/communication
+
+Required Semantic Keys (data-cy):
+- client-dashboard-btn-refresh
+- client-dashboard-btn-view-reports
+- client-dashboard-btn-report-issue
+- client-dashboard-btn-contact-team

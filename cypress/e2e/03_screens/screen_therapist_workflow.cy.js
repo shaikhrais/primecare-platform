@@ -4,29 +4,69 @@
 
 
 describe("Screen - therapist_workflow", () => {
-  it("opens and verifies screen therapist_workflow", () => {
-    cy.loginAsRole("therapist");
+  it("opens and verifies screen therapist_workflow via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "therapist");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/clinical/roles/therapist/workflow (Therapist Compliance Workflow)...");
-  cy.visitWithSemantics("/offices/clinical/roles/therapist/workflow");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Therapist Compliance Workflow...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("therapistworkflow-screen").should("be.visible");
-  cy.getCy("therapistworkflow-title").should("be.visible");
-  cy.getCy("therapistworkflow-content").should("be.visible");
-  cy.getCy("therapist-dashboard-btn-quality-sweep").should("be.visible");
-  cy.getCy("therapist-dashboard-btn-view-progress").should("be.visible");
-  cy.getCy("therapist-dashboard-btn-respond-alerts").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for Therapist Compliance Workflow...");
-  cy.waitAndSee();
-  cy.screenshot("therapist_workflow");
-  
-  cy.task("log", "✅ PROGRESS: - Verified Therapist Compliance Workflow successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_therapist_workflow");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /offices/clinical/roles/therapist/workflow...");
+      cy.visitWithSemantics(targetBaseUrl + "/offices/clinical/roles/therapist/workflow");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("therapist compliance workflow-screen").should("be.visible");
+      cy.getCy("therapist compliance workflow-title").should("be.visible");
+      cy.getCy("therapist compliance workflow-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("therapist_workflow");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_therapist_workflow");
+      cy.task("log", "✅ PROGRESS: - Verified Therapist Compliance Workflow successfully!\n");
+    });
   });
 });

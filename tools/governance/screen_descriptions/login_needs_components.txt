@@ -1,0 +1,33 @@
+Screen Code: login
+Screen Name: Login
+
+Required Components:
+- EmailInputField
+- PasswordInputField
+- LoginButton
+- ForgotPasswordLink
+- LoadingIndicator
+- ErrorMessageDisplay
+- SuccessMessageDisplay
+
+Required Functions/Handlers:
+- attemptLogin
+- initiatePasswordRecovery
+- validateInput
+
+Required Buttons:
+- Login
+- Forgot Password
+
+Required APIs:
+- /v1/auth/login
+- /v1/auth/recover-password
+
+Required Semantic Keys (data-cy):
+- login-email-input
+- login-password-input
+- login-button
+- forgot-password-link
+- loading-indicator
+- error-message
+- success-message

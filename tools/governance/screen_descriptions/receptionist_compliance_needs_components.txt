@@ -1,0 +1,62 @@
+Screen Code: receptionist_compliance
+Screen Name: ReceptionistComplianceScreen
+
+Required Components:
+- TaskCalendar
+- CommunicationLog
+- DocumentManagementSystem
+- PerformanceMetricsCard
+- InventoryManagement
+- CustomerFeedbackMetrics
+- TeamCollaborationTool
+- ComplianceTracker
+- TrainingResources
+- DeadlineAlerts
+
+Required Functions/Handlers:
+- addAppointment
+- sendEmail
+- uploadDocument
+- generateReport
+- manageInventory
+- submitFeedback
+- collaborate
+- trackCompliance
+- accessTraining
+- setAlert
+
+Required Buttons:
+- Add Appointment
+- Send Email
+- Upload Document
+- Generate Report
+- Manage Inventory
+- Submit Feedback
+- Collaborate
+- Track Compliance
+- Access Training
+- Set Alert
+
+Required APIs:
+- /v1/appointments
+- /v1/correspondence
+- /v1/documents
+- /v1/performance
+- /v1/inventory
+- /v1/feedback
+- /v1/collaboration
+- /v1/compliance
+- /v1/training
+- /v1/alerts
+
+Required Semantic Keys (data-cy):
+- receptionist-btn-add-appointment
+- receptionist-btn-send-email
+- receptionist-btn-upload-document
+- receptionist-btn-generate-report
+- receptionist-btn-manage-inventory
+- receptionist-btn-submit-feedback
+- receptionist-btn-collaborate
+- receptionist-btn-track-compliance
+- receptionist-btn-access-training
+- receptionist-btn-set-alert

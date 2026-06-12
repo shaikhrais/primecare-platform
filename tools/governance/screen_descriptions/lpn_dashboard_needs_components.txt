@@ -1,0 +1,57 @@
+Screen Code: lpn_dashboard
+Screen Name: LpnDashboardScreen
+
+Required Components:
+- VitalSignsMonitor
+- MedicationLog
+- ComplianceAuditResults
+- DocumentationStatus
+- TeamCommunicationTool
+- IncidentReportingSystem
+- PerformanceMetricsChart
+- EducationalResources
+- AlertsDashboard
+- PatientFeedbackSummary
+
+Required Functions/Handlers:
+- logMedication
+- reportIncident
+- fetchComplianceResults
+- updateDocumentation
+- sendMessage
+- accessResources
+- fetchPerformanceMetrics
+- acknowledgeAlert
+
+Required Buttons:
+- Log Medication
+- Report Incident
+- View Compliance Audit
+- Update Documentation
+- Send Message
+- Access Resources
+- View Performance Metrics
+- Acknowledge Alert
+
+Required APIs:
+- /v1/patients/vital-signs
+- /v1/medications/log
+- /v1/compliance/audit
+- /v1/documentation/status
+- /v1/communication/messages
+- /v1/incidents/report
+- /v1/performance/metrics
+- /v1/resources/educational
+- /v1/alerts/overdue
+
+Required Semantic Keys (data-cy):
+- lpn-dashboard-vital-signs
+- lpn-dashboard-medication-log
+- lpn-dashboard-compliance-audit
+- lpn-dashboard-documentation-status
+- lpn-dashboard-team-communication
+- lpn-dashboard-incident-reporting
+- lpn-dashboard-performance-metrics
+- lpn-dashboard-educational-resources
+- lpn-dashboard-alerts
+- lpn-dashboard-patient-feedback

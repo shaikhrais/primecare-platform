@@ -1,0 +1,62 @@
+Screen Code: owner_analytics
+Screen Name: OwnerAnalyticsScreen
+
+Required Components:
+- PerformanceMetricCard
+- ComplianceChecklist
+- FinancialOverviewChart
+- CustomerSatisfactionGauge
+- EmployeePerformanceTable
+- MarketingEffectivenessGraph
+- InventoryManagementWidget
+- OperationalEfficiencyDashboard
+- CommunicationLogViewer
+- MarketTrendAnalyzer
+
+Required Functions/Handlers:
+- fetchPerformanceMetrics
+- checkCompliance
+- updateFinancialRecords
+- trackMarketingCampaigns
+- trainStaff
+- resolveCustomerComplaints
+- conductAudit
+- implementOperationalImprovements
+- logCommunication
+- analyzeMarketTrends
+
+Required Buttons:
+- View Reports
+- Update Compliance
+- Manage Budget
+- Launch Marketing Campaign
+- Train Staff
+- Address Complaints
+- Conduct Audit
+- Implement Improvement
+- Communicate with Franchisor
+- Analyze Trends
+
+Required APIs:
+- /v1/franchise/performance
+- /v1/franchise/compliance
+- /v1/franchise/financials
+- /v1/franchise/marketing
+- /v1/franchise/customer-satisfaction
+- /v1/franchise/employee-performance
+- /v1/franchise/inventory
+- /v1/franchise/operations
+- /v1/franchise/communication
+- /v1/franchise/market-trends
+
+Required Semantic Keys (data-cy):
+- owneranalytics-btn-view-reports
+- owneranalytics-btn-update-compliance
+- owneranalytics-btn-manage-budget
+- owneranalytics-btn-launch-marketing
+- owneranalytics-btn-train-staff
+- owneranalytics-btn-address-complaints
+- owneranalytics-btn-conduct-audit
+- owneranalytics-btn-implement-improvement
+- owneranalytics-btn-communicate-franchisor
+- owneranalytics-btn-analyze-trends

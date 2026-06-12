@@ -1,0 +1,49 @@
+Screen Code: booking
+Screen Name: BookingScreen
+
+Required Components:
+- AppointmentScheduler
+- PatientInfoForm
+- ComplianceAlert
+- OperationalMetricsLog
+- PatientFeedbackChart
+- CancellationAlert
+- StaffPerformanceIndicator
+- SystemHealthMonitor
+- CommunicationLog
+
+Required Functions/Handlers:
+- managePatientIntake
+- scheduleAppointment
+- verifyPatientInfo
+- coordinateWithClinicalStaff
+- ensureCompliance
+- maintainRecords
+- communicateWithPatients
+- handleInquiries
+- monitorOperationalMetrics
+- updateBookingSystem
+
+Required Buttons:
+- Schedule Appointment
+- Verify Patient Info
+- Log Operational Activity
+- View Compliance Audit
+- Send Patient Update
+- Resolve Inquiry
+
+Required APIs:
+- /v1/patient/intake
+- /v1/appointments/schedule
+- /v1/patient/verify
+- /v1/compliance/audit
+- /v1/feedback/submit
+- /v1/metrics/report
+
+Required Semantic Keys (data-cy):
+- booking-btn-schedule
+- booking-btn-verify
+- booking-btn-log
+- booking-btn-compliance
+- booking-btn-update
+- booking-btn-resolve

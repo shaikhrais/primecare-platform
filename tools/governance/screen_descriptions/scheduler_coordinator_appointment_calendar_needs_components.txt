@@ -1,0 +1,41 @@
+Screen Code: scheduler_coordinator_appointment_calendar
+Screen Name: Scheduler Coordinator Appointment Calendar
+
+Required Components:
+- AppointmentCalendar
+- AppointmentList
+- AppointmentDetails
+- FilterPanel
+- NotificationBanner
+
+Required Functions/Handlers:
+- viewAppointments
+- addAppointment
+- editAppointment
+- deleteAppointment
+- navigateDates
+- filterAppointments
+- getAppointmentDetails
+
+Required Buttons:
+- Add Appointment
+- Edit Appointment
+- Delete Appointment
+- Next Date
+- Previous Date
+- Filter
+
+Required APIs:
+- /v1/appointments
+- /v1/appointments/add
+- /v1/appointments/edit
+- /v1/appointments/delete
+- /v1/appointments/filter
+
+Required Semantic Keys (data-cy):
+- scheduler-btn-add-appointment
+- scheduler-btn-edit-appointment
+- scheduler-btn-delete-appointment
+- scheduler-btn-next-date
+- scheduler-btn-previous-date
+- scheduler-btn-filter

@@ -1,0 +1,27 @@
+Screen Code: prime_care
+Screen Name: Prime Care
+
+Required Components:
+- MasterLayout
+- PrimeCareScreen
+- ResponsiveScreenWrapper
+- ErrorLog
+- TaskSummary
+
+Required Functions/Handlers:
+- buildScreen
+- manageUserRoles
+- handleError
+
+Required Buttons:
+- Back to Dashboard
+- Navigate to Key Screens
+
+Required APIs:
+- /v1/user/roles
+- /v1/screen/status
+- /v1/error/logs
+
+Required Semantic Keys (data-cy):
+- primecare-btn-back
+- primecare-btn-navigate

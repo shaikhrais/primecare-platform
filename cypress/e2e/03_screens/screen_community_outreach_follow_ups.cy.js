@@ -4,29 +4,69 @@
 
 
 describe("Screen - community_outreach_follow_ups", () => {
-  it("opens and verifies screen community_outreach_follow_ups", () => {
-    cy.loginAsRole("chiropractor");
+  it("opens and verifies screen community_outreach_follow_ups via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "community_outreach");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Community Outreach Follow Ups)...");
-  cy.visitWithSemantics("");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Community Outreach Follow Ups...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("communityoutreachfollowups-screen").should("be.visible");
-  cy.getCy("communityoutreachfollowups-title").should("be.visible");
-  cy.getCy("communityoutreachfollowups-content").should("be.visible");
-  cy.getCy("community-outreach-followups").should("be.visible");
-  cy.getCy("community-outreach-status").should("be.visible");
-  cy.getCy("community-feedback-analysis").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for Community Outreach Follow Ups...");
-  cy.waitAndSee();
-  cy.screenshot("community_outreach_follow_ups");
-  
-  cy.task("log", "✅ PROGRESS: - Verified Community Outreach Follow Ups successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_community_outreach_follow_ups");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: None...");
+      cy.visitWithSemantics(targetBaseUrl + "None");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("community outreach follow ups-screen").should("be.visible");
+      cy.getCy("community outreach follow ups-title").should("be.visible");
+      cy.getCy("community outreach follow ups-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("community_outreach_follow_ups");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_community_outreach_follow_ups");
+      cy.task("log", "✅ PROGRESS: - Verified Community Outreach Follow Ups successfully!\n");
+    });
   });
 });

@@ -1,0 +1,57 @@
+Screen Code: rn_compliance
+Screen Name: RnComplianceScreen
+
+Required Components:
+- PatientStatusOverview
+- MedicationAdministrationRecord
+- ComplianceAuditLog
+- IncidentReport
+- StaffingLevelChart
+- EducationResourceList
+- CommunicationTool
+- PatientCarePlanAccess
+- CriticalAlertNotification
+- PerformanceMetricsDashboard
+
+Required Functions/Handlers:
+- administerMedication
+- documentPatientCare
+- viewComplianceAudit
+- reportIncident
+- accessEducationResources
+- collaborateWithTeam
+- viewPatientCarePlan
+- acknowledgeAlert
+
+Required Buttons:
+- Administer Medication
+- Document Care
+- View Compliance Audit
+- Report Incident
+- Access Education Resources
+- Collaborate with Team
+- View Patient Care Plan
+- Acknowledge Alert
+
+Required APIs:
+- /v1/patient/status
+- /v1/medications/administer
+- /v1/compliance/audit
+- /v1/incidents/report
+- /v1/staffing/levels
+- /v1/education/resources
+- /v1/communication/tools
+- /v1/patient/careplans
+- /v1/alerts/critical
+
+Required Semantic Keys (data-cy):
+- rn-dashboard-patient-status
+- rn-dashboard-medication-record
+- rn-dashboard-compliance-audit
+- rn-dashboard-incident-report
+- rn-dashboard-staffing-levels
+- rn-dashboard-education-resources
+- rn-dashboard-communication-tool
+- rn-dashboard-care-plan-access
+- rn-dashboard-critical-alert
+- rn-dashboard-performance-metrics

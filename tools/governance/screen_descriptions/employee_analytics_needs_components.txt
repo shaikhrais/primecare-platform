@@ -1,0 +1,37 @@
+Screen Code: employee_analytics
+Screen Name: Employee Analytics
+
+Required Components:
+- EmployeeAnalyticsMonitor
+- ComplianceScanExecutor
+- TelemetryLogger
+- TelemetryRefresher
+- GovernanceActionTrigger
+- RealTimeMetricsDisplay
+- ErrorHandler
+- ResponsiveUI
+
+Required Functions/Handlers:
+- monitorEmployeeAnalytics
+- executeComplianceScan
+- logTelemetry
+- refreshTelemetryLogs
+- triggerGovernanceAction
+- handleApiResponse
+- ensureResponsiveUI
+
+Required Buttons:
+- Execute Compliance Scan
+- Refresh Telemetry
+- Trigger Governance Action
+
+Required APIs:
+- /v1/employee/analytics/monitor
+- /v1/employee/compliance/scan
+- /v1/telemetry/log
+- /v1/governance/action/trigger
+
+Required Semantic Keys (data-cy):
+- employee-analytics-btn-execute-scan
+- employee-analytics-btn-refresh-telemetry
+- employee-analytics-btn-trigger-governance

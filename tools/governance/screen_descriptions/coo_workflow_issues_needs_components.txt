@@ -1,0 +1,56 @@
+Screen Code: coo_workflow_issues
+Screen Name: CooWorkflowIssuesScreen
+
+Required Components:
+- KPIDashboard
+- OperationalMetricsChart
+- ComplianceStatusWidget
+- FinancialPerformanceCard
+- EmployeeEngagementWidget
+- ProjectTimelineTracker
+- RiskManagementReport
+- ResourceUtilizationChart
+- CustomerFeedbackWidget
+- AlertsNotification
+
+Required Functions/Handlers:
+- fetchKPIs
+- fetchOperationalMetrics
+- fetchComplianceStatus
+- fetchFinancialPerformance
+- fetchEmployeeStatistics
+- fetchProjectUpdates
+- fetchRiskReports
+- fetchResourceMetrics
+- fetchCustomerFeedback
+- checkForRedFlags
+
+Required Buttons:
+- Refresh Data
+- View Detailed Report
+- Export Data
+- Set Alerts
+
+Required APIs:
+- /v1/operations/kpis
+- /v1/operations/metrics
+- /v1/operations/compliance
+- /v1/operations/financials
+- /v1/operations/employees
+- /v1/operations/projects
+- /v1/operations/risk
+- /v1/operations/resources
+- /v1/operations/customer-feedback
+- /v1/operations/red-flags
+
+Required Semantic Keys (data-cy):
+- coo-dashboard-kpi-overview
+- coo-dashboard-metrics
+- coo-dashboard-compliance-status
+- coo-dashboard-financial-performance
+- coo-dashboard-employee-engagement
+- coo-dashboard-project-timelines
+- coo-dashboard-risk-management
+- coo-dashboard-resource-utilization
+- coo-dashboard-customer-feedback
+- coo-dashboard-alerts

@@ -120,15 +120,6 @@ abstract class GovernedScreen extends GovernedConsumerWidget implements ScreenGo
 
   const GovernedScreen({super.key});
 
-  @override
-  String 
-
-  @override
-  List<String> 
-
-  @override
-  List<String> 
-
   /// The unique feature identifier for this screen in the registry.
   String get featureId;
 

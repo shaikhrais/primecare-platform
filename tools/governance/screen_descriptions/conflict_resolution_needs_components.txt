@@ -1,0 +1,43 @@
+Screen Code: conflict_resolution
+Screen Name: ConflictResolutionScreen
+
+Required Components:
+- PerformanceMetricCard
+- EmployeeScheduleWidget
+- IncidentReportLog
+- CustomerFeedbackChart
+- SafetyComplianceTracker
+- TrainingProgressTracker
+- AlertNotificationPanel
+- HistoricalDataAnalysisChart
+
+Required Functions/Handlers:
+- addIncidentReport
+- resolveConflict
+- scheduleMeeting
+- viewTrainingProgress
+- generateReport
+
+Required Buttons:
+- Add Incident Report
+- Resolve Conflict
+- Schedule Meeting
+- View Training Progress
+- Generate Report
+
+Required APIs:
+- /v1/operations/performance
+- /v1/operations/schedule
+- /v1/operations/incidents
+- /v1/operations/customer-feedback
+- /v1/operations/safety-compliance
+- /v1/operations/training-progress
+- /v1/operations/alerts
+- /v1/operations/historical-data
+
+Required Semantic Keys (data-cy):
+- shift-supervisor-btn-add-incident
+- shift-supervisor-btn-resolve-conflict
+- shift-supervisor-btn-schedule-meeting
+- shift-supervisor-btn-view-training
+- shift-supervisor-btn-generate-report

@@ -1,0 +1,33 @@
+Screen Code: site_readiness
+Screen Name: Site Readiness
+
+Required Components:
+- ComplianceChecklistViewer
+- AuditScheduler
+- ReadinessPercentageIndicator
+- CriticalViolationsHighlight
+- AuditListDisplay
+
+Required Functions/Handlers:
+- reviewChecklists
+- scheduleAudit
+- updateComplianceStatus
+- monitorReadiness
+- addressViolations
+
+Required Buttons:
+- Schedule Audit
+- Update Compliance Status
+- View Details
+
+Required APIs:
+- /v1/clinics/compliance/checklists
+- /v1/clinics/audits/schedule
+- /v1/clinics/compliance/update
+- /v1/clinics/readiness/percentage
+- /v1/clinics/violations
+
+Required Semantic Keys (data-cy):
+- site-readiness-btn-schedule-audit
+- site-readiness-btn-update-status
+- site-readiness-btn-view-details

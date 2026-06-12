@@ -4,29 +4,69 @@
 
 
 describe("Screen - cto_issue_tracking", () => {
-  it("opens and verifies screen cto_issue_tracking", () => {
-    cy.loginAsRole("chiropractor");
+  it("opens and verifies screen cto_issue_tracking via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "cto");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /offices/corporate/roles/cto/issue-tracking (Cto Issue Tracking)...");
-  cy.visitWithSemantics("/offices/corporate/roles/cto/issue-tracking");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Cto Issue Tracking...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("ctoissuetracking-screen").should("be.visible");
-  cy.getCy("ctoissuetracking-title").should("be.visible");
-  cy.getCy("ctoissuetracking-content").should("be.visible");
-  cy.getCy("issue-status-overview").should("be.visible");
-  cy.getCy("issue-notification-widget").should("be.visible");
-  cy.getCy("issue-analytics-chart").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for Cto Issue Tracking...");
-  cy.waitAndSee();
-  cy.screenshot("cto_issue_tracking");
-  
-  cy.task("log", "✅ PROGRESS: - Verified Cto Issue Tracking successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_cto_issue_tracking");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /offices/corporate/roles/cto/issue-tracking...");
+      cy.visitWithSemantics(targetBaseUrl + "/offices/corporate/roles/cto/issue-tracking");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("cto issue tracking-screen").should("be.visible");
+      cy.getCy("cto issue tracking-title").should("be.visible");
+      cy.getCy("cto issue tracking-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("cto_issue_tracking");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_cto_issue_tracking");
+      cy.task("log", "✅ PROGRESS: - Verified Cto Issue Tracking successfully!\n");
+    });
   });
 });

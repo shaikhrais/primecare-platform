@@ -1,0 +1,51 @@
+Screen Code: therapist_dashboard
+Screen Name: TherapistDashboardScreen
+
+Required Components:
+- TitleDisplay
+- LoadingIndicator
+- OperationalLogsSection
+- TelemetryChart
+
+Required Functions/Handlers:
+- startTherapySession
+- finalizeClinicalNotes
+- runComplianceScan
+- syncPosture
+- updatePolicy
+- exportLogs
+- addLogEntries
+- triggerStateActions
+- refreshDashboard
+
+Required Buttons:
+- Start Therapy Session
+- Finalize Clinical Notes
+- Run Compliance Scan
+- Sync Posture
+- Update Policy
+- Export Logs
+- Add Log Entries
+- Trigger State Actions
+- Refresh
+
+Required APIs:
+- /v1/therapy/start
+- /v1/clinical/notes/finalize
+- /v1/compliance/scan
+- /v1/posture/sync
+- /v1/policy/update
+- /v1/logs/export
+- /v1/logs/add
+- /v1/state/actions/trigger
+
+Required Semantic Keys (data-cy):
+- therapist-dashboard-btn-start-session
+- therapist-dashboard-btn-finalize-notes
+- therapist-dashboard-btn-run-compliance
+- therapist-dashboard-btn-sync-posture
+- therapist-dashboard-btn-update-policy
+- therapist-dashboard-btn-export-logs
+- therapist-dashboard-btn-add-log
+- therapist-dashboard-btn-trigger-state
+- therapist-dashboard-btn-refresh

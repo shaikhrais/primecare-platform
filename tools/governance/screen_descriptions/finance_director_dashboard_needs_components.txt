@@ -1,0 +1,26 @@
+Screen Code: finance_director_dashboard
+Screen Name: FinanceDirectorDashboardScreen
+
+Required Components:
+- FinancialPerformanceMetrics
+- CashFlowStatus
+- BudgetVsActualAnalysis
+- ComplianceStatus
+- KPIsDashboard
+- RiskAssessmentDashboard
+- FinancialReportsSummary
+- AlertsDashboard
+- HistoricalDataTrends
+- InsightsRecommendations
+
+Required Functions/Handlers:
+- [None specified]
+
+Required Buttons:
+- [None specified]
+
+Required APIs:
+- [None specified]
+
+Required Semantic Keys (data-cy):
+- [None specified]

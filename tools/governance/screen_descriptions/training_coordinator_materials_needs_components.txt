@@ -1,0 +1,25 @@
+Screen Code: training_coordinator_materials
+Screen Name: Training Coordinator Materials
+
+Required Components:
+- LoadingIndicator
+- ErrorMessage
+- TrainingMaterialsSummary
+- FeedbackForm
+
+Required Functions/Handlers:
+- loadTrainingMaterials
+- handleLoadingError
+- submitFeedback
+
+Required Buttons:
+- Report Issue
+- Provide Feedback
+
+Required APIs:
+- /v1/training/materials
+
+Required Semantic Keys (data-cy):
+- training-coordinator-loading-indicator
+- training-coordinator-error-message
+- training-coordinator-feedback-form

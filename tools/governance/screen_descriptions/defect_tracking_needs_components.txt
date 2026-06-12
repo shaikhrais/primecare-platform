@@ -1,0 +1,44 @@
+Screen Code: defect_tracking
+Screen Name: DefectTrackingScreen
+
+Required Components:
+- TestStatusOverview
+- DefectMetricsChart
+- DefectTrendsGraph
+- TestCoverageReport
+- AutomatedTestResults
+- ComplianceScanResults
+- PerformanceMetrics
+- UserFeedbackScores
+- AlertsDashboard
+- ProjectManagementIntegration
+
+Required Functions/Handlers:
+- executeTestPlan
+- documentDefect
+- resolveIssue
+- conductRegressionTesting
+- viewReports
+
+Required Buttons:
+- Execute Test Plan
+- Document Defect
+- Resolve Issue
+- Conduct Regression Testing
+- View Reports
+
+Required APIs:
+- /v1/qa/test/status
+- /v1/qa/defects
+- /v1/qa/test/coverage
+- /v1/qa/automated/results
+- /v1/qa/compliance/results
+- /v1/qa/performance/metrics
+- /v1/qa/user/feedback
+
+Required Semantic Keys (data-cy):
+- qa-dashboard-btn-execute-test
+- qa-dashboard-btn-document-defect
+- qa-dashboard-btn-resolve-issue
+- qa-dashboard-btn-regression-testing
+- qa-dashboard-btn-view-reports

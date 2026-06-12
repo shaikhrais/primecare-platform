@@ -307,81 +307,88 @@ class MasterLayout extends ConsumerWidget {
         onPressed: () {},
         icon: Icon(LucideIcons.search, color: theme.colors.topbarTextColor),
       ),
-      PopupMenuButton<String>(
-        offset: const Offset(0, 48),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: theme.colors.topbarDividerColor),
-        ),
-        color: theme.colors.topbarBackground,
-        tooltip: 'User Functions',
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: CircleAvatar(
-            radius: 16,
-            backgroundColor: theme.colors.topbarSelectedTextColor.withValues(alpha: 0.1),
-            backgroundImage: NetworkImage(
-              'https://api.dicebear.com/7.x/avataaars/png?seed=${auth.userName ?? 'User'}',
+      Cy(
+        id: 'topbar-user-menu',
+        child: PopupMenuButton<String>(
+          offset: const Offset(0, 48),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(color: theme.colors.topbarDividerColor),
+          ),
+          color: theme.colors.topbarBackground,
+          tooltip: 'User Functions',
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: CircleAvatar(
+              radius: 16,
+              backgroundColor: theme.colors.topbarSelectedTextColor.withValues(alpha: 0.1),
+              backgroundImage: NetworkImage(
+                'https://api.dicebear.com/7.x/avataaars/png?seed=${auth.userName ?? 'User'}',
+              ),
             ),
           ),
-        ),
-        onSelected: (value) {
-          if (value == 'logout') {
-            ProviderScope.containerOf(context).read(authProvider.notifier).logout();
-          } else if (value == 'profile') {
-            // Future: Navigate to profile
-          }
-        },
-        itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-          PopupMenuItem<String>(
-            enabled: false,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  auth.userName ?? 'System User',
-                  style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold, color: theme.colors.topbarSelectedTextColor),
+          onSelected: (value) {
+            if (value == 'logout') {
+              ProviderScope.containerOf(context).read(authProvider.notifier).logout();
+            } else if (value == 'profile') {
+              // Future: Navigate to profile
+            }
+          },
+          itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+            PopupMenuItem<String>(
+              enabled: false,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    auth.userName ?? 'System User',
+                    style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold, color: theme.colors.topbarSelectedTextColor),
+                  ),
+                  Text(
+                    auth.role ?? 'Guest',
+                    style: theme.typography.labelSmall.copyWith(color: theme.colors.topbarTextColor),
+                  ),
+                ],
+              ),
+            ),
+            PopupMenuDivider(color: theme.colors.topbarDividerColor),
+            PopupMenuItem<String>(
+              value: 'profile',
+              child: Row(
+                children: [
+                  Icon(LucideIcons.user, size: 18, color: theme.colors.topbarTextColor),
+                  const SizedBox(width: 12),
+                  Text('User Profile'.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.topbarTextColor)),
+                ],
+              ),
+            ),
+            PopupMenuItem<String>(
+              value: 'settings',
+              child: Row(
+                children: [
+                  Icon(LucideIcons.settings, size: 18, color: theme.colors.topbarTextColor),
+                  const SizedBox(width: 12),
+                  Text('Account Settings'.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.topbarTextColor)),
+                ],
+              ),
+            ),
+            PopupMenuDivider(color: theme.colors.topbarDividerColor),
+            PopupMenuItem<String>(
+              value: 'logout',
+              child: Cy(
+                id: 'topbar-logout-button',
+                container: false,
+                child: Row(
+                  children: [
+                    Icon(LucideIcons.logOut, size: 18, color: theme.colors.error),
+                    const SizedBox(width: 12),
+                    Text('Sign Out'.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.error)),
+                  ],
                 ),
-                Text(
-                  auth.role ?? 'Guest',
-                  style: theme.typography.labelSmall.copyWith(color: theme.colors.topbarTextColor),
-                ),
-              ],
+              ),
             ),
-          ),
-          PopupMenuDivider(color: theme.colors.topbarDividerColor),
-          PopupMenuItem<String>(
-            value: 'profile',
-            child: Row(
-              children: [
-                Icon(LucideIcons.user, size: 18, color: theme.colors.topbarTextColor),
-                const SizedBox(width: 12),
-                Text('User Profile'.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.topbarTextColor)),
-              ],
-            ),
-          ),
-          PopupMenuItem<String>(
-            value: 'settings',
-            child: Row(
-              children: [
-                Icon(LucideIcons.settings, size: 18, color: theme.colors.topbarTextColor),
-                const SizedBox(width: 12),
-                Text('Account Settings'.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.topbarTextColor)),
-              ],
-            ),
-          ),
-          PopupMenuDivider(color: theme.colors.topbarDividerColor),
-          PopupMenuItem<String>(
-            value: 'logout',
-            child: Row(
-              children: [
-                Icon(LucideIcons.logOut, size: 18, color: theme.colors.error),
-                const SizedBox(width: 12),
-                Text('Sign Out'.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.error)),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
       const SizedBox(width: 8),
     ];

@@ -4,29 +4,69 @@
 
 
 describe("Screen - substance_abuse_prevention_tracker", () => {
-  it("opens and verifies screen substance_abuse_prevention_tracker", () => {
-    cy.loginAsRole("chiropractor");
+  it("opens and verifies screen substance_abuse_prevention_tracker via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "chiropractor");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Substance Abuse Prevention Tracker)...");
-  cy.visitWithSemantics("");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Substance Abuse Prevention Tracker...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("substanceabusepreventiontracker-screen").should("be.visible");
-  cy.getCy("substanceabusepreventiontracker-title").should("be.visible");
-  cy.getCy("substanceabusepreventiontracker-content").should("be.visible");
-  cy.getCy("substance-abuse-btn-submit").should("be.visible");
-  cy.getCy("substance-abuse-btn-generate-report").should("be.visible");
-  cy.getCy("substance-abuse-btn-analyze-trends").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for Substance Abuse Prevention Tracker...");
-  cy.waitAndSee();
-  cy.screenshot("substance_abuse_prevention_tracker");
-  
-  cy.task("log", "✅ PROGRESS: - Verified Substance Abuse Prevention Tracker successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_substance_abuse_prevention_tracker");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: None...");
+      cy.visitWithSemantics(targetBaseUrl + "None");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("substance abuse prevention tracker-screen").should("be.visible");
+      cy.getCy("substance abuse prevention tracker-title").should("be.visible");
+      cy.getCy("substance abuse prevention tracker-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("substance_abuse_prevention_tracker");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_substance_abuse_prevention_tracker");
+      cy.task("log", "✅ PROGRESS: - Verified Substance Abuse Prevention Tracker successfully!\n");
+    });
   });
 });

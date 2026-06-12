@@ -1,0 +1,28 @@
+Screen Code: psw_system_logs
+Screen Name: Psw System Logs
+
+Required Components:
+- LogList
+- LogFilter
+- LogExport
+- LogSummary
+- LogSearch
+- RedFlagIndicator
+
+Required Functions/Handlers:
+- filterLogs
+- exportLogs
+- searchLogs
+- reportCriticalIssue
+
+Required Buttons:
+- Export Logs
+- Report Issue
+
+Required APIs:
+- /v1/system/logs
+- /v1/system/logs/export
+
+Required Semantic Keys (data-cy):
+- pswlogs-btn-export
+- pswlogs-btn-report

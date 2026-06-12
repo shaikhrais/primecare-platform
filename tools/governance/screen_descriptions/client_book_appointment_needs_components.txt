@@ -1,0 +1,28 @@
+Screen Code: client_book_appointment
+Screen Name: Client Book Appointment
+
+Required Components:
+- LoadingIndicator
+- ErrorMessageDisplay
+- AppointmentBookingConfirmation
+- UserFeedbackForm
+
+Required Functions/Handlers:
+- fetchAppointmentData
+- handleError
+- confirmBooking
+- submitFeedback
+
+Required Buttons:
+- Book Appointment
+- Report Issue
+
+Required APIs:
+- /v1/appointments/book
+- /v1/appointments/status
+
+Required Semantic Keys (data-cy):
+- client-book-appointment-loading
+- client-book-appointment-error
+- client-book-appointment-confirmation
+- client-book-appointment-feedback

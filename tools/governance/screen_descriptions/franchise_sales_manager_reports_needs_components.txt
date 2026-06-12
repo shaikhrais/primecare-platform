@@ -1,0 +1,45 @@
+Screen Code: franchise_sales_manager_reports
+Screen Name: Franchise Sales Manager Reports
+
+Required Components:
+- SalesDataVisualization
+- AlertsWidget
+- PerformanceComparisonChart
+- CustomerFeedbackSummary
+- ComplianceTrackingIndicator
+- HistoricalSalesDataAccess
+- ReportGenerationLinks
+- MeetingNotifications
+
+Required Functions/Handlers:
+- generateSalesReport
+- viewCustomerFeedback
+- trackCompliance
+- analyzeFranchisePerformance
+- notifyMeeting
+
+Required Buttons:
+- Generate Report
+- View Feedback
+- Track Compliance
+- Analyze Performance
+- Attend Meeting
+
+Required APIs:
+- /v1/franchise/sales/data
+- /v1/franchise/performance/metrics
+- /v1/franchise/reports/trends
+- /v1/franchise/top-performing
+- /v1/franchise/compliance
+- /v1/franchise/feedback
+- /v1/franchise/meetings
+
+Required Semantic Keys (data-cy):
+- franchise-sales-data-visualization
+- franchise-alerts-widget
+- franchise-performance-chart
+- franchise-feedback-summary
+- franchise-compliance-indicator
+- franchise-historical-data
+- franchise-report-links
+- franchise-meeting-notifications

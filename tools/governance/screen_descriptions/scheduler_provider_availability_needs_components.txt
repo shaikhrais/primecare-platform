@@ -1,0 +1,48 @@
+Screen Code: scheduler_provider_availability
+Screen Name: SchedulerProviderAvailabilityScreen
+
+Required Components:
+- PerformanceMetricCard
+- StaffScheduleWidget
+- IncidentReportCard
+- CustomerFeedbackTracker
+- OperationalEfficiencyChart
+- TeamPerformanceEvaluator
+- AlertNotificationSystem
+- HistoricalDataAnalyzer
+
+Required Functions/Handlers:
+- fetchPerformanceMetrics
+- updateStaffSchedule
+- logIncidentReport
+- trackCustomerFeedback
+- calculateOperationalEfficiency
+- evaluateTeamPerformance
+- sendAlertNotification
+- analyzeHistoricalData
+
+Required Buttons:
+- View Schedule
+- Report Issue
+- Track Feedback
+- Generate Report
+- Conduct Meeting
+- Provide Training
+
+Required APIs:
+- /v1/operations/performance
+- /v1/staff/schedule
+- /v1/safety/incidents
+- /v1/customer/feedback
+- /v1/operations/efficiency
+- /v1/team/performance
+- /v1/alerts
+- /v1/data/historical
+
+Required Semantic Keys (data-cy):
+- scheduler-btn-view-schedule
+- scheduler-btn-report-issue
+- scheduler-btn-track-feedback
+- scheduler-btn-generate-report
+- scheduler-btn-conduct-meeting
+- scheduler-btn-provide-training

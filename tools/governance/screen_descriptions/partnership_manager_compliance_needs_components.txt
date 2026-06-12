@@ -1,0 +1,46 @@
+Screen Code: partnership_manager_compliance
+Screen Name: PartnershipManagerComplianceScreen
+
+Required Components:
+- ComplianceAuditStatusCard
+- RecentAuditSummaryCard
+- OperationalLogsTable
+- ComplianceAlertsWidget
+- GovernanceDirectivesStatusCard
+- SecureEventReportsMetric
+- ComplianceTrendsChart
+
+Required Functions/Handlers:
+- fetchComplianceAuditStatus
+- fetchRecentAudits
+- fetchOperationalLogs
+- fetchComplianceAlerts
+- fetchGovernanceDirectivesStatus
+- fetchSecureEventReports
+- fetchComplianceTrends
+- executeComplianceScan
+- triggerGovernanceAction
+
+Required Buttons:
+- Execute Compliance Scan
+- Trigger Governance Action
+
+Required APIs:
+- /v1/compliance/audit/status
+- /v1/compliance/audits/recent
+- /v1/operations/logs
+- /v1/compliance/alerts
+- /v1/governance/directives/status
+- /v1/secure-events/reports
+- /v1/compliance/trends
+
+Required Semantic Keys (data-cy):
+- compliance-audit-status-card
+- recent-audit-summary-card
+- operational-logs-table
+- compliance-alerts-widget
+- governance-directives-status-card
+- secure-event-reports-metric
+- compliance-trends-chart
+- execute-compliance-scan-btn
+- trigger-governance-action-btn

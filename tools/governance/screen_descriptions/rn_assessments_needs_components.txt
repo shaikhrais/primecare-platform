@@ -1,0 +1,38 @@
+Screen Code: rn_assessments
+Screen Name: RnAssessmentsScreen
+
+Required Components:
+- PatientAssessmentCard
+- AssessmentScoreTracker
+- SubmissionStatusIndicator
+- HealthStatusMonitor
+- CommunicationTool
+- AssessmentHistoryViewer
+- TrendVisualizationChart
+- AlertNotification
+
+Required Functions/Handlers:
+- submitAssessment
+- fetchAssessmentHistory
+- sendMessageToTeam
+- getPatientTrends
+- alertCriticalScores
+
+Required Buttons:
+- Submit Assessment
+- View History
+- Send Message
+- Access Resources
+
+Required APIs:
+- /v1/patient/assessments
+- /v1/patient/history
+- /v1/communication/send
+- /v1/patient/trends
+- /v1/alerts/critical
+
+Required Semantic Keys (data-cy):
+- rn-assessment-btn-submit
+- rn-assessment-btn-view-history
+- rn-assessment-btn-send-message
+- rn-assessment-btn-access-resources

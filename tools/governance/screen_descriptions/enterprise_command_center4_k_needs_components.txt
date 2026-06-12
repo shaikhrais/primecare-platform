@@ -1,0 +1,56 @@
+Screen Code: enterprise_command_center4_k
+Screen Name: EnterpriseCommandCenter4KScreen
+
+Required Components:
+- KPIWidget
+- EmployeeSatisfactionChart
+- CustomerFeedbackWidget
+- ComplianceStatusCard
+- OperationalEfficiencyChart
+- SalesPerformanceGraph
+- InnovationMetricsWidget
+- IndustryTrendsDashboard
+- FinancialForecastChart
+- AlertsNotification
+
+Required Functions/Handlers:
+- fetchKPIData
+- fetchEmployeeData
+- fetchCustomerFeedback
+- fetchComplianceData
+- fetchOperationalMetrics
+- fetchSalesData
+- fetchInnovationMetrics
+- fetchIndustryTrends
+- generateFinancialForecast
+- checkAlerts
+
+Required Buttons:
+- Refresh Data
+- View Detailed Report
+- Export Data
+- Set Strategic Goals
+
+Required APIs:
+- /v1/financial/kpis
+- /v1/employee/satisfaction
+- /v1/customer/feedback
+- /v1/compliance/status
+- /v1/operations/efficiency
+- /v1/sales/performance
+- /v1/innovation/metrics
+- /v1/industry/trends
+- /v1/financial/forecast
+- /v1/alerts
+
+Required Semantic Keys (data-cy):
+- dashboard-kpi-refresh
+- dashboard-employee-satisfaction
+- dashboard-customer-feedback
+- dashboard-compliance-status
+- dashboard-operational-efficiency
+- dashboard-sales-performance
+- dashboard-innovation-metrics
+- dashboard-industry-trends
+- dashboard-financial-forecast
+- dashboard-alerts

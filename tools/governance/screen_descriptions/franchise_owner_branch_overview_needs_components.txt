@@ -1,0 +1,32 @@
+Screen Code: franchise_owner_branch_overview
+Screen Name: FranchiseOwnerBranchOverviewScreen
+
+Required Components:
+- ActiveOperationsOverview
+- SecurityClearanceStatus
+- TelemetryDataChart
+- OperationalAuditLog
+- ComplianceScanResults
+- AlertsNotificationPanel
+- LogEntryFeature
+
+Required Functions/Handlers:
+- executeComplianceScan
+- refreshTelemetryData
+- logSignificantEvent
+
+Required Buttons:
+- Trigger Compliance Scan
+- Refresh Data
+
+Required APIs:
+- /v1/franchise/operations/overview
+- /v1/franchise/security/clearance
+- /v1/franchise/telemetry/data
+- /v1/franchise/audit/logs
+- /v1/franchise/compliance/scans
+- /v1/franchise/alerts/notifications
+
+Required Semantic Keys (data-cy):
+- franchise-owner-btn-trigger-scan
+- franchise-owner-btn-refresh-data

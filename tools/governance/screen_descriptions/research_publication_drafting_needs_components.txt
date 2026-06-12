@@ -1,0 +1,42 @@
+Screen Code: research_publication_drafting
+Screen Name: Research Publication Drafting
+
+Required Components:
+- TaskProgressTracker
+- CollaborationStatusIndicator
+- SubmissionStatusOverview
+- NotificationPanel
+- ResearchResourcesAccess
+- VersionHistory
+- PerformanceMetrics
+
+Required Functions/Handlers:
+- trackTaskProgress
+- updateCollaborationStatus
+- getSubmissionStatus
+- sendNotification
+- accessResearchResources
+- viewVersionHistory
+- calculatePerformanceMetrics
+
+Required Buttons:
+- Draft Publication
+- Edit Draft
+- Submit for Review
+- Incorporate Feedback
+- Finalize and Publish
+
+Required APIs:
+- /v1/publications/draft
+- /v1/publications/edit
+- /v1/publications/submit
+- /v1/publications/status
+- /v1/publications/feedback
+- /v1/publications/publish
+
+Required Semantic Keys (data-cy):
+- publication-draft-btn
+- publication-edit-btn
+- publication-submit-btn
+- publication-feedback-btn
+- publication-finalize-btn

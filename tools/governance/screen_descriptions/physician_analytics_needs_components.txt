@@ -1,0 +1,44 @@
+Screen Code: physician_analytics
+Screen Name: Physician Analytics
+
+Required Components:
+- HealthMetricsDisplay
+- ComplianceStatusIndicator
+- OperationalLogsAlert
+- TelemetryTrendChart
+- PatientRecordsAccess
+- TaskExecutionButton
+- LogHistoryViewer
+
+Required Functions/Handlers:
+- updatePatientRecords
+- executeQualitySweep
+- sendCommunication
+- reviewCompliance
+- analyzeOperationalLogs
+- participateInTraining
+
+Required Buttons:
+- Update Records
+- Execute Quality Sweep
+- Send Communication
+- Review Compliance
+- Analyze Logs
+- Participate in Training
+
+Required APIs:
+- /v1/patient/healthmetrics
+- /v1/patient/compliance
+- /v1/logs/operational
+- /v1/quality/sweep
+- /v1/communication/send
+- /v1/patient/records/update
+
+Required Semantic Keys (data-cy):
+- physician-dashboard-healthmetrics
+- physician-dashboard-compliance
+- physician-dashboard-logs
+- physician-dashboard-telemetry
+- physician-dashboard-records
+- physician-dashboard-task-execute
+- physician-dashboard-log-history

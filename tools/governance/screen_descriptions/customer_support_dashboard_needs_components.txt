@@ -1,0 +1,35 @@
+Screen Code: customer_support_dashboard
+Screen Name: CustomerSupportDashboardScreen
+
+Required Components:
+- CustomerSupportDashboard
+- LogDisplay
+- ActionButton
+- OperationalMetrics
+- TelemetryChart
+- ExportLogs
+- ErrorIndicator
+
+Required Functions/Handlers:
+- executeComplianceScan
+- manualSync
+- exportLogs
+- updateSecurityPolicies
+
+Required Buttons:
+- Run Compliance Scan
+- Manual Synchronization
+- Export Logs
+- Update Security Policies
+
+Required APIs:
+- /v1/support/compliance/scan
+- /v1/support/sync/manual
+- /v1/support/logs/export
+- /v1/support/security/update
+
+Required Semantic Keys (data-cy):
+- csdashboard-btn-compliance-scan
+- csdashboard-btn-manual-sync
+- csdashboard-btn-export-logs
+- csdashboard-btn-update-security

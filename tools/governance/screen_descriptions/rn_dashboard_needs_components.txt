@@ -1,0 +1,62 @@
+Screen Code: rn_dashboard
+Screen Name: RnDashboardScreen
+
+Required Components:
+- PatientStatusCard
+- ComplianceAuditAlert
+- PatientInteractionLog
+- PerformanceMetricChart
+- CriticalConditionAlert
+- EducationalResourceAccess
+- TeamCommunicationTool
+- TrendAnalysisChart
+- PatientOutcomeVisualization
+- IncidentReportingTool
+
+Required Functions/Handlers:
+- fetchPatientStatus
+- triggerComplianceAlert
+- logPatientInteraction
+- calculatePerformanceMetrics
+- sendCriticalConditionAlert
+- accessEducationalResources
+- initiateTeamCommunication
+- fetchHistoricalData
+- visualizePatientOutcomes
+- reportIncident
+
+Required Buttons:
+- View Patient Status
+- Audit Compliance
+- Log Interaction
+- View Performance Metrics
+- Alert Critical Condition
+- Access Educational Resources
+- Collaborate with Team
+- Analyze Trends
+- View Outcomes
+- Report Incident
+
+Required APIs:
+- /v1/patient/status
+- /v1/audit/compliance
+- /v1/patient/interactions
+- /v1/performance/metrics
+- /v1/patient/alerts
+- /v1/resources/educational
+- /v1/communication/team
+- /v1/data/historical
+- /v1/outcomes/visualization
+- /v1/incidents/report
+
+Required Semantic Keys (data-cy):
+- rn-dashboard-btn-view-status
+- rn-dashboard-btn-audit-compliance
+- rn-dashboard-btn-log-interaction
+- rn-dashboard-btn-performance-metrics
+- rn-dashboard-btn-alert-critical
+- rn-dashboard-btn-access-resources
+- rn-dashboard-btn-collaborate-team
+- rn-dashboard-btn-analyze-trends
+- rn-dashboard-btn-view-outcomes
+- rn-dashboard-btn-report-incident

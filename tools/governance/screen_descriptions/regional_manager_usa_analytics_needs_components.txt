@@ -1,0 +1,58 @@
+Screen Code: regional_manager_usa_analytics
+Screen Name: RegionalManagerUsaAnalyticsScreen
+
+Required Components:
+- SalesPerformanceChart
+- CustomerFeedbackWidget
+- BudgetReportCard
+- EmployeeEngagementDashboard
+- MarketingCampaignTracker
+- ComplianceChecklist
+- TrainingParticipationChart
+- GrowthOpportunityAnalyzer
+- TeamCommunicationTool
+- OperationalAlerts
+
+Required Functions/Handlers:
+- fetchSalesData
+- analyzeCustomerFeedback
+- coordinateLocalTeams
+- implementMarketingStrategy
+- manageBudget
+- conductPerformanceReview
+- identifyGrowthOpportunities
+- ensureCompliance
+- facilitateTraining
+- reportPerformance
+
+Required Buttons:
+- Generate Report
+- View Details
+- Send Feedback
+- Allocate Resources
+- Schedule Training
+- Notify Management
+
+Required APIs:
+- /v1/sales/performance
+- /v1/customer/feedback
+- /v1/budget/report
+- /v1/employee/performance
+- /v1/marketing/campaigns
+- /v1/compliance/status
+- /v1/training/participation
+- /v1/growth/opportunities
+- /v1/team/communication
+- /v1/alerts/operational
+
+Required Semantic Keys (data-cy):
+- regionalmanager-sales-performance
+- regionalmanager-customer-feedback
+- regionalmanager-budget-report
+- regionalmanager-employee-engagement
+- regionalmanager-marketing-campaign
+- regionalmanager-compliance-checklist
+- regionalmanager-training-participation
+- regionalmanager-growth-opportunity
+- regionalmanager-team-communication
+- regionalmanager-operational-alerts

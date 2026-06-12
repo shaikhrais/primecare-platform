@@ -1,0 +1,50 @@
+Screen Code: role_coverage_dashboard
+Screen Name: RoleCoverageDashboardScreen
+
+Required Components:
+- ComplianceStatusIndicator
+- AuditTrendsChart
+- GovernanceActivityLog
+- RiskAssessmentMetrics
+- TrainingCompletionRate
+- IncidentReportViewer
+- GovernanceKPIWidget
+- ComplianceScanResults
+- StakeholderFeedbackWidget
+- OperationalMetricsVisualization
+
+Required Functions/Handlers:
+- generateReport
+- updateDocumentation
+- conductAudit
+- initiateTraining
+- logIncident
+- viewComplianceScan
+
+Required Buttons:
+- Generate Report
+- Update Documentation
+- Conduct Audit
+- Initiate Training
+- Log Incident
+- View Compliance Scan
+
+Required APIs:
+- /v1/governance/compliance/status
+- /v1/governance/audit/findings
+- /v1/governance/activity/log
+- /v1/governance/risk/assessment
+- /v1/governance/training/completion
+- /v1/governance/incidents
+- /v1/governance/kpi
+- /v1/governance/compliance/scan/results
+- /v1/governance/stakeholder/feedback
+- /v1/governance/operational/metrics
+
+Required Semantic Keys (data-cy):
+- govdashboard-btn-generate-report
+- govdashboard-btn-update-doc
+- govdashboard-btn-conduct-audit
+- govdashboard-btn-initiate-training
+- govdashboard-btn-log-incident
+- govdashboard-btn-view-compliance-scan

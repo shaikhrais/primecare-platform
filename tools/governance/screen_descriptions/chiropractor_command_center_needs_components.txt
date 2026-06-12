@@ -1,0 +1,67 @@
+Screen Code: chiropractor_command_center
+Screen Name: ChiropractorCommandCenterScreen
+
+Required Components:
+- PatientAssessmentCard
+- TreatmentPlanCard
+- AdjustmentLog
+- PatientProgressChart
+- PatientEducationCard
+- RecordKeepingWidget
+- CollaborationPanel
+- KPIDashboard
+- TelemetryLog
+- ComplianceStatusCard
+- OperationalMetricsCard
+- SecurityClearanceLog
+- AuditLog
+- PatientFeedbackWidget
+- AlertsPanel
+
+Required Functions/Handlers:
+- addPatientAssessment
+- updateTreatmentPlan
+- recordAdjustment
+- monitorProgress
+- educatePatient
+- saveRecords
+- collaborateWithHealthcare
+- refreshMetrics
+- viewCompliance
+- logPatientFeedback
+
+Required Buttons:
+- Add Patient Assessment
+- Update Treatment Plan
+- Record Adjustment
+- Monitor Progress
+- Educate Patient
+- Save Records
+- Collaborate
+- Refresh Metrics
+- View Compliance
+- Log Feedback
+
+Required APIs:
+- /v1/chiropractor/patient/assessment
+- /v1/chiropractor/treatment/plan
+- /v1/chiropractor/adjustment
+- /v1/chiropractor/progress
+- /v1/chiropractor/education
+- /v1/chiropractor/records
+- /v1/chiropractor/collaboration
+- /v1/chiropractor/metrics
+- /v1/chiropractor/compliance
+- /v1/chiropractor/feedback
+
+Required Semantic Keys (data-cy):
+- chiropractor-btn-add-assessment
+- chiropractor-btn-update-plan
+- chiropractor-btn-record-adjustment
+- chiropractor-btn-monitor-progress
+- chiropractor-btn-educate-patient
+- chiropractor-btn-save-records
+- chiropractor-btn-collaborate
+- chiropractor-btn-refresh-metrics
+- chiropractor-btn-view-compliance
+- chiropractor-btn-log-feedback

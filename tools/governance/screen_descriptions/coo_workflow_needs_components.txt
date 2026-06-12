@@ -1,0 +1,50 @@
+Screen Code: coo_workflow
+Screen Name: CooWorkflowScreen
+
+Required Components:
+- PerformanceMetricCard
+- FinancialOverviewChart
+- EmployeeEngagementWidget
+- OperationalEfficiencyIndicator
+- CustomerSatisfactionGauge
+- ComplianceStatusAlert
+- ProjectStatusTimeline
+- ResourceAllocationChart
+- RiskManagementDashboard
+- ActionableInsightsPanel
+
+Required Functions/Handlers:
+- fetchPerformanceMetrics
+- fetchFinancialOverview
+- fetchEmployeeEngagement
+- fetchOperationalEfficiency
+- fetchCustomerSatisfaction
+- fetchComplianceStatus
+- fetchProjectStatus
+- fetchResourceAllocation
+- fetchRiskManagement
+- generateInsightsReport
+
+Required Buttons:
+- Refresh Data
+- Export Report
+- Set Alerts
+- View Detailed Metrics
+
+Required APIs:
+- /v1/operations/performance
+- /v1/finance/budget
+- /v1/hr/engagement
+- /v1/operations/efficiency
+- /v1/customer/satisfaction
+- /v1/compliance/status
+- /v1/projects/status
+- /v1/resources/allocation
+- /v1/risk/management
+- /v1/insights/generate
+
+Required Semantic Keys (data-cy):
+- coo-dashboard-refresh-data
+- coo-dashboard-export-report
+- coo-dashboard-set-alerts
+- coo-dashboard-view-detailed-metrics

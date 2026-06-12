@@ -1,0 +1,42 @@
+Screen Code: quality_assurance_workflow
+Screen Name: QualityAssuranceWorkflowScreen
+
+Required Components:
+- TaskList
+- DefectMetricsCard
+- TestCoverageChart
+- RegressionResultsTable
+- PerformanceMetricsCard
+- TeamWorkloadChart
+- HistoricalDefectTrends
+- ComplianceMetricsCard
+- StakeholderFeedbackWidget
+- ProjectManagementIntegration
+
+Required Functions/Handlers:
+- executeTestPlan
+- trackDefects
+- generateReports
+- collaborateWithDev
+- conductRegressionTesting
+
+Required Buttons:
+- Execute Test Plan
+- Track Defects
+- View Reports
+- Collaborate with Dev Team
+- Conduct Regression Testing
+
+Required APIs:
+- /v1/qa/test-plans/execute
+- /v1/qa/defects/track
+- /v1/qa/reports/generate
+- /v1/qa/collaboration/dev
+- /v1/qa/regression/testing
+
+Required Semantic Keys (data-cy):
+- qa-dashboard-btn-execute-test
+- qa-dashboard-btn-track-defects
+- qa-dashboard-btn-view-reports
+- qa-dashboard-btn-collaborate-dev
+- qa-dashboard-btn-regression-testing

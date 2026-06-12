@@ -1,0 +1,34 @@
+Screen Code: social_worker_dashboard
+Screen Name: SocialWorkerDashboardScreen
+
+Required Components:
+- TaskList
+- MetricsCard
+- ComplianceIndicator
+- ProgressTracker
+- ResourceAllocationIndicator
+- NotificationPanel
+
+Required Functions/Handlers:
+- addTask
+- updateProgress
+- viewResources
+- generateReport
+
+Required Buttons:
+- Add Task
+- Update Progress
+- View Resources
+- Generate Report
+
+Required APIs:
+- /v1/social_worker/tasks
+- /v1/social_worker/progress
+- /v1/social_worker/resources
+- /v1/social_worker/compliance
+
+Required Semantic Keys (data-cy):
+- sw-dashboard-btn-add-task
+- sw-dashboard-btn-update-progress
+- sw-dashboard-btn-view-resources
+- sw-dashboard-btn-generate-report

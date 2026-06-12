@@ -1,0 +1,26 @@
+Screen Code: guest_workflow
+Screen Name: GuestWorkflowScreen
+
+Required Components:
+- OperationalStatusDisplay
+- TelemetryChart
+- TelemetryInvariantsLog
+- LoadingIndicator
+
+Required Functions/Handlers:
+- executeTaskScan
+- monitorTelemetry
+- triggerSweep
+- refreshTelemetryLogs
+
+Required Buttons:
+- Trigger Sweep
+- Refresh Telemetry Logs
+
+Required APIs:
+- /v1/compliance/executeTaskScan
+- /v1/telemetry/logs
+
+Required Semantic Keys (data-cy):
+- guestworkflow-btn-trigger-sweep
+- guestworkflow-btn-refresh-logs

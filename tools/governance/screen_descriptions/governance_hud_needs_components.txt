@@ -1,0 +1,38 @@
+Screen Code: governance_hud
+Screen Name: Governance Hud
+
+Required Components:
+- GovMetricCard
+- ComplianceUpdateList
+- RiskManagementReport
+- ActionItemTracker
+- GovernanceMeetingCalendar
+- StakeholderFeedbackSection
+- HistoricalDataTrendChart
+
+Required Functions/Handlers:
+- submitFeedback
+- markActionItemComplete
+- fetchGovernanceMetrics
+- fetchComplianceUpdates
+- fetchRiskReports
+- fetchActionItems
+- fetchHistoricalData
+
+Required Buttons:
+- Submit Feedback
+- Mark Action Item Complete
+- View Risk Mitigation Plan
+
+Required APIs:
+- /v1/governance/metrics
+- /v1/governance/compliance
+- /v1/governance/risk
+- /v1/governance/action-items
+- /v1/governance/feedback
+- /v1/governance/historical-data
+
+Required Semantic Keys (data-cy):
+- gov-dashboard-btn-submit-feedback
+- gov-dashboard-btn-mark-action-complete
+- gov-dashboard-btn-view-risk-mitigation

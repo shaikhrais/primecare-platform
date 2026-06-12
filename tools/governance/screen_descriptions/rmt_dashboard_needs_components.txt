@@ -1,0 +1,46 @@
+Screen Code: rmt_dashboard
+Screen Name: RmtDashboardScreen
+
+Required Components:
+- AppointmentOverview
+- ActivityLog
+- PatientSatisfactionMetrics
+- AppointmentAlerts
+- SOAPNotesSummary
+- InsuranceClaimStatus
+- PerformanceMetrics
+- ComplianceAuditResults
+- PatientHistoryAccess
+- TrainingNotifications
+
+Required Functions/Handlers:
+- scheduleAppointment
+- submitSOAPNotes
+- viewPatientHistory
+- submitInsuranceClaim
+- logActivity
+- checkCompliance
+
+Required Buttons:
+- Schedule Appointment
+- Submit SOAP Notes
+- View Patient History
+- Submit Insurance Claim
+- Log Activity
+- Check Compliance
+
+Required APIs:
+- /v1/rmt/appointments
+- /v1/rmt/soap-notes
+- /v1/rmt/patient-history
+- /v1/rmt/insurance-claims
+- /v1/rmt/activity-log
+- /v1/rmt/compliance-check
+
+Required Semantic Keys (data-cy):
+- rmt-dashboard-btn-schedule-appointment
+- rmt-dashboard-btn-submit-soap-notes
+- rmt-dashboard-btn-view-patient-history
+- rmt-dashboard-btn-submit-insurance-claim
+- rmt-dashboard-btn-log-activity
+- rmt-dashboard-btn-check-compliance

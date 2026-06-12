@@ -1,0 +1,45 @@
+Screen Code: qa_workflow
+Screen Name: QaWorkflowScreen
+
+Required Components:
+- TaskList
+- DefectTracker
+- TestCoverageChart
+- TestExecutionSummary
+- TestingStatusOverview
+- DefectTrendGraph
+- FeedbackWidget
+- PerformanceMetricsCard
+- TimelineVisualizer
+
+Required Functions/Handlers:
+- startTesting
+- submitDefect
+- viewTestResults
+- generateReport
+- requestFeedback
+
+Required Buttons:
+- Start Testing
+- Submit Defect
+- View Test Results
+- Generate Report
+- Request Feedback
+
+Required APIs:
+- /v1/qa/tasks
+- /v1/qa/defects
+- /v1/qa/test-results
+- /v1/qa/metrics
+- /v1/qa/feedback
+
+Required Semantic Keys (data-cy):
+- qa-tasklist
+- qa-defect-tracker
+- qa-test-coverage-chart
+- qa-test-execution-summary
+- qa-testing-status-overview
+- qa-defect-trend-graph
+- qa-feedback-widget
+- qa-performance-metrics-card
+- qa-timeline-visualizer

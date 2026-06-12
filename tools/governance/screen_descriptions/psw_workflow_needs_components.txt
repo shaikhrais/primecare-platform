@@ -1,0 +1,47 @@
+Screen Code: psw_workflow
+Screen Name: PswWorkflowScreen
+
+Required Components:
+- ClockInOutWidget
+- ADLChecklistWidget
+- VitalSignsLogger
+- MileageTracker
+- CommunicationLog
+- IncidentReportForm
+- AlertsDashboard
+- ClientInformationCard
+
+Required Functions/Handlers:
+- toggleClockInOut
+- submitADLs
+- logVitalSigns
+- trackMileage
+- reportIncident
+- sendMessage
+
+Required Buttons:
+- Clock In
+- Clock Out
+- Submit ADLs
+- Log Vital Signs
+- Track Mileage
+- Report Incident
+- Send Message
+
+Required APIs:
+- /v1/psw/clock/in
+- /v1/psw/clock/out
+- /v1/psw/adls/submit
+- /v1/psw/vitals/log
+- /v1/psw/mileage/track
+- /v1/psw/incident/report
+- /v1/psw/communication/send
+
+Required Semantic Keys (data-cy):
+- psw-btn-clockin
+- psw-btn-clockout
+- psw-btn-submitADLs
+- psw-btn-logVitals
+- psw-btn-trackMileage
+- psw-btn-reportIncident
+- psw-btn-sendMessage

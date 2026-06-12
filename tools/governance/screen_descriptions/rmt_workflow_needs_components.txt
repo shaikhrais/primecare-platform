@@ -1,0 +1,60 @@
+Screen Code: rmt_workflow
+Screen Name: RmtWorkflowScreen
+
+Required Components:
+- ClientManagementSystem
+- AppointmentScheduler
+- TreatmentPlanTemplate
+- PerformanceMetricsChart
+- ComplianceChecklist
+- EducationTracking
+- FinancialOverview
+- CommunicationTool
+- FeedbackCollectionSystem
+- IntegrationModule
+
+Required Functions/Handlers:
+- manageClientRecords
+- scheduleAppointment
+- saveTreatmentPlan
+- trackPerformanceMetrics
+- checkCompliance
+- trackContinuingEducation
+- manageFinancials
+- sendClientReminder
+- collectFeedback
+- integrateWithHealthcareSystems
+
+Required Buttons:
+- Schedule Appointment
+- Save Treatment Plan
+- Send Reminder
+- Submit Feedback
+- View Client Records
+- Check Compliance
+- Track Education
+- View Financials
+
+Required APIs:
+- /v1/client/records
+- /v1/appointments/schedule
+- /v1/treatment/plans
+- /v1/performance/metrics
+- /v1/compliance/checklist
+- /v1/education/tracking
+- /v1/financial/overview
+- /v1/communication/reminders
+- /v1/feedback/collection
+- /v1/integration/healthcare
+
+Required Semantic Keys (data-cy):
+- rmt-client-management
+- rmt-appointment-scheduler
+- rmt-treatment-plan
+- rmt-performance-metrics
+- rmt-compliance-checklist
+- rmt-education-tracking
+- rmt-financial-overview
+- rmt-communication-tool
+- rmt-feedback-collection
+- rmt-integration-module

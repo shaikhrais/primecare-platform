@@ -1,0 +1,45 @@
+Screen Code: vulnerable_population_registry
+Screen Name: Vulnerable Population Registry
+
+Required Components:
+- VulnerablePopulationList
+- EntryForm
+- SearchBar
+- ActivityLog
+- ErrorAlert
+- DataVisualization
+- QuickAccessButtons
+- Notifications
+
+Required Functions/Handlers:
+- accessRegistry
+- viewPopulations
+- addEntry
+- editEntry
+- deleteEntry
+- searchPopulation
+- generateReport
+- monitorUpdates
+
+Required Buttons:
+- Add Entry
+- Edit Entry
+- Delete Entry
+- Search
+- Generate Report
+
+Required APIs:
+- /v1/registry/populations
+- /v1/registry/add
+- /v1/registry/edit
+- /v1/registry/delete
+- /v1/registry/search
+- /v1/registry/reports
+- /v1/registry/updates
+
+Required Semantic Keys (data-cy):
+- vulnerable-registry-btn-add
+- vulnerable-registry-btn-edit
+- vulnerable-registry-btn-delete
+- vulnerable-registry-btn-search
+- vulnerable-registry-btn-generate-report

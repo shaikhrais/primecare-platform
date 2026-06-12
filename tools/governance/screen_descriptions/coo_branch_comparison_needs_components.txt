@@ -1,0 +1,56 @@
+Screen Code: coo_branch_comparison
+Screen Name: CooBranchComparisonScreen
+
+Required Components:
+- KPIWidget
+- FinancialMetricsCard
+- ComplianceStatusWidget
+- EmployeeEngagementChart
+- CustomerSatisfactionWidget
+- RiskAssessmentPanel
+- ProjectTimelineTracker
+- OperationalLogsViewer
+- PerformanceTrendsGraph
+- AlertsNotification
+
+Required Functions/Handlers:
+- fetchKPIData
+- fetchFinancialMetrics
+- fetchComplianceStatus
+- fetchEmployeeEngagement
+- fetchCustomerSatisfaction
+- fetchRiskAssessments
+- fetchProjectTimelines
+- fetchOperationalLogs
+- fetchPerformanceTrends
+- triggerAlert
+
+Required Buttons:
+- Refresh Data
+- View Detailed Report
+- Export Data
+- Set Alerts
+
+Required APIs:
+- /v1/operations/kpis
+- /v1/operations/financials
+- /v1/operations/compliance
+- /v1/operations/employees
+- /v1/operations/customers
+- /v1/operations/risks
+- /v1/operations/projects
+- /v1/operations/logs
+- /v1/operations/performance
+- /v1/operations/alerts
+
+Required Semantic Keys (data-cy):
+- dashboard-kpi-widget
+- dashboard-financial-metrics
+- dashboard-compliance-status
+- dashboard-employee-engagement
+- dashboard-customer-satisfaction
+- dashboard-risk-assessment
+- dashboard-project-timeline
+- dashboard-operational-logs
+- dashboard-performance-trends
+- dashboard-alerts

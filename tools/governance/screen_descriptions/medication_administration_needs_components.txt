@@ -1,0 +1,47 @@
+Screen Code: medication_administration
+Screen Name: MedicationAdministrationScreen
+
+Required Components:
+- MedicationLogWidget
+- VitalSignsMonitor
+- ComplianceAuditChart
+- PatientEducationResource
+- TeamCommunicationTool
+- IncidentReportingSystem
+- PerformanceMetricsDashboard
+- MedicationGuidelinesAccess
+- PatientFeedbackSummary
+
+Required Functions/Handlers:
+- administerMedication
+- documentAdministration
+- reportAbnormality
+- educatePatient
+- conductAudit
+- submitIncidentReport
+
+Required Buttons:
+- Administer Medication
+- Document Administration
+- Report Abnormality
+- Educate Patient
+- Conduct Audit
+- Submit Incident Report
+
+Required APIs:
+- /v1/medications/administer
+- /v1/patients/vitals
+- /v1/audits/compliance
+- /v1/patient/education
+- /v1/incident/report
+
+Required Semantic Keys (data-cy):
+- medication-log-widget
+- vital-signs-monitor
+- compliance-audit-chart
+- patient-education-resource
+- team-communication-tool
+- incident-reporting-system
+- performance-metrics-dashboard
+- medication-guidelines-access
+- patient-feedback-summary

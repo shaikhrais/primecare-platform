@@ -1,0 +1,37 @@
+Screen Code: training_hub_compliance
+Screen Name: TrainingHubComplianceScreen
+
+Required Components:
+- ComplianceStatusCard
+- TrainingModuleList
+- AuditResultsSummary
+- TrainingSessionNotification
+- GovernanceDirectivesAccess
+- OperationalAuditLogChart
+
+Required Functions/Handlers:
+- submitSecureEventReport
+- acknowledgeGovernanceDirective
+- fetchComplianceStatus
+- fetchTrainingModules
+- fetchAuditResults
+- fetchGovernanceUpdates
+
+Required Buttons:
+- Submit Report
+- Acknowledge Directive
+- View Audit Results
+
+Required APIs:
+- /v1/training/compliance/status
+- /v1/training/modules
+- /v1/audits/results
+- /v1/training/sessions/notifications
+- /v1/governance/directives
+
+Required Semantic Keys (data-cy):
+- training-hub-compliance-status
+- training-hub-training-modules
+- training-hub-audit-results
+- training-hub-notifications
+- training-hub-governance-directives

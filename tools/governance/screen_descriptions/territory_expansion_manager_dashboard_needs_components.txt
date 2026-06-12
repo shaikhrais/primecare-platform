@@ -1,0 +1,44 @@
+Screen Code: territory_expansion_manager_dashboard
+Screen Name: TerritoryExpansionManagerDashboardScreen
+
+Required Components:
+- KPIWidget
+- TelemetryLogWidget
+- ComplianceStatusWidget
+- MarketAnalysisWidget
+- FinancialMetricsWidget
+- ProgressChart
+- AlertsWidget
+- ActionLogWidget
+
+Required Functions/Handlers:
+- fetchKPIData
+- fetchTelemetryLogs
+- fetchComplianceStatus
+- fetchMarketAnalysis
+- fetchFinancialMetrics
+- updateAlerts
+- logAction
+
+Required Buttons:
+- Refresh Data
+- Generate Report
+- Send Update
+
+Required APIs:
+- /v1/territories/kpi
+- /v1/territories/telemetry
+- /v1/territories/compliance
+- /v1/territories/market-analysis
+- /v1/territories/financials
+- /v1/territories/alerts
+- /v1/territories/action-log
+
+Required Semantic Keys (data-cy):
+- territory-dashboard-kpi
+- territory-dashboard-telemetry
+- territory-dashboard-compliance
+- territory-dashboard-market-analysis
+- territory-dashboard-financials
+- territory-dashboard-alerts
+- territory-dashboard-action-log

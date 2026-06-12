@@ -1,0 +1,35 @@
+Screen Code: ceo_growth_pipeline
+Screen Name: Ceo Growth Pipeline
+
+Required Components:
+- GrowthMetricCard
+- DataTrendChart
+- AlertNotification
+- TaskManagementWidget
+- CollaborationTool
+
+Required Functions/Handlers:
+- monitorGrowthMetrics
+- analyzeDataTrends
+- identifyImprovementAreas
+- collaborateWithTeam
+- reviewAdjustGoals
+
+Required Buttons:
+- Review Goals
+- Analyze Trends
+- Implement Changes
+- View Alerts
+
+Required APIs:
+- /v1/growth/pipeline/metrics
+- /v1/growth/pipeline/trends
+- /v1/growth/pipeline/alerts
+- /v1/growth/pipeline/tasks
+- /v1/growth/pipeline/collaboration
+
+Required Semantic Keys (data-cy):
+- growthpipeline-btn-reviewgoals
+- growthpipeline-btn-analyzetrends
+- growthpipeline-btn-implementchanges
+- growthpipeline-btn-viewalerts

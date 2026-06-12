@@ -1,0 +1,49 @@
+Screen Code: scheduling_operations4_k
+Screen Name: SchedulingOperations4KScreen
+
+Required Components:
+- PerformanceMetricCard
+- StaffScheduleOverview
+- IncidentLog
+- CustomerFeedbackChart
+- SafetyAlertNotification
+- TrainingProgressTracker
+- AuditResultsDisplay
+- KPIOverview
+- CommunicationTool
+- OperationalTrendsVisualization
+
+Required Functions/Handlers:
+- updateStaffSchedule
+- logIncident
+- fetchCustomerFeedback
+- sendSafetyAlert
+- conductTeamMeeting
+- generateOperationalReport
+
+Required Buttons:
+- Update Schedule
+- Log Incident
+- View Feedback
+- Send Alert
+- Conduct Meeting
+- Generate Report
+
+Required APIs:
+- /v1/scheduling/overview
+- /v1/incidents/log
+- /v1/feedback/customer
+- /v1/alerts/safety
+- /v1/training/progress
+- /v1/audit/results
+- /v1/kpi/team
+
+Required Semantic Keys (data-cy):
+- scheduling-overview
+- incident-log
+- customer-feedback
+- safety-alert
+- training-progress
+- audit-results
+- kpi-overview
+- communication-tool

@@ -1,0 +1,62 @@
+Screen Code: billing_admin_analytics
+Screen Name: BillingAdminAnalyticsScreen
+
+Required Components:
+- TaskManagementOverview
+- CalendarIntegration
+- CommunicationLog
+- BillingStatus
+- FileManagementSystem
+- PerformanceMetrics
+- InventoryTracking
+- EventCoordinationTools
+- ComplianceChecklist
+- FeedbackSupportSystem
+
+Required Functions/Handlers:
+- manageTask
+- scheduleAppointment
+- logCommunication
+- updateBillingStatus
+- manageFiles
+- trackPerformance
+- trackInventory
+- coordinateEvent
+- checkCompliance
+- submitFeedback
+
+Required Buttons:
+- Add Task
+- Schedule Appointment
+- Send Message
+- Update Billing
+- Upload Document
+- View Metrics
+- Track Inventory
+- Coordinate Event
+- Check Compliance
+- Submit Feedback
+
+Required APIs:
+- /v1/admin/tasks
+- /v1/admin/schedule
+- /v1/admin/communication
+- /v1/admin/billing
+- /v1/admin/files
+- /v1/admin/performance
+- /v1/admin/inventory
+- /v1/admin/events
+- /v1/admin/compliance
+- /v1/admin/feedback
+
+Required Semantic Keys (data-cy):
+- billing_admin_btn_add_task
+- billing_admin_btn_schedule
+- billing_admin_btn_send_message
+- billing_admin_btn_update_billing
+- billing_admin_btn_upload_document
+- billing_admin_btn_view_metrics
+- billing_admin_btn_track_inventory
+- billing_admin_btn_coordinate_event
+- billing_admin_btn_check_compliance
+- billing_admin_btn_submit_feedback

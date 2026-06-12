@@ -1,0 +1,47 @@
+Screen Code: cto_workflow
+Screen Name: CtoWorkflowScreen
+
+Required Components:
+- ProjectStatusCard
+- BudgetUtilizationChart
+- TeamPerformanceMetrics
+- SystemUptimeChart
+- SecurityIncidentReport
+- TechnologyAdoptionRate
+- InnovationPipeline
+- VendorPerformanceCard
+- AlignmentMetrics
+- KPIOverview
+
+Required Functions/Handlers:
+- refreshDashboardData
+- viewDetailedReports
+- addNewTechnology
+- manageBudget
+- evaluateVendor
+
+Required Buttons:
+- Refresh Data
+- View Detailed Reports
+- Add New Technology
+- Manage Budget
+- Evaluate Vendor
+
+Required APIs:
+- /v1/technology/projects/status
+- /v1/technology/budget/utilization
+- /v1/technology/team/performance
+- /v1/technology/system/uptime
+- /v1/technology/security/incidents
+- /v1/technology/adoption/rate
+- /v1/technology/innovation/pipeline
+- /v1/technology/vendor/performance
+- /v1/technology/alignment/goals
+- /v1/technology/kpi/overview
+
+Required Semantic Keys (data-cy):
+- ctoworkflow-btn-refresh
+- ctoworkflow-btn-view-reports
+- ctoworkflow-btn-add-technology
+- ctoworkflow-btn-manage-budget
+- ctoworkflow-btn-evaluate-vendor

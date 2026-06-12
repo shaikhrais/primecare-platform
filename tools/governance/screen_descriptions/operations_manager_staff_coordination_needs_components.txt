@@ -1,0 +1,49 @@
+Screen Code: operations_manager_staff_coordination
+Screen Name: Operations Manager Staff Coordination
+
+Required Components:
+- StaffPerformanceMetricCard
+- StaffScheduleChart
+- OperationalIssueAlert
+- ComplianceSummaryCard
+- StaffFeedbackSurvey
+- DataAnalyticsTool
+- TeamCommunicationWidget
+- PerformanceReportGenerator
+
+Required Functions/Handlers:
+- fetchStaffPerformanceMetrics
+- fetchStaffSchedules
+- triggerOperationalAlert
+- fetchComplianceData
+- submitFeedback
+- analyzeDataTrends
+- sendMessageToTeam
+- generatePerformanceReport
+
+Required Buttons:
+- View Schedule
+- Send Message
+- Generate Report
+- Request Training
+- Address Issue
+
+Required APIs:
+- /v1/staff/performance
+- /v1/staff/schedules
+- /v1/operations/issues
+- /v1/compliance/status
+- /v1/staff/feedback
+- /v1/data/trends
+- /v1/communication/send
+- /v1/reports/performance
+
+Required Semantic Keys (data-cy):
+- staff-performance-metric-card
+- staff-schedule-chart
+- operational-issue-alert
+- compliance-summary-card
+- staff-feedback-survey
+- data-analytics-tool
+- team-communication-widget
+- performance-report-generator

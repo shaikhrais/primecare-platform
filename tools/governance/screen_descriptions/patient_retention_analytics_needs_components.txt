@@ -1,0 +1,25 @@
+Screen Code: patient_retention_analytics
+Screen Name: Patient Retention Analytics
+
+Required Components:
+- RetentionRateIndicator
+- LifetimeValueDisplay
+- CohortAnalysisChart
+- ErrorNotification
+
+Required Functions/Handlers:
+- fetchRetentionData
+- fetchLifetimeValue
+- fetchCohortAnalysis
+
+Required Buttons:
+- Refresh Data
+
+Required APIs:
+- /v1/analytics/patient/retention
+- /v1/analytics/patient/lifetime-value
+- /v1/analytics/patient/cohort
+
+Required Semantic Keys (data-cy):
+- analytics-btn-refresh
+- analytics-error-notification

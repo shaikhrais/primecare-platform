@@ -1,0 +1,30 @@
+Screen Code: franchise_sales_manager_leads
+Screen Name: Franchise Sales Manager Leads
+
+Required Components:
+- LeadStatusOverview
+- ConversionRateChart
+- FollowUpReminders
+- PerformanceComparison
+- LeadSourceEffectiveness
+- ErrorLog
+
+Required Functions/Handlers:
+- updateLeadStatus
+- generateLeadReport
+- sendCommunication
+
+Required Buttons:
+- Update Status
+- Generate Report
+- Send Communication
+
+Required APIs:
+- /v1/franchise/leads
+- /v1/franchise/reports
+- /v1/franchise/communication
+
+Required Semantic Keys (data-cy):
+- franchise-sales-manager-btn-update-status
+- franchise-sales-manager-btn-generate-report
+- franchise-sales-manager-btn-send-communication

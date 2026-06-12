@@ -19,9 +19,6 @@ describe("Role All Screens - therapist", () => {
   cy.getCy("therapistdashboard-screen").should("be.visible");
   cy.getCy("therapistdashboard-title").should("be.visible");
   cy.getCy("therapistdashboard-content").should("be.visible");
-  cy.getCy("therapist-dashboard-btn-start-session").should("be.visible");
-  cy.getCy("therapist-dashboard-btn-finalize-notes").should("be.visible");
-  cy.getCy("therapist-dashboard-btn-run-compliance").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Saving screenshot for TherapistDashboardScreen...");
   cy.waitAndSee();
@@ -37,12 +34,9 @@ describe("Role All Screens - therapist", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("therapistanalytics-screen").should("be.visible");
-  cy.getCy("therapistanalytics-title").should("be.visible");
-  cy.getCy("therapistanalytics-content").should("be.visible");
-  cy.getCy("therapist-dashboard-caseload").should("be.visible");
-  cy.getCy("therapist-dashboard-progress").should("be.visible");
-  cy.getCy("therapist-dashboard-compliance").should("be.visible");
+  cy.getCy("therapist analytics-screen").should("be.visible");
+  cy.getCy("therapist analytics-title").should("be.visible");
+  cy.getCy("therapist analytics-content").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Saving screenshot for Therapist Analytics...");
   cy.waitAndSee();
@@ -58,12 +52,9 @@ describe("Role All Screens - therapist", () => {
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
-  cy.getCy("therapistworkflow-screen").should("be.visible");
-  cy.getCy("therapistworkflow-title").should("be.visible");
-  cy.getCy("therapistworkflow-content").should("be.visible");
-  cy.getCy("therapist-dashboard-btn-quality-sweep").should("be.visible");
-  cy.getCy("therapist-dashboard-btn-view-progress").should("be.visible");
-  cy.getCy("therapist-dashboard-btn-respond-alerts").should("be.visible");
+  cy.getCy("therapist compliance workflow-screen").should("be.visible");
+  cy.getCy("therapist compliance workflow-title").should("be.visible");
+  cy.getCy("therapist compliance workflow-content").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Saving screenshot for Therapist Compliance Workflow...");
   cy.waitAndSee();

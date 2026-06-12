@@ -1,0 +1,32 @@
+Screen Code: regional_bdm_partners
+Screen Name: Regional Bdm Partners
+
+Required Components:
+- KPIWidget
+- EngagementTrendChart
+- AlertNotification
+- FeedbackForm
+- ResourceAccessPanel
+
+Required Functions/Handlers:
+- submitFeedback
+- viewReports
+- requestSupport
+
+Required Buttons:
+- Submit Feedback
+- View Reports
+- Request Support
+
+Required APIs:
+- /v1/bdm/performance
+- /v1/partner/engagement
+- /v1/alerts/redflags
+- /v1/bdm/feedback
+
+Required Semantic Keys (data-cy):
+- bdm-dashboard-kpi
+- bdm-dashboard-engagement-trend
+- bdm-dashboard-alerts
+- bdm-dashboard-feedback
+- bdm-dashboard-resources

@@ -1,0 +1,58 @@
+Screen Code: business_development_workflow
+Screen Name: BusinessDevelopmentWorkflowScreen
+
+Required Components:
+- KPIChart
+- OpportunityPipelineChart
+- TeamPerformanceMetrics
+- MarketAnalysisWidget
+- ClientFeedbackWidget
+- ProgressTracker
+- AlertsDashboard
+- HistoricalDataTrends
+- CRMIntegration
+- CustomizableView
+
+Required Functions/Handlers:
+- fetchKPIs
+- updateOpportunityPipeline
+- getTeamPerformance
+- conductMarketAnalysis
+- collectClientFeedback
+- trackProgress
+- checkAlerts
+- fetchHistoricalData
+- integrateCRM
+- customizeView
+
+Required Buttons:
+- View Proposal
+- Track Performance
+- Generate Report
+- Refresh Data
+- Set Metrics
+- Manage Team
+
+Required APIs:
+- /v1/business-development/kpis
+- /v1/business-development/opportunities
+- /v1/business-development/team-performance
+- /v1/market-analysis
+- /v1/client-feedback
+- /v1/business-development/progress
+- /v1/business-development/alerts
+- /v1/business-development/historical-data
+- /v1/crm/integration
+- /v1/business-development/customize-view
+
+Required Semantic Keys (data-cy):
+- bd-dashboard-kpi-chart
+- bd-dashboard-opportunity-pipeline
+- bd-dashboard-team-performance
+- bd-dashboard-market-analysis
+- bd-dashboard-client-feedback
+- bd-dashboard-progress-tracker
+- bd-dashboard-alerts
+- bd-dashboard-historical-data
+- bd-dashboard-crm-integration
+- bd-dashboard-customize-view

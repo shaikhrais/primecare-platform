@@ -1,0 +1,37 @@
+Screen Code: training_director_hub
+Screen Name: Training Director Hub
+
+Required Components:
+- TrainingProgramOverview
+- KPIChart
+- FeedbackSummaryWidget
+- CompletionRateTrendChart
+- UpcomingSessionsList
+- AlertsDashboard
+
+Required Functions/Handlers:
+- monitorTrainingPrograms
+- reviewFeedback
+- analyzeCompletionRates
+- scheduleTrainingSession
+- collaborateWithParticipants
+- accessReports
+
+Required Buttons:
+- Schedule Training
+- Review Feedback
+- Analyze Completion Rates
+- Collaborate
+
+Required APIs:
+- /v1/training/programs
+- /v1/training/feedback
+- /v1/training/completion-rates
+- /v1/training/schedule
+- /v1/training/reports
+
+Required Semantic Keys (data-cy):
+- training-dashboard-btn-schedule
+- training-dashboard-btn-review-feedback
+- training-dashboard-btn-analyze-completion
+- training-dashboard-btn-collaborate

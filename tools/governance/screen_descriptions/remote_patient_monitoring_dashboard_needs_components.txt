@@ -1,0 +1,40 @@
+Screen Code: remote_patient_monitoring_dashboard
+Screen Name: Remote Patient Monitoring Dashboard
+
+Required Components:
+- HealthMetricsDisplay
+- AlertNotificationSystem
+- HistoricalDataVisualization
+- MessagingInterface
+- CarePlanAccess
+- ReportingTools
+- UserActivityLog
+
+Required Functions/Handlers:
+- updateCarePlan
+- scheduleAppointment
+- generateReport
+- sendMessage
+- startVideoCall
+
+Required Buttons:
+- Update Care Plan
+- Schedule Appointment
+- Generate Report
+- Send Message
+- Video Call
+
+Required APIs:
+- /v1/patients/metrics
+- /v1/patients/alerts
+- /v1/patients/history
+- /v1/patients/communication
+- /v1/patients/careplans
+- /v1/patients/reports
+
+Required Semantic Keys (data-cy):
+- dashboard-btn-update-care-plan
+- dashboard-btn-schedule-appointment
+- dashboard-btn-generate-report
+- dashboard-btn-send-message
+- dashboard-btn-video-call

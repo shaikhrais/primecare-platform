@@ -1,0 +1,38 @@
+Screen Code: physiotherapist_analytics
+Screen Name: PhysiotherapistAnalyticsScreen
+
+Required Components:
+- PatientAssessmentSummary
+- TreatmentPlanOverview
+- RedFlagAlerts
+- PatientFeedbackMetrics
+- EHRIntegration
+- PerformanceMetrics
+- EducationalResources
+- CommunicationTools
+
+Required Functions/Handlers:
+- saveTreatmentPlan
+- updatePatientProgress
+- sendAlert
+- fetchEducationalResources
+
+Required Buttons:
+- Save Treatment Plan
+- Update Patient Progress
+- Send Alert
+- Access Resources
+
+Required APIs:
+- /v1/patient/assessment
+- /v1/treatment/plan
+- /v1/alerts/redflags
+- /v1/feedback/patient
+- /v1/analytics/performance
+- /v1/resources/latest
+
+Required Semantic Keys (data-cy):
+- physio-dashboard-btn-save
+- physio-dashboard-btn-update
+- physio-dashboard-btn-alert
+- physio-dashboard-btn-resources

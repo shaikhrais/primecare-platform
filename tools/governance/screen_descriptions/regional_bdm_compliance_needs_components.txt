@@ -1,0 +1,43 @@
+Screen Code: regional_bdm_compliance
+Screen Name: RegionalBdmComplianceScreen
+
+Required Components:
+- ComplianceAuditStatusOverview
+- TelemetryDataDisplay
+- GovernanceActionsLog
+- OperationalComplianceSummary
+- NonComplianceAlerts
+- AuditResultsVisualization
+- SecureEventReportingAccess
+- ComplianceTrendsHistory
+
+Required Functions/Handlers:
+- conductComplianceAudit
+- monitorOperationalChecks
+- enforceMFA
+- streamAuditTelemetry
+- manageEventReporting
+- updateGovernanceDirectives
+- maintainAuditLogs
+- triggerGovernanceActions
+- refreshComplianceStatus
+
+Required Buttons:
+- [None specified]
+
+Required APIs:
+- /v1/compliance/audit
+- /v1/compliance/telemetry
+- /v1/governance/actions
+- /v1/compliance/status
+- /v1/event/reporting
+
+Required Semantic Keys (data-cy):
+- compliance-audit-status
+- telemetry-data-display
+- governance-actions-log
+- operational-compliance-summary
+- non-compliance-alerts
+- audit-results-visualization
+- event-reporting-access
+- compliance-trends-history

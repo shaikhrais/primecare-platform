@@ -1,0 +1,60 @@
+Screen Code: chiropractor_exercise_plan
+Screen Name: ChiropractorExercisePlanScreen
+
+Required Components:
+- PatientAssessmentCard
+- TreatmentPlanCard
+- AdjustmentLog
+- PatientEducationModule
+- ProgressMonitoringChart
+- PatientRecordsTable
+- CollaborationPanel
+- ResearchUpdatesFeed
+- RedFlagsAlert
+- OperationsMetricsDashboard
+- ComplianceStatusIndicator
+- PerformanceTrendsGraph
+- TelemetryLogViewer
+- NotificationsPanel
+- PatientFeedbackWidget
+- TreatmentOutcomesVisualization
+
+Required Functions/Handlers:
+- addPatientAssessment
+- updateTreatmentPlan
+- recordAdjustment
+- sendEducationMaterial
+- monitorProgress
+- viewPatientRecords
+- collaborateWithProvider
+- refreshResearchUpdates
+
+Required Buttons:
+- Add Patient Assessment
+- Update Treatment Plan
+- Record Adjustment
+- Send Education Material
+- Monitor Progress
+- View Patient Records
+- Collaborate with Healthcare Provider
+- Refresh Research Updates
+
+Required APIs:
+- /v1/chiropractor/patient/assessment
+- /v1/chiropractor/treatment/plan
+- /v1/chiropractor/adjustment/record
+- /v1/chiropractor/education/send
+- /v1/chiropractor/progress/monitor
+- /v1/chiropractor/records/view
+- /v1/chiropractor/collaboration
+- /v1/chiropractor/research/updates
+
+Required Semantic Keys (data-cy):
+- chiropractor-btn-add-assessment
+- chiropractor-btn-update-plan
+- chiropractor-btn-record-adjustment
+- chiropractor-btn-send-education
+- chiropractor-btn-monitor-progress
+- chiropractor-btn-view-records
+- chiropractor-btn-collaborate
+- chiropractor-btn-refresh-research

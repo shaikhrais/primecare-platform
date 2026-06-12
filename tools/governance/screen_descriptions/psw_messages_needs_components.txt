@@ -1,0 +1,22 @@
+Screen Code: psw_messages
+Screen Name: PswMessagesScreen
+
+Required Components:
+- GovDashboardHero
+- GovMetricCard
+- GovTelemetryChart
+- RoundedRectangleBorder
+
+Required Functions/Handlers:
+- triggerStateAction
+
+Required Buttons:
+- Button 1
+
+Required APIs:
+- [None specified]
+
+Required Semantic Keys (data-cy):
+- screen_root: pswmessages-screen
+- page_title: pswmessages-title
+- primary_content: pswmessages-content

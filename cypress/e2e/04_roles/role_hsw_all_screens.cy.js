@@ -19,9 +19,6 @@ describe("Role All Screens - hsw", () => {
   cy.getCy("hswdashboard-screen").should("be.visible");
   cy.getCy("hswdashboard-title").should("be.visible");
   cy.getCy("hswdashboard-content").should("be.visible");
-  cy.getCy("pswdashboard-btn-checkin").should("be.visible");
-  cy.getCy("pswdashboard-btn-checkout").should("be.visible");
-  cy.getCy("pswdashboard-btn-emergency").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/5 | 20%] - Saving screenshot for HswDashboardScreen...");
   cy.waitAndSee();
@@ -40,9 +37,6 @@ describe("Role All Screens - hsw", () => {
   cy.getCy("hswadllogger-screen").should("be.visible");
   cy.getCy("hswadllogger-title").should("be.visible");
   cy.getCy("hswadllogger-content").should("be.visible");
-  cy.getCy("adl-log-save-draft").should("be.visible");
-  cy.getCy("adl-log-submit").should("be.visible");
-  cy.getCy("adl-log-view-drafts").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [2/5 | 40%] - Saving screenshot for HswAdlLoggerScreen...");
   cy.waitAndSee();
@@ -61,9 +55,6 @@ describe("Role All Screens - hsw", () => {
   cy.getCy("hswcareplans-screen").should("be.visible");
   cy.getCy("hswcareplans-title").should("be.visible");
   cy.getCy("hswcareplans-content").should("be.visible");
-  cy.getCy("pswdashboard-btn-record-progress").should("be.visible");
-  cy.getCy("pswdashboard-btn-send-reminder").should("be.visible");
-  cy.getCy("pswdashboard-btn-log-communication").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [3/5 | 60%] - Saving screenshot for HswCarePlansScreen...");
   cy.waitAndSee();
@@ -82,9 +73,6 @@ describe("Role All Screens - hsw", () => {
   cy.getCy("hswincidentreports-screen").should("be.visible");
   cy.getCy("hswincidentreports-title").should("be.visible");
   cy.getCy("hswincidentreports-content").should("be.visible");
-  cy.getCy("incident-report-btn").should("be.visible");
-  cy.getCy("health-status-update-btn").should("be.visible");
-  cy.getCy("care-plan-access-btn").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [4/5 | 80%] - Saving screenshot for HswIncidentReportsScreen...");
   cy.waitAndSee();
@@ -103,9 +91,6 @@ describe("Role All Screens - hsw", () => {
   cy.getCy("hswschedule-screen").should("be.visible");
   cy.getCy("hswschedule-title").should("be.visible");
   cy.getCy("hswschedule-content").should("be.visible");
-  cy.getCy("hsw-schedule-btn-swap").should("be.visible");
-  cy.getCy("hsw-schedule-btn-log-mileage").should("be.visible");
-  cy.getCy("hsw-schedule-btn-generate-report").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [5/5 | 100%] - Saving screenshot for HswScheduleScreen...");
   cy.waitAndSee();

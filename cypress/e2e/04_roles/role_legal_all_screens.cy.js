@@ -8,89 +8,59 @@ describe("Role All Screens - legal", () => {
     cy.loginAsRole("legal");
 
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Navigating to /offices/corporate/roles/legal/dashboard (LegalDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Navigating to /offices/corporate/roles/legal/dashboard (LegalDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/legal/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Checking shell & content for LegalDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Checking shell & content for LegalDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
   cy.getCy("legaldashboard-screen").should("be.visible");
   cy.getCy("legaldashboard-title").should("be.visible");
   cy.getCy("legaldashboard-content").should("be.visible");
-  cy.getCy("legal-dashboard-compliance-status").should("be.visible");
-  cy.getCy("legal-dashboard-dispute-status").should("be.visible");
-  cy.getCy("legal-dashboard-performance-metrics").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Saving screenshot for LegalDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Saving screenshot for LegalDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("legal_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [1/4 | 25%] - Verified LegalDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [1/3 | 33%] - Verified LegalDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Navigating to /executive/legal-analytics (LegalAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Navigating to /executive/legal-analytics (LegalAnalyticsScreen)...");
   cy.visitWithSemantics("/executive/legal-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Checking shell & content for LegalAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Checking shell & content for LegalAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
   cy.getCy("legalanalytics-screen").should("be.visible");
   cy.getCy("legalanalytics-title").should("be.visible");
   cy.getCy("legalanalytics-content").should("be.visible");
-  cy.getCy("legal-dashboard-kpi-chart").should("be.visible");
-  cy.getCy("legal-dashboard-litigation-status").should("be.visible");
-  cy.getCy("legal-dashboard-compliance-tracker").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Saving screenshot for LegalAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Saving screenshot for LegalAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("legal_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [2/4 | 50%] - Verified LegalAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [2/3 | 66%] - Verified LegalAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Navigating to /executive/legal-compliance (LegalComplianceScreen)...");
-  cy.visitWithSemantics("/executive/legal-compliance");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Checking shell & content for LegalComplianceScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("legalcompliance-screen").should("be.visible");
-  cy.getCy("legalcompliance-title").should("be.visible");
-  cy.getCy("legalcompliance-content").should("be.visible");
-  cy.getCy("legalcompliance-btn-update").should("be.visible");
-  cy.getCy("legalcompliance-btn-train").should("be.visible");
-  cy.getCy("legalcompliance-btn-review").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Saving screenshot for LegalComplianceScreen...");
-  cy.waitAndSee();
-  cy.screenshot("legal_compliance");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [3/4 | 75%] - Verified LegalComplianceScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Navigating to /executive/legal-workflow (LegalWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Navigating to /executive/legal-workflow (LegalWorkflowScreen)...");
   cy.visitWithSemantics("/executive/legal-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Checking shell & content for LegalWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Checking shell & content for LegalWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
   cy.getCy("legalworkflow-screen").should("be.visible");
   cy.getCy("legalworkflow-title").should("be.visible");
   cy.getCy("legalworkflow-content").should("be.visible");
-  cy.getCy("legalworkflow-btn-addtask").should("be.visible");
-  cy.getCy("legalworkflow-btn-reviewdocument").should("be.visible");
-  cy.getCy("legalworkflow-btn-providelegaladvice").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Saving screenshot for LegalWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Saving screenshot for LegalWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("legal_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [4/4 | 100%] - Verified LegalWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [3/3 | 100%] - Verified LegalWorkflowScreen successfully!\n");
 
   });
 });

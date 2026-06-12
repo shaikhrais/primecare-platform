@@ -1,0 +1,26 @@
+Screen Code: family_member_workflow
+Screen Name: FamilyMemberWorkflowScreen
+
+Required Components:
+- ActionIndicator
+- WorkflowStatus
+- MetricsCard
+- UserFeedbackForm
+
+Required Functions/Handlers:
+- triggerStateAction
+- performActionSweep
+- refreshDashboard
+
+Required Buttons:
+- Execute Button 1
+- Execute Action Sweep
+
+Required APIs:
+- /v1/family_member/workflow/execute
+- /v1/family_member/dashboard/refresh
+
+Required Semantic Keys (data-cy):
+- family-member-btn-execute-1
+- family-member-btn-action-sweep
+- family-member-dashboard-refresh

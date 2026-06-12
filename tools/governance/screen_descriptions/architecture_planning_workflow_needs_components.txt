@@ -1,0 +1,57 @@
+Screen Code: architecture_planning_workflow
+Screen Name: ArchitecturePlanningWorkflowScreen
+
+Required Components:
+- HealthPerformanceOverview
+- ComplianceStatusCard
+- AlertsNotification
+- AuditTrailViewer
+- ResourceUtilizationChart
+- VulnerabilityReport
+- IncidentHistoryLog
+- AuditSummaryPanel
+- KPIWidget
+- IncidentManagementIntegration
+
+Required Functions/Handlers:
+- fetchInfrastructureHealth
+- checkComplianceStatus
+- triggerAlert
+- logAuditChange
+- visualizeResourceUtilization
+- generateVulnerabilityReport
+- retrieveIncidentHistory
+- summarizeAudits
+- calculateKPIs
+- integrateIncidentManagement
+
+Required Buttons:
+- Refresh Data
+- Export Report
+- View Details
+- Start New Audit
+- Generate Alert
+
+Required APIs:
+- /v1/infrastructure/health
+- /v1/security/compliance
+- /v1/alerts/critical
+- /v1/audit/trail
+- /v1/resources/utilization
+- /v1/vulnerabilities/report
+- /v1/incidents/history
+- /v1/audits/summary
+- /v1/kpis
+- /v1/integration/incident-management
+
+Required Semantic Keys (data-cy):
+- infrastructure-health-overview
+- compliance-status-card
+- alerts-notification
+- audit-trail-viewer
+- resource-utilization-chart
+- vulnerability-report
+- incident-history-log
+- audit-summary-panel
+- kpi-widget
+- incident-management-integration

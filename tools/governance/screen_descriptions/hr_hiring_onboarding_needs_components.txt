@@ -1,0 +1,33 @@
+Screen Code: hr_hiring_onboarding
+Screen Name: HrHiringOnboardingScreen
+
+Required Components:
+- KPIChart
+- CandidatePipelineStatus
+- SourceOfHireAnalysis
+- DiversityMetrics
+- FeedbackScores
+- ComplianceStatus
+- UpcomingEvents
+- HistoricalDataTrends
+
+Required Functions/Handlers:
+- addCandidate
+- scheduleInterview
+- generateReport
+
+Required Buttons:
+- Add Candidate
+- Schedule Interview
+- Generate Report
+
+Required APIs:
+- /v1/recruitment/candidates
+- /v1/recruitment/interviews
+- /v1/recruitment/kpis
+- /v1/recruitment/compliance
+
+Required Semantic Keys (data-cy):
+- ta-dashboard-btn-add-candidate
+- ta-dashboard-btn-schedule-interview
+- ta-dashboard-btn-generate-report

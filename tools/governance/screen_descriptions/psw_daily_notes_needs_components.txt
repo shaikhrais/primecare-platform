@@ -1,0 +1,33 @@
+Screen Code: psw_daily_notes
+Screen Name: Psw Daily Notes
+
+Required Components:
+- NoteList
+- NoteEditor
+- NotificationBanner
+- SearchBar
+- SummaryCard
+
+Required Functions/Handlers:
+- loadNotes
+- saveNote
+- updateNote
+- deleteNote
+- searchNotes
+
+Required Buttons:
+- Add Note
+- Save
+- Update
+- Cancel
+
+Required APIs:
+- /v1/patient/notes
+- /v1/patient/notes/update
+- /v1/patient/notes/delete
+
+Required Semantic Keys (data-cy):
+- psw_daily_notes-add_note
+- psw_daily_notes-save
+- psw_daily_notes-update
+- psw_daily_notes-cancel

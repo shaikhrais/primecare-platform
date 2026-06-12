@@ -1,0 +1,23 @@
+Screen Code: staff_utilization_heatmap
+Screen Name: Staff Utilization Heatmap
+
+Required Components:
+- StaffUtilizationHeatmap
+- HighRiskDepartmentList
+
+Required Functions/Handlers:
+- refreshUtilizationData
+- adjustShifts
+
+Required Buttons:
+- Refresh Data
+- Adjust Shifts
+
+Required APIs:
+- /v1/staff/utilization
+- /v1/staff/burnoutIndicators
+
+Required Semantic Keys (data-cy):
+- staff-utilization-heatmap
+- btn-refresh-data
+- btn-adjust-shifts

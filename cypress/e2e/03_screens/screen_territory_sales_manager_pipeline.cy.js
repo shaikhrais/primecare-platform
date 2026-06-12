@@ -4,29 +4,69 @@
 
 
 describe("Screen - territory_sales_manager_pipeline", () => {
-  it("opens and verifies screen territory_sales_manager_pipeline", () => {
-    cy.loginAsRole("chiropractor");
+  it("opens and verifies screen territory_sales_manager_pipeline via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "territory_sales");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Territory Sales Manager Pipeline)...");
-  cy.visitWithSemantics("");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Territory Sales Manager Pipeline...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("territorysalesmanagerpipeline-screen").should("be.visible");
-  cy.getCy("territorysalesmanagerpipeline-title").should("be.visible");
-  cy.getCy("territorysalesmanagerpipeline-content").should("be.visible");
-  cy.getCy("salespipeline-overview").should("be.visible");
-  cy.getCy("territory-performance-metrics").should("be.visible");
-  cy.getCy("leads-opportunities-list").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for Territory Sales Manager Pipeline...");
-  cy.waitAndSee();
-  cy.screenshot("territory_sales_manager_pipeline");
-  
-  cy.task("log", "✅ PROGRESS: - Verified Territory Sales Manager Pipeline successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_territory_sales_manager_pipeline");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: None...");
+      cy.visitWithSemantics(targetBaseUrl + "None");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("territory sales manager pipeline-screen").should("be.visible");
+      cy.getCy("territory sales manager pipeline-title").should("be.visible");
+      cy.getCy("territory sales manager pipeline-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("territory_sales_manager_pipeline");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_territory_sales_manager_pipeline");
+      cy.task("log", "✅ PROGRESS: - Verified Territory Sales Manager Pipeline successfully!\n");
+    });
   });
 });

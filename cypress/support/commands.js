@@ -9,6 +9,16 @@ Cypress.Commands.add("getCy", (id) => {
   });
 });
 
+Cypress.Commands.add("typeIntoField", (id, text) => {
+  cy.getCy(id).then(($el) => {
+    if ($el.is("input") || $el.is("textarea")) {
+      cy.wrap($el).first().type(text, { force: true });
+    } else {
+      cy.wrap($el).find("input, textarea").first().type(text, { force: true });
+    }
+  });
+});
+
 Cypress.Commands.add("waitAndSee", () => {
   cy.wait(2000);
 });
@@ -85,7 +95,7 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
     const user = users.find((u) => u.role_code === roleCode);
     if (!user) throw new Error(`No test user for role ${roleCode}`);
 
-    const targetBaseUrl = user.app_url; // Always use the deployed Cloudflare app URL!
+    const targetBaseUrl = Cypress.config().baseUrl || user.app_url; // Respect local baseUrl if configured, fallback to deployed URL!
 
     // Mock the workers API me endpoint to return successful profile immediately!
     cy.intercept("GET", "**/me", (req) => {

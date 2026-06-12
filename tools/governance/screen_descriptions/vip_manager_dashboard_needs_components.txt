@@ -1,0 +1,30 @@
+Screen Code: vip_manager_dashboard
+Screen Name: VipManagerDashboardScreen
+
+Required Components:
+- TitleStatusIndicator
+- RealTimeLog
+- MetricsDisplay
+- TelemetryChart
+- OperationalAuditLog
+- AlertsDisplay
+
+Required Functions/Handlers:
+- conductComplianceScan
+- logTouchpoint
+- exportAuditLogs
+
+Required Buttons:
+- Conduct Compliance Scan
+- Log Touchpoint
+- Export Audit Logs
+
+Required APIs:
+- /v1/vip/clients/touchpoints
+- /v1/vip/clients/audit
+- /v1/vip/clients/issues
+
+Required Semantic Keys (data-cy):
+- vipmanager-btn-compliance-scan
+- vipmanager-btn-log-touchpoint
+- vipmanager-btn-export-logs

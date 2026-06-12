@@ -1,0 +1,33 @@
+Screen Code: appointment
+Screen Name: AppointmentScreen
+
+Required Components:
+- AppointmentList
+- AppointmentDetails
+- PreAppointmentPaperwork
+- AppointmentInstructions
+- AppointmentReminders
+
+Required Functions/Handlers:
+- scheduleAppointment
+- confirmAppointmentDetails
+- completePaperwork
+- sendAppointmentReminders
+
+Required Buttons:
+- Schedule Appointment
+- Confirm Appointment
+- Complete Paperwork
+- Contact Provider
+
+Required APIs:
+- /v1/appointments/schedule
+- /v1/appointments/confirm
+- /v1/paperwork/submit
+- /v1/appointments/reminders
+
+Required Semantic Keys (data-cy):
+- appointment-btn-schedule
+- appointment-btn-confirm
+- appointment-btn-complete-paperwork
+- appointment-btn-contact-provider

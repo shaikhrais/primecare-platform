@@ -1,0 +1,25 @@
+Screen Code: consent_management_console
+Screen Name: Consent Management Console
+
+Required Components:
+- ConsentRecordList
+- ConsentSummaryCard
+- ConsentTrendChart
+- ErrorAlert
+
+Required Functions/Handlers:
+- loadConsentRecords
+- refreshConsentRecords
+- viewConsentDetails
+
+Required Buttons:
+- Refresh
+- View Details
+
+Required APIs:
+- /v1/consents
+- /v1/consents/details
+
+Required Semantic Keys (data-cy):
+- consent-management-refresh
+- consent-management-view-details

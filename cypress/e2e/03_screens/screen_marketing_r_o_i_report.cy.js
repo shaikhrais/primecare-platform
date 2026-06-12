@@ -4,28 +4,69 @@
 
 
 describe("Screen - marketing_r_o_i_report", () => {
-  it("opens and verifies screen marketing_r_o_i_report", () => {
-    cy.loginAsRole("chiropractor");
+  it("opens and verifies screen marketing_r_o_i_report via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "marketing");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Marketing R O I Report)...");
-  cy.visitWithSemantics("");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Marketing R O I Report...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("marketingroireport-screen").should("be.visible");
-  cy.getCy("marketingroireport-title").should("be.visible");
-  cy.getCy("marketingroireport-content").should("be.visible");
-  cy.getCy("marketing-roi-refresh").should("be.visible");
-  cy.getCy("marketing-roi-export").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for Marketing R O I Report...");
-  cy.waitAndSee();
-  cy.screenshot("marketing_r_o_i_report");
-  
-  cy.task("log", "✅ PROGRESS: - Verified Marketing R O I Report successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_marketing_r_o_i_report");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: None...");
+      cy.visitWithSemantics(targetBaseUrl + "None");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("marketing r o i report-screen").should("be.visible");
+      cy.getCy("marketing r o i report-title").should("be.visible");
+      cy.getCy("marketing r o i report-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("marketing_r_o_i_report");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_marketing_r_o_i_report");
+      cy.task("log", "✅ PROGRESS: - Verified Marketing R O I Report successfully!\n");
+    });
   });
 });

@@ -1,0 +1,42 @@
+Screen Code: franchise_owner_clients
+Screen Name: FranchiseOwnerClientsScreen
+
+Required Components:
+- ComplianceStatusCard
+- KPIChart
+- TelemetryLogViewer
+- AlertsNotification
+- TrendAnalysisGraph
+- ClientSatisfactionWidget
+- SecurityStatusIndicator
+- AuditLogViewer
+- InsightsRecommendationPanel
+- ComplianceScanButton
+
+Required Functions/Handlers:
+- initiateComplianceScan
+- viewAuditResults
+- downloadReports
+- addressOperationalIssues
+- requestSupport
+
+Required Buttons:
+- Initiate Compliance Scan
+- View Audit Results
+- Download Reports
+- Address Issues
+- Request Support
+
+Required APIs:
+- /v1/franchise/compliance/status
+- /v1/franchise/audit/results
+- /v1/franchise/kpi/tracking
+- /v1/franchise/client/feedback
+- /v1/franchise/security/status
+
+Required Semantic Keys (data-cy):
+- franchise-compliance-status
+- franchise-audit-results
+- franchise-kpi-tracking
+- franchise-client-feedback
+- franchise-security-status

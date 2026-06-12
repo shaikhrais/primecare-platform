@@ -1,0 +1,44 @@
+Screen Code: support_dashboard
+Screen Name: SupportDashboardScreen
+
+Required Components:
+- LoadingIndicator
+- ErrorMessageDisplay
+- LogSummary
+- ComplianceScanButton
+- RefreshButton
+- KPIChart
+- TelemetryChart
+- AuditLogDisplay
+
+Required Functions/Handlers:
+- renderSupportDashboard
+- displayLoadingState
+- displayErrorMessage
+- executeComplianceScan
+- syncSecurityPosture
+- updateSecurityPolicies
+- exportLogs
+- triggerGovernanceActions
+- manualRefresh
+
+Required Buttons:
+- Execute Compliance Scan
+- Refresh Data
+- Export Logs
+
+Required APIs:
+- /v1/support/dashboard/loading
+- /v1/support/dashboard/error
+- /v1/support/dashboard/compliance/scan
+- /v1/support/dashboard/security/posture/sync
+- /v1/support/dashboard/security/policies/update
+- /v1/support/dashboard/logs/export
+- /v1/support/dashboard/governance/actions
+
+Required Semantic Keys (data-cy):
+- support-dashboard-loading
+- support-dashboard-error
+- support-dashboard-compliance-scan
+- support-dashboard-refresh
+- support-dashboard-export-logs

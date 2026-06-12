@@ -1,0 +1,32 @@
+Screen Code: community_outreach_partnerships
+Screen Name: Community Outreach Partnerships
+
+Required Components:
+- PartnershipMetricsCard
+- OutreachActivityChart
+- FeedbackSection
+- AlertsDashboard
+
+Required Functions/Handlers:
+- monitorPartnerships
+- analyzeEffectiveness
+- engageStakeholders
+- updatePartnershipInfo
+- generateReport
+
+Required Buttons:
+- Update Partnership Info
+- Analyze Effectiveness
+- Engage Stakeholders
+- Generate Report
+
+Required APIs:
+- /v1/community/outreach/partnerships
+- /v1/community/outreach/metrics
+- /v1/community/outreach/feedback
+
+Required Semantic Keys (data-cy):
+- community-outreach-btn-update
+- community-outreach-btn-analyze
+- community-outreach-btn-engage
+- community-outreach-btn-report

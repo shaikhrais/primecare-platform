@@ -1,0 +1,34 @@
+Screen Code: territory_sales_manager_conversions
+Screen Name: Territory Sales Manager Conversions
+
+Required Components:
+- SalesConversionMetric
+- SalesTrendChart
+- PerformanceAlert
+- CustomerFeedbackWidget
+- CollaborationTool
+
+Required Functions/Handlers:
+- monitorSalesConversions
+- analyzeDataTrends
+- identifyImprovementAreas
+- collaborateWithTeam
+- generateSalesReport
+
+Required Buttons:
+- Generate Report
+- Analyze Trends
+- Identify Improvements
+- Collaborate
+
+Required APIs:
+- /v1/sales/conversions
+- /v1/sales/trends
+- /v1/sales/feedback
+- /v1/sales/collaboration
+
+Required Semantic Keys (data-cy):
+- sales-dashboard-btn-generate-report
+- sales-dashboard-btn-analyze-trends
+- sales-dashboard-btn-identify-improvements
+- sales-dashboard-btn-collaborate

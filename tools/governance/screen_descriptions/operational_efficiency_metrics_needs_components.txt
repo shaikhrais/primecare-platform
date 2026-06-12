@@ -1,0 +1,23 @@
+Screen Code: operational_efficiency_metrics
+Screen Name: Operational Efficiency Metrics
+
+Required Components:
+- KPIList
+- TrendChart
+- ErrorMessageDisplay
+
+Required Functions/Handlers:
+- refreshMetrics
+- compareMetrics
+
+Required Buttons:
+- Refresh Metrics
+- Compare Metrics
+
+Required APIs:
+- /v1/operational/kpis
+- /v1/operational/compare
+
+Required Semantic Keys (data-cy):
+- operational-efficiency-refresh
+- operational-efficiency-compare

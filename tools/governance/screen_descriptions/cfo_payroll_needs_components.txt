@@ -1,0 +1,43 @@
+Screen Code: cfo_payroll
+Screen Name: CfoPayrollScreen
+
+Required Components:
+- KPIWidget
+- CashFlowChart
+- BudgetPerformanceTracker
+- ComplianceStatusIndicator
+- RiskAssessmentWidget
+- AuditLogViewer
+- InvestmentPerformanceWidget
+- OperationalEfficiencyChart
+- StakeholderFeedbackWidget
+- AlertNotificationSystem
+
+Required Functions/Handlers:
+- refreshDashboardData
+- generateFinancialReport
+- viewAuditLogs
+- setAlerts
+
+Required Buttons:
+- Refresh Data
+- Generate Report
+- View Audit Logs
+- Set Alerts
+
+Required APIs:
+- /v1/financial/kpis
+- /v1/financial/cashflow
+- /v1/financial/budget
+- /v1/financial/compliance
+- /v1/financial/risk
+- /v1/financial/audit
+- /v1/financial/investment
+- /v1/financial/operational-efficiency
+- /v1/financial/stakeholder-feedback
+
+Required Semantic Keys (data-cy):
+- cfo-dashboard-btn-refresh
+- cfo-dashboard-btn-generate-report
+- cfo-dashboard-btn-view-audit
+- cfo-dashboard-btn-set-alerts

@@ -1,0 +1,45 @@
+Screen Code: file_verification_dashboard
+Screen Name: FileVerificationDashboardScreen
+
+Required Components:
+- ComplianceStatusIndicator
+- AuditLogHistory
+- GovernanceKPI
+- TelemetryDataChart
+- ComplianceAlert
+- GovernanceActivitySummary
+- UserFriendlyNavigation
+- TrainingResourcesAccess
+- ComplianceTrendsVisualization
+- StakeholderFeedbackMechanism
+
+Required Functions/Handlers:
+- fetchComplianceStatus
+- fetchAuditLogs
+- fetchKPIs
+- fetchTelemetryData
+- triggerComplianceAlert
+- fetchGovernanceActivities
+- navigateToTrainingResources
+- submitStakeholderFeedback
+
+Required Buttons:
+- View Audit Logs
+- Generate Report
+- Access Training
+- Submit Feedback
+
+Required APIs:
+- /v1/governance/compliance/status
+- /v1/governance/audit/logs
+- /v1/governance/kpis
+- /v1/governance/telemetry
+- /v1/governance/activities
+- /v1/governance/training/resources
+- /v1/governance/feedback
+
+Required Semantic Keys (data-cy):
+- govdashboard-btn-view-audit-logs
+- govdashboard-btn-generate-report
+- govdashboard-btn-access-training
+- govdashboard-btn-submit-feedback

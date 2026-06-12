@@ -1,0 +1,47 @@
+Screen Code: course_assignment
+Screen Name: CourseAssignmentScreen
+
+Required Components:
+- TrainingMetricsCard
+- FeedbackChart
+- ComplianceStatusWidget
+- TrainingScheduleList
+- ResourceAllocationChart
+- TrainerPerformanceMetrics
+- HistoricalEffectivenessChart
+- AlertsNotification
+
+Required Functions/Handlers:
+- fetchTrainingMetrics
+- submitFeedback
+- checkComplianceStatus
+- getUpcomingSchedules
+- allocateResources
+- evaluateTrainerPerformance
+- fetchHistoricalData
+- triggerAlerts
+
+Required Buttons:
+- View Training Details
+- Export Report
+- Send Feedback
+
+Required APIs:
+- /v1/training/metrics
+- /v1/training/feedback
+- /v1/training/compliance
+- /v1/training/schedules
+- /v1/training/resources
+- /v1/training/trainers/performance
+- /v1/training/effectiveness
+- /v1/training/alerts
+
+Required Semantic Keys (data-cy):
+- training-dashboard-metrics
+- training-feedback-submit
+- training-compliance-status
+- training-schedule-list
+- training-resource-allocation
+- trainer-performance-metrics
+- historical-effectiveness-chart
+- alerts-notification

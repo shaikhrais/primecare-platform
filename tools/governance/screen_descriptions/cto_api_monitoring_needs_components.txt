@@ -1,0 +1,38 @@
+Screen Code: cto_api_monitoring
+Screen Name: Cto Api Monitoring
+
+Required Components:
+- ApiPerformanceMetrics
+- ApiResponseTimeAnalyzer
+- ErrorRateTracker
+- ApiUsageStatistics
+- AlertsSetup
+- PerformanceReportsGenerator
+- CollaborationTool
+
+Required Functions/Handlers:
+- monitorApiPerformance
+- analyzeResponseTimes
+- trackErrorRates
+- reviewUsageStatistics
+- setupAlerts
+- generateReports
+- collaborateWithTeams
+
+Required Buttons:
+- Set Alert
+- Generate Report
+- Collaborate
+
+Required APIs:
+- /v1/api/performance
+- /v1/api/response-times
+- /v1/api/error-rates
+- /v1/api/usage-statistics
+- /v1/api/alerts
+- /v1/api/reports
+
+Required Semantic Keys (data-cy):
+- api-monitoring-btn-set-alert
+- api-monitoring-btn-generate-report
+- api-monitoring-btn-collaborate

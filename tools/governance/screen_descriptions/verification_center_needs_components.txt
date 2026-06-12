@@ -1,0 +1,28 @@
+Screen Code: verification_center
+Screen Name: Verification Center
+
+Required Components:
+- SummaryCard
+- DeploymentList
+- LoadingIndicator
+- ErrorMessage
+
+Required Functions/Handlers:
+- fetchDeploymentData
+- viewDeploymentLogs
+- launchLiveLink
+
+Required Buttons:
+- View Logs
+- Launch Live Link
+
+Required APIs:
+- /v1/deployments/status
+- /v1/deployments/logs
+- /v1/deployments/live-link
+
+Required Semantic Keys (data-cy):
+- verification-center-summary-card
+- verification-center-deployment-list
+- verification-center-loading-indicator
+- verification-center-error-message

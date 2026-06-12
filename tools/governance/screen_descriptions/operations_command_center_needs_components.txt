@@ -1,0 +1,50 @@
+Screen Code: operations_command_center
+Screen Name: OperationsCommandCenterScreen
+
+Required Components:
+- KPIDashboard
+- OperationalMetricsChart
+- ComplianceStatusCard
+- FinancialPerformanceCard
+- EmployeeEngagementWidget
+- CustomerSatisfactionWidget
+- RiskManagementDashboard
+- OperationalLogsTable
+- ResourceAllocationChart
+- AlertsNotification
+
+Required Functions/Handlers:
+- refreshMetrics
+- viewDetailedReports
+- exportData
+- setAlerts
+
+Required Buttons:
+- Refresh Metrics
+- View Detailed Reports
+- Export Data
+- Set Alerts
+
+Required APIs:
+- /v1/operations/kpis
+- /v1/operations/metrics
+- /v1/operations/compliance
+- /v1/operations/financials
+- /v1/operations/employee-engagement
+- /v1/operations/customer-satisfaction
+- /v1/operations/risk-management
+- /v1/operations/logs
+- /v1/operations/resource-allocation
+- /v1/operations/alerts
+
+Required Semantic Keys (data-cy):
+- operations-dashboard-kpi
+- operations-dashboard-metrics
+- operations-dashboard-compliance
+- operations-dashboard-financials
+- operations-dashboard-employee-engagement
+- operations-dashboard-customer-satisfaction
+- operations-dashboard-risk
+- operations-dashboard-logs
+- operations-dashboard-resources
+- operations-dashboard-alerts

@@ -1,0 +1,46 @@
+Screen Code: volunteer_coordinator_dashboard
+Screen Name: VolunteerCoordinatorDashboardScreen
+
+Required Components:
+- VolunteerOverviewWidget
+- VolunteerMetricsCard
+- ComplianceStatusCard
+- CommunicationLogWidget
+- UpcomingEventsList
+- FeedbackRatingWidget
+- AlertsWidget
+- EngagementHistoryChart
+- ShiftManagementTool
+- TrainingResourcesWidget
+
+Required Functions/Handlers:
+- addVolunteer
+- scheduleShift
+- sendCommunication
+- logVolunteerHours
+- generateReport
+- organizeEvent
+
+Required Buttons:
+- Add Volunteer
+- Schedule Shift
+- Send Communication
+- Log Hours
+- Generate Report
+- Organize Event
+
+Required APIs:
+- /v1/volunteers
+- /v1/volunteers/schedule
+- /v1/volunteers/communication
+- /v1/volunteers/hours
+- /v1/volunteers/reports
+- /v1/volunteers/events
+
+Required Semantic Keys (data-cy):
+- volunteer-dashboard-add-volunteer
+- volunteer-dashboard-schedule-shift
+- volunteer-dashboard-send-communication
+- volunteer-dashboard-log-hours
+- volunteer-dashboard-generate-report
+- volunteer-dashboard-organize-event

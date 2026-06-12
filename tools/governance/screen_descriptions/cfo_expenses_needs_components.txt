@@ -1,0 +1,48 @@
+Screen Code: cfo_expenses
+Screen Name: CfoExpensesScreen
+
+Required Components:
+- KPIOverviewWidget
+- FinancialMetricsChart
+- BudgetVsActualWidget
+- CashFlowProjectionWidget
+- ComplianceStatusIndicator
+- RiskAssessmentMetric
+- AuditLogViewer
+- OperationalEfficiencyWidget
+- InvestmentPerformanceWidget
+- TeamPerformanceMetric
+
+Required Functions/Handlers:
+- refreshDashboard
+- generateFinancialReport
+- exportFinancialData
+
+Required Buttons:
+- Refresh Data
+- Generate Report
+- Export Data
+
+Required APIs:
+- /v1/financial/kpis
+- /v1/financial/metrics
+- /v1/financial/budget-analysis
+- /v1/financial/cash-flow
+- /v1/financial/compliance-status
+- /v1/financial/risk-assessment
+- /v1/financial/audit-logs
+- /v1/financial/operational-efficiency
+- /v1/financial/investment-performance
+- /v1/financial/team-performance
+
+Required Semantic Keys (data-cy):
+- cfo-dashboard-kpi-overview
+- cfo-dashboard-financial-metrics
+- cfo-dashboard-budget-analysis
+- cfo-dashboard-cash-flow
+- cfo-dashboard-compliance-status
+- cfo-dashboard-risk-assessment
+- cfo-dashboard-audit-logs
+- cfo-dashboard-operational-efficiency
+- cfo-dashboard-investment-performance
+- cfo-dashboard-team-performance

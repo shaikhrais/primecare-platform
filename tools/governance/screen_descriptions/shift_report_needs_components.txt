@@ -1,0 +1,52 @@
+Screen Code: shift_report
+Screen Name: ShiftReportScreen
+
+Required Components:
+- PatientHealthStatusOverview
+- ComplianceMetricsCard
+- PatientSatisfactionScore
+- StaffingLevelsChart
+- IncidentReportsList
+- PerformanceIndicatorsDashboard
+- CarePlansAccess
+- CommunicationTools
+- TrainingResources
+- PatientAssignmentsUpdates
+
+Required Functions/Handlers:
+- fetchPatientHealthStatus
+- fetchComplianceMetrics
+- fetchPatientSatisfactionScores
+- fetchStaffingLevels
+- fetchIncidentReports
+- fetchPerformanceIndicators
+- fetchCarePlans
+- sendMessageToTeam
+- updatePatientStatus
+
+Required Buttons:
+- View Care Plan
+- Submit Incident Report
+- Access Training Resources
+- Update Patient Status
+- Send Message to Team
+
+Required APIs:
+- /v1/patient/health/status
+- /v1/compliance/metrics
+- /v1/patient/satisfaction
+- /v1/staffing/levels
+- /v1/incidents/reports
+- /v1/performance/indicators
+- /v1/care/plans
+- /v1/communication/send
+
+Required Semantic Keys (data-cy):
+- rn-dashboard-patient-health-status
+- rn-dashboard-compliance-metrics
+- rn-dashboard-patient-satisfaction
+- rn-dashboard-staffing-levels
+- rn-dashboard-incident-reports
+- rn-dashboard-performance-indicators
+- rn-dashboard-care-plans
+- rn-dashboard-communication-tools

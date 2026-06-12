@@ -1,0 +1,48 @@
+Screen Code: cfo_tax
+Screen Name: CfoTaxScreen
+
+Required Components:
+- KPIOverviewWidget
+- RevenueExpenseTrendChart
+- CashFlowProjectionWidget
+- BudgetVsActualAnalysisWidget
+- ComplianceStatusIndicator
+- RiskManagementMetricsWidget
+- AuditLogSummaryWidget
+- InvestmentPerformanceOverviewWidget
+- TeamPerformanceMetricsWidget
+- RealTimeFinancialAlertsWidget
+
+Required Functions/Handlers:
+- refreshDashboardData
+- exportReport
+- viewDetailedAnalysis
+
+Required Buttons:
+- Refresh Data
+- Export Report
+- View Detailed Analysis
+
+Required APIs:
+- /v1/financial/kpis
+- /v1/financial/revenue-expense-trends
+- /v1/financial/cash-flow-projections
+- /v1/financial/budget-vs-actual
+- /v1/financial/compliance-status
+- /v1/financial/risk-management-metrics
+- /v1/financial/audit-log
+- /v1/financial/investment-performance
+- /v1/financial/team-performance
+- /v1/financial/alerts
+
+Required Semantic Keys (data-cy):
+- cfo-dashboard-kpi-overview
+- cfo-dashboard-revenue-expense-trend
+- cfo-dashboard-cash-flow-projection
+- cfo-dashboard-budget-actual-analysis
+- cfo-dashboard-compliance-status
+- cfo-dashboard-risk-management
+- cfo-dashboard-audit-log
+- cfo-dashboard-investment-performance
+- cfo-dashboard-team-performance
+- cfo-dashboard-alerts

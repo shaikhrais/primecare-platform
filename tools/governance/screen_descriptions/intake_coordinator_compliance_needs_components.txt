@@ -1,0 +1,52 @@
+Screen Code: intake_coordinator_compliance
+Screen Name: IntakeCoordinatorComplianceScreen
+
+Required Components:
+- ComplianceAuditStatusCard
+- OperationalLogWidget
+- ComplianceViolationAlert
+- PolicyChangeSummary
+- TrainingAttendanceChart
+- SecureEventReportingForm
+- HistoricalAuditResultsTable
+- UserFeedbackWidget
+- SecurityIncidentReport
+- ActionItemsList
+
+Required Functions/Handlers:
+- submitEventReport
+- updatePolicy
+- conductAudit
+- viewTrainingMetrics
+- respondToInquiry
+
+Required Buttons:
+- Submit Event Report
+- Update Policy
+- Conduct Audit
+- View Training Metrics
+- Respond to Inquiry
+
+Required APIs:
+- /v1/compliance/audit/status
+- /v1/operations/logs
+- /v1/compliance/violations/alerts
+- /v1/policies/changes
+- /v1/training/attendance
+- /v1/events/report
+- /v1/audits/results
+- /v1/feedback/user
+- /v1/security/incidents
+- /v1/governance/action-items
+
+Required Semantic Keys (data-cy):
+- compliance-audit-status-card
+- operational-log-widget
+- compliance-violation-alert
+- policy-change-summary
+- training-attendance-chart
+- secure-event-reporting-form
+- historical-audit-results-table
+- user-feedback-widget
+- security-incident-report
+- action-items-list

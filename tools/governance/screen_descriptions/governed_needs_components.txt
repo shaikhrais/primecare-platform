@@ -1,0 +1,47 @@
+Screen Code: governed
+Screen Name: Governed
+
+Required Components:
+- PolicyReviewCard
+- ComplianceStatusWidget
+- AccessControlMetrics
+- TranslationVerificationCard
+- SecurityAuditResults
+- ResponsiveLayoutChecker
+- TelemetryLogViewer
+
+Required Functions/Handlers:
+- validatePolicies
+- enforceGlobalPolicies
+- monitorAccessPermissions
+- verifyTranslations
+- conductSecurityAudit
+- validateResponsiveLayouts
+- logTelemetryEvents
+
+Required Buttons:
+- Validate Policies
+- Enforce Policies
+- Monitor Access
+- Verify Translations
+- Conduct Security Audit
+- Check Responsiveness
+- View Telemetry Logs
+
+Required APIs:
+- /v1/policies/review
+- /v1/policies/enforce
+- /v1/access/monitor
+- /v1/translations/verify
+- /v1/security/audit
+- /v1/layouts/validate
+- /v1/telemetry/logs
+
+Required Semantic Keys (data-cy):
+- gov-btn-validate-policies
+- gov-btn-enforce-policies
+- gov-btn-monitor-access
+- gov-btn-verify-translations
+- gov-btn-conduct-security-audit
+- gov-btn-check-responsiveness
+- gov-btn-view-telemetry

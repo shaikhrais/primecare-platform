@@ -1,0 +1,37 @@
+Screen Code: psw_patient_profile
+Screen Name: Psw Patient Profile
+
+Required Components:
+- PatientParameterMonitor
+- CompliancePostureReview
+- ZeroTrustSync
+- PatientProfileAccess
+- PatientProfileNavigator
+- ComplianceStatusIndicator
+- AlertsDashboard
+- UserEngagementMetrics
+
+Required Functions/Handlers:
+- monitorPatientParameters
+- reviewCompliancePosture
+- syncZeroTrust
+- accessPatientProfile
+- navigatePatientProfile
+
+Required Buttons:
+- Refresh Data
+- View Compliance
+- Access Profile
+- Navigate Back
+
+Required APIs:
+- /v1/patient/parameters
+- /v1/patient/compliance
+- /v1/patient/profile
+- /v1/patient/alerts
+
+Required Semantic Keys (data-cy):
+- pswpatient-btn-refresh
+- pswpatient-btn-view-compliance
+- pswpatient-btn-access-profile
+- pswpatient-btn-navigate-back

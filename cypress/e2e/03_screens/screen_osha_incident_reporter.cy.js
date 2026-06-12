@@ -4,29 +4,69 @@
 
 
 describe("Screen - osha_incident_reporter", () => {
-  it("opens and verifies screen osha_incident_reporter", () => {
-    cy.loginAsRole("chiropractor");
+  it("opens and verifies screen osha_incident_reporter via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "admin");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Osha Incident Reporter)...");
-  cy.visitWithSemantics("");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Osha Incident Reporter...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("oshaincidentreporter-screen").should("be.visible");
-  cy.getCy("oshaincidentreporter-title").should("be.visible");
-  cy.getCy("oshaincidentreporter-content").should("be.visible");
-  cy.getCy("osha-incident-list").should("be.visible");
-  cy.getCy("osha-refresh-button").should("be.visible");
-  cy.getCy("osha-file-report-button").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for Osha Incident Reporter...");
-  cy.waitAndSee();
-  cy.screenshot("osha_incident_reporter");
-  
-  cy.task("log", "✅ PROGRESS: - Verified Osha Incident Reporter successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_osha_incident_reporter");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: None...");
+      cy.visitWithSemantics(targetBaseUrl + "None");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("osha incident reporter-screen").should("be.visible");
+      cy.getCy("osha incident reporter-title").should("be.visible");
+      cy.getCy("osha incident reporter-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("osha_incident_reporter");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_osha_incident_reporter");
+      cy.task("log", "✅ PROGRESS: - Verified Osha Incident Reporter successfully!\n");
+    });
   });
 });

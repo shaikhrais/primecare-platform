@@ -1,0 +1,42 @@
+Screen Code: chiropractic_progress_tracking
+Screen Name: ChiropracticProgressTrackingScreen
+
+Required Components:
+- PatientAssessmentCard
+- TreatmentPlanCard
+- ProgressTrackingChart
+- PatientFeedbackWidget
+- ComplianceAuditLog
+- OperationalMetricsDashboard
+- SecurityStatusIndicator
+- NotificationAlert
+
+Required Functions/Handlers:
+- savePatientAssessment
+- updateTreatmentPlan
+- recordPatientProgress
+- submitPatientFeedback
+- viewAuditLogs
+- checkCompliance
+
+Required Buttons:
+- Save Assessment
+- Update Treatment Plan
+- Record Progress
+- Submit Feedback
+- View Audit Logs
+- Check Compliance
+
+Required APIs:
+- /v1/chiropractic/patient/assessment
+- /v1/chiropractic/treatment/plan
+- /v1/chiropractic/progress/track
+- /v1/chiropractic/feedback/submit
+- /v1/chiropractic/compliance/audit
+
+Required Semantic Keys (data-cy):
+- chiropractic-btn-save-assessment
+- chiropractic-btn-update-treatment
+- chiropractic-btn-record-progress
+- chiropractic-btn-submit-feedback
+- chiropractic-btn-view-audit

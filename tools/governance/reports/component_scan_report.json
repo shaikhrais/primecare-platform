@@ -2,15 +2,21 @@
   {
     "screen_id": 1,
     "screen_name": "RmtDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "rmtdashboard-title",
+      "rmtdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 2,
     "screen_name": "TherapistDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "therapistdashboard-title",
+      "therapistdashboard-content"
+    ],
     "problems": []
   },
   {
@@ -58,8 +64,11 @@
   {
     "screen_id": 9,
     "screen_name": "PhysicianDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "physiciandashboard-screen",
+      "physiciandashboard-content"
+    ],
     "problems": []
   },
   {
@@ -79,15 +88,21 @@
   {
     "screen_id": 12,
     "screen_name": "CaregiverDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "caregiverdashboard-screen",
+      "caregiverdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 13,
     "screen_name": "ChiropractorDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "chiropractordashboard-title",
+      "chiropractordashboard-content"
+    ],
     "problems": []
   },
   {
@@ -107,22 +122,34 @@
   {
     "screen_id": 16,
     "screen_name": "CustomerSupportDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "customersupportdashboard-screen",
+      "customersupportdashboard-title",
+      "customersupportdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 17,
     "screen_name": "DynamicScreenDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "dynamicdashboard-screen",
+      "dynamicdashboard-title",
+      "dynamicdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 18,
     "screen_name": "FamilyMemberDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "familymemberdashboard-screen",
+      "familymemberdashboard-title",
+      "familymemberdashboard-content"
+    ],
     "problems": []
   },
   {
@@ -163,15 +190,22 @@
   {
     "screen_id": 24,
     "screen_name": "PatientDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "patientdashboard-screen",
+      "patientdashboard-title",
+      "patientdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 25,
     "screen_name": "PhysiotherapistDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "physiotherapistdashboard-title",
+      "physiotherapistdashboard-content"
+    ],
     "problems": []
   },
   {
@@ -184,15 +218,22 @@
   {
     "screen_id": 27,
     "screen_name": "QaDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "qadashboard-screen",
+      "qadashboard-title",
+      "qadashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 28,
     "screen_name": "SocialWorkerDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "socialworkerdashboard-title",
+      "socialworkerdashboard-content"
+    ],
     "problems": []
   },
   {
@@ -226,106 +267,166 @@
   {
     "screen_id": 33,
     "screen_name": "CfoDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cfodashboard-screen",
+      "cfodashboard-title",
+      "cfodashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 34,
     "screen_name": "CisoDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cisodashboard-screen",
+      "cisodashboard-title",
+      "cisodashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 35,
     "screen_name": "CooDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "coodashboard-screen",
+      "coodashboard-title",
+      "coodashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 36,
     "screen_name": "CtoDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ctodashboard-screen",
+      "ctodashboard-title",
+      "ctodashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 37,
     "screen_name": "CxDirectorDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cxdirectordashboard-screen",
+      "cxdirectordashboard-title",
+      "cxdirectordashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 38,
     "screen_name": "FinanceDirectorDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "financedirectordashboard-screen",
+      "financedirectordashboard-title",
+      "financedirectordashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 39,
     "screen_name": "HrDirectorDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hrdirectordashboard-screen",
+      "hrdirectordashboard-title",
+      "hrdirectordashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 40,
     "screen_name": "LegalDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "legaldashboard-screen",
+      "legaldashboard-title",
+      "legaldashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 41,
     "screen_name": "OwnerDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ownerdashboard-screen",
+      "ownerdashboard-title",
+      "ownerdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 42,
     "screen_name": "ShareholderDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "shareholderdashboard-screen",
+      "shareholderdashboard-title",
+      "shareholderdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 43,
     "screen_name": "TrainingDirectorDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "trainingdirectordashboard-screen",
+      "trainingdirectordashboard-title",
+      "trainingdirectordashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 44,
     "screen_name": "CommunityOutreachDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "communityoutreachdashboard-screen",
+      "communityoutreachdashboard-title",
+      "communityoutreachdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 45,
     "screen_name": "ComplianceManagerDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliancemanagerdashboard-screen",
+      "compliancemanagerdashboard-title",
+      "compliancemanagerdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 46,
     "screen_name": "FranchiseSalesManagerDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchisesalesmanagerdashboard-screen",
+      "franchisesalesmanagerdashboard-title",
+      "franchisesalesmanagerdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 47,
     "screen_name": "GeneralManagerDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "generalmanagerdashboard-screen",
+      "generalmanagerdashboard-title",
+      "generalmanagerdashboard-content"
+    ],
     "problems": []
   },
   {
@@ -338,36 +439,56 @@
   {
     "screen_id": 49,
     "screen_name": "HeadOfBusDevDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "headofbusdevdashboard-screen",
+      "headofbusdevdashboard-title",
+      "headofbusdevdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 50,
     "screen_name": "HeadOfMarketingDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "headofmarketingdashboard-screen",
+      "headofmarketingdashboard-title",
+      "headofmarketingdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 51,
     "screen_name": "LocalMarketingManagerDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "localmarketingmanagerdashboard-screen",
+      "localmarketingmanagerdashboard-title",
+      "localmarketingmanagerdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 52,
     "screen_name": "OperationsManagerDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "operationsmanagerdashboard-screen",
+      "operationsmanagerdashboard-title",
+      "operationsmanagerdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 53,
     "screen_name": "PartnershipManagerDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "partnershipmanagerdashboard-screen",
+      "partnershipmanagerdashboard-title",
+      "partnershipmanagerdashboard-content"
+    ],
     "problems": []
   },
   {
@@ -380,15 +501,23 @@
   {
     "screen_id": 55,
     "screen_name": "RegionalBdmDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regionalbdmdashboard-screen",
+      "regionalbdmdashboard-title",
+      "regionalbdmdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 56,
     "screen_name": "RegionalManagerUsaDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regionalmanagerusadashboard-screen",
+      "regionalmanagerusadashboard-title",
+      "regionalmanagerusadashboard-content"
+    ],
     "problems": []
   },
   {
@@ -401,15 +530,23 @@
   {
     "screen_id": 58,
     "screen_name": "TerritoryExpansionManagerDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territoryexpansionmanagerdashboard-screen",
+      "territoryexpansionmanagerdashboard-title",
+      "territoryexpansionmanagerdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 59,
     "screen_name": "TerritorySalesManagerDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territorysalesmanagerdashboard-screen",
+      "territorysalesmanagerdashboard-title",
+      "territorysalesmanagerdashboard-content"
+    ],
     "problems": []
   },
   {
@@ -422,15 +559,21 @@
   {
     "screen_id": 61,
     "screen_name": "PswDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "pswdashboard-title",
+      "pswdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 62,
     "screen_name": "RnDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "rndashboard-title",
+      "rndashboard-content"
+    ],
     "problems": []
   },
   {
@@ -443,15 +586,22 @@
   {
     "screen_id": 64,
     "screen_name": "RpnDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "rpndashboard-screen",
+      "rpndashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 65,
     "screen_name": "BillingAdminDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "billingadmindashboard-screen",
+      "billingadmindashboard-title",
+      "billingadmindashboard-content"
+    ],
     "problems": []
   },
   {
@@ -464,29 +614,45 @@
   {
     "screen_id": 67,
     "screen_name": "HrHiringDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hrhiringdashboard-screen",
+      "hrhiringdashboard-title",
+      "hrhiringdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 68,
     "screen_name": "HrManagerDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hrmanagerdashboard-screen",
+      "hrmanagerdashboard-title",
+      "hrmanagerdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 69,
     "screen_name": "IntakeCoordinatorDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "intakecoordinatordashboard-screen",
+      "intakecoordinatordashboard-title",
+      "intakecoordinatordashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 70,
     "screen_name": "QualityAssuranceDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "qualityassurancedashboard-screen",
+      "qualityassurancedashboard-title",
+      "qualityassurancedashboard-content"
+    ],
     "problems": []
   },
   {
@@ -499,22 +665,34 @@
   {
     "screen_id": 72,
     "screen_name": "SchedulerDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "schedulerdashboard-screen",
+      "schedulerdashboard-title",
+      "schedulerdashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 73,
     "screen_name": "TrainingCoordinatorDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "trainingcoordinatordashboard-screen",
+      "trainingcoordinatordashboard-title",
+      "trainingcoordinatordashboard-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 74,
     "screen_name": "VolunteerCoordinatorDashboardScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "volunteercoordinatordashboard-screen",
+      "volunteercoordinatordashboard-title",
+      "volunteercoordinatordashboard-content"
+    ],
     "problems": []
   },
   {
@@ -954,8 +1132,11 @@
   {
     "screen_id": 137,
     "screen_name": "SharedScreenStubs",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "sharedstubs-screen",
+      "sharedstubs-title"
+    ],
     "problems": []
   },
   {
@@ -1115,8 +1296,12 @@
   {
     "screen_id": 160,
     "screen_name": "CooComplianceScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "coocompliance-screen",
+      "coocompliance-title",
+      "coocompliance-content"
+    ],
     "problems": []
   },
   {
@@ -1276,8 +1461,12 @@
   {
     "screen_id": 183,
     "screen_name": "TrainingDirectorAnalyticsScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "trainingdirectoranalytics-screen",
+      "trainingdirectoranalytics-title",
+      "trainingdirectoranalytics-content"
+    ],
     "problems": []
   },
   {
@@ -1633,8 +1822,11 @@
   {
     "screen_id": 234,
     "screen_name": "PswMessagesScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "pswmessages-title",
+      "pswmessages-content"
+    ],
     "problems": []
   },
   {
@@ -1654,8 +1846,11 @@
   {
     "screen_id": 237,
     "screen_name": "PswVisitNotesScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "pswvisitnotes-title",
+      "pswvisitnotes-content"
+    ],
     "problems": []
   },
   {
@@ -1675,8 +1870,10 @@
   {
     "screen_id": 240,
     "screen_name": "RnAssessmentsScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "rnassessments-title"
+    ],
     "problems": []
   },
   {
@@ -1976,29 +2173,45 @@
   {
     "screen_id": 283,
     "screen_name": "CfoRevenueScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cforevenue-screen",
+      "cforevenue-title",
+      "cforevenue-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 284,
     "screen_name": "CfoExpensesScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cfoexpenses-screen",
+      "cfoexpenses-title",
+      "cfoexpenses-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 285,
     "screen_name": "CfoPayrollScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cfopayroll-screen",
+      "cfopayroll-title",
+      "cfopayroll-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 286,
     "screen_name": "CfoInvoicesScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cfoinvoices-screen",
+      "cfoinvoices-title",
+      "cfoinvoices-content"
+    ],
     "problems": []
   },
   {
@@ -2011,8 +2224,12 @@
   {
     "screen_id": 288,
     "screen_name": "CfoProfitabilityScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cfoprofitability-screen",
+      "cfoprofitability-title",
+      "cfoprofitability-content"
+    ],
     "problems": []
   },
   {
@@ -2130,8 +2347,12 @@
   {
     "screen_id": 305,
     "screen_name": "CooOperationsOverviewScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "coooperationsoverview-screen",
+      "coooperationsoverview-title",
+      "coooperationsoverview-content"
+    ],
     "problems": []
   },
   {
@@ -2144,8 +2365,12 @@
   {
     "screen_id": 307,
     "screen_name": "CooSchedulingHealthScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cooschedulinghealth-screen",
+      "cooschedulinghealth-title",
+      "cooschedulinghealth-content"
+    ],
     "problems": []
   },
   {
@@ -2158,8 +2383,12 @@
   {
     "screen_id": 309,
     "screen_name": "CooBranchComparisonScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "coobranchcomparison-screen",
+      "coobranchcomparison-title",
+      "coobranchcomparison-content"
+    ],
     "problems": []
   },
   {
@@ -2200,36 +2429,56 @@
   {
     "screen_id": 315,
     "screen_name": "HrHiringApplicantsScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hrhiringapplicants-screen",
+      "hrhiringapplicants-title",
+      "hrhiringapplicants-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 316,
     "screen_name": "HrHiringInterviewsScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hrhiringinterviews-screen",
+      "hrhiringinterviews-title",
+      "hrhiringinterviews-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 317,
     "screen_name": "HrHiringOffersScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hrhiringoffers-screen",
+      "hrhiringoffers-title",
+      "hrhiringoffers-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 318,
     "screen_name": "HrHiringOnboardingScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hrhiringonboarding-screen",
+      "hrhiringonboarding-title",
+      "hrhiringonboarding-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 319,
     "screen_name": "HrHiringCredentialsScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hrhiringcredentials-screen",
+      "hrhiringcredentials-title",
+      "hrhiringcredentials-content"
+    ],
     "problems": []
   },
   {
@@ -2242,29 +2491,45 @@
   {
     "screen_id": 321,
     "screen_name": "FranchiseOwnerBranchOverviewScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchiseownerbranchoverview-screen",
+      "franchiseownerbranchoverview-title",
+      "franchiseownerbranchoverview-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 322,
     "screen_name": "FranchiseOwnerStaffScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchiseownerstaff-screen",
+      "franchiseownerstaff-title",
+      "franchiseownerstaff-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 323,
     "screen_name": "FranchiseOwnerClientsScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchiseownerclients-screen",
+      "franchiseownerclients-title",
+      "franchiseownerclients-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 324,
     "screen_name": "FranchiseOwnerAppointmentsScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchiseownerappointments-screen",
+      "franchiseownerappointments-title",
+      "franchiseownerappointments-content"
+    ],
     "problems": []
   },
   {
@@ -2277,15 +2542,23 @@
   {
     "screen_id": 326,
     "screen_name": "FranchiseOwnerComplianceScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchiseownercompliance-screen",
+      "franchiseownercompliance-title",
+      "franchiseownercompliance-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 327,
     "screen_name": "FranchiseOwnerReportsScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchiseownerreports-screen",
+      "franchiseownerreports-title",
+      "franchiseownerreports-content"
+    ],
     "problems": []
   },
   {
@@ -2333,8 +2606,12 @@
   {
     "screen_id": 334,
     "screen_name": "PatientProfileScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "patientprofile-screen",
+      "patientprofile-title",
+      "patientprofile-content"
+    ],
     "problems": []
   },
   {
@@ -2417,8 +2694,11 @@
   {
     "screen_id": 346,
     "screen_name": "PswVisitNotesScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "pswvisitnotes-title",
+      "pswvisitnotes-content"
+    ],
     "problems": []
   },
   {
@@ -2431,8 +2711,11 @@
   {
     "screen_id": 348,
     "screen_name": "PswIncidentReportScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "pswincidentreport-screen",
+      "pswincidentreport-content"
+    ],
     "problems": []
   },
   {
@@ -2445,15 +2728,21 @@
   {
     "screen_id": 350,
     "screen_name": "PswMessagesScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "pswmessages-title",
+      "pswmessages-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 351,
     "screen_name": "PswDocumentsScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "pswdocuments-title",
+      "pswdocuments-content"
+    ],
     "problems": []
   },
   {
@@ -2669,8 +2958,11 @@
   {
     "screen_id": 382,
     "screen_name": "IntakeCoordinatorReferralsScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "intakecoordinatorreferrals-screen",
+      "intakecoordinatorreferrals-content"
+    ],
     "problems": []
   },
   {
@@ -3122,13 +3414,6 @@
     "problems": []
   },
   {
-    "screen_id": 524,
-    "screen_name": "PatientChartingScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
-    "problems": []
-  },
-  {
     "screen_id": 525,
     "screen_name": "MedicationAdministrationScreen",
     "cypress_ready": true,
@@ -3145,8 +3430,12 @@
   {
     "screen_id": 527,
     "screen_name": "IncidentReviewScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "incidentreview-screen",
+      "incidentreview-title",
+      "incidentreview-content"
+    ],
     "problems": []
   },
   {
@@ -3192,29 +3481,8 @@
     "problems": []
   },
   {
-    "screen_id": 534,
-    "screen_name": "VisitNotesScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
-    "problems": []
-  },
-  {
     "screen_id": 535,
     "screen_name": "VitalsEntryScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
-    "problems": []
-  },
-  {
-    "screen_id": 536,
-    "screen_name": "IncidentReportScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
-    "problems": []
-  },
-  {
-    "screen_id": 537,
-    "screen_name": "AssessmentScreen",
     "cypress_ready": true,
     "missing_data_cy": [],
     "problems": []
@@ -3243,13 +3511,6 @@
   {
     "screen_id": 541,
     "screen_name": "MassageAssessmentScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
-    "problems": []
-  },
-  {
-    "screen_id": 542,
-    "screen_name": "TreatmentNotesScreen",
     "cypress_ready": true,
     "missing_data_cy": [],
     "problems": []
@@ -3544,8 +3805,11 @@
   {
     "screen_id": 584,
     "screen_name": "ScreenAuditScreen",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "audit-screen",
+      "audit-title"
+    ],
     "problems": []
   },
   {
@@ -3670,8 +3934,10 @@
   {
     "screen_id": 602,
     "screen_name": "Clinical Nurse Specialist Compliance Workflow",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "clinical nurse specialist compliance workflow-content"
+    ],
     "problems": []
   },
   {
@@ -3705,15 +3971,21 @@
   {
     "screen_id": 607,
     "screen_name": "Premium Concierge Care Coordinator Analytics",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "premium concierge care coordinator analytics-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 608,
     "screen_name": "Premium Concierge Care Coordinator Compliance Workflow",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "premium concierge care coordinator compliance workflow-screen",
+      "premium concierge care coordinator compliance workflow-title",
+      "premium concierge care coordinator compliance workflow-content"
+    ],
     "problems": []
   },
   {
@@ -3733,15 +4005,22 @@
   {
     "screen_id": 611,
     "screen_name": "Registered Nurse (RN) Field Supervisor Analytics",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "registered nurse (rn) field supervisor analytics-title",
+      "registered nurse (rn) field supervisor analytics-content"
+    ],
     "problems": []
   },
   {
     "screen_id": 612,
     "screen_name": "Registered Nurse (RN) Field Supervisor Compliance Workflow",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "registered nurse (rn) field supervisor compliance workflow-screen",
+      "registered nurse (rn) field supervisor compliance workflow-title",
+      "registered nurse (rn) field supervisor compliance workflow-content"
+    ],
     "problems": []
   },
   {
@@ -3768,8 +4047,12 @@
   {
     "screen_id": 616,
     "screen_name": "Licensed Practical Nurse (LPN) Compliance Workflow",
-    "cypress_ready": true,
-    "missing_data_cy": [],
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "licensed practical nurse (lpn) compliance workflow-screen",
+      "licensed practical nurse (lpn) compliance workflow-title",
+      "licensed practical nurse (lpn) compliance workflow-content"
+    ],
     "problems": []
   },
   {
@@ -3784,6 +4067,4722 @@
     "screen_name": "Employee Compliance Workflow",
     "cypress_ready": true,
     "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 619,
+    "screen_name": "Success Profile",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "success profile-screen",
+      "success profile-title",
+      "success profile-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 620,
+    "screen_name": "Consent",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "consent-screen",
+      "consent-title",
+      "consent-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 621,
+    "screen_name": "Regional Bdm Competitor Notes",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regional bdm competitor notes-screen",
+      "regional bdm competitor notes-title",
+      "regional bdm competitor notes-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 622,
+    "screen_name": "Regional Bdm Deal Tracker",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regional bdm deal tracker-screen",
+      "regional bdm deal tracker-title",
+      "regional bdm deal tracker-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 623,
+    "screen_name": "Regional Bdm Franchise Pipeline",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regional bdm franchise pipeline-screen",
+      "regional bdm franchise pipeline-title",
+      "regional bdm franchise pipeline-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 624,
+    "screen_name": "Regional Bdm Leads",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regional bdm leads-screen",
+      "regional bdm leads-title",
+      "regional bdm leads-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 625,
+    "screen_name": "Regional Bdm Meetings",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regional bdm meetings-screen",
+      "regional bdm meetings-title",
+      "regional bdm meetings-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 626,
+    "screen_name": "Regional Bdm Partners",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regional bdm partners-screen",
+      "regional bdm partners-title",
+      "regional bdm partners-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 627,
+    "screen_name": "Regional Bdm Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regional bdm reports-screen",
+      "regional bdm reports-title",
+      "regional bdm reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 628,
+    "screen_name": "Regional Bdm Tasks",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regional bdm tasks-screen",
+      "regional bdm tasks-title",
+      "regional bdm tasks-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 629,
+    "screen_name": "Regional Bdm Territory Growth",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regional bdm territory growth-screen",
+      "regional bdm territory growth-title",
+      "regional bdm territory growth-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 630,
+    "screen_name": "Franchise Sales Manager Contracts",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchise sales manager contracts-screen",
+      "franchise sales manager contracts-title",
+      "franchise sales manager contracts-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 631,
+    "screen_name": "Franchise Sales Manager Discovery Calls",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchise sales manager discovery calls-screen",
+      "franchise sales manager discovery calls-title",
+      "franchise sales manager discovery calls-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 632,
+    "screen_name": "Franchise Sales Manager Follow Ups",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchise sales manager follow ups-screen",
+      "franchise sales manager follow ups-title",
+      "franchise sales manager follow ups-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 633,
+    "screen_name": "Franchise Sales Manager Leads",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchise sales manager leads-screen",
+      "franchise sales manager leads-title",
+      "franchise sales manager leads-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 634,
+    "screen_name": "Franchise Sales Manager Proposals",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchise sales manager proposals-screen",
+      "franchise sales manager proposals-title",
+      "franchise sales manager proposals-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 635,
+    "screen_name": "Franchise Sales Manager Prospects",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchise sales manager prospects-screen",
+      "franchise sales manager prospects-title",
+      "franchise sales manager prospects-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 636,
+    "screen_name": "Franchise Sales Manager Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchise sales manager reports-screen",
+      "franchise sales manager reports-title",
+      "franchise sales manager reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 637,
+    "screen_name": "Franchise Sales Manager Sales Pipeline",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchise sales manager sales pipeline-screen",
+      "franchise sales manager sales pipeline-title",
+      "franchise sales manager sales pipeline-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 638,
+    "screen_name": "Partnership Manager Active Deals",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "partnership manager active deals-screen",
+      "partnership manager active deals-title",
+      "partnership manager active deals-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 639,
+    "screen_name": "Partnership Manager Outreach",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "partnership manager outreach-screen",
+      "partnership manager outreach-title",
+      "partnership manager outreach-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 640,
+    "screen_name": "Partnership Manager Partners",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "partnership manager partners-screen",
+      "partnership manager partners-title",
+      "partnership manager partners-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 641,
+    "screen_name": "Partnership Manager Proposals",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "partnership manager proposals-screen",
+      "partnership manager proposals-title",
+      "partnership manager proposals-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 642,
+    "screen_name": "Partnership Manager Renewals",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "partnership manager renewals-screen",
+      "partnership manager renewals-title",
+      "partnership manager renewals-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 643,
+    "screen_name": "Partnership Manager Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "partnership manager reports-screen",
+      "partnership manager reports-title",
+      "partnership manager reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 644,
+    "screen_name": "Regional Manager Ontario Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regional manager ontario dashboard-screen",
+      "regional manager ontario dashboard-title",
+      "regional manager ontario dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 645,
+    "screen_name": "Territory Expansion Manager Demographics",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory expansion manager demographics-screen",
+      "territory expansion manager demographics-title",
+      "territory expansion manager demographics-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 646,
+    "screen_name": "Territory Expansion Manager Expansion Plans",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory expansion manager expansion plans-screen",
+      "territory expansion manager expansion plans-title",
+      "territory expansion manager expansion plans-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 647,
+    "screen_name": "Territory Expansion Manager Forecast",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory expansion manager forecast-screen",
+      "territory expansion manager forecast-title",
+      "territory expansion manager forecast-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 648,
+    "screen_name": "Territory Expansion Manager Market Research",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory expansion manager market research-screen",
+      "territory expansion manager market research-title",
+      "territory expansion manager market research-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 649,
+    "screen_name": "Territory Expansion Manager Open Territories",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory expansion manager open territories-screen",
+      "territory expansion manager open territories-title",
+      "territory expansion manager open territories-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 650,
+    "screen_name": "Territory Expansion Manager Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory expansion manager reports-screen",
+      "territory expansion manager reports-title",
+      "territory expansion manager reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 651,
+    "screen_name": "Territory Expansion Manager Site Selection",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory expansion manager site selection-screen",
+      "territory expansion manager site selection-title",
+      "territory expansion manager site selection-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 652,
+    "screen_name": "Territory Expansion Manager Territory Map",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory expansion manager territory map-screen",
+      "territory expansion manager territory map-title",
+      "territory expansion manager territory map-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 653,
+    "screen_name": "Ai Chatbot",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ai chatbot-screen",
+      "ai chatbot-title",
+      "ai chatbot-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 654,
+    "screen_name": "Family Billing",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "family billing-screen",
+      "family billing-title",
+      "family billing-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 655,
+    "screen_name": "Family Care Updates",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "family care updates-screen",
+      "family care updates-title",
+      "family care updates-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 656,
+    "screen_name": "Family Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "family dashboard-screen",
+      "family dashboard-title",
+      "family dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 657,
+    "screen_name": "Family Emergency Contacts",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "family emergency contacts-screen",
+      "family emergency contacts-title",
+      "family emergency contacts-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 658,
+    "screen_name": "Family Loved One Schedule",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "family loved one schedule-screen",
+      "family loved one schedule-title",
+      "family loved one schedule-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 659,
+    "screen_name": "Family Profile",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "family profile-screen",
+      "family profile-title",
+      "family profile-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 660,
+    "screen_name": "Client Book Appointment",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "client book appointment-screen",
+      "client book appointment-title",
+      "client book appointment-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 661,
+    "screen_name": "Client Care Team",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "client care team-screen",
+      "client care team-title",
+      "client care team-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 662,
+    "screen_name": "Client Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "client dashboard-screen",
+      "client dashboard-title",
+      "client dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 663,
+    "screen_name": "Client My Appointments",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "client my appointments-screen",
+      "client my appointments-title",
+      "client my appointments-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 664,
+    "screen_name": "Client Payments",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "client payments-screen",
+      "client payments-title",
+      "client payments-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 665,
+    "screen_name": "Client Profile",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "client profile-screen",
+      "client profile-title",
+      "client profile-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 666,
+    "screen_name": "Client Treatment History",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "client treatment history-screen",
+      "client treatment history-title",
+      "client treatment history-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 667,
+    "screen_name": "Family Member Billing",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "family member billing-screen",
+      "family member billing-title",
+      "family member billing-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 668,
+    "screen_name": "Family Member Care Updates",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "family member care updates-screen",
+      "family member care updates-title",
+      "family member care updates-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 669,
+    "screen_name": "Family Member Emergency Contacts",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "family member emergency contacts-screen",
+      "family member emergency contacts-title",
+      "family member emergency contacts-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 670,
+    "screen_name": "Family Member Loved One Schedule",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "family member loved one schedule-screen",
+      "family member loved one schedule-title",
+      "family member loved one schedule-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 671,
+    "screen_name": "Family Member Profile",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "family member profile-screen",
+      "family member profile-title",
+      "family member profile-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 672,
+    "screen_name": "Unknown Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "unknown dashboard-screen",
+      "unknown dashboard-title",
+      "unknown dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 673,
+    "screen_name": "Patient Book Appointment",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "patient book appointment-screen",
+      "patient book appointment-title",
+      "patient book appointment-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 674,
+    "screen_name": "Patient Care Team",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "patient care team-screen",
+      "patient care team-title",
+      "patient care team-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 675,
+    "screen_name": "Patient My Appointments",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "patient my appointments-screen",
+      "patient my appointments-title",
+      "patient my appointments-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 676,
+    "screen_name": "Patient Payments",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "patient payments-screen",
+      "patient payments-title",
+      "patient payments-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 677,
+    "screen_name": "Patient Treatment History",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "patient treatment history-screen",
+      "patient treatment history-title",
+      "patient treatment history-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 678,
+    "screen_name": "Clinical Director Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "clinical director dashboard-screen",
+      "clinical director dashboard-title",
+      "clinical director dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 679,
+    "screen_name": "Clinical Director Quality Metrics",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "clinical director quality metrics-screen",
+      "clinical director quality metrics-title",
+      "clinical director quality metrics-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 680,
+    "screen_name": "Clinical Director Staffing",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "clinical director staffing-screen",
+      "clinical director staffing-title",
+      "clinical director staffing-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 681,
+    "screen_name": "Infection Control Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "infection control dashboard-screen",
+      "infection control dashboard-title",
+      "infection control dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 682,
+    "screen_name": "Intake Coordinator Assessments",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "intake coordinator assessments-screen",
+      "intake coordinator assessments-title",
+      "intake coordinator assessments-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 683,
+    "screen_name": "Nurse Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "nurse dashboard-screen",
+      "nurse dashboard-title",
+      "nurse dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 684,
+    "screen_name": "Psw Check In",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw check in-screen",
+      "psw check in-title",
+      "psw check in-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 685,
+    "screen_name": "Psw Help Support",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw help support-screen",
+      "psw help support-title",
+      "psw help support-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 686,
+    "screen_name": "Psw Notifications",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw notifications-screen",
+      "psw notifications-title",
+      "psw notifications-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 687,
+    "screen_name": "Psw Observation Vitals Log",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw observation vitals log-screen",
+      "psw observation vitals log-title",
+      "psw observation vitals log-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 688,
+    "screen_name": "Psw Patient Profile",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw patient profile-screen",
+      "psw patient profile-title",
+      "psw patient profile-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 689,
+    "screen_name": "Psw Profile",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw profile-screen",
+      "psw profile-title",
+      "psw profile-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 690,
+    "screen_name": "Psw Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw reports-screen",
+      "psw reports-title",
+      "psw reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 691,
+    "screen_name": "Psw Schedule",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw schedule-screen",
+      "psw schedule-title",
+      "psw schedule-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 692,
+    "screen_name": "Psw System Logs",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw system logs-screen",
+      "psw system logs-title",
+      "psw system logs-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 693,
+    "screen_name": "Psw Visit Checklist",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw visit checklist-screen",
+      "psw visit checklist-title",
+      "psw visit checklist-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 694,
+    "screen_name": "Psw Care Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw care dashboard-screen",
+      "psw care dashboard-title",
+      "psw care dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 695,
+    "screen_name": "Psw Daily Notes",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw daily notes-screen",
+      "psw daily notes-title",
+      "psw daily notes-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 696,
+    "screen_name": "Psw Messaging",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw messaging-screen",
+      "psw messaging-title",
+      "psw messaging-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 697,
+    "screen_name": "Psw My Clients",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw my clients-screen",
+      "psw my clients-title",
+      "psw my clients-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 698,
+    "screen_name": "Psw Task List",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "psw task list-screen",
+      "psw task list-title",
+      "psw task list-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 699,
+    "screen_name": "Rn Charting",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "rn charting-screen",
+      "rn charting-title",
+      "rn charting-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 700,
+    "screen_name": "Rn Messaging",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "rn messaging-screen",
+      "rn messaging-title",
+      "rn messaging-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 701,
+    "screen_name": "Clinic History Logs",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "clinic history logs-screen",
+      "clinic history logs-title",
+      "clinic history logs-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 702,
+    "screen_name": "Clinic Incident Report",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "clinic incident report-screen",
+      "clinic incident report-title",
+      "clinic incident report-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 703,
+    "screen_name": "Ceo Alerts And Risks",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ceo alerts and risks-screen",
+      "ceo alerts and risks-title",
+      "ceo alerts and risks-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 704,
+    "screen_name": "Ceo Approvals",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ceo approvals-screen",
+      "ceo approvals-title",
+      "ceo approvals-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 705,
+    "screen_name": "Ceo Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ceo dashboard-screen",
+      "ceo dashboard-title",
+      "ceo dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 706,
+    "screen_name": "Ceo Enterprise Overview",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ceo enterprise overview-screen",
+      "ceo enterprise overview-title",
+      "ceo enterprise overview-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 707,
+    "screen_name": "Ceo Franchise Overview",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ceo franchise overview-screen",
+      "ceo franchise overview-title",
+      "ceo franchise overview-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 708,
+    "screen_name": "Ceo Growth Pipeline",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ceo growth pipeline-screen",
+      "ceo growth pipeline-title",
+      "ceo growth pipeline-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 709,
+    "screen_name": "Ceo Leadership Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ceo leadership reports-screen",
+      "ceo leadership reports-title",
+      "ceo leadership reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 710,
+    "screen_name": "Ceo Organization Map",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ceo organization map-screen",
+      "ceo organization map-title",
+      "ceo organization map-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 711,
+    "screen_name": "Ceo Region Performance",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ceo region performance-screen",
+      "ceo region performance-title",
+      "ceo region performance-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 712,
+    "screen_name": "Ceo Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ceo reports-screen",
+      "ceo reports-title",
+      "ceo reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 713,
+    "screen_name": "Ceo Revenue Summary",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ceo revenue summary-screen",
+      "ceo revenue summary-title",
+      "ceo revenue summary-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 714,
+    "screen_name": "Ceo Strategic Kpis",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ceo strategic kpis-screen",
+      "ceo strategic kpis-title",
+      "ceo strategic kpis-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 715,
+    "screen_name": "Cfo Accounts Payable",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cfo accounts payable-screen",
+      "cfo accounts payable-title",
+      "cfo accounts payable-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 716,
+    "screen_name": "Cfo Accounts Receivable",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cfo accounts receivable-screen",
+      "cfo accounts receivable-title",
+      "cfo accounts receivable-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 717,
+    "screen_name": "Cfo Financial Overview",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cfo financial overview-screen",
+      "cfo financial overview-title",
+      "cfo financial overview-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 718,
+    "screen_name": "Cfo Franchise Financials",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cfo franchise financials-screen",
+      "cfo franchise financials-title",
+      "cfo franchise financials-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 719,
+    "screen_name": "Cfo Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cfo reports-screen",
+      "cfo reports-title",
+      "cfo reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 720,
+    "screen_name": "Cfo Tax And Remittance",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cfo tax and remittance-screen",
+      "cfo tax and remittance-title",
+      "cfo tax and remittance-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 721,
+    "screen_name": "Audits",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "audits-screen",
+      "audits-title",
+      "audits-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 722,
+    "screen_name": "Compliance Cases",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance cases-screen",
+      "compliance cases-title",
+      "compliance cases-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 723,
+    "screen_name": "Compliance Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance reports-screen",
+      "compliance reports-title",
+      "compliance reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 724,
+    "screen_name": "Corrective Actions",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "corrective actions-screen",
+      "corrective actions-title",
+      "corrective actions-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 725,
+    "screen_name": "Credential Tracking",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "credential tracking-screen",
+      "credential tracking-title",
+      "credential tracking-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 726,
+    "screen_name": "Document Expiry",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "document expiry-screen",
+      "document expiry-title",
+      "document expiry-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 727,
+    "screen_name": "Policies",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "policies-screen",
+      "policies-title",
+      "policies-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 728,
+    "screen_name": "Risk Register",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "risk register-screen",
+      "risk register-title",
+      "risk register-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 729,
+    "screen_name": "Training Compliance",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training compliance-screen",
+      "training compliance-title",
+      "training compliance-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 730,
+    "screen_name": "Coo Branch Operations",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "coo branch operations-screen",
+      "coo branch operations-title",
+      "coo branch operations-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 731,
+    "screen_name": "Coo Issue Escalations",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "coo issue escalations-screen",
+      "coo issue escalations-title",
+      "coo issue escalations-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 732,
+    "screen_name": "Coo Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "coo reports-screen",
+      "coo reports-title",
+      "coo reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 733,
+    "screen_name": "Coo Service Delivery",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "coo service delivery-screen",
+      "coo service delivery-title",
+      "coo service delivery-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 734,
+    "screen_name": "Coo Staffing Efficiency",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "coo staffing efficiency-screen",
+      "coo staffing efficiency-title",
+      "coo staffing efficiency-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 735,
+    "screen_name": "Coo Workflow Performance",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "coo workflow performance-screen",
+      "coo workflow performance-title",
+      "coo workflow performance-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 736,
+    "screen_name": "Compliance Manager Audits",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance manager audits-screen",
+      "compliance manager audits-title",
+      "compliance manager audits-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 737,
+    "screen_name": "Compliance Manager Compliance Cases",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance manager compliance cases-screen",
+      "compliance manager compliance cases-title",
+      "compliance manager compliance cases-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 738,
+    "screen_name": "Compliance Manager Corrective Actions",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance manager corrective actions-screen",
+      "compliance manager corrective actions-title",
+      "compliance manager corrective actions-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 739,
+    "screen_name": "Compliance Manager Credential Tracking",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance manager credential tracking-screen",
+      "compliance manager credential tracking-title",
+      "compliance manager credential tracking-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 740,
+    "screen_name": "Compliance Manager Document Expiry",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance manager document expiry-screen",
+      "compliance manager document expiry-title",
+      "compliance manager document expiry-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 741,
+    "screen_name": "Compliance Manager Incident Review",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance manager incident review-screen",
+      "compliance manager incident review-title",
+      "compliance manager incident review-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 742,
+    "screen_name": "Compliance Manager Policies",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance manager policies-screen",
+      "compliance manager policies-title",
+      "compliance manager policies-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 743,
+    "screen_name": "Compliance Manager Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance manager reports-screen",
+      "compliance manager reports-title",
+      "compliance manager reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 744,
+    "screen_name": "Compliance Manager Risk Register",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance manager risk register-screen",
+      "compliance manager risk register-title",
+      "compliance manager risk register-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 745,
+    "screen_name": "Compliance Manager Training Compliance",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance manager training compliance-screen",
+      "compliance manager training compliance-title",
+      "compliance manager training compliance-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 746,
+    "screen_name": "Cto Access Control",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cto access control-screen",
+      "cto access control-title",
+      "cto access control-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 747,
+    "screen_name": "Cto Api Monitoring",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cto api monitoring-screen",
+      "cto api monitoring-title",
+      "cto api monitoring-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 748,
+    "screen_name": "Cto Audit Logs",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cto audit logs-screen",
+      "cto audit logs-title",
+      "cto audit logs-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 749,
+    "screen_name": "Cto Feature Adoption",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cto feature adoption-screen",
+      "cto feature adoption-title",
+      "cto feature adoption-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 750,
+    "screen_name": "Cto Infrastructure",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cto infrastructure-screen",
+      "cto infrastructure-title",
+      "cto infrastructure-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 751,
+    "screen_name": "Cto Integrations",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cto integrations-screen",
+      "cto integrations-title",
+      "cto integrations-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 752,
+    "screen_name": "Cto Issue Tracking",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cto issue tracking-screen",
+      "cto issue tracking-title",
+      "cto issue tracking-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 753,
+    "screen_name": "Cto Platform Usage",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cto platform usage-screen",
+      "cto platform usage-title",
+      "cto platform usage-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 754,
+    "screen_name": "Cto Release Management",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cto release management-screen",
+      "cto release management-title",
+      "cto release management-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 755,
+    "screen_name": "Cto Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cto reports-screen",
+      "cto reports-title",
+      "cto reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 756,
+    "screen_name": "Cto System Health",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cto system health-screen",
+      "cto system health-title",
+      "cto system health-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 757,
+    "screen_name": "Cto System Verification",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cto system verification-screen",
+      "cto system verification-title",
+      "cto system verification-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 758,
+    "screen_name": "Cto Verification Hub",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "cto verification hub-screen",
+      "cto verification hub-title",
+      "cto verification hub-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 759,
+    "screen_name": "Finance Director Cashflow",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "finance director cashflow-screen",
+      "finance director cashflow-title",
+      "finance director cashflow-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 760,
+    "screen_name": "It Admin Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "it admin dashboard-screen",
+      "it admin dashboard-title",
+      "it admin dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 761,
+    "screen_name": "Training Director Assessments",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training director assessments-screen",
+      "training director assessments-title",
+      "training director assessments-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 762,
+    "screen_name": "Training Director Certificates",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training director certificates-screen",
+      "training director certificates-title",
+      "training director certificates-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 763,
+    "screen_name": "Training Director Certifications",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training director certifications-screen",
+      "training director certifications-title",
+      "training director certifications-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 764,
+    "screen_name": "Training Director Compliance Training",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training director compliance training-screen",
+      "training director compliance training-title",
+      "training director compliance training-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 765,
+    "screen_name": "Training Director Course Architect",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training director course architect-screen",
+      "training director course architect-title",
+      "training director course architect-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 766,
+    "screen_name": "Training Director Course Library",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training director course library-screen",
+      "training director course library-title",
+      "training director course library-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 767,
+    "screen_name": "Training Director Hub",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training director hub-screen",
+      "training director hub-title",
+      "training director hub-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 768,
+    "screen_name": "Training Director Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training director reports-screen",
+      "training director reports-title",
+      "training director reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 769,
+    "screen_name": "Training Director Staff Training Matrix",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training director staff training matrix-screen",
+      "training director staff training matrix-title",
+      "training director staff training matrix-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 770,
+    "screen_name": "Training Director Trainer Assignments",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training director trainer assignments-screen",
+      "training director trainer assignments-title",
+      "training director trainer assignments-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 771,
+    "screen_name": "Training Director Training Programs",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training director training programs-screen",
+      "training director training programs-title",
+      "training director training programs-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 772,
+    "screen_name": "Assessments",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "assessments-screen",
+      "assessments-title",
+      "assessments-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 773,
+    "screen_name": "Certificates",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "certificates-screen",
+      "certificates-title",
+      "certificates-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 774,
+    "screen_name": "Certifications",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "certifications-screen",
+      "certifications-title",
+      "certifications-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 775,
+    "screen_name": "Compliance Training",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance training-screen",
+      "compliance training-title",
+      "compliance training-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 776,
+    "screen_name": "Course Architect",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "course architect-screen",
+      "course architect-title",
+      "course architect-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 777,
+    "screen_name": "Course Library",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "course library-screen",
+      "course library-title",
+      "course library-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 778,
+    "screen_name": "Staff Training Matrix",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "staff training matrix-screen",
+      "staff training matrix-title",
+      "staff training matrix-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 779,
+    "screen_name": "Trainer Assignments",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "trainer assignments-screen",
+      "trainer assignments-title",
+      "trainer assignments-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 780,
+    "screen_name": "Training Analytics",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training analytics-screen",
+      "training analytics-title",
+      "training analytics-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 781,
+    "screen_name": "Training Hub",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training hub-screen",
+      "training hub-title",
+      "training hub-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 782,
+    "screen_name": "Training Programs",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training programs-screen",
+      "training programs-title",
+      "training programs-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 783,
+    "screen_name": "Training Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training reports-screen",
+      "training reports-title",
+      "training reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 784,
+    "screen_name": "Admin Claims",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "admin claims-screen",
+      "admin claims-title",
+      "admin claims-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 785,
+    "screen_name": "Admin Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "admin dashboard-screen",
+      "admin dashboard-title",
+      "admin dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 786,
+    "screen_name": "Admin Invoices",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "admin invoices-screen",
+      "admin invoices-title",
+      "admin invoices-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 787,
+    "screen_name": "Admin Outstanding Balances",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "admin outstanding balances-screen",
+      "admin outstanding balances-title",
+      "admin outstanding balances-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 788,
+    "screen_name": "Admin Payments",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "admin payments-screen",
+      "admin payments-title",
+      "admin payments-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 789,
+    "screen_name": "Admin Reconciliation",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "admin reconciliation-screen",
+      "admin reconciliation-title",
+      "admin reconciliation-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 790,
+    "screen_name": "Admin Refunds",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "admin refunds-screen",
+      "admin refunds-title",
+      "admin refunds-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 791,
+    "screen_name": "Admin Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "admin reports-screen",
+      "admin reports-title",
+      "admin reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 792,
+    "screen_name": "Billing Admin Invoices",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "billing admin invoices-screen",
+      "billing admin invoices-title",
+      "billing admin invoices-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 793,
+    "screen_name": "Franchise Owner Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchise owner dashboard-screen",
+      "franchise owner dashboard-title",
+      "franchise owner dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 794,
+    "screen_name": "Franchise Owner Financial Snapshot",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchise owner financial snapshot-screen",
+      "franchise owner financial snapshot-title",
+      "franchise owner financial snapshot-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 795,
+    "screen_name": "Franchise Owner Hiring",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "franchise owner hiring-screen",
+      "franchise owner hiring-title",
+      "franchise owner hiring-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 796,
+    "screen_name": "Hr Hiring Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hr hiring reports-screen",
+      "hr hiring reports-title",
+      "hr hiring reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 797,
+    "screen_name": "Hr Hiring Staff Documents",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hr hiring staff documents-screen",
+      "hr hiring staff documents-title",
+      "hr hiring staff documents-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 798,
+    "screen_name": "Hr Hiring Training Status",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hr hiring training status-screen",
+      "hr hiring training status-title",
+      "hr hiring training status-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 799,
+    "screen_name": "Marketing Manager Campaigns",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "marketing manager campaigns-screen",
+      "marketing manager campaigns-title",
+      "marketing manager campaigns-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 800,
+    "screen_name": "Marketing Manager Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "marketing manager dashboard-screen",
+      "marketing manager dashboard-title",
+      "marketing manager dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 801,
+    "screen_name": "Operations Manager Attendance",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "operations manager attendance-screen",
+      "operations manager attendance-title",
+      "operations manager attendance-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 802,
+    "screen_name": "Operations Manager Daily Operations",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "operations manager daily operations-screen",
+      "operations manager daily operations-title",
+      "operations manager daily operations-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 803,
+    "screen_name": "Operations Manager Issues",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "operations manager issues-screen",
+      "operations manager issues-title",
+      "operations manager issues-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 804,
+    "screen_name": "Operations Manager Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "operations manager reports-screen",
+      "operations manager reports-title",
+      "operations manager reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 805,
+    "screen_name": "Operations Manager Schedule",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "operations manager schedule-screen",
+      "operations manager schedule-title",
+      "operations manager schedule-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 806,
+    "screen_name": "Operations Manager Service Quality",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "operations manager service quality-screen",
+      "operations manager service quality-title",
+      "operations manager service quality-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 807,
+    "screen_name": "Operations Manager Shifts",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "operations manager shifts-screen",
+      "operations manager shifts-title",
+      "operations manager shifts-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 808,
+    "screen_name": "Operations Manager Staff Coordination",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "operations manager staff coordination-screen",
+      "operations manager staff coordination-title",
+      "operations manager staff coordination-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 809,
+    "screen_name": "Regional Manager Branch Comparison",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regional manager branch comparison-screen",
+      "regional manager branch comparison-title",
+      "regional manager branch comparison-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 810,
+    "screen_name": "Regional Manager Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regional manager dashboard-screen",
+      "regional manager dashboard-title",
+      "regional manager dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 811,
+    "screen_name": "Scheduler Coordinator Appointment Calendar",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "scheduler coordinator appointment calendar-screen",
+      "scheduler coordinator appointment calendar-title",
+      "scheduler coordinator appointment calendar-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 812,
+    "screen_name": "Scheduler Coordinator Assignments",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "scheduler coordinator assignments-screen",
+      "scheduler coordinator assignments-title",
+      "scheduler coordinator assignments-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 813,
+    "screen_name": "Scheduler Coordinator Booking Requests",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "scheduler coordinator booking requests-screen",
+      "scheduler coordinator booking requests-title",
+      "scheduler coordinator booking requests-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 814,
+    "screen_name": "Scheduler Coordinator Conflicts",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "scheduler coordinator conflicts-screen",
+      "scheduler coordinator conflicts-title",
+      "scheduler coordinator conflicts-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 815,
+    "screen_name": "Scheduler Coordinator Open Shifts",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "scheduler coordinator open shifts-screen",
+      "scheduler coordinator open shifts-title",
+      "scheduler coordinator open shifts-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 816,
+    "screen_name": "Scheduler Coordinator Provider Availability",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "scheduler coordinator provider availability-screen",
+      "scheduler coordinator provider availability-title",
+      "scheduler coordinator provider availability-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 817,
+    "screen_name": "Scheduler Coordinator Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "scheduler coordinator reports-screen",
+      "scheduler coordinator reports-title",
+      "scheduler coordinator reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 818,
+    "screen_name": "Scheduler Coordinator Shift Calendar",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "scheduler coordinator shift calendar-screen",
+      "scheduler coordinator shift calendar-title",
+      "scheduler coordinator shift calendar-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 819,
+    "screen_name": "Dynamic",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "dynamic-screen",
+      "dynamic-title",
+      "dynamic-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 820,
+    "screen_name": "Blueprint Sandbox",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "blueprint sandbox-screen",
+      "blueprint sandbox-title",
+      "blueprint sandbox-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 821,
+    "screen_name": "Audit Sandbox",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "audit sandbox-screen",
+      "audit sandbox-title",
+      "audit sandbox-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 822,
+    "screen_name": "No Access",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "no access-screen",
+      "no access-title",
+      "no access-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 823,
+    "screen_name": "Audit Log",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "audit log-screen",
+      "audit log-title",
+      "audit log-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 824,
+    "screen_name": "Monitoring",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "monitoring-screen",
+      "monitoring-title",
+      "monitoring-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 825,
+    "screen_name": "Screen Status",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      " status-screen",
+      " status-title",
+      " status-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 826,
+    "screen_name": "Ticket Center",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ticket center-screen",
+      "ticket center-title",
+      "ticket center-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 827,
+    "screen_name": "Control Center",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "control center-screen",
+      "control center-title",
+      "control center-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 828,
+    "screen_name": "Governance Hud",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "governance hud-screen",
+      "governance hud-title",
+      "governance hud-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 829,
+    "screen_name": "Growth Pipeline",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "growth pipeline-screen",
+      "growth pipeline-title",
+      "growth pipeline-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 830,
+    "screen_name": "Leadership Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "leadership reports-screen",
+      "leadership reports-title",
+      "leadership reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 831,
+    "screen_name": "Proposals",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "proposals-screen",
+      "proposals-title",
+      "proposals-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 832,
+    "screen_name": "Regional Performance",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regional performance-screen",
+      "regional performance-title",
+      "regional performance-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 833,
+    "screen_name": "Audit Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "audit dashboard-screen",
+      "audit dashboard-title",
+      "audit dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 834,
+    "screen_name": "Compliance Reviews",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance reviews-screen",
+      "compliance reviews-title",
+      "compliance reviews-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 835,
+    "screen_name": "Incident Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "incident reports-screen",
+      "incident reports-title",
+      "incident reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 836,
+    "screen_name": "Quality Metrics",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "quality metrics-screen",
+      "quality metrics-title",
+      "quality metrics-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 837,
+    "screen_name": "Clinical Reference",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "clinical reference-screen",
+      "clinical reference-title",
+      "clinical reference-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 838,
+    "screen_name": "Security Hub",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "security hub-screen",
+      "security hub-title",
+      "security hub-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 839,
+    "screen_name": "Security Sentinel",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "security sentinel-screen",
+      "security sentinel-title",
+      "security sentinel-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 840,
+    "screen_name": "Verification Center",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "verification center-screen",
+      "verification center-title",
+      "verification center-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 841,
+    "screen_name": "Community Outreach Contacts",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "community outreach contacts-screen",
+      "community outreach contacts-title",
+      "community outreach contacts-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 842,
+    "screen_name": "Community Outreach Events",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "community outreach events-screen",
+      "community outreach events-title",
+      "community outreach events-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 843,
+    "screen_name": "Community Outreach Follow Ups",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "community outreach follow ups-screen",
+      "community outreach follow ups-title",
+      "community outreach follow ups-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 844,
+    "screen_name": "Community Outreach Partnerships",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "community outreach partnerships-screen",
+      "community outreach partnerships-title",
+      "community outreach partnerships-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 845,
+    "screen_name": "Community Outreach Programs",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "community outreach programs-screen",
+      "community outreach programs-title",
+      "community outreach programs-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 846,
+    "screen_name": "Community Outreach Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "community outreach reports-screen",
+      "community outreach reports-title",
+      "community outreach reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 847,
+    "screen_name": "Community Outreach Volunteers",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "community outreach volunteers-screen",
+      "community outreach volunteers-title",
+      "community outreach volunteers-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 848,
+    "screen_name": "Head Of Marketing Brand Assets",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "head of marketing brand assets-screen",
+      "head of marketing brand assets-title",
+      "head of marketing brand assets-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 849,
+    "screen_name": "Head Of Marketing Campaigns",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "head of marketing campaigns-screen",
+      "head of marketing campaigns-title",
+      "head of marketing campaigns-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 850,
+    "screen_name": "Head Of Marketing Content Approval",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "head of marketing content approval-screen",
+      "head of marketing content approval-title",
+      "head of marketing content approval-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 851,
+    "screen_name": "Head Of Marketing Funnel Analytics",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "head of marketing funnel analytics-screen",
+      "head of marketing funnel analytics-title",
+      "head of marketing funnel analytics-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 852,
+    "screen_name": "Head Of Marketing Leads",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "head of marketing leads-screen",
+      "head of marketing leads-title",
+      "head of marketing leads-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 853,
+    "screen_name": "Head Of Marketing Performance Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "head of marketing performance reports-screen",
+      "head of marketing performance reports-title",
+      "head of marketing performance reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 854,
+    "screen_name": "Head Of Marketing Regional Campaigns",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "head of marketing regional campaigns-screen",
+      "head of marketing regional campaigns-title",
+      "head of marketing regional campaigns-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 855,
+    "screen_name": "Local Marketing Manager Assets",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "local marketing manager assets-screen",
+      "local marketing manager assets-title",
+      "local marketing manager assets-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 856,
+    "screen_name": "Local Marketing Manager Budget",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "local marketing manager budget-screen",
+      "local marketing manager budget-title",
+      "local marketing manager budget-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 857,
+    "screen_name": "Local Marketing Manager Campaigns",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "local marketing manager campaigns-screen",
+      "local marketing manager campaigns-title",
+      "local marketing manager campaigns-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 858,
+    "screen_name": "Local Marketing Manager Content Calendar",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "local marketing manager content calendar-screen",
+      "local marketing manager content calendar-title",
+      "local marketing manager content calendar-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 859,
+    "screen_name": "Local Marketing Manager Events",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "local marketing manager events-screen",
+      "local marketing manager events-title",
+      "local marketing manager events-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 860,
+    "screen_name": "Local Marketing Manager Leads",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "local marketing manager leads-screen",
+      "local marketing manager leads-title",
+      "local marketing manager leads-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 861,
+    "screen_name": "Local Marketing Manager Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "local marketing manager reports-screen",
+      "local marketing manager reports-title",
+      "local marketing manager reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 862,
+    "screen_name": "Territory Sales Manager Area Performance",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory sales manager area performance-screen",
+      "territory sales manager area performance-title",
+      "territory sales manager area performance-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 863,
+    "screen_name": "Territory Sales Manager Competitors",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory sales manager competitors-screen",
+      "territory sales manager competitors-title",
+      "territory sales manager competitors-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 864,
+    "screen_name": "Territory Sales Manager Conversions",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory sales manager conversions-screen",
+      "territory sales manager conversions-title",
+      "territory sales manager conversions-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 865,
+    "screen_name": "Territory Sales Manager Field Activity",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory sales manager field activity-screen",
+      "territory sales manager field activity-title",
+      "territory sales manager field activity-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 866,
+    "screen_name": "Territory Sales Manager Leads",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory sales manager leads-screen",
+      "territory sales manager leads-title",
+      "territory sales manager leads-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 867,
+    "screen_name": "Territory Sales Manager Pipeline",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory sales manager pipeline-screen",
+      "territory sales manager pipeline-title",
+      "territory sales manager pipeline-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 868,
+    "screen_name": "Territory Sales Manager Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory sales manager reports-screen",
+      "territory sales manager reports-title",
+      "territory sales manager reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 869,
+    "screen_name": "Customer Support Escalations",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "customer support escalations-screen",
+      "customer support escalations-title",
+      "customer support escalations-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 870,
+    "screen_name": "Customer Support Issue Categories",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "customer support issue categories-screen",
+      "customer support issue categories-title",
+      "customer support issue categories-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 871,
+    "screen_name": "Customer Support Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "customer support reports-screen",
+      "customer support reports-title",
+      "customer support reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 872,
+    "screen_name": "Customer Support Templates",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "customer support templates-screen",
+      "customer support templates-title",
+      "customer support templates-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 873,
+    "screen_name": "Customer Support Tickets",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "customer support tickets-screen",
+      "customer support tickets-title",
+      "customer support tickets-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 874,
+    "screen_name": "Intake Coordinator Client Assignment",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "intake coordinator client assignment-screen",
+      "intake coordinator client assignment-title",
+      "intake coordinator client assignment-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 875,
+    "screen_name": "Intake Coordinator Eligibility",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "intake coordinator eligibility-screen",
+      "intake coordinator eligibility-title",
+      "intake coordinator eligibility-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 876,
+    "screen_name": "Intake Coordinator Intake Forms",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "intake coordinator intake forms-screen",
+      "intake coordinator intake forms-title",
+      "intake coordinator intake forms-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 877,
+    "screen_name": "Intake Coordinator New Intakes",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "intake coordinator new intakes-screen",
+      "intake coordinator new intakes-title",
+      "intake coordinator new intakes-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 878,
+    "screen_name": "Intake Coordinator Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "intake coordinator reports-screen",
+      "intake coordinator reports-title",
+      "intake coordinator reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 879,
+    "screen_name": "Intake Coordinator Scheduling",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "intake coordinator scheduling-screen",
+      "intake coordinator scheduling-title",
+      "intake coordinator scheduling-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 880,
+    "screen_name": "Quality Assurance Audits",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "quality assurance audits-screen",
+      "quality assurance audits-title",
+      "quality assurance audits-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 881,
+    "screen_name": "Quality Assurance Complaints",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "quality assurance complaints-screen",
+      "quality assurance complaints-title",
+      "quality assurance complaints-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 882,
+    "screen_name": "Quality Assurance Compliance Checks",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "quality assurance compliance checks-screen",
+      "quality assurance compliance checks-title",
+      "quality assurance compliance checks-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 883,
+    "screen_name": "Quality Assurance Corrective Actions",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "quality assurance corrective actions-screen",
+      "quality assurance corrective actions-title",
+      "quality assurance corrective actions-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 884,
+    "screen_name": "Quality Assurance Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "quality assurance reports-screen",
+      "quality assurance reports-title",
+      "quality assurance reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 885,
+    "screen_name": "Quality Assurance Reviews",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "quality assurance reviews-screen",
+      "quality assurance reviews-title",
+      "quality assurance reviews-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 886,
+    "screen_name": "Quality Assurance Scorecards",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "quality assurance scorecards-screen",
+      "quality assurance scorecards-title",
+      "quality assurance scorecards-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 887,
+    "screen_name": "Training Coordinator Attendance",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training coordinator attendance-screen",
+      "training coordinator attendance-title",
+      "training coordinator attendance-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 888,
+    "screen_name": "Training Coordinator Certifications",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training coordinator certifications-screen",
+      "training coordinator certifications-title",
+      "training coordinator certifications-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 889,
+    "screen_name": "Training Coordinator Courses",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training coordinator courses-screen",
+      "training coordinator courses-title",
+      "training coordinator courses-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 890,
+    "screen_name": "Training Coordinator Materials",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training coordinator materials-screen",
+      "training coordinator materials-title",
+      "training coordinator materials-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 891,
+    "screen_name": "Training Coordinator Progress",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training coordinator progress-screen",
+      "training coordinator progress-title",
+      "training coordinator progress-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 892,
+    "screen_name": "Training Coordinator Reports",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training coordinator reports-screen",
+      "training coordinator reports-title",
+      "training coordinator reports-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 893,
+    "screen_name": "Training Coordinator Training Schedule",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training coordinator training schedule-screen",
+      "training coordinator training schedule-title",
+      "training coordinator training schedule-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 894,
+    "screen_name": "Training Coordinator Workshops",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "training coordinator workshops-screen",
+      "training coordinator workshops-title",
+      "training coordinator workshops-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 895,
+    "screen_name": "Escalation Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "escalation dashboard-screen",
+      "escalation dashboard-title",
+      "escalation dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 896,
+    "screen_name": "Help Desk Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "help desk dashboard-screen",
+      "help desk dashboard-title",
+      "help desk dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 897,
+    "screen_name": "It Administrator Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "it administrator dashboard-screen",
+      "it administrator dashboard-title",
+      "it administrator dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 898,
+    "screen_name": "Prime Care",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "prime care-screen",
+      "prime care-title",
+      "prime care-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 899,
+    "screen_name": "Default Not Implemented",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "default not implemented-screen",
+      "default not implemented-title",
+      "default not implemented-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 900,
+    "screen_name": "Sso Redirect",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "sso redirect-screen",
+      "sso redirect-title",
+      "sso redirect-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 901,
+    "screen_name": "Governed",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "governed-screen",
+      "governed-title",
+      "governed-content"
+    ],
+    "problems": [
+      "no_components_found"
+    ]
+  },
+  {
+    "screen_id": 902,
+    "screen_name": "Access Review Certifier",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "access review certifier-screen",
+      "access review certifier-title",
+      "access review certifier-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 903,
+    "screen_name": "Admin User Management",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "admin user management-screen",
+      "admin user management-title",
+      "admin user management-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 904,
+    "screen_name": "Api Key Manager",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "api key manager-screen",
+      "api key manager-title",
+      "api key manager-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 905,
+    "screen_name": "Compliance Training Tracker",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "compliance training tracker-screen",
+      "compliance training tracker-title",
+      "compliance training tracker-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 906,
+    "screen_name": "Configuration Version Control",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "configuration version control-screen",
+      "configuration version control-title",
+      "configuration version control-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 907,
+    "screen_name": "Consent Management Console",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "consent management console-screen",
+      "consent management console-title",
+      "consent management console-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 908,
+    "screen_name": "Crisis Protocol Trigger",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "crisis protocol trigger-screen",
+      "crisis protocol trigger-title",
+      "crisis protocol trigger-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 909,
+    "screen_name": "Data Privacy Monitor",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "data privacy monitor-screen",
+      "data privacy monitor-title",
+      "data privacy monitor-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 910,
+    "screen_name": "Ecosystem State Board",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "ecosystem state board-screen",
+      "ecosystem state board-title",
+      "ecosystem state board-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 911,
+    "screen_name": "F A Q Manager",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "f a q manager-screen",
+      "f a q manager-title",
+      "f a q manager-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 912,
+    "screen_name": "Feature Flag Controller",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "feature flag controller-screen",
+      "feature flag controller-title",
+      "feature flag controller-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 913,
+    "screen_name": "Hipaa Audit Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hipaa audit dashboard-screen",
+      "hipaa audit dashboard-title",
+      "hipaa audit dashboard-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 914,
+    "screen_name": "Incident Response Hub",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "incident response hub-screen",
+      "incident response hub-title",
+      "incident response hub-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 915,
+    "screen_name": "Integration Health Monitor",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "integration health monitor-screen",
+      "integration health monitor-title",
+      "integration health monitor-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 916,
+    "screen_name": "Lead Pipeline",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "lead pipeline-screen",
+      "lead pipeline-title",
+      "lead pipeline-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 917,
+    "screen_name": "Message Archiveer",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "message archiveer-screen",
+      "message archiveer-title",
+      "message archiveer-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 918,
+    "screen_name": "Osha Incident Reporter",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "osha incident reporter-screen",
+      "osha incident reporter-title",
+      "osha incident reporter-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 919,
+    "screen_name": "Policy Exception Tracker",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "policy exception tracker-screen",
+      "policy exception tracker-title",
+      "policy exception tracker-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 920,
+    "screen_name": "Protocol Resolution Log",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "protocol resolution log-screen",
+      "protocol resolution log-title",
+      "protocol resolution log-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 921,
+    "screen_name": "Provider Performance Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "provider performance dashboard-screen",
+      "provider performance dashboard-title",
+      "provider performance dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 922,
+    "screen_name": "Quality Assurance Metrics",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "quality assurance metrics-screen",
+      "quality assurance metrics-title",
+      "quality assurance metrics-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 923,
+    "screen_name": "Registry Entry Editor",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "registry entry editor-screen",
+      "registry entry editor-title",
+      "registry entry editor-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 924,
+    "screen_name": "Regulatory Change Radar",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "regulatory change radar-screen",
+      "regulatory change radar-title",
+      "regulatory change radar-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 925,
+    "screen_name": "Resource Allocation Map",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "resource allocation map-screen",
+      "resource allocation map-title",
+      "resource allocation map-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 926,
+    "screen_name": "Response Bot Audit",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "response bot audit-screen",
+      "response bot audit-title",
+      "response bot audit-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 927,
+    "screen_name": "Role Access Matrix",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "role access matrix-screen",
+      "role access matrix-title",
+      "role access matrix-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 928,
+    "screen_name": "Role Access",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "role access-screen",
+      "role access-title",
+      "role access-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 929,
+    "screen_name": "Secure Message Center",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "secure message center-screen",
+      "secure message center-title",
+      "secure message center-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 930,
+    "screen_name": "Security Incident Logger",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "security incident logger-screen",
+      "security incident logger-title",
+      "security incident logger-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 931,
+    "screen_name": "Service Mesh Topology",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "service mesh topology-screen",
+      "service mesh topology-title",
+      "service mesh topology-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 932,
+    "screen_name": "System Capacity Planner",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "system capacity planner-screen",
+      "system capacity planner-title",
+      "system capacity planner-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 933,
+    "screen_name": "Tenant Configuration",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "tenant configuration-screen",
+      "tenant configuration-title",
+      "tenant configuration-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 934,
+    "screen_name": "Touchpoint Analyzer",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "touchpoint analyzer-screen",
+      "touchpoint analyzer-title",
+      "touchpoint analyzer-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 935,
+    "screen_name": "User Management",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "user management-screen",
+      "user management-title",
+      "user management-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 936,
+    "screen_name": "Vendor Risk Assessor",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "vendor risk assessor-screen",
+      "vendor risk assessor-title",
+      "vendor risk assessor-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 937,
+    "screen_name": "Board Of Directors Summary",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "board of directors summary-screen",
+      "board of directors summary-title",
+      "board of directors summary-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 938,
+    "screen_name": "Clinical Outcomes Report",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "clinical outcomes report-screen",
+      "clinical outcomes report-title",
+      "clinical outcomes report-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 939,
+    "screen_name": "Financial Forecasting Model",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "financial forecasting model-screen",
+      "financial forecasting model-title",
+      "financial forecasting model-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 940,
+    "screen_name": "Marketing R O I Report",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "marketing r o i report-screen",
+      "marketing r o i report-title",
+      "marketing r o i report-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 941,
+    "screen_name": "Operational Efficiency Metrics",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "operational efficiency metrics-screen",
+      "operational efficiency metrics-title",
+      "operational efficiency metrics-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 942,
+    "screen_name": "Patient Retention Analytics",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "patient retention analytics-screen",
+      "patient retention analytics-title",
+      "patient retention analytics-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 943,
+    "screen_name": "Population Health Analyzer",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "population health analyzer-screen",
+      "population health analyzer-title",
+      "population health analyzer-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 944,
+    "screen_name": "Predictive Analytics Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "predictive analytics dashboard-screen",
+      "predictive analytics dashboard-title",
+      "predictive analytics dashboard-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 945,
+    "screen_name": "Staff Utilization Heatmap",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "staff utilization heatmap-screen",
+      "staff utilization heatmap-title",
+      "staff utilization heatmap-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 946,
+    "screen_name": "Supply Chain Cost Analyzer",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "supply chain cost analyzer-screen",
+      "supply chain cost analyzer-title",
+      "supply chain cost analyzer-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 947,
+    "screen_name": "Forgot Password",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "forgot password-screen",
+      "forgot password-title",
+      "forgot password-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 948,
+    "screen_name": "Login",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "login-screen",
+      "login-title",
+      "login-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 949,
+    "screen_name": "Mfa",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "mfa-screen",
+      "mfa-title",
+      "mfa-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 950,
+    "screen_name": "Reset Password",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "reset password-screen",
+      "reset password-title",
+      "reset password-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 951,
+    "screen_name": "Certification Renewal Alerts",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "certification renewal alerts-screen",
+      "certification renewal alerts-title",
+      "certification renewal alerts-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 952,
+    "screen_name": "Clinical Guideline Library",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "clinical guideline library-screen",
+      "clinical guideline library-title",
+      "clinical guideline library-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 953,
+    "screen_name": "C M E Tracking Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "c m e tracking dashboard-screen",
+      "c m e tracking dashboard-title",
+      "c m e tracking dashboard-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 954,
+    "screen_name": "Journal Club Discussion Board",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "journal club discussion board-screen",
+      "journal club discussion board-title",
+      "journal club discussion board-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 955,
+    "screen_name": "Medical Library Access Portal",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "medical library access portal-screen",
+      "medical library access portal-title",
+      "medical library access portal-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 956,
+    "screen_name": "Patient Case Study Repository",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "patient case study repository-screen",
+      "patient case study repository-title",
+      "patient case study repository-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 957,
+    "screen_name": "Peer Review Conference Room",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "peer review conference room-screen",
+      "peer review conference room-title",
+      "peer review conference room-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 958,
+    "screen_name": "Residency Program Tracker",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "residency program tracker-screen",
+      "residency program tracker-title",
+      "residency program tracker-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 959,
+    "screen_name": "Simulation Lab Scheduler",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "simulation lab scheduler-screen",
+      "simulation lab scheduler-title",
+      "simulation lab scheduler-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 960,
+    "screen_name": "Surgical Video Archive",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "surgical video archive-screen",
+      "surgical video archive-title",
+      "surgical video archive-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 961,
+    "screen_name": "Billing Claims",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "billing claims-screen",
+      "billing claims-title",
+      "billing claims-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 962,
+    "screen_name": "Billing Invoices",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "billing invoices-screen",
+      "billing invoices-title",
+      "billing invoices-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 963,
+    "screen_name": "Billing Payments",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "billing payments-screen",
+      "billing payments-title",
+      "billing payments-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 964,
+    "screen_name": "Hr Applicants",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hr applicants-screen",
+      "hr applicants-title",
+      "hr applicants-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 965,
+    "screen_name": "Hr Onboarding",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hr onboarding-screen",
+      "hr onboarding-title",
+      "hr onboarding-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 966,
+    "screen_name": "Hr Staff Files",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "hr staff files-screen",
+      "hr staff files-title",
+      "hr staff files-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 967,
+    "screen_name": "Receptionist Appointments",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "receptionist appointments-screen",
+      "receptionist appointments-title",
+      "receptionist appointments-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 968,
+    "screen_name": "Receptionist Calls",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "receptionist calls-screen",
+      "receptionist calls-title",
+      "receptionist calls-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 969,
+    "screen_name": "Receptionist Visitors",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "receptionist visitors-screen",
+      "receptionist visitors-title",
+      "receptionist visitors-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 970,
+    "screen_name": "Scheduler Availability",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "scheduler availability-screen",
+      "scheduler availability-title",
+      "scheduler availability-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 971,
+    "screen_name": "Scheduler Shifts",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "scheduler shifts-screen",
+      "scheduler shifts-title",
+      "scheduler shifts-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 972,
+    "screen_name": "Brand Asset Library",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "brand asset library-screen",
+      "brand asset library-title",
+      "brand asset library-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 973,
+    "screen_name": "Campaign Performance Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "campaign performance dashboard-screen",
+      "campaign performance dashboard-title",
+      "campaign performance dashboard-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 974,
+    "screen_name": "Competitor Analysis Board",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "competitor analysis board-screen",
+      "competitor analysis board-title",
+      "competitor analysis board-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 975,
+    "screen_name": "Email Marketing Automator",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "email marketing automator-screen",
+      "email marketing automator-title",
+      "email marketing automator-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 976,
+    "screen_name": "Event And Webinar Manager",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "event and webinar manager-screen",
+      "event and webinar manager-title",
+      "event and webinar manager-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 977,
+    "screen_name": "Lead Conversion Funnel",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "lead conversion funnel-screen",
+      "lead conversion funnel-title",
+      "lead conversion funnel-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 978,
+    "screen_name": "Patient Acquisition Cost Tracker",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "patient acquisition cost tracker-screen",
+      "patient acquisition cost tracker-title",
+      "patient acquisition cost tracker-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 979,
+    "screen_name": "Referral Network Manager",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "referral network manager-screen",
+      "referral network manager-title",
+      "referral network manager-content"
+    ],
+    "problems": [
+      "fake_empty_handlers"
+    ]
+  },
+  {
+    "screen_id": 980,
+    "screen_name": "Social Media Sentiment Analyzer",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "social media sentiment analyzer-screen",
+      "social media sentiment analyzer-title",
+      "social media sentiment analyzer-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 981,
+    "screen_name": "Territory Sales Mapping",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "territory sales mapping-screen",
+      "territory sales mapping-title",
+      "territory sales mapping-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 982,
+    "screen_name": "App Notification",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "app notification-screen",
+      "app notification-title",
+      "app notification-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 983,
+    "screen_name": "Gamification Profile",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "gamification profile-screen",
+      "gamification profile-title",
+      "gamification profile-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 984,
+    "screen_name": "Security Incident",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "security incident-screen",
+      "security incident-title",
+      "security incident-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 985,
+    "screen_name": "Service Procurement",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "service procurement-screen",
+      "service procurement-title",
+      "service procurement-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 986,
+    "screen_name": "Site Readiness",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "site readiness-screen",
+      "site readiness-title",
+      "site readiness-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 987,
+    "screen_name": "Virtual Consult",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "virtual consult-screen",
+      "virtual consult-title",
+      "virtual consult-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 988,
+    "screen_name": "Chemotherapy Protocol Builder",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "chemotherapy protocol builder-screen",
+      "chemotherapy protocol builder-title",
+      "chemotherapy protocol builder-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 989,
+    "screen_name": "Controlled Substance Log",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "controlled substance log-screen",
+      "controlled substance log-title",
+      "controlled substance log-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 990,
+    "screen_name": "Drug Interaction Alert Center",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "drug interaction alert center-screen",
+      "drug interaction alert center-title",
+      "drug interaction alert center-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 991,
+    "screen_name": "Formulary Compliance Manager",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "formulary compliance manager-screen",
+      "formulary compliance manager-title",
+      "formulary compliance manager-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 992,
+    "screen_name": "Inpatient Pharmacy Queue",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "inpatient pharmacy queue-screen",
+      "inpatient pharmacy queue-title",
+      "inpatient pharmacy queue-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 993,
+    "screen_name": "Medication Reconciliation Tool",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "medication reconciliation tool-screen",
+      "medication reconciliation tool-title",
+      "medication reconciliation tool-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 994,
+    "screen_name": "Outpatient Prescription Tracker",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "outpatient prescription tracker-screen",
+      "outpatient prescription tracker-title",
+      "outpatient prescription tracker-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 995,
+    "screen_name": "Patient Medication Adherence",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "patient medication adherence-screen",
+      "patient medication adherence-title",
+      "patient medication adherence-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 996,
+    "screen_name": "Pharmacy Dispensing Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "pharmacy dispensing dashboard-screen",
+      "pharmacy dispensing dashboard-title",
+      "pharmacy dispensing dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 997,
+    "screen_name": "Pharmacy Inventory Management",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "pharmacy inventory management-screen",
+      "pharmacy inventory management-title",
+      "pharmacy inventory management-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 998,
+    "screen_name": "Community Health Needs Assessment",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "community health needs assessment-screen",
+      "community health needs assessment-title",
+      "community health needs assessment-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 999,
+    "screen_name": "Environmental Health Hazards",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "environmental health hazards-screen",
+      "environmental health hazards-title",
+      "environmental health hazards-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1000,
+    "screen_name": "Epidemiological Surveillance Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "epidemiological surveillance dashboard-screen",
+      "epidemiological surveillance dashboard-title",
+      "epidemiological surveillance dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1001,
+    "screen_name": "Mobile Clinic Dispatch",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "mobile clinic dispatch-screen",
+      "mobile clinic dispatch-title",
+      "mobile clinic dispatch-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1002,
+    "screen_name": "Public Health Alert Broadcaster",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "public health alert broadcaster-screen",
+      "public health alert broadcaster-title",
+      "public health alert broadcaster-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1003,
+    "screen_name": "School Health Program Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "school health program dashboard-screen",
+      "school health program dashboard-title",
+      "school health program dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1004,
+    "screen_name": "Social Determinants Of Health Tracker",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "social determinants of health tracker-screen",
+      "social determinants of health tracker-title",
+      "social determinants of health tracker-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1005,
+    "screen_name": "Substance Abuse Prevention Tracker",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "substance abuse prevention tracker-screen",
+      "substance abuse prevention tracker-title",
+      "substance abuse prevention tracker-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1006,
+    "screen_name": "Vaccination Campaign Manager",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "vaccination campaign manager-screen",
+      "vaccination campaign manager-title",
+      "vaccination campaign manager-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1007,
+    "screen_name": "Vulnerable Population Registry",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "vulnerable population registry-screen",
+      "vulnerable population registry-title",
+      "vulnerable population registry-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1008,
+    "screen_name": "Adverse Event Reporting Portal",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "adverse event reporting portal-screen",
+      "adverse event reporting portal-title",
+      "adverse event reporting portal-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1009,
+    "screen_name": "Biospecimen Inventory Tracker",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "biospecimen inventory tracker-screen",
+      "biospecimen inventory tracker-title",
+      "biospecimen inventory tracker-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1010,
+    "screen_name": "Clinical Trial Recruitment Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "clinical trial recruitment dashboard-screen",
+      "clinical trial recruitment dashboard-title",
+      "clinical trial recruitment dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1011,
+    "screen_name": "Grant Funding Allocation",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "grant funding allocation-screen",
+      "grant funding allocation-title",
+      "grant funding allocation-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1012,
+    "screen_name": "Informed Consent Tracker",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "informed consent tracker-screen",
+      "informed consent tracker-title",
+      "informed consent tracker-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1013,
+    "screen_name": "Multi Center Trial Collaboration",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "multi center trial collaboration-screen",
+      "multi center trial collaboration-title",
+      "multi center trial collaboration-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1014,
+    "screen_name": "Patient Trial Outcomeser",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "patient trial outcomeser-screen",
+      "patient trial outcomeser-title",
+      "patient trial outcomeser-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1015,
+    "screen_name": "Research Protocol Manager",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "research protocol manager-screen",
+      "research protocol manager-title",
+      "research protocol manager-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1016,
+    "screen_name": "Research Publication Drafting",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "research publication drafting-screen",
+      "research publication drafting-title",
+      "research publication drafting-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1017,
+    "screen_name": "Trial Data Collection C R F",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "trial data collection c r f-screen",
+      "trial data collection c r f-title",
+      "trial data collection c r f-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1018,
+    "screen_name": "Asynchronous Consultation Inbox",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "asynchronous consultation inbox-screen",
+      "asynchronous consultation inbox-title",
+      "asynchronous consultation inbox-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1019,
+    "screen_name": "Chronic Care Management Tracker",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "chronic care management tracker-screen",
+      "chronic care management tracker-title",
+      "chronic care management tracker-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1020,
+    "screen_name": "Device Integration Hub",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "device integration hub-screen",
+      "device integration hub-title",
+      "device integration hub-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1021,
+    "screen_name": "Digital Symptom Checker",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "digital symptom checker-screen",
+      "digital symptom checker-title",
+      "digital symptom checker-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1022,
+    "screen_name": "Remote Diagnosticser",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "remote diagnosticser-screen",
+      "remote diagnosticser-title",
+      "remote diagnosticser-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1023,
+    "screen_name": "Remote Patient Monitoring Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "remote patient monitoring dashboard-screen",
+      "remote patient monitoring dashboard-title",
+      "remote patient monitoring dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1024,
+    "screen_name": "Telehealth Consultation Room",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "telehealth consultation room-screen",
+      "telehealth consultation room-title",
+      "telehealth consultation room-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1025,
+    "screen_name": "Telehealth Quality Metrics",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "telehealth quality metrics-screen",
+      "telehealth quality metrics-title",
+      "telehealth quality metrics-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1026,
+    "screen_name": "Telemedicine Prescription Pad",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "telemedicine prescription pad-screen",
+      "telemedicine prescription pad-title",
+      "telemedicine prescription pad-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1027,
+    "screen_name": "Virtual Waiting Room",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "virtual waiting room-screen",
+      "virtual waiting room-title",
+      "virtual waiting room-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1028,
+    "screen_name": "Screen Audit",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      " audit-screen",
+      " audit-title",
+      " audit-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1029,
+    "screen_name": "Dynamic Dashboard",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "dynamic dashboard-screen",
+      "dynamic dashboard-title",
+      "dynamic dashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1030,
+    "screen_name": "Screen Not Implemented",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      " not implemented-screen",
+      " not implemented-title",
+      " not implemented-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1031,
+    "screen_name": "Auth Callback",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "auth callback-screen",
+      "auth callback-title",
+      "auth callback-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1032,
+    "screen_name": "Global Settings",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "global settings-screen",
+      "global settings-title",
+      "global settings-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1033,
+    "screen_name": "Language Selection",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "language selection-screen",
+      "language selection-title",
+      "language selection-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1034,
+    "screen_name": "Treatment Notes",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "treatment notes-screen",
+      "treatment notes-title",
+      "treatment notes-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1035,
+    "screen_name": "Assessment",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 1036,
+    "screen_name": "Incident Report",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "incident report-screen",
+      "incident report-title",
+      "incident report-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1037,
+    "screen_name": "Visit Notes",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "visit notes-screen",
+      "visit notes-title",
+      "visit notes-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 1038,
+    "screen_name": "Patient Charting",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "patient charting-screen",
+      "patient charting-title",
+      "patient charting-content"
+    ],
     "problems": []
   }
 ]

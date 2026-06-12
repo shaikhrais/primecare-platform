@@ -1,0 +1,57 @@
+Screen Code: cto_dashboard
+Screen Name: CtoDashboardScreen
+
+Required Components:
+- KPIWidget
+- PerformanceMetricChart
+- SecurityStatusCard
+- ComplianceAuditReport
+- ProjectTimelineChart
+- BudgetTracker
+- UserFeedbackWidget
+- TechnologyTrendsAnalysis
+- TeamPerformanceMetric
+- OperationalLogsViewer
+
+Required Functions/Handlers:
+- fetchKPIs
+- fetchPerformanceMetrics
+- fetchSecurityReports
+- fetchComplianceStatus
+- fetchProjectTimelines
+- fetchBudgetData
+- fetchUserFeedback
+- fetchTechnologyTrends
+- fetchTeamPerformance
+- fetchOperationalLogs
+
+Required Buttons:
+- Refresh Metrics
+- View Detailed Report
+- Export Data
+- Manage Vendors
+- Adjust Budget
+
+Required APIs:
+- /v1/technology/kpis
+- /v1/technology/performance
+- /v1/technology/security
+- /v1/technology/compliance
+- /v1/technology/projects
+- /v1/technology/budget
+- /v1/technology/user-feedback
+- /v1/technology/trends
+- /v1/technology/team-performance
+- /v1/technology/logs
+
+Required Semantic Keys (data-cy):
+- cto-dashboard-kpi-widget
+- cto-dashboard-performance-chart
+- cto-dashboard-security-card
+- cto-dashboard-compliance-report
+- cto-dashboard-project-timeline
+- cto-dashboard-budget-tracker
+- cto-dashboard-user-feedback
+- cto-dashboard-trends-analysis
+- cto-dashboard-team-performance
+- cto-dashboard-logs-viewer

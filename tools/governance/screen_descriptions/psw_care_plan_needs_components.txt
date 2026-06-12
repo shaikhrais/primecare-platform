@@ -1,0 +1,36 @@
+Screen Code: psw_care_plan
+Screen Name: PswCarePlanScreen
+
+Required Components:
+- TaskList
+- HealthStatusMonitor
+- PerformanceMetrics
+- CommunicationTool
+- IncidentReport
+- ClientCarePlanViewer
+- AppointmentAlert
+
+Required Functions/Handlers:
+- updateHealthStatus
+- documentCareProvided
+- reportIncident
+- fetchTrainingResources
+
+Required Buttons:
+- Record Health Status
+- Document Care
+- Report Incident
+- View Training Resources
+
+Required APIs:
+- /v1/clients/tasks
+- /v1/clients/health-status
+- /v1/clients/documentation
+- /v1/clients/appointments
+
+Required Semantic Keys (data-cy):
+- psw-tasklist
+- psw-health-status
+- psw-performance-metrics
+- psw-communication-tool
+- psw-incident-report

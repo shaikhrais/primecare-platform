@@ -1,0 +1,35 @@
+Screen Code: receptionist_visitors
+Screen Name: Receptionist Visitors
+
+Required Components:
+- OperationalStatusCard
+- ComplianceStatusCard
+- TransactionFlowChart
+- EventLogWidget
+- AlertNotification
+
+Required Functions/Handlers:
+- manageInstitutionalSettings
+- trackClinicalWorkflows
+- verifyCompliance
+- monitorOperationalStatus
+- conductVerificationAudit
+- logOperationalEvent
+
+Required Buttons:
+- Manage Settings
+- Conduct Audit
+- Log Event
+
+Required APIs:
+- /v1/settings/institutional
+- /v1/clinical/workflows/track
+- /v1/compliance/status
+- /v1/operations/status
+- /v1/audits/verification
+- /v1/events/log
+
+Required Semantic Keys (data-cy):
+- receptionist-btn-manage-settings
+- receptionist-btn-conduct-audit
+- receptionist-btn-log-event

@@ -1,0 +1,45 @@
+Screen Code: therapist_analytics
+Screen Name: Therapist Analytics
+
+Required Components:
+- PatientCaseloadOverview
+- PatientProgressChart
+- ComplianceTrackingWidget
+- PatientInteractionLog
+- PerformanceMetricsCard
+- EducationalResourcesList
+- CommunicationTool
+- AppointmentAlerts
+- PatientProgressVisualization
+
+Required Functions/Handlers:
+- updateTreatmentPlan
+- documentInteraction
+- sendFeedback
+- scheduleAppointment
+- accessTrainingResources
+
+Required Buttons:
+- Update Treatment Plan
+- Document Interaction
+- Send Feedback
+- Schedule Appointment
+- Access Training Resources
+
+Required APIs:
+- /v1/patients/caseload
+- /v1/patients/progress
+- /v1/compliance/track
+- /v1/patients/interactions
+- /v1/performance/metrics
+- /v1/resources/educational
+- /v1/appointments/alerts
+
+Required Semantic Keys (data-cy):
+- therapist-dashboard-caseload
+- therapist-dashboard-progress
+- therapist-dashboard-compliance
+- therapist-dashboard-interactions
+- therapist-dashboard-performance
+- therapist-dashboard-resources
+- therapist-dashboard-appointments

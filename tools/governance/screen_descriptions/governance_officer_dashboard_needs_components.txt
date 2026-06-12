@@ -1,0 +1,32 @@
+Screen Code: governance_officer_dashboard
+Screen Name: GovernanceOfficerDashboardScreen
+
+Required Components:
+- GovDashboardTitle
+- LoadingIndicator
+- RecentActivityLog
+- GovMetricCard
+- GovTelemetryChart
+- ComplianceScanButton
+- ExportAuditLogButton
+- RefreshButton
+
+Required Functions/Handlers:
+- executeComplianceScan
+- exportAuditLogs
+- refreshData
+
+Required Buttons:
+- Execute Compliance Scan
+- Export Audit Logs
+- Refresh Data
+
+Required APIs:
+- /v1/governance/compliance/audit
+- /v1/governance/data/synchronize
+- /v1/governance/audit/logs/export
+
+Required Semantic Keys (data-cy):
+- govdashboard-btn-execute-compliance-scan
+- govdashboard-btn-export-audit-logs
+- govdashboard-btn-refresh-data

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../models/domain_governance.dart';
+import '../registry/governance_registry.dart';
 import '../registry/platform_role.dart';
 import '../registry/widgets/governance_master_layout.dart';
 import 'groups/common_routes.dart';
@@ -26,6 +27,13 @@ class GovernanceRouter {
     GoRouterRedirect? redirect,
     List<GoRoute> publicRoutes = const [],
   }) {
+    // 0. Register all screens of the application in GovernanceRegistry for domain integrity tracking
+    for (final module in application.modules) {
+      for (final screen in module.screens) {
+        GovernanceRegistry.register(screen, role: screen.requiredRole?.nameSnake);
+      }
+    }
+
     // 1. Determine authorized modules
     final authorizedModules = application.getAuthorizedModules(activeRole);
 
@@ -46,9 +54,14 @@ class GovernanceRouter {
     }
 
     if (authorizedRoutes.isEmpty) {
+      final fallbackPath = (initialLocation == CommonRoutes.login ||
+                             initialLocation == CommonRoutes.authCallback ||
+                             publicRoutes.any((r) => r.path == initialLocation))
+          ? '/unauthorized_fallback'
+          : initialLocation;
       authorizedRoutes.add(
         GoRoute(
-          path: initialLocation,
+          path: fallbackPath,
           builder: (context, state) => Scaffold(
             body: Center(child: Text(tr('governance.unauthorized_route_message'))),
           ),

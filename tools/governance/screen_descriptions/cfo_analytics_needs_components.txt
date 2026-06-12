@@ -1,0 +1,56 @@
+Screen Code: cfo_analytics
+Screen Name: CfoAnalyticsScreen
+
+Required Components:
+- KPIWidget
+- FinancialStatementCard
+- BudgetVsActualChart
+- CashFlowProjectionGraph
+- RiskAssessmentWidget
+- ComplianceStatusCard
+- InvestmentPerformanceCard
+- CostAnalysisChart
+- TrendAnalysisGraph
+- AlertsNotificationPanel
+
+Required Functions/Handlers:
+- fetchKPIData
+- generateFinancialReport
+- compareBudgetActual
+- projectCashFlow
+- assessRisk
+- checkCompliance
+- evaluateInvestmentPerformance
+- analyzeCosts
+- trackTrends
+- sendAlerts
+
+Required Buttons:
+- Refresh Data
+- Export Report
+- View Details
+- Set Alerts
+
+Required APIs:
+- /v1/finance/kpis
+- /v1/finance/statements
+- /v1/finance/budget-actual
+- /v1/finance/cash-flow
+- /v1/finance/risk-assessment
+- /v1/finance/compliance-status
+- /v1/finance/investment-performance
+- /v1/finance/cost-analysis
+- /v1/finance/trend-analysis
+- /v1/finance/alerts
+
+Required Semantic Keys (data-cy):
+- cfo-dashboard-kpi
+- cfo-dashboard-financial-statement
+- cfo-dashboard-budget-actual
+- cfo-dashboard-cash-flow
+- cfo-dashboard-risk-assessment
+- cfo-dashboard-compliance-status
+- cfo-dashboard-investment-performance
+- cfo-dashboard-cost-analysis
+- cfo-dashboard-trend-analysis
+- cfo-dashboard-alerts

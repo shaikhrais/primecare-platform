@@ -1,0 +1,46 @@
+Screen Code: agent_dispatch
+Screen Name: AgentDispatchScreen
+
+Required Components:
+- ComplianceStatusIndicator
+- AuditLogSummary
+- RiskAssessmentMetrics
+- GovernancePerformanceMetrics
+- OperationalDataVisualization
+- HistoricalComplianceResults
+- AuditNotification
+- StakeholderFeedbackSummary
+- TrainingParticipationMetrics
+- IntegratedDashboard
+
+Required Functions/Handlers:
+- fetchComplianceStatus
+- fetchAuditLogs
+- fetchRiskMetrics
+- generateGovernanceReport
+- notifyStakeholders
+- startComplianceScan
+- trackTrainingParticipation
+
+Required Buttons:
+- View Audit Logs
+- Generate Report
+- Notify Stakeholders
+- Start Compliance Scan
+- Request Training
+
+Required APIs:
+- /v1/governance/compliance/status
+- /v1/governance/audit/logs
+- /v1/governance/risk/metrics
+- /v1/governance/reports/generate
+- /v1/governance/stakeholders/notify
+- /v1/governance/training/participation
+
+Required Semantic Keys (data-cy):
+- gov-dashboard-compliance-status
+- gov-dashboard-audit-log
+- gov-dashboard-risk-metrics
+- gov-dashboard-report-generation
+- gov-dashboard-stakeholder-notify
+- gov-dashboard-training-participation

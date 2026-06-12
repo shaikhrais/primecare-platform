@@ -1,0 +1,33 @@
+Screen Code: admin_payments
+Screen Name: Admin Payments
+
+Required Components:
+- TransactionList
+- PaymentStatusOverview
+- DisputeManagement
+- PaymentReportGenerator
+- PaymentSettings
+
+Required Functions/Handlers:
+- monitorTransactions
+- reviewPaymentStatuses
+- manageDisputes
+- generateReports
+- updatePaymentSettings
+
+Required Buttons:
+- Generate Report
+- Update Settings
+- Manage Disputes
+
+Required APIs:
+- /v1/payments/transactions
+- /v1/payments/statuses
+- /v1/payments/disputes
+- /v1/payments/reports
+- /v1/payments/settings
+
+Required Semantic Keys (data-cy):
+- admin-payments-btn-generate-report
+- admin-payments-btn-update-settings
+- admin-payments-btn-manage-disputes

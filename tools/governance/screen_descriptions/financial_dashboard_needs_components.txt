@@ -1,0 +1,53 @@
+Screen Code: financial_dashboard
+Screen Name: FinancialDashboardScreen
+
+Required Components:
+- KPIOverviewWidget
+- RevenueExpenseTrendChart
+- CashFlowAnalysisWidget
+- BudgetVsActualsWidget
+- ComplianceStatusIndicator
+- RiskAssessmentMetricWidget
+- AuditLogSummaryWidget
+- FinancialRatiosWidget
+- ForecastingModelWidget
+- RealTimeDataAlerts
+
+Required Functions/Handlers:
+- updateKPIData
+- fetchRevenueExpenseTrends
+- analyzeCashFlow
+- compareBudgetVsActuals
+- checkComplianceStatus
+- assessRiskMetrics
+- summarizeAuditLog
+- calculateFinancialRatios
+- generateForecastingModels
+- sendRealTimeAlerts
+
+Required Buttons:
+- [None specified]
+
+Required APIs:
+- /v1/financial/kpis
+- /v1/financial/revenue-expense-trends
+- /v1/financial/cash-flow
+- /v1/financial/budget-actuals
+- /v1/financial/compliance-status
+- /v1/financial/risk-assessment
+- /v1/financial/audit-log
+- /v1/financial/ratios
+- /v1/financial/forecasting
+- /v1/financial/real-time-alerts
+
+Required Semantic Keys (data-cy):
+- financial-dashboard-kpi-overview
+- financial-dashboard-revenue-expense-trend
+- financial-dashboard-cash-flow
+- financial-dashboard-budget-actuals
+- financial-dashboard-compliance-status
+- financial-dashboard-risk-assessment
+- financial-dashboard-audit-log
+- financial-dashboard-financial-ratios
+- financial-dashboard-forecasting
+- financial-dashboard-real-time-alerts

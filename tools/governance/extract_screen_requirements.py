@@ -154,10 +154,10 @@ def main():
         print(f"Error: Screen descriptions directory not found at {DESCRIPTIONS_DIR}")
         return
 
-    # Find all unprocessed files (not starting with '-')
+    # Find all unprocessed files (not ending with _description.txt or _needs_components.txt)
     files = []
     for f in os.listdir(DESCRIPTIONS_DIR):
-        if f.endswith(".txt") and not f.startswith("-"):
+        if f.endswith(".txt") and not (f.endswith("_description.txt") or f.endswith("_needs_components.txt") or f.startswith("-")):
             files.append(f)
             
     print(f"Found {len(files)} unprocessed screen requirement description files.")
@@ -244,10 +244,50 @@ def main():
             # Commit immediately to release database locks and persist progress
             conn.commit()
             
-            # Rename file to mark as processed by adding '-' prefix
-            new_filename = f"-{filename}"
+            # Rename file to mark as processed by suffixing with '_description.txt'
+            new_filename = f"{screen_code}_description.txt"
             new_file_path = os.path.join(DESCRIPTIONS_DIR, new_filename)
             os.replace(file_path, new_file_path)
+            
+            # Dynamically create the corresponding needs components file
+            needs_filename = f"{screen_code}_needs_components.txt"
+            needs_file_path = os.path.join(DESCRIPTIONS_DIR, needs_filename)
+            
+            def safe_list(val):
+                return val if isinstance(val, list) else []
+                
+            components = safe_list(reqs.get("required_components", []))
+            functions = safe_list(reqs.get("required_functions", []))
+            buttons = safe_list(reqs.get("required_buttons", []))
+            apis = safe_list(reqs.get("required_apis", []))
+            data_cy = safe_list(reqs.get("data_cy_required", []))
+            
+            needs_lines = [
+                f"Screen Code: {screen_code}",
+                f"Screen Name: {screen_code.replace('_', ' ').title()}",
+                "",
+                "Required Components:",
+            ]
+            needs_lines.extend(f"- {c}" for c in components) if components else needs_lines.append("- [None specified]")
+            
+            needs_lines.append("")
+            needs_lines.append("Required Functions/Handlers:")
+            needs_lines.extend(f"- {f}" for f in functions) if functions else needs_lines.append("- [None specified]")
+            
+            needs_lines.append("")
+            needs_lines.append("Required Buttons:")
+            needs_lines.extend(f"- {b}" for b in buttons) if buttons else needs_lines.append("- [None specified]")
+            
+            needs_lines.append("")
+            needs_lines.append("Required APIs:")
+            needs_lines.extend(f"- {a}" for a in apis) if apis else needs_lines.append("- [None specified]")
+            
+            needs_lines.append("")
+            needs_lines.append("Required Semantic Keys (data-cy):")
+            needs_lines.extend(f"- {k}" for k in data_cy) if data_cy else needs_lines.append("- [None specified]")
+            
+            with open(needs_file_path, "w", encoding="utf-8") as nf:
+                nf.write("\n".join(needs_lines) + "\n")
             
             status_tag = "gpt" if is_gpt else "local"
             success_count += 1

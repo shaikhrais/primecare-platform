@@ -1,0 +1,24 @@
+Screen Code: population_health_analyzer
+Screen Name: Population Health Analyzer
+
+Required Components:
+- PopulationHealthDataView
+- CohortDetailsView
+- GeospatialHeatmap
+- DemographicsRiskStratificationChart
+
+Required Functions/Handlers:
+- refreshData
+- exportCohortData
+
+Required Buttons:
+- Refresh
+- Export
+
+Required APIs:
+- /v1/population_health/data
+- /v1/cohort/details
+
+Required Semantic Keys (data-cy):
+- populationhealth-btn-refresh
+- populationhealth-btn-export

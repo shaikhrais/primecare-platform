@@ -1,0 +1,35 @@
+Screen Code: patient_command_center
+Screen Name: PatientCommandCenterScreen
+
+Required Components:
+- KPIIndicator
+- TelemetryLogMonitor
+- ComplianceStatusChecker
+- OperationalAuditTrigger
+- DashboardTelemetryRefresher
+- ComplianceScanExecutor
+- LoadingIndicator
+- AuditLogViewer
+- ActiveOperationsStatus
+- SecurityClearanceDisplay
+- TelemetryChart
+
+Required Functions/Handlers:
+- triggerOperationalAudit
+- refreshDashboardTelemetry
+- executeComplianceScan
+
+Required Buttons:
+- Trigger Audit
+- Refresh Telemetry
+- Execute Compliance Scan
+
+Required APIs:
+- /v1/telemetry/logs
+- /v1/compliance/scan
+- /v1/audit/logs
+
+Required Semantic Keys (data-cy):
+- patient-command-center-btn-trigger-audit
+- patient-command-center-btn-refresh-telemetry
+- patient-command-center-btn-execute-scan

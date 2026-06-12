@@ -1,0 +1,34 @@
+Screen Code: cfo_franchise_financials
+Screen Name: Cfo Franchise Financials
+
+Required Components:
+- FinancialMetricsOverview
+- PerformanceTrendsChart
+- BudgetVarianceAlert
+- RecentReportsAccess
+- CollaborationTool
+- ComplianceChecklist
+
+Required Functions/Handlers:
+- generateFinancialReport
+- sendMessageToFranchiseOwner
+- checkCompliance
+- monitorBudgetAdherence
+
+Required Buttons:
+- Generate Report
+- Send Message to Franchise Owner
+- Review Compliance
+- Monitor Budget
+
+Required APIs:
+- /v1/franchise/financials
+- /v1/franchise/reports
+- /v1/franchise/alerts
+- /v1/franchise/compliance
+
+Required Semantic Keys (data-cy):
+- franchise-financials-btn-generate-report
+- franchise-financials-btn-send-message
+- franchise-financials-btn-review-compliance
+- franchise-financials-btn-monitor-budget

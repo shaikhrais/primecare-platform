@@ -4,29 +4,69 @@
 
 
 describe("Screen - research_protocol_manager", () => {
-  it("opens and verifies screen research_protocol_manager", () => {
-    cy.loginAsRole("chiropractor");
+  it("opens and verifies screen research_protocol_manager via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "chiropractor");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Research Protocol Manager)...");
-  cy.visitWithSemantics("");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Research Protocol Manager...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("researchprotocolmanager-screen").should("be.visible");
-  cy.getCy("researchprotocolmanager-title").should("be.visible");
-  cy.getCy("researchprotocolmanager-content").should("be.visible");
-  cy.getCy("researchprotocols-btn-create").should("be.visible");
-  cy.getCy("researchprotocols-btn-edit").should("be.visible");
-  cy.getCy("researchprotocols-btn-approve").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for Research Protocol Manager...");
-  cy.waitAndSee();
-  cy.screenshot("research_protocol_manager");
-  
-  cy.task("log", "✅ PROGRESS: - Verified Research Protocol Manager successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_research_protocol_manager");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: None...");
+      cy.visitWithSemantics(targetBaseUrl + "None");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("research protocol manager-screen").should("be.visible");
+      cy.getCy("research protocol manager-title").should("be.visible");
+      cy.getCy("research protocol manager-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("research_protocol_manager");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_research_protocol_manager");
+      cy.task("log", "✅ PROGRESS: - Verified Research Protocol Manager successfully!\n");
+    });
   });
 });

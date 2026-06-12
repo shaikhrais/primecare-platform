@@ -1,0 +1,35 @@
+Screen Code: scheduler_coordinator_provider_availability
+Screen Name: Scheduler Coordinator Provider Availability
+
+Required Components:
+- ProviderAvailabilityList
+- ConflictNotificationWidget
+- ScheduleSummaryCard
+- PerformanceMetricsChart
+- CommunicationToolAccess
+
+Required Functions/Handlers:
+- monitorProviderAvailability
+- updateProviderAvailability
+- resolveSchedulingConflicts
+- communicateWithProviders
+- generateAvailabilityReport
+
+Required Buttons:
+- Update Availability
+- Resolve Conflict
+- Generate Report
+- Contact Provider
+
+Required APIs:
+- /v1/providers/availability
+- /v1/scheduling/conflicts
+- /v1/providers/contact
+- /v1/reports/availability
+
+Required Semantic Keys (data-cy):
+- provider-availability-list
+- conflict-notification
+- schedule-summary
+- performance-metrics
+- contact-provider-tool

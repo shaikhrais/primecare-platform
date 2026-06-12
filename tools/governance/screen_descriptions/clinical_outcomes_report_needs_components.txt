@@ -1,0 +1,25 @@
+Screen Code: clinical_outcomes_report
+Screen Name: Clinical Outcomes Report
+
+Required Components:
+- ClinicalOutcomesTable
+- SuccessRateIndicator
+- ErrorMessageDisplay
+
+Required Functions/Handlers:
+- loadClinicalOutcomes
+- refreshData
+- exportReport
+
+Required Buttons:
+- Refresh Data
+- Export as PDF
+
+Required APIs:
+- /v1/clinical/outcomes
+- /v1/clinical/outcomes/refresh
+- /v1/clinical/outcomes/export
+
+Required Semantic Keys (data-cy):
+- clinical-outcomes-refresh-btn
+- clinical-outcomes-export-btn

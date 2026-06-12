@@ -1,0 +1,48 @@
+Screen Code: cfo_workflow
+Screen Name: CfoWorkflowScreen
+
+Required Components:
+- KPIWidget
+- BudgetAnalysisChart
+- CashFlowProjectionWidget
+- ProfitLossStatementWidget
+- BalanceSheetWidget
+- RiskAssessmentWidget
+- ComplianceStatusIndicator
+- InvestmentPerformanceTracker
+- TeamPerformanceMetricsWidget
+- StakeholderFeedbackWidget
+
+Required Functions/Handlers:
+- refreshDashboardData
+- downloadFinancialReport
+- viewDetails
+
+Required Buttons:
+- Refresh Data
+- Download Report
+- View Details
+
+Required APIs:
+- /v1/financial/kpis
+- /v1/financial/budget-analysis
+- /v1/financial/cash-flow
+- /v1/financial/profit-loss
+- /v1/financial/balance-sheet
+- /v1/financial/risk-assessment
+- /v1/financial/compliance-status
+- /v1/financial/investment-performance
+- /v1/financial/team-performance
+- /v1/financial/stakeholder-feedback
+
+Required Semantic Keys (data-cy):
+- cfo-dashboard-kpi-widget
+- cfo-dashboard-budget-analysis
+- cfo-dashboard-cash-flow
+- cfo-dashboard-profit-loss
+- cfo-dashboard-balance-sheet
+- cfo-dashboard-risk-assessment
+- cfo-dashboard-compliance-status
+- cfo-dashboard-investment-performance
+- cfo-dashboard-team-performance
+- cfo-dashboard-stakeholder-feedback

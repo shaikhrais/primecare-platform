@@ -1,0 +1,31 @@
+Screen Code: assessment
+Screen Name: Assessment
+
+Required Components:
+- ComplianceScanWidget
+- StateActionWidget
+- LogRefreshWidget
+- AuditLogViewer
+- KPIDashboard
+
+Required Functions/Handlers:
+- runComplianceScan
+- triggerStateAction
+- refreshLogs
+- viewAuditLogs
+
+Required Buttons:
+- Run Compliance Scan
+- Trigger State Action
+- Refresh Logs
+
+Required APIs:
+- /v1/compliance/scan
+- /v1/state/action
+- /v1/logs/refresh
+- /v1/audit/logs
+
+Required Semantic Keys (data-cy):
+- assessment-btn-run-scan
+- assessment-btn-trigger-action
+- assessment-btn-refresh-logs

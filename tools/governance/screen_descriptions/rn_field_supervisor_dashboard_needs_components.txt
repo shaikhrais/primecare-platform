@@ -1,0 +1,42 @@
+Screen Code: rn_field_supervisor_dashboard
+Screen Name: RnFieldSupervisorDashboardScreen
+
+Required Components:
+- ComplianceStatusCard
+- OperationalLogsTable
+- StaffPerformanceMetricsChart
+- AlertsNotificationPanel
+- AuditLogsViewer
+- FieldAuditSubmissionForm
+- PolicyUpdateForm
+- KPIVisualRepresentation
+- TeamCommunicationTool
+- ReportExportButton
+
+Required Functions/Handlers:
+- submitFieldAudit
+- updatePolicy
+- exportLogs
+- viewAlerts
+- refreshData
+
+Required Buttons:
+- Submit Audit
+- Update Policy
+- Export Logs
+- View Alerts
+- Refresh Data
+
+Required APIs:
+- /v1/audits/submit
+- /v1/policies/update
+- /v1/logs/export
+- /v1/alerts
+- /v1/data/refresh
+
+Required Semantic Keys (data-cy):
+- rnfdashboard-btn-submit-audit
+- rnfdashboard-btn-update-policy
+- rnfdashboard-btn-export-logs
+- rnfdashboard-btn-view-alerts
+- rnfdashboard-btn-refresh-data

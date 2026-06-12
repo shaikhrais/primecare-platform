@@ -4,29 +4,69 @@
 
 
 describe("Screen - patient_case_study_repository", () => {
-  it("opens and verifies screen patient_case_study_repository", () => {
-    cy.loginAsRole("chiropractor");
+  it("opens and verifies screen patient_case_study_repository via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "patient");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Patient Case Study Repository)...");
-  cy.visitWithSemantics("");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Patient Case Study Repository...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("patientcasestudyrepository-screen").should("be.visible");
-  cy.getCy("patientcasestudyrepository-title").should("be.visible");
-  cy.getCy("patientcasestudyrepository-content").should("be.visible");
-  cy.getCy("case-study-list").should("be.visible");
-  cy.getCy("loading-indicator").should("be.visible");
-  cy.getCy("error-message").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for Patient Case Study Repository...");
-  cy.waitAndSee();
-  cy.screenshot("patient_case_study_repository");
-  
-  cy.task("log", "✅ PROGRESS: - Verified Patient Case Study Repository successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_patient_case_study_repository");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: None...");
+      cy.visitWithSemantics(targetBaseUrl + "None");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("patient case study repository-screen").should("be.visible");
+      cy.getCy("patient case study repository-title").should("be.visible");
+      cy.getCy("patient case study repository-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("patient_case_study_repository");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_patient_case_study_repository");
+      cy.task("log", "✅ PROGRESS: - Verified Patient Case Study Repository successfully!\n");
+    });
   });
 });

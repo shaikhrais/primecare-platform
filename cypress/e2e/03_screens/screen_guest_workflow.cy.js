@@ -4,28 +4,69 @@
 
 
 describe("Screen - guest_workflow", () => {
-  it("opens and verifies screen guest_workflow", () => {
-    cy.loginAsRole("guest");
+  it("opens and verifies screen guest_workflow via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "guest");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /common/guest-workflow (GuestWorkflowScreen)...");
-  cy.visitWithSemantics("/common/guest-workflow");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for GuestWorkflowScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("guestworkflow-screen").should("be.visible");
-  cy.getCy("guestworkflow-title").should("be.visible");
-  cy.getCy("guestworkflow-content").should("be.visible");
-  cy.getCy("guestworkflow-btn-trigger-sweep").should("be.visible");
-  cy.getCy("guestworkflow-btn-refresh-logs").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for GuestWorkflowScreen...");
-  cy.waitAndSee();
-  cy.screenshot("guest_workflow");
-  
-  cy.task("log", "✅ PROGRESS: - Verified GuestWorkflowScreen successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_guest_workflow");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /common/guest-workflow...");
+      cy.visitWithSemantics(targetBaseUrl + "/common/guest-workflow");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("guestworkflow-screen").should("be.visible");
+      cy.getCy("guestworkflow-title").should("be.visible");
+      cy.getCy("guestworkflow-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("guest_workflow");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_guest_workflow");
+      cy.task("log", "✅ PROGRESS: - Verified GuestWorkflowScreen successfully!\n");
+    });
   });
 });

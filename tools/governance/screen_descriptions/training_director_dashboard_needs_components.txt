@@ -1,0 +1,52 @@
+Screen Code: training_director_dashboard
+Screen Name: TrainingDirectorDashboardScreen
+
+Required Components:
+- TrainingProgramOverview
+- ComplianceMetricsCard
+- ParticipationRateChart
+- BudgetUtilizationChart
+- FeedbackScoreWidget
+- TrainingSessionLog
+- AlertsNotification
+- KPIMetrics
+- TrainingOutcomesVisualization
+- HistoricalDataTrendAnalysis
+
+Required Functions/Handlers:
+- fetchTrainingPrograms
+- fetchComplianceMetrics
+- fetchParticipationRates
+- fetchBudgetMetrics
+- fetchFeedbackScores
+- fetchTrainingLogs
+- checkAlerts
+- fetchKPIs
+- fetchTrainingOutcomes
+- fetchHistoricalData
+
+Required Buttons:
+- Generate Report
+- Adjust Training Program
+- View Compliance Audit
+- Send Feedback
+- Export Data
+
+Required APIs:
+- /v1/training/programs
+- /v1/training/compliance
+- /v1/training/participation
+- /v1/training/budget
+- /v1/training/feedback
+- /v1/training/sessions
+- /v1/training/alerts
+- /v1/training/kpis
+- /v1/training/outcomes
+- /v1/training/historical
+
+Required Semantic Keys (data-cy):
+- training-dashboard-btn-generate-report
+- training-dashboard-btn-adjust-program
+- training-dashboard-btn-view-audit
+- training-dashboard-btn-send-feedback
+- training-dashboard-btn-export-data

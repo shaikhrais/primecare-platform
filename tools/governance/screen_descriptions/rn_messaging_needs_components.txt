@@ -1,0 +1,29 @@
+Screen Code: rn_messaging
+Screen Name: Rn Messaging
+
+Required Components:
+- PatientParameterMetrics
+- ComplianceStatusOverview
+- SecurityAlerts
+- UserActivityTracker
+- MessagingQuickAccess
+
+Required Functions/Handlers:
+- updatePatientMetrics
+- generateComplianceReport
+- checkSecurityAlerts
+
+Required Buttons:
+- Refresh Metrics
+- View Compliance Report
+- Check Security Alerts
+
+Required APIs:
+- /v1/patient/parameters
+- /v1/compliance/status
+- /v1/security/alerts
+
+Required Semantic Keys (data-cy):
+- dashboard-btn-refresh-metrics
+- dashboard-btn-view-compliance
+- dashboard-btn-check-security

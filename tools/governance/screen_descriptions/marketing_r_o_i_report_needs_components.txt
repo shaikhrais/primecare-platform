@@ -1,0 +1,24 @@
+Screen Code: marketing_r_o_i_report
+Screen Name: Marketing R O I Report
+
+Required Components:
+- MarketingROIChart
+- CampaignPerformanceTable
+- SummaryStatisticsCard
+
+Required Functions/Handlers:
+- refreshData
+- exportCampaignData
+- analyzePerformance
+
+Required Buttons:
+- Refresh Data
+- Export Data
+
+Required APIs:
+- /v1/marketing/roi/report
+- /v1/marketing/campaigns
+
+Required Semantic Keys (data-cy):
+- marketing-roi-refresh
+- marketing-roi-export

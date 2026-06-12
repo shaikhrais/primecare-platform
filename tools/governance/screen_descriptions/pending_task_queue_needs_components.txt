@@ -1,0 +1,44 @@
+Screen Code: pending_task_queue
+Screen Name: PendingTaskQueueScreen
+
+Required Components:
+- GovMetricCard
+- GovTelemetryChart
+- AuditLogViewer
+- RiskAssessmentWidget
+- ComplianceAlertBanner
+- TrainingCompletionChart
+- StakeholderFeedbackSummary
+- IncidentTracker
+- RegulatoryUpdateFeed
+
+Required Functions/Handlers:
+- refreshDashboard
+- viewAuditLogs
+- downloadReport
+- requestTraining
+- reportIncident
+
+Required Buttons:
+- Refresh Data
+- View Audit Logs
+- Download Report
+- Request Training
+- Report Incident
+
+Required APIs:
+- /v1/governance/compliance/status
+- /v1/governance/audit/logs
+- /v1/governance/risk/assessment
+- /v1/governance/performance/metrics
+- /v1/governance/training/completion
+- /v1/governance/stakeholder/feedback
+- /v1/governance/incidents
+- /v1/governance/regulatory/updates
+
+Required Semantic Keys (data-cy):
+- gov-dashboard-btn-refresh
+- gov-dashboard-btn-view-audit
+- gov-dashboard-btn-download-report
+- gov-dashboard-btn-request-training
+- gov-dashboard-btn-report-incident

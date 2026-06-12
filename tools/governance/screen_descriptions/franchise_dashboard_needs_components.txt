@@ -1,0 +1,46 @@
+Screen Code: franchise_dashboard
+Screen Name: FranchiseDashboardScreen
+
+Required Components:
+- PerformanceMetricCard
+- ComplianceAuditStatus
+- SecurityPostureOverview
+- OperationalActivityLog
+- RedFlagAlert
+- FinancialPerformanceIndicator
+- CustomerFeedbackWidget
+- TrainingPerformanceMetric
+- MarketingCampaignEffectiveness
+- ExportLogsButton
+
+Required Functions/Handlers:
+- exportLogs
+- reviewAudit
+- updatePolicies
+- conductAudit
+- addressIssues
+
+Required Buttons:
+- Export Logs
+- Review Audit
+- Update Policies
+- Conduct Audit
+- Address Issues
+
+Required APIs:
+- /v1/franchise/performance
+- /v1/franchise/audit
+- /v1/franchise/security
+- /v1/franchise/logs
+- /v1/franchise/alerts
+- /v1/franchise/financials
+- /v1/franchise/feedback
+- /v1/franchise/training
+- /v1/franchise/marketing
+
+Required Semantic Keys (data-cy):
+- franchise-dashboard-btn-export-logs
+- franchise-dashboard-btn-review-audit
+- franchise-dashboard-btn-update-policies
+- franchise-dashboard-btn-conduct-audit
+- franchise-dashboard-btn-address-issues

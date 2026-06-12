@@ -1,0 +1,39 @@
+Screen Code: family_member_loved_one_schedule
+Screen Name: Family Member Loved One Schedule
+
+Required Components:
+- ScheduleView
+- AppointmentEditor
+- NotificationPanel
+- FamilyMemberDetails
+- FeedbackForm
+
+Required Functions/Handlers:
+- viewSchedule
+- addAppointment
+- editAppointment
+- removeAppointment
+- monitorNotifications
+- accessFamilyDetails
+- provideFeedback
+
+Required Buttons:
+- Add Appointment
+- Edit Appointment
+- Remove Appointment
+- Report Issue
+
+Required APIs:
+- /v1/family/schedule
+- /v1/family/appointments
+- /v1/notifications
+- /v1/family/details
+- /v1/feedback
+
+Required Semantic Keys (data-cy):
+- family-schedule-view
+- appointment-add-btn
+- appointment-edit-btn
+- appointment-remove-btn
+- notification-panel
+- feedback-form

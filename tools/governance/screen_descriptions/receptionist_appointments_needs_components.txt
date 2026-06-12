@@ -1,0 +1,27 @@
+Screen Code: receptionist_appointments
+Screen Name: Receptionist Appointments
+
+Required Components:
+- OperationalStatusCard
+- VerificationAuditStatus
+- SLAMetricsChart
+- TransactionFlowTrendChart
+- SecureEventLogForm
+
+Required Functions/Handlers:
+- submitEventLog
+- refreshAuditStatus
+
+Required Buttons:
+- Submit Event Log
+- Refresh Audits
+
+Required APIs:
+- /v1/settings/institutional
+- /v1/clinical/workflows/track
+- /v1/compliance/verify
+- /v1/events/log
+
+Required Semantic Keys (data-cy):
+- receptionist-btn-submit-event-log
+- receptionist-btn-refresh-audits

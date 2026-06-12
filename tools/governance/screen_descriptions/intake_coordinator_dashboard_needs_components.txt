@@ -1,0 +1,38 @@
+Screen Code: intake_coordinator_dashboard
+Screen Name: IntakeCoordinatorDashboardScreen
+
+Required Components:
+- ActiveOperationsMetric
+- SecurityClearanceDisplay
+- SystemLatencyMonitor
+- DataIntegrityIndicator
+- TelemetryLogViewer
+- ComplianceAuditStatus
+- OperationalAuditLogList
+- PerformanceMetricsDisplay
+
+Required Functions/Handlers:
+- refreshDashboard
+- executeComplianceScan
+
+Required Buttons:
+- Refresh
+- Execute Compliance Scan
+
+Required APIs:
+- /v1/patient/referrals
+- /v1/patient/appointments
+- /v1/compliance/audit/status
+- /v1/performance/metrics
+
+Required Semantic Keys (data-cy):
+- intake-dashboard-active-operations
+- intake-dashboard-security-clearance
+- intake-dashboard-system-latency
+- intake-dashboard-data-integrity
+- intake-dashboard-telemetry-logs
+- intake-dashboard-compliance-audit-status
+- intake-dashboard-operational-logs
+- intake-dashboard-performance-metrics
+- intake-dashboard-refresh-btn
+- intake-dashboard-compliance-scan-btn

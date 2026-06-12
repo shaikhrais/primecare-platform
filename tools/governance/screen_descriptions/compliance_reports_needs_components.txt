@@ -1,0 +1,32 @@
+Screen Code: compliance_reports
+Screen Name: Compliance Reports
+
+Required Components:
+- ComplianceStatusSummary
+- ComplianceNotifications
+- RecentReportsList
+- ComplianceTrendsChart
+- ResourcesLinks
+
+Required Functions/Handlers:
+- loadComplianceReports
+- analyzeData
+- documentFindings
+- notifyStakeholders
+
+Required Buttons:
+- Review Reports
+- Document Findings
+- Communicate Status
+
+Required APIs:
+- /v1/compliance/reports
+- /v1/compliance/status
+- /v1/compliance/notifications
+
+Required Semantic Keys (data-cy):
+- compliance-reports-summary
+- compliance-notifications
+- recent-reports-list
+- compliance-trends-chart
+- resources-links

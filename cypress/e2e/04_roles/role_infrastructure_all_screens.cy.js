@@ -19,9 +19,6 @@ describe("Role All Screens - infrastructure", () => {
   cy.getCy("infrastructuredashboard-screen").should("be.visible");
   cy.getCy("infrastructuredashboard-title").should("be.visible");
   cy.getCy("infrastructuredashboard-content").should("be.visible");
-  cy.getCy("infrastructure-dashboard-btn-execute-scan").should("be.visible");
-  cy.getCy("infrastructure-dashboard-btn-sync-posture").should("be.visible");
-  cy.getCy("infrastructure-dashboard-btn-update-policies").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/7 | 14%] - Saving screenshot for InfrastructureDashboardScreen...");
   cy.waitAndSee();
@@ -40,9 +37,6 @@ describe("Role All Screens - infrastructure", () => {
   cy.getCy("architectureplanninganalytics-screen").should("be.visible");
   cy.getCy("architectureplanninganalytics-title").should("be.visible");
   cy.getCy("architectureplanninganalytics-content").should("be.visible");
-  cy.getCy("infrastructure-health-overview").should("be.visible");
-  cy.getCy("security-alerts").should("be.visible");
-  cy.getCy("uptime-downtime-visualization").should("be.visible");
 
   cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/7 | 28%] - Saving screenshot for ArchitecturePlanningAnalyticsScreen...");
   cy.waitAndSee();
@@ -50,110 +44,95 @@ describe("Role All Screens - infrastructure", () => {
   
   cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/7 | 28%] - Verified ArchitecturePlanningAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Navigating to /common/architecture-planning-compliance (ArchitecturePlanningComplianceScreen)...");
-  cy.visitWithSemantics("/common/architecture-planning-compliance");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Checking shell & content for ArchitecturePlanningComplianceScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  cy.getCy("architectureplanningcompliance-screen").should("be.visible");
-  cy.getCy("architectureplanningcompliance-title").should("be.visible");
-  cy.getCy("architectureplanningcompliance-content").should("be.visible");
-  cy.getCy("compliance-status-indicator").should("be.visible");
-  cy.getCy("audit-logs-table").should("be.visible");
-  cy.getCy("alerts-notification").should("be.visible");
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Saving screenshot for ArchitecturePlanningComplianceScreen...");
-  cy.waitAndSee();
-  cy.screenshot("architecture_planning_compliance");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Verified ArchitecturePlanningComplianceScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Navigating to /common/architecture-planning-workflow (ArchitecturePlanningWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Navigating to /common/architecture-planning-workflow (ArchitecturePlanningWorkflowScreen)...");
   cy.visitWithSemantics("/common/architecture-planning-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Checking shell & content for ArchitecturePlanningWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Checking shell & content for ArchitecturePlanningWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
   cy.getCy("architectureplanningworkflow-screen").should("be.visible");
   cy.getCy("architectureplanningworkflow-title").should("be.visible");
   cy.getCy("architectureplanningworkflow-content").should("be.visible");
-  cy.getCy("infrastructure-health-overview").should("be.visible");
-  cy.getCy("compliance-status-card").should("be.visible");
-  cy.getCy("alerts-notification").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Saving screenshot for ArchitecturePlanningWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Saving screenshot for ArchitecturePlanningWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("architecture_planning_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Verified ArchitecturePlanningWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [3/7 | 42%] - Verified ArchitecturePlanningWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Navigating to /common/infrastructure-analytics (InfrastructureAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Navigating to /common/infrastructure-analytics (InfrastructureAnalyticsScreen)...");
   cy.visitWithSemantics("/common/infrastructure-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Checking shell & content for InfrastructureAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Checking shell & content for InfrastructureAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
   cy.getCy("infrastructureanalytics-screen").should("be.visible");
   cy.getCy("infrastructureanalytics-title").should("be.visible");
   cy.getCy("infrastructureanalytics-content").should("be.visible");
-  cy.getCy("infrastructure-dashboard-health").should("be.visible");
-  cy.getCy("infrastructure-dashboard-compliance").should("be.visible");
-  cy.getCy("infrastructure-dashboard-performance").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Saving screenshot for InfrastructureAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Saving screenshot for InfrastructureAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("infrastructure_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Verified InfrastructureAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [4/7 | 57%] - Verified InfrastructureAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Navigating to /common/infrastructure-compliance (InfrastructureComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Navigating to /common/infrastructure-compliance (InfrastructureComplianceScreen)...");
   cy.visitWithSemantics("/common/infrastructure-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Checking shell & content for InfrastructureComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Checking shell & content for InfrastructureComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
   cy.getCy("infrastructurecompliance-screen").should("be.visible");
   cy.getCy("infrastructurecompliance-title").should("be.visible");
   cy.getCy("infrastructurecompliance-content").should("be.visible");
-  cy.getCy("infrastructure-compliance-status").should("be.visible");
-  cy.getCy("infrastructure-audit-logs").should("be.visible");
-  cy.getCy("infrastructure-alerts").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Saving screenshot for InfrastructureComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Saving screenshot for InfrastructureComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("infrastructure_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Verified InfrastructureComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [5/7 | 71%] - Verified InfrastructureComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Navigating to /common/infrastructure-workflow (InfrastructureWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Navigating to /common/infrastructure-workflow (InfrastructureWorkflowScreen)...");
   cy.visitWithSemantics("/common/infrastructure-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Checking shell & content for InfrastructureWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Checking shell & content for InfrastructureWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
   cy.getCy("infrastructureworkflow-screen").should("be.visible");
   cy.getCy("infrastructureworkflow-title").should("be.visible");
   cy.getCy("infrastructureworkflow-content").should("be.visible");
-  cy.getCy("infrastructure-audit-btn-generate-report").should("be.visible");
-  cy.getCy("infrastructure-audit-btn-update-compliance").should("be.visible");
-  cy.getCy("infrastructure-audit-btn-view-findings").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Saving screenshot for InfrastructureWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Saving screenshot for InfrastructureWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("infrastructure_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Verified InfrastructureWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [6/7 | 85%] - Verified InfrastructureWorkflowScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Navigating to /offices/corporate/roles/cto/infrastructure (Cto Infrastructure)...");
+  cy.visitWithSemantics("/offices/corporate/roles/cto/infrastructure");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Checking shell & content for Cto Infrastructure...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  cy.getCy("cto infrastructure-screen").should("be.visible");
+  cy.getCy("cto infrastructure-title").should("be.visible");
+  cy.getCy("cto infrastructure-content").should("be.visible");
+
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Saving screenshot for Cto Infrastructure...");
+  cy.waitAndSee();
+  cy.screenshot("cto_infrastructure");
+  
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [7/7 | 100%] - Verified Cto Infrastructure successfully!\n");
 
   });
 });

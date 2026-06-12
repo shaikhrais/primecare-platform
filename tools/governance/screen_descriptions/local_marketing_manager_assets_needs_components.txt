@@ -1,0 +1,36 @@
+Screen Code: local_marketing_manager_assets
+Screen Name: Local Marketing Manager Assets
+
+Required Components:
+- AssetOverviewWidget
+- PerformanceMetricsChart
+- NotificationPanel
+- QuickAccessTools
+- ErrorReportingSection
+
+Required Functions/Handlers:
+- fetchMarketingAssets
+- fetchPerformanceMetrics
+- updateMarketingMaterials
+- collaborateWithTeams
+- reportEffectiveness
+
+Required Buttons:
+- Update Assets
+- Analyze Performance
+- Collaborate
+- Generate Report
+
+Required APIs:
+- /v1/local_marketing/assets
+- /v1/local_marketing/performance
+- /v1/local_marketing/update
+- /v1/local_marketing/collaborate
+- /v1/local_marketing/report
+
+Required Semantic Keys (data-cy):
+- localmarketing-assets-overview
+- localmarketing-performance-metrics
+- localmarketing-notifications
+- localmarketing-quick-access
+- localmarketing-error-report

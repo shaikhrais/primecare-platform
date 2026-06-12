@@ -1,0 +1,62 @@
+Screen Code: receptionist_dashboard
+Screen Name: ReceptionistDashboardScreen
+
+Required Components:
+- TaskCalendar
+- CommunicationLog
+- DocumentManagementSystem
+- PerformanceMetrics
+- InventoryTracker
+- CustomerServiceFeedback
+- ComplianceChecklist
+- QuickAccessButtons
+- Notifications
+- TeamSummary
+
+Required Functions/Handlers:
+- addAppointment
+- sendMessage
+- uploadDocument
+- generateReport
+- trackInventory
+- submitFeedback
+- checkCompliance
+- accessTools
+- setReminder
+- viewTeamTasks
+
+Required Buttons:
+- Add Appointment
+- Send Message
+- Upload Document
+- Generate Report
+- Track Inventory
+- Submit Feedback
+- Check Compliance
+- Access Tools
+- Set Reminder
+- View Team Tasks
+
+Required APIs:
+- /v1/scheduling/appointments
+- /v1/communication/log
+- /v1/documents/manage
+- /v1/performance/metrics
+- /v1/inventory/track
+- /v1/customer/feedback
+- /v1/compliance/checklist
+- /v1/tools/access
+- /v1/notifications/upcoming
+- /v1/team/tasks
+
+Required Semantic Keys (data-cy):
+- receptionist-dashboard-btn-add-appointment
+- receptionist-dashboard-btn-send-message
+- receptionist-dashboard-btn-upload-document
+- receptionist-dashboard-btn-generate-report
+- receptionist-dashboard-btn-track-inventory
+- receptionist-dashboard-btn-submit-feedback
+- receptionist-dashboard-btn-check-compliance
+- receptionist-dashboard-btn-access-tools
+- receptionist-dashboard-btn-set-reminder
+- receptionist-dashboard-btn-view-team-tasks

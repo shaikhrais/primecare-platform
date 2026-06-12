@@ -1,0 +1,37 @@
+Screen Code: cfo_accounts_receivable
+Screen Name: Cfo Accounts Receivable
+
+Required Components:
+- AccountsReceivableOverview
+- AgingReportWidget
+- OverdueInvoicesAlert
+- PaymentTrendsChart
+- ReportGenerationButton
+- ClientCommunicationHistory
+
+Required Functions/Handlers:
+- generateAccountsReceivableReport
+- followUpOnOverduePayments
+- viewAgingReport
+- sendPaymentReminder
+
+Required Buttons:
+- Generate Report
+- Follow Up
+- View Aging Report
+- Send Reminder
+
+Required APIs:
+- /v1/accounts/receivable/overview
+- /v1/accounts/receivable/aging-report
+- /v1/accounts/receivable/overdue-alerts
+- /v1/accounts/receivable/payment-trends
+- /v1/accounts/receivable/client-communication
+
+Required Semantic Keys (data-cy):
+- cfo-accounts-receivable-overview
+- cfo-accounts-receivable-aging-report
+- cfo-accounts-receivable-overdue-alert
+- cfo-accounts-receivable-payment-trends
+- cfo-accounts-receivable-generate-report
+- cfo-accounts-receivable-client-communication

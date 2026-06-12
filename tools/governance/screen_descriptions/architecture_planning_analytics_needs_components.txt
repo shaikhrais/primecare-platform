@@ -1,0 +1,51 @@
+Screen Code: architecture_planning_analytics
+Screen Name: ArchitecturePlanningAnalyticsScreen
+
+Required Components:
+- HealthPerformanceOverview
+- SecurityIncidentAlerts
+- UptimeDowntimeVisualization
+- InfrastructureAssetInventory
+- AuditFindingsReport
+- HistoricalDataTrends
+- MonitoringToolIntegration
+- DocumentationAccess
+- UserActivityLogs
+- AuditActivitySummary
+
+Required Functions/Handlers:
+- fetchInfrastructureHealth
+- triggerSecurityAlert
+- updateAssetStatus
+- generateAuditReport
+- fetchHistoricalData
+- integrateMonitoringTools
+- accessDocumentation
+- logUserActivity
+
+Required Buttons:
+- Generate Report
+- View Details
+- Refresh Data
+- Export Data
+
+Required APIs:
+- /v1/infrastructure/health
+- /v1/security/alerts
+- /v1/infrastructure/assets
+- /v1/audit/findings
+- /v1/performance/historical
+- /v1/documentation/access
+- /v1/user/activity/logs
+
+Required Semantic Keys (data-cy):
+- infrastructure-health-overview
+- security-alerts
+- uptime-downtime-visualization
+- asset-inventory
+- audit-findings-report
+- historical-data-trends
+- monitoring-tool-integration
+- documentation-access
+- user-activity-logs
+- audit-activity-summary

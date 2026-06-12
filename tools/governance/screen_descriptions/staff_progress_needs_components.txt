@@ -1,0 +1,56 @@
+Screen Code: staff_progress
+Screen Name: StaffProgressScreen
+
+Required Components:
+- TrainingProgramOverview
+- ParticipantEngagementMetrics
+- FeedbackEvaluationResults
+- ComplianceTrackingIndicators
+- TrainingCompletionRates
+- ResourceAllocation
+- UpcomingTrainingSchedules
+- HistoricalTrainingData
+- OperationalRedFlagsAlerts
+- TrainingEffectivenessVisualizations
+
+Required Functions/Handlers:
+- fetchTrainingOverview
+- fetchEngagementMetrics
+- fetchFeedbackResults
+- fetchComplianceIndicators
+- fetchCompletionRates
+- fetchResourceAllocation
+- fetchUpcomingSchedules
+- fetchHistoricalData
+- checkOperationalRedFlags
+- visualizeTrainingEffectiveness
+
+Required Buttons:
+- View Training Details
+- Generate Report
+- Send Feedback
+- Update Training Schedule
+
+Required APIs:
+- /v1/training/programs/overview
+- /v1/training/engagement/metrics
+- /v1/training/feedback/results
+- /v1/training/compliance/indicators
+- /v1/training/completion/rates
+- /v1/training/resources/allocation
+- /v1/training/schedules/upcoming
+- /v1/training/data/historical
+- /v1/training/redflags/check
+- /v1/training/effectiveness/visualize
+
+Required Semantic Keys (data-cy):
+- training-overview
+- engagement-metrics
+- feedback-results
+- compliance-indicators
+- completion-rates
+- resource-allocation
+- upcoming-schedules
+- historical-data
+- redflags-alerts
+- effectiveness-visualizations

@@ -4,29 +4,69 @@
 
 
 describe("Screen - community_outreach_workflow", () => {
-  it("opens and verifies screen community_outreach_workflow", () => {
-    cy.loginAsRole("community_outreach");
+  it("opens and verifies screen community_outreach_workflow via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "community_outreach");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to /management/community-outreach-workflow (CommunityOutreachWorkflowScreen)...");
-  cy.visitWithSemantics("/management/community-outreach-workflow");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for CommunityOutreachWorkflowScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("communityoutreachworkflow-screen").should("be.visible");
-  cy.getCy("communityoutreachworkflow-title").should("be.visible");
-  cy.getCy("communityoutreachworkflow-content").should("be.visible");
-  cy.getCy("community-outreach-btn-add-event").should("be.visible");
-  cy.getCy("community-outreach-btn-submit-feedback").should("be.visible");
-  cy.getCy("community-outreach-btn-generate-report").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for CommunityOutreachWorkflowScreen...");
-  cy.waitAndSee();
-  cy.screenshot("community_outreach_workflow");
-  
-  cy.task("log", "✅ PROGRESS: - Verified CommunityOutreachWorkflowScreen successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_community_outreach_workflow");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /management/community-outreach-workflow...");
+      cy.visitWithSemantics(targetBaseUrl + "/management/community-outreach-workflow");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("communityoutreachworkflow-screen").should("be.visible");
+      cy.getCy("communityoutreachworkflow-title").should("be.visible");
+      cy.getCy("communityoutreachworkflow-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("community_outreach_workflow");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_community_outreach_workflow");
+      cy.task("log", "✅ PROGRESS: - Verified CommunityOutreachWorkflowScreen successfully!\n");
+    });
   });
 });

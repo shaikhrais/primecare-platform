@@ -1,0 +1,35 @@
+Screen Code: family_dashboard
+Screen Name: Family Dashboard
+
+Required Components:
+- FamilyActivityList
+- TaskReviewPanel
+- ResourceAccessWidget
+- CommunicationTool
+- EventTracker
+
+Required Functions/Handlers:
+- loadFamilyActivities
+- reviewContributions
+- accessResources
+- sendMessage
+- trackEvents
+
+Required Buttons:
+- View Contributions
+- Send Message
+- Access Resources
+- Track Events
+
+Required APIs:
+- /v1/family/activities
+- /v1/family/contributions
+- /v1/family/resources
+- /v1/family/messages
+- /v1/family/events
+
+Required Semantic Keys (data-cy):
+- family-dashboard-btn-view-contributions
+- family-dashboard-btn-send-message
+- family-dashboard-btn-access-resources
+- family-dashboard-btn-track-events

@@ -1,0 +1,57 @@
+Screen Code: rpn_dashboard
+Screen Name: RpnDashboardScreen
+
+Required Components:
+- VitalSignsMonitor
+- AlertNotification
+- ComplianceTracker
+- DocumentationStatusIndicator
+- PatientSatisfactionMetric
+- IncidentReportingSystem
+- StaffingLevelIndicator
+- EducationalResourceAccess
+- AuditLogViewer
+- TeamCommunicationTool
+
+Required Functions/Handlers:
+- monitorVitalSigns
+- triggerAlert
+- trackCompliance
+- updateDocumentationStatus
+- collectPatientFeedback
+- reportIncident
+- checkStaffingLevels
+- accessEducationalResources
+- viewAuditLogs
+- sendTeamMessage
+
+Required Buttons:
+- Report Incident
+- View Patient Feedback
+- Access Educational Resources
+- Log Documentation
+- Send Alert
+
+Required APIs:
+- /v1/patients/vital-signs
+- /v1/alerts/notifications
+- /v1/medications/compliance
+- /v1/documentation/status
+- /v1/patient/feedback
+- /v1/incidents/report
+- /v1/staffing/levels
+- /v1/education/resources
+- /v1/audit/logs
+- /v1/communication/messages
+
+Required Semantic Keys (data-cy):
+- rpn-dashboard-vital-signs
+- rpn-dashboard-alerts
+- rpn-dashboard-compliance
+- rpn-dashboard-documentation-status
+- rpn-dashboard-patient-feedback
+- rpn-dashboard-incident-report
+- rpn-dashboard-staffing-levels
+- rpn-dashboard-education-resources
+- rpn-dashboard-audit-logs
+- rpn-dashboard-team-communication

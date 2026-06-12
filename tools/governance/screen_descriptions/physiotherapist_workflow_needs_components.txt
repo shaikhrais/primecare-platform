@@ -1,0 +1,44 @@
+Screen Code: physiotherapist_workflow
+Screen Name: PhysiotherapistWorkflowScreen
+
+Required Components:
+- PatientList
+- PatientRecordAccess
+- RedFlagNotification
+- ProgressTracker
+- HealthcareIntegration
+- EducationalResources
+- AppointmentScheduler
+- TreatmentAnalytics
+
+Required Functions/Handlers:
+- fetchPatientList
+- viewPatientRecord
+- triggerRedFlagAlert
+- updateProgress
+- scheduleAppointment
+- fetchEducationalResources
+- analyzeTreatmentOutcomes
+
+Required Buttons:
+- View Patient Records
+- Alert Red Flag
+- Track Progress
+- Schedule Appointment
+- Access Resources
+
+Required APIs:
+- /v1/patients/list
+- /v1/patients/{id}/records
+- /v1/alerts/redflag
+- /v1/patients/{id}/progress
+- /v1/appointments/schedule
+- /v1/resources/education
+- /v1/analytics/outcomes
+
+Required Semantic Keys (data-cy):
+- physio-dashboard-btn-view-records
+- physio-dashboard-btn-alert-redflag
+- physio-dashboard-btn-track-progress
+- physio-dashboard-btn-schedule-appointment
+- physio-dashboard-btn-access-resources

@@ -1,0 +1,27 @@
+Screen Code: hr_staff_files
+Screen Name: Hr Staff Files
+
+Required Components:
+- GovMetricCard
+- GovTelemetryChart
+- GovEventLogger
+
+Required Functions/Handlers:
+- submitEventLog
+- refreshOperationalStatus
+- fetchAuditResults
+- fetchTransactionFlow
+
+Required Buttons:
+- Submit Event Log
+- Refresh Status
+
+Required APIs:
+- /v1/operational/status
+- /v1/audit/results
+- /v1/transaction/flow
+- /v1/event/logs
+
+Required Semantic Keys (data-cy):
+- hrstafffiles-btn-submit-event-log
+- hrstafffiles-btn-refresh-status

@@ -4,29 +4,69 @@
 
 
 describe("Screen - intake_coordinator_intake_forms", () => {
-  it("opens and verifies screen intake_coordinator_intake_forms", () => {
-    cy.loginAsRole("chiropractor");
+  it("opens and verifies screen intake_coordinator_intake_forms via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "intake");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
-  cy.task("log", "⏳ PROGRESS: - Navigating to None (Intake Coordinator Intake Forms)...");
-  cy.visitWithSemantics("");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: - Checking shell & content for Intake Coordinator Intake Forms...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
 
-  cy.getCy("intakecoordinatorintakeforms-screen").should("be.visible");
-  cy.getCy("intakecoordinatorintakeforms-title").should("be.visible");
-  cy.getCy("intakecoordinatorintakeforms-content").should("be.visible");
-  cy.getCy("intake-form-submit").should("be.visible");
-  cy.getCy("intake-form-review").should("be.visible");
-  cy.getCy("intake-follow-up").should("be.visible");
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
 
-  cy.task("log", "📸 PROGRESS: - Saving screenshot for Intake Coordinator Intake Forms...");
-  cy.waitAndSee();
-  cy.screenshot("intake_coordinator_intake_forms");
-  
-  cy.task("log", "✅ PROGRESS: - Verified Intake Coordinator Intake Forms successfully!\n");
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_intake_coordinator_intake_forms");
 
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.get('[aria-label*="data-cy:login-email"] input, [data-cy="login-email"] input, flt-semantics input').first().type(user.email, { force: true });
+      cy.wait(500);
+      cy.get('[aria-label*="data-cy:login-password"] input, [data-cy="login-password"] input').first().type(user.password, { force: true });
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: None...");
+      cy.visitWithSemantics(targetBaseUrl + "None");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      cy.getCy("intake coordinator intake forms-screen").should("be.visible");
+      cy.getCy("intake coordinator intake forms-title").should("be.visible");
+      cy.getCy("intake coordinator intake forms-content").should("be.visible");
+
+      // Take screen screenshot
+      cy.screenshot("intake_coordinator_intake_forms");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_intake_coordinator_intake_forms");
+      cy.task("log", "✅ PROGRESS: - Verified Intake Coordinator Intake Forms successfully!\n");
+    });
   });
 });

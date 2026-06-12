@@ -1,0 +1,29 @@
+Screen Code: compliance_manager_corrective_actions
+Screen Name: Compliance Manager Corrective Actions
+
+Required Components:
+- ComplianceMetricsCard
+- ComplianceDataChart
+- NotificationList
+- HistoricalDataAnalysis
+
+Required Functions/Handlers:
+- monitorComplianceActions
+- analyzeDashboardData
+- identifyImprovementAreas
+- documentCorrectiveActions
+
+Required Buttons:
+- Review Data
+- Document Action
+- Collaborate
+
+Required APIs:
+- /v1/compliance/corrective-actions
+- /v1/compliance/metrics
+- /v1/compliance/notifications
+
+Required Semantic Keys (data-cy):
+- compliance-dashboard-btn-review
+- compliance-dashboard-btn-document
+- compliance-dashboard-btn-collaborate

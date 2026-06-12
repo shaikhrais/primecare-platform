@@ -491,11 +491,16 @@ class GovernanceMasterLayout extends ConsumerWidget {
                             }
                           ),
                           const SizedBox(width: 8),
-                          IconButton(
-                            icon: Icon(LucideIcons.logOut, color: topbarIconColor),
-                            onPressed: () {
-                              ref.read(authProvider.notifier).logout();
-                            },
+                          Semantics(
+                            label: 'data-cy:topbar-logout-button',
+                            container: true,
+                            child: IconButton(
+                              key: const Key('topbar-logout-button'),
+                              icon: Icon(LucideIcons.logOut, color: topbarIconColor),
+                              onPressed: () {
+                                ref.read(authProvider.notifier).logout();
+                              },
+                            ),
                           ),
                           const SizedBox(width: 8),
                         ],
