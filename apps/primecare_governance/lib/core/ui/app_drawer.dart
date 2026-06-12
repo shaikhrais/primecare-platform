@@ -32,49 +32,52 @@ class AppDrawer extends ConsumerWidget {
 
     final sortedRoles = groupedByRole.keys.toList()..sort();
 
-    return Drawer(
-      backgroundColor: theme.colors.surface,
-      width: 300,
-      child: Column(
-        children: [
-          _buildHeader(context),
-          if (impersonatedRole != null)
-            _buildImpersonationBanner(context, ref, impersonatedRole),
-          _buildVisionControl(context, ref, visionMode),
-          Divider(color: theme.colors.outlineVariant, height: 1),
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-              children: [
-                _buildSectionHeader(context, 'SYSTEM CORE'.tr()),
-                _buildRegistryLink(context, 'CONTROL_CENTER'),
-                _buildRegistryLink(context, 'GOVERNANCE_HUD'),
-                _buildRegistryLink(context, 'SYSTEM_GOVERNANCE_DASHBOARD'),
-                _buildRegistryLink(context, 'MONITORING'),
-                _buildRegistryLink(context, 'VERIFICATION_CENTER'),
-                _buildRegistryLink(context, 'SECURITY_SENTINEL'),
-                _buildRegistryLink(context, 'SIDEBAR_MAPPING'),
-                _buildRegistryLink(context, 'CLINICAL_REFERENCE'),
-                const SizedBox(height: 16),
-                _buildSectionHeader(context, 'FEATURE GOVERNANCE'.tr()),
-                _buildRegistryLink(context, 'PROPOSALS'),
-                _buildRegistryLink(context, 'PROPOSAL_NEW'),
-                const SizedBox(height: 16),
-                _buildSectionHeader(context, 'ROLE REGISTRIES'.tr()),
-                ...sortedRoles.map((role) {
-                  return _buildRoleGroup(context, role, groupedByRole[role]!);
-                }),
-                const SizedBox(height: 16),
-                _buildSectionHeader(context, 'DESIGN & DEBUG'.tr()),
-                _buildRegistryLink(context, 'DEBUG_THEME'),
-                _buildRegistryLink(context, 'DEBUG_KITCHEN_SINK'),
-                const SizedBox(height: 24),
-              ],
+    return Cy(
+      id: 'app-sidebar',
+      child: Drawer(
+        backgroundColor: theme.colors.surface,
+        width: 300,
+        child: Column(
+          children: [
+            _buildHeader(context),
+            if (impersonatedRole != null)
+              _buildImpersonationBanner(context, ref, impersonatedRole),
+            _buildVisionControl(context, ref, visionMode),
+            Divider(color: theme.colors.outlineVariant, height: 1),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                children: [
+                  _buildSectionHeader(context, 'SYSTEM CORE'.tr()),
+                  _buildRegistryLink(context, 'CONTROL_CENTER'),
+                  _buildRegistryLink(context, 'GOVERNANCE_HUD'),
+                  _buildRegistryLink(context, 'SYSTEM_GOVERNANCE_DASHBOARD'),
+                  _buildRegistryLink(context, 'MONITORING'),
+                  _buildRegistryLink(context, 'VERIFICATION_CENTER'),
+                  _buildRegistryLink(context, 'SECURITY_SENTINEL'),
+                  _buildRegistryLink(context, 'SIDEBAR_MAPPING'),
+                  _buildRegistryLink(context, 'CLINICAL_REFERENCE'),
+                  const SizedBox(height: 16),
+                  _buildSectionHeader(context, 'FEATURE GOVERNANCE'.tr()),
+                  _buildRegistryLink(context, 'PROPOSALS'),
+                  _buildRegistryLink(context, 'PROPOSAL_NEW'),
+                  const SizedBox(height: 16),
+                  _buildSectionHeader(context, 'ROLE REGISTRIES'.tr()),
+                  ...sortedRoles.map((role) {
+                    return _buildRoleGroup(context, role, groupedByRole[role]!);
+                  }),
+                  const SizedBox(height: 16),
+                  _buildSectionHeader(context, 'DESIGN & DEBUG'.tr()),
+                  _buildRegistryLink(context, 'DEBUG_THEME'),
+                  _buildRegistryLink(context, 'DEBUG_KITCHEN_SINK'),
+                  const SizedBox(height: 24),
+                ],
+              ),
             ),
-          ),
-          Divider(color: theme.colors.outlineVariant, height: 1),
-          _buildFooter(context, authState),
-        ],
+            Divider(color: theme.colors.outlineVariant, height: 1),
+            _buildFooter(context, authState),
+          ],
+        ),
       ),
     );
   }
@@ -382,15 +385,18 @@ class AppDrawer extends ConsumerWidget {
               ],
             ),
           ),
-          IconButton(key: const Key('app_drawer_iconbutton_button_2'), 
-            icon: Icon(
-              Icons.logout_outlined,
-              color: theme.colors.error,
-              size: 20,
+          Cy(
+            id: 'logout-button',
+            child: IconButton(key: const Key('app_drawer_iconbutton_button_2'), 
+              icon: Icon(
+                Icons.logout_outlined,
+                color: theme.colors.error,
+                size: 20,
+              ),
+              onPressed: () {
+                context.go('/login');
+              },
             ),
-            onPressed: () {
-              context.go('/login');
-            },
           ),
         ],
       ),

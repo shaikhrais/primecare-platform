@@ -141,7 +141,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: CommonRoutes.login,
-        builder: (context, state) => const LoginView(),
+        builder: (context, state) => const AppShellBoundary(
+          child: LoginView(),
+        ),
       ),
       GoRoute(
         path: CommonRoutes.globalSettings,

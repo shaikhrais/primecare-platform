@@ -577,27 +577,33 @@ class DynamicScreenView extends GovernedConsumerWidget {
           SizedBox(height: context.s(16)),
           SizedBox(
             width: double.infinity,
-            child: PrimeButton.primary(
-              label: 'governance.dynamic_screen.initiate_development'.tr(),
-              icon: LucideIcons.code,
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Development initiation sequence activated for ${metadata.title}!')),
-                );
-              },
+            child: Cy(
+              id: 'initiate-development-btn',
+              child: PrimeButton.primary(
+                label: 'governance.dynamic_screen.initiate_development'.tr(),
+                icon: LucideIcons.code,
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Development initiation sequence activated for ${metadata.title}!')),
+                  );
+                },
+              ),
             ),
           ),
           SizedBox(height: context.s(12)),
           SizedBox(
             width: double.infinity,
-            child: PrimeButton.secondary(
-              label: 'governance.dynamic_screen.file_correction_ticket'.tr(),
-              icon: LucideIcons.ticket,
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('File correction ticket registry opened for ${metadata.title}!')),
-                );
-              },
+            child: Cy(
+              id: 'file-correction-ticket-btn',
+              child: PrimeButton.secondary(
+                label: 'governance.dynamic_screen.file_correction_ticket'.tr(),
+                icon: LucideIcons.ticket,
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('File correction ticket registry opened for ${metadata.title}!')),
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -1660,25 +1666,28 @@ class _HifiTelemetryDashboardState extends State<HifiTelemetryDashboard> {
                   ],
                 ),
                 const Spacer(),
-                IconButton(key: const Key('dynamic_screen_view_iconbutton_button_1'), 
-                  icon: isRefreshing
-                      ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
-                      : const Icon(LucideIcons.refreshCw),
-                  onPressed: isRefreshing ? null : () {
-                    setState(() {
-                      isRefreshing = true;
-                    });
-                    Future.delayed(1000.ms, () {
-                      if (mounted) {
-                        setState(() {
-                          isRefreshing = false;
-                          currentLoad = 40 + (DateTime.now().second % 35).toDouble();
-                          telemetryDataPoints.removeAt(0);
-                          telemetryDataPoints.add(currentLoad);
-                        });
-                      }
-                    });
-                  },
+                Cy(
+                  id: 'dynamic-telemetry-refresh-btn',
+                  child: IconButton(key: const Key('dynamic_screen_view_iconbutton_button_1'), 
+                    icon: isRefreshing
+                        ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                        : const Icon(LucideIcons.refreshCw),
+                    onPressed: isRefreshing ? null : () {
+                      setState(() {
+                        isRefreshing = true;
+                      });
+                      Future.delayed(1000.ms, () {
+                        if (mounted) {
+                          setState(() {
+                            isRefreshing = false;
+                            currentLoad = 40 + (DateTime.now().second % 35).toDouble();
+                            telemetryDataPoints.removeAt(0);
+                            telemetryDataPoints.add(currentLoad);
+                          });
+                        }
+                      });
+                    },
+                  ),
                 ),
               ],
             ),
@@ -1881,7 +1890,7 @@ class BlueprintSandboxView extends GovernedConsumerStatefulWidget {
   const BlueprintSandboxView({required this.metadata, super.key});
 
   @override
-  State<BlueprintSandboxView> createState() => _BlueprintSandboxViewState();
+  ConsumerState<BlueprintSandboxView> createState() => _BlueprintSandboxViewState();
 }
 
 class _BlueprintSandboxViewState extends GovernedConsumerState<BlueprintSandboxView> {
@@ -2033,21 +2042,24 @@ class _BlueprintSandboxViewState extends GovernedConsumerState<BlueprintSandboxV
                     ],
                   ),
                   SizedBox(height: context.s(16)),
-                  TextField(key: const Key('dynamic_screen_view_textfield_input_1'), 
-                    style: const TextStyle(color: Colors.white, fontFamily: 'monospace'),
-                    decoration: InputDecoration(
-                      hintText: 'Filter keys (e.g. status)...',
-                      hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.3)),
-                      prefixIcon: const Icon(LucideIcons.search, color: Colors.white54),
-                      filled: true,
-                      fillColor: const Color(0xFF0D152D),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(context.s(8)), borderSide: BorderSide.none),
+                  Cy(
+                    id: 'dynamic-grid-search-input',
+                    child: TextField(key: const Key('dynamic_screen_view_textfield_input_1'), 
+                      style: const TextStyle(color: Colors.white, fontFamily: 'monospace'),
+                      decoration: InputDecoration(
+                        hintText: 'Filter keys (e.g. status)...',
+                        hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.3)),
+                        prefixIcon: const Icon(LucideIcons.search, color: Colors.white54),
+                        filled: true,
+                        fillColor: const Color(0xFF0D152D),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(context.s(8)), borderSide: BorderSide.none),
+                      ),
+                      onChanged: (val) {
+                        setState(() {
+                          jsonSearchQuery = val;
+                        });
+                      },
                     ),
-                    onChanged: (val) {
-                      setState(() {
-                        jsonSearchQuery = val;
-                      });
-                    },
                   ),
                   SizedBox(height: context.s(20)),
                   Expanded(
@@ -2176,7 +2188,7 @@ class AuditSandboxView extends GovernedConsumerStatefulWidget {
   const AuditSandboxView({required this.metadata, super.key});
 
   @override
-  State<AuditSandboxView> createState() => _AuditSandboxViewState();
+  ConsumerState<AuditSandboxView> createState() => _AuditSandboxViewState();
 }
 
 class _AuditSandboxViewState extends GovernedConsumerState<AuditSandboxView> {
@@ -2391,42 +2403,45 @@ class _AuditSandboxViewState extends GovernedConsumerState<AuditSandboxView> {
                               Row(
                                 children: [
                                   Expanded(
-                                    child: PrimeButton.primary(
-                                      label: isFullyRemediated 
-                                          ? 'Remediation Locked & Compliant' 
-                                          : (isRemediating ? 'Scanning AST Trees...' : 'Autopatch & Remediate Screen'),
-                                      icon: LucideIcons.zap,
-                                      onPressed: isFullyRemediated || isRemediating ? null : () {
-                                        setState(() {
-                                          isRemediating = true;
-                                          remediationProgress = 0.0;
-                                          consoleLogs.insert(0, '[00:01] Initializing AST Engine...');
-                                        });
-
-                                        Future.doWhile(() async {
-                                          await Future.delayed(300.ms);
-                                          if (!mounted) return false;
+                                    child: Cy(
+                                      id: 'autopatch-remediate-btn',
+                                      child: PrimeButton.primary(
+                                        label: isFullyRemediated 
+                                            ? 'Remediation Locked & Compliant' 
+                                            : (isRemediating ? 'Scanning AST Trees...' : 'Autopatch & Remediate Screen'),
+                                        icon: LucideIcons.zap,
+                                        onPressed: isFullyRemediated || isRemediating ? null : () {
                                           setState(() {
-                                            remediationProgress += 0.2;
+                                            isRemediating = true;
+                                            remediationProgress = 0.0;
+                                            consoleLogs.insert(0, '[00:01] Initializing AST Engine...');
                                           });
 
-                                          if (remediationProgress >= 0.2 && remediationProgress < 0.4) {
-                                            consoleLogs.insert(0, '[00:02] Injecting translation tr() hooks into action fields...');
-                                          } else if (remediationProgress >= 0.4 && remediationProgress < 0.6) {
-                                            consoleLogs.insert(0, '[00:03] Injecting padding viewport safe adapters...');
-                                          } else if (remediationProgress >= 0.6 && remediationProgress < 0.8) {
-                                            consoleLogs.insert(0, '[00:04] Resolving missing telemetry event triggers...');
-                                          } else if (remediationProgress >= 1.0) {
+                                          Future.doWhile(() async {
+                                            await Future.delayed(300.ms);
+                                            if (!mounted) return false;
                                             setState(() {
-                                              isRemediating = false;
-                                              isFullyRemediated = true;
-                                              consoleLogs.insert(0, '[00:05] Audit Complete! Integrity secured and certified.');
+                                              remediationProgress += 0.2;
                                             });
-                                            return false;
-                                          }
-                                          return true;
-                                        });
-                                      },
+
+                                            if (remediationProgress >= 0.2 && remediationProgress < 0.4) {
+                                              consoleLogs.insert(0, '[00:02] Injecting translation tr() hooks into action fields...');
+                                            } else if (remediationProgress >= 0.4 && remediationProgress < 0.6) {
+                                              consoleLogs.insert(0, '[00:03] Injecting padding viewport safe adapters...');
+                                            } else if (remediationProgress >= 0.6 && remediationProgress < 0.8) {
+                                              consoleLogs.insert(0, '[00:04] Resolving missing telemetry event triggers...');
+                                            } else if (remediationProgress >= 1.0) {
+                                              setState(() {
+                                                isRemediating = false;
+                                                isFullyRemediated = true;
+                                                consoleLogs.insert(0, '[00:05] Audit Complete! Integrity secured and certified.');
+                                              });
+                                              return false;
+                                            }
+                                            return true;
+                                          });
+                                        },
+                                      ),
                                     ),
                                   ),
                                 ],

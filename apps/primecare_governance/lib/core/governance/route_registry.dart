@@ -4,6 +4,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/routes/auth_callback_view.dart';
 import '../ui/dynamic_screen_view.dart';
 import '../ui/language_selector.dart';
+import '../ui/app_drawer.dart';
 import '../../features/qa/screens/audit_dashboard_screen.dart';
 import '../../features/qa/screens/compliance_reviews_screen.dart';
 import '../../features/qa/screens/incident_reports_screen.dart';
@@ -113,6 +114,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           return MasterLayout(
             title: title,
             shellType: AppShellType.admin,
+            drawer: const AppDrawer(),
             endDrawer: AuraNexusConsoleDrawer(activeScreenId: screenId),
             actions: [
               const LanguageSelector(),
