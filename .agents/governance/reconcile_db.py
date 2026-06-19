@@ -1078,34 +1078,56 @@ def reconcile():
             app_code_for_screen = resolve_app_code_for_role(role_code)
             app_db_id = apps_mapping.get(app_code_for_screen, ui_app_db_id)
 
-            # Auto-reconcile: insert stub screen and permissions
+            # Auto-reconcile: check if screen already exists in the DB (under app_db_id and screen_code)
             layout_key = 'clinicalLayout' if parsed['has_physical_sidebar'] else 'masterLayout'
-            cursor.execute("""
-            INSERT OR IGNORE INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, screen_status)
-            VALUES (?, ?, ?, ?, 'dashboard', ?, 'active')
-            """, (app_db_id, screen_code, parsed['screen_name'], parsed['path'], layout_key))
-            screen_db_id = cursor.lastrowid
+            cursor.execute("SELECT id FROM screens WHERE app_id = ? AND screen_code = ?;", (app_db_id, screen_code))
+            row_scr = cursor.fetchone()
+            if row_scr:
+                screen_db_id = row_scr[0]
+                cursor.execute("""
+                UPDATE screens
+                SET screen_type = 'dashboard', implementation_status = 'active', layout_key = ?
+                WHERE id = ?;
+                """, (layout_key, screen_db_id))
+            else:
+                cursor.execute("""
+                INSERT INTO screens (app_id, screen_code, screen_name, route_path, screen_type, layout_key, implementation_status)
+                VALUES (?, ?, ?, ?, 'dashboard', ?, 'active')
+                """, (app_db_id, screen_code, parsed['screen_name'], parsed['path'], layout_key))
+                screen_db_id = cursor.lastrowid
+
             role_db_id = roles_mapping.get(role_code, roles_mapping.get('guest'))
             
-            cursor.execute("""
-            INSERT OR IGNORE INTO role_screen_permissions (role_id, screen_id, can_view, can_create, can_edit, can_delete, can_export)
-            VALUES (?, ?, 1, 0, 0, 0, 1)
-            """, (role_db_id, screen_db_id))
+            if screen_db_id and role_db_id:
+                cursor.execute("""
+                INSERT OR IGNORE INTO role_screen_permissions (role_id, screen_id, can_view, can_create, can_edit, can_delete, can_export)
+                VALUES (?, ?, 1, 0, 0, 0, 1)
+                """, (role_db_id, screen_db_id))
             
             # Seed children components
             for idx, item in enumerate(parsed['sidebar_items'], 1):
-                cursor.execute("""
-                INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, api_id, implementation_status)
-                VALUES (?, ?, ?, ?, NULL, 'active')
-                """, (screen_db_id, f"FUN_{screen_code}_{item['code']}", f"onTap_{item['code']}", f"shortcut: {item['callback']}"))
-                func_db_id = cursor.lastrowid
+                # 1. Seed screen function
+                cursor.execute("SELECT id FROM screen_functions WHERE screen_id = ? AND function_code = ?;", (screen_db_id, f"FUN_{screen_code}_{item['code']}"))
+                func_row = cursor.fetchone()
+                if func_row:
+                    func_db_id = func_row[0]
+                else:
+                    cursor.execute("""
+                    INSERT INTO screen_functions (screen_id, function_code, function_name, function_type, api_id, implementation_status)
+                    VALUES (?, ?, ?, ?, NULL, 'active')
+                    """, (screen_db_id, f"FUN_{screen_code}_{item['code']}", f"onTap_{item['code']}", f"shortcut: {item['callback']}"))
+                    func_db_id = cursor.lastrowid
                 
-                cursor.execute("""
-                INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, file_path, implementation_status)
-                VALUES (?, ?, ?, 'button', ?, ?, 'active')
-                """, (screen_db_id, f"CMP_{screen_code}_{item['code']}", item['label'], f"data-cy-{item['code']}", parsed['path']))
+                # 2. Seed screen component
+                cursor.execute("SELECT id FROM screen_components WHERE screen_id = ? AND component_code = ?;", (screen_db_id, f"CMP_{screen_code}_{item['code']}"))
+                comp_row = cursor.fetchone()
+                if not comp_row:
+                    cursor.execute("""
+                    INSERT INTO screen_components (screen_id, component_code, component_name, component_type, data_cy, file_path, implementation_status)
+                    VALUES (?, ?, ?, 'button', ?, ?, 'active')
+                    """, (screen_db_id, f"CMP_{screen_code}_{item['code']}", item['label'], f"data-cy-{item['code']}", parsed['path']))
                 
-                # Seed role function permissions automatically
+                # 3. Seed role function permissions automatically
                 cursor.execute("INSERT OR IGNORE INTO role_function_permissions (role_id, function_id, can_execute) VALUES (?, ?, 1);",
                                (role_db_id, func_db_id))
                 
@@ -1377,7 +1399,13 @@ def reconcile():
     # Compile the new dependency graph
     compile_dependency_graph(conn)
 
+    # Write the compiled report to disk
+    with open(report_path, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(rep))
+
     conn.close()
+
+    print("Detected anomalies:", anomalies)
 
     print("=====================================================")
     print(f"Governance Report compiled: {report_path}")

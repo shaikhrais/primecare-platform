@@ -112,7 +112,12 @@ def fix_insert_statement(ins):
                 route = row.get('route_path', 'NULL')
                 if route == 'NULL' or route == "''" or route == '""':
                     scr_id = row['id']
-                    row['route_path'] = f"'/unmapped/screen-{scr_id}'"
+                    scr_code = row.get('screen_code', '').replace("'", "").replace('"', '').strip()
+                    if scr_code:
+                        clean_route = f"/generated/{scr_code.replace('_', '-')}"
+                    else:
+                        clean_route = f"/generated/screen-{scr_id}"
+                    row['route_path'] = f"'{clean_route}'"
                     
                     # Reconstruct statement
                     new_vals = [row[c] for c in cols]
@@ -143,11 +148,16 @@ def import_data():
     cur.execute("PRAGMA foreign_keys = OFF;")
     
     # Clear tables
-    print("Clearing tables orgs, apps, roles, screens...")
-    cur.execute("DELETE FROM screens;")
-    cur.execute("DELETE FROM roles;")
-    cur.execute("DELETE FROM apps;")
-    cur.execute("DELETE FROM orgs;")
+    print("Clearing tables orgs, apps, roles, screens and dependent registries...")
+    tables_to_clear = [
+        "screens", "roles", "apps", "orgs",
+        "screen_functions", "screen_components", 
+        "role_function_permissions", "role_screen_permissions",
+        "sidebar_items", "package_files", "artifact_ownership",
+        "router_mounts", "layout_bindings"
+    ]
+    for tbl in tables_to_clear:
+        cur.execute(f"DELETE FROM [{tbl}];")
     
     # Find all INSERT INTO statements
     print("Parsing INSERT statements...")
@@ -204,7 +214,20 @@ def import_data():
         WHERE route_path LIKE '/unmapped/%';
     """)
     print(f"Flagged {cur.rowcount} inactive/unmapped routes.")
-    
+
+    # Resolve default role IDs
+    cur.execute("SELECT id FROM roles WHERE role_code = 'guest' LIMIT 1;")
+    guest_row = cur.fetchone()
+    guest_role_id = guest_row[0] if guest_row else 13
+
+    # Set default role_id for screens where role_id is NULL
+    cur.execute("""
+        UPDATE screens
+        SET role_id = ?
+        WHERE role_id IS NULL;
+    """, (guest_role_id,))
+    print(f"Assigned default role_id to {cur.rowcount} screens.")
+
     # Populate role_screen_permissions based on screens.role_id
     print("Populating role_screen_permissions for imported screens with role assignments...")
     cur.execute("DELETE FROM role_screen_permissions;")

@@ -1,35 +1,32 @@
-import sqlite3
 import os
+import sqlite3
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(PROJECT_ROOT, ".agents", "governance", "governance.db")
 
 def main():
     conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
-    # Check screens app mapping
-    cursor.execute("""
-        SELECT a.app_name, COUNT(s.id) 
-        FROM screens s 
-        LEFT JOIN apps a ON s.app_id = a.id 
-        GROUP BY s.app_id
-    """)
-    print("=== Screens per Application ===")
-    for r in cursor.fetchall():
-        print(f"  {r[0] or 'No App'}: {r[1]} screens")
+    # Let's inspect screen_functions for CnsDashboardScreen, CourseArchitectDashboardScreen, etc.
+    screens = ['cns_dashboard', 'course_architect_dashboard', 'social_worker_dashboard', 'training_hub_dashboard', 'hr_director_dashboard']
+    
+    for s_code in screens:
+        cursor.execute("SELECT id, screen_name FROM screens WHERE screen_code = ?;", (s_code,))
+        row = cursor.fetchone()
+        if not row:
+            print(f"Screen {s_code} not found in DB.")
+            continue
+            
+        screen_id = row['id']
+        print(f"\nScreen: {row['screen_name']} (id={screen_id})")
         
-    # Check screens role mapping
-    cursor.execute("""
-        SELECT r.role_name, COUNT(s.id) 
-        FROM screens s 
-        LEFT JOIN roles r ON s.role_id = r.id 
-        GROUP BY s.role_id
-    """)
-    print("\n=== Screens per Role (Top 10) ===")
-    for r in cursor.fetchall()[:10]:
-        print(f"  {r[0] or 'No Role'}: {r[1]} screens")
-        
+        cursor.execute("SELECT id, function_code, function_name FROM screen_functions WHERE screen_id = ?;", (screen_id,))
+        funcs = cursor.fetchall()
+        for f in funcs:
+            print(f"  Func: {f['function_code']} | Name: {f['function_name']} (id={f['id']})")
+            
     conn.close()
 
 if __name__ == '__main__':
