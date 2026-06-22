@@ -141,7 +141,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/roles/dynamic_screen/dashboard"
+    "post_login_route": "/common/customer-support-dashboard"
   },
   {
     "role_code": "infrastructure",
@@ -150,7 +150,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/roles/infrastructure/dashboard"
+    "post_login_route": "/common/infrastructure-dashboard"
   },
   {
     "role_code": "system_verification",
@@ -159,7 +159,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/roles/system_verification/dashboard"
+    "post_login_route": "/common/qa-dashboard"
   },
   {
     "role_code": "training",
@@ -168,7 +168,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/roles/training_hub/dashboard"
+    "post_login_route": "/common/training-hub-dashboard"
   },
   {
     "role_code": "ceo",
@@ -321,7 +321,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/roles/system/dashboard"
+    "post_login_route": "/common/system-dashboard"
   },
   {
     "role_code": "bus_dev",
@@ -393,7 +393,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/roles/scrum_master/dashboard"
+    "post_login_route": "/offices/system/roles/scrum_master/dashboard"
   },
   {
     "role_code": "hr_hiring",
@@ -510,7 +510,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/roles/employee/dashboard"
+    "post_login_route": "/staff/employee-dashboard"
   },
   {
     "role_code": "volunteer",
@@ -519,7 +519,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/roles/volunteer/dashboard"
+    "post_login_route": "/staff/volunteer-dashboard"
   },
   {
     "role_code": "admin",
@@ -528,7 +528,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/roles/office/dashboard"
+    "post_login_route": "/common/office-dashboard"
   },
   {
     "role_code": "scheduler",
@@ -553,9 +553,9 @@
     "email": "qa.training_coordinator@test.primecare.local",
     "password": "Test@12345",
     "app_code": "governance",
-    "app_url": "https://primecare-governance.pages.dev",
-    "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/roles/training_coordinator/dashboard"
+    "app_url": "https://primecare-clinic.pages.dev",
+    "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
+    "post_login_route": "/staff/training-dashboard"
   },
   {
     "role_code": "qa_specialist",
