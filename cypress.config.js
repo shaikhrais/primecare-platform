@@ -5,6 +5,7 @@ module.exports = defineConfig({
   screenshotOnRunFailure: true,
   includeShadowDom: true,
   trashAssetsBeforeRuns: false,
+  chromeWebSecurity: false,
   defaultCommandTimeout: 15000,
   pageLoadTimeout: 90000,
   viewportWidth: 1920,

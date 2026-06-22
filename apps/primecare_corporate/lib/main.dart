@@ -31,14 +31,16 @@ class PrimeCareCorporateApp extends ConsumerWidget {
 
     final tenant = corporate.PrimeCareTenant();
 
-    return MaterialApp.router(
-      title: 'PrimeCare Corporate Portal',
-      theme: tenant.branding,
-      routerConfig: ref.watch(appRouterProvider),
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
+    return AppShellBoundary(
+      child: MaterialApp.router(
+        title: 'PrimeCare Corporate Portal',
+        theme: tenant.branding,
+        routerConfig: ref.watch(appRouterProvider),
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+      ),
     );
   }
 }

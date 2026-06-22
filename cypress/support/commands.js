@@ -95,40 +95,74 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
     const user = users.find((u) => u.role_code === roleCode);
     if (!user) throw new Error(`No test user for role ${roleCode}`);
 
-    const targetBaseUrl = Cypress.config().baseUrl || user.app_url; // Respect local baseUrl if configured, fallback to deployed URL!
+    const authUrl = "https://primecare-auth.pages.dev/login";
 
-    // Mock the workers API me endpoint to return successful profile immediately!
-    cy.intercept("GET", "**/me", (req) => {
+    const mockToken = "mock-jwt-token-" + user.role_code;
+    const mockUserId = "test-user-id-" + user.role_code;
+
+    // Intercept POST **/login request from the login form
+    cy.intercept("POST", "**/login", (req) => {
       req.reply({
         statusCode: 200,
         body: {
           status: "success",
-          userId: user.role_code + "-user-id",
-          email: user.email,
-          roles: [user.role_code],
-          tenantId: "primecare_hq",
-          firstName: "Active",
-          lastName: "User"
+          token: mockToken,
+          userId: mockUserId,
+          role: user.role_code,
+          userName: "Active User",
+          tenantId: "primecare_hq"
         }
+      });
+    }).as("loginMock");
+
+    // Intercept GET **/auth/me or **/me to return mock user data for session restoration
+    const mockUserResponse = {
+      token: mockToken,
+      role: user.role_code,
+      roles: user.role_code,
+      userId: mockUserId,
+      tenantId: "primecare_hq",
+      activeRole: user.role_code,
+      user: {
+        id: mockUserId,
+        firstName: "QA",
+        lastName: user.role_code.toUpperCase(),
+        roles: [user.role_code],
+        tenantId: "primecare_hq",
+        preferredLanguage: "en",
+        email: user.email
+      }
+    };
+
+    cy.intercept("GET", "**/auth/me", (req) => {
+      req.reply({
+        statusCode: 200,
+        body: mockUserResponse
       });
     }).as("meMock");
 
-    // Visit the target post-login route directly, seeding local storage BEFORE the app scripts run!
-    const cacheBuster = `cb=${Date.now()}`;
-    cy.visit(targetBaseUrl + user.post_login_route + "?enable-semantics=true&" + cacheBuster, {
-      onBeforeLoad(win) {
-        win.localStorage.setItem("flutter.auth_token", JSON.stringify("mock-token-exchange-success"));
-        win.localStorage.setItem("flutter.auth_role", JSON.stringify(user.role_code));
-        win.localStorage.setItem("flutter.auth_tenant_id", JSON.stringify("primecare_hq"));
-        win.localStorage.setItem("flutter.auth_username", JSON.stringify("Active User"));
-        win.localStorage.setItem("flutter.auth_user_id", JSON.stringify(user.role_code + "-user-id"));
-        win.localStorage.setItem("flutter.auth_preferred_language", JSON.stringify("en"));
+    cy.intercept("GET", "**/me", (req) => {
+      req.reply({
+        statusCode: 200,
+        body: mockUserResponse
+      });
+    }).as("meMock2");
 
-        win.sessionStorage.setItem("flutter.auth_token", JSON.stringify("mock-token-exchange-success"));
-        win.sessionStorage.setItem("flutter.auth_role", JSON.stringify(user.role_code));
-        win.document.cookie = "session_token=mock-token-exchange-success; path=/; domain=" + win.location.hostname + ";";
+    // Visit the live auth login page with redirect_uri to match real-world SSO flow
+    const cacheBuster = `cb=${Date.now()}`;
+    const url = `${authUrl}?redirect_uri=${encodeURIComponent(user.redirect_url)}&enable-semantics=true&${cacheBuster}`;
+
+    cy.visit(url, {
+      onBeforeLoad(win) {
+        // Clear any existing stored credentials to ensure clean login form load
+        win.localStorage.clear();
+        win.sessionStorage.clear();
+        // Seed the language preference so we don't get redirected to the /language view!
+        win.localStorage.setItem("flutter.auth_language_selected", "true");
+        win.localStorage.setItem("flutter.auth_preferred_language", JSON.stringify("en"));
       }
     });
+
     cy.wait(4000);
 
     // Apply the standard semantics layout rules to prevent double-render coordinate issues
@@ -144,20 +178,25 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
       `;
       doc.head.appendChild(style);
     });
-    cy.wait(500);
+    cy.wait(1000);
 
-    // Verify dynamic sidebar, topbar, and shell rendering to guarantee dashboard has successfully loaded!
-    cy.get('[aria-label*="data-cy:app-shell"], [data-cy="app-shell"]', { includeShadowDom: true, timeout: 20000 })
-      .should("be.visible");
-    cy.get('[aria-label*="data-cy:app-topbar"], [data-cy="app-topbar"]', { includeShadowDom: true })
-      .should("be.visible");
-    cy.get('[aria-label*="data-cy:app-sidebar"], [data-cy="app-sidebar"]', { includeShadowDom: true })
-      .should("be.visible");
-    cy.get('[aria-label*="data-cy:app-content-slot"], [data-cy="app-content-slot"]', { includeShadowDom: true })
-      .should("be.visible");
-      
-    // Assert correct landing route
+    // Actively type email and password into the login fields with stabilizing delays
+    cy.typeIntoField("login-email", user.email);
+    cy.wait(1000);
+    cy.typeIntoField("login-password", user.password);
+    cy.wait(1000);
+
+    // Click the submit button to initiate login
+    cy.getCy("login-submit").first().click({ force: true });
+
+    // Wait for E2E cross-origin redirect to complete and land on the actual dashboard
+    cy.wait(8000);
+
+    // Verify the URL includes the role-specific post-login route
     cy.url().should("include", user.post_login_route);
+
+    // Verify that the shell layout is present on the dashboard
+    cy.verifyShellExists();
   });
 });
 

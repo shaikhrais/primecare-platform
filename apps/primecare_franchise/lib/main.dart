@@ -34,16 +34,18 @@ class PrimeCareFranchiseApp extends ConsumerWidget {
     final router = ref.watch(appRouterProvider);
     const primeTheme = PrimeThemeData();
 
-    return PrimeTheme(
-      data: primeTheme,
-      child: MaterialApp.router(
-        title: 'PrimeCare Franchise',
-        debugShowCheckedModeBanner: false,
-        theme: primeTheme.toThemeData(),
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        routerConfig: router,
+    return AppShellBoundary(
+      child: PrimeTheme(
+        data: primeTheme,
+        child: MaterialApp.router(
+          title: 'PrimeCare Franchise',
+          debugShowCheckedModeBanner: false,
+          theme: primeTheme.toThemeData(),
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          routerConfig: router,
+        ),
       ),
     );
   }

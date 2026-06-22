@@ -61,20 +61,75 @@ class PrimeCareAuthApp extends ConsumerWidget {
     final tenant = AuthTenant();
     final primeTheme = tenant.primeThemeData;
 
-    return PrimeTheme(
-      data: primeTheme,
-      child: MaterialApp.router(
-        title: 'PrimeCare Identity Portal',
-        theme: primeTheme.toThemeData(),
-        routerConfig: router,
-        debugShowCheckedModeBanner: false,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
+    return AppShellBoundary(
+      child: PrimeTheme(
+        data: primeTheme,
+        child: MaterialApp.router(
+          title: 'PrimeCare Identity Portal',
+          theme: primeTheme.toThemeData(),
+          routerConfig: router,
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+        ),
       ),
     );
   }
 }
+
+// Memory-safe guard to ensure force_login is only evaluated once per page mount
+String getPortalUrlForRole(String role) {
+  final r = role.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_');
+  
+  if (r.contains('ceo') || r.contains('cfo') || r.contains('ciso') || 
+      r.contains('coo') || r.contains('cto') || r.contains('legal') || 
+      r.contains('shareholder') || r.contains('compliance') || 
+      r.contains('training_director') || r.contains('finance_director') || 
+      r.contains('volunteer_coordinator') || r.contains('bus_dev') || 
+      r.contains('marketing') || r.contains('cx_director') || r.contains('hr_director')) {
+    return 'https://primecare-corporate.pages.dev';
+  }
+  
+  if (r.contains('regional_manager') || r.contains('franchise_sales') || 
+      r.contains('partnership') || r.contains('territory_expansion') || 
+      r.contains('general_manager') || r.contains('gm') || r.contains('regional_bdm')) {
+    return 'https://primecare-business-development.pages.dev';
+  }
+  
+  if (r.contains('owner') || r.contains('ops_manager') || r.contains('scheduler') || 
+      r.contains('coordinator') || r.contains('billing_admin') || r.contains('hr_hiring') || r.contains('hr_manager')) {
+    return 'https://primecare-franchise.pages.dev';
+  }
+  
+  if (r.contains('customer_support') || r.contains('premium_concierge') || r.contains('vip_manager') || r.contains('qa_specialist')) {
+    return 'https://primecare-support.pages.dev';
+  }
+  
+  if (r.contains('local_marketing') || r.contains('community_outreach')) {
+    return 'https://primecare-marketing.pages.dev';
+  }
+  
+  if (r.contains('clinical_director') || r == 'psw' || r == 'chiropractor' || 
+      r == 'physio' || r == 'physiotherapist' || r == 'rmt' || 
+      r == 'social_worker' || r == 'therapist' || r == 'caregiver' || 
+      r == 'rn' || r == 'rpn' || r == 'lpn' || r == 'np' || r == 'physician' || r == 'cns' || r == 'pediatric' || r == 'hsw') {
+    return 'https://primecare-clinic.pages.dev';
+  }
+  
+  if (r == 'client' || r.contains('family') || r == 'patient' || r == 'portal') {
+    return 'https://primecare-client.pages.dev';
+  }
+  
+  if (r.contains('system_verification') || r.contains('infrastructure') || 
+      r.contains('dynamic') || r.contains('training') || r == 'admin' || r == 'employee' || r == 'volunteer' || r == 'governance') {
+    return 'https://primecare-governance.pages.dev';
+  }
+  
+  return 'https://primecare-auth.pages.dev';
+}
+
+final loginSuccessRedirectProvider = StateProvider<bool>((ref) => false);
 
 // Memory-safe guard to ensure force_login is only evaluated once per page mount
 bool _hasForcedLogout = false;
@@ -95,12 +150,29 @@ final authRouterProvider = Provider<GoRouter>((ref) {
       final isAtLanguage = state.uri.path == '/language';
       final redirectUri = state.uri.queryParameters['redirect_uri'];
 
+      // Reset the flag when we leave the login page
+      if (!isAtLogin) {
+        Future.microtask(() {
+          ref.read(loginSuccessRedirectProvider.notifier).state = false;
+        });
+      }
+
       // Redirection: Check if a language has ever been persistently selected
       final prefs = ref.read(sharedPreferencesProvider);
       final hasSelectedLanguage = prefs?.getBool('auth_language_selected') ?? false;
 
       if (!hasSelectedLanguage && !isAtLanguage) {
         return '/language${redirectUri != null ? '?redirect_uri=${Uri.encodeComponent(redirectUri)}' : ''}';
+      }
+
+      final justLoggedIn = ref.read(loginSuccessRedirectProvider);
+
+      // Force logout if the user directly accesses the login route to ensure credentials entry is shown
+      if (isAtLogin && authState.isAuthenticated && !justLoggedIn) {
+        Future.microtask(() {
+          ref.read(authProvider.notifier).logout();
+        });
+        return null;
       }
 
       final forceLogin = state.uri.queryParameters['force_login'] == 'true';
@@ -129,12 +201,28 @@ final authRouterProvider = Provider<GoRouter>((ref) {
       // If authenticated and trying to log in (or just logged in)
       if (authState.isAuthenticated) {
         if (redirectUri != null && redirectUri.isNotEmpty) {
-          // If already at the consent page, stay there
-          if (state.uri.path == '/consent') {
-            return null;
+          final delimiter = redirectUri.contains('?') ? '&' : '?';
+          final urlWithToken = '$redirectUri${delimiter}token=${authState.token ?? ''}&role=${Uri.encodeComponent(authState.role ?? '')}&userId=${authState.userId ?? ''}';
+          if (kIsWeb) {
+            Future.microtask(() {
+              web.window.location.href = urlWithToken;
+            });
           }
-          // Redirect to secure consent page instead of silent auto-redirect
-          return '/consent?redirect_uri=${Uri.encodeComponent(redirectUri)}';
+          return null;
+        }
+
+        // Direct Dashboard auto-redirection if no redirectUri is provided
+        final portalUrl = getPortalUrlForRole(authState.role ?? '');
+        if (portalUrl != 'https://primecare-auth.pages.dev') {
+          final dashboardRoute = AuthNotifier.getDashboardRouteForRole(authState.role ?? '');
+          final delimiter = portalUrl.contains('?') ? '&' : '?';
+          final urlWithToken = '$portalUrl/auth/callback${delimiter}route=${Uri.encodeComponent(dashboardRoute)}&token=${authState.token ?? ''}&role=${Uri.encodeComponent(authState.role ?? '')}&userId=${authState.userId ?? ''}';
+          if (kIsWeb) {
+            Future.microtask(() {
+              web.window.location.href = urlWithToken;
+            });
+          }
+          return null;
         }
         
         // If not redirecting, show success profile dashboard
@@ -181,12 +269,27 @@ class LoginViewWrapper extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<AuthState>(authProvider, (previous, next) {
       if (next.isAuthenticated && !(previous?.isAuthenticated ?? false)) {
+        ref.read(loginSuccessRedirectProvider.notifier).state = true;
         final state = GoRouterState.of(context);
         final redirectUri = state.uri.queryParameters['redirect_uri'];
         if (redirectUri != null && redirectUri.isNotEmpty) {
-          context.go('/consent?redirect_uri=${Uri.encodeComponent(redirectUri)}');
+          final delimiter = redirectUri.contains('?') ? '&' : '?';
+          final urlWithToken = '$redirectUri${delimiter}token=${next.token ?? ''}&role=${Uri.encodeComponent(next.role ?? '')}&userId=${next.userId ?? ''}';
+          if (kIsWeb) {
+            web.window.location.href = urlWithToken;
+          }
         } else {
-          context.go('/success');
+          final portalUrl = getPortalUrlForRole(next.role ?? '');
+          if (portalUrl != 'https://primecare-auth.pages.dev') {
+            final dashboardRoute = AuthNotifier.getDashboardRouteForRole(next.role ?? '');
+            final delimiter = portalUrl.contains('?') ? '&' : '?';
+            final urlWithToken = '$portalUrl/auth/callback${delimiter}route=${Uri.encodeComponent(dashboardRoute)}&token=${next.token ?? ''}&role=${Uri.encodeComponent(next.role ?? '')}&userId=${next.userId ?? ''}';
+            if (kIsWeb) {
+              web.window.location.href = urlWithToken;
+            }
+          } else {
+            context.go('/success');
+          }
         }
       }
     });
@@ -450,171 +553,97 @@ class _ConsentViewBody extends ConsumerStatefulWidget {
 }
 
 class _ConsentViewBodyState extends ConsumerState<_ConsentViewBody> {
-  bool _isRedirecting = false;
+  @override
+  void initState() {
+    super.initState();
+    _startAutoRedirect();
+  }
+
+  void _startAutoRedirect() {
+    Future.microtask(() async {
+      // Small delay to make the transition feel natural and visual feedback clean
+      await Future<void>.delayed(const Duration(milliseconds: 600));
+      if (!mounted) return;
+      
+      final authState = ref.read(authProvider);
+      final redirectUri = widget.redirectUri;
+      final delimiter = redirectUri.contains('?') ? '&' : '?';
+      final urlWithToken = '$redirectUri${delimiter}token=${authState.token ?? ''}&role=${Uri.encodeComponent(authState.role ?? '')}&userId=${authState.userId ?? ''}';
+      
+      web.window.location.href = urlWithToken;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final authState = ref.watch(authProvider);
     final theme = context.theme;
-    
-    String appHost = widget.redirectUri;
-    try {
-      final uri = Uri.parse(widget.redirectUri);
-      appHost = uri.host.isNotEmpty ? uri.host : widget.redirectUri;
-    } catch (_) {}
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC), // Slate 50
+      backgroundColor: const Color(0xFF0F172A), // Premium Dark Slate
       body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 480),
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  LucideIcons.shieldAlert,
-                  size: 64,
-                  color: Color(0xFF0F172A), // Slate 900
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  'auth_consent_authorize_title'.tr(),
-                  style: theme.typography.h1.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFF0F172A),
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 400),
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 48),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Premium Glowing Shield Header
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.05),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.1),
+                    width: 1.5,
                   ),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  'auth_consent_security_required'.tr(),
-                  style: theme.typography.bodyMedium.copyWith(
-                    color: const Color(0xFF64748B),
-                  ),
+                child: const Icon(
+                  LucideIcons.shieldCheck,
+                  size: 56,
+                  color: Colors.greenAccent, // Secure Green Accent
                 ),
-                const SizedBox(height: 32),
-
-                PrimeCareCard(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'auth_consent_permission_request'.tr(),
-                        style: theme.typography.labelBold.copyWith(
-                          color: theme.colors.primary,
-                          letterSpacing: 1.0,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'auth_consent_explanation'.tr(),
-                        style: theme.typography.bodyMedium,
-                      ),
-                      const SizedBox(height: 12),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF1F5F9), // Slate 100
-                          borderRadius: BorderRadius.circular(theme.radiusSm),
-                          border: Border.all(color: const Color(0xFFE2E8F0)),
-                        ),
-                        child: Text(
-                          appHost,
-                          style: theme.typography.bodyMedium.copyWith(
-                            fontFamily: 'monospace',
-                            fontWeight: FontWeight.bold,
-                            color: const Color(0xFF0F172A),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      const Divider(),
-                      const SizedBox(height: 16),
-                      Text(
-                        'auth_consent_authorizing_account'.tr(),
-                        style: theme.typography.labelBold.copyWith(
-                          color: const Color(0xFF64748B),
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: const Color(0xFF0F172A),
-                            radius: 20,
-                            child: Text(
-                              (authState.userName ?? 'U')[0].toUpperCase(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  authState.userName ?? 'auth_success_default_user'.tr(),
-                                  style: theme.typography.bodyMedium.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  (authState.role ?? 'PSW').toUpperCase(),
-                                  style: theme.typography.bodySmall.copyWith(
-                                    color: const Color(0xFF64748B),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+              ),
+              const SizedBox(height: 32),
+              
+              // Identity Gateway Branding
+              Text(
+                'PRIMECARE IDENTITY'.tr(),
+                style: theme.typography.labelMedium.copyWith(
+                  color: Colors.white.withValues(alpha: 0.5),
+                  letterSpacing: 4.0,
+                  fontWeight: FontWeight.w900,
                 ),
-                const SizedBox(height: 32),
-
-                PrimeButton.primary(
-                  label: _isRedirecting
-                      ? 'auth_consent_redirecting'.tr()
-                      : 'auth_consent_approve'.tr(),
-                  isFullWidth: true,
-                  isLoading: _isRedirecting,
-                  icon: LucideIcons.checkCircle,
-                  onPressed: _isRedirecting
-                      ? null
-                      : () async {
-                          setState(() {
-                            _isRedirecting = true;
-                          });
-
-                          await Future<void>.delayed(
-                            const Duration(milliseconds: 600),
-                          );
-
-                          final redirectUri = widget.redirectUri;
-                          final delimiter = redirectUri.contains('?') ? '&' : '?';
-                          final urlWithToken = '$redirectUri${delimiter}token=${authState.token ?? ''}&role=${Uri.encodeComponent(authState.role ?? '')}&userId=${authState.userId ?? ''}';
-                          web.window.location.href = urlWithToken;
-                        },
+              ),
+              const SizedBox(height: 12),
+              Text(
+                'auth_consent_redirecting'.tr(),
+                style: theme.typography.h2.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
-                const SizedBox(height: 12),
-                PrimeButton.ghost(
-                  label: 'auth_consent_cancel'.tr(),
-                  isFullWidth: true,
-                  icon: LucideIcons.xCircle,
-                  onPressed: () async {
-                    await ref.read(authProvider.notifier).logout();
-                  },
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Establishing secure session with the request application gateway...',
+                style: theme.typography.bodyMedium.copyWith(
+                  color: Colors.white.withValues(alpha: 0.6),
                 ),
-              ],
-            ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 48),
+
+              // Smooth Circular Loader
+              const SizedBox(
+                width: 32,
+                height: 32,
+                child: CircularProgressIndicator(
+                  strokeWidth: 3,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.greenAccent),
+                ),
+              ),
+            ],
           ),
         ),
       ),

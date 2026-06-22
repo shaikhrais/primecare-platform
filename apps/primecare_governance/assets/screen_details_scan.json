@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-06-19T01:37:03.043Z",
+  "timestamp": "2026-06-22T09:33:16.150Z",
   "overallI18nScore": "95.0%",
   "deployments": [
     {
@@ -24,18 +24,15 @@
           "labels": [
             "PrimeCare Identity Portal",
             "auth_success_sign_out",
-            "auth_consent_cancel",
             "auth_success_identity_portal",
             "auth_success_session_verified",
             "auth_success_active_session",
             "auth_success_logged_in_as",
             "auth_success_assigned_role",
             "auth_success_session_token",
-            "auth_consent_authorize_title",
-            "auth_consent_security_required",
-            "auth_consent_permission_request",
-            "auth_consent_explanation",
-            "auth_consent_authorizing_account"
+            "PRIMECARE IDENTITY",
+            "auth_consent_redirecting",
+            "Establishing secure session with the request application gateway..."
           ],
           "textElements": [
             "primecare_hq",
@@ -45,7 +42,6 @@
             "PrimeCare Identity Portal",
             "redirect_uri",
             "auth_language_selected",
-            ";\r\n      }\r\n\r\n      final forceLogin = state.uri.queryParameters[",
             ";\r\n      if (forceLogin && !_hasForcedLogout) {\r\n        _hasForcedLogout = true;\r\n        if (authState.isAuthenticated) {\r\n          Future.microtask(() {\r\n            ref.read(authProvider.notifier).logout();\r\n          });\r\n        }\r\n        if (kIsWeb) {\r\n          try {\r\n            final uri = Uri.parse(web.window.location.href);\r\n            final params = Map<String, String>.from(uri.queryParameters)..remove(",
             ");\r\n            final newUri = uri.replace(queryParameters: params.isEmpty ? null : params);\r\n            web.window.history.replaceState(null,",
             ", newUri.toString());\r\n          } catch (_) {}\r\n        }\r\n        return",
@@ -57,7 +53,7 @@
             ",\r\n        builder: (context, state) => const LoginViewWrapper(),\r\n      ),\r\n      GoRoute(\r\n        path:",
             ",\r\n        builder: (context, state) => const SuccessProfileView(),\r\n      ),\r\n      GoRoute(\r\n        path:",
             ",\r\n        builder: (context, state) {\r\n          final redirectUri = state.uri.queryParameters[",
-            ";\r\n          return ConsentView(redirectUri: redirectUri);\r\n        },\r\n      ),\r\n    ],\r\n  );\r\n});\r\n\r\nclass LoginViewWrapper extends ConsumerWidget {\r\n  const LoginViewWrapper({super.key});\r\n\r\n  @override\r\n  Widget build(BuildContext context, WidgetRef ref) {\r\n    ref.listen<AuthState>(authProvider, (previous, next) {\r\n      if (next.isAuthenticated && !(previous?.isAuthenticated ?? false)) {\r\n        final state = GoRouterState.of(context);\r\n        final redirectUri = state.uri.queryParameters[",
+            ";\r\n          return ConsentView(redirectUri: redirectUri);\r\n        },\r\n      ),\r\n    ],\r\n  );\r\n});\r\n\r\nclass LoginViewWrapper extends ConsumerWidget {\r\n  const LoginViewWrapper({super.key});\r\n\r\n  @override\r\n  Widget build(BuildContext context, WidgetRef ref) {\r\n    ref.listen<AuthState>(authProvider, (previous, next) {\r\n      if (next.isAuthenticated && !(previous?.isAuthenticated ?? false)) {\r\n        ref.read(loginSuccessRedirectProvider.notifier).state = true;\r\n        final state = GoRouterState.of(context);\r\n        final redirectUri = state.uri.queryParameters[",
             "];\r\n        if (redirectUri != null && redirectUri.isNotEmpty) {\r\n          context.go(",
             ");\r\n        } else {\r\n          context.go(",
             ");\r\n        }\r\n      }\r\n    });\r\n\r\n    return const LoginView();\r\n  }\r\n}\r\n\r\nclass SuccessProfileView extends GovernedScreen {\r\n  @override\r\n  String get screenDescription =>",
@@ -79,19 +75,11 @@
             ",\r\n                              fontWeight: FontWeight.bold,\r\n                            ),\r\n                          ),\r\n                        ],\r\n                      ),\r\n                    ],\r\n                  ),\r\n                ),\r\n                const SizedBox(height: 24),\r\n\r\n                const SystemIntegrityManifest(),\r\n                const SizedBox(height: 32),\r\n\r\n                PrimeButton.secondary(\r\n                  label:",
             ".tr(),\r\n                  isFullWidth: true,\r\n                  icon: LucideIcons.logOut,\r\n                  onPressed: () async {\r\n                    await ref.read(authProvider.notifier).logout();\r\n                  },\r\n                ),\r\n              ],\r\n            ),\r\n          ),\r\n        ),\r\n      ),\r\n    );\r\n  }\r\n}\r\n\r\nclass ConsentView extends GovernedScreen {\r\n  @override\r\n  String get screenDescription =>",
             ",\r\n      ];\r\n\r\n  final String redirectUri;\r\n\r\n  const ConsentView({super.key, required this.redirectUri});\r\n\r\n  @override\r\n  String get featureId =>",
-            ".tr(),\r\n                  style: theme.typography.bodyMedium.copyWith(\r\n                    color: const Color(0xFF64748B),\r\n                  ),\r\n                ),\r\n                const SizedBox(height: 32),\r\n\r\n                PrimeCareCard(\r\n                  child: Column(\r\n                    crossAxisAlignment: CrossAxisAlignment.start,\r\n                    children: [\r\n                      Text(",
-            ".tr(),\r\n                        style: theme.typography.labelBold.copyWith(\r\n                          color: theme.colors.primary,\r\n                          letterSpacing: 1.0,\r\n                        ),\r\n                      ),\r\n                      const SizedBox(height: 16),\r\n                      Text(",
-            ",\r\n                            fontWeight: FontWeight.bold,\r\n                            color: const Color(0xFF0F172A),\r\n                          ),\r\n                        ),\r\n                      ),\r\n                      const SizedBox(height: 24),\r\n                      const Divider(),\r\n                      const SizedBox(height: 16),\r\n                      Text(",
-            ".tr(),\r\n                        style: theme.typography.labelBold.copyWith(\r\n                          color: const Color(0xFF64748B),\r\n                          letterSpacing: 0.5,\r\n                        ),\r\n                      ),\r\n                      const SizedBox(height: 8),\r\n                      Row(\r\n                        children: [\r\n                          CircleAvatar(\r\n                            backgroundColor: const Color(0xFF0F172A),\r\n                            radius: 20,\r\n                            child: Text(\r\n                              (authState.userName ??",
-            ")[0].toUpperCase(),\r\n                              style: const TextStyle(\r\n                                color: Colors.white,\r\n                                fontWeight: FontWeight.bold,\r\n                              ),\r\n                            ),\r\n                          ),\r\n                          const SizedBox(width: 12),\r\n                          Expanded(\r\n                            child: Column(\r\n                              crossAxisAlignment: CrossAxisAlignment.start,\r\n                              children: [\r\n                                Text(\r\n                                  authState.userName ??",
-            ".tr(),\r\n                                  style: theme.typography.bodyMedium.copyWith(\r\n                                    fontWeight: FontWeight.bold,\r\n                                  ),\r\n                                ),\r\n                                Text(\r\n                                  (authState.role ??",
-            ").toUpperCase(),\r\n                                  style: theme.typography.bodySmall.copyWith(\r\n                                    color: const Color(0xFF64748B),\r\n                                  ),\r\n                                ),\r\n                              ],\r\n                            ),\r\n                          ),\r\n                        ],\r\n                      ),\r\n                    ],\r\n                  ),\r\n                ),\r\n                const SizedBox(height: 32),\r\n\r\n                PrimeButton.primary(\r\n                  label: _isRedirecting\r\n                      ?",
-            ".tr()\r\n                      :",
-            ".tr(),\r\n                  isFullWidth: true,\r\n                  isLoading: _isRedirecting,\r\n                  icon: LucideIcons.checkCircle,\r\n                  onPressed: _isRedirecting\r\n                      ? null\r\n                      : () async {\r\n                          setState(() {\r\n                            _isRedirecting = true;\r\n                          });\r\n\r\n                          await Future<void>.delayed(\r\n                            const Duration(milliseconds: 600),\r\n                          );\r\n\r\n                          final redirectUri = widget.redirectUri;\r\n                          final delimiter = redirectUri.contains(",
-            ";\r\n                          final urlWithToken =",
+            ";\r\n      final urlWithToken =",
             "}&role=${Uri.encodeComponent(authState.role ??",
             ")}&userId=${authState.userId ??",
-            ";\r\n                          web.window.location.href = urlWithToken;\r\n                        },\r\n                ),\r\n                const SizedBox(height: 12),\r\n                PrimeButton.ghost(\r\n                  label:"
+            ".tr(),\r\n                style: theme.typography.labelMedium.copyWith(\r\n                  color: Colors.white.withValues(alpha: 0.5),\r\n                  letterSpacing: 4.0,\r\n                  fontWeight: FontWeight.w900,\r\n                ),\r\n              ),\r\n              const SizedBox(height: 12),\r\n              Text(",
+            ".tr(),\r\n                style: theme.typography.h2.copyWith(\r\n                  fontWeight: FontWeight.bold,\r\n                  color: Colors.white,\r\n                ),\r\n                textAlign: TextAlign.center,\r\n              ),\r\n              const SizedBox(height: 16),\r\n              Text("
           ],
           "components": [
             "SingleChildScrollView",
@@ -100,21 +88,20 @@
             "Row",
             "Divider",
             "LucideIcons.logOut",
-            "LucideIcons.shieldAlert",
-            "LucideIcons.checkCircle",
-            "LucideIcons.xCircle",
+            "CircularProgressIndicator",
             "Provider: authRouterProvider",
             "Provider: languageProvider",
             "Provider: authProvider",
-            "Provider: sharedPreferencesProvider"
+            "Provider: sharedPreferencesProvider",
+            "Provider: loginSuccessRedirectProvider"
           ],
           "rawMetrics": {
             "buttonsCount": 0,
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 0,
-            "labelsCount": 14,
-            "textElementsCount": 54
+            "labelsCount": 11,
+            "textElementsCount": 45
           }
         }
       ]

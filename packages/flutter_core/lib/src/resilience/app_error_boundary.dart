@@ -32,6 +32,12 @@ class AppErrorBoundary {
 
     // Replace the "Grey Screen of Death" with a branded recovery UI
     ErrorWidget.builder = (FlutterErrorDetails details) {
+      // Always print the build error for release troubleshooting
+      print('PRIMECARE_BUILD_ERROR: ${details.exception}');
+      if (details.stack != null) {
+        print(details.stack.toString());
+      }
+
       // Respect the ResilienceConfig toggle
       if (!ResilienceConfig.enableRecoveryModeUI) {
         return ErrorWidget(details.exception);
@@ -175,6 +181,12 @@ class AppErrorBoundary {
   /// This ensures we never crash while trying to report a crash.
   static void _safeLog(String vector, Object error, StackTrace? stack) {
     try {
+      // Always print the error to the console for release troubleshooting
+      print('PRIMECARE_EXCEPTION [$vector]: $error');
+      if (stack != null) {
+        print(stack.toString());
+      }
+
       if (_pendingErrors.length > _maxPendingErrors) {
         _pendingErrors.removeAt(0);
       }
@@ -190,6 +202,7 @@ class AppErrorBoundary {
       // Absolute last resort — never crash while logging
     }
   }
+
 
   /// Pending errors from boundary catches, available for telemetry drain.
   static final List<_BoundaryError> _pendingErrors = [];

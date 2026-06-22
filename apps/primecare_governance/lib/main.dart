@@ -42,17 +42,19 @@ class PrimeCareApp extends ConsumerWidget {
 
     const primeTheme = PrimeThemeData();
 
-    return PrimeTheme(
-      data: primeTheme,
-      child: MaterialApp.router(
-        title: 'PrimeCare Enterprise',
-        theme: primeTheme.toThemeData(),
-        themeMode: ThemeMode.light,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-        routerConfig: ref.watch(appRouterProvider),
-        debugShowCheckedModeBanner: false,
+    return AppShellBoundary(
+      child: PrimeTheme(
+        data: primeTheme,
+        child: MaterialApp.router(
+          title: 'PrimeCare Enterprise',
+          theme: primeTheme.toThemeData(),
+          themeMode: ThemeMode.light,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          routerConfig: ref.watch(appRouterProvider),
+          debugShowCheckedModeBanner: false,
+        ),
       ),
     );
   }

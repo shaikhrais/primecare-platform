@@ -150,6 +150,16 @@ foreach ($app in $apps) {
         continue
     }
 
+    Write-Host '⚡ Step 2.5: Generating AssetManifest.json for legacy web compatibility...' -ForegroundColor Yellow
+    python "$rootDir\scripts\generate_asset_manifest.py" "build\web\assets"
+
+    Write-Host '⚡ Step 2.6: Disabling service worker cache to prevent stale deployments...' -ForegroundColor Yellow
+    if (Test-Path "build\web\flutter_service_worker.js") {
+        Remove-Item "build\web\flutter_service_worker.js" -Force
+    }
+
+
+
     Write-Host '⚡ Step 3: Deploying to Cloudflare Pages...' -ForegroundColor Yellow
     $deployOutput = wrangler pages deploy build/web --project-name $projectName --commit-dirty=true 2>&1 | Out-String
     

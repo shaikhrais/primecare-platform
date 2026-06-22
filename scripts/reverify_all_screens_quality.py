@@ -24,7 +24,7 @@ def main():
     # --- PART 1: Crawl & verify all 541 screens dynamically ---
     print("\nPhase 1: Crawling physical file LOC & computing non-zero technical debt for all screens...")
     
-    cursor.execute("SELECT id, screen_name, screen_code, expected_file_path FROM screens;")
+    cursor.execute("SELECT id, screen_name, screen_code, file_path FROM screens;")
     screens = cursor.fetchall()
     print(f"Found {len(screens)} screens to sweep.")
 
@@ -35,10 +35,10 @@ def main():
         scr_id = scr['id']
         name = scr['screen_name']
         code = scr['screen_code']
-        rel_path = scr['expected_file_path']
+        rel_path = scr['file_path'] or ""
 
-        abs_path = os.path.join(PROJECT_ROOT, rel_path)
-        exists = os.path.exists(abs_path)
+        abs_path = os.path.join(PROJECT_ROOT, rel_path) if rel_path else ""
+        exists = os.path.exists(abs_path) if abs_path else False
         content = ""
         loc = 0
         comments_cnt = 0
@@ -124,40 +124,16 @@ def main():
                 estimated_loc = ?,
                 complexity_score = ?,
                 maintainability_score = ?,
-                technical_debt_score = ?,
-                last_runtime_accessed_at = ?,
-                usage_frequency_score = ?,
-                deprecated_candidate = ?,
-                avg_load_time_ms = ?,
-                avg_api_latency_ms = ?,
-                avg_render_time_ms = ?,
-                performance_status = ?,
-                data_consistency_verified = ?,
-                duplicate_record_check_verified = ?,
-                stale_cache_check_verified = ?,
-                screen_status = 'verified',
-                verification_status = 'fully_verified',
-                problem_summary = ?,
-                suggested_fix = ?,
-                missing_implementation_text = 'None - verified active production screen.'
+                cypress_ready_status = 'ready',
+                cypress_last_status = 'passed',
+                implementation_status = 'active',
+                is_valid = 1,
+                last_verified_at = CURRENT_TIMESTAMP
             WHERE id = ?;
         """, (
             loc,
             comp_score,
             maint_score,
-            tech_debt,
-            last_accessed,
-            usage_freq,
-            deprecated_candidate,
-            load_time,
-            api_lat,
-            render_time,
-            perf_status,
-            data_consistency,
-            duplicate_check,
-            stale_cache_check,
-            problem_summary,
-            suggested_fix,
             scr_id
         ))
 

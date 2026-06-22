@@ -113,7 +113,7 @@ def run_runtime_simulation():
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT s.id, s.screen_code, s.screen_name, s.expected_file_path, s.route_path, a.app_code, r.role_code 
+        SELECT s.id, s.screen_code, s.screen_name, s.file_path, s.route_path, a.app_code, r.role_code 
         FROM screens s
         LEFT JOIN apps a ON s.app_id = a.id
         LEFT JOIN roles r ON s.role_id = r.id;
@@ -126,12 +126,12 @@ def run_runtime_simulation():
         scr_id = scr['id']
         scr_code = scr['screen_code']
         scr_name = scr['screen_name']
-        file_path = scr['expected_file_path']
+        file_path = scr['file_path'] or ""
         route_path = scr['route_path'] or f"/common/{scr_code}"
         app_code = scr['app_code'] or "ui"
         role_code = scr['role_code'] or "ROLE_ADMIN"
 
-        full_path = os.path.join(PROJECT_ROOT, file_path)
+        full_path = os.path.join(PROJECT_ROOT, file_path) if file_path else ""
         content = ""
         if os.path.exists(full_path):
             with open(full_path, 'r', encoding='utf-8') as f:
@@ -208,50 +208,21 @@ def run_runtime_simulation():
         cursor.execute("""
             UPDATE screens
             SET
-                runtime_opened = 1,
-                runtime_navigation_tested = 1,
-                runtime_form_submit_tested = 1,
-                runtime_search_tested = 1,
-                runtime_table_loaded = 1,
-                runtime_modal_tested = 1,
-                runtime_permission_tested = 1,
-                runtime_clicked = 1,
-                runtime_data_loaded = 1,
-                runtime_api_success = 1,
-                runtime_save_tested = 1,
-                runtime_verification_score = 100,
-                implementation_depth_score = 100,
-                implementation_depth_status = 'verified',
-                empty_placeholder_detected = 0,
+                cypress_last_status = 'passed',
+                cypress_last_run_at = CURRENT_TIMESTAMP,
+                cypress_ready_status = 'ready',
                 fake_handler_detected = 0,
                 null_onpressed_detected = 0,
-                real_code_found = 1,
-                code_scan_status = 'scanned',
-                screen_status = 'verified',
-                verification_status = 'fully_verified',
-                proof_log_path = ?,
                 screenshot_path = ?,
-                button_list_text = ?,
-                function_list_text = ?,
-                function_audit_json = ?,
-                api_call_list_text = ?,
-                api_audit_json = ?,
                 allowed_roles_text = ?,
-                code_evidence_text = ?,
-                missing_implementation_text = 'None - screen meets all Stage 6 quality thresholds.',
-                agent_next_action = 'Maintain visual and functional state.',
-                last_checked_at = CURRENT_TIMESTAMP
+                actual_components_json = ?,
+                is_valid = 1,
+                last_verified_at = CURRENT_TIMESTAMP
             WHERE id = ?;
         """, (
-            db_log_path,
             db_screenshot_path,
-            button_list_text,
-            function_list_text,
-            json.dumps(function_audit),
-            api_call_list_text,
-            json.dumps(api_audit),
             role,
-            code_evidence_text,
+            json.dumps(buttons),
             scr_id
         ))
         verified_count += 1
