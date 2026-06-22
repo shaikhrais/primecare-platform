@@ -211,21 +211,7 @@ final authRouterProvider = Provider<GoRouter>((ref) {
           return null;
         }
 
-        // Direct Dashboard auto-redirection if no redirectUri is provided
-        final portalUrl = getPortalUrlForRole(authState.role ?? '');
-        if (portalUrl != 'https://primecare-auth.pages.dev') {
-          final dashboardRoute = AuthNotifier.getDashboardRouteForRole(authState.role ?? '');
-          final delimiter = portalUrl.contains('?') ? '&' : '?';
-          final urlWithToken = '$portalUrl/auth/callback${delimiter}route=${Uri.encodeComponent(dashboardRoute)}&token=${authState.token ?? ''}&role=${Uri.encodeComponent(authState.role ?? '')}&userId=${authState.userId ?? ''}';
-          if (kIsWeb) {
-            Future.microtask(() {
-              web.window.location.href = urlWithToken;
-            });
-          }
-          return null;
-        }
-        
-        // If not redirecting, show success profile dashboard
+        // If not redirecting, show App Hub success route
         if (state.uri.path == '/success') {
           return null;
         }
@@ -279,17 +265,7 @@ class LoginViewWrapper extends ConsumerWidget {
             web.window.location.href = urlWithToken;
           }
         } else {
-          final portalUrl = getPortalUrlForRole(next.role ?? '');
-          if (portalUrl != 'https://primecare-auth.pages.dev') {
-            final dashboardRoute = AuthNotifier.getDashboardRouteForRole(next.role ?? '');
-            final delimiter = portalUrl.contains('?') ? '&' : '?';
-            final urlWithToken = '$portalUrl/auth/callback${delimiter}route=${Uri.encodeComponent(dashboardRoute)}&token=${next.token ?? ''}&role=${Uri.encodeComponent(next.role ?? '')}&userId=${next.userId ?? ''}';
-            if (kIsWeb) {
-              web.window.location.href = urlWithToken;
-            }
-          } else {
-            context.go('/success');
-          }
+          context.go('/success');
         }
       }
     });
@@ -301,7 +277,7 @@ class LoginViewWrapper extends ConsumerWidget {
 class SuccessProfileView extends GovernedScreen {
   @override
   String get screenDescription =>
-      'The screen requires components for user authentication status, session verification, user details, session token display, and a sign-out option, along with appropriate API integrations and responsive design.';
+      'The App Hub acts as the centralized gateway for all PrimeCare portals. Displays all available applications, enforces role-based access control, and allows direct secure single-sign-on launch.';
 
   @override
   List<String> get requiredComponents => const [
@@ -311,6 +287,7 @@ class SuccessProfileView extends GovernedScreen {
         'SessionTokenDisplay',
         'SignOutButton',
         'Notifications',
+        'AppGrid',
       ];
 
   @override
@@ -320,6 +297,7 @@ class SuccessProfileView extends GovernedScreen {
         'fetchSessionToken',
         'signOutUser',
         'handleForcedLogout',
+        'launchPortalApp',
       ];
 
   const SuccessProfileView({super.key});
@@ -344,145 +322,356 @@ class SuccessProfileView extends GovernedScreen {
         'auth_success_default_user',
       ];
 
+  bool _hasAccessToPortal(String role, String portalUrl) {
+    final userPortal = getPortalUrlForRole(role);
+    final r = role.toLowerCase();
+    
+    // Super admin / governance roles get access to everything for cross-system debugging
+    if (r == 'admin' || r == 'governance' || r == 'system_verification' || r == 'ciso') {
+      return true;
+    }
+    
+    return userPortal == portalUrl;
+  }
+
   @override
   Widget buildGovernedView(BuildContext context, WidgetRef ref) {
     final authState = ref.watch(authProvider);
     final theme = context.theme;
 
+    final portalApps = [
+      {
+        'name': 'Corporate Headquarters',
+        'url': 'https://primecare-corporate.pages.dev',
+        'icon': LucideIcons.building,
+        'description': 'Executive leadership, financial planning, HR, legal, compliance, and training management.',
+        'color': const Color(0xFF60A5FA), // Blue
+      },
+      {
+        'name': 'Business Development',
+        'url': 'https://primecare-business-development.pages.dev',
+        'icon': LucideIcons.trendingUp,
+        'description': 'Partnerships, regional growth, franchise sales, market research, and expansion planning.',
+        'color': const Color(0xFF818CF8), // Indigo
+      },
+      {
+        'name': 'Franchise Operations',
+        'url': 'https://primecare-franchise.pages.dev',
+        'icon': LucideIcons.briefcase,
+        'description': 'Local franchise ownership, office operations, local hiring, and client billing.',
+        'color': const Color(0xFF22D3EE), // Cyan
+      },
+      {
+        'name': 'Customer Support',
+        'url': 'https://primecare-support.pages.dev',
+        'icon': LucideIcons.phone,
+        'description': 'VIP concierge care coordination, premium client support, and ticket management.',
+        'color': const Color(0xFFFBBF24), // Amber
+      },
+      {
+        'name': 'Marketing & Outreach',
+        'url': 'https://primecare-marketing.pages.dev',
+        'icon': LucideIcons.megaphone,
+        'description': 'Local marketing campaigns, community events, partnerships, and brand assets.',
+        'color': const Color(0xFFC084FC), // Purple
+      },
+      {
+        'name': 'Clinical Intelligence',
+        'url': 'https://primecare-clinic.pages.dev',
+        'icon': LucideIcons.stethoscope,
+        'description': 'Clinical director oversight, caregiver schedules, client vitals, and treatment plans.',
+        'color': const Color(0xFF34D399), // Emerald/Green
+      },
+      {
+        'name': 'Client Care Portal',
+        'url': 'https://primecare-client.pages.dev',
+        'icon': LucideIcons.heart,
+        'description': 'Client appointments, loved one schedules, care team updates, and family billing.',
+        'color': const Color(0xFFF472B6), // Pink/Rose
+      },
+      {
+        'name': 'Platform Governance',
+        'url': 'https://primecare-governance.pages.dev',
+        'icon': LucideIcons.shieldCheck,
+        'description': 'System integrity verification, infrastructure auditing, and dynamic blueprints.',
+        'color': const Color(0xFF2DD4BF), // Teal
+      },
+    ];
+
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC), // Slate 50
-      body: Center(
+      backgroundColor: const Color(0xFF0F172A), // Slate 900
+      body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 480),
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
-                  LucideIcons.shieldCheck,
-                  size: 64,
-                  color: Color(0xFF0F172A), // Slate 900
+                // Top Header Row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.05),
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.1),
+                            ),
+                          ),
+                          child: const Icon(
+                            LucideIcons.shieldCheck,
+                            color: Colors.greenAccent,
+                            size: 28,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'PRIMECARE HQ',
+                              style: theme.typography.labelMedium.copyWith(
+                                color: Colors.white.withValues(alpha: 0.5),
+                                letterSpacing: 2.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Application Hub',
+                              style: theme.typography.h2.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    
+                    // Profile + Logout Section
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.05),
+                            borderRadius: BorderRadius.circular(32),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.1),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 14,
+                                backgroundColor: Colors.white.withValues(alpha: 0.1),
+                                child: Text(
+                                  (authState.userName ?? 'U')[0].toUpperCase(),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                authState.userName ?? 'auth_success_default_user'.tr(),
+                                style: theme.typography.bodyMedium.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(width: 8),
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: Colors.greenAccent.withValues(alpha: 0.15),
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(color: Colors.greenAccent.withValues(alpha: 0.3)),
+                                ),
+                                child: Text(
+                                  (authState.role ?? 'Guest').toUpperCase(),
+                                  style: theme.typography.labelSmall.copyWith(
+                                    color: Colors.greenAccent,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        IconButton(
+                          tooltip: 'auth_success_sign_out'.tr(),
+                          icon: const Icon(LucideIcons.logOut, color: Colors.redAccent),
+                          onPressed: () async {
+                            await ref.read(authProvider.notifier).logout();
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 16),
+                
+                const SizedBox(height: 40),
+                
+                // Welcome Message & Subtitle
                 Text(
-                  'auth_success_identity_portal'.tr(),
+                  'Welcome to PrimeCare, ${authState.userName ?? "User"}.',
                   style: theme.typography.h1.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: const Color(0xFF0F172A),
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'auth_success_session_verified'.tr(),
+                  'Launch your authorized workspace portals. Locked apps require role privilege upgrades.',
                   style: theme.typography.bodyMedium.copyWith(
-                    color: const Color(0xFF64748B),
+                    color: Colors.white.withValues(alpha: 0.6),
                   ),
                 ),
+                
                 const SizedBox(height: 32),
 
-                PrimeCareCard(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            width: 12,
-                            height: 12,
-                            decoration: const BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            'auth_success_active_session'.tr(),
-                            style: theme.typography.labelBold.copyWith(
-                              color: Colors.green,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 24),
-                      Text(
-                        'auth_success_logged_in_as'.tr(),
-                        style: theme.typography.labelMedium.copyWith(
-                          color: const Color(0xFF64748B),
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        authState.userName ?? 'auth_success_default_user'.tr(),
-                        style: theme.typography.h2.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      Text(
-                        'auth_success_assigned_role'.tr(),
-                        style: theme.typography.labelMedium.copyWith(
-                          color: const Color(0xFF64748B),
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 6,
-                        ),
+                // Responsive Grid of App Cards
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 400,
+                    mainAxisSpacing: 24,
+                    crossAxisSpacing: 24,
+                    childAspectRatio: 1.35,
+                  ),
+                  itemCount: portalApps.length,
+                  itemBuilder: (context, index) {
+                    final app = portalApps[index];
+                    final name = app['name'] as String;
+                    final url = app['url'] as String;
+                    final icon = app['icon'] as IconData;
+                    final description = app['description'] as String;
+                    final accentColor = app['color'] as Color;
+                    
+                    final isAuthorized = _hasAccessToPortal(authState.role ?? 'Guest', url);
+
+                    return AnimatedOpacity(
+                      duration: const Duration(milliseconds: 300),
+                      opacity: isAuthorized ? 1.0 : 0.45,
+                      child: Container(
                         decoration: BoxDecoration(
-                          color: const Color(0xFF0F172A),
-                          borderRadius: BorderRadius.circular(theme.radiusSm),
+                          color: isAuthorized 
+                              ? Colors.white.withValues(alpha: 0.03)
+                              : Colors.white.withValues(alpha: 0.01),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: isAuthorized 
+                                ? accentColor.withValues(alpha: 0.25)
+                                : Colors.white.withValues(alpha: 0.05),
+                            width: 1.5,
+                          ),
+                          boxShadow: isAuthorized ? [
+                            BoxShadow(
+                              color: accentColor.withValues(alpha: 0.05),
+                              blurRadius: 16,
+                              offset: const Offset(0, 8),
+                            )
+                          ] : null,
                         ),
-                        child: Text(
-                          (authState.role ?? 'PSW').toUpperCase(),
-                          style: theme.typography.bodySmall.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.5,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(16),
+                            onTap: isAuthorized ? () {
+                              final dashboardRoute = AuthNotifier.getDashboardRouteForRole(authState.role ?? '');
+                              final delimiter = url.contains('?') ? '&' : '?';
+                              final redirectUrl = '$url/auth/callback${delimiter}route=${Uri.encodeComponent(dashboardRoute)}&token=${authState.token ?? ''}&role=${Uri.encodeComponent(authState.role ?? '')}&userId=${authState.userId ?? ''}';
+                              if (kIsWeb) {
+                                web.window.location.href = redirectUrl;
+                              }
+                            } : null,
+                            child: Padding(
+                              padding: const EdgeInsets.all(24),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(12),
+                                        decoration: BoxDecoration(
+                                          color: accentColor.withValues(alpha: 0.1),
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color: accentColor.withValues(alpha: 0.2),
+                                          ),
+                                        ),
+                                        child: Icon(
+                                          icon,
+                                          color: accentColor,
+                                          size: 24,
+                                        ),
+                                      ),
+                                      if (!isAuthorized)
+                                        Container(
+                                          padding: const EdgeInsets.all(6),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white.withValues(alpha: 0.05),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: const Icon(
+                                            LucideIcons.lock,
+                                            color: Colors.white54,
+                                            size: 14,
+                                          ),
+                                        )
+                                      else
+                                        const Icon(
+                                          LucideIcons.arrowRight,
+                                          color: Colors.white54,
+                                          size: 18,
+                                        ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    name,
+                                    style: theme.typography.h3.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Expanded(
+                                    child: Text(
+                                      description,
+                                      style: theme.typography.bodyMedium.copyWith(
+                                        color: Colors.white.withValues(alpha: 0.5),
+                                        fontSize: 12,
+                                        height: 1.4,
+                                      ),
+                                      maxLines: 3,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      const Divider(),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'auth_success_session_token'.tr(),
-                            style: theme.typography.bodySmall.copyWith(
-                              color: const Color(0xFF64748B),
-                            ),
-                          ),
-                          Text(
-                            authState.token != null && authState.token!.length > 10
-                                ? '${authState.token!.substring(0, 10)}...'
-                                : (authState.token ?? 'demo'),
-                            style: theme.typography.bodySmall.copyWith(
-                              fontFamily: 'monospace',
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 24),
-
-                const SystemIntegrityManifest(),
-                const SizedBox(height: 32),
-
-                PrimeButton.secondary(
-                  label: 'auth_success_sign_out'.tr(),
-                  isFullWidth: true,
-                  icon: LucideIcons.logOut,
-                  onPressed: () async {
-                    await ref.read(authProvider.notifier).logout();
+                    );
                   },
                 ),
+                
+                const SizedBox(height: 48),
+                const SystemIntegrityManifest(),
               ],
             ),
           ),

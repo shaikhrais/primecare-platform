@@ -4,13 +4,32 @@ describe("Auth Redirect Debug", () => {
     cy.clearAllLocalStorage();
     cy.clearAllSessionStorage();
 
+    const mockToken = "mock-token-exchange-success";
+    const mockUserResponse = {
+      token: mockToken,
+      role: "ceo",
+      roles: "ceo",
+      userId: "ceo-user-id",
+      tenantId: "primecare_hq",
+      activeRole: "ceo",
+      user: {
+        id: "ceo-user-id",
+        firstName: "QA",
+        lastName: "CEO",
+        roles: ["ceo"],
+        tenantId: "primecare_hq",
+        preferredLanguage: "en",
+        email: "qa.ceo@test.primecare.local"
+      }
+    };
+
     // Intercept POST **/login request
     cy.intercept("POST", "**/login", (req) => {
       req.reply({
         statusCode: 200,
         body: {
           status: "success",
-          token: "mock-token-exchange-success",
+          token: mockToken,
           userId: "ceo-user-id",
           role: "ceo",
           userName: "Active User",
@@ -18,6 +37,37 @@ describe("Auth Redirect Debug", () => {
         }
       });
     }).as("loginMock");
+
+    // Intercept GET **/auth/me or **/me to return mock user data only when authorized
+    cy.intercept("GET", "**/auth/me", (req) => {
+      const auth = req.headers["authorization"] || req.headers["Authorization"] || "";
+      if (auth.includes(mockToken)) {
+        req.reply({
+          statusCode: 200,
+          body: mockUserResponse
+        });
+      } else {
+        req.reply({
+          statusCode: 401,
+          body: { status: "error", message: "Unauthorized" }
+        });
+      }
+    }).as("meMock");
+
+    cy.intercept("GET", "**/me", (req) => {
+      const auth = req.headers["authorization"] || req.headers["Authorization"] || "";
+      if (auth.includes(mockToken)) {
+        req.reply({
+          statusCode: 200,
+          body: mockUserResponse
+        });
+      } else {
+        req.reply({
+          statusCode: 401,
+          body: { status: "error", message: "Unauthorized" }
+        });
+      }
+    }).as("meMock2");
 
     const redirectUri = "https://primecare-auth.pages.dev/success";
     const loginUrl = `https://primecare-auth.pages.dev/login?redirect_uri=${encodeURIComponent(redirectUri)}&enable-semantics=true`;
@@ -48,7 +98,9 @@ describe("Auth Redirect Debug", () => {
 
     // Actively type email and password into the login fields
     cy.typeIntoField("login-email", "ceo@primecare.com");
+    cy.wait(1000);
     cy.typeIntoField("login-password", "Test@12345");
+    cy.wait(1000);
 
     // Click the submit button to initiate login
     cy.getCy("login-submit").first().click({ force: true });
@@ -58,6 +110,6 @@ describe("Auth Redirect Debug", () => {
 
     // Verify that the user successfully landed on the redirect_uri path
     cy.url().should("include", "/success");
-    cy.contains("Identity Portal").should("be.visible");
+    cy.contains("Application Hub").should("be.visible");
   });
 });

@@ -1,6 +1,8 @@
 // Governance - Category: view | Purpose: [Layout] - The master shell for all PrimeCare Dashboards. Provides a consistent structural foundation with automatic padding and background styling.
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:web/web.dart' as web;
 
 /// [Layout] - The master shell for all PrimeCare Dashboards.
 /// Provides a consistent structural foundation with automatic padding and
@@ -186,6 +188,19 @@ class MasterLayout extends ConsumerWidget {
   ) {
     final theme = context.theme;
     return [
+      if (kIsWeb)
+        IconButton(
+          key: const Key('topbar-app-hub-button'),
+          tooltip: 'App Hub'.tr(),
+          icon: Icon(
+            LucideIcons.home,
+            color: theme.colors.topbarSelectedIconColor,
+            size: 20,
+          ),
+          onPressed: () {
+            web.window.location.href = 'https://primecare-auth.pages.dev/success';
+          },
+        ),
       Row(
         mainAxisSize: MainAxisSize.min,
         children: [

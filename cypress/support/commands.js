@@ -135,17 +135,33 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
     };
 
     cy.intercept("GET", "**/auth/me", (req) => {
-      req.reply({
-        statusCode: 200,
-        body: mockUserResponse
-      });
+      const auth = req.headers["authorization"] || req.headers["Authorization"] || "";
+      if (auth.includes(mockToken)) {
+        req.reply({
+          statusCode: 200,
+          body: mockUserResponse
+        });
+      } else {
+        req.reply({
+          statusCode: 401,
+          body: { status: "error", message: "Unauthorized" }
+        });
+      }
     }).as("meMock");
 
     cy.intercept("GET", "**/me", (req) => {
-      req.reply({
-        statusCode: 200,
-        body: mockUserResponse
-      });
+      const auth = req.headers["authorization"] || req.headers["Authorization"] || "";
+      if (auth.includes(mockToken)) {
+        req.reply({
+          statusCode: 200,
+          body: mockUserResponse
+        });
+      } else {
+        req.reply({
+          statusCode: 401,
+          body: { status: "error", message: "Unauthorized" }
+        });
+      }
     }).as("meMock2");
 
     // Visit the live auth login page with redirect_uri to match real-world SSO flow
