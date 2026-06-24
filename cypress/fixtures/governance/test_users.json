@@ -6,7 +6,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/offices/clinical/roles/chiropractor/dashboard"
+    "post_login_route": "/roles/chiropractor/dashboard"
   },
   {
     "role_code": "physio",
@@ -15,7 +15,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/offices/clinical/roles/physiotherapist/dashboard"
+    "post_login_route": "/roles/physiotherapist/dashboard"
   },
   {
     "role_code": "rmt",
@@ -24,7 +24,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/offices/clinical/roles/rmt/dashboard"
+    "post_login_route": "/roles/rmt/dashboard"
   },
   {
     "role_code": "social_worker",
@@ -33,7 +33,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/offices/clinical/roles/social_worker/dashboard"
+    "post_login_route": "/roles/social_worker/dashboard"
   },
   {
     "role_code": "therapist",
@@ -42,7 +42,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/offices/clinical/roles/therapist/dashboard"
+    "post_login_route": "/roles/therapist/dashboard"
   },
   {
     "role_code": "clinical_director",
@@ -60,7 +60,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/offices/clinical/roles/intake_coordinator/dashboard"
+    "post_login_route": "/roles/intake_coordinator/dashboard"
   },
   {
     "role_code": "rn",
@@ -69,7 +69,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/offices/clinical/roles/rn/dashboard"
+    "post_login_route": "/roles/rn/dashboard"
   },
   {
     "role_code": "physician",
@@ -105,7 +105,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/offices/clinical/roles/caregiver/dashboard"
+    "post_login_route": "/roles/caregiver/dashboard"
   },
   {
     "role_code": "guest",
@@ -141,7 +141,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/common/customer-support-dashboard"
+    "post_login_route": "/roles/dynamic_screen/dashboard"
   },
   {
     "role_code": "infrastructure",
@@ -150,7 +150,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/common/infrastructure-dashboard"
+    "post_login_route": "/roles/infrastructure/dashboard"
   },
   {
     "role_code": "system_verification",
@@ -159,7 +159,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/common/qa-dashboard"
+    "post_login_route": "/roles/system_verification/dashboard"
   },
   {
     "role_code": "training",
@@ -168,7 +168,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/common/training-hub-dashboard"
+    "post_login_route": "/roles/training_hub/dashboard"
   },
   {
     "role_code": "ceo",
@@ -186,7 +186,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/cfo/dashboard"
+    "post_login_route": "/roles/cfo/dashboard"
   },
   {
     "role_code": "ciso",
@@ -195,7 +195,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/ciso/dashboard"
+    "post_login_route": "/roles/ciso/dashboard"
   },
   {
     "role_code": "coo",
@@ -204,7 +204,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/coo/dashboard"
+    "post_login_route": "/roles/coo/dashboard"
   },
   {
     "role_code": "cto",
@@ -213,7 +213,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/cto/dashboard"
+    "post_login_route": "/roles/cto/dashboard"
   },
   {
     "role_code": "cx_director",
@@ -222,7 +222,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/cx_director/dashboard"
+    "post_login_route": "/roles/cx_director/dashboard"
   },
   {
     "role_code": "finance_director",
@@ -231,7 +231,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/finance_director/dashboard"
+    "post_login_route": "/roles/finance_director/dashboard"
   },
   {
     "role_code": "hr_director",
@@ -240,7 +240,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/hr_director/dashboard"
+    "post_login_route": "/roles/hr_director/dashboard"
   },
   {
     "role_code": "legal",
@@ -249,7 +249,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/legal/dashboard"
+    "post_login_route": "/roles/legal/dashboard"
   },
   {
     "role_code": "owner",
@@ -267,7 +267,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/shareholder/dashboard"
+    "post_login_route": "/roles/shareholder/dashboard"
   },
   {
     "role_code": "training_director",
@@ -276,7 +276,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/training_director/dashboard"
+    "post_login_route": "/roles/training_director/dashboard"
   },
   {
     "role_code": "community_outreach",
@@ -285,7 +285,7 @@
     "app_code": "marketing",
     "app_url": "https://primecare-marketing.pages.dev",
     "redirect_url": "https://primecare-marketing.pages.dev/auth/callback",
-    "post_login_route": "/offices/marketing/roles/community_outreach/dashboard"
+    "post_login_route": "/roles/community_outreach/dashboard"
   },
   {
     "role_code": "compliance",
@@ -294,7 +294,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/compliance_manager/dashboard"
+    "post_login_route": "/roles/compliance_manager/dashboard"
   },
   {
     "role_code": "franchise_sales",
@@ -303,7 +303,7 @@
     "app_code": "business_development",
     "app_url": "https://primecare-business-development.pages.dev",
     "redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
-    "post_login_route": "/offices/business_development/roles/franchise_sales_manager/dashboard"
+    "post_login_route": "/roles/franchise_sales_manager/dashboard"
   },
   {
     "role_code": "gm",
@@ -312,7 +312,7 @@
     "app_code": "business_development",
     "app_url": "https://primecare-business-development.pages.dev",
     "redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
-    "post_login_route": "/offices/business_development/roles/general_manager/dashboard"
+    "post_login_route": "/roles/general_manager/dashboard"
   },
   {
     "role_code": "governance",
@@ -321,7 +321,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/common/system-dashboard"
+    "post_login_route": "/roles/governance_officer/dashboard"
   },
   {
     "role_code": "bus_dev",
@@ -330,7 +330,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/head_of_bus_dev/dashboard"
+    "post_login_route": "/roles/head_of_bus_dev/dashboard"
   },
   {
     "role_code": "marketing",
@@ -339,7 +339,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/head_of_marketing/dashboard"
+    "post_login_route": "/roles/head_of_marketing/dashboard"
   },
   {
     "role_code": "local_marketing",
@@ -348,7 +348,7 @@
     "app_code": "marketing",
     "app_url": "https://primecare-marketing.pages.dev",
     "redirect_url": "https://primecare-marketing.pages.dev/auth/callback",
-    "post_login_route": "/offices/marketing/roles/local_marketing_manager/dashboard"
+    "post_login_route": "/roles/local_marketing_manager/dashboard"
   },
   {
     "role_code": "ops_manager",
@@ -357,7 +357,7 @@
     "app_code": "franchise",
     "app_url": "https://primecare-franchise.pages.dev",
     "redirect_url": "https://primecare-franchise.pages.dev/auth/callback",
-    "post_login_route": "/offices/franchise/roles/operations_manager/dashboard"
+    "post_login_route": "/roles/operations_manager/dashboard"
   },
   {
     "role_code": "partnership",
@@ -366,7 +366,7 @@
     "app_code": "business_development",
     "app_url": "https://primecare-business-development.pages.dev",
     "redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
-    "post_login_route": "/offices/business_development/roles/partnership_manager/dashboard"
+    "post_login_route": "/roles/partnership_manager/dashboard"
   },
   {
     "role_code": "regional_bdm",
@@ -375,7 +375,7 @@
     "app_code": "business_development",
     "app_url": "https://primecare-business-development.pages.dev",
     "redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
-    "post_login_route": "/offices/business_development/roles/regional_bdm/dashboard"
+    "post_login_route": "/roles/regional_bdm/dashboard"
   },
   {
     "role_code": "regional_manager_usa",
@@ -384,7 +384,7 @@
     "app_code": "business_development",
     "app_url": "https://primecare-business-development.pages.dev",
     "redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
-    "post_login_route": "/offices/business_development/roles/regional_manager_usa/dashboard"
+    "post_login_route": "/roles/regional_manager_usa/dashboard"
   },
   {
     "role_code": "scrum_master",
@@ -393,7 +393,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/offices/system/roles/scrum_master/dashboard"
+    "post_login_route": "/roles/scrum_master/dashboard"
   },
   {
     "role_code": "hr_hiring",
@@ -402,7 +402,7 @@
     "app_code": "franchise",
     "app_url": "https://primecare-franchise.pages.dev",
     "redirect_url": "https://primecare-franchise.pages.dev/auth/callback",
-    "post_login_route": "/offices/franchise/roles/hr_hiring/dashboard"
+    "post_login_route": "/roles/hr_hiring/dashboard"
   },
   {
     "role_code": "territory_expansion",
@@ -411,16 +411,16 @@
     "app_code": "business_development",
     "app_url": "https://primecare-business-development.pages.dev",
     "redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
-    "post_login_route": "/offices/business_development/roles/territory_expansion_manager/dashboard"
+    "post_login_route": "/roles/territory_expansion_manager/dashboard"
   },
   {
     "role_code": "territory_sales",
     "email": "qa.territory_sales@test.primecare.local",
     "password": "Test@12345",
-    "app_code": "business_development",
-    "app_url": "https://primecare-business-development.pages.dev",
-    "redirect_url": "https://primecare-business-development.pages.dev/auth/callback",
-    "post_login_route": "/offices/business_development/roles/territory_sales_manager/dashboard"
+    "app_code": "marketing",
+    "app_url": "https://primecare-marketing.pages.dev",
+    "redirect_url": "https://primecare-marketing.pages.dev/auth/callback",
+    "post_login_route": "/roles/territory_sales_manager/dashboard"
   },
   {
     "role_code": "volunteer_coordinator",
@@ -429,7 +429,7 @@
     "app_code": "corporate",
     "app_url": "https://primecare-corporate.pages.dev",
     "redirect_url": "https://primecare-corporate.pages.dev/auth/callback",
-    "post_login_route": "/offices/corporate/roles/volunteer_coordinator/dashboard"
+    "post_login_route": "/roles/volunteer_coordinator/dashboard"
   },
   {
     "role_code": "premium_concierge",
@@ -456,7 +456,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/offices/clinical/roles/psw/dashboard"
+    "post_login_route": "/roles/psw/dashboard"
   },
   {
     "role_code": "hsw",
@@ -492,7 +492,7 @@
     "app_code": "clinic",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/offices/clinical/roles/rpn/dashboard"
+    "post_login_route": "/roles/rpn/dashboard"
   },
   {
     "role_code": "lpn",
@@ -510,7 +510,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/staff/employee-dashboard"
+    "post_login_route": "/roles/employee/dashboard"
   },
   {
     "role_code": "volunteer",
@@ -519,7 +519,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/staff/volunteer-dashboard"
+    "post_login_route": "/roles/volunteer/dashboard"
   },
   {
     "role_code": "admin",
@@ -528,7 +528,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-governance.pages.dev",
     "redirect_url": "https://primecare-governance.pages.dev/auth/callback",
-    "post_login_route": "/common/office-dashboard"
+    "post_login_route": "/offices/corporate/roles/ceo/dashboard"
   },
   {
     "role_code": "scheduler",
@@ -537,7 +537,7 @@
     "app_code": "franchise",
     "app_url": "https://primecare-franchise.pages.dev",
     "redirect_url": "https://primecare-franchise.pages.dev/auth/callback",
-    "post_login_route": "/offices/franchise/roles/scheduler/dashboard"
+    "post_login_route": "/roles/scheduler/dashboard"
   },
   {
     "role_code": "customer_support",
@@ -555,7 +555,7 @@
     "app_code": "governance",
     "app_url": "https://primecare-clinic.pages.dev",
     "redirect_url": "https://primecare-clinic.pages.dev/auth/callback",
-    "post_login_route": "/staff/training-dashboard"
+    "post_login_route": "/roles/training_coordinator/dashboard"
   },
   {
     "role_code": "qa_specialist",
@@ -564,7 +564,7 @@
     "app_code": "support",
     "app_url": "https://primecare-support.pages.dev",
     "redirect_url": "https://primecare-support.pages.dev/auth/callback",
-    "post_login_route": "/offices/support/roles/quality_assurance/dashboard"
+    "post_login_route": "/offices/support/roles/qa_specialist/dashboard"
   },
   {
     "role_code": "family",

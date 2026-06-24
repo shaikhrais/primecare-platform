@@ -5672,7 +5672,7 @@
   },
   {
     "id": 54,
-    "app_id": 5,
+    "app_id": 12,
     "runtime_artifact_id": null,
     "screen_code": "premium_concierge_dashboard",
     "screen_name": "PremiumConciergeDashboardScreen",
@@ -6314,7 +6314,7 @@
   },
   {
     "id": 60,
-    "app_id": 5,
+    "app_id": 12,
     "runtime_artifact_id": null,
     "screen_code": "vip_manager_dashboard",
     "screen_name": "VipManagerDashboardScreen",

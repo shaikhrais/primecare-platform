@@ -119,15 +119,15 @@ class AuthNotifier extends Notifier<AuthState> {
     final r = role.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_');
 
     // Corporate Leadership
-    if (r.contains('ceo') || r.contains('founder')) {
+    if (r == 'ceo' || r.contains('founder')) {
       return CorporateRoutes.ceoDashboard;
     }
     if (r.contains('shareholder')) {
       return CorporateRoutes.shareholderIntelligenceDashboard;
     }
-    if (r.contains('coo')) return CorporateRoutes.cooDashboard;
-    if (r.contains('cfo')) return CorporateRoutes.cfoDashboard;
-    if (r.contains('cto')) return CorporateRoutes.ctoDashboard;
+    if (r == 'coo') return CorporateRoutes.cooDashboard;
+    if (r == 'cfo') return CorporateRoutes.cfoDashboard;
+    if (r == 'cto') return CorporateRoutes.ctoDashboard;
     if (r.contains('legal')) return CorporateRoutes.legalDashboard;
     if (r.contains('ciso')) return CorporateRoutes.cisoDashboard;
     if (r.contains('compliance_manager')) {
@@ -190,6 +190,9 @@ class AuthNotifier extends Notifier<AuthState> {
     if (r.contains('customer_support') || r.contains('support')) {
       return SupportRoutes.customerSupportDashboard;
     }
+    if (r.contains('qa_specialist')) {
+      return '/offices/support/roles/qa_specialist/dashboard';
+    }
     if (r.contains('intake')) return SupportRoutes.intakeCoordinatorDashboard;
     if (r.contains('quality_assurance') || r.contains('qa_manager')) {
       return SupportRoutes.qualityAssuranceDashboard;
@@ -207,7 +210,7 @@ class AuthNotifier extends Notifier<AuthState> {
       return CommonRoutes.scrumMasterDashboard;
     }
     if (r.contains('guest')) {
-      return CommonRoutes.guestDashboard;
+      return ClientRoutes.patientDashboard;
     }
 
     // Marketing & Growth
@@ -254,6 +257,27 @@ class AuthNotifier extends Notifier<AuthState> {
     }
     if (r == 'rpn') {
       return ClinicalRoutes.rpnDashboard;
+    }
+    if (r == 'lpn') {
+      return '/clinical/lpn-dashboard';
+    }
+    if (r == 'np') {
+      return '/clinical/np-dashboard';
+    }
+    if (r == 'physician') {
+      return '/clinical/physician-dashboard';
+    }
+    if (r == 'pediatric') {
+      return '/clinical/pediatric-dashboard';
+    }
+    if (r == 'hsw') {
+      return '/clinical/hsw-dashboard';
+    }
+    if (r == 'cns') {
+      return '/clinical/cns-dashboard';
+    }
+    if (r == 'rn_field_supervisor') {
+      return '/rn/rn-field-supervisor-dashboard';
     }
     if (r.contains('clinical')) {
       return CommonRoutes.clinicalDashboard;

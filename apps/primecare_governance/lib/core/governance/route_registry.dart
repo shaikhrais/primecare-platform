@@ -31,7 +31,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     refreshListenable: authListenable,
     redirect: (context, state) {
       final isAuth = ref.read(authProvider).isAuthenticated;
-      final isLoggingIn = state.matchedLocation == '/login' || state.matchedLocation == '/';
+      final isLoggingIn = state.matchedLocation == '/login' || 
+                          state.matchedLocation == '/' ||
+                          state.matchedLocation == '/auth/callback';
       
       if (!isAuth && !isLoggingIn) return '/login';
       if (isAuth && isLoggingIn) {

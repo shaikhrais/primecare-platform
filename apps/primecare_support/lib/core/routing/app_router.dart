@@ -85,18 +85,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     publicRoutes: [
       GoRoute(
-        path: '/support/it-admin/dashboard',
-        builder: (context, state) => const ItAdministratorDashboardScreen(),
-      ),
-      GoRoute(
-        path: '/support/qa/dashboard',
-        builder: (context, state) => const QualityAssuranceDashboardScreen(),
-      ),
-      GoRoute(
-        path: '/support/training/dashboard',
-        builder: (context, state) => const TrainingCoordinatorDashboardScreen(),
-      ),
-      GoRoute(
         path: CommonRoutes.ssoRedirect,
         builder: (context, state) {
           final url =

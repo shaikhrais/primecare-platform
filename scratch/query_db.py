@@ -1,12 +1,17 @@
 import sqlite3
 
-DB_PATH = r"c:\Users\Admin2\Documents\GitHub\primecare-platform\.agents\governance\governance.db"
-conn = sqlite3.connect(DB_PATH)
+conn = sqlite3.connect('.agents/governance/governance.db')
 conn.row_factory = sqlite3.Row
 cur = conn.cursor()
 
-screens = cur.execute("SELECT screen_code, screen_name, route_path FROM screens WHERE route_path LIKE '%dashboard%' OR route_path LIKE '%portal%' OR route_path LIKE '%dynamic%'").fetchall()
-for s in screens:
-    print(f"Code: {s['screen_code']:25} | Name: {s['screen_name']:35} | Route: {s['route_path']}")
+print("--- SCREENS FOR ROLE 49 (PREMIUM CONCIERGE) ---")
+r = cur.execute("SELECT id, screen_code, app_id, route_path FROM screens WHERE role_id = 49").fetchall()
+for row in r:
+    print(f"ID: {row['id']} | Code: {row['screen_code']} | App ID: {row['app_id']} | Route: {row['route_path']}")
+
+print("\n--- SCREENS FOR ROLE 50 (VIP MANAGER) ---")
+r = cur.execute("SELECT id, screen_code, app_id, route_path FROM screens WHERE role_id = 50").fetchall()
+for row in r:
+    print(f"ID: {row['id']} | Code: {row['screen_code']} | App ID: {row['app_id']} | Route: {row['route_path']}")
 
 conn.close()

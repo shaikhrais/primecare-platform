@@ -165,6 +165,7 @@ enum PlatformRole {
     if (normalized == 'vipmanager') return PlatformRole.vipManager;
     if (normalized == 'qaspecialist') return PlatformRole.qaSpecialist;
     if (normalized == 'localmarketing') return PlatformRole.localMarketingManager;
+    if (normalized == 'governance') return PlatformRole.governanceOfficer;
 
     for (final role in PlatformRole.values) {
       if (role.name.toLowerCase() == normalized ||

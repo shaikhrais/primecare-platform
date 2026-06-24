@@ -1116,7 +1116,7 @@ class ClinicCareModule extends PlatformModule {
       title: 'Rn Field Supervisor Dashboard',
       route: '/rn/rn-field-supervisor-dashboard',
       icon: LucideIcons.circleDot,
-      requiredRole: PlatformRole.rn,
+      requiredRole: PlatformRole.rnFieldSupervisor,
       builder: (context) => const RnFieldSupervisorDashboardScreen(),
     ),
   ];
