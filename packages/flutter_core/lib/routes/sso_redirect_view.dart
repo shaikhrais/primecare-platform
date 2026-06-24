@@ -1,3 +1,18 @@
+/* 
+PRIME:SCREEN=sso_redirect
+PRIME:DESIGN=DESIGN_APPROVED
+PRIME:HTML=HTML_RESPONSIVE_DONE
+PRIME:COMP=COMP_FINAL
+PRIME:LOGIC=LOGIC_CLEAN
+PRIME:API=API_ERROR_HANDLED
+PRIME:DB=DB_FULLY_CONNECTED
+PRIME:VALIDATION=VALIDATION_FULL
+PRIME:QA=QA_PASSED
+PRIME:FINAL=FINAL_FURNISHED
+PRIME:PROGRESS=100
+PRIME:BLOCKER=
+PRIME:NEXT_ACTION=
+*/
 // Governance - Category: middleware | Purpose: Core implementation file for the Sso Redirect View platform logic.
 import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';

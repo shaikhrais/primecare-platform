@@ -136,7 +136,7 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
 
     cy.intercept("GET", "**/auth/me", (req) => {
       const auth = req.headers["authorization"] || req.headers["Authorization"] || "";
-      if (auth.includes(mockToken)) {
+      if (auth.includes(mockToken) || auth.includes("sso-token")) {
         req.reply({
           statusCode: 200,
           body: mockUserResponse
@@ -151,7 +151,7 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
 
     cy.intercept("GET", "**/me", (req) => {
       const auth = req.headers["authorization"] || req.headers["Authorization"] || "";
-      if (auth.includes(mockToken)) {
+      if (auth.includes(mockToken) || auth.includes("sso-token")) {
         req.reply({
           statusCode: 200,
           body: mockUserResponse

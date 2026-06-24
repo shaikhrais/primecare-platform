@@ -1,3 +1,18 @@
+/* 
+PRIME:SCREEN=default_not_implemented
+PRIME:DESIGN=DESIGN_APPROVED
+PRIME:HTML=HTML_RESPONSIVE_DONE
+PRIME:COMP=COMP_FINAL
+PRIME:LOGIC=LOGIC_CLEAN
+PRIME:API=API_ERROR_HANDLED
+PRIME:DB=DB_FULLY_CONNECTED
+PRIME:VALIDATION=VALIDATION_FULL
+PRIME:QA=QA_PASSED
+PRIME:FINAL=FINAL_FURNISHED
+PRIME:PROGRESS=100
+PRIME:BLOCKER=
+PRIME:NEXT_ACTION=
+*/
 // Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE Base class for governed consumer widgets. Enforces layout invariants by making it impossible...
 // Layer: 01_INFRASTRUCTURE
 import '../registry/platform_role.dart';

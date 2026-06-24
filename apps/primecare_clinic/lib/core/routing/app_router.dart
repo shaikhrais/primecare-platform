@@ -3,9 +3,6 @@ import 'package:primecare_ui/primecare_ui.dart';
 
 import 'clinic_routes.dart';
 
-import '../../features/shared/screens/clinic_incident_report_screen.dart';
-import '../../features/shared/screens/clinic_history_logs_screen.dart';
-import '../../features/rn/screens/rn_messaging_screen.dart';
 
 final clinicApplicationProvider = Provider<ClinicApplication>((ref) {
   return ClinicApplication();
@@ -75,61 +72,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       return null;
     },
     publicRoutes: [
-      GoRoute(
-        path: '/clinic/dashboard',
-        builder: (context, state) => const PswDashboardScreen(),
-      ),
-      GoRoute(
-        path: '/clinic/care-plan',
-        builder: (context, state) => const PswCarePlanScreen(),
-      ),
-      GoRoute(
-        path: '/clinic/daily-notes',
-        builder: (context, state) => const PswVisitNotesScreen(),
-      ),
-      GoRoute(
-        path: '/clinic/client-profile',
-        builder: (context, state) => const PswClientProfileScreen(),
-      ),
-      GoRoute(
-        path: '/clinic/my-shifts',
-        builder: (context, state) => const PswMyShiftsScreen(),
-      ),
-      GoRoute(
-        path: '/clinic/messaging',
-        builder: (context, state) => const PswMessagesScreen(),
-      ),
-
-      GoRoute(
-        path: '/clinic/rn-dashboard',
-        builder: (context, state) => const RnDashboardScreen(),
-      ),
-      GoRoute(
-        path: '/clinic/rn-medications',
-        builder: (context, state) => const RnMedicationsScreen(),
-      ),
-      GoRoute(
-        path: '/clinic/rn-vitals',
-        builder: (context, state) => const RnVitalsScreen(),
-      ),
-      GoRoute(
-        path: '/clinic/rn-charting',
-        builder: (context, state) => const RnPatientChartingScreen(),
-      ),
-      GoRoute(
-        path: '/clinic/rn-messaging',
-        builder: (context, state) => const RnMessagingScreen(),
-      ),
-
-      GoRoute(
-        path: '/clinic/incident-report',
-        builder: (context, state) => const ClinicIncidentReportScreen(),
-      ),
-      GoRoute(
-        path: '/clinic/history-logs',
-        builder: (context, state) => const ClinicHistoryLogsScreen(),
-      ),
-
       GoRoute(
         path: CommonRoutes.ssoRedirect,
         builder: (context, state) {

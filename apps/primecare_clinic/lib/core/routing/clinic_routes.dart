@@ -1,5 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/theme/theme_config_generated.dart';
+import '../../features/shared/screens/clinic_incident_report_screen.dart';
+import '../../features/shared/screens/clinic_history_logs_screen.dart';
 
 class ClinicTenant extends PlatformTenant {
   @override
@@ -50,16 +52,19 @@ class ClinicCareModule extends PlatformModule {
       title: 'Care Plan',
       route: CommonRoutes.clinicCarePlan,
       icon: LucideIcons.clipboardList,
+      builder: (context) => const PswCarePlanScreen(),
     ),
     PrimeCareScreen(
       title: 'Daily Notes',
       route: CommonRoutes.clinicDailyNotes,
       icon: LucideIcons.pencil,
+      builder: (context) => const PswVisitNotesScreen(),
     ),
     PrimeCareScreen(
       title: 'Client Profile',
       route: CommonRoutes.clinicClientProfile,
       icon: LucideIcons.userCircle,
+      builder: (context) => const PswClientProfileScreen(),
     ),
     PrimeCareScreen(
       title: 'Chiropractor Dashboard',
@@ -1145,16 +1150,19 @@ class ClinicOperationsModule extends PlatformModule {
       title: 'Clinical Intelligence',
       route: CommonRoutes.clinicDashboard,
       icon: LucideIcons.barChart4,
+      builder: (context) => const PswDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'My Shifts',
       route: CommonRoutes.clinicMyShifts,
       icon: LucideIcons.calendarDays,
+      builder: (context) => const PswMyShiftsScreen(),
     ),
     PrimeCareScreen(
       title: 'Messaging',
       route: CommonRoutes.clinicMessaging,
       icon: LucideIcons.messageSquare,
+      builder: (context) => const PswMessagesScreen(),
     ),
     PrimeCareScreen(
       title: 'Intake Coordinator Dashboard',
@@ -1278,11 +1286,13 @@ class ClinicSafetyModule extends PlatformModule {
       title: 'Incident Report',
       route: CommonRoutes.clinicIncidentReport,
       icon: LucideIcons.alertTriangle,
+      builder: (context) => const ClinicIncidentReportScreen(),
     ),
     PrimeCareScreen(
       title: 'History Logs',
       route: CommonRoutes.clinicHistoryLogs,
       icon: LucideIcons.history,
+      builder: (context) => const ClinicHistoryLogsScreen(),
     ),
     PrimeCareScreen(
       title: 'QA Dashboard',

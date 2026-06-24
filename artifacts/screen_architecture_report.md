@@ -6,17 +6,17 @@ This report outlines the **total screen counts**, **essential component wiring**
 
 | Application | Total Screens | Verified Online | i18n Parity | Average Buttons/Screen | Riverpod Wired % |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| `primecare_auth` | **1** | Yes (HTTP 200) | **100%** | 0.0 | 100.0% |
+| `primecare_auth` | **1** | Yes (HTTP 200) | **100%** | 2.0 | 100.0% |
 | `primecare_governance` | **59** | Yes (HTTP 200) | **100%** | 0.7 | 54.2% |
 | `primecare_corporate` | **263** | Yes (HTTP 200) | **100%** | 0.0 | 99.6% |
 | `primecare_franchise` | **162** | Yes (HTTP 200) | **100%** | 0.0 | 99.4% |
-| `primecare_clinic` | **39** | Yes (HTTP 200) | **100%** | 0.1 | 79.5% |
+| `primecare_clinic` | **51** | Yes (HTTP 200) | **100%** | 0.6 | 84.3% |
 | `primecare_client` | **30** | Yes (HTTP 200) | **100%** | 0.0 | 96.7% |
 | `primecare_business_development` | **78** | Yes (HTTP 200) | **100%** | 0.0 | 98.7% |
 | `primecare_marketing` | **36** | Yes (HTTP 200) | **100%** | 0.0 | 97.2% |
 | `primecare_support` | **39** | Yes (HTTP 200) | **100%** | 0.0 | 97.4% |
 | `primecare_enterprise_blueprint` | **1** | Yes (HTTP 200) | **100%** | 1.0 | 0.0% |
-| **TOTAL ECOSYSTEM** | **708** | - | **100%** | - | - |
+| **TOTAL ECOSYSTEM** | **720** | - | **100%** | - | - |
 
 ## 2. Essential Component Wiring (By Application)
 
@@ -30,7 +30,7 @@ Every screen in this application requires the following key architectural compon
 
 | Screen Component | Interactive Elements | Riverpod Wired | Controller Hook | Status |
 | :--- | :---: | :---: | :---: | :--- |
-| `SuccessProfileView` | 0 buttons | Yes | Yes | ✅ Fully Functional |
+| `SuccessProfileView` | 2 buttons | Yes | Yes | ✅ Fully Functional |
 
 ---
 
@@ -557,7 +557,7 @@ Every screen in this application requires the following key architectural compon
 
 ---
 
-### 📦 PRIMECARE_CLINIC (39 Screens)
+### 📦 PRIMECARE_CLINIC (51 Screens)
 
 Every screen in this application requires the following key architectural components to function correctly:
 - **State Management**: Riverpod providers for responsive data binding.
@@ -602,6 +602,18 @@ Every screen in this application requires the following key architectural compon
 | `TherapistDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Functional |
 | `UnknownDashboardScreen` | 0 buttons | Yes | Yes | ✅ Fully Functional |
 | `PhysicianDashboardScreen` | 5 buttons | Yes | Yes | ✅ Fully Functional |
+| `PswCareDashboardScreen` | 2 buttons | Yes | Yes | ✅ Fully Functional |
+| `PswCheckInScreen` | 5 buttons | Yes | Yes | ✅ Fully Functional |
+| `PswDailyNotesScreen` | 2 buttons | Yes | Yes | ✅ Fully Functional |
+| `PswHelpSupportScreen` | 2 buttons | Yes | Yes | ✅ Fully Functional |
+| `PswMessagingScreen` | 2 buttons | Yes | Yes | ✅ Fully Functional |
+| `PswMyClientsScreen` | 1 buttons | Yes | Yes | ✅ Fully Functional |
+| `PswNotificationsScreen` | 1 buttons | Yes | Yes | ✅ Fully Functional |
+| `PswProfileScreen` | 3 buttons | Yes | Yes | ✅ Fully Functional |
+| `PswReportsScreen` | 1 buttons | Yes | Yes | ✅ Fully Functional |
+| `PswSystemLogsScreen` | 3 buttons | Yes | Yes | ✅ Fully Functional |
+| `PswTaskListScreen` | 0 buttons | Yes | Yes | ✅ Fully Functional |
+| `RnChartingScreen` | 2 buttons | Yes | Yes | ✅ Fully Functional |
 | `RnMessagingScreen` | 0 buttons | No | No | ✅ Fully Functional |
 | `ClinicHistoryLogsScreen` | 0 buttons | Yes | Yes | ✅ Fully Functional |
 | `ClinicIncidentReportScreen` | 0 buttons | Yes | Yes | ✅ Fully Functional |

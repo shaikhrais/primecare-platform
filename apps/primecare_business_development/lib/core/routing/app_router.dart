@@ -153,24 +153,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     publicRoutes: [
       GoRoute(
-        path: '/busdev/sales',
-        builder: (context, state) =>
-            const FranchiseSalesManagerDashboardScreen(),
-      ),
-      GoRoute(
-        path: '/busdev/partnership',
-        builder: (context, state) => const PartnershipManagerDashboardScreen(),
-      ),
-      GoRoute(
-        path: '/busdev/bdm',
-        builder: (context, state) => const RegionalBdmDashboardScreen(),
-      ),
-      GoRoute(
-        path: '/busdev/expansion',
-        builder: (context, state) =>
-            const TerritoryExpansionManagerDashboardScreen(),
-      ),
-      GoRoute(
         path: CommonRoutes.ssoRedirect,
         builder: (context, state) {
           final url =
