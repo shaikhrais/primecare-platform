@@ -294,6 +294,7 @@ export 'src/screens/management/territory_expansion_manager_workflow_screen.dart'
 export 'src/screens/management/territory_sales_manager_analytics_screen.dart';
 export 'src/screens/management/territory_sales_manager_workflow_screen.dart';
 export 'src/screens/management/vip_manager_dashboard_screen.dart';
+export 'src/screens/management/screen_progress_dashboard.dart';
 export 'src/screens/psw/psw_analytics_screen.dart';
 export 'src/screens/psw/psw_clients_screen.dart';
 export 'src/screens/psw/psw_shift_tracker_screen.dart';

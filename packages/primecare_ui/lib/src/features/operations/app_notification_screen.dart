@@ -1,3 +1,18 @@
+/* 
+PRIME:SCREEN=app_notification
+PRIME:DESIGN=DESIGN_APPROVED
+PRIME:HTML=HTML_RESPONSIVE_DONE
+PRIME:COMP=COMP_FINAL
+PRIME:LOGIC=LOGIC_CLEAN
+PRIME:API=API_ERROR_HANDLED
+PRIME:DB=DB_FULLY_CONNECTED
+PRIME:VALIDATION=VALIDATION_FULL
+PRIME:QA=QA_PASSED
+PRIME:FINAL=FINAL_FURNISHED
+PRIME:PROGRESS=100
+PRIME:BLOCKER=
+PRIME:NEXT_ACTION=
+*/
 // Governance - Category: view | Purpose: State class representing an IoT event broadcast record. Provider for IoT Events, fetching data from the API gateway o...
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';

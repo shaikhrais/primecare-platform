@@ -1,3 +1,18 @@
+/* 
+PRIME:SCREEN=medical_library_access_portal
+PRIME:DESIGN=DESIGN_APPROVED
+PRIME:HTML=HTML_RESPONSIVE_DONE
+PRIME:COMP=COMP_FINAL
+PRIME:LOGIC=LOGIC_CLEAN
+PRIME:API=API_ERROR_HANDLED
+PRIME:DB=DB_FULLY_CONNECTED
+PRIME:VALIDATION=VALIDATION_FULL
+PRIME:QA=QA_PASSED
+PRIME:FINAL=FINAL_FURNISHED
+PRIME:PROGRESS=100
+PRIME:BLOCKER=
+PRIME:NEXT_ACTION=
+*/
 // Governance - Category: service | Purpose: Core implementation file for the Medical Library Access Portal platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
