@@ -49,6 +49,16 @@ class ScreenHealthStatus {
   final bool productionReady;
   final bool falseProgress;
 
+  // New role tracking fields
+  final String? roleKey;
+  final String? roleName;
+  final String? roleCategory;
+  final int roleScreenOrder;
+  final int roleCompletionPercent;
+  final String? roleDocPath;
+  final String? visualStatus;
+
+
   const ScreenHealthStatus({
     required this.screenName,
     required this.routePath,
@@ -91,6 +101,13 @@ class ScreenHealthStatus {
     this.needsReview = false,
     this.productionReady = false,
     this.falseProgress = false,
+    this.roleKey,
+    this.roleName,
+    this.roleCategory,
+    this.roleScreenOrder = 0,
+    this.roleCompletionPercent = 0,
+    this.roleDocPath,
+    this.visualStatus,
   });
 
   factory ScreenHealthStatus.fromJson(Map<String, dynamic> json) {
@@ -136,6 +153,13 @@ class ScreenHealthStatus {
       needsReview: (json['needs_review'] ?? json['needsReview']) as bool? ?? false,
       productionReady: (json['production_ready'] ?? json['productionReady']) as bool? ?? false,
       falseProgress: (json['false_progress'] ?? json['falseProgress']) as bool? ?? false,
+      roleKey: (json['role_key'] ?? json['roleKey']) as String?,
+      roleName: (json['role_name'] ?? json['roleName']) as String?,
+      roleCategory: (json['role_category'] ?? json['roleCategory']) as String?,
+      roleScreenOrder: (json['role_screen_order'] ?? json['roleScreenOrder']) as int? ?? 0,
+      roleCompletionPercent: (json['role_completion_percent'] ?? json['roleCompletionPercent']) as int? ?? 0,
+      roleDocPath: (json['role_doc_path'] ?? json['roleDocPath']) as String?,
+      visualStatus: (json['visual_status'] ?? json['visualStatus']) as String?,
     );
   }
 
@@ -182,6 +206,13 @@ class ScreenHealthStatus {
       'needs_review': needsReview,
       'production_ready': productionReady,
       'false_progress': falseProgress,
+      'role_key': roleKey,
+      'role_name': roleName,
+      'role_category': roleCategory,
+      'role_screen_order': roleScreenOrder,
+      'role_completion_percent': roleCompletionPercent,
+      'role_doc_path': roleDocPath,
+      'visual_status': visualStatus,
     };
   }
 }
@@ -361,6 +392,13 @@ List<ScreenHealthStatus> loadAllScreensFromDb() {
         needsReview: ((row['needs_review'] ?? 0) as int) == 1,
         productionReady: ((row['production_ready'] ?? 0) as int) == 1,
         falseProgress: ((row['false_progress'] ?? 0) as int) == 1,
+        roleKey: row['role_key'] as String?,
+        roleName: row['role_name'] as String?,
+        roleCategory: row['role_category'] as String?,
+        roleScreenOrder: (row['role_screen_order'] ?? 0) as int,
+        roleCompletionPercent: (row['role_completion_percent'] ?? 0) as int,
+        roleDocPath: row['role_doc_path'] as String?,
+        visualStatus: row['visual_status'] as String?,
       ));
     }
     db.dispose();

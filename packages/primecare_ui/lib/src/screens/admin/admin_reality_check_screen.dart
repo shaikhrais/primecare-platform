@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 /// Admin screen representing the Reality Check auditing dashboard.
@@ -91,21 +92,44 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
           // Header description
           Padding(
             padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Reality Check Dashboard',
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: theme.primaryColor,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Reality Check Dashboard',
+                        style: theme.textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.primaryColor,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Every screen must have a clear USER PURPOSE and INTERACTION to justify its existence on the platform.',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.hintColor,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  'Every screen must have a clear USER PURPOSE and INTERACTION to justify its existence on the platform.',
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.hintColor,
+                ElevatedButton.icon(
+                  onPressed: () {
+                    try {
+                      GoRouter.of(context).go('/admin/role-screen-carousel');
+                    } catch (e) {
+                      debugPrint('Navigation error: $e');
+                    }
+                  },
+                  icon: const Icon(LucideIcons.layers, size: 16),
+                  label: const Text('View Role Carousel'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.primaryColor,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   ),
                 ),
               ],

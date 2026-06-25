@@ -142,6 +142,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           // Native QA & Compliance Routes
           GoRoute(path: '/admin/screen-health', builder: (context, state) => const AdminScreenHealthScreen()),
           GoRoute(path: '/admin/reality-check', builder: (context, state) => const AdminRealityCheckScreen()),
+          GoRoute(path: '/admin/role-screen-carousel', builder: (context, state) => const AdminRoleCarouselScreen()),
           GoRoute(path: '/generated/audit-dashboard', builder: (context, state) => const AuditDashboardScreen()),
           GoRoute(path: '/generated/compliance-reviews', builder: (context, state) => const ComplianceReviewsScreen()),
           GoRoute(path: '/generated/incident-reports', builder: (context, state) => const IncidentReportsScreen()),

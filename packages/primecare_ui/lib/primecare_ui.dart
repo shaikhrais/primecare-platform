@@ -37,6 +37,7 @@ export 'src/governance/screen_self_diagnosis.dart';
 export 'src/governance/screen_health_panel.dart';
 export 'src/screens/admin/admin_screen_health_screen.dart';
 export 'src/screens/admin/admin_reality_check_screen.dart';
+export 'src/screens/admin/admin_role_carousel_screen.dart';
 
 export 'src/screens/common/shared_screen_stubs.dart';
 export 'src/screens/psw/psw_messages_screen.dart';

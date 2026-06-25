@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -205,6 +206,52 @@ class _AdminScreenHealthScreenState extends ConsumerState<AdminScreenHealthScree
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // Header Description and Navigation
+          Padding(
+            padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Self-Diagnosis Verification Registry',
+                        style: theme.textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.primaryColor,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Verify and test runtime responses and telemetry checks for all screens.',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.hintColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    try {
+                      GoRouter.of(context).go('/admin/role-screen-carousel');
+                    } catch (e) {
+                      debugPrint('Navigation error: $e');
+                    }
+                  },
+                  icon: const Icon(LucideIcons.layers, size: 16),
+                  label: const Text('View Role Carousel'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.primaryColor,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+              ],
+            ),
+          ),
           // Header / Stats cards
           _buildStatsHeader(
             theme,
@@ -259,7 +306,7 @@ class _AdminScreenHealthScreenState extends ConsumerState<AdminScreenHealthScree
     required double avgProgress,
   }) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
+      padding: const EdgeInsets.fromLTRB(24, 12, 24, 16),
       child: LayoutBuilder(
         builder: (context, constraints) {
           final isNarrow = constraints.maxWidth < 800;
