@@ -114,7 +114,7 @@ class PopulationHealthAnalyzerScreen extends GovernedConsumerWidget {
                             padding: const EdgeInsets.all(8),
                             itemCount: (data['cohorts'] as List).length,
                             itemBuilder: (context, index) {
-                              final cohort = data['cohorts'][index];
+                              final cohort = data['cohorts'][index] as Map<String, dynamic>;
                               return _CohortDetailsView(cohort: cohort);
                             },
                           ),

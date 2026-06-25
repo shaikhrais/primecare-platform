@@ -272,7 +272,7 @@ class _RegionalListWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.between,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(r['name'] as String, style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold)),
                   Text(r['patients'] as String, style: theme.typography.labelSmall.copyWith(color: theme.colors.primary, fontWeight: FontWeight.bold)),

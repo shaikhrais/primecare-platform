@@ -3891,7 +3891,17 @@ class PlatformScreenRegistry {
     sourcePath: 'packages/primecare_ui/lib/src/registry/screen_registry.dart',
     isVirtual: true,
     ),
-
+    'SCREEN_HEALTH': ScreenMetadata(
+      id: 'SCREEN_HEALTH',
+      featureName: 'Screen Health',
+      title: 'Screen Health Diagnostics',
+      routePath: '/admin/screen-health',
+      icon: Icons.health_and_safety_outlined,
+      allowedRoles: ['ADMIN', 'SUPERADMIN', 'SYSTEM', 'IT_ADMIN', 'CEO'],
+      lifecycleStatus: LifecycleStatus.completed,
+      sourcePath: 'packages/primecare_ui/lib/src/screens/admin/admin_screen_health_screen.dart',
+      isVirtual: false,
+    ),
   };
 
   static List<ScreenMetadata> get allScreens => screens.values.toList();

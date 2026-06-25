@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_core/theme/app_theme.dart';
 import 'package:flutter_core/theme/theme_config_generated.dart';
+import '../governance_bootstrapper.dart';
 
 /// Static utility class for PrimeCare colors used across the platform.
 class PrimeCareColors {
@@ -615,7 +616,9 @@ class PrimeThemeData {
 class PrimeTheme extends InheritedWidget {
   final PrimeThemeData data;
 
-  const PrimeTheme({required this.data, required super.child, super.key});
+  PrimeTheme({required this.data, required super.child, super.key}) {
+    GovernanceBootstrapper.bootstrap();
+  }
 
   static PrimeThemeData of(BuildContext context) {
     final provider = context.dependOnInheritedWidgetOfExactType<PrimeTheme>();

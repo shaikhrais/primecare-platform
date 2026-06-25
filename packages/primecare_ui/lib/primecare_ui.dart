@@ -33,6 +33,10 @@ export 'src/shared/src/integration/platform_governance_registry.dart';
 
 export 'src/governance/dashboard_infrastructure.dart';
 export 'src/governance/integrity_service.dart';
+export 'src/governance/screen_self_diagnosis.dart';
+export 'src/governance/screen_health_panel.dart';
+export 'src/screens/admin/admin_screen_health_screen.dart';
+export 'src/screens/admin/admin_reality_check_screen.dart';
 
 export 'src/screens/common/shared_screen_stubs.dart';
 export 'src/screens/psw/psw_messages_screen.dart';

@@ -366,6 +366,7 @@ import 'package:flutter_core/flutter_core.dart';
 import '../screens/common/shared_screen_stubs.dart';
 import '../screens/psw/psw_messages_screen.dart';
 import '../screens/psw/psw_visit_notes_screen.dart';
+import '../screens/admin/admin_screen_health_screen.dart';
 
 /// [ScreenRegistry] - UI-specific bridge for PlatformScreenRegistry.
 /// Maps architectural metadata to actual Flutter widgets.
@@ -1107,6 +1108,7 @@ class ScreenRegistry {
         const BusinessDevelopmentComplianceScreen(),
     'SCREEN_BUSINESSDEVELOPMENT_COMPLIANCE':
         const BusinessDevelopmentComplianceScreen(),
+    'SCREEN_HEALTH': const AdminScreenHealthScreen(),
   };
 
   /// Source of truth for metadata

@@ -13,15 +13,75 @@ PRIME:PROGRESS=30
 PRIME:BLOCKER=
 PRIME:NEXT_ACTION=
 */
-// Governance - Category: view | Purpose: UI Screen component rendering the Cto Dashboard workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
-class CtoDashboard extends GovernedStatelessWidget {
+class CtoDashboard extends ConsumerStatefulWidget {
   const CtoDashboard({super.key});
 
   @override
-  Widget buildScreen(BuildContext context) {
+  ConsumerState<CtoDashboard> createState() => _CtoDashboardState();
+}
+
+class _CtoDashboardState extends ConsumerState<CtoDashboard> {
+  bool _isLoading = false;
+  bool _hasError = false;
+  String _searchQuery = '';
+  final List<String> _releases = [
+    'Release v2.8.1: DEPLOYED to production (All services green)',
+    'Release v2.8.2-rc2: IN PIPELINE (Aura Integration tests running)',
+    'Release v2.7.9: ARCHIVED (Success - Rolled out on June 18)',
+    'Release v2.8.0-hotfix1: DEPLOYED to production (Patch for SSO)',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
     final theme = context.theme;
+    final flutterTheme = Theme.of(context);
+
+    if (_isLoading) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(height: 16),
+              const Text('Fetching telemetry from deployment nodes...'),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => setState(() => _isLoading = false),
+                child: const Text('Cancel Request'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    if (_hasError) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.error_outline, color: Colors.red, size: 64),
+              const SizedBox(height: 16),
+              const Text('Failed to load release pipeline telemetry.'),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () => setState(() => _hasError = false),
+                child: const Text('Reconnect API'),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    final filteredReleases = _releases
+        .where((r) => r.toLowerCase().contains(_searchQuery.toLowerCase()))
+        .toList();
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -30,52 +90,109 @@ class CtoDashboard extends GovernedStatelessWidget {
           GovDashboardHero(
             title: 'Cto Dashboard',
             roleName: 'CTO Workspace',
-            description: 'Manage institutional settings, track real-time clinical workflows, and verify live compliance standing.',
+            description: 'Monitor release management telemetry, inspect API performance logs, and manage rollout configurations.',
           ),
           const SizedBox(height: 24),
+
+          // Simulation control bar
           Row(
             children: [
-              Expanded(
-                child: GovMetricCard(
-                  title: 'Operational Status',
-                  value: 'ACTIVE',
-                  trendLabel: 'SLA uptime is 99.98%',
-                  progress: 0.95,
-                  icon: LucideIcons.activity,
-                  brandColor: theme.colors.primary,
-                ),
+              ElevatedButton.icon(
+                onPressed: () => setState(() => _isLoading = true),
+                icon: const Icon(Icons.cloud_sync),
+                label: const Text('Refresh Deployments'),
               ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: GovMetricCard(
-                  title: 'Verification Audits',
-                  value: 'Compliant',
-                  trendLabel: 'Zero issues detected',
-                  progress: 1.0,
-                  icon: LucideIcons.shieldCheck,
-                  brandColor: Colors.green,
-                ),
+              const SizedBox(width: 12),
+              OutlinedButton.icon(
+                onPressed: () => setState(() => _hasError = true),
+                icon: const Icon(Icons.warning_amber),
+                label: const Text('Simulate Pipeline Offline'),
+              ),
+              const SizedBox(width: 12),
+              TextButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Triggered automated security compliance scan.')),
+                  );
+                },
+                child: const Text('Run Security Sweep'),
               ),
             ],
           ),
           const SizedBox(height: 24),
-          GovTelemetryChart(
-            title: 'Hourly Transaction flow',
-            dataPoints: const [45, 62, 58, 87, 81, 95],
-            labels: const ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
-            accentColor: theme.colors.primary,
+
+          // Search Card
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Search Active Release Rollouts', style: flutterTheme.textTheme.titleMedium),
+                  const SizedBox(height: 12),
+                  TextField(
+                    decoration: const InputDecoration(
+                      hintText: 'Search release semantic version or status...',
+                      prefixIcon: Icon(Icons.search),
+                    ),
+                    onChanged: (val) {
+                      setState(() {
+                        _searchQuery = val;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
           ),
           const SizedBox(height: 24),
-          GovIngestionForm(
-            title: 'Secure Operational Event Logger',
-            buttonLabel: 'Submit Secure Ledger Event',
-            fields: const [
-              'Operator Employee ID',
-              'Event Classification Type',
-              'Security Consent Signature',
-            ],
-            onSubmit: (data) {},
-          ),
+
+          // Rollouts queue list
+          Text('Deployment Pipeline Rollouts', style: flutterTheme.textTheme.titleLarge),
+          const SizedBox(height: 12),
+          if (filteredReleases.isEmpty)
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.all(32.0),
+                child: Text('No matching releases in the pipeline queue.'),
+              ),
+            )
+          else
+            ...filteredReleases.map((r) => Card(
+                  margin: const EdgeInsets.only(bottom: 12),
+                  child: ListTile(
+                    leading: const Icon(Icons.rocket_launch, color: Colors.purple),
+                    title: Text(r),
+                    trailing: IconButton(
+                      icon: const Icon(Icons.history_sharp),
+                      tooltip: 'Rollback Deployment',
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                            title: const Text('Trigger Safe Deployment Rollback'),
+                            content: Text('Confirm rollback of: $r?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(ctx),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(ctx);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Initiating rollback protocol for: $r')),
+                                  );
+                                },
+                                child: const Text('Rollback'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                )),
         ],
       ),
     );

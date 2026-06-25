@@ -49,6 +49,7 @@ class AppDrawer extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 children: [
                   _buildSectionHeader(context, 'SYSTEM CORE'.tr()),
+                  _buildRegistryLink(context, 'SCREEN_HEALTH'),
                   _buildRegistryLink(context, 'CONTROL_CENTER'),
                   _buildRegistryLink(context, 'GOVERNANCE_HUD'),
                   _buildRegistryLink(context, 'SYSTEM_GOVERNANCE_DASHBOARD'),

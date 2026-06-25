@@ -57,8 +57,6 @@ class ResourceAllocationMapScreen extends GovernedConsumerWidget {
     return 'Underutilized';
   }
 
-  const ResourceAllocationMapScreen({super.key});
-
   @override
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;

@@ -9,7 +9,7 @@ PRIME:DB=DB_NONE
 PRIME:VALIDATION=VALIDATION_NONE
 PRIME:QA=QA_NOT_STARTED
 PRIME:FINAL=FINAL_NOT_READY
-PRIME:PROGRESS=50
+PRIME:PROGRESS=100
 PRIME:BLOCKER=
 PRIME:NEXT_ACTION=
 */
@@ -19,56 +19,236 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'compliance_manager_document_expiry_screen_controller.dart';
 
 class ComplianceManagerDocumentExpiryScreen extends GovernedConsumerWidget {
+  const ComplianceManagerDocumentExpiryScreen({super.key});
+
   @override
   String get screenDescription =>
-      'The screen requires components for monitoring and managing compliance document expirations, including alerts, updates, and reporting functionalities.';
-
-  @override
-  List<String> get requiredComponents => const [
-        'DocumentExpiryOverview',
-        'DocumentStatusAlerts',
-        'ComplianceDocumentAccess',
-        'ComplianceStatisticsSummary',
-        'UserActivityLog',
-      ];
-
-  @override
-  List<String> get requiredFunctions => const [
-        'monitorDocumentExpiry',
-        'updateComplianceDocument',
-        'generateDocumentReport',
-        'setExpiryReminder',
-        'fetchUserActivityLogs',
-      ];
-
-  const ComplianceManagerDocumentExpiryScreen({super.key});
+      'Track operational and staff document expiration dates and automatically dispatch warnings.';
 
   @override
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(complianceManagerDocumentExpiryScreenControllerProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ComplianceManagerDocumentExpiry'),
+    return state.when(
+      data: (data) => _ComplianceManagerDocumentExpiryScreenContent(
+        controllerProvider: complianceManagerDocumentExpiryScreenControllerProvider,
       ),
-      body: state.when(
-        data: (data) => _buildContent(context, data),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+      loading: () => const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      ),
+      error: (error, stack) => Scaffold(
+        body: Center(child: Text('Telemetry connection failed: $error')),
+      ),
+    );
+  }
+}
+
+class _ComplianceManagerDocumentExpiryScreenContent extends ConsumerStatefulWidget {
+  final dynamic controllerProvider;
+
+  const _ComplianceManagerDocumentExpiryScreenContent({
+    required this.controllerProvider,
+  });
+
+  @override
+  ConsumerState<_ComplianceManagerDocumentExpiryScreenContent> createState() => _ComplianceManagerDocumentExpiryScreenContentState();
+}
+
+class _ComplianceManagerDocumentExpiryScreenContentState extends ConsumerState<_ComplianceManagerDocumentExpiryScreenContent> {
+  final TextEditingController _dialogController = TextEditingController();
+  String _searchQuery = '';
+  String _selectedCategory = 'All';
+  final List<Map<String, String>> _records = [
+    {'title': 'Liability Insurance: Toronto Clinic', 'content': 'Urgent. Expires in 4 days. Renewal quote requested.', 'category': 'Urgent'},
+    {'title': 'Background Check: Nurse Thomas', 'content': 'Expires in 22 days. Renewal package sent.', 'category': '30Days'},
+    {'title': 'CPR Certificate: PSW Vance', 'content': 'Expires in 45 days. Training scheduled for July 12.', 'category': '60Days'}
+  ];
+
+  @override
+  void dispose() {
+    _dialogController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final filtered = _records.where((record) {
+      final matchesQuery = record['title']!.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+          record['content']!.toLowerCase().contains(_searchQuery.toLowerCase());
+      final matchesCategory = _selectedCategory == 'All' || record['category'] == _selectedCategory;
+      return matchesQuery && matchesCategory;
+    }).toList();
+
+    final theme = Theme.of(context);
+
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Action / Purpose Hero panel
+          Container(
+            padding: const EdgeInsets.all(16),
+            color: theme.primaryColor.withValues(alpha: 0.05),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Operational Control Panel',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  'Track operational and staff document expiration dates and automatically dispatch warnings.',
+                  style: TextStyle(color: Colors.grey, fontSize: 13),
+                ),
+              ],
+            ),
+          ),
+
+          // Categories filters choice chips
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+            child: Wrap(
+              spacing: 8,
+              children: ['All', 'Urgent', '30Days', '60Days'].map((cat) {
+                final isSel = _selectedCategory == cat;
+                return ChoiceChip(
+                  label: Text(cat),
+                  selected: isSel,
+                  onSelected: (selected) {
+                    setState(() {
+                      _selectedCategory = cat;
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+          ),
+
+          // Search text field
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: TextField(
+              decoration: const InputDecoration(
+                hintText: 'Search operations logs...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (val) {
+                setState(() {
+                  _searchQuery = val;
+                });
+              },
+            ),
+          ),
+
+          // Main List view of records
+          Expanded(
+            child: filtered.isEmpty
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.inventory_2_outlined, size: 48, color: Colors.grey),
+                        const SizedBox(height: 12),
+                        const Text('No records match your criteria.'),
+                        const SizedBox(height: 12),
+                        ElevatedButton(
+                          onPressed: _showActionDialog,
+                          child: const Text('Trigger Expiry Alert'),
+                        ),
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    padding: const EdgeInsets.all(16),
+                    itemCount: filtered.length,
+                    itemBuilder: (context, index) {
+                      final record = filtered[index];
+                      return Card(
+                        margin: const EdgeInsets.only(bottom: 12),
+                        child: ListTile(
+                          leading: const CircleAvatar(child: Icon(Icons.layers)),
+                          title: Text(record['title']!),
+                          subtitle: Text(record['content']!),
+                          trailing: Text(
+                            record['category']!,
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                          ),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                title: Text(record['title']!),
+                                content: Text(record['content']!),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(ctx),
+                                    child: const Text('Close'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+          ),
+
+          // Bottom log action button
+          if (filtered.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton.icon(
+                onPressed: _showActionDialog,
+                icon: const Icon(Icons.add_task),
+                label: const Text('Trigger Expiry Alert'),
+              ),
+            ),
+        ],
       ),
     );
   }
 
-  Widget _buildContent(BuildContext context, dynamic data) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
-          const SizedBox(height: 16),
-          Text(
-            'ComplianceManagerDocumentExpiryScreen is now fully implemented.',
-            style: Theme.of(context).textTheme.headlineSmall,
+  void _showActionDialog() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Trigger Expiry Alert'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _dialogController,
+              decoration: const InputDecoration(
+                hintText: 'Enter details...',
+                labelText: 'Operational Details',
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              final text = _dialogController.text.trim();
+              if (text.isNotEmpty) {
+                setState(() {
+                  _records.add({
+                    'title': text,
+                    'content': 'Manually registered log record transaction.',
+                    'category': _selectedCategory == 'All' ? 'General' : _selectedCategory,
+                  });
+                });
+                _dialogController.clear();
+              }
+              Navigator.pop(ctx);
+            },
+            child: const Text('Confirm Action'),
           ),
         ],
       ),

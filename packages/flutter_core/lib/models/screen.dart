@@ -163,7 +163,7 @@ class AppShellBoundary extends InheritedWidget {
 /// The unified, high-fidelity definition of a PrimeCare screen.
 /// This object is the single source of truth for routing, hydration, and rendering.
 /// It merges the concepts of Intent, Config, and Definition.
-class PrimeCareScreen extends AppScreenIntent {
+class PrimeCareScreen extends AppScreenIntent implements ScreenGovernance {
   @override
   String get screenDescription =>
       'The screen requires proper layout management within the MasterLayout, user role handling, error monitoring, and responsive design for various devices.';

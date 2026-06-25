@@ -1,8 +1,6 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:primecare_ui/primecare_ui.dart'
     hide
-        HelpDeskDashboardScreen,
-        EscalationDashboardScreen,
         QualityAssuranceDashboardScreen,
         TrainingCoordinatorDashboardScreen;
 import 'package:flutter_core/theme/theme_config_generated.dart';

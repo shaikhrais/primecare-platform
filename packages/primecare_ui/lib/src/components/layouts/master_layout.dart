@@ -2,7 +2,7 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:web/web.dart' as web;
+import 'package:url_launcher/url_launcher.dart';
 
 /// [Layout] - The master shell for all PrimeCare Dashboards.
 /// Provides a consistent structural foundation with automatic padding and
@@ -198,7 +198,10 @@ class MasterLayout extends ConsumerWidget {
             size: 20,
           ),
           onPressed: () {
-            web.window.location.href = 'https://primecare-auth.pages.dev/success';
+            launchUrl(
+              Uri.parse('https://primecare-auth.pages.dev/success'),
+              mode: LaunchMode.platformDefault,
+            );
           },
         ),
       Row(
