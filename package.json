@@ -11,7 +11,6 @@
     "archive/services/client-service"
   ],
   "scripts": {
-    "dev:api": "npm run dev --workspace=@primecare/worker-api",
     "dev:web": "npm run dev --workspace=prime-care-web-marketing",
     "api:spec": "node scripts/export-openapi.mjs",
     "api:types": "openapi-typescript packages/contracts/openapi.json -o packages/contracts/generated/api.d.ts",
@@ -25,7 +24,6 @@
     "dev:services": "turbo run dev --filter='./archive/services/*'",
     "verify": "powershell -ExecutionPolicy Bypass -File .\\scripts\\preflight.ps1",
     "checkpoint": "powershell -ExecutionPolicy Bypass -File .\\scripts\\checkpoint.ps1",
-    "dev:safe:api": "powershell -ExecutionPolicy Bypass -File .\\scripts\\run_safe.ps1 -Target dev:api",
     "dev:safe:web": "powershell -ExecutionPolicy Bypass -File .\\scripts\\run_safe.ps1 -Target dev:web",
     "pdm:pulse": "python scripts/pdm/pdm_engine.py && python scripts/pdm/pdm_advanced_report.py && tsx packages/database/pdm_cloud_sync.ts",
     "cypress:open": "cypress open --project .",
