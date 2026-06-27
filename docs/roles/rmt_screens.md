@@ -5,14 +5,34 @@
 * **Role key**: `rmt`
 * **Role category**: `clinical`
 * **Total screens**: 15
-* **Production ready screens**: 15
-* **Incomplete screens**: 0
+* **Business ready screens**: 11
+* **Incomplete screens**: 15
 * **False progress screens**: 0
-* **Zero interaction screens**: 0
+* **Zero Screen-Body Interaction screens**: 0
 * **Average progress**: 56.7%
-* **Average interactive objects**: 4.1
+* **Average screen-body interactions**: 2.1
 
 ## Screen List
+
+| Screen Name | Route Path | Body Interactions | Global Nav | Status | Business Score | Role Score | Missing Business Features | Business Ready |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| RmtDashboardScreen | `/offices/clinical/roles/rmt/dashboard` | 4 | 1 | `MEANINGFUL` | 7 | 6 | None | **Yes** |
+| RmtAnalyticsScreen | `/offices/clinical/roles/rmt/analytics` | 2 | 0 | `LOW_INTERACTION` | 2 | 2 | SOAP, treatment, billing, chart | **No** |
+| RmtComplianceScreen | `/offices/clinical/roles/rmt/compliance` | 2 | 1 | `LOW_INTERACTION` | 5 | 2 | massage, SOAP, treatment, billing | **No** |
+| RmtWorkflowScreen | `/offices/clinical/roles/rmt/workflow` | 2 | 0 | `LOW_INTERACTION` | 3 | 3 | massage, SOAP, billing | **Yes** |
+| RmtCommandCenterScreen | `/offices/clinical/roles/rmt/command-center` | 2 | 1 | `LOW_INTERACTION` | 3 | 4 | SOAP, billing | **Yes** |
+| RmtAppointmentsScreen | `/offices/clinical/roles/rmt/appointments` | 2 | 1 | `LOW_INTERACTION` | 7 | 3 | massage, SOAP, billing | **Yes** |
+| RmtClientIntakeScreen | `/offices/clinical/roles/rmt/client-intake` | 2 | 1 | `LOW_INTERACTION` | 6 | 3 | massage, SOAP, billing | **Yes** |
+| RmtAssessmentScreen | `/offices/clinical/roles/rmt/assessment` | 2 | 1 | `LOW_INTERACTION` | 4 | 2 | appointment, massage, SOAP, billing | **No** |
+| RmtTreatmentNotesScreen | `/offices/clinical/roles/rmt/treatment-notes` | 2 | 1 | `LOW_INTERACTION` | 4 | 3 | massage, SOAP, billing | **Yes** |
+| RmtExercisePlanScreen | `/offices/clinical/roles/rmt/exercise-plan` | 2 | 1 | `LOW_INTERACTION` | 4 | 3 | massage, SOAP, billing | **Yes** |
+| RmtBillingLinkScreen | `/offices/clinical/roles/rmt/billing-link` | 2 | 1 | `LOW_INTERACTION` | 5 | 4 | massage, SOAP | **Yes** |
+| RmtReportsScreen | `/offices/clinical/roles/rmt/reports` | 2 | 1 | `LOW_INTERACTION` | 4 | 3 | massage, SOAP, billing | **Yes** |
+| MassageAssessmentScreen | `/offices/clinical/roles/rmt/massage-assessment` | 2 | 1 | `LOW_INTERACTION` | 6 | 4 | SOAP, billing | **Yes** |
+| HomeCarePlanScreen | `/offices/clinical/roles/rmt/home-care-plan` | 2 | 1 | `LOW_INTERACTION` | 4 | 2 | appointment, massage, SOAP, billing | **No** |
+| ClientProgressScreen | `/offices/clinical/roles/rmt/client-progress` | 2 | 1 | `LOW_INTERACTION` | 5 | 3 | massage, SOAP, billing | **Yes** |
+
+## Screen Details
 
 ### RmtDashboardScreen
 
@@ -21,11 +41,18 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 8
-* **Buttons**: 7
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 4
+  * **Buttons**: 4
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 6
+* **Missing Business Features**: None
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
@@ -40,17 +67,24 @@
 * **Current stage**: Stage 4
 * **Progress %**: 40%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 3
-* **Buttons**: 3
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 0
+* **Business Workflow Score**: 2
+* **Role Expectation Score**: 2
+* **Missing Business Features**: SOAP, treatment, billing, chart
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RmtComplianceScreen
 
@@ -59,17 +93,24 @@
 * **Current stage**: Stage 5
 * **Progress %**: 50%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 5
+* **Role Expectation Score**: 2
+* **Missing Business Features**: massage, SOAP, treatment, billing
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RmtWorkflowScreen
 
@@ -78,17 +119,24 @@
 * **Current stage**: Stage 4
 * **Progress %**: 40%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 3
-* **Buttons**: 3
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 0
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 3
+* **Missing Business Features**: massage, SOAP, billing
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RmtCommandCenterScreen
 
@@ -97,17 +145,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 4
+* **Missing Business Features**: SOAP, billing
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RmtAppointmentsScreen
 
@@ -116,17 +171,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 3
+* **Missing Business Features**: massage, SOAP, billing
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RmtClientIntakeScreen
 
@@ -135,17 +197,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 6
+* **Role Expectation Score**: 3
+* **Missing Business Features**: massage, SOAP, billing
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RmtAssessmentScreen
 
@@ -154,17 +223,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 2
+* **Missing Business Features**: appointment, massage, SOAP, billing
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RmtTreatmentNotesScreen
 
@@ -173,17 +249,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 3
+* **Missing Business Features**: massage, SOAP, billing
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RmtExercisePlanScreen
 
@@ -192,17 +275,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 3
+* **Missing Business Features**: massage, SOAP, billing
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RmtBillingLinkScreen
 
@@ -211,17 +301,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 5
+* **Role Expectation Score**: 4
+* **Missing Business Features**: massage, SOAP
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RmtReportsScreen
 
@@ -230,17 +327,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 3
+* **Missing Business Features**: massage, SOAP, billing
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### MassageAssessmentScreen
 
@@ -249,17 +353,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 6
+* **Role Expectation Score**: 4
+* **Missing Business Features**: SOAP, billing
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### HomeCarePlanScreen
 
@@ -268,17 +379,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 2
+* **Missing Business Features**: appointment, massage, SOAP, billing
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClientProgressScreen
 
@@ -287,36 +405,53 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 5
+* **Role Expectation Score**: 3
+* **Missing Business Features**: massage, SOAP, billing
 * **Purpose**: Registered Massage Therapist (RMT) dashboard to view appointments, manage schedules, and log patient clinical adjustment notes.
 * **Primary user goal**: Manage patient appointments, track session progress, and log clinical treatment notes.
 * **Expected user actions**: Select appointment from list, create adjust/progress note, update therapy schedule, submit bill.
 * **Business reason**: Required to document therapy sessions for insurance claims and clinical oversight.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ## Screens to Fix First
 
-All screens are fully production-ready and interactive! Zero issues found.
+1. **RmtAnalyticsScreen** (Progress: 40%, Business Score: 2, Role Score: 2)  
+   *Reason*: Missing core workflows/features: SOAP, treatment, billing, chart
+2. **RmtComplianceScreen** (Progress: 50%, Business Score: 5, Role Score: 2)  
+   *Reason*: Missing core workflows/features: massage, SOAP, treatment, billing
+3. **RmtAssessmentScreen** (Progress: 60%, Business Score: 4, Role Score: 2)  
+   *Reason*: Missing core workflows/features: appointment, massage, SOAP, billing
+4. **HomeCarePlanScreen** (Progress: 60%, Business Score: 4, Role Score: 2)  
+   *Reason*: Missing core workflows/features: appointment, massage, SOAP, billing
 
 ## Recommended Build Order
 
 ### 1. Must Fix Now (High Priority)
-- None (All screens have basic interactivity)
+- RmtAnalyticsScreen (Implement role-specific workflows and transactional features)
+- RmtComplianceScreen (Implement role-specific workflows and transactional features)
+- RmtAssessmentScreen (Implement role-specific workflows and transactional features)
+- HomeCarePlanScreen (Implement role-specific workflows and transactional features)
 
 ### 2. Fix Next (Medium Priority)
 - None (All screens are functionally complete)
 
 ### 3. Polish Later (Low Priority)
-- RmtAnalyticsScreen (Micro-interactions and design alignment polish)
 - RmtWorkflowScreen (Micro-interactions and design alignment polish)
-- RmtComplianceScreen (Micro-interactions and design alignment polish)
 - RmtDashboardScreen (Micro-interactions and design alignment polish)
 - RmtCommandCenterScreen (Micro-interactions and design alignment polish)
+- RmtAppointmentsScreen (Micro-interactions and design alignment polish)
+- RmtClientIntakeScreen (Micro-interactions and design alignment polish)
 
 ### 4. Consider Merging / Deleting
 - None (Zero duplicate screens identified)

@@ -1,0 +1,14 @@
+[vars]
+# Add any environment variables for the worker here
+CF_D1_ENDPOINT = "https://<YOUR_D1_ID>.d1.cloudflare.com"
+CF_D1_API_KEY = "<YOUR_CUSTOM_API_KEY>"
+
+name = "primecare-worker-api"
+account_id = "$CLOUDFLARE_ACCOUNT_ID"
+compatibility_date = "2024-01-01"
+workers_dev = true
+# To bind a custom domain, uncomment and set the route below
+# route = "api.yourdomain.com/*"
+
+# The entry point for the Dart compiled Worker (adjust if needed)
+main = "src/main.dart"

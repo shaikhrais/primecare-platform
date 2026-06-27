@@ -28,6 +28,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:go_router/go_router.dart';
 
 import '../registry/widgets/responsive_screen_wrapper.dart';
+import 'presentation_mode.dart';
 
 /// Interface for declaring screen governance requirements.
 abstract class ScreenGovernance {
@@ -68,6 +69,9 @@ abstract class GovernedConsumerWidget extends ConsumerWidget implements ScreenGo
         'Direct routing without the shell is prohibited. Screen: $runtimeType',
       );
     }
+    if (screenshotPresentationMode) {
+      return buildPresentationScreen(context, ref, runtimeType.toString());
+    }
     return ResponsiveScreenWrapper(child: buildScreen(context, ref));
   }
 
@@ -101,6 +105,9 @@ abstract class GovernedStatelessWidget extends StatelessWidget implements Screen
         'Layout Invariant Violation: All Governed screens must be rendered within a MasterLayout shell. '
         'Direct routing without the shell is prohibited. Screen: $runtimeType',
       );
+    }
+    if (screenshotPresentationMode) {
+      return buildPresentationScreen(context, null, runtimeType.toString());
     }
     return ResponsiveScreenWrapper(child: buildScreen(context));
   }
@@ -139,6 +146,9 @@ abstract class GovernedConsumerState<T extends GovernedConsumerStatefulWidget>
         'Layout Invariant Violation: All Governed screens must be rendered within a MasterLayout shell. '
         'Direct routing without the shell is prohibited. Screen: $runtimeType',
       );
+    }
+    if (screenshotPresentationMode) {
+      return buildPresentationScreen(context, ref, runtimeType.toString());
     }
     return ResponsiveScreenWrapper(child: buildScreen(context));
   }

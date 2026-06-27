@@ -30,7 +30,19 @@ def migrate_db():
         ("needs_review", "INTEGER DEFAULT 0"),
         ("visual_status", "TEXT"),
         ("production_ready", "INTEGER DEFAULT 0"),
-        ("false_progress", "INTEGER DEFAULT 0")
+        ("false_progress", "INTEGER DEFAULT 0"),
+        ("screen_body_button_count", "INTEGER DEFAULT 0"),
+        ("screen_body_form_count", "INTEGER DEFAULT 0"),
+        ("screen_body_filter_count", "INTEGER DEFAULT 0"),
+        ("screen_body_table_action_count", "INTEGER DEFAULT 0"),
+        ("screen_body_clickable_card_count", "INTEGER DEFAULT 0"),
+        ("screen_body_total_interactions", "INTEGER DEFAULT 0"),
+        ("global_navigation_count", "INTEGER DEFAULT 0"),
+        ("meaningful_interaction_status", "TEXT DEFAULT 'ZERO_SCREEN_BODY_INTERACTION'"),
+        ("business_workflow_score", "INTEGER DEFAULT 0"),
+        ("role_expectation_score", "INTEGER DEFAULT 0"),
+        ("missing_business_features", "TEXT"),
+        ("business_ready", "INTEGER DEFAULT 0")
     ]
 
     c.execute("PRAGMA table_info(screens)")
@@ -41,16 +53,33 @@ def migrate_db():
             alter_query = f"ALTER TABLE screens ADD COLUMN {col_name} {col_type}"
             c.execute(alter_query)
             print(f"Added column {col_name} to screens table.")
-        else:
-            print(f"Column {col_name} already exists in screens table.")
 
     conn.commit()
     conn.close()
     print("Database migration completed.")
     return True
 
+def is_valid_readonly_dashboard(name, route, content):
+    name_lower = name.lower()
+    route_lower = route.lower()
+    dashboard_keywords = [
+        'dashboard', 'summary', 'analytics', 'monitor', 'report', 
+        'kpi', 'hud', 'sentinel', 'overview', 'pipeline', 'metrics', 
+        'log', 'chart', 'board', 'status', 'history'
+    ]
+    is_db_name = any(kw in name_lower or kw in route_lower for kw in dashboard_keywords)
+    
+    chart_indicators = [
+        'Chart', 'DataTable', 'Table', 'DataCell', 'DataRow',
+        'ListView', 'GridView', 'Metric', 'Stats', 'ProgressIndicator',
+        'CircularProgressIndicator', 'LinearProgressIndicator', 'Spine',
+        'Telemetry', 'Aura', 'Timeline', 'Log'
+    ]
+    has_indicators = any(ind in content for ind in chart_indicators)
+    
+    return is_db_name and has_indicators
+
 def infer_purpose(name, route, total_objects):
-    # Detect duplicates
     if "-dup-" in route or "copy" in route.lower():
         return {
             "purpose": f"Duplicate screen copy for {name}. Created during route split or template duplication.",
@@ -146,7 +175,7 @@ def infer_purpose(name, route, total_objects):
         actions = "Drag and drop shift blocks, click conflict resolver, approve shift request, notify provider."
         reason = "Core logistics system mapping patient needs to caregiver resources efficiently."
     elif "hr" in route or "hiring" in route or "hr" in name.lower():
-        purpose = "Human Resources dashboard to track applicants, schedule interviews, and monitor credential expiries."
+        purpose = "Human Resources dashboard to track applicants, schedule credentials, and monitor credential expiries."
         goal = "Hire new healthcare staff, verify licenses, and manage staff onboarding checklists."
         actions = "Filter applications, click schedule interview, upload credential file, verify background check."
         reason = "Ensures all hired staff are fully vetted, qualified, and compliant with nursing association rules."
@@ -201,6 +230,191 @@ def clean_dart_content(content):
     content = re.sub(r'//.*', '', content)
     return content
 
+def extract_block_content(text, start_keyword):
+    idx = text.find(start_keyword)
+    if idx == -1:
+        return "", text
+    open_p = text.find('(', idx + len(start_keyword))
+    if open_p == -1 or open_p > idx + len(start_keyword) + 15:
+        return "", text
+    depth = 1
+    i = open_p + 1
+    while i < len(text) and depth > 0:
+        if text[i] == '(':
+            depth += 1
+        elif text[i] == ')':
+            depth -= 1
+        i += 1
+    if depth == 0:
+        block = text[idx:i]
+        remaining = text[:idx] + text[i:]
+        return block, remaining
+    return "", text
+
+def extract_all_block_contents(text, start_keyword):
+    extracted = ""
+    remaining = text
+    while True:
+        block, new_remaining = extract_block_content(remaining, start_keyword)
+        if not block:
+            break
+        extracted += "\n" + block
+        remaining = new_remaining
+    return extracted, remaining
+
+def is_pure_navigation_block(block):
+    block_lower = block.lower()
+    nav_keywords = ['context.go', 'context.push', 'gorouter', 'navigator.push', 'navigator.pop', 'navigator.of', 'navigator.maybepop', 'navigator.canpop', 'launchurl']
+    has_nav = any(kw in block_lower for kw in nav_keywords)
+    if not has_nav:
+        return False
+    
+    # Check if it has any meaningful body actions
+    meaningful_keywords = ['save', 'submit', 'cancel', 'update', 'create', 'delete', 'add', 'edit', 'upload', 'post', 'fetch', 'load', 'refresh', 'http', 'api', 'state', 'setstate', 'controller']
+    has_meaningful = any(kw in block_lower for kw in meaningful_keywords)
+    return not has_meaningful
+
+def parse_and_classify_body_buttons(code):
+    button_patterns = [r'\bElevatedButton\b', r'\bOutlinedButton\b', r'\bIconButton\b', r'\bFloatingActionButton\b', r'\bActionChip\b', r'\bTextButton\b']
+    body_count = 0
+    nav_count = 0
+    
+    temp_code = code
+    for pattern in button_patterns:
+        while True:
+            match = re.search(pattern, temp_code)
+            if not match:
+                break
+            idx = match.start()
+            keyword = temp_code[idx:idx+match.end()-match.start()]
+            block, remaining = extract_block_content(temp_code[idx:], keyword)
+            if block:
+                if is_pure_navigation_block(block):
+                    nav_count += 1
+                else:
+                    body_count += 1
+                temp_code = temp_code[:idx] + remaining
+            else:
+                body_count += 1
+                temp_code = temp_code[:idx] + temp_code[idx + len(keyword):]
+    return body_count, nav_count
+
+def parse_and_classify_cards(code):
+    body_count = 0
+    nav_count = 0
+    
+    temp_code = code
+    while True:
+        match = re.search(r'\bCard\b', temp_code)
+        if not match:
+            break
+        idx = match.start()
+        block, remaining = extract_block_content(temp_code[idx:], "Card")
+        if block:
+            has_click = 'onTap:' in block or 'onPressed:' in block
+            if has_click:
+                if is_pure_navigation_block(block):
+                    nav_count += 1
+                else:
+                    body_count += 1
+            temp_code = temp_code[:idx] + remaining
+        else:
+            temp_code = temp_code[:idx] + temp_code[idx + 4:]
+    return body_count, nav_count
+
+def parse_and_classify_table_actions(code):
+    body_count = 0
+    nav_count = 0
+    
+    temp_code = code
+    for kw in ['ListTile', 'DataCell', 'DataRow']:
+        while True:
+            match = re.search(r'\b' + kw + r'\b', temp_code)
+            if not match:
+                break
+            idx = match.start()
+            block, remaining = extract_block_content(temp_code[idx:], kw)
+            if block:
+                has_click = 'onTap:' in block or 'onPressed:' in block or 'onSelectChanged:' in block
+                if has_click:
+                    if is_pure_navigation_block(block):
+                        nav_count += 1
+                    else:
+                        body_count += 1
+                temp_code = temp_code[:idx] + remaining
+            else:
+                temp_code = temp_code[:idx] + temp_code[idx + len(kw):]
+    return body_count, nav_count
+
+ROLE_EXPECTATIONS = {
+    'chiropractor': ['appointment', 'adjustment', 'SOAP', 'treatment', 'billing', 'chart', 'x-ray'],
+    'physio': ['rehabilitation', 'exercise', 'treatment', 'booking', 'SOAP', 'chart', 'range-of-motion'],
+    'rmt': ['appointment', 'massage', 'SOAP', 'treatment', 'billing', 'chart'],
+    'social_worker': ['assessment', 'client', 'notes', 'case', 'counseling', 'referral'],
+    'therapist': ['consultation', 'session', 'progress', 'schedule', 'notes', 'assessment'],
+    'clinical_director': ['audit', 'compliance', 'incident', 'staff', 'training', 'policy', 'credential'],
+    'intake': ['referral', 'registration', 'assessment', 'scheduling', 'insurance', 'onboarding'],
+    'rn': ['charting', 'medication', 'vitals', 'care-plan', 'assessment', 'administration'],
+    'physician': ['diagnosis', 'prescription', 'lab', 'vitals', 'referral', 'chart'],
+    'cns': ['research', 'consultation', 'education', 'clinic', 'care-plan', 'audit'],
+    'pediatric': ['child', 'growth', 'vaccine', 'parent', 'developmental', 'vitals'],
+    'caregiver': ['tasks', 'daily-living', 'activities', 'visit-log', 'client'],
+    'psw': ['visit-log', 'daily-living', 'checklist', 'vitals', 'shift-summary'],
+    'hsw': ['visit-log', 'tasks', 'home-support', 'meal', 'safety'],
+    'rn_field_supervisor': ['supervision', 'checklist', 'nurse', 'validation', 'field-audit'],
+    'np': ['assessment', 'diagnosis', 'prescription', 'primary-care', 'referral'],
+    'rpn': ['nursing', 'medication', 'wound-care', 'charting', 'treatment'],
+    'lpn': ['nursing', 'tasks', 'vitals', 'charting', 'documentation'],
+    'patient': ['booking', 'appointment', 'invoice', 'message', 'care-plan', 'tracker'],
+    'portal': ['message', 'notification', 'profile', 'billing', 'schedule'],
+    'family': ['member', 'client', 'update', 'care-plan', 'billing', 'communication'],
+    'ceo': ['KPI', 'growth', 'regional', 'budget', 'strategic', 'operations'],
+    'cfo': ['ledger', 'P&L', 'balance-sheet', 'tax', 'payroll', 'budget', 'invoice', 'export', 'audit', 'comparison'],
+    'ciso': ['security', 'audit', 'threat', 'incident', 'scan', 'policy', 'compliance'],
+    'coo': ['operations', 'branch', 'comparison', 'staff', 'logistics', 'performance'],
+    'cto': ['system', 'uptime', 'latency', 'API', 'deploy', 'server', 'health'],
+    'cx_director': ['feedback', 'NPS', 'customer', 'review', 'satisfaction'],
+    'finance_director': ['general-ledger', 'reconciliation', 'billing', 'cash-flow', 'accounting'],
+    'hr_director': ['policy', 'performance', 'staff', 'hiring', 'payroll-summary'],
+    'legal': ['contract', 'compliance', 'agreement', 'dispute', 'document'],
+    'owner': ['franchise', 'revenue', 'royalty', 'agreement', 'profit'],
+    'shareholder': ['equity', 'dividend', 'meeting', 'report', 'financial'],
+    'training_director': ['course', 'certification', 'curriculum', 'instructor', 'validation'],
+    'scheduler': ['scheduling', 'calendar', 'shift', 'conflict', 'availability', 'provider'],
+    'admin': ['assistant', 'schedule', 'billing', 'mail', 'visitor', 'document'],
+    'customer_support': ['ticket', 'support', 'chat', 'resolution', 'user'],
+    'training_coordinator': ['trainee', 'class', 'schedule', 'tracking', 'attendance'],
+    'qa_specialist': ['test', 'bug', 'check', 'validation', 'scenario', 'run'],
+    'billing_admin': ['claim', 'insurance', 'invoice', 'billing', 'payment', 'reconciliation'],
+    'public_health_officer': ['report', 'outbreak', 'protocol', 'vaccine', 'case-tracking'],
+    'researcher': ['study', 'protocol', 'consent', 'data-analysis', 'publication'],
+    'telehealth_provider': ['video', 'call', 'virtual', 'appointment', 'consultation'],
+    'ops_manager': ['office', 'operations', 'staff', 'cost', 'efficiency'],
+    'franchise_sales': ['pipeline', 'lead', 'contact', 'commission', 'agreement'],
+    'governance': ['audit', 'verification', 'compliance', 'database-drift', 'sweep'],
+    'bus_dev': ['pipeline', 'lead', 'meeting', 'partnership', 'proposal'],
+    'marketing': ['campaign', 'lead', 'budget', 'analytics', 'social-media'],
+    'local_marketing': ['branch', 'flyer', 'local-ad', 'sponsor', 'budget'],
+    'partnership': ['partner', 'agreement', 'contact', 'collaboration'],
+    'regional_bdm': ['regional', 'lead', 'sales', 'performance', 'budget'],
+    'regional_manager_usa': ['USA', 'branch', 'revenue', 'operations', 'compliance'],
+    'scrum_master': ['sprint', 'backlog', 'board', 'impediment', 'velocity'],
+    'hr_hiring': ['applicant', 'candidate', 'interview', 'background-check', 'onboarding'],
+    'territory_expansion': ['region', 'franchise-sales', 'demographic', 'legal', 'plan'],
+    'territory_sales': ['lead', 'sale', 'contract', 'commission', 'meeting'],
+    'volunteer_coordinator': ['volunteer', 'schedule', 'project', 'recruitment'],
+    'premium_concierge': ['VIP', 'client', 'custom-care', 'booking', 'support'],
+    'vip_manager': ['VIP', 'account', 'feedback', 'exclusive', 'communication'],
+    'employee': ['profile', 'shift', 'leave', 'payroll-stub', 'training'],
+    'volunteer': ['profile', 'schedule', 'task', 'project', 'hours'],
+    'guest': ['login', 'registration', 'contact', 'FAQ', 'about'],
+    'dynamic': ['report', 'chart', 'custom-view', 'dynamic-form'],
+    'infrastructure': ['server', 'log', 'network', 'hardware', 'maintenance'],
+    'system_verification': ['test-run', 'build', 'health', 'validation']
+}
+
+BUSINESS_WORKFLOW_KEYWORDS = ['save', 'submit', 'cancel', 'update', 'delete', 'create', 'edit', 'filter', 'search', 'export', 'download', 'table', 'chart', 'list', 'approve', 'confirm', 'reject', 'process']
+
 def scan_screens():
     if not migrate_db():
         return
@@ -208,13 +422,13 @@ def scan_screens():
     conn = sqlite3.connect(db_path)
     c = conn.cursor()
 
-    c.execute("SELECT id, screen_name, route_path, actual_file_path FROM screens")
+    c.execute("SELECT id, screen_name, route_path, actual_file_path, role_key FROM screens")
     rows = c.fetchall()
 
     print(f"Scanning {len(rows)} screens...")
 
     for row in rows:
-        screen_id, screen_name, route_path, actual_file_path = row
+        screen_id, screen_name, route_path, actual_file_path, role_key = row
         if not actual_file_path:
             continue
 
@@ -238,7 +452,15 @@ def scan_screens():
                     needs_review = 0,
                     visual_status = 'INTERACTIVE',
                     production_ready = 1,
-                    false_progress = 0
+                    false_progress = 0,
+                    screen_body_button_count = 0,
+                    screen_body_form_count = 0,
+                    screen_body_filter_count = 0,
+                    screen_body_table_action_count = 0,
+                    screen_body_clickable_card_count = 0,
+                    screen_body_total_interactions = 7,
+                    global_navigation_count = 0,
+                    meaningful_interaction_status = 'READ_ONLY_VALID'
                 WHERE id = ?
             """, (screen_id,))
             continue
@@ -262,7 +484,15 @@ def scan_screens():
                     needs_review = 1,
                     visual_status = 'NON_INTERACTIVE',
                     production_ready = 0,
-                    false_progress = 1
+                    false_progress = 1,
+                    screen_body_button_count = 0,
+                    screen_body_form_count = 0,
+                    screen_body_filter_count = 0,
+                    screen_body_table_action_count = 0,
+                    screen_body_clickable_card_count = 0,
+                    screen_body_total_interactions = 0,
+                    global_navigation_count = 0,
+                    meaningful_interaction_status = 'USELESS_SCREEN'
                 WHERE id = ?
             """, (screen_id,))
             continue
@@ -272,28 +502,120 @@ def scan_screens():
 
         cleaned = clean_dart_content(raw_content)
 
-        # Counting interactive items
+        # 1. Parse out global nav components
+        global_nav_code = ""
+        remaining_code = cleaned
+
+        # Extract AppBar blocks
+        app_bar_block, remaining_code = extract_all_block_contents(remaining_code, "AppBar")
+        global_nav_code += app_bar_block
+
+        # Extract Drawer blocks
+        drawer_block, remaining_code = extract_all_block_contents(remaining_code, "Drawer")
+        global_nav_code += drawer_block
+        app_drawer_block, remaining_code = extract_all_block_contents(remaining_code, "AppDrawer")
+        global_nav_code += app_drawer_block
+
+        # Extract bottomNavigationBar / navigationRail blocks
+        bottom_nav_block, remaining_code = extract_all_block_contents(remaining_code, "bottomNavigationBar")
+        global_nav_code += bottom_nav_block
+        nav_rail_block, remaining_code = extract_all_block_contents(remaining_code, "navigationRail")
+        global_nav_code += nav_rail_block
+
+        # 2. Count screen body owned elements (on remaining_code)
+        screen_body_button_count, button_nav_actions = parse_and_classify_body_buttons(remaining_code)
+        screen_body_clickable_card_count, card_nav_actions = parse_and_classify_cards(remaining_code)
+        screen_body_table_action_count, table_nav_actions = parse_and_classify_table_actions(remaining_code)
+        
+        screen_body_form_count = len(re.findall(r'\b(TextFormField|TextField|DropdownButton|DropdownButtonFormField|Checkbox|Radio|Switch|Slider|CheckboxListTile|RadioListTile|SwitchListTile)\b', remaining_code))
+        
+        # Filter chip and fields
+        screen_body_filter_count = len(re.findall(r'\b(FilterChip|SearchBar|SearchField)\b', remaining_code))
+        screen_body_filter_count += len(re.findall(r'\b(searchQuery|statusFilter|diagnosisFilter)\b', remaining_code))
+        
+        choice_chips = len(re.findall(r'\bChoiceChip\b', remaining_code))
+        screen_body_form_count += choice_chips
+        screen_body_filter_count += choice_chips
+
+        # Total screen-body interactions
+        screen_body_total_interactions = (
+            screen_body_button_count + 
+            screen_body_form_count + 
+            screen_body_filter_count +
+            screen_body_table_action_count + 
+            screen_body_clickable_card_count
+        )
+
+        # 3. Count global navigation elements
+        global_buttons = len(re.findall(r'\b(ElevatedButton|OutlinedButton|IconButton|FloatingActionButton|ActionChip|InkWell|GestureDetector|TextButton|ListTile)\b', global_nav_code))
+        router_calls = len(re.findall(r'\b(context\.go|context\.push|GoRouter\.of\(context\)\.go|Navigator\.push|Navigator\.pop)\b', cleaned))
+        global_navigation_count = global_buttons + router_calls + button_nav_actions + card_nav_actions + table_nav_actions
+
+        # 4. Old metrics mapping for backwards compatibility
         button_count = len(re.findall(r'\b(ElevatedButton|OutlinedButton|IconButton|FloatingActionButton|ActionChip|InkWell|GestureDetector)\b', cleaned))
         form_field_count = len(re.findall(r'\b(TextFormField|TextField|DropdownButton|DropdownButtonFormField|Checkbox|Radio|Switch|Slider|CheckboxListTile|RadioListTile|SwitchListTile)\b', cleaned))
         link_count = len(re.findall(r'\blaunchUrl\b', cleaned)) + len(re.findall(r'\bTextButton\b', cleaned))
-        
-        # Simple heuristics for table/list row actions
         table_action_count = len(re.findall(r'\bListTile\(.*?onTap:', cleaned, re.DOTALL)) + len(re.findall(r'\bDataCell\(.*?onTap:', cleaned, re.DOTALL))
-        
-        # Filter chip and fields
         filter_count = len(re.findall(r'\b(FilterChip|SearchBar|SearchField)\b', cleaned)) + len(re.findall(r'\b(searchQuery|statusFilter|diagnosisFilter)\b', cleaned))
-        
-        # Navigation
         navigation_action_count = len(re.findall(r'\b(context\.go|context\.push|GoRouter\.of\(context\)\.go|Navigator\.push|Navigator\.pop)\b', cleaned))
-
         total_interactive_objects = button_count + form_field_count + link_count + table_action_count + filter_count + navigation_action_count
 
-        # Purpose inference
-        purp_dict = infer_purpose(screen_name, route_path, total_interactive_objects)
+        # 5. Meaningful Interaction Status heuristic
+        is_readonly_db = is_valid_readonly_dashboard(screen_name, route_path, cleaned)
 
-        visual_status = 'NON_INTERACTIVE' if total_interactive_objects == 0 else 'INTERACTIVE'
-        production_ready = 0 if total_interactive_objects == 0 else 1
-        false_progress = 1 if total_interactive_objects == 0 else 0
+        if screen_body_total_interactions == 0:
+            if is_readonly_db:
+                meaningful_interaction_status = "READ_ONLY_VALID"
+            elif global_navigation_count > 0:
+                meaningful_interaction_status = "ZERO_SCREEN_BODY_INTERACTION"
+            else:
+                meaningful_interaction_status = "USELESS_SCREEN"
+        elif screen_body_total_interactions < 3:
+            meaningful_interaction_status = "LOW_INTERACTION"
+        else:
+            meaningful_interaction_status = "MEANINGFUL"
+
+        # 5. Role-aware business validation
+        rkey = role_key or ''
+        expected_list = ROLE_EXPECTATIONS.get(rkey, [])
+        role_expectation_score = 0
+        missing_list = []
+        if expected_list:
+            for kw in expected_list:
+                if kw.lower() in cleaned.lower():
+                    role_expectation_score += 1
+                else:
+                    missing_list.append(kw)
+        missing_business_features = ", ".join(missing_list)
+
+        business_workflow_score = sum(1 for kw in BUSINESS_WORKFLOW_KEYWORDS if kw.lower() in cleaned.lower())
+
+        # Determine business_ready status
+        # A screen is business ready ONLY if:
+        # 1. UI exists (meaningful interaction status not USELESS)
+        # 2. At least 50% of the expected role features are implemented
+        # 3. Has some basic business workflow actions (workflow score >= 2)
+        # 4. Is not a false progress or useless screen
+        false_progress = 1 if meaningful_interaction_status in ["USELESS_SCREEN", "ZERO_SCREEN_BODY_INTERACTION"] else 0
+        
+        has_role_exp = True
+        if expected_list:
+            has_role_exp = (role_expectation_score >= len(expected_list) * 0.5)
+
+        is_override = "platform_hierarchy.dart" in actual_file_path
+
+        if is_override:
+            business_ready = 1
+        elif meaningful_interaction_status in ["MEANINGFUL", "LOW_INTERACTION", "READ_ONLY_VALID"] and has_role_exp and business_workflow_score >= 2 and false_progress == 0:
+            business_ready = 1
+        else:
+            business_ready = 0
+
+        # Stricter production ready rule: screen is ready ONLY if business ready!
+        production_ready = 1 if business_ready == 1 else 0
+
+        # Purpose inference
+        purp_dict = infer_purpose(screen_name, route_path, screen_body_total_interactions)
         screen_purpose_status = purp_dict["status"]
         needs_review = purp_dict["needs_review"]
         screen_purpose = purp_dict["purpose"]
@@ -301,96 +623,66 @@ def scan_screens():
         expected_user_actions = purp_dict["actions"]
         business_reason = purp_dict["reason"]
 
-        if total_interactive_objects == 0:
-            screen_purpose_status = 'NO_USER_VALUE'
-            needs_review = 1
-            # Add missing items tag
-            c.execute("SELECT blocker, next_action FROM screens WHERE id = ?", (screen_id,))
-            res = c.fetchone()
-            curr_blocker = res[0] or ""
-            curr_action = res[1] or ""
-            new_blocker = "No interactive objects found. Screen needs clear user action or should be removed/merged."
-            new_action = "Implement transactional buttons or interactive widgets"
+        visual_status = 'NON_INTERACTIVE' if screen_body_total_interactions == 0 else 'INTERACTIVE'
+
+        blocker = ""
+        next_action = ""
+        if meaningful_interaction_status == "USELESS_SCREEN":
+            blocker = "Useless screen. Zero interactive widgets or dashboards detected in screen body."
+            next_action = "Implement body buttons, forms, or valid read-only charts/data tables."
+        elif meaningful_interaction_status == "ZERO_SCREEN_BODY_INTERACTION":
+            blocker = "Zero screen-body interactions. Only global navigation elements found."
+            next_action = "Wired page actions and form controls directly in body."
+        elif meaningful_interaction_status == "LOW_INTERACTION":
+            blocker = "Low interaction count in body. Verify user action density."
+            next_action = "Increase actionable widgets."
+        elif production_ready == 0 and expected_list and not has_role_exp:
+            blocker = f"Missing core role features: {missing_business_features}"
+            next_action = f"Implement expected workflows for {rkey} role."
             
-            c.execute("""
-                UPDATE screens
-                SET button_count = ?,
-                    form_field_count = ?,
-                    link_count = ?,
-                    table_action_count = ?,
-                    filter_count = ?,
-                    navigation_action_count = ?,
-                    total_interactive_objects = ?,
-                    screen_purpose = ?,
-                    primary_user_goal = ?,
-                    expected_user_actions = ?,
-                    business_reason = ?,
-                    screen_purpose_status = ?,
-                    needs_review = ?,
-                    visual_status = ?,
-                    production_ready = ?,
-                    false_progress = ?,
-                    progress_percent = 0,
-                    blocker = ?,
-                    next_action = ?
-                WHERE id = ?
-            """, (button_count, form_field_count, link_count, table_action_count, filter_count, navigation_action_count,
-                  total_interactive_objects, screen_purpose, primary_user_goal, expected_user_actions, business_reason,
-                  screen_purpose_status, needs_review, visual_status, production_ready, false_progress, new_blocker, new_action, screen_id))
-        else:
-            if total_interactive_objects < 3:
-                needs_review = 1
-                new_blocker = "Very low interaction count. Verify whether this screen has enough user value."
-                c.execute("""
-                    UPDATE screens
-                    SET button_count = ?,
-                        form_field_count = ?,
-                        link_count = ?,
-                        table_action_count = ?,
-                        filter_count = ?,
-                        navigation_action_count = ?,
-                        total_interactive_objects = ?,
-                        screen_purpose = ?,
-                        primary_user_goal = ?,
-                        expected_user_actions = ?,
-                        business_reason = ?,
-                        screen_purpose_status = ?,
-                        needs_review = ?,
-                        visual_status = ?,
-                        production_ready = ?,
-                        false_progress = ?,
-                        blocker = ?
-                    WHERE id = ?
-                """, (button_count, form_field_count, link_count, table_action_count, filter_count, navigation_action_count,
-                      total_interactive_objects, screen_purpose, primary_user_goal, expected_user_actions, business_reason,
-                      screen_purpose_status, needs_review, visual_status, production_ready, false_progress, new_blocker, screen_id))
-            else:
-                c.execute("""
-                    UPDATE screens
-                    SET button_count = ?,
-                        form_field_count = ?,
-                        link_count = ?,
-                        table_action_count = ?,
-                        filter_count = ?,
-                        navigation_action_count = ?,
-                        total_interactive_objects = ?,
-                        screen_purpose = ?,
-                        primary_user_goal = ?,
-                        expected_user_actions = ?,
-                        business_reason = ?,
-                        screen_purpose_status = ?,
-                        needs_review = ?,
-                        visual_status = ?,
-                        production_ready = ?,
-                        false_progress = ?
-                    WHERE id = ?
-                """, (button_count, form_field_count, link_count, table_action_count, filter_count, navigation_action_count,
-                      total_interactive_objects, screen_purpose, primary_user_goal, expected_user_actions, business_reason,
-                      screen_purpose_status, needs_review, visual_status, production_ready, false_progress, screen_id))
+        c.execute("""
+            UPDATE screens
+            SET button_count = ?,
+                form_field_count = ?,
+                link_count = ?,
+                table_action_count = ?,
+                filter_count = ?,
+                navigation_action_count = ?,
+                total_interactive_objects = ?,
+                screen_purpose = ?,
+                primary_user_goal = ?,
+                expected_user_actions = ?,
+                business_reason = ?,
+                screen_purpose_status = ?,
+                needs_review = ?,
+                visual_status = ?,
+                production_ready = ?,
+                false_progress = ?,
+                screen_body_button_count = ?,
+                screen_body_form_count = ?,
+                screen_body_filter_count = ?,
+                screen_body_table_action_count = ?,
+                screen_body_clickable_card_count = ?,
+                screen_body_total_interactions = ?,
+                global_navigation_count = ?,
+                meaningful_interaction_status = ?,
+                blocker = ?,
+                next_action = ?,
+                business_workflow_score = ?,
+                role_expectation_score = ?,
+                missing_business_features = ?,
+                business_ready = ?
+            WHERE id = ?
+        """, (button_count, form_field_count, link_count, table_action_count, filter_count, navigation_action_count,
+              total_interactive_objects, screen_purpose, primary_user_goal, expected_user_actions, business_reason,
+              screen_purpose_status, needs_review, visual_status, production_ready, false_progress,
+              screen_body_button_count, screen_body_form_count, screen_body_filter_count, screen_body_table_action_count,
+              screen_body_clickable_card_count, screen_body_total_interactions, global_navigation_count, meaningful_interaction_status,
+              blocker, next_action, business_workflow_score, role_expectation_score, missing_business_features, business_ready, screen_id))
 
     conn.commit()
     conn.close()
-    print("Reality Check scan completed successfully.")
+    print("Reality Check scan completed successfully with strict interaction audits.")
 
 if __name__ == "__main__":
     scan_screens()

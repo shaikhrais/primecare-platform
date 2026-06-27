@@ -1,4 +1,3 @@
-// Governance - Category: view | Purpose: GENERATED CODE - DO NOT MODIFY BY HAND RiverpodGenerator GENERATED CODE - DO NOT MODIFY BY HAND ignore_for_file: type...
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 part of 'clinical_term_highlighter.dart';

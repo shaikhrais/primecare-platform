@@ -73,6 +73,7 @@ export 'config/feature_flags.dart';
 export 'config/test_credentials_registry.dart';
 export 'models/api_metadata.dart';
 export 'models/screen.dart';
+export 'models/presentation_mode.dart';
 export 'models/screen_metadata.dart';
 export 'models/governance_types.dart';
 export 'models/platform_geometry.dart';

@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter/foundation.dart';
-import 'package:web/web.dart' as web;
+import 'package:flutter_core/src/utils/auth_storage.dart';
 class AuthState {
   final bool isAuthenticated;
   final bool isInitialized;
@@ -72,13 +72,12 @@ class AuthNotifier extends Notifier<AuthState> {
     if (kIsWeb) {
       try {
         // Read directly from browser local storage synchronously to prevent asynchronous GoRouter race conditions!
-        final storage = web.window.localStorage;
-        final token = cleanStorageValue(storage.getItem('flutter.auth_token'));
-        final role = cleanStorageValue(storage.getItem('flutter.auth_role'));
-        final tenantId = cleanStorageValue(storage.getItem('flutter.auth_tenant_id'));
-        final userName = cleanStorageValue(storage.getItem('flutter.auth_username')) ?? 'PrimeCare User';
-        final userId = cleanStorageValue(storage.getItem('flutter.auth_user_id'));
-        final preferredLanguage = cleanStorageValue(storage.getItem('flutter.auth_preferred_language')) ?? 'en';
+        final token = cleanStorageValue(getLocalStorageItem('flutter.auth_token'));
+        final role = cleanStorageValue(getLocalStorageItem('flutter.auth_role'));
+        final tenantId = cleanStorageValue(getLocalStorageItem('flutter.auth_tenant_id'));
+        final userName = cleanStorageValue(getLocalStorageItem('flutter.auth_username')) ?? 'PrimeCare User';
+        final userId = cleanStorageValue(getLocalStorageItem('flutter.auth_user_id'));
+        final preferredLanguage = cleanStorageValue(getLocalStorageItem('flutter.auth_preferred_language')) ?? 'en';
 
         if (token != null && token.isNotEmpty && role != null && role.isNotEmpty) {
           initialState = AuthState(

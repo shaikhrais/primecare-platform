@@ -1,103 +1,58 @@
-import os
 import sqlite3
-import re
+import json
 
-db_path = r"C:\Users\Admin2\Documents\GitHub\primecare-platform\.agents\governance\governance.db"
-project_root = r"C:\Users\Admin2\Documents\GitHub\primecare-platform"
+DB_PATH = r"c:\Users\Admin2\Documents\GitHub\primecare-platform\.agents\governance\governance.db"
 
-if not os.path.exists(db_path):
-    print("DB not found at:", db_path)
-    exit(1)
-
-# Connect to DB
-conn = sqlite3.connect(db_path)
-conn.row_factory = sqlite3.Row
-cursor = conn.cursor()
-
-# Fetch all screens
-cursor.execute("SELECT id, screen_code, screen_name, allowed_roles_text, actual_file_path FROM screens")
-screens = [dict(row) for row in cursor.fetchall()]
-print(f"Loaded {len(screens)} screens from database.")
-
-stages = {
-    1: [], # Dashboards (Highest Priority)
-    2: [], # Data views, logs, grids (Medium Priority)
-    3: []  # Secondary forms and stubs (Lower Priority)
-}
-wired_screens = []
-
-stub_keywords_re = re.compile(r"\b(TODO|unimplemented|placeholder|UnimplementedError)\b", re.IGNORECASE)
-
-for scr in screens:
-    sid = scr['id']
-    code = scr['screen_code']
-    code_lower = code.lower()
-    file_path = scr['actual_file_path']
+def main():
+    conn = sqlite3.connect(DB_PATH)
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
     
-    is_stub = True
-    reason = "No file path mapped"
+    # Let's inspect the roles table and their sidebar_config_json
+    c.execute("SELECT role_code, role_name, sidebar_config_json, allowed_menu_json FROM roles")
+    roles = c.fetchall()
     
-    if file_path:
-        full_path = os.path.join(project_root, file_path.replace("/", os.sep))
-        if os.path.exists(full_path):
+    print(f"Total roles in database: {len(roles)}")
+    
+    # Build a map of route_path -> role_code based on roles table
+    route_to_role = {}
+    for r in roles:
+        role_code = r['role_code']
+        # Try to parse sidebar_config_json
+        sidebar_json = r['sidebar_config_json']
+        if sidebar_json:
             try:
-                content = open(full_path, 'r', encoding='utf-8').read()
-                # Check for stub criteria
-                if len(content) < 1200:
-                    reason = f"File is too short ({len(content)} bytes)"
-                elif re.search(r'\bTODO\b|\bPlaceholder\b', content) or re.search(r'\bunimplemented\b|\bUnimplementedError\b', content, re.IGNORECASE):
-                    reason = "Contains stub keywords (TODO/unimplemented/placeholder)"
-                else:
-                    is_stub = False
+                sidebar_data = json.loads(sidebar_json)
+                items = sidebar_data.get('items', [])
+                for item in items:
+                    route = item.get('route')
+                    if route:
+                        route_to_role[route] = (role_code, r['role_name'])
             except Exception as e:
-                reason = f"Read error: {e}"
+                print(f"Error parsing sidebar_config_json for {role_code}: {e}")
+                
+    print(f"Mapped {len(route_to_role)} unique routes to roles from sidebar_config_json.")
+    
+    # Now let's query all screens and see how many are matched
+    c.execute("SELECT id, route_path, screen_name FROM screens")
+    screens = c.fetchall()
+    
+    matched_count = 0
+    unmatched_screens = []
+    for s in screens:
+        route = s['route_path']
+        if route in route_to_role:
+            matched_count += 1
         else:
-            reason = f"File does not exist: {file_path}"
+            unmatched_screens.append(s)
             
-    if is_stub:
-        # Determine Stage
-        if 'dashboard' in code_lower:
-            stage = 1
-        elif any(kw in code_lower for kw in ['list', 'grid', 'table', 'chart', 'analytics', 'history', 'report', 'notes', 'log']):
-            stage = 2
-        else:
-            stage = 3
-        stages[stage].append((scr, reason))
+    print(f"Matched {matched_count} / {len(screens)} screens to roles using sidebar_config_json.")
+    print(f"Unmatched screens count: {len(unmatched_screens)}")
+    print("\nSome unmatched screens:")
+    for s in unmatched_screens[:20]:
+        print(f"ID: {s['id']} | Route: {s['route_path']} | Name: {s['screen_name']}")
         
-        # Update DB for stub
-        cursor.execute("""
-            UPDATE screens
-            SET
-                implementation_status = 'stub',
-                user_remark_status = 'pending_remediation',
-                user_remarks = ?
-            WHERE id = ?
-        """, (f"[STUB - STAGE {stage}] {reason}", sid))
-    else:
-        wired_screens.append(scr)
-        # Update DB for wired
-        cursor.execute("""
-            UPDATE screens
-            SET
-                implementation_status = 'wired',
-                user_remark_status = 'verified',
-                user_remarks = '[WIRED] Fully implemented and data-bound'
-            WHERE id = ?
-        """, (sid,))
+    conn.close()
 
-conn.commit()
-
-print("\n=== CLASSIFICATION SUMMARY ===")
-print(f"Total Wired/High-Fidelity Screens: {len(wired_screens)}")
-print(f"Total Stub/Placeholder Screens: {len(stages[1]) + len(stages[2]) + len(stages[3])}")
-print(f"  - Stage 1 (Dashboards): {len(stages[1])} screens")
-print(f"  - Stage 2 (Grids & Analytics): {len(stages[2])} screens")
-print(f"  - Stage 3 (Secondary Subpages): {len(stages[3])} screens")
-
-# Print some Stage 1 stubs
-if stages[1]:
-    print("\nRepresentative Stage 1 Stubs:")
-    for scr, reason in stages[1][:5]:
-        print(f"  - Screen: {scr['screen_code']} | Role: {scr['allowed_roles_text']} | Reason: {reason}")
-
-conn.close()
+if __name__ == "__main__":
+    main()

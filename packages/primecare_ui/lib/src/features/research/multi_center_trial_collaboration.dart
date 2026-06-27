@@ -178,7 +178,7 @@ class _SitesProgressCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.between,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -319,7 +319,7 @@ class _TeamChatCardState extends ConsumerState<_TeamChatCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.between,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(msg.sender, style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold, color: theme.colors.primary)),
                           Text(msg.time, style: theme.typography.labelSmall.copyWith(color: theme.colors.onSurfaceVariant)),

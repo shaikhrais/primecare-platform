@@ -35,7 +35,7 @@ class _ShareholderDashboardState extends ConsumerState<ShareholderDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.theme;
+    final theme = Theme.of(context);
 
     if (_isLoading) {
       return Scaffold(

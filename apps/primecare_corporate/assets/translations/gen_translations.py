@@ -173,6 +173,7 @@ def generate_locale_keys(all_keys):
     with open(LOCALE_KEYS_FILE, "w") as f:
         f.write(content)
     
+    os.makedirs(os.path.dirname(LOCALE_KEYS_G_FILE), exist_ok=True)
     with open(LOCALE_KEYS_G_FILE, "w") as f:
         f.write(content)
     
@@ -186,6 +187,7 @@ def scan_codebase_for_keys(en_translations):
     # Scan main packages
     scan_dirs = [
         os.path.join(ROOT_DIR, "packages/factory_system/primecare_ui"),
+        os.path.join(ROOT_DIR, "packages/primecare_ui"),
         os.path.join(ROOT_DIR, "apps/primecare_governance/lib")
     ]
     
@@ -252,7 +254,13 @@ def main():
             "app_name": "PrimeCare",
             "loading": "Loading...", "save": "Save", "cancel": "Cancel",
             "status": "Status", "name": "Name", "details": "Details",
-            "language": {"en": "English", "fr": "French", "es": "Spanish"}
+            "language": {"en": "English", "fr": "French", "es": "Spanish"},
+            "no_records": "No records match your criteria.",
+            "process_payment": "Process New Payment",
+            "close": "Close",
+            "confirm_action": "Confirm Action",
+            "generate_invoice": "Generate Invoice Entry",
+            "allocate_grant": "Allocate Grant Funds"
         },
         "governance": {
             "title": "Governance Dashboard",
@@ -328,6 +336,7 @@ def main():
     # We do a second scan to find anything we might have missed in the structure
     scan_dirs = [
         os.path.join(ROOT_DIR, "packages/factory_system/primecare_ui"),
+        os.path.join(ROOT_DIR, "packages/primecare_ui"),
         os.path.join(ROOT_DIR, "apps/primecare_governance/lib")
     ]
     all_discovered = set()

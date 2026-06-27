@@ -5,14 +5,41 @@
 * **Role key**: `clinical_director`
 * **Role category**: `clinical`
 * **Total screens**: 22
-* **Production ready screens**: 22
-* **Incomplete screens**: 0
+* **Business ready screens**: 13
+* **Incomplete screens**: 22
 * **False progress screens**: 0
-* **Zero interaction screens**: 0
+* **Zero Screen-Body Interaction screens**: 0
 * **Average progress**: 46.4%
-* **Average interactive objects**: 4.6
+* **Average screen-body interactions**: 2.8
 
 ## Screen List
+
+| Screen Name | Route Path | Body Interactions | Global Nav | Status | Business Score | Role Score | Missing Business Features | Business Ready |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| ClinicalDashboardScreen | `/offices/clinical/roles/clinical_director/dashboard-dup-1` | 6 | 4 | `MEANINGFUL` | 5 | 1 | audit, incident, staff, training, policy, credential | **No** |
+| ClinicDashboardScreen | `/offices/clinical/roles/clinical_director/clinic-dashboard` | 2 | 1 | `LOW_INTERACTION` | 5 | 4 | incident, training, credential | **Yes** |
+| ClinicalAnalyticsScreen | `/offices/clinical/roles/clinical_director/analytics` | 2 | 0 | `LOW_INTERACTION` | 3 | 3 | audit, incident, policy, credential | **No** |
+| ClinicalComplianceScreen | `/offices/clinical/roles/clinical_director/compliance` | 2 | 1 | `LOW_INTERACTION` | 5 | 4 | incident, staff, credential | **Yes** |
+| ClinicalWorkflowScreen | `/offices/clinical/roles/clinical_director/workflow` | 2 | 0 | `LOW_INTERACTION` | 3 | 4 | audit, incident, credential | **Yes** |
+| ClinicAnalyticsScreen | `/offices/clinical/roles/clinical_director/clinic-analytics` | 2 | 0 | `LOW_INTERACTION` | 4 | 1 | audit, compliance, incident, staff, policy, credential | **No** |
+| ClinicComplianceScreen | `/offices/clinical/roles/clinical_director/clinic-compliance` | 2 | 1 | `LOW_INTERACTION` | 5 | 5 | incident, credential | **Yes** |
+| ClinicWorkflowScreen | `/offices/clinical/roles/clinical_director/clinic-workflow` | 2 | 0 | `LOW_INTERACTION` | 3 | 2 | audit, incident, training, policy, credential | **No** |
+| ClinicalDirectorStaffQualityScreen | `/offices/clinical/roles/clinical_director/staff-quality` | 2 | 1 | `LOW_INTERACTION` | 3 | 5 | policy, credential | **Yes** |
+| ClinicalDirectorIncidentReviewScreen | `/offices/clinical/roles/clinical_director/incident-review` | 2 | 1 | `LOW_INTERACTION` | 3 | 5 | policy, credential | **Yes** |
+| ClinicalDirectorComplianceScreen | `/offices/clinical/roles/clinical_director/compliance-director` | 2 | 1 | `LOW_INTERACTION` | 4 | 4 | incident, policy, credential | **Yes** |
+| ClinicalDirectorReportsScreen | `/offices/clinical/roles/clinical_director/reports` | 2 | 1 | `LOW_INTERACTION` | 4 | 4 | incident, policy, credential | **Yes** |
+| ClinicalDirectorApprovalsScreen | `/offices/clinical/roles/clinical_director/approvals` | 2 | 1 | `LOW_INTERACTION` | 4 | 3 | incident, training, policy, credential | **No** |
+| ClinicalDirectorPerformanceScreen | `/offices/clinical/roles/clinical_director/performance` | 2 | 1 | `LOW_INTERACTION` | 3 | 3 | incident, training, policy, credential | **No** |
+| ClinicalQualityScreen | `/offices/clinical/roles/clinical_director/quality` | 2 | 1 | `LOW_INTERACTION` | 4 | 3 | incident, training, policy, credential | **No** |
+| StaffPerformanceScreen | `/offices/clinical/roles/clinical_director/staff-performance` | 2 | 1 | `LOW_INTERACTION` | 3 | 5 | policy, credential | **Yes** |
+| ComplianceReviewScreen | `/offices/clinical/roles/clinical_director/compliance-review` | 2 | 1 | `LOW_INTERACTION` | 5 | 4 | staff, policy, credential | **Yes** |
+| IncidentOversightScreen | `/offices/clinical/roles/clinical_director/incident-oversight` | 2 | 1 | `LOW_INTERACTION` | 4 | 4 | staff, policy, credential | **Yes** |
+| ClinicalOperations4KScreen | `/offices/clinical/roles/clinical_director/operations4k` | 2 | 1 | `LOW_INTERACTION` | 3 | 5 | policy, credential | **Yes** |
+| Clinical Director Dashboard | `/offices/clinical/roles/clinical_director/dashboard` | 4 | 1 | `MEANINGFUL` | 3 | 3 | incident, staff, training, policy | **No** |
+| Clinical Director Quality Metrics | `/generated/clinical-director-quality-metrics` | 8 | 6 | `MEANINGFUL` | 7 | 5 | training, policy | **Yes** |
+| Clinical Director Staffing | `/generated/clinical-director-staffing` | 8 | 6 | `MEANINGFUL` | 7 | 1 | audit, compliance, incident, training, policy, credential | **No** |
+
+## Screen Details
 
 ### ClinicalDashboardScreen
 
@@ -21,17 +48,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 9
-* **Buttons**: 5
-* **Forms**: 1
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 6
+  * **Buttons**: 5
+  * **Forms**: 1
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 4
+* **Business Workflow Score**: 5
+* **Role Expectation Score**: 1
+* **Missing Business Features**: audit, incident, staff, training, policy, credential
 * **Purpose**: Duplicate screen copy for ClinicalDashboardScreen. Created during route split or template duplication.
 * **Primary user goal**: Re-route or consolidate user traffic back to the primary screen.
 * **Expected user actions**: None. Consolidated into main dashboard.
 * **Business reason**: Redundant route node; duplicate of main feature screen.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: audit, incident, staff, training, policy, credential
+* **Next action**: Implement expected workflows for clinical_director role.
 
 ### ClinicDashboardScreen
 
@@ -40,17 +74,24 @@
 * **Current stage**: Stage 5
 * **Progress %**: 50%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 5
+* **Role Expectation Score**: 4
+* **Missing Business Features**: incident, training, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicalAnalyticsScreen
 
@@ -59,17 +100,24 @@
 * **Current stage**: Stage 4
 * **Progress %**: 40%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 3
-* **Buttons**: 3
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 0
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 3
+* **Missing Business Features**: audit, incident, policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicalComplianceScreen
 
@@ -78,17 +126,24 @@
 * **Current stage**: Stage 5
 * **Progress %**: 50%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 5
+* **Role Expectation Score**: 4
+* **Missing Business Features**: incident, staff, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicalWorkflowScreen
 
@@ -97,17 +152,24 @@
 * **Current stage**: Stage 4
 * **Progress %**: 40%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 3
-* **Buttons**: 3
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 0
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 4
+* **Missing Business Features**: audit, incident, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicAnalyticsScreen
 
@@ -116,17 +178,24 @@
 * **Current stage**: Stage 4
 * **Progress %**: 40%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 3
-* **Buttons**: 3
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 0
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 1
+* **Missing Business Features**: audit, compliance, incident, staff, policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicComplianceScreen
 
@@ -135,17 +204,24 @@
 * **Current stage**: Stage 5
 * **Progress %**: 50%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 5
+* **Role Expectation Score**: 5
+* **Missing Business Features**: incident, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicWorkflowScreen
 
@@ -154,17 +230,24 @@
 * **Current stage**: Stage 4
 * **Progress %**: 40%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 3
-* **Buttons**: 3
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 0
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 2
+* **Missing Business Features**: audit, incident, training, policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicalDirectorStaffQualityScreen
 
@@ -173,17 +256,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 5
+* **Missing Business Features**: policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicalDirectorIncidentReviewScreen
 
@@ -192,17 +282,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 5
+* **Missing Business Features**: policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicalDirectorComplianceScreen
 
@@ -211,17 +308,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 4
+* **Missing Business Features**: incident, policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicalDirectorReportsScreen
 
@@ -230,17 +334,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 4
+* **Missing Business Features**: incident, policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicalDirectorApprovalsScreen
 
@@ -249,17 +360,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 3
+* **Missing Business Features**: incident, training, policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicalDirectorPerformanceScreen
 
@@ -268,17 +386,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 3
+* **Missing Business Features**: incident, training, policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicalQualityScreen
 
@@ -287,17 +412,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 3
+* **Missing Business Features**: incident, training, policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### StaffPerformanceScreen
 
@@ -306,17 +438,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 5
+* **Missing Business Features**: policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ComplianceReviewScreen
 
@@ -325,17 +464,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 5
+* **Role Expectation Score**: 4
+* **Missing Business Features**: staff, policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### IncidentOversightScreen
 
@@ -344,17 +490,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 4
+* **Missing Business Features**: staff, policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ClinicalOperations4KScreen
 
@@ -363,17 +516,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 5
+* **Missing Business Features**: policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### Clinical Director Dashboard
 
@@ -382,17 +542,24 @@
 * **Current stage**: Stage 5
 * **Progress %**: 50%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 3
-* **Buttons**: 2
-* **Forms**: 1
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 4
+  * **Buttons**: 1
+  * **Forms**: 1
+  * **Filters**: 0
+  * **Table Actions**: 1
+  * **Clickable Cards**: 1
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 3
+* **Missing Business Features**: incident, staff, training, policy
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Missing core role features: incident, staff, training, policy
+* **Next action**: Implement expected workflows for clinical_director role.
 
 ### Clinical Director Quality Metrics
 
@@ -401,17 +568,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 5
+* **Missing Business Features**: training, policy
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ### Clinical Director Staffing
 
@@ -420,36 +594,64 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 1
+* **Missing Business Features**: audit, compliance, incident, training, policy, credential
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: audit, compliance, incident, training, policy, credential
+* **Next action**: Implement expected workflows for clinical_director role.
 
 ## Screens to Fix First
 
-All screens are fully production-ready and interactive! Zero issues found.
+1. **ClinicalDashboardScreen** (Progress: 0%, Business Score: 5, Role Score: 1)  
+   *Reason*: Missing core workflows/features: audit, incident, staff, training, policy, credential
+2. **Clinical Director Staffing** (Progress: 0%, Business Score: 7, Role Score: 1)  
+   *Reason*: Missing core workflows/features: audit, compliance, incident, training, policy, credential
+3. **ClinicalAnalyticsScreen** (Progress: 40%, Business Score: 3, Role Score: 3)  
+   *Reason*: Missing core workflows/features: audit, incident, policy, credential
+4. **ClinicAnalyticsScreen** (Progress: 40%, Business Score: 4, Role Score: 1)  
+   *Reason*: Missing core workflows/features: audit, compliance, incident, staff, policy, credential
+5. **ClinicWorkflowScreen** (Progress: 40%, Business Score: 3, Role Score: 2)  
+   *Reason*: Missing core workflows/features: audit, incident, training, policy, credential
+6. **Clinical Director Dashboard** (Progress: 50%, Business Score: 3, Role Score: 3)  
+   *Reason*: Missing core workflows/features: incident, staff, training, policy
+7. **ClinicalDirectorApprovalsScreen** (Progress: 60%, Business Score: 4, Role Score: 3)  
+   *Reason*: Missing core workflows/features: incident, training, policy, credential
+8. **ClinicalDirectorPerformanceScreen** (Progress: 60%, Business Score: 3, Role Score: 3)  
+   *Reason*: Missing core workflows/features: incident, training, policy, credential
+9. **ClinicalQualityScreen** (Progress: 60%, Business Score: 4, Role Score: 3)  
+   *Reason*: Missing core workflows/features: incident, training, policy, credential
 
 ## Recommended Build Order
 
 ### 1. Must Fix Now (High Priority)
-- None (All screens have basic interactivity)
+- ClinicalDashboardScreen (Implement role-specific workflows and transactional features)
+- Clinical Director Staffing (Implement role-specific workflows and transactional features)
+- ClinicalAnalyticsScreen (Implement role-specific workflows and transactional features)
+- ClinicAnalyticsScreen (Implement role-specific workflows and transactional features)
+- ClinicWorkflowScreen (Implement role-specific workflows and transactional features)
 
 ### 2. Fix Next (Medium Priority)
 - None (All screens are functionally complete)
 
 ### 3. Polish Later (Low Priority)
-- ClinicalDashboardScreen (Micro-interactions and design alignment polish)
 - Clinical Director Quality Metrics (Micro-interactions and design alignment polish)
-- Clinical Director Staffing (Micro-interactions and design alignment polish)
-- ClinicalAnalyticsScreen (Micro-interactions and design alignment polish)
 - ClinicalWorkflowScreen (Micro-interactions and design alignment polish)
+- ClinicDashboardScreen (Micro-interactions and design alignment polish)
+- ClinicalComplianceScreen (Micro-interactions and design alignment polish)
+- ClinicComplianceScreen (Micro-interactions and design alignment polish)
 
 ### 4. Consider Merging / Deleting
 - ClinicalDashboardScreen (Consolidate redundant route split entries)

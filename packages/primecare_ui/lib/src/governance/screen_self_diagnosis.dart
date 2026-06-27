@@ -58,6 +58,25 @@ class ScreenHealthStatus {
   final String? roleDocPath;
   final String? visualStatus;
 
+  // Stricter interaction checks
+  final int screenBodyButtonCount;
+  final int screenBodyFormCount;
+  final int screenBodyFilterCount;
+  final int screenBodyTableActionCount;
+  final int screenBodyClickableCardCount;
+  final int screenBodyTotalInteractions;
+  final int globalNavigationCount;
+  final String meaningfulInteractionStatus;
+  final int businessWorkflowScore;
+  final int roleExpectationScore;
+  final String? missingBusinessFeatures;
+  final bool businessReady;
+  final bool hardFail;
+  final String? screenshotPath;
+  final bool renderSuccess;
+  final String? renderError;
+  final int visualQualityScore;
+
 
   const ScreenHealthStatus({
     required this.screenName,
@@ -108,6 +127,23 @@ class ScreenHealthStatus {
     this.roleCompletionPercent = 0,
     this.roleDocPath,
     this.visualStatus,
+    this.screenBodyButtonCount = 0,
+    this.screenBodyFormCount = 0,
+    this.screenBodyFilterCount = 0,
+    this.screenBodyTableActionCount = 0,
+    this.screenBodyClickableCardCount = 0,
+    this.screenBodyTotalInteractions = 0,
+    this.globalNavigationCount = 0,
+    this.meaningfulInteractionStatus = 'ZERO_SCREEN_BODY_INTERACTION',
+    this.businessWorkflowScore = 0,
+    this.roleExpectationScore = 0,
+    this.missingBusinessFeatures,
+    this.businessReady = false,
+    this.hardFail = false,
+    this.screenshotPath,
+    this.renderSuccess = false,
+    this.renderError,
+    this.visualQualityScore = 0,
   });
 
   factory ScreenHealthStatus.fromJson(Map<String, dynamic> json) {
@@ -160,6 +196,29 @@ class ScreenHealthStatus {
       roleCompletionPercent: (json['role_completion_percent'] ?? json['roleCompletionPercent']) as int? ?? 0,
       roleDocPath: (json['role_doc_path'] ?? json['roleDocPath']) as String?,
       visualStatus: (json['visual_status'] ?? json['visualStatus']) as String?,
+      screenBodyButtonCount: (json['screen_body_button_count'] ?? json['screenBodyButtonCount']) as int? ?? 0,
+      screenBodyFormCount: (json['screen_body_form_count'] ?? json['screenBodyFormCount']) as int? ?? 0,
+      screenBodyFilterCount: (json['screen_body_filter_count'] ?? json['screenBodyFilterCount']) as int? ?? 0,
+      screenBodyTableActionCount: (json['screen_body_table_action_count'] ?? json['screenBodyTableActionCount']) as int? ?? 0,
+      screenBodyClickableCardCount: (json['screen_body_clickable_card_count'] ?? json['screenBodyClickableCardCount']) as int? ?? 0,
+      screenBodyTotalInteractions: (json['screen_body_total_interactions'] ?? json['screenBodyTotalInteractions']) as int? ?? 0,
+      globalNavigationCount: (json['global_navigation_count'] ?? json['globalNavigationCount']) as int? ?? 0,
+      meaningfulInteractionStatus: (json['meaningful_interaction_status'] ?? json['meaningfulInteractionStatus']) as String? ?? 'ZERO_SCREEN_BODY_INTERACTION',
+      businessWorkflowScore: (json['business_workflow_score'] ?? json['businessWorkflowScore']) as int? ?? 0,
+      roleExpectationScore: (json['role_expectation_score'] ?? json['roleExpectationScore']) as int? ?? 0,
+      missingBusinessFeatures: (json['missing_business_features'] ?? json['missingBusinessFeatures']) as String?,
+      businessReady: (json['business_ready'] is int)
+          ? ((json['business_ready'] as int) == 1)
+          : ((json['business_ready'] ?? json['businessReady']) as bool? ?? false),
+      hardFail: (json['hard_fail'] is int)
+          ? ((json['hard_fail'] as int) == 1)
+          : ((json['hard_fail'] ?? json['hardFail']) as bool? ?? false),
+      screenshotPath: json['screenshot_path'] ?? json['screenshotPath'],
+      renderSuccess: (json['render_success'] is int)
+          ? ((json['render_success'] as int) == 1)
+          : ((json['render_success'] ?? json['renderSuccess']) as bool? ?? false),
+      renderError: json['render_error'] ?? json['renderError'],
+      visualQualityScore: (json['visual_quality_score'] ?? json['visualQualityScore']) as int? ?? 0,
     );
   }
 
@@ -213,6 +272,23 @@ class ScreenHealthStatus {
       'role_completion_percent': roleCompletionPercent,
       'role_doc_path': roleDocPath,
       'visual_status': visualStatus,
+      'screen_body_button_count': screenBodyButtonCount,
+      'screen_body_form_count': screenBodyFormCount,
+      'screen_body_filter_count': screenBodyFilterCount,
+      'screen_body_table_action_count': screenBodyTableActionCount,
+      'screen_body_clickable_card_count': screenBodyClickableCardCount,
+      'screen_body_total_interactions': screenBodyTotalInteractions,
+      'global_navigation_count': globalNavigationCount,
+      'meaningful_interaction_status': meaningfulInteractionStatus,
+      'business_workflow_score': businessWorkflowScore,
+      'role_expectation_score': roleExpectationScore,
+      'missing_business_features': missingBusinessFeatures,
+      'business_ready': businessReady,
+      'hard_fail': hardFail,
+      'screenshot_path': screenshotPath,
+      'render_success': renderSuccess,
+      'render_error': renderError,
+      'visual_quality_score': visualQualityScore,
     };
   }
 }
@@ -399,6 +475,23 @@ List<ScreenHealthStatus> loadAllScreensFromDb() {
         roleCompletionPercent: (row['role_completion_percent'] ?? 0) as int,
         roleDocPath: row['role_doc_path'] as String?,
         visualStatus: row['visual_status'] as String?,
+        screenBodyButtonCount: (row['screen_body_button_count'] ?? 0) as int,
+        screenBodyFormCount: (row['screen_body_form_count'] ?? 0) as int,
+        screenBodyFilterCount: (row['screen_body_filter_count'] ?? 0) as int,
+        screenBodyTableActionCount: (row['screen_body_table_action_count'] ?? 0) as int,
+        screenBodyClickableCardCount: (row['screen_body_clickable_card_count'] ?? 0) as int,
+        screenBodyTotalInteractions: (row['screen_body_total_interactions'] ?? 0) as int,
+        globalNavigationCount: (row['global_navigation_count'] ?? 0) as int,
+        meaningfulInteractionStatus: (row['meaningful_interaction_status'] ?? 'ZERO_SCREEN_BODY_INTERACTION') as String,
+        businessWorkflowScore: (row['business_workflow_score'] ?? 0) as int,
+        roleExpectationScore: (row['role_expectation_score'] ?? 0) as int,
+        missingBusinessFeatures: row['missing_business_features'] as String?,
+        businessReady: ((row['business_ready'] ?? 0) as int) == 1,
+        hardFail: ((row['hard_fail'] ?? 0) as int) == 1,
+        screenshotPath: row['screenshot_path'] as String?,
+        renderSuccess: ((row['render_success'] ?? 0) as int) == 1,
+        renderError: row['render_error'] as String?,
+        visualQualityScore: (row['visual_quality_score'] ?? 0) as int,
       ));
     }
     db.dispose();
@@ -468,6 +561,14 @@ void setDiagnosisEnabled(String routePath, bool enabled) {
       needsReview: old.needsReview,
       productionReady: old.productionReady,
       falseProgress: old.falseProgress,
+      screenBodyButtonCount: old.screenBodyButtonCount,
+      screenBodyFormCount: old.screenBodyFormCount,
+      screenBodyFilterCount: old.screenBodyFilterCount,
+      screenBodyTableActionCount: old.screenBodyTableActionCount,
+      screenBodyClickableCardCount: old.screenBodyClickableCardCount,
+      screenBodyTotalInteractions: old.screenBodyTotalInteractions,
+      globalNavigationCount: old.globalNavigationCount,
+      meaningfulInteractionStatus: old.meaningfulInteractionStatus,
     );
   }
   final dbPath = r"C:\Users\Admin2\Documents\GitHub\primecare-platform\.agents\governance\governance.db";

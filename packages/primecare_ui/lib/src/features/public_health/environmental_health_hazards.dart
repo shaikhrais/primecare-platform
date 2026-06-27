@@ -387,7 +387,7 @@ class _ActiveHazardsListCard extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.between,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [
@@ -547,7 +547,7 @@ class _ReportHazardCardState extends ConsumerState<_ReportHazardCard> {
                         title: _titleController.text.trim(),
                         location: _locController.text.trim(),
                         severity: _severity,
-                        reportedAt: DateTime.now().toIsoformatString().substring(0, 10),
+                        reportedAt: DateTime.now().toIso8601String().substring(0, 10),
                         status: 'Active',
                       );
                       ref.read(environmentalHazardsProvider.notifier).update((state) => [newHz, ...state]);

@@ -5,14 +5,35 @@
 * **Role key**: `coo`
 * **Role category**: `corporate`
 * **Total screens**: 16
-* **Production ready screens**: 16
-* **Incomplete screens**: 0
+* **Business ready screens**: 2
+* **Incomplete screens**: 16
 * **False progress screens**: 0
-* **Zero interaction screens**: 0
+* **Zero Screen-Body Interaction screens**: 0
 * **Average progress**: 30.6%
-* **Average interactive objects**: 6.8
+* **Average screen-body interactions**: 4.5
 
 ## Screen List
+
+| Screen Name | Route Path | Body Interactions | Global Nav | Status | Business Score | Role Score | Missing Business Features | Business Ready |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CooDashboardScreen | `/offices/corporate/roles/coo/dashboard` | 6 | 4 | `MEANINGFUL` | 6 | 2 | comparison, staff, logistics, performance | **No** |
+| CooAnalyticsScreen | `/executive/coo-analytics` | 2 | 0 | `LOW_INTERACTION` | 2 | 2 | branch, comparison, staff, logistics | **No** |
+| CooComplianceScreen | `/offices/corporate/roles/coo/compliance-view` | 2 | 1 | `LOW_INTERACTION` | 4 | 0 | operations, branch, comparison, staff, logistics, performance | **No** |
+| CooWorkflowScreen | `/executive/coo-workflow` | 2 | 0 | `LOW_INTERACTION` | 2 | 2 | branch, comparison, staff, logistics | **No** |
+| CooCommandCenterScreen | `/executive/coo-command-center` | 2 | 1 | `LOW_INTERACTION` | 4 | 2 | branch, comparison, staff, logistics | **No** |
+| CooOperationsOverviewScreen | `/offices/corporate/roles/coo/operations-overview` | 2 | 1 | `LOW_INTERACTION` | 3 | 2 | branch, comparison, staff, logistics | **No** |
+| CooStaffingScreen | `/executive/coo-staffing` | 2 | 1 | `LOW_INTERACTION` | 4 | 3 | branch, comparison, logistics | **Yes** |
+| CooSchedulingHealthScreen | `/offices/corporate/roles/coo/scheduling-health` | 2 | 1 | `LOW_INTERACTION` | 3 | 2 | branch, comparison, staff, logistics | **No** |
+| CooWorkflowIssuesScreen | `/executive/coo-workflow-issues` | 2 | 1 | `LOW_INTERACTION` | 4 | 2 | branch, comparison, staff, logistics | **No** |
+| CooBranchComparisonScreen | `/offices/corporate/roles/coo/branch-comparison` | 2 | 1 | `LOW_INTERACTION` | 3 | 4 | staff, logistics | **Yes** |
+| Coo Branch Operations | `/offices/corporate/roles/coo/branch-operations` | 8 | 6 | `MEANINGFUL` | 7 | 2 | comparison, staff, logistics, performance | **No** |
+| Coo Issue Escalations | `/offices/corporate/roles/coo/issue-escalations` | 8 | 6 | `MEANINGFUL` | 7 | 2 | branch, comparison, logistics, performance | **No** |
+| Coo Reports | `/offices/corporate/roles/coo/reports` | 8 | 6 | `MEANINGFUL` | 8 | 1 | branch, comparison, staff, logistics, performance | **No** |
+| Coo Service Delivery | `/offices/corporate/roles/coo/service-delivery` | 8 | 6 | `MEANINGFUL` | 7 | 1 | branch, comparison, staff, logistics, performance | **No** |
+| Coo Staffing Efficiency | `/offices/corporate/roles/coo/staffing-efficiency` | 8 | 6 | `MEANINGFUL` | 7 | 2 | branch, comparison, logistics, performance | **No** |
+| Coo Workflow Performance | `/offices/corporate/roles/coo/workflow-performance` | 8 | 6 | `MEANINGFUL` | 8 | 2 | branch, comparison, staff, logistics | **No** |
+
+## Screen Details
 
 ### CooDashboardScreen
 
@@ -21,17 +42,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 9
-* **Buttons**: 5
-* **Forms**: 1
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 6
+  * **Buttons**: 5
+  * **Forms**: 1
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 4
+* **Business Workflow Score**: 6
+* **Role Expectation Score**: 2
+* **Missing Business Features**: comparison, staff, logistics, performance
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: comparison, staff, logistics, performance
+* **Next action**: Implement expected workflows for coo role.
 
 ### CooAnalyticsScreen
 
@@ -40,17 +68,24 @@
 * **Current stage**: Stage 4
 * **Progress %**: 40%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 3
-* **Buttons**: 3
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 0
+* **Business Workflow Score**: 2
+* **Role Expectation Score**: 2
+* **Missing Business Features**: branch, comparison, staff, logistics
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### CooComplianceScreen
 
@@ -59,17 +94,24 @@
 * **Current stage**: Stage 5
 * **Progress %**: 50%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 0
+* **Missing Business Features**: operations, branch, comparison, staff, logistics, performance
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### CooWorkflowScreen
 
@@ -78,17 +120,24 @@
 * **Current stage**: Stage 4
 * **Progress %**: 40%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 3
-* **Buttons**: 3
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 0
+* **Business Workflow Score**: 2
+* **Role Expectation Score**: 2
+* **Missing Business Features**: branch, comparison, staff, logistics
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### CooCommandCenterScreen
 
@@ -97,17 +146,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 2
+* **Missing Business Features**: branch, comparison, staff, logistics
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### CooOperationsOverviewScreen
 
@@ -116,17 +172,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 2
+* **Missing Business Features**: branch, comparison, staff, logistics
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### CooStaffingScreen
 
@@ -135,17 +198,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 3
+* **Missing Business Features**: branch, comparison, logistics
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### CooSchedulingHealthScreen
 
@@ -154,17 +224,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 2
+* **Missing Business Features**: branch, comparison, staff, logistics
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### CooWorkflowIssuesScreen
 
@@ -173,17 +250,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 2
+* **Missing Business Features**: branch, comparison, staff, logistics
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### CooBranchComparisonScreen
 
@@ -192,17 +276,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 4
+* **Missing Business Features**: staff, logistics
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### Coo Branch Operations
 
@@ -211,17 +302,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 2
+* **Missing Business Features**: comparison, staff, logistics, performance
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: comparison, staff, logistics, performance
+* **Next action**: Implement expected workflows for coo role.
 
 ### Coo Issue Escalations
 
@@ -230,17 +328,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 2
+* **Missing Business Features**: branch, comparison, logistics, performance
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: branch, comparison, logistics, performance
+* **Next action**: Implement expected workflows for coo role.
 
 ### Coo Reports
 
@@ -249,17 +354,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 8
+* **Role Expectation Score**: 1
+* **Missing Business Features**: branch, comparison, staff, logistics, performance
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: branch, comparison, staff, logistics, performance
+* **Next action**: Implement expected workflows for coo role.
 
 ### Coo Service Delivery
 
@@ -268,17 +380,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 1
+* **Missing Business Features**: branch, comparison, staff, logistics, performance
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: branch, comparison, staff, logistics, performance
+* **Next action**: Implement expected workflows for coo role.
 
 ### Coo Staffing Efficiency
 
@@ -287,17 +406,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 2
+* **Missing Business Features**: branch, comparison, logistics, performance
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: branch, comparison, logistics, performance
+* **Next action**: Implement expected workflows for coo role.
 
 ### Coo Workflow Performance
 
@@ -306,36 +432,63 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 8
+* **Role Expectation Score**: 2
+* **Missing Business Features**: branch, comparison, staff, logistics
 * **Purpose**: Chief Operations Officer command center for monitoring clinic operations, branch comparisons, and staffing health.
 * **Primary user goal**: Oversee operational KPIs, compare performance across branches, and manage staff escalations.
 * **Expected user actions**: Filter branch comparative metrics, view scheduling health graphs, open operational escalations.
 * **Business reason**: Enables executive oversight of clinical logistics, staffing efficiency, and branch performance.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: branch, comparison, staff, logistics
+* **Next action**: Implement expected workflows for coo role.
 
 ## Screens to Fix First
 
-All screens are fully production-ready and interactive! Zero issues found.
+1. **CooDashboardScreen** (Progress: 0%, Business Score: 6, Role Score: 2)  
+   *Reason*: Missing core workflows/features: comparison, staff, logistics, performance
+2. **Coo Branch Operations** (Progress: 0%, Business Score: 7, Role Score: 2)  
+   *Reason*: Missing core workflows/features: comparison, staff, logistics, performance
+3. **Coo Issue Escalations** (Progress: 0%, Business Score: 7, Role Score: 2)  
+   *Reason*: Missing core workflows/features: branch, comparison, logistics, performance
+4. **Coo Reports** (Progress: 0%, Business Score: 8, Role Score: 1)  
+   *Reason*: Missing core workflows/features: branch, comparison, staff, logistics, performance
+5. **Coo Service Delivery** (Progress: 0%, Business Score: 7, Role Score: 1)  
+   *Reason*: Missing core workflows/features: branch, comparison, staff, logistics, performance
+6. **Coo Staffing Efficiency** (Progress: 0%, Business Score: 7, Role Score: 2)  
+   *Reason*: Missing core workflows/features: branch, comparison, logistics, performance
+7. **Coo Workflow Performance** (Progress: 0%, Business Score: 8, Role Score: 2)  
+   *Reason*: Missing core workflows/features: branch, comparison, staff, logistics
+8. **CooAnalyticsScreen** (Progress: 40%, Business Score: 2, Role Score: 2)  
+   *Reason*: Missing core workflows/features: branch, comparison, staff, logistics
+9. **CooWorkflowScreen** (Progress: 40%, Business Score: 2, Role Score: 2)  
+   *Reason*: Missing core workflows/features: branch, comparison, staff, logistics
+10. **CooComplianceScreen** (Progress: 50%, Business Score: 4, Role Score: 0)  
+   *Reason*: Missing core workflows/features: operations, branch, comparison, staff, logistics, performance
 
 ## Recommended Build Order
 
 ### 1. Must Fix Now (High Priority)
-- None (All screens have basic interactivity)
+- CooDashboardScreen (Implement role-specific workflows and transactional features)
+- Coo Branch Operations (Implement role-specific workflows and transactional features)
+- Coo Issue Escalations (Implement role-specific workflows and transactional features)
+- Coo Reports (Implement role-specific workflows and transactional features)
+- Coo Service Delivery (Implement role-specific workflows and transactional features)
 
 ### 2. Fix Next (Medium Priority)
 - None (All screens are functionally complete)
 
 ### 3. Polish Later (Low Priority)
-- CooDashboardScreen (Micro-interactions and design alignment polish)
-- Coo Branch Operations (Micro-interactions and design alignment polish)
-- Coo Issue Escalations (Micro-interactions and design alignment polish)
-- Coo Reports (Micro-interactions and design alignment polish)
-- Coo Service Delivery (Micro-interactions and design alignment polish)
+- CooStaffingScreen (Micro-interactions and design alignment polish)
+- CooBranchComparisonScreen (Micro-interactions and design alignment polish)
 
 ### 4. Consider Merging / Deleting
 - None (Zero duplicate screens identified)

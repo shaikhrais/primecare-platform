@@ -5,14 +5,22 @@
 * **Role key**: `pharmacy_provider`
 * **Role category**: `pharmacy`
 * **Total screens**: 3
-* **Production ready screens**: 3
-* **Incomplete screens**: 0
+* **Business ready screens**: 3
+* **Incomplete screens**: 3
 * **False progress screens**: 0
-* **Zero interaction screens**: 0
+* **Zero Screen-Body Interaction screens**: 0
 * **Average progress**: 0.0%
-* **Average interactive objects**: 11.0
+* **Average screen-body interactions**: 8.0
 
 ## Screen List
+
+| Screen Name | Route Path | Body Interactions | Global Nav | Status | Business Score | Role Score | Missing Business Features | Business Ready |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Inpatient Pharmacy Queue | `/generated/inpatient-pharmacy-queue` | 8 | 6 | `MEANINGFUL` | 8 | 0 | None | **Yes** |
+| Pharmacy Dispensing Dashboard | `/generated/pharmacy-dispensing-dashboard` | 8 | 6 | `MEANINGFUL` | 8 | 0 | None | **Yes** |
+| Pharmacy Inventory Management | `/generated/pharmacy-inventory-management` | 8 | 6 | `MEANINGFUL` | 8 | 0 | None | **Yes** |
+
+## Screen Details
 
 ### Inpatient Pharmacy Queue
 
@@ -21,17 +29,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 8
+* **Role Expectation Score**: 0
+* **Missing Business Features**: None
 * **Purpose**: Management workspace screen for Inpatient Pharmacy Queue module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ### Pharmacy Dispensing Dashboard
 
@@ -40,17 +55,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 8
+* **Role Expectation Score**: 0
+* **Missing Business Features**: None
 * **Purpose**: Management workspace screen for Pharmacy Dispensing Dashboard module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ### Pharmacy Inventory Management
 
@@ -59,26 +81,33 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 8
+* **Role Expectation Score**: 0
+* **Missing Business Features**: None
 * **Purpose**: Management workspace screen for Pharmacy Inventory Management module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ## Screens to Fix First
 
-All screens are fully production-ready and interactive! Zero issues found.
+All screens are fully business-ready and verified! Zero issues found.
 
 ## Recommended Build Order
 
 ### 1. Must Fix Now (High Priority)
-- None (All screens have basic interactivity)
+- None (All screens have core workflows implemented)
 
 ### 2. Fix Next (Medium Priority)
 - None (All screens are functionally complete)

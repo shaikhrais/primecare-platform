@@ -143,6 +143,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/admin/screen-health', builder: (context, state) => const AdminScreenHealthScreen()),
           GoRoute(path: '/admin/reality-check', builder: (context, state) => const AdminRealityCheckScreen()),
           GoRoute(path: '/admin/role-screen-carousel', builder: (context, state) => const AdminRoleCarouselScreen()),
+          GoRoute(path: '/admin/screenshot-gallery', builder: (context, state) => const AdminScreenshotGalleryScreen()),
           GoRoute(path: '/generated/audit-dashboard', builder: (context, state) => const AuditDashboardScreen()),
           GoRoute(path: '/generated/compliance-reviews', builder: (context, state) => const ComplianceReviewsScreen()),
           GoRoute(path: '/generated/incident-reports', builder: (context, state) => const IncidentReportsScreen()),

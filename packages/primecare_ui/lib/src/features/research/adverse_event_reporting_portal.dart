@@ -219,7 +219,7 @@ class _AdverseEventFormCardState extends ConsumerState<_AdverseEventFormCard> {
                       final newEvent = AdverseEvent(
                         id: 'AE-${100 + ref.read(adverseEventsProvider).length + 1}',
                         patientId: _patientController.text.trim(),
-                        date: DateTime.now().toIsoformatString().substring(0, 10),
+                        date: DateTime.now().toIso8601String().substring(0, 10),
                         severity: _severity,
                         description: _descController.text.trim(),
                         status: 'Under Review',
@@ -296,7 +296,7 @@ class _AdverseEventsListCard extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.between,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
                             children: [

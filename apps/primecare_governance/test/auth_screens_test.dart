@@ -6,10 +6,10 @@ void main() {
   group('Auth Screens Verification', () {
     testWidgets('ForgotPasswordView renders correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: PrimeTheme(
-            data: PrimeThemeData(),
-            child: MaterialApp(
+            data: const PrimeThemeData(),
+            child: const MaterialApp(
               home: ForgotPasswordView(),
             ),
           ),
@@ -25,10 +25,10 @@ void main() {
 
     testWidgets('MfaView renders correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: PrimeTheme(
-            data: PrimeThemeData(),
-            child: MaterialApp(
+            data: const PrimeThemeData(),
+            child: const MaterialApp(
               home: MfaView(),
             ),
           ),
@@ -44,10 +44,10 @@ void main() {
 
     testWidgets('ResetPasswordView renders correctly', (WidgetTester tester) async {
       await tester.pumpWidget(
-        const ProviderScope(
+        ProviderScope(
           child: PrimeTheme(
-            data: PrimeThemeData(),
-            child: MaterialApp(
+            data: const PrimeThemeData(),
+            child: const MaterialApp(
               home: ResetPasswordView(),
             ),
           ),

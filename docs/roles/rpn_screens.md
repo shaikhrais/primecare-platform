@@ -5,14 +5,37 @@
 * **Role key**: `rpn`
 * **Role category**: `clinical`
 * **Total screens**: 18
-* **Production ready screens**: 18
-* **Incomplete screens**: 0
+* **Business ready screens**: 0
+* **Incomplete screens**: 18
 * **False progress screens**: 0
-* **Zero interaction screens**: 0
+* **Zero Screen-Body Interaction screens**: 0
 * **Average progress**: 60.0%
-* **Average interactive objects**: 4.4
+* **Average screen-body interactions**: 2.4
 
 ## Screen List
+
+| Screen Name | Route Path | Body Interactions | Global Nav | Status | Business Score | Role Score | Missing Business Features | Business Ready |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| RpnDashboardScreen | `/offices/clinical/roles/rpn/dashboard` | 2 | 1 | `LOW_INTERACTION` | 5 | 0 | nursing, medication, wound-care, charting, treatment | **No** |
+| RpnAnalyticsScreen | `/offices/clinical/roles/rpn/rpn-analytics` | 7 | 2 | `MEANINGFUL` | 5 | 0 | nursing, medication, wound-care, charting, treatment | **No** |
+| RpnComplianceScreen | `/offices/clinical/roles/rpn/rpn-compliance` | 2 | 1 | `LOW_INTERACTION` | 4 | 1 | nursing, wound-care, charting, treatment | **No** |
+| RpnWorkflowScreen | `/offices/clinical/roles/rpn/rpn-workflow` | 5 | 0 | `MEANINGFUL` | 4 | 2 | nursing, wound-care, charting | **No** |
+| RpnCommandCenterScreen | `/offices/clinical/roles/rpn/rpn-command-center` | 2 | 1 | `LOW_INTERACTION` | 4 | 1 | nursing, wound-care, charting, treatment | **No** |
+| RpnPatientChartingScreen | `/offices/clinical/roles/rpn/patient-charting` | 2 | 1 | `LOW_INTERACTION` | 4 | 2 | nursing, wound-care, treatment | **No** |
+| RpnMedicationsScreen | `/offices/clinical/roles/rpn/medications` | 2 | 1 | `LOW_INTERACTION` | 3 | 1 | nursing, wound-care, charting, treatment | **No** |
+| RpnVitalsScreen | `/offices/clinical/roles/rpn/vitals` | 2 | 1 | `LOW_INTERACTION` | 4 | 1 | nursing, wound-care, charting, treatment | **No** |
+| RpnCarePlanReviewScreen | `/offices/clinical/roles/rpn/rpn-care-plan-review` | 2 | 1 | `LOW_INTERACTION` | 4 | 2 | wound-care, charting, treatment | **No** |
+| RpnIncidentReviewScreen | `/offices/clinical/roles/rpn/rpn-incident-review` | 2 | 1 | `LOW_INTERACTION` | 4 | 1 | nursing, wound-care, charting, treatment | **No** |
+| RpnTasksScreen | `/offices/clinical/roles/rpn/rpn-tasks` | 2 | 1 | `LOW_INTERACTION` | 4 | 1 | nursing, wound-care, charting, treatment | **No** |
+| RpnReportsScreen | `/offices/clinical/roles/rpn/rpn-reports` | 2 | 1 | `LOW_INTERACTION` | 5 | 1 | nursing, wound-care, charting, treatment | **No** |
+| NursingTaskScreen | `/offices/clinical/roles/rpn/nursing-task` | 2 | 1 | `LOW_INTERACTION` | 3 | 2 | wound-care, charting, treatment | **No** |
+| VitalsTrackingScreen | `/offices/clinical/roles/rpn/vitals-tracking` | 2 | 1 | `LOW_INTERACTION` | 3 | 1 | nursing, wound-care, charting, treatment | **No** |
+| MedicationScreen | `/offices/clinical/roles/rpn/medication` | 2 | 1 | `LOW_INTERACTION` | 3 | 2 | wound-care, charting, treatment | **No** |
+| PatientObservationScreen | `/offices/clinical/roles/rpn/patient-observation` | 2 | 1 | `LOW_INTERACTION` | 4 | 1 | nursing, wound-care, charting, treatment | **No** |
+| Licensed Practical Nurse (LPN) Analytics | `/rpn/lpn-analytics` | 2 | 1 | `LOW_INTERACTION` | 2 | 0 | nursing, medication, wound-care, charting, treatment | **No** |
+| Licensed Practical Nurse (LPN) Compliance Workflow | `/rpn/lpn-workflow` | 2 | 1 | `LOW_INTERACTION` | 4 | 1 | nursing, wound-care, charting, treatment | **No** |
+
+## Screen Details
 
 ### RpnDashboardScreen
 
@@ -21,17 +44,24 @@
 * **Current stage**: Stage 5
 * **Progress %**: 50%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 5
+* **Role Expectation Score**: 0
+* **Missing Business Features**: nursing, medication, wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RpnAnalyticsScreen
 
@@ -40,17 +70,24 @@
 * **Current stage**: Stage 5
 * **Progress %**: 50%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 9
-* **Buttons**: 4
-* **Forms**: 2
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 7
+  * **Buttons**: 4
+  * **Forms**: 2
+  * **Filters**: 0
+  * **Table Actions**: 1
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 2
+* **Business Workflow Score**: 5
+* **Role Expectation Score**: 0
+* **Missing Business Features**: nursing, medication, wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Missing core role features: nursing, medication, wound-care, charting, treatment
+* **Next action**: Implement expected workflows for rpn role.
 
 ### RpnComplianceScreen
 
@@ -59,17 +96,24 @@
 * **Current stage**: Stage 5
 * **Progress %**: 50%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 1
+* **Missing Business Features**: nursing, wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RpnWorkflowScreen
 
@@ -78,17 +122,24 @@
 * **Current stage**: Stage 9
 * **Progress %**: 90%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 7
-* **Buttons**: 5
-* **Forms**: 2
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 5
+  * **Buttons**: 3
+  * **Forms**: 2
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 0
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 2
+* **Missing Business Features**: nursing, wound-care, charting
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Missing core role features: nursing, wound-care, charting
+* **Next action**: Implement expected workflows for rpn role.
 
 ### RpnCommandCenterScreen
 
@@ -97,17 +148,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 1
+* **Missing Business Features**: nursing, wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RpnPatientChartingScreen
 
@@ -116,17 +174,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 2
+* **Missing Business Features**: nursing, wound-care, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RpnMedicationsScreen
 
@@ -135,17 +200,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 1
+* **Missing Business Features**: nursing, wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RpnVitalsScreen
 
@@ -154,17 +226,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 1
+* **Missing Business Features**: nursing, wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RpnCarePlanReviewScreen
 
@@ -173,17 +252,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 2
+* **Missing Business Features**: wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RpnIncidentReviewScreen
 
@@ -192,17 +278,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 1
+* **Missing Business Features**: nursing, wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RpnTasksScreen
 
@@ -211,17 +304,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 1
+* **Missing Business Features**: nursing, wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### RpnReportsScreen
 
@@ -230,17 +330,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 5
+* **Role Expectation Score**: 1
+* **Missing Business Features**: nursing, wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### NursingTaskScreen
 
@@ -249,17 +356,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 2
+* **Missing Business Features**: wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### VitalsTrackingScreen
 
@@ -268,17 +382,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 1
+* **Missing Business Features**: nursing, wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### MedicationScreen
 
@@ -287,17 +408,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 2
+* **Missing Business Features**: wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### PatientObservationScreen
 
@@ -306,17 +434,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 1
+* **Missing Business Features**: nursing, wound-care, charting, treatment
 * **Purpose**: Clinical director hub to review staff quality metrics, manage incident escalations, and review compliance audits.
 * **Primary user goal**: Ensure high standards of clinical care, review incident reports, and pass clinical quality audits.
 * **Expected user actions**: Filter incident reports, check nurse credential expirations, download audit files, sign approvals.
 * **Business reason**: Mandatory for clinical safety oversight, risk mitigation, and compliance with health regulations.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### Licensed Practical Nurse (LPN) Analytics
 
@@ -325,17 +460,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 2
+* **Role Expectation Score**: 0
+* **Missing Business Features**: nursing, medication, wound-care, charting, treatment
 * **Purpose**: Business intelligence analytics dashboard for Licensed Practical Nurse (LPN) Analytics to monitor performance trends.
 * **Primary user goal**: Review historical metrics, filter performance reports, and analyze operational trends.
 * **Expected user actions**: Select date range filter, export chart data to CSV, switch between metric tab displays.
 * **Business reason**: Data-driven performance tracking and resource allocation forecasting.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### Licensed Practical Nurse (LPN) Compliance Workflow
 
@@ -344,36 +486,62 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 4
+* **Role Expectation Score**: 1
+* **Missing Business Features**: nursing, wound-care, charting, treatment
 * **Purpose**: Operational workflow configuration and tracking screen for Licensed Practical Nurse (LPN) Compliance Workflow workflows.
 * **Primary user goal**: Configure process tasks, track live workflow execution states, and review failed process blocks.
 * **Expected user actions**: Edit task list nodes, restart failed workflow execution, sign off on completed steps.
 * **Business reason**: Operational automation and validation of process steps.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ## Screens to Fix First
 
-All screens are fully production-ready and interactive! Zero issues found.
+1. **RpnDashboardScreen** (Progress: 50%, Business Score: 5, Role Score: 0)  
+   *Reason*: Missing core workflows/features: nursing, medication, wound-care, charting, treatment
+2. **RpnAnalyticsScreen** (Progress: 50%, Business Score: 5, Role Score: 0)  
+   *Reason*: Missing core workflows/features: nursing, medication, wound-care, charting, treatment
+3. **RpnComplianceScreen** (Progress: 50%, Business Score: 4, Role Score: 1)  
+   *Reason*: Missing core workflows/features: nursing, wound-care, charting, treatment
+4. **RpnCommandCenterScreen** (Progress: 60%, Business Score: 4, Role Score: 1)  
+   *Reason*: Missing core workflows/features: nursing, wound-care, charting, treatment
+5. **RpnPatientChartingScreen** (Progress: 60%, Business Score: 4, Role Score: 2)  
+   *Reason*: Missing core workflows/features: nursing, wound-care, treatment
+6. **RpnMedicationsScreen** (Progress: 60%, Business Score: 3, Role Score: 1)  
+   *Reason*: Missing core workflows/features: nursing, wound-care, charting, treatment
+7. **RpnVitalsScreen** (Progress: 60%, Business Score: 4, Role Score: 1)  
+   *Reason*: Missing core workflows/features: nursing, wound-care, charting, treatment
+8. **RpnCarePlanReviewScreen** (Progress: 60%, Business Score: 4, Role Score: 2)  
+   *Reason*: Missing core workflows/features: wound-care, charting, treatment
+9. **RpnIncidentReviewScreen** (Progress: 60%, Business Score: 4, Role Score: 1)  
+   *Reason*: Missing core workflows/features: nursing, wound-care, charting, treatment
+10. **RpnTasksScreen** (Progress: 60%, Business Score: 4, Role Score: 1)  
+   *Reason*: Missing core workflows/features: nursing, wound-care, charting, treatment
 
 ## Recommended Build Order
 
 ### 1. Must Fix Now (High Priority)
-- None (All screens have basic interactivity)
+- RpnDashboardScreen (Implement role-specific workflows and transactional features)
+- RpnAnalyticsScreen (Implement role-specific workflows and transactional features)
+- RpnComplianceScreen (Implement role-specific workflows and transactional features)
+- RpnCommandCenterScreen (Implement role-specific workflows and transactional features)
+- RpnPatientChartingScreen (Implement role-specific workflows and transactional features)
 
 ### 2. Fix Next (Medium Priority)
 - None (All screens are functionally complete)
 
 ### 3. Polish Later (Low Priority)
-- RpnDashboardScreen (Micro-interactions and design alignment polish)
-- RpnAnalyticsScreen (Micro-interactions and design alignment polish)
-- RpnComplianceScreen (Micro-interactions and design alignment polish)
-- RpnCommandCenterScreen (Micro-interactions and design alignment polish)
-- RpnPatientChartingScreen (Micro-interactions and design alignment polish)
+- None (All screens fully completed and polished)
 
 ### 4. Consider Merging / Deleting
 - None (Zero duplicate screens identified)

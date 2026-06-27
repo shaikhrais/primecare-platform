@@ -5,14 +5,21 @@
 * **Role key**: `researcher`
 * **Role category**: `research`
 * **Total screens**: 2
-* **Production ready screens**: 2
-* **Incomplete screens**: 0
+* **Business ready screens**: 0
+* **Incomplete screens**: 2
 * **False progress screens**: 0
-* **Zero interaction screens**: 0
+* **Zero Screen-Body Interaction screens**: 0
 * **Average progress**: 0.0%
-* **Average interactive objects**: 11.0
+* **Average screen-body interactions**: 8.0
 
 ## Screen List
+
+| Screen Name | Route Path | Body Interactions | Global Nav | Status | Business Score | Role Score | Missing Business Features | Business Ready |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Research Protocol Manager | `/generated/research-protocol-manager` | 8 | 6 | `MEANINGFUL` | 9 | 2 | study, data-analysis, publication | **No** |
+| Research Publication Drafting | `/generated/research-publication-drafting` | 8 | 6 | `MEANINGFUL` | 8 | 2 | protocol, consent, data-analysis | **No** |
+
+## Screen Details
 
 ### Research Protocol Manager
 
@@ -21,17 +28,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 9
+* **Role Expectation Score**: 2
+* **Missing Business Features**: study, data-analysis, publication
 * **Purpose**: Management workspace screen for Research Protocol Manager module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: study, data-analysis, publication
+* **Next action**: Implement expected workflows for researcher role.
 
 ### Research Publication Drafting
 
@@ -40,33 +54,43 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 8
+* **Role Expectation Score**: 2
+* **Missing Business Features**: protocol, consent, data-analysis
 * **Purpose**: Management workspace screen for Research Publication Drafting module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: protocol, consent, data-analysis
+* **Next action**: Implement expected workflows for researcher role.
 
 ## Screens to Fix First
 
-All screens are fully production-ready and interactive! Zero issues found.
+1. **Research Protocol Manager** (Progress: 0%, Business Score: 9, Role Score: 2)  
+   *Reason*: Missing core workflows/features: study, data-analysis, publication
+2. **Research Publication Drafting** (Progress: 0%, Business Score: 8, Role Score: 2)  
+   *Reason*: Missing core workflows/features: protocol, consent, data-analysis
 
 ## Recommended Build Order
 
 ### 1. Must Fix Now (High Priority)
-- None (All screens have basic interactivity)
+- Research Protocol Manager (Implement role-specific workflows and transactional features)
+- Research Publication Drafting (Implement role-specific workflows and transactional features)
 
 ### 2. Fix Next (Medium Priority)
 - None (All screens are functionally complete)
 
 ### 3. Polish Later (Low Priority)
-- Research Protocol Manager (Micro-interactions and design alignment polish)
-- Research Publication Drafting (Micro-interactions and design alignment polish)
+- None (All screens fully completed and polished)
 
 ### 4. Consider Merging / Deleting
 - None (Zero duplicate screens identified)

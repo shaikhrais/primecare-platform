@@ -36,7 +36,7 @@ class _SystemDashboardState extends ConsumerState<SystemDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.theme;
+    final theme = Theme.of(context);
 
     if (_isLoading) {
       return Scaffold(

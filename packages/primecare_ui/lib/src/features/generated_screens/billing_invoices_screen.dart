@@ -40,7 +40,7 @@ class _BillingInvoicesScreenContentState extends ConsumerState<_BillingInvoicesS
   String _searchQuery = '';
   String _selectedCategory = 'All';
   final List<Map<String, String>> _records = [
-    {'title': 'Invoice: Oakville June cycle', 'content': 'Amount: $14,500. Status: Awaiting client review.', 'category': 'Invoices'},
+    {'title': 'Invoice: Oakville June cycle', 'content': 'Amount: \$14,500. Status: Awaiting client review.', 'category': 'Invoices'},
     {'title': 'Draft: Milton Respite package', 'content': 'Staged draft invoice with co-pay allocation.', 'category': 'Drafts'},
     {'title': 'Reconcile: Private SunLife invoice', 'content': 'Matched check payment to invoice INV-801.', 'category': 'Reconciliation'}
   ];
@@ -141,11 +141,11 @@ class _BillingInvoicesScreenContentState extends ConsumerState<_BillingInvoicesS
                       children: [
                         const Icon(Icons.inventory_2_outlined, size: 48, color: Colors.grey),
                         const SizedBox(height: 12),
-                        const Text('No records match your criteria.'),
+                        Text('common.no_records'.tr()),
                         const SizedBox(height: 12),
                         ElevatedButton(
                           onPressed: _showActionDialog,
-                          child: const Text('Generate Invoice Entry'),
+                          child: Text('common.generate_invoice'.tr()),
                         ),
                       ],
                     ),
@@ -174,7 +174,7 @@ class _BillingInvoicesScreenContentState extends ConsumerState<_BillingInvoicesS
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(ctx),
-                                    child: const Text('Close'),
+                                    child: Text('common.close'.tr()),
                                   ),
                                 ],
                               ),
@@ -193,7 +193,7 @@ class _BillingInvoicesScreenContentState extends ConsumerState<_BillingInvoicesS
               child: ElevatedButton.icon(
                 onPressed: _showActionDialog,
                 icon: const Icon(Icons.add_task),
-                label: const Text('Generate Invoice Entry'),
+                label: Text('common.generate_invoice'.tr()),
               ),
             ),
         ],
@@ -205,7 +205,7 @@ class _BillingInvoicesScreenContentState extends ConsumerState<_BillingInvoicesS
     showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Generate Invoice Entry'),
+        title: Text('common.generate_invoice'.tr()),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -221,7 +221,7 @@ class _BillingInvoicesScreenContentState extends ConsumerState<_BillingInvoicesS
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text('common.cancel'.tr()),
           ),
           TextButton(
             onPressed: () {
@@ -238,7 +238,7 @@ class _BillingInvoicesScreenContentState extends ConsumerState<_BillingInvoicesS
               }
               Navigator.pop(ctx);
             },
-            child: const Text('Confirm Action'),
+            child: Text('common.confirm_action'.tr()),
           ),
         ],
       ),

@@ -412,19 +412,19 @@ def run_migration_and_classification():
         c.execute("SELECT COUNT(*) FROM screens WHERE role_key = ? AND production_ready = 1", (rkey,))
         production_ready_count = c.fetchone()[0]
         
-        c.execute("SELECT COUNT(*) FROM screens WHERE role_key = ? AND production_ready = 0", (rkey,))
+        c.execute("SELECT COUNT(*) FROM screens WHERE role_key = ? AND (production_ready = 0 OR progress_percent < 100)", (rkey,))
         incomplete_count = c.fetchone()[0]
         
         c.execute("SELECT COUNT(*) FROM screens WHERE role_key = ? AND false_progress = 1", (rkey,))
         false_progress_count = c.fetchone()[0]
         
-        c.execute("SELECT COUNT(*) FROM screens WHERE role_key = ? AND total_interactive_objects = 0", (rkey,))
+        c.execute("SELECT COUNT(*) FROM screens WHERE role_key = ? AND screen_body_total_interactions = 0", (rkey,))
         zero_interaction_count = c.fetchone()[0]
         
         c.execute("SELECT AVG(progress_percent) FROM screens WHERE role_key = ?", (rkey,))
         average_progress = c.fetchone()[0] or 0.0
         
-        c.execute("SELECT AVG(total_interactive_objects) FROM screens WHERE role_key = ?", (rkey,))
+        c.execute("SELECT AVG(screen_body_total_interactions) FROM screens WHERE role_key = ?", (rkey,))
         average_interactive_objects = c.fetchone()[0] or 0.0
         
         c.execute("SELECT COUNT(*) FROM screens WHERE role_key = ? AND needs_review = 1", (rkey,))
@@ -465,7 +465,11 @@ def run_migration_and_classification():
             SELECT screen_name, route_path, actual_file_path, file_path, progress_percent, 
                    total_interactive_objects, button_count, form_field_count, table_action_count,
                    screen_purpose, primary_user_goal, expected_user_actions, business_reason,
-                   blocker, next_action, false_progress, production_ready, needs_review, visual_status
+                   blocker, next_action, false_progress, production_ready, needs_review, visual_status,
+                   screen_body_button_count, screen_body_form_count, screen_body_filter_count,
+                   screen_body_table_action_count, screen_body_clickable_card_count,
+                   screen_body_total_interactions, global_navigation_count, meaningful_interaction_status,
+                   business_workflow_score, role_expectation_score, missing_business_features, business_ready
             FROM screens 
             WHERE role_key = ?
         """, (rkey,))
@@ -479,15 +483,23 @@ def run_migration_and_classification():
             f.write(f"* **Role key**: `{rkey}`\n")
             f.write(f"* **Role category**: `{rcat}`\n")
             f.write(f"* **Total screens**: {ar['total_screens']}\n")
-            f.write(f"* **Production ready screens**: {ar['production_ready_count']}\n")
+            f.write(f"* **Business ready screens**: {ar['production_ready_count']}\n")
             f.write(f"* **Incomplete screens**: {ar['incomplete_count']}\n")
             f.write(f"* **False progress screens**: {ar['false_progress_count']}\n")
-            f.write(f"* **Zero interaction screens**: {ar['zero_interaction_count']}\n")
+            f.write(f"* **Zero Screen-Body Interaction screens**: {ar['zero_interaction_count']}\n")
             f.write(f"* **Average progress**: {ar['average_progress']:.1f}%\n")
-            f.write(f"* **Average interactive objects**: {ar['average_interactive_objects']:.1f}\n\n")
+            f.write(f"* **Average screen-body interactions**: {ar['average_interactive_objects']:.1f}\n\n")
             
             f.write(f"## Screen List\n\n")
+            f.write("| Screen Name | Route Path | Body Interactions | Global Nav | Status | Business Score | Role Score | Missing Business Features | Business Ready |\n")
+            f.write("| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n")
+            for s in role_screens_rows:
+                ready_str = "Yes" if s['business_ready'] else "No"
+                missing_f = s['missing_business_features'] or 'None'
+                f.write(f"| {s['screen_name']} | `{s['route_path']}` | {s['screen_body_total_interactions']} | {s['global_navigation_count']} | `{s['meaningful_interaction_status']}` | {s['business_workflow_score']} | {s['role_expectation_score']} | {missing_f} | **{ready_str}** |\n")
+            f.write("\n")
             
+            f.write(f"## Screen Details\n\n")
             for s in role_screens_rows:
                 comp_file = s['actual_file_path'] or s['file_path'] or 'N/A'
                 f.write(f"### {s['screen_name']}\n\n")
@@ -496,11 +508,18 @@ def run_migration_and_classification():
                 f.write(f"* **Current stage**: Stage {int(s['progress_percent']/10)}\n")
                 f.write(f"* **Progress %**: {s['progress_percent']}%\n")
                 f.write(f"* **Visual status**: `{s['visual_status']}`\n")
-                f.write(f"* **Production ready**: `{'Yes' if s['production_ready'] else 'No'}`\n")
-                f.write(f"* **Interactive objects**: {s['total_interactive_objects']}\n")
-                f.write(f"* **Buttons**: {s['button_count']}\n")
-                f.write(f"* **Forms**: {s['form_field_count']}\n")
-                f.write(f"* **Tables/actions**: {s['table_action_count']}\n")
+                f.write(f"* **Business ready**: `{'Yes' if s['business_ready'] else 'No'}`\n")
+                f.write(f"* **Meaningful Interaction Status**: `{s['meaningful_interaction_status']}`\n")
+                f.write(f"* **Screen Body Interactions**: {s['screen_body_total_interactions']}\n")
+                f.write(f"  * **Buttons**: {s['screen_body_button_count']}\n")
+                f.write(f"  * **Forms**: {s['screen_body_form_count']}\n")
+                f.write(f"  * **Filters**: {s['screen_body_filter_count']}\n")
+                f.write(f"  * **Table Actions**: {s['screen_body_table_action_count']}\n")
+                f.write(f"  * **Clickable Cards**: {s['screen_body_clickable_card_count']}\n")
+                f.write(f"* **Global Navigation Count**: {s['global_navigation_count']}\n")
+                f.write(f"* **Business Workflow Score**: {s['business_workflow_score']}\n")
+                f.write(f"* **Role Expectation Score**: {s['role_expectation_score']}\n")
+                f.write(f"* **Missing Business Features**: {s['missing_business_features'] or 'None'}\n")
                 f.write(f"* **Purpose**: {s['screen_purpose'] or 'N/A'}\n")
                 f.write(f"* **Primary user goal**: {s['primary_user_goal'] or 'N/A'}\n")
                 f.write(f"* **Expected user actions**: {s['expected_user_actions'] or 'N/A'}\n")
@@ -509,36 +528,34 @@ def run_migration_and_classification():
                 f.write(f"* **Next action**: {s['next_action'] or 'None'}\n\n")
                 
             # Screens to fix first
-            # Sort order: false_progress = 1, total_interactive_objects = 0, production_ready = 0, progress lowest first
+            # Sort order: business_ready = 0 first, progress lowest first
             sorted_screens = list(role_screens_rows)
             sorted_screens.sort(key=lambda x: (
-                0 if x['false_progress'] else 1,
-                0 if x['total_interactive_objects'] == 0 else 1,
-                0 if not x['production_ready'] else 1,
+                0 if not x['business_ready'] else 1,
                 x['progress_percent']
             ))
             
             f.write(f"## Screens to Fix First\n\n")
-            worst_screens = [s for s in sorted_screens if s['false_progress'] or s['total_interactive_objects'] == 0 or not s['production_ready']]
+            worst_screens = [s for s in sorted_screens if not s['business_ready']]
             
             if worst_screens:
                 for idx, s in enumerate(worst_screens[:10], 1):
-                    f.write(f"{idx}. **{s['screen_name']}** (Progress: {s['progress_percent']}%, Interactivity: {s['total_interactive_objects']} objects)  \n")
-                    f.write(f"   *Reason*: {'False progress stub' if s['false_progress'] else ('Zero interactivity' if s['total_interactive_objects'] == 0 else 'Incomplete development')}\n")
+                    f.write(f"{idx}. **{s['screen_name']}** (Progress: {s['progress_percent']}%, Business Score: {s['business_workflow_score']}, Role Score: {s['role_expectation_score']})  \n")
+                    f.write(f"   *Reason*: Missing core workflows/features: {s['missing_business_features'] or 'No business features implemented'}\n")
             else:
-                f.write("All screens are fully production-ready and interactive! Zero issues found.\n")
+                f.write("All screens are fully business-ready and verified! Zero issues found.\n")
                 
             f.write(f"\n## Recommended Build Order\n\n")
-            must_fix = [s['screen_name'] for s in sorted_screens if s['false_progress'] or s['total_interactive_objects'] == 0]
-            fix_next = [s['screen_name'] for s in sorted_screens if not s['production_ready'] and s['screen_name'] not in must_fix]
-            polish = [s['screen_name'] for s in sorted_screens if s['production_ready'] and s['progress_percent'] < 100]
+            must_fix = [s['screen_name'] for s in sorted_screens if not s['business_ready']]
+            fix_next = []
+            polish = [s['screen_name'] for s in sorted_screens if s['business_ready'] and s['progress_percent'] < 100]
             
             f.write("### 1. Must Fix Now (High Priority)\n")
             if must_fix:
                 for name in must_fix[:5]:
-                    f.write(f"- {name} (Remediate zero-interaction placeholder status)\n")
+                    f.write(f"- {name} (Implement role-specific workflows and transactional features)\n")
             else:
-                f.write("- None (All screens have basic interactivity)\n")
+                f.write("- None (All screens have core workflows implemented)\n")
                 
             f.write("\n### 2. Fix Next (Medium Priority)\n")
             if fix_next:
@@ -566,10 +583,22 @@ def run_migration_and_classification():
     master_index_path = os.path.join(DOCS_DIR, "ROLE_SCREEN_INDEX.md")
     print(f"Generating Master Role Index at {master_index_path}...")
     
+    # Query all screens for the master list
+    c.execute("""
+        SELECT screen_name, route_path, role_name, screen_body_total_interactions, global_navigation_count, 
+               meaningful_interaction_status, business_workflow_score, role_expectation_score, 
+               missing_business_features, business_ready
+        FROM screens
+        ORDER BY role_name, screen_name
+    """)
+    all_screens_rows = c.fetchall()
+    
     with open(master_index_path, "w", encoding="utf-8") as f:
         f.write("# Master Role Screen Index\n\n")
-        f.write("This index compiles all roles across the PrimeCare platform, tracking screen counts, production readiness, and links to detailed role reports.\n\n")
-        f.write("| Role | Category | Total Screens | Production Ready | Incomplete | False Progress | Zero Interaction | Average Progress | Doc Link |\n")
+        f.write("This index compiles all roles and screens across the PrimeCare platform under the **strict role-aware business validation guidelines** (requiring core business workflows for production readiness).\n\n")
+        
+        f.write("## Roles Summary\n\n")
+        f.write("| Role | Category | Total Screens | Business Ready | Incomplete | False Progress | Zero Body Interaction | Average Progress | Doc Link |\n")
         f.write("| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n")
         
         # Sort by total screens descending
@@ -581,8 +610,18 @@ def run_migration_and_classification():
             doc_link = f"[{ar['role_name']}]({rkey}_screens.md)"
             f.write(f"| {ar['role_name']} | `{ar['role_category']}` | {ar['total_screens']} | {ar['production_ready_count']} | {ar['incomplete_count']} | {ar['false_progress_count']} | {ar['zero_interaction_count']} | {ar['average_progress']:.1f}% | {doc_link} |\n")
             
+        f.write("\n## Master Screen Index\n\n")
+        f.write("A comprehensive list of all screens on the platform with role-aware business readiness scoring and missing features list.\n\n")
+        f.write("| Screen Name | Role | Route Path | Body Interactions | Global Nav | Status | Business Score | Role Score | Missing Business Features | Business Ready |\n")
+        f.write("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n")
+        for s in all_screens_rows:
+            role_n = s['role_name'] or 'Guest'
+            ready_str = "Yes" if s['business_ready'] else "No"
+            missing_f = s['missing_business_features'] or 'None'
+            f.write(f"| {s['screen_name']} | {role_n} | `{s['route_path']}` | {s['screen_body_total_interactions']} | {s['global_navigation_count']} | `{s['meaningful_interaction_status']}` | {s['business_workflow_score']} | {s['role_expectation_score']} | {missing_f} | **{ready_str}** |\n")
+            
     print("Master Role Index generated successfully.")
     conn.close()
-
+ 
 if __name__ == "__main__":
     run_migration_and_classification()

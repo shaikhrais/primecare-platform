@@ -5,14 +5,37 @@
 * **Role key**: `cto`
 * **Role category**: `corporate`
 * **Total screens**: 18
-* **Production ready screens**: 18
-* **Incomplete screens**: 0
+* **Business ready screens**: 3
+* **Incomplete screens**: 18
 * **False progress screens**: 0
-* **Zero interaction screens**: 0
+* **Zero Screen-Body Interaction screens**: 0
 * **Average progress**: 7.8%
-* **Average interactive objects**: 9.7
+* **Average screen-body interactions**: 7.1
 
 ## Screen List
+
+| Screen Name | Route Path | Body Interactions | Global Nav | Status | Business Score | Role Score | Missing Business Features | Business Ready |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| SystemDashboardScreen | `/common/system-dashboard` | 9 | 2 | `MEANINGFUL` | 6 | 5 | latency, deploy | **Yes** |
+| CtoDashboardScreen | `/offices/corporate/roles/cto/dashboard` | 9 | 2 | `MEANINGFUL` | 6 | 2 | system, uptime, latency, server, health | **No** |
+| CtoAnalyticsScreen | `/executive/cto-analytics` | 2 | 0 | `LOW_INTERACTION` | 2 | 2 | latency, API, deploy, server, health | **No** |
+| CtoWorkflowScreen | `/executive/cto-workflow` | 2 | 0 | `LOW_INTERACTION` | 2 | 3 | latency, deploy, server, health | **No** |
+| ApiHealthDashboardScreen | `/common/api-health-dashboard` | 2 | 1 | `LOW_INTERACTION` | 3 | 3 | uptime, latency, deploy, server | **No** |
+| Cto Access Control | `/offices/corporate/roles/cto/access-control` | 8 | 6 | `MEANINGFUL` | 8 | 0 | system, uptime, latency, API, deploy, server, health | **No** |
+| Cto Api Monitoring | `/offices/corporate/roles/cto/api-monitoring` | 8 | 6 | `MEANINGFUL` | 7 | 4 | uptime, deploy, health | **Yes** |
+| Cto Audit Logs | `/offices/corporate/roles/cto/audit-logs` | 8 | 6 | `MEANINGFUL` | 8 | 1 | uptime, latency, API, deploy, server, health | **No** |
+| Cto Feature Adoption | `/offices/corporate/roles/cto/feature-adoption` | 8 | 6 | `MEANINGFUL` | 7 | 0 | system, uptime, latency, API, deploy, server, health | **No** |
+| Cto Infrastructure | `/offices/corporate/roles/cto/infrastructure` | 8 | 6 | `MEANINGFUL` | 7 | 3 | system, uptime, deploy, server | **No** |
+| Cto Integrations | `/offices/corporate/roles/cto/integrations` | 8 | 6 | `MEANINGFUL` | 7 | 1 | system, uptime, latency, deploy, server, health | **No** |
+| Cto Issue Tracking | `/offices/corporate/roles/cto/issue-tracking` | 8 | 6 | `MEANINGFUL` | 7 | 1 | uptime, latency, API, deploy, server, health | **No** |
+| Cto Platform Usage | `/offices/corporate/roles/cto/platform-usage` | 8 | 6 | `MEANINGFUL` | 8 | 0 | system, uptime, latency, API, deploy, server, health | **No** |
+| Cto Release Management | `/offices/corporate/roles/cto/release-management` | 8 | 6 | `MEANINGFUL` | 7 | 3 | system, uptime, latency, server | **No** |
+| Cto Reports | `/offices/corporate/roles/cto/reports` | 8 | 6 | `MEANINGFUL` | 8 | 0 | system, uptime, latency, API, deploy, server, health | **No** |
+| Cto System Health | `/offices/corporate/roles/cto/system-health` | 8 | 6 | `MEANINGFUL` | 7 | 3 | uptime, latency, deploy, server | **No** |
+| Cto System Verification | `/offices/corporate/roles/cto/system-verification` | 8 | 6 | `MEANINGFUL` | 7 | 1 | uptime, latency, API, deploy, server, health | **No** |
+| Cto Verification Hub | `/offices/corporate/roles/cto/verification-hub` | 8 | 6 | `MEANINGFUL` | 8 | 4 | uptime, API, server | **Yes** |
+
+## Screen Details
 
 ### SystemDashboardScreen
 
@@ -21,17 +44,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 5
-* **Forms**: 1
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 9
+  * **Buttons**: 6
+  * **Forms**: 1
+  * **Filters**: 0
+  * **Table Actions**: 1
+  * **Clickable Cards**: 1
+* **Global Navigation Count**: 2
+* **Business Workflow Score**: 6
+* **Role Expectation Score**: 5
+* **Missing Business Features**: latency, deploy
 * **Purpose**: Management workspace screen for SystemDashboardScreen module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ### CtoDashboardScreen
 
@@ -40,17 +70,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 5
-* **Forms**: 1
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 9
+  * **Buttons**: 6
+  * **Forms**: 1
+  * **Filters**: 0
+  * **Table Actions**: 1
+  * **Clickable Cards**: 1
+* **Global Navigation Count**: 2
+* **Business Workflow Score**: 6
+* **Role Expectation Score**: 2
+* **Missing Business Features**: system, uptime, latency, server, health
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: system, uptime, latency, server, health
+* **Next action**: Implement expected workflows for cto role.
 
 ### CtoAnalyticsScreen
 
@@ -59,17 +96,24 @@
 * **Current stage**: Stage 4
 * **Progress %**: 40%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 3
-* **Buttons**: 3
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 0
+* **Business Workflow Score**: 2
+* **Role Expectation Score**: 2
+* **Missing Business Features**: latency, API, deploy, server, health
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### CtoWorkflowScreen
 
@@ -78,17 +122,24 @@
 * **Current stage**: Stage 4
 * **Progress %**: 40%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 3
-* **Buttons**: 3
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 0
+* **Business Workflow Score**: 2
+* **Role Expectation Score**: 3
+* **Missing Business Features**: latency, deploy, server, health
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### ApiHealthDashboardScreen
 
@@ -97,17 +148,24 @@
 * **Current stage**: Stage 6
 * **Progress %**: 60%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 3
+* **Role Expectation Score**: 3
+* **Missing Business Features**: uptime, latency, deploy, server
 * **Purpose**: Management workspace screen for ApiHealthDashboardScreen module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### Cto Access Control
 
@@ -116,17 +174,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 8
+* **Role Expectation Score**: 0
+* **Missing Business Features**: system, uptime, latency, API, deploy, server, health
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: system, uptime, latency, API, deploy, server, health
+* **Next action**: Implement expected workflows for cto role.
 
 ### Cto Api Monitoring
 
@@ -135,17 +200,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 4
+* **Missing Business Features**: uptime, deploy, health
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ### Cto Audit Logs
 
@@ -154,17 +226,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 8
+* **Role Expectation Score**: 1
+* **Missing Business Features**: uptime, latency, API, deploy, server, health
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: uptime, latency, API, deploy, server, health
+* **Next action**: Implement expected workflows for cto role.
 
 ### Cto Feature Adoption
 
@@ -173,17 +252,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 0
+* **Missing Business Features**: system, uptime, latency, API, deploy, server, health
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: system, uptime, latency, API, deploy, server, health
+* **Next action**: Implement expected workflows for cto role.
 
 ### Cto Infrastructure
 
@@ -192,17 +278,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 3
+* **Missing Business Features**: system, uptime, deploy, server
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: system, uptime, deploy, server
+* **Next action**: Implement expected workflows for cto role.
 
 ### Cto Integrations
 
@@ -211,17 +304,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 1
+* **Missing Business Features**: system, uptime, latency, deploy, server, health
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: system, uptime, latency, deploy, server, health
+* **Next action**: Implement expected workflows for cto role.
 
 ### Cto Issue Tracking
 
@@ -230,17 +330,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 1
+* **Missing Business Features**: uptime, latency, API, deploy, server, health
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: uptime, latency, API, deploy, server, health
+* **Next action**: Implement expected workflows for cto role.
 
 ### Cto Platform Usage
 
@@ -249,17 +356,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 8
+* **Role Expectation Score**: 0
+* **Missing Business Features**: system, uptime, latency, API, deploy, server, health
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: system, uptime, latency, API, deploy, server, health
+* **Next action**: Implement expected workflows for cto role.
 
 ### Cto Release Management
 
@@ -268,17 +382,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 3
+* **Missing Business Features**: system, uptime, latency, server
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: system, uptime, latency, server
+* **Next action**: Implement expected workflows for cto role.
 
 ### Cto Reports
 
@@ -287,17 +408,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 8
+* **Role Expectation Score**: 0
+* **Missing Business Features**: system, uptime, latency, API, deploy, server, health
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: system, uptime, latency, API, deploy, server, health
+* **Next action**: Implement expected workflows for cto role.
 
 ### Cto System Health
 
@@ -306,17 +434,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 3
+* **Missing Business Features**: uptime, latency, deploy, server
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: uptime, latency, deploy, server
+* **Next action**: Implement expected workflows for cto role.
 
 ### Cto System Verification
 
@@ -325,17 +460,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `No`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 1
+* **Missing Business Features**: uptime, latency, API, deploy, server, health
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: Missing core role features: uptime, latency, API, deploy, server, health
+* **Next action**: Implement expected workflows for cto role.
 
 ### Cto Verification Hub
 
@@ -344,36 +486,64 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 8
+* **Role Expectation Score**: 4
+* **Missing Business Features**: uptime, API, server
 * **Purpose**: Chief Technology Officer hub to track system health, API response telemetry, and release cycles.
 * **Primary user goal**: Monitor system uptime, review security logs, and inspect continuous integration/deployment runs.
 * **Expected user actions**: Refresh uptime chart, view API response latency log, trigger system deployment rollbacks.
 * **Business reason**: Protects system availability, technical performance monitoring, and secure software distribution.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ## Screens to Fix First
 
-All screens are fully production-ready and interactive! Zero issues found.
+1. **CtoDashboardScreen** (Progress: 0%, Business Score: 6, Role Score: 2)  
+   *Reason*: Missing core workflows/features: system, uptime, latency, server, health
+2. **Cto Access Control** (Progress: 0%, Business Score: 8, Role Score: 0)  
+   *Reason*: Missing core workflows/features: system, uptime, latency, API, deploy, server, health
+3. **Cto Audit Logs** (Progress: 0%, Business Score: 8, Role Score: 1)  
+   *Reason*: Missing core workflows/features: uptime, latency, API, deploy, server, health
+4. **Cto Feature Adoption** (Progress: 0%, Business Score: 7, Role Score: 0)  
+   *Reason*: Missing core workflows/features: system, uptime, latency, API, deploy, server, health
+5. **Cto Infrastructure** (Progress: 0%, Business Score: 7, Role Score: 3)  
+   *Reason*: Missing core workflows/features: system, uptime, deploy, server
+6. **Cto Integrations** (Progress: 0%, Business Score: 7, Role Score: 1)  
+   *Reason*: Missing core workflows/features: system, uptime, latency, deploy, server, health
+7. **Cto Issue Tracking** (Progress: 0%, Business Score: 7, Role Score: 1)  
+   *Reason*: Missing core workflows/features: uptime, latency, API, deploy, server, health
+8. **Cto Platform Usage** (Progress: 0%, Business Score: 8, Role Score: 0)  
+   *Reason*: Missing core workflows/features: system, uptime, latency, API, deploy, server, health
+9. **Cto Release Management** (Progress: 0%, Business Score: 7, Role Score: 3)  
+   *Reason*: Missing core workflows/features: system, uptime, latency, server
+10. **Cto Reports** (Progress: 0%, Business Score: 8, Role Score: 0)  
+   *Reason*: Missing core workflows/features: system, uptime, latency, API, deploy, server, health
 
 ## Recommended Build Order
 
 ### 1. Must Fix Now (High Priority)
-- None (All screens have basic interactivity)
+- CtoDashboardScreen (Implement role-specific workflows and transactional features)
+- Cto Access Control (Implement role-specific workflows and transactional features)
+- Cto Audit Logs (Implement role-specific workflows and transactional features)
+- Cto Feature Adoption (Implement role-specific workflows and transactional features)
+- Cto Infrastructure (Implement role-specific workflows and transactional features)
 
 ### 2. Fix Next (Medium Priority)
 - None (All screens are functionally complete)
 
 ### 3. Polish Later (Low Priority)
 - SystemDashboardScreen (Micro-interactions and design alignment polish)
-- CtoDashboardScreen (Micro-interactions and design alignment polish)
-- Cto Access Control (Micro-interactions and design alignment polish)
 - Cto Api Monitoring (Micro-interactions and design alignment polish)
-- Cto Audit Logs (Micro-interactions and design alignment polish)
+- Cto Verification Hub (Micro-interactions and design alignment polish)
 
 ### 4. Consider Merging / Deleting
 - None (Zero duplicate screens identified)

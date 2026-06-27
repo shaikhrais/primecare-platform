@@ -40,8 +40,8 @@ class _GrantFundingAllocationScreenContentState extends ConsumerState<_GrantFund
   String _searchQuery = '';
   String _selectedCategory = 'All';
   final List<Map<String, String>> _records = [
-    {'title': 'Budget: Allied Health Q3 grant', 'content': 'Allocated $42,000 for chiropractor study.', 'category': 'Budgets'},
-    {'title': 'Payout: Milestone-1 transaction', 'content': 'Released $12,500 to clinical trials lab.', 'category': 'Payouts'},
+    {'title': 'Budget: Allied Health Q3 grant', 'content': 'Allocated \$42,000 for chiropractor study.', 'category': 'Budgets'},
+    {'title': 'Payout: Milestone-1 transaction', 'content': 'Released \$12,500 to clinical trials lab.', 'category': 'Payouts'},
     {'title': 'Audit: Expense report verification', 'content': 'Matched printer receipts and travel logs.', 'category': 'Auditing'}
   ];
 
@@ -141,11 +141,11 @@ class _GrantFundingAllocationScreenContentState extends ConsumerState<_GrantFund
                       children: [
                         const Icon(Icons.inventory_2_outlined, size: 48, color: Colors.grey),
                         const SizedBox(height: 12),
-                        const Text('No records match your criteria.'),
+                        Text('common.no_records'.tr()),
                         const SizedBox(height: 12),
                         ElevatedButton(
                           onPressed: _showActionDialog,
-                          child: const Text('Allocate Grant Funds'),
+                          child: Text('common.allocate_grant'.tr()),
                         ),
                       ],
                     ),
@@ -174,7 +174,7 @@ class _GrantFundingAllocationScreenContentState extends ConsumerState<_GrantFund
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(ctx),
-                                    child: const Text('Close'),
+                                    child: Text('common.close'.tr()),
                                   ),
                                 ],
                               ),
@@ -193,7 +193,7 @@ class _GrantFundingAllocationScreenContentState extends ConsumerState<_GrantFund
               child: ElevatedButton.icon(
                 onPressed: _showActionDialog,
                 icon: const Icon(Icons.add_task),
-                label: const Text('Allocate Grant Funds'),
+                label: Text('common.allocate_grant'.tr()),
               ),
             ),
         ],
@@ -205,7 +205,7 @@ class _GrantFundingAllocationScreenContentState extends ConsumerState<_GrantFund
     showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Allocate Grant Funds'),
+        title: Text('common.allocate_grant'.tr()),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -221,7 +221,7 @@ class _GrantFundingAllocationScreenContentState extends ConsumerState<_GrantFund
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text('common.cancel'.tr()),
           ),
           TextButton(
             onPressed: () {
@@ -238,7 +238,7 @@ class _GrantFundingAllocationScreenContentState extends ConsumerState<_GrantFund
               }
               Navigator.pop(ctx);
             },
-            child: const Text('Confirm Action'),
+            child: Text('common.confirm_action'.tr()),
           ),
         ],
       ),

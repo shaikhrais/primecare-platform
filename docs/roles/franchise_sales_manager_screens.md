@@ -5,14 +5,28 @@
 * **Role key**: `franchise_sales_manager`
 * **Role category**: `business_development`
 * **Total screens**: 9
-* **Production ready screens**: 9
-* **Incomplete screens**: 0
+* **Business ready screens**: 9
+* **Incomplete screens**: 9
 * **False progress screens**: 0
-* **Zero interaction screens**: 0
+* **Zero Screen-Body Interaction screens**: 0
 * **Average progress**: 5.6%
-* **Average interactive objects**: 10.2
+* **Average screen-body interactions**: 7.3
 
 ## Screen List
+
+| Screen Name | Route Path | Body Interactions | Global Nav | Status | Business Score | Role Score | Missing Business Features | Business Ready |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| FranchiseSalesManagerDashboardScreen | `/offices/business_development/roles/franchise_sales_manager/dashboard` | 2 | 1 | `LOW_INTERACTION` | 5 | 0 | None | **Yes** |
+| Franchise Sales Manager Contracts | `/offices/business_development/roles/franchise_sales_manager/contracts` | 8 | 6 | `MEANINGFUL` | 7 | 0 | None | **Yes** |
+| Franchise Sales Manager Discovery Calls | `/offices/business_development/roles/franchise_sales_manager/discovery-calls` | 8 | 6 | `MEANINGFUL` | 7 | 0 | None | **Yes** |
+| Franchise Sales Manager Follow Ups | `/offices/business_development/roles/franchise_sales_manager/follow-ups` | 8 | 6 | `MEANINGFUL` | 7 | 0 | None | **Yes** |
+| Franchise Sales Manager Leads | `/offices/business_development/roles/franchise_sales_manager/leads` | 8 | 6 | `MEANINGFUL` | 8 | 0 | None | **Yes** |
+| Franchise Sales Manager Proposals | `/offices/business_development/roles/franchise_sales_manager/proposals` | 8 | 6 | `MEANINGFUL` | 7 | 0 | None | **Yes** |
+| Franchise Sales Manager Prospects | `/offices/business_development/roles/franchise_sales_manager/prospects` | 8 | 6 | `MEANINGFUL` | 7 | 0 | None | **Yes** |
+| Franchise Sales Manager Reports | `/offices/business_development/roles/franchise_sales_manager/reports` | 8 | 6 | `MEANINGFUL` | 7 | 0 | None | **Yes** |
+| Franchise Sales Manager Sales Pipeline | `/offices/business_development/roles/franchise_sales_manager/sales-pipeline` | 8 | 6 | `MEANINGFUL` | 7 | 0 | None | **Yes** |
+
+## Screen Details
 
 ### FranchiseSalesManagerDashboardScreen
 
@@ -21,17 +35,24 @@
 * **Current stage**: Stage 5
 * **Progress %**: 50%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 4
-* **Buttons**: 4
-* **Forms**: 0
-* **Tables/actions**: 0
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `LOW_INTERACTION`
+* **Screen Body Interactions**: 2
+  * **Buttons**: 2
+  * **Forms**: 0
+  * **Filters**: 0
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 1
+* **Business Workflow Score**: 5
+* **Role Expectation Score**: 0
+* **Missing Business Features**: None
 * **Purpose**: Management workspace screen for FranchiseSalesManagerDashboardScreen module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: None
-* **Next action**: None
+* **Missing items**: Low interaction count in body. Verify user action density.
+* **Next action**: Increase actionable widgets.
 
 ### Franchise Sales Manager Contracts
 
@@ -40,17 +61,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 0
+* **Missing Business Features**: None
 * **Purpose**: Management workspace screen for Franchise Sales Manager Contracts module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ### Franchise Sales Manager Discovery Calls
 
@@ -59,17 +87,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 0
+* **Missing Business Features**: None
 * **Purpose**: Management workspace screen for Franchise Sales Manager Discovery Calls module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ### Franchise Sales Manager Follow Ups
 
@@ -78,17 +113,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 0
+* **Missing Business Features**: None
 * **Purpose**: Management workspace screen for Franchise Sales Manager Follow Ups module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ### Franchise Sales Manager Leads
 
@@ -97,17 +139,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 8
+* **Role Expectation Score**: 0
+* **Missing Business Features**: None
 * **Purpose**: Management workspace screen for Franchise Sales Manager Leads module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ### Franchise Sales Manager Proposals
 
@@ -116,17 +165,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 0
+* **Missing Business Features**: None
 * **Purpose**: Management workspace screen for Franchise Sales Manager Proposals module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ### Franchise Sales Manager Prospects
 
@@ -135,17 +191,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 0
+* **Missing Business Features**: None
 * **Purpose**: Management workspace screen for Franchise Sales Manager Prospects module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ### Franchise Sales Manager Reports
 
@@ -154,17 +217,24 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 0
+* **Missing Business Features**: None
 * **Purpose**: Management workspace screen for Franchise Sales Manager Reports module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ### Franchise Sales Manager Sales Pipeline
 
@@ -173,26 +243,33 @@
 * **Current stage**: Stage 0
 * **Progress %**: 0%
 * **Visual status**: `INTERACTIVE`
-* **Production ready**: `Yes`
-* **Interactive objects**: 11
-* **Buttons**: 2
-* **Forms**: 2
-* **Tables/actions**: 1
+* **Business ready**: `Yes`
+* **Meaningful Interaction Status**: `MEANINGFUL`
+* **Screen Body Interactions**: 8
+  * **Buttons**: 4
+  * **Forms**: 3
+  * **Filters**: 1
+  * **Table Actions**: 0
+  * **Clickable Cards**: 0
+* **Global Navigation Count**: 6
+* **Business Workflow Score**: 7
+* **Role Expectation Score**: 0
+* **Missing Business Features**: None
 * **Purpose**: Management workspace screen for Franchise Sales Manager Sales Pipeline module access.
 * **Primary user goal**: Review system records and coordinate day-to-day administrative functions.
 * **Expected user actions**: Filter records, view items list, click item detail card, click edit/update buttons.
 * **Business reason**: Supports general administrative oversight and recordkeeping.
-* **Missing items**: No interactive objects found. Screen needs clear user action or should be removed/merged.
-* **Next action**: Implement transactional buttons or interactive widgets
+* **Missing items**: None
+* **Next action**: None
 
 ## Screens to Fix First
 
-All screens are fully production-ready and interactive! Zero issues found.
+All screens are fully business-ready and verified! Zero issues found.
 
 ## Recommended Build Order
 
 ### 1. Must Fix Now (High Priority)
-- None (All screens have basic interactivity)
+- None (All screens have core workflows implemented)
 
 ### 2. Fix Next (Medium Priority)
 - None (All screens are functionally complete)

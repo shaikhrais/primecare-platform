@@ -145,12 +145,12 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
     final prodReadyCount = _allScreens.where((s) => s.productionReady).length;
     final incompleteCount = _allScreens.where((s) => !s.productionReady || s.progressPercent < 100).length;
     final falseProgressCount = _allScreens.where((s) => s.falseProgress).length;
-    final zeroInteractionCount = _allScreens.where((s) => s.totalInteractiveObjects == 0).length;
+    final zeroInteractionCount = _allScreens.where((s) => s.screenBodyTotalInteractions == 0).length;
     final avgProgress = totalScreensCount > 0
         ? _allScreens.fold<int>(0, (sum, s) => sum + s.progressPercent) / totalScreensCount
         : 0.0;
     final avgInteractive = totalScreensCount > 0
-        ? _allScreens.fold<int>(0, (sum, s) => sum + s.totalInteractiveObjects) / totalScreensCount
+        ? _allScreens.fold<int>(0, (sum, s) => sum + s.screenBodyTotalInteractions) / totalScreensCount
         : 0.0;
     final needingReviewCount = _allScreens.where((s) => s.needsReview).length;
 
@@ -625,9 +625,11 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
   }
 
   Widget _buildScreenCarouselCard(ThemeData theme, bool isDark, ScreenHealthStatus screen) {
-    final statusColor = screen.productionReady
-        ? Colors.green
-        : (screen.isPlaceholder ? Colors.red : Colors.amber);
+    final statusColor = screen.hardFail
+        ? Colors.red
+        : (screen.productionReady
+            ? Colors.green
+            : (screen.isPlaceholder ? Colors.red : Colors.amber));
 
     return Container(
       width: 350,
@@ -664,7 +666,9 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
-                    screen.productionReady ? 'PROD READY' : (screen.isPlaceholder ? 'STUB' : 'IN_DEV'),
+                    screen.hardFail
+                        ? 'FAILED'
+                        : (screen.productionReady ? 'PROD READY' : (screen.isPlaceholder ? 'STUB' : 'IN_DEV')),
                     style: TextStyle(
                       color: statusColor,
                       fontWeight: FontWeight.bold,
@@ -701,8 +705,15 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                     _buildMetaTextItem(theme, 'Component File', screen.componentFile),
                     _buildMetaTextItem(theme, 'Visual Status', screen.visualStatus ?? 'N/A'),
                     _buildMetaTextItem(theme, 'Progress', '${screen.progressPercent}%'),
-                    _buildMetaTextItem(theme, 'Total Interactive Objects', '${screen.totalInteractiveObjects} (Buttons: ${screen.buttonCount}, Fields: ${screen.formFieldCount})'),
+                    _buildMetaTextItem(theme, 'Screen Body Interactions', '${screen.screenBodyTotalInteractions} (Btn: ${screen.screenBodyButtonCount}, Form: ${screen.screenBodyFormCount}, Filter: ${screen.screenBodyFilterCount}, Table: ${screen.screenBodyTableActionCount}, Card: ${screen.screenBodyClickableCardCount})'),
+                    _buildMetaTextItem(theme, 'Global Navigation Count', '${screen.globalNavigationCount}'),
+                    _buildMetaTextItem(theme, 'Interaction Status', screen.meaningfulInteractionStatus),
                     _buildMetaTextItem(theme, 'False Progress Stub', screen.falseProgress ? 'YES' : 'NO'),
+                    _buildMetaTextItem(theme, 'Business Ready', screen.businessReady ? 'YES' : 'NO'),
+                    _buildMetaTextItem(theme, 'Business Score', '${screen.businessWorkflowScore}'),
+                    _buildMetaTextItem(theme, 'Role Expectation Score', '${screen.roleExpectationScore}'),
+                    _buildMetaTextItem(theme, 'Missing Business Features', screen.missingBusinessFeatures ?? 'None'),
+                    _buildMetaTextItem(theme, 'Hard Fail Workflow Audit', screen.hardFail ? 'YES - FAILED ROLE EXPECTATIONS' : 'NO'),
                     _buildMetaTextItem(theme, 'Screen Purpose', screen.screenPurpose ?? 'N/A'),
                     _buildMetaTextItem(theme, 'Primary User Goal', screen.primaryUserGoal ?? 'N/A'),
                     _buildMetaTextItem(theme, 'Expected User Actions', screen.expectedUserActions ?? 'N/A'),
@@ -809,6 +820,14 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                   _buildDetailRow(theme, 'Progress', '${screen.progressPercent}% (Stage ${screen.currentStage})'),
                   _buildDetailRow(theme, 'Production Ready', screen.productionReady ? 'YES' : 'NO'),
                   _buildDetailRow(theme, 'False Progress Stub', screen.falseProgress ? 'YES' : 'NO'),
+                  _buildDetailRow(theme, 'Business Ready', screen.businessReady ? 'YES' : 'NO'),
+                  _buildDetailRow(theme, 'Business Score', '${screen.businessWorkflowScore}'),
+                  _buildDetailRow(theme, 'Role Expectation Score', '${screen.roleExpectationScore}'),
+                  _buildDetailRow(theme, 'Missing Business Features', screen.missingBusinessFeatures ?? 'None'),
+                  _buildDetailRow(theme, 'Hard Fail Workflow Audit', screen.hardFail ? 'YES - FAILED ROLE EXPECTATIONS' : 'NO'),
+                  _buildDetailRow(theme, 'Screen Body Interactions', 'Total: ${screen.screenBodyTotalInteractions} (Buttons: ${screen.screenBodyButtonCount}, Forms: ${screen.screenBodyFormCount}, Filters: ${screen.screenBodyFilterCount}, Tables: ${screen.screenBodyTableActionCount}, Cards: ${screen.screenBodyClickableCardCount})'),
+                  _buildDetailRow(theme, 'Global Navigation Count', '${screen.globalNavigationCount}'),
+                  _buildDetailRow(theme, 'Interaction Status', screen.meaningfulInteractionStatus),
                   _buildDetailRow(theme, 'Interactive Objects', 'Total: ${screen.totalInteractiveObjects} (Buttons: ${screen.buttonCount}, Fields: ${screen.formFieldCount}, Tables/Actions: ${screen.tableActionCount})'),
                   _buildDetailRow(theme, 'Screen Purpose', screen.screenPurpose ?? 'N/A'),
                   _buildDetailRow(theme, 'Primary User Goal', screen.primaryUserGoal ?? 'N/A'),

@@ -41,8 +41,8 @@ class _BillingPaymentsScreenContentState extends ConsumerState<_BillingPaymentsS
   String _selectedCategory = 'All';
   final List<Map<String, String>> _records = [
     {'title': 'Plaid: Bank ledger download', 'content': '14 new transactions reconciled automatically.', 'category': 'PlaidSync'},
-    {'title': 'Remit: Card capture GTA North', 'content': 'Processed $4,200 payment for Mary Vance.', 'category': 'Remittances'},
-    {'title': 'Refund: Milton booking cancel', 'content': 'Issued $150 refund code to patient card.', 'category': 'Refunds'}
+    {'title': 'Remit: Card capture GTA North', 'content': 'Processed \$4,200 payment for Mary Vance.', 'category': 'Remittances'},
+    {'title': 'Refund: Milton booking cancel', 'content': 'Issued \$150 refund code to patient card.', 'category': 'Refunds'}
   ];
 
   @override
@@ -141,11 +141,11 @@ class _BillingPaymentsScreenContentState extends ConsumerState<_BillingPaymentsS
                       children: [
                         const Icon(Icons.inventory_2_outlined, size: 48, color: Colors.grey),
                         const SizedBox(height: 12),
-                        const Text('No records match your criteria.'),
+                        Text('common.no_records'.tr()),
                         const SizedBox(height: 12),
                         ElevatedButton(
                           onPressed: _showActionDialog,
-                          child: const Text('Process New Payment'),
+                          child: Text('common.process_payment'.tr()),
                         ),
                       ],
                     ),
@@ -174,7 +174,7 @@ class _BillingPaymentsScreenContentState extends ConsumerState<_BillingPaymentsS
                                 actions: [
                                   TextButton(
                                     onPressed: () => Navigator.pop(ctx),
-                                    child: const Text('Close'),
+                                    child: Text('common.close'.tr()),
                                   ),
                                 ],
                               ),
@@ -193,7 +193,7 @@ class _BillingPaymentsScreenContentState extends ConsumerState<_BillingPaymentsS
               child: ElevatedButton.icon(
                 onPressed: _showActionDialog,
                 icon: const Icon(Icons.add_task),
-                label: const Text('Process New Payment'),
+                label: Text('common.process_payment'.tr()),
               ),
             ),
         ],
@@ -205,7 +205,7 @@ class _BillingPaymentsScreenContentState extends ConsumerState<_BillingPaymentsS
     showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Process New Payment'),
+        title: Text('common.process_payment'.tr()),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -221,7 +221,7 @@ class _BillingPaymentsScreenContentState extends ConsumerState<_BillingPaymentsS
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text('common.cancel'.tr()),
           ),
           TextButton(
             onPressed: () {
@@ -238,7 +238,7 @@ class _BillingPaymentsScreenContentState extends ConsumerState<_BillingPaymentsS
               }
               Navigator.pop(ctx);
             },
-            child: const Text('Confirm Action'),
+            child: Text('common.confirm_action'.tr()),
           ),
         ],
       ),

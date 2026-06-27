@@ -1,33 +1,30 @@
+import sqlite3
 import re
 
-with open("packages/flutter_core/lib/registry/platform_screen_registry.dart", "r", encoding="utf-8") as f:
-    content = f.read()
+DB_PATH = r"c:\Users\Admin2\Documents\GitHub\primecare-platform\.agents\governance\governance.db"
 
-# Let's find each ScreenMetadata definition and extract its id and routePath
-pattern = r"'(.*?)'\s*:\s*ScreenMetadata\((.*?)\)"
-matches = re.finditer(r"'([A-Z_0-9]+)'\s*:\s*ScreenMetadata\((.*?)\),", content, re.DOTALL)
+def main():
+    conn = sqlite3.connect(DB_PATH)
+    c = conn.cursor()
+    c.execute("SELECT DISTINCT route_path FROM screens")
+    routes = [r[0] for r in c.fetchall() if r[0]]
+    
+    roles_from_offices = {}
+    for r in routes:
+        m = re.search(r'/offices/([^/]+)/roles/([^/]+)', r)
+        if m:
+            category = m.group(1)
+            role = m.group(2)
+            if role not in roles_from_offices:
+                roles_from_offices[role] = set()
+            roles_from_offices[role].add(category)
+            
+    print(f"Total screens: {len(routes)}")
+    print(f"Roles from offices paths: {len(roles_from_offices)}")
+    for r, cats in sorted(roles_from_offices.items()):
+        print(f"Role: {r} | Categories: {list(cats)}")
+        
+    conn.close()
 
-screen_routes = {}
-for m in matches:
-    key = m.group(1)
-    body = m.group(2)
-    # find routePath in body
-    rp_match = re.search(r"routePath\s*:\s*'(.*?)'", body)
-    if rp_match:
-        screen_routes[key] = rp_match.group(1)
-    else:
-        # Check if it uses a constant
-        rp_const_match = re.search(r"routePath\s*:\s*([A-Za-z0-9\.]+)", body)
-        if rp_const_match:
-            screen_routes[key] = rp_const_match.group(1)
-
-# print routePaths for our target keys
-keys_to_check = [
-    'PHYSICIAN_DASHBOARD', 'CNS_DASHBOARD', 'PEDIATRIC_DASHBOARD', 'GUEST_DASHBOARD',
-    'TERRITORYSALESMANAGER_DASHBOARD', 'HSW_DASHBOARD', 'RNFIELDSUPERVISOR_DASHBOARD',
-    'NP_DASHBOARD', 'LPN_DASHBOARD', 'SCREEN_CUSTOMER_SUPPORT_DASHBOARD', 'QASPECIALIST_DASHBOARD',
-    'FAMILYMEMBER_DASHBOARD', 'PATIENT_DASHBOARD'
-]
-
-for k in keys_to_check:
-    print(f"{k:<35} : {screen_routes.get(k, 'Not Found')}")
+if __name__ == "__main__":
+    main()

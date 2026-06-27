@@ -5,10 +5,10 @@ import 'package:primecare_ui/primecare_ui.dart';
 void main() {
   testWidgets('LoginView renders and all credentials can be used', (WidgetTester tester) async {
     await tester.pumpWidget(
-      const ProviderScope(
+      ProviderScope(
         child: PrimeTheme(
-          data: PrimeThemeData(),
-          child: MaterialApp(
+          data: const PrimeThemeData(),
+          child: const MaterialApp(
             home: LoginView(),
           ),
         ),

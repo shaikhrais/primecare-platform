@@ -424,7 +424,7 @@ class _ConsentHistoryCardState extends ConsumerState<_ConsentHistoryCard> {
                             patientName: _nameController.text.trim(),
                             trialId: _trialController.text.trim(),
                             signatureStatus: _status,
-                            dateSigned: _status == 'Signed' ? DateTime.now().toIsoformatString().substring(0, 10) : 'N/A',
+                            dateSigned: _status == 'Signed' ? DateTime.now().toIso8601String().substring(0, 10) : 'N/A',
                           );
                           ref.read(patientConsentsProvider.notifier).update((state) => [...state, newConsent]);
                           _nameController.clear();
