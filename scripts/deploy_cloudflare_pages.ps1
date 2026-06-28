@@ -25,7 +25,7 @@ foreach ($dir in $appDirs) {
 
     Write-Host "Deploying to Cloudflare Pages..." -ForegroundColor Yellow
     # Using wrangler from local node_modules
-    wrangler pages deploy build/web --project-name $projectName
+    npx wrangler pages deploy build/web --project-name $projectName
     
     Write-Host "Successfully deployed $appName!" -ForegroundColor Green
 }

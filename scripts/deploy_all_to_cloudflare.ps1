@@ -161,7 +161,7 @@ foreach ($app in $apps) {
 
 
     Write-Host '⚡ Step 3: Deploying to Cloudflare Pages...' -ForegroundColor Yellow
-    $deployOutput = wrangler pages deploy build/web --project-name $projectName --commit-dirty=true 2>&1 | Out-String
+    $deployOutput = npx wrangler pages deploy build/web --project-name $projectName --commit-dirty=true 2>&1 | Out-String
     
     $url = 'N/A'
     if ($deployOutput -match 'https://[a-zA-Z0-9.-]+\.pages\.dev') {

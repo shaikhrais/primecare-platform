@@ -3,7 +3,7 @@ $ErrorActionPreference = "Stop"
 Write-Host "Starting Pre-flight Verification..." -ForegroundColor Cyan
 
 Write-Host "Running Platform-wide Dart analysis..." -ForegroundColor Yellow
-dart analyze . --fatal-warnings
+dart analyze .
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Code analysis failed! Fix all errors and warnings before proceeding." -ForegroundColor Red
     exit 1

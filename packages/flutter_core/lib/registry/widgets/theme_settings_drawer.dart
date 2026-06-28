@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import '../../theme/theme_config_generated.dart';
 import '../../theme/theme_settings_provider.dart';

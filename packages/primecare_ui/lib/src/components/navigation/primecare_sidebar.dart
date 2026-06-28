@@ -145,7 +145,7 @@ class PrimeCareSidebar extends ConsumerWidget {
         ),
         child: ListTile(
           leading: Icon(
-            LucideIcons.pocket,
+            LucideIcons.terminal,
             size: context.s(20),
             color: theme.colors.sidebarSelectedTextColor,
           ),

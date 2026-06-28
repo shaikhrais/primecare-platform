@@ -51,12 +51,8 @@ class ClinicalEducationRepository {
     final searchTerm = '%$query%';
 
     // Use Drift query helper
-    final List<ArticlesData> results = await db.searchArticles(query, limit: limit);
+    final List<Article> results = await db.searchArticles(query, limit: limit);
     return results.map((a) => ClinicalArticle.fromJson(a.toJson())).toList();
-
-    return List.generate(maps.length, (i) {
-      return ClinicalArticle.fromJson(maps[i]);
-    });
   }
 
   Future<List<ClinicalArticle>> getArticlesByCategory(
@@ -80,12 +76,8 @@ class ClinicalEducationRepository {
     final db = await database;
 
     // Use Drift query helper
-    final List<ArticlesData> results = await db.getArticlesByCategory(category, limit: limit, offset: offset);
+    final List<Article> results = await db.getArticlesByCategory(category, limit: limit, offset: offset);
     return results.map((a) => ClinicalArticle.fromJson(a.toJson())).toList();
-
-    return List.generate(maps.length, (i) {
-      return ClinicalArticle.fromJson(maps[i]);
-    });
   }
 
   Future<List<String>> getAllCategories() async {
@@ -106,16 +98,12 @@ class ClinicalEducationRepository {
     // Use Drift query helper
     final List<String> categories = await db.getAllCategories();
     return categories;
-
-    return List.generate(maps.length, (i) {
-      return maps[i]['category'] as String;
-    });
   }
 
   Future<ClinicalArticle?> findArticleByTitle(String title) async {
     final db = await database;
 
-    final ArticlesData? article = await db.findArticleByTitle(title);
+    final Article? article = await db.findArticleByTitle(title);
     if (article == null) return null;
     return ClinicalArticle.fromJson(article.toJson());
   }
@@ -128,7 +116,7 @@ class ClinicalEducationRepository {
 
   Future<ClinicalArticle?> getRandomArticle() async {
     final db = await database;
-    final ArticlesData? article = await db.getRandomArticle();
+    final Article? article = await db.getRandomArticle();
     if (article == null) return null;
     return ClinicalArticle.fromJson(article.toJson());
   }

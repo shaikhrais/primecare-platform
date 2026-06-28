@@ -18,7 +18,7 @@ import '../../security/shortcuts/index.dart';
 import '../../config/screen_breakpoints.dart';
 import '../../config/adaptive_scaling_config.dart';
 
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'dart:ui';
 import '../role_registry.dart';
 import '../../src/localization/language_provider.dart';

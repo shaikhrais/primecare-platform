@@ -59,7 +59,7 @@ class _TerritoryExpansionManagerMarketResearchScreenContentState extends Consume
   String _searchQuery = '';
   String _selectedCategory = 'All';
   final List<Map<String, String>> _records = [
-    {'title': 'Research: Private Care Agency Pricing in York', 'content': 'Competitors. Competitor average hourly rate is $38.50.', 'category': 'Competitors'},
+    {'title': 'Research: Private Care Agency Pricing in York', 'content': 'Competitors. Competitor average hourly rate is \$38.50.', 'category': 'Competitors'},
     {'title': 'Regulations: Durham Home Care Licensing', 'content': 'Regulations. Mandatory municipal registry license required.', 'category': 'Regulations'},
     {'title': 'Surveys: Senior Care Feedback Mississauga', 'content': 'Surveys. 88% of respondents prefer local RMT services.', 'category': 'Surveys'}
   ];

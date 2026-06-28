@@ -16,7 +16,7 @@ PRIME:NEXT_ACTION=
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/services/deployment_sync_service.dart';
 import '../../../../core/database/governance_database.dart';
@@ -270,7 +270,7 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
                   Row(
                     children: [
                       Icon(
-                        d.platform == 'web' ? LucideIcons.chrome : LucideIcons.tablet,
+                        d.platform == 'web' ? LucideIcons.globe : LucideIcons.tablet,
                         size: 12,
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),

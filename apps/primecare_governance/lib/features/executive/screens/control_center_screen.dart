@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'control_center_screen_controller.dart';
 
 class ControlCenterScreen extends GovernedConsumerWidget {

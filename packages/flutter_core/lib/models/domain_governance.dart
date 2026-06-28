@@ -3,7 +3,7 @@ import 'navigation_item.dart';
 import 'package:flutter/material.dart';
 import '../registry/platform_role.dart';
 import '../registry/platform_screen_registry.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../routes/groups/common_routes.dart';
 import 'screen.dart';
 

@@ -125,7 +125,7 @@ class _AuraNexusConsoleDrawerState extends ConsumerState<AuraNexusConsoleDrawer>
               shape: BoxShape.circle,
             ),
             child: Icon(
-              LucideIcons.pocket,
+              LucideIcons.terminal,
               color: theme.colors.primary,
               size: context.s(28),
             ),

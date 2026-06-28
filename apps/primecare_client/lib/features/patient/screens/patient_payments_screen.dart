@@ -48,7 +48,7 @@ class PatientPaymentsScreen extends GovernedConsumerWidget {
             actionLabel: 'Refresh Invoices List',
             itemsList: const [
               {'title': 'Payment: Visa ending in 4321', 'content': 'Primary payment channel. Auto-billing is enabled.', 'category': 'Methods'},
-              {'title': 'Invoice: Clinic Adjustment session #4', 'content': 'Paid. Total: $120.00. Settled June 20.', 'category': 'Invoices'},
+              {'title': 'Invoice: Clinic Adjustment session #4', 'content': 'Paid. Total: \$120.00. Settled June 20.', 'category': 'Invoices'},
               {'title': 'Receipt: Nursing assessment Q2', 'content': 'Receipt generated. Co-pay documentation shared.', 'category': 'Receipts'}
             ],
             categoriesList: const ['All', 'Methods', 'Invoices', 'Receipts'],

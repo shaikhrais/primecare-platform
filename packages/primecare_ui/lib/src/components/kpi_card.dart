@@ -28,9 +28,9 @@ class KpiCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label, style: Theme.of(context).textTheme.subtitle1),
+                Text(label, style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 4),
-                Text(value.toString(), style: Theme.of(context).textTheme.headline5?.copyWith(fontWeight: FontWeight.bold)),
+                Text(value.toString(), style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
               ],
             ),
           ],

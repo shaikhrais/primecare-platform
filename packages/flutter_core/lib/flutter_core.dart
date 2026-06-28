@@ -60,7 +60,7 @@ export 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'package:flutter_riverpod/legacy.dart';
 export 'src/resilience/resilient_notifier_mixin.dart';
 
-export 'package:lucide_icons/lucide_icons.dart';
+export 'package:lucide_icons_flutter/lucide_icons.dart';
 
 export 'providers/portal_providers.dart';
 export 'providers/user_management_provider.dart';

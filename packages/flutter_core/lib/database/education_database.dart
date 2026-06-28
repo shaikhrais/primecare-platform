@@ -24,17 +24,17 @@ class EducationDatabase extends _$EducationDatabase {
   // Helper to open native database using drift/ffi
 
   // Query helpers ----------------------------------------------------------
-  Future<List<ArticlesData>> searchArticles(String query, {int limit = 20}) async {
+  Future<List<Article>> searchArticles(String query, {int limit = 20}) async {
     final term = '%${query}%';
     final stmt = customSelect('SELECT * FROM articles WHERE title LIKE ? OR content LIKE ? LIMIT ?',
         variables: [Variable(term), Variable(term), Variable(limit)], readsFrom: {articles});
-    return await stmt.map((row) => ArticlesData.fromData(row.data, attachedDatabase)).toList();
+    return await stmt.map((row) => articles.map(row.data)).get();
   }
 
-  Future<List<ArticlesData>> getArticlesByCategory(String category, {int limit = 20, int offset = 0}) async {
+  Future<List<Article>> getArticlesByCategory(String category, {int limit = 20, int offset = 0}) async {
     final stmt = customSelect('SELECT * FROM articles WHERE category = ? LIMIT ? OFFSET ?',
         variables: [Variable(category), Variable(limit), Variable(offset)], readsFrom: {articles});
-    return await stmt.map((row) => ArticlesData.fromData(row.data, attachedDatabase)).toList();
+    return await stmt.map((row) => articles.map(row.data)).get();
   }
 
   Future<List<String>> getAllCategories() async {
@@ -43,12 +43,12 @@ class EducationDatabase extends _$EducationDatabase {
     return rows.map((row) => row.data['category'] as String).toList();
   }
 
-  Future<ArticlesData?> findArticleByTitle(String title) async {
+  Future<Article?> findArticleByTitle(String title) async {
     final stmt = customSelect('SELECT * FROM articles WHERE title = ? COLLATE NOCASE LIMIT 1',
         variables: [Variable(title)], readsFrom: {articles});
     final rows = await stmt.get();
     if (rows.isEmpty) return null;
-    return ArticlesData.fromData(rows.first.data, attachedDatabase);
+    return articles.map(rows.first.data);
   }
 
   Future<List<String>> getAllArticleTitles() async {
@@ -57,11 +57,11 @@ class EducationDatabase extends _$EducationDatabase {
     return rows.map((row) => row.data['title'] as String).toList();
   }
 
-  Future<ArticlesData?> getRandomArticle() async {
+  Future<Article?> getRandomArticle() async {
     final stmt = customSelect('SELECT * FROM articles ORDER BY RANDOM() LIMIT 1', readsFrom: {articles});
     final rows = await stmt.get();
     if (rows.isEmpty) return null;
-    return ArticlesData.fromData(rows.first.data, attachedDatabase);
+    return articles.map(rows.first.data);
   }
 
   static Future<EducationDatabase> openNative() => openNativeImpl();

@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 /// A wrapper widget that overlays the "Screen Health" floating button and diagnostic panel

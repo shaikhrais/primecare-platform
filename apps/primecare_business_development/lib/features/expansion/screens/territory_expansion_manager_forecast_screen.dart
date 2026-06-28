@@ -59,8 +59,8 @@ class _TerritoryExpansionManagerForecastScreenContentState extends ConsumerState
   String _searchQuery = '';
   String _selectedCategory = 'All';
   final List<Map<String, String>> _records = [
-    {'title': 'Forecast: Barrie West Site', 'content': 'Revenue projection: $450,000 in Year 1. Margin target is 16%.', 'category': 'Revenue'},
-    {'title': 'Forecast: Kingston Clinic Hub', 'content': 'Expense forecast: $85,000 initial startup capital needed.', 'category': 'Expense'},
+    {'title': 'Forecast: Barrie West Site', 'content': 'Revenue projection: \$450,000 in Year 1. Margin target is 16%.', 'category': 'Revenue'},
+    {'title': 'Forecast: Kingston Clinic Hub', 'content': 'Expense forecast: \$85,000 initial startup capital needed.', 'category': 'Expense'},
     {'title': 'Forecast: Waterloo North Site', 'content': 'BreakEven analysis completed. Projected month: 14.', 'category': 'BreakEven'}
   ];
 

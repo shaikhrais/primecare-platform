@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../../core/services/deployment_sync_service.dart';
 import '../../../../core/database/governance_database.dart';
 

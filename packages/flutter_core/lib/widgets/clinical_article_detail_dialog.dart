@@ -1,6 +1,6 @@
 // Governance - Category: view | Purpose: Core implementation file for the Clinical Article Detail Dialog platform logic.
 import 'package:flutter/material.dart';
-import 'package:lucide_icons/lucide_icons.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../models/clinical_article.dart';
 
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';

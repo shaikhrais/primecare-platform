@@ -59,8 +59,8 @@ class _FamilyBillingScreenContentState extends ConsumerState<_FamilyBillingScree
   String _searchQuery = '';
   String _selectedCategory = 'All';
   final List<Map<String, String>> _records = [
-    {'title': 'Invoice #F-2026-101: June Care Shift', 'content': 'Paid. Total: $850.00. Covers 24 hours of PSW assistance.', 'category': 'Invoices'},
-    {'title': 'Insurance Receipt: Physiotherapy Q1', 'content': 'Sent. Total: $350.00. Reimbursed at 80% under standard plan.', 'category': 'Receipts'},
+    {'title': 'Invoice #F-2026-101: June Care Shift', 'content': 'Paid. Total: \$850.00. Covers 24 hours of PSW assistance.', 'category': 'Invoices'},
+    {'title': 'Insurance Receipt: Physiotherapy Q1', 'content': 'Sent. Total: \$350.00. Reimbursed at 80% under standard plan.', 'category': 'Receipts'},
     {'title': 'Primary Card: Visa **** 4321', 'content': 'Active. Auto-pay enabled for weekly nursing cycles.', 'category': 'PaymentMethods'}
   ];
 

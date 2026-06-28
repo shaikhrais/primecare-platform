@@ -890,7 +890,7 @@ class AuraNexusFAB extends StatelessWidget {
                   ),
                 ),
                 child: Icon(
-                  LucideIcons.pocket,
+                  LucideIcons.terminal,
                   color: Colors.white,
                   size: context.s(28),
                 ),
