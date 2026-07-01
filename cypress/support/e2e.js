@@ -45,6 +45,9 @@ let apiLogs = [];
 
 // Print collected logs after each test run
 afterEach(() => {
+  if (Cypress.spec.name === "take-all-screenshots.cy.ts") {
+    return;
+  }
   cy.window().then((win) => {
     if (win.top && win.top.browserLogs && win.top.browserLogs.length > 0) {
       cy.task("log", "\n=== BROWSER LOGS START ===");
@@ -68,25 +71,27 @@ afterEach(() => {
 beforeEach(() => {
   apiLogs = [];
   
-  // Intercept all requests to log them
-  cy.intercept("**", (req) => {
-    // Only capture API or relevant requests to avoid cluttering logs with static assets
-    const url = req.url;
-    if (url.includes("/api/") || url.includes("/v1/") || url.includes("/auth/")) {
-      req.continue((res) => {
-        if (res) {
-          apiLogs.push(`[API CALL] ${req.method} ${req.url} => ${res.statusCode}`);
-        }
-      });
-    }
-  });
+  if (Cypress.spec.name !== "take-all-screenshots.cy.ts") {
+    // Intercept all requests to log them
+    cy.intercept("**", (req) => {
+      // Only capture API or relevant requests to avoid cluttering logs with static assets
+      const url = req.url;
+      if (url.includes("/api/") || url.includes("/v1/") || url.includes("/auth/")) {
+        req.continue((res) => {
+          if (res) {
+            apiLogs.push(`[API CALL] ${req.method} ${req.url} => ${res.statusCode}`);
+          }
+        });
+      }
+    });
 
-  // Clear logs container at the start of each test
-  cy.window().then((win) => {
-    if (win.top) {
-      win.top.browserLogs = [];
-    }
-  });
+    // Clear logs container at the start of each test
+    cy.window().then((win) => {
+      if (win.top) {
+        win.top.browserLogs = [];
+      }
+    });
+  }
 
   cy.intercept("**/flutter_service_worker.js*", {
     statusCode: 404,
