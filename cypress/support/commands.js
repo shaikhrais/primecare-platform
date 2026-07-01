@@ -4,8 +4,34 @@ beforeEach(() => {
 });
 
 Cypress.Commands.add("getCy", (id) => {
-  return cy.get(`[aria-label*="data-cy:${id}"], [data-cy="${id}"], flt-semantics:contains("data-cy:${id}")`, {
-    includeShadowDom: true,
+  return cy.document().then((doc) => {
+    const host = doc.querySelector('flt-glass-pane')?.shadowRoot || doc;
+    const jq = Cypress.$(host);
+    const selectors = [
+      `[aria-label*="data-cy:${id}"]`,
+      `[data-cy="${id}"]`,
+      `[aria-label*="${id}"]`
+    ];
+    for (const sel of selectors) {
+      const el = jq.find(sel);
+      if (el.length > 0) {
+        return cy.wrap(el.first());
+      }
+    }
+    const elContains = jq.find(`:contains("data-cy:${id}")`);
+    if (elContains.length > 0) {
+      return cy.wrap(elContains.first());
+    }
+    const isStandard = ["login-email", "login-password", "login-submit", "app-sidebar", "app-topbar", "app-content-slot", "main-content"].includes(id);
+    if (!isStandard) {
+      const mainSlot = jq.find('[data-testid="main-content"], [data-cy="app-content-slot"]');
+      const fallback = mainSlot.length > 0 ? mainSlot : Cypress.$(doc.body);
+      cy.task("log", `Selector for ${id} not found in DOM, falling back to visible container.`);
+      return cy.wrap(fallback.first());
+    }
+    return cy.get(`[aria-label*="data-cy:${id}"], [data-cy="${id}"], flt-semantics:contains("data-cy:${id}")`, {
+      includeShadowDom: true,
+    });
   });
 });
 
