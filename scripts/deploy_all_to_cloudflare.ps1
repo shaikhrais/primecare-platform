@@ -136,7 +136,7 @@ foreach ($app in $apps) {
     $appUrl = $appUrls[$app]
 
     Write-Host '⚡ Step 2: Compiling to Web (Release)...' -ForegroundColor Yellow
-    flutter build web --release --dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api --dart-define=SSO_PORTAL_URL=$ssoUrl --dart-define=APP_BASE_URL=$appUrl
+    flutter build web --release --no-wasm-dry-run --dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api --dart-define=SSO_PORTAL_URL=$ssoUrl --dart-define=APP_BASE_URL=$appUrl
     if ($LASTEXITCODE -ne 0) {
         Write-Host '❌ Compilation failed!' -ForegroundColor Red
         $results += [PSCustomObject]@{

@@ -21,7 +21,7 @@ foreach ($dir in $appDirs) {
     flutter pub get
 
     Write-Host "Building web package..." -ForegroundColor Yellow
-    flutter build web --release --dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api
+    flutter build web --release --no-wasm-dry-run --dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api
 
     Write-Host "Deploying to Cloudflare Pages..." -ForegroundColor Yellow
     # Using wrangler from local node_modules
