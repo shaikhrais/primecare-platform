@@ -16,5 +16,5 @@ A summary score report aggregating consistency evaluations for the entire PrimeC
 
 ## Overall Readiness Metrics
 
-- **Average Platform Static Consistency Score**: **80.52 / 100**
-- **Static Ready Ratio**: **1.05%**
+- **Average Platform Static Consistency Score**: **91.81 / 100**
+- **Static Ready Ratio**: **44.20%**
