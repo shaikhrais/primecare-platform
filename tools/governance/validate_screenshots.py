@@ -11,7 +11,7 @@ DB_PATH = os.path.abspath(os.path.join(PROJECT_ROOT, ".agents", "governance", "g
 SCREENSHOTS_DIR = Path(PROJECT_ROOT) / "cypress" / "screenshots"
 
 MIN_FILE_SIZE = 20_000
-MIN_VISUAL_SCORE = 60
+MIN_VISUAL_SCORE = 70
 
 def now():
     return datetime.utcnow().isoformat()
@@ -144,7 +144,7 @@ def main():
                     WHERE id = ?;
                 """, (
                     status_str,
-                    f"Visual variance too low: {r['std_dev']:.2f}" if r["blank"] else None,
+                    f"SCREEN REJECTED: Main content placeholder only (Score: {r['visual_score']}/100)" if r["blank"] else None,
                     run_now,
                     r["relative_path"],
                     r["size"],
@@ -167,7 +167,7 @@ def main():
                         f"Cypress screenshot failed Pillow visual checks (Score: {score}/100, StdDev: {r['std_dev']:.2f}, Size: {r['size']/1024:.1f}KB).",
                         run_now
                     ))
-                print(f"  Mapped Screen: {scr_name} -> {status_str.upper()} (Score: {score}/100)")
+                print(f"  Mapped Screen: {scr_name} -> {'SCREEN REJECTED: Main content placeholder only' if r['blank'] else 'PASSED'} (Score: {score}/100)")
 
     # 2. Update Roles table E2E Auth columns based on auth-login screenshots
     # Filenames contain the pattern: auth-login-{role_code}.png
@@ -218,8 +218,8 @@ def main():
     conn.close()
 
     if failed:
-        print(f"\n[CRITICAL FAILURE] {len(failed)} blank/low-entropy screenshots detected!")
-        raise SystemExit(f"{len(failed)} blank/low-entropy screenshots detected.")
+        print(f"\n[CRITICAL FAILURE] {len(failed)} rejected screenshots detected!")
+        raise SystemExit(f"SCREEN REJECTED: Main content placeholder only on {len(failed)} screens.")
 
     print("\n[SUCCESS] All E2E screenshots successfully passed Pillow visual checks!")
 

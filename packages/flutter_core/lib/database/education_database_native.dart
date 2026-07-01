@@ -1,5 +1,5 @@
 // Native implementation for Drift database (non-web platforms)
-import 'package:drift/ffi.dart' as ffi;
+import 'package:drift/native.dart' as ffi;
 import 'education_database.dart';
 
 Future<EducationDatabase> openNativeImpl() async {

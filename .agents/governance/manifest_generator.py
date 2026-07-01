@@ -47,45 +47,9 @@ def generate():
     conn = governance_db.get_connection()
     cursor = conn.cursor()
     
-    # Map Dart role keys to DB role_codes
-    role_mapping = {
-        'Admin': 'admin',
-        'CEO': 'ceo',
-        'Compliance Manager': 'compliance',
-        'Customer Support': 'portal',
-        'CFO': 'cfo',
-        'COO': 'coo',
-        'CTO': 'cto',
-        'Corporate Developer': 'system_verification',
-        'Training Director': 'training_director',
-        'Regional Manager': 'regional_manager_usa',
-        'Finance Director': 'finance_director',
-        'Intake Coordinator': 'intake',
-        'Billing Admin': 'scheduler',
-        'Marketing Manager': 'local_marketing',
-        'Franchise Owner': 'owner',
-        'PSW': 'psw',
-        'Client': 'patient',
-        'Head of Marketing': 'marketing',
-        'Head of Business Development': 'bus_dev',
-        'Operations Manager': 'ops_manager',
-        'HR Hiring': 'hr_hiring',
-        'Clinical Director': 'clinical_director',
-        'Shareholder': 'shareholder',
-        'Therapist': 'therapist',
-        'Physician': 'physician',
-        'Clinical Nurse Specialist': 'cns',
-        'Pediatric Specialist': 'pediatric',
-        'Caregiver': 'caregiver',
-        'Premium Concierge': 'premium_concierge',
-        'VIP Client Manager': 'vip_manager',
-        'RN Field Supervisor': 'rn_field_supervisor',
-        'Nurse Practitioner': 'np',
-        'LPN': 'lpn',
-        'Employee': 'employee',
-        'Volunteer': 'volunteer',
-        'HSW': 'hsw',
-    }
+    # Map Dart role keys to DB role_codes dynamically from the roles table
+    cursor.execute("SELECT role_name, role_code FROM roles")
+    role_mapping = {row['role_name']: row['role_code'] for row in cursor.fetchall()}
     
     # Direct mapping from screen_code to translatable label key
     screen_to_label_mapping = {
@@ -134,7 +98,7 @@ def generate():
         original_items = original_role_items.get(dart_role, [])
         for item in original_items:
             label = item['label']
-            is_common = any(keyword in label for keyword in ['global_settings', 'messaging_hub', 'document_vault', 'notification_center', 'messages'])
+            is_common = any(label == f"navigation.items.{k}" for k in ['global_settings', 'messaging_hub', 'document_vault', 'notification_center', 'messages'])
             
             # Find which screen code this item maps to
             associated_screen = None
@@ -150,6 +114,11 @@ def generate():
             # Keep if common or authorized
             if is_common or associated_screen in authorized_screens:
                 if label not in seen_labels:
+                    clean_sc = associated_screen.replace('_dashboard_controller', '').replace('_controller', '')
+                    cursor.execute("SELECT route_path FROM screens WHERE screen_code = ? OR screen_code = ?", (clean_sc, associated_screen))
+                    s_row = cursor.fetchone()
+                    if s_row and not is_common:
+                        item['route'] = f"'{s_row['route_path']}'"
                     role_items.append(item)
                     seen_labels.add(label)
                     
@@ -164,6 +133,11 @@ def generate():
                 # Find in master catalog
                 catalog_item = master_catalog.get(label)
                 if catalog_item:
+                    clean_sc = sc.replace('_dashboard_controller', '').replace('_controller', '')
+                    cursor.execute("SELECT route_path FROM screens WHERE screen_code = ? OR screen_code = ?", (clean_sc, sc))
+                    s_row = cursor.fetchone()
+                    if s_row:
+                        catalog_item['route'] = f"'{s_row['route_path']}'"
                     role_items.append(catalog_item)
                 else:
                     # Dynamically generate sensible defaults
@@ -172,9 +146,7 @@ def generate():
                     s_row = cursor.fetchone()
                     if s_row:
                         route_path = s_row['route_path']
-                        # E.g. /offices/corporate/roles/ceo/dashboard
-                        clean_name = sc.replace('_dashboard_controller', '').replace('_controller', '').replace('_', '-')
-                        dyn_route = f"'/offices/common/roles/{db_code}/{clean_name}'"
+                        dyn_route = f"'{route_path}'"
                     else:
                         dyn_route = f"'/offices/common/roles/{db_code}/dashboard'"
                         

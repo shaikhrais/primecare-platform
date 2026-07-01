@@ -1,4 +1,6 @@
 import "./commands";
+import "./auth-commands";
+import "./commands.ts";
 
 Cypress.on("window:before:load", (win) => {
   if (win.top) {

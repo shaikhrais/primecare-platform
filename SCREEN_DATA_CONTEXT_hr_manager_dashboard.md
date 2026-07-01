@@ -1,0 +1,87 @@
+# SCREEN DATA CONTEXT: hr_manager_dashboard
+
+Below are the database records from `governance.db` used to configure and build the **HR Director - HrManagerDashboardScreen** screen.
+
+---
+
+## 1. Screen Record
+* **ID**: `68`
+* **App ID**: `7`
+* **Role ID**: `27`
+* **Screen Code**: `hr_manager_dashboard`
+* **Screen Name**: `HrManagerDashboardScreen`
+* **Route Path**: `/offices/corporate/roles/hr_manager/dashboard`
+* **Actual File Path**: `packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard_screen.dart`
+* **Stage/Status**: `wired`
+
+## 2. App Record
+* **ID**: `7`
+* **App Code**: `co`
+* **App Name**: `Primecare Corporate`
+
+## 3. Role Record
+* **ID**: `27`
+* **Role Code**: `hr_director`
+* **Role Name**: `HR Director`
+* **Role Type**: `staff`
+
+## 4. Screen Requirement Record
+* **Business Purpose**: `Provides a dedicated management interface within the Primecare Corporate module to enable HR Director personnel to oversee, audit, and coordinate operations related to hrmanagerdashboardscreen.`
+* **User Story**: `As a HR Director, I want to access the HrManagerDashboardScreen within the Primecare Corporate application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.`
+* **Sidebar Label**: `HrManagerDashboardScreen`
+* **Acceptance Criteria**:
+- The HrManagerDashboardScreen route loads successfully within the Primecare Corporate workspace.
+- The interface correctly displays all primary modules and active widgets.
+- Role-based access control restricts unauthorized actions, permitting only HR Director access.
+- System telemetry and data tables refresh correctly upon user interaction.
+
+## 5. Required Elements
+* **screen_root** -> `hr_manager_dashboard-screen` (Type: layout, Required: 1)
+* **page_title** -> `hr_manager_dashboard-title` (Type: header, Required: 1)
+* **primary_content** -> `hr_manager_dashboard-content` (Type: layout, Required: 1)
+* **hrmanagerdashboard_btn_2** -> `hrmanagerdashboard-btn-2` (Type: button, Required: 0)
+* **hrmanagerdashboard_screen** -> `hrmanagerdashboard-screen` (Type: layout, Required: 0)
+* **hrmanagerdashboard_content** -> `hrmanagerdashboard-content` (Type: layout, Required: 0)
+* **hrmanagerdashboard_btn_4** -> `hrmanagerdashboard-btn-4` (Type: button, Required: 0)
+* **hrmanagerdashboard_title** -> `hrmanagerdashboard-title` (Type: header, Required: 0)
+* **hrmanagerdashboard_btn_1** -> `hrmanagerdashboard-btn-1` (Type: button, Required: 0)
+* **hrmanagerdashboard_btn_3** -> `hrmanagerdashboard-btn-3` (Type: button, Required: 0)
+* **hrmanagerdashboard_btn_5** -> `hrmanagerdashboard-btn-5` (Type: button, Required: 0)
+
+## 6. Component Mapping
+* Component ID: `76` (Required: 1)
+* Component ID: `610` (Required: 1)
+* Component ID: `1144` (Required: 1)
+* Component ID: `2184` (Required: 1)
+* Component ID: `2185` (Required: 1)
+* Component ID: `2186` (Required: 1)
+* Component ID: `2187` (Required: 1)
+* Component ID: `2188` (Required: 1)
+* Component ID: `2189` (Required: 1)
+* Component ID: `2190` (Required: 1)
+* Component ID: `2191` (Required: 1)
+* Component ID: `2192` (Required: 1)
+* Component ID: `2193` (Required: 1)
+
+## 7. API / Data Mapping
+* API ID: `4331` (Required: 1)
+
+## 8. Test Definition & Steps
+* **Test Code**: `hr_manager_dashboard_runtime`
+* **Test Name**: `HrManagerDashboardScreen Smoke Test`
+* **Test Type**: `e2e`
+* **Expected Title**: `HR Manager Dashboard`
+* **Expected Layout**: `dashboard`
+
+### Test Steps
+1. **login_as_role** (Selector: `None`, Value: `hr_director`)
+2. **verify_sidebar_exists** (Selector: `app-sidebar`, Value: `None`)
+3. **verify_sidebar_link_exists** (Selector: `None`, Value: `HR Manager Dashboard`)
+4. **click_sidebar_link** (Selector: `None`, Value: `HR Manager Dashboard`)
+5. **check_url** (Selector: `None`, Value: `/offices/corporate/roles/hr_manager/dashboard`)
+6. **verify_topbar_exists** (Selector: `app-topbar`, Value: `None`)
+7. **verify_main_content_exists** (Selector: `app-content-slot`, Value: `None`)
+8. **verify_screen_not_empty** (Selector: `None`, Value: `None`)
+9. **verify_forbidden_text_absent** (Selector: `None`, Value: `None`)
+10. **verify_no_console_errors** (Selector: `None`, Value: `None`)
+11. **screenshot** (Selector: `None`, Value: `None`)

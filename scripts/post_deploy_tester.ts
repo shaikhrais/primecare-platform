@@ -223,6 +223,56 @@ function verifyLocalizationParity(appName: string): I18nParity {
     }
 }
 
+function calculateQualityScore(audit: any) {
+    const hasPlaceholderIssue = audit.issues.some((i: string) => i.includes('placeholder') || i.includes('TODO')) ||
+                                audit.screenName.toLowerCase().includes('placeholder') || 
+                                audit.file.toLowerCase().includes('placeholder');
+    
+    const isPlaceholder = hasPlaceholderIssue || 
+                          audit.textElements.some((t: string) => t.toLowerCase().includes('placeholder is now fully implemented') || t.toLowerCase().includes('under construction'));
+    
+    const interactiveCount = audit.buttonsCount;
+    const nonPlaceholderTextLength = audit.textElements
+        .filter((t: string) => !t.toLowerCase().includes('placeholder') && !t.toLowerCase().includes('under construction'))
+        .map((t: string) => t.length)
+        .reduce((a: number, b: number) => a + b, 0);
+    
+    let contentCoverage = Math.min((nonPlaceholderTextLength / 250) * 100, 100);
+    if (isPlaceholder) {
+        contentCoverage = 12;
+    }
+    
+    const sidebarStatus = true;
+    const headerStatus = true;
+    const mainContentStatus = contentCoverage >= 20 && !isPlaceholder;
+    const dataConnectionStatus = audit.components.some((c: string) => c.includes('Provider')) && 
+                                 !audit.textElements.some((t: string) => t.toLowerCase().includes('fake') || t.toLowerCase().includes('dummy'));
+    const placeholderDetectionStatus = !isPlaceholder;
+    
+    let interactivityScore = 0;
+    if (interactiveCount >= 3) {
+        interactivityScore = 10;
+    } else if (interactiveCount === 2) {
+        interactivityScore = 6;
+    } else if (interactiveCount === 1) {
+        interactivityScore = 3;
+    }
+    
+    let qualityScore = 0;
+    if (sidebarStatus) qualityScore += 10;
+    if (headerStatus) qualityScore += 10;
+    if (mainContentStatus) qualityScore += 40;
+    if (dataConnectionStatus) qualityScore += 20;
+    if (placeholderDetectionStatus) qualityScore += 10;
+    qualityScore += interactivityScore;
+    
+    return {
+        qualityScore,
+        contentCoverage,
+        status: qualityScore >= 70 ? 'PASS' : 'SCREEN REJECTED: Main content placeholder only'
+    };
+}
+
 async function runE2EVerification() {
     console.log('🤖 INITIALIZING DYNAMIC POST-DEPLOYMENT VERIFICATION ENGINE...');
     let logBuffer = `## 🏆 PrimeCare Platform Post-Deployment E2E Verification Report\n\n`;
@@ -341,6 +391,7 @@ async function runE2EVerification() {
                 const appPath = path.join(APPS_DIR, ui.name);
                 const audits = auditScreenComponents(appPath);
                 for (const audit of audits) {
+                    const quality = calculateQualityScore(audit);
                     await sModel.create({
                         data: {
                             deploymentId: dRecord.id,
@@ -355,7 +406,10 @@ async function runE2EVerification() {
                                 hasController: audit.hasController,
                                 issuesCount: audit.issues.length,
                                 labelsCount: audit.labels.length,
-                                textElementsCount: audit.textElements.length
+                                textElementsCount: audit.textElements.length,
+                                qualityScore: quality.qualityScore,
+                                contentCoverage: quality.contentCoverage,
+                                status: quality.status
                             }
                         }
                     });
@@ -390,21 +444,27 @@ async function runE2EVerification() {
                 verified: true,
                 verificationLog: `Verification passed for ${ui.name}`,
                 i18n,
-                screens: audits.map(audit => ({
-                    screenName: audit.screenName,
-                    language: audit.language,
-                    labels: audit.labels,
-                    textElements: audit.textElements,
-                    components: audit.components,
-                    rawMetrics: {
-                        buttonsCount: audit.buttonsCount,
-                        riverpodWired: audit.riverpodWired,
-                        hasController: audit.hasController,
-                        issuesCount: audit.issues.length,
-                        labelsCount: audit.labels.length,
-                        textElementsCount: audit.textElements.length
-                    }
-                }))
+                screens: audits.map(audit => {
+                    const quality = calculateQualityScore(audit);
+                    return {
+                        screenName: audit.screenName,
+                        language: audit.language,
+                        labels: audit.labels,
+                        textElements: audit.textElements,
+                        components: audit.components,
+                        rawMetrics: {
+                            buttonsCount: audit.buttonsCount,
+                            riverpodWired: audit.riverpodWired,
+                            hasController: audit.hasController,
+                            issuesCount: audit.issues.length,
+                            labelsCount: audit.labels.length,
+                            textElementsCount: audit.textElements.length,
+                            qualityScore: quality.qualityScore,
+                            contentCoverage: quality.contentCoverage,
+                            status: quality.status
+                        }
+                    };
+                })
             };
         })
     };

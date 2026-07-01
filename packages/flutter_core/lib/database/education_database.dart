@@ -2,7 +2,6 @@
 import 'package:drift/drift.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-import 'package:drift/web.dart' as drift_web;
 import 'education_database_native.dart' if (dart.library.html) 'education_database_web.dart';
 
 part 'education_database.g.dart';
