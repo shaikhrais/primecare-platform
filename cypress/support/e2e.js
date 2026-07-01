@@ -70,10 +70,6 @@ beforeEach(() => {
   
   // Intercept all requests to log them
   cy.intercept("**", (req) => {
-    req.on("error", (err) => {
-      // Gracefully log intercept network errors without failing tests
-      cy.task("log", `[INTERCEPT ERROR] ${req.method} ${req.url} => ${err.message}`);
-    });
     // Only capture API or relevant requests to avoid cluttering logs with static assets
     const url = req.url;
     if (url.includes("/api/") || url.includes("/v1/") || url.includes("/auth/")) {
