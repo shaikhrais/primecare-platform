@@ -1,0 +1,43 @@
+{
+  "app": {
+    "id": 12,
+    "app_code": "su",
+    "app_name": "Primecare Support",
+    "description": null,
+    "owner_team": null,
+    "active": 1
+  },
+  "screens_count": 2,
+  "screens": [
+    {
+      "id": 54,
+      "app_id": 12,
+      "role_id": 49,
+      "screen_code": "premium_concierge_dashboard",
+      "screen_name": "PremiumConciergeDashboardScreen",
+      "route_path": "/management/premium-concierge-dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/premium_concierge_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 60,
+      "app_id": 12,
+      "role_id": 50,
+      "screen_code": "vip_manager_dashboard",
+      "screen_name": "VipManagerDashboardScreen",
+      "route_path": "/management/vip-manager-dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/vip_manager_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

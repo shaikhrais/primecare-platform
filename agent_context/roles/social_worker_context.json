@@ -1,0 +1,72 @@
+{
+  "role": {
+    "id": 4,
+    "role_code": "social_worker",
+    "role_name": "Social Worker",
+    "role_type": "staff",
+    "active": 1
+  },
+  "screens_count": 4,
+  "screens": [
+    {
+      "id": 28,
+      "app_id": 6,
+      "role_id": 4,
+      "screen_code": "social_worker_dashboard",
+      "screen_name": "SocialWorkerDashboardScreen",
+      "route_path": "/offices/clinical/roles/social_worker/dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/common/social_worker_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 138,
+      "app_id": 1,
+      "role_id": 4,
+      "screen_code": "social_worker_analytics",
+      "screen_name": "SocialWorkerAnalyticsScreen",
+      "route_path": "/offices/clinical/roles/social_worker/analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/common/social_worker_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 139,
+      "app_id": 1,
+      "role_id": 4,
+      "screen_code": "social_worker_compliance",
+      "screen_name": "SocialWorkerComplianceScreen",
+      "route_path": "/offices/clinical/roles/social_worker/compliance",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/common/social_worker_compliance_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 140,
+      "app_id": 1,
+      "role_id": 4,
+      "screen_code": "social_worker_workflow",
+      "screen_name": "SocialWorkerWorkflowScreen",
+      "route_path": "/offices/clinical/roles/social_worker/workflow",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/common/social_worker_workflow_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

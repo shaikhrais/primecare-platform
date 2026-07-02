@@ -1,0 +1,440 @@
+# Role Context: Guest (guest)
+
+- **Role Code:** `guest`
+- **Screens Count:** 434
+
+## Authorized Screens:
+- **CourseArchitectDashboardScreen** (course_architect_dashboard) - Route: `/common/course-architect-dashboard`
+- **CustomerSupportDashboardScreen** (customer_support_dashboard) - Route: `/common/customer-support-dashboard`
+- **DynamicScreenDashboardScreen** (dynamic_screen_dashboard) - Route: `/common/dynamic-dashboard`
+- **FamilyMemberDashboardScreen** (family_member_dashboard) - Route: `/common/family-member-dashboard`
+- **GuestDashboardScreen** (guest_dashboard) - Route: `/common/guest-dashboard`
+- **OfficeDashboardScreen** (office_dashboard) - Route: `/common/office-dashboard`
+- **QaDashboardScreen** (qa_dashboard) - Route: `/offices/support/roles/quality_assurance/dashboard`
+- **SupportDashboardScreen** (support_dashboard) - Route: `/common/support-dashboard`
+- **TrainingHubDashboardScreen** (training_hub_dashboard) - Route: `/common/training-hub-dashboard`
+- **GeneralManagerDashboardScreen** (general_manager_dashboard) - Route: `/offices/business_development/roles/general_manager/dashboard`
+- **OperationsManagerDashboardScreen** (operations_manager_dashboard) - Route: `/offices/franchise/roles/operations_manager/dashboard`
+- **PartnershipManagerDashboardScreen** (partnership_manager_dashboard) - Route: `/offices/business_development/roles/partnership_manager/dashboard`
+- **TerritoryExpansionManagerDashboardScreen** (territory_expansion_manager_dashboard) - Route: `/offices/business_development/roles/territory_expansion_manager/dashboard`
+- **TerritorySalesManagerDashboardScreen** (territory_sales_manager_dashboard) - Route: `/offices/marketing/roles/territory_sales_manager/dashboard`
+- **BillingAdminDashboardScreen** (billing_admin_dashboard) - Route: `/offices/franchise/roles/billing_admin/dashboard`
+- **QualityAssuranceDashboardScreen** (quality_assurance_dashboard) - Route: `/staff/quality-assurance-dashboard`
+- **ReceptionistDashboardScreen** (receptionist_dashboard) - Route: `/staff/receptionist-dashboard`
+- **TrainingCoordinatorDashboardScreen** (training_coordinator_dashboard) - Route: `/offices/support/roles/training_coordinator/dashboard`
+- **GuestAnalyticsScreen** (guest_analytics) - Route: `/common/guest-analytics`
+- **GuestComplianceScreen** (guest_compliance) - Route: `/common/guest-compliance`
+- **GuestWorkflowScreen** (guest_workflow) - Route: `/common/guest-workflow`
+- **SchedulingDashboardScreen** (scheduling_dashboard) - Route: `/staff/scheduling-dashboard`
+- **Success Profile** (success_profile) - Route: `/generated/success-profile`
+- **Consent** (consent) - Route: `/generated/consent`
+- **Regional Bdm Competitor Notes** (regional_bdm_competitor_notes) - Route: `/offices/business_development/roles/regional_bdm/competitor-notes`
+- **Regional Bdm Deal Tracker** (regional_bdm_deal_tracker) - Route: `/offices/business_development/roles/regional_bdm/deal-tracker`
+- **Regional Bdm Franchise Pipeline** (regional_bdm_franchise_pipeline) - Route: `/offices/business_development/roles/regional_bdm/franchise-pipeline`
+- **Regional Bdm Leads** (regional_bdm_leads) - Route: `/offices/business_development/roles/regional_bdm/leads`
+- **Regional Bdm Meetings** (regional_bdm_meetings) - Route: `/offices/business_development/roles/regional_bdm/meetings`
+- **Regional Bdm Partners** (regional_bdm_partners) - Route: `/offices/business_development/roles/regional_bdm/partners`
+- **Regional Bdm Reports** (regional_bdm_reports) - Route: `/offices/business_development/roles/regional_bdm/reports`
+- **Regional Bdm Tasks** (regional_bdm_tasks) - Route: `/offices/business_development/roles/regional_bdm/tasks`
+- **Regional Bdm Territory Growth** (regional_bdm_territory_growth) - Route: `/offices/business_development/roles/regional_bdm/territory-growth`
+- **Franchise Sales Manager Contracts** (franchise_sales_manager_contracts) - Route: `/offices/business_development/roles/franchise_sales_manager/contracts`
+- **Franchise Sales Manager Discovery Calls** (franchise_sales_manager_discovery_calls) - Route: `/offices/business_development/roles/franchise_sales_manager/discovery-calls`
+- **Franchise Sales Manager Follow Ups** (franchise_sales_manager_follow_ups) - Route: `/offices/business_development/roles/franchise_sales_manager/follow-ups`
+- **Franchise Sales Manager Leads** (franchise_sales_manager_leads) - Route: `/offices/business_development/roles/franchise_sales_manager/leads`
+- **Franchise Sales Manager Proposals** (franchise_sales_manager_proposals) - Route: `/offices/business_development/roles/franchise_sales_manager/proposals`
+- **Franchise Sales Manager Prospects** (franchise_sales_manager_prospects) - Route: `/offices/business_development/roles/franchise_sales_manager/prospects`
+- **Franchise Sales Manager Reports** (franchise_sales_manager_reports) - Route: `/offices/business_development/roles/franchise_sales_manager/reports`
+- **Franchise Sales Manager Sales Pipeline** (franchise_sales_manager_sales_pipeline) - Route: `/offices/business_development/roles/franchise_sales_manager/sales-pipeline`
+- **Partnership Manager Active Deals** (partnership_manager_active_deals) - Route: `/offices/business_development/roles/partnership_manager/active-deals`
+- **Partnership Manager Outreach** (partnership_manager_outreach) - Route: `/offices/business_development/roles/partnership_manager/outreach`
+- **Partnership Manager Partners** (partnership_manager_partners) - Route: `/offices/business_development/roles/partnership_manager/partners`
+- **Partnership Manager Proposals** (partnership_manager_proposals) - Route: `/offices/business_development/roles/partnership_manager/proposals`
+- **Partnership Manager Renewals** (partnership_manager_renewals) - Route: `/offices/business_development/roles/partnership_manager/renewals`
+- **Partnership Manager Reports** (partnership_manager_reports) - Route: `/offices/business_development/roles/partnership_manager/reports`
+- **Regional Manager Ontario Dashboard** (regional_manager_ontario_dashboard) - Route: `/offices/business_development/roles/regional_manager_ontario/dashboard`
+- **Territory Expansion Manager Demographics** (territory_expansion_manager_demographics) - Route: `/offices/business_development/roles/territory_expansion_manager/demographics`
+- **Territory Expansion Manager Expansion Plans** (territory_expansion_manager_expansion_plans) - Route: `/offices/business_development/roles/territory_expansion_manager/expansion-plans`
+- **Territory Expansion Manager Forecast** (territory_expansion_manager_forecast) - Route: `/offices/business_development/roles/territory_expansion_manager/forecast`
+- **Territory Expansion Manager Market Research** (territory_expansion_manager_market_research) - Route: `/offices/business_development/roles/territory_expansion_manager/market-research`
+- **Territory Expansion Manager Open Territories** (territory_expansion_manager_open_territories) - Route: `/offices/business_development/roles/territory_expansion_manager/open-territories`
+- **Territory Expansion Manager Reports** (territory_expansion_manager_reports) - Route: `/offices/business_development/roles/territory_expansion_manager/reports`
+- **Territory Expansion Manager Site Selection** (territory_expansion_manager_site_selection) - Route: `/offices/business_development/roles/territory_expansion_manager/site-selection`
+- **Territory Expansion Manager Territory Map** (territory_expansion_manager_territory_map) - Route: `/offices/business_development/roles/territory_expansion_manager/territory-map`
+- **Ai Chatbot** (ai_chatbot) - Route: `/generated/ai-chatbot`
+- **Family Billing** (family_billing) - Route: `/offices/client/roles/family_member/billing`
+- **Family Care Updates** (family_care_updates) - Route: `/offices/client/roles/family_member/care-updates`
+- **Family Dashboard** (family_dashboard) - Route: `/offices/client/roles/family_member/dashboard`
+- **Family Emergency Contacts** (family_emergency_contacts) - Route: `/offices/client/roles/family_member/emergency-contacts`
+- **Family Loved One Schedule** (family_loved_one_schedule) - Route: `/offices/client/roles/family_member/loved-one-schedule`
+- **Family Profile** (family_profile) - Route: `/offices/client/roles/family_member/profile`
+- **Client Book Appointment** (client_book_appointment) - Route: `/generated/client-book-appointment`
+- **Client Care Team** (client_care_team) - Route: `/generated/client-care-team`
+- **Client Dashboard** (client_dashboard) - Route: `/generated/client-dashboard`
+- **Client My Appointments** (client_my_appointments) - Route: `/generated/client-my-appointments`
+- **Client Payments** (client_payments) - Route: `/generated/client-payments`
+- **Client Profile** (client_profile) - Route: `/clinic/client-profile`
+- **Client Treatment History** (client_treatment_history) - Route: `/generated/client-treatment-history`
+- **Family Member Billing** (family_member_billing) - Route: `/generated/family-member-billing`
+- **Family Member Care Updates** (family_member_care_updates) - Route: `/generated/family-member-care-updates`
+- **Family Member Emergency Contacts** (family_member_emergency_contacts) - Route: `/generated/family-member-emergency-contacts`
+- **Family Member Loved One Schedule** (family_member_loved_one_schedule) - Route: `/generated/family-member-loved-one-schedule`
+- **Family Member Profile** (family_member_profile) - Route: `/generated/family-member-profile`
+- **Unknown Dashboard** (unknown_dashboard) - Route: `/generated/unknown-dashboard`
+- **Patient Book Appointment** (patient_book_appointment) - Route: `/offices/client/roles/client/book-appointment`
+- **Patient Care Team** (patient_care_team) - Route: `/offices/client/roles/client/care-team`
+- **Patient My Appointments** (patient_my_appointments) - Route: `/offices/client/roles/client/my-appointments`
+- **Patient Payments** (patient_payments) - Route: `/offices/client/roles/client/payments`
+- **Patient Treatment History** (patient_treatment_history) - Route: `/offices/client/roles/client/treatment-history`
+- **Clinical Director Dashboard** (clinical_director_dashboard) - Route: `/offices/clinical/roles/clinical_director/dashboard`
+- **Clinical Director Quality Metrics** (clinical_director_quality_metrics) - Route: `/generated/clinical-director-quality-metrics`
+- **Clinical Director Staffing** (clinical_director_staffing) - Route: `/generated/clinical-director-staffing`
+- **Infection Control Dashboard** (infection_control_dashboard) - Route: `/generated/infection-control-dashboard`
+- **Intake Coordinator Assessments** (intake_coordinator_assessments) - Route: `/generated/intake-coordinator-assessments`
+- **Nurse Dashboard** (nurse_dashboard) - Route: `/generated/nurse-dashboard`
+- **Psw Check In** (psw_check_in) - Route: `/generated/psw-check-in`
+- **Psw Help Support** (psw_help_support) - Route: `/generated/psw-help-support`
+- **Psw Notifications** (psw_notifications) - Route: `/generated/psw-notifications`
+- **Psw Observation Vitals Log** (psw_observation_vitals_log) - Route: `/generated/psw-observation-vitals-log`
+- **Psw Patient Profile** (psw_patient_profile) - Route: `/generated/psw-patient-profile`
+- **Psw Profile** (psw_profile) - Route: `/generated/psw-profile`
+- **Psw Reports** (psw_reports) - Route: `/generated/psw-reports`
+- **Psw Schedule** (psw_schedule) - Route: `/generated/psw-schedule`
+- **Psw System Logs** (psw_system_logs) - Route: `/generated/psw-system-logs`
+- **Psw Visit Checklist** (psw_visit_checklist) - Route: `/generated/psw-visit-checklist`
+- **Psw Care Dashboard** (psw_care_dashboard) - Route: `/generated/psw-care-dashboard`
+- **Psw Daily Notes** (psw_daily_notes) - Route: `/generated/psw-daily-notes`
+- **Psw Messaging** (psw_messaging) - Route: `/generated/psw-messaging`
+- **Psw My Clients** (psw_my_clients) - Route: `/generated/psw-my-clients`
+- **Psw Task List** (psw_task_list) - Route: `/generated/psw-task-list`
+- **Rn Charting** (rn_charting) - Route: `/generated/rn-charting`
+- **Rn Messaging** (rn_messaging) - Route: `/generated/rn-messaging`
+- **Clinic History Logs** (clinic_history_logs) - Route: `/generated/clinic-history-logs`
+- **Clinic Incident Report** (clinic_incident_report) - Route: `/generated/clinic-incident-report`
+- **Ceo Alerts And Risks** (ceo_alerts_and_risks) - Route: `/offices/corporate/roles/ceo/alerts-and-risks`
+- **Ceo Approvals** (ceo_approvals) - Route: `/offices/corporate/roles/ceo/approvals`
+- **Ceo Dashboard** (ceo_dashboard) - Route: `/offices/corporate/roles/ceo/dashboard`
+- **Ceo Enterprise Overview** (ceo_enterprise_overview) - Route: `/offices/corporate/roles/ceo/enterprise-overview`
+- **Ceo Franchise Overview** (ceo_franchise_overview) - Route: `/offices/corporate/roles/ceo/franchise-overview`
+- **Ceo Growth Pipeline** (ceo_growth_pipeline) - Route: `/offices/corporate/roles/ceo/growth-pipeline`
+- **Ceo Leadership Reports** (ceo_leadership_reports) - Route: `/offices/corporate/roles/ceo/leadership-reports`
+- **Ceo Organization Map** (ceo_organization_map) - Route: `/offices/corporate/roles/ceo/organization-map`
+- **Ceo Region Performance** (ceo_region_performance) - Route: `/offices/corporate/roles/ceo/region-performance`
+- **Ceo Reports** (ceo_reports) - Route: `/offices/corporate/roles/ceo/reports`
+- **Ceo Revenue Summary** (ceo_revenue_summary) - Route: `/offices/corporate/roles/ceo/revenue-summary`
+- **Ceo Strategic Kpis** (ceo_strategic_kpis) - Route: `/offices/corporate/roles/ceo/strategic-kpis`
+- **Cfo Accounts Payable** (cfo_accounts_payable) - Route: `/offices/corporate/roles/cfo/accounts-payable`
+- **Cfo Accounts Receivable** (cfo_accounts_receivable) - Route: `/offices/corporate/roles/cfo/accounts-receivable`
+- **Cfo Financial Overview** (cfo_financial_overview) - Route: `/offices/corporate/roles/cfo/financial-overview`
+- **Cfo Franchise Financials** (cfo_franchise_financials) - Route: `/offices/corporate/roles/cfo/franchise-financials`
+- **Cfo Reports** (cfo_reports) - Route: `/offices/corporate/roles/cfo/reports`
+- **Cfo Tax And Remittance** (cfo_tax_and_remittance) - Route: `/offices/corporate/roles/cfo/tax-and-remittance`
+- **Audits** (audits) - Route: `/offices/corporate/roles/compliance_manager/audits`
+- **Compliance Cases** (compliance_cases) - Route: `/offices/corporate/roles/compliance_manager/compliance-cases`
+- **Compliance Reports** (compliance_reports) - Route: `/generated/compliance-reports`
+- **Corrective Actions** (corrective_actions) - Route: `/offices/corporate/roles/compliance_manager/corrective-actions`
+- **Credential Tracking** (credential_tracking) - Route: `/offices/corporate/roles/compliance_manager/credential-tracking`
+- **Document Expiry** (document_expiry) - Route: `/offices/corporate/roles/compliance_manager/document-expiry`
+- **Policies** (policies) - Route: `/offices/corporate/roles/compliance_manager/policies`
+- **Risk Register** (risk_register) - Route: `/offices/corporate/roles/compliance_manager/risk-register`
+- **Training Compliance** (training_compliance) - Route: `/offices/corporate/roles/compliance_manager/training-compliance`
+- **Coo Branch Operations** (coo_branch_operations) - Route: `/offices/corporate/roles/coo/branch-operations`
+- **Coo Issue Escalations** (coo_issue_escalations) - Route: `/offices/corporate/roles/coo/issue-escalations`
+- **Coo Reports** (coo_reports) - Route: `/offices/corporate/roles/coo/reports`
+- **Coo Service Delivery** (coo_service_delivery) - Route: `/offices/corporate/roles/coo/service-delivery`
+- **Coo Staffing Efficiency** (coo_staffing_efficiency) - Route: `/offices/corporate/roles/coo/staffing-efficiency`
+- **Coo Workflow Performance** (coo_workflow_performance) - Route: `/offices/corporate/roles/coo/workflow-performance`
+- **Compliance Manager Audits** (compliance_manager_audits) - Route: `/generated/compliance-manager-audits`
+- **Compliance Manager Compliance Cases** (compliance_manager_compliance_cases) - Route: `/generated/compliance-manager-compliance-cases`
+- **Compliance Manager Corrective Actions** (compliance_manager_corrective_actions) - Route: `/generated/compliance-manager-corrective-actions`
+- **Compliance Manager Credential Tracking** (compliance_manager_credential_tracking) - Route: `/generated/compliance-manager-credential-tracking`
+- **Compliance Manager Document Expiry** (compliance_manager_document_expiry) - Route: `/generated/compliance-manager-document-expiry`
+- **Compliance Manager Incident Review** (compliance_manager_incident_review) - Route: `/offices/corporate/roles/compliance_manager/incident-review`
+- **Compliance Manager Policies** (compliance_manager_policies) - Route: `/generated/compliance-manager-policies`
+- **Compliance Manager Reports** (compliance_manager_reports) - Route: `/offices/corporate/roles/compliance_manager/reports`
+- **Compliance Manager Risk Register** (compliance_manager_risk_register) - Route: `/generated/compliance-manager-risk-register`
+- **Compliance Manager Training Compliance** (compliance_manager_training_compliance) - Route: `/generated/compliance-manager-training-compliance`
+- **Cto Access Control** (cto_access_control) - Route: `/offices/corporate/roles/cto/access-control`
+- **Cto Api Monitoring** (cto_api_monitoring) - Route: `/offices/corporate/roles/cto/api-monitoring`
+- **Cto Audit Logs** (cto_audit_logs) - Route: `/offices/corporate/roles/cto/audit-logs`
+- **Cto Feature Adoption** (cto_feature_adoption) - Route: `/offices/corporate/roles/cto/feature-adoption`
+- **Cto Infrastructure** (cto_infrastructure) - Route: `/offices/corporate/roles/cto/infrastructure`
+- **Cto Integrations** (cto_integrations) - Route: `/offices/corporate/roles/cto/integrations`
+- **Cto Issue Tracking** (cto_issue_tracking) - Route: `/offices/corporate/roles/cto/issue-tracking`
+- **Cto Platform Usage** (cto_platform_usage) - Route: `/offices/corporate/roles/cto/platform-usage`
+- **Cto Release Management** (cto_release_management) - Route: `/offices/corporate/roles/cto/release-management`
+- **Cto Reports** (cto_reports) - Route: `/offices/corporate/roles/cto/reports`
+- **Cto System Health** (cto_system_health) - Route: `/offices/corporate/roles/cto/system-health`
+- **Cto System Verification** (cto_system_verification) - Route: `/offices/corporate/roles/cto/system-verification`
+- **Cto Verification Hub** (cto_verification_hub) - Route: `/offices/corporate/roles/cto/verification-hub`
+- **Finance Director Cashflow** (finance_director_cashflow) - Route: `/offices/corporate/roles/finance_director/cashflow`
+- **It Admin Dashboard** (it_admin_dashboard) - Route: `/offices/corporate/roles/it_admin/dashboard`
+- **Training Director Assessments** (training_director_assessments) - Route: `/offices/corporate/roles/training_director/assessments`
+- **Training Director Certificates** (training_director_certificates) - Route: `/offices/corporate/roles/training_director/certificates`
+- **Training Director Certifications** (training_director_certifications) - Route: `/offices/corporate/roles/training_director/certifications`
+- **Training Director Compliance Training** (training_director_compliance_training) - Route: `/offices/corporate/roles/training_director/compliance-training`
+- **Training Director Course Architect** (training_director_course_architect) - Route: `/offices/corporate/roles/training_director/course-architect`
+- **Training Director Course Library** (training_director_course_library) - Route: `/offices/corporate/roles/training_director/course-library`
+- **Training Director Hub** (training_director_hub) - Route: `/offices/corporate/roles/training_director/hub`
+- **Training Director Reports** (training_director_reports) - Route: `/offices/corporate/roles/training_director/reports`
+- **Training Director Staff Training Matrix** (training_director_staff_training_matrix) - Route: `/offices/corporate/roles/training_director/staff-training-matrix`
+- **Training Director Trainer Assignments** (training_director_trainer_assignments) - Route: `/offices/corporate/roles/training_director/trainer-assignments`
+- **Training Director Training Programs** (training_director_training_programs) - Route: `/offices/corporate/roles/training_director/training-programs`
+- **Assessments** (assessments) - Route: `/generated/assessments`
+- **Certificates** (certificates) - Route: `/generated/certificates`
+- **Certifications** (certifications) - Route: `/generated/certifications`
+- **Compliance Training** (compliance_training) - Route: `/generated/compliance-training`
+- **Course Architect** (course_architect) - Route: `/generated/course-architect`
+- **Course Library** (course_library) - Route: `/generated/course-library`
+- **Staff Training Matrix** (staff_training_matrix) - Route: `/generated/staff-training-matrix`
+- **Trainer Assignments** (trainer_assignments) - Route: `/generated/trainer-assignments`
+- **Training Analytics** (training_analytics) - Route: `/generated/training-analytics`
+- **Training Hub** (training_hub) - Route: `/generated/training-hub`
+- **Training Programs** (training_programs) - Route: `/generated/training-programs`
+- **Training Reports** (training_reports) - Route: `/generated/training-reports`
+- **Admin Claims** (admin_claims) - Route: `/offices/franchise/roles/admin/claims`
+- **Admin Dashboard** (admin_dashboard) - Route: `/offices/franchise/roles/admin/dashboard`
+- **Admin Invoices** (admin_invoices) - Route: `/offices/franchise/roles/admin/invoices`
+- **Admin Outstanding Balances** (admin_outstanding_balances) - Route: `/offices/franchise/roles/admin/outstanding-balances`
+- **Admin Payments** (admin_payments) - Route: `/offices/franchise/roles/admin/payments`
+- **Admin Reconciliation** (admin_reconciliation) - Route: `/offices/franchise/roles/admin/reconciliation`
+- **Admin Refunds** (admin_refunds) - Route: `/offices/franchise/roles/admin/refunds`
+- **Admin Reports** (admin_reports) - Route: `/offices/franchise/roles/admin/reports`
+- **Billing Admin Invoices** (billing_admin_invoices) - Route: `/offices/franchise/roles/billing_admin/invoices`
+- **Franchise Owner Dashboard** (franchise_owner_dashboard) - Route: `/offices/franchise/roles/franchise_owner/dashboard`
+- **Franchise Owner Financial Snapshot** (franchise_owner_financial_snapshot) - Route: `/offices/franchise/roles/franchise_owner/financial-snapshot`
+- **Franchise Owner Hiring** (franchise_owner_hiring) - Route: `/offices/franchise/roles/franchise_owner/hiring`
+- **Hr Hiring Reports** (hr_hiring_reports) - Route: `/offices/franchise/roles/hr_hiring/reports`
+- **Hr Hiring Staff Documents** (hr_hiring_staff_documents) - Route: `/offices/franchise/roles/hr_hiring/staff-documents`
+- **Hr Hiring Training Status** (hr_hiring_training_status) - Route: `/offices/franchise/roles/hr_hiring/training-status`
+- **Marketing Manager Campaigns** (marketing_manager_campaigns) - Route: `/offices/franchise/roles/marketing_manager/campaigns`
+- **Marketing Manager Dashboard** (marketing_manager_dashboard) - Route: `/offices/franchise/roles/marketing_manager/dashboard`
+- **Operations Manager Attendance** (operations_manager_attendance) - Route: `/offices/franchise/roles/operations_manager/attendance`
+- **Operations Manager Daily Operations** (operations_manager_daily_operations) - Route: `/offices/franchise/roles/operations_manager/daily-operations`
+- **Operations Manager Issues** (operations_manager_issues) - Route: `/offices/franchise/roles/operations_manager/issues`
+- **Operations Manager Reports** (operations_manager_reports) - Route: `/offices/franchise/roles/operations_manager/reports`
+- **Operations Manager Schedule** (operations_manager_schedule) - Route: `/offices/franchise/roles/operations_manager/schedule`
+- **Operations Manager Service Quality** (operations_manager_service_quality) - Route: `/offices/franchise/roles/operations_manager/service-quality`
+- **Operations Manager Shifts** (operations_manager_shifts) - Route: `/offices/franchise/roles/operations_manager/shifts`
+- **Operations Manager Staff Coordination** (operations_manager_staff_coordination) - Route: `/offices/franchise/roles/operations_manager/staff-coordination`
+- **Regional Manager Branch Comparison** (regional_manager_branch_comparison) - Route: `/offices/franchise/roles/regional_manager/branch_comparison`
+- **Regional Manager Dashboard** (regional_manager_dashboard) - Route: `/offices/franchise/roles/regional_manager/dashboard`
+- **Scheduler Coordinator Appointment Calendar** (scheduler_coordinator_appointment_calendar) - Route: `/offices/franchise/roles/scheduler_coordinator/appointment-calendar`
+- **Scheduler Coordinator Assignments** (scheduler_coordinator_assignments) - Route: `/offices/franchise/roles/scheduler_coordinator/assignments`
+- **Scheduler Coordinator Booking Requests** (scheduler_coordinator_booking_requests) - Route: `/offices/franchise/roles/scheduler_coordinator/booking-requests`
+- **Scheduler Coordinator Conflicts** (scheduler_coordinator_conflicts) - Route: `/offices/franchise/roles/scheduler_coordinator/conflicts`
+- **Scheduler Coordinator Open Shifts** (scheduler_coordinator_open_shifts) - Route: `/offices/franchise/roles/scheduler_coordinator/open-shifts`
+- **Scheduler Coordinator Provider Availability** (scheduler_coordinator_provider_availability) - Route: `/offices/franchise/roles/scheduler_coordinator/provider-availability`
+- **Scheduler Coordinator Reports** (scheduler_coordinator_reports) - Route: `/offices/franchise/roles/scheduler_coordinator/reports`
+- **Scheduler Coordinator Shift Calendar** (scheduler_coordinator_shift_calendar) - Route: `/offices/franchise/roles/scheduler_coordinator/shift-calendar`
+- **Dynamic** (dynamic) - Route: `/generated/dynamic`
+- **Blueprint Sandbox** (blueprint_sandbox) - Route: `/generated/blueprint-sandbox`
+- **Audit Sandbox** (audit_sandbox) - Route: `/generated/audit-sandbox`
+- **No Access** (no_access) - Route: `/generated/no-access`
+- **Audit Log** (audit_log) - Route: `/governance/audit`
+- **Monitoring** (monitoring) - Route: `/governance/monitoring`
+- **Screen Status** (screen_status) - Route: `/governance/screen-status`
+- **Ticket Center** (ticket_center) - Route: `/governance/tickets`
+- **Control Center** (control_center) - Route: `/governance/control-center`
+- **Governance Hud** (governance_hud) - Route: `/governance/hud`
+- **Growth Pipeline** (growth_pipeline) - Route: `/generated/offices/corporate/roles/ceo/growth-pipeline`
+- **Leadership Reports** (leadership_reports) - Route: `/generated/offices/corporate/roles/ceo/leadership-reports`
+- **Proposals** (proposals) - Route: `/proposals`
+- **Regional Performance** (regional_performance) - Route: `/generated/offices/corporate/roles/ceo/region-performance`
+- **Audit Dashboard** (audit_dashboard) - Route: `/generated/audit-dashboard`
+- **Compliance Reviews** (compliance_reviews) - Route: `/generated/compliance-reviews`
+- **Incident Reports** (incident_reports) - Route: `/generated/incident-reports`
+- **Quality Metrics** (quality_metrics) - Route: `/generated/quality-metrics`
+- **Clinical Reference** (clinical_reference) - Route: `/governance/clinical-reference`
+- **Security Hub** (security_hub) - Route: `/governance/device-security`
+- **Security Sentinel** (security_sentinel) - Route: `/governance/security`
+- **Verification Center** (verification_center) - Route: `/verification`
+- **Community Outreach Contacts** (community_outreach_contacts) - Route: `/generated/community-outreach-contacts`
+- **Community Outreach Events** (community_outreach_events) - Route: `/generated/community-outreach-events`
+- **Community Outreach Follow Ups** (community_outreach_follow_ups) - Route: `/generated/community-outreach-follow-ups`
+- **Community Outreach Partnerships** (community_outreach_partnerships) - Route: `/generated/community-outreach-partnerships`
+- **Community Outreach Programs** (community_outreach_programs) - Route: `/generated/community-outreach-programs`
+- **Community Outreach Reports** (community_outreach_reports) - Route: `/generated/community-outreach-reports`
+- **Community Outreach Volunteers** (community_outreach_volunteers) - Route: `/generated/community-outreach-volunteers`
+- **Head Of Marketing Brand Assets** (head_of_marketing_brand_assets) - Route: `/generated/head-of-marketing-brand-assets`
+- **Head Of Marketing Campaigns** (head_of_marketing_campaigns) - Route: `/generated/head-of-marketing-campaigns`
+- **Head Of Marketing Content Approval** (head_of_marketing_content_approval) - Route: `/generated/head-of-marketing-content-approval`
+- **Head Of Marketing Funnel Analytics** (head_of_marketing_funnel_analytics) - Route: `/generated/head-of-marketing-funnel-analytics`
+- **Head Of Marketing Leads** (head_of_marketing_leads) - Route: `/generated/head-of-marketing-leads`
+- **Head Of Marketing Performance Reports** (head_of_marketing_performance_reports) - Route: `/generated/head-of-marketing-performance-reports`
+- **Head Of Marketing Regional Campaigns** (head_of_marketing_regional_campaigns) - Route: `/generated/head-of-marketing-regional-campaigns`
+- **Local Marketing Manager Assets** (local_marketing_manager_assets) - Route: `/generated/local-marketing-manager-assets`
+- **Local Marketing Manager Budget** (local_marketing_manager_budget) - Route: `/generated/local-marketing-manager-budget`
+- **Local Marketing Manager Campaigns** (local_marketing_manager_campaigns) - Route: `/generated/local-marketing-manager-campaigns`
+- **Local Marketing Manager Content Calendar** (local_marketing_manager_content_calendar) - Route: `/generated/local-marketing-manager-content-calendar`
+- **Local Marketing Manager Events** (local_marketing_manager_events) - Route: `/generated/local-marketing-manager-events`
+- **Local Marketing Manager Leads** (local_marketing_manager_leads) - Route: `/generated/local-marketing-manager-leads`
+- **Local Marketing Manager Reports** (local_marketing_manager_reports) - Route: `/generated/local-marketing-manager-reports`
+- **Territory Sales Manager Area Performance** (territory_sales_manager_area_performance) - Route: `/generated/territory-sales-manager-area-performance`
+- **Territory Sales Manager Competitors** (territory_sales_manager_competitors) - Route: `/generated/territory-sales-manager-competitors`
+- **Territory Sales Manager Conversions** (territory_sales_manager_conversions) - Route: `/generated/territory-sales-manager-conversions`
+- **Territory Sales Manager Field Activity** (territory_sales_manager_field_activity) - Route: `/generated/territory-sales-manager-field-activity`
+- **Territory Sales Manager Leads** (territory_sales_manager_leads) - Route: `/generated/territory-sales-manager-leads`
+- **Territory Sales Manager Pipeline** (territory_sales_manager_pipeline) - Route: `/generated/territory-sales-manager-pipeline`
+- **Territory Sales Manager Reports** (territory_sales_manager_reports) - Route: `/generated/territory-sales-manager-reports`
+- **Customer Support Escalations** (customer_support_escalations) - Route: `/generated/customer-support-escalations`
+- **Customer Support Issue Categories** (customer_support_issue_categories) - Route: `/generated/customer-support-issue-categories`
+- **Customer Support Reports** (customer_support_reports) - Route: `/generated/customer-support-reports`
+- **Customer Support Templates** (customer_support_templates) - Route: `/generated/customer-support-templates`
+- **Customer Support Tickets** (customer_support_tickets) - Route: `/generated/customer-support-tickets`
+- **Intake Coordinator Client Assignment** (intake_coordinator_client_assignment) - Route: `/generated/intake-coordinator-client-assignment`
+- **Intake Coordinator Eligibility** (intake_coordinator_eligibility) - Route: `/generated/intake-coordinator-eligibility`
+- **Intake Coordinator Intake Forms** (intake_coordinator_intake_forms) - Route: `/generated/intake-coordinator-intake-forms`
+- **Intake Coordinator New Intakes** (intake_coordinator_new_intakes) - Route: `/generated/intake-coordinator-new-intakes`
+- **Intake Coordinator Reports** (intake_coordinator_reports) - Route: `/generated/intake-coordinator-reports`
+- **Intake Coordinator Scheduling** (intake_coordinator_scheduling) - Route: `/generated/intake-coordinator-scheduling`
+- **Quality Assurance Audits** (quality_assurance_audits) - Route: `/generated/quality-assurance-audits`
+- **Quality Assurance Complaints** (quality_assurance_complaints) - Route: `/generated/quality-assurance-complaints`
+- **Quality Assurance Compliance Checks** (quality_assurance_compliance_checks) - Route: `/generated/quality-assurance-compliance-checks`
+- **Quality Assurance Corrective Actions** (quality_assurance_corrective_actions) - Route: `/generated/quality-assurance-corrective-actions`
+- **Quality Assurance Reports** (quality_assurance_reports) - Route: `/generated/quality-assurance-reports`
+- **Quality Assurance Reviews** (quality_assurance_reviews) - Route: `/generated/quality-assurance-reviews`
+- **Quality Assurance Scorecards** (quality_assurance_scorecards) - Route: `/generated/quality-assurance-scorecards`
+- **Training Coordinator Attendance** (training_coordinator_attendance) - Route: `/generated/training-coordinator-attendance`
+- **Training Coordinator Certifications** (training_coordinator_certifications) - Route: `/generated/training-coordinator-certifications`
+- **Training Coordinator Courses** (training_coordinator_courses) - Route: `/generated/training-coordinator-courses`
+- **Training Coordinator Materials** (training_coordinator_materials) - Route: `/generated/training-coordinator-materials`
+- **Training Coordinator Progress** (training_coordinator_progress) - Route: `/generated/training-coordinator-progress`
+- **Training Coordinator Reports** (training_coordinator_reports) - Route: `/generated/training-coordinator-reports`
+- **Training Coordinator Training Schedule** (training_coordinator_training_schedule) - Route: `/generated/training-coordinator-training-schedule`
+- **Training Coordinator Workshops** (training_coordinator_workshops) - Route: `/generated/training-coordinator-workshops`
+- **Escalation Dashboard** (escalation_dashboard) - Route: `/support/escalation-dashboard`
+- **Help Desk Dashboard** (help_desk_dashboard) - Route: `/support/help-desk-dashboard`
+- **It Administrator Dashboard** (it_administrator_dashboard) - Route: `/generated/it-administrator-dashboard`
+- **Prime Care** (prime_care) - Route: `/generated/prime-care`
+- **Default Not Implemented** (default_not_implemented) - Route: `/generated/default-not-implemented`
+- **Sso Redirect** (sso_redirect) - Route: `/generated/sso-redirect`
+- **Governed** (governed) - Route: `/generated/governed`
+- **Access Review Certifier** (access_review_certifier) - Route: `/generated/access-review-certifier`
+- **Admin User Management** (admin_user_management) - Route: `/generated/admin-user-management`
+- **Api Key Manager** (api_key_manager) - Route: `/generated/api-key-manager`
+- **Compliance Training Tracker** (compliance_training_tracker) - Route: `/generated/compliance-training-tracker`
+- **Configuration Version Control** (configuration_version_control) - Route: `/generated/configuration-version-control`
+- **Consent Management Console** (consent_management_console) - Route: `/generated/consent-management-console`
+- **Crisis Protocol Trigger** (crisis_protocol_trigger) - Route: `/generated/crisis-protocol-trigger`
+- **Data Privacy Monitor** (data_privacy_monitor) - Route: `/generated/data-privacy-monitor`
+- **Ecosystem State Board** (ecosystem_state_board) - Route: `/generated/ecosystem-state-board`
+- **F A Q Manager** (f_a_q_manager) - Route: `/generated/f-a-q-manager`
+- **Feature Flag Controller** (feature_flag_controller) - Route: `/generated/feature-flag-controller`
+- **Hipaa Audit Dashboard** (hipaa_audit_dashboard) - Route: `/generated/hipaa-audit-dashboard`
+- **Incident Response Hub** (incident_response_hub) - Route: `/generated/incident-response-hub`
+- **Integration Health Monitor** (integration_health_monitor) - Route: `/generated/integration-health-monitor`
+- **Lead Pipeline** (lead_pipeline) - Route: `/generated/lead-pipeline`
+- **Message Archiveer** (message_archiveer) - Route: `/generated/message-archiveer`
+- **Osha Incident Reporter** (osha_incident_reporter) - Route: `/generated/osha-incident-reporter`
+- **Policy Exception Tracker** (policy_exception_tracker) - Route: `/generated/policy-exception-tracker`
+- **Protocol Resolution Log** (protocol_resolution_log) - Route: `/generated/protocol-resolution-log`
+- **Provider Performance Dashboard** (provider_performance_dashboard) - Route: `/generated/provider-performance-dashboard`
+- **Quality Assurance Metrics** (quality_assurance_metrics) - Route: `/generated/quality-assurance-metrics`
+- **Registry Entry Editor** (registry_entry_editor) - Route: `/generated/registry-entry-editor`
+- **Regulatory Change Radar** (regulatory_change_radar) - Route: `/generated/regulatory-change-radar`
+- **Resource Allocation Map** (resource_allocation_map) - Route: `/generated/resource-allocation-map`
+- **Response Bot Audit** (response_bot_audit) - Route: `/generated/response-bot-audit`
+- **Role Access Matrix** (role_access_matrix) - Route: `/generated/role-access-matrix`
+- **Role Access** (role_access) - Route: `/generated/role-access`
+- **Secure Message Center** (secure_message_center) - Route: `/generated/secure-message-center`
+- **Security Incident Logger** (security_incident_logger) - Route: `/generated/security-incident-logger`
+- **Service Mesh Topology** (service_mesh_topology) - Route: `/generated/service-mesh-topology`
+- **System Capacity Planner** (system_capacity_planner) - Route: `/generated/system-capacity-planner`
+- **Tenant Configuration** (tenant_configuration) - Route: `/generated/tenant-configuration`
+- **Touchpoint Analyzer** (touchpoint_analyzer) - Route: `/generated/touchpoint-analyzer`
+- **User Management** (user_management) - Route: `/generated/user-management`
+- **Vendor Risk Assessor** (vendor_risk_assessor) - Route: `/generated/vendor-risk-assessor`
+- **Board Of Directors Summary** (board_of_directors_summary) - Route: `/generated/board-of-directors-summary`
+- **Clinical Outcomes Report** (clinical_outcomes_report) - Route: `/generated/clinical-outcomes-report`
+- **Financial Forecasting Model** (financial_forecasting_model) - Route: `/generated/financial-forecasting-model`
+- **Marketing R O I Report** (marketing_r_o_i_report) - Route: `/generated/marketing-r-o-i-report`
+- **Operational Efficiency Metrics** (operational_efficiency_metrics) - Route: `/generated/operational-efficiency-metrics`
+- **Patient Retention Analytics** (patient_retention_analytics) - Route: `/generated/patient-retention-analytics`
+- **Population Health Analyzer** (population_health_analyzer) - Route: `/generated/population-health-analyzer`
+- **Predictive Analytics Dashboard** (predictive_analytics_dashboard) - Route: `/generated/predictive-analytics-dashboard`
+- **Staff Utilization Heatmap** (staff_utilization_heatmap) - Route: `/generated/staff-utilization-heatmap`
+- **Supply Chain Cost Analyzer** (supply_chain_cost_analyzer) - Route: `/generated/supply-chain-cost-analyzer`
+- **Forgot Password** (forgot_password) - Route: `/generated/forgot-password`
+- **Login** (login) - Route: `/generated/login`
+- **Mfa** (mfa) - Route: `/generated/mfa`
+- **Reset Password** (reset_password) - Route: `/generated/reset-password`
+- **Certification Renewal Alerts** (certification_renewal_alerts) - Route: `/generated/certification-renewal-alerts`
+- **Clinical Guideline Library** (clinical_guideline_library) - Route: `/generated/clinical-guideline-library`
+- **C M E Tracking Dashboard** (c_m_e_tracking_dashboard) - Route: `/generated/c-m-e-tracking-dashboard`
+- **Journal Club Discussion Board** (journal_club_discussion_board) - Route: `/generated/journal-club-discussion-board`
+- **Medical Library Access Portal** (medical_library_access_portal) - Route: `/generated/medical-library-access-portal`
+- **Patient Case Study Repository** (patient_case_study_repository) - Route: `/generated/patient-case-study-repository`
+- **Peer Review Conference Room** (peer_review_conference_room) - Route: `/generated/peer-review-conference-room`
+- **Residency Program Tracker** (residency_program_tracker) - Route: `/generated/residency-program-tracker`
+- **Simulation Lab Scheduler** (simulation_lab_scheduler) - Route: `/generated/simulation-lab-scheduler`
+- **Surgical Video Archive** (surgical_video_archive) - Route: `/generated/surgical-video-archive`
+- **Billing Claims** (billing_claims) - Route: `/generated/billing-claims`
+- **Billing Invoices** (billing_invoices) - Route: `/generated/billing-invoices`
+- **Billing Payments** (billing_payments) - Route: `/generated/billing-payments`
+- **Hr Applicants** (hr_applicants) - Route: `/generated/hr-applicants`
+- **Hr Onboarding** (hr_onboarding) - Route: `/generated/hr-onboarding`
+- **Hr Staff Files** (hr_staff_files) - Route: `/generated/hr-staff-files`
+- **Receptionist Appointments** (receptionist_appointments) - Route: `/generated/receptionist-appointments`
+- **Receptionist Calls** (receptionist_calls) - Route: `/generated/receptionist-calls`
+- **Receptionist Visitors** (receptionist_visitors) - Route: `/generated/receptionist-visitors`
+- **Scheduler Availability** (scheduler_availability) - Route: `/generated/scheduler-availability`
+- **Scheduler Shifts** (scheduler_shifts) - Route: `/generated/scheduler-shifts`
+- **Brand Asset Library** (brand_asset_library) - Route: `/generated/brand-asset-library`
+- **Campaign Performance Dashboard** (campaign_performance_dashboard) - Route: `/generated/campaign-performance-dashboard`
+- **Competitor Analysis Board** (competitor_analysis_board) - Route: `/generated/competitor-analysis-board`
+- **Email Marketing Automator** (email_marketing_automator) - Route: `/generated/email-marketing-automator`
+- **Event And Webinar Manager** (event_and_webinar_manager) - Route: `/generated/event-and-webinar-manager`
+- **Lead Conversion Funnel** (lead_conversion_funnel) - Route: `/generated/lead-conversion-funnel`
+- **Patient Acquisition Cost Tracker** (patient_acquisition_cost_tracker) - Route: `/generated/patient-acquisition-cost-tracker`
+- **Referral Network Manager** (referral_network_manager) - Route: `/generated/referral-network-manager`
+- **Social Media Sentiment Analyzer** (social_media_sentiment_analyzer) - Route: `/generated/social-media-sentiment-analyzer`
+- **Territory Sales Mapping** (territory_sales_mapping) - Route: `/generated/territory-sales-mapping`
+- **App Notification** (app_notification) - Route: `/generated/app-notification`
+- **Gamification Profile** (gamification_profile) - Route: `/generated/gamification-profile`
+- **Security Incident** (security_incident) - Route: `/generated/security-incident`
+- **Service Procurement** (service_procurement) - Route: `/generated/service-procurement`
+- **Site Readiness** (site_readiness) - Route: `/generated/site-readiness`
+- **Virtual Consult** (virtual_consult) - Route: `/generated/virtual-consult`
+- **Chemotherapy Protocol Builder** (chemotherapy_protocol_builder) - Route: `/generated/chemotherapy-protocol-builder`
+- **Controlled Substance Log** (controlled_substance_log) - Route: `/generated/controlled-substance-log`
+- **Drug Interaction Alert Center** (drug_interaction_alert_center) - Route: `/generated/drug-interaction-alert-center`
+- **Formulary Compliance Manager** (formulary_compliance_manager) - Route: `/generated/formulary-compliance-manager`
+- **Inpatient Pharmacy Queue** (inpatient_pharmacy_queue) - Route: `/generated/inpatient-pharmacy-queue`
+- **Medication Reconciliation Tool** (medication_reconciliation_tool) - Route: `/generated/medication-reconciliation-tool`
+- **Outpatient Prescription Tracker** (outpatient_prescription_tracker) - Route: `/generated/outpatient-prescription-tracker`
+- **Patient Medication Adherence** (patient_medication_adherence) - Route: `/generated/patient-medication-adherence`
+- **Pharmacy Dispensing Dashboard** (pharmacy_dispensing_dashboard) - Route: `/generated/pharmacy-dispensing-dashboard`
+- **Pharmacy Inventory Management** (pharmacy_inventory_management) - Route: `/generated/pharmacy-inventory-management`
+- **Community Health Needs Assessment** (community_health_needs_assessment) - Route: `/generated/community-health-needs-assessment`
+- **Environmental Health Hazards** (environmental_health_hazards) - Route: `/generated/environmental-health-hazards`
+- **Epidemiological Surveillance Dashboard** (epidemiological_surveillance_dashboard) - Route: `/generated/epidemiological-surveillance-dashboard`
+- **Mobile Clinic Dispatch** (mobile_clinic_dispatch) - Route: `/generated/mobile-clinic-dispatch`
+- **Public Health Alert Broadcaster** (public_health_alert_broadcaster) - Route: `/generated/public-health-alert-broadcaster`
+- **School Health Program Dashboard** (school_health_program_dashboard) - Route: `/generated/school-health-program-dashboard`
+- **Social Determinants Of Health Tracker** (social_determinants_of_health_tracker) - Route: `/generated/social-determinants-of-health-tracker`
+- **Substance Abuse Prevention Tracker** (substance_abuse_prevention_tracker) - Route: `/generated/substance-abuse-prevention-tracker`
+- **Vaccination Campaign Manager** (vaccination_campaign_manager) - Route: `/generated/vaccination-campaign-manager`
+- **Vulnerable Population Registry** (vulnerable_population_registry) - Route: `/generated/vulnerable-population-registry`
+- **Adverse Event Reporting Portal** (adverse_event_reporting_portal) - Route: `/generated/adverse-event-reporting-portal`
+- **Biospecimen Inventory Tracker** (biospecimen_inventory_tracker) - Route: `/generated/biospecimen-inventory-tracker`
+- **Clinical Trial Recruitment Dashboard** (clinical_trial_recruitment_dashboard) - Route: `/generated/clinical-trial-recruitment-dashboard`
+- **Grant Funding Allocation** (grant_funding_allocation) - Route: `/generated/grant-funding-allocation`
+- **Informed Consent Tracker** (informed_consent_tracker) - Route: `/generated/informed-consent-tracker`
+- **Multi Center Trial Collaboration** (multi_center_trial_collaboration) - Route: `/generated/multi-center-trial-collaboration`
+- **Patient Trial Outcomeser** (patient_trial_outcomeser) - Route: `/generated/patient-trial-outcomeser`
+- **Research Protocol Manager** (research_protocol_manager) - Route: `/generated/research-protocol-manager`
+- **Research Publication Drafting** (research_publication_drafting) - Route: `/generated/research-publication-drafting`
+- **Trial Data Collection C R F** (trial_data_collection_c_r_f) - Route: `/generated/trial-data-collection-c-r-f`
+- **Asynchronous Consultation Inbox** (asynchronous_consultation_inbox) - Route: `/generated/asynchronous-consultation-inbox`
+- **Chronic Care Management Tracker** (chronic_care_management_tracker) - Route: `/generated/chronic-care-management-tracker`
+- **Device Integration Hub** (device_integration_hub) - Route: `/generated/device-integration-hub`
+- **Digital Symptom Checker** (digital_symptom_checker) - Route: `/generated/digital-symptom-checker`
+- **Remote Diagnosticser** (remote_diagnosticser) - Route: `/generated/remote-diagnosticser`
+- **Remote Patient Monitoring Dashboard** (remote_patient_monitoring_dashboard) - Route: `/generated/remote-patient-monitoring-dashboard`
+- **Telehealth Consultation Room** (telehealth_consultation_room) - Route: `/generated/telehealth-consultation-room`
+- **Telehealth Quality Metrics** (telehealth_quality_metrics) - Route: `/generated/telehealth-quality-metrics`
+- **Telemedicine Prescription Pad** (telemedicine_prescription_pad) - Route: `/generated/telemedicine-prescription-pad`
+- **Virtual Waiting Room** (virtual_waiting_room) - Route: `/generated/virtual-waiting-room`
+- **Screen Audit** (screen_audit) - Route: `/generated/screen-audit`
+- **Dynamic Dashboard** (dynamic_dashboard) - Route: `/generated/dynamic-dashboard`
+- **Screen Not Implemented** (screen_not_implemented) - Route: `/generated/screen-not-implemented`

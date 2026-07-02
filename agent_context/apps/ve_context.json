@@ -1,0 +1,12 @@
+{
+  "app": {
+    "id": 36,
+    "app_code": "ve",
+    "app_name": "Verification Api",
+    "description": null,
+    "owner_team": null,
+    "active": 1
+  },
+  "screens_count": 0,
+  "screens": []
+}

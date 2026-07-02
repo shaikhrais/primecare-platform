@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:primecare_ui/src/features/generated_screens/finance_director_dashboard.dart';
 
 Widget wrapWithHarness(Widget screen) {
   return ProviderScope(

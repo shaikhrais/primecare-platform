@@ -1,0 +1,103 @@
+{
+  "app": {
+    "id": 11,
+    "app_code": "ma",
+    "app_name": "Primecare Marketing",
+    "description": null,
+    "owner_team": null,
+    "active": 1
+  },
+  "screens_count": 6,
+  "screens": [
+    {
+      "id": 50,
+      "app_id": 11,
+      "role_id": 38,
+      "screen_code": "head_of_marketing_dashboard",
+      "screen_name": "HeadOfMarketingDashboardScreen",
+      "route_path": "/offices/corporate/roles/head_of_marketing/dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/features/generated_screens/head_of_marketing_dashboard.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 51,
+      "app_id": 11,
+      "role_id": 39,
+      "screen_code": "local_marketing_manager_dashboard",
+      "screen_name": "LocalMarketingManagerDashboardScreen",
+      "route_path": "/offices/marketing/roles/local_marketing_manager/dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 499,
+      "app_id": 11,
+      "role_id": 38,
+      "screen_code": "campaign_dashboard",
+      "screen_name": "CampaignDashboardScreen",
+      "route_path": "/management/campaign-dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/campaign_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 500,
+      "app_id": 11,
+      "role_id": 38,
+      "screen_code": "lead_analytics",
+      "screen_name": "LeadAnalyticsScreen",
+      "route_path": "/management/lead-analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/lead_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 501,
+      "app_id": 11,
+      "role_id": 38,
+      "screen_code": "social_media",
+      "screen_name": "SocialMediaScreen",
+      "route_path": "/management/social-media",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/social_media_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 502,
+      "app_id": 11,
+      "role_id": 38,
+      "screen_code": "brand_management",
+      "screen_name": "BrandManagementScreen",
+      "route_path": "/management/brand-management",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/brand_management_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

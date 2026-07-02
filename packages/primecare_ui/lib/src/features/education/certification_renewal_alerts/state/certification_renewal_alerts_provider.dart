@@ -1,0 +1,7 @@
+// Governance - Category: state | Purpose: Riverpod state notifier for Certification Renewal Alerts
+// TODO: Implement state providers, loading triggers, and action mutations.
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class CertificationRenewalAlertsNotifier extends StateNotifier<AsyncValue<void>> {
+  CertificationRenewalAlertsNotifier() : super(const AsyncValue.data(null));
+}

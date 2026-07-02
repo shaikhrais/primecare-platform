@@ -1,0 +1,72 @@
+{
+  "role": {
+    "id": 30,
+    "role_code": "shareholder",
+    "role_name": "Shareholder",
+    "role_type": "staff",
+    "active": 1
+  },
+  "screens_count": 4,
+  "screens": [
+    {
+      "id": 42,
+      "app_id": 5,
+      "role_id": 30,
+      "screen_code": "shareholder_dashboard",
+      "screen_name": "ShareholderDashboardScreen",
+      "route_path": "/offices/corporate/roles/shareholder/dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/features/generated_screens/shareholder_dashboard.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 180,
+      "app_id": 1,
+      "role_id": 30,
+      "screen_code": "shareholder_analytics",
+      "screen_name": "ShareholderAnalyticsScreen",
+      "route_path": "/executive/shareholder-analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/executive/shareholder_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 181,
+      "app_id": 1,
+      "role_id": 30,
+      "screen_code": "shareholder_compliance",
+      "screen_name": "ShareholderComplianceScreen",
+      "route_path": "/executive/shareholder-compliance",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/executive/shareholder_compliance_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 182,
+      "app_id": 1,
+      "role_id": 30,
+      "screen_code": "shareholder_workflow",
+      "screen_name": "ShareholderWorkflowScreen",
+      "route_path": "/executive/shareholder-workflow",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/executive/shareholder_workflow_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

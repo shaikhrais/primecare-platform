@@ -1,0 +1,12 @@
+{
+  "app": {
+    "id": 32,
+    "app_code": "no",
+    "app_name": "Notes Api",
+    "description": null,
+    "owner_team": null,
+    "active": 1
+  },
+  "screens_count": 0,
+  "screens": []
+}

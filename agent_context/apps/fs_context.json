@@ -1,0 +1,12 @@
+{
+  "app": {
+    "id": 18,
+    "app_code": "fs",
+    "app_name": "Factory System",
+    "description": null,
+    "owner_team": null,
+    "active": 1
+  },
+  "screens_count": 0,
+  "screens": []
+}

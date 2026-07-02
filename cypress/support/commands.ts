@@ -2,6 +2,7 @@ declare global {
   namespace Cypress {
     interface Chainable {
       loginAsRole(roleCode: string): Chainable<void>;
+      assertLoginSuccessful(roleCode: string): Chainable<void>;
       verifyRequiredElements(elements: Array<{ selector: string; required: boolean }>): Chainable<void>;
       verifyForbiddenText(forbiddenText: string[]): Chainable<void>;
       verifyNoConsoleErrors(): Chainable<void>;
@@ -143,15 +144,20 @@ Cypress.Commands.add("verifyScreenNotEmpty", () => {
     });
 });
 
-// 5. Verify role sidebar exists, links match expected items, and clicking them loads non-empty pages
 Cypress.Commands.add("verifyRoleSidebar", (roleCode, expectedLinks) => {
   cy.getCy('app-sidebar').should('be.visible');
   
   cy.getCy('app-sidebar').then((sidebar) => {
-    const buttons = sidebar.find('flt-semantics[role="button"]');
+    const buttons = sidebar.find('flt-semantics[role="button"], flt-semantics[aria-label*="data-cy:sidebar-nav-"]');
     const actualLinks: string[] = [];
     buttons.each((i, el) => {
-      const text = el.textContent?.trim() || el.getAttribute('aria-label') || '';
+      let text = el.textContent?.trim() || '';
+      const label = el.getAttribute('aria-label') || '';
+      if (!text && label.includes('data-cy:sidebar-nav-')) {
+        text = label.split('data-cy:sidebar-nav-')[1].replace(/-/g, ' ');
+      } else if (!text) {
+        text = label;
+      }
       if (text) {
         actualLinks.push(text);
       }
@@ -194,7 +200,9 @@ Cypress.Commands.add("verifyRoleSidebar", (roleCode, expectedLinks) => {
     // Click every sidebar link and verify route opens
     const count = buttons.length;
     for (let i = 0; i < count; i++) {
-      cy.getCy('app-sidebar').find('flt-semantics[role="button"]').eq(i).then(($btn) => {
+      cy.getCy('app-sidebar').then((currentSidebar) => {
+        const currentButtons = currentSidebar.find('flt-semantics[role="button"], flt-semantics[aria-label*="data-cy:sidebar-nav-"]');
+        const $btn = currentButtons.eq(i);
         const labelText = $btn.text().trim() || $btn.attr('aria-label') || `item_${i}`;
         cy.log(`Clicking sidebar item: ${labelText}`);
         cy.wrap($btn).click({ force: true });
@@ -295,6 +303,51 @@ Cypress.Commands.add("recordDbTestResult", (res) => {
       }
       return cy.wrap(insertResult);
     });
+  });
+});
+
+Cypress.Commands.add("assertLoginSuccessful", (roleCode) => {
+  cy.url().should("not.include", "/login");
+  
+  cy.window().then((win) => {
+    let hasToken = false;
+    for (let i = 0; i < win.localStorage.length; i++) {
+      const key = win.localStorage.key(i);
+      if (key && (key.includes("token") || key.includes("auth"))) {
+        hasToken = true;
+        break;
+      }
+    }
+    if (!hasToken) {
+      for (let i = 0; i < win.sessionStorage.length; i++) {
+        const key = win.sessionStorage.key(i);
+        if (key && (key.includes("token") || key.includes("auth"))) {
+          hasToken = true;
+          break;
+        }
+      }
+    }
+    expect(hasToken, "Authentication token or session must exist in storage").to.be.true;
+  });
+
+  cy.getCy('app-sidebar').should('be.visible');
+  cy.getCy('app-sidebar').find('flt-semantics[role="button"], flt-semantics[aria-label*="data-cy:sidebar-nav-"]').should('have.length.greaterThan', 0);
+  cy.getCy('app-topbar').should('be.visible');
+  cy.getCy('app-content-slot').should('be.visible');
+
+  cy.get('body').then(($body) => {
+    if ($body.find('[aria-label*="login-email"], [data-cy="login-email"]').length > 0) {
+      throw new Error("LOGIN_FAILED: Login email field is still visible on the page.");
+    }
+    if ($body.find('[aria-label*="login-submit"], [data-cy="login-submit"]').length > 0) {
+      throw new Error("LOGIN_FAILED: Login submit button is still visible on the page.");
+    }
+  });
+
+  cy.get("body").invoke("text").then((text) => {
+    if (text.includes("Sign In to PrimeCare") || text.includes("Welcome Back")) {
+      throw new Error("LOGIN_FAILED: Page text contains login headers. SSO login did not succeed.");
+    }
   });
 });
 

@@ -1,0 +1,7 @@
+// Governance - Category: state | Purpose: Riverpod state notifier for Territory Sales Mapping
+// TODO: Implement state providers, loading triggers, and action mutations.
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class TerritorySalesMappingNotifier extends StateNotifier<AsyncValue<void>> {
+  TerritorySalesMappingNotifier() : super(const AsyncValue.data(null));
+}

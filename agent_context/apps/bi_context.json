@@ -1,0 +1,12 @@
+{
+  "app": {
+    "id": 27,
+    "app_code": "bi",
+    "app_name": "Billing Api",
+    "description": null,
+    "owner_team": null,
+    "active": 1
+  },
+  "screens_count": 0,
+  "screens": []
+}

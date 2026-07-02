@@ -1,0 +1,12 @@
+// Governance - Category: model | Purpose: Data entity definition for Ceo Reports
+// TODO: Implement DTO, serialization mapping, and state values.
+
+class CeoReportsModel {
+  const CeoReportsModel();
+  
+  factory CeoReportsModel.fromJson(Map<String, dynamic> json) {
+    return const CeoReportsModel();
+  }
+  
+  Map<String, dynamic> toJson() => {};
+}

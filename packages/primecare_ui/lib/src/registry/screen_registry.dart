@@ -440,7 +440,7 @@ import '../screens/staff/volunteer_coordinator_dashboard_screen.dart';
 import '../screens/staff/volunteer_coordinator_compliance_screen.dart';
 import '../screens/staff/receptionist_dashboard_screen.dart';
 import '../screens/staff/receptionist_compliance_screen.dart';
-import '../screens/psw/psw_dashboard_screen.dart';
+import '../screens/psw/psw_dashboard/psw_dashboard_screen.dart';
 import '../screens/psw/psw_compliance_screen.dart';
 import '../screens/rn/rn_dashboard_screen.dart';
 import '../screens/rn/rn_compliance_screen.dart';
@@ -751,9 +751,7 @@ class ScreenRegistry {
     'SCREEN_PREMIUM_FEATURE_251': const PremiumFeature251(),
 
     // PSW Role
-    'SCREEN_PSW_DASHBOARD': const ScreenNotImplementedView(
-      screenName: 'PSW Dashboard',
-    ),
+    'SCREEN_PSW_DASHBOARD': const PswDashboardScreen(),
     'SCREEN_PSW_SHIFT_TRACKER': const ScreenNotImplementedView(
       screenName: 'PSW Shift Tracker',
     ),

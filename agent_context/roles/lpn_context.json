@@ -1,0 +1,57 @@
+{
+  "role": {
+    "id": 56,
+    "role_code": "lpn",
+    "role_name": "Licensed Practical Nurse (LPN)",
+    "role_type": "staff",
+    "active": 1
+  },
+  "screens_count": 3,
+  "screens": [
+    {
+      "id": 6,
+      "app_id": 6,
+      "role_id": 56,
+      "screen_code": "lpn_dashboard",
+      "screen_name": "LpnDashboardScreen",
+      "route_path": "/clinical/lpn-dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/clinical/lpn_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 615,
+      "app_id": 1,
+      "role_id": 56,
+      "screen_code": "lpn_analytics",
+      "screen_name": "Licensed Practical Nurse (LPN) Analytics",
+      "route_path": "/rpn/lpn-analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/rpn/lpn_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 616,
+      "app_id": 1,
+      "role_id": 56,
+      "screen_code": "lpn_workflow",
+      "screen_name": "Licensed Practical Nurse (LPN) Compliance Workflow",
+      "route_path": "/rpn/lpn-workflow",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/rpn/lpn_workflow_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

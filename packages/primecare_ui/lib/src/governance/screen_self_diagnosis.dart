@@ -1,6 +1,7 @@
 // Governance - Category: service | Purpose: Core self-diagnosis engine and metadata registry for screen health-checks.
 import 'package:flutter/material.dart';
 import 'database.dart';
+export 'database.dart';
 
 
 
@@ -2983,7 +2984,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/dashboard': ScreenHealthStatus(
     screenName: 'PswDashboardScreen',
     routePath: '/offices/clinical/roles/psw/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_dashboard/psw_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,

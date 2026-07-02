@@ -1,0 +1,7 @@
+// Governance - Category: state | Purpose: Riverpod state notifier for Telehealth Consultation Room
+// TODO: Implement state providers, loading triggers, and action mutations.
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class TelehealthConsultationRoomNotifier extends StateNotifier<AsyncValue<void>> {
+  TelehealthConsultationRoomNotifier() : super(const AsyncValue.data(null));
+}

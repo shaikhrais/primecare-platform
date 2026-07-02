@@ -1,0 +1,7 @@
+// Governance - Category: state | Purpose: Riverpod state notifier for ScrumMasterComplianceScreen
+// TODO: Implement state providers, loading triggers, and action mutations.
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class ScrumMasterComplianceNotifier extends StateNotifier<AsyncValue<void>> {
+  ScrumMasterComplianceNotifier() : super(const AsyncValue.data(null));
+}

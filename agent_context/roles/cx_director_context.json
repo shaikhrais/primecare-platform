@@ -1,0 +1,72 @@
+{
+  "role": {
+    "id": 25,
+    "role_code": "cx_director",
+    "role_name": "CX Director",
+    "role_type": "staff",
+    "active": 1
+  },
+  "screens_count": 4,
+  "screens": [
+    {
+      "id": 37,
+      "app_id": 5,
+      "role_id": 25,
+      "screen_code": "cx_director_dashboard",
+      "screen_name": "CxDirectorDashboardScreen",
+      "route_path": "/offices/corporate/roles/cx_director/dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/executive/cx_director_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 165,
+      "app_id": 1,
+      "role_id": 25,
+      "screen_code": "cx_director_analytics",
+      "screen_name": "CxDirectorAnalyticsScreen",
+      "route_path": "/executive/cx-director-analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/executive/cx_director_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 166,
+      "app_id": 1,
+      "role_id": 25,
+      "screen_code": "cx_director_compliance",
+      "screen_name": "CxDirectorComplianceScreen",
+      "route_path": "/executive/cx-director-compliance",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/executive/cx_director_compliance_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 167,
+      "app_id": 1,
+      "role_id": 25,
+      "screen_code": "cx_director_workflow",
+      "screen_name": "CxDirectorWorkflowScreen",
+      "route_path": "/executive/cx-director-workflow",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/executive/cx_director_workflow_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

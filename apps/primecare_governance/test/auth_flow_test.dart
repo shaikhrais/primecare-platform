@@ -3,20 +3,20 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 void main() {
-  testWidgets('LoginView renders and all credentials can be used', (WidgetTester tester) async {
+  testWidgets('LoginScreen renders and all credentials can be used', (WidgetTester tester) async {
     await tester.pumpWidget(
       ProviderScope(
         child: PrimeTheme(
           data: const PrimeThemeData(),
           child: const MaterialApp(
-            home: LoginView(),
+            home: LoginScreen(),
           ),
         ),
       ),
     );
 
     // Verify auth screen loads
-    expect(find.byType(LoginView), findsOneWidget);
+    expect(find.byType(LoginScreen), findsOneWidget);
     
     // Verify that the login form components exist
     expect(find.text('Authorized Access'), findsOneWidget);

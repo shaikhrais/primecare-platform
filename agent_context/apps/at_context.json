@@ -1,0 +1,12 @@
+{
+  "app": {
+    "id": 26,
+    "app_code": "at",
+    "app_name": "Auth Api",
+    "description": null,
+    "owner_team": null,
+    "active": 1
+  },
+  "screens_count": 0,
+  "screens": []
+}

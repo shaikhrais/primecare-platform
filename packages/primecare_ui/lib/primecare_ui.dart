@@ -131,7 +131,7 @@ export 'src/screens/staff/volunteer_coordinator_dashboard_screen.dart';
 export 'src/screens/staff/volunteer_coordinator_compliance_screen.dart';
 export 'src/screens/staff/receptionist_dashboard_screen.dart';
 export 'src/screens/staff/receptionist_compliance_screen.dart';
-export 'src/screens/psw/psw_dashboard_screen.dart' hide pswDashboardProvider;
+export 'src/screens/psw/psw_dashboard/psw_dashboard_screen.dart' hide pswDashboardProvider;
 export 'src/screens/psw/psw_compliance_screen.dart';
 export 'src/screens/rn/rn_dashboard_screen.dart';
 export 'src/screens/rn/rn_compliance_screen.dart';
