@@ -119,3 +119,11 @@ artifacts/builds/
 .agents/scratch/
 .agents/primecare_index.db
 
+# Whitelist exceptions for generators and tools
+!tools/**/generate_*
+!tools/**/migrate_*
+!scripts/generate_*
+!scripts/migrate_*
+!tools/generate_*
+!tools/migrate_*
+
