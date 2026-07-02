@@ -183,14 +183,21 @@ def main():
         cypress_file_name = f"{screen_code}.cy.ts"
         cypress_path = os.path.join(cypress_dir, cypress_file_name)
 
+        # Pre-format the skeleton code contents
+        screen_code_content = SCREEN_TEMPLATE.format(screen_name=screen_name, class_name=class_name)
+        model_code_content = MODEL_TEMPLATE.format(screen_name=screen_name, class_name=class_name)
+        provider_code_content = PROVIDER_TEMPLATE.format(screen_name=screen_name, class_name=class_name)
+        api_code_content = API_TEMPLATE.format(screen_name=screen_name, class_name=class_name)
+        test_code_content = CYPRESS_TEMPLATE.format(screen_name=screen_name, route_path=s["route_path"])
+
         # Build registry tuples
-        # Registry columns: id, app_id, role_id, screen_id, section_id, file_code, file_name, file_type, absolute_path, folder_path, parent_file_id, dependency_file_ids_json, purpose, generation_order, implementation_status
+        # Registry columns: id, app_id, role_id, screen_id, section_id, file_code, file_name, file_type, absolute_path, folder_path, parent_file_id, dependency_file_ids_json, purpose, generation_order, implementation_status, code_content
         
         screen_file_id = file_id_counter
         files_to_insert.append((
             screen_file_id, s["app_id"], s["role_id"], screen_id, None,
             f"{screen_code}_screen", screen_file_name, "screen", screen_path, screen_dir,
-            None, None, f"Main coordinator layout for {screen_name}", 1, "skeleton"
+            None, None, f"Main coordinator layout for {screen_name}", 1, "skeleton", screen_code_content
         ))
         file_id_counter += 1
 
@@ -198,7 +205,7 @@ def main():
         files_to_insert.append((
             model_file_id, s["app_id"], s["role_id"], screen_id, None,
             f"{screen_code}_model", model_file_name, "model", model_path, models_dir,
-            screen_file_id, None, f"Data models for {screen_name}", 2, "skeleton"
+            screen_file_id, None, f"Data models for {screen_name}", 2, "skeleton", model_code_content
         ))
         file_id_counter += 1
 
@@ -206,7 +213,7 @@ def main():
         files_to_insert.append((
             provider_file_id, s["app_id"], s["role_id"], screen_id, None,
             f"{screen_code}_provider", provider_file_name, "provider", provider_path, state_dir,
-            screen_file_id, None, f"Riverpod provider for {screen_name}", 3, "skeleton"
+            screen_file_id, None, f"Riverpod provider for {screen_name}", 3, "skeleton", provider_code_content
         ))
         file_id_counter += 1
 
@@ -214,7 +221,7 @@ def main():
         files_to_insert.append((
             api_file_id, s["app_id"], s["role_id"], screen_id, None,
             f"{screen_code}_api", api_file_name, "api_client", api_path, services_dir,
-            screen_file_id, None, f"API Service requests for {screen_name}", 4, "skeleton"
+            screen_file_id, None, f"API Service requests for {screen_name}", 4, "skeleton", api_code_content
         ))
         file_id_counter += 1
 
@@ -222,7 +229,7 @@ def main():
         files_to_insert.append((
             test_file_id, s["app_id"], s["role_id"], screen_id, None,
             f"{screen_code}_test", cypress_file_name, "test", cypress_path, cypress_dir,
-            screen_file_id, None, f"Cypress spec for {screen_name}", 5, "skeleton"
+            screen_file_id, None, f"Cypress spec for {screen_name}", 5, "skeleton", test_code_content
         ))
         file_id_counter += 1
 
@@ -242,11 +249,13 @@ def main():
             sec_file_name = f"{sec_code}_section.dart"
             sec_path = os.path.join(sections_dir, sec_file_name)
             
+            sec_code_content = SECTION_TEMPLATE.format(section_name=sec_name, class_name=to_camel_case(sec_code))
+            
             sec_file_id = file_id_counter
             files_to_insert.append((
                 sec_file_id, s["app_id"], s["role_id"], screen_id, sec["id"],
                 f"{sec_code}_section", sec_file_name, "section", sec_path, sections_dir,
-                screen_file_id, None, f"UI Section rendering {sec_name}", 6, "skeleton"
+                screen_file_id, None, f"UI Section rendering {sec_name}", 6, "skeleton", sec_code_content
             ))
             file_id_counter += 1
             
@@ -257,37 +266,37 @@ def main():
             if not os.path.exists(sec_path):
                 os.makedirs(sections_dir, exist_ok=True)
                 with open(sec_path, "w", encoding="utf-8") as f:
-                    f.write(SECTION_TEMPLATE.format(section_name=sec_name, class_name=to_camel_case(sec_code)))
+                    f.write(sec_code_content)
 
         # Create Screen Coordinator File Skeleton
         if not os.path.exists(screen_path):
             os.makedirs(screen_dir, exist_ok=True)
             with open(screen_path, "w", encoding="utf-8") as f:
-                f.write(SCREEN_TEMPLATE.format(screen_name=screen_name, class_name=class_name))
+                f.write(screen_code_content)
 
         # Create Model File Skeleton
         if not os.path.exists(model_path):
             os.makedirs(models_dir, exist_ok=True)
             with open(model_path, "w", encoding="utf-8") as f:
-                f.write(MODEL_TEMPLATE.format(screen_name=screen_name, class_name=class_name))
+                f.write(model_code_content)
 
         # Create Provider File Skeleton
         if not os.path.exists(provider_path):
             os.makedirs(state_dir, exist_ok=True)
             with open(provider_path, "w", encoding="utf-8") as f:
-                f.write(PROVIDER_TEMPLATE.format(screen_name=screen_name, class_name=class_name))
+                f.write(provider_code_content)
 
         # Create API Service File Skeleton
         if not os.path.exists(api_path):
             os.makedirs(services_dir, exist_ok=True)
             with open(api_path, "w", encoding="utf-8") as f:
-                f.write(API_TEMPLATE.format(screen_name=screen_name, class_name=class_name))
+                f.write(api_code_content)
 
         # Create Cypress Test File Skeleton
         if not os.path.exists(cypress_path):
             os.makedirs(cypress_dir, exist_ok=True)
             with open(cypress_path, "w", encoding="utf-8") as f:
-                f.write(CYPRESS_TEMPLATE.format(screen_name=screen_name, route_path=s["route_path"]))
+                f.write(test_code_content)
 
         project_map_lines.append(f"### Screen: {screen_name} ({screen_code})\n")
         project_map_lines.append(f"- Directory: `{screen_dir}`\n")
@@ -305,14 +314,15 @@ def main():
     cur.executemany("""
         INSERT INTO project_file_registry (
             id, app_id, role_id, screen_id, section_id, file_code, file_name, file_type, 
-            absolute_path, folder_path, parent_file_id, dependency_file_ids_json, purpose, generation_order, implementation_status
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            absolute_path, folder_path, parent_file_id, dependency_file_ids_json, purpose, generation_order, implementation_status, code_content
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, files_to_insert)
 
     cur.executemany("""
         INSERT INTO project_file_dependencies (file_id, depends_on_file_id, dependency_type)
         VALUES (?, ?, ?)
     """, dependencies_to_insert)
+
 
     # Seed implementation execution plan
     # Order: model (1), api_client (2), provider (3), section (4), screen (5), test (6)
