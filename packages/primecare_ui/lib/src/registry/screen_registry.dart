@@ -1065,8 +1065,8 @@ class ScreenRegistry {
     'SYSTEMVERIFICATION_COMPLIANCE': const SystemVerificationComplianceScreen(),
     'SCREEN_SYSTEMVERIFICATION_COMPLIANCE':
         const SystemVerificationComplianceScreen(),
-    'DYNAMICSCREEN_DASHBOARD': const DynamicScreenDashboardScreen(),
-    'SCREEN_DYNAMICSCREEN_DASHBOARD': const DynamicScreenDashboardScreen(),
+    'DYNAMICSCREEN_DASHBOARD': const DynamicDashboardScreen(),
+    'SCREEN_DYNAMICSCREEN_DASHBOARD': const DynamicDashboardScreen(),
     'DYNAMICSCREEN_COMPLIANCE': const DynamicScreenComplianceScreen(),
     'SCREEN_DYNAMICSCREEN_COMPLIANCE': const DynamicScreenComplianceScreen(),
     'FAMILYMEMBER_DASHBOARD': const FamilyMemberDashboardScreen(),

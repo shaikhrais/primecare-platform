@@ -591,3 +591,34 @@ class ScreenNotImplementedScreen extends GovernedConsumerWidget {
     );
   }
 }
+
+class ScreenNotImplementedView extends GovernedConsumerWidget {
+  final String screenName;
+  const ScreenNotImplementedView({super.key, required this.screenName});
+
+  @override
+  Widget buildScreen(BuildContext context, WidgetRef ref) {
+    final theme = context.theme;
+    return Cy(
+      id: 'screen_not_implemented-screen',
+      child: Scaffold(
+        backgroundColor: theme.colors.background,
+        appBar: AppBar(
+          backgroundColor: theme.colors.surface,
+          elevation: 0,
+          title: Cy(
+            id: 'screen_not_implemented-title',
+            child: Text(
+              key: const Key('screen_not_implemented-title'),
+              screenName,
+              style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+            ),
+          ),
+        ),
+        body: Center(
+          child: Text('Screen Not Implemented: $screenName'),
+        ),
+      ),
+    );
+  }
+}

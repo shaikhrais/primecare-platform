@@ -762,46 +762,6 @@ class RmtDashboardScreen extends GovernedConsumerWidget {
                       width: double.infinity,
                       height: 48,
                       child: Cy(
-                        id: 'rmtdashboard-btn-3-${apt.id}',
-                        child: ElevatedButton(
-                          key: const Key('rmtdashboard-btn-3-${apt.id}'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Rmtdashboard Btn 3 ${Apt.Id} executed successfully.'),
-                          child: Text('Rmtdashboard Btn 3 ${Apt.Id}'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: Cy(
-                        id: 'rmtdashboard-btn-4-${apt.id}',
-                        child: ElevatedButton(
-                          key: const Key('rmtdashboard-btn-4-${apt.id}'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Rmtdashboard Btn 4 ${Apt.Id} executed successfully.'),
-                          child: Text('Rmtdashboard Btn 4 ${Apt.Id}'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: Cy(
                         id: 'rmtdashboard-btn-2',
                         child: ElevatedButton(
                           key: const Key('rmtdashboard-btn-2'),

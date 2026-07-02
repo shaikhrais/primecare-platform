@@ -5176,7 +5176,7 @@ class GeneratedApiClient {
 
   /// Load Single Risk Register Details
   /// Method: GET | Path: /v1/risk-register/:id | Status: mocked
-  Future<ApiResponse> loadApiV1RiskRegisterDetail() async {
+  Future<ApiResponse> loadApiV1RiskRegisterDetail(String id) async {
     return ref.read(apiClientProvider).get('/v1/risk-register/$id');
   }
 
@@ -5308,7 +5308,7 @@ class GeneratedApiClient {
 
   /// Load Single Compliance Manager Risk Register Details
   /// Method: GET | Path: /v1/compliance-manager-risk-register/:id | Status: mocked
-  Future<ApiResponse> loadApiV1ComplianceManagerRiskRegisterDetail() async {
+  Future<ApiResponse> loadApiV1ComplianceManagerRiskRegisterDetail(String id) async {
     return ref.read(apiClientProvider).get('/v1/compliance-manager-risk-register/$id');
   }
 
@@ -6442,7 +6442,7 @@ class GeneratedApiClient {
 
   /// Load Single Admin User Management Details
   /// Method: GET | Path: /v1/admin-user-management/:id | Status: mocked
-  Future<ApiResponse> loadApiV1AdminUserManagementDetail() async {
+  Future<ApiResponse> loadApiV1AdminUserManagementDetail(String id) async {
     return ref.read(apiClientProvider).get('/v1/admin-user-management/$id');
   }
 
@@ -6742,7 +6742,7 @@ class GeneratedApiClient {
 
   /// Load Single User Management Details
   /// Method: GET | Path: /v1/user-management/:id | Status: mocked
-  Future<ApiResponse> loadApiV1UserManagementDetail() async {
+  Future<ApiResponse> loadApiV1UserManagementDetail(String id) async {
     return ref.read(apiClientProvider).get('/v1/user-management/$id');
   }
 
@@ -7270,7 +7270,7 @@ class GeneratedApiClient {
 
   /// Load Single Pharmacy Inventory Management Details
   /// Method: GET | Path: /v1/pharmacy-inventory-management/:id | Status: mocked
-  Future<ApiResponse> loadApiV1PharmacyInventoryManagementDetail() async {
+  Future<ApiResponse> loadApiV1PharmacyInventoryManagementDetail(String id) async {
     return ref.read(apiClientProvider).get('/v1/pharmacy-inventory-management/$id');
   }
 
