@@ -335,15 +335,15 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: Cy(
-                    id: 'data-cy-lang-chip-$langCode',
+                    id: 'data-cy-lang-chip-static',
                     child: PrimeCareCard(
-                      key: const Key('data-cy-lang-chip-$langCode'),
+                      key: const Key('data-cy-lang-chip-static'),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Data Cy Lang Chip $Langcode'.tr(), style: theme.typography.h4),
+                            Text('Data Cy Lang Chip'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
                             Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
@@ -356,15 +356,15 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: Cy(
-                    id: 'data-cy-screen-item-${screen.screenName}',
+                    id: 'data-cy-screen-item-static',
                     child: PrimeCareCard(
-                      key: const Key('data-cy-screen-item-${screen.screenName}'),
+                      key: const Key('data-cy-screen-item-static'),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Data Cy Screen Item ${Screen.Screenname}'.tr(), style: theme.typography.h4),
+                            Text('Data Cy Screen Item'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
                             Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],

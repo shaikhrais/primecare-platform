@@ -87,19 +87,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: ScreenRegistry.screens['LOGIN']?.routePath ?? '/login',
-        builder: (context, state) => const LoginView(),
+        builder: (context, state) => const LoginScreen(),
       ),
       GoRoute(
         path: ScreenRegistry.screens['FORGOT_PASSWORD']?.routePath ?? '/forgot-password',
-        builder: (context, state) => const ForgotPasswordView(),
+        builder: (context, state) => const ForgotPasswordScreen(),
       ),
       GoRoute(
         path: ScreenRegistry.screens['MFA']?.routePath ?? '/mfa',
-        builder: (context, state) => const MfaView(),
+        builder: (context, state) => const MfaScreen(),
       ),
       GoRoute(
         path: ScreenRegistry.screens['RESET_PASSWORD']?.routePath ?? '/reset-password',
-        builder: (context, state) => const ResetPasswordView(),
+        builder: (context, state) => const ResetPasswordScreen(),
       ),
       ShellRoute(
         builder: (context, state, child) {
