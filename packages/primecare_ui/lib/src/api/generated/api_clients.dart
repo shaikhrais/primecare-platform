@@ -5164,7 +5164,7 @@ class GeneratedApiClient {
 
   /// Create New Risk Register Record
   /// Method: POST | Path: /v1/risk-register | Status: mocked
-  Future<ApiResponse> register(dynamic data) async {
+  Future<ApiResponse> createApiV1RiskRegister(dynamic data) async {
     return ref.read(apiClientProvider).post('/v1/risk-register', body: data);
   }
 
@@ -5296,7 +5296,7 @@ class GeneratedApiClient {
 
   /// Create New Compliance Manager Risk Register Record
   /// Method: POST | Path: /v1/compliance-manager-risk-register | Status: mocked
-  Future<ApiResponse> register(dynamic data) async {
+  Future<ApiResponse> createApiV1ComplianceManagerRiskRegister(dynamic data) async {
     return ref.read(apiClientProvider).post('/v1/compliance-manager-risk-register', body: data);
   }
 
