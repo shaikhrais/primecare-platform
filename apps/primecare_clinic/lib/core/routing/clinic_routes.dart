@@ -324,7 +324,7 @@ class ClinicCareModule extends PlatformModule {
       route: '/clinical/physician-workflow',
       icon: LucideIcons.activity,
       requiredRole: PlatformRole.physician,
-      builder: (context) => PhysicianWorkflowScreen(),
+      builder: (context) => const ScreenNotImplementedView(screenName: 'Physician Workflow'),
     ),
     PrimeCareScreen(
       title: 'CNS Dashboard',
@@ -394,7 +394,7 @@ class ClinicCareModule extends PlatformModule {
       route: '/offices/clinical/roles/therapist/workflow',
       icon: LucideIcons.activity,
       requiredRole: PlatformRole.therapist,
-      builder: (context) => TherapistWorkflowScreen(),
+      builder: (context) => const ScreenNotImplementedView(screenName: 'Therapist Workflow'),
     ),
     // Physiotherapist Sub-Screens
     PrimeCareScreen(
