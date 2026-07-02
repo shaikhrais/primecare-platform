@@ -219,14 +219,14 @@ class ClinicCareModule extends PlatformModule {
       route: '/rpn/lpn-analytics',
       icon: LucideIcons.barChart4,
       requiredRole: PlatformRole.lpn,
-      builder: (context) => LpnAnalyticsScreen(),
+      builder: (context) => const LicensedPracticalNurseLPNAnalyticsScreen(),
     ),
     PrimeCareScreen(
       title: 'LPN Compliance Workflow',
       route: '/rpn/lpn-workflow',
       icon: LucideIcons.activity,
       requiredRole: PlatformRole.lpn,
-      builder: (context) => LpnWorkflowScreen(),
+      builder: (context) => const LicensedPracticalNurseLPNComplianceWorkflowScreen(),
     ),
     PrimeCareScreen(
       title: 'NP Dashboard',
@@ -240,14 +240,14 @@ class ClinicCareModule extends PlatformModule {
       route: '/rn/np-analytics',
       icon: LucideIcons.barChart4,
       requiredRole: PlatformRole.np,
-      builder: (context) => NpAnalyticsScreen(),
+      builder: (context) => const NursePractitionerNPAnalyticsScreen(),
     ),
     PrimeCareScreen(
       title: 'NP Compliance Workflow',
       route: '/rn/np-workflow',
       icon: LucideIcons.activity,
       requiredRole: PlatformRole.np,
-      builder: (context) => NpWorkflowScreen(),
+      builder: (context) => const NursePractitionerNPComplianceWorkflowScreen(),
     ),
     PrimeCareScreen(
       title: 'HSW Dashboard',
@@ -296,14 +296,14 @@ class ClinicCareModule extends PlatformModule {
       route: '/clinical/pediatric-analytics',
       icon: LucideIcons.barChart4,
       requiredRole: PlatformRole.pediatric,
-      builder: (context) => PediatricAnalyticsScreen(),
+      builder: (context) => const PediatricSpecialistAnalyticsScreen(),
     ),
     PrimeCareScreen(
       title: 'Pediatric Workflow',
       route: '/clinical/pediatric-workflow',
       icon: LucideIcons.activity,
       requiredRole: PlatformRole.pediatric,
-      builder: (context) => PediatricWorkflowScreen(),
+      builder: (context) => const PediatricSpecialistComplianceWorkflowScreen(),
     ),
     PrimeCareScreen(
       title: 'Physician Dashboard',
@@ -324,7 +324,7 @@ class ClinicCareModule extends PlatformModule {
       route: '/clinical/physician-workflow',
       icon: LucideIcons.activity,
       requiredRole: PlatformRole.physician,
-      builder: (context) => const ScreenNotImplementedView(screenName: 'Physician Workflow'),
+      builder: (context) => const PhysicianComplianceWorkflowScreen(),
     ),
     PrimeCareScreen(
       title: 'CNS Dashboard',
@@ -394,7 +394,7 @@ class ClinicCareModule extends PlatformModule {
       route: '/offices/clinical/roles/therapist/workflow',
       icon: LucideIcons.activity,
       requiredRole: PlatformRole.therapist,
-      builder: (context) => const ScreenNotImplementedView(screenName: 'Therapist Workflow'),
+      builder: (context) => const TherapistComplianceWorkflowScreen(),
     ),
     // Physiotherapist Sub-Screens
     PrimeCareScreen(
