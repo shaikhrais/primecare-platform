@@ -514,6 +514,35 @@ class ApiClient {
     }
   }
 
+  /// Performs a PATCH request.
+  Future<ApiResponse> patch(String path, {dynamic body}) async {
+    try {
+      final response = await _dio.patch<Map<String, dynamic>>(path, data: body);
+      return ApiResponse(
+        data: response.data,
+        statusCode: response.statusCode ?? 200,
+      );
+    } catch (e) {
+      if (e is DioException && e.response != null) {
+        final status = e.response!.statusCode;
+        if (status == 401 || status == 403) {
+          return ApiResponse(
+            data: e.response!.data ?? <String, dynamic>{},
+            statusCode: status!,
+            error: 'Authentication failed: ${status}',
+          );
+        }
+      }
+      final mock = _getMockResponse(path, 'PATCH', body: body);
+      if (mock != null) return mock;
+      return ApiResponse(
+        data: <String, dynamic>{},
+        statusCode: 500,
+        error: e.toString(),
+      );
+    }
+  }
+
   /// Performs a DELETE request.
   Future<ApiResponse> delete(String path) async {
     try {
