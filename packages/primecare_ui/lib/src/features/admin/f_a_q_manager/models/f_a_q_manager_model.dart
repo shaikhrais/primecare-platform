@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for F A Q Manager
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class FAQManagerModel {
-  const FAQManagerModel();
-  
-  factory FAQManagerModel.fromJson(Map<String, dynamic> json) {
-    return const FAQManagerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const FAQManagerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  FAQManagerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return FAQManagerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

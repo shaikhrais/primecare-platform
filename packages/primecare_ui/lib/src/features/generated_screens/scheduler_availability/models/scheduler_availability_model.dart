@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Scheduler Availability
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class SchedulerAvailabilityModel {
-  const SchedulerAvailabilityModel();
-  
-  factory SchedulerAvailabilityModel.fromJson(Map<String, dynamic> json) {
-    return const SchedulerAvailabilityModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const SchedulerAvailabilityModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  SchedulerAvailabilityModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return SchedulerAvailabilityModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

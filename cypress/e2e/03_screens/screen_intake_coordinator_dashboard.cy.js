@@ -6,7 +6,7 @@
 describe("Screen - intake_coordinator_dashboard", () => {
   it("opens and verifies screen intake_coordinator_dashboard via real credentials login and logout", () => {
     cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
+      const user = users.find((u) => u.role_code === "intake");
       const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
       // 1. Visit login page
@@ -33,8 +33,8 @@ describe("Screen - intake_coordinator_dashboard", () => {
       cy.wait(6000);
 
       // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard_screen.dart");
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /offices/clinical/roles/intake_coordinator/dashboard...");
+      cy.visitWithSemantics(targetBaseUrl + "/offices/clinical/roles/intake_coordinator/dashboard");
       cy.waitAndSee();
 
       cy.verifyShellExists();

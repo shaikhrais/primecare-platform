@@ -59,7 +59,7 @@ class CtoDashboardScreenController extends StateNotifier<CtoDashboardScreenState
       : super(
           CtoDashboardScreenState(
             isLoading: false,
-            title: 'CTO Dashboard'.tr(),
+            title: 'CtoDashboardScreen'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

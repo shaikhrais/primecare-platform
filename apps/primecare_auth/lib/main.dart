@@ -285,7 +285,7 @@ class LoginViewWrapper extends ConsumerWidget {
       }
     });
 
-    return const LoginScreen();
+    return const LoginView();
   }
 }
 

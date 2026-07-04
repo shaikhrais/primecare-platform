@@ -12,7 +12,7 @@ Below are the database records from `governance.db` used to configure and build 
 * **Screen Name**: `MfaScreen`
 * **Route Path**: `/generated/mfa`
 * **Actual File Path**: `packages/primecare_ui/lib/src/features/auth/mfa_view.dart`
-* **Stage/Status**: `wired`
+* **Stage/Status**: `template_created`
 
 ## 2. App Record
 * **ID**: `6`
@@ -53,20 +53,15 @@ Below are the database records from `governance.db` used to configure and build 
 
 ## 8. Test Definition & Steps
 * **Test Code**: `mfa_runtime`
-* **Test Name**: `Mfa Smoke Test`
+* **Test Name**: `Mfa Runtime Test`
 * **Test Type**: `e2e`
-* **Expected Title**: `MFA`
+* **Expected Title**: `Mfa`
 * **Expected Layout**: `dashboard`
 
 ### Test Steps
-1. **login_as_role** (Selector: `None`, Value: `guest`)
-2. **verify_sidebar_exists** (Selector: `app-sidebar`, Value: `None`)
-3. **verify_sidebar_link_exists** (Selector: `None`, Value: `MFA`)
-4. **click_sidebar_link** (Selector: `None`, Value: `MFA`)
-5. **check_url** (Selector: `None`, Value: `/generated/mfa`)
-6. **verify_topbar_exists** (Selector: `app-topbar`, Value: `None`)
-7. **verify_main_content_exists** (Selector: `app-content-slot`, Value: `None`)
-8. **verify_screen_not_empty** (Selector: `None`, Value: `None`)
-9. **verify_forbidden_text_absent** (Selector: `None`, Value: `None`)
-10. **verify_no_console_errors** (Selector: `None`, Value: `None`)
-11. **screenshot** (Selector: `None`, Value: `None`)
+1. **visit** (Selector: `None`, Value: `/generated/mfa`)
+2. **should_be_visible** (Selector: `mfa-screen`, Value: `None`)
+3. **should_be_visible** (Selector: `mfa-title`, Value: `None`)
+4. **should_be_visible** (Selector: `mfa-content`, Value: `None`)
+5. **check_no_console_error** (Selector: `None`, Value: `None`)
+6. **screenshot** (Selector: `None`, Value: `None`)

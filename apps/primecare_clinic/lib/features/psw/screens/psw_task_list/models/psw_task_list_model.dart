@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Psw Task List
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PswTaskListModel {
-  const PswTaskListModel();
-  
-  factory PswTaskListModel.fromJson(Map<String, dynamic> json) {
-    return const PswTaskListModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PswTaskListModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PswTaskListModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PswTaskListModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

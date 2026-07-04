@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for It Admin Dashboard
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ItAdminDashboardModel {
-  const ItAdminDashboardModel();
-  
-  factory ItAdminDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const ItAdminDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ItAdminDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ItAdminDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ItAdminDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

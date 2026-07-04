@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Psw My Clients
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PswMyClientsModel {
-  const PswMyClientsModel();
-  
-  factory PswMyClientsModel.fromJson(Map<String, dynamic> json) {
-    return const PswMyClientsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PswMyClientsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PswMyClientsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PswMyClientsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

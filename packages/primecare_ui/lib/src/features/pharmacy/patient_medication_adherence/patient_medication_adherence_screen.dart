@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Patient Medication Adherence
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/patient_medication_adherence_header_section.dart';
+import 'sections/patient_medication_adherence_content_summary_section.dart';
+import 'sections/patient_medication_adherence_primary_content_section.dart';
+import 'sections/patient_medication_adherence_action_bar_section.dart';
 
-class PatientMedicationAdherenceScreen extends ConsumerWidget {
+class PatientMedicationAdherenceScreen extends StatelessWidget {
   const PatientMedicationAdherenceScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Patient Medication Adherence Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'patient_medication_adherence',
+      title: 'Patient Medication Adherence',
+      child: Column(
+        children: const [
+          const PatientMedicationAdherenceHeaderSection(),
+          const PatientMedicationAdherenceContentSummarySection(),
+          const PatientMedicationAdherencePrimaryContentSection(),
+          const PatientMedicationAdherenceActionBarSection(),
+        ],
       ),
     );
   }

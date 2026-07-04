@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Patient Retention Analytics
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PatientRetentionAnalyticsModel {
-  const PatientRetentionAnalyticsModel();
-  
-  factory PatientRetentionAnalyticsModel.fromJson(Map<String, dynamic> json) {
-    return const PatientRetentionAnalyticsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PatientRetentionAnalyticsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PatientRetentionAnalyticsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PatientRetentionAnalyticsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

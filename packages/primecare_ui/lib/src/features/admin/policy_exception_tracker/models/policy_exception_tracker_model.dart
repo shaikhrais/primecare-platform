@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Policy Exception Tracker
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PolicyExceptionTrackerModel {
-  const PolicyExceptionTrackerModel();
-  
-  factory PolicyExceptionTrackerModel.fromJson(Map<String, dynamic> json) {
-    return const PolicyExceptionTrackerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PolicyExceptionTrackerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PolicyExceptionTrackerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PolicyExceptionTrackerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

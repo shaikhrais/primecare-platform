@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Gamification Profile
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class GamificationProfileModel {
-  const GamificationProfileModel();
-  
-  factory GamificationProfileModel.fromJson(Map<String, dynamic> json) {
-    return const GamificationProfileModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const GamificationProfileModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  GamificationProfileModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return GamificationProfileModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

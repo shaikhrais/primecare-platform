@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Ceo Strategic Kpis
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CeoStrategicKpisModel {
-  const CeoStrategicKpisModel();
-  
-  factory CeoStrategicKpisModel.fromJson(Map<String, dynamic> json) {
-    return const CeoStrategicKpisModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CeoStrategicKpisModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CeoStrategicKpisModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CeoStrategicKpisModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

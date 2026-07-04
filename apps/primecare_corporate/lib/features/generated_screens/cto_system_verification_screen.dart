@@ -59,7 +59,7 @@ class CtoSystemVerificationScreenController extends StateNotifier<CtoSystemVerif
       : super(
           CtoSystemVerificationScreenState(
             isLoading: false,
-            title: 'CTO System Verification'.tr(),
+            title: 'Cto System Verification'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

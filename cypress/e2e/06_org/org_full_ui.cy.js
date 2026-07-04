@@ -982,11 +982,29 @@ describe("Org Full UI Test", () => {
   it("tests org role clinical_director", () => {
     cy.loginAsRole("clinical_director");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/19 | 5%] - Navigating to /offices/clinical/roles/clinical_director/clinic-dashboard (ClinicDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Navigating to /offices/clinical/roles/clinical_director/dashboard-dup-1 (ClinicalDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/dashboard-dup-1");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Checking shell & content for ClinicalDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  // cy.getCy("clinicaldashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+  // cy.getCy("clinicaldashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+  // cy.getCy("clinicaldashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Saving screenshot for ClinicalDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("clinical_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Verified ClinicalDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Navigating to /offices/clinical/roles/clinical_director/clinic-dashboard (ClinicDashboardScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/19 | 5%] - Checking shell & content for ClinicDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Checking shell & content for ClinicDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -994,17 +1012,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/19 | 5%] - Saving screenshot for ClinicDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Saving screenshot for ClinicDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("clinic_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/19 | 5%] - Verified ClinicDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Verified ClinicDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/19 | 10%] - Navigating to /offices/clinical/roles/clinical_director/analytics (ClinicalAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Navigating to /offices/clinical/roles/clinical_director/analytics (ClinicalAnalyticsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/19 | 10%] - Checking shell & content for ClinicalAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Checking shell & content for ClinicalAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1012,17 +1030,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicalanalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicalanalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/19 | 10%] - Saving screenshot for ClinicalAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Saving screenshot for ClinicalAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/19 | 10%] - Verified ClinicalAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Verified ClinicalAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/19 | 15%] - Navigating to /offices/clinical/roles/clinical_director/compliance (ClinicalComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Navigating to /offices/clinical/roles/clinical_director/compliance (ClinicalComplianceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/19 | 15%] - Checking shell & content for ClinicalComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Checking shell & content for ClinicalComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1030,17 +1048,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicalcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicalcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/19 | 15%] - Saving screenshot for ClinicalComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Saving screenshot for ClinicalComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/19 | 15%] - Verified ClinicalComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Verified ClinicalComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/19 | 21%] - Navigating to /offices/clinical/roles/clinical_director/workflow (ClinicalWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Navigating to /offices/clinical/roles/clinical_director/workflow (ClinicalWorkflowScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/19 | 21%] - Checking shell & content for ClinicalWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Checking shell & content for ClinicalWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1048,17 +1066,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicalworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicalworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/19 | 21%] - Saving screenshot for ClinicalWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Saving screenshot for ClinicalWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/19 | 21%] - Verified ClinicalWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Verified ClinicalWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/19 | 26%] - Navigating to /offices/clinical/roles/clinical_director/clinic-analytics (ClinicAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Navigating to /offices/clinical/roles/clinical_director/clinic-analytics (ClinicAnalyticsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/19 | 26%] - Checking shell & content for ClinicAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Checking shell & content for ClinicAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1066,17 +1084,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicanalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicanalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/19 | 26%] - Saving screenshot for ClinicAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Saving screenshot for ClinicAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("clinic_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/19 | 26%] - Verified ClinicAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Verified ClinicAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/19 | 31%] - Navigating to /offices/clinical/roles/clinical_director/clinic-compliance (ClinicComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Navigating to /offices/clinical/roles/clinical_director/clinic-compliance (ClinicComplianceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/19 | 31%] - Checking shell & content for ClinicComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Checking shell & content for ClinicComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1084,17 +1102,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cliniccompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cliniccompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/19 | 31%] - Saving screenshot for ClinicComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Saving screenshot for ClinicComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("clinic_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/19 | 31%] - Verified ClinicComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Verified ClinicComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/19 | 36%] - Navigating to /offices/clinical/roles/clinical_director/clinic-workflow (ClinicWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Navigating to /offices/clinical/roles/clinical_director/clinic-workflow (ClinicWorkflowScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/19 | 36%] - Checking shell & content for ClinicWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Checking shell & content for ClinicWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1102,17 +1120,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/19 | 36%] - Saving screenshot for ClinicWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Saving screenshot for ClinicWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("clinic_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/19 | 36%] - Verified ClinicWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Verified ClinicWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/19 | 42%] - Navigating to /offices/clinical/roles/clinical_director/staff-quality (ClinicalDirectorStaffQualityScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Navigating to /offices/clinical/roles/clinical_director/staff-quality (ClinicalDirectorStaffQualityScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/staff-quality");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/19 | 42%] - Checking shell & content for ClinicalDirectorStaffQualityScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Checking shell & content for ClinicalDirectorStaffQualityScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1120,17 +1138,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorstaffquality-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorstaffquality-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/19 | 42%] - Saving screenshot for ClinicalDirectorStaffQualityScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Saving screenshot for ClinicalDirectorStaffQualityScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_staff_quality");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/19 | 42%] - Verified ClinicalDirectorStaffQualityScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Verified ClinicalDirectorStaffQualityScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/19 | 47%] - Navigating to /offices/clinical/roles/clinical_director/incident-review (ClinicalDirectorIncidentReviewScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Navigating to /offices/clinical/roles/clinical_director/incident-review (ClinicalDirectorIncidentReviewScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/incident-review");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/19 | 47%] - Checking shell & content for ClinicalDirectorIncidentReviewScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Checking shell & content for ClinicalDirectorIncidentReviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1138,17 +1156,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorincidentreview-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorincidentreview-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/19 | 47%] - Saving screenshot for ClinicalDirectorIncidentReviewScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Saving screenshot for ClinicalDirectorIncidentReviewScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_incident_review");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/19 | 47%] - Verified ClinicalDirectorIncidentReviewScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Verified ClinicalDirectorIncidentReviewScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/19 | 52%] - Navigating to /offices/clinical/roles/clinical_director/compliance-director (ClinicalDirectorComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Navigating to /offices/clinical/roles/clinical_director/compliance-director (ClinicalDirectorComplianceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/compliance-director");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/19 | 52%] - Checking shell & content for ClinicalDirectorComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Checking shell & content for ClinicalDirectorComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1156,17 +1174,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/19 | 52%] - Saving screenshot for ClinicalDirectorComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Saving screenshot for ClinicalDirectorComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/19 | 52%] - Verified ClinicalDirectorComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Verified ClinicalDirectorComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/19 | 57%] - Navigating to /offices/clinical/roles/clinical_director/reports (ClinicalDirectorReportsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Navigating to /offices/clinical/roles/clinical_director/reports (ClinicalDirectorReportsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/19 | 57%] - Checking shell & content for ClinicalDirectorReportsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Checking shell & content for ClinicalDirectorReportsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1174,17 +1192,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/19 | 57%] - Saving screenshot for ClinicalDirectorReportsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Saving screenshot for ClinicalDirectorReportsScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/19 | 57%] - Verified ClinicalDirectorReportsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Verified ClinicalDirectorReportsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/19 | 63%] - Navigating to /offices/clinical/roles/clinical_director/approvals (ClinicalDirectorApprovalsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Navigating to /offices/clinical/roles/clinical_director/approvals (ClinicalDirectorApprovalsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/approvals");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/19 | 63%] - Checking shell & content for ClinicalDirectorApprovalsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Checking shell & content for ClinicalDirectorApprovalsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1192,17 +1210,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorapprovals-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorapprovals-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/19 | 63%] - Saving screenshot for ClinicalDirectorApprovalsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Saving screenshot for ClinicalDirectorApprovalsScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_approvals");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/19 | 63%] - Verified ClinicalDirectorApprovalsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Verified ClinicalDirectorApprovalsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/19 | 68%] - Navigating to /offices/clinical/roles/clinical_director/performance (ClinicalDirectorPerformanceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Navigating to /offices/clinical/roles/clinical_director/performance (ClinicalDirectorPerformanceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/performance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/19 | 68%] - Checking shell & content for ClinicalDirectorPerformanceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Checking shell & content for ClinicalDirectorPerformanceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1210,17 +1228,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorperformance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorperformance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/19 | 68%] - Saving screenshot for ClinicalDirectorPerformanceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Saving screenshot for ClinicalDirectorPerformanceScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_performance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/19 | 68%] - Verified ClinicalDirectorPerformanceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Verified ClinicalDirectorPerformanceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/19 | 73%] - Navigating to /offices/clinical/roles/clinical_director/quality (ClinicalQualityScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Navigating to /offices/clinical/roles/clinical_director/quality (ClinicalQualityScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/quality");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/19 | 73%] - Checking shell & content for ClinicalQualityScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Checking shell & content for ClinicalQualityScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1228,17 +1246,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicalquality-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicalquality-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/19 | 73%] - Saving screenshot for ClinicalQualityScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Saving screenshot for ClinicalQualityScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_quality");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/19 | 73%] - Verified ClinicalQualityScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Verified ClinicalQualityScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/19 | 78%] - Navigating to /offices/clinical/roles/clinical_director/staff-performance (StaffPerformanceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Navigating to /offices/clinical/roles/clinical_director/staff-performance (StaffPerformanceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/staff-performance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/19 | 78%] - Checking shell & content for StaffPerformanceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Checking shell & content for StaffPerformanceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1246,17 +1264,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("staffperformance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("staffperformance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/19 | 78%] - Saving screenshot for StaffPerformanceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Saving screenshot for StaffPerformanceScreen...");
   cy.waitAndSee();
   cy.screenshot("staff_performance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/19 | 78%] - Verified StaffPerformanceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Verified StaffPerformanceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/19 | 84%] - Navigating to /offices/clinical/roles/clinical_director/compliance-review (ComplianceReviewScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Navigating to /offices/clinical/roles/clinical_director/compliance-review (ComplianceReviewScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/compliance-review");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/19 | 84%] - Checking shell & content for ComplianceReviewScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Checking shell & content for ComplianceReviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1264,17 +1282,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancereview-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancereview-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/19 | 84%] - Saving screenshot for ComplianceReviewScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Saving screenshot for ComplianceReviewScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_review");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/19 | 84%] - Verified ComplianceReviewScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Verified ComplianceReviewScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/19 | 89%] - Navigating to /offices/clinical/roles/clinical_director/incident-oversight (IncidentOversightScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Navigating to /offices/clinical/roles/clinical_director/incident-oversight (IncidentOversightScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/incident-oversight");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/19 | 89%] - Checking shell & content for IncidentOversightScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Checking shell & content for IncidentOversightScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1282,17 +1300,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("incidentoversight-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("incidentoversight-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/19 | 89%] - Saving screenshot for IncidentOversightScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Saving screenshot for IncidentOversightScreen...");
   cy.waitAndSee();
   cy.screenshot("incident_oversight");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/19 | 89%] - Verified IncidentOversightScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Verified IncidentOversightScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/19 | 94%] - Navigating to /offices/clinical/roles/clinical_director/operations4k (ClinicalOperations4KScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Navigating to /offices/clinical/roles/clinical_director/operations4k (ClinicalOperations4KScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/operations4k");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/19 | 94%] - Checking shell & content for ClinicalOperations4KScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Checking shell & content for ClinicalOperations4KScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1300,17 +1318,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaloperations4k-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaloperations4k-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/19 | 94%] - Saving screenshot for ClinicalOperations4KScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Saving screenshot for ClinicalOperations4KScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_operations4_k");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/19 | 94%] - Verified ClinicalOperations4KScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Verified ClinicalOperations4KScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [19/19 | 100%] - Navigating to /offices/clinical/roles/clinical_director/dashboard (Clinical Director Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Navigating to /offices/clinical/roles/clinical_director/dashboard (Clinical Director Dashboard)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [19/19 | 100%] - Checking shell & content for Clinical Director Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Checking shell & content for Clinical Director Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1318,21 +1336,39 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectordashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [19/19 | 100%] - Saving screenshot for Clinical Director Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Saving screenshot for Clinical Director Dashboard...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [19/19 | 100%] - Verified Clinical Director Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Verified Clinical Director Dashboard successfully!\n");
   });
 
   it("tests org role intake", () => {
     cy.loginAsRole("intake");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/11 | 9%] - Navigating to /offices/clinical/roles/intake_coordinator/dashboard (IntakeCoordinatorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/12 | 8%] - Navigating to /offices/clinical/roles/intake_coordinator/dashboard-dup-1 (IntakeDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/dashboard-dup-1");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/12 | 8%] - Checking shell & content for IntakeDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  // cy.getCy("intakedashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+  // cy.getCy("intakedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+  // cy.getCy("intakedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/12 | 8%] - Saving screenshot for IntakeDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("intake_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/12 | 8%] - Verified IntakeDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/12 | 16%] - Navigating to /offices/clinical/roles/intake_coordinator/dashboard (IntakeCoordinatorDashboardScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/11 | 9%] - Checking shell & content for IntakeCoordinatorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/12 | 16%] - Checking shell & content for IntakeCoordinatorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1340,17 +1376,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakecoordinatordashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakecoordinatordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/11 | 9%] - Saving screenshot for IntakeCoordinatorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/12 | 16%] - Saving screenshot for IntakeCoordinatorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/11 | 9%] - Verified IntakeCoordinatorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/12 | 16%] - Verified IntakeCoordinatorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/11 | 18%] - Navigating to /offices/clinical/roles/intake_coordinator/analytics (IntakeAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/12 | 25%] - Navigating to /offices/clinical/roles/intake_coordinator/analytics (IntakeAnalyticsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/11 | 18%] - Checking shell & content for IntakeAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/12 | 25%] - Checking shell & content for IntakeAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1358,17 +1394,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakeanalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakeanalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/11 | 18%] - Saving screenshot for IntakeAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/12 | 25%] - Saving screenshot for IntakeAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/11 | 18%] - Verified IntakeAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/12 | 25%] - Verified IntakeAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/11 | 27%] - Navigating to /offices/clinical/roles/intake_coordinator/compliance (IntakeComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [4/12 | 33%] - Navigating to /offices/clinical/roles/intake_coordinator/compliance (IntakeComplianceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/11 | 27%] - Checking shell & content for IntakeComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [4/12 | 33%] - Checking shell & content for IntakeComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1376,17 +1412,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakecompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakecompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/11 | 27%] - Saving screenshot for IntakeComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [4/12 | 33%] - Saving screenshot for IntakeComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [3/11 | 27%] - Verified IntakeComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [4/12 | 33%] - Verified IntakeComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [4/11 | 36%] - Navigating to /offices/clinical/roles/intake_coordinator/workflow (IntakeWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [5/12 | 41%] - Navigating to /offices/clinical/roles/intake_coordinator/workflow (IntakeWorkflowScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [4/11 | 36%] - Checking shell & content for IntakeWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [5/12 | 41%] - Checking shell & content for IntakeWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1394,17 +1430,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakeworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakeworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [4/11 | 36%] - Saving screenshot for IntakeWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [5/12 | 41%] - Saving screenshot for IntakeWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [4/11 | 36%] - Verified IntakeWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [5/12 | 41%] - Verified IntakeWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [5/11 | 45%] - Navigating to /offices/clinical/roles/intake_coordinator/coordinator-analytics (IntakeCoordinatorAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [6/12 | 50%] - Navigating to /offices/clinical/roles/intake_coordinator/coordinator-analytics (IntakeCoordinatorAnalyticsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/coordinator-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [5/11 | 45%] - Checking shell & content for IntakeCoordinatorAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [6/12 | 50%] - Checking shell & content for IntakeCoordinatorAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1412,17 +1448,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakecoordinatoranalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakecoordinatoranalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [5/11 | 45%] - Saving screenshot for IntakeCoordinatorAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [6/12 | 50%] - Saving screenshot for IntakeCoordinatorAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [5/11 | 45%] - Verified IntakeCoordinatorAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [6/12 | 50%] - Verified IntakeCoordinatorAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [6/11 | 54%] - Navigating to /offices/clinical/roles/intake_coordinator/coordinator-compliance (IntakeCoordinatorComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/12 | 58%] - Navigating to /offices/clinical/roles/intake_coordinator/coordinator-compliance (IntakeCoordinatorComplianceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/coordinator-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [6/11 | 54%] - Checking shell & content for IntakeCoordinatorComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/12 | 58%] - Checking shell & content for IntakeCoordinatorComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1430,17 +1466,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakecoordinatorcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakecoordinatorcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [6/11 | 54%] - Saving screenshot for IntakeCoordinatorComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/12 | 58%] - Saving screenshot for IntakeCoordinatorComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [6/11 | 54%] - Verified IntakeCoordinatorComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [7/12 | 58%] - Verified IntakeCoordinatorComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [7/11 | 63%] - Navigating to /offices/clinical/roles/intake_coordinator/coordinator-workflow (IntakeCoordinatorWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [8/12 | 66%] - Navigating to /offices/clinical/roles/intake_coordinator/coordinator-workflow (IntakeCoordinatorWorkflowScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/coordinator-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [7/11 | 63%] - Checking shell & content for IntakeCoordinatorWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [8/12 | 66%] - Checking shell & content for IntakeCoordinatorWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1448,17 +1484,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakecoordinatorworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakecoordinatorworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [7/11 | 63%] - Saving screenshot for IntakeCoordinatorWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [8/12 | 66%] - Saving screenshot for IntakeCoordinatorWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [7/11 | 63%] - Verified IntakeCoordinatorWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [8/12 | 66%] - Verified IntakeCoordinatorWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [8/11 | 72%] - Navigating to /offices/clinical/roles/intake_coordinator/referral-management (ReferralManagementScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [9/12 | 75%] - Navigating to /offices/clinical/roles/intake_coordinator/referral-management (ReferralManagementScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/referral-management");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [8/11 | 72%] - Checking shell & content for ReferralManagementScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [9/12 | 75%] - Checking shell & content for ReferralManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1466,17 +1502,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("referralmanagement-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("referralmanagement-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [8/11 | 72%] - Saving screenshot for ReferralManagementScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [9/12 | 75%] - Saving screenshot for ReferralManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("referral_management");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [8/11 | 72%] - Verified ReferralManagementScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [9/12 | 75%] - Verified ReferralManagementScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [9/11 | 81%] - Navigating to /offices/clinical/roles/intake_coordinator/client-intake (ClientIntakeScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [10/12 | 83%] - Navigating to /offices/clinical/roles/intake_coordinator/client-intake (ClientIntakeScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/client-intake");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [9/11 | 81%] - Checking shell & content for ClientIntakeScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [10/12 | 83%] - Checking shell & content for ClientIntakeScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1484,17 +1520,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clientintake-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clientintake-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [9/11 | 81%] - Saving screenshot for ClientIntakeScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [10/12 | 83%] - Saving screenshot for ClientIntakeScreen...");
   cy.waitAndSee();
   cy.screenshot("client_intake");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [9/11 | 81%] - Verified ClientIntakeScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [10/12 | 83%] - Verified ClientIntakeScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [10/11 | 90%] - Navigating to /offices/clinical/roles/intake_coordinator/booking (BookingScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [11/12 | 91%] - Navigating to /offices/clinical/roles/intake_coordinator/booking (BookingScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/booking");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [10/11 | 90%] - Checking shell & content for BookingScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [11/12 | 91%] - Checking shell & content for BookingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1502,17 +1538,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("booking-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("booking-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [10/11 | 90%] - Saving screenshot for BookingScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [11/12 | 91%] - Saving screenshot for BookingScreen...");
   cy.waitAndSee();
   cy.screenshot("booking");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [10/11 | 90%] - Verified BookingScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [11/12 | 91%] - Verified BookingScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [11/11 | 100%] - Navigating to /offices/clinical/roles/intake_coordinator/followup (FollowupScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [12/12 | 100%] - Navigating to /offices/clinical/roles/intake_coordinator/followup (FollowupScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/intake_coordinator/followup");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [11/11 | 100%] - Checking shell & content for FollowupScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [12/12 | 100%] - Checking shell & content for FollowupScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -1520,11 +1556,11 @@ describe("Org Full UI Test", () => {
   // cy.getCy("followup-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("followup-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [11/11 | 100%] - Saving screenshot for FollowupScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [12/12 | 100%] - Saving screenshot for FollowupScreen...");
   cy.waitAndSee();
   cy.screenshot("followup");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [11/11 | 100%] - Verified FollowupScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [12/12 | 100%] - Verified FollowupScreen successfully!\n");
   });
 
   it("tests org role rn", () => {
@@ -2558,11 +2594,11 @@ describe("Org Full UI Test", () => {
   it("tests org role guest", () => {
     cy.loginAsRole("guest");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/454 | 0%] - Navigating to /common/course-architect-dashboard (CourseArchitectDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/430 | 0%] - Navigating to /common/course-architect-dashboard (CourseArchitectDashboardScreen)...");
   cy.visitWithSemantics("/common/course-architect-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/454 | 0%] - Checking shell & content for CourseArchitectDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/430 | 0%] - Checking shell & content for CourseArchitectDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2570,17 +2606,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("coursearchitectdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("coursearchitectdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/454 | 0%] - Saving screenshot for CourseArchitectDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/430 | 0%] - Saving screenshot for CourseArchitectDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("course_architect_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/454 | 0%] - Verified CourseArchitectDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/430 | 0%] - Verified CourseArchitectDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/454 | 0%] - Navigating to /common/customer-support-dashboard (CustomerSupportDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/430 | 0%] - Navigating to /common/customer-support-dashboard (CustomerSupportDashboardScreen)...");
   cy.visitWithSemantics("/common/customer-support-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/454 | 0%] - Checking shell & content for CustomerSupportDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/430 | 0%] - Checking shell & content for CustomerSupportDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2588,17 +2624,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("customersupportdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("customersupportdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/454 | 0%] - Saving screenshot for CustomerSupportDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/430 | 0%] - Saving screenshot for CustomerSupportDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("customer_support_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/454 | 0%] - Verified CustomerSupportDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/430 | 0%] - Verified CustomerSupportDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/454 | 0%] - Navigating to /common/dynamic-dashboard (DynamicScreenDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/430 | 0%] - Navigating to /common/dynamic-dashboard (DynamicScreenDashboardScreen)...");
   cy.visitWithSemantics("/common/dynamic-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/454 | 0%] - Checking shell & content for DynamicScreenDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/430 | 0%] - Checking shell & content for DynamicScreenDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2606,17 +2642,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("dynamicscreendashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("dynamicscreendashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/454 | 0%] - Saving screenshot for DynamicScreenDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/430 | 0%] - Saving screenshot for DynamicScreenDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("dynamic_screen_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/454 | 0%] - Verified DynamicScreenDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/430 | 0%] - Verified DynamicScreenDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/454 | 0%] - Navigating to /common/family-member-dashboard (FamilyMemberDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/430 | 0%] - Navigating to /common/family-member-dashboard (FamilyMemberDashboardScreen)...");
   cy.visitWithSemantics("/common/family-member-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/454 | 0%] - Checking shell & content for FamilyMemberDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/430 | 0%] - Checking shell & content for FamilyMemberDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2624,17 +2660,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("familymemberdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("familymemberdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/454 | 0%] - Saving screenshot for FamilyMemberDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/430 | 0%] - Saving screenshot for FamilyMemberDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("family_member_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/454 | 0%] - Verified FamilyMemberDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/430 | 0%] - Verified FamilyMemberDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/454 | 1%] - Navigating to /common/guest-dashboard (GuestDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/430 | 1%] - Navigating to /common/guest-dashboard (GuestDashboardScreen)...");
   cy.visitWithSemantics("/common/guest-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/454 | 1%] - Checking shell & content for GuestDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/430 | 1%] - Checking shell & content for GuestDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2642,17 +2678,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("guestdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("guestdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/454 | 1%] - Saving screenshot for GuestDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/430 | 1%] - Saving screenshot for GuestDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("guest_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/454 | 1%] - Verified GuestDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/430 | 1%] - Verified GuestDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/454 | 1%] - Navigating to /common/office-dashboard (OfficeDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/430 | 1%] - Navigating to /common/office-dashboard (OfficeDashboardScreen)...");
   cy.visitWithSemantics("/common/office-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/454 | 1%] - Checking shell & content for OfficeDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/430 | 1%] - Checking shell & content for OfficeDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2660,17 +2696,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("officedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("officedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/454 | 1%] - Saving screenshot for OfficeDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/430 | 1%] - Saving screenshot for OfficeDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("office_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/454 | 1%] - Verified OfficeDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/430 | 1%] - Verified OfficeDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/454 | 1%] - Navigating to /offices/support/roles/quality_assurance/dashboard (QaDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/430 | 1%] - Navigating to /offices/support/roles/quality_assurance/dashboard (QaDashboardScreen)...");
   cy.visitWithSemantics("/offices/support/roles/quality_assurance/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/454 | 1%] - Checking shell & content for QaDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/430 | 1%] - Checking shell & content for QaDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2678,17 +2714,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("qadashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("qadashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/454 | 1%] - Saving screenshot for QaDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/430 | 1%] - Saving screenshot for QaDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("qa_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/454 | 1%] - Verified QaDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/430 | 1%] - Verified QaDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/454 | 1%] - Navigating to /common/support-dashboard (SupportDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/430 | 1%] - Navigating to /common/support-dashboard (SupportDashboardScreen)...");
   cy.visitWithSemantics("/common/support-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/454 | 1%] - Checking shell & content for SupportDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/430 | 1%] - Checking shell & content for SupportDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2696,17 +2732,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("supportdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("supportdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/454 | 1%] - Saving screenshot for SupportDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/430 | 1%] - Saving screenshot for SupportDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("support_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/454 | 1%] - Verified SupportDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/430 | 1%] - Verified SupportDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/454 | 1%] - Navigating to /common/training-hub-dashboard (TrainingHubDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/430 | 2%] - Navigating to /common/training-hub-dashboard (TrainingHubDashboardScreen)...");
   cy.visitWithSemantics("/common/training-hub-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/454 | 1%] - Checking shell & content for TrainingHubDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/430 | 2%] - Checking shell & content for TrainingHubDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2714,17 +2750,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("traininghubdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("traininghubdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/454 | 1%] - Saving screenshot for TrainingHubDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/430 | 2%] - Saving screenshot for TrainingHubDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("training_hub_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/454 | 1%] - Verified TrainingHubDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/430 | 2%] - Verified TrainingHubDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/454 | 2%] - Navigating to /offices/business_development/roles/general_manager/dashboard (GeneralManagerDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/430 | 2%] - Navigating to /offices/business_development/roles/general_manager/dashboard (GeneralManagerDashboardScreen)...");
   cy.visitWithSemantics("/offices/business_development/roles/general_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/454 | 2%] - Checking shell & content for GeneralManagerDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/430 | 2%] - Checking shell & content for GeneralManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2732,17 +2768,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("generalmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("generalmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/454 | 2%] - Saving screenshot for GeneralManagerDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/430 | 2%] - Saving screenshot for GeneralManagerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("general_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/454 | 2%] - Verified GeneralManagerDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/430 | 2%] - Verified GeneralManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/454 | 2%] - Navigating to /offices/franchise/roles/operations_manager/dashboard (OperationsManagerDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/430 | 2%] - Navigating to /offices/franchise/roles/operations_manager/dashboard (OperationsManagerDashboardScreen)...");
   cy.visitWithSemantics("/offices/franchise/roles/operations_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/454 | 2%] - Checking shell & content for OperationsManagerDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/430 | 2%] - Checking shell & content for OperationsManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2750,17 +2786,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("operationsmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("operationsmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/454 | 2%] - Saving screenshot for OperationsManagerDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/430 | 2%] - Saving screenshot for OperationsManagerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("operations_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/454 | 2%] - Verified OperationsManagerDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/430 | 2%] - Verified OperationsManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/454 | 2%] - Navigating to /offices/business_development/roles/partnership_manager/dashboard (PartnershipManagerDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/430 | 2%] - Navigating to /offices/business_development/roles/partnership_manager/dashboard (PartnershipManagerDashboardScreen)...");
   cy.visitWithSemantics("/offices/business_development/roles/partnership_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/454 | 2%] - Checking shell & content for PartnershipManagerDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/430 | 2%] - Checking shell & content for PartnershipManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2768,17 +2804,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("partnershipmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("partnershipmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/454 | 2%] - Saving screenshot for PartnershipManagerDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/430 | 2%] - Saving screenshot for PartnershipManagerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("partnership_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/454 | 2%] - Verified PartnershipManagerDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/430 | 2%] - Verified PartnershipManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/454 | 2%] - Navigating to /offices/business_development/roles/territory_expansion_manager/dashboard (TerritoryExpansionManagerDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/430 | 3%] - Navigating to /offices/business_development/roles/territory_expansion_manager/dashboard (TerritoryExpansionManagerDashboardScreen)...");
   cy.visitWithSemantics("/offices/business_development/roles/territory_expansion_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/454 | 2%] - Checking shell & content for TerritoryExpansionManagerDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/430 | 3%] - Checking shell & content for TerritoryExpansionManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2786,17 +2822,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territoryexpansionmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territoryexpansionmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/454 | 2%] - Saving screenshot for TerritoryExpansionManagerDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/430 | 3%] - Saving screenshot for TerritoryExpansionManagerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("territory_expansion_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/454 | 2%] - Verified TerritoryExpansionManagerDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/430 | 3%] - Verified TerritoryExpansionManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/454 | 3%] - Navigating to /offices/marketing/roles/territory_sales_manager/dashboard (TerritorySalesManagerDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/430 | 3%] - Navigating to /offices/marketing/roles/territory_sales_manager/dashboard (TerritorySalesManagerDashboardScreen)...");
   cy.visitWithSemantics("/offices/marketing/roles/territory_sales_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/454 | 3%] - Checking shell & content for TerritorySalesManagerDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/430 | 3%] - Checking shell & content for TerritorySalesManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2804,17 +2840,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territorysalesmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territorysalesmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/454 | 3%] - Saving screenshot for TerritorySalesManagerDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/430 | 3%] - Saving screenshot for TerritorySalesManagerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/454 | 3%] - Verified TerritorySalesManagerDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/430 | 3%] - Verified TerritorySalesManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/454 | 3%] - Navigating to /offices/franchise/roles/billing_admin/dashboard (BillingAdminDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/430 | 3%] - Navigating to /offices/franchise/roles/billing_admin/dashboard (BillingAdminDashboardScreen)...");
   cy.visitWithSemantics("/offices/franchise/roles/billing_admin/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/454 | 3%] - Checking shell & content for BillingAdminDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/430 | 3%] - Checking shell & content for BillingAdminDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2822,17 +2858,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("billingadmindashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("billingadmindashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/454 | 3%] - Saving screenshot for BillingAdminDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/430 | 3%] - Saving screenshot for BillingAdminDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("billing_admin_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/454 | 3%] - Verified BillingAdminDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/430 | 3%] - Verified BillingAdminDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/454 | 3%] - Navigating to /staff/quality-assurance-dashboard (QualityAssuranceDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/430 | 3%] - Navigating to /staff/quality-assurance-dashboard (QualityAssuranceDashboardScreen)...");
   cy.visitWithSemantics("/staff/quality-assurance-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/454 | 3%] - Checking shell & content for QualityAssuranceDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/430 | 3%] - Checking shell & content for QualityAssuranceDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2840,17 +2876,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("qualityassurancedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("qualityassurancedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/454 | 3%] - Saving screenshot for QualityAssuranceDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/430 | 3%] - Saving screenshot for QualityAssuranceDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("quality_assurance_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/454 | 3%] - Verified QualityAssuranceDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [16/430 | 3%] - Verified QualityAssuranceDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [17/454 | 3%] - Navigating to /staff/receptionist-dashboard (ReceptionistDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [17/430 | 3%] - Navigating to /staff/receptionist-dashboard (ReceptionistDashboardScreen)...");
   cy.visitWithSemantics("/staff/receptionist-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [17/454 | 3%] - Checking shell & content for ReceptionistDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [17/430 | 3%] - Checking shell & content for ReceptionistDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2858,17 +2894,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("receptionistdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("receptionistdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [17/454 | 3%] - Saving screenshot for ReceptionistDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [17/430 | 3%] - Saving screenshot for ReceptionistDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("receptionist_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [17/454 | 3%] - Verified ReceptionistDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [17/430 | 3%] - Verified ReceptionistDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [18/454 | 3%] - Navigating to /offices/support/roles/training_coordinator/dashboard (TrainingCoordinatorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [18/430 | 4%] - Navigating to /offices/support/roles/training_coordinator/dashboard (TrainingCoordinatorDashboardScreen)...");
   cy.visitWithSemantics("/offices/support/roles/training_coordinator/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [18/454 | 3%] - Checking shell & content for TrainingCoordinatorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [18/430 | 4%] - Checking shell & content for TrainingCoordinatorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2876,17 +2912,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingcoordinatordashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingcoordinatordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [18/454 | 3%] - Saving screenshot for TrainingCoordinatorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [18/430 | 4%] - Saving screenshot for TrainingCoordinatorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("training_coordinator_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [18/454 | 3%] - Verified TrainingCoordinatorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [18/430 | 4%] - Verified TrainingCoordinatorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [19/454 | 4%] - Navigating to /common/guest-analytics (GuestAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [19/430 | 4%] - Navigating to /common/guest-analytics (GuestAnalyticsScreen)...");
   cy.visitWithSemantics("/common/guest-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [19/454 | 4%] - Checking shell & content for GuestAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [19/430 | 4%] - Checking shell & content for GuestAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2894,17 +2930,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("guestanalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("guestanalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [19/454 | 4%] - Saving screenshot for GuestAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [19/430 | 4%] - Saving screenshot for GuestAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("guest_analytics");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [19/454 | 4%] - Verified GuestAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [19/430 | 4%] - Verified GuestAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [20/454 | 4%] - Navigating to /common/guest-compliance (GuestComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [20/430 | 4%] - Navigating to /common/guest-compliance (GuestComplianceScreen)...");
   cy.visitWithSemantics("/common/guest-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [20/454 | 4%] - Checking shell & content for GuestComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [20/430 | 4%] - Checking shell & content for GuestComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2912,17 +2948,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("guestcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("guestcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [20/454 | 4%] - Saving screenshot for GuestComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [20/430 | 4%] - Saving screenshot for GuestComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("guest_compliance");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [20/454 | 4%] - Verified GuestComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [20/430 | 4%] - Verified GuestComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [21/454 | 4%] - Navigating to /common/guest-workflow (GuestWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [21/430 | 4%] - Navigating to /common/guest-workflow (GuestWorkflowScreen)...");
   cy.visitWithSemantics("/common/guest-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [21/454 | 4%] - Checking shell & content for GuestWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [21/430 | 4%] - Checking shell & content for GuestWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2930,17 +2966,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("guestworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("guestworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [21/454 | 4%] - Saving screenshot for GuestWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [21/430 | 4%] - Saving screenshot for GuestWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("guest_workflow");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [21/454 | 4%] - Verified GuestWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [21/430 | 4%] - Verified GuestWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [22/454 | 4%] - Navigating to /staff/scheduling-dashboard (SchedulingDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [22/430 | 5%] - Navigating to /staff/scheduling-dashboard (SchedulingDashboardScreen)...");
   cy.visitWithSemantics("/staff/scheduling-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [22/454 | 4%] - Checking shell & content for SchedulingDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [22/430 | 5%] - Checking shell & content for SchedulingDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2948,17 +2984,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("schedulingdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("schedulingdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [22/454 | 4%] - Saving screenshot for SchedulingDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [22/430 | 5%] - Saving screenshot for SchedulingDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("scheduling_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [22/454 | 4%] - Verified SchedulingDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [22/430 | 5%] - Verified SchedulingDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [23/454 | 5%] - Navigating to /generated/success-profile (Success Profile)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [23/430 | 5%] - Navigating to /generated/success-profile (Success Profile)...");
   cy.visitWithSemantics("/generated/success-profile");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [23/454 | 5%] - Checking shell & content for Success Profile...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [23/430 | 5%] - Checking shell & content for Success Profile...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2966,17 +3002,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("successprofile-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("successprofile-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [23/454 | 5%] - Saving screenshot for Success Profile...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [23/430 | 5%] - Saving screenshot for Success Profile...");
   cy.waitAndSee();
   cy.screenshot("success_profile");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [23/454 | 5%] - Verified Success Profile successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [23/430 | 5%] - Verified Success Profile successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [24/454 | 5%] - Navigating to /generated/consent (Consent)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [24/430 | 5%] - Navigating to /generated/consent (Consent)...");
   cy.visitWithSemantics("/generated/consent");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [24/454 | 5%] - Checking shell & content for Consent...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [24/430 | 5%] - Checking shell & content for Consent...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -2984,17 +3020,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("consent-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("consent-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [24/454 | 5%] - Saving screenshot for Consent...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [24/430 | 5%] - Saving screenshot for Consent...");
   cy.waitAndSee();
   cy.screenshot("consent");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [24/454 | 5%] - Verified Consent successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [24/430 | 5%] - Verified Consent successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [25/454 | 5%] - Navigating to /offices/business_development/roles/regional_bdm/competitor-notes (Regional Bdm Competitor Notes)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [25/430 | 5%] - Navigating to /offices/business_development/roles/regional_bdm/competitor-notes (Regional Bdm Competitor Notes)...");
   cy.visitWithSemantics("/offices/business_development/roles/regional_bdm/competitor-notes");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [25/454 | 5%] - Checking shell & content for Regional Bdm Competitor Notes...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [25/430 | 5%] - Checking shell & content for Regional Bdm Competitor Notes...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3002,17 +3038,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regionalbdmcompetitornotes-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regionalbdmcompetitornotes-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [25/454 | 5%] - Saving screenshot for Regional Bdm Competitor Notes...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [25/430 | 5%] - Saving screenshot for Regional Bdm Competitor Notes...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_competitor_notes");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [25/454 | 5%] - Verified Regional Bdm Competitor Notes successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [25/430 | 5%] - Verified Regional Bdm Competitor Notes successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [26/454 | 5%] - Navigating to /offices/business_development/roles/regional_bdm/deal-tracker (Regional Bdm Deal Tracker)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [26/430 | 6%] - Navigating to /offices/business_development/roles/regional_bdm/deal-tracker (Regional Bdm Deal Tracker)...");
   cy.visitWithSemantics("/offices/business_development/roles/regional_bdm/deal-tracker");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [26/454 | 5%] - Checking shell & content for Regional Bdm Deal Tracker...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [26/430 | 6%] - Checking shell & content for Regional Bdm Deal Tracker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3020,17 +3056,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regionalbdmdealtracker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regionalbdmdealtracker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [26/454 | 5%] - Saving screenshot for Regional Bdm Deal Tracker...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [26/430 | 6%] - Saving screenshot for Regional Bdm Deal Tracker...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_deal_tracker");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [26/454 | 5%] - Verified Regional Bdm Deal Tracker successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [26/430 | 6%] - Verified Regional Bdm Deal Tracker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [27/454 | 5%] - Navigating to /offices/business_development/roles/regional_bdm/franchise-pipeline (Regional Bdm Franchise Pipeline)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [27/430 | 6%] - Navigating to /offices/business_development/roles/regional_bdm/franchise-pipeline (Regional Bdm Franchise Pipeline)...");
   cy.visitWithSemantics("/offices/business_development/roles/regional_bdm/franchise-pipeline");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [27/454 | 5%] - Checking shell & content for Regional Bdm Franchise Pipeline...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [27/430 | 6%] - Checking shell & content for Regional Bdm Franchise Pipeline...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3038,17 +3074,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regionalbdmfranchisepipeline-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regionalbdmfranchisepipeline-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [27/454 | 5%] - Saving screenshot for Regional Bdm Franchise Pipeline...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [27/430 | 6%] - Saving screenshot for Regional Bdm Franchise Pipeline...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_franchise_pipeline");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [27/454 | 5%] - Verified Regional Bdm Franchise Pipeline successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [27/430 | 6%] - Verified Regional Bdm Franchise Pipeline successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [28/454 | 6%] - Navigating to /offices/business_development/roles/regional_bdm/leads (Regional Bdm Leads)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [28/430 | 6%] - Navigating to /offices/business_development/roles/regional_bdm/leads (Regional Bdm Leads)...");
   cy.visitWithSemantics("/offices/business_development/roles/regional_bdm/leads");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [28/454 | 6%] - Checking shell & content for Regional Bdm Leads...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [28/430 | 6%] - Checking shell & content for Regional Bdm Leads...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3056,17 +3092,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regionalbdmleads-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regionalbdmleads-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [28/454 | 6%] - Saving screenshot for Regional Bdm Leads...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [28/430 | 6%] - Saving screenshot for Regional Bdm Leads...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_leads");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [28/454 | 6%] - Verified Regional Bdm Leads successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [28/430 | 6%] - Verified Regional Bdm Leads successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [29/454 | 6%] - Navigating to /offices/business_development/roles/regional_bdm/meetings (Regional Bdm Meetings)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [29/430 | 6%] - Navigating to /offices/business_development/roles/regional_bdm/meetings (Regional Bdm Meetings)...");
   cy.visitWithSemantics("/offices/business_development/roles/regional_bdm/meetings");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [29/454 | 6%] - Checking shell & content for Regional Bdm Meetings...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [29/430 | 6%] - Checking shell & content for Regional Bdm Meetings...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3074,17 +3110,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regionalbdmmeetings-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regionalbdmmeetings-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [29/454 | 6%] - Saving screenshot for Regional Bdm Meetings...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [29/430 | 6%] - Saving screenshot for Regional Bdm Meetings...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_meetings");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [29/454 | 6%] - Verified Regional Bdm Meetings successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [29/430 | 6%] - Verified Regional Bdm Meetings successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [30/454 | 6%] - Navigating to /offices/business_development/roles/regional_bdm/partners (Regional Bdm Partners)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [30/430 | 6%] - Navigating to /offices/business_development/roles/regional_bdm/partners (Regional Bdm Partners)...");
   cy.visitWithSemantics("/offices/business_development/roles/regional_bdm/partners");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [30/454 | 6%] - Checking shell & content for Regional Bdm Partners...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [30/430 | 6%] - Checking shell & content for Regional Bdm Partners...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3092,17 +3128,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regionalbdmpartners-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regionalbdmpartners-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [30/454 | 6%] - Saving screenshot for Regional Bdm Partners...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [30/430 | 6%] - Saving screenshot for Regional Bdm Partners...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_partners");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [30/454 | 6%] - Verified Regional Bdm Partners successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [30/430 | 6%] - Verified Regional Bdm Partners successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [31/454 | 6%] - Navigating to /offices/business_development/roles/regional_bdm/reports (Regional Bdm Reports)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [31/430 | 7%] - Navigating to /offices/business_development/roles/regional_bdm/reports (Regional Bdm Reports)...");
   cy.visitWithSemantics("/offices/business_development/roles/regional_bdm/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [31/454 | 6%] - Checking shell & content for Regional Bdm Reports...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [31/430 | 7%] - Checking shell & content for Regional Bdm Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3110,17 +3146,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regionalbdmreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regionalbdmreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [31/454 | 6%] - Saving screenshot for Regional Bdm Reports...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [31/430 | 7%] - Saving screenshot for Regional Bdm Reports...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_reports");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [31/454 | 6%] - Verified Regional Bdm Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [31/430 | 7%] - Verified Regional Bdm Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [32/454 | 7%] - Navigating to /offices/business_development/roles/regional_bdm/tasks (Regional Bdm Tasks)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [32/430 | 7%] - Navigating to /offices/business_development/roles/regional_bdm/tasks (Regional Bdm Tasks)...");
   cy.visitWithSemantics("/offices/business_development/roles/regional_bdm/tasks");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [32/454 | 7%] - Checking shell & content for Regional Bdm Tasks...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [32/430 | 7%] - Checking shell & content for Regional Bdm Tasks...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3128,17 +3164,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regionalbdmtasks-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regionalbdmtasks-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [32/454 | 7%] - Saving screenshot for Regional Bdm Tasks...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [32/430 | 7%] - Saving screenshot for Regional Bdm Tasks...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_tasks");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [32/454 | 7%] - Verified Regional Bdm Tasks successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [32/430 | 7%] - Verified Regional Bdm Tasks successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [33/454 | 7%] - Navigating to /offices/business_development/roles/regional_bdm/territory-growth (Regional Bdm Territory Growth)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [33/430 | 7%] - Navigating to /offices/business_development/roles/regional_bdm/territory-growth (Regional Bdm Territory Growth)...");
   cy.visitWithSemantics("/offices/business_development/roles/regional_bdm/territory-growth");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [33/454 | 7%] - Checking shell & content for Regional Bdm Territory Growth...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [33/430 | 7%] - Checking shell & content for Regional Bdm Territory Growth...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3146,17 +3182,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regionalbdmterritorygrowth-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regionalbdmterritorygrowth-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [33/454 | 7%] - Saving screenshot for Regional Bdm Territory Growth...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [33/430 | 7%] - Saving screenshot for Regional Bdm Territory Growth...");
   cy.waitAndSee();
   cy.screenshot("regional_bdm_territory_growth");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [33/454 | 7%] - Verified Regional Bdm Territory Growth successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [33/430 | 7%] - Verified Regional Bdm Territory Growth successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [34/454 | 7%] - Navigating to /offices/business_development/roles/franchise_sales_manager/contracts (Franchise Sales Manager Contracts)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [34/430 | 7%] - Navigating to /offices/business_development/roles/franchise_sales_manager/contracts (Franchise Sales Manager Contracts)...");
   cy.visitWithSemantics("/offices/business_development/roles/franchise_sales_manager/contracts");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [34/454 | 7%] - Checking shell & content for Franchise Sales Manager Contracts...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [34/430 | 7%] - Checking shell & content for Franchise Sales Manager Contracts...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3164,17 +3200,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("franchisesalesmanagercontracts-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("franchisesalesmanagercontracts-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [34/454 | 7%] - Saving screenshot for Franchise Sales Manager Contracts...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [34/430 | 7%] - Saving screenshot for Franchise Sales Manager Contracts...");
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_contracts");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [34/454 | 7%] - Verified Franchise Sales Manager Contracts successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [34/430 | 7%] - Verified Franchise Sales Manager Contracts successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [35/454 | 7%] - Navigating to /offices/business_development/roles/franchise_sales_manager/discovery-calls (Franchise Sales Manager Discovery Calls)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [35/430 | 8%] - Navigating to /offices/business_development/roles/franchise_sales_manager/discovery-calls (Franchise Sales Manager Discovery Calls)...");
   cy.visitWithSemantics("/offices/business_development/roles/franchise_sales_manager/discovery-calls");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [35/454 | 7%] - Checking shell & content for Franchise Sales Manager Discovery Calls...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [35/430 | 8%] - Checking shell & content for Franchise Sales Manager Discovery Calls...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3182,17 +3218,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("franchisesalesmanagerdiscoverycalls-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("franchisesalesmanagerdiscoverycalls-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [35/454 | 7%] - Saving screenshot for Franchise Sales Manager Discovery Calls...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [35/430 | 8%] - Saving screenshot for Franchise Sales Manager Discovery Calls...");
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_discovery_calls");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [35/454 | 7%] - Verified Franchise Sales Manager Discovery Calls successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [35/430 | 8%] - Verified Franchise Sales Manager Discovery Calls successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [36/454 | 7%] - Navigating to /offices/business_development/roles/franchise_sales_manager/follow-ups (Franchise Sales Manager Follow Ups)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [36/430 | 8%] - Navigating to /offices/business_development/roles/franchise_sales_manager/follow-ups (Franchise Sales Manager Follow Ups)...");
   cy.visitWithSemantics("/offices/business_development/roles/franchise_sales_manager/follow-ups");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [36/454 | 7%] - Checking shell & content for Franchise Sales Manager Follow Ups...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [36/430 | 8%] - Checking shell & content for Franchise Sales Manager Follow Ups...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3200,17 +3236,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("franchisesalesmanagerfollowups-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("franchisesalesmanagerfollowups-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [36/454 | 7%] - Saving screenshot for Franchise Sales Manager Follow Ups...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [36/430 | 8%] - Saving screenshot for Franchise Sales Manager Follow Ups...");
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_follow_ups");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [36/454 | 7%] - Verified Franchise Sales Manager Follow Ups successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [36/430 | 8%] - Verified Franchise Sales Manager Follow Ups successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [37/454 | 8%] - Navigating to /offices/business_development/roles/franchise_sales_manager/leads (Franchise Sales Manager Leads)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [37/430 | 8%] - Navigating to /offices/business_development/roles/franchise_sales_manager/leads (Franchise Sales Manager Leads)...");
   cy.visitWithSemantics("/offices/business_development/roles/franchise_sales_manager/leads");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [37/454 | 8%] - Checking shell & content for Franchise Sales Manager Leads...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [37/430 | 8%] - Checking shell & content for Franchise Sales Manager Leads...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3218,17 +3254,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("franchisesalesmanagerleads-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("franchisesalesmanagerleads-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [37/454 | 8%] - Saving screenshot for Franchise Sales Manager Leads...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [37/430 | 8%] - Saving screenshot for Franchise Sales Manager Leads...");
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_leads");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [37/454 | 8%] - Verified Franchise Sales Manager Leads successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [37/430 | 8%] - Verified Franchise Sales Manager Leads successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [38/454 | 8%] - Navigating to /offices/business_development/roles/franchise_sales_manager/proposals (Franchise Sales Manager Proposals)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [38/430 | 8%] - Navigating to /offices/business_development/roles/franchise_sales_manager/proposals (Franchise Sales Manager Proposals)...");
   cy.visitWithSemantics("/offices/business_development/roles/franchise_sales_manager/proposals");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [38/454 | 8%] - Checking shell & content for Franchise Sales Manager Proposals...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [38/430 | 8%] - Checking shell & content for Franchise Sales Manager Proposals...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3236,17 +3272,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("franchisesalesmanagerproposals-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("franchisesalesmanagerproposals-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [38/454 | 8%] - Saving screenshot for Franchise Sales Manager Proposals...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [38/430 | 8%] - Saving screenshot for Franchise Sales Manager Proposals...");
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_proposals");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [38/454 | 8%] - Verified Franchise Sales Manager Proposals successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [38/430 | 8%] - Verified Franchise Sales Manager Proposals successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [39/454 | 8%] - Navigating to /offices/business_development/roles/franchise_sales_manager/prospects (Franchise Sales Manager Prospects)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [39/430 | 9%] - Navigating to /offices/business_development/roles/franchise_sales_manager/prospects (Franchise Sales Manager Prospects)...");
   cy.visitWithSemantics("/offices/business_development/roles/franchise_sales_manager/prospects");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [39/454 | 8%] - Checking shell & content for Franchise Sales Manager Prospects...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [39/430 | 9%] - Checking shell & content for Franchise Sales Manager Prospects...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3254,17 +3290,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("franchisesalesmanagerprospects-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("franchisesalesmanagerprospects-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [39/454 | 8%] - Saving screenshot for Franchise Sales Manager Prospects...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [39/430 | 9%] - Saving screenshot for Franchise Sales Manager Prospects...");
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_prospects");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [39/454 | 8%] - Verified Franchise Sales Manager Prospects successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [39/430 | 9%] - Verified Franchise Sales Manager Prospects successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [40/454 | 8%] - Navigating to /offices/business_development/roles/franchise_sales_manager/reports (Franchise Sales Manager Reports)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [40/430 | 9%] - Navigating to /offices/business_development/roles/franchise_sales_manager/reports (Franchise Sales Manager Reports)...");
   cy.visitWithSemantics("/offices/business_development/roles/franchise_sales_manager/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [40/454 | 8%] - Checking shell & content for Franchise Sales Manager Reports...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [40/430 | 9%] - Checking shell & content for Franchise Sales Manager Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3272,17 +3308,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("franchisesalesmanagerreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("franchisesalesmanagerreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [40/454 | 8%] - Saving screenshot for Franchise Sales Manager Reports...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [40/430 | 9%] - Saving screenshot for Franchise Sales Manager Reports...");
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_reports");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [40/454 | 8%] - Verified Franchise Sales Manager Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [40/430 | 9%] - Verified Franchise Sales Manager Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [41/454 | 9%] - Navigating to /offices/business_development/roles/franchise_sales_manager/sales-pipeline (Franchise Sales Manager Sales Pipeline)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [41/430 | 9%] - Navigating to /offices/business_development/roles/franchise_sales_manager/sales-pipeline (Franchise Sales Manager Sales Pipeline)...");
   cy.visitWithSemantics("/offices/business_development/roles/franchise_sales_manager/sales-pipeline");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [41/454 | 9%] - Checking shell & content for Franchise Sales Manager Sales Pipeline...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [41/430 | 9%] - Checking shell & content for Franchise Sales Manager Sales Pipeline...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3290,17 +3326,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("franchisesalesmanagersalespipeline-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("franchisesalesmanagersalespipeline-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [41/454 | 9%] - Saving screenshot for Franchise Sales Manager Sales Pipeline...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [41/430 | 9%] - Saving screenshot for Franchise Sales Manager Sales Pipeline...");
   cy.waitAndSee();
   cy.screenshot("franchise_sales_manager_sales_pipeline");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [41/454 | 9%] - Verified Franchise Sales Manager Sales Pipeline successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [41/430 | 9%] - Verified Franchise Sales Manager Sales Pipeline successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [42/454 | 9%] - Navigating to /offices/business_development/roles/partnership_manager/active-deals (Partnership Manager Active Deals)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [42/430 | 9%] - Navigating to /offices/business_development/roles/partnership_manager/active-deals (Partnership Manager Active Deals)...");
   cy.visitWithSemantics("/offices/business_development/roles/partnership_manager/active-deals");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [42/454 | 9%] - Checking shell & content for Partnership Manager Active Deals...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [42/430 | 9%] - Checking shell & content for Partnership Manager Active Deals...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3308,17 +3344,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("partnershipmanageractivedeals-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("partnershipmanageractivedeals-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [42/454 | 9%] - Saving screenshot for Partnership Manager Active Deals...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [42/430 | 9%] - Saving screenshot for Partnership Manager Active Deals...");
   cy.waitAndSee();
   cy.screenshot("partnership_manager_active_deals");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [42/454 | 9%] - Verified Partnership Manager Active Deals successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [42/430 | 9%] - Verified Partnership Manager Active Deals successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [43/454 | 9%] - Navigating to /offices/business_development/roles/partnership_manager/outreach (Partnership Manager Outreach)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [43/430 | 10%] - Navigating to /offices/business_development/roles/partnership_manager/outreach (Partnership Manager Outreach)...");
   cy.visitWithSemantics("/offices/business_development/roles/partnership_manager/outreach");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [43/454 | 9%] - Checking shell & content for Partnership Manager Outreach...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [43/430 | 10%] - Checking shell & content for Partnership Manager Outreach...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3326,17 +3362,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("partnershipmanageroutreach-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("partnershipmanageroutreach-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [43/454 | 9%] - Saving screenshot for Partnership Manager Outreach...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [43/430 | 10%] - Saving screenshot for Partnership Manager Outreach...");
   cy.waitAndSee();
   cy.screenshot("partnership_manager_outreach");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [43/454 | 9%] - Verified Partnership Manager Outreach successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [43/430 | 10%] - Verified Partnership Manager Outreach successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [44/454 | 9%] - Navigating to /offices/business_development/roles/partnership_manager/partners (Partnership Manager Partners)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [44/430 | 10%] - Navigating to /offices/business_development/roles/partnership_manager/partners (Partnership Manager Partners)...");
   cy.visitWithSemantics("/offices/business_development/roles/partnership_manager/partners");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [44/454 | 9%] - Checking shell & content for Partnership Manager Partners...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [44/430 | 10%] - Checking shell & content for Partnership Manager Partners...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3344,17 +3380,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("partnershipmanagerpartners-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("partnershipmanagerpartners-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [44/454 | 9%] - Saving screenshot for Partnership Manager Partners...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [44/430 | 10%] - Saving screenshot for Partnership Manager Partners...");
   cy.waitAndSee();
   cy.screenshot("partnership_manager_partners");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [44/454 | 9%] - Verified Partnership Manager Partners successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [44/430 | 10%] - Verified Partnership Manager Partners successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [45/454 | 9%] - Navigating to /offices/business_development/roles/partnership_manager/proposals (Partnership Manager Proposals)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [45/430 | 10%] - Navigating to /offices/business_development/roles/partnership_manager/proposals (Partnership Manager Proposals)...");
   cy.visitWithSemantics("/offices/business_development/roles/partnership_manager/proposals");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [45/454 | 9%] - Checking shell & content for Partnership Manager Proposals...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [45/430 | 10%] - Checking shell & content for Partnership Manager Proposals...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3362,17 +3398,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("partnershipmanagerproposals-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("partnershipmanagerproposals-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [45/454 | 9%] - Saving screenshot for Partnership Manager Proposals...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [45/430 | 10%] - Saving screenshot for Partnership Manager Proposals...");
   cy.waitAndSee();
   cy.screenshot("partnership_manager_proposals");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [45/454 | 9%] - Verified Partnership Manager Proposals successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [45/430 | 10%] - Verified Partnership Manager Proposals successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [46/454 | 10%] - Navigating to /offices/business_development/roles/partnership_manager/renewals (Partnership Manager Renewals)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [46/430 | 10%] - Navigating to /offices/business_development/roles/partnership_manager/renewals (Partnership Manager Renewals)...");
   cy.visitWithSemantics("/offices/business_development/roles/partnership_manager/renewals");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [46/454 | 10%] - Checking shell & content for Partnership Manager Renewals...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [46/430 | 10%] - Checking shell & content for Partnership Manager Renewals...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3380,17 +3416,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("partnershipmanagerrenewals-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("partnershipmanagerrenewals-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [46/454 | 10%] - Saving screenshot for Partnership Manager Renewals...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [46/430 | 10%] - Saving screenshot for Partnership Manager Renewals...");
   cy.waitAndSee();
   cy.screenshot("partnership_manager_renewals");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [46/454 | 10%] - Verified Partnership Manager Renewals successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [46/430 | 10%] - Verified Partnership Manager Renewals successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [47/454 | 10%] - Navigating to /offices/business_development/roles/partnership_manager/reports (Partnership Manager Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [47/430 | 10%] - Navigating to /offices/business_development/roles/partnership_manager/reports (Partnership Manager Reports)...");
   cy.visitWithSemantics("/offices/business_development/roles/partnership_manager/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [47/454 | 10%] - Checking shell & content for Partnership Manager Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [47/430 | 10%] - Checking shell & content for Partnership Manager Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3398,17 +3434,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("partnershipmanagerreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("partnershipmanagerreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [47/454 | 10%] - Saving screenshot for Partnership Manager Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [47/430 | 10%] - Saving screenshot for Partnership Manager Reports...");
   cy.waitAndSee();
   cy.screenshot("partnership_manager_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [47/454 | 10%] - Verified Partnership Manager Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [47/430 | 10%] - Verified Partnership Manager Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [48/454 | 10%] - Navigating to /offices/business_development/roles/regional_manager_ontario/dashboard (Regional Manager Ontario Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [48/430 | 11%] - Navigating to /offices/business_development/roles/regional_manager_ontario/dashboard (Regional Manager Ontario Dashboard)...");
   cy.visitWithSemantics("/offices/business_development/roles/regional_manager_ontario/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [48/454 | 10%] - Checking shell & content for Regional Manager Ontario Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [48/430 | 11%] - Checking shell & content for Regional Manager Ontario Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3416,17 +3452,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regionalmanagerontariodashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regionalmanagerontariodashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [48/454 | 10%] - Saving screenshot for Regional Manager Ontario Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [48/430 | 11%] - Saving screenshot for Regional Manager Ontario Dashboard...");
   cy.waitAndSee();
   cy.screenshot("regional_manager_ontario_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [48/454 | 10%] - Verified Regional Manager Ontario Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [48/430 | 11%] - Verified Regional Manager Ontario Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [49/454 | 10%] - Navigating to /offices/business_development/roles/territory_expansion_manager/demographics (Territory Expansion Manager Demographics)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [49/430 | 11%] - Navigating to /offices/business_development/roles/territory_expansion_manager/demographics (Territory Expansion Manager Demographics)...");
   cy.visitWithSemantics("/offices/business_development/roles/territory_expansion_manager/demographics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [49/454 | 10%] - Checking shell & content for Territory Expansion Manager Demographics...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [49/430 | 11%] - Checking shell & content for Territory Expansion Manager Demographics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3434,17 +3470,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territoryexpansionmanagerdemographics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territoryexpansionmanagerdemographics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [49/454 | 10%] - Saving screenshot for Territory Expansion Manager Demographics...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [49/430 | 11%] - Saving screenshot for Territory Expansion Manager Demographics...");
   cy.waitAndSee();
   cy.screenshot("territory_expansion_manager_demographics");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [49/454 | 10%] - Verified Territory Expansion Manager Demographics successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [49/430 | 11%] - Verified Territory Expansion Manager Demographics successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [50/454 | 11%] - Navigating to /offices/business_development/roles/territory_expansion_manager/expansion-plans (Territory Expansion Manager Expansion Plans)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [50/430 | 11%] - Navigating to /offices/business_development/roles/territory_expansion_manager/expansion-plans (Territory Expansion Manager Expansion Plans)...");
   cy.visitWithSemantics("/offices/business_development/roles/territory_expansion_manager/expansion-plans");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [50/454 | 11%] - Checking shell & content for Territory Expansion Manager Expansion Plans...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [50/430 | 11%] - Checking shell & content for Territory Expansion Manager Expansion Plans...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3452,17 +3488,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territoryexpansionmanagerexpansionplans-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territoryexpansionmanagerexpansionplans-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [50/454 | 11%] - Saving screenshot for Territory Expansion Manager Expansion Plans...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [50/430 | 11%] - Saving screenshot for Territory Expansion Manager Expansion Plans...");
   cy.waitAndSee();
   cy.screenshot("territory_expansion_manager_expansion_plans");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [50/454 | 11%] - Verified Territory Expansion Manager Expansion Plans successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [50/430 | 11%] - Verified Territory Expansion Manager Expansion Plans successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [51/454 | 11%] - Navigating to /offices/business_development/roles/territory_expansion_manager/forecast (Territory Expansion Manager Forecast)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [51/430 | 11%] - Navigating to /offices/business_development/roles/territory_expansion_manager/forecast (Territory Expansion Manager Forecast)...");
   cy.visitWithSemantics("/offices/business_development/roles/territory_expansion_manager/forecast");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [51/454 | 11%] - Checking shell & content for Territory Expansion Manager Forecast...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [51/430 | 11%] - Checking shell & content for Territory Expansion Manager Forecast...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3470,17 +3506,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territoryexpansionmanagerforecast-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territoryexpansionmanagerforecast-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [51/454 | 11%] - Saving screenshot for Territory Expansion Manager Forecast...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [51/430 | 11%] - Saving screenshot for Territory Expansion Manager Forecast...");
   cy.waitAndSee();
   cy.screenshot("territory_expansion_manager_forecast");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [51/454 | 11%] - Verified Territory Expansion Manager Forecast successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [51/430 | 11%] - Verified Territory Expansion Manager Forecast successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [52/454 | 11%] - Navigating to /offices/business_development/roles/territory_expansion_manager/market-research (Territory Expansion Manager Market Research)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [52/430 | 12%] - Navigating to /offices/business_development/roles/territory_expansion_manager/market-research (Territory Expansion Manager Market Research)...");
   cy.visitWithSemantics("/offices/business_development/roles/territory_expansion_manager/market-research");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [52/454 | 11%] - Checking shell & content for Territory Expansion Manager Market Research...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [52/430 | 12%] - Checking shell & content for Territory Expansion Manager Market Research...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3488,17 +3524,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territoryexpansionmanagermarketresearch-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territoryexpansionmanagermarketresearch-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [52/454 | 11%] - Saving screenshot for Territory Expansion Manager Market Research...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [52/430 | 12%] - Saving screenshot for Territory Expansion Manager Market Research...");
   cy.waitAndSee();
   cy.screenshot("territory_expansion_manager_market_research");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [52/454 | 11%] - Verified Territory Expansion Manager Market Research successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [52/430 | 12%] - Verified Territory Expansion Manager Market Research successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [53/454 | 11%] - Navigating to /offices/business_development/roles/territory_expansion_manager/open-territories (Territory Expansion Manager Open Territories)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [53/430 | 12%] - Navigating to /offices/business_development/roles/territory_expansion_manager/open-territories (Territory Expansion Manager Open Territories)...");
   cy.visitWithSemantics("/offices/business_development/roles/territory_expansion_manager/open-territories");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [53/454 | 11%] - Checking shell & content for Territory Expansion Manager Open Territories...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [53/430 | 12%] - Checking shell & content for Territory Expansion Manager Open Territories...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3506,17 +3542,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territoryexpansionmanageropenterritories-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territoryexpansionmanageropenterritories-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [53/454 | 11%] - Saving screenshot for Territory Expansion Manager Open Territories...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [53/430 | 12%] - Saving screenshot for Territory Expansion Manager Open Territories...");
   cy.waitAndSee();
   cy.screenshot("territory_expansion_manager_open_territories");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [53/454 | 11%] - Verified Territory Expansion Manager Open Territories successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [53/430 | 12%] - Verified Territory Expansion Manager Open Territories successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [54/454 | 11%] - Navigating to /offices/business_development/roles/territory_expansion_manager/reports (Territory Expansion Manager Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [54/430 | 12%] - Navigating to /offices/business_development/roles/territory_expansion_manager/reports (Territory Expansion Manager Reports)...");
   cy.visitWithSemantics("/offices/business_development/roles/territory_expansion_manager/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [54/454 | 11%] - Checking shell & content for Territory Expansion Manager Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [54/430 | 12%] - Checking shell & content for Territory Expansion Manager Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3524,17 +3560,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territoryexpansionmanagerreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territoryexpansionmanagerreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [54/454 | 11%] - Saving screenshot for Territory Expansion Manager Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [54/430 | 12%] - Saving screenshot for Territory Expansion Manager Reports...");
   cy.waitAndSee();
   cy.screenshot("territory_expansion_manager_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [54/454 | 11%] - Verified Territory Expansion Manager Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [54/430 | 12%] - Verified Territory Expansion Manager Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [55/454 | 12%] - Navigating to /offices/business_development/roles/territory_expansion_manager/site-selection (Territory Expansion Manager Site Selection)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [55/430 | 12%] - Navigating to /offices/business_development/roles/territory_expansion_manager/site-selection (Territory Expansion Manager Site Selection)...");
   cy.visitWithSemantics("/offices/business_development/roles/territory_expansion_manager/site-selection");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [55/454 | 12%] - Checking shell & content for Territory Expansion Manager Site Selection...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [55/430 | 12%] - Checking shell & content for Territory Expansion Manager Site Selection...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3542,17 +3578,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territoryexpansionmanagersiteselection-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territoryexpansionmanagersiteselection-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [55/454 | 12%] - Saving screenshot for Territory Expansion Manager Site Selection...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [55/430 | 12%] - Saving screenshot for Territory Expansion Manager Site Selection...");
   cy.waitAndSee();
   cy.screenshot("territory_expansion_manager_site_selection");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [55/454 | 12%] - Verified Territory Expansion Manager Site Selection successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [55/430 | 12%] - Verified Territory Expansion Manager Site Selection successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [56/454 | 12%] - Navigating to /offices/business_development/roles/territory_expansion_manager/territory-map (Territory Expansion Manager Territory Map)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [56/430 | 13%] - Navigating to /offices/business_development/roles/territory_expansion_manager/territory-map (Territory Expansion Manager Territory Map)...");
   cy.visitWithSemantics("/offices/business_development/roles/territory_expansion_manager/territory-map");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [56/454 | 12%] - Checking shell & content for Territory Expansion Manager Territory Map...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [56/430 | 13%] - Checking shell & content for Territory Expansion Manager Territory Map...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3560,17 +3596,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territoryexpansionmanagerterritorymap-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territoryexpansionmanagerterritorymap-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [56/454 | 12%] - Saving screenshot for Territory Expansion Manager Territory Map...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [56/430 | 13%] - Saving screenshot for Territory Expansion Manager Territory Map...");
   cy.waitAndSee();
   cy.screenshot("territory_expansion_manager_territory_map");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [56/454 | 12%] - Verified Territory Expansion Manager Territory Map successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [56/430 | 13%] - Verified Territory Expansion Manager Territory Map successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [57/454 | 12%] - Navigating to /generated/ai-chatbot (Ai Chatbot)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [57/430 | 13%] - Navigating to /generated/ai-chatbot (Ai Chatbot)...");
   cy.visitWithSemantics("/generated/ai-chatbot");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [57/454 | 12%] - Checking shell & content for Ai Chatbot...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [57/430 | 13%] - Checking shell & content for Ai Chatbot...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3578,17 +3614,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("aichatbot-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("aichatbot-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [57/454 | 12%] - Saving screenshot for Ai Chatbot...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [57/430 | 13%] - Saving screenshot for Ai Chatbot...");
   cy.waitAndSee();
   cy.screenshot("ai_chatbot");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [57/454 | 12%] - Verified Ai Chatbot successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [57/430 | 13%] - Verified Ai Chatbot successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [58/454 | 12%] - Navigating to /offices/client/roles/family_member/billing (Family Billing)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [58/430 | 13%] - Navigating to /offices/client/roles/family_member/billing (Family Billing)...");
   cy.visitWithSemantics("/offices/client/roles/family_member/billing");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [58/454 | 12%] - Checking shell & content for Family Billing...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [58/430 | 13%] - Checking shell & content for Family Billing...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3596,17 +3632,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("familybilling-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("familybilling-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [58/454 | 12%] - Saving screenshot for Family Billing...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [58/430 | 13%] - Saving screenshot for Family Billing...");
   cy.waitAndSee();
   cy.screenshot("family_billing");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [58/454 | 12%] - Verified Family Billing successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [58/430 | 13%] - Verified Family Billing successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [59/454 | 12%] - Navigating to /offices/client/roles/family_member/care-updates (Family Care Updates)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [59/430 | 13%] - Navigating to /offices/client/roles/family_member/care-updates (Family Care Updates)...");
   cy.visitWithSemantics("/offices/client/roles/family_member/care-updates");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [59/454 | 12%] - Checking shell & content for Family Care Updates...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [59/430 | 13%] - Checking shell & content for Family Care Updates...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3614,17 +3650,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("familycareupdates-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("familycareupdates-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [59/454 | 12%] - Saving screenshot for Family Care Updates...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [59/430 | 13%] - Saving screenshot for Family Care Updates...");
   cy.waitAndSee();
   cy.screenshot("family_care_updates");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [59/454 | 12%] - Verified Family Care Updates successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [59/430 | 13%] - Verified Family Care Updates successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [60/454 | 13%] - Navigating to /offices/client/roles/family_member/dashboard (Family Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [60/430 | 13%] - Navigating to /offices/client/roles/family_member/dashboard (Family Dashboard)...");
   cy.visitWithSemantics("/offices/client/roles/family_member/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [60/454 | 13%] - Checking shell & content for Family Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [60/430 | 13%] - Checking shell & content for Family Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3632,17 +3668,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("familydashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("familydashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [60/454 | 13%] - Saving screenshot for Family Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [60/430 | 13%] - Saving screenshot for Family Dashboard...");
   cy.waitAndSee();
   cy.screenshot("family_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [60/454 | 13%] - Verified Family Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [60/430 | 13%] - Verified Family Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [61/454 | 13%] - Navigating to /offices/client/roles/family_member/emergency-contacts (Family Emergency Contacts)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [61/430 | 14%] - Navigating to /offices/client/roles/family_member/emergency-contacts (Family Emergency Contacts)...");
   cy.visitWithSemantics("/offices/client/roles/family_member/emergency-contacts");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [61/454 | 13%] - Checking shell & content for Family Emergency Contacts...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [61/430 | 14%] - Checking shell & content for Family Emergency Contacts...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3650,17 +3686,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("familyemergencycontacts-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("familyemergencycontacts-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [61/454 | 13%] - Saving screenshot for Family Emergency Contacts...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [61/430 | 14%] - Saving screenshot for Family Emergency Contacts...");
   cy.waitAndSee();
   cy.screenshot("family_emergency_contacts");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [61/454 | 13%] - Verified Family Emergency Contacts successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [61/430 | 14%] - Verified Family Emergency Contacts successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [62/454 | 13%] - Navigating to /offices/client/roles/family_member/loved-one-schedule (Family Loved One Schedule)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [62/430 | 14%] - Navigating to /offices/client/roles/family_member/loved-one-schedule (Family Loved One Schedule)...");
   cy.visitWithSemantics("/offices/client/roles/family_member/loved-one-schedule");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [62/454 | 13%] - Checking shell & content for Family Loved One Schedule...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [62/430 | 14%] - Checking shell & content for Family Loved One Schedule...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3668,17 +3704,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("familylovedoneschedule-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("familylovedoneschedule-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [62/454 | 13%] - Saving screenshot for Family Loved One Schedule...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [62/430 | 14%] - Saving screenshot for Family Loved One Schedule...");
   cy.waitAndSee();
   cy.screenshot("family_loved_one_schedule");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [62/454 | 13%] - Verified Family Loved One Schedule successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [62/430 | 14%] - Verified Family Loved One Schedule successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [63/454 | 13%] - Navigating to /offices/client/roles/family_member/profile (Family Profile)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [63/430 | 14%] - Navigating to /offices/client/roles/family_member/profile (Family Profile)...");
   cy.visitWithSemantics("/offices/client/roles/family_member/profile");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [63/454 | 13%] - Checking shell & content for Family Profile...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [63/430 | 14%] - Checking shell & content for Family Profile...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3686,17 +3722,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("familyprofile-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("familyprofile-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [63/454 | 13%] - Saving screenshot for Family Profile...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [63/430 | 14%] - Saving screenshot for Family Profile...");
   cy.waitAndSee();
   cy.screenshot("family_profile");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [63/454 | 13%] - Verified Family Profile successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [63/430 | 14%] - Verified Family Profile successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [64/454 | 14%] - Navigating to /generated/client-book-appointment (Client Book Appointment)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [64/430 | 14%] - Navigating to /generated/client-book-appointment (Client Book Appointment)...");
   cy.visitWithSemantics("/generated/client-book-appointment");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [64/454 | 14%] - Checking shell & content for Client Book Appointment...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [64/430 | 14%] - Checking shell & content for Client Book Appointment...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3704,17 +3740,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clientbookappointment-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clientbookappointment-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [64/454 | 14%] - Saving screenshot for Client Book Appointment...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [64/430 | 14%] - Saving screenshot for Client Book Appointment...");
   cy.waitAndSee();
   cy.screenshot("client_book_appointment");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [64/454 | 14%] - Verified Client Book Appointment successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [64/430 | 14%] - Verified Client Book Appointment successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [65/454 | 14%] - Navigating to /generated/client-care-team (Client Care Team)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [65/430 | 15%] - Navigating to /generated/client-care-team (Client Care Team)...");
   cy.visitWithSemantics("/generated/client-care-team");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [65/454 | 14%] - Checking shell & content for Client Care Team...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [65/430 | 15%] - Checking shell & content for Client Care Team...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3722,17 +3758,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clientcareteam-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clientcareteam-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [65/454 | 14%] - Saving screenshot for Client Care Team...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [65/430 | 15%] - Saving screenshot for Client Care Team...");
   cy.waitAndSee();
   cy.screenshot("client_care_team");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [65/454 | 14%] - Verified Client Care Team successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [65/430 | 15%] - Verified Client Care Team successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [66/454 | 14%] - Navigating to /generated/client-dashboard (Client Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [66/430 | 15%] - Navigating to /generated/client-dashboard (Client Dashboard)...");
   cy.visitWithSemantics("/generated/client-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [66/454 | 14%] - Checking shell & content for Client Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [66/430 | 15%] - Checking shell & content for Client Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3740,17 +3776,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clientdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clientdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [66/454 | 14%] - Saving screenshot for Client Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [66/430 | 15%] - Saving screenshot for Client Dashboard...");
   cy.waitAndSee();
   cy.screenshot("client_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [66/454 | 14%] - Verified Client Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [66/430 | 15%] - Verified Client Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [67/454 | 14%] - Navigating to /generated/client-my-appointments (Client My Appointments)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [67/430 | 15%] - Navigating to /generated/client-my-appointments (Client My Appointments)...");
   cy.visitWithSemantics("/generated/client-my-appointments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [67/454 | 14%] - Checking shell & content for Client My Appointments...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [67/430 | 15%] - Checking shell & content for Client My Appointments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3758,17 +3794,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clientmyappointments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clientmyappointments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [67/454 | 14%] - Saving screenshot for Client My Appointments...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [67/430 | 15%] - Saving screenshot for Client My Appointments...");
   cy.waitAndSee();
   cy.screenshot("client_my_appointments");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [67/454 | 14%] - Verified Client My Appointments successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [67/430 | 15%] - Verified Client My Appointments successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [68/454 | 14%] - Navigating to /generated/client-payments (Client Payments)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [68/430 | 15%] - Navigating to /generated/client-payments (Client Payments)...");
   cy.visitWithSemantics("/generated/client-payments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [68/454 | 14%] - Checking shell & content for Client Payments...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [68/430 | 15%] - Checking shell & content for Client Payments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3776,17 +3812,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clientpayments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clientpayments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [68/454 | 14%] - Saving screenshot for Client Payments...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [68/430 | 15%] - Saving screenshot for Client Payments...");
   cy.waitAndSee();
   cy.screenshot("client_payments");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [68/454 | 14%] - Verified Client Payments successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [68/430 | 15%] - Verified Client Payments successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [69/454 | 15%] - Navigating to /clinic/client-profile (Client Profile)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [69/430 | 16%] - Navigating to /clinic/client-profile (Client Profile)...");
   cy.visitWithSemantics("/clinic/client-profile");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [69/454 | 15%] - Checking shell & content for Client Profile...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [69/430 | 16%] - Checking shell & content for Client Profile...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3794,17 +3830,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clientprofile-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clientprofile-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [69/454 | 15%] - Saving screenshot for Client Profile...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [69/430 | 16%] - Saving screenshot for Client Profile...");
   cy.waitAndSee();
   cy.screenshot("client_profile");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [69/454 | 15%] - Verified Client Profile successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [69/430 | 16%] - Verified Client Profile successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [70/454 | 15%] - Navigating to /generated/client-treatment-history (Client Treatment History)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [70/430 | 16%] - Navigating to /generated/client-treatment-history (Client Treatment History)...");
   cy.visitWithSemantics("/generated/client-treatment-history");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [70/454 | 15%] - Checking shell & content for Client Treatment History...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [70/430 | 16%] - Checking shell & content for Client Treatment History...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3812,17 +3848,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clienttreatmenthistory-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clienttreatmenthistory-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [70/454 | 15%] - Saving screenshot for Client Treatment History...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [70/430 | 16%] - Saving screenshot for Client Treatment History...");
   cy.waitAndSee();
   cy.screenshot("client_treatment_history");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [70/454 | 15%] - Verified Client Treatment History successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [70/430 | 16%] - Verified Client Treatment History successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [71/454 | 15%] - Navigating to /generated/family-member-billing (Family Member Billing)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [71/430 | 16%] - Navigating to /generated/family-member-billing (Family Member Billing)...");
   cy.visitWithSemantics("/generated/family-member-billing");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [71/454 | 15%] - Checking shell & content for Family Member Billing...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [71/430 | 16%] - Checking shell & content for Family Member Billing...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3830,17 +3866,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("familymemberbilling-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("familymemberbilling-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [71/454 | 15%] - Saving screenshot for Family Member Billing...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [71/430 | 16%] - Saving screenshot for Family Member Billing...");
   cy.waitAndSee();
   cy.screenshot("family_member_billing");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [71/454 | 15%] - Verified Family Member Billing successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [71/430 | 16%] - Verified Family Member Billing successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [72/454 | 15%] - Navigating to /generated/family-member-care-updates (Family Member Care Updates)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [72/430 | 16%] - Navigating to /generated/family-member-care-updates (Family Member Care Updates)...");
   cy.visitWithSemantics("/generated/family-member-care-updates");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [72/454 | 15%] - Checking shell & content for Family Member Care Updates...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [72/430 | 16%] - Checking shell & content for Family Member Care Updates...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3848,17 +3884,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("familymembercareupdates-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("familymembercareupdates-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [72/454 | 15%] - Saving screenshot for Family Member Care Updates...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [72/430 | 16%] - Saving screenshot for Family Member Care Updates...");
   cy.waitAndSee();
   cy.screenshot("family_member_care_updates");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [72/454 | 15%] - Verified Family Member Care Updates successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [72/430 | 16%] - Verified Family Member Care Updates successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [73/454 | 16%] - Navigating to /generated/family-member-emergency-contacts (Family Member Emergency Contacts)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [73/430 | 16%] - Navigating to /generated/family-member-emergency-contacts (Family Member Emergency Contacts)...");
   cy.visitWithSemantics("/generated/family-member-emergency-contacts");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [73/454 | 16%] - Checking shell & content for Family Member Emergency Contacts...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [73/430 | 16%] - Checking shell & content for Family Member Emergency Contacts...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3866,17 +3902,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("familymemberemergencycontacts-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("familymemberemergencycontacts-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [73/454 | 16%] - Saving screenshot for Family Member Emergency Contacts...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [73/430 | 16%] - Saving screenshot for Family Member Emergency Contacts...");
   cy.waitAndSee();
   cy.screenshot("family_member_emergency_contacts");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [73/454 | 16%] - Verified Family Member Emergency Contacts successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [73/430 | 16%] - Verified Family Member Emergency Contacts successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [74/454 | 16%] - Navigating to /generated/family-member-loved-one-schedule (Family Member Loved One Schedule)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [74/430 | 17%] - Navigating to /generated/family-member-loved-one-schedule (Family Member Loved One Schedule)...");
   cy.visitWithSemantics("/generated/family-member-loved-one-schedule");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [74/454 | 16%] - Checking shell & content for Family Member Loved One Schedule...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [74/430 | 17%] - Checking shell & content for Family Member Loved One Schedule...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3884,17 +3920,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("familymemberlovedoneschedule-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("familymemberlovedoneschedule-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [74/454 | 16%] - Saving screenshot for Family Member Loved One Schedule...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [74/430 | 17%] - Saving screenshot for Family Member Loved One Schedule...");
   cy.waitAndSee();
   cy.screenshot("family_member_loved_one_schedule");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [74/454 | 16%] - Verified Family Member Loved One Schedule successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [74/430 | 17%] - Verified Family Member Loved One Schedule successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [75/454 | 16%] - Navigating to /generated/family-member-profile (Family Member Profile)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [75/430 | 17%] - Navigating to /generated/family-member-profile (Family Member Profile)...");
   cy.visitWithSemantics("/generated/family-member-profile");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [75/454 | 16%] - Checking shell & content for Family Member Profile...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [75/430 | 17%] - Checking shell & content for Family Member Profile...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3902,17 +3938,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("familymemberprofile-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("familymemberprofile-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [75/454 | 16%] - Saving screenshot for Family Member Profile...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [75/430 | 17%] - Saving screenshot for Family Member Profile...");
   cy.waitAndSee();
   cy.screenshot("family_member_profile");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [75/454 | 16%] - Verified Family Member Profile successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [75/430 | 17%] - Verified Family Member Profile successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [76/454 | 16%] - Navigating to /generated/unknown-dashboard (Unknown Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [76/430 | 17%] - Navigating to /generated/unknown-dashboard (Unknown Dashboard)...");
   cy.visitWithSemantics("/generated/unknown-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [76/454 | 16%] - Checking shell & content for Unknown Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [76/430 | 17%] - Checking shell & content for Unknown Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3920,17 +3956,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("unknowndashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("unknowndashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [76/454 | 16%] - Saving screenshot for Unknown Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [76/430 | 17%] - Saving screenshot for Unknown Dashboard...");
   cy.waitAndSee();
   cy.screenshot("unknown_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [76/454 | 16%] - Verified Unknown Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [76/430 | 17%] - Verified Unknown Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [77/454 | 16%] - Navigating to /offices/client/roles/client/book-appointment (Patient Book Appointment)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [77/430 | 17%] - Navigating to /offices/client/roles/client/book-appointment (Patient Book Appointment)...");
   cy.visitWithSemantics("/offices/client/roles/client/book-appointment");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [77/454 | 16%] - Checking shell & content for Patient Book Appointment...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [77/430 | 17%] - Checking shell & content for Patient Book Appointment...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3938,17 +3974,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("patientbookappointment-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("patientbookappointment-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [77/454 | 16%] - Saving screenshot for Patient Book Appointment...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [77/430 | 17%] - Saving screenshot for Patient Book Appointment...");
   cy.waitAndSee();
   cy.screenshot("patient_book_appointment");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [77/454 | 16%] - Verified Patient Book Appointment successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [77/430 | 17%] - Verified Patient Book Appointment successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [78/454 | 17%] - Navigating to /offices/client/roles/client/care-team (Patient Care Team)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [78/430 | 18%] - Navigating to /offices/client/roles/client/care-team (Patient Care Team)...");
   cy.visitWithSemantics("/offices/client/roles/client/care-team");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [78/454 | 17%] - Checking shell & content for Patient Care Team...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [78/430 | 18%] - Checking shell & content for Patient Care Team...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3956,17 +3992,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("patientcareteam-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("patientcareteam-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [78/454 | 17%] - Saving screenshot for Patient Care Team...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [78/430 | 18%] - Saving screenshot for Patient Care Team...");
   cy.waitAndSee();
   cy.screenshot("patient_care_team");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [78/454 | 17%] - Verified Patient Care Team successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [78/430 | 18%] - Verified Patient Care Team successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [79/454 | 17%] - Navigating to /offices/client/roles/client/my-appointments (Patient My Appointments)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [79/430 | 18%] - Navigating to /offices/client/roles/client/my-appointments (Patient My Appointments)...");
   cy.visitWithSemantics("/offices/client/roles/client/my-appointments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [79/454 | 17%] - Checking shell & content for Patient My Appointments...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [79/430 | 18%] - Checking shell & content for Patient My Appointments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3974,17 +4010,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("patientmyappointments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("patientmyappointments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [79/454 | 17%] - Saving screenshot for Patient My Appointments...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [79/430 | 18%] - Saving screenshot for Patient My Appointments...");
   cy.waitAndSee();
   cy.screenshot("patient_my_appointments");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [79/454 | 17%] - Verified Patient My Appointments successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [79/430 | 18%] - Verified Patient My Appointments successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [80/454 | 17%] - Navigating to /offices/client/roles/client/payments (Patient Payments)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [80/430 | 18%] - Navigating to /offices/client/roles/client/payments (Patient Payments)...");
   cy.visitWithSemantics("/offices/client/roles/client/payments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [80/454 | 17%] - Checking shell & content for Patient Payments...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [80/430 | 18%] - Checking shell & content for Patient Payments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -3992,17 +4028,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("patientpayments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("patientpayments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [80/454 | 17%] - Saving screenshot for Patient Payments...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [80/430 | 18%] - Saving screenshot for Patient Payments...");
   cy.waitAndSee();
   cy.screenshot("patient_payments");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [80/454 | 17%] - Verified Patient Payments successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [80/430 | 18%] - Verified Patient Payments successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [81/454 | 17%] - Navigating to /offices/client/roles/client/treatment-history (Patient Treatment History)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [81/430 | 18%] - Navigating to /offices/client/roles/client/treatment-history (Patient Treatment History)...");
   cy.visitWithSemantics("/offices/client/roles/client/treatment-history");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [81/454 | 17%] - Checking shell & content for Patient Treatment History...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [81/430 | 18%] - Checking shell & content for Patient Treatment History...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4010,17 +4046,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("patienttreatmenthistory-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("patienttreatmenthistory-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [81/454 | 17%] - Saving screenshot for Patient Treatment History...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [81/430 | 18%] - Saving screenshot for Patient Treatment History...");
   cy.waitAndSee();
   cy.screenshot("patient_treatment_history");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [81/454 | 17%] - Verified Patient Treatment History successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [81/430 | 18%] - Verified Patient Treatment History successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [82/454 | 18%] - Navigating to /offices/clinical/roles/clinical_director/dashboard (Clinical Director Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [82/430 | 19%] - Navigating to /offices/clinical/roles/clinical_director/dashboard (Clinical Director Dashboard)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [82/454 | 18%] - Checking shell & content for Clinical Director Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [82/430 | 19%] - Checking shell & content for Clinical Director Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4028,17 +4064,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectordashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [82/454 | 18%] - Saving screenshot for Clinical Director Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [82/430 | 19%] - Saving screenshot for Clinical Director Dashboard...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [82/454 | 18%] - Verified Clinical Director Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [82/430 | 19%] - Verified Clinical Director Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [83/454 | 18%] - Navigating to /generated/clinical-director-quality-metrics (Clinical Director Quality Metrics)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [83/430 | 19%] - Navigating to /generated/clinical-director-quality-metrics (Clinical Director Quality Metrics)...");
   cy.visitWithSemantics("/generated/clinical-director-quality-metrics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [83/454 | 18%] - Checking shell & content for Clinical Director Quality Metrics...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [83/430 | 19%] - Checking shell & content for Clinical Director Quality Metrics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4046,17 +4082,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorqualitymetrics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorqualitymetrics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [83/454 | 18%] - Saving screenshot for Clinical Director Quality Metrics...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [83/430 | 19%] - Saving screenshot for Clinical Director Quality Metrics...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_quality_metrics");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [83/454 | 18%] - Verified Clinical Director Quality Metrics successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [83/430 | 19%] - Verified Clinical Director Quality Metrics successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [84/454 | 18%] - Navigating to /generated/clinical-director-staffing (Clinical Director Staffing)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [84/430 | 19%] - Navigating to /generated/clinical-director-staffing (Clinical Director Staffing)...");
   cy.visitWithSemantics("/generated/clinical-director-staffing");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [84/454 | 18%] - Checking shell & content for Clinical Director Staffing...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [84/430 | 19%] - Checking shell & content for Clinical Director Staffing...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4064,17 +4100,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorstaffing-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorstaffing-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [84/454 | 18%] - Saving screenshot for Clinical Director Staffing...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [84/430 | 19%] - Saving screenshot for Clinical Director Staffing...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_staffing");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [84/454 | 18%] - Verified Clinical Director Staffing successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [84/430 | 19%] - Verified Clinical Director Staffing successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [85/454 | 18%] - Navigating to /generated/infection-control-dashboard (Infection Control Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [85/430 | 19%] - Navigating to /generated/infection-control-dashboard (Infection Control Dashboard)...");
   cy.visitWithSemantics("/generated/infection-control-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [85/454 | 18%] - Checking shell & content for Infection Control Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [85/430 | 19%] - Checking shell & content for Infection Control Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4082,17 +4118,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("infectioncontroldashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("infectioncontroldashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [85/454 | 18%] - Saving screenshot for Infection Control Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [85/430 | 19%] - Saving screenshot for Infection Control Dashboard...");
   cy.waitAndSee();
   cy.screenshot("infection_control_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [85/454 | 18%] - Verified Infection Control Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [85/430 | 19%] - Verified Infection Control Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [86/454 | 18%] - Navigating to /generated/intake-coordinator-assessments (Intake Coordinator Assessments)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [86/430 | 20%] - Navigating to /generated/intake-coordinator-assessments (Intake Coordinator Assessments)...");
   cy.visitWithSemantics("/generated/intake-coordinator-assessments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [86/454 | 18%] - Checking shell & content for Intake Coordinator Assessments...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [86/430 | 20%] - Checking shell & content for Intake Coordinator Assessments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4100,17 +4136,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakecoordinatorassessments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakecoordinatorassessments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [86/454 | 18%] - Saving screenshot for Intake Coordinator Assessments...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [86/430 | 20%] - Saving screenshot for Intake Coordinator Assessments...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_assessments");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [86/454 | 18%] - Verified Intake Coordinator Assessments successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [86/430 | 20%] - Verified Intake Coordinator Assessments successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [87/454 | 19%] - Navigating to /generated/nurse-dashboard (Nurse Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [87/430 | 20%] - Navigating to /generated/nurse-dashboard (Nurse Dashboard)...");
   cy.visitWithSemantics("/generated/nurse-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [87/454 | 19%] - Checking shell & content for Nurse Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [87/430 | 20%] - Checking shell & content for Nurse Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4118,17 +4154,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("nursedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("nursedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [87/454 | 19%] - Saving screenshot for Nurse Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [87/430 | 20%] - Saving screenshot for Nurse Dashboard...");
   cy.waitAndSee();
   cy.screenshot("nurse_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [87/454 | 19%] - Verified Nurse Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [87/430 | 20%] - Verified Nurse Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [88/454 | 19%] - Navigating to /generated/psw-check-in (Psw Check In)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [88/430 | 20%] - Navigating to /generated/psw-check-in (Psw Check In)...");
   cy.visitWithSemantics("/generated/psw-check-in");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [88/454 | 19%] - Checking shell & content for Psw Check In...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [88/430 | 20%] - Checking shell & content for Psw Check In...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4136,17 +4172,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswcheckin-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswcheckin-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [88/454 | 19%] - Saving screenshot for Psw Check In...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [88/430 | 20%] - Saving screenshot for Psw Check In...");
   cy.waitAndSee();
   cy.screenshot("psw_check_in");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [88/454 | 19%] - Verified Psw Check In successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [88/430 | 20%] - Verified Psw Check In successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [89/454 | 19%] - Navigating to /generated/psw-help-support (Psw Help Support)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [89/430 | 20%] - Navigating to /generated/psw-help-support (Psw Help Support)...");
   cy.visitWithSemantics("/generated/psw-help-support");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [89/454 | 19%] - Checking shell & content for Psw Help Support...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [89/430 | 20%] - Checking shell & content for Psw Help Support...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4154,17 +4190,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswhelpsupport-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswhelpsupport-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [89/454 | 19%] - Saving screenshot for Psw Help Support...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [89/430 | 20%] - Saving screenshot for Psw Help Support...");
   cy.waitAndSee();
   cy.screenshot("psw_help_support");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [89/454 | 19%] - Verified Psw Help Support successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [89/430 | 20%] - Verified Psw Help Support successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [90/454 | 19%] - Navigating to /generated/psw-notifications (Psw Notifications)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [90/430 | 20%] - Navigating to /generated/psw-notifications (Psw Notifications)...");
   cy.visitWithSemantics("/generated/psw-notifications");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [90/454 | 19%] - Checking shell & content for Psw Notifications...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [90/430 | 20%] - Checking shell & content for Psw Notifications...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4172,17 +4208,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswnotifications-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswnotifications-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [90/454 | 19%] - Saving screenshot for Psw Notifications...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [90/430 | 20%] - Saving screenshot for Psw Notifications...");
   cy.waitAndSee();
   cy.screenshot("psw_notifications");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [90/454 | 19%] - Verified Psw Notifications successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [90/430 | 20%] - Verified Psw Notifications successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [91/454 | 20%] - Navigating to /generated/psw-observation-vitals-log (Psw Observation Vitals Log)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [91/430 | 21%] - Navigating to /generated/psw-observation-vitals-log (Psw Observation Vitals Log)...");
   cy.visitWithSemantics("/generated/psw-observation-vitals-log");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [91/454 | 20%] - Checking shell & content for Psw Observation Vitals Log...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [91/430 | 21%] - Checking shell & content for Psw Observation Vitals Log...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4190,17 +4226,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswobservationvitalslog-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswobservationvitalslog-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [91/454 | 20%] - Saving screenshot for Psw Observation Vitals Log...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [91/430 | 21%] - Saving screenshot for Psw Observation Vitals Log...");
   cy.waitAndSee();
   cy.screenshot("psw_observation_vitals_log");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [91/454 | 20%] - Verified Psw Observation Vitals Log successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [91/430 | 21%] - Verified Psw Observation Vitals Log successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [92/454 | 20%] - Navigating to /generated/psw-patient-profile (Psw Patient Profile)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [92/430 | 21%] - Navigating to /generated/psw-patient-profile (Psw Patient Profile)...");
   cy.visitWithSemantics("/generated/psw-patient-profile");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [92/454 | 20%] - Checking shell & content for Psw Patient Profile...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [92/430 | 21%] - Checking shell & content for Psw Patient Profile...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4208,17 +4244,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswpatientprofile-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswpatientprofile-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [92/454 | 20%] - Saving screenshot for Psw Patient Profile...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [92/430 | 21%] - Saving screenshot for Psw Patient Profile...");
   cy.waitAndSee();
   cy.screenshot("psw_patient_profile");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [92/454 | 20%] - Verified Psw Patient Profile successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [92/430 | 21%] - Verified Psw Patient Profile successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [93/454 | 20%] - Navigating to /generated/psw-profile (Psw Profile)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [93/430 | 21%] - Navigating to /generated/psw-profile (Psw Profile)...");
   cy.visitWithSemantics("/generated/psw-profile");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [93/454 | 20%] - Checking shell & content for Psw Profile...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [93/430 | 21%] - Checking shell & content for Psw Profile...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4226,17 +4262,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswprofile-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswprofile-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [93/454 | 20%] - Saving screenshot for Psw Profile...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [93/430 | 21%] - Saving screenshot for Psw Profile...");
   cy.waitAndSee();
   cy.screenshot("psw_profile");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [93/454 | 20%] - Verified Psw Profile successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [93/430 | 21%] - Verified Psw Profile successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [94/454 | 20%] - Navigating to /generated/psw-reports (Psw Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [94/430 | 21%] - Navigating to /generated/psw-reports (Psw Reports)...");
   cy.visitWithSemantics("/generated/psw-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [94/454 | 20%] - Checking shell & content for Psw Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [94/430 | 21%] - Checking shell & content for Psw Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4244,17 +4280,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [94/454 | 20%] - Saving screenshot for Psw Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [94/430 | 21%] - Saving screenshot for Psw Reports...");
   cy.waitAndSee();
   cy.screenshot("psw_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [94/454 | 20%] - Verified Psw Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [94/430 | 21%] - Verified Psw Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [95/454 | 20%] - Navigating to /generated/psw-schedule (Psw Schedule)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [95/430 | 22%] - Navigating to /generated/psw-schedule (Psw Schedule)...");
   cy.visitWithSemantics("/generated/psw-schedule");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [95/454 | 20%] - Checking shell & content for Psw Schedule...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [95/430 | 22%] - Checking shell & content for Psw Schedule...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4262,17 +4298,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswschedule-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswschedule-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [95/454 | 20%] - Saving screenshot for Psw Schedule...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [95/430 | 22%] - Saving screenshot for Psw Schedule...");
   cy.waitAndSee();
   cy.screenshot("psw_schedule");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [95/454 | 20%] - Verified Psw Schedule successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [95/430 | 22%] - Verified Psw Schedule successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [96/454 | 21%] - Navigating to /generated/psw-system-logs (Psw System Logs)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [96/430 | 22%] - Navigating to /generated/psw-system-logs (Psw System Logs)...");
   cy.visitWithSemantics("/generated/psw-system-logs");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [96/454 | 21%] - Checking shell & content for Psw System Logs...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [96/430 | 22%] - Checking shell & content for Psw System Logs...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4280,17 +4316,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswsystemlogs-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswsystemlogs-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [96/454 | 21%] - Saving screenshot for Psw System Logs...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [96/430 | 22%] - Saving screenshot for Psw System Logs...");
   cy.waitAndSee();
   cy.screenshot("psw_system_logs");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [96/454 | 21%] - Verified Psw System Logs successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [96/430 | 22%] - Verified Psw System Logs successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [97/454 | 21%] - Navigating to /generated/psw-visit-checklist (Psw Visit Checklist)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [97/430 | 22%] - Navigating to /generated/psw-visit-checklist (Psw Visit Checklist)...");
   cy.visitWithSemantics("/generated/psw-visit-checklist");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [97/454 | 21%] - Checking shell & content for Psw Visit Checklist...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [97/430 | 22%] - Checking shell & content for Psw Visit Checklist...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4298,17 +4334,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswvisitchecklist-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswvisitchecklist-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [97/454 | 21%] - Saving screenshot for Psw Visit Checklist...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [97/430 | 22%] - Saving screenshot for Psw Visit Checklist...");
   cy.waitAndSee();
   cy.screenshot("psw_visit_checklist");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [97/454 | 21%] - Verified Psw Visit Checklist successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [97/430 | 22%] - Verified Psw Visit Checklist successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [98/454 | 21%] - Navigating to /generated/psw-care-dashboard (Psw Care Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [98/430 | 22%] - Navigating to /generated/psw-care-dashboard (Psw Care Dashboard)...");
   cy.visitWithSemantics("/generated/psw-care-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [98/454 | 21%] - Checking shell & content for Psw Care Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [98/430 | 22%] - Checking shell & content for Psw Care Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4316,17 +4352,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswcaredashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswcaredashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [98/454 | 21%] - Saving screenshot for Psw Care Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [98/430 | 22%] - Saving screenshot for Psw Care Dashboard...");
   cy.waitAndSee();
   cy.screenshot("psw_care_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [98/454 | 21%] - Verified Psw Care Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [98/430 | 22%] - Verified Psw Care Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [99/454 | 21%] - Navigating to /generated/psw-daily-notes (Psw Daily Notes)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [99/430 | 23%] - Navigating to /generated/psw-daily-notes (Psw Daily Notes)...");
   cy.visitWithSemantics("/generated/psw-daily-notes");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [99/454 | 21%] - Checking shell & content for Psw Daily Notes...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [99/430 | 23%] - Checking shell & content for Psw Daily Notes...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4334,17 +4370,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswdailynotes-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswdailynotes-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [99/454 | 21%] - Saving screenshot for Psw Daily Notes...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [99/430 | 23%] - Saving screenshot for Psw Daily Notes...");
   cy.waitAndSee();
   cy.screenshot("psw_daily_notes");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [99/454 | 21%] - Verified Psw Daily Notes successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [99/430 | 23%] - Verified Psw Daily Notes successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [100/454 | 22%] - Navigating to /generated/psw-messaging (Psw Messaging)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [100/430 | 23%] - Navigating to /generated/psw-messaging (Psw Messaging)...");
   cy.visitWithSemantics("/generated/psw-messaging");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [100/454 | 22%] - Checking shell & content for Psw Messaging...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [100/430 | 23%] - Checking shell & content for Psw Messaging...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4352,17 +4388,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswmessaging-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswmessaging-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [100/454 | 22%] - Saving screenshot for Psw Messaging...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [100/430 | 23%] - Saving screenshot for Psw Messaging...");
   cy.waitAndSee();
   cy.screenshot("psw_messaging");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [100/454 | 22%] - Verified Psw Messaging successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [100/430 | 23%] - Verified Psw Messaging successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [101/454 | 22%] - Navigating to /generated/psw-my-clients (Psw My Clients)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [101/430 | 23%] - Navigating to /generated/psw-my-clients (Psw My Clients)...");
   cy.visitWithSemantics("/generated/psw-my-clients");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [101/454 | 22%] - Checking shell & content for Psw My Clients...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [101/430 | 23%] - Checking shell & content for Psw My Clients...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4370,17 +4406,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswmyclients-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswmyclients-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [101/454 | 22%] - Saving screenshot for Psw My Clients...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [101/430 | 23%] - Saving screenshot for Psw My Clients...");
   cy.waitAndSee();
   cy.screenshot("psw_my_clients");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [101/454 | 22%] - Verified Psw My Clients successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [101/430 | 23%] - Verified Psw My Clients successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [102/454 | 22%] - Navigating to /generated/psw-task-list (Psw Task List)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [102/430 | 23%] - Navigating to /generated/psw-task-list (Psw Task List)...");
   cy.visitWithSemantics("/generated/psw-task-list");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [102/454 | 22%] - Checking shell & content for Psw Task List...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [102/430 | 23%] - Checking shell & content for Psw Task List...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4388,17 +4424,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswtasklist-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswtasklist-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [102/454 | 22%] - Saving screenshot for Psw Task List...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [102/430 | 23%] - Saving screenshot for Psw Task List...");
   cy.waitAndSee();
   cy.screenshot("psw_task_list");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [102/454 | 22%] - Verified Psw Task List successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [102/430 | 23%] - Verified Psw Task List successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [103/454 | 22%] - Navigating to /generated/rn-charting (Rn Charting)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [103/430 | 23%] - Navigating to /generated/rn-charting (Rn Charting)...");
   cy.visitWithSemantics("/generated/rn-charting");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [103/454 | 22%] - Checking shell & content for Rn Charting...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [103/430 | 23%] - Checking shell & content for Rn Charting...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4406,17 +4442,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("rncharting-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("rncharting-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [103/454 | 22%] - Saving screenshot for Rn Charting...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [103/430 | 23%] - Saving screenshot for Rn Charting...");
   cy.waitAndSee();
   cy.screenshot("rn_charting");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [103/454 | 22%] - Verified Rn Charting successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [103/430 | 23%] - Verified Rn Charting successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [104/454 | 22%] - Navigating to /generated/rn-messaging (Rn Messaging)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [104/430 | 24%] - Navigating to /generated/rn-messaging (Rn Messaging)...");
   cy.visitWithSemantics("/generated/rn-messaging");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [104/454 | 22%] - Checking shell & content for Rn Messaging...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [104/430 | 24%] - Checking shell & content for Rn Messaging...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4424,17 +4460,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("rnmessaging-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("rnmessaging-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [104/454 | 22%] - Saving screenshot for Rn Messaging...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [104/430 | 24%] - Saving screenshot for Rn Messaging...");
   cy.waitAndSee();
   cy.screenshot("rn_messaging");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [104/454 | 22%] - Verified Rn Messaging successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [104/430 | 24%] - Verified Rn Messaging successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [105/454 | 23%] - Navigating to /generated/clinic-history-logs (Clinic History Logs)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [105/430 | 24%] - Navigating to /generated/clinic-history-logs (Clinic History Logs)...");
   cy.visitWithSemantics("/generated/clinic-history-logs");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [105/454 | 23%] - Checking shell & content for Clinic History Logs...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [105/430 | 24%] - Checking shell & content for Clinic History Logs...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4442,17 +4478,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinichistorylogs-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinichistorylogs-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [105/454 | 23%] - Saving screenshot for Clinic History Logs...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [105/430 | 24%] - Saving screenshot for Clinic History Logs...");
   cy.waitAndSee();
   cy.screenshot("clinic_history_logs");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [105/454 | 23%] - Verified Clinic History Logs successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [105/430 | 24%] - Verified Clinic History Logs successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [106/454 | 23%] - Navigating to /generated/clinic-incident-report (Clinic Incident Report)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [106/430 | 24%] - Navigating to /generated/clinic-incident-report (Clinic Incident Report)...");
   cy.visitWithSemantics("/generated/clinic-incident-report");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [106/454 | 23%] - Checking shell & content for Clinic Incident Report...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [106/430 | 24%] - Checking shell & content for Clinic Incident Report...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4460,17 +4496,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicincidentreport-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicincidentreport-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [106/454 | 23%] - Saving screenshot for Clinic Incident Report...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [106/430 | 24%] - Saving screenshot for Clinic Incident Report...");
   cy.waitAndSee();
   cy.screenshot("clinic_incident_report");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [106/454 | 23%] - Verified Clinic Incident Report successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [106/430 | 24%] - Verified Clinic Incident Report successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [107/454 | 23%] - Navigating to /offices/corporate/roles/ceo/alerts-and-risks (Ceo Alerts And Risks)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [107/430 | 24%] - Navigating to /offices/corporate/roles/ceo/alerts-and-risks (Ceo Alerts And Risks)...");
   cy.visitWithSemantics("/offices/corporate/roles/ceo/alerts-and-risks");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [107/454 | 23%] - Checking shell & content for Ceo Alerts And Risks...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [107/430 | 24%] - Checking shell & content for Ceo Alerts And Risks...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4478,17 +4514,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ceoalertsandrisks-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ceoalertsandrisks-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [107/454 | 23%] - Saving screenshot for Ceo Alerts And Risks...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [107/430 | 24%] - Saving screenshot for Ceo Alerts And Risks...");
   cy.waitAndSee();
   cy.screenshot("ceo_alerts_and_risks");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [107/454 | 23%] - Verified Ceo Alerts And Risks successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [107/430 | 24%] - Verified Ceo Alerts And Risks successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [108/454 | 23%] - Navigating to /offices/corporate/roles/ceo/approvals (Ceo Approvals)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [108/430 | 25%] - Navigating to /offices/corporate/roles/ceo/approvals (Ceo Approvals)...");
   cy.visitWithSemantics("/offices/corporate/roles/ceo/approvals");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [108/454 | 23%] - Checking shell & content for Ceo Approvals...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [108/430 | 25%] - Checking shell & content for Ceo Approvals...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4496,17 +4532,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ceoapprovals-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ceoapprovals-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [108/454 | 23%] - Saving screenshot for Ceo Approvals...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [108/430 | 25%] - Saving screenshot for Ceo Approvals...");
   cy.waitAndSee();
   cy.screenshot("ceo_approvals");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [108/454 | 23%] - Verified Ceo Approvals successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [108/430 | 25%] - Verified Ceo Approvals successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [109/454 | 24%] - Navigating to /offices/corporate/roles/ceo/dashboard (Ceo Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [109/430 | 25%] - Navigating to /offices/corporate/roles/ceo/dashboard (Ceo Dashboard)...");
   cy.visitWithSemantics("/offices/corporate/roles/ceo/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [109/454 | 24%] - Checking shell & content for Ceo Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [109/430 | 25%] - Checking shell & content for Ceo Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4514,17 +4550,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ceodashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ceodashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [109/454 | 24%] - Saving screenshot for Ceo Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [109/430 | 25%] - Saving screenshot for Ceo Dashboard...");
   cy.waitAndSee();
   cy.screenshot("ceo_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [109/454 | 24%] - Verified Ceo Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [109/430 | 25%] - Verified Ceo Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [110/454 | 24%] - Navigating to /offices/corporate/roles/ceo/enterprise-overview (Ceo Enterprise Overview)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [110/430 | 25%] - Navigating to /offices/corporate/roles/ceo/enterprise-overview (Ceo Enterprise Overview)...");
   cy.visitWithSemantics("/offices/corporate/roles/ceo/enterprise-overview");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [110/454 | 24%] - Checking shell & content for Ceo Enterprise Overview...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [110/430 | 25%] - Checking shell & content for Ceo Enterprise Overview...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4532,17 +4568,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ceoenterpriseoverview-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ceoenterpriseoverview-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [110/454 | 24%] - Saving screenshot for Ceo Enterprise Overview...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [110/430 | 25%] - Saving screenshot for Ceo Enterprise Overview...");
   cy.waitAndSee();
   cy.screenshot("ceo_enterprise_overview");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [110/454 | 24%] - Verified Ceo Enterprise Overview successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [110/430 | 25%] - Verified Ceo Enterprise Overview successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [111/454 | 24%] - Navigating to /offices/corporate/roles/ceo/franchise-overview (Ceo Franchise Overview)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [111/430 | 25%] - Navigating to /offices/corporate/roles/ceo/franchise-overview (Ceo Franchise Overview)...");
   cy.visitWithSemantics("/offices/corporate/roles/ceo/franchise-overview");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [111/454 | 24%] - Checking shell & content for Ceo Franchise Overview...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [111/430 | 25%] - Checking shell & content for Ceo Franchise Overview...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4550,17 +4586,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ceofranchiseoverview-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ceofranchiseoverview-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [111/454 | 24%] - Saving screenshot for Ceo Franchise Overview...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [111/430 | 25%] - Saving screenshot for Ceo Franchise Overview...");
   cy.waitAndSee();
   cy.screenshot("ceo_franchise_overview");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [111/454 | 24%] - Verified Ceo Franchise Overview successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [111/430 | 25%] - Verified Ceo Franchise Overview successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [112/454 | 24%] - Navigating to /offices/corporate/roles/ceo/growth-pipeline (Ceo Growth Pipeline)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [112/430 | 26%] - Navigating to /offices/corporate/roles/ceo/growth-pipeline (Ceo Growth Pipeline)...");
   cy.visitWithSemantics("/offices/corporate/roles/ceo/growth-pipeline");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [112/454 | 24%] - Checking shell & content for Ceo Growth Pipeline...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [112/430 | 26%] - Checking shell & content for Ceo Growth Pipeline...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4568,17 +4604,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ceogrowthpipeline-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ceogrowthpipeline-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [112/454 | 24%] - Saving screenshot for Ceo Growth Pipeline...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [112/430 | 26%] - Saving screenshot for Ceo Growth Pipeline...");
   cy.waitAndSee();
   cy.screenshot("ceo_growth_pipeline");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [112/454 | 24%] - Verified Ceo Growth Pipeline successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [112/430 | 26%] - Verified Ceo Growth Pipeline successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [113/454 | 24%] - Navigating to /offices/corporate/roles/ceo/leadership-reports (Ceo Leadership Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [113/430 | 26%] - Navigating to /offices/corporate/roles/ceo/leadership-reports (Ceo Leadership Reports)...");
   cy.visitWithSemantics("/offices/corporate/roles/ceo/leadership-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [113/454 | 24%] - Checking shell & content for Ceo Leadership Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [113/430 | 26%] - Checking shell & content for Ceo Leadership Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4586,17 +4622,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ceoleadershipreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ceoleadershipreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [113/454 | 24%] - Saving screenshot for Ceo Leadership Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [113/430 | 26%] - Saving screenshot for Ceo Leadership Reports...");
   cy.waitAndSee();
   cy.screenshot("ceo_leadership_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [113/454 | 24%] - Verified Ceo Leadership Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [113/430 | 26%] - Verified Ceo Leadership Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [114/454 | 25%] - Navigating to /offices/corporate/roles/ceo/organization-map (Ceo Organization Map)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [114/430 | 26%] - Navigating to /offices/corporate/roles/ceo/organization-map (Ceo Organization Map)...");
   cy.visitWithSemantics("/offices/corporate/roles/ceo/organization-map");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [114/454 | 25%] - Checking shell & content for Ceo Organization Map...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [114/430 | 26%] - Checking shell & content for Ceo Organization Map...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4604,17 +4640,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ceoorganizationmap-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ceoorganizationmap-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [114/454 | 25%] - Saving screenshot for Ceo Organization Map...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [114/430 | 26%] - Saving screenshot for Ceo Organization Map...");
   cy.waitAndSee();
   cy.screenshot("ceo_organization_map");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [114/454 | 25%] - Verified Ceo Organization Map successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [114/430 | 26%] - Verified Ceo Organization Map successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [115/454 | 25%] - Navigating to /offices/corporate/roles/ceo/region-performance (Ceo Region Performance)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [115/430 | 26%] - Navigating to /offices/corporate/roles/ceo/region-performance (Ceo Region Performance)...");
   cy.visitWithSemantics("/offices/corporate/roles/ceo/region-performance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [115/454 | 25%] - Checking shell & content for Ceo Region Performance...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [115/430 | 26%] - Checking shell & content for Ceo Region Performance...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4622,17 +4658,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ceoregionperformance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ceoregionperformance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [115/454 | 25%] - Saving screenshot for Ceo Region Performance...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [115/430 | 26%] - Saving screenshot for Ceo Region Performance...");
   cy.waitAndSee();
   cy.screenshot("ceo_region_performance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [115/454 | 25%] - Verified Ceo Region Performance successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [115/430 | 26%] - Verified Ceo Region Performance successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [116/454 | 25%] - Navigating to /offices/corporate/roles/ceo/reports (Ceo Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [116/430 | 26%] - Navigating to /offices/corporate/roles/ceo/reports (Ceo Reports)...");
   cy.visitWithSemantics("/offices/corporate/roles/ceo/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [116/454 | 25%] - Checking shell & content for Ceo Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [116/430 | 26%] - Checking shell & content for Ceo Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4640,17 +4676,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ceoreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ceoreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [116/454 | 25%] - Saving screenshot for Ceo Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [116/430 | 26%] - Saving screenshot for Ceo Reports...");
   cy.waitAndSee();
   cy.screenshot("ceo_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [116/454 | 25%] - Verified Ceo Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [116/430 | 26%] - Verified Ceo Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [117/454 | 25%] - Navigating to /offices/corporate/roles/ceo/revenue-summary (Ceo Revenue Summary)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [117/430 | 27%] - Navigating to /offices/corporate/roles/ceo/revenue-summary (Ceo Revenue Summary)...");
   cy.visitWithSemantics("/offices/corporate/roles/ceo/revenue-summary");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [117/454 | 25%] - Checking shell & content for Ceo Revenue Summary...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [117/430 | 27%] - Checking shell & content for Ceo Revenue Summary...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4658,17 +4694,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ceorevenuesummary-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ceorevenuesummary-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [117/454 | 25%] - Saving screenshot for Ceo Revenue Summary...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [117/430 | 27%] - Saving screenshot for Ceo Revenue Summary...");
   cy.waitAndSee();
   cy.screenshot("ceo_revenue_summary");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [117/454 | 25%] - Verified Ceo Revenue Summary successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [117/430 | 27%] - Verified Ceo Revenue Summary successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [118/454 | 25%] - Navigating to /offices/corporate/roles/ceo/strategic-kpis (Ceo Strategic Kpis)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [118/430 | 27%] - Navigating to /offices/corporate/roles/ceo/strategic-kpis (Ceo Strategic Kpis)...");
   cy.visitWithSemantics("/offices/corporate/roles/ceo/strategic-kpis");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [118/454 | 25%] - Checking shell & content for Ceo Strategic Kpis...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [118/430 | 27%] - Checking shell & content for Ceo Strategic Kpis...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4676,17 +4712,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ceostrategickpis-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ceostrategickpis-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [118/454 | 25%] - Saving screenshot for Ceo Strategic Kpis...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [118/430 | 27%] - Saving screenshot for Ceo Strategic Kpis...");
   cy.waitAndSee();
   cy.screenshot("ceo_strategic_kpis");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [118/454 | 25%] - Verified Ceo Strategic Kpis successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [118/430 | 27%] - Verified Ceo Strategic Kpis successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [119/454 | 26%] - Navigating to /offices/corporate/roles/cfo/accounts-payable (Cfo Accounts Payable)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [119/430 | 27%] - Navigating to /offices/corporate/roles/cfo/accounts-payable (Cfo Accounts Payable)...");
   cy.visitWithSemantics("/offices/corporate/roles/cfo/accounts-payable");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [119/454 | 26%] - Checking shell & content for Cfo Accounts Payable...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [119/430 | 27%] - Checking shell & content for Cfo Accounts Payable...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4694,17 +4730,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cfoaccountspayable-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cfoaccountspayable-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [119/454 | 26%] - Saving screenshot for Cfo Accounts Payable...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [119/430 | 27%] - Saving screenshot for Cfo Accounts Payable...");
   cy.waitAndSee();
   cy.screenshot("cfo_accounts_payable");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [119/454 | 26%] - Verified Cfo Accounts Payable successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [119/430 | 27%] - Verified Cfo Accounts Payable successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [120/454 | 26%] - Navigating to /offices/corporate/roles/cfo/accounts-receivable (Cfo Accounts Receivable)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [120/430 | 27%] - Navigating to /offices/corporate/roles/cfo/accounts-receivable (Cfo Accounts Receivable)...");
   cy.visitWithSemantics("/offices/corporate/roles/cfo/accounts-receivable");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [120/454 | 26%] - Checking shell & content for Cfo Accounts Receivable...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [120/430 | 27%] - Checking shell & content for Cfo Accounts Receivable...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4712,17 +4748,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cfoaccountsreceivable-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cfoaccountsreceivable-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [120/454 | 26%] - Saving screenshot for Cfo Accounts Receivable...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [120/430 | 27%] - Saving screenshot for Cfo Accounts Receivable...");
   cy.waitAndSee();
   cy.screenshot("cfo_accounts_receivable");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [120/454 | 26%] - Verified Cfo Accounts Receivable successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [120/430 | 27%] - Verified Cfo Accounts Receivable successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [121/454 | 26%] - Navigating to /offices/corporate/roles/cfo/financial-overview (Cfo Financial Overview)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [121/430 | 28%] - Navigating to /offices/corporate/roles/cfo/financial-overview (Cfo Financial Overview)...");
   cy.visitWithSemantics("/offices/corporate/roles/cfo/financial-overview");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [121/454 | 26%] - Checking shell & content for Cfo Financial Overview...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [121/430 | 28%] - Checking shell & content for Cfo Financial Overview...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4730,17 +4766,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cfofinancialoverview-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cfofinancialoverview-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [121/454 | 26%] - Saving screenshot for Cfo Financial Overview...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [121/430 | 28%] - Saving screenshot for Cfo Financial Overview...");
   cy.waitAndSee();
   cy.screenshot("cfo_financial_overview");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [121/454 | 26%] - Verified Cfo Financial Overview successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [121/430 | 28%] - Verified Cfo Financial Overview successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [122/454 | 26%] - Navigating to /offices/corporate/roles/cfo/franchise-financials (Cfo Franchise Financials)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [122/430 | 28%] - Navigating to /offices/corporate/roles/cfo/franchise-financials (Cfo Franchise Financials)...");
   cy.visitWithSemantics("/offices/corporate/roles/cfo/franchise-financials");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [122/454 | 26%] - Checking shell & content for Cfo Franchise Financials...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [122/430 | 28%] - Checking shell & content for Cfo Franchise Financials...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4748,17 +4784,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cfofranchisefinancials-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cfofranchisefinancials-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [122/454 | 26%] - Saving screenshot for Cfo Franchise Financials...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [122/430 | 28%] - Saving screenshot for Cfo Franchise Financials...");
   cy.waitAndSee();
   cy.screenshot("cfo_franchise_financials");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [122/454 | 26%] - Verified Cfo Franchise Financials successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [122/430 | 28%] - Verified Cfo Franchise Financials successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [123/454 | 27%] - Navigating to /offices/corporate/roles/cfo/reports (Cfo Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [123/430 | 28%] - Navigating to /offices/corporate/roles/cfo/reports (Cfo Reports)...");
   cy.visitWithSemantics("/offices/corporate/roles/cfo/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [123/454 | 27%] - Checking shell & content for Cfo Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [123/430 | 28%] - Checking shell & content for Cfo Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4766,17 +4802,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cforeports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cforeports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [123/454 | 27%] - Saving screenshot for Cfo Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [123/430 | 28%] - Saving screenshot for Cfo Reports...");
   cy.waitAndSee();
   cy.screenshot("cfo_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [123/454 | 27%] - Verified Cfo Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [123/430 | 28%] - Verified Cfo Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [124/454 | 27%] - Navigating to /offices/corporate/roles/cfo/tax-and-remittance (Cfo Tax And Remittance)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [124/430 | 28%] - Navigating to /offices/corporate/roles/cfo/tax-and-remittance (Cfo Tax And Remittance)...");
   cy.visitWithSemantics("/offices/corporate/roles/cfo/tax-and-remittance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [124/454 | 27%] - Checking shell & content for Cfo Tax And Remittance...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [124/430 | 28%] - Checking shell & content for Cfo Tax And Remittance...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4784,17 +4820,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cfotaxandremittance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cfotaxandremittance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [124/454 | 27%] - Saving screenshot for Cfo Tax And Remittance...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [124/430 | 28%] - Saving screenshot for Cfo Tax And Remittance...");
   cy.waitAndSee();
   cy.screenshot("cfo_tax_and_remittance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [124/454 | 27%] - Verified Cfo Tax And Remittance successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [124/430 | 28%] - Verified Cfo Tax And Remittance successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [125/454 | 27%] - Navigating to /offices/corporate/roles/compliance_manager/audits (Audits)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [125/430 | 29%] - Navigating to /offices/corporate/roles/compliance_manager/audits (Audits)...");
   cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/audits");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [125/454 | 27%] - Checking shell & content for Audits...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [125/430 | 29%] - Checking shell & content for Audits...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4802,17 +4838,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("audits-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("audits-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [125/454 | 27%] - Saving screenshot for Audits...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [125/430 | 29%] - Saving screenshot for Audits...");
   cy.waitAndSee();
   cy.screenshot("audits");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [125/454 | 27%] - Verified Audits successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [125/430 | 29%] - Verified Audits successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [126/454 | 27%] - Navigating to /offices/corporate/roles/compliance_manager/compliance-cases (Compliance Cases)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [126/430 | 29%] - Navigating to /offices/corporate/roles/compliance_manager/compliance-cases (Compliance Cases)...");
   cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/compliance-cases");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [126/454 | 27%] - Checking shell & content for Compliance Cases...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [126/430 | 29%] - Checking shell & content for Compliance Cases...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4820,17 +4856,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancecases-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancecases-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [126/454 | 27%] - Saving screenshot for Compliance Cases...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [126/430 | 29%] - Saving screenshot for Compliance Cases...");
   cy.waitAndSee();
   cy.screenshot("compliance_cases");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [126/454 | 27%] - Verified Compliance Cases successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [126/430 | 29%] - Verified Compliance Cases successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [127/454 | 27%] - Navigating to /generated/compliance-reports (Compliance Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [127/430 | 29%] - Navigating to /generated/compliance-reports (Compliance Reports)...");
   cy.visitWithSemantics("/generated/compliance-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [127/454 | 27%] - Checking shell & content for Compliance Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [127/430 | 29%] - Checking shell & content for Compliance Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4838,17 +4874,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancereports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancereports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [127/454 | 27%] - Saving screenshot for Compliance Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [127/430 | 29%] - Saving screenshot for Compliance Reports...");
   cy.waitAndSee();
   cy.screenshot("compliance_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [127/454 | 27%] - Verified Compliance Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [127/430 | 29%] - Verified Compliance Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [128/454 | 28%] - Navigating to /offices/corporate/roles/compliance_manager/corrective-actions (Corrective Actions)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [128/430 | 29%] - Navigating to /offices/corporate/roles/compliance_manager/corrective-actions (Corrective Actions)...");
   cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/corrective-actions");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [128/454 | 28%] - Checking shell & content for Corrective Actions...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [128/430 | 29%] - Checking shell & content for Corrective Actions...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4856,17 +4892,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("correctiveactions-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("correctiveactions-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [128/454 | 28%] - Saving screenshot for Corrective Actions...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [128/430 | 29%] - Saving screenshot for Corrective Actions...");
   cy.waitAndSee();
   cy.screenshot("corrective_actions");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [128/454 | 28%] - Verified Corrective Actions successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [128/430 | 29%] - Verified Corrective Actions successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [129/454 | 28%] - Navigating to /offices/corporate/roles/compliance_manager/credential-tracking (Credential Tracking)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [129/430 | 30%] - Navigating to /offices/corporate/roles/compliance_manager/credential-tracking (Credential Tracking)...");
   cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/credential-tracking");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [129/454 | 28%] - Checking shell & content for Credential Tracking...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [129/430 | 30%] - Checking shell & content for Credential Tracking...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4874,17 +4910,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("credentialtracking-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("credentialtracking-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [129/454 | 28%] - Saving screenshot for Credential Tracking...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [129/430 | 30%] - Saving screenshot for Credential Tracking...");
   cy.waitAndSee();
   cy.screenshot("credential_tracking");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [129/454 | 28%] - Verified Credential Tracking successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [129/430 | 30%] - Verified Credential Tracking successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [130/454 | 28%] - Navigating to /offices/corporate/roles/compliance_manager/document-expiry (Document Expiry)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [130/430 | 30%] - Navigating to /offices/corporate/roles/compliance_manager/document-expiry (Document Expiry)...");
   cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/document-expiry");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [130/454 | 28%] - Checking shell & content for Document Expiry...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [130/430 | 30%] - Checking shell & content for Document Expiry...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4892,17 +4928,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("documentexpiry-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("documentexpiry-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [130/454 | 28%] - Saving screenshot for Document Expiry...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [130/430 | 30%] - Saving screenshot for Document Expiry...");
   cy.waitAndSee();
   cy.screenshot("document_expiry");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [130/454 | 28%] - Verified Document Expiry successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [130/430 | 30%] - Verified Document Expiry successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [131/454 | 28%] - Navigating to /offices/corporate/roles/compliance_manager/policies (Policies)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [131/430 | 30%] - Navigating to /offices/corporate/roles/compliance_manager/policies (Policies)...");
   cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/policies");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [131/454 | 28%] - Checking shell & content for Policies...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [131/430 | 30%] - Checking shell & content for Policies...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4910,17 +4946,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("policies-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("policies-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [131/454 | 28%] - Saving screenshot for Policies...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [131/430 | 30%] - Saving screenshot for Policies...");
   cy.waitAndSee();
   cy.screenshot("policies");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [131/454 | 28%] - Verified Policies successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [131/430 | 30%] - Verified Policies successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [132/454 | 29%] - Navigating to /offices/corporate/roles/compliance_manager/risk-register (Risk Register)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [132/430 | 30%] - Navigating to /offices/corporate/roles/compliance_manager/risk-register (Risk Register)...");
   cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/risk-register");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [132/454 | 29%] - Checking shell & content for Risk Register...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [132/430 | 30%] - Checking shell & content for Risk Register...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4928,17 +4964,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("riskregister-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("riskregister-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [132/454 | 29%] - Saving screenshot for Risk Register...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [132/430 | 30%] - Saving screenshot for Risk Register...");
   cy.waitAndSee();
   cy.screenshot("risk_register");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [132/454 | 29%] - Verified Risk Register successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [132/430 | 30%] - Verified Risk Register successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [133/454 | 29%] - Navigating to /offices/corporate/roles/compliance_manager/training-compliance (Training Compliance)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [133/430 | 30%] - Navigating to /offices/corporate/roles/compliance_manager/training-compliance (Training Compliance)...");
   cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/training-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [133/454 | 29%] - Checking shell & content for Training Compliance...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [133/430 | 30%] - Checking shell & content for Training Compliance...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4946,17 +4982,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [133/454 | 29%] - Saving screenshot for Training Compliance...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [133/430 | 30%] - Saving screenshot for Training Compliance...");
   cy.waitAndSee();
   cy.screenshot("training_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [133/454 | 29%] - Verified Training Compliance successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [133/430 | 30%] - Verified Training Compliance successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [134/454 | 29%] - Navigating to /offices/corporate/roles/coo/branch-operations (Coo Branch Operations)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [134/430 | 31%] - Navigating to /offices/corporate/roles/coo/branch-operations (Coo Branch Operations)...");
   cy.visitWithSemantics("/offices/corporate/roles/coo/branch-operations");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [134/454 | 29%] - Checking shell & content for Coo Branch Operations...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [134/430 | 31%] - Checking shell & content for Coo Branch Operations...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4964,17 +5000,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("coobranchoperations-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("coobranchoperations-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [134/454 | 29%] - Saving screenshot for Coo Branch Operations...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [134/430 | 31%] - Saving screenshot for Coo Branch Operations...");
   cy.waitAndSee();
   cy.screenshot("coo_branch_operations");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [134/454 | 29%] - Verified Coo Branch Operations successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [134/430 | 31%] - Verified Coo Branch Operations successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [135/454 | 29%] - Navigating to /offices/corporate/roles/coo/issue-escalations (Coo Issue Escalations)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [135/430 | 31%] - Navigating to /offices/corporate/roles/coo/issue-escalations (Coo Issue Escalations)...");
   cy.visitWithSemantics("/offices/corporate/roles/coo/issue-escalations");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [135/454 | 29%] - Checking shell & content for Coo Issue Escalations...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [135/430 | 31%] - Checking shell & content for Coo Issue Escalations...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -4982,17 +5018,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cooissueescalations-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cooissueescalations-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [135/454 | 29%] - Saving screenshot for Coo Issue Escalations...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [135/430 | 31%] - Saving screenshot for Coo Issue Escalations...");
   cy.waitAndSee();
   cy.screenshot("coo_issue_escalations");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [135/454 | 29%] - Verified Coo Issue Escalations successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [135/430 | 31%] - Verified Coo Issue Escalations successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [136/454 | 29%] - Navigating to /offices/corporate/roles/coo/reports (Coo Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [136/430 | 31%] - Navigating to /offices/corporate/roles/coo/reports (Coo Reports)...");
   cy.visitWithSemantics("/offices/corporate/roles/coo/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [136/454 | 29%] - Checking shell & content for Coo Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [136/430 | 31%] - Checking shell & content for Coo Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5000,17 +5036,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cooreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cooreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [136/454 | 29%] - Saving screenshot for Coo Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [136/430 | 31%] - Saving screenshot for Coo Reports...");
   cy.waitAndSee();
   cy.screenshot("coo_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [136/454 | 29%] - Verified Coo Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [136/430 | 31%] - Verified Coo Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [137/454 | 30%] - Navigating to /offices/corporate/roles/coo/service-delivery (Coo Service Delivery)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [137/430 | 31%] - Navigating to /offices/corporate/roles/coo/service-delivery (Coo Service Delivery)...");
   cy.visitWithSemantics("/offices/corporate/roles/coo/service-delivery");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [137/454 | 30%] - Checking shell & content for Coo Service Delivery...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [137/430 | 31%] - Checking shell & content for Coo Service Delivery...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5018,17 +5054,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cooservicedelivery-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cooservicedelivery-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [137/454 | 30%] - Saving screenshot for Coo Service Delivery...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [137/430 | 31%] - Saving screenshot for Coo Service Delivery...");
   cy.waitAndSee();
   cy.screenshot("coo_service_delivery");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [137/454 | 30%] - Verified Coo Service Delivery successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [137/430 | 31%] - Verified Coo Service Delivery successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [138/454 | 30%] - Navigating to /offices/corporate/roles/coo/staffing-efficiency (Coo Staffing Efficiency)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [138/430 | 32%] - Navigating to /offices/corporate/roles/coo/staffing-efficiency (Coo Staffing Efficiency)...");
   cy.visitWithSemantics("/offices/corporate/roles/coo/staffing-efficiency");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [138/454 | 30%] - Checking shell & content for Coo Staffing Efficiency...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [138/430 | 32%] - Checking shell & content for Coo Staffing Efficiency...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5036,17 +5072,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("coostaffingefficiency-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("coostaffingefficiency-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [138/454 | 30%] - Saving screenshot for Coo Staffing Efficiency...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [138/430 | 32%] - Saving screenshot for Coo Staffing Efficiency...");
   cy.waitAndSee();
   cy.screenshot("coo_staffing_efficiency");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [138/454 | 30%] - Verified Coo Staffing Efficiency successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [138/430 | 32%] - Verified Coo Staffing Efficiency successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [139/454 | 30%] - Navigating to /offices/corporate/roles/coo/workflow-performance (Coo Workflow Performance)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [139/430 | 32%] - Navigating to /offices/corporate/roles/coo/workflow-performance (Coo Workflow Performance)...");
   cy.visitWithSemantics("/offices/corporate/roles/coo/workflow-performance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [139/454 | 30%] - Checking shell & content for Coo Workflow Performance...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [139/430 | 32%] - Checking shell & content for Coo Workflow Performance...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5054,17 +5090,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cooworkflowperformance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cooworkflowperformance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [139/454 | 30%] - Saving screenshot for Coo Workflow Performance...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [139/430 | 32%] - Saving screenshot for Coo Workflow Performance...");
   cy.waitAndSee();
   cy.screenshot("coo_workflow_performance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [139/454 | 30%] - Verified Coo Workflow Performance successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [139/430 | 32%] - Verified Coo Workflow Performance successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [140/454 | 30%] - Navigating to /generated/compliance-manager-audits (Compliance Manager Audits)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [140/430 | 32%] - Navigating to /generated/compliance-manager-audits (Compliance Manager Audits)...");
   cy.visitWithSemantics("/generated/compliance-manager-audits");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [140/454 | 30%] - Checking shell & content for Compliance Manager Audits...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [140/430 | 32%] - Checking shell & content for Compliance Manager Audits...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5072,17 +5108,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanageraudits-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanageraudits-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [140/454 | 30%] - Saving screenshot for Compliance Manager Audits...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [140/430 | 32%] - Saving screenshot for Compliance Manager Audits...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_audits");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [140/454 | 30%] - Verified Compliance Manager Audits successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [140/430 | 32%] - Verified Compliance Manager Audits successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [141/454 | 31%] - Navigating to /generated/compliance-manager-compliance-cases (Compliance Manager Compliance Cases)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [141/430 | 32%] - Navigating to /generated/compliance-manager-compliance-cases (Compliance Manager Compliance Cases)...");
   cy.visitWithSemantics("/generated/compliance-manager-compliance-cases");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [141/454 | 31%] - Checking shell & content for Compliance Manager Compliance Cases...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [141/430 | 32%] - Checking shell & content for Compliance Manager Compliance Cases...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5090,17 +5126,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanagercompliancecases-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanagercompliancecases-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [141/454 | 31%] - Saving screenshot for Compliance Manager Compliance Cases...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [141/430 | 32%] - Saving screenshot for Compliance Manager Compliance Cases...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_compliance_cases");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [141/454 | 31%] - Verified Compliance Manager Compliance Cases successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [141/430 | 32%] - Verified Compliance Manager Compliance Cases successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [142/454 | 31%] - Navigating to /generated/compliance-manager-corrective-actions (Compliance Manager Corrective Actions)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [142/430 | 33%] - Navigating to /generated/compliance-manager-corrective-actions (Compliance Manager Corrective Actions)...");
   cy.visitWithSemantics("/generated/compliance-manager-corrective-actions");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [142/454 | 31%] - Checking shell & content for Compliance Manager Corrective Actions...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [142/430 | 33%] - Checking shell & content for Compliance Manager Corrective Actions...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5108,17 +5144,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanagercorrectiveactions-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanagercorrectiveactions-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [142/454 | 31%] - Saving screenshot for Compliance Manager Corrective Actions...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [142/430 | 33%] - Saving screenshot for Compliance Manager Corrective Actions...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_corrective_actions");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [142/454 | 31%] - Verified Compliance Manager Corrective Actions successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [142/430 | 33%] - Verified Compliance Manager Corrective Actions successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [143/454 | 31%] - Navigating to /generated/compliance-manager-credential-tracking (Compliance Manager Credential Tracking)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [143/430 | 33%] - Navigating to /generated/compliance-manager-credential-tracking (Compliance Manager Credential Tracking)...");
   cy.visitWithSemantics("/generated/compliance-manager-credential-tracking");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [143/454 | 31%] - Checking shell & content for Compliance Manager Credential Tracking...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [143/430 | 33%] - Checking shell & content for Compliance Manager Credential Tracking...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5126,17 +5162,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanagercredentialtracking-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanagercredentialtracking-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [143/454 | 31%] - Saving screenshot for Compliance Manager Credential Tracking...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [143/430 | 33%] - Saving screenshot for Compliance Manager Credential Tracking...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_credential_tracking");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [143/454 | 31%] - Verified Compliance Manager Credential Tracking successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [143/430 | 33%] - Verified Compliance Manager Credential Tracking successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [144/454 | 31%] - Navigating to /generated/compliance-manager-document-expiry (Compliance Manager Document Expiry)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [144/430 | 33%] - Navigating to /generated/compliance-manager-document-expiry (Compliance Manager Document Expiry)...");
   cy.visitWithSemantics("/generated/compliance-manager-document-expiry");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [144/454 | 31%] - Checking shell & content for Compliance Manager Document Expiry...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [144/430 | 33%] - Checking shell & content for Compliance Manager Document Expiry...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5144,17 +5180,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanagerdocumentexpiry-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanagerdocumentexpiry-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [144/454 | 31%] - Saving screenshot for Compliance Manager Document Expiry...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [144/430 | 33%] - Saving screenshot for Compliance Manager Document Expiry...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_document_expiry");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [144/454 | 31%] - Verified Compliance Manager Document Expiry successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [144/430 | 33%] - Verified Compliance Manager Document Expiry successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [145/454 | 31%] - Navigating to /offices/corporate/roles/compliance_manager/incident-review (Compliance Manager Incident Review)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [145/430 | 33%] - Navigating to /offices/corporate/roles/compliance_manager/incident-review (Compliance Manager Incident Review)...");
   cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/incident-review");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [145/454 | 31%] - Checking shell & content for Compliance Manager Incident Review...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [145/430 | 33%] - Checking shell & content for Compliance Manager Incident Review...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5162,17 +5198,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanagerincidentreview-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanagerincidentreview-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [145/454 | 31%] - Saving screenshot for Compliance Manager Incident Review...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [145/430 | 33%] - Saving screenshot for Compliance Manager Incident Review...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_incident_review");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [145/454 | 31%] - Verified Compliance Manager Incident Review successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [145/430 | 33%] - Verified Compliance Manager Incident Review successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [146/454 | 32%] - Navigating to /generated/compliance-manager-policies (Compliance Manager Policies)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [146/430 | 33%] - Navigating to /generated/compliance-manager-policies (Compliance Manager Policies)...");
   cy.visitWithSemantics("/generated/compliance-manager-policies");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [146/454 | 32%] - Checking shell & content for Compliance Manager Policies...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [146/430 | 33%] - Checking shell & content for Compliance Manager Policies...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5180,17 +5216,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanagerpolicies-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanagerpolicies-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [146/454 | 32%] - Saving screenshot for Compliance Manager Policies...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [146/430 | 33%] - Saving screenshot for Compliance Manager Policies...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_policies");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [146/454 | 32%] - Verified Compliance Manager Policies successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [146/430 | 33%] - Verified Compliance Manager Policies successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [147/454 | 32%] - Navigating to /offices/corporate/roles/compliance_manager/reports (Compliance Manager Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [147/430 | 34%] - Navigating to /offices/corporate/roles/compliance_manager/reports (Compliance Manager Reports)...");
   cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [147/454 | 32%] - Checking shell & content for Compliance Manager Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [147/430 | 34%] - Checking shell & content for Compliance Manager Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5198,17 +5234,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanagerreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanagerreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [147/454 | 32%] - Saving screenshot for Compliance Manager Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [147/430 | 34%] - Saving screenshot for Compliance Manager Reports...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [147/454 | 32%] - Verified Compliance Manager Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [147/430 | 34%] - Verified Compliance Manager Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [148/454 | 32%] - Navigating to /generated/compliance-manager-risk-register (Compliance Manager Risk Register)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [148/430 | 34%] - Navigating to /generated/compliance-manager-risk-register (Compliance Manager Risk Register)...");
   cy.visitWithSemantics("/generated/compliance-manager-risk-register");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [148/454 | 32%] - Checking shell & content for Compliance Manager Risk Register...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [148/430 | 34%] - Checking shell & content for Compliance Manager Risk Register...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5216,17 +5252,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanagerriskregister-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanagerriskregister-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [148/454 | 32%] - Saving screenshot for Compliance Manager Risk Register...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [148/430 | 34%] - Saving screenshot for Compliance Manager Risk Register...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_risk_register");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [148/454 | 32%] - Verified Compliance Manager Risk Register successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [148/430 | 34%] - Verified Compliance Manager Risk Register successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [149/454 | 32%] - Navigating to /generated/compliance-manager-training-compliance (Compliance Manager Training Compliance)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [149/430 | 34%] - Navigating to /generated/compliance-manager-training-compliance (Compliance Manager Training Compliance)...");
   cy.visitWithSemantics("/generated/compliance-manager-training-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [149/454 | 32%] - Checking shell & content for Compliance Manager Training Compliance...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [149/430 | 34%] - Checking shell & content for Compliance Manager Training Compliance...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5234,17 +5270,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanagertrainingcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanagertrainingcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [149/454 | 32%] - Saving screenshot for Compliance Manager Training Compliance...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [149/430 | 34%] - Saving screenshot for Compliance Manager Training Compliance...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_training_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [149/454 | 32%] - Verified Compliance Manager Training Compliance successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [149/430 | 34%] - Verified Compliance Manager Training Compliance successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [150/454 | 33%] - Navigating to /offices/corporate/roles/cto/access-control (Cto Access Control)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [150/430 | 34%] - Navigating to /offices/corporate/roles/cto/access-control (Cto Access Control)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/access-control");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [150/454 | 33%] - Checking shell & content for Cto Access Control...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [150/430 | 34%] - Checking shell & content for Cto Access Control...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5252,17 +5288,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctoaccesscontrol-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctoaccesscontrol-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [150/454 | 33%] - Saving screenshot for Cto Access Control...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [150/430 | 34%] - Saving screenshot for Cto Access Control...");
   cy.waitAndSee();
   cy.screenshot("cto_access_control");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [150/454 | 33%] - Verified Cto Access Control successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [150/430 | 34%] - Verified Cto Access Control successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [151/454 | 33%] - Navigating to /offices/corporate/roles/cto/api-monitoring (Cto Api Monitoring)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [151/430 | 35%] - Navigating to /offices/corporate/roles/cto/api-monitoring (Cto Api Monitoring)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/api-monitoring");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [151/454 | 33%] - Checking shell & content for Cto Api Monitoring...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [151/430 | 35%] - Checking shell & content for Cto Api Monitoring...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5270,17 +5306,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctoapimonitoring-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctoapimonitoring-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [151/454 | 33%] - Saving screenshot for Cto Api Monitoring...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [151/430 | 35%] - Saving screenshot for Cto Api Monitoring...");
   cy.waitAndSee();
   cy.screenshot("cto_api_monitoring");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [151/454 | 33%] - Verified Cto Api Monitoring successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [151/430 | 35%] - Verified Cto Api Monitoring successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [152/454 | 33%] - Navigating to /offices/corporate/roles/cto/audit-logs (Cto Audit Logs)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [152/430 | 35%] - Navigating to /offices/corporate/roles/cto/audit-logs (Cto Audit Logs)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/audit-logs");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [152/454 | 33%] - Checking shell & content for Cto Audit Logs...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [152/430 | 35%] - Checking shell & content for Cto Audit Logs...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5288,17 +5324,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctoauditlogs-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctoauditlogs-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [152/454 | 33%] - Saving screenshot for Cto Audit Logs...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [152/430 | 35%] - Saving screenshot for Cto Audit Logs...");
   cy.waitAndSee();
   cy.screenshot("cto_audit_logs");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [152/454 | 33%] - Verified Cto Audit Logs successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [152/430 | 35%] - Verified Cto Audit Logs successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [153/454 | 33%] - Navigating to /offices/corporate/roles/cto/feature-adoption (Cto Feature Adoption)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [153/430 | 35%] - Navigating to /offices/corporate/roles/cto/feature-adoption (Cto Feature Adoption)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/feature-adoption");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [153/454 | 33%] - Checking shell & content for Cto Feature Adoption...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [153/430 | 35%] - Checking shell & content for Cto Feature Adoption...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5306,17 +5342,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctofeatureadoption-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctofeatureadoption-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [153/454 | 33%] - Saving screenshot for Cto Feature Adoption...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [153/430 | 35%] - Saving screenshot for Cto Feature Adoption...");
   cy.waitAndSee();
   cy.screenshot("cto_feature_adoption");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [153/454 | 33%] - Verified Cto Feature Adoption successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [153/430 | 35%] - Verified Cto Feature Adoption successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [154/454 | 33%] - Navigating to /offices/corporate/roles/cto/infrastructure (Cto Infrastructure)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [154/430 | 35%] - Navigating to /offices/corporate/roles/cto/infrastructure (Cto Infrastructure)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/infrastructure");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [154/454 | 33%] - Checking shell & content for Cto Infrastructure...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [154/430 | 35%] - Checking shell & content for Cto Infrastructure...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5324,17 +5360,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctoinfrastructure-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctoinfrastructure-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [154/454 | 33%] - Saving screenshot for Cto Infrastructure...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [154/430 | 35%] - Saving screenshot for Cto Infrastructure...");
   cy.waitAndSee();
   cy.screenshot("cto_infrastructure");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [154/454 | 33%] - Verified Cto Infrastructure successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [154/430 | 35%] - Verified Cto Infrastructure successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [155/454 | 34%] - Navigating to /offices/corporate/roles/cto/integrations (Cto Integrations)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [155/430 | 36%] - Navigating to /offices/corporate/roles/cto/integrations (Cto Integrations)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/integrations");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [155/454 | 34%] - Checking shell & content for Cto Integrations...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [155/430 | 36%] - Checking shell & content for Cto Integrations...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5342,17 +5378,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctointegrations-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctointegrations-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [155/454 | 34%] - Saving screenshot for Cto Integrations...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [155/430 | 36%] - Saving screenshot for Cto Integrations...");
   cy.waitAndSee();
   cy.screenshot("cto_integrations");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [155/454 | 34%] - Verified Cto Integrations successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [155/430 | 36%] - Verified Cto Integrations successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [156/454 | 34%] - Navigating to /offices/corporate/roles/cto/issue-tracking (Cto Issue Tracking)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [156/430 | 36%] - Navigating to /offices/corporate/roles/cto/issue-tracking (Cto Issue Tracking)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/issue-tracking");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [156/454 | 34%] - Checking shell & content for Cto Issue Tracking...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [156/430 | 36%] - Checking shell & content for Cto Issue Tracking...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5360,17 +5396,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctoissuetracking-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctoissuetracking-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [156/454 | 34%] - Saving screenshot for Cto Issue Tracking...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [156/430 | 36%] - Saving screenshot for Cto Issue Tracking...");
   cy.waitAndSee();
   cy.screenshot("cto_issue_tracking");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [156/454 | 34%] - Verified Cto Issue Tracking successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [156/430 | 36%] - Verified Cto Issue Tracking successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [157/454 | 34%] - Navigating to /offices/corporate/roles/cto/platform-usage (Cto Platform Usage)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [157/430 | 36%] - Navigating to /offices/corporate/roles/cto/platform-usage (Cto Platform Usage)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/platform-usage");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [157/454 | 34%] - Checking shell & content for Cto Platform Usage...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [157/430 | 36%] - Checking shell & content for Cto Platform Usage...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5378,17 +5414,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctoplatformusage-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctoplatformusage-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [157/454 | 34%] - Saving screenshot for Cto Platform Usage...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [157/430 | 36%] - Saving screenshot for Cto Platform Usage...");
   cy.waitAndSee();
   cy.screenshot("cto_platform_usage");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [157/454 | 34%] - Verified Cto Platform Usage successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [157/430 | 36%] - Verified Cto Platform Usage successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [158/454 | 34%] - Navigating to /offices/corporate/roles/cto/release-management (Cto Release Management)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [158/430 | 36%] - Navigating to /offices/corporate/roles/cto/release-management (Cto Release Management)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/release-management");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [158/454 | 34%] - Checking shell & content for Cto Release Management...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [158/430 | 36%] - Checking shell & content for Cto Release Management...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5396,17 +5432,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctoreleasemanagement-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctoreleasemanagement-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [158/454 | 34%] - Saving screenshot for Cto Release Management...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [158/430 | 36%] - Saving screenshot for Cto Release Management...");
   cy.waitAndSee();
   cy.screenshot("cto_release_management");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [158/454 | 34%] - Verified Cto Release Management successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [158/430 | 36%] - Verified Cto Release Management successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [159/454 | 35%] - Navigating to /offices/corporate/roles/cto/reports (Cto Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [159/430 | 36%] - Navigating to /offices/corporate/roles/cto/reports (Cto Reports)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [159/454 | 35%] - Checking shell & content for Cto Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [159/430 | 36%] - Checking shell & content for Cto Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5414,17 +5450,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctoreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctoreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [159/454 | 35%] - Saving screenshot for Cto Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [159/430 | 36%] - Saving screenshot for Cto Reports...");
   cy.waitAndSee();
   cy.screenshot("cto_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [159/454 | 35%] - Verified Cto Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [159/430 | 36%] - Verified Cto Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [160/454 | 35%] - Navigating to /offices/corporate/roles/cto/system-health (Cto System Health)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [160/430 | 37%] - Navigating to /offices/corporate/roles/cto/system-health (Cto System Health)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/system-health");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [160/454 | 35%] - Checking shell & content for Cto System Health...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [160/430 | 37%] - Checking shell & content for Cto System Health...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5432,17 +5468,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctosystemhealth-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctosystemhealth-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [160/454 | 35%] - Saving screenshot for Cto System Health...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [160/430 | 37%] - Saving screenshot for Cto System Health...");
   cy.waitAndSee();
   cy.screenshot("cto_system_health");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [160/454 | 35%] - Verified Cto System Health successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [160/430 | 37%] - Verified Cto System Health successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [161/454 | 35%] - Navigating to /offices/corporate/roles/cto/system-verification (Cto System Verification)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [161/430 | 37%] - Navigating to /offices/corporate/roles/cto/system-verification (Cto System Verification)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/system-verification");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [161/454 | 35%] - Checking shell & content for Cto System Verification...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [161/430 | 37%] - Checking shell & content for Cto System Verification...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5450,17 +5486,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctosystemverification-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctosystemverification-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [161/454 | 35%] - Saving screenshot for Cto System Verification...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [161/430 | 37%] - Saving screenshot for Cto System Verification...");
   cy.waitAndSee();
   cy.screenshot("cto_system_verification");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [161/454 | 35%] - Verified Cto System Verification successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [161/430 | 37%] - Verified Cto System Verification successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [162/454 | 35%] - Navigating to /offices/corporate/roles/cto/verification-hub (Cto Verification Hub)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [162/430 | 37%] - Navigating to /offices/corporate/roles/cto/verification-hub (Cto Verification Hub)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/verification-hub");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [162/454 | 35%] - Checking shell & content for Cto Verification Hub...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [162/430 | 37%] - Checking shell & content for Cto Verification Hub...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5468,17 +5504,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctoverificationhub-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctoverificationhub-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [162/454 | 35%] - Saving screenshot for Cto Verification Hub...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [162/430 | 37%] - Saving screenshot for Cto Verification Hub...");
   cy.waitAndSee();
   cy.screenshot("cto_verification_hub");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [162/454 | 35%] - Verified Cto Verification Hub successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [162/430 | 37%] - Verified Cto Verification Hub successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [163/454 | 35%] - Navigating to /offices/corporate/roles/finance_director/cashflow (Finance Director Cashflow)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [163/430 | 37%] - Navigating to /offices/corporate/roles/finance_director/cashflow (Finance Director Cashflow)...");
   cy.visitWithSemantics("/offices/corporate/roles/finance_director/cashflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [163/454 | 35%] - Checking shell & content for Finance Director Cashflow...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [163/430 | 37%] - Checking shell & content for Finance Director Cashflow...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5486,17 +5522,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("financedirectorcashflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("financedirectorcashflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [163/454 | 35%] - Saving screenshot for Finance Director Cashflow...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [163/430 | 37%] - Saving screenshot for Finance Director Cashflow...");
   cy.waitAndSee();
   cy.screenshot("finance_director_cashflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [163/454 | 35%] - Verified Finance Director Cashflow successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [163/430 | 37%] - Verified Finance Director Cashflow successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [164/454 | 36%] - Navigating to /offices/corporate/roles/it_admin/dashboard (It Admin Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [164/430 | 38%] - Navigating to /offices/corporate/roles/it_admin/dashboard (It Admin Dashboard)...");
   cy.visitWithSemantics("/offices/corporate/roles/it_admin/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [164/454 | 36%] - Checking shell & content for It Admin Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [164/430 | 38%] - Checking shell & content for It Admin Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5504,17 +5540,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("itadmindashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("itadmindashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [164/454 | 36%] - Saving screenshot for It Admin Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [164/430 | 38%] - Saving screenshot for It Admin Dashboard...");
   cy.waitAndSee();
   cy.screenshot("it_admin_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [164/454 | 36%] - Verified It Admin Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [164/430 | 38%] - Verified It Admin Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [165/454 | 36%] - Navigating to /offices/corporate/roles/training_director/assessments (Training Director Assessments)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [165/430 | 38%] - Navigating to /offices/corporate/roles/training_director/assessments (Training Director Assessments)...");
   cy.visitWithSemantics("/offices/corporate/roles/training_director/assessments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [165/454 | 36%] - Checking shell & content for Training Director Assessments...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [165/430 | 38%] - Checking shell & content for Training Director Assessments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5522,17 +5558,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingdirectorassessments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingdirectorassessments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [165/454 | 36%] - Saving screenshot for Training Director Assessments...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [165/430 | 38%] - Saving screenshot for Training Director Assessments...");
   cy.waitAndSee();
   cy.screenshot("training_director_assessments");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [165/454 | 36%] - Verified Training Director Assessments successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [165/430 | 38%] - Verified Training Director Assessments successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [166/454 | 36%] - Navigating to /offices/corporate/roles/training_director/certificates (Training Director Certificates)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [166/430 | 38%] - Navigating to /offices/corporate/roles/training_director/certificates (Training Director Certificates)...");
   cy.visitWithSemantics("/offices/corporate/roles/training_director/certificates");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [166/454 | 36%] - Checking shell & content for Training Director Certificates...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [166/430 | 38%] - Checking shell & content for Training Director Certificates...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5540,17 +5576,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingdirectorcertificates-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingdirectorcertificates-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [166/454 | 36%] - Saving screenshot for Training Director Certificates...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [166/430 | 38%] - Saving screenshot for Training Director Certificates...");
   cy.waitAndSee();
   cy.screenshot("training_director_certificates");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [166/454 | 36%] - Verified Training Director Certificates successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [166/430 | 38%] - Verified Training Director Certificates successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [167/454 | 36%] - Navigating to /offices/corporate/roles/training_director/certifications (Training Director Certifications)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [167/430 | 38%] - Navigating to /offices/corporate/roles/training_director/certifications (Training Director Certifications)...");
   cy.visitWithSemantics("/offices/corporate/roles/training_director/certifications");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [167/454 | 36%] - Checking shell & content for Training Director Certifications...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [167/430 | 38%] - Checking shell & content for Training Director Certifications...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5558,17 +5594,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingdirectorcertifications-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingdirectorcertifications-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [167/454 | 36%] - Saving screenshot for Training Director Certifications...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [167/430 | 38%] - Saving screenshot for Training Director Certifications...");
   cy.waitAndSee();
   cy.screenshot("training_director_certifications");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [167/454 | 36%] - Verified Training Director Certifications successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [167/430 | 38%] - Verified Training Director Certifications successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [168/454 | 37%] - Navigating to /offices/corporate/roles/training_director/compliance-training (Training Director Compliance Training)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [168/430 | 39%] - Navigating to /offices/corporate/roles/training_director/compliance-training (Training Director Compliance Training)...");
   cy.visitWithSemantics("/offices/corporate/roles/training_director/compliance-training");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [168/454 | 37%] - Checking shell & content for Training Director Compliance Training...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [168/430 | 39%] - Checking shell & content for Training Director Compliance Training...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5576,17 +5612,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingdirectorcompliancetraining-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingdirectorcompliancetraining-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [168/454 | 37%] - Saving screenshot for Training Director Compliance Training...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [168/430 | 39%] - Saving screenshot for Training Director Compliance Training...");
   cy.waitAndSee();
   cy.screenshot("training_director_compliance_training");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [168/454 | 37%] - Verified Training Director Compliance Training successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [168/430 | 39%] - Verified Training Director Compliance Training successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [169/454 | 37%] - Navigating to /offices/corporate/roles/training_director/course-architect (Training Director Course Architect)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [169/430 | 39%] - Navigating to /offices/corporate/roles/training_director/course-architect (Training Director Course Architect)...");
   cy.visitWithSemantics("/offices/corporate/roles/training_director/course-architect");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [169/454 | 37%] - Checking shell & content for Training Director Course Architect...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [169/430 | 39%] - Checking shell & content for Training Director Course Architect...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5594,17 +5630,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingdirectorcoursearchitect-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingdirectorcoursearchitect-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [169/454 | 37%] - Saving screenshot for Training Director Course Architect...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [169/430 | 39%] - Saving screenshot for Training Director Course Architect...");
   cy.waitAndSee();
   cy.screenshot("training_director_course_architect");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [169/454 | 37%] - Verified Training Director Course Architect successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [169/430 | 39%] - Verified Training Director Course Architect successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [170/454 | 37%] - Navigating to /offices/corporate/roles/training_director/course-library (Training Director Course Library)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [170/430 | 39%] - Navigating to /offices/corporate/roles/training_director/course-library (Training Director Course Library)...");
   cy.visitWithSemantics("/offices/corporate/roles/training_director/course-library");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [170/454 | 37%] - Checking shell & content for Training Director Course Library...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [170/430 | 39%] - Checking shell & content for Training Director Course Library...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5612,17 +5648,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingdirectorcourselibrary-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingdirectorcourselibrary-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [170/454 | 37%] - Saving screenshot for Training Director Course Library...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [170/430 | 39%] - Saving screenshot for Training Director Course Library...");
   cy.waitAndSee();
   cy.screenshot("training_director_course_library");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [170/454 | 37%] - Verified Training Director Course Library successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [170/430 | 39%] - Verified Training Director Course Library successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [171/454 | 37%] - Navigating to /offices/corporate/roles/training_director/hub (Training Director Hub)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [171/430 | 39%] - Navigating to /offices/corporate/roles/training_director/hub (Training Director Hub)...");
   cy.visitWithSemantics("/offices/corporate/roles/training_director/hub");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [171/454 | 37%] - Checking shell & content for Training Director Hub...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [171/430 | 39%] - Checking shell & content for Training Director Hub...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5630,17 +5666,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingdirectorhub-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingdirectorhub-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [171/454 | 37%] - Saving screenshot for Training Director Hub...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [171/430 | 39%] - Saving screenshot for Training Director Hub...");
   cy.waitAndSee();
   cy.screenshot("training_director_hub");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [171/454 | 37%] - Verified Training Director Hub successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [171/430 | 39%] - Verified Training Director Hub successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [172/454 | 37%] - Navigating to /offices/corporate/roles/training_director/reports (Training Director Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [172/430 | 40%] - Navigating to /offices/corporate/roles/training_director/reports (Training Director Reports)...");
   cy.visitWithSemantics("/offices/corporate/roles/training_director/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [172/454 | 37%] - Checking shell & content for Training Director Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [172/430 | 40%] - Checking shell & content for Training Director Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5648,17 +5684,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingdirectorreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingdirectorreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [172/454 | 37%] - Saving screenshot for Training Director Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [172/430 | 40%] - Saving screenshot for Training Director Reports...");
   cy.waitAndSee();
   cy.screenshot("training_director_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [172/454 | 37%] - Verified Training Director Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [172/430 | 40%] - Verified Training Director Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [173/454 | 38%] - Navigating to /offices/corporate/roles/training_director/staff-training-matrix (Training Director Staff Training Matrix)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [173/430 | 40%] - Navigating to /offices/corporate/roles/training_director/staff-training-matrix (Training Director Staff Training Matrix)...");
   cy.visitWithSemantics("/offices/corporate/roles/training_director/staff-training-matrix");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [173/454 | 38%] - Checking shell & content for Training Director Staff Training Matrix...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [173/430 | 40%] - Checking shell & content for Training Director Staff Training Matrix...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5666,17 +5702,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingdirectorstafftrainingmatrix-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingdirectorstafftrainingmatrix-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [173/454 | 38%] - Saving screenshot for Training Director Staff Training Matrix...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [173/430 | 40%] - Saving screenshot for Training Director Staff Training Matrix...");
   cy.waitAndSee();
   cy.screenshot("training_director_staff_training_matrix");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [173/454 | 38%] - Verified Training Director Staff Training Matrix successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [173/430 | 40%] - Verified Training Director Staff Training Matrix successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [174/454 | 38%] - Navigating to /offices/corporate/roles/training_director/trainer-assignments (Training Director Trainer Assignments)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [174/430 | 40%] - Navigating to /offices/corporate/roles/training_director/trainer-assignments (Training Director Trainer Assignments)...");
   cy.visitWithSemantics("/offices/corporate/roles/training_director/trainer-assignments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [174/454 | 38%] - Checking shell & content for Training Director Trainer Assignments...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [174/430 | 40%] - Checking shell & content for Training Director Trainer Assignments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5684,17 +5720,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingdirectortrainerassignments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingdirectortrainerassignments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [174/454 | 38%] - Saving screenshot for Training Director Trainer Assignments...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [174/430 | 40%] - Saving screenshot for Training Director Trainer Assignments...");
   cy.waitAndSee();
   cy.screenshot("training_director_trainer_assignments");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [174/454 | 38%] - Verified Training Director Trainer Assignments successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [174/430 | 40%] - Verified Training Director Trainer Assignments successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [175/454 | 38%] - Navigating to /offices/corporate/roles/training_director/training-programs (Training Director Training Programs)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [175/430 | 40%] - Navigating to /offices/corporate/roles/training_director/training-programs (Training Director Training Programs)...");
   cy.visitWithSemantics("/offices/corporate/roles/training_director/training-programs");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [175/454 | 38%] - Checking shell & content for Training Director Training Programs...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [175/430 | 40%] - Checking shell & content for Training Director Training Programs...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5702,17 +5738,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingdirectortrainingprograms-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingdirectortrainingprograms-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [175/454 | 38%] - Saving screenshot for Training Director Training Programs...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [175/430 | 40%] - Saving screenshot for Training Director Training Programs...");
   cy.waitAndSee();
   cy.screenshot("training_director_training_programs");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [175/454 | 38%] - Verified Training Director Training Programs successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [175/430 | 40%] - Verified Training Director Training Programs successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [176/454 | 38%] - Navigating to /generated/assessments (Assessments)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [176/430 | 40%] - Navigating to /generated/assessments (Assessments)...");
   cy.visitWithSemantics("/generated/assessments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [176/454 | 38%] - Checking shell & content for Assessments...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [176/430 | 40%] - Checking shell & content for Assessments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5720,17 +5756,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("assessments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("assessments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [176/454 | 38%] - Saving screenshot for Assessments...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [176/430 | 40%] - Saving screenshot for Assessments...");
   cy.waitAndSee();
   cy.screenshot("assessments");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [176/454 | 38%] - Verified Assessments successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [176/430 | 40%] - Verified Assessments successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [177/454 | 38%] - Navigating to /generated/certificates (Certificates)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [177/430 | 41%] - Navigating to /generated/certificates (Certificates)...");
   cy.visitWithSemantics("/generated/certificates");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [177/454 | 38%] - Checking shell & content for Certificates...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [177/430 | 41%] - Checking shell & content for Certificates...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5738,17 +5774,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("certificates-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("certificates-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [177/454 | 38%] - Saving screenshot for Certificates...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [177/430 | 41%] - Saving screenshot for Certificates...");
   cy.waitAndSee();
   cy.screenshot("certificates");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [177/454 | 38%] - Verified Certificates successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [177/430 | 41%] - Verified Certificates successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [178/454 | 39%] - Navigating to /generated/certifications (Certifications)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [178/430 | 41%] - Navigating to /generated/certifications (Certifications)...");
   cy.visitWithSemantics("/generated/certifications");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [178/454 | 39%] - Checking shell & content for Certifications...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [178/430 | 41%] - Checking shell & content for Certifications...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5756,17 +5792,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("certifications-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("certifications-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [178/454 | 39%] - Saving screenshot for Certifications...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [178/430 | 41%] - Saving screenshot for Certifications...");
   cy.waitAndSee();
   cy.screenshot("certifications");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [178/454 | 39%] - Verified Certifications successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [178/430 | 41%] - Verified Certifications successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [179/454 | 39%] - Navigating to /generated/compliance-training (Compliance Training)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [179/430 | 41%] - Navigating to /generated/compliance-training (Compliance Training)...");
   cy.visitWithSemantics("/generated/compliance-training");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [179/454 | 39%] - Checking shell & content for Compliance Training...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [179/430 | 41%] - Checking shell & content for Compliance Training...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5774,17 +5810,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancetraining-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancetraining-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [179/454 | 39%] - Saving screenshot for Compliance Training...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [179/430 | 41%] - Saving screenshot for Compliance Training...");
   cy.waitAndSee();
   cy.screenshot("compliance_training");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [179/454 | 39%] - Verified Compliance Training successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [179/430 | 41%] - Verified Compliance Training successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [180/454 | 39%] - Navigating to /generated/course-architect (Course Architect)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [180/430 | 41%] - Navigating to /generated/course-architect (Course Architect)...");
   cy.visitWithSemantics("/generated/course-architect");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [180/454 | 39%] - Checking shell & content for Course Architect...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [180/430 | 41%] - Checking shell & content for Course Architect...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5792,17 +5828,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("coursearchitect-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("coursearchitect-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [180/454 | 39%] - Saving screenshot for Course Architect...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [180/430 | 41%] - Saving screenshot for Course Architect...");
   cy.waitAndSee();
   cy.screenshot("course_architect");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [180/454 | 39%] - Verified Course Architect successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [180/430 | 41%] - Verified Course Architect successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [181/454 | 39%] - Navigating to /generated/course-library (Course Library)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [181/430 | 42%] - Navigating to /generated/course-library (Course Library)...");
   cy.visitWithSemantics("/generated/course-library");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [181/454 | 39%] - Checking shell & content for Course Library...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [181/430 | 42%] - Checking shell & content for Course Library...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5810,17 +5846,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("courselibrary-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("courselibrary-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [181/454 | 39%] - Saving screenshot for Course Library...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [181/430 | 42%] - Saving screenshot for Course Library...");
   cy.waitAndSee();
   cy.screenshot("course_library");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [181/454 | 39%] - Verified Course Library successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [181/430 | 42%] - Verified Course Library successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [182/454 | 40%] - Navigating to /generated/staff-training-matrix (Staff Training Matrix)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [182/430 | 42%] - Navigating to /generated/staff-training-matrix (Staff Training Matrix)...");
   cy.visitWithSemantics("/generated/staff-training-matrix");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [182/454 | 40%] - Checking shell & content for Staff Training Matrix...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [182/430 | 42%] - Checking shell & content for Staff Training Matrix...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5828,17 +5864,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("stafftrainingmatrix-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("stafftrainingmatrix-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [182/454 | 40%] - Saving screenshot for Staff Training Matrix...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [182/430 | 42%] - Saving screenshot for Staff Training Matrix...");
   cy.waitAndSee();
   cy.screenshot("staff_training_matrix");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [182/454 | 40%] - Verified Staff Training Matrix successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [182/430 | 42%] - Verified Staff Training Matrix successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [183/454 | 40%] - Navigating to /generated/trainer-assignments (Trainer Assignments)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [183/430 | 42%] - Navigating to /generated/trainer-assignments (Trainer Assignments)...");
   cy.visitWithSemantics("/generated/trainer-assignments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [183/454 | 40%] - Checking shell & content for Trainer Assignments...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [183/430 | 42%] - Checking shell & content for Trainer Assignments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5846,17 +5882,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainerassignments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainerassignments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [183/454 | 40%] - Saving screenshot for Trainer Assignments...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [183/430 | 42%] - Saving screenshot for Trainer Assignments...");
   cy.waitAndSee();
   cy.screenshot("trainer_assignments");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [183/454 | 40%] - Verified Trainer Assignments successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [183/430 | 42%] - Verified Trainer Assignments successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [184/454 | 40%] - Navigating to /generated/training-analytics (Training Analytics)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [184/430 | 42%] - Navigating to /generated/training-analytics (Training Analytics)...");
   cy.visitWithSemantics("/generated/training-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [184/454 | 40%] - Checking shell & content for Training Analytics...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [184/430 | 42%] - Checking shell & content for Training Analytics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5864,17 +5900,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("traininganalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("traininganalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [184/454 | 40%] - Saving screenshot for Training Analytics...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [184/430 | 42%] - Saving screenshot for Training Analytics...");
   cy.waitAndSee();
   cy.screenshot("training_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [184/454 | 40%] - Verified Training Analytics successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [184/430 | 42%] - Verified Training Analytics successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [185/454 | 40%] - Navigating to /generated/training-hub (Training Hub)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [185/430 | 43%] - Navigating to /generated/training-hub (Training Hub)...");
   cy.visitWithSemantics("/generated/training-hub");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [185/454 | 40%] - Checking shell & content for Training Hub...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [185/430 | 43%] - Checking shell & content for Training Hub...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5882,17 +5918,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("traininghub-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("traininghub-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [185/454 | 40%] - Saving screenshot for Training Hub...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [185/430 | 43%] - Saving screenshot for Training Hub...");
   cy.waitAndSee();
   cy.screenshot("training_hub");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [185/454 | 40%] - Verified Training Hub successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [185/430 | 43%] - Verified Training Hub successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [186/454 | 40%] - Navigating to /generated/training-programs (Training Programs)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [186/430 | 43%] - Navigating to /generated/training-programs (Training Programs)...");
   cy.visitWithSemantics("/generated/training-programs");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [186/454 | 40%] - Checking shell & content for Training Programs...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [186/430 | 43%] - Checking shell & content for Training Programs...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5900,17 +5936,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingprograms-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingprograms-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [186/454 | 40%] - Saving screenshot for Training Programs...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [186/430 | 43%] - Saving screenshot for Training Programs...");
   cy.waitAndSee();
   cy.screenshot("training_programs");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [186/454 | 40%] - Verified Training Programs successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [186/430 | 43%] - Verified Training Programs successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [187/454 | 41%] - Navigating to /generated/training-reports (Training Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [187/430 | 43%] - Navigating to /generated/training-reports (Training Reports)...");
   cy.visitWithSemantics("/generated/training-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [187/454 | 41%] - Checking shell & content for Training Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [187/430 | 43%] - Checking shell & content for Training Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5918,17 +5954,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [187/454 | 41%] - Saving screenshot for Training Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [187/430 | 43%] - Saving screenshot for Training Reports...");
   cy.waitAndSee();
   cy.screenshot("training_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [187/454 | 41%] - Verified Training Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [187/430 | 43%] - Verified Training Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [188/454 | 41%] - Navigating to /offices/franchise/roles/admin/claims (Admin Claims)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [188/430 | 43%] - Navigating to /offices/franchise/roles/admin/claims (Admin Claims)...");
   cy.visitWithSemantics("/offices/franchise/roles/admin/claims");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [188/454 | 41%] - Checking shell & content for Admin Claims...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [188/430 | 43%] - Checking shell & content for Admin Claims...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5936,17 +5972,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("adminclaims-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("adminclaims-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [188/454 | 41%] - Saving screenshot for Admin Claims...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [188/430 | 43%] - Saving screenshot for Admin Claims...");
   cy.waitAndSee();
   cy.screenshot("admin_claims");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [188/454 | 41%] - Verified Admin Claims successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [188/430 | 43%] - Verified Admin Claims successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [189/454 | 41%] - Navigating to /offices/franchise/roles/admin/dashboard (Admin Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [189/430 | 43%] - Navigating to /offices/franchise/roles/admin/dashboard (Admin Dashboard)...");
   cy.visitWithSemantics("/offices/franchise/roles/admin/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [189/454 | 41%] - Checking shell & content for Admin Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [189/430 | 43%] - Checking shell & content for Admin Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5954,17 +5990,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("admindashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("admindashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [189/454 | 41%] - Saving screenshot for Admin Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [189/430 | 43%] - Saving screenshot for Admin Dashboard...");
   cy.waitAndSee();
   cy.screenshot("admin_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [189/454 | 41%] - Verified Admin Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [189/430 | 43%] - Verified Admin Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [190/454 | 41%] - Navigating to /offices/franchise/roles/admin/invoices (Admin Invoices)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [190/430 | 44%] - Navigating to /offices/franchise/roles/admin/invoices (Admin Invoices)...");
   cy.visitWithSemantics("/offices/franchise/roles/admin/invoices");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [190/454 | 41%] - Checking shell & content for Admin Invoices...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [190/430 | 44%] - Checking shell & content for Admin Invoices...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5972,17 +6008,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("admininvoices-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("admininvoices-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [190/454 | 41%] - Saving screenshot for Admin Invoices...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [190/430 | 44%] - Saving screenshot for Admin Invoices...");
   cy.waitAndSee();
   cy.screenshot("admin_invoices");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [190/454 | 41%] - Verified Admin Invoices successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [190/430 | 44%] - Verified Admin Invoices successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [191/454 | 42%] - Navigating to /offices/franchise/roles/admin/outstanding-balances (Admin Outstanding Balances)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [191/430 | 44%] - Navigating to /offices/franchise/roles/admin/outstanding-balances (Admin Outstanding Balances)...");
   cy.visitWithSemantics("/offices/franchise/roles/admin/outstanding-balances");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [191/454 | 42%] - Checking shell & content for Admin Outstanding Balances...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [191/430 | 44%] - Checking shell & content for Admin Outstanding Balances...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -5990,17 +6026,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("adminoutstandingbalances-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("adminoutstandingbalances-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [191/454 | 42%] - Saving screenshot for Admin Outstanding Balances...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [191/430 | 44%] - Saving screenshot for Admin Outstanding Balances...");
   cy.waitAndSee();
   cy.screenshot("admin_outstanding_balances");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [191/454 | 42%] - Verified Admin Outstanding Balances successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [191/430 | 44%] - Verified Admin Outstanding Balances successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [192/454 | 42%] - Navigating to /offices/franchise/roles/admin/payments (Admin Payments)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [192/430 | 44%] - Navigating to /offices/franchise/roles/admin/payments (Admin Payments)...");
   cy.visitWithSemantics("/offices/franchise/roles/admin/payments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [192/454 | 42%] - Checking shell & content for Admin Payments...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [192/430 | 44%] - Checking shell & content for Admin Payments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6008,17 +6044,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("adminpayments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("adminpayments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [192/454 | 42%] - Saving screenshot for Admin Payments...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [192/430 | 44%] - Saving screenshot for Admin Payments...");
   cy.waitAndSee();
   cy.screenshot("admin_payments");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [192/454 | 42%] - Verified Admin Payments successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [192/430 | 44%] - Verified Admin Payments successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [193/454 | 42%] - Navigating to /offices/franchise/roles/admin/reconciliation (Admin Reconciliation)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [193/430 | 44%] - Navigating to /offices/franchise/roles/admin/reconciliation (Admin Reconciliation)...");
   cy.visitWithSemantics("/offices/franchise/roles/admin/reconciliation");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [193/454 | 42%] - Checking shell & content for Admin Reconciliation...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [193/430 | 44%] - Checking shell & content for Admin Reconciliation...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6026,17 +6062,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("adminreconciliation-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("adminreconciliation-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [193/454 | 42%] - Saving screenshot for Admin Reconciliation...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [193/430 | 44%] - Saving screenshot for Admin Reconciliation...");
   cy.waitAndSee();
   cy.screenshot("admin_reconciliation");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [193/454 | 42%] - Verified Admin Reconciliation successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [193/430 | 44%] - Verified Admin Reconciliation successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [194/454 | 42%] - Navigating to /offices/franchise/roles/admin/refunds (Admin Refunds)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [194/430 | 45%] - Navigating to /offices/franchise/roles/admin/refunds (Admin Refunds)...");
   cy.visitWithSemantics("/offices/franchise/roles/admin/refunds");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [194/454 | 42%] - Checking shell & content for Admin Refunds...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [194/430 | 45%] - Checking shell & content for Admin Refunds...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6044,17 +6080,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("adminrefunds-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("adminrefunds-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [194/454 | 42%] - Saving screenshot for Admin Refunds...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [194/430 | 45%] - Saving screenshot for Admin Refunds...");
   cy.waitAndSee();
   cy.screenshot("admin_refunds");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [194/454 | 42%] - Verified Admin Refunds successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [194/430 | 45%] - Verified Admin Refunds successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [195/454 | 42%] - Navigating to /offices/franchise/roles/admin/reports (Admin Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [195/430 | 45%] - Navigating to /offices/franchise/roles/admin/reports (Admin Reports)...");
   cy.visitWithSemantics("/offices/franchise/roles/admin/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [195/454 | 42%] - Checking shell & content for Admin Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [195/430 | 45%] - Checking shell & content for Admin Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6062,17 +6098,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("adminreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("adminreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [195/454 | 42%] - Saving screenshot for Admin Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [195/430 | 45%] - Saving screenshot for Admin Reports...");
   cy.waitAndSee();
   cy.screenshot("admin_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [195/454 | 42%] - Verified Admin Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [195/430 | 45%] - Verified Admin Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [196/454 | 43%] - Navigating to /offices/franchise/roles/billing_admin/invoices (Billing Admin Invoices)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [196/430 | 45%] - Navigating to /offices/franchise/roles/billing_admin/invoices (Billing Admin Invoices)...");
   cy.visitWithSemantics("/offices/franchise/roles/billing_admin/invoices");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [196/454 | 43%] - Checking shell & content for Billing Admin Invoices...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [196/430 | 45%] - Checking shell & content for Billing Admin Invoices...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6080,17 +6116,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("billingadmininvoices-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("billingadmininvoices-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [196/454 | 43%] - Saving screenshot for Billing Admin Invoices...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [196/430 | 45%] - Saving screenshot for Billing Admin Invoices...");
   cy.waitAndSee();
   cy.screenshot("billing_admin_invoices");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [196/454 | 43%] - Verified Billing Admin Invoices successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [196/430 | 45%] - Verified Billing Admin Invoices successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [197/454 | 43%] - Navigating to /offices/franchise/roles/franchise_owner/dashboard (Franchise Owner Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [197/430 | 45%] - Navigating to /offices/franchise/roles/franchise_owner/dashboard (Franchise Owner Dashboard)...");
   cy.visitWithSemantics("/offices/franchise/roles/franchise_owner/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [197/454 | 43%] - Checking shell & content for Franchise Owner Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [197/430 | 45%] - Checking shell & content for Franchise Owner Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6098,17 +6134,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("franchiseownerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("franchiseownerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [197/454 | 43%] - Saving screenshot for Franchise Owner Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [197/430 | 45%] - Saving screenshot for Franchise Owner Dashboard...");
   cy.waitAndSee();
   cy.screenshot("franchise_owner_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [197/454 | 43%] - Verified Franchise Owner Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [197/430 | 45%] - Verified Franchise Owner Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [198/454 | 43%] - Navigating to /offices/franchise/roles/franchise_owner/financial-snapshot (Franchise Owner Financial Snapshot)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [198/430 | 46%] - Navigating to /offices/franchise/roles/franchise_owner/financial-snapshot (Franchise Owner Financial Snapshot)...");
   cy.visitWithSemantics("/offices/franchise/roles/franchise_owner/financial-snapshot");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [198/454 | 43%] - Checking shell & content for Franchise Owner Financial Snapshot...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [198/430 | 46%] - Checking shell & content for Franchise Owner Financial Snapshot...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6116,17 +6152,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("franchiseownerfinancialsnapshot-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("franchiseownerfinancialsnapshot-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [198/454 | 43%] - Saving screenshot for Franchise Owner Financial Snapshot...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [198/430 | 46%] - Saving screenshot for Franchise Owner Financial Snapshot...");
   cy.waitAndSee();
   cy.screenshot("franchise_owner_financial_snapshot");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [198/454 | 43%] - Verified Franchise Owner Financial Snapshot successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [198/430 | 46%] - Verified Franchise Owner Financial Snapshot successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [199/454 | 43%] - Navigating to /offices/franchise/roles/franchise_owner/hiring (Franchise Owner Hiring)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [199/430 | 46%] - Navigating to /offices/franchise/roles/franchise_owner/hiring (Franchise Owner Hiring)...");
   cy.visitWithSemantics("/offices/franchise/roles/franchise_owner/hiring");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [199/454 | 43%] - Checking shell & content for Franchise Owner Hiring...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [199/430 | 46%] - Checking shell & content for Franchise Owner Hiring...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6134,17 +6170,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("franchiseownerhiring-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("franchiseownerhiring-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [199/454 | 43%] - Saving screenshot for Franchise Owner Hiring...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [199/430 | 46%] - Saving screenshot for Franchise Owner Hiring...");
   cy.waitAndSee();
   cy.screenshot("franchise_owner_hiring");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [199/454 | 43%] - Verified Franchise Owner Hiring successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [199/430 | 46%] - Verified Franchise Owner Hiring successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [200/454 | 44%] - Navigating to /offices/franchise/roles/hr_hiring/reports (Hr Hiring Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [200/430 | 46%] - Navigating to /offices/franchise/roles/hr_hiring/reports (Hr Hiring Reports)...");
   cy.visitWithSemantics("/offices/franchise/roles/hr_hiring/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [200/454 | 44%] - Checking shell & content for Hr Hiring Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [200/430 | 46%] - Checking shell & content for Hr Hiring Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6152,17 +6188,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrhiringreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrhiringreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [200/454 | 44%] - Saving screenshot for Hr Hiring Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [200/430 | 46%] - Saving screenshot for Hr Hiring Reports...");
   cy.waitAndSee();
   cy.screenshot("hr_hiring_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [200/454 | 44%] - Verified Hr Hiring Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [200/430 | 46%] - Verified Hr Hiring Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [201/454 | 44%] - Navigating to /offices/franchise/roles/hr_hiring/staff-documents (Hr Hiring Staff Documents)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [201/430 | 46%] - Navigating to /offices/franchise/roles/hr_hiring/staff-documents (Hr Hiring Staff Documents)...");
   cy.visitWithSemantics("/offices/franchise/roles/hr_hiring/staff-documents");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [201/454 | 44%] - Checking shell & content for Hr Hiring Staff Documents...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [201/430 | 46%] - Checking shell & content for Hr Hiring Staff Documents...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6170,17 +6206,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrhiringstaffdocuments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrhiringstaffdocuments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [201/454 | 44%] - Saving screenshot for Hr Hiring Staff Documents...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [201/430 | 46%] - Saving screenshot for Hr Hiring Staff Documents...");
   cy.waitAndSee();
   cy.screenshot("hr_hiring_staff_documents");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [201/454 | 44%] - Verified Hr Hiring Staff Documents successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [201/430 | 46%] - Verified Hr Hiring Staff Documents successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [202/454 | 44%] - Navigating to /offices/franchise/roles/hr_hiring/training-status (Hr Hiring Training Status)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [202/430 | 46%] - Navigating to /offices/franchise/roles/hr_hiring/training-status (Hr Hiring Training Status)...");
   cy.visitWithSemantics("/offices/franchise/roles/hr_hiring/training-status");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [202/454 | 44%] - Checking shell & content for Hr Hiring Training Status...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [202/430 | 46%] - Checking shell & content for Hr Hiring Training Status...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6188,17 +6224,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrhiringtrainingstatus-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrhiringtrainingstatus-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [202/454 | 44%] - Saving screenshot for Hr Hiring Training Status...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [202/430 | 46%] - Saving screenshot for Hr Hiring Training Status...");
   cy.waitAndSee();
   cy.screenshot("hr_hiring_training_status");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [202/454 | 44%] - Verified Hr Hiring Training Status successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [202/430 | 46%] - Verified Hr Hiring Training Status successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [203/454 | 44%] - Navigating to /offices/franchise/roles/marketing_manager/campaigns (Marketing Manager Campaigns)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [203/430 | 47%] - Navigating to /offices/franchise/roles/marketing_manager/campaigns (Marketing Manager Campaigns)...");
   cy.visitWithSemantics("/offices/franchise/roles/marketing_manager/campaigns");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [203/454 | 44%] - Checking shell & content for Marketing Manager Campaigns...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [203/430 | 47%] - Checking shell & content for Marketing Manager Campaigns...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6206,17 +6242,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("marketingmanagercampaigns-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("marketingmanagercampaigns-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [203/454 | 44%] - Saving screenshot for Marketing Manager Campaigns...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [203/430 | 47%] - Saving screenshot for Marketing Manager Campaigns...");
   cy.waitAndSee();
   cy.screenshot("marketing_manager_campaigns");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [203/454 | 44%] - Verified Marketing Manager Campaigns successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [203/430 | 47%] - Verified Marketing Manager Campaigns successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [204/454 | 44%] - Navigating to /offices/franchise/roles/marketing_manager/dashboard (Marketing Manager Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [204/430 | 47%] - Navigating to /offices/franchise/roles/marketing_manager/dashboard (Marketing Manager Dashboard)...");
   cy.visitWithSemantics("/offices/franchise/roles/marketing_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [204/454 | 44%] - Checking shell & content for Marketing Manager Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [204/430 | 47%] - Checking shell & content for Marketing Manager Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6224,17 +6260,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("marketingmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("marketingmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [204/454 | 44%] - Saving screenshot for Marketing Manager Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [204/430 | 47%] - Saving screenshot for Marketing Manager Dashboard...");
   cy.waitAndSee();
   cy.screenshot("marketing_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [204/454 | 44%] - Verified Marketing Manager Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [204/430 | 47%] - Verified Marketing Manager Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [205/454 | 45%] - Navigating to /offices/franchise/roles/operations_manager/attendance (Operations Manager Attendance)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [205/430 | 47%] - Navigating to /offices/franchise/roles/operations_manager/attendance (Operations Manager Attendance)...");
   cy.visitWithSemantics("/offices/franchise/roles/operations_manager/attendance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [205/454 | 45%] - Checking shell & content for Operations Manager Attendance...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [205/430 | 47%] - Checking shell & content for Operations Manager Attendance...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6242,17 +6278,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("operationsmanagerattendance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("operationsmanagerattendance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [205/454 | 45%] - Saving screenshot for Operations Manager Attendance...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [205/430 | 47%] - Saving screenshot for Operations Manager Attendance...");
   cy.waitAndSee();
   cy.screenshot("operations_manager_attendance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [205/454 | 45%] - Verified Operations Manager Attendance successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [205/430 | 47%] - Verified Operations Manager Attendance successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [206/454 | 45%] - Navigating to /offices/franchise/roles/operations_manager/daily-operations (Operations Manager Daily Operations)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [206/430 | 47%] - Navigating to /offices/franchise/roles/operations_manager/daily-operations (Operations Manager Daily Operations)...");
   cy.visitWithSemantics("/offices/franchise/roles/operations_manager/daily-operations");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [206/454 | 45%] - Checking shell & content for Operations Manager Daily Operations...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [206/430 | 47%] - Checking shell & content for Operations Manager Daily Operations...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6260,17 +6296,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("operationsmanagerdailyoperations-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("operationsmanagerdailyoperations-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [206/454 | 45%] - Saving screenshot for Operations Manager Daily Operations...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [206/430 | 47%] - Saving screenshot for Operations Manager Daily Operations...");
   cy.waitAndSee();
   cy.screenshot("operations_manager_daily_operations");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [206/454 | 45%] - Verified Operations Manager Daily Operations successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [206/430 | 47%] - Verified Operations Manager Daily Operations successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [207/454 | 45%] - Navigating to /offices/franchise/roles/operations_manager/issues (Operations Manager Issues)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [207/430 | 48%] - Navigating to /offices/franchise/roles/operations_manager/issues (Operations Manager Issues)...");
   cy.visitWithSemantics("/offices/franchise/roles/operations_manager/issues");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [207/454 | 45%] - Checking shell & content for Operations Manager Issues...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [207/430 | 48%] - Checking shell & content for Operations Manager Issues...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6278,17 +6314,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("operationsmanagerissues-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("operationsmanagerissues-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [207/454 | 45%] - Saving screenshot for Operations Manager Issues...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [207/430 | 48%] - Saving screenshot for Operations Manager Issues...");
   cy.waitAndSee();
   cy.screenshot("operations_manager_issues");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [207/454 | 45%] - Verified Operations Manager Issues successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [207/430 | 48%] - Verified Operations Manager Issues successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [208/454 | 45%] - Navigating to /offices/franchise/roles/operations_manager/reports (Operations Manager Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [208/430 | 48%] - Navigating to /offices/franchise/roles/operations_manager/reports (Operations Manager Reports)...");
   cy.visitWithSemantics("/offices/franchise/roles/operations_manager/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [208/454 | 45%] - Checking shell & content for Operations Manager Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [208/430 | 48%] - Checking shell & content for Operations Manager Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6296,17 +6332,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("operationsmanagerreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("operationsmanagerreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [208/454 | 45%] - Saving screenshot for Operations Manager Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [208/430 | 48%] - Saving screenshot for Operations Manager Reports...");
   cy.waitAndSee();
   cy.screenshot("operations_manager_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [208/454 | 45%] - Verified Operations Manager Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [208/430 | 48%] - Verified Operations Manager Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [209/454 | 46%] - Navigating to /offices/franchise/roles/operations_manager/schedule (Operations Manager Schedule)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [209/430 | 48%] - Navigating to /offices/franchise/roles/operations_manager/schedule (Operations Manager Schedule)...");
   cy.visitWithSemantics("/offices/franchise/roles/operations_manager/schedule");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [209/454 | 46%] - Checking shell & content for Operations Manager Schedule...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [209/430 | 48%] - Checking shell & content for Operations Manager Schedule...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6314,17 +6350,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("operationsmanagerschedule-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("operationsmanagerschedule-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [209/454 | 46%] - Saving screenshot for Operations Manager Schedule...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [209/430 | 48%] - Saving screenshot for Operations Manager Schedule...");
   cy.waitAndSee();
   cy.screenshot("operations_manager_schedule");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [209/454 | 46%] - Verified Operations Manager Schedule successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [209/430 | 48%] - Verified Operations Manager Schedule successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [210/454 | 46%] - Navigating to /offices/franchise/roles/operations_manager/service-quality (Operations Manager Service Quality)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [210/430 | 48%] - Navigating to /offices/franchise/roles/operations_manager/service-quality (Operations Manager Service Quality)...");
   cy.visitWithSemantics("/offices/franchise/roles/operations_manager/service-quality");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [210/454 | 46%] - Checking shell & content for Operations Manager Service Quality...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [210/430 | 48%] - Checking shell & content for Operations Manager Service Quality...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6332,17 +6368,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("operationsmanagerservicequality-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("operationsmanagerservicequality-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [210/454 | 46%] - Saving screenshot for Operations Manager Service Quality...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [210/430 | 48%] - Saving screenshot for Operations Manager Service Quality...");
   cy.waitAndSee();
   cy.screenshot("operations_manager_service_quality");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [210/454 | 46%] - Verified Operations Manager Service Quality successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [210/430 | 48%] - Verified Operations Manager Service Quality successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [211/454 | 46%] - Navigating to /offices/franchise/roles/operations_manager/shifts (Operations Manager Shifts)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [211/430 | 49%] - Navigating to /offices/franchise/roles/operations_manager/shifts (Operations Manager Shifts)...");
   cy.visitWithSemantics("/offices/franchise/roles/operations_manager/shifts");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [211/454 | 46%] - Checking shell & content for Operations Manager Shifts...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [211/430 | 49%] - Checking shell & content for Operations Manager Shifts...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6350,17 +6386,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("operationsmanagershifts-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("operationsmanagershifts-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [211/454 | 46%] - Saving screenshot for Operations Manager Shifts...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [211/430 | 49%] - Saving screenshot for Operations Manager Shifts...");
   cy.waitAndSee();
   cy.screenshot("operations_manager_shifts");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [211/454 | 46%] - Verified Operations Manager Shifts successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [211/430 | 49%] - Verified Operations Manager Shifts successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [212/454 | 46%] - Navigating to /offices/franchise/roles/operations_manager/staff-coordination (Operations Manager Staff Coordination)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [212/430 | 49%] - Navigating to /offices/franchise/roles/operations_manager/staff-coordination (Operations Manager Staff Coordination)...");
   cy.visitWithSemantics("/offices/franchise/roles/operations_manager/staff-coordination");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [212/454 | 46%] - Checking shell & content for Operations Manager Staff Coordination...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [212/430 | 49%] - Checking shell & content for Operations Manager Staff Coordination...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6368,17 +6404,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("operationsmanagerstaffcoordination-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("operationsmanagerstaffcoordination-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [212/454 | 46%] - Saving screenshot for Operations Manager Staff Coordination...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [212/430 | 49%] - Saving screenshot for Operations Manager Staff Coordination...");
   cy.waitAndSee();
   cy.screenshot("operations_manager_staff_coordination");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [212/454 | 46%] - Verified Operations Manager Staff Coordination successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [212/430 | 49%] - Verified Operations Manager Staff Coordination successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [213/454 | 46%] - Navigating to /offices/franchise/roles/regional_manager/branch_comparison (Regional Manager Branch Comparison)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [213/430 | 49%] - Navigating to /offices/franchise/roles/regional_manager/branch_comparison (Regional Manager Branch Comparison)...");
   cy.visitWithSemantics("/offices/franchise/roles/regional_manager/branch_comparison");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [213/454 | 46%] - Checking shell & content for Regional Manager Branch Comparison...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [213/430 | 49%] - Checking shell & content for Regional Manager Branch Comparison...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6386,17 +6422,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regionalmanagerbranchcomparison-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regionalmanagerbranchcomparison-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [213/454 | 46%] - Saving screenshot for Regional Manager Branch Comparison...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [213/430 | 49%] - Saving screenshot for Regional Manager Branch Comparison...");
   cy.waitAndSee();
   cy.screenshot("regional_manager_branch_comparison");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [213/454 | 46%] - Verified Regional Manager Branch Comparison successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [213/430 | 49%] - Verified Regional Manager Branch Comparison successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [214/454 | 47%] - Navigating to /offices/franchise/roles/regional_manager/dashboard (Regional Manager Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [214/430 | 49%] - Navigating to /offices/franchise/roles/regional_manager/dashboard (Regional Manager Dashboard)...");
   cy.visitWithSemantics("/offices/franchise/roles/regional_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [214/454 | 47%] - Checking shell & content for Regional Manager Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [214/430 | 49%] - Checking shell & content for Regional Manager Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6404,17 +6440,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regionalmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regionalmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [214/454 | 47%] - Saving screenshot for Regional Manager Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [214/430 | 49%] - Saving screenshot for Regional Manager Dashboard...");
   cy.waitAndSee();
   cy.screenshot("regional_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [214/454 | 47%] - Verified Regional Manager Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [214/430 | 49%] - Verified Regional Manager Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [215/454 | 47%] - Navigating to /offices/franchise/roles/scheduler_coordinator/appointment-calendar (Scheduler Coordinator Appointment Calendar)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [215/430 | 50%] - Navigating to /offices/franchise/roles/scheduler_coordinator/appointment-calendar (Scheduler Coordinator Appointment Calendar)...");
   cy.visitWithSemantics("/offices/franchise/roles/scheduler_coordinator/appointment-calendar");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [215/454 | 47%] - Checking shell & content for Scheduler Coordinator Appointment Calendar...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [215/430 | 50%] - Checking shell & content for Scheduler Coordinator Appointment Calendar...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6422,17 +6458,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("schedulercoordinatorappointmentcalendar-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("schedulercoordinatorappointmentcalendar-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [215/454 | 47%] - Saving screenshot for Scheduler Coordinator Appointment Calendar...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [215/430 | 50%] - Saving screenshot for Scheduler Coordinator Appointment Calendar...");
   cy.waitAndSee();
   cy.screenshot("scheduler_coordinator_appointment_calendar");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [215/454 | 47%] - Verified Scheduler Coordinator Appointment Calendar successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [215/430 | 50%] - Verified Scheduler Coordinator Appointment Calendar successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [216/454 | 47%] - Navigating to /offices/franchise/roles/scheduler_coordinator/assignments (Scheduler Coordinator Assignments)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [216/430 | 50%] - Navigating to /offices/franchise/roles/scheduler_coordinator/assignments (Scheduler Coordinator Assignments)...");
   cy.visitWithSemantics("/offices/franchise/roles/scheduler_coordinator/assignments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [216/454 | 47%] - Checking shell & content for Scheduler Coordinator Assignments...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [216/430 | 50%] - Checking shell & content for Scheduler Coordinator Assignments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6440,17 +6476,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("schedulercoordinatorassignments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("schedulercoordinatorassignments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [216/454 | 47%] - Saving screenshot for Scheduler Coordinator Assignments...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [216/430 | 50%] - Saving screenshot for Scheduler Coordinator Assignments...");
   cy.waitAndSee();
   cy.screenshot("scheduler_coordinator_assignments");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [216/454 | 47%] - Verified Scheduler Coordinator Assignments successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [216/430 | 50%] - Verified Scheduler Coordinator Assignments successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [217/454 | 47%] - Navigating to /offices/franchise/roles/scheduler_coordinator/booking-requests (Scheduler Coordinator Booking Requests)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [217/430 | 50%] - Navigating to /offices/franchise/roles/scheduler_coordinator/booking-requests (Scheduler Coordinator Booking Requests)...");
   cy.visitWithSemantics("/offices/franchise/roles/scheduler_coordinator/booking-requests");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [217/454 | 47%] - Checking shell & content for Scheduler Coordinator Booking Requests...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [217/430 | 50%] - Checking shell & content for Scheduler Coordinator Booking Requests...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6458,17 +6494,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("schedulercoordinatorbookingrequests-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("schedulercoordinatorbookingrequests-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [217/454 | 47%] - Saving screenshot for Scheduler Coordinator Booking Requests...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [217/430 | 50%] - Saving screenshot for Scheduler Coordinator Booking Requests...");
   cy.waitAndSee();
   cy.screenshot("scheduler_coordinator_booking_requests");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [217/454 | 47%] - Verified Scheduler Coordinator Booking Requests successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [217/430 | 50%] - Verified Scheduler Coordinator Booking Requests successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [218/454 | 48%] - Navigating to /offices/franchise/roles/scheduler_coordinator/conflicts (Scheduler Coordinator Conflicts)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [218/430 | 50%] - Navigating to /offices/franchise/roles/scheduler_coordinator/conflicts (Scheduler Coordinator Conflicts)...");
   cy.visitWithSemantics("/offices/franchise/roles/scheduler_coordinator/conflicts");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [218/454 | 48%] - Checking shell & content for Scheduler Coordinator Conflicts...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [218/430 | 50%] - Checking shell & content for Scheduler Coordinator Conflicts...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6476,17 +6512,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("schedulercoordinatorconflicts-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("schedulercoordinatorconflicts-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [218/454 | 48%] - Saving screenshot for Scheduler Coordinator Conflicts...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [218/430 | 50%] - Saving screenshot for Scheduler Coordinator Conflicts...");
   cy.waitAndSee();
   cy.screenshot("scheduler_coordinator_conflicts");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [218/454 | 48%] - Verified Scheduler Coordinator Conflicts successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [218/430 | 50%] - Verified Scheduler Coordinator Conflicts successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [219/454 | 48%] - Navigating to /offices/franchise/roles/scheduler_coordinator/open-shifts (Scheduler Coordinator Open Shifts)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [219/430 | 50%] - Navigating to /offices/franchise/roles/scheduler_coordinator/open-shifts (Scheduler Coordinator Open Shifts)...");
   cy.visitWithSemantics("/offices/franchise/roles/scheduler_coordinator/open-shifts");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [219/454 | 48%] - Checking shell & content for Scheduler Coordinator Open Shifts...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [219/430 | 50%] - Checking shell & content for Scheduler Coordinator Open Shifts...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6494,17 +6530,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("schedulercoordinatoropenshifts-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("schedulercoordinatoropenshifts-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [219/454 | 48%] - Saving screenshot for Scheduler Coordinator Open Shifts...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [219/430 | 50%] - Saving screenshot for Scheduler Coordinator Open Shifts...");
   cy.waitAndSee();
   cy.screenshot("scheduler_coordinator_open_shifts");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [219/454 | 48%] - Verified Scheduler Coordinator Open Shifts successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [219/430 | 50%] - Verified Scheduler Coordinator Open Shifts successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [220/454 | 48%] - Navigating to /offices/franchise/roles/scheduler_coordinator/provider-availability (Scheduler Coordinator Provider Availability)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [220/430 | 51%] - Navigating to /offices/franchise/roles/scheduler_coordinator/provider-availability (Scheduler Coordinator Provider Availability)...");
   cy.visitWithSemantics("/offices/franchise/roles/scheduler_coordinator/provider-availability");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [220/454 | 48%] - Checking shell & content for Scheduler Coordinator Provider Availability...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [220/430 | 51%] - Checking shell & content for Scheduler Coordinator Provider Availability...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6512,17 +6548,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("schedulercoordinatorprovideravailability-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("schedulercoordinatorprovideravailability-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [220/454 | 48%] - Saving screenshot for Scheduler Coordinator Provider Availability...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [220/430 | 51%] - Saving screenshot for Scheduler Coordinator Provider Availability...");
   cy.waitAndSee();
   cy.screenshot("scheduler_coordinator_provider_availability");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [220/454 | 48%] - Verified Scheduler Coordinator Provider Availability successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [220/430 | 51%] - Verified Scheduler Coordinator Provider Availability successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [221/454 | 48%] - Navigating to /offices/franchise/roles/scheduler_coordinator/reports (Scheduler Coordinator Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [221/430 | 51%] - Navigating to /offices/franchise/roles/scheduler_coordinator/reports (Scheduler Coordinator Reports)...");
   cy.visitWithSemantics("/offices/franchise/roles/scheduler_coordinator/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [221/454 | 48%] - Checking shell & content for Scheduler Coordinator Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [221/430 | 51%] - Checking shell & content for Scheduler Coordinator Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6530,17 +6566,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("schedulercoordinatorreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("schedulercoordinatorreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [221/454 | 48%] - Saving screenshot for Scheduler Coordinator Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [221/430 | 51%] - Saving screenshot for Scheduler Coordinator Reports...");
   cy.waitAndSee();
   cy.screenshot("scheduler_coordinator_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [221/454 | 48%] - Verified Scheduler Coordinator Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [221/430 | 51%] - Verified Scheduler Coordinator Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [222/454 | 48%] - Navigating to /offices/franchise/roles/scheduler_coordinator/shift-calendar (Scheduler Coordinator Shift Calendar)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [222/430 | 51%] - Navigating to /offices/franchise/roles/scheduler_coordinator/shift-calendar (Scheduler Coordinator Shift Calendar)...");
   cy.visitWithSemantics("/offices/franchise/roles/scheduler_coordinator/shift-calendar");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [222/454 | 48%] - Checking shell & content for Scheduler Coordinator Shift Calendar...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [222/430 | 51%] - Checking shell & content for Scheduler Coordinator Shift Calendar...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6548,17 +6584,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("schedulercoordinatorshiftcalendar-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("schedulercoordinatorshiftcalendar-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [222/454 | 48%] - Saving screenshot for Scheduler Coordinator Shift Calendar...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [222/430 | 51%] - Saving screenshot for Scheduler Coordinator Shift Calendar...");
   cy.waitAndSee();
   cy.screenshot("scheduler_coordinator_shift_calendar");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [222/454 | 48%] - Verified Scheduler Coordinator Shift Calendar successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [222/430 | 51%] - Verified Scheduler Coordinator Shift Calendar successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [223/454 | 49%] - Navigating to /generated/dynamic (Dynamic)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [223/430 | 51%] - Navigating to /generated/dynamic (Dynamic)...");
   cy.visitWithSemantics("/generated/dynamic");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [223/454 | 49%] - Checking shell & content for Dynamic...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [223/430 | 51%] - Checking shell & content for Dynamic...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6566,17 +6602,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("dynamic-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("dynamic-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [223/454 | 49%] - Saving screenshot for Dynamic...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [223/430 | 51%] - Saving screenshot for Dynamic...");
   cy.waitAndSee();
   cy.screenshot("dynamic");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [223/454 | 49%] - Verified Dynamic successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [223/430 | 51%] - Verified Dynamic successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [224/454 | 49%] - Navigating to /generated/blueprint-sandbox (Blueprint Sandbox)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [224/430 | 52%] - Navigating to /generated/blueprint-sandbox (Blueprint Sandbox)...");
   cy.visitWithSemantics("/generated/blueprint-sandbox");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [224/454 | 49%] - Checking shell & content for Blueprint Sandbox...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [224/430 | 52%] - Checking shell & content for Blueprint Sandbox...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6584,17 +6620,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("blueprintsandbox-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("blueprintsandbox-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [224/454 | 49%] - Saving screenshot for Blueprint Sandbox...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [224/430 | 52%] - Saving screenshot for Blueprint Sandbox...");
   cy.waitAndSee();
   cy.screenshot("blueprint_sandbox");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [224/454 | 49%] - Verified Blueprint Sandbox successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [224/430 | 52%] - Verified Blueprint Sandbox successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [225/454 | 49%] - Navigating to /generated/audit-sandbox (Audit Sandbox)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [225/430 | 52%] - Navigating to /generated/audit-sandbox (Audit Sandbox)...");
   cy.visitWithSemantics("/generated/audit-sandbox");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [225/454 | 49%] - Checking shell & content for Audit Sandbox...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [225/430 | 52%] - Checking shell & content for Audit Sandbox...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6602,17 +6638,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("auditsandbox-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("auditsandbox-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [225/454 | 49%] - Saving screenshot for Audit Sandbox...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [225/430 | 52%] - Saving screenshot for Audit Sandbox...");
   cy.waitAndSee();
   cy.screenshot("audit_sandbox");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [225/454 | 49%] - Verified Audit Sandbox successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [225/430 | 52%] - Verified Audit Sandbox successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [226/454 | 49%] - Navigating to /generated/no-access (No Access)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [226/430 | 52%] - Navigating to /generated/no-access (No Access)...");
   cy.visitWithSemantics("/generated/no-access");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [226/454 | 49%] - Checking shell & content for No Access...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [226/430 | 52%] - Checking shell & content for No Access...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6620,17 +6656,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("noaccess-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("noaccess-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [226/454 | 49%] - Saving screenshot for No Access...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [226/430 | 52%] - Saving screenshot for No Access...");
   cy.waitAndSee();
   cy.screenshot("no_access");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [226/454 | 49%] - Verified No Access successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [226/430 | 52%] - Verified No Access successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [227/454 | 50%] - Navigating to /governance/audit (Audit Log)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [227/430 | 52%] - Navigating to /governance/audit (Audit Log)...");
   cy.visitWithSemantics("/governance/audit");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [227/454 | 50%] - Checking shell & content for Audit Log...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [227/430 | 52%] - Checking shell & content for Audit Log...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6638,17 +6674,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("auditlog-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("auditlog-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [227/454 | 50%] - Saving screenshot for Audit Log...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [227/430 | 52%] - Saving screenshot for Audit Log...");
   cy.waitAndSee();
   cy.screenshot("audit_log");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [227/454 | 50%] - Verified Audit Log successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [227/430 | 52%] - Verified Audit Log successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [228/454 | 50%] - Navigating to /governance/monitoring (Monitoring)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [228/430 | 53%] - Navigating to /governance/monitoring (Monitoring)...");
   cy.visitWithSemantics("/governance/monitoring");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [228/454 | 50%] - Checking shell & content for Monitoring...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [228/430 | 53%] - Checking shell & content for Monitoring...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6656,17 +6692,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("monitoring-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("monitoring-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [228/454 | 50%] - Saving screenshot for Monitoring...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [228/430 | 53%] - Saving screenshot for Monitoring...");
   cy.waitAndSee();
   cy.screenshot("monitoring");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [228/454 | 50%] - Verified Monitoring successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [228/430 | 53%] - Verified Monitoring successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [229/454 | 50%] - Navigating to /governance/screen-status (Screen Status)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [229/430 | 53%] - Navigating to /governance/screen-status (Screen Status)...");
   cy.visitWithSemantics("/governance/screen-status");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [229/454 | 50%] - Checking shell & content for Screen Status...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [229/430 | 53%] - Checking shell & content for Screen Status...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6674,17 +6710,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("screenstatus-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("screenstatus-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [229/454 | 50%] - Saving screenshot for Screen Status...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [229/430 | 53%] - Saving screenshot for Screen Status...");
   cy.waitAndSee();
   cy.screenshot("screen_status");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [229/454 | 50%] - Verified Screen Status successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [229/430 | 53%] - Verified Screen Status successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [230/454 | 50%] - Navigating to /governance/tickets (Ticket Center)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [230/430 | 53%] - Navigating to /governance/tickets (Ticket Center)...");
   cy.visitWithSemantics("/governance/tickets");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [230/454 | 50%] - Checking shell & content for Ticket Center...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [230/430 | 53%] - Checking shell & content for Ticket Center...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6692,17 +6728,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ticketcenter-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ticketcenter-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [230/454 | 50%] - Saving screenshot for Ticket Center...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [230/430 | 53%] - Saving screenshot for Ticket Center...");
   cy.waitAndSee();
   cy.screenshot("ticket_center");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [230/454 | 50%] - Verified Ticket Center successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [230/430 | 53%] - Verified Ticket Center successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [231/454 | 50%] - Navigating to /governance/control-center (Control Center)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [231/430 | 53%] - Navigating to /governance/control-center (Control Center)...");
   cy.visitWithSemantics("/governance/control-center");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [231/454 | 50%] - Checking shell & content for Control Center...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [231/430 | 53%] - Checking shell & content for Control Center...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6710,17 +6746,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("controlcenter-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("controlcenter-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [231/454 | 50%] - Saving screenshot for Control Center...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [231/430 | 53%] - Saving screenshot for Control Center...");
   cy.waitAndSee();
   cy.screenshot("control_center");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [231/454 | 50%] - Verified Control Center successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [231/430 | 53%] - Verified Control Center successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [232/454 | 51%] - Navigating to /governance/hud (Governance Hud)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [232/430 | 53%] - Navigating to /governance/hud (Governance Hud)...");
   cy.visitWithSemantics("/governance/hud");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [232/454 | 51%] - Checking shell & content for Governance Hud...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [232/430 | 53%] - Checking shell & content for Governance Hud...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6728,17 +6764,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("governancehud-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("governancehud-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [232/454 | 51%] - Saving screenshot for Governance Hud...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [232/430 | 53%] - Saving screenshot for Governance Hud...");
   cy.waitAndSee();
   cy.screenshot("governance_hud");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [232/454 | 51%] - Verified Governance Hud successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [232/430 | 53%] - Verified Governance Hud successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [233/454 | 51%] - Navigating to /generated/offices/corporate/roles/ceo/growth-pipeline (Growth Pipeline)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [233/430 | 54%] - Navigating to /generated/offices/corporate/roles/ceo/growth-pipeline (Growth Pipeline)...");
   cy.visitWithSemantics("/generated/offices/corporate/roles/ceo/growth-pipeline");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [233/454 | 51%] - Checking shell & content for Growth Pipeline...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [233/430 | 54%] - Checking shell & content for Growth Pipeline...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6746,17 +6782,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("growthpipeline-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("growthpipeline-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [233/454 | 51%] - Saving screenshot for Growth Pipeline...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [233/430 | 54%] - Saving screenshot for Growth Pipeline...");
   cy.waitAndSee();
   cy.screenshot("growth_pipeline");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [233/454 | 51%] - Verified Growth Pipeline successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [233/430 | 54%] - Verified Growth Pipeline successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [234/454 | 51%] - Navigating to /generated/offices/corporate/roles/ceo/leadership-reports (Leadership Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [234/430 | 54%] - Navigating to /generated/offices/corporate/roles/ceo/leadership-reports (Leadership Reports)...");
   cy.visitWithSemantics("/generated/offices/corporate/roles/ceo/leadership-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [234/454 | 51%] - Checking shell & content for Leadership Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [234/430 | 54%] - Checking shell & content for Leadership Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6764,17 +6800,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("leadershipreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("leadershipreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [234/454 | 51%] - Saving screenshot for Leadership Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [234/430 | 54%] - Saving screenshot for Leadership Reports...");
   cy.waitAndSee();
   cy.screenshot("leadership_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [234/454 | 51%] - Verified Leadership Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [234/430 | 54%] - Verified Leadership Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [235/454 | 51%] - Navigating to /proposals (Proposals)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [235/430 | 54%] - Navigating to /proposals (Proposals)...");
   cy.visitWithSemantics("/proposals");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [235/454 | 51%] - Checking shell & content for Proposals...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [235/430 | 54%] - Checking shell & content for Proposals...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6782,17 +6818,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("proposals-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("proposals-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [235/454 | 51%] - Saving screenshot for Proposals...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [235/430 | 54%] - Saving screenshot for Proposals...");
   cy.waitAndSee();
   cy.screenshot("proposals");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [235/454 | 51%] - Verified Proposals successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [235/430 | 54%] - Verified Proposals successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [236/454 | 51%] - Navigating to /generated/offices/corporate/roles/ceo/region-performance (Regional Performance)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [236/430 | 54%] - Navigating to /generated/offices/corporate/roles/ceo/region-performance (Regional Performance)...");
   cy.visitWithSemantics("/generated/offices/corporate/roles/ceo/region-performance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [236/454 | 51%] - Checking shell & content for Regional Performance...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [236/430 | 54%] - Checking shell & content for Regional Performance...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6800,17 +6836,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regionalperformance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regionalperformance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [236/454 | 51%] - Saving screenshot for Regional Performance...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [236/430 | 54%] - Saving screenshot for Regional Performance...");
   cy.waitAndSee();
   cy.screenshot("regional_performance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [236/454 | 51%] - Verified Regional Performance successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [236/430 | 54%] - Verified Regional Performance successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [237/454 | 52%] - Navigating to /generated/audit-dashboard (Audit Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [237/430 | 55%] - Navigating to /generated/audit-dashboard (Audit Dashboard)...");
   cy.visitWithSemantics("/generated/audit-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [237/454 | 52%] - Checking shell & content for Audit Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [237/430 | 55%] - Checking shell & content for Audit Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6818,17 +6854,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("auditdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("auditdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [237/454 | 52%] - Saving screenshot for Audit Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [237/430 | 55%] - Saving screenshot for Audit Dashboard...");
   cy.waitAndSee();
   cy.screenshot("audit_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [237/454 | 52%] - Verified Audit Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [237/430 | 55%] - Verified Audit Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [238/454 | 52%] - Navigating to /generated/compliance-reviews (Compliance Reviews)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [238/430 | 55%] - Navigating to /generated/compliance-reviews (Compliance Reviews)...");
   cy.visitWithSemantics("/generated/compliance-reviews");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [238/454 | 52%] - Checking shell & content for Compliance Reviews...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [238/430 | 55%] - Checking shell & content for Compliance Reviews...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6836,17 +6872,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancereviews-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancereviews-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [238/454 | 52%] - Saving screenshot for Compliance Reviews...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [238/430 | 55%] - Saving screenshot for Compliance Reviews...");
   cy.waitAndSee();
   cy.screenshot("compliance_reviews");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [238/454 | 52%] - Verified Compliance Reviews successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [238/430 | 55%] - Verified Compliance Reviews successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [239/454 | 52%] - Navigating to /generated/incident-reports (Incident Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [239/430 | 55%] - Navigating to /generated/incident-reports (Incident Reports)...");
   cy.visitWithSemantics("/generated/incident-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [239/454 | 52%] - Checking shell & content for Incident Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [239/430 | 55%] - Checking shell & content for Incident Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6854,17 +6890,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("incidentreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("incidentreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [239/454 | 52%] - Saving screenshot for Incident Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [239/430 | 55%] - Saving screenshot for Incident Reports...");
   cy.waitAndSee();
   cy.screenshot("incident_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [239/454 | 52%] - Verified Incident Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [239/430 | 55%] - Verified Incident Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [240/454 | 52%] - Navigating to /generated/quality-metrics (Quality Metrics)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [240/430 | 55%] - Navigating to /generated/quality-metrics (Quality Metrics)...");
   cy.visitWithSemantics("/generated/quality-metrics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [240/454 | 52%] - Checking shell & content for Quality Metrics...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [240/430 | 55%] - Checking shell & content for Quality Metrics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6872,17 +6908,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("qualitymetrics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("qualitymetrics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [240/454 | 52%] - Saving screenshot for Quality Metrics...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [240/430 | 55%] - Saving screenshot for Quality Metrics...");
   cy.waitAndSee();
   cy.screenshot("quality_metrics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [240/454 | 52%] - Verified Quality Metrics successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [240/430 | 55%] - Verified Quality Metrics successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [241/454 | 53%] - Navigating to /governance/clinical-reference (Clinical Reference)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [241/430 | 56%] - Navigating to /governance/clinical-reference (Clinical Reference)...");
   cy.visitWithSemantics("/governance/clinical-reference");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [241/454 | 53%] - Checking shell & content for Clinical Reference...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [241/430 | 56%] - Checking shell & content for Clinical Reference...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6890,17 +6926,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicalreference-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicalreference-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [241/454 | 53%] - Saving screenshot for Clinical Reference...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [241/430 | 56%] - Saving screenshot for Clinical Reference...");
   cy.waitAndSee();
   cy.screenshot("clinical_reference");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [241/454 | 53%] - Verified Clinical Reference successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [241/430 | 56%] - Verified Clinical Reference successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [242/454 | 53%] - Navigating to /governance/device-security (Security Hub)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [242/430 | 56%] - Navigating to /governance/device-security (Security Hub)...");
   cy.visitWithSemantics("/governance/device-security");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [242/454 | 53%] - Checking shell & content for Security Hub...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [242/430 | 56%] - Checking shell & content for Security Hub...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6908,17 +6944,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("securityhub-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("securityhub-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [242/454 | 53%] - Saving screenshot for Security Hub...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [242/430 | 56%] - Saving screenshot for Security Hub...");
   cy.waitAndSee();
   cy.screenshot("security_hub");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [242/454 | 53%] - Verified Security Hub successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [242/430 | 56%] - Verified Security Hub successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [243/454 | 53%] - Navigating to /governance/security (Security Sentinel)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [243/430 | 56%] - Navigating to /governance/security (Security Sentinel)...");
   cy.visitWithSemantics("/governance/security");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [243/454 | 53%] - Checking shell & content for Security Sentinel...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [243/430 | 56%] - Checking shell & content for Security Sentinel...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6926,17 +6962,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("securitysentinel-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("securitysentinel-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [243/454 | 53%] - Saving screenshot for Security Sentinel...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [243/430 | 56%] - Saving screenshot for Security Sentinel...");
   cy.waitAndSee();
   cy.screenshot("security_sentinel");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [243/454 | 53%] - Verified Security Sentinel successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [243/430 | 56%] - Verified Security Sentinel successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [244/454 | 53%] - Navigating to /verification (Verification Center)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [244/430 | 56%] - Navigating to /verification (Verification Center)...");
   cy.visitWithSemantics("/verification");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [244/454 | 53%] - Checking shell & content for Verification Center...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [244/430 | 56%] - Checking shell & content for Verification Center...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6944,17 +6980,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("verificationcenter-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("verificationcenter-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [244/454 | 53%] - Saving screenshot for Verification Center...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [244/430 | 56%] - Saving screenshot for Verification Center...");
   cy.waitAndSee();
   cy.screenshot("verification_center");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [244/454 | 53%] - Verified Verification Center successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [244/430 | 56%] - Verified Verification Center successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [245/454 | 53%] - Navigating to /generated/community-outreach-contacts (Community Outreach Contacts)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [245/430 | 56%] - Navigating to /generated/community-outreach-contacts (Community Outreach Contacts)...");
   cy.visitWithSemantics("/generated/community-outreach-contacts");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [245/454 | 53%] - Checking shell & content for Community Outreach Contacts...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [245/430 | 56%] - Checking shell & content for Community Outreach Contacts...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6962,17 +6998,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("communityoutreachcontacts-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("communityoutreachcontacts-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [245/454 | 53%] - Saving screenshot for Community Outreach Contacts...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [245/430 | 56%] - Saving screenshot for Community Outreach Contacts...");
   cy.waitAndSee();
   cy.screenshot("community_outreach_contacts");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [245/454 | 53%] - Verified Community Outreach Contacts successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [245/430 | 56%] - Verified Community Outreach Contacts successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [246/454 | 54%] - Navigating to /generated/community-outreach-events (Community Outreach Events)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [246/430 | 57%] - Navigating to /generated/community-outreach-events (Community Outreach Events)...");
   cy.visitWithSemantics("/generated/community-outreach-events");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [246/454 | 54%] - Checking shell & content for Community Outreach Events...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [246/430 | 57%] - Checking shell & content for Community Outreach Events...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6980,17 +7016,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("communityoutreachevents-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("communityoutreachevents-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [246/454 | 54%] - Saving screenshot for Community Outreach Events...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [246/430 | 57%] - Saving screenshot for Community Outreach Events...");
   cy.waitAndSee();
   cy.screenshot("community_outreach_events");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [246/454 | 54%] - Verified Community Outreach Events successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [246/430 | 57%] - Verified Community Outreach Events successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [247/454 | 54%] - Navigating to /generated/community-outreach-follow-ups (Community Outreach Follow Ups)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [247/430 | 57%] - Navigating to /generated/community-outreach-follow-ups (Community Outreach Follow Ups)...");
   cy.visitWithSemantics("/generated/community-outreach-follow-ups");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [247/454 | 54%] - Checking shell & content for Community Outreach Follow Ups...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [247/430 | 57%] - Checking shell & content for Community Outreach Follow Ups...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -6998,17 +7034,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("communityoutreachfollowups-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("communityoutreachfollowups-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [247/454 | 54%] - Saving screenshot for Community Outreach Follow Ups...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [247/430 | 57%] - Saving screenshot for Community Outreach Follow Ups...");
   cy.waitAndSee();
   cy.screenshot("community_outreach_follow_ups");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [247/454 | 54%] - Verified Community Outreach Follow Ups successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [247/430 | 57%] - Verified Community Outreach Follow Ups successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [248/454 | 54%] - Navigating to /generated/community-outreach-partnerships (Community Outreach Partnerships)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [248/430 | 57%] - Navigating to /generated/community-outreach-partnerships (Community Outreach Partnerships)...");
   cy.visitWithSemantics("/generated/community-outreach-partnerships");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [248/454 | 54%] - Checking shell & content for Community Outreach Partnerships...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [248/430 | 57%] - Checking shell & content for Community Outreach Partnerships...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7016,17 +7052,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("communityoutreachpartnerships-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("communityoutreachpartnerships-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [248/454 | 54%] - Saving screenshot for Community Outreach Partnerships...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [248/430 | 57%] - Saving screenshot for Community Outreach Partnerships...");
   cy.waitAndSee();
   cy.screenshot("community_outreach_partnerships");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [248/454 | 54%] - Verified Community Outreach Partnerships successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [248/430 | 57%] - Verified Community Outreach Partnerships successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [249/454 | 54%] - Navigating to /generated/community-outreach-programs (Community Outreach Programs)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [249/430 | 57%] - Navigating to /generated/community-outreach-programs (Community Outreach Programs)...");
   cy.visitWithSemantics("/generated/community-outreach-programs");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [249/454 | 54%] - Checking shell & content for Community Outreach Programs...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [249/430 | 57%] - Checking shell & content for Community Outreach Programs...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7034,17 +7070,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("communityoutreachprograms-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("communityoutreachprograms-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [249/454 | 54%] - Saving screenshot for Community Outreach Programs...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [249/430 | 57%] - Saving screenshot for Community Outreach Programs...");
   cy.waitAndSee();
   cy.screenshot("community_outreach_programs");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [249/454 | 54%] - Verified Community Outreach Programs successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [249/430 | 57%] - Verified Community Outreach Programs successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [250/454 | 55%] - Navigating to /generated/community-outreach-reports (Community Outreach Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [250/430 | 58%] - Navigating to /generated/community-outreach-reports (Community Outreach Reports)...");
   cy.visitWithSemantics("/generated/community-outreach-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [250/454 | 55%] - Checking shell & content for Community Outreach Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [250/430 | 58%] - Checking shell & content for Community Outreach Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7052,17 +7088,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("communityoutreachreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("communityoutreachreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [250/454 | 55%] - Saving screenshot for Community Outreach Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [250/430 | 58%] - Saving screenshot for Community Outreach Reports...");
   cy.waitAndSee();
   cy.screenshot("community_outreach_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [250/454 | 55%] - Verified Community Outreach Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [250/430 | 58%] - Verified Community Outreach Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [251/454 | 55%] - Navigating to /generated/community-outreach-volunteers (Community Outreach Volunteers)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [251/430 | 58%] - Navigating to /generated/community-outreach-volunteers (Community Outreach Volunteers)...");
   cy.visitWithSemantics("/generated/community-outreach-volunteers");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [251/454 | 55%] - Checking shell & content for Community Outreach Volunteers...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [251/430 | 58%] - Checking shell & content for Community Outreach Volunteers...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7070,17 +7106,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("communityoutreachvolunteers-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("communityoutreachvolunteers-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [251/454 | 55%] - Saving screenshot for Community Outreach Volunteers...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [251/430 | 58%] - Saving screenshot for Community Outreach Volunteers...");
   cy.waitAndSee();
   cy.screenshot("community_outreach_volunteers");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [251/454 | 55%] - Verified Community Outreach Volunteers successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [251/430 | 58%] - Verified Community Outreach Volunteers successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [252/454 | 55%] - Navigating to /generated/head-of-marketing-brand-assets (Head Of Marketing Brand Assets)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [252/430 | 58%] - Navigating to /generated/head-of-marketing-brand-assets (Head Of Marketing Brand Assets)...");
   cy.visitWithSemantics("/generated/head-of-marketing-brand-assets");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [252/454 | 55%] - Checking shell & content for Head Of Marketing Brand Assets...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [252/430 | 58%] - Checking shell & content for Head Of Marketing Brand Assets...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7088,17 +7124,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("headofmarketingbrandassets-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("headofmarketingbrandassets-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [252/454 | 55%] - Saving screenshot for Head Of Marketing Brand Assets...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [252/430 | 58%] - Saving screenshot for Head Of Marketing Brand Assets...");
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_brand_assets");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [252/454 | 55%] - Verified Head Of Marketing Brand Assets successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [252/430 | 58%] - Verified Head Of Marketing Brand Assets successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [253/454 | 55%] - Navigating to /generated/head-of-marketing-campaigns (Head Of Marketing Campaigns)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [253/430 | 58%] - Navigating to /generated/head-of-marketing-campaigns (Head Of Marketing Campaigns)...");
   cy.visitWithSemantics("/generated/head-of-marketing-campaigns");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [253/454 | 55%] - Checking shell & content for Head Of Marketing Campaigns...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [253/430 | 58%] - Checking shell & content for Head Of Marketing Campaigns...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7106,17 +7142,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("headofmarketingcampaigns-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("headofmarketingcampaigns-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [253/454 | 55%] - Saving screenshot for Head Of Marketing Campaigns...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [253/430 | 58%] - Saving screenshot for Head Of Marketing Campaigns...");
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_campaigns");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [253/454 | 55%] - Verified Head Of Marketing Campaigns successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [253/430 | 58%] - Verified Head Of Marketing Campaigns successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [254/454 | 55%] - Navigating to /generated/head-of-marketing-content-approval (Head Of Marketing Content Approval)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [254/430 | 59%] - Navigating to /generated/head-of-marketing-content-approval (Head Of Marketing Content Approval)...");
   cy.visitWithSemantics("/generated/head-of-marketing-content-approval");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [254/454 | 55%] - Checking shell & content for Head Of Marketing Content Approval...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [254/430 | 59%] - Checking shell & content for Head Of Marketing Content Approval...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7124,17 +7160,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("headofmarketingcontentapproval-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("headofmarketingcontentapproval-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [254/454 | 55%] - Saving screenshot for Head Of Marketing Content Approval...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [254/430 | 59%] - Saving screenshot for Head Of Marketing Content Approval...");
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_content_approval");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [254/454 | 55%] - Verified Head Of Marketing Content Approval successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [254/430 | 59%] - Verified Head Of Marketing Content Approval successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [255/454 | 56%] - Navigating to /generated/head-of-marketing-funnel-analytics (Head Of Marketing Funnel Analytics)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [255/430 | 59%] - Navigating to /generated/head-of-marketing-funnel-analytics (Head Of Marketing Funnel Analytics)...");
   cy.visitWithSemantics("/generated/head-of-marketing-funnel-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [255/454 | 56%] - Checking shell & content for Head Of Marketing Funnel Analytics...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [255/430 | 59%] - Checking shell & content for Head Of Marketing Funnel Analytics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7142,17 +7178,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("headofmarketingfunnelanalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("headofmarketingfunnelanalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [255/454 | 56%] - Saving screenshot for Head Of Marketing Funnel Analytics...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [255/430 | 59%] - Saving screenshot for Head Of Marketing Funnel Analytics...");
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_funnel_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [255/454 | 56%] - Verified Head Of Marketing Funnel Analytics successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [255/430 | 59%] - Verified Head Of Marketing Funnel Analytics successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [256/454 | 56%] - Navigating to /generated/head-of-marketing-leads (Head Of Marketing Leads)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [256/430 | 59%] - Navigating to /generated/head-of-marketing-leads (Head Of Marketing Leads)...");
   cy.visitWithSemantics("/generated/head-of-marketing-leads");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [256/454 | 56%] - Checking shell & content for Head Of Marketing Leads...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [256/430 | 59%] - Checking shell & content for Head Of Marketing Leads...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7160,17 +7196,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("headofmarketingleads-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("headofmarketingleads-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [256/454 | 56%] - Saving screenshot for Head Of Marketing Leads...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [256/430 | 59%] - Saving screenshot for Head Of Marketing Leads...");
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_leads");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [256/454 | 56%] - Verified Head Of Marketing Leads successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [256/430 | 59%] - Verified Head Of Marketing Leads successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [257/454 | 56%] - Navigating to /generated/head-of-marketing-performance-reports (Head Of Marketing Performance Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [257/430 | 59%] - Navigating to /generated/head-of-marketing-performance-reports (Head Of Marketing Performance Reports)...");
   cy.visitWithSemantics("/generated/head-of-marketing-performance-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [257/454 | 56%] - Checking shell & content for Head Of Marketing Performance Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [257/430 | 59%] - Checking shell & content for Head Of Marketing Performance Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7178,17 +7214,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("headofmarketingperformancereports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("headofmarketingperformancereports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [257/454 | 56%] - Saving screenshot for Head Of Marketing Performance Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [257/430 | 59%] - Saving screenshot for Head Of Marketing Performance Reports...");
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_performance_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [257/454 | 56%] - Verified Head Of Marketing Performance Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [257/430 | 59%] - Verified Head Of Marketing Performance Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [258/454 | 56%] - Navigating to /generated/head-of-marketing-regional-campaigns (Head Of Marketing Regional Campaigns)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [258/430 | 60%] - Navigating to /generated/head-of-marketing-regional-campaigns (Head Of Marketing Regional Campaigns)...");
   cy.visitWithSemantics("/generated/head-of-marketing-regional-campaigns");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [258/454 | 56%] - Checking shell & content for Head Of Marketing Regional Campaigns...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [258/430 | 60%] - Checking shell & content for Head Of Marketing Regional Campaigns...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7196,17 +7232,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("headofmarketingregionalcampaigns-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("headofmarketingregionalcampaigns-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [258/454 | 56%] - Saving screenshot for Head Of Marketing Regional Campaigns...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [258/430 | 60%] - Saving screenshot for Head Of Marketing Regional Campaigns...");
   cy.waitAndSee();
   cy.screenshot("head_of_marketing_regional_campaigns");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [258/454 | 56%] - Verified Head Of Marketing Regional Campaigns successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [258/430 | 60%] - Verified Head Of Marketing Regional Campaigns successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [259/454 | 57%] - Navigating to /generated/local-marketing-manager-assets (Local Marketing Manager Assets)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [259/430 | 60%] - Navigating to /generated/local-marketing-manager-assets (Local Marketing Manager Assets)...");
   cy.visitWithSemantics("/generated/local-marketing-manager-assets");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [259/454 | 57%] - Checking shell & content for Local Marketing Manager Assets...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [259/430 | 60%] - Checking shell & content for Local Marketing Manager Assets...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7214,17 +7250,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("localmarketingmanagerassets-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("localmarketingmanagerassets-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [259/454 | 57%] - Saving screenshot for Local Marketing Manager Assets...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [259/430 | 60%] - Saving screenshot for Local Marketing Manager Assets...");
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_assets");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [259/454 | 57%] - Verified Local Marketing Manager Assets successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [259/430 | 60%] - Verified Local Marketing Manager Assets successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [260/454 | 57%] - Navigating to /generated/local-marketing-manager-budget (Local Marketing Manager Budget)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [260/430 | 60%] - Navigating to /generated/local-marketing-manager-budget (Local Marketing Manager Budget)...");
   cy.visitWithSemantics("/generated/local-marketing-manager-budget");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [260/454 | 57%] - Checking shell & content for Local Marketing Manager Budget...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [260/430 | 60%] - Checking shell & content for Local Marketing Manager Budget...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7232,17 +7268,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("localmarketingmanagerbudget-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("localmarketingmanagerbudget-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [260/454 | 57%] - Saving screenshot for Local Marketing Manager Budget...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [260/430 | 60%] - Saving screenshot for Local Marketing Manager Budget...");
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_budget");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [260/454 | 57%] - Verified Local Marketing Manager Budget successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [260/430 | 60%] - Verified Local Marketing Manager Budget successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [261/454 | 57%] - Navigating to /generated/local-marketing-manager-campaigns (Local Marketing Manager Campaigns)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [261/430 | 60%] - Navigating to /generated/local-marketing-manager-campaigns (Local Marketing Manager Campaigns)...");
   cy.visitWithSemantics("/generated/local-marketing-manager-campaigns");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [261/454 | 57%] - Checking shell & content for Local Marketing Manager Campaigns...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [261/430 | 60%] - Checking shell & content for Local Marketing Manager Campaigns...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7250,17 +7286,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("localmarketingmanagercampaigns-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("localmarketingmanagercampaigns-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [261/454 | 57%] - Saving screenshot for Local Marketing Manager Campaigns...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [261/430 | 60%] - Saving screenshot for Local Marketing Manager Campaigns...");
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_campaigns");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [261/454 | 57%] - Verified Local Marketing Manager Campaigns successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [261/430 | 60%] - Verified Local Marketing Manager Campaigns successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [262/454 | 57%] - Navigating to /generated/local-marketing-manager-content-calendar (Local Marketing Manager Content Calendar)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [262/430 | 60%] - Navigating to /generated/local-marketing-manager-content-calendar (Local Marketing Manager Content Calendar)...");
   cy.visitWithSemantics("/generated/local-marketing-manager-content-calendar");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [262/454 | 57%] - Checking shell & content for Local Marketing Manager Content Calendar...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [262/430 | 60%] - Checking shell & content for Local Marketing Manager Content Calendar...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7268,17 +7304,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("localmarketingmanagercontentcalendar-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("localmarketingmanagercontentcalendar-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [262/454 | 57%] - Saving screenshot for Local Marketing Manager Content Calendar...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [262/430 | 60%] - Saving screenshot for Local Marketing Manager Content Calendar...");
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_content_calendar");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [262/454 | 57%] - Verified Local Marketing Manager Content Calendar successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [262/430 | 60%] - Verified Local Marketing Manager Content Calendar successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [263/454 | 57%] - Navigating to /generated/local-marketing-manager-events (Local Marketing Manager Events)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [263/430 | 61%] - Navigating to /generated/local-marketing-manager-events (Local Marketing Manager Events)...");
   cy.visitWithSemantics("/generated/local-marketing-manager-events");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [263/454 | 57%] - Checking shell & content for Local Marketing Manager Events...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [263/430 | 61%] - Checking shell & content for Local Marketing Manager Events...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7286,17 +7322,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("localmarketingmanagerevents-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("localmarketingmanagerevents-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [263/454 | 57%] - Saving screenshot for Local Marketing Manager Events...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [263/430 | 61%] - Saving screenshot for Local Marketing Manager Events...");
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_events");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [263/454 | 57%] - Verified Local Marketing Manager Events successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [263/430 | 61%] - Verified Local Marketing Manager Events successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [264/454 | 58%] - Navigating to /generated/local-marketing-manager-leads (Local Marketing Manager Leads)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [264/430 | 61%] - Navigating to /generated/local-marketing-manager-leads (Local Marketing Manager Leads)...");
   cy.visitWithSemantics("/generated/local-marketing-manager-leads");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [264/454 | 58%] - Checking shell & content for Local Marketing Manager Leads...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [264/430 | 61%] - Checking shell & content for Local Marketing Manager Leads...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7304,17 +7340,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("localmarketingmanagerleads-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("localmarketingmanagerleads-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [264/454 | 58%] - Saving screenshot for Local Marketing Manager Leads...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [264/430 | 61%] - Saving screenshot for Local Marketing Manager Leads...");
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_leads");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [264/454 | 58%] - Verified Local Marketing Manager Leads successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [264/430 | 61%] - Verified Local Marketing Manager Leads successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [265/454 | 58%] - Navigating to /generated/local-marketing-manager-reports (Local Marketing Manager Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [265/430 | 61%] - Navigating to /generated/local-marketing-manager-reports (Local Marketing Manager Reports)...");
   cy.visitWithSemantics("/generated/local-marketing-manager-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [265/454 | 58%] - Checking shell & content for Local Marketing Manager Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [265/430 | 61%] - Checking shell & content for Local Marketing Manager Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7322,17 +7358,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("localmarketingmanagerreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("localmarketingmanagerreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [265/454 | 58%] - Saving screenshot for Local Marketing Manager Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [265/430 | 61%] - Saving screenshot for Local Marketing Manager Reports...");
   cy.waitAndSee();
   cy.screenshot("local_marketing_manager_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [265/454 | 58%] - Verified Local Marketing Manager Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [265/430 | 61%] - Verified Local Marketing Manager Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [266/454 | 58%] - Navigating to /generated/territory-sales-manager-area-performance (Territory Sales Manager Area Performance)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [266/430 | 61%] - Navigating to /generated/territory-sales-manager-area-performance (Territory Sales Manager Area Performance)...");
   cy.visitWithSemantics("/generated/territory-sales-manager-area-performance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [266/454 | 58%] - Checking shell & content for Territory Sales Manager Area Performance...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [266/430 | 61%] - Checking shell & content for Territory Sales Manager Area Performance...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7340,17 +7376,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territorysalesmanagerareaperformance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territorysalesmanagerareaperformance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [266/454 | 58%] - Saving screenshot for Territory Sales Manager Area Performance...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [266/430 | 61%] - Saving screenshot for Territory Sales Manager Area Performance...");
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_area_performance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [266/454 | 58%] - Verified Territory Sales Manager Area Performance successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [266/430 | 61%] - Verified Territory Sales Manager Area Performance successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [267/454 | 58%] - Navigating to /generated/territory-sales-manager-competitors (Territory Sales Manager Competitors)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [267/430 | 62%] - Navigating to /generated/territory-sales-manager-competitors (Territory Sales Manager Competitors)...");
   cy.visitWithSemantics("/generated/territory-sales-manager-competitors");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [267/454 | 58%] - Checking shell & content for Territory Sales Manager Competitors...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [267/430 | 62%] - Checking shell & content for Territory Sales Manager Competitors...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7358,17 +7394,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territorysalesmanagercompetitors-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territorysalesmanagercompetitors-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [267/454 | 58%] - Saving screenshot for Territory Sales Manager Competitors...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [267/430 | 62%] - Saving screenshot for Territory Sales Manager Competitors...");
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_competitors");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [267/454 | 58%] - Verified Territory Sales Manager Competitors successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [267/430 | 62%] - Verified Territory Sales Manager Competitors successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [268/454 | 59%] - Navigating to /generated/territory-sales-manager-conversions (Territory Sales Manager Conversions)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [268/430 | 62%] - Navigating to /generated/territory-sales-manager-conversions (Territory Sales Manager Conversions)...");
   cy.visitWithSemantics("/generated/territory-sales-manager-conversions");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [268/454 | 59%] - Checking shell & content for Territory Sales Manager Conversions...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [268/430 | 62%] - Checking shell & content for Territory Sales Manager Conversions...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7376,17 +7412,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territorysalesmanagerconversions-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territorysalesmanagerconversions-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [268/454 | 59%] - Saving screenshot for Territory Sales Manager Conversions...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [268/430 | 62%] - Saving screenshot for Territory Sales Manager Conversions...");
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_conversions");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [268/454 | 59%] - Verified Territory Sales Manager Conversions successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [268/430 | 62%] - Verified Territory Sales Manager Conversions successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [269/454 | 59%] - Navigating to /generated/territory-sales-manager-field-activity (Territory Sales Manager Field Activity)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [269/430 | 62%] - Navigating to /generated/territory-sales-manager-field-activity (Territory Sales Manager Field Activity)...");
   cy.visitWithSemantics("/generated/territory-sales-manager-field-activity");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [269/454 | 59%] - Checking shell & content for Territory Sales Manager Field Activity...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [269/430 | 62%] - Checking shell & content for Territory Sales Manager Field Activity...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7394,17 +7430,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territorysalesmanagerfieldactivity-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territorysalesmanagerfieldactivity-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [269/454 | 59%] - Saving screenshot for Territory Sales Manager Field Activity...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [269/430 | 62%] - Saving screenshot for Territory Sales Manager Field Activity...");
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_field_activity");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [269/454 | 59%] - Verified Territory Sales Manager Field Activity successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [269/430 | 62%] - Verified Territory Sales Manager Field Activity successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [270/454 | 59%] - Navigating to /generated/territory-sales-manager-leads (Territory Sales Manager Leads)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [270/430 | 62%] - Navigating to /generated/territory-sales-manager-leads (Territory Sales Manager Leads)...");
   cy.visitWithSemantics("/generated/territory-sales-manager-leads");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [270/454 | 59%] - Checking shell & content for Territory Sales Manager Leads...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [270/430 | 62%] - Checking shell & content for Territory Sales Manager Leads...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7412,17 +7448,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territorysalesmanagerleads-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territorysalesmanagerleads-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [270/454 | 59%] - Saving screenshot for Territory Sales Manager Leads...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [270/430 | 62%] - Saving screenshot for Territory Sales Manager Leads...");
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_leads");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [270/454 | 59%] - Verified Territory Sales Manager Leads successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [270/430 | 62%] - Verified Territory Sales Manager Leads successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [271/454 | 59%] - Navigating to /generated/territory-sales-manager-pipeline (Territory Sales Manager Pipeline)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [271/430 | 63%] - Navigating to /generated/territory-sales-manager-pipeline (Territory Sales Manager Pipeline)...");
   cy.visitWithSemantics("/generated/territory-sales-manager-pipeline");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [271/454 | 59%] - Checking shell & content for Territory Sales Manager Pipeline...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [271/430 | 63%] - Checking shell & content for Territory Sales Manager Pipeline...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7430,17 +7466,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territorysalesmanagerpipeline-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territorysalesmanagerpipeline-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [271/454 | 59%] - Saving screenshot for Territory Sales Manager Pipeline...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [271/430 | 63%] - Saving screenshot for Territory Sales Manager Pipeline...");
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_pipeline");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [271/454 | 59%] - Verified Territory Sales Manager Pipeline successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [271/430 | 63%] - Verified Territory Sales Manager Pipeline successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [272/454 | 59%] - Navigating to /generated/territory-sales-manager-reports (Territory Sales Manager Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [272/430 | 63%] - Navigating to /generated/territory-sales-manager-reports (Territory Sales Manager Reports)...");
   cy.visitWithSemantics("/generated/territory-sales-manager-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [272/454 | 59%] - Checking shell & content for Territory Sales Manager Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [272/430 | 63%] - Checking shell & content for Territory Sales Manager Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7448,17 +7484,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territorysalesmanagerreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territorysalesmanagerreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [272/454 | 59%] - Saving screenshot for Territory Sales Manager Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [272/430 | 63%] - Saving screenshot for Territory Sales Manager Reports...");
   cy.waitAndSee();
   cy.screenshot("territory_sales_manager_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [272/454 | 59%] - Verified Territory Sales Manager Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [272/430 | 63%] - Verified Territory Sales Manager Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [273/454 | 60%] - Navigating to /generated/customer-support-escalations (Customer Support Escalations)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [273/430 | 63%] - Navigating to /generated/customer-support-escalations (Customer Support Escalations)...");
   cy.visitWithSemantics("/generated/customer-support-escalations");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [273/454 | 60%] - Checking shell & content for Customer Support Escalations...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [273/430 | 63%] - Checking shell & content for Customer Support Escalations...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7466,17 +7502,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("customersupportescalations-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("customersupportescalations-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [273/454 | 60%] - Saving screenshot for Customer Support Escalations...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [273/430 | 63%] - Saving screenshot for Customer Support Escalations...");
   cy.waitAndSee();
   cy.screenshot("customer_support_escalations");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [273/454 | 60%] - Verified Customer Support Escalations successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [273/430 | 63%] - Verified Customer Support Escalations successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [274/454 | 60%] - Navigating to /generated/customer-support-issue-categories (Customer Support Issue Categories)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [274/430 | 63%] - Navigating to /generated/customer-support-issue-categories (Customer Support Issue Categories)...");
   cy.visitWithSemantics("/generated/customer-support-issue-categories");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [274/454 | 60%] - Checking shell & content for Customer Support Issue Categories...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [274/430 | 63%] - Checking shell & content for Customer Support Issue Categories...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7484,17 +7520,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("customersupportissuecategories-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("customersupportissuecategories-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [274/454 | 60%] - Saving screenshot for Customer Support Issue Categories...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [274/430 | 63%] - Saving screenshot for Customer Support Issue Categories...");
   cy.waitAndSee();
   cy.screenshot("customer_support_issue_categories");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [274/454 | 60%] - Verified Customer Support Issue Categories successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [274/430 | 63%] - Verified Customer Support Issue Categories successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [275/454 | 60%] - Navigating to /generated/customer-support-reports (Customer Support Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [275/430 | 63%] - Navigating to /generated/customer-support-reports (Customer Support Reports)...");
   cy.visitWithSemantics("/generated/customer-support-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [275/454 | 60%] - Checking shell & content for Customer Support Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [275/430 | 63%] - Checking shell & content for Customer Support Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7502,17 +7538,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("customersupportreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("customersupportreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [275/454 | 60%] - Saving screenshot for Customer Support Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [275/430 | 63%] - Saving screenshot for Customer Support Reports...");
   cy.waitAndSee();
   cy.screenshot("customer_support_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [275/454 | 60%] - Verified Customer Support Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [275/430 | 63%] - Verified Customer Support Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [276/454 | 60%] - Navigating to /generated/customer-support-templates (Customer Support Templates)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [276/430 | 64%] - Navigating to /generated/customer-support-templates (Customer Support Templates)...");
   cy.visitWithSemantics("/generated/customer-support-templates");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [276/454 | 60%] - Checking shell & content for Customer Support Templates...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [276/430 | 64%] - Checking shell & content for Customer Support Templates...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7520,17 +7556,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("customersupporttemplates-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("customersupporttemplates-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [276/454 | 60%] - Saving screenshot for Customer Support Templates...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [276/430 | 64%] - Saving screenshot for Customer Support Templates...");
   cy.waitAndSee();
   cy.screenshot("customer_support_templates");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [276/454 | 60%] - Verified Customer Support Templates successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [276/430 | 64%] - Verified Customer Support Templates successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [277/454 | 61%] - Navigating to /generated/customer-support-tickets (Customer Support Tickets)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [277/430 | 64%] - Navigating to /generated/customer-support-tickets (Customer Support Tickets)...");
   cy.visitWithSemantics("/generated/customer-support-tickets");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [277/454 | 61%] - Checking shell & content for Customer Support Tickets...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [277/430 | 64%] - Checking shell & content for Customer Support Tickets...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7538,17 +7574,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("customersupporttickets-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("customersupporttickets-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [277/454 | 61%] - Saving screenshot for Customer Support Tickets...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [277/430 | 64%] - Saving screenshot for Customer Support Tickets...");
   cy.waitAndSee();
   cy.screenshot("customer_support_tickets");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [277/454 | 61%] - Verified Customer Support Tickets successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [277/430 | 64%] - Verified Customer Support Tickets successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [278/454 | 61%] - Navigating to /generated/intake-coordinator-client-assignment (Intake Coordinator Client Assignment)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [278/430 | 64%] - Navigating to /generated/intake-coordinator-client-assignment (Intake Coordinator Client Assignment)...");
   cy.visitWithSemantics("/generated/intake-coordinator-client-assignment");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [278/454 | 61%] - Checking shell & content for Intake Coordinator Client Assignment...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [278/430 | 64%] - Checking shell & content for Intake Coordinator Client Assignment...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7556,17 +7592,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakecoordinatorclientassignment-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakecoordinatorclientassignment-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [278/454 | 61%] - Saving screenshot for Intake Coordinator Client Assignment...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [278/430 | 64%] - Saving screenshot for Intake Coordinator Client Assignment...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_client_assignment");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [278/454 | 61%] - Verified Intake Coordinator Client Assignment successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [278/430 | 64%] - Verified Intake Coordinator Client Assignment successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [279/454 | 61%] - Navigating to /generated/intake-coordinator-eligibility (Intake Coordinator Eligibility)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [279/430 | 64%] - Navigating to /generated/intake-coordinator-eligibility (Intake Coordinator Eligibility)...");
   cy.visitWithSemantics("/generated/intake-coordinator-eligibility");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [279/454 | 61%] - Checking shell & content for Intake Coordinator Eligibility...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [279/430 | 64%] - Checking shell & content for Intake Coordinator Eligibility...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7574,17 +7610,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakecoordinatoreligibility-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakecoordinatoreligibility-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [279/454 | 61%] - Saving screenshot for Intake Coordinator Eligibility...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [279/430 | 64%] - Saving screenshot for Intake Coordinator Eligibility...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_eligibility");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [279/454 | 61%] - Verified Intake Coordinator Eligibility successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [279/430 | 64%] - Verified Intake Coordinator Eligibility successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [280/454 | 61%] - Navigating to /generated/intake-coordinator-intake-forms (Intake Coordinator Intake Forms)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [280/430 | 65%] - Navigating to /generated/intake-coordinator-intake-forms (Intake Coordinator Intake Forms)...");
   cy.visitWithSemantics("/generated/intake-coordinator-intake-forms");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [280/454 | 61%] - Checking shell & content for Intake Coordinator Intake Forms...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [280/430 | 65%] - Checking shell & content for Intake Coordinator Intake Forms...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7592,17 +7628,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakecoordinatorintakeforms-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakecoordinatorintakeforms-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [280/454 | 61%] - Saving screenshot for Intake Coordinator Intake Forms...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [280/430 | 65%] - Saving screenshot for Intake Coordinator Intake Forms...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_intake_forms");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [280/454 | 61%] - Verified Intake Coordinator Intake Forms successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [280/430 | 65%] - Verified Intake Coordinator Intake Forms successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [281/454 | 61%] - Navigating to /generated/intake-coordinator-new-intakes (Intake Coordinator New Intakes)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [281/430 | 65%] - Navigating to /generated/intake-coordinator-new-intakes (Intake Coordinator New Intakes)...");
   cy.visitWithSemantics("/generated/intake-coordinator-new-intakes");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [281/454 | 61%] - Checking shell & content for Intake Coordinator New Intakes...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [281/430 | 65%] - Checking shell & content for Intake Coordinator New Intakes...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7610,17 +7646,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakecoordinatornewintakes-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakecoordinatornewintakes-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [281/454 | 61%] - Saving screenshot for Intake Coordinator New Intakes...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [281/430 | 65%] - Saving screenshot for Intake Coordinator New Intakes...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_new_intakes");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [281/454 | 61%] - Verified Intake Coordinator New Intakes successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [281/430 | 65%] - Verified Intake Coordinator New Intakes successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [282/454 | 62%] - Navigating to /generated/intake-coordinator-reports (Intake Coordinator Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [282/430 | 65%] - Navigating to /generated/intake-coordinator-reports (Intake Coordinator Reports)...");
   cy.visitWithSemantics("/generated/intake-coordinator-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [282/454 | 62%] - Checking shell & content for Intake Coordinator Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [282/430 | 65%] - Checking shell & content for Intake Coordinator Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7628,17 +7664,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakecoordinatorreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakecoordinatorreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [282/454 | 62%] - Saving screenshot for Intake Coordinator Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [282/430 | 65%] - Saving screenshot for Intake Coordinator Reports...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [282/454 | 62%] - Verified Intake Coordinator Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [282/430 | 65%] - Verified Intake Coordinator Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [283/454 | 62%] - Navigating to /generated/intake-coordinator-scheduling (Intake Coordinator Scheduling)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [283/430 | 65%] - Navigating to /generated/intake-coordinator-scheduling (Intake Coordinator Scheduling)...");
   cy.visitWithSemantics("/generated/intake-coordinator-scheduling");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [283/454 | 62%] - Checking shell & content for Intake Coordinator Scheduling...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [283/430 | 65%] - Checking shell & content for Intake Coordinator Scheduling...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7646,17 +7682,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("intakecoordinatorscheduling-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("intakecoordinatorscheduling-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [283/454 | 62%] - Saving screenshot for Intake Coordinator Scheduling...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [283/430 | 65%] - Saving screenshot for Intake Coordinator Scheduling...");
   cy.waitAndSee();
   cy.screenshot("intake_coordinator_scheduling");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [283/454 | 62%] - Verified Intake Coordinator Scheduling successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [283/430 | 65%] - Verified Intake Coordinator Scheduling successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [284/454 | 62%] - Navigating to /generated/quality-assurance-audits (Quality Assurance Audits)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [284/430 | 66%] - Navigating to /generated/quality-assurance-audits (Quality Assurance Audits)...");
   cy.visitWithSemantics("/generated/quality-assurance-audits");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [284/454 | 62%] - Checking shell & content for Quality Assurance Audits...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [284/430 | 66%] - Checking shell & content for Quality Assurance Audits...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7664,17 +7700,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("qualityassuranceaudits-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("qualityassuranceaudits-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [284/454 | 62%] - Saving screenshot for Quality Assurance Audits...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [284/430 | 66%] - Saving screenshot for Quality Assurance Audits...");
   cy.waitAndSee();
   cy.screenshot("quality_assurance_audits");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [284/454 | 62%] - Verified Quality Assurance Audits successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [284/430 | 66%] - Verified Quality Assurance Audits successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [285/454 | 62%] - Navigating to /generated/quality-assurance-complaints (Quality Assurance Complaints)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [285/430 | 66%] - Navigating to /generated/quality-assurance-complaints (Quality Assurance Complaints)...");
   cy.visitWithSemantics("/generated/quality-assurance-complaints");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [285/454 | 62%] - Checking shell & content for Quality Assurance Complaints...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [285/430 | 66%] - Checking shell & content for Quality Assurance Complaints...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7682,17 +7718,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("qualityassurancecomplaints-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("qualityassurancecomplaints-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [285/454 | 62%] - Saving screenshot for Quality Assurance Complaints...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [285/430 | 66%] - Saving screenshot for Quality Assurance Complaints...");
   cy.waitAndSee();
   cy.screenshot("quality_assurance_complaints");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [285/454 | 62%] - Verified Quality Assurance Complaints successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [285/430 | 66%] - Verified Quality Assurance Complaints successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [286/454 | 62%] - Navigating to /generated/quality-assurance-compliance-checks (Quality Assurance Compliance Checks)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [286/430 | 66%] - Navigating to /generated/quality-assurance-compliance-checks (Quality Assurance Compliance Checks)...");
   cy.visitWithSemantics("/generated/quality-assurance-compliance-checks");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [286/454 | 62%] - Checking shell & content for Quality Assurance Compliance Checks...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [286/430 | 66%] - Checking shell & content for Quality Assurance Compliance Checks...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7700,17 +7736,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("qualityassurancecompliancechecks-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("qualityassurancecompliancechecks-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [286/454 | 62%] - Saving screenshot for Quality Assurance Compliance Checks...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [286/430 | 66%] - Saving screenshot for Quality Assurance Compliance Checks...");
   cy.waitAndSee();
   cy.screenshot("quality_assurance_compliance_checks");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [286/454 | 62%] - Verified Quality Assurance Compliance Checks successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [286/430 | 66%] - Verified Quality Assurance Compliance Checks successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [287/454 | 63%] - Navigating to /generated/quality-assurance-corrective-actions (Quality Assurance Corrective Actions)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [287/430 | 66%] - Navigating to /generated/quality-assurance-corrective-actions (Quality Assurance Corrective Actions)...");
   cy.visitWithSemantics("/generated/quality-assurance-corrective-actions");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [287/454 | 63%] - Checking shell & content for Quality Assurance Corrective Actions...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [287/430 | 66%] - Checking shell & content for Quality Assurance Corrective Actions...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7718,17 +7754,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("qualityassurancecorrectiveactions-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("qualityassurancecorrectiveactions-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [287/454 | 63%] - Saving screenshot for Quality Assurance Corrective Actions...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [287/430 | 66%] - Saving screenshot for Quality Assurance Corrective Actions...");
   cy.waitAndSee();
   cy.screenshot("quality_assurance_corrective_actions");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [287/454 | 63%] - Verified Quality Assurance Corrective Actions successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [287/430 | 66%] - Verified Quality Assurance Corrective Actions successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [288/454 | 63%] - Navigating to /generated/quality-assurance-reports (Quality Assurance Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [288/430 | 66%] - Navigating to /generated/quality-assurance-reports (Quality Assurance Reports)...");
   cy.visitWithSemantics("/generated/quality-assurance-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [288/454 | 63%] - Checking shell & content for Quality Assurance Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [288/430 | 66%] - Checking shell & content for Quality Assurance Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7736,17 +7772,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("qualityassurancereports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("qualityassurancereports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [288/454 | 63%] - Saving screenshot for Quality Assurance Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [288/430 | 66%] - Saving screenshot for Quality Assurance Reports...");
   cy.waitAndSee();
   cy.screenshot("quality_assurance_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [288/454 | 63%] - Verified Quality Assurance Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [288/430 | 66%] - Verified Quality Assurance Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [289/454 | 63%] - Navigating to /generated/quality-assurance-reviews (Quality Assurance Reviews)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [289/430 | 67%] - Navigating to /generated/quality-assurance-reviews (Quality Assurance Reviews)...");
   cy.visitWithSemantics("/generated/quality-assurance-reviews");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [289/454 | 63%] - Checking shell & content for Quality Assurance Reviews...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [289/430 | 67%] - Checking shell & content for Quality Assurance Reviews...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7754,17 +7790,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("qualityassurancereviews-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("qualityassurancereviews-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [289/454 | 63%] - Saving screenshot for Quality Assurance Reviews...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [289/430 | 67%] - Saving screenshot for Quality Assurance Reviews...");
   cy.waitAndSee();
   cy.screenshot("quality_assurance_reviews");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [289/454 | 63%] - Verified Quality Assurance Reviews successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [289/430 | 67%] - Verified Quality Assurance Reviews successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [290/454 | 63%] - Navigating to /generated/quality-assurance-scorecards (Quality Assurance Scorecards)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [290/430 | 67%] - Navigating to /generated/quality-assurance-scorecards (Quality Assurance Scorecards)...");
   cy.visitWithSemantics("/generated/quality-assurance-scorecards");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [290/454 | 63%] - Checking shell & content for Quality Assurance Scorecards...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [290/430 | 67%] - Checking shell & content for Quality Assurance Scorecards...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7772,17 +7808,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("qualityassurancescorecards-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("qualityassurancescorecards-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [290/454 | 63%] - Saving screenshot for Quality Assurance Scorecards...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [290/430 | 67%] - Saving screenshot for Quality Assurance Scorecards...");
   cy.waitAndSee();
   cy.screenshot("quality_assurance_scorecards");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [290/454 | 63%] - Verified Quality Assurance Scorecards successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [290/430 | 67%] - Verified Quality Assurance Scorecards successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [291/454 | 64%] - Navigating to /generated/training-coordinator-attendance (Training Coordinator Attendance)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [291/430 | 67%] - Navigating to /generated/training-coordinator-attendance (Training Coordinator Attendance)...");
   cy.visitWithSemantics("/generated/training-coordinator-attendance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [291/454 | 64%] - Checking shell & content for Training Coordinator Attendance...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [291/430 | 67%] - Checking shell & content for Training Coordinator Attendance...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7790,17 +7826,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingcoordinatorattendance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingcoordinatorattendance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [291/454 | 64%] - Saving screenshot for Training Coordinator Attendance...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [291/430 | 67%] - Saving screenshot for Training Coordinator Attendance...");
   cy.waitAndSee();
   cy.screenshot("training_coordinator_attendance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [291/454 | 64%] - Verified Training Coordinator Attendance successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [291/430 | 67%] - Verified Training Coordinator Attendance successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [292/454 | 64%] - Navigating to /generated/training-coordinator-certifications (Training Coordinator Certifications)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [292/430 | 67%] - Navigating to /generated/training-coordinator-certifications (Training Coordinator Certifications)...");
   cy.visitWithSemantics("/generated/training-coordinator-certifications");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [292/454 | 64%] - Checking shell & content for Training Coordinator Certifications...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [292/430 | 67%] - Checking shell & content for Training Coordinator Certifications...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7808,17 +7844,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingcoordinatorcertifications-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingcoordinatorcertifications-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [292/454 | 64%] - Saving screenshot for Training Coordinator Certifications...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [292/430 | 67%] - Saving screenshot for Training Coordinator Certifications...");
   cy.waitAndSee();
   cy.screenshot("training_coordinator_certifications");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [292/454 | 64%] - Verified Training Coordinator Certifications successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [292/430 | 67%] - Verified Training Coordinator Certifications successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [293/454 | 64%] - Navigating to /generated/training-coordinator-courses (Training Coordinator Courses)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [293/430 | 68%] - Navigating to /generated/training-coordinator-courses (Training Coordinator Courses)...");
   cy.visitWithSemantics("/generated/training-coordinator-courses");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [293/454 | 64%] - Checking shell & content for Training Coordinator Courses...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [293/430 | 68%] - Checking shell & content for Training Coordinator Courses...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7826,17 +7862,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingcoordinatorcourses-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingcoordinatorcourses-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [293/454 | 64%] - Saving screenshot for Training Coordinator Courses...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [293/430 | 68%] - Saving screenshot for Training Coordinator Courses...");
   cy.waitAndSee();
   cy.screenshot("training_coordinator_courses");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [293/454 | 64%] - Verified Training Coordinator Courses successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [293/430 | 68%] - Verified Training Coordinator Courses successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [294/454 | 64%] - Navigating to /generated/training-coordinator-materials (Training Coordinator Materials)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [294/430 | 68%] - Navigating to /generated/training-coordinator-materials (Training Coordinator Materials)...");
   cy.visitWithSemantics("/generated/training-coordinator-materials");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [294/454 | 64%] - Checking shell & content for Training Coordinator Materials...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [294/430 | 68%] - Checking shell & content for Training Coordinator Materials...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7844,17 +7880,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingcoordinatormaterials-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingcoordinatormaterials-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [294/454 | 64%] - Saving screenshot for Training Coordinator Materials...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [294/430 | 68%] - Saving screenshot for Training Coordinator Materials...");
   cy.waitAndSee();
   cy.screenshot("training_coordinator_materials");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [294/454 | 64%] - Verified Training Coordinator Materials successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [294/430 | 68%] - Verified Training Coordinator Materials successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [295/454 | 64%] - Navigating to /generated/training-coordinator-progress (Training Coordinator Progress)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [295/430 | 68%] - Navigating to /generated/training-coordinator-progress (Training Coordinator Progress)...");
   cy.visitWithSemantics("/generated/training-coordinator-progress");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [295/454 | 64%] - Checking shell & content for Training Coordinator Progress...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [295/430 | 68%] - Checking shell & content for Training Coordinator Progress...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7862,17 +7898,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingcoordinatorprogress-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingcoordinatorprogress-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [295/454 | 64%] - Saving screenshot for Training Coordinator Progress...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [295/430 | 68%] - Saving screenshot for Training Coordinator Progress...");
   cy.waitAndSee();
   cy.screenshot("training_coordinator_progress");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [295/454 | 64%] - Verified Training Coordinator Progress successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [295/430 | 68%] - Verified Training Coordinator Progress successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [296/454 | 65%] - Navigating to /generated/training-coordinator-reports (Training Coordinator Reports)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [296/430 | 68%] - Navigating to /generated/training-coordinator-reports (Training Coordinator Reports)...");
   cy.visitWithSemantics("/generated/training-coordinator-reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [296/454 | 65%] - Checking shell & content for Training Coordinator Reports...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [296/430 | 68%] - Checking shell & content for Training Coordinator Reports...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7880,17 +7916,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingcoordinatorreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingcoordinatorreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [296/454 | 65%] - Saving screenshot for Training Coordinator Reports...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [296/430 | 68%] - Saving screenshot for Training Coordinator Reports...");
   cy.waitAndSee();
   cy.screenshot("training_coordinator_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [296/454 | 65%] - Verified Training Coordinator Reports successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [296/430 | 68%] - Verified Training Coordinator Reports successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [297/454 | 65%] - Navigating to /generated/training-coordinator-training-schedule (Training Coordinator Training Schedule)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [297/430 | 69%] - Navigating to /generated/training-coordinator-training-schedule (Training Coordinator Training Schedule)...");
   cy.visitWithSemantics("/generated/training-coordinator-training-schedule");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [297/454 | 65%] - Checking shell & content for Training Coordinator Training Schedule...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [297/430 | 69%] - Checking shell & content for Training Coordinator Training Schedule...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7898,17 +7934,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingcoordinatortrainingschedule-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingcoordinatortrainingschedule-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [297/454 | 65%] - Saving screenshot for Training Coordinator Training Schedule...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [297/430 | 69%] - Saving screenshot for Training Coordinator Training Schedule...");
   cy.waitAndSee();
   cy.screenshot("training_coordinator_training_schedule");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [297/454 | 65%] - Verified Training Coordinator Training Schedule successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [297/430 | 69%] - Verified Training Coordinator Training Schedule successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [298/454 | 65%] - Navigating to /generated/training-coordinator-workshops (Training Coordinator Workshops)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [298/430 | 69%] - Navigating to /generated/training-coordinator-workshops (Training Coordinator Workshops)...");
   cy.visitWithSemantics("/generated/training-coordinator-workshops");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [298/454 | 65%] - Checking shell & content for Training Coordinator Workshops...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [298/430 | 69%] - Checking shell & content for Training Coordinator Workshops...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7916,17 +7952,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingcoordinatorworkshops-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingcoordinatorworkshops-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [298/454 | 65%] - Saving screenshot for Training Coordinator Workshops...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [298/430 | 69%] - Saving screenshot for Training Coordinator Workshops...");
   cy.waitAndSee();
   cy.screenshot("training_coordinator_workshops");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [298/454 | 65%] - Verified Training Coordinator Workshops successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [298/430 | 69%] - Verified Training Coordinator Workshops successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [299/454 | 65%] - Navigating to SupportRoutes.escalationDashboard (Escalation Dashboard)...");
-  cy.visitWithSemantics("SupportRoutes.escalationDashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [299/430 | 69%] - Navigating to /support/escalation-dashboard (Escalation Dashboard)...");
+  cy.visitWithSemantics("/support/escalation-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [299/454 | 65%] - Checking shell & content for Escalation Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [299/430 | 69%] - Checking shell & content for Escalation Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7934,17 +7970,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("escalationdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("escalationdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [299/454 | 65%] - Saving screenshot for Escalation Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [299/430 | 69%] - Saving screenshot for Escalation Dashboard...");
   cy.waitAndSee();
   cy.screenshot("escalation_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [299/454 | 65%] - Verified Escalation Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [299/430 | 69%] - Verified Escalation Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [300/454 | 66%] - Navigating to SupportRoutes.helpDeskDashboard (Help Desk Dashboard)...");
-  cy.visitWithSemantics("SupportRoutes.helpDeskDashboard");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [300/430 | 69%] - Navigating to /support/help-desk-dashboard (Help Desk Dashboard)...");
+  cy.visitWithSemantics("/support/help-desk-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [300/454 | 66%] - Checking shell & content for Help Desk Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [300/430 | 69%] - Checking shell & content for Help Desk Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7952,17 +7988,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("helpdeskdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("helpdeskdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [300/454 | 66%] - Saving screenshot for Help Desk Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [300/430 | 69%] - Saving screenshot for Help Desk Dashboard...");
   cy.waitAndSee();
   cy.screenshot("help_desk_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [300/454 | 66%] - Verified Help Desk Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [300/430 | 69%] - Verified Help Desk Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [301/454 | 66%] - Navigating to /generated/it-administrator-dashboard (It Administrator Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [301/430 | 70%] - Navigating to /generated/it-administrator-dashboard (It Administrator Dashboard)...");
   cy.visitWithSemantics("/generated/it-administrator-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [301/454 | 66%] - Checking shell & content for It Administrator Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [301/430 | 70%] - Checking shell & content for It Administrator Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7970,17 +8006,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("itadministratordashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("itadministratordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [301/454 | 66%] - Saving screenshot for It Administrator Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [301/430 | 70%] - Saving screenshot for It Administrator Dashboard...");
   cy.waitAndSee();
   cy.screenshot("it_administrator_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [301/454 | 66%] - Verified It Administrator Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [301/430 | 70%] - Verified It Administrator Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [302/454 | 66%] - Navigating to /generated/prime-care (Prime Care)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [302/430 | 70%] - Navigating to /generated/prime-care (Prime Care)...");
   cy.visitWithSemantics("/generated/prime-care");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [302/454 | 66%] - Checking shell & content for Prime Care...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [302/430 | 70%] - Checking shell & content for Prime Care...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -7988,17 +8024,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("primecare-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("primecare-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [302/454 | 66%] - Saving screenshot for Prime Care...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [302/430 | 70%] - Saving screenshot for Prime Care...");
   cy.waitAndSee();
   cy.screenshot("prime_care");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [302/454 | 66%] - Verified Prime Care successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [302/430 | 70%] - Verified Prime Care successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [303/454 | 66%] - Navigating to /generated/default-not-implemented (Default Not Implemented)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [303/430 | 70%] - Navigating to /generated/default-not-implemented (Default Not Implemented)...");
   cy.visitWithSemantics("/generated/default-not-implemented");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [303/454 | 66%] - Checking shell & content for Default Not Implemented...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [303/430 | 70%] - Checking shell & content for Default Not Implemented...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8006,17 +8042,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("defaultnotimplemented-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("defaultnotimplemented-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [303/454 | 66%] - Saving screenshot for Default Not Implemented...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [303/430 | 70%] - Saving screenshot for Default Not Implemented...");
   cy.waitAndSee();
   cy.screenshot("default_not_implemented");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [303/454 | 66%] - Verified Default Not Implemented successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [303/430 | 70%] - Verified Default Not Implemented successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [304/454 | 66%] - Navigating to /generated/sso-redirect (Sso Redirect)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [304/430 | 70%] - Navigating to /generated/sso-redirect (Sso Redirect)...");
   cy.visitWithSemantics("/generated/sso-redirect");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [304/454 | 66%] - Checking shell & content for Sso Redirect...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [304/430 | 70%] - Checking shell & content for Sso Redirect...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8024,17 +8060,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ssoredirect-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ssoredirect-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [304/454 | 66%] - Saving screenshot for Sso Redirect...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [304/430 | 70%] - Saving screenshot for Sso Redirect...");
   cy.waitAndSee();
   cy.screenshot("sso_redirect");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [304/454 | 66%] - Verified Sso Redirect successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [304/430 | 70%] - Verified Sso Redirect successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [305/454 | 67%] - Navigating to /generated/governed (Governed)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [305/430 | 70%] - Navigating to /generated/governed (Governed)...");
   cy.visitWithSemantics("/generated/governed");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [305/454 | 67%] - Checking shell & content for Governed...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [305/430 | 70%] - Checking shell & content for Governed...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8042,17 +8078,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("governed-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("governed-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [305/454 | 67%] - Saving screenshot for Governed...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [305/430 | 70%] - Saving screenshot for Governed...");
   cy.waitAndSee();
   cy.screenshot("governed");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [305/454 | 67%] - Verified Governed successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [305/430 | 70%] - Verified Governed successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [306/454 | 67%] - Navigating to /generated/access-review-certifier (Access Review Certifier)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [306/430 | 71%] - Navigating to /generated/access-review-certifier (Access Review Certifier)...");
   cy.visitWithSemantics("/generated/access-review-certifier");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [306/454 | 67%] - Checking shell & content for Access Review Certifier...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [306/430 | 71%] - Checking shell & content for Access Review Certifier...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8060,17 +8096,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("accessreviewcertifier-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("accessreviewcertifier-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [306/454 | 67%] - Saving screenshot for Access Review Certifier...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [306/430 | 71%] - Saving screenshot for Access Review Certifier...");
   cy.waitAndSee();
   cy.screenshot("access_review_certifier");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [306/454 | 67%] - Verified Access Review Certifier successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [306/430 | 71%] - Verified Access Review Certifier successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [307/454 | 67%] - Navigating to /generated/admin-user-management (Admin User Management)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [307/430 | 71%] - Navigating to /generated/admin-user-management (Admin User Management)...");
   cy.visitWithSemantics("/generated/admin-user-management");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [307/454 | 67%] - Checking shell & content for Admin User Management...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [307/430 | 71%] - Checking shell & content for Admin User Management...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8078,17 +8114,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("adminusermanagement-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("adminusermanagement-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [307/454 | 67%] - Saving screenshot for Admin User Management...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [307/430 | 71%] - Saving screenshot for Admin User Management...");
   cy.waitAndSee();
   cy.screenshot("admin_user_management");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [307/454 | 67%] - Verified Admin User Management successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [307/430 | 71%] - Verified Admin User Management successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [308/454 | 67%] - Navigating to /generated/api-key-manager (Api Key Manager)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [308/430 | 71%] - Navigating to /generated/api-key-manager (Api Key Manager)...");
   cy.visitWithSemantics("/generated/api-key-manager");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [308/454 | 67%] - Checking shell & content for Api Key Manager...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [308/430 | 71%] - Checking shell & content for Api Key Manager...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8096,17 +8132,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("apikeymanager-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("apikeymanager-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [308/454 | 67%] - Saving screenshot for Api Key Manager...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [308/430 | 71%] - Saving screenshot for Api Key Manager...");
   cy.waitAndSee();
   cy.screenshot("api_key_manager");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [308/454 | 67%] - Verified Api Key Manager successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [308/430 | 71%] - Verified Api Key Manager successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [309/454 | 68%] - Navigating to /generated/compliance-training-tracker (Compliance Training Tracker)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [309/430 | 71%] - Navigating to /generated/compliance-training-tracker (Compliance Training Tracker)...");
   cy.visitWithSemantics("/generated/compliance-training-tracker");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [309/454 | 68%] - Checking shell & content for Compliance Training Tracker...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [309/430 | 71%] - Checking shell & content for Compliance Training Tracker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8114,17 +8150,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancetrainingtracker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancetrainingtracker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [309/454 | 68%] - Saving screenshot for Compliance Training Tracker...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [309/430 | 71%] - Saving screenshot for Compliance Training Tracker...");
   cy.waitAndSee();
   cy.screenshot("compliance_training_tracker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [309/454 | 68%] - Verified Compliance Training Tracker successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [309/430 | 71%] - Verified Compliance Training Tracker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [310/454 | 68%] - Navigating to /generated/configuration-version-control (Configuration Version Control)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [310/430 | 72%] - Navigating to /generated/configuration-version-control (Configuration Version Control)...");
   cy.visitWithSemantics("/generated/configuration-version-control");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [310/454 | 68%] - Checking shell & content for Configuration Version Control...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [310/430 | 72%] - Checking shell & content for Configuration Version Control...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8132,17 +8168,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("configurationversioncontrol-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("configurationversioncontrol-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [310/454 | 68%] - Saving screenshot for Configuration Version Control...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [310/430 | 72%] - Saving screenshot for Configuration Version Control...");
   cy.waitAndSee();
   cy.screenshot("configuration_version_control");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [310/454 | 68%] - Verified Configuration Version Control successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [310/430 | 72%] - Verified Configuration Version Control successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [311/454 | 68%] - Navigating to /generated/consent-management-console (Consent Management Console)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [311/430 | 72%] - Navigating to /generated/consent-management-console (Consent Management Console)...");
   cy.visitWithSemantics("/generated/consent-management-console");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [311/454 | 68%] - Checking shell & content for Consent Management Console...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [311/430 | 72%] - Checking shell & content for Consent Management Console...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8150,17 +8186,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("consentmanagementconsole-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("consentmanagementconsole-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [311/454 | 68%] - Saving screenshot for Consent Management Console...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [311/430 | 72%] - Saving screenshot for Consent Management Console...");
   cy.waitAndSee();
   cy.screenshot("consent_management_console");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [311/454 | 68%] - Verified Consent Management Console successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [311/430 | 72%] - Verified Consent Management Console successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [312/454 | 68%] - Navigating to /generated/crisis-protocol-trigger (Crisis Protocol Trigger)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [312/430 | 72%] - Navigating to /generated/crisis-protocol-trigger (Crisis Protocol Trigger)...");
   cy.visitWithSemantics("/generated/crisis-protocol-trigger");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [312/454 | 68%] - Checking shell & content for Crisis Protocol Trigger...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [312/430 | 72%] - Checking shell & content for Crisis Protocol Trigger...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8168,17 +8204,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("crisisprotocoltrigger-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("crisisprotocoltrigger-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [312/454 | 68%] - Saving screenshot for Crisis Protocol Trigger...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [312/430 | 72%] - Saving screenshot for Crisis Protocol Trigger...");
   cy.waitAndSee();
   cy.screenshot("crisis_protocol_trigger");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [312/454 | 68%] - Verified Crisis Protocol Trigger successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [312/430 | 72%] - Verified Crisis Protocol Trigger successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [313/454 | 68%] - Navigating to /generated/data-privacy-monitor (Data Privacy Monitor)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [313/430 | 72%] - Navigating to /generated/data-privacy-monitor (Data Privacy Monitor)...");
   cy.visitWithSemantics("/generated/data-privacy-monitor");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [313/454 | 68%] - Checking shell & content for Data Privacy Monitor...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [313/430 | 72%] - Checking shell & content for Data Privacy Monitor...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8186,17 +8222,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("dataprivacymonitor-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("dataprivacymonitor-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [313/454 | 68%] - Saving screenshot for Data Privacy Monitor...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [313/430 | 72%] - Saving screenshot for Data Privacy Monitor...");
   cy.waitAndSee();
   cy.screenshot("data_privacy_monitor");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [313/454 | 68%] - Verified Data Privacy Monitor successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [313/430 | 72%] - Verified Data Privacy Monitor successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [314/454 | 69%] - Navigating to /generated/ecosystem-state-board (Ecosystem State Board)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [314/430 | 73%] - Navigating to /generated/ecosystem-state-board (Ecosystem State Board)...");
   cy.visitWithSemantics("/generated/ecosystem-state-board");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [314/454 | 69%] - Checking shell & content for Ecosystem State Board...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [314/430 | 73%] - Checking shell & content for Ecosystem State Board...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8204,17 +8240,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ecosystemstateboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ecosystemstateboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [314/454 | 69%] - Saving screenshot for Ecosystem State Board...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [314/430 | 73%] - Saving screenshot for Ecosystem State Board...");
   cy.waitAndSee();
   cy.screenshot("ecosystem_state_board");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [314/454 | 69%] - Verified Ecosystem State Board successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [314/430 | 73%] - Verified Ecosystem State Board successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [315/454 | 69%] - Navigating to /generated/f-a-q-manager (F A Q Manager)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [315/430 | 73%] - Navigating to /generated/f-a-q-manager (F A Q Manager)...");
   cy.visitWithSemantics("/generated/f-a-q-manager");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [315/454 | 69%] - Checking shell & content for F A Q Manager...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [315/430 | 73%] - Checking shell & content for F A Q Manager...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8222,17 +8258,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("faqmanager-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("faqmanager-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [315/454 | 69%] - Saving screenshot for F A Q Manager...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [315/430 | 73%] - Saving screenshot for F A Q Manager...");
   cy.waitAndSee();
   cy.screenshot("f_a_q_manager");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [315/454 | 69%] - Verified F A Q Manager successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [315/430 | 73%] - Verified F A Q Manager successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [316/454 | 69%] - Navigating to /generated/feature-flag-controller (Feature Flag Controller)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [316/430 | 73%] - Navigating to /generated/feature-flag-controller (Feature Flag Controller)...");
   cy.visitWithSemantics("/generated/feature-flag-controller");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [316/454 | 69%] - Checking shell & content for Feature Flag Controller...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [316/430 | 73%] - Checking shell & content for Feature Flag Controller...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8240,17 +8276,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("featureflagcontroller-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("featureflagcontroller-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [316/454 | 69%] - Saving screenshot for Feature Flag Controller...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [316/430 | 73%] - Saving screenshot for Feature Flag Controller...");
   cy.waitAndSee();
   cy.screenshot("feature_flag_controller");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [316/454 | 69%] - Verified Feature Flag Controller successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [316/430 | 73%] - Verified Feature Flag Controller successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [317/454 | 69%] - Navigating to /generated/hipaa-audit-dashboard (Hipaa Audit Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [317/430 | 73%] - Navigating to /generated/hipaa-audit-dashboard (Hipaa Audit Dashboard)...");
   cy.visitWithSemantics("/generated/hipaa-audit-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [317/454 | 69%] - Checking shell & content for Hipaa Audit Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [317/430 | 73%] - Checking shell & content for Hipaa Audit Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8258,17 +8294,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hipaaauditdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hipaaauditdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [317/454 | 69%] - Saving screenshot for Hipaa Audit Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [317/430 | 73%] - Saving screenshot for Hipaa Audit Dashboard...");
   cy.waitAndSee();
   cy.screenshot("hipaa_audit_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [317/454 | 69%] - Verified Hipaa Audit Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [317/430 | 73%] - Verified Hipaa Audit Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [318/454 | 70%] - Navigating to /generated/incident-response-hub (Incident Response Hub)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [318/430 | 73%] - Navigating to /generated/incident-response-hub (Incident Response Hub)...");
   cy.visitWithSemantics("/generated/incident-response-hub");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [318/454 | 70%] - Checking shell & content for Incident Response Hub...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [318/430 | 73%] - Checking shell & content for Incident Response Hub...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8276,17 +8312,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("incidentresponsehub-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("incidentresponsehub-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [318/454 | 70%] - Saving screenshot for Incident Response Hub...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [318/430 | 73%] - Saving screenshot for Incident Response Hub...");
   cy.waitAndSee();
   cy.screenshot("incident_response_hub");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [318/454 | 70%] - Verified Incident Response Hub successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [318/430 | 73%] - Verified Incident Response Hub successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [319/454 | 70%] - Navigating to /generated/integration-health-monitor (Integration Health Monitor)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [319/430 | 74%] - Navigating to /generated/integration-health-monitor (Integration Health Monitor)...");
   cy.visitWithSemantics("/generated/integration-health-monitor");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [319/454 | 70%] - Checking shell & content for Integration Health Monitor...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [319/430 | 74%] - Checking shell & content for Integration Health Monitor...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8294,17 +8330,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("integrationhealthmonitor-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("integrationhealthmonitor-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [319/454 | 70%] - Saving screenshot for Integration Health Monitor...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [319/430 | 74%] - Saving screenshot for Integration Health Monitor...");
   cy.waitAndSee();
   cy.screenshot("integration_health_monitor");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [319/454 | 70%] - Verified Integration Health Monitor successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [319/430 | 74%] - Verified Integration Health Monitor successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [320/454 | 70%] - Navigating to /generated/lead-pipeline (Lead Pipeline)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [320/430 | 74%] - Navigating to /generated/lead-pipeline (Lead Pipeline)...");
   cy.visitWithSemantics("/generated/lead-pipeline");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [320/454 | 70%] - Checking shell & content for Lead Pipeline...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [320/430 | 74%] - Checking shell & content for Lead Pipeline...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8312,17 +8348,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("leadpipeline-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("leadpipeline-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [320/454 | 70%] - Saving screenshot for Lead Pipeline...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [320/430 | 74%] - Saving screenshot for Lead Pipeline...");
   cy.waitAndSee();
   cy.screenshot("lead_pipeline");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [320/454 | 70%] - Verified Lead Pipeline successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [320/430 | 74%] - Verified Lead Pipeline successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [321/454 | 70%] - Navigating to /generated/message-archiveer (Message Archiveer)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [321/430 | 74%] - Navigating to /generated/message-archiveer (Message Archiveer)...");
   cy.visitWithSemantics("/generated/message-archiveer");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [321/454 | 70%] - Checking shell & content for Message Archiveer...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [321/430 | 74%] - Checking shell & content for Message Archiveer...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8330,17 +8366,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("messagearchiveer-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("messagearchiveer-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [321/454 | 70%] - Saving screenshot for Message Archiveer...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [321/430 | 74%] - Saving screenshot for Message Archiveer...");
   cy.waitAndSee();
   cy.screenshot("message_archiveer");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [321/454 | 70%] - Verified Message Archiveer successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [321/430 | 74%] - Verified Message Archiveer successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [322/454 | 70%] - Navigating to /generated/osha-incident-reporter (Osha Incident Reporter)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [322/430 | 74%] - Navigating to /generated/osha-incident-reporter (Osha Incident Reporter)...");
   cy.visitWithSemantics("/generated/osha-incident-reporter");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [322/454 | 70%] - Checking shell & content for Osha Incident Reporter...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [322/430 | 74%] - Checking shell & content for Osha Incident Reporter...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8348,17 +8384,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("oshaincidentreporter-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("oshaincidentreporter-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [322/454 | 70%] - Saving screenshot for Osha Incident Reporter...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [322/430 | 74%] - Saving screenshot for Osha Incident Reporter...");
   cy.waitAndSee();
   cy.screenshot("osha_incident_reporter");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [322/454 | 70%] - Verified Osha Incident Reporter successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [322/430 | 74%] - Verified Osha Incident Reporter successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [323/454 | 71%] - Navigating to /generated/policy-exception-tracker (Policy Exception Tracker)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [323/430 | 75%] - Navigating to /generated/policy-exception-tracker (Policy Exception Tracker)...");
   cy.visitWithSemantics("/generated/policy-exception-tracker");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [323/454 | 71%] - Checking shell & content for Policy Exception Tracker...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [323/430 | 75%] - Checking shell & content for Policy Exception Tracker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8366,17 +8402,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("policyexceptiontracker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("policyexceptiontracker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [323/454 | 71%] - Saving screenshot for Policy Exception Tracker...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [323/430 | 75%] - Saving screenshot for Policy Exception Tracker...");
   cy.waitAndSee();
   cy.screenshot("policy_exception_tracker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [323/454 | 71%] - Verified Policy Exception Tracker successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [323/430 | 75%] - Verified Policy Exception Tracker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [324/454 | 71%] - Navigating to /generated/protocol-resolution-log (Protocol Resolution Log)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [324/430 | 75%] - Navigating to /generated/protocol-resolution-log (Protocol Resolution Log)...");
   cy.visitWithSemantics("/generated/protocol-resolution-log");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [324/454 | 71%] - Checking shell & content for Protocol Resolution Log...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [324/430 | 75%] - Checking shell & content for Protocol Resolution Log...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8384,17 +8420,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("protocolresolutionlog-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("protocolresolutionlog-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [324/454 | 71%] - Saving screenshot for Protocol Resolution Log...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [324/430 | 75%] - Saving screenshot for Protocol Resolution Log...");
   cy.waitAndSee();
   cy.screenshot("protocol_resolution_log");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [324/454 | 71%] - Verified Protocol Resolution Log successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [324/430 | 75%] - Verified Protocol Resolution Log successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [325/454 | 71%] - Navigating to /generated/provider-performance-dashboard (Provider Performance Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [325/430 | 75%] - Navigating to /generated/provider-performance-dashboard (Provider Performance Dashboard)...");
   cy.visitWithSemantics("/generated/provider-performance-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [325/454 | 71%] - Checking shell & content for Provider Performance Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [325/430 | 75%] - Checking shell & content for Provider Performance Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8402,17 +8438,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("providerperformancedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("providerperformancedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [325/454 | 71%] - Saving screenshot for Provider Performance Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [325/430 | 75%] - Saving screenshot for Provider Performance Dashboard...");
   cy.waitAndSee();
   cy.screenshot("provider_performance_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [325/454 | 71%] - Verified Provider Performance Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [325/430 | 75%] - Verified Provider Performance Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [326/454 | 71%] - Navigating to /generated/quality-assurance-metrics (Quality Assurance Metrics)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [326/430 | 75%] - Navigating to /generated/quality-assurance-metrics (Quality Assurance Metrics)...");
   cy.visitWithSemantics("/generated/quality-assurance-metrics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [326/454 | 71%] - Checking shell & content for Quality Assurance Metrics...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [326/430 | 75%] - Checking shell & content for Quality Assurance Metrics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8420,17 +8456,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("qualityassurancemetrics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("qualityassurancemetrics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [326/454 | 71%] - Saving screenshot for Quality Assurance Metrics...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [326/430 | 75%] - Saving screenshot for Quality Assurance Metrics...");
   cy.waitAndSee();
   cy.screenshot("quality_assurance_metrics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [326/454 | 71%] - Verified Quality Assurance Metrics successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [326/430 | 75%] - Verified Quality Assurance Metrics successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [327/454 | 72%] - Navigating to /generated/registry-entry-editor (Registry Entry Editor)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [327/430 | 76%] - Navigating to /generated/registry-entry-editor (Registry Entry Editor)...");
   cy.visitWithSemantics("/generated/registry-entry-editor");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [327/454 | 72%] - Checking shell & content for Registry Entry Editor...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [327/430 | 76%] - Checking shell & content for Registry Entry Editor...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8438,17 +8474,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("registryentryeditor-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("registryentryeditor-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [327/454 | 72%] - Saving screenshot for Registry Entry Editor...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [327/430 | 76%] - Saving screenshot for Registry Entry Editor...");
   cy.waitAndSee();
   cy.screenshot("registry_entry_editor");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [327/454 | 72%] - Verified Registry Entry Editor successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [327/430 | 76%] - Verified Registry Entry Editor successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [328/454 | 72%] - Navigating to /generated/regulatory-change-radar (Regulatory Change Radar)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [328/430 | 76%] - Navigating to /generated/regulatory-change-radar (Regulatory Change Radar)...");
   cy.visitWithSemantics("/generated/regulatory-change-radar");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [328/454 | 72%] - Checking shell & content for Regulatory Change Radar...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [328/430 | 76%] - Checking shell & content for Regulatory Change Radar...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8456,17 +8492,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("regulatorychangeradar-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("regulatorychangeradar-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [328/454 | 72%] - Saving screenshot for Regulatory Change Radar...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [328/430 | 76%] - Saving screenshot for Regulatory Change Radar...");
   cy.waitAndSee();
   cy.screenshot("regulatory_change_radar");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [328/454 | 72%] - Verified Regulatory Change Radar successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [328/430 | 76%] - Verified Regulatory Change Radar successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [329/454 | 72%] - Navigating to /generated/resource-allocation-map (Resource Allocation Map)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [329/430 | 76%] - Navigating to /generated/resource-allocation-map (Resource Allocation Map)...");
   cy.visitWithSemantics("/generated/resource-allocation-map");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [329/454 | 72%] - Checking shell & content for Resource Allocation Map...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [329/430 | 76%] - Checking shell & content for Resource Allocation Map...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8474,17 +8510,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("resourceallocationmap-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("resourceallocationmap-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [329/454 | 72%] - Saving screenshot for Resource Allocation Map...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [329/430 | 76%] - Saving screenshot for Resource Allocation Map...");
   cy.waitAndSee();
   cy.screenshot("resource_allocation_map");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [329/454 | 72%] - Verified Resource Allocation Map successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [329/430 | 76%] - Verified Resource Allocation Map successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [330/454 | 72%] - Navigating to /generated/response-bot-audit (Response Bot Audit)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [330/430 | 76%] - Navigating to /generated/response-bot-audit (Response Bot Audit)...");
   cy.visitWithSemantics("/generated/response-bot-audit");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [330/454 | 72%] - Checking shell & content for Response Bot Audit...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [330/430 | 76%] - Checking shell & content for Response Bot Audit...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8492,17 +8528,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("responsebotaudit-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("responsebotaudit-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [330/454 | 72%] - Saving screenshot for Response Bot Audit...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [330/430 | 76%] - Saving screenshot for Response Bot Audit...");
   cy.waitAndSee();
   cy.screenshot("response_bot_audit");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [330/454 | 72%] - Verified Response Bot Audit successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [330/430 | 76%] - Verified Response Bot Audit successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [331/454 | 72%] - Navigating to /generated/role-access-matrix (Role Access Matrix)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [331/430 | 76%] - Navigating to /generated/role-access-matrix (Role Access Matrix)...");
   cy.visitWithSemantics("/generated/role-access-matrix");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [331/454 | 72%] - Checking shell & content for Role Access Matrix...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [331/430 | 76%] - Checking shell & content for Role Access Matrix...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8510,17 +8546,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("roleaccessmatrix-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("roleaccessmatrix-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [331/454 | 72%] - Saving screenshot for Role Access Matrix...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [331/430 | 76%] - Saving screenshot for Role Access Matrix...");
   cy.waitAndSee();
   cy.screenshot("role_access_matrix");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [331/454 | 72%] - Verified Role Access Matrix successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [331/430 | 76%] - Verified Role Access Matrix successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [332/454 | 73%] - Navigating to /generated/role-access (Role Access)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [332/430 | 77%] - Navigating to /generated/role-access (Role Access)...");
   cy.visitWithSemantics("/generated/role-access");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [332/454 | 73%] - Checking shell & content for Role Access...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [332/430 | 77%] - Checking shell & content for Role Access...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8528,17 +8564,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("roleaccess-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("roleaccess-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [332/454 | 73%] - Saving screenshot for Role Access...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [332/430 | 77%] - Saving screenshot for Role Access...");
   cy.waitAndSee();
   cy.screenshot("role_access");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [332/454 | 73%] - Verified Role Access successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [332/430 | 77%] - Verified Role Access successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [333/454 | 73%] - Navigating to /generated/secure-message-center (Secure Message Center)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [333/430 | 77%] - Navigating to /generated/secure-message-center (Secure Message Center)...");
   cy.visitWithSemantics("/generated/secure-message-center");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [333/454 | 73%] - Checking shell & content for Secure Message Center...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [333/430 | 77%] - Checking shell & content for Secure Message Center...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8546,17 +8582,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("securemessagecenter-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("securemessagecenter-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [333/454 | 73%] - Saving screenshot for Secure Message Center...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [333/430 | 77%] - Saving screenshot for Secure Message Center...");
   cy.waitAndSee();
   cy.screenshot("secure_message_center");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [333/454 | 73%] - Verified Secure Message Center successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [333/430 | 77%] - Verified Secure Message Center successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [334/454 | 73%] - Navigating to /generated/security-incident-logger (Security Incident Logger)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [334/430 | 77%] - Navigating to /generated/security-incident-logger (Security Incident Logger)...");
   cy.visitWithSemantics("/generated/security-incident-logger");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [334/454 | 73%] - Checking shell & content for Security Incident Logger...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [334/430 | 77%] - Checking shell & content for Security Incident Logger...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8564,17 +8600,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("securityincidentlogger-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("securityincidentlogger-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [334/454 | 73%] - Saving screenshot for Security Incident Logger...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [334/430 | 77%] - Saving screenshot for Security Incident Logger...");
   cy.waitAndSee();
   cy.screenshot("security_incident_logger");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [334/454 | 73%] - Verified Security Incident Logger successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [334/430 | 77%] - Verified Security Incident Logger successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [335/454 | 73%] - Navigating to /generated/service-mesh-topology (Service Mesh Topology)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [335/430 | 77%] - Navigating to /generated/service-mesh-topology (Service Mesh Topology)...");
   cy.visitWithSemantics("/generated/service-mesh-topology");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [335/454 | 73%] - Checking shell & content for Service Mesh Topology...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [335/430 | 77%] - Checking shell & content for Service Mesh Topology...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8582,17 +8618,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("servicemeshtopology-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("servicemeshtopology-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [335/454 | 73%] - Saving screenshot for Service Mesh Topology...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [335/430 | 77%] - Saving screenshot for Service Mesh Topology...");
   cy.waitAndSee();
   cy.screenshot("service_mesh_topology");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [335/454 | 73%] - Verified Service Mesh Topology successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [335/430 | 77%] - Verified Service Mesh Topology successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [336/454 | 74%] - Navigating to /generated/system-capacity-planner (System Capacity Planner)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [336/430 | 78%] - Navigating to /generated/system-capacity-planner (System Capacity Planner)...");
   cy.visitWithSemantics("/generated/system-capacity-planner");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [336/454 | 74%] - Checking shell & content for System Capacity Planner...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [336/430 | 78%] - Checking shell & content for System Capacity Planner...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8600,17 +8636,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("systemcapacityplanner-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("systemcapacityplanner-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [336/454 | 74%] - Saving screenshot for System Capacity Planner...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [336/430 | 78%] - Saving screenshot for System Capacity Planner...");
   cy.waitAndSee();
   cy.screenshot("system_capacity_planner");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [336/454 | 74%] - Verified System Capacity Planner successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [336/430 | 78%] - Verified System Capacity Planner successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [337/454 | 74%] - Navigating to /generated/tenant-configuration (Tenant Configuration)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [337/430 | 78%] - Navigating to /generated/tenant-configuration (Tenant Configuration)...");
   cy.visitWithSemantics("/generated/tenant-configuration");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [337/454 | 74%] - Checking shell & content for Tenant Configuration...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [337/430 | 78%] - Checking shell & content for Tenant Configuration...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8618,17 +8654,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("tenantconfiguration-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("tenantconfiguration-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [337/454 | 74%] - Saving screenshot for Tenant Configuration...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [337/430 | 78%] - Saving screenshot for Tenant Configuration...");
   cy.waitAndSee();
   cy.screenshot("tenant_configuration");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [337/454 | 74%] - Verified Tenant Configuration successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [337/430 | 78%] - Verified Tenant Configuration successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [338/454 | 74%] - Navigating to /generated/touchpoint-analyzer (Touchpoint Analyzer)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [338/430 | 78%] - Navigating to /generated/touchpoint-analyzer (Touchpoint Analyzer)...");
   cy.visitWithSemantics("/generated/touchpoint-analyzer");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [338/454 | 74%] - Checking shell & content for Touchpoint Analyzer...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [338/430 | 78%] - Checking shell & content for Touchpoint Analyzer...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8636,17 +8672,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("touchpointanalyzer-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("touchpointanalyzer-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [338/454 | 74%] - Saving screenshot for Touchpoint Analyzer...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [338/430 | 78%] - Saving screenshot for Touchpoint Analyzer...");
   cy.waitAndSee();
   cy.screenshot("touchpoint_analyzer");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [338/454 | 74%] - Verified Touchpoint Analyzer successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [338/430 | 78%] - Verified Touchpoint Analyzer successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [339/454 | 74%] - Navigating to /generated/user-management (User Management)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [339/430 | 78%] - Navigating to /generated/user-management (User Management)...");
   cy.visitWithSemantics("/generated/user-management");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [339/454 | 74%] - Checking shell & content for User Management...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [339/430 | 78%] - Checking shell & content for User Management...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8654,17 +8690,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("usermanagement-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("usermanagement-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [339/454 | 74%] - Saving screenshot for User Management...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [339/430 | 78%] - Saving screenshot for User Management...");
   cy.waitAndSee();
   cy.screenshot("user_management");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [339/454 | 74%] - Verified User Management successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [339/430 | 78%] - Verified User Management successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [340/454 | 74%] - Navigating to /generated/vendor-risk-assessor (Vendor Risk Assessor)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [340/430 | 79%] - Navigating to /generated/vendor-risk-assessor (Vendor Risk Assessor)...");
   cy.visitWithSemantics("/generated/vendor-risk-assessor");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [340/454 | 74%] - Checking shell & content for Vendor Risk Assessor...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [340/430 | 79%] - Checking shell & content for Vendor Risk Assessor...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8672,17 +8708,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("vendorriskassessor-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("vendorriskassessor-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [340/454 | 74%] - Saving screenshot for Vendor Risk Assessor...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [340/430 | 79%] - Saving screenshot for Vendor Risk Assessor...");
   cy.waitAndSee();
   cy.screenshot("vendor_risk_assessor");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [340/454 | 74%] - Verified Vendor Risk Assessor successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [340/430 | 79%] - Verified Vendor Risk Assessor successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [341/454 | 75%] - Navigating to /generated/board-of-directors-summary (Board Of Directors Summary)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [341/430 | 79%] - Navigating to /generated/board-of-directors-summary (Board Of Directors Summary)...");
   cy.visitWithSemantics("/generated/board-of-directors-summary");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [341/454 | 75%] - Checking shell & content for Board Of Directors Summary...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [341/430 | 79%] - Checking shell & content for Board Of Directors Summary...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8690,17 +8726,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("boardofdirectorssummary-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("boardofdirectorssummary-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [341/454 | 75%] - Saving screenshot for Board Of Directors Summary...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [341/430 | 79%] - Saving screenshot for Board Of Directors Summary...");
   cy.waitAndSee();
   cy.screenshot("board_of_directors_summary");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [341/454 | 75%] - Verified Board Of Directors Summary successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [341/430 | 79%] - Verified Board Of Directors Summary successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [342/454 | 75%] - Navigating to /generated/clinical-outcomes-report (Clinical Outcomes Report)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [342/430 | 79%] - Navigating to /generated/clinical-outcomes-report (Clinical Outcomes Report)...");
   cy.visitWithSemantics("/generated/clinical-outcomes-report");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [342/454 | 75%] - Checking shell & content for Clinical Outcomes Report...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [342/430 | 79%] - Checking shell & content for Clinical Outcomes Report...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8708,17 +8744,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaloutcomesreport-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaloutcomesreport-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [342/454 | 75%] - Saving screenshot for Clinical Outcomes Report...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [342/430 | 79%] - Saving screenshot for Clinical Outcomes Report...");
   cy.waitAndSee();
   cy.screenshot("clinical_outcomes_report");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [342/454 | 75%] - Verified Clinical Outcomes Report successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [342/430 | 79%] - Verified Clinical Outcomes Report successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [343/454 | 75%] - Navigating to /generated/financial-forecasting-model (Financial Forecasting Model)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [343/430 | 79%] - Navigating to /generated/financial-forecasting-model (Financial Forecasting Model)...");
   cy.visitWithSemantics("/generated/financial-forecasting-model");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [343/454 | 75%] - Checking shell & content for Financial Forecasting Model...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [343/430 | 79%] - Checking shell & content for Financial Forecasting Model...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8726,17 +8762,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("financialforecastingmodel-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("financialforecastingmodel-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [343/454 | 75%] - Saving screenshot for Financial Forecasting Model...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [343/430 | 79%] - Saving screenshot for Financial Forecasting Model...");
   cy.waitAndSee();
   cy.screenshot("financial_forecasting_model");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [343/454 | 75%] - Verified Financial Forecasting Model successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [343/430 | 79%] - Verified Financial Forecasting Model successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [344/454 | 75%] - Navigating to /generated/marketing-r-o-i-report (Marketing R O I Report)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [344/430 | 80%] - Navigating to /generated/marketing-r-o-i-report (Marketing R O I Report)...");
   cy.visitWithSemantics("/generated/marketing-r-o-i-report");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [344/454 | 75%] - Checking shell & content for Marketing R O I Report...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [344/430 | 80%] - Checking shell & content for Marketing R O I Report...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8744,17 +8780,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("marketingroireport-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("marketingroireport-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [344/454 | 75%] - Saving screenshot for Marketing R O I Report...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [344/430 | 80%] - Saving screenshot for Marketing R O I Report...");
   cy.waitAndSee();
   cy.screenshot("marketing_r_o_i_report");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [344/454 | 75%] - Verified Marketing R O I Report successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [344/430 | 80%] - Verified Marketing R O I Report successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [345/454 | 75%] - Navigating to /generated/operational-efficiency-metrics (Operational Efficiency Metrics)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [345/430 | 80%] - Navigating to /generated/operational-efficiency-metrics (Operational Efficiency Metrics)...");
   cy.visitWithSemantics("/generated/operational-efficiency-metrics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [345/454 | 75%] - Checking shell & content for Operational Efficiency Metrics...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [345/430 | 80%] - Checking shell & content for Operational Efficiency Metrics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8762,17 +8798,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("operationalefficiencymetrics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("operationalefficiencymetrics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [345/454 | 75%] - Saving screenshot for Operational Efficiency Metrics...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [345/430 | 80%] - Saving screenshot for Operational Efficiency Metrics...");
   cy.waitAndSee();
   cy.screenshot("operational_efficiency_metrics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [345/454 | 75%] - Verified Operational Efficiency Metrics successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [345/430 | 80%] - Verified Operational Efficiency Metrics successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [346/454 | 76%] - Navigating to /generated/patient-retention-analytics (Patient Retention Analytics)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [346/430 | 80%] - Navigating to /generated/patient-retention-analytics (Patient Retention Analytics)...");
   cy.visitWithSemantics("/generated/patient-retention-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [346/454 | 76%] - Checking shell & content for Patient Retention Analytics...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [346/430 | 80%] - Checking shell & content for Patient Retention Analytics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8780,17 +8816,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("patientretentionanalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("patientretentionanalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [346/454 | 76%] - Saving screenshot for Patient Retention Analytics...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [346/430 | 80%] - Saving screenshot for Patient Retention Analytics...");
   cy.waitAndSee();
   cy.screenshot("patient_retention_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [346/454 | 76%] - Verified Patient Retention Analytics successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [346/430 | 80%] - Verified Patient Retention Analytics successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [347/454 | 76%] - Navigating to /generated/population-health-analyzer (Population Health Analyzer)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [347/430 | 80%] - Navigating to /generated/population-health-analyzer (Population Health Analyzer)...");
   cy.visitWithSemantics("/generated/population-health-analyzer");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [347/454 | 76%] - Checking shell & content for Population Health Analyzer...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [347/430 | 80%] - Checking shell & content for Population Health Analyzer...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8798,17 +8834,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("populationhealthanalyzer-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("populationhealthanalyzer-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [347/454 | 76%] - Saving screenshot for Population Health Analyzer...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [347/430 | 80%] - Saving screenshot for Population Health Analyzer...");
   cy.waitAndSee();
   cy.screenshot("population_health_analyzer");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [347/454 | 76%] - Verified Population Health Analyzer successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [347/430 | 80%] - Verified Population Health Analyzer successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [348/454 | 76%] - Navigating to /generated/predictive-analytics-dashboard (Predictive Analytics Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [348/430 | 80%] - Navigating to /generated/predictive-analytics-dashboard (Predictive Analytics Dashboard)...");
   cy.visitWithSemantics("/generated/predictive-analytics-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [348/454 | 76%] - Checking shell & content for Predictive Analytics Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [348/430 | 80%] - Checking shell & content for Predictive Analytics Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8816,17 +8852,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("predictiveanalyticsdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("predictiveanalyticsdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [348/454 | 76%] - Saving screenshot for Predictive Analytics Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [348/430 | 80%] - Saving screenshot for Predictive Analytics Dashboard...");
   cy.waitAndSee();
   cy.screenshot("predictive_analytics_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [348/454 | 76%] - Verified Predictive Analytics Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [348/430 | 80%] - Verified Predictive Analytics Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [349/454 | 76%] - Navigating to /generated/staff-utilization-heatmap (Staff Utilization Heatmap)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [349/430 | 81%] - Navigating to /generated/staff-utilization-heatmap (Staff Utilization Heatmap)...");
   cy.visitWithSemantics("/generated/staff-utilization-heatmap");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [349/454 | 76%] - Checking shell & content for Staff Utilization Heatmap...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [349/430 | 81%] - Checking shell & content for Staff Utilization Heatmap...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8834,17 +8870,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("staffutilizationheatmap-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("staffutilizationheatmap-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [349/454 | 76%] - Saving screenshot for Staff Utilization Heatmap...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [349/430 | 81%] - Saving screenshot for Staff Utilization Heatmap...");
   cy.waitAndSee();
   cy.screenshot("staff_utilization_heatmap");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [349/454 | 76%] - Verified Staff Utilization Heatmap successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [349/430 | 81%] - Verified Staff Utilization Heatmap successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [350/454 | 77%] - Navigating to /generated/supply-chain-cost-analyzer (Supply Chain Cost Analyzer)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [350/430 | 81%] - Navigating to /generated/supply-chain-cost-analyzer (Supply Chain Cost Analyzer)...");
   cy.visitWithSemantics("/generated/supply-chain-cost-analyzer");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [350/454 | 77%] - Checking shell & content for Supply Chain Cost Analyzer...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [350/430 | 81%] - Checking shell & content for Supply Chain Cost Analyzer...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8852,89 +8888,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("supplychaincostanalyzer-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("supplychaincostanalyzer-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [350/454 | 77%] - Saving screenshot for Supply Chain Cost Analyzer...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [350/430 | 81%] - Saving screenshot for Supply Chain Cost Analyzer...");
   cy.waitAndSee();
   cy.screenshot("supply_chain_cost_analyzer");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [350/454 | 77%] - Verified Supply Chain Cost Analyzer successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [350/430 | 81%] - Verified Supply Chain Cost Analyzer successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [351/454 | 77%] - Navigating to /generated/forgot-password (Forgot Password)...");
-  cy.visitWithSemantics("/generated/forgot-password");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [351/454 | 77%] - Checking shell & content for Forgot Password...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("forgotpassword-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("forgotpassword-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("forgotpassword-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [351/454 | 77%] - Saving screenshot for Forgot Password...");
-  cy.waitAndSee();
-  cy.screenshot("forgot_password");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [351/454 | 77%] - Verified Forgot Password successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [352/454 | 77%] - Navigating to /generated/login (Login)...");
-  cy.visitWithSemantics("/generated/login");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [352/454 | 77%] - Checking shell & content for Login...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("login-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("login-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("login-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [352/454 | 77%] - Saving screenshot for Login...");
-  cy.waitAndSee();
-  cy.screenshot("login");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [352/454 | 77%] - Verified Login successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [353/454 | 77%] - Navigating to /generated/mfa (Mfa)...");
-  cy.visitWithSemantics("/generated/mfa");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [353/454 | 77%] - Checking shell & content for Mfa...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("mfa-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("mfa-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("mfa-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [353/454 | 77%] - Saving screenshot for Mfa...");
-  cy.waitAndSee();
-  cy.screenshot("mfa");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [353/454 | 77%] - Verified Mfa successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [354/454 | 77%] - Navigating to /generated/reset-password (Reset Password)...");
-  cy.visitWithSemantics("/generated/reset-password");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [354/454 | 77%] - Checking shell & content for Reset Password...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("resetpassword-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("resetpassword-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("resetpassword-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [354/454 | 77%] - Saving screenshot for Reset Password...");
-  cy.waitAndSee();
-  cy.screenshot("reset_password");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [354/454 | 77%] - Verified Reset Password successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [355/454 | 78%] - Navigating to /generated/certification-renewal-alerts (Certification Renewal Alerts)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [351/430 | 81%] - Navigating to /generated/certification-renewal-alerts (Certification Renewal Alerts)...");
   cy.visitWithSemantics("/generated/certification-renewal-alerts");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [355/454 | 78%] - Checking shell & content for Certification Renewal Alerts...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [351/430 | 81%] - Checking shell & content for Certification Renewal Alerts...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8942,17 +8906,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("certificationrenewalalerts-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("certificationrenewalalerts-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [355/454 | 78%] - Saving screenshot for Certification Renewal Alerts...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [351/430 | 81%] - Saving screenshot for Certification Renewal Alerts...");
   cy.waitAndSee();
   cy.screenshot("certification_renewal_alerts");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [355/454 | 78%] - Verified Certification Renewal Alerts successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [351/430 | 81%] - Verified Certification Renewal Alerts successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [356/454 | 78%] - Navigating to /generated/clinical-guideline-library (Clinical Guideline Library)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [352/430 | 81%] - Navigating to /generated/clinical-guideline-library (Clinical Guideline Library)...");
   cy.visitWithSemantics("/generated/clinical-guideline-library");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [356/454 | 78%] - Checking shell & content for Clinical Guideline Library...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [352/430 | 81%] - Checking shell & content for Clinical Guideline Library...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8960,17 +8924,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicalguidelinelibrary-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicalguidelinelibrary-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [356/454 | 78%] - Saving screenshot for Clinical Guideline Library...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [352/430 | 81%] - Saving screenshot for Clinical Guideline Library...");
   cy.waitAndSee();
   cy.screenshot("clinical_guideline_library");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [356/454 | 78%] - Verified Clinical Guideline Library successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [352/430 | 81%] - Verified Clinical Guideline Library successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [357/454 | 78%] - Navigating to /generated/c-m-e-tracking-dashboard (C M E Tracking Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [353/430 | 82%] - Navigating to /generated/c-m-e-tracking-dashboard (C M E Tracking Dashboard)...");
   cy.visitWithSemantics("/generated/c-m-e-tracking-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [357/454 | 78%] - Checking shell & content for C M E Tracking Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [353/430 | 82%] - Checking shell & content for C M E Tracking Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8978,17 +8942,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cmetrackingdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cmetrackingdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [357/454 | 78%] - Saving screenshot for C M E Tracking Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [353/430 | 82%] - Saving screenshot for C M E Tracking Dashboard...");
   cy.waitAndSee();
   cy.screenshot("c_m_e_tracking_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [357/454 | 78%] - Verified C M E Tracking Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [353/430 | 82%] - Verified C M E Tracking Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [358/454 | 78%] - Navigating to /generated/journal-club-discussion-board (Journal Club Discussion Board)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [354/430 | 82%] - Navigating to /generated/journal-club-discussion-board (Journal Club Discussion Board)...");
   cy.visitWithSemantics("/generated/journal-club-discussion-board");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [358/454 | 78%] - Checking shell & content for Journal Club Discussion Board...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [354/430 | 82%] - Checking shell & content for Journal Club Discussion Board...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -8996,17 +8960,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("journalclubdiscussionboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("journalclubdiscussionboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [358/454 | 78%] - Saving screenshot for Journal Club Discussion Board...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [354/430 | 82%] - Saving screenshot for Journal Club Discussion Board...");
   cy.waitAndSee();
   cy.screenshot("journal_club_discussion_board");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [358/454 | 78%] - Verified Journal Club Discussion Board successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [354/430 | 82%] - Verified Journal Club Discussion Board successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [359/454 | 79%] - Navigating to /generated/medical-library-access-portal (Medical Library Access Portal)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [355/430 | 82%] - Navigating to /generated/medical-library-access-portal (Medical Library Access Portal)...");
   cy.visitWithSemantics("/generated/medical-library-access-portal");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [359/454 | 79%] - Checking shell & content for Medical Library Access Portal...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [355/430 | 82%] - Checking shell & content for Medical Library Access Portal...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9014,17 +8978,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("medicallibraryaccessportal-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("medicallibraryaccessportal-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [359/454 | 79%] - Saving screenshot for Medical Library Access Portal...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [355/430 | 82%] - Saving screenshot for Medical Library Access Portal...");
   cy.waitAndSee();
   cy.screenshot("medical_library_access_portal");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [359/454 | 79%] - Verified Medical Library Access Portal successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [355/430 | 82%] - Verified Medical Library Access Portal successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [360/454 | 79%] - Navigating to /generated/patient-case-study-repository (Patient Case Study Repository)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [356/430 | 82%] - Navigating to /generated/patient-case-study-repository (Patient Case Study Repository)...");
   cy.visitWithSemantics("/generated/patient-case-study-repository");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [360/454 | 79%] - Checking shell & content for Patient Case Study Repository...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [356/430 | 82%] - Checking shell & content for Patient Case Study Repository...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9032,17 +8996,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("patientcasestudyrepository-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("patientcasestudyrepository-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [360/454 | 79%] - Saving screenshot for Patient Case Study Repository...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [356/430 | 82%] - Saving screenshot for Patient Case Study Repository...");
   cy.waitAndSee();
   cy.screenshot("patient_case_study_repository");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [360/454 | 79%] - Verified Patient Case Study Repository successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [356/430 | 82%] - Verified Patient Case Study Repository successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [361/454 | 79%] - Navigating to /generated/peer-review-conference-room (Peer Review Conference Room)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [357/430 | 83%] - Navigating to /generated/peer-review-conference-room (Peer Review Conference Room)...");
   cy.visitWithSemantics("/generated/peer-review-conference-room");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [361/454 | 79%] - Checking shell & content for Peer Review Conference Room...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [357/430 | 83%] - Checking shell & content for Peer Review Conference Room...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9050,17 +9014,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("peerreviewconferenceroom-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("peerreviewconferenceroom-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [361/454 | 79%] - Saving screenshot for Peer Review Conference Room...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [357/430 | 83%] - Saving screenshot for Peer Review Conference Room...");
   cy.waitAndSee();
   cy.screenshot("peer_review_conference_room");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [361/454 | 79%] - Verified Peer Review Conference Room successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [357/430 | 83%] - Verified Peer Review Conference Room successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [362/454 | 79%] - Navigating to /generated/residency-program-tracker (Residency Program Tracker)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [358/430 | 83%] - Navigating to /generated/residency-program-tracker (Residency Program Tracker)...");
   cy.visitWithSemantics("/generated/residency-program-tracker");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [362/454 | 79%] - Checking shell & content for Residency Program Tracker...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [358/430 | 83%] - Checking shell & content for Residency Program Tracker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9068,17 +9032,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("residencyprogramtracker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("residencyprogramtracker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [362/454 | 79%] - Saving screenshot for Residency Program Tracker...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [358/430 | 83%] - Saving screenshot for Residency Program Tracker...");
   cy.waitAndSee();
   cy.screenshot("residency_program_tracker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [362/454 | 79%] - Verified Residency Program Tracker successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [358/430 | 83%] - Verified Residency Program Tracker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [363/454 | 79%] - Navigating to /generated/simulation-lab-scheduler (Simulation Lab Scheduler)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [359/430 | 83%] - Navigating to /generated/simulation-lab-scheduler (Simulation Lab Scheduler)...");
   cy.visitWithSemantics("/generated/simulation-lab-scheduler");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [363/454 | 79%] - Checking shell & content for Simulation Lab Scheduler...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [359/430 | 83%] - Checking shell & content for Simulation Lab Scheduler...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9086,17 +9050,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("simulationlabscheduler-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("simulationlabscheduler-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [363/454 | 79%] - Saving screenshot for Simulation Lab Scheduler...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [359/430 | 83%] - Saving screenshot for Simulation Lab Scheduler...");
   cy.waitAndSee();
   cy.screenshot("simulation_lab_scheduler");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [363/454 | 79%] - Verified Simulation Lab Scheduler successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [359/430 | 83%] - Verified Simulation Lab Scheduler successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [364/454 | 80%] - Navigating to /generated/surgical-video-archive (Surgical Video Archive)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [360/430 | 83%] - Navigating to /generated/surgical-video-archive (Surgical Video Archive)...");
   cy.visitWithSemantics("/generated/surgical-video-archive");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [364/454 | 80%] - Checking shell & content for Surgical Video Archive...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [360/430 | 83%] - Checking shell & content for Surgical Video Archive...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9104,17 +9068,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("surgicalvideoarchive-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("surgicalvideoarchive-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [364/454 | 80%] - Saving screenshot for Surgical Video Archive...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [360/430 | 83%] - Saving screenshot for Surgical Video Archive...");
   cy.waitAndSee();
   cy.screenshot("surgical_video_archive");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [364/454 | 80%] - Verified Surgical Video Archive successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [360/430 | 83%] - Verified Surgical Video Archive successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [365/454 | 80%] - Navigating to /generated/billing-claims (Billing Claims)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [361/430 | 83%] - Navigating to /generated/billing-claims (Billing Claims)...");
   cy.visitWithSemantics("/generated/billing-claims");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [365/454 | 80%] - Checking shell & content for Billing Claims...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [361/430 | 83%] - Checking shell & content for Billing Claims...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9122,17 +9086,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("billingclaims-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("billingclaims-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [365/454 | 80%] - Saving screenshot for Billing Claims...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [361/430 | 83%] - Saving screenshot for Billing Claims...");
   cy.waitAndSee();
   cy.screenshot("billing_claims");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [365/454 | 80%] - Verified Billing Claims successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [361/430 | 83%] - Verified Billing Claims successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [366/454 | 80%] - Navigating to /generated/billing-invoices (Billing Invoices)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [362/430 | 84%] - Navigating to /generated/billing-invoices (Billing Invoices)...");
   cy.visitWithSemantics("/generated/billing-invoices");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [366/454 | 80%] - Checking shell & content for Billing Invoices...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [362/430 | 84%] - Checking shell & content for Billing Invoices...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9140,17 +9104,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("billinginvoices-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("billinginvoices-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [366/454 | 80%] - Saving screenshot for Billing Invoices...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [362/430 | 84%] - Saving screenshot for Billing Invoices...");
   cy.waitAndSee();
   cy.screenshot("billing_invoices");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [366/454 | 80%] - Verified Billing Invoices successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [362/430 | 84%] - Verified Billing Invoices successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [367/454 | 80%] - Navigating to /generated/billing-payments (Billing Payments)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [363/430 | 84%] - Navigating to /generated/billing-payments (Billing Payments)...");
   cy.visitWithSemantics("/generated/billing-payments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [367/454 | 80%] - Checking shell & content for Billing Payments...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [363/430 | 84%] - Checking shell & content for Billing Payments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9158,17 +9122,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("billingpayments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("billingpayments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [367/454 | 80%] - Saving screenshot for Billing Payments...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [363/430 | 84%] - Saving screenshot for Billing Payments...");
   cy.waitAndSee();
   cy.screenshot("billing_payments");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [367/454 | 80%] - Verified Billing Payments successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [363/430 | 84%] - Verified Billing Payments successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [368/454 | 81%] - Navigating to /generated/hr-applicants (Hr Applicants)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [364/430 | 84%] - Navigating to /generated/hr-applicants (Hr Applicants)...");
   cy.visitWithSemantics("/generated/hr-applicants");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [368/454 | 81%] - Checking shell & content for Hr Applicants...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [364/430 | 84%] - Checking shell & content for Hr Applicants...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9176,17 +9140,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrapplicants-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrapplicants-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [368/454 | 81%] - Saving screenshot for Hr Applicants...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [364/430 | 84%] - Saving screenshot for Hr Applicants...");
   cy.waitAndSee();
   cy.screenshot("hr_applicants");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [368/454 | 81%] - Verified Hr Applicants successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [364/430 | 84%] - Verified Hr Applicants successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [369/454 | 81%] - Navigating to /generated/hr-onboarding (Hr Onboarding)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [365/430 | 84%] - Navigating to /generated/hr-onboarding (Hr Onboarding)...");
   cy.visitWithSemantics("/generated/hr-onboarding");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [369/454 | 81%] - Checking shell & content for Hr Onboarding...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [365/430 | 84%] - Checking shell & content for Hr Onboarding...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9194,17 +9158,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hronboarding-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hronboarding-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [369/454 | 81%] - Saving screenshot for Hr Onboarding...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [365/430 | 84%] - Saving screenshot for Hr Onboarding...");
   cy.waitAndSee();
   cy.screenshot("hr_onboarding");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [369/454 | 81%] - Verified Hr Onboarding successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [365/430 | 84%] - Verified Hr Onboarding successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [370/454 | 81%] - Navigating to /generated/hr-staff-files (Hr Staff Files)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [366/430 | 85%] - Navigating to /generated/hr-staff-files (Hr Staff Files)...");
   cy.visitWithSemantics("/generated/hr-staff-files");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [370/454 | 81%] - Checking shell & content for Hr Staff Files...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [366/430 | 85%] - Checking shell & content for Hr Staff Files...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9212,17 +9176,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrstafffiles-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrstafffiles-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [370/454 | 81%] - Saving screenshot for Hr Staff Files...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [366/430 | 85%] - Saving screenshot for Hr Staff Files...");
   cy.waitAndSee();
   cy.screenshot("hr_staff_files");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [370/454 | 81%] - Verified Hr Staff Files successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [366/430 | 85%] - Verified Hr Staff Files successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [371/454 | 81%] - Navigating to /generated/receptionist-appointments (Receptionist Appointments)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [367/430 | 85%] - Navigating to /generated/receptionist-appointments (Receptionist Appointments)...");
   cy.visitWithSemantics("/generated/receptionist-appointments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [371/454 | 81%] - Checking shell & content for Receptionist Appointments...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [367/430 | 85%] - Checking shell & content for Receptionist Appointments...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9230,17 +9194,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("receptionistappointments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("receptionistappointments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [371/454 | 81%] - Saving screenshot for Receptionist Appointments...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [367/430 | 85%] - Saving screenshot for Receptionist Appointments...");
   cy.waitAndSee();
   cy.screenshot("receptionist_appointments");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [371/454 | 81%] - Verified Receptionist Appointments successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [367/430 | 85%] - Verified Receptionist Appointments successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [372/454 | 81%] - Navigating to /generated/receptionist-calls (Receptionist Calls)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [368/430 | 85%] - Navigating to /generated/receptionist-calls (Receptionist Calls)...");
   cy.visitWithSemantics("/generated/receptionist-calls");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [372/454 | 81%] - Checking shell & content for Receptionist Calls...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [368/430 | 85%] - Checking shell & content for Receptionist Calls...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9248,17 +9212,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("receptionistcalls-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("receptionistcalls-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [372/454 | 81%] - Saving screenshot for Receptionist Calls...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [368/430 | 85%] - Saving screenshot for Receptionist Calls...");
   cy.waitAndSee();
   cy.screenshot("receptionist_calls");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [372/454 | 81%] - Verified Receptionist Calls successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [368/430 | 85%] - Verified Receptionist Calls successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [373/454 | 82%] - Navigating to /generated/receptionist-visitors (Receptionist Visitors)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [369/430 | 85%] - Navigating to /generated/receptionist-visitors (Receptionist Visitors)...");
   cy.visitWithSemantics("/generated/receptionist-visitors");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [373/454 | 82%] - Checking shell & content for Receptionist Visitors...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [369/430 | 85%] - Checking shell & content for Receptionist Visitors...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9266,17 +9230,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("receptionistvisitors-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("receptionistvisitors-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [373/454 | 82%] - Saving screenshot for Receptionist Visitors...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [369/430 | 85%] - Saving screenshot for Receptionist Visitors...");
   cy.waitAndSee();
   cy.screenshot("receptionist_visitors");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [373/454 | 82%] - Verified Receptionist Visitors successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [369/430 | 85%] - Verified Receptionist Visitors successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [374/454 | 82%] - Navigating to /generated/scheduler-availability (Scheduler Availability)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [370/430 | 86%] - Navigating to /generated/scheduler-availability (Scheduler Availability)...");
   cy.visitWithSemantics("/generated/scheduler-availability");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [374/454 | 82%] - Checking shell & content for Scheduler Availability...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [370/430 | 86%] - Checking shell & content for Scheduler Availability...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9284,17 +9248,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("scheduleravailability-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("scheduleravailability-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [374/454 | 82%] - Saving screenshot for Scheduler Availability...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [370/430 | 86%] - Saving screenshot for Scheduler Availability...");
   cy.waitAndSee();
   cy.screenshot("scheduler_availability");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [374/454 | 82%] - Verified Scheduler Availability successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [370/430 | 86%] - Verified Scheduler Availability successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [375/454 | 82%] - Navigating to /generated/scheduler-shifts (Scheduler Shifts)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [371/430 | 86%] - Navigating to /generated/scheduler-shifts (Scheduler Shifts)...");
   cy.visitWithSemantics("/generated/scheduler-shifts");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [375/454 | 82%] - Checking shell & content for Scheduler Shifts...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [371/430 | 86%] - Checking shell & content for Scheduler Shifts...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9302,17 +9266,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("schedulershifts-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("schedulershifts-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [375/454 | 82%] - Saving screenshot for Scheduler Shifts...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [371/430 | 86%] - Saving screenshot for Scheduler Shifts...");
   cy.waitAndSee();
   cy.screenshot("scheduler_shifts");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [375/454 | 82%] - Verified Scheduler Shifts successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [371/430 | 86%] - Verified Scheduler Shifts successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [376/454 | 82%] - Navigating to /generated/brand-asset-library (Brand Asset Library)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [372/430 | 86%] - Navigating to /generated/brand-asset-library (Brand Asset Library)...");
   cy.visitWithSemantics("/generated/brand-asset-library");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [376/454 | 82%] - Checking shell & content for Brand Asset Library...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [372/430 | 86%] - Checking shell & content for Brand Asset Library...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9320,17 +9284,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("brandassetlibrary-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("brandassetlibrary-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [376/454 | 82%] - Saving screenshot for Brand Asset Library...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [372/430 | 86%] - Saving screenshot for Brand Asset Library...");
   cy.waitAndSee();
   cy.screenshot("brand_asset_library");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [376/454 | 82%] - Verified Brand Asset Library successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [372/430 | 86%] - Verified Brand Asset Library successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [377/454 | 83%] - Navigating to /generated/campaign-performance-dashboard (Campaign Performance Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [373/430 | 86%] - Navigating to /generated/campaign-performance-dashboard (Campaign Performance Dashboard)...");
   cy.visitWithSemantics("/generated/campaign-performance-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [377/454 | 83%] - Checking shell & content for Campaign Performance Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [373/430 | 86%] - Checking shell & content for Campaign Performance Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9338,17 +9302,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("campaignperformancedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("campaignperformancedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [377/454 | 83%] - Saving screenshot for Campaign Performance Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [373/430 | 86%] - Saving screenshot for Campaign Performance Dashboard...");
   cy.waitAndSee();
   cy.screenshot("campaign_performance_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [377/454 | 83%] - Verified Campaign Performance Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [373/430 | 86%] - Verified Campaign Performance Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [378/454 | 83%] - Navigating to /generated/competitor-analysis-board (Competitor Analysis Board)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [374/430 | 86%] - Navigating to /generated/competitor-analysis-board (Competitor Analysis Board)...");
   cy.visitWithSemantics("/generated/competitor-analysis-board");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [378/454 | 83%] - Checking shell & content for Competitor Analysis Board...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [374/430 | 86%] - Checking shell & content for Competitor Analysis Board...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9356,17 +9320,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("competitoranalysisboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("competitoranalysisboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [378/454 | 83%] - Saving screenshot for Competitor Analysis Board...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [374/430 | 86%] - Saving screenshot for Competitor Analysis Board...");
   cy.waitAndSee();
   cy.screenshot("competitor_analysis_board");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [378/454 | 83%] - Verified Competitor Analysis Board successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [374/430 | 86%] - Verified Competitor Analysis Board successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [379/454 | 83%] - Navigating to /generated/email-marketing-automator (Email Marketing Automator)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [375/430 | 87%] - Navigating to /generated/email-marketing-automator (Email Marketing Automator)...");
   cy.visitWithSemantics("/generated/email-marketing-automator");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [379/454 | 83%] - Checking shell & content for Email Marketing Automator...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [375/430 | 87%] - Checking shell & content for Email Marketing Automator...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9374,17 +9338,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("emailmarketingautomator-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("emailmarketingautomator-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [379/454 | 83%] - Saving screenshot for Email Marketing Automator...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [375/430 | 87%] - Saving screenshot for Email Marketing Automator...");
   cy.waitAndSee();
   cy.screenshot("email_marketing_automator");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [379/454 | 83%] - Verified Email Marketing Automator successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [375/430 | 87%] - Verified Email Marketing Automator successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [380/454 | 83%] - Navigating to /generated/event-and-webinar-manager (Event And Webinar Manager)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [376/430 | 87%] - Navigating to /generated/event-and-webinar-manager (Event And Webinar Manager)...");
   cy.visitWithSemantics("/generated/event-and-webinar-manager");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [380/454 | 83%] - Checking shell & content for Event And Webinar Manager...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [376/430 | 87%] - Checking shell & content for Event And Webinar Manager...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9392,17 +9356,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("eventandwebinarmanager-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("eventandwebinarmanager-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [380/454 | 83%] - Saving screenshot for Event And Webinar Manager...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [376/430 | 87%] - Saving screenshot for Event And Webinar Manager...");
   cy.waitAndSee();
   cy.screenshot("event_and_webinar_manager");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [380/454 | 83%] - Verified Event And Webinar Manager successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [376/430 | 87%] - Verified Event And Webinar Manager successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [381/454 | 83%] - Navigating to /generated/lead-conversion-funnel (Lead Conversion Funnel)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [377/430 | 87%] - Navigating to /generated/lead-conversion-funnel (Lead Conversion Funnel)...");
   cy.visitWithSemantics("/generated/lead-conversion-funnel");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [381/454 | 83%] - Checking shell & content for Lead Conversion Funnel...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [377/430 | 87%] - Checking shell & content for Lead Conversion Funnel...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9410,17 +9374,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("leadconversionfunnel-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("leadconversionfunnel-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [381/454 | 83%] - Saving screenshot for Lead Conversion Funnel...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [377/430 | 87%] - Saving screenshot for Lead Conversion Funnel...");
   cy.waitAndSee();
   cy.screenshot("lead_conversion_funnel");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [381/454 | 83%] - Verified Lead Conversion Funnel successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [377/430 | 87%] - Verified Lead Conversion Funnel successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [382/454 | 84%] - Navigating to /generated/patient-acquisition-cost-tracker (Patient Acquisition Cost Tracker)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [378/430 | 87%] - Navigating to /generated/patient-acquisition-cost-tracker (Patient Acquisition Cost Tracker)...");
   cy.visitWithSemantics("/generated/patient-acquisition-cost-tracker");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [382/454 | 84%] - Checking shell & content for Patient Acquisition Cost Tracker...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [378/430 | 87%] - Checking shell & content for Patient Acquisition Cost Tracker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9428,17 +9392,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("patientacquisitioncosttracker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("patientacquisitioncosttracker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [382/454 | 84%] - Saving screenshot for Patient Acquisition Cost Tracker...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [378/430 | 87%] - Saving screenshot for Patient Acquisition Cost Tracker...");
   cy.waitAndSee();
   cy.screenshot("patient_acquisition_cost_tracker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [382/454 | 84%] - Verified Patient Acquisition Cost Tracker successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [378/430 | 87%] - Verified Patient Acquisition Cost Tracker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [383/454 | 84%] - Navigating to /generated/referral-network-manager (Referral Network Manager)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [379/430 | 88%] - Navigating to /generated/referral-network-manager (Referral Network Manager)...");
   cy.visitWithSemantics("/generated/referral-network-manager");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [383/454 | 84%] - Checking shell & content for Referral Network Manager...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [379/430 | 88%] - Checking shell & content for Referral Network Manager...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9446,17 +9410,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("referralnetworkmanager-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("referralnetworkmanager-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [383/454 | 84%] - Saving screenshot for Referral Network Manager...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [379/430 | 88%] - Saving screenshot for Referral Network Manager...");
   cy.waitAndSee();
   cy.screenshot("referral_network_manager");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [383/454 | 84%] - Verified Referral Network Manager successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [379/430 | 88%] - Verified Referral Network Manager successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [384/454 | 84%] - Navigating to /generated/social-media-sentiment-analyzer (Social Media Sentiment Analyzer)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [380/430 | 88%] - Navigating to /generated/social-media-sentiment-analyzer (Social Media Sentiment Analyzer)...");
   cy.visitWithSemantics("/generated/social-media-sentiment-analyzer");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [384/454 | 84%] - Checking shell & content for Social Media Sentiment Analyzer...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [380/430 | 88%] - Checking shell & content for Social Media Sentiment Analyzer...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9464,17 +9428,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("socialmediasentimentanalyzer-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("socialmediasentimentanalyzer-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [384/454 | 84%] - Saving screenshot for Social Media Sentiment Analyzer...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [380/430 | 88%] - Saving screenshot for Social Media Sentiment Analyzer...");
   cy.waitAndSee();
   cy.screenshot("social_media_sentiment_analyzer");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [384/454 | 84%] - Verified Social Media Sentiment Analyzer successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [380/430 | 88%] - Verified Social Media Sentiment Analyzer successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [385/454 | 84%] - Navigating to /generated/territory-sales-mapping (Territory Sales Mapping)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [381/430 | 88%] - Navigating to /generated/territory-sales-mapping (Territory Sales Mapping)...");
   cy.visitWithSemantics("/generated/territory-sales-mapping");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [385/454 | 84%] - Checking shell & content for Territory Sales Mapping...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [381/430 | 88%] - Checking shell & content for Territory Sales Mapping...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9482,17 +9446,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("territorysalesmapping-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("territorysalesmapping-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [385/454 | 84%] - Saving screenshot for Territory Sales Mapping...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [381/430 | 88%] - Saving screenshot for Territory Sales Mapping...");
   cy.waitAndSee();
   cy.screenshot("territory_sales_mapping");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [385/454 | 84%] - Verified Territory Sales Mapping successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [381/430 | 88%] - Verified Territory Sales Mapping successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [386/454 | 85%] - Navigating to /generated/app-notification (App Notification)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [382/430 | 88%] - Navigating to /generated/app-notification (App Notification)...");
   cy.visitWithSemantics("/generated/app-notification");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [386/454 | 85%] - Checking shell & content for App Notification...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [382/430 | 88%] - Checking shell & content for App Notification...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9500,17 +9464,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("appnotification-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("appnotification-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [386/454 | 85%] - Saving screenshot for App Notification...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [382/430 | 88%] - Saving screenshot for App Notification...");
   cy.waitAndSee();
   cy.screenshot("app_notification");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [386/454 | 85%] - Verified App Notification successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [382/430 | 88%] - Verified App Notification successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [387/454 | 85%] - Navigating to /generated/gamification-profile (Gamification Profile)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [383/430 | 89%] - Navigating to /generated/gamification-profile (Gamification Profile)...");
   cy.visitWithSemantics("/generated/gamification-profile");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [387/454 | 85%] - Checking shell & content for Gamification Profile...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [383/430 | 89%] - Checking shell & content for Gamification Profile...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9518,17 +9482,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("gamificationprofile-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("gamificationprofile-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [387/454 | 85%] - Saving screenshot for Gamification Profile...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [383/430 | 89%] - Saving screenshot for Gamification Profile...");
   cy.waitAndSee();
   cy.screenshot("gamification_profile");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [387/454 | 85%] - Verified Gamification Profile successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [383/430 | 89%] - Verified Gamification Profile successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [388/454 | 85%] - Navigating to /generated/security-incident (Security Incident)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [384/430 | 89%] - Navigating to /generated/security-incident (Security Incident)...");
   cy.visitWithSemantics("/generated/security-incident");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [388/454 | 85%] - Checking shell & content for Security Incident...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [384/430 | 89%] - Checking shell & content for Security Incident...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9536,17 +9500,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("securityincident-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("securityincident-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [388/454 | 85%] - Saving screenshot for Security Incident...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [384/430 | 89%] - Saving screenshot for Security Incident...");
   cy.waitAndSee();
   cy.screenshot("security_incident");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [388/454 | 85%] - Verified Security Incident successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [384/430 | 89%] - Verified Security Incident successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [389/454 | 85%] - Navigating to /generated/service-procurement (Service Procurement)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [385/430 | 89%] - Navigating to /generated/service-procurement (Service Procurement)...");
   cy.visitWithSemantics("/generated/service-procurement");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [389/454 | 85%] - Checking shell & content for Service Procurement...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [385/430 | 89%] - Checking shell & content for Service Procurement...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9554,17 +9518,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("serviceprocurement-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("serviceprocurement-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [389/454 | 85%] - Saving screenshot for Service Procurement...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [385/430 | 89%] - Saving screenshot for Service Procurement...");
   cy.waitAndSee();
   cy.screenshot("service_procurement");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [389/454 | 85%] - Verified Service Procurement successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [385/430 | 89%] - Verified Service Procurement successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [390/454 | 85%] - Navigating to /generated/site-readiness (Site Readiness)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [386/430 | 89%] - Navigating to /generated/site-readiness (Site Readiness)...");
   cy.visitWithSemantics("/generated/site-readiness");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [390/454 | 85%] - Checking shell & content for Site Readiness...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [386/430 | 89%] - Checking shell & content for Site Readiness...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9572,17 +9536,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("sitereadiness-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("sitereadiness-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [390/454 | 85%] - Saving screenshot for Site Readiness...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [386/430 | 89%] - Saving screenshot for Site Readiness...");
   cy.waitAndSee();
   cy.screenshot("site_readiness");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [390/454 | 85%] - Verified Site Readiness successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [386/430 | 89%] - Verified Site Readiness successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [391/454 | 86%] - Navigating to /generated/virtual-consult (Virtual Consult)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [387/430 | 90%] - Navigating to /generated/virtual-consult (Virtual Consult)...");
   cy.visitWithSemantics("/generated/virtual-consult");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [391/454 | 86%] - Checking shell & content for Virtual Consult...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [387/430 | 90%] - Checking shell & content for Virtual Consult...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9590,17 +9554,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("virtualconsult-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("virtualconsult-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [391/454 | 86%] - Saving screenshot for Virtual Consult...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [387/430 | 90%] - Saving screenshot for Virtual Consult...");
   cy.waitAndSee();
   cy.screenshot("virtual_consult");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [391/454 | 86%] - Verified Virtual Consult successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [387/430 | 90%] - Verified Virtual Consult successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [392/454 | 86%] - Navigating to /generated/chemotherapy-protocol-builder (Chemotherapy Protocol Builder)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [388/430 | 90%] - Navigating to /generated/chemotherapy-protocol-builder (Chemotherapy Protocol Builder)...");
   cy.visitWithSemantics("/generated/chemotherapy-protocol-builder");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [392/454 | 86%] - Checking shell & content for Chemotherapy Protocol Builder...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [388/430 | 90%] - Checking shell & content for Chemotherapy Protocol Builder...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9608,17 +9572,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chemotherapyprotocolbuilder-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chemotherapyprotocolbuilder-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [392/454 | 86%] - Saving screenshot for Chemotherapy Protocol Builder...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [388/430 | 90%] - Saving screenshot for Chemotherapy Protocol Builder...");
   cy.waitAndSee();
   cy.screenshot("chemotherapy_protocol_builder");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [392/454 | 86%] - Verified Chemotherapy Protocol Builder successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [388/430 | 90%] - Verified Chemotherapy Protocol Builder successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [393/454 | 86%] - Navigating to /generated/controlled-substance-log (Controlled Substance Log)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [389/430 | 90%] - Navigating to /generated/controlled-substance-log (Controlled Substance Log)...");
   cy.visitWithSemantics("/generated/controlled-substance-log");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [393/454 | 86%] - Checking shell & content for Controlled Substance Log...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [389/430 | 90%] - Checking shell & content for Controlled Substance Log...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9626,17 +9590,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("controlledsubstancelog-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("controlledsubstancelog-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [393/454 | 86%] - Saving screenshot for Controlled Substance Log...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [389/430 | 90%] - Saving screenshot for Controlled Substance Log...");
   cy.waitAndSee();
   cy.screenshot("controlled_substance_log");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [393/454 | 86%] - Verified Controlled Substance Log successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [389/430 | 90%] - Verified Controlled Substance Log successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [394/454 | 86%] - Navigating to /generated/drug-interaction-alert-center (Drug Interaction Alert Center)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [390/430 | 90%] - Navigating to /generated/drug-interaction-alert-center (Drug Interaction Alert Center)...");
   cy.visitWithSemantics("/generated/drug-interaction-alert-center");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [394/454 | 86%] - Checking shell & content for Drug Interaction Alert Center...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [390/430 | 90%] - Checking shell & content for Drug Interaction Alert Center...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9644,17 +9608,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("druginteractionalertcenter-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("druginteractionalertcenter-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [394/454 | 86%] - Saving screenshot for Drug Interaction Alert Center...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [390/430 | 90%] - Saving screenshot for Drug Interaction Alert Center...");
   cy.waitAndSee();
   cy.screenshot("drug_interaction_alert_center");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [394/454 | 86%] - Verified Drug Interaction Alert Center successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [390/430 | 90%] - Verified Drug Interaction Alert Center successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [395/454 | 87%] - Navigating to /generated/formulary-compliance-manager (Formulary Compliance Manager)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [391/430 | 90%] - Navigating to /generated/formulary-compliance-manager (Formulary Compliance Manager)...");
   cy.visitWithSemantics("/generated/formulary-compliance-manager");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [395/454 | 87%] - Checking shell & content for Formulary Compliance Manager...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [391/430 | 90%] - Checking shell & content for Formulary Compliance Manager...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9662,17 +9626,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("formularycompliancemanager-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("formularycompliancemanager-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [395/454 | 87%] - Saving screenshot for Formulary Compliance Manager...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [391/430 | 90%] - Saving screenshot for Formulary Compliance Manager...");
   cy.waitAndSee();
   cy.screenshot("formulary_compliance_manager");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [395/454 | 87%] - Verified Formulary Compliance Manager successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [391/430 | 90%] - Verified Formulary Compliance Manager successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [396/454 | 87%] - Navigating to /generated/inpatient-pharmacy-queue (Inpatient Pharmacy Queue)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [392/430 | 91%] - Navigating to /generated/inpatient-pharmacy-queue (Inpatient Pharmacy Queue)...");
   cy.visitWithSemantics("/generated/inpatient-pharmacy-queue");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [396/454 | 87%] - Checking shell & content for Inpatient Pharmacy Queue...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [392/430 | 91%] - Checking shell & content for Inpatient Pharmacy Queue...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9680,17 +9644,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("inpatientpharmacyqueue-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("inpatientpharmacyqueue-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [396/454 | 87%] - Saving screenshot for Inpatient Pharmacy Queue...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [392/430 | 91%] - Saving screenshot for Inpatient Pharmacy Queue...");
   cy.waitAndSee();
   cy.screenshot("inpatient_pharmacy_queue");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [396/454 | 87%] - Verified Inpatient Pharmacy Queue successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [392/430 | 91%] - Verified Inpatient Pharmacy Queue successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [397/454 | 87%] - Navigating to /generated/medication-reconciliation-tool (Medication Reconciliation Tool)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [393/430 | 91%] - Navigating to /generated/medication-reconciliation-tool (Medication Reconciliation Tool)...");
   cy.visitWithSemantics("/generated/medication-reconciliation-tool");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [397/454 | 87%] - Checking shell & content for Medication Reconciliation Tool...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [393/430 | 91%] - Checking shell & content for Medication Reconciliation Tool...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9698,17 +9662,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("medicationreconciliationtool-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("medicationreconciliationtool-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [397/454 | 87%] - Saving screenshot for Medication Reconciliation Tool...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [393/430 | 91%] - Saving screenshot for Medication Reconciliation Tool...");
   cy.waitAndSee();
   cy.screenshot("medication_reconciliation_tool");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [397/454 | 87%] - Verified Medication Reconciliation Tool successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [393/430 | 91%] - Verified Medication Reconciliation Tool successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [398/454 | 87%] - Navigating to /generated/outpatient-prescription-tracker (Outpatient Prescription Tracker)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [394/430 | 91%] - Navigating to /generated/outpatient-prescription-tracker (Outpatient Prescription Tracker)...");
   cy.visitWithSemantics("/generated/outpatient-prescription-tracker");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [398/454 | 87%] - Checking shell & content for Outpatient Prescription Tracker...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [394/430 | 91%] - Checking shell & content for Outpatient Prescription Tracker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9716,17 +9680,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("outpatientprescriptiontracker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("outpatientprescriptiontracker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [398/454 | 87%] - Saving screenshot for Outpatient Prescription Tracker...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [394/430 | 91%] - Saving screenshot for Outpatient Prescription Tracker...");
   cy.waitAndSee();
   cy.screenshot("outpatient_prescription_tracker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [398/454 | 87%] - Verified Outpatient Prescription Tracker successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [394/430 | 91%] - Verified Outpatient Prescription Tracker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [399/454 | 87%] - Navigating to /generated/patient-medication-adherence (Patient Medication Adherence)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [395/430 | 91%] - Navigating to /generated/patient-medication-adherence (Patient Medication Adherence)...");
   cy.visitWithSemantics("/generated/patient-medication-adherence");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [399/454 | 87%] - Checking shell & content for Patient Medication Adherence...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [395/430 | 91%] - Checking shell & content for Patient Medication Adherence...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9734,17 +9698,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("patientmedicationadherence-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("patientmedicationadherence-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [399/454 | 87%] - Saving screenshot for Patient Medication Adherence...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [395/430 | 91%] - Saving screenshot for Patient Medication Adherence...");
   cy.waitAndSee();
   cy.screenshot("patient_medication_adherence");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [399/454 | 87%] - Verified Patient Medication Adherence successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [395/430 | 91%] - Verified Patient Medication Adherence successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [400/454 | 88%] - Navigating to /generated/pharmacy-dispensing-dashboard (Pharmacy Dispensing Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [396/430 | 92%] - Navigating to /generated/pharmacy-dispensing-dashboard (Pharmacy Dispensing Dashboard)...");
   cy.visitWithSemantics("/generated/pharmacy-dispensing-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [400/454 | 88%] - Checking shell & content for Pharmacy Dispensing Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [396/430 | 92%] - Checking shell & content for Pharmacy Dispensing Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9752,17 +9716,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pharmacydispensingdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pharmacydispensingdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [400/454 | 88%] - Saving screenshot for Pharmacy Dispensing Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [396/430 | 92%] - Saving screenshot for Pharmacy Dispensing Dashboard...");
   cy.waitAndSee();
   cy.screenshot("pharmacy_dispensing_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [400/454 | 88%] - Verified Pharmacy Dispensing Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [396/430 | 92%] - Verified Pharmacy Dispensing Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [401/454 | 88%] - Navigating to /generated/pharmacy-inventory-management (Pharmacy Inventory Management)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [397/430 | 92%] - Navigating to /generated/pharmacy-inventory-management (Pharmacy Inventory Management)...");
   cy.visitWithSemantics("/generated/pharmacy-inventory-management");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [401/454 | 88%] - Checking shell & content for Pharmacy Inventory Management...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [397/430 | 92%] - Checking shell & content for Pharmacy Inventory Management...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9770,17 +9734,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pharmacyinventorymanagement-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pharmacyinventorymanagement-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [401/454 | 88%] - Saving screenshot for Pharmacy Inventory Management...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [397/430 | 92%] - Saving screenshot for Pharmacy Inventory Management...");
   cy.waitAndSee();
   cy.screenshot("pharmacy_inventory_management");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [401/454 | 88%] - Verified Pharmacy Inventory Management successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [397/430 | 92%] - Verified Pharmacy Inventory Management successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [402/454 | 88%] - Navigating to /generated/community-health-needs-assessment (Community Health Needs Assessment)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [398/430 | 92%] - Navigating to /generated/community-health-needs-assessment (Community Health Needs Assessment)...");
   cy.visitWithSemantics("/generated/community-health-needs-assessment");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [402/454 | 88%] - Checking shell & content for Community Health Needs Assessment...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [398/430 | 92%] - Checking shell & content for Community Health Needs Assessment...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9788,17 +9752,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("communityhealthneedsassessment-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("communityhealthneedsassessment-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [402/454 | 88%] - Saving screenshot for Community Health Needs Assessment...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [398/430 | 92%] - Saving screenshot for Community Health Needs Assessment...");
   cy.waitAndSee();
   cy.screenshot("community_health_needs_assessment");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [402/454 | 88%] - Verified Community Health Needs Assessment successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [398/430 | 92%] - Verified Community Health Needs Assessment successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [403/454 | 88%] - Navigating to /generated/environmental-health-hazards (Environmental Health Hazards)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [399/430 | 92%] - Navigating to /generated/environmental-health-hazards (Environmental Health Hazards)...");
   cy.visitWithSemantics("/generated/environmental-health-hazards");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [403/454 | 88%] - Checking shell & content for Environmental Health Hazards...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [399/430 | 92%] - Checking shell & content for Environmental Health Hazards...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9806,17 +9770,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("environmentalhealthhazards-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("environmentalhealthhazards-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [403/454 | 88%] - Saving screenshot for Environmental Health Hazards...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [399/430 | 92%] - Saving screenshot for Environmental Health Hazards...");
   cy.waitAndSee();
   cy.screenshot("environmental_health_hazards");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [403/454 | 88%] - Verified Environmental Health Hazards successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [399/430 | 92%] - Verified Environmental Health Hazards successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [404/454 | 88%] - Navigating to /generated/epidemiological-surveillance-dashboard (Epidemiological Surveillance Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [400/430 | 93%] - Navigating to /generated/epidemiological-surveillance-dashboard (Epidemiological Surveillance Dashboard)...");
   cy.visitWithSemantics("/generated/epidemiological-surveillance-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [404/454 | 88%] - Checking shell & content for Epidemiological Surveillance Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [400/430 | 93%] - Checking shell & content for Epidemiological Surveillance Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9824,17 +9788,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("epidemiologicalsurveillancedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("epidemiologicalsurveillancedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [404/454 | 88%] - Saving screenshot for Epidemiological Surveillance Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [400/430 | 93%] - Saving screenshot for Epidemiological Surveillance Dashboard...");
   cy.waitAndSee();
   cy.screenshot("epidemiological_surveillance_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [404/454 | 88%] - Verified Epidemiological Surveillance Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [400/430 | 93%] - Verified Epidemiological Surveillance Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [405/454 | 89%] - Navigating to /generated/mobile-clinic-dispatch (Mobile Clinic Dispatch)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [401/430 | 93%] - Navigating to /generated/mobile-clinic-dispatch (Mobile Clinic Dispatch)...");
   cy.visitWithSemantics("/generated/mobile-clinic-dispatch");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [405/454 | 89%] - Checking shell & content for Mobile Clinic Dispatch...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [401/430 | 93%] - Checking shell & content for Mobile Clinic Dispatch...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9842,17 +9806,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("mobileclinicdispatch-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("mobileclinicdispatch-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [405/454 | 89%] - Saving screenshot for Mobile Clinic Dispatch...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [401/430 | 93%] - Saving screenshot for Mobile Clinic Dispatch...");
   cy.waitAndSee();
   cy.screenshot("mobile_clinic_dispatch");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [405/454 | 89%] - Verified Mobile Clinic Dispatch successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [401/430 | 93%] - Verified Mobile Clinic Dispatch successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [406/454 | 89%] - Navigating to /generated/public-health-alert-broadcaster (Public Health Alert Broadcaster)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [402/430 | 93%] - Navigating to /generated/public-health-alert-broadcaster (Public Health Alert Broadcaster)...");
   cy.visitWithSemantics("/generated/public-health-alert-broadcaster");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [406/454 | 89%] - Checking shell & content for Public Health Alert Broadcaster...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [402/430 | 93%] - Checking shell & content for Public Health Alert Broadcaster...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9860,17 +9824,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("publichealthalertbroadcaster-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("publichealthalertbroadcaster-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [406/454 | 89%] - Saving screenshot for Public Health Alert Broadcaster...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [402/430 | 93%] - Saving screenshot for Public Health Alert Broadcaster...");
   cy.waitAndSee();
   cy.screenshot("public_health_alert_broadcaster");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [406/454 | 89%] - Verified Public Health Alert Broadcaster successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [402/430 | 93%] - Verified Public Health Alert Broadcaster successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [407/454 | 89%] - Navigating to /generated/school-health-program-dashboard (School Health Program Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [403/430 | 93%] - Navigating to /generated/school-health-program-dashboard (School Health Program Dashboard)...");
   cy.visitWithSemantics("/generated/school-health-program-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [407/454 | 89%] - Checking shell & content for School Health Program Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [403/430 | 93%] - Checking shell & content for School Health Program Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9878,17 +9842,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("schoolhealthprogramdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("schoolhealthprogramdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [407/454 | 89%] - Saving screenshot for School Health Program Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [403/430 | 93%] - Saving screenshot for School Health Program Dashboard...");
   cy.waitAndSee();
   cy.screenshot("school_health_program_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [407/454 | 89%] - Verified School Health Program Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [403/430 | 93%] - Verified School Health Program Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [408/454 | 89%] - Navigating to /generated/social-determinants-of-health-tracker (Social Determinants Of Health Tracker)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [404/430 | 93%] - Navigating to /generated/social-determinants-of-health-tracker (Social Determinants Of Health Tracker)...");
   cy.visitWithSemantics("/generated/social-determinants-of-health-tracker");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [408/454 | 89%] - Checking shell & content for Social Determinants Of Health Tracker...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [404/430 | 93%] - Checking shell & content for Social Determinants Of Health Tracker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9896,17 +9860,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("socialdeterminantsofhealthtracker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("socialdeterminantsofhealthtracker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [408/454 | 89%] - Saving screenshot for Social Determinants Of Health Tracker...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [404/430 | 93%] - Saving screenshot for Social Determinants Of Health Tracker...");
   cy.waitAndSee();
   cy.screenshot("social_determinants_of_health_tracker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [408/454 | 89%] - Verified Social Determinants Of Health Tracker successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [404/430 | 93%] - Verified Social Determinants Of Health Tracker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [409/454 | 90%] - Navigating to /generated/substance-abuse-prevention-tracker (Substance Abuse Prevention Tracker)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [405/430 | 94%] - Navigating to /generated/substance-abuse-prevention-tracker (Substance Abuse Prevention Tracker)...");
   cy.visitWithSemantics("/generated/substance-abuse-prevention-tracker");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [409/454 | 90%] - Checking shell & content for Substance Abuse Prevention Tracker...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [405/430 | 94%] - Checking shell & content for Substance Abuse Prevention Tracker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9914,17 +9878,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("substanceabusepreventiontracker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("substanceabusepreventiontracker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [409/454 | 90%] - Saving screenshot for Substance Abuse Prevention Tracker...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [405/430 | 94%] - Saving screenshot for Substance Abuse Prevention Tracker...");
   cy.waitAndSee();
   cy.screenshot("substance_abuse_prevention_tracker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [409/454 | 90%] - Verified Substance Abuse Prevention Tracker successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [405/430 | 94%] - Verified Substance Abuse Prevention Tracker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [410/454 | 90%] - Navigating to /generated/vaccination-campaign-manager (Vaccination Campaign Manager)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [406/430 | 94%] - Navigating to /generated/vaccination-campaign-manager (Vaccination Campaign Manager)...");
   cy.visitWithSemantics("/generated/vaccination-campaign-manager");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [410/454 | 90%] - Checking shell & content for Vaccination Campaign Manager...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [406/430 | 94%] - Checking shell & content for Vaccination Campaign Manager...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9932,17 +9896,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("vaccinationcampaignmanager-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("vaccinationcampaignmanager-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [410/454 | 90%] - Saving screenshot for Vaccination Campaign Manager...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [406/430 | 94%] - Saving screenshot for Vaccination Campaign Manager...");
   cy.waitAndSee();
   cy.screenshot("vaccination_campaign_manager");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [410/454 | 90%] - Verified Vaccination Campaign Manager successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [406/430 | 94%] - Verified Vaccination Campaign Manager successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [411/454 | 90%] - Navigating to /generated/vulnerable-population-registry (Vulnerable Population Registry)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [407/430 | 94%] - Navigating to /generated/vulnerable-population-registry (Vulnerable Population Registry)...");
   cy.visitWithSemantics("/generated/vulnerable-population-registry");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [411/454 | 90%] - Checking shell & content for Vulnerable Population Registry...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [407/430 | 94%] - Checking shell & content for Vulnerable Population Registry...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9950,17 +9914,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("vulnerablepopulationregistry-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("vulnerablepopulationregistry-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [411/454 | 90%] - Saving screenshot for Vulnerable Population Registry...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [407/430 | 94%] - Saving screenshot for Vulnerable Population Registry...");
   cy.waitAndSee();
   cy.screenshot("vulnerable_population_registry");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [411/454 | 90%] - Verified Vulnerable Population Registry successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [407/430 | 94%] - Verified Vulnerable Population Registry successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [412/454 | 90%] - Navigating to /generated/adverse-event-reporting-portal (Adverse Event Reporting Portal)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [408/430 | 94%] - Navigating to /generated/adverse-event-reporting-portal (Adverse Event Reporting Portal)...");
   cy.visitWithSemantics("/generated/adverse-event-reporting-portal");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [412/454 | 90%] - Checking shell & content for Adverse Event Reporting Portal...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [408/430 | 94%] - Checking shell & content for Adverse Event Reporting Portal...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9968,17 +9932,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("adverseeventreportingportal-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("adverseeventreportingportal-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [412/454 | 90%] - Saving screenshot for Adverse Event Reporting Portal...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [408/430 | 94%] - Saving screenshot for Adverse Event Reporting Portal...");
   cy.waitAndSee();
   cy.screenshot("adverse_event_reporting_portal");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [412/454 | 90%] - Verified Adverse Event Reporting Portal successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [408/430 | 94%] - Verified Adverse Event Reporting Portal successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [413/454 | 90%] - Navigating to /generated/biospecimen-inventory-tracker (Biospecimen Inventory Tracker)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [409/430 | 95%] - Navigating to /generated/biospecimen-inventory-tracker (Biospecimen Inventory Tracker)...");
   cy.visitWithSemantics("/generated/biospecimen-inventory-tracker");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [413/454 | 90%] - Checking shell & content for Biospecimen Inventory Tracker...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [409/430 | 95%] - Checking shell & content for Biospecimen Inventory Tracker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -9986,17 +9950,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("biospecimeninventorytracker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("biospecimeninventorytracker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [413/454 | 90%] - Saving screenshot for Biospecimen Inventory Tracker...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [409/430 | 95%] - Saving screenshot for Biospecimen Inventory Tracker...");
   cy.waitAndSee();
   cy.screenshot("biospecimen_inventory_tracker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [413/454 | 90%] - Verified Biospecimen Inventory Tracker successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [409/430 | 95%] - Verified Biospecimen Inventory Tracker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [414/454 | 91%] - Navigating to /generated/clinical-trial-recruitment-dashboard (Clinical Trial Recruitment Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [410/430 | 95%] - Navigating to /generated/clinical-trial-recruitment-dashboard (Clinical Trial Recruitment Dashboard)...");
   cy.visitWithSemantics("/generated/clinical-trial-recruitment-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [414/454 | 91%] - Checking shell & content for Clinical Trial Recruitment Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [410/430 | 95%] - Checking shell & content for Clinical Trial Recruitment Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10004,17 +9968,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaltrialrecruitmentdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaltrialrecruitmentdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [414/454 | 91%] - Saving screenshot for Clinical Trial Recruitment Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [410/430 | 95%] - Saving screenshot for Clinical Trial Recruitment Dashboard...");
   cy.waitAndSee();
   cy.screenshot("clinical_trial_recruitment_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [414/454 | 91%] - Verified Clinical Trial Recruitment Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [410/430 | 95%] - Verified Clinical Trial Recruitment Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [415/454 | 91%] - Navigating to /generated/grant-funding-allocation (Grant Funding Allocation)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [411/430 | 95%] - Navigating to /generated/grant-funding-allocation (Grant Funding Allocation)...");
   cy.visitWithSemantics("/generated/grant-funding-allocation");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [415/454 | 91%] - Checking shell & content for Grant Funding Allocation...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [411/430 | 95%] - Checking shell & content for Grant Funding Allocation...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10022,17 +9986,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("grantfundingallocation-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("grantfundingallocation-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [415/454 | 91%] - Saving screenshot for Grant Funding Allocation...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [411/430 | 95%] - Saving screenshot for Grant Funding Allocation...");
   cy.waitAndSee();
   cy.screenshot("grant_funding_allocation");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [415/454 | 91%] - Verified Grant Funding Allocation successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [411/430 | 95%] - Verified Grant Funding Allocation successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [416/454 | 91%] - Navigating to /generated/informed-consent-tracker (Informed Consent Tracker)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [412/430 | 95%] - Navigating to /generated/informed-consent-tracker (Informed Consent Tracker)...");
   cy.visitWithSemantics("/generated/informed-consent-tracker");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [416/454 | 91%] - Checking shell & content for Informed Consent Tracker...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [412/430 | 95%] - Checking shell & content for Informed Consent Tracker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10040,17 +10004,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("informedconsenttracker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("informedconsenttracker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [416/454 | 91%] - Saving screenshot for Informed Consent Tracker...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [412/430 | 95%] - Saving screenshot for Informed Consent Tracker...");
   cy.waitAndSee();
   cy.screenshot("informed_consent_tracker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [416/454 | 91%] - Verified Informed Consent Tracker successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [412/430 | 95%] - Verified Informed Consent Tracker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [417/454 | 91%] - Navigating to /generated/multi-center-trial-collaboration (Multi Center Trial Collaboration)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [413/430 | 96%] - Navigating to /generated/multi-center-trial-collaboration (Multi Center Trial Collaboration)...");
   cy.visitWithSemantics("/generated/multi-center-trial-collaboration");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [417/454 | 91%] - Checking shell & content for Multi Center Trial Collaboration...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [413/430 | 96%] - Checking shell & content for Multi Center Trial Collaboration...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10058,17 +10022,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("multicentertrialcollaboration-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("multicentertrialcollaboration-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [417/454 | 91%] - Saving screenshot for Multi Center Trial Collaboration...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [413/430 | 96%] - Saving screenshot for Multi Center Trial Collaboration...");
   cy.waitAndSee();
   cy.screenshot("multi_center_trial_collaboration");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [417/454 | 91%] - Verified Multi Center Trial Collaboration successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [413/430 | 96%] - Verified Multi Center Trial Collaboration successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [418/454 | 92%] - Navigating to /generated/patient-trial-outcomeser (Patient Trial Outcomeser)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [414/430 | 96%] - Navigating to /generated/patient-trial-outcomeser (Patient Trial Outcomeser)...");
   cy.visitWithSemantics("/generated/patient-trial-outcomeser");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [418/454 | 92%] - Checking shell & content for Patient Trial Outcomeser...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [414/430 | 96%] - Checking shell & content for Patient Trial Outcomeser...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10076,17 +10040,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("patienttrialoutcomeser-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("patienttrialoutcomeser-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [418/454 | 92%] - Saving screenshot for Patient Trial Outcomeser...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [414/430 | 96%] - Saving screenshot for Patient Trial Outcomeser...");
   cy.waitAndSee();
   cy.screenshot("patient_trial_outcomeser");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [418/454 | 92%] - Verified Patient Trial Outcomeser successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [414/430 | 96%] - Verified Patient Trial Outcomeser successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [419/454 | 92%] - Navigating to /generated/research-protocol-manager (Research Protocol Manager)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [415/430 | 96%] - Navigating to /generated/research-protocol-manager (Research Protocol Manager)...");
   cy.visitWithSemantics("/generated/research-protocol-manager");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [419/454 | 92%] - Checking shell & content for Research Protocol Manager...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [415/430 | 96%] - Checking shell & content for Research Protocol Manager...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10094,17 +10058,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("researchprotocolmanager-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("researchprotocolmanager-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [419/454 | 92%] - Saving screenshot for Research Protocol Manager...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [415/430 | 96%] - Saving screenshot for Research Protocol Manager...");
   cy.waitAndSee();
   cy.screenshot("research_protocol_manager");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [419/454 | 92%] - Verified Research Protocol Manager successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [415/430 | 96%] - Verified Research Protocol Manager successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [420/454 | 92%] - Navigating to /generated/research-publication-drafting (Research Publication Drafting)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [416/430 | 96%] - Navigating to /generated/research-publication-drafting (Research Publication Drafting)...");
   cy.visitWithSemantics("/generated/research-publication-drafting");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [420/454 | 92%] - Checking shell & content for Research Publication Drafting...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [416/430 | 96%] - Checking shell & content for Research Publication Drafting...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10112,17 +10076,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("researchpublicationdrafting-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("researchpublicationdrafting-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [420/454 | 92%] - Saving screenshot for Research Publication Drafting...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [416/430 | 96%] - Saving screenshot for Research Publication Drafting...");
   cy.waitAndSee();
   cy.screenshot("research_publication_drafting");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [420/454 | 92%] - Verified Research Publication Drafting successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [416/430 | 96%] - Verified Research Publication Drafting successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [421/454 | 92%] - Navigating to /generated/trial-data-collection-c-r-f (Trial Data Collection C R F)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [417/430 | 96%] - Navigating to /generated/trial-data-collection-c-r-f (Trial Data Collection C R F)...");
   cy.visitWithSemantics("/generated/trial-data-collection-c-r-f");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [421/454 | 92%] - Checking shell & content for Trial Data Collection C R F...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [417/430 | 96%] - Checking shell & content for Trial Data Collection C R F...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10130,17 +10094,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trialdatacollectioncrf-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trialdatacollectioncrf-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [421/454 | 92%] - Saving screenshot for Trial Data Collection C R F...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [417/430 | 96%] - Saving screenshot for Trial Data Collection C R F...");
   cy.waitAndSee();
   cy.screenshot("trial_data_collection_c_r_f");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [421/454 | 92%] - Verified Trial Data Collection C R F successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [417/430 | 96%] - Verified Trial Data Collection C R F successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [422/454 | 92%] - Navigating to /generated/asynchronous-consultation-inbox (Asynchronous Consultation Inbox)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [418/430 | 97%] - Navigating to /generated/asynchronous-consultation-inbox (Asynchronous Consultation Inbox)...");
   cy.visitWithSemantics("/generated/asynchronous-consultation-inbox");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [422/454 | 92%] - Checking shell & content for Asynchronous Consultation Inbox...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [418/430 | 97%] - Checking shell & content for Asynchronous Consultation Inbox...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10148,17 +10112,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("asynchronousconsultationinbox-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("asynchronousconsultationinbox-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [422/454 | 92%] - Saving screenshot for Asynchronous Consultation Inbox...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [418/430 | 97%] - Saving screenshot for Asynchronous Consultation Inbox...");
   cy.waitAndSee();
   cy.screenshot("asynchronous_consultation_inbox");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [422/454 | 92%] - Verified Asynchronous Consultation Inbox successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [418/430 | 97%] - Verified Asynchronous Consultation Inbox successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [423/454 | 93%] - Navigating to /generated/chronic-care-management-tracker (Chronic Care Management Tracker)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [419/430 | 97%] - Navigating to /generated/chronic-care-management-tracker (Chronic Care Management Tracker)...");
   cy.visitWithSemantics("/generated/chronic-care-management-tracker");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [423/454 | 93%] - Checking shell & content for Chronic Care Management Tracker...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [419/430 | 97%] - Checking shell & content for Chronic Care Management Tracker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10166,17 +10130,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chroniccaremanagementtracker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chroniccaremanagementtracker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [423/454 | 93%] - Saving screenshot for Chronic Care Management Tracker...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [419/430 | 97%] - Saving screenshot for Chronic Care Management Tracker...");
   cy.waitAndSee();
   cy.screenshot("chronic_care_management_tracker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [423/454 | 93%] - Verified Chronic Care Management Tracker successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [419/430 | 97%] - Verified Chronic Care Management Tracker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [424/454 | 93%] - Navigating to /generated/device-integration-hub (Device Integration Hub)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [420/430 | 97%] - Navigating to /generated/device-integration-hub (Device Integration Hub)...");
   cy.visitWithSemantics("/generated/device-integration-hub");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [424/454 | 93%] - Checking shell & content for Device Integration Hub...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [420/430 | 97%] - Checking shell & content for Device Integration Hub...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10184,17 +10148,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("deviceintegrationhub-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("deviceintegrationhub-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [424/454 | 93%] - Saving screenshot for Device Integration Hub...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [420/430 | 97%] - Saving screenshot for Device Integration Hub...");
   cy.waitAndSee();
   cy.screenshot("device_integration_hub");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [424/454 | 93%] - Verified Device Integration Hub successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [420/430 | 97%] - Verified Device Integration Hub successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [425/454 | 93%] - Navigating to /generated/digital-symptom-checker (Digital Symptom Checker)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [421/430 | 97%] - Navigating to /generated/digital-symptom-checker (Digital Symptom Checker)...");
   cy.visitWithSemantics("/generated/digital-symptom-checker");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [425/454 | 93%] - Checking shell & content for Digital Symptom Checker...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [421/430 | 97%] - Checking shell & content for Digital Symptom Checker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10202,17 +10166,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("digitalsymptomchecker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("digitalsymptomchecker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [425/454 | 93%] - Saving screenshot for Digital Symptom Checker...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [421/430 | 97%] - Saving screenshot for Digital Symptom Checker...");
   cy.waitAndSee();
   cy.screenshot("digital_symptom_checker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [425/454 | 93%] - Verified Digital Symptom Checker successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [421/430 | 97%] - Verified Digital Symptom Checker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [426/454 | 93%] - Navigating to /generated/remote-diagnosticser (Remote Diagnosticser)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [422/430 | 98%] - Navigating to /generated/remote-diagnosticser (Remote Diagnosticser)...");
   cy.visitWithSemantics("/generated/remote-diagnosticser");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [426/454 | 93%] - Checking shell & content for Remote Diagnosticser...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [422/430 | 98%] - Checking shell & content for Remote Diagnosticser...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10220,17 +10184,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("remotediagnosticser-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("remotediagnosticser-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [426/454 | 93%] - Saving screenshot for Remote Diagnosticser...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [422/430 | 98%] - Saving screenshot for Remote Diagnosticser...");
   cy.waitAndSee();
   cy.screenshot("remote_diagnosticser");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [426/454 | 93%] - Verified Remote Diagnosticser successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [422/430 | 98%] - Verified Remote Diagnosticser successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [427/454 | 94%] - Navigating to /generated/remote-patient-monitoring-dashboard (Remote Patient Monitoring Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [423/430 | 98%] - Navigating to /generated/remote-patient-monitoring-dashboard (Remote Patient Monitoring Dashboard)...");
   cy.visitWithSemantics("/generated/remote-patient-monitoring-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [427/454 | 94%] - Checking shell & content for Remote Patient Monitoring Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [423/430 | 98%] - Checking shell & content for Remote Patient Monitoring Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10238,17 +10202,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("remotepatientmonitoringdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("remotepatientmonitoringdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [427/454 | 94%] - Saving screenshot for Remote Patient Monitoring Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [423/430 | 98%] - Saving screenshot for Remote Patient Monitoring Dashboard...");
   cy.waitAndSee();
   cy.screenshot("remote_patient_monitoring_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [427/454 | 94%] - Verified Remote Patient Monitoring Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [423/430 | 98%] - Verified Remote Patient Monitoring Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [428/454 | 94%] - Navigating to /generated/telehealth-consultation-room (Telehealth Consultation Room)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [424/430 | 98%] - Navigating to /generated/telehealth-consultation-room (Telehealth Consultation Room)...");
   cy.visitWithSemantics("/generated/telehealth-consultation-room");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [428/454 | 94%] - Checking shell & content for Telehealth Consultation Room...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [424/430 | 98%] - Checking shell & content for Telehealth Consultation Room...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10256,17 +10220,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("telehealthconsultationroom-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("telehealthconsultationroom-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [428/454 | 94%] - Saving screenshot for Telehealth Consultation Room...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [424/430 | 98%] - Saving screenshot for Telehealth Consultation Room...");
   cy.waitAndSee();
   cy.screenshot("telehealth_consultation_room");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [428/454 | 94%] - Verified Telehealth Consultation Room successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [424/430 | 98%] - Verified Telehealth Consultation Room successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [429/454 | 94%] - Navigating to /generated/telehealth-quality-metrics (Telehealth Quality Metrics)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [425/430 | 98%] - Navigating to /generated/telehealth-quality-metrics (Telehealth Quality Metrics)...");
   cy.visitWithSemantics("/generated/telehealth-quality-metrics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [429/454 | 94%] - Checking shell & content for Telehealth Quality Metrics...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [425/430 | 98%] - Checking shell & content for Telehealth Quality Metrics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10274,17 +10238,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("telehealthqualitymetrics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("telehealthqualitymetrics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [429/454 | 94%] - Saving screenshot for Telehealth Quality Metrics...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [425/430 | 98%] - Saving screenshot for Telehealth Quality Metrics...");
   cy.waitAndSee();
   cy.screenshot("telehealth_quality_metrics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [429/454 | 94%] - Verified Telehealth Quality Metrics successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [425/430 | 98%] - Verified Telehealth Quality Metrics successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [430/454 | 94%] - Navigating to /generated/telemedicine-prescription-pad (Telemedicine Prescription Pad)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [426/430 | 99%] - Navigating to /generated/telemedicine-prescription-pad (Telemedicine Prescription Pad)...");
   cy.visitWithSemantics("/generated/telemedicine-prescription-pad");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [430/454 | 94%] - Checking shell & content for Telemedicine Prescription Pad...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [426/430 | 99%] - Checking shell & content for Telemedicine Prescription Pad...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10292,17 +10256,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("telemedicineprescriptionpad-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("telemedicineprescriptionpad-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [430/454 | 94%] - Saving screenshot for Telemedicine Prescription Pad...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [426/430 | 99%] - Saving screenshot for Telemedicine Prescription Pad...");
   cy.waitAndSee();
   cy.screenshot("telemedicine_prescription_pad");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [430/454 | 94%] - Verified Telemedicine Prescription Pad successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [426/430 | 99%] - Verified Telemedicine Prescription Pad successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [431/454 | 94%] - Navigating to /generated/virtual-waiting-room (Virtual Waiting Room)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [427/430 | 99%] - Navigating to /generated/virtual-waiting-room (Virtual Waiting Room)...");
   cy.visitWithSemantics("/generated/virtual-waiting-room");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [431/454 | 94%] - Checking shell & content for Virtual Waiting Room...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [427/430 | 99%] - Checking shell & content for Virtual Waiting Room...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10310,17 +10274,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("virtualwaitingroom-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("virtualwaitingroom-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [431/454 | 94%] - Saving screenshot for Virtual Waiting Room...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [427/430 | 99%] - Saving screenshot for Virtual Waiting Room...");
   cy.waitAndSee();
   cy.screenshot("virtual_waiting_room");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [431/454 | 94%] - Verified Virtual Waiting Room successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [427/430 | 99%] - Verified Virtual Waiting Room successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [432/454 | 95%] - Navigating to /generated/screen-audit (Screen Audit)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [428/430 | 99%] - Navigating to /generated/screen-audit (Screen Audit)...");
   cy.visitWithSemantics("/generated/screen-audit");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [432/454 | 95%] - Checking shell & content for Screen Audit...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [428/430 | 99%] - Checking shell & content for Screen Audit...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10328,17 +10292,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("screenaudit-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("screenaudit-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [432/454 | 95%] - Saving screenshot for Screen Audit...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [428/430 | 99%] - Saving screenshot for Screen Audit...");
   cy.waitAndSee();
   cy.screenshot("screen_audit");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [432/454 | 95%] - Verified Screen Audit successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [428/430 | 99%] - Verified Screen Audit successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [433/454 | 95%] - Navigating to /generated/dynamic-dashboard (Dynamic Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [429/430 | 99%] - Navigating to /generated/dynamic-dashboard (Dynamic Dashboard)...");
   cy.visitWithSemantics("/generated/dynamic-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [433/454 | 95%] - Checking shell & content for Dynamic Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [429/430 | 99%] - Checking shell & content for Dynamic Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10346,17 +10310,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("dynamicdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("dynamicdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [433/454 | 95%] - Saving screenshot for Dynamic Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [429/430 | 99%] - Saving screenshot for Dynamic Dashboard...");
   cy.waitAndSee();
   cy.screenshot("dynamic_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [433/454 | 95%] - Verified Dynamic Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [429/430 | 99%] - Verified Dynamic Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [434/454 | 95%] - Navigating to /generated/screen-not-implemented (Screen Not Implemented)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [430/430 | 100%] - Navigating to /generated/screen-not-implemented (Screen Not Implemented)...");
   cy.visitWithSemantics("/generated/screen-not-implemented");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [434/454 | 95%] - Checking shell & content for Screen Not Implemented...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [430/430 | 100%] - Checking shell & content for Screen Not Implemented...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -10364,371 +10328,11 @@ describe("Org Full UI Test", () => {
   // cy.getCy("screennotimplemented-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("screennotimplemented-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [434/454 | 95%] - Saving screenshot for Screen Not Implemented...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [430/430 | 100%] - Saving screenshot for Screen Not Implemented...");
   cy.waitAndSee();
   cy.screenshot("screen_not_implemented");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [434/454 | 95%] - Verified Screen Not Implemented successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [435/454 | 95%] - Navigating to packages/primecare_ui/lib/src/screens/clinical/clinical_dashboard_screen.dart (ClinicalDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/clinical/clinical_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [435/454 | 95%] - Checking shell & content for ClinicalDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("clinicaldashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("clinicaldashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("clinicaldashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [435/454 | 95%] - Saving screenshot for ClinicalDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("clinical_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [435/454 | 95%] - Verified ClinicalDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [436/454 | 96%] - Navigating to packages/primecare_ui/lib/src/screens/common/api_health_dashboard_screen.dart (ApiHealthDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/api_health_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [436/454 | 96%] - Checking shell & content for ApiHealthDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("apihealthdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("apihealthdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("apihealthdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [436/454 | 96%] - Saving screenshot for ApiHealthDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("api_health_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [436/454 | 96%] - Verified ApiHealthDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [437/454 | 96%] - Navigating to packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart (ArchitecturePlanningDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [437/454 | 96%] - Checking shell & content for ArchitecturePlanningDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("architectureplanningdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("architectureplanningdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("architectureplanningdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [437/454 | 96%] - Saving screenshot for ArchitecturePlanningDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("architecture_planning_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [437/454 | 96%] - Verified ArchitecturePlanningDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [438/454 | 96%] - Navigating to packages/primecare_ui/lib/src/screens/common/business_development_dashboard_screen.dart (BusinessDevelopmentDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/business_development_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [438/454 | 96%] - Checking shell & content for BusinessDevelopmentDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("businessdevelopmentdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("businessdevelopmentdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("businessdevelopmentdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [438/454 | 96%] - Saving screenshot for BusinessDevelopmentDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("business_development_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [438/454 | 96%] - Verified BusinessDevelopmentDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [439/454 | 96%] - Navigating to packages/primecare_ui/lib/src/screens/common/clinic_dashboard_screen.dart (ClinicDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/clinic_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [439/454 | 96%] - Checking shell & content for ClinicDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("clinicdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("clinicdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("clinicdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [439/454 | 96%] - Saving screenshot for ClinicDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("clinic_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [439/454 | 96%] - Verified ClinicDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [440/454 | 96%] - Navigating to packages/primecare_ui/lib/src/screens/common/file_verification_dashboard_screen.dart (FileVerificationDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/file_verification_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [440/454 | 96%] - Checking shell & content for FileVerificationDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("fileverificationdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("fileverificationdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("fileverificationdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [440/454 | 96%] - Saving screenshot for FileVerificationDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("file_verification_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [440/454 | 96%] - Verified FileVerificationDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [441/454 | 97%] - Navigating to packages/primecare_ui/lib/src/screens/common/franchise_dashboard_screen.dart (FranchiseDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/franchise_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [441/454 | 97%] - Checking shell & content for FranchiseDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("franchisedashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("franchisedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("franchisedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [441/454 | 97%] - Saving screenshot for FranchiseDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("franchise_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [441/454 | 97%] - Verified FranchiseDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [442/454 | 97%] - Navigating to packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard_screen.dart (PhysiotherapistDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [442/454 | 97%] - Checking shell & content for PhysiotherapistDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("physiotherapistdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("physiotherapistdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("physiotherapistdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [442/454 | 97%] - Saving screenshot for PhysiotherapistDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("physiotherapist_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [442/454 | 97%] - Verified PhysiotherapistDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [443/454 | 97%] - Navigating to packages/primecare_ui/lib/src/screens/common/role_coverage_dashboard_screen.dart (RoleCoverageDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/role_coverage_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [443/454 | 97%] - Checking shell & content for RoleCoverageDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("rolecoveragedashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("rolecoveragedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("rolecoveragedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [443/454 | 97%] - Saving screenshot for RoleCoverageDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("role_coverage_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [443/454 | 97%] - Verified RoleCoverageDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [444/454 | 97%] - Navigating to packages/primecare_ui/lib/src/screens/common/system_dashboard_screen.dart (SystemDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/common/system_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [444/454 | 97%] - Checking shell & content for SystemDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("systemdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("systemdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("systemdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [444/454 | 97%] - Saving screenshot for SystemDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("system_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [444/454 | 97%] - Verified SystemDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [445/454 | 98%] - Navigating to packages/primecare_ui/lib/src/screens/executive/financial_dashboard_screen.dart (FinancialDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/executive/financial_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [445/454 | 98%] - Checking shell & content for FinancialDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("financialdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("financialdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("financialdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [445/454 | 98%] - Saving screenshot for FinancialDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("financial_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [445/454 | 98%] - Verified FinancialDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [446/454 | 98%] - Navigating to packages/primecare_ui/lib/src/screens/management/campaign_dashboard_screen.dart (CampaignDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/management/campaign_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [446/454 | 98%] - Checking shell & content for CampaignDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("campaigndashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("campaigndashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("campaigndashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [446/454 | 98%] - Saving screenshot for CampaignDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("campaign_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [446/454 | 98%] - Verified CampaignDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [447/454 | 98%] - Navigating to packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard_screen.dart (ComplianceManagerDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [447/454 | 98%] - Checking shell & content for ComplianceManagerDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("compliancemanagerdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("compliancemanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("compliancemanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [447/454 | 98%] - Saving screenshot for ComplianceManagerDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("compliance_manager_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [447/454 | 98%] - Verified ComplianceManagerDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [448/454 | 98%] - Navigating to packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard_screen.dart (FranchiseSalesManagerDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [448/454 | 98%] - Checking shell & content for FranchiseSalesManagerDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("franchisesalesmanagerdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("franchisesalesmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("franchisesalesmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [448/454 | 98%] - Saving screenshot for FranchiseSalesManagerDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("franchise_sales_manager_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [448/454 | 98%] - Verified FranchiseSalesManagerDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [449/454 | 98%] - Navigating to packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard_screen.dart (GovernanceOfficerDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [449/454 | 98%] - Checking shell & content for GovernanceOfficerDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("governanceofficerdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("governanceofficerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("governanceofficerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [449/454 | 98%] - Saving screenshot for GovernanceOfficerDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("governance_officer_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [449/454 | 98%] - Verified GovernanceOfficerDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [450/454 | 99%] - Navigating to packages/primecare_ui/lib/src/screens/management/head_of_bus_dev_dashboard_screen.dart (HeadOfBusDevDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/management/head_of_bus_dev_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [450/454 | 99%] - Checking shell & content for HeadOfBusDevDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("headofbusdevdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("headofbusdevdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("headofbusdevdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [450/454 | 99%] - Saving screenshot for HeadOfBusDevDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("head_of_bus_dev_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [450/454 | 99%] - Verified HeadOfBusDevDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [451/454 | 99%] - Navigating to packages/primecare_ui/lib/src/screens/management/head_of_marketing_dashboard_screen.dart (HeadOfMarketingDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/management/head_of_marketing_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [451/454 | 99%] - Checking shell & content for HeadOfMarketingDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("headofmarketingdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("headofmarketingdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("headofmarketingdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [451/454 | 99%] - Saving screenshot for HeadOfMarketingDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("head_of_marketing_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [451/454 | 99%] - Verified HeadOfMarketingDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [452/454 | 99%] - Navigating to packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard_screen.dart (LocalMarketingManagerDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [452/454 | 99%] - Checking shell & content for LocalMarketingManagerDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("localmarketingmanagerdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("localmarketingmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("localmarketingmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [452/454 | 99%] - Saving screenshot for LocalMarketingManagerDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("local_marketing_manager_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [452/454 | 99%] - Verified LocalMarketingManagerDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [453/454 | 99%] - Navigating to packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard_screen.dart (HrManagerDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [453/454 | 99%] - Checking shell & content for HrManagerDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("hrmanagerdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("hrmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("hrmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [453/454 | 99%] - Saving screenshot for HrManagerDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("hr_manager_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [453/454 | 99%] - Verified HrManagerDashboardScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [454/454 | 100%] - Navigating to packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard_screen.dart (IntakeCoordinatorDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [454/454 | 100%] - Checking shell & content for IntakeCoordinatorDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("intakecoordinatordashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("intakecoordinatordashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("intakecoordinatordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [454/454 | 100%] - Saving screenshot for IntakeCoordinatorDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("intake_coordinator_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [454/454 | 100%] - Verified IntakeCoordinatorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [430/430 | 100%] - Verified Screen Not Implemented successfully!\n");
   });
 
   it("tests org role portal", () => {
@@ -12844,11 +12448,29 @@ describe("Org Full UI Test", () => {
   it("tests org role cto", () => {
     cy.loginAsRole("cto");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/76 | 1%] - Navigating to /common/architecture-planning-dashboard (ArchitecturePlanningDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/77 | 1%] - Navigating to /offices/clinical/roles/clinical_director/dashboard-dup-1 (ClinicalDashboardScreen)...");
+  cy.visitWithSemantics("/offices/clinical/roles/clinical_director/dashboard-dup-1");
+  cy.waitAndSee();
+  
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/77 | 1%] - Checking shell & content for ClinicalDashboardScreen...");
+  cy.verifyShellExists();
+  cy.verifyNotBlank();
+
+  // cy.getCy("clinicaldashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+  // cy.getCy("clinicaldashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+  // cy.getCy("clinicaldashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/77 | 1%] - Saving screenshot for ClinicalDashboardScreen...");
+  cy.waitAndSee();
+  cy.screenshot("clinical_dashboard");
+  
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/77 | 1%] - Verified ClinicalDashboardScreen successfully!\n");
+
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/77 | 2%] - Navigating to /common/architecture-planning-dashboard (ArchitecturePlanningDashboardScreen)...");
   cy.visitWithSemantics("/common/architecture-planning-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/76 | 1%] - Checking shell & content for ArchitecturePlanningDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/77 | 2%] - Checking shell & content for ArchitecturePlanningDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -12856,17 +12478,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("architectureplanningdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("architectureplanningdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/76 | 1%] - Saving screenshot for ArchitecturePlanningDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/77 | 2%] - Saving screenshot for ArchitecturePlanningDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("architecture_planning_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/76 | 1%] - Verified ArchitecturePlanningDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/77 | 2%] - Verified ArchitecturePlanningDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/76 | 2%] - Navigating to /offices/clinical/roles/chiropractor/dashboard (ChiropractorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/77 | 3%] - Navigating to /offices/clinical/roles/chiropractor/dashboard (ChiropractorDashboardScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/76 | 2%] - Checking shell & content for ChiropractorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/77 | 3%] - Checking shell & content for ChiropractorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -12874,17 +12496,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropractordashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropractordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/76 | 2%] - Saving screenshot for ChiropractorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/77 | 3%] - Saving screenshot for ChiropractorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/76 | 2%] - Verified ChiropractorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/77 | 3%] - Verified ChiropractorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/76 | 3%] - Navigating to /offices/clinical/roles/clinical_director/clinic-dashboard (ClinicDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/77 | 5%] - Navigating to /offices/clinical/roles/clinical_director/clinic-dashboard (ClinicDashboardScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/76 | 3%] - Checking shell & content for ClinicDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/77 | 5%] - Checking shell & content for ClinicDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -12892,17 +12514,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/76 | 3%] - Saving screenshot for ClinicDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/77 | 5%] - Saving screenshot for ClinicDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("clinic_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/76 | 3%] - Verified ClinicDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/77 | 5%] - Verified ClinicDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/76 | 5%] - Navigating to /common/course-architect-dashboard (CourseArchitectDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/77 | 6%] - Navigating to /common/course-architect-dashboard (CourseArchitectDashboardScreen)...");
   cy.visitWithSemantics("/common/course-architect-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/76 | 5%] - Checking shell & content for CourseArchitectDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/77 | 6%] - Checking shell & content for CourseArchitectDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -12910,17 +12532,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("coursearchitectdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("coursearchitectdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/76 | 5%] - Saving screenshot for CourseArchitectDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/77 | 6%] - Saving screenshot for CourseArchitectDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("course_architect_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [4/76 | 5%] - Verified CourseArchitectDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/77 | 6%] - Verified CourseArchitectDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/76 | 6%] - Navigating to /offices/corporate/roles/cto/dashboard (CtoDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/77 | 7%] - Navigating to /offices/corporate/roles/cto/dashboard (CtoDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/cto/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/76 | 6%] - Checking shell & content for CtoDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/77 | 7%] - Checking shell & content for CtoDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -12928,17 +12550,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctodashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctodashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/76 | 6%] - Saving screenshot for CtoDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/77 | 7%] - Saving screenshot for CtoDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("cto_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [5/76 | 6%] - Verified CtoDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/77 | 7%] - Verified CtoDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/76 | 7%] - Navigating to /offices/corporate/roles/cx_director/dashboard (CxDirectorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/77 | 9%] - Navigating to /offices/corporate/roles/cx_director/dashboard (CxDirectorDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/cx_director/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/76 | 7%] - Checking shell & content for CxDirectorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/77 | 9%] - Checking shell & content for CxDirectorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -12946,17 +12568,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cxdirectordashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cxdirectordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/76 | 7%] - Saving screenshot for CxDirectorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/77 | 9%] - Saving screenshot for CxDirectorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("cx_director_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [6/76 | 7%] - Verified CxDirectorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/77 | 9%] - Verified CxDirectorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/76 | 9%] - Navigating to /offices/corporate/roles/finance_director/dashboard (FinanceDirectorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/77 | 10%] - Navigating to /offices/corporate/roles/finance_director/dashboard (FinanceDirectorDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/finance_director/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/76 | 9%] - Checking shell & content for FinanceDirectorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/77 | 10%] - Checking shell & content for FinanceDirectorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -12964,17 +12586,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("financedirectordashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("financedirectordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/76 | 9%] - Saving screenshot for FinanceDirectorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/77 | 10%] - Saving screenshot for FinanceDirectorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("finance_director_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [7/76 | 9%] - Verified FinanceDirectorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/77 | 10%] - Verified FinanceDirectorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/76 | 10%] - Navigating to /offices/corporate/roles/hr_director/dashboard (HrDirectorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/77 | 11%] - Navigating to /offices/corporate/roles/hr_director/dashboard (HrDirectorDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/hr_director/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/76 | 10%] - Checking shell & content for HrDirectorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/77 | 11%] - Checking shell & content for HrDirectorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -12982,17 +12604,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrdirectordashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrdirectordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/76 | 10%] - Saving screenshot for HrDirectorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/77 | 11%] - Saving screenshot for HrDirectorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_director_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [8/76 | 10%] - Verified HrDirectorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/77 | 11%] - Verified HrDirectorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/76 | 11%] - Navigating to /offices/corporate/roles/training_director/dashboard (TrainingDirectorDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/77 | 12%] - Navigating to /offices/corporate/roles/training_director/dashboard (TrainingDirectorDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/training_director/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/76 | 11%] - Checking shell & content for TrainingDirectorDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/77 | 12%] - Checking shell & content for TrainingDirectorDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13000,17 +12622,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingdirectordashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingdirectordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/76 | 11%] - Saving screenshot for TrainingDirectorDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/77 | 12%] - Saving screenshot for TrainingDirectorDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("training_director_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [9/76 | 11%] - Verified TrainingDirectorDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/77 | 12%] - Verified TrainingDirectorDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/76 | 13%] - Navigating to /offices/corporate/roles/hr_manager/dashboard (HrManagerDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/77 | 14%] - Navigating to /offices/corporate/roles/hr_manager/dashboard (HrManagerDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/hr_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/76 | 13%] - Checking shell & content for HrManagerDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/77 | 14%] - Checking shell & content for HrManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13018,17 +12640,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/76 | 13%] - Saving screenshot for HrManagerDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/77 | 14%] - Saving screenshot for HrManagerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [10/76 | 13%] - Verified HrManagerDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/77 | 14%] - Verified HrManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/76 | 14%] - Navigating to /offices/clinical/roles/clinical_director/analytics (ClinicalAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/77 | 15%] - Navigating to /offices/clinical/roles/clinical_director/analytics (ClinicalAnalyticsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/76 | 14%] - Checking shell & content for ClinicalAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/77 | 15%] - Checking shell & content for ClinicalAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13036,17 +12658,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicalanalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicalanalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/76 | 14%] - Saving screenshot for ClinicalAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/77 | 15%] - Saving screenshot for ClinicalAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [11/76 | 14%] - Verified ClinicalAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/77 | 15%] - Verified ClinicalAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/76 | 15%] - Navigating to /offices/clinical/roles/clinical_director/compliance (ClinicalComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/77 | 16%] - Navigating to /offices/clinical/roles/clinical_director/compliance (ClinicalComplianceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/76 | 15%] - Checking shell & content for ClinicalComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/77 | 16%] - Checking shell & content for ClinicalComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13054,17 +12676,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicalcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicalcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/76 | 15%] - Saving screenshot for ClinicalComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/77 | 16%] - Saving screenshot for ClinicalComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [12/76 | 15%] - Verified ClinicalComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/77 | 16%] - Verified ClinicalComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/76 | 17%] - Navigating to /offices/clinical/roles/clinical_director/workflow (ClinicalWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/77 | 18%] - Navigating to /offices/clinical/roles/clinical_director/workflow (ClinicalWorkflowScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/76 | 17%] - Checking shell & content for ClinicalWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/77 | 18%] - Checking shell & content for ClinicalWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13072,17 +12694,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicalworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicalworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/76 | 17%] - Saving screenshot for ClinicalWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/77 | 18%] - Saving screenshot for ClinicalWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [13/76 | 17%] - Verified ClinicalWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/77 | 18%] - Verified ClinicalWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/76 | 18%] - Navigating to /offices/clinical/roles/chiropractor/analytics (ChiropractorAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/77 | 19%] - Navigating to /offices/clinical/roles/chiropractor/analytics (ChiropractorAnalyticsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/76 | 18%] - Checking shell & content for ChiropractorAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/77 | 19%] - Checking shell & content for ChiropractorAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13090,17 +12712,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropractoranalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropractoranalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/76 | 18%] - Saving screenshot for ChiropractorAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/77 | 19%] - Saving screenshot for ChiropractorAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [14/76 | 18%] - Verified ChiropractorAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/77 | 19%] - Verified ChiropractorAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/76 | 19%] - Navigating to /offices/clinical/roles/chiropractor/compliance (ChiropractorComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [16/77 | 20%] - Navigating to /offices/clinical/roles/chiropractor/compliance (ChiropractorComplianceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/76 | 19%] - Checking shell & content for ChiropractorComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [16/77 | 20%] - Checking shell & content for ChiropractorComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13108,17 +12730,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropractorcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropractorcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/76 | 19%] - Saving screenshot for ChiropractorComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [16/77 | 20%] - Saving screenshot for ChiropractorComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [15/76 | 19%] - Verified ChiropractorComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [16/77 | 20%] - Verified ChiropractorComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [16/76 | 21%] - Navigating to /offices/clinical/roles/chiropractor/workflow (ChiropractorWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [17/77 | 22%] - Navigating to /offices/clinical/roles/chiropractor/workflow (ChiropractorWorkflowScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [16/76 | 21%] - Checking shell & content for ChiropractorWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [17/77 | 22%] - Checking shell & content for ChiropractorWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13126,17 +12748,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropractorworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropractorworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [16/76 | 21%] - Saving screenshot for ChiropractorWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [17/77 | 22%] - Saving screenshot for ChiropractorWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [16/76 | 21%] - Verified ChiropractorWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [17/77 | 22%] - Verified ChiropractorWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [17/76 | 22%] - Navigating to /offices/clinical/roles/clinical_director/clinic-analytics (ClinicAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [18/77 | 23%] - Navigating to /offices/clinical/roles/clinical_director/clinic-analytics (ClinicAnalyticsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [17/76 | 22%] - Checking shell & content for ClinicAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [18/77 | 23%] - Checking shell & content for ClinicAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13144,17 +12766,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicanalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicanalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [17/76 | 22%] - Saving screenshot for ClinicAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [18/77 | 23%] - Saving screenshot for ClinicAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("clinic_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [17/76 | 22%] - Verified ClinicAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [18/77 | 23%] - Verified ClinicAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [18/76 | 23%] - Navigating to /offices/clinical/roles/clinical_director/clinic-compliance (ClinicComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [19/77 | 24%] - Navigating to /offices/clinical/roles/clinical_director/clinic-compliance (ClinicComplianceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [18/76 | 23%] - Checking shell & content for ClinicComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [19/77 | 24%] - Checking shell & content for ClinicComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13162,17 +12784,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cliniccompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cliniccompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [18/76 | 23%] - Saving screenshot for ClinicComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [19/77 | 24%] - Saving screenshot for ClinicComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("clinic_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [18/76 | 23%] - Verified ClinicComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [19/77 | 24%] - Verified ClinicComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [19/76 | 25%] - Navigating to /offices/clinical/roles/clinical_director/clinic-workflow (ClinicWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/77 | 25%] - Navigating to /offices/clinical/roles/clinical_director/clinic-workflow (ClinicWorkflowScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/clinic-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [19/76 | 25%] - Checking shell & content for ClinicWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/77 | 25%] - Checking shell & content for ClinicWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13180,17 +12802,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [19/76 | 25%] - Saving screenshot for ClinicWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/77 | 25%] - Saving screenshot for ClinicWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("clinic_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [19/76 | 25%] - Verified ClinicWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/77 | 25%] - Verified ClinicWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/76 | 26%] - Navigating to /common/course-architect-analytics (CourseArchitectAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/77 | 27%] - Navigating to /common/course-architect-analytics (CourseArchitectAnalyticsScreen)...");
   cy.visitWithSemantics("/common/course-architect-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/76 | 26%] - Checking shell & content for CourseArchitectAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/77 | 27%] - Checking shell & content for CourseArchitectAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13198,17 +12820,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("coursearchitectanalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("coursearchitectanalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/76 | 26%] - Saving screenshot for CourseArchitectAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/77 | 27%] - Saving screenshot for CourseArchitectAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("course_architect_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [20/76 | 26%] - Verified CourseArchitectAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/77 | 27%] - Verified CourseArchitectAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/76 | 27%] - Navigating to /common/course-architect-compliance (CourseArchitectComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/77 | 28%] - Navigating to /common/course-architect-compliance (CourseArchitectComplianceScreen)...");
   cy.visitWithSemantics("/common/course-architect-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/76 | 27%] - Checking shell & content for CourseArchitectComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/77 | 28%] - Checking shell & content for CourseArchitectComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13216,17 +12838,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("coursearchitectcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("coursearchitectcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/76 | 27%] - Saving screenshot for CourseArchitectComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/77 | 28%] - Saving screenshot for CourseArchitectComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("course_architect_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [21/76 | 27%] - Verified CourseArchitectComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/77 | 28%] - Verified CourseArchitectComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/76 | 28%] - Navigating to /common/course-architect-workflow (CourseArchitectWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [23/77 | 29%] - Navigating to /common/course-architect-workflow (CourseArchitectWorkflowScreen)...");
   cy.visitWithSemantics("/common/course-architect-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/76 | 28%] - Checking shell & content for CourseArchitectWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [23/77 | 29%] - Checking shell & content for CourseArchitectWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13234,17 +12856,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("coursearchitectworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("coursearchitectworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/76 | 28%] - Saving screenshot for CourseArchitectWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [23/77 | 29%] - Saving screenshot for CourseArchitectWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("course_architect_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [22/76 | 28%] - Verified CourseArchitectWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [23/77 | 29%] - Verified CourseArchitectWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [23/76 | 30%] - Navigating to /executive/cto-analytics (CtoAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [24/77 | 31%] - Navigating to /executive/cto-analytics (CtoAnalyticsScreen)...");
   cy.visitWithSemantics("/executive/cto-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [23/76 | 30%] - Checking shell & content for CtoAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [24/77 | 31%] - Checking shell & content for CtoAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13252,17 +12874,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctoanalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctoanalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [23/76 | 30%] - Saving screenshot for CtoAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [24/77 | 31%] - Saving screenshot for CtoAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("cto_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [23/76 | 30%] - Verified CtoAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [24/77 | 31%] - Verified CtoAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [24/76 | 31%] - Navigating to /executive/cto-compliance (CtoComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [25/77 | 32%] - Navigating to /executive/cto-compliance (CtoComplianceScreen)...");
   cy.visitWithSemantics("/executive/cto-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [24/76 | 31%] - Checking shell & content for CtoComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [25/77 | 32%] - Checking shell & content for CtoComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13270,17 +12892,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctocompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctocompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [24/76 | 31%] - Saving screenshot for CtoComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [25/77 | 32%] - Saving screenshot for CtoComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("cto_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [24/76 | 31%] - Verified CtoComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [25/77 | 32%] - Verified CtoComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [25/76 | 32%] - Navigating to /executive/cto-workflow (CtoWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [26/77 | 33%] - Navigating to /executive/cto-workflow (CtoWorkflowScreen)...");
   cy.visitWithSemantics("/executive/cto-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [25/76 | 32%] - Checking shell & content for CtoWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [26/77 | 33%] - Checking shell & content for CtoWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13288,17 +12910,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("ctoworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("ctoworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [25/76 | 32%] - Saving screenshot for CtoWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [26/77 | 33%] - Saving screenshot for CtoWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("cto_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [25/76 | 32%] - Verified CtoWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [26/77 | 33%] - Verified CtoWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [26/76 | 34%] - Navigating to /executive/cx-director-analytics (CxDirectorAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [27/77 | 35%] - Navigating to /executive/cx-director-analytics (CxDirectorAnalyticsScreen)...");
   cy.visitWithSemantics("/executive/cx-director-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [26/76 | 34%] - Checking shell & content for CxDirectorAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [27/77 | 35%] - Checking shell & content for CxDirectorAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13306,17 +12928,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cxdirectoranalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cxdirectoranalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [26/76 | 34%] - Saving screenshot for CxDirectorAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [27/77 | 35%] - Saving screenshot for CxDirectorAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("cx_director_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [26/76 | 34%] - Verified CxDirectorAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [27/77 | 35%] - Verified CxDirectorAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [27/76 | 35%] - Navigating to /executive/cx-director-compliance (CxDirectorComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [28/77 | 36%] - Navigating to /executive/cx-director-compliance (CxDirectorComplianceScreen)...");
   cy.visitWithSemantics("/executive/cx-director-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [27/76 | 35%] - Checking shell & content for CxDirectorComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [28/77 | 36%] - Checking shell & content for CxDirectorComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13324,17 +12946,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cxdirectorcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cxdirectorcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [27/76 | 35%] - Saving screenshot for CxDirectorComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [28/77 | 36%] - Saving screenshot for CxDirectorComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("cx_director_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [27/76 | 35%] - Verified CxDirectorComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [28/77 | 36%] - Verified CxDirectorComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [28/76 | 36%] - Navigating to /executive/cx-director-workflow (CxDirectorWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [29/77 | 37%] - Navigating to /executive/cx-director-workflow (CxDirectorWorkflowScreen)...");
   cy.visitWithSemantics("/executive/cx-director-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [28/76 | 36%] - Checking shell & content for CxDirectorWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [29/77 | 37%] - Checking shell & content for CxDirectorWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13342,17 +12964,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("cxdirectorworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("cxdirectorworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [28/76 | 36%] - Saving screenshot for CxDirectorWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [29/77 | 37%] - Saving screenshot for CxDirectorWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("cx_director_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [28/76 | 36%] - Verified CxDirectorWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [29/77 | 37%] - Verified CxDirectorWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [29/76 | 38%] - Navigating to /executive/finance-director-analytics (FinanceDirectorAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/77 | 38%] - Navigating to /executive/finance-director-analytics (FinanceDirectorAnalyticsScreen)...");
   cy.visitWithSemantics("/executive/finance-director-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [29/76 | 38%] - Checking shell & content for FinanceDirectorAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/77 | 38%] - Checking shell & content for FinanceDirectorAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13360,17 +12982,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("financedirectoranalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("financedirectoranalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [29/76 | 38%] - Saving screenshot for FinanceDirectorAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/77 | 38%] - Saving screenshot for FinanceDirectorAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("finance_director_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [29/76 | 38%] - Verified FinanceDirectorAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/77 | 38%] - Verified FinanceDirectorAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/76 | 39%] - Navigating to /executive/finance-director-compliance (FinanceDirectorComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [31/77 | 40%] - Navigating to /executive/finance-director-compliance (FinanceDirectorComplianceScreen)...");
   cy.visitWithSemantics("/executive/finance-director-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/76 | 39%] - Checking shell & content for FinanceDirectorComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [31/77 | 40%] - Checking shell & content for FinanceDirectorComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13378,17 +13000,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("financedirectorcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("financedirectorcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/76 | 39%] - Saving screenshot for FinanceDirectorComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [31/77 | 40%] - Saving screenshot for FinanceDirectorComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("finance_director_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [30/76 | 39%] - Verified FinanceDirectorComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [31/77 | 40%] - Verified FinanceDirectorComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [31/76 | 40%] - Navigating to /executive/finance-director-workflow (FinanceDirectorWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [32/77 | 41%] - Navigating to /executive/finance-director-workflow (FinanceDirectorWorkflowScreen)...");
   cy.visitWithSemantics("/executive/finance-director-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [31/76 | 40%] - Checking shell & content for FinanceDirectorWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [32/77 | 41%] - Checking shell & content for FinanceDirectorWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13396,17 +13018,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("financedirectorworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("financedirectorworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [31/76 | 40%] - Saving screenshot for FinanceDirectorWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [32/77 | 41%] - Saving screenshot for FinanceDirectorWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("finance_director_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [31/76 | 40%] - Verified FinanceDirectorWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [32/77 | 41%] - Verified FinanceDirectorWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [32/76 | 42%] - Navigating to /executive/hr-director-analytics (HrDirectorAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [33/77 | 42%] - Navigating to /executive/hr-director-analytics (HrDirectorAnalyticsScreen)...");
   cy.visitWithSemantics("/executive/hr-director-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [32/76 | 42%] - Checking shell & content for HrDirectorAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [33/77 | 42%] - Checking shell & content for HrDirectorAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13414,17 +13036,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrdirectoranalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrdirectoranalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [32/76 | 42%] - Saving screenshot for HrDirectorAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [33/77 | 42%] - Saving screenshot for HrDirectorAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_director_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [32/76 | 42%] - Verified HrDirectorAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [33/77 | 42%] - Verified HrDirectorAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [33/76 | 43%] - Navigating to /executive/hr-director-compliance (HrDirectorComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [34/77 | 44%] - Navigating to /executive/hr-director-compliance (HrDirectorComplianceScreen)...");
   cy.visitWithSemantics("/executive/hr-director-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [33/76 | 43%] - Checking shell & content for HrDirectorComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [34/77 | 44%] - Checking shell & content for HrDirectorComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13432,17 +13054,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrdirectorcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrdirectorcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [33/76 | 43%] - Saving screenshot for HrDirectorComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [34/77 | 44%] - Saving screenshot for HrDirectorComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_director_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [33/76 | 43%] - Verified HrDirectorComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [34/77 | 44%] - Verified HrDirectorComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [34/76 | 44%] - Navigating to /executive/hr-director-workflow (HrDirectorWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [35/77 | 45%] - Navigating to /executive/hr-director-workflow (HrDirectorWorkflowScreen)...");
   cy.visitWithSemantics("/executive/hr-director-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [34/76 | 44%] - Checking shell & content for HrDirectorWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [35/77 | 45%] - Checking shell & content for HrDirectorWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13450,17 +13072,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrdirectorworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrdirectorworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [34/76 | 44%] - Saving screenshot for HrDirectorWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [35/77 | 45%] - Saving screenshot for HrDirectorWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_director_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [34/76 | 44%] - Verified HrDirectorWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [35/77 | 45%] - Verified HrDirectorWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [35/76 | 46%] - Navigating to /staff/hr-manager-analytics (HrManagerAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [36/77 | 46%] - Navigating to /staff/hr-manager-analytics (HrManagerAnalyticsScreen)...");
   cy.visitWithSemantics("/staff/hr-manager-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [35/76 | 46%] - Checking shell & content for HrManagerAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [36/77 | 46%] - Checking shell & content for HrManagerAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13468,17 +13090,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrmanageranalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrmanageranalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [35/76 | 46%] - Saving screenshot for HrManagerAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [36/77 | 46%] - Saving screenshot for HrManagerAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_manager_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [35/76 | 46%] - Verified HrManagerAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [36/77 | 46%] - Verified HrManagerAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [36/76 | 47%] - Navigating to /staff/hr-manager-compliance (HrManagerComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [37/77 | 48%] - Navigating to /staff/hr-manager-compliance (HrManagerComplianceScreen)...");
   cy.visitWithSemantics("/staff/hr-manager-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [36/76 | 47%] - Checking shell & content for HrManagerComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [37/77 | 48%] - Checking shell & content for HrManagerComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13486,17 +13108,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrmanagercompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrmanagercompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [36/76 | 47%] - Saving screenshot for HrManagerComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [37/77 | 48%] - Saving screenshot for HrManagerComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_manager_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [36/76 | 47%] - Verified HrManagerComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [37/77 | 48%] - Verified HrManagerComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [37/76 | 48%] - Navigating to /staff/hr-manager-workflow (HrManagerWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [38/77 | 49%] - Navigating to /staff/hr-manager-workflow (HrManagerWorkflowScreen)...");
   cy.visitWithSemantics("/staff/hr-manager-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [37/76 | 48%] - Checking shell & content for HrManagerWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [38/77 | 49%] - Checking shell & content for HrManagerWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13504,17 +13126,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrmanagerworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrmanagerworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [37/76 | 48%] - Saving screenshot for HrManagerWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [38/77 | 49%] - Saving screenshot for HrManagerWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_manager_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [37/76 | 48%] - Verified HrManagerWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [38/77 | 49%] - Verified HrManagerWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [38/76 | 50%] - Navigating to /offices/clinical/roles/chiropractor/command-center (ChiropractorCommandCenterScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [39/77 | 50%] - Navigating to /offices/clinical/roles/chiropractor/command-center (ChiropractorCommandCenterScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/command-center");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [38/76 | 50%] - Checking shell & content for ChiropractorCommandCenterScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [39/77 | 50%] - Checking shell & content for ChiropractorCommandCenterScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13522,17 +13144,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropractorcommandcenter-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropractorcommandcenter-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [38/76 | 50%] - Saving screenshot for ChiropractorCommandCenterScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [39/77 | 50%] - Saving screenshot for ChiropractorCommandCenterScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_command_center");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [38/76 | 50%] - Verified ChiropractorCommandCenterScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [39/77 | 50%] - Verified ChiropractorCommandCenterScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [39/76 | 51%] - Navigating to /offices/clinical/roles/chiropractor/appointments (ChiropractorAppointmentsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [40/77 | 51%] - Navigating to /offices/clinical/roles/chiropractor/appointments (ChiropractorAppointmentsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/appointments");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [39/76 | 51%] - Checking shell & content for ChiropractorAppointmentsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [40/77 | 51%] - Checking shell & content for ChiropractorAppointmentsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13540,17 +13162,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropractorappointments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropractorappointments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [39/76 | 51%] - Saving screenshot for ChiropractorAppointmentsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [40/77 | 51%] - Saving screenshot for ChiropractorAppointmentsScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_appointments");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [39/76 | 51%] - Verified ChiropractorAppointmentsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [40/77 | 51%] - Verified ChiropractorAppointmentsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [40/76 | 52%] - Navigating to /offices/clinical/roles/chiropractor/client-intake (ChiropractorClientIntakeScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [41/77 | 53%] - Navigating to /offices/clinical/roles/chiropractor/client-intake (ChiropractorClientIntakeScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/client-intake");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [40/76 | 52%] - Checking shell & content for ChiropractorClientIntakeScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [41/77 | 53%] - Checking shell & content for ChiropractorClientIntakeScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13558,17 +13180,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropractorclientintake-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropractorclientintake-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [40/76 | 52%] - Saving screenshot for ChiropractorClientIntakeScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [41/77 | 53%] - Saving screenshot for ChiropractorClientIntakeScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_client_intake");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [40/76 | 52%] - Verified ChiropractorClientIntakeScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [41/77 | 53%] - Verified ChiropractorClientIntakeScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [41/76 | 53%] - Navigating to /offices/clinical/roles/chiropractor/assessment (ChiropractorAssessmentScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [42/77 | 54%] - Navigating to /offices/clinical/roles/chiropractor/assessment (ChiropractorAssessmentScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/assessment");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [41/76 | 53%] - Checking shell & content for ChiropractorAssessmentScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [42/77 | 54%] - Checking shell & content for ChiropractorAssessmentScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13576,17 +13198,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropractorassessment-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropractorassessment-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [41/76 | 53%] - Saving screenshot for ChiropractorAssessmentScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [42/77 | 54%] - Saving screenshot for ChiropractorAssessmentScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_assessment");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [41/76 | 53%] - Verified ChiropractorAssessmentScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [42/77 | 54%] - Verified ChiropractorAssessmentScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [42/76 | 55%] - Navigating to /offices/clinical/roles/chiropractor/treatment-notes (ChiropractorTreatmentNotesScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [43/77 | 55%] - Navigating to /offices/clinical/roles/chiropractor/treatment-notes (ChiropractorTreatmentNotesScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/treatment-notes");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [42/76 | 55%] - Checking shell & content for ChiropractorTreatmentNotesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [43/77 | 55%] - Checking shell & content for ChiropractorTreatmentNotesScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13594,17 +13216,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropractortreatmentnotes-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropractortreatmentnotes-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [42/76 | 55%] - Saving screenshot for ChiropractorTreatmentNotesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [43/77 | 55%] - Saving screenshot for ChiropractorTreatmentNotesScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_treatment_notes");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [42/76 | 55%] - Verified ChiropractorTreatmentNotesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [43/77 | 55%] - Verified ChiropractorTreatmentNotesScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [43/76 | 56%] - Navigating to /offices/clinical/roles/chiropractor/exercise-plan (ChiropractorExercisePlanScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [44/77 | 57%] - Navigating to /offices/clinical/roles/chiropractor/exercise-plan (ChiropractorExercisePlanScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/exercise-plan");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [43/76 | 56%] - Checking shell & content for ChiropractorExercisePlanScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [44/77 | 57%] - Checking shell & content for ChiropractorExercisePlanScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13612,17 +13234,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropractorexerciseplan-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropractorexerciseplan-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [43/76 | 56%] - Saving screenshot for ChiropractorExercisePlanScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [44/77 | 57%] - Saving screenshot for ChiropractorExercisePlanScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_exercise_plan");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [43/76 | 56%] - Verified ChiropractorExercisePlanScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [44/77 | 57%] - Verified ChiropractorExercisePlanScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [44/76 | 57%] - Navigating to /offices/clinical/roles/chiropractor/billing-link (ChiropractorBillingLinkScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [45/77 | 58%] - Navigating to /offices/clinical/roles/chiropractor/billing-link (ChiropractorBillingLinkScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/billing-link");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [44/76 | 57%] - Checking shell & content for ChiropractorBillingLinkScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [45/77 | 58%] - Checking shell & content for ChiropractorBillingLinkScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13630,17 +13252,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropractorbillinglink-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropractorbillinglink-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [44/76 | 57%] - Saving screenshot for ChiropractorBillingLinkScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [45/77 | 58%] - Saving screenshot for ChiropractorBillingLinkScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_billing_link");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [44/76 | 57%] - Verified ChiropractorBillingLinkScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [45/77 | 58%] - Verified ChiropractorBillingLinkScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [45/76 | 59%] - Navigating to /offices/clinical/roles/chiropractor/reports (ChiropractorReportsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [46/77 | 59%] - Navigating to /offices/clinical/roles/chiropractor/reports (ChiropractorReportsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [45/76 | 59%] - Checking shell & content for ChiropractorReportsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [46/77 | 59%] - Checking shell & content for ChiropractorReportsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13648,17 +13270,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropractorreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropractorreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [45/76 | 59%] - Saving screenshot for ChiropractorReportsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [46/77 | 59%] - Saving screenshot for ChiropractorReportsScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractor_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [45/76 | 59%] - Verified ChiropractorReportsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [46/77 | 59%] - Verified ChiropractorReportsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [46/76 | 60%] - Navigating to /offices/clinical/roles/clinical_director/staff-quality (ClinicalDirectorStaffQualityScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [47/77 | 61%] - Navigating to /offices/clinical/roles/clinical_director/staff-quality (ClinicalDirectorStaffQualityScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/staff-quality");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [46/76 | 60%] - Checking shell & content for ClinicalDirectorStaffQualityScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [47/77 | 61%] - Checking shell & content for ClinicalDirectorStaffQualityScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13666,17 +13288,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorstaffquality-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorstaffquality-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [46/76 | 60%] - Saving screenshot for ClinicalDirectorStaffQualityScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [47/77 | 61%] - Saving screenshot for ClinicalDirectorStaffQualityScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_staff_quality");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [46/76 | 60%] - Verified ClinicalDirectorStaffQualityScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [47/77 | 61%] - Verified ClinicalDirectorStaffQualityScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [47/76 | 61%] - Navigating to /offices/clinical/roles/clinical_director/incident-review (ClinicalDirectorIncidentReviewScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [48/77 | 62%] - Navigating to /offices/clinical/roles/clinical_director/incident-review (ClinicalDirectorIncidentReviewScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/incident-review");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [47/76 | 61%] - Checking shell & content for ClinicalDirectorIncidentReviewScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [48/77 | 62%] - Checking shell & content for ClinicalDirectorIncidentReviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13684,17 +13306,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorincidentreview-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorincidentreview-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [47/76 | 61%] - Saving screenshot for ClinicalDirectorIncidentReviewScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [48/77 | 62%] - Saving screenshot for ClinicalDirectorIncidentReviewScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_incident_review");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [47/76 | 61%] - Verified ClinicalDirectorIncidentReviewScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [48/77 | 62%] - Verified ClinicalDirectorIncidentReviewScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [48/76 | 63%] - Navigating to /offices/clinical/roles/clinical_director/compliance-director (ClinicalDirectorComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [49/77 | 63%] - Navigating to /offices/clinical/roles/clinical_director/compliance-director (ClinicalDirectorComplianceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/compliance-director");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [48/76 | 63%] - Checking shell & content for ClinicalDirectorComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [49/77 | 63%] - Checking shell & content for ClinicalDirectorComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13702,17 +13324,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [48/76 | 63%] - Saving screenshot for ClinicalDirectorComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [49/77 | 63%] - Saving screenshot for ClinicalDirectorComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [48/76 | 63%] - Verified ClinicalDirectorComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [49/77 | 63%] - Verified ClinicalDirectorComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [49/76 | 64%] - Navigating to /offices/clinical/roles/clinical_director/reports (ClinicalDirectorReportsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [50/77 | 64%] - Navigating to /offices/clinical/roles/clinical_director/reports (ClinicalDirectorReportsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [49/76 | 64%] - Checking shell & content for ClinicalDirectorReportsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [50/77 | 64%] - Checking shell & content for ClinicalDirectorReportsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13720,17 +13342,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorreports-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorreports-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [49/76 | 64%] - Saving screenshot for ClinicalDirectorReportsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [50/77 | 64%] - Saving screenshot for ClinicalDirectorReportsScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_reports");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [49/76 | 64%] - Verified ClinicalDirectorReportsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [50/77 | 64%] - Verified ClinicalDirectorReportsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [50/76 | 65%] - Navigating to /offices/clinical/roles/clinical_director/approvals (ClinicalDirectorApprovalsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [51/77 | 66%] - Navigating to /offices/clinical/roles/clinical_director/approvals (ClinicalDirectorApprovalsScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/approvals");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [50/76 | 65%] - Checking shell & content for ClinicalDirectorApprovalsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [51/77 | 66%] - Checking shell & content for ClinicalDirectorApprovalsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13738,17 +13360,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorapprovals-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorapprovals-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [50/76 | 65%] - Saving screenshot for ClinicalDirectorApprovalsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [51/77 | 66%] - Saving screenshot for ClinicalDirectorApprovalsScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_approvals");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [50/76 | 65%] - Verified ClinicalDirectorApprovalsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [51/77 | 66%] - Verified ClinicalDirectorApprovalsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [51/76 | 67%] - Navigating to /offices/clinical/roles/clinical_director/performance (ClinicalDirectorPerformanceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [52/77 | 67%] - Navigating to /offices/clinical/roles/clinical_director/performance (ClinicalDirectorPerformanceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/performance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [51/76 | 67%] - Checking shell & content for ClinicalDirectorPerformanceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [52/77 | 67%] - Checking shell & content for ClinicalDirectorPerformanceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13756,17 +13378,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectorperformance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectorperformance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [51/76 | 67%] - Saving screenshot for ClinicalDirectorPerformanceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [52/77 | 67%] - Saving screenshot for ClinicalDirectorPerformanceScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_performance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [51/76 | 67%] - Verified ClinicalDirectorPerformanceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [52/77 | 67%] - Verified ClinicalDirectorPerformanceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [52/76 | 68%] - Navigating to /executive/hr-director-hiring-pipeline (HrDirectorHiringPipelineScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [53/77 | 68%] - Navigating to /executive/hr-director-hiring-pipeline (HrDirectorHiringPipelineScreen)...");
   cy.visitWithSemantics("/executive/hr-director-hiring-pipeline");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [52/76 | 68%] - Checking shell & content for HrDirectorHiringPipelineScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [53/77 | 68%] - Checking shell & content for HrDirectorHiringPipelineScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13774,17 +13396,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrdirectorhiringpipeline-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrdirectorhiringpipeline-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [52/76 | 68%] - Saving screenshot for HrDirectorHiringPipelineScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [53/77 | 68%] - Saving screenshot for HrDirectorHiringPipelineScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_director_hiring_pipeline");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [52/76 | 68%] - Verified HrDirectorHiringPipelineScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [53/77 | 68%] - Verified HrDirectorHiringPipelineScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [53/76 | 69%] - Navigating to /executive/hr-director-staff-files (HrDirectorStaffFilesScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [54/77 | 70%] - Navigating to /executive/hr-director-staff-files (HrDirectorStaffFilesScreen)...");
   cy.visitWithSemantics("/executive/hr-director-staff-files");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [53/76 | 69%] - Checking shell & content for HrDirectorStaffFilesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [54/77 | 70%] - Checking shell & content for HrDirectorStaffFilesScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13792,17 +13414,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrdirectorstafffiles-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrdirectorstafffiles-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [53/76 | 69%] - Saving screenshot for HrDirectorStaffFilesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [54/77 | 70%] - Saving screenshot for HrDirectorStaffFilesScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_director_staff_files");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [53/76 | 69%] - Verified HrDirectorStaffFilesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [54/77 | 70%] - Verified HrDirectorStaffFilesScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [54/76 | 71%] - Navigating to /executive/hr-director-training (HrDirectorTrainingScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [55/77 | 71%] - Navigating to /executive/hr-director-training (HrDirectorTrainingScreen)...");
   cy.visitWithSemantics("/executive/hr-director-training");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [54/76 | 71%] - Checking shell & content for HrDirectorTrainingScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [55/77 | 71%] - Checking shell & content for HrDirectorTrainingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13810,17 +13432,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrdirectortraining-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrdirectortraining-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [54/76 | 71%] - Saving screenshot for HrDirectorTrainingScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [55/77 | 71%] - Saving screenshot for HrDirectorTrainingScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_director_training");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [54/76 | 71%] - Verified HrDirectorTrainingScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [55/77 | 71%] - Verified HrDirectorTrainingScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [55/76 | 72%] - Navigating to /executive/hr-director-credential-expiry (HrDirectorCredentialExpiryScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [56/77 | 72%] - Navigating to /executive/hr-director-credential-expiry (HrDirectorCredentialExpiryScreen)...");
   cy.visitWithSemantics("/executive/hr-director-credential-expiry");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [55/76 | 72%] - Checking shell & content for HrDirectorCredentialExpiryScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [56/77 | 72%] - Checking shell & content for HrDirectorCredentialExpiryScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13828,17 +13450,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrdirectorcredentialexpiry-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrdirectorcredentialexpiry-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [55/76 | 72%] - Saving screenshot for HrDirectorCredentialExpiryScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [56/77 | 72%] - Saving screenshot for HrDirectorCredentialExpiryScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_director_credential_expiry");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [55/76 | 72%] - Verified HrDirectorCredentialExpiryScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [56/77 | 72%] - Verified HrDirectorCredentialExpiryScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [56/76 | 73%] - Navigating to /executive/hr-director-onboarding (HrDirectorOnboardingScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [57/77 | 74%] - Navigating to /executive/hr-director-onboarding (HrDirectorOnboardingScreen)...");
   cy.visitWithSemantics("/executive/hr-director-onboarding");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [56/76 | 73%] - Checking shell & content for HrDirectorOnboardingScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [57/77 | 74%] - Checking shell & content for HrDirectorOnboardingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13846,17 +13468,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hrdirectoronboarding-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hrdirectoronboarding-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [56/76 | 73%] - Saving screenshot for HrDirectorOnboardingScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [57/77 | 74%] - Saving screenshot for HrDirectorOnboardingScreen...");
   cy.waitAndSee();
   cy.screenshot("hr_director_onboarding");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [56/76 | 73%] - Verified HrDirectorOnboardingScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [57/77 | 74%] - Verified HrDirectorOnboardingScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [57/76 | 75%] - Navigating to /executive/system-health (SystemHealthScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [58/77 | 75%] - Navigating to /executive/system-health (SystemHealthScreen)...");
   cy.visitWithSemantics("/executive/system-health");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [57/76 | 75%] - Checking shell & content for SystemHealthScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [58/77 | 75%] - Checking shell & content for SystemHealthScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13864,17 +13486,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("systemhealth-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("systemhealth-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [57/76 | 75%] - Saving screenshot for SystemHealthScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [58/77 | 75%] - Saving screenshot for SystemHealthScreen...");
   cy.waitAndSee();
   cy.screenshot("system_health");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [57/76 | 75%] - Verified SystemHealthScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [58/77 | 75%] - Verified SystemHealthScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [58/76 | 76%] - Navigating to /executive/api-monitoring (ApiMonitoringScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [59/77 | 76%] - Navigating to /executive/api-monitoring (ApiMonitoringScreen)...");
   cy.visitWithSemantics("/executive/api-monitoring");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [58/76 | 76%] - Checking shell & content for ApiMonitoringScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [59/77 | 76%] - Checking shell & content for ApiMonitoringScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13882,17 +13504,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("apimonitoring-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("apimonitoring-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [58/76 | 76%] - Saving screenshot for ApiMonitoringScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [59/77 | 76%] - Saving screenshot for ApiMonitoringScreen...");
   cy.waitAndSee();
   cy.screenshot("api_monitoring");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [58/76 | 76%] - Verified ApiMonitoringScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [59/77 | 76%] - Verified ApiMonitoringScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [59/76 | 77%] - Navigating to /executive/deployment-center (DeploymentCenterScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [60/77 | 77%] - Navigating to /executive/deployment-center (DeploymentCenterScreen)...");
   cy.visitWithSemantics("/executive/deployment-center");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [59/76 | 77%] - Checking shell & content for DeploymentCenterScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [60/77 | 77%] - Checking shell & content for DeploymentCenterScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13900,17 +13522,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("deploymentcenter-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("deploymentcenter-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [59/76 | 77%] - Saving screenshot for DeploymentCenterScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [60/77 | 77%] - Saving screenshot for DeploymentCenterScreen...");
   cy.waitAndSee();
   cy.screenshot("deployment_center");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [59/76 | 77%] - Verified DeploymentCenterScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [60/77 | 77%] - Verified DeploymentCenterScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [60/76 | 78%] - Navigating to /executive/security-audit (SecurityAuditScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [61/77 | 79%] - Navigating to /executive/security-audit (SecurityAuditScreen)...");
   cy.visitWithSemantics("/executive/security-audit");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [60/76 | 78%] - Checking shell & content for SecurityAuditScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [61/77 | 79%] - Checking shell & content for SecurityAuditScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13918,17 +13540,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("securityaudit-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("securityaudit-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [60/76 | 78%] - Saving screenshot for SecurityAuditScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [61/77 | 79%] - Saving screenshot for SecurityAuditScreen...");
   cy.waitAndSee();
   cy.screenshot("security_audit");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [60/76 | 78%] - Verified SecurityAuditScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [61/77 | 79%] - Verified SecurityAuditScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [61/76 | 80%] - Navigating to /executive/release-management (ReleaseManagementScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [62/77 | 80%] - Navigating to /executive/release-management (ReleaseManagementScreen)...");
   cy.visitWithSemantics("/executive/release-management");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [61/76 | 80%] - Checking shell & content for ReleaseManagementScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [62/77 | 80%] - Checking shell & content for ReleaseManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13936,17 +13558,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("releasemanagement-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("releasemanagement-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [61/76 | 80%] - Saving screenshot for ReleaseManagementScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [62/77 | 80%] - Saving screenshot for ReleaseManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("release_management");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [61/76 | 80%] - Verified ReleaseManagementScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [62/77 | 80%] - Verified ReleaseManagementScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [62/76 | 81%] - Navigating to /management/hiring-pipeline (HiringPipelineScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [63/77 | 81%] - Navigating to /management/hiring-pipeline (HiringPipelineScreen)...");
   cy.visitWithSemantics("/management/hiring-pipeline");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [62/76 | 81%] - Checking shell & content for HiringPipelineScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [63/77 | 81%] - Checking shell & content for HiringPipelineScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13954,17 +13576,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("hiringpipeline-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("hiringpipeline-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [62/76 | 81%] - Saving screenshot for HiringPipelineScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [63/77 | 81%] - Saving screenshot for HiringPipelineScreen...");
   cy.waitAndSee();
   cy.screenshot("hiring_pipeline");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [62/76 | 81%] - Verified HiringPipelineScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [63/77 | 81%] - Verified HiringPipelineScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [63/76 | 82%] - Navigating to /management/employee-records (EmployeeRecordsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [64/77 | 83%] - Navigating to /management/employee-records (EmployeeRecordsScreen)...");
   cy.visitWithSemantics("/management/employee-records");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [63/76 | 82%] - Checking shell & content for EmployeeRecordsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [64/77 | 83%] - Checking shell & content for EmployeeRecordsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13972,17 +13594,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("employeerecords-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("employeerecords-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [63/76 | 82%] - Saving screenshot for EmployeeRecordsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [64/77 | 83%] - Saving screenshot for EmployeeRecordsScreen...");
   cy.waitAndSee();
   cy.screenshot("employee_records");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [63/76 | 82%] - Verified EmployeeRecordsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [64/77 | 83%] - Verified EmployeeRecordsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [64/76 | 84%] - Navigating to /management/credential-expiry (CredentialExpiryScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [65/77 | 84%] - Navigating to /management/credential-expiry (CredentialExpiryScreen)...");
   cy.visitWithSemantics("/management/credential-expiry");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [64/76 | 84%] - Checking shell & content for CredentialExpiryScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [65/77 | 84%] - Checking shell & content for CredentialExpiryScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -13990,17 +13612,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("credentialexpiry-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("credentialexpiry-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [64/76 | 84%] - Saving screenshot for CredentialExpiryScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [65/77 | 84%] - Saving screenshot for CredentialExpiryScreen...");
   cy.waitAndSee();
   cy.screenshot("credential_expiry");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [64/76 | 84%] - Verified CredentialExpiryScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [65/77 | 84%] - Verified CredentialExpiryScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [65/76 | 85%] - Navigating to /management/training-management (TrainingManagementScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [66/77 | 85%] - Navigating to /management/training-management (TrainingManagementScreen)...");
   cy.visitWithSemantics("/management/training-management");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [65/76 | 85%] - Checking shell & content for TrainingManagementScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [66/77 | 85%] - Checking shell & content for TrainingManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -14008,17 +13630,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("trainingmanagement-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("trainingmanagement-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [65/76 | 85%] - Saving screenshot for TrainingManagementScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [66/77 | 85%] - Saving screenshot for TrainingManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("training_management");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [65/76 | 85%] - Verified TrainingManagementScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [66/77 | 85%] - Verified TrainingManagementScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [66/76 | 86%] - Navigating to /management/onboarding (OnboardingScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [67/77 | 87%] - Navigating to /management/onboarding (OnboardingScreen)...");
   cy.visitWithSemantics("/management/onboarding");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [66/76 | 86%] - Checking shell & content for OnboardingScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [67/77 | 87%] - Checking shell & content for OnboardingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -14026,17 +13648,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("onboarding-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("onboarding-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [66/76 | 86%] - Saving screenshot for OnboardingScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [67/77 | 87%] - Saving screenshot for OnboardingScreen...");
   cy.waitAndSee();
   cy.screenshot("onboarding");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [66/76 | 86%] - Verified OnboardingScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [67/77 | 87%] - Verified OnboardingScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [67/76 | 88%] - Navigating to /offices/clinical/roles/chiropractor/chiropractic-assessment (ChiropracticAssessmentScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [68/77 | 88%] - Navigating to /offices/clinical/roles/chiropractor/chiropractic-assessment (ChiropracticAssessmentScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/chiropractic-assessment");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [67/76 | 88%] - Checking shell & content for ChiropracticAssessmentScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [68/77 | 88%] - Checking shell & content for ChiropracticAssessmentScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -14044,17 +13666,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropracticassessment-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropracticassessment-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [67/76 | 88%] - Saving screenshot for ChiropracticAssessmentScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [68/77 | 88%] - Saving screenshot for ChiropracticAssessmentScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractic_assessment");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [67/76 | 88%] - Verified ChiropracticAssessmentScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [68/77 | 88%] - Verified ChiropracticAssessmentScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [68/76 | 89%] - Navigating to /offices/clinical/roles/chiropractor/adjustment-notes (AdjustmentNotesScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [69/77 | 89%] - Navigating to /offices/clinical/roles/chiropractor/adjustment-notes (AdjustmentNotesScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/adjustment-notes");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [68/76 | 89%] - Checking shell & content for AdjustmentNotesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [69/77 | 89%] - Checking shell & content for AdjustmentNotesScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -14062,17 +13684,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("adjustmentnotes-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("adjustmentnotes-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [68/76 | 89%] - Saving screenshot for AdjustmentNotesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [69/77 | 89%] - Saving screenshot for AdjustmentNotesScreen...");
   cy.waitAndSee();
   cy.screenshot("adjustment_notes");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [68/76 | 89%] - Verified AdjustmentNotesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [69/77 | 89%] - Verified AdjustmentNotesScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [69/76 | 90%] - Navigating to /offices/clinical/roles/chiropractor/xray-review (XrayReviewScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [70/77 | 90%] - Navigating to /offices/clinical/roles/chiropractor/xray-review (XrayReviewScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/xray-review");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [69/76 | 90%] - Checking shell & content for XrayReviewScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [70/77 | 90%] - Checking shell & content for XrayReviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -14080,17 +13702,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("xrayreview-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("xrayreview-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [69/76 | 90%] - Saving screenshot for XrayReviewScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [70/77 | 90%] - Saving screenshot for XrayReviewScreen...");
   cy.waitAndSee();
   cy.screenshot("xray_review");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [69/76 | 90%] - Verified XrayReviewScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [70/77 | 90%] - Verified XrayReviewScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [70/76 | 92%] - Navigating to /offices/clinical/roles/chiropractor/chiropractic-progress-tracking (ChiropracticProgressTrackingScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [71/77 | 92%] - Navigating to /offices/clinical/roles/chiropractor/chiropractic-progress-tracking (ChiropracticProgressTrackingScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/chiropractor/chiropractic-progress-tracking");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [70/76 | 92%] - Checking shell & content for ChiropracticProgressTrackingScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [71/77 | 92%] - Checking shell & content for ChiropracticProgressTrackingScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -14098,17 +13720,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("chiropracticprogresstracking-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("chiropracticprogresstracking-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [70/76 | 92%] - Saving screenshot for ChiropracticProgressTrackingScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [71/77 | 92%] - Saving screenshot for ChiropracticProgressTrackingScreen...");
   cy.waitAndSee();
   cy.screenshot("chiropractic_progress_tracking");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [70/76 | 92%] - Verified ChiropracticProgressTrackingScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [71/77 | 92%] - Verified ChiropracticProgressTrackingScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [71/76 | 93%] - Navigating to /offices/clinical/roles/clinical_director/quality (ClinicalQualityScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [72/77 | 93%] - Navigating to /offices/clinical/roles/clinical_director/quality (ClinicalQualityScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/quality");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [71/76 | 93%] - Checking shell & content for ClinicalQualityScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [72/77 | 93%] - Checking shell & content for ClinicalQualityScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -14116,17 +13738,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicalquality-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicalquality-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [71/76 | 93%] - Saving screenshot for ClinicalQualityScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [72/77 | 93%] - Saving screenshot for ClinicalQualityScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_quality");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [71/76 | 93%] - Verified ClinicalQualityScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [72/77 | 93%] - Verified ClinicalQualityScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [72/76 | 94%] - Navigating to /offices/clinical/roles/clinical_director/staff-performance (StaffPerformanceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [73/77 | 94%] - Navigating to /offices/clinical/roles/clinical_director/staff-performance (StaffPerformanceScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/staff-performance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [72/76 | 94%] - Checking shell & content for StaffPerformanceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [73/77 | 94%] - Checking shell & content for StaffPerformanceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -14134,17 +13756,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("staffperformance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("staffperformance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [72/76 | 94%] - Saving screenshot for StaffPerformanceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [73/77 | 94%] - Saving screenshot for StaffPerformanceScreen...");
   cy.waitAndSee();
   cy.screenshot("staff_performance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [72/76 | 94%] - Verified StaffPerformanceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [73/77 | 94%] - Verified StaffPerformanceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [73/76 | 96%] - Navigating to /offices/clinical/roles/clinical_director/compliance-review (ComplianceReviewScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [74/77 | 96%] - Navigating to /offices/clinical/roles/clinical_director/compliance-review (ComplianceReviewScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/compliance-review");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [73/76 | 96%] - Checking shell & content for ComplianceReviewScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [74/77 | 96%] - Checking shell & content for ComplianceReviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -14152,17 +13774,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancereview-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancereview-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [73/76 | 96%] - Saving screenshot for ComplianceReviewScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [74/77 | 96%] - Saving screenshot for ComplianceReviewScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_review");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [73/76 | 96%] - Verified ComplianceReviewScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [74/77 | 96%] - Verified ComplianceReviewScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [74/76 | 97%] - Navigating to /offices/clinical/roles/clinical_director/incident-oversight (IncidentOversightScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [75/77 | 97%] - Navigating to /offices/clinical/roles/clinical_director/incident-oversight (IncidentOversightScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/incident-oversight");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [74/76 | 97%] - Checking shell & content for IncidentOversightScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [75/77 | 97%] - Checking shell & content for IncidentOversightScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -14170,17 +13792,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("incidentoversight-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("incidentoversight-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [74/76 | 97%] - Saving screenshot for IncidentOversightScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [75/77 | 97%] - Saving screenshot for IncidentOversightScreen...");
   cy.waitAndSee();
   cy.screenshot("incident_oversight");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [74/76 | 97%] - Verified IncidentOversightScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [75/77 | 97%] - Verified IncidentOversightScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [75/76 | 98%] - Navigating to /offices/clinical/roles/clinical_director/operations4k (ClinicalOperations4KScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [76/77 | 98%] - Navigating to /offices/clinical/roles/clinical_director/operations4k (ClinicalOperations4KScreen)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/operations4k");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [75/76 | 98%] - Checking shell & content for ClinicalOperations4KScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [76/77 | 98%] - Checking shell & content for ClinicalOperations4KScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -14188,17 +13810,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaloperations4k-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaloperations4k-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [75/76 | 98%] - Saving screenshot for ClinicalOperations4KScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [76/77 | 98%] - Saving screenshot for ClinicalOperations4KScreen...");
   cy.waitAndSee();
   cy.screenshot("clinical_operations4_k");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [75/76 | 98%] - Verified ClinicalOperations4KScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [76/77 | 98%] - Verified ClinicalOperations4KScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [76/76 | 100%] - Navigating to /offices/clinical/roles/clinical_director/dashboard (Clinical Director Dashboard)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [77/77 | 100%] - Navigating to /offices/clinical/roles/clinical_director/dashboard (Clinical Director Dashboard)...");
   cy.visitWithSemantics("/offices/clinical/roles/clinical_director/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [76/76 | 100%] - Checking shell & content for Clinical Director Dashboard...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [77/77 | 100%] - Checking shell & content for Clinical Director Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -14206,11 +13828,11 @@ describe("Org Full UI Test", () => {
   // cy.getCy("clinicaldirectordashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("clinicaldirectordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [76/76 | 100%] - Saving screenshot for Clinical Director Dashboard...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [77/77 | 100%] - Saving screenshot for Clinical Director Dashboard...");
   cy.waitAndSee();
   cy.screenshot("clinical_director_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [76/76 | 100%] - Verified Clinical Director Dashboard successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [77/77 | 100%] - Verified Clinical Director Dashboard successfully!\n");
   });
 
   it("tests org role cx_director", () => {
@@ -15472,11 +15094,11 @@ describe("Org Full UI Test", () => {
   it("tests org role compliance", () => {
     cy.loginAsRole("compliance");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/10 | 10%] - Navigating to /offices/corporate/roles/compliance_manager/dashboard (ComplianceManagerDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Navigating to /offices/corporate/roles/compliance_manager/dashboard (ComplianceManagerDashboardScreen)...");
   cy.visitWithSemantics("/offices/corporate/roles/compliance_manager/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/10 | 10%] - Checking shell & content for ComplianceManagerDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Checking shell & content for ComplianceManagerDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -15484,17 +15106,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/10 | 10%] - Saving screenshot for ComplianceManagerDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Saving screenshot for ComplianceManagerDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/10 | 10%] - Verified ComplianceManagerDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/9 | 11%] - Verified ComplianceManagerDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/10 | 20%] - Navigating to /management/compliance-manager-analytics (ComplianceManagerAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/9 | 22%] - Navigating to /management/compliance-manager-analytics (ComplianceManagerAnalyticsScreen)...");
   cy.visitWithSemantics("/management/compliance-manager-analytics");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/10 | 20%] - Checking shell & content for ComplianceManagerAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/9 | 22%] - Checking shell & content for ComplianceManagerAnalyticsScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -15502,17 +15124,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanageranalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanageranalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/10 | 20%] - Saving screenshot for ComplianceManagerAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/9 | 22%] - Saving screenshot for ComplianceManagerAnalyticsScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/10 | 20%] - Verified ComplianceManagerAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [2/9 | 22%] - Verified ComplianceManagerAnalyticsScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/10 | 30%] - Navigating to /management/compliance-manager-compliance (ComplianceManagerComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/9 | 33%] - Navigating to /management/compliance-manager-compliance (ComplianceManagerComplianceScreen)...");
   cy.visitWithSemantics("/management/compliance-manager-compliance");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/10 | 30%] - Checking shell & content for ComplianceManagerComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/9 | 33%] - Checking shell & content for ComplianceManagerComplianceScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -15520,17 +15142,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanagercompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanagercompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/10 | 30%] - Saving screenshot for ComplianceManagerComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/9 | 33%] - Saving screenshot for ComplianceManagerComplianceScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/10 | 30%] - Verified ComplianceManagerComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [3/9 | 33%] - Verified ComplianceManagerComplianceScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/10 | 40%] - Navigating to /management/compliance-manager-workflow (ComplianceManagerWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/9 | 44%] - Navigating to /management/compliance-manager-workflow (ComplianceManagerWorkflowScreen)...");
   cy.visitWithSemantics("/management/compliance-manager-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/10 | 40%] - Checking shell & content for ComplianceManagerWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/9 | 44%] - Checking shell & content for ComplianceManagerWorkflowScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -15538,17 +15160,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancemanagerworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancemanagerworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/10 | 40%] - Saving screenshot for ComplianceManagerWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/9 | 44%] - Saving screenshot for ComplianceManagerWorkflowScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_manager_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/10 | 40%] - Verified ComplianceManagerWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [4/9 | 44%] - Verified ComplianceManagerWorkflowScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/10 | 50%] - Navigating to /management/compliance-dashboard (ComplianceDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/9 | 55%] - Navigating to /management/compliance-dashboard (ComplianceDashboardScreen)...");
   cy.visitWithSemantics("/management/compliance-dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/10 | 50%] - Checking shell & content for ComplianceDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/9 | 55%] - Checking shell & content for ComplianceDashboardScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -15556,17 +15178,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("compliancedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("compliancedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/10 | 50%] - Saving screenshot for ComplianceDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/9 | 55%] - Saving screenshot for ComplianceDashboardScreen...");
   cy.waitAndSee();
   cy.screenshot("compliance_dashboard");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/10 | 50%] - Verified ComplianceDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [5/9 | 55%] - Verified ComplianceDashboardScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/10 | 60%] - Navigating to /management/audit-review (AuditReviewScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/9 | 66%] - Navigating to /management/audit-review (AuditReviewScreen)...");
   cy.visitWithSemantics("/management/audit-review");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/10 | 60%] - Checking shell & content for AuditReviewScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/9 | 66%] - Checking shell & content for AuditReviewScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -15574,17 +15196,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("auditreview-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("auditreview-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/10 | 60%] - Saving screenshot for AuditReviewScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/9 | 66%] - Saving screenshot for AuditReviewScreen...");
   cy.waitAndSee();
   cy.screenshot("audit_review");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/10 | 60%] - Verified AuditReviewScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [6/9 | 66%] - Verified AuditReviewScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/10 | 70%] - Navigating to /management/incident-management (IncidentManagementScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/9 | 77%] - Navigating to /management/incident-management (IncidentManagementScreen)...");
   cy.visitWithSemantics("/management/incident-management");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/10 | 70%] - Checking shell & content for IncidentManagementScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/9 | 77%] - Checking shell & content for IncidentManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -15592,17 +15214,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("incidentmanagement-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("incidentmanagement-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/10 | 70%] - Saving screenshot for IncidentManagementScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/9 | 77%] - Saving screenshot for IncidentManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("incident_management");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/10 | 70%] - Verified IncidentManagementScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [7/9 | 77%] - Verified IncidentManagementScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/10 | 80%] - Navigating to /management/policy-management (PolicyManagementScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/9 | 88%] - Navigating to /management/policy-management (PolicyManagementScreen)...");
   cy.visitWithSemantics("/management/policy-management");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/10 | 80%] - Checking shell & content for PolicyManagementScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/9 | 88%] - Checking shell & content for PolicyManagementScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -15610,17 +15232,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("policymanagement-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("policymanagement-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/10 | 80%] - Saving screenshot for PolicyManagementScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/9 | 88%] - Saving screenshot for PolicyManagementScreen...");
   cy.waitAndSee();
   cy.screenshot("policy_management");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/10 | 80%] - Verified PolicyManagementScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [8/9 | 88%] - Verified PolicyManagementScreen successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [9/10 | 90%] - Navigating to /management/corrective-action (CorrectiveActionScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [9/9 | 100%] - Navigating to /management/corrective-action (CorrectiveActionScreen)...");
   cy.visitWithSemantics("/management/corrective-action");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [9/10 | 90%] - Checking shell & content for CorrectiveActionScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [9/9 | 100%] - Checking shell & content for CorrectiveActionScreen...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -15628,29 +15250,11 @@ describe("Org Full UI Test", () => {
   // cy.getCy("correctiveaction-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("correctiveaction-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [9/10 | 90%] - Saving screenshot for CorrectiveActionScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [9/9 | 100%] - Saving screenshot for CorrectiveActionScreen...");
   cy.waitAndSee();
   cy.screenshot("corrective_action");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [9/10 | 90%] - Verified CorrectiveActionScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [10/10 | 100%] - Navigating to packages/primecare_ui/lib/src/screens/management/compliance_dashboard_screen.dart (ComplianceDashboardScreen)...");
-  cy.visitWithSemantics("packages/primecare_ui/lib/src/screens/management/compliance_dashboard_screen.dart");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [10/10 | 100%] - Checking shell & content for ComplianceDashboardScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("compliancedashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("compliancedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("compliancedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [10/10 | 100%] - Saving screenshot for ComplianceDashboardScreen...");
-  cy.waitAndSee();
-  cy.screenshot("compliance_dashboard");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [10/10 | 100%] - Verified ComplianceDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [9/9 | 100%] - Verified CorrectiveActionScreen successfully!\n");
   });
 
   it("tests org role franchise_sales", () => {
@@ -17722,11 +17326,11 @@ describe("Org Full UI Test", () => {
   it("tests org role psw", () => {
     cy.loginAsRole("psw");
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Navigating to /offices/clinical/roles/psw/dashboard (PswDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/18 | 5%] - Navigating to /offices/clinical/roles/psw/dashboard (Care Dashboard)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Checking shell & content for PswDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/18 | 5%] - Checking shell & content for Care Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17734,17 +17338,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Saving screenshot for PswDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/18 | 5%] - Saving screenshot for Care Dashboard...");
   cy.waitAndSee();
   cy.screenshot("psw_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Verified PswDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/18 | 5%] - Verified Care Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Navigating to /offices/clinical/roles/psw/reports (PswAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/18 | 11%] - Navigating to /offices/clinical/roles/psw/reports (Psw Analytics)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Checking shell & content for PswAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/18 | 11%] - Checking shell & content for Psw Analytics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17752,17 +17356,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswanalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswanalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Saving screenshot for PswAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/18 | 11%] - Saving screenshot for Psw Analytics...");
   cy.waitAndSee();
   cy.screenshot("psw_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Verified PswAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/18 | 11%] - Verified Psw Analytics successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Navigating to /offices/clinical/roles/psw/patient-profile (PswClientsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/18 | 16%] - Navigating to /offices/clinical/roles/psw/patient-profile (My Clients)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/patient-profile");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Checking shell & content for PswClientsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/18 | 16%] - Checking shell & content for My Clients...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17770,17 +17374,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswclients-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswclients-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Saving screenshot for PswClientsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/18 | 16%] - Saving screenshot for My Clients...");
   cy.waitAndSee();
   cy.screenshot("psw_clients");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Verified PswClientsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/18 | 16%] - Verified My Clients successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Navigating to /offices/clinical/roles/psw/help-support (PswComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/18 | 22%] - Navigating to /offices/clinical/roles/psw/help-support (Psw Compliance)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/help-support");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Checking shell & content for PswComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/18 | 22%] - Checking shell & content for Psw Compliance...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17788,17 +17392,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Saving screenshot for PswComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/18 | 22%] - Saving screenshot for Psw Compliance...");
   cy.waitAndSee();
   cy.screenshot("psw_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Verified PswComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/18 | 22%] - Verified Psw Compliance successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Navigating to /offices/clinical/roles/psw/messages (PswMessagesScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/18 | 27%] - Navigating to /offices/clinical/roles/psw/messages (Messages)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/messages");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Checking shell & content for PswMessagesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/18 | 27%] - Checking shell & content for Messages...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17806,17 +17410,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswmessages-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswmessages-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Saving screenshot for PswMessagesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/18 | 27%] - Saving screenshot for Messages...");
   cy.waitAndSee();
   cy.screenshot("psw_messages");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Verified PswMessagesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/18 | 27%] - Verified Messages successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Navigating to /offices/clinical/roles/psw/schedule (PswShiftTrackerScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/18 | 33%] - Navigating to /offices/clinical/roles/psw/schedule (Shift Tracker)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/schedule");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Checking shell & content for PswShiftTrackerScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/18 | 33%] - Checking shell & content for Shift Tracker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17824,17 +17428,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswshifttracker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswshifttracker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Saving screenshot for PswShiftTrackerScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/18 | 33%] - Saving screenshot for Shift Tracker...");
   cy.waitAndSee();
   cy.screenshot("psw_shift_tracker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Verified PswShiftTrackerScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/18 | 33%] - Verified Shift Tracker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Navigating to /offices/clinical/roles/psw/visit-checklist (PswTasksScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/18 | 38%] - Navigating to /offices/clinical/roles/psw/visit-checklist (Task List)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/visit-checklist");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Checking shell & content for PswTasksScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/18 | 38%] - Checking shell & content for Task List...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17842,17 +17446,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswtasks-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswtasks-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Saving screenshot for PswTasksScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/18 | 38%] - Saving screenshot for Task List...");
   cy.waitAndSee();
   cy.screenshot("psw_tasks");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Verified PswTasksScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/18 | 38%] - Verified Task List successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Navigating to /offices/clinical/roles/psw/visit-notes (PswVisitNotesScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/18 | 44%] - Navigating to /offices/clinical/roles/psw/visit-notes (Visit Notes)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/visit-notes");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Checking shell & content for PswVisitNotesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/18 | 44%] - Checking shell & content for Visit Notes...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17860,17 +17464,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswvisitnotes-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswvisitnotes-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Saving screenshot for PswVisitNotesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/18 | 44%] - Saving screenshot for Visit Notes...");
   cy.waitAndSee();
   cy.screenshot("psw_visit_notes");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Verified PswVisitNotesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/18 | 44%] - Verified Visit Notes successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Navigating to /offices/clinical/roles/psw/psw-workflow (PswWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/18 | 50%] - Navigating to /offices/clinical/roles/psw/psw-workflow (Psw Workflow)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/psw-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Checking shell & content for PswWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/18 | 50%] - Checking shell & content for Psw Workflow...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17878,17 +17482,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Saving screenshot for PswWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/18 | 50%] - Saving screenshot for Psw Workflow...");
   cy.waitAndSee();
   cy.screenshot("psw_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Verified PswWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/18 | 50%] - Verified Psw Workflow successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Navigating to /offices/clinical/roles/psw/system-logs (PswCommandCenterScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/18 | 55%] - Navigating to /offices/clinical/roles/psw/system-logs (Psw Command Center)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/system-logs");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Checking shell & content for PswCommandCenterScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/18 | 55%] - Checking shell & content for Psw Command Center...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17896,17 +17500,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswcommandcenter-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswcommandcenter-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Saving screenshot for PswCommandCenterScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/18 | 55%] - Saving screenshot for Psw Command Center...");
   cy.waitAndSee();
   cy.screenshot("psw_command_center");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Verified PswCommandCenterScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/18 | 55%] - Verified Psw Command Center successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Navigating to /offices/clinical/roles/psw/psw-my-shifts (PswMyShiftsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/18 | 61%] - Navigating to /offices/clinical/roles/psw/psw-my-shifts (Psw My Shifts)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/psw-my-shifts");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Checking shell & content for PswMyShiftsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/18 | 61%] - Checking shell & content for Psw My Shifts...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17914,17 +17518,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswmyshifts-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswmyshifts-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Saving screenshot for PswMyShiftsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/18 | 61%] - Saving screenshot for Psw My Shifts...");
   cy.waitAndSee();
   cy.screenshot("psw_my_shifts");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Verified PswMyShiftsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/18 | 61%] - Verified Psw My Shifts successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Navigating to /offices/clinical/roles/psw/profile (PswClientProfileScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/18 | 66%] - Navigating to /offices/clinical/roles/psw/profile (Psw Client Profile)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/profile");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Checking shell & content for PswClientProfileScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/18 | 66%] - Checking shell & content for Psw Client Profile...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17932,35 +17536,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswclientprofile-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswclientprofile-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Saving screenshot for PswClientProfileScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/18 | 66%] - Saving screenshot for Psw Client Profile...");
   cy.waitAndSee();
   cy.screenshot("psw_client_profile");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Verified PswClientProfileScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/18 | 66%] - Verified Psw Client Profile successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Navigating to /offices/clinical/roles/psw/visit-notes (PswVisitNotesScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/psw/visit-notes");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Checking shell & content for PswVisitNotesScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("pswvisitnotes-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("pswvisitnotes-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("pswvisitnotes-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Saving screenshot for PswVisitNotesScreen...");
-  cy.waitAndSee();
-  cy.screenshot("psw_visit_notes");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Verified PswVisitNotesScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Navigating to /offices/clinical/roles/psw/observation-vitals-log (PswVitalsLogScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [13/18 | 72%] - Navigating to /offices/clinical/roles/psw/observation-vitals-log (Vitals Entry)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/observation-vitals-log");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Checking shell & content for PswVitalsLogScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [13/18 | 72%] - Checking shell & content for Vitals Entry...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17968,17 +17554,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswvitalslog-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswvitalslog-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Saving screenshot for PswVitalsLogScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [13/18 | 72%] - Saving screenshot for Vitals Entry...");
   cy.waitAndSee();
   cy.screenshot("psw_vitals_log");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Verified PswVitalsLogScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [13/18 | 72%] - Verified Vitals Entry successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Navigating to /offices/clinical/roles/psw/incident-report (PswIncidentReportScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/18 | 77%] - Navigating to /offices/clinical/roles/psw/incident-report (Report Incident)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/incident-report");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Checking shell & content for PswIncidentReportScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/18 | 77%] - Checking shell & content for Report Incident...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -17986,17 +17572,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswincidentreport-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswincidentreport-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Saving screenshot for PswIncidentReportScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/18 | 77%] - Saving screenshot for Report Incident...");
   cy.waitAndSee();
   cy.screenshot("psw_incident_report");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Verified PswIncidentReportScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/18 | 77%] - Verified Report Incident successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Navigating to /offices/clinical/roles/psw/care-plan (PswCarePlanScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [15/18 | 83%] - Navigating to /offices/clinical/roles/psw/care-plan (Psw Care Plan)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/care-plan");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Checking shell & content for PswCarePlanScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [15/18 | 83%] - Checking shell & content for Psw Care Plan...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -18004,35 +17590,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswcareplan-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswcareplan-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Saving screenshot for PswCarePlanScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [15/18 | 83%] - Saving screenshot for Psw Care Plan...");
   cy.waitAndSee();
   cy.screenshot("psw_care_plan");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Verified PswCarePlanScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [15/18 | 83%] - Verified Psw Care Plan successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Navigating to /offices/clinical/roles/psw/messages (PswMessagesScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/psw/messages");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Checking shell & content for PswMessagesScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("pswmessages-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("pswmessages-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("pswmessages-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Saving screenshot for PswMessagesScreen...");
-  cy.waitAndSee();
-  cy.screenshot("psw_messages");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Verified PswMessagesScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Navigating to /offices/clinical/roles/psw/documents (PswDocumentsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/18 | 88%] - Navigating to /offices/clinical/roles/psw/documents (Documents)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/documents");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Checking shell & content for PswDocumentsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/18 | 88%] - Checking shell & content for Documents...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -18040,17 +17608,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("pswdocuments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswdocuments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Saving screenshot for PswDocumentsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/18 | 88%] - Saving screenshot for Documents...");
   cy.waitAndSee();
   cy.screenshot("psw_documents");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Verified PswDocumentsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/18 | 88%] - Verified Documents successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Navigating to /offices/clinical/roles/psw/shift-tasks (ShiftTasksScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [17/18 | 94%] - Navigating to /offices/clinical/roles/psw/shift-tasks (Shift Tasks)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/shift-tasks");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Checking shell & content for ShiftTasksScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [17/18 | 94%] - Checking shell & content for Shift Tasks...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -18058,17 +17626,17 @@ describe("Org Full UI Test", () => {
   // cy.getCy("shifttasks-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("shifttasks-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Saving screenshot for ShiftTasksScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [17/18 | 94%] - Saving screenshot for Shift Tasks...");
   cy.waitAndSee();
   cy.screenshot("shift_tasks");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Verified ShiftTasksScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [17/18 | 94%] - Verified Shift Tasks successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Navigating to /offices/clinical/roles/psw/vitals-entry (VitalsEntryScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [18/18 | 100%] - Navigating to /offices/clinical/roles/psw/vitals-entry (Vitals Entry)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/vitals-entry");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Checking shell & content for VitalsEntryScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [18/18 | 100%] - Checking shell & content for Vitals Entry...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -18076,11 +17644,11 @@ describe("Org Full UI Test", () => {
   // cy.getCy("vitalsentry-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("vitalsentry-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Saving screenshot for VitalsEntryScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [18/18 | 100%] - Saving screenshot for Vitals Entry...");
   cy.waitAndSee();
   cy.screenshot("vitals_entry");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Verified VitalsEntryScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [18/18 | 100%] - Verified Vitals Entry successfully!\n");
   });
 
   it("tests org role hsw", () => {

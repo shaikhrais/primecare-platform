@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Hr Applicants
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class HrApplicantsModel {
-  const HrApplicantsModel();
-  
-  factory HrApplicantsModel.fromJson(Map<String, dynamic> json) {
-    return const HrApplicantsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const HrApplicantsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  HrApplicantsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return HrApplicantsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

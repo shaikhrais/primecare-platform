@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Cto Release Management
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/cto_release_management_header_section.dart';
+import 'sections/cto_release_management_content_summary_section.dart';
+import 'sections/cto_release_management_primary_content_section.dart';
+import 'sections/cto_release_management_action_bar_section.dart';
 
-class CtoReleaseManagementScreen extends ConsumerWidget {
+class CtoReleaseManagementScreen extends StatelessWidget {
   const CtoReleaseManagementScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Cto Release Management Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'cto_release_management',
+      title: 'Cto Release Management',
+      child: Column(
+        children: const [
+          const CtoReleaseManagementHeaderSection(),
+          const CtoReleaseManagementContentSummarySection(),
+          const CtoReleaseManagementPrimaryContentSection(),
+          const CtoReleaseManagementActionBarSection(),
+        ],
       ),
     );
   }

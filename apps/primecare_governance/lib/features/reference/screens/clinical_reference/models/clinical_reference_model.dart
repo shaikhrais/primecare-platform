@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Clinical Reference
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ClinicalReferenceModel {
-  const ClinicalReferenceModel();
-  
-  factory ClinicalReferenceModel.fromJson(Map<String, dynamic> json) {
-    return const ClinicalReferenceModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ClinicalReferenceModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ClinicalReferenceModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ClinicalReferenceModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

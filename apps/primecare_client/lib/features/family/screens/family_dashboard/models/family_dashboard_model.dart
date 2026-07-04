@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Family Dashboard
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class FamilyDashboardModel {
-  const FamilyDashboardModel();
-  
-  factory FamilyDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const FamilyDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const FamilyDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  FamilyDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return FamilyDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

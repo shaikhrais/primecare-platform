@@ -66,7 +66,7 @@ describe("Screen - psw_tasks", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_tasks");
-      cy.task("log", "✅ PROGRESS: - Verified PswTasksScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Task List successfully!\n");
     });
   });
 });

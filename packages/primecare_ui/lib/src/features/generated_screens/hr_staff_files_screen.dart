@@ -59,7 +59,7 @@ class HrStaffFilesScreenController extends StateNotifier<HrStaffFilesScreenState
       : super(
           HrStaffFilesScreenState(
             isLoading: false,
-            title: 'HR Staff Files'.tr(),
+            title: 'Hr Staff Files'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

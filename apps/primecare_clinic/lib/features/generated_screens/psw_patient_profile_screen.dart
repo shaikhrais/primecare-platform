@@ -59,7 +59,7 @@ class PswPatientProfileScreenController extends StateNotifier<PswPatientProfileS
       : super(
           PswPatientProfileScreenState(
             isLoading: false,
-            title: 'PSW Patient Profile'.tr(),
+            title: 'Psw Patient Profile'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

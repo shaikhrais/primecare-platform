@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Ceo Franchise Overview
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CeoFranchiseOverviewModel {
-  const CeoFranchiseOverviewModel();
-  
-  factory CeoFranchiseOverviewModel.fromJson(Map<String, dynamic> json) {
-    return const CeoFranchiseOverviewModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CeoFranchiseOverviewModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CeoFranchiseOverviewModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CeoFranchiseOverviewModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

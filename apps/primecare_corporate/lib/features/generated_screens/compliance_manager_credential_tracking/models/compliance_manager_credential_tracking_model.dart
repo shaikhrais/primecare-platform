@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Compliance Manager Credential Tracking
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ComplianceManagerCredentialTrackingModel {
-  const ComplianceManagerCredentialTrackingModel();
-  
-  factory ComplianceManagerCredentialTrackingModel.fromJson(Map<String, dynamic> json) {
-    return const ComplianceManagerCredentialTrackingModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ComplianceManagerCredentialTrackingModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ComplianceManagerCredentialTrackingModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ComplianceManagerCredentialTrackingModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

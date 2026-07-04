@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Clinical Director Staffing
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ClinicalDirectorStaffingModel {
-  const ClinicalDirectorStaffingModel();
-  
-  factory ClinicalDirectorStaffingModel.fromJson(Map<String, dynamic> json) {
-    return const ClinicalDirectorStaffingModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ClinicalDirectorStaffingModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ClinicalDirectorStaffingModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ClinicalDirectorStaffingModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

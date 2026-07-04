@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Compliance Manager Risk Register
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ComplianceManagerRiskRegisterModel {
-  const ComplianceManagerRiskRegisterModel();
-  
-  factory ComplianceManagerRiskRegisterModel.fromJson(Map<String, dynamic> json) {
-    return const ComplianceManagerRiskRegisterModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ComplianceManagerRiskRegisterModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ComplianceManagerRiskRegisterModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ComplianceManagerRiskRegisterModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

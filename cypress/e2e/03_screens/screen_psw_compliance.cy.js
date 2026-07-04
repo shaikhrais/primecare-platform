@@ -66,7 +66,7 @@ describe("Screen - psw_compliance", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_compliance");
-      cy.task("log", "✅ PROGRESS: - Verified PswComplianceScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Psw Compliance successfully!\n");
     });
   });
 });

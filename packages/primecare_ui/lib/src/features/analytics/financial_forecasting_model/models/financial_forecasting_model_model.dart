@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Financial Forecasting Model
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class FinancialForecastingModelModel {
-  const FinancialForecastingModelModel();
-  
-  factory FinancialForecastingModelModel.fromJson(Map<String, dynamic> json) {
-    return const FinancialForecastingModelModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const FinancialForecastingModelModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  FinancialForecastingModelModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return FinancialForecastingModelModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

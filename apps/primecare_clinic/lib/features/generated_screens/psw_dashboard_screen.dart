@@ -32,30 +32,6 @@ class PswDashboardScreen extends GovernedConsumerWidget {
   const PswDashboardScreen({super.key});
 
   @override
-  String 
-
-  @override
-  List<String> get requiredComponents => const [
-        'ShiftStatusIndicator',
-        'ADLProgressTracker',
-        'ActiveWingInfo',
-        'SafetyAlertsCount',
-        'RecentActivityLogs',
-        'EmergencyAlertButton',
-        'ComplianceAuditResults',
-        'RefreshButton',
-      ];
-
-  @override
-  List<String> get requiredFunctions => const [
-        'toggleCheckIn',
-        'toggleCheckOut',
-        'logIncident',
-        'triggerEmergencyAlert',
-        'refreshDashboard',
-      ];
-
-  @override
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch(pswDashboardScreenControllerProvider);
 

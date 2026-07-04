@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Staff Utilization Heatmap
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class StaffUtilizationHeatmapModel {
-  const StaffUtilizationHeatmapModel();
-  
-  factory StaffUtilizationHeatmapModel.fromJson(Map<String, dynamic> json) {
-    return const StaffUtilizationHeatmapModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const StaffUtilizationHeatmapModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  StaffUtilizationHeatmapModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return StaffUtilizationHeatmapModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Certificates
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CertificatesModel {
-  const CertificatesModel();
-  
-  factory CertificatesModel.fromJson(Map<String, dynamic> json) {
-    return const CertificatesModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CertificatesModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CertificatesModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CertificatesModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

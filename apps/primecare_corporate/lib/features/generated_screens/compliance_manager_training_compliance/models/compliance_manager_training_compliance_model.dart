@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Compliance Manager Training Compliance
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ComplianceManagerTrainingComplianceModel {
-  const ComplianceManagerTrainingComplianceModel();
-  
-  factory ComplianceManagerTrainingComplianceModel.fromJson(Map<String, dynamic> json) {
-    return const ComplianceManagerTrainingComplianceModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ComplianceManagerTrainingComplianceModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ComplianceManagerTrainingComplianceModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ComplianceManagerTrainingComplianceModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

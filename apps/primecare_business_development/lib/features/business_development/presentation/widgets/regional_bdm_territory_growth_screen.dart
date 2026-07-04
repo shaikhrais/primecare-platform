@@ -59,7 +59,7 @@ class RegionalBdmTerritoryGrowthScreenController extends StateNotifier<RegionalB
       : super(
           RegionalBdmTerritoryGrowthScreenState(
             isLoading: false,
-            title: 'Regional BDM Territory Growth'.tr(),
+            title: 'Regional Bdm Territory Growth'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

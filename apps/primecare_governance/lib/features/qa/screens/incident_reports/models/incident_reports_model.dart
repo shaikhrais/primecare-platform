@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Incident Reports
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class IncidentReportsModel {
-  const IncidentReportsModel();
-  
-  factory IncidentReportsModel.fromJson(Map<String, dynamic> json) {
-    return const IncidentReportsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const IncidentReportsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  IncidentReportsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return IncidentReportsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

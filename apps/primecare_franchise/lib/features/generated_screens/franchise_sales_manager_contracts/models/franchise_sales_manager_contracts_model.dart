@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Franchise Sales Manager Contracts
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class FranchiseSalesManagerContractsModel {
-  const FranchiseSalesManagerContractsModel();
-  
-  factory FranchiseSalesManagerContractsModel.fromJson(Map<String, dynamic> json) {
-    return const FranchiseSalesManagerContractsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const FranchiseSalesManagerContractsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  FranchiseSalesManagerContractsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return FranchiseSalesManagerContractsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

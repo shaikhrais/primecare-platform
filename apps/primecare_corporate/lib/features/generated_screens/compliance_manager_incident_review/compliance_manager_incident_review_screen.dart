@@ -1,16 +1,28 @@
-// Governance - Category: view | Purpose: Coordinator layout for Compliance Manager Incident Review
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/compliance_manager_incident_review_header_section.dart';
+import 'sections/compliance_manager_incident_review_filter_bar_section.dart';
+import 'sections/compliance_manager_incident_review_data_table_section.dart';
+import 'sections/compliance_manager_incident_review_pagination_section.dart';
+import 'sections/compliance_manager_incident_review_action_bar_section.dart';
 
-class ComplianceManagerIncidentReviewScreen extends ConsumerWidget {
+class ComplianceManagerIncidentReviewScreen extends StatelessWidget {
   const ComplianceManagerIncidentReviewScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Compliance Manager Incident Review Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'compliance_manager_incident_review',
+      title: 'Compliance Manager Incident Review',
+      child: Column(
+        children: const [
+          const ComplianceManagerIncidentReviewHeaderSection(),
+          const ComplianceManagerIncidentReviewFilterBarSection(),
+          const ComplianceManagerIncidentReviewDataTableSection(),
+          const ComplianceManagerIncidentReviewPaginationSection(),
+          const ComplianceManagerIncidentReviewActionBarSection(),
+        ],
       ),
     );
   }

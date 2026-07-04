@@ -59,7 +59,7 @@ class CooIssueEscalationsScreenController extends StateNotifier<CooIssueEscalati
       : super(
           CooIssueEscalationsScreenState(
             isLoading: false,
-            title: 'COO Issue Escalations'.tr(),
+            title: 'Coo Issue Escalations'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

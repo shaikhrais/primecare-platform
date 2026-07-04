@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Franchise Sales Manager Contracts
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/franchise_sales_manager_contracts_header_section.dart';
+import 'sections/franchise_sales_manager_contracts_content_summary_section.dart';
+import 'sections/franchise_sales_manager_contracts_primary_content_section.dart';
+import 'sections/franchise_sales_manager_contracts_action_bar_section.dart';
 
-class FranchiseSalesManagerContractsScreen extends ConsumerWidget {
+class FranchiseSalesManagerContractsScreen extends StatelessWidget {
   const FranchiseSalesManagerContractsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Franchise Sales Manager Contracts Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'franchise_sales_manager_contracts',
+      title: 'Franchise Sales Manager Contracts',
+      child: Column(
+        children: const [
+          const FranchiseSalesManagerContractsHeaderSection(),
+          const FranchiseSalesManagerContractsContentSummarySection(),
+          const FranchiseSalesManagerContractsPrimaryContentSection(),
+          const FranchiseSalesManagerContractsActionBarSection(),
+        ],
       ),
     );
   }

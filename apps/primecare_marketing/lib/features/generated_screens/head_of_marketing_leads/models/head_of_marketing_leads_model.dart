@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Head Of Marketing Leads
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class HeadOfMarketingLeadsModel {
-  const HeadOfMarketingLeadsModel();
-  
-  factory HeadOfMarketingLeadsModel.fromJson(Map<String, dynamic> json) {
-    return const HeadOfMarketingLeadsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const HeadOfMarketingLeadsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  HeadOfMarketingLeadsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return HeadOfMarketingLeadsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

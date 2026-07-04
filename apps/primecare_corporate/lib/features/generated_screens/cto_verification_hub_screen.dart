@@ -59,7 +59,7 @@ class CtoVerificationHubScreenController extends StateNotifier<CtoVerificationHu
       : super(
           CtoVerificationHubScreenState(
             isLoading: false,
-            title: 'CTO Verification Hub'.tr(),
+            title: 'Cto Verification Hub'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

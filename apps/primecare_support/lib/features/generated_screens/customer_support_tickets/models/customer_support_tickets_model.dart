@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Customer Support Tickets
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CustomerSupportTicketsModel {
-  const CustomerSupportTicketsModel();
-  
-  factory CustomerSupportTicketsModel.fromJson(Map<String, dynamic> json) {
-    return const CustomerSupportTicketsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CustomerSupportTicketsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CustomerSupportTicketsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CustomerSupportTicketsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Formulary Compliance Manager
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/formulary_compliance_manager_header_section.dart';
+import 'sections/formulary_compliance_manager_form_body_section.dart';
+import 'sections/formulary_compliance_manager_validation_messages_section.dart';
+import 'sections/formulary_compliance_manager_action_bar_section.dart';
 
-class FormularyComplianceManagerScreen extends ConsumerWidget {
+class FormularyComplianceManagerScreen extends StatelessWidget {
   const FormularyComplianceManagerScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Formulary Compliance Manager Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'formulary_compliance_manager',
+      title: 'Formulary Compliance Manager',
+      child: Column(
+        children: const [
+          const FormularyComplianceManagerHeaderSection(),
+          const FormularyComplianceManagerFormBodySection(),
+          const FormularyComplianceManagerValidationMessagesSection(),
+          const FormularyComplianceManagerActionBarSection(),
+        ],
       ),
     );
   }

@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Compliance Training
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/compliance_training_header_section.dart';
+import 'sections/compliance_training_content_summary_section.dart';
+import 'sections/compliance_training_primary_content_section.dart';
+import 'sections/compliance_training_action_bar_section.dart';
 
-class ComplianceTrainingScreen extends ConsumerWidget {
+class ComplianceTrainingScreen extends StatelessWidget {
   const ComplianceTrainingScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Compliance Training Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'compliance_training',
+      title: 'Compliance Training',
+      child: Column(
+        children: const [
+          const ComplianceTrainingHeaderSection(),
+          const ComplianceTrainingContentSummarySection(),
+          const ComplianceTrainingPrimaryContentSection(),
+          const ComplianceTrainingActionBarSection(),
+        ],
       ),
     );
   }

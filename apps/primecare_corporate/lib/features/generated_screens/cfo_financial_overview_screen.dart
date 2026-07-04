@@ -59,7 +59,7 @@ class CfoFinancialOverviewScreenController extends StateNotifier<CfoFinancialOve
       : super(
           CfoFinancialOverviewScreenState(
             isLoading: false,
-            title: 'CFO Financial Overview'.tr(),
+            title: 'Cfo Financial Overview'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

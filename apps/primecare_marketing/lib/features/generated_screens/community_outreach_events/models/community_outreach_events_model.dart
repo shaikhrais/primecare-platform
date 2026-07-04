@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Community Outreach Events
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CommunityOutreachEventsModel {
-  const CommunityOutreachEventsModel();
-  
-  factory CommunityOutreachEventsModel.fromJson(Map<String, dynamic> json) {
-    return const CommunityOutreachEventsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CommunityOutreachEventsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CommunityOutreachEventsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CommunityOutreachEventsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

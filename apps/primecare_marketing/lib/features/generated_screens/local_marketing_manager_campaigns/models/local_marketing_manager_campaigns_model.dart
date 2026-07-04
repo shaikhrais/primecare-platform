@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Local Marketing Manager Campaigns
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class LocalMarketingManagerCampaignsModel {
-  const LocalMarketingManagerCampaignsModel();
-  
-  factory LocalMarketingManagerCampaignsModel.fromJson(Map<String, dynamic> json) {
-    return const LocalMarketingManagerCampaignsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const LocalMarketingManagerCampaignsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  LocalMarketingManagerCampaignsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return LocalMarketingManagerCampaignsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

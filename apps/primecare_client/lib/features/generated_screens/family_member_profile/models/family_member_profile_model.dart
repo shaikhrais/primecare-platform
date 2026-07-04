@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Family Member Profile
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class FamilyMemberProfileModel {
-  const FamilyMemberProfileModel();
-  
-  factory FamilyMemberProfileModel.fromJson(Map<String, dynamic> json) {
-    return const FamilyMemberProfileModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const FamilyMemberProfileModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  FamilyMemberProfileModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return FamilyMemberProfileModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

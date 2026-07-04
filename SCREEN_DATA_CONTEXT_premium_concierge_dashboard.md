@@ -12,7 +12,7 @@ Below are the database records from `governance.db` used to configure and build 
 * **Screen Name**: `PremiumConciergeDashboardScreen`
 * **Route Path**: `/management/premium-concierge-dashboard`
 * **Actual File Path**: `packages/primecare_ui/lib/src/screens/management/premium_concierge_dashboard_screen.dart`
-* **Stage/Status**: `wired`
+* **Stage/Status**: `template_created`
 
 ## 2. App Record
 * **ID**: `12`
@@ -64,20 +64,16 @@ Below are the database records from `governance.db` used to configure and build 
 
 ## 8. Test Definition & Steps
 * **Test Code**: `premium_concierge_dashboard_runtime`
-* **Test Name**: `PremiumConciergeDashboardScreen Smoke Test`
+* **Test Name**: `PremiumConciergeDashboardScreen Runtime Test`
 * **Test Type**: `e2e`
-* **Expected Title**: `Premium Concierge Dashboard`
+* **Expected Title**: `PremiumConciergeDashboardScreen`
 * **Expected Layout**: `dashboard`
 
 ### Test Steps
 1. **login_as_role** (Selector: `None`, Value: `premium_concierge`)
-2. **verify_sidebar_exists** (Selector: `app-sidebar`, Value: `None`)
-3. **verify_sidebar_link_exists** (Selector: `None`, Value: `Premium Concierge Dashboard`)
-4. **click_sidebar_link** (Selector: `None`, Value: `Premium Concierge Dashboard`)
-5. **check_url** (Selector: `None`, Value: `/management/premium-concierge-dashboard`)
-6. **verify_topbar_exists** (Selector: `app-topbar`, Value: `None`)
-7. **verify_main_content_exists** (Selector: `app-content-slot`, Value: `None`)
-8. **verify_screen_not_empty** (Selector: `None`, Value: `None`)
-9. **verify_forbidden_text_absent** (Selector: `None`, Value: `None`)
-10. **verify_no_console_errors** (Selector: `None`, Value: `None`)
-11. **screenshot** (Selector: `None`, Value: `None`)
+2. **visit** (Selector: `None`, Value: `/management/premium-concierge-dashboard`)
+3. **should_be_visible** (Selector: `premium_concierge_dashboard-screen`, Value: `None`)
+4. **should_be_visible** (Selector: `premium_concierge_dashboard-title`, Value: `None`)
+5. **should_be_visible** (Selector: `premium_concierge_dashboard-content`, Value: `None`)
+6. **check_no_console_error** (Selector: `None`, Value: `None`)
+7. **screenshot** (Selector: `None`, Value: `None`)

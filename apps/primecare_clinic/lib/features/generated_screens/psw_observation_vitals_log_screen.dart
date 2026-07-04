@@ -59,7 +59,7 @@ class PswObservationVitalsLogScreenController extends StateNotifier<PswObservati
       : super(
           PswObservationVitalsLogScreenState(
             isLoading: false,
-            title: 'PSW Observation Vitals Log'.tr(),
+            title: 'Psw Observation Vitals Log'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

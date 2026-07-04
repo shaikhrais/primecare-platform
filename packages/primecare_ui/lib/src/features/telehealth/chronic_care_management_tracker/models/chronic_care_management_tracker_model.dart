@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Chronic Care Management Tracker
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ChronicCareManagementTrackerModel {
-  const ChronicCareManagementTrackerModel();
-  
-  factory ChronicCareManagementTrackerModel.fromJson(Map<String, dynamic> json) {
-    return const ChronicCareManagementTrackerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ChronicCareManagementTrackerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ChronicCareManagementTrackerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ChronicCareManagementTrackerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

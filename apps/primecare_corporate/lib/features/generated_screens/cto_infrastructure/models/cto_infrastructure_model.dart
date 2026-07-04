@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Cto Infrastructure
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CtoInfrastructureModel {
-  const CtoInfrastructureModel();
-  
-  factory CtoInfrastructureModel.fromJson(Map<String, dynamic> json) {
-    return const CtoInfrastructureModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CtoInfrastructureModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CtoInfrastructureModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CtoInfrastructureModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

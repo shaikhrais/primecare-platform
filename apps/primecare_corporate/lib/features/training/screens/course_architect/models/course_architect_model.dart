@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Course Architect
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CourseArchitectModel {
-  const CourseArchitectModel();
-  
-  factory CourseArchitectModel.fromJson(Map<String, dynamic> json) {
-    return const CourseArchitectModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CourseArchitectModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CourseArchitectModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CourseArchitectModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

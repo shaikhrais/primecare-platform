@@ -66,7 +66,7 @@ describe("Screen - psw_dashboard", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified PswDashboardScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Care Dashboard successfully!\n");
     });
   });
 });

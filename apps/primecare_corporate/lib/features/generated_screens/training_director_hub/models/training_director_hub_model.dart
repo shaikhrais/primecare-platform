@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Training Director Hub
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class TrainingDirectorHubModel {
-  const TrainingDirectorHubModel();
-  
-  factory TrainingDirectorHubModel.fromJson(Map<String, dynamic> json) {
-    return const TrainingDirectorHubModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const TrainingDirectorHubModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  TrainingDirectorHubModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return TrainingDirectorHubModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

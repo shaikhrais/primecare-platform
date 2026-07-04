@@ -12,7 +12,7 @@ Below are the database records from `governance.db` used to configure and build 
 * **Screen Name**: `DataPrivacyMonitorScreen`
 * **Route Path**: `/generated/data-privacy-monitor`
 * **Actual File Path**: `packages/primecare_ui/lib/src/features/admin/data_privacy_monitor.dart`
-* **Stage/Status**: `wired`
+* **Stage/Status**: `template_created`
 
 ## 2. App Record
 * **ID**: `6`
@@ -54,20 +54,16 @@ Below are the database records from `governance.db` used to configure and build 
 
 ## 8. Test Definition & Steps
 * **Test Code**: `data_privacy_monitor_runtime`
-* **Test Name**: `Data Privacy Monitor Smoke Test`
+* **Test Name**: `Data Privacy Monitor Runtime Test`
 * **Test Type**: `e2e`
 * **Expected Title**: `Data Privacy Monitor`
 * **Expected Layout**: `dashboard`
 
 ### Test Steps
 1. **login_as_role** (Selector: `None`, Value: `guest`)
-2. **verify_sidebar_exists** (Selector: `app-sidebar`, Value: `None`)
-3. **verify_sidebar_link_exists** (Selector: `None`, Value: `Data Privacy Monitor`)
-4. **click_sidebar_link** (Selector: `None`, Value: `Data Privacy Monitor`)
-5. **check_url** (Selector: `None`, Value: `/generated/data-privacy-monitor`)
-6. **verify_topbar_exists** (Selector: `app-topbar`, Value: `None`)
-7. **verify_main_content_exists** (Selector: `app-content-slot`, Value: `None`)
-8. **verify_screen_not_empty** (Selector: `None`, Value: `None`)
-9. **verify_forbidden_text_absent** (Selector: `None`, Value: `None`)
-10. **verify_no_console_errors** (Selector: `None`, Value: `None`)
-11. **screenshot** (Selector: `None`, Value: `None`)
+2. **visit** (Selector: `None`, Value: `/generated/data-privacy-monitor`)
+3. **should_be_visible** (Selector: `data_privacy_monitor-screen`, Value: `None`)
+4. **should_be_visible** (Selector: `data_privacy_monitor-title`, Value: `None`)
+5. **should_be_visible** (Selector: `data_privacy_monitor-content`, Value: `None`)
+6. **check_no_console_error** (Selector: `None`, Value: `None`)
+7. **screenshot** (Selector: `None`, Value: `None`)

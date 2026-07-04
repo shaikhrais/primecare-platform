@@ -182,7 +182,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   key: const Key('app-content-slot'),
                   child: Container(
                     color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
-                    child: AppShellBoundary(child: child),
+                    child: AppShellBoundary(child: const SizedBox.shrink()),
                   ),
                 ),
               ),
@@ -228,7 +228,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   key: const Key('app-content-slot'),
                   child: Container(
                     color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
-                    child: AppShellBoundary(child: child),
+                    child: AppShellBoundary(child: const SizedBox.shrink()),
                   ),
                 ),
               ),
@@ -250,7 +250,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                 key: const Key('app-content-slot'),
                 child: Container(
                   color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
-                  child: AppShellBoundary(child: child),
+                  child: AppShellBoundary(child: const SizedBox.shrink()),
                 ),
               ),
             ),

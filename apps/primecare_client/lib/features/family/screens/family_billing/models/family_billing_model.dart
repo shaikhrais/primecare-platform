@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Family Billing
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class FamilyBillingModel {
-  const FamilyBillingModel();
-  
-  factory FamilyBillingModel.fromJson(Map<String, dynamic> json) {
-    return const FamilyBillingModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const FamilyBillingModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  FamilyBillingModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return FamilyBillingModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

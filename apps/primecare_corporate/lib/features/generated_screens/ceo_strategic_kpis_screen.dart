@@ -59,7 +59,7 @@ class CeoStrategicKpisScreenController extends StateNotifier<CeoStrategicKpisScr
       : super(
           CeoStrategicKpisScreenState(
             isLoading: false,
-            title: 'CEO Strategic Kpis'.tr(),
+            title: 'Ceo Strategic Kpis'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

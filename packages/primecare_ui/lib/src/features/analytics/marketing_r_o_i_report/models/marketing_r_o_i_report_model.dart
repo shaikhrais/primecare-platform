@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Marketing R O I Report
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class MarketingROIReportModel {
-  const MarketingROIReportModel();
-  
-  factory MarketingROIReportModel.fromJson(Map<String, dynamic> json) {
-    return const MarketingROIReportModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const MarketingROIReportModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  MarketingROIReportModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return MarketingROIReportModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

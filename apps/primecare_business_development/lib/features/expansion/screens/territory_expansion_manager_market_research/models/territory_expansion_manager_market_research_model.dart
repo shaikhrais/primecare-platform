@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Territory Expansion Manager Market Research
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class TerritoryExpansionManagerMarketResearchModel {
-  const TerritoryExpansionManagerMarketResearchModel();
-  
-  factory TerritoryExpansionManagerMarketResearchModel.fromJson(Map<String, dynamic> json) {
-    return const TerritoryExpansionManagerMarketResearchModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const TerritoryExpansionManagerMarketResearchModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  TerritoryExpansionManagerMarketResearchModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return TerritoryExpansionManagerMarketResearchModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

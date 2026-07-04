@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Compliance Reviews
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ComplianceReviewsModel {
-  const ComplianceReviewsModel();
-  
-  factory ComplianceReviewsModel.fromJson(Map<String, dynamic> json) {
-    return const ComplianceReviewsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ComplianceReviewsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ComplianceReviewsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ComplianceReviewsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

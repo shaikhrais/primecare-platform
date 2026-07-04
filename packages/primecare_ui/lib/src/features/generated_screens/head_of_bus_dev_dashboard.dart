@@ -59,7 +59,7 @@ class HeadOfBusDevDashboardScreenController extends StateNotifier<HeadOfBusDevDa
       : super(
           HeadOfBusDevDashboardScreenState(
             isLoading: false,
-            title: 'Head Of Bus Dev Dashboard'.tr(),
+            title: 'HeadOfBusDevDashboardScreen'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

@@ -1,16 +1,28 @@
-// Governance - Category: view | Purpose: Coordinator layout for Compliance Reports
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/compliance_reports_header_section.dart';
+import 'sections/compliance_reports_filter_bar_section.dart';
+import 'sections/compliance_reports_metrics_summary_section.dart';
+import 'sections/compliance_reports_chart_area_section.dart';
+import 'sections/compliance_reports_export_actions_section.dart';
 
-class ComplianceReportsScreen extends ConsumerWidget {
+class ComplianceReportsScreen extends StatelessWidget {
   const ComplianceReportsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Compliance Reports Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'compliance_reports',
+      title: 'Compliance Reports',
+      child: Column(
+        children: const [
+          const ComplianceReportsHeaderSection(),
+          const ComplianceReportsFilterBarSection(),
+          const ComplianceReportsMetricsSummarySection(),
+          const ComplianceReportsChartAreaSection(),
+          const ComplianceReportsExportActionsSection(),
+        ],
       ),
     );
   }

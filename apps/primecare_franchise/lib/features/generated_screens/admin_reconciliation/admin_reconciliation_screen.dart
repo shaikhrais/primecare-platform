@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Admin Reconciliation
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/admin_reconciliation_header_section.dart';
+import 'sections/admin_reconciliation_content_summary_section.dart';
+import 'sections/admin_reconciliation_primary_content_section.dart';
+import 'sections/admin_reconciliation_action_bar_section.dart';
 
-class AdminReconciliationScreen extends ConsumerWidget {
+class AdminReconciliationScreen extends StatelessWidget {
   const AdminReconciliationScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Admin Reconciliation Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'admin_reconciliation',
+      title: 'Admin Reconciliation',
+      child: Column(
+        children: const [
+          const AdminReconciliationHeaderSection(),
+          const AdminReconciliationContentSummarySection(),
+          const AdminReconciliationPrimaryContentSection(),
+          const AdminReconciliationActionBarSection(),
+        ],
       ),
     );
   }

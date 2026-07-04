@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Training Programs
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/training_programs_header_section.dart';
+import 'sections/training_programs_content_summary_section.dart';
+import 'sections/training_programs_primary_content_section.dart';
+import 'sections/training_programs_action_bar_section.dart';
 
-class TrainingProgramsScreen extends ConsumerWidget {
+class TrainingProgramsScreen extends StatelessWidget {
   const TrainingProgramsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Training Programs Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'training_programs',
+      title: 'Training Programs',
+      child: Column(
+        children: const [
+          const TrainingProgramsHeaderSection(),
+          const TrainingProgramsContentSummarySection(),
+          const TrainingProgramsPrimaryContentSection(),
+          const TrainingProgramsActionBarSection(),
+        ],
       ),
     );
   }

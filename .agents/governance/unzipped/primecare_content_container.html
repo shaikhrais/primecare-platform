@@ -1,0 +1,49 @@
+<main class="pc-content" data-testid="main-content">
+  <div class="pc-content-shell" data-testid="content-page-shell">
+    <div class="pc-content-header">
+      <div>
+        <div class="pc-content-title">{{screen_title}}</div>
+        <div class="pc-content-subtitle">{{screen_purpose}}</div>
+      </div>
+      <span class="pc-content-state-badge" data-testid="content-state">{{content_state}}</span>
+    </div>
+
+    {{#is_loading}}
+    <section class="pc-loading-area" data-testid="content-loading-state">
+      <div class="pc-loading-card">
+        <div class="pc-loader-wrap">
+          <div class="pc-loader-pulse"></div>
+          <div class="pc-loader-ring"></div>
+          <div class="pc-loader-core">⚕️</div>
+        </div>
+        <div class="pc-loading-title">Loading screen content</div>
+        <p class="pc-loading-copy">AppShell is ready. Screen sections and elements are loading from DB-driven configuration.</p>
+        <div class="pc-progress-track"><div class="pc-progress-fill"></div></div>
+      </div>
+    </section>
+    {{/is_loading}}
+
+    {{^is_loading}}
+    <div class="pc-section-grid" data-testid="screen-section-grid">
+      {{#screen_sections}}
+      <section class="pc-section pc-section--{{section_type}}" data-testid="section-{{section_code}}" data-section-type="{{section_type}}">
+        <div class="pc-section-header">
+          <div>
+            <h2>{{section_name}}</h2>
+            <p>{{section_purpose}}</p>
+          </div>
+          <span>{{section_type}}</span>
+        </div>
+        <div class="pc-section-body">
+          {{#section_elements}}
+          <div class="pc-element pc-element--{{element_type}}" data-testid="{{element_test_id}}" data-element-type="{{element_type}}">
+            {{element_label}}
+          </div>
+          {{/section_elements}}
+        </div>
+      </section>
+      {{/screen_sections}}
+    </div>
+    {{/is_loading}}
+  </div>
+</main>

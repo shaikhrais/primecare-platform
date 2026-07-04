@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Cfo Franchise Financials
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CfoFranchiseFinancialsModel {
-  const CfoFranchiseFinancialsModel();
-  
-  factory CfoFranchiseFinancialsModel.fromJson(Map<String, dynamic> json) {
-    return const CfoFranchiseFinancialsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CfoFranchiseFinancialsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CfoFranchiseFinancialsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CfoFranchiseFinancialsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

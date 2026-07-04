@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Virtual Consult
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class VirtualConsultModel {
-  const VirtualConsultModel();
-  
-  factory VirtualConsultModel.fromJson(Map<String, dynamic> json) {
-    return const VirtualConsultModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const VirtualConsultModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  VirtualConsultModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return VirtualConsultModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

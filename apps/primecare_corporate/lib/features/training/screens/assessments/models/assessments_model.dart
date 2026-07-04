@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Assessments
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class AssessmentsModel {
-  const AssessmentsModel();
-  
-  factory AssessmentsModel.fromJson(Map<String, dynamic> json) {
-    return const AssessmentsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const AssessmentsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  AssessmentsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return AssessmentsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

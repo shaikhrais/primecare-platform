@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Training Director Course Library
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class TrainingDirectorCourseLibraryModel {
-  const TrainingDirectorCourseLibraryModel();
-  
-  factory TrainingDirectorCourseLibraryModel.fromJson(Map<String, dynamic> json) {
-    return const TrainingDirectorCourseLibraryModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const TrainingDirectorCourseLibraryModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  TrainingDirectorCourseLibraryModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return TrainingDirectorCourseLibraryModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

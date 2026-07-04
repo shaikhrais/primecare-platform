@@ -59,7 +59,7 @@ class CooReportsScreenController extends StateNotifier<CooReportsScreenState> {
       : super(
           CooReportsScreenState(
             isLoading: false,
-            title: 'COO Reports'.tr(),
+            title: 'Coo Reports'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

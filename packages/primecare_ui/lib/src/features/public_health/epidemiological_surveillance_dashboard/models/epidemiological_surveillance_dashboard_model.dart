@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Epidemiological Surveillance Dashboard
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class EpidemiologicalSurveillanceDashboardModel {
-  const EpidemiologicalSurveillanceDashboardModel();
-  
-  factory EpidemiologicalSurveillanceDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const EpidemiologicalSurveillanceDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const EpidemiologicalSurveillanceDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  EpidemiologicalSurveillanceDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return EpidemiologicalSurveillanceDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

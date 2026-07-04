@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Territory Sales Manager Conversions
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class TerritorySalesManagerConversionsModel {
-  const TerritorySalesManagerConversionsModel();
-  
-  factory TerritorySalesManagerConversionsModel.fromJson(Map<String, dynamic> json) {
-    return const TerritorySalesManagerConversionsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const TerritorySalesManagerConversionsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  TerritorySalesManagerConversionsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return TerritorySalesManagerConversionsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

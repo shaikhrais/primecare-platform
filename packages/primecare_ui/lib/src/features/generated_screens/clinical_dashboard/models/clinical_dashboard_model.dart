@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for ClinicalDashboardScreen
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ClinicalDashboardModel {
-  const ClinicalDashboardModel();
-  
-  factory ClinicalDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const ClinicalDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ClinicalDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ClinicalDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ClinicalDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

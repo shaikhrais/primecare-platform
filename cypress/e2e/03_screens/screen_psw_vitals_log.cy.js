@@ -66,7 +66,7 @@ describe("Screen - psw_vitals_log", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_vitals_log");
-      cy.task("log", "✅ PROGRESS: - Verified PswVitalsLogScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Vitals Entry successfully!\n");
     });
   });
 });

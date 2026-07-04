@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Receptionist Calls
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/receptionist_calls_header_section.dart';
+import 'sections/receptionist_calls_content_summary_section.dart';
+import 'sections/receptionist_calls_primary_content_section.dart';
+import 'sections/receptionist_calls_action_bar_section.dart';
 
-class ReceptionistCallsScreen extends ConsumerWidget {
+class ReceptionistCallsScreen extends StatelessWidget {
   const ReceptionistCallsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Receptionist Calls Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'receptionist_calls',
+      title: 'Receptionist Calls',
+      child: Column(
+        children: const [
+          const ReceptionistCallsHeaderSection(),
+          const ReceptionistCallsContentSummarySection(),
+          const ReceptionistCallsPrimaryContentSection(),
+          const ReceptionistCallsActionBarSection(),
+        ],
       ),
     );
   }

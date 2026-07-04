@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Psw Notifications
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PswNotificationsModel {
-  const PswNotificationsModel();
-  
-  factory PswNotificationsModel.fromJson(Map<String, dynamic> json) {
-    return const PswNotificationsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PswNotificationsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PswNotificationsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PswNotificationsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Medical Library Access Portal
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class MedicalLibraryAccessPortalModel {
-  const MedicalLibraryAccessPortalModel();
-  
-  factory MedicalLibraryAccessPortalModel.fromJson(Map<String, dynamic> json) {
-    return const MedicalLibraryAccessPortalModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const MedicalLibraryAccessPortalModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  MedicalLibraryAccessPortalModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return MedicalLibraryAccessPortalModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

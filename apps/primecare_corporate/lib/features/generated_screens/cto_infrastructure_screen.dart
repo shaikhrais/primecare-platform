@@ -59,7 +59,7 @@ class CtoInfrastructureScreenController extends StateNotifier<CtoInfrastructureS
       : super(
           CtoInfrastructureScreenState(
             isLoading: false,
-            title: 'CTO Infrastructure'.tr(),
+            title: 'Cto Infrastructure'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

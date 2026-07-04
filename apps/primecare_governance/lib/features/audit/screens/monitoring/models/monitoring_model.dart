@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Monitoring
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class MonitoringModel {
-  const MonitoringModel();
-  
-  factory MonitoringModel.fromJson(Map<String, dynamic> json) {
-    return const MonitoringModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const MonitoringModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  MonitoringModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return MonitoringModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

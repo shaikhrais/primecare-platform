@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Ai Chatbot
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class AiChatbotModel {
-  const AiChatbotModel();
-  
-  factory AiChatbotModel.fromJson(Map<String, dynamic> json) {
-    return const AiChatbotModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const AiChatbotModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  AiChatbotModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return AiChatbotModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

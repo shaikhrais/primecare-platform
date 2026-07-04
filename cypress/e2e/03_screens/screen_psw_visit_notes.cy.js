@@ -66,7 +66,7 @@ describe("Screen - psw_visit_notes", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_visit_notes");
-      cy.task("log", "✅ PROGRESS: - Verified PswVisitNotesScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Visit Notes successfully!\n");
     });
   });
 });

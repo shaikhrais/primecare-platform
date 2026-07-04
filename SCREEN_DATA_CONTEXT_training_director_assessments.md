@@ -12,7 +12,7 @@ Below are the database records from `governance.db` used to configure and build 
 * **Screen Name**: `TrainingDirectorAssessmentsScreen`
 * **Route Path**: `/offices/corporate/roles/training_director/assessments`
 * **Actual File Path**: `apps/primecare_corporate/lib/features/generated_screens/training_director_assessments_screen.dart`
-* **Stage/Status**: `wired`
+* **Stage/Status**: `template_created`
 
 ## 2. App Record
 * **ID**: `6`
@@ -50,20 +50,16 @@ Below are the database records from `governance.db` used to configure and build 
 
 ## 8. Test Definition & Steps
 * **Test Code**: `training_director_assessments_runtime`
-* **Test Name**: `Training Director Assessments Smoke Test`
+* **Test Name**: `Training Director Assessments Runtime Test`
 * **Test Type**: `e2e`
 * **Expected Title**: `Training Director Assessments`
 * **Expected Layout**: `dashboard`
 
 ### Test Steps
 1. **login_as_role** (Selector: `None`, Value: `guest`)
-2. **verify_sidebar_exists** (Selector: `app-sidebar`, Value: `None`)
-3. **verify_sidebar_link_exists** (Selector: `None`, Value: `Training Director Assessments`)
-4. **click_sidebar_link** (Selector: `None`, Value: `Training Director Assessments`)
-5. **check_url** (Selector: `None`, Value: `/offices/corporate/roles/training_director/assessments`)
-6. **verify_topbar_exists** (Selector: `app-topbar`, Value: `None`)
-7. **verify_main_content_exists** (Selector: `app-content-slot`, Value: `None`)
-8. **verify_screen_not_empty** (Selector: `None`, Value: `None`)
-9. **verify_forbidden_text_absent** (Selector: `None`, Value: `None`)
-10. **verify_no_console_errors** (Selector: `None`, Value: `None`)
-11. **screenshot** (Selector: `None`, Value: `None`)
+2. **visit** (Selector: `None`, Value: `/offices/corporate/roles/training_director/assessments`)
+3. **should_be_visible** (Selector: `training_director_assessments-screen`, Value: `None`)
+4. **should_be_visible** (Selector: `training_director_assessments-title`, Value: `None`)
+5. **should_be_visible** (Selector: `training_director_assessments-content`, Value: `None`)
+6. **check_no_console_error** (Selector: `None`, Value: `None`)
+7. **screenshot** (Selector: `None`, Value: `None`)

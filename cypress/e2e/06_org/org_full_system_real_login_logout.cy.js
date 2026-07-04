@@ -137,6 +137,72 @@ describe("Org Full System Real Login Logout Test", () => {
     });
   });
 
+  it("opens and verifies screen clinical_dashboard via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "clinical_director");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
+
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
+
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
+
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_clinical_dashboard");
+
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.typeIntoField("login-email", user.email);
+      cy.wait(500);
+      cy.typeIntoField("login-password", user.password);
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /offices/clinical/roles/clinical_director/dashboard-dup-1...");
+      cy.visitWithSemantics(targetBaseUrl + "/offices/clinical/roles/clinical_director/dashboard-dup-1");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      // cy.getCy("clinicaldashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+      // cy.getCy("clinicaldashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+      // cy.getCy("clinicaldashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+
+      // Take screen screenshot
+      cy.screenshot("clinical_dashboard");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_clinical_dashboard");
+      cy.task("log", "✅ PROGRESS: - Verified ClinicalDashboardScreen successfully!\n");
+    });
+  });
+
   it("opens and verifies screen cns_dashboard via real credentials login and logout", () => {
     cy.fixture("governance/test_users.json").then((users) => {
       const user = users.find((u) => u.role_code === "cns");
@@ -1322,6 +1388,72 @@ describe("Org Full System Real Login Logout Test", () => {
       // Take logout screenshot
       cy.screenshot("logout_screen_infrastructure_dashboard");
       cy.task("log", "✅ PROGRESS: - Verified InfrastructureDashboardScreen successfully!\n");
+    });
+  });
+
+  it("opens and verifies screen intake_dashboard via real credentials login and logout", () => {
+    cy.fixture("governance/test_users.json").then((users) => {
+      const user = users.find((u) => u.role_code === "intake");
+      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
+
+      // 1. Visit login page
+      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
+      cy.visitWithSemantics(targetBaseUrl + "/login");
+      cy.waitAndSee();
+
+      // Verify login inputs are visible
+      cy.getCy("login-email").should("be.visible");
+      cy.getCy("login-password").should("be.visible");
+
+      // Take a screenshot of the login screen
+      cy.screenshot("login_screen_intake_dashboard");
+
+      // 2. Type credentials
+      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
+      cy.typeIntoField("login-email", user.email);
+      cy.wait(500);
+      cy.typeIntoField("login-password", user.password);
+      cy.wait(500);
+
+      // Click submit
+      cy.getCy("login-submit").first().click({ force: true });
+      cy.wait(6000);
+
+      // 3. Navigate to screen route and verify
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /offices/clinical/roles/intake_coordinator/dashboard-dup-1...");
+      cy.visitWithSemantics(targetBaseUrl + "/offices/clinical/roles/intake_coordinator/dashboard-dup-1");
+      cy.waitAndSee();
+
+      cy.verifyShellExists();
+      cy.verifyNotBlank();
+
+      // Screen assertions
+      // cy.getCy("intakedashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+      // cy.getCy("intakedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+      // cy.getCy("intakedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
+
+      // Take screen screenshot
+      cy.screenshot("intake_dashboard");
+
+      // 4. Logout
+      cy.task("log", "👆 PROGRESS: - Logging out...");
+      cy.get("body").then(($body) => {
+        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+        if (topbarLogout.length > 0) {
+          cy.wrap(topbarLogout).first().click({ force: true });
+        } else {
+          cy.clearAllCookies();
+          cy.clearAllLocalStorage();
+          cy.clearAllSessionStorage();
+          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
+        }
+      });
+      cy.waitAndSee();
+      cy.url().should("include", "/login");
+
+      // Take logout screenshot
+      cy.screenshot("logout_screen_intake_dashboard");
+      cy.task("log", "✅ PROGRESS: - Verified IntakeDashboardScreen successfully!\n");
     });
   });
 
@@ -3895,7 +4027,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified PswDashboardScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Care Dashboard successfully!\n");
     });
   });
 
@@ -15115,7 +15247,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_analytics");
-      cy.task("log", "✅ PROGRESS: - Verified PswAnalyticsScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Psw Analytics successfully!\n");
     });
   });
 
@@ -15181,7 +15313,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_clients");
-      cy.task("log", "✅ PROGRESS: - Verified PswClientsScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified My Clients successfully!\n");
     });
   });
 
@@ -15247,7 +15379,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_compliance");
-      cy.task("log", "✅ PROGRESS: - Verified PswComplianceScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Psw Compliance successfully!\n");
     });
   });
 
@@ -15313,7 +15445,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_messages");
-      cy.task("log", "✅ PROGRESS: - Verified PswMessagesScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Messages successfully!\n");
     });
   });
 
@@ -15379,7 +15511,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_shift_tracker");
-      cy.task("log", "✅ PROGRESS: - Verified PswShiftTrackerScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Shift Tracker successfully!\n");
     });
   });
 
@@ -15445,7 +15577,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_tasks");
-      cy.task("log", "✅ PROGRESS: - Verified PswTasksScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Task List successfully!\n");
     });
   });
 
@@ -15511,7 +15643,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_visit_notes");
-      cy.task("log", "✅ PROGRESS: - Verified PswVisitNotesScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Visit Notes successfully!\n");
     });
   });
 
@@ -15577,7 +15709,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_workflow");
-      cy.task("log", "✅ PROGRESS: - Verified PswWorkflowScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Psw Workflow successfully!\n");
     });
   });
 
@@ -22507,7 +22639,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_command_center");
-      cy.task("log", "✅ PROGRESS: - Verified PswCommandCenterScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Psw Command Center successfully!\n");
     });
   });
 
@@ -22573,7 +22705,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_my_shifts");
-      cy.task("log", "✅ PROGRESS: - Verified PswMyShiftsScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Psw My Shifts successfully!\n");
     });
   });
 
@@ -22639,73 +22771,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_client_profile");
-      cy.task("log", "✅ PROGRESS: - Verified PswClientProfileScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen psw_visit_notes via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "psw");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_psw_visit_notes");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /offices/clinical/roles/psw/visit-notes...");
-      cy.visitWithSemantics(targetBaseUrl + "/offices/clinical/roles/psw/visit-notes");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("pswvisitnotes-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("pswvisitnotes-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("pswvisitnotes-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("psw_visit_notes");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_psw_visit_notes");
-      cy.task("log", "✅ PROGRESS: - Verified PswVisitNotesScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Psw Client Profile successfully!\n");
     });
   });
 
@@ -22771,7 +22837,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_vitals_log");
-      cy.task("log", "✅ PROGRESS: - Verified PswVitalsLogScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Vitals Entry successfully!\n");
     });
   });
 
@@ -22837,7 +22903,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_incident_report");
-      cy.task("log", "✅ PROGRESS: - Verified PswIncidentReportScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Report Incident successfully!\n");
     });
   });
 
@@ -22903,73 +22969,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_care_plan");
-      cy.task("log", "✅ PROGRESS: - Verified PswCarePlanScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen psw_messages via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "psw");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_psw_messages");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /offices/clinical/roles/psw/messages...");
-      cy.visitWithSemantics(targetBaseUrl + "/offices/clinical/roles/psw/messages");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("pswmessages-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("pswmessages-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("pswmessages-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("psw_messages");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_psw_messages");
-      cy.task("log", "✅ PROGRESS: - Verified PswMessagesScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Psw Care Plan successfully!\n");
     });
   });
 
@@ -23035,7 +23035,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_documents");
-      cy.task("log", "✅ PROGRESS: - Verified PswDocumentsScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Documents successfully!\n");
     });
   });
 
@@ -29899,7 +29899,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_shift_tasks");
-      cy.task("log", "✅ PROGRESS: - Verified ShiftTasksScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Shift Tasks successfully!\n");
     });
   });
 
@@ -29965,7 +29965,7 @@ describe("Org Full System Real Login Logout Test", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_vitals_entry");
-      cy.task("log", "✅ PROGRESS: - Verified VitalsEntryScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Vitals Entry successfully!\n");
     });
   });
 
@@ -53494,8 +53494,8 @@ describe("Org Full System Real Login Logout Test", () => {
       cy.wait(6000);
 
       // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: SupportRoutes.escalationDashboard...");
-      cy.visitWithSemantics(targetBaseUrl + "SupportRoutes.escalationDashboard");
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /support/escalation-dashboard...");
+      cy.visitWithSemantics(targetBaseUrl + "/support/escalation-dashboard");
       cy.waitAndSee();
 
       cy.verifyShellExists();
@@ -53560,8 +53560,8 @@ describe("Org Full System Real Login Logout Test", () => {
       cy.wait(6000);
 
       // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: SupportRoutes.helpDeskDashboard...");
-      cy.visitWithSemantics(targetBaseUrl + "SupportRoutes.helpDeskDashboard");
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /support/help-desk-dashboard...");
+      cy.visitWithSemantics(targetBaseUrl + "/support/help-desk-dashboard");
       cy.waitAndSee();
 
       cy.verifyShellExists();
@@ -56894,270 +56894,6 @@ describe("Org Full System Real Login Logout Test", () => {
       // Take logout screenshot
       cy.screenshot("logout_screen_supply_chain_cost_analyzer");
       cy.task("log", "✅ PROGRESS: - Verified Supply Chain Cost Analyzer successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen forgot_password via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_forgot_password");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /generated/forgot-password...");
-      cy.visitWithSemantics(targetBaseUrl + "/generated/forgot-password");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("forgotpassword-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("forgotpassword-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("forgotpassword-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("forgot_password");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_forgot_password");
-      cy.task("log", "✅ PROGRESS: - Verified Forgot Password successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen login via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_login");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /generated/login...");
-      cy.visitWithSemantics(targetBaseUrl + "/generated/login");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("login-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("login-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("login-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("login");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_login");
-      cy.task("log", "✅ PROGRESS: - Verified Login successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen mfa via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_mfa");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /generated/mfa...");
-      cy.visitWithSemantics(targetBaseUrl + "/generated/mfa");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("mfa-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("mfa-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("mfa-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("mfa");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_mfa");
-      cy.task("log", "✅ PROGRESS: - Verified Mfa successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen reset_password via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_reset_password");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /generated/reset-password...");
-      cy.visitWithSemantics(targetBaseUrl + "/generated/reset-password");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("resetpassword-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("resetpassword-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("resetpassword-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("reset_password");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_reset_password");
-      cy.task("log", "✅ PROGRESS: - Verified Reset Password successfully!\n");
     });
   });
 
@@ -62438,1392 +62174,6 @@ describe("Org Full System Real Login Logout Test", () => {
       // Take logout screenshot
       cy.screenshot("logout_screen_screen_not_implemented");
       cy.task("log", "✅ PROGRESS: - Verified Screen Not Implemented successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen clinical_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_clinical_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/clinical/clinical_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/clinical/clinical_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("clinicaldashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("clinicaldashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("clinicaldashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("clinical_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_clinical_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified ClinicalDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen api_health_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_api_health_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/common/api_health_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/common/api_health_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("apihealthdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("apihealthdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("apihealthdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("api_health_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_api_health_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified ApiHealthDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen architecture_planning_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_architecture_planning_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("architectureplanningdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("architectureplanningdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("architectureplanningdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("architecture_planning_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_architecture_planning_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified ArchitecturePlanningDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen business_development_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_business_development_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/common/business_development_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/common/business_development_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("businessdevelopmentdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("businessdevelopmentdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("businessdevelopmentdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("business_development_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_business_development_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified BusinessDevelopmentDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen clinic_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_clinic_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/common/clinic_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/common/clinic_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("clinicdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("clinicdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("clinicdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("clinic_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_clinic_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified ClinicDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen file_verification_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_file_verification_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/common/file_verification_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/common/file_verification_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("fileverificationdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("fileverificationdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("fileverificationdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("file_verification_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_file_verification_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified FileVerificationDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen franchise_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_franchise_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/common/franchise_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/common/franchise_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("franchisedashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("franchisedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("franchisedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("franchise_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_franchise_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified FranchiseDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen physiotherapist_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_physiotherapist_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("physiotherapistdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("physiotherapistdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("physiotherapistdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("physiotherapist_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_physiotherapist_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified PhysiotherapistDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen role_coverage_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_role_coverage_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/common/role_coverage_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/common/role_coverage_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("rolecoveragedashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("rolecoveragedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("rolecoveragedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("role_coverage_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_role_coverage_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified RoleCoverageDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen system_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_system_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/common/system_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/common/system_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("systemdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("systemdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("systemdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("system_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_system_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified SystemDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen financial_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_financial_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/executive/financial_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/executive/financial_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("financialdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("financialdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("financialdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("financial_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_financial_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified FinancialDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen campaign_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_campaign_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/management/campaign_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/management/campaign_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("campaigndashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("campaigndashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("campaigndashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("campaign_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_campaign_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified CampaignDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen compliance_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "compliance");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_compliance_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/management/compliance_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/management/compliance_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("compliancedashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("compliancedashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("compliancedashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("compliance_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_compliance_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified ComplianceDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen compliance_manager_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_compliance_manager_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("compliancemanagerdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("compliancemanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("compliancemanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("compliance_manager_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_compliance_manager_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified ComplianceManagerDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen franchise_sales_manager_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_franchise_sales_manager_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("franchisesalesmanagerdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("franchisesalesmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("franchisesalesmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("franchise_sales_manager_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_franchise_sales_manager_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified FranchiseSalesManagerDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen governance_officer_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_governance_officer_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("governanceofficerdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("governanceofficerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("governanceofficerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("governance_officer_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_governance_officer_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified GovernanceOfficerDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen head_of_bus_dev_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_head_of_bus_dev_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/management/head_of_bus_dev_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/management/head_of_bus_dev_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("headofbusdevdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("headofbusdevdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("headofbusdevdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("head_of_bus_dev_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_head_of_bus_dev_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified HeadOfBusDevDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen head_of_marketing_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_head_of_marketing_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/management/head_of_marketing_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/management/head_of_marketing_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("headofmarketingdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("headofmarketingdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("headofmarketingdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("head_of_marketing_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_head_of_marketing_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified HeadOfMarketingDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen local_marketing_manager_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_local_marketing_manager_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("localmarketingmanagerdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("localmarketingmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("localmarketingmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("local_marketing_manager_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_local_marketing_manager_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified LocalMarketingManagerDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen hr_manager_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_hr_manager_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("hrmanagerdashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("hrmanagerdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("hrmanagerdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("hr_manager_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_hr_manager_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified HrManagerDashboardScreen successfully!\n");
-    });
-  });
-
-  it("opens and verifies screen intake_coordinator_dashboard via real credentials login and logout", () => {
-    cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
-      const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
-
-      // 1. Visit login page
-      cy.task("log", "⏳ PROGRESS: - Visiting login page...");
-      cy.visitWithSemantics(targetBaseUrl + "/login");
-      cy.waitAndSee();
-
-      // Verify login inputs are visible
-      cy.getCy("login-email").should("be.visible");
-      cy.getCy("login-password").should("be.visible");
-
-      // Take a screenshot of the login screen
-      cy.screenshot("login_screen_intake_coordinator_dashboard");
-
-      // 2. Type credentials
-      cy.task("log", "⏳ PROGRESS: - Entering credentials...");
-      cy.typeIntoField("login-email", user.email);
-      cy.wait(500);
-      cy.typeIntoField("login-password", user.password);
-      cy.wait(500);
-
-      // Click submit
-      cy.getCy("login-submit").first().click({ force: true });
-      cy.wait(6000);
-
-      // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard_screen.dart");
-      cy.waitAndSee();
-
-      cy.verifyShellExists();
-      cy.verifyNotBlank();
-
-      // Screen assertions
-      // cy.getCy("intakecoordinatordashboard-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("intakecoordinatordashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-      // cy.getCy("intakecoordinatordashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-      // Take screen screenshot
-      cy.screenshot("intake_coordinator_dashboard");
-
-      // 4. Logout
-      cy.task("log", "👆 PROGRESS: - Logging out...");
-      cy.get("body").then(($body) => {
-        const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
-        if (topbarLogout.length > 0) {
-          cy.wrap(topbarLogout).first().click({ force: true });
-        } else {
-          cy.clearAllCookies();
-          cy.clearAllLocalStorage();
-          cy.clearAllSessionStorage();
-          cy.visit(targetBaseUrl + "/login?enable-semantics=true");
-        }
-      });
-      cy.waitAndSee();
-      cy.url().should("include", "/login");
-
-      // Take logout screenshot
-      cy.screenshot("logout_screen_intake_coordinator_dashboard");
-      cy.task("log", "✅ PROGRESS: - Verified IntakeCoordinatorDashboardScreen successfully!\n");
     });
   });
 

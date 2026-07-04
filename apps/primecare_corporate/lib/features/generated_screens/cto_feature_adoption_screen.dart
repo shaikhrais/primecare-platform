@@ -59,7 +59,7 @@ class CtoFeatureAdoptionScreenController extends StateNotifier<CtoFeatureAdoptio
       : super(
           CtoFeatureAdoptionScreenState(
             isLoading: false,
-            title: 'CTO Feature Adoption'.tr(),
+            title: 'Cto Feature Adoption'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Blueprint Sandbox
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class BlueprintSandboxModel {
-  const BlueprintSandboxModel();
-  
-  factory BlueprintSandboxModel.fromJson(Map<String, dynamic> json) {
-    return const BlueprintSandboxModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const BlueprintSandboxModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  BlueprintSandboxModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return BlueprintSandboxModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

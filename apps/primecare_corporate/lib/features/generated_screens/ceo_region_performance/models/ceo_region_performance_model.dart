@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Ceo Region Performance
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CeoRegionPerformanceModel {
-  const CeoRegionPerformanceModel();
-  
-  factory CeoRegionPerformanceModel.fromJson(Map<String, dynamic> json) {
-    return const CeoRegionPerformanceModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CeoRegionPerformanceModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CeoRegionPerformanceModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CeoRegionPerformanceModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

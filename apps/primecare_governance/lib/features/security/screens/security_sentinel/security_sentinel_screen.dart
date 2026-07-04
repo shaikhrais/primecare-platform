@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Security Sentinel
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/security_sentinel_header_section.dart';
+import 'sections/security_sentinel_content_summary_section.dart';
+import 'sections/security_sentinel_primary_content_section.dart';
+import 'sections/security_sentinel_action_bar_section.dart';
 
-class SecuritySentinelScreen extends ConsumerWidget {
+class SecuritySentinelScreen extends StatelessWidget {
   const SecuritySentinelScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Security Sentinel Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'security_sentinel',
+      title: 'Security Sentinel',
+      child: Column(
+        children: const [
+          const SecuritySentinelHeaderSection(),
+          const SecuritySentinelContentSummarySection(),
+          const SecuritySentinelPrimaryContentSection(),
+          const SecuritySentinelActionBarSection(),
+        ],
       ),
     );
   }

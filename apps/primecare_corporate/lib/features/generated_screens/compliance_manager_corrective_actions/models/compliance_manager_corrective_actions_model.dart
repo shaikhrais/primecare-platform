@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Compliance Manager Corrective Actions
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ComplianceManagerCorrectiveActionsModel {
-  const ComplianceManagerCorrectiveActionsModel();
-  
-  factory ComplianceManagerCorrectiveActionsModel.fromJson(Map<String, dynamic> json) {
-    return const ComplianceManagerCorrectiveActionsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ComplianceManagerCorrectiveActionsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ComplianceManagerCorrectiveActionsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ComplianceManagerCorrectiveActionsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

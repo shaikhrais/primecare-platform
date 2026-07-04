@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Data Privacy Monitor
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class DataPrivacyMonitorModel {
-  const DataPrivacyMonitorModel();
-  
-  factory DataPrivacyMonitorModel.fromJson(Map<String, dynamic> json) {
-    return const DataPrivacyMonitorModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const DataPrivacyMonitorModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  DataPrivacyMonitorModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return DataPrivacyMonitorModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

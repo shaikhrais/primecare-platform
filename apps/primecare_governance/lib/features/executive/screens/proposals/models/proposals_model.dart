@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Proposals
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ProposalsModel {
-  const ProposalsModel();
-  
-  factory ProposalsModel.fromJson(Map<String, dynamic> json) {
-    return const ProposalsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ProposalsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ProposalsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ProposalsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

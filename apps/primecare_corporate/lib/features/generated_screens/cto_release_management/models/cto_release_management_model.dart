@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Cto Release Management
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CtoReleaseManagementModel {
-  const CtoReleaseManagementModel();
-  
-  factory CtoReleaseManagementModel.fromJson(Map<String, dynamic> json) {
-    return const CtoReleaseManagementModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CtoReleaseManagementModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CtoReleaseManagementModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CtoReleaseManagementModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

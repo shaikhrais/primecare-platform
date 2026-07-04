@@ -59,7 +59,7 @@ class CfoAccountsPayableScreenController extends StateNotifier<CfoAccountsPayabl
       : super(
           CfoAccountsPayableScreenState(
             isLoading: false,
-            title: 'CFO Accounts Payable'.tr(),
+            title: 'Cfo Accounts Payable'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

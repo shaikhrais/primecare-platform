@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Compliance Manager Compliance Cases
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/compliance_manager_compliance_cases_header_section.dart';
+import 'sections/compliance_manager_compliance_cases_content_summary_section.dart';
+import 'sections/compliance_manager_compliance_cases_primary_content_section.dart';
+import 'sections/compliance_manager_compliance_cases_action_bar_section.dart';
 
-class ComplianceManagerComplianceCasesScreen extends ConsumerWidget {
+class ComplianceManagerComplianceCasesScreen extends StatelessWidget {
   const ComplianceManagerComplianceCasesScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Compliance Manager Compliance Cases Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'compliance_manager_compliance_cases',
+      title: 'Compliance Manager Compliance Cases',
+      child: Column(
+        children: const [
+          const ComplianceManagerComplianceCasesHeaderSection(),
+          const ComplianceManagerComplianceCasesContentSummarySection(),
+          const ComplianceManagerComplianceCasesPrimaryContentSection(),
+          const ComplianceManagerComplianceCasesActionBarSection(),
+        ],
       ),
     );
   }

@@ -59,7 +59,7 @@ class PswSystemLogsScreenController extends StateNotifier<PswSystemLogsScreenSta
       : super(
           PswSystemLogsScreenState(
             isLoading: false,
-            title: 'PSW System Logs'.tr(),
+            title: 'Psw System Logs'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

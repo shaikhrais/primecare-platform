@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Receptionist Appointments
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ReceptionistAppointmentsModel {
-  const ReceptionistAppointmentsModel();
-  
-  factory ReceptionistAppointmentsModel.fromJson(Map<String, dynamic> json) {
-    return const ReceptionistAppointmentsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ReceptionistAppointmentsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ReceptionistAppointmentsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ReceptionistAppointmentsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

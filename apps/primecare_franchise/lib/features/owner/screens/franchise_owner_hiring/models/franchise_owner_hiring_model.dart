@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Franchise Owner Hiring
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class FranchiseOwnerHiringModel {
-  const FranchiseOwnerHiringModel();
-  
-  factory FranchiseOwnerHiringModel.fromJson(Map<String, dynamic> json) {
-    return const FranchiseOwnerHiringModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const FranchiseOwnerHiringModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  FranchiseOwnerHiringModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return FranchiseOwnerHiringModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

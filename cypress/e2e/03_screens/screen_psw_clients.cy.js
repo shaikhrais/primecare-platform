@@ -66,7 +66,7 @@ describe("Screen - psw_clients", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_clients");
-      cy.task("log", "✅ PROGRESS: - Verified PswClientsScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified My Clients successfully!\n");
     });
   });
 });

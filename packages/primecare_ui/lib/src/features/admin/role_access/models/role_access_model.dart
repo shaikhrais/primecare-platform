@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Role Access
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class RoleAccessModel {
-  const RoleAccessModel();
-  
-  factory RoleAccessModel.fromJson(Map<String, dynamic> json) {
-    return const RoleAccessModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const RoleAccessModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  RoleAccessModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return RoleAccessModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

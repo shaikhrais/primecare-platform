@@ -1,16 +1,28 @@
-// Governance - Category: view | Purpose: Coordinator layout for Osha Incident Reporter
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/osha_incident_reporter_header_section.dart';
+import 'sections/osha_incident_reporter_filter_bar_section.dart';
+import 'sections/osha_incident_reporter_metrics_summary_section.dart';
+import 'sections/osha_incident_reporter_chart_area_section.dart';
+import 'sections/osha_incident_reporter_export_actions_section.dart';
 
-class OshaIncidentReporterScreen extends ConsumerWidget {
+class OshaIncidentReporterScreen extends StatelessWidget {
   const OshaIncidentReporterScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Osha Incident Reporter Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'osha_incident_reporter',
+      title: 'Osha Incident Reporter',
+      child: Column(
+        children: const [
+          const OshaIncidentReporterHeaderSection(),
+          const OshaIncidentReporterFilterBarSection(),
+          const OshaIncidentReporterMetricsSummarySection(),
+          const OshaIncidentReporterChartAreaSection(),
+          const OshaIncidentReporterExportActionsSection(),
+        ],
       ),
     );
   }

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Hr Staff Files
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class HrStaffFilesModel {
-  const HrStaffFilesModel();
-  
-  factory HrStaffFilesModel.fromJson(Map<String, dynamic> json) {
-    return const HrStaffFilesModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const HrStaffFilesModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  HrStaffFilesModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return HrStaffFilesModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

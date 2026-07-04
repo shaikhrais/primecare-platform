@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Psw Profile
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PswProfileModel {
-  const PswProfileModel();
-  
-  factory PswProfileModel.fromJson(Map<String, dynamic> json) {
-    return const PswProfileModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PswProfileModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PswProfileModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PswProfileModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

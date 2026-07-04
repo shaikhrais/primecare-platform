@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Hipaa Audit Dashboard
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class HipaaAuditDashboardModel {
-  const HipaaAuditDashboardModel();
-  
-  factory HipaaAuditDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const HipaaAuditDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const HipaaAuditDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  HipaaAuditDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return HipaaAuditDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

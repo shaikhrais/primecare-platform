@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Head Of Marketing Funnel Analytics
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class HeadOfMarketingFunnelAnalyticsModel {
-  const HeadOfMarketingFunnelAnalyticsModel();
-  
-  factory HeadOfMarketingFunnelAnalyticsModel.fromJson(Map<String, dynamic> json) {
-    return const HeadOfMarketingFunnelAnalyticsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const HeadOfMarketingFunnelAnalyticsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  HeadOfMarketingFunnelAnalyticsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return HeadOfMarketingFunnelAnalyticsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

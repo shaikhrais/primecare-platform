@@ -12,7 +12,7 @@ Below are the database records from `governance.db` used to configure and build 
 * **Screen Name**: `LoginScreen`
 * **Route Path**: `/generated/login`
 * **Actual File Path**: `packages/primecare_ui/lib/src/features/auth/login_view.dart`
-* **Stage/Status**: `wired`
+* **Stage/Status**: `template_created`
 
 ## 2. App Record
 * **ID**: `6`
@@ -61,20 +61,15 @@ Below are the database records from `governance.db` used to configure and build 
 
 ## 8. Test Definition & Steps
 * **Test Code**: `login_runtime`
-* **Test Name**: `Login Smoke Test`
+* **Test Name**: `Login Runtime Test`
 * **Test Type**: `e2e`
 * **Expected Title**: `Login`
 * **Expected Layout**: `dashboard`
 
 ### Test Steps
-1. **login_as_role** (Selector: `None`, Value: `guest`)
-2. **verify_sidebar_exists** (Selector: `app-sidebar`, Value: `None`)
-3. **verify_sidebar_link_exists** (Selector: `None`, Value: `Login`)
-4. **click_sidebar_link** (Selector: `None`, Value: `Login`)
-5. **check_url** (Selector: `None`, Value: `/generated/login`)
-6. **verify_topbar_exists** (Selector: `app-topbar`, Value: `None`)
-7. **verify_main_content_exists** (Selector: `app-content-slot`, Value: `None`)
-8. **verify_screen_not_empty** (Selector: `None`, Value: `None`)
-9. **verify_forbidden_text_absent** (Selector: `None`, Value: `None`)
-10. **verify_no_console_errors** (Selector: `None`, Value: `None`)
-11. **screenshot** (Selector: `None`, Value: `None`)
+1. **visit** (Selector: `None`, Value: `/generated/login`)
+2. **should_be_visible** (Selector: `login-screen`, Value: `None`)
+3. **should_be_visible** (Selector: `login-title`, Value: `None`)
+4. **should_be_visible** (Selector: `login-content`, Value: `None`)
+5. **check_no_console_error** (Selector: `None`, Value: `None`)
+6. **screenshot** (Selector: `None`, Value: `None`)

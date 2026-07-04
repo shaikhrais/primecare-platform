@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Clinic History Logs
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ClinicHistoryLogsModel {
-  const ClinicHistoryLogsModel();
-  
-  factory ClinicHistoryLogsModel.fromJson(Map<String, dynamic> json) {
-    return const ClinicHistoryLogsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ClinicHistoryLogsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ClinicHistoryLogsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ClinicHistoryLogsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

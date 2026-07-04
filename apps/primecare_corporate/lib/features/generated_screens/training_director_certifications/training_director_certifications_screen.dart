@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Training Director Certifications
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/training_director_certifications_header_section.dart';
+import 'sections/training_director_certifications_content_summary_section.dart';
+import 'sections/training_director_certifications_primary_content_section.dart';
+import 'sections/training_director_certifications_action_bar_section.dart';
 
-class TrainingDirectorCertificationsScreen extends ConsumerWidget {
+class TrainingDirectorCertificationsScreen extends StatelessWidget {
   const TrainingDirectorCertificationsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Training Director Certifications Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'training_director_certifications',
+      title: 'Training Director Certifications',
+      child: Column(
+        children: const [
+          const TrainingDirectorCertificationsHeaderSection(),
+          const TrainingDirectorCertificationsContentSummarySection(),
+          const TrainingDirectorCertificationsPrimaryContentSection(),
+          const TrainingDirectorCertificationsActionBarSection(),
+        ],
       ),
     );
   }

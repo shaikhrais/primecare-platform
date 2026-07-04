@@ -33,8 +33,8 @@ describe("Screen - escalation_dashboard", () => {
       cy.wait(6000);
 
       // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: SupportRoutes.escalationDashboard...");
-      cy.visitWithSemantics(targetBaseUrl + "SupportRoutes.escalationDashboard");
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /support/escalation-dashboard...");
+      cy.visitWithSemantics(targetBaseUrl + "/support/escalation-dashboard");
       cy.waitAndSee();
 
       cy.verifyShellExists();

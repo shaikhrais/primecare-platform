@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Quality Assurance Corrective Actions
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class QualityAssuranceCorrectiveActionsModel {
-  const QualityAssuranceCorrectiveActionsModel();
-  
-  factory QualityAssuranceCorrectiveActionsModel.fromJson(Map<String, dynamic> json) {
-    return const QualityAssuranceCorrectiveActionsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const QualityAssuranceCorrectiveActionsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  QualityAssuranceCorrectiveActionsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return QualityAssuranceCorrectiveActionsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

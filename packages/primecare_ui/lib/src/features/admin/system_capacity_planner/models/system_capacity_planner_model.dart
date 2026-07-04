@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for System Capacity Planner
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class SystemCapacityPlannerModel {
-  const SystemCapacityPlannerModel();
-  
-  factory SystemCapacityPlannerModel.fromJson(Map<String, dynamic> json) {
-    return const SystemCapacityPlannerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const SystemCapacityPlannerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  SystemCapacityPlannerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return SystemCapacityPlannerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

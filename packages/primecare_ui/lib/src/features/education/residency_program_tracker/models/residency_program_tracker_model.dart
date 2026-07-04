@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Residency Program Tracker
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ResidencyProgramTrackerModel {
-  const ResidencyProgramTrackerModel();
-  
-  factory ResidencyProgramTrackerModel.fromJson(Map<String, dynamic> json) {
-    return const ResidencyProgramTrackerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ResidencyProgramTrackerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ResidencyProgramTrackerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ResidencyProgramTrackerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -1,0 +1,7 @@
+// Governance - Category: state | Purpose: Riverpod state notifier for ClinicalAnalyticsScreen
+// TODO: Implement state providers, loading triggers, and action mutations.
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class ClinicalAnalyticsNotifier extends StateNotifier<AsyncValue<void>> {
+  ClinicalAnalyticsNotifier() : super(const AsyncValue.data(null));
+}

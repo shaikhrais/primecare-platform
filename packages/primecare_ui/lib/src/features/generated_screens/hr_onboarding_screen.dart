@@ -59,7 +59,7 @@ class HrOnboardingScreenController extends StateNotifier<HrOnboardingScreenState
       : super(
           HrOnboardingScreenState(
             isLoading: false,
-            title: 'HR Onboarding'.tr(),
+            title: 'Hr Onboarding'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

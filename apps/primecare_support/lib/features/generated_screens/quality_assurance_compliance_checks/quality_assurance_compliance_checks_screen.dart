@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Quality Assurance Compliance Checks
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/quality_assurance_compliance_checks_header_section.dart';
+import 'sections/quality_assurance_compliance_checks_content_summary_section.dart';
+import 'sections/quality_assurance_compliance_checks_primary_content_section.dart';
+import 'sections/quality_assurance_compliance_checks_action_bar_section.dart';
 
-class QualityAssuranceComplianceChecksScreen extends ConsumerWidget {
+class QualityAssuranceComplianceChecksScreen extends StatelessWidget {
   const QualityAssuranceComplianceChecksScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Quality Assurance Compliance Checks Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'quality_assurance_compliance_checks',
+      title: 'Quality Assurance Compliance Checks',
+      child: Column(
+        children: const [
+          const QualityAssuranceComplianceChecksHeaderSection(),
+          const QualityAssuranceComplianceChecksContentSummarySection(),
+          const QualityAssuranceComplianceChecksPrimaryContentSection(),
+          const QualityAssuranceComplianceChecksActionBarSection(),
+        ],
       ),
     );
   }

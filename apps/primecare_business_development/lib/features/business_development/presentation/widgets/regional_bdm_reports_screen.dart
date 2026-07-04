@@ -59,7 +59,7 @@ class RegionalBdmReportsScreenController extends StateNotifier<RegionalBdmReport
       : super(
           RegionalBdmReportsScreenState(
             isLoading: false,
-            title: 'Regional BDM Reports'.tr(),
+            title: 'Regional Bdm Reports'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

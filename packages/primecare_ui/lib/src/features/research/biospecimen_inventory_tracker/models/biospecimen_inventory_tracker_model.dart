@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Biospecimen Inventory Tracker
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class BiospecimenInventoryTrackerModel {
-  const BiospecimenInventoryTrackerModel();
-  
-  factory BiospecimenInventoryTrackerModel.fromJson(Map<String, dynamic> json) {
-    return const BiospecimenInventoryTrackerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const BiospecimenInventoryTrackerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  BiospecimenInventoryTrackerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return BiospecimenInventoryTrackerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

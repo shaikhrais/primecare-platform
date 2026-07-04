@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Provider Performance Dashboard
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ProviderPerformanceDashboardModel {
-  const ProviderPerformanceDashboardModel();
-  
-  factory ProviderPerformanceDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const ProviderPerformanceDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ProviderPerformanceDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ProviderPerformanceDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ProviderPerformanceDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

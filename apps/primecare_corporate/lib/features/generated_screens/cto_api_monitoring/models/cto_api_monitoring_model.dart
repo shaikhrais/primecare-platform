@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Cto Api Monitoring
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CtoApiMonitoringModel {
-  const CtoApiMonitoringModel();
-  
-  factory CtoApiMonitoringModel.fromJson(Map<String, dynamic> json) {
-    return const CtoApiMonitoringModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CtoApiMonitoringModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CtoApiMonitoringModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CtoApiMonitoringModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

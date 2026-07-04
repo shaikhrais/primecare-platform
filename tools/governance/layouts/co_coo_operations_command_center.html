@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" dir="LTR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClinicWorkflowScreen | Primecare Corporate</title>
+  <link rel="stylesheet" href="./primecare_theme.css" />
+
+  <style>
+    :root {
+      --pc-color-primary: #0F172A;
+      --pc-color-secondary: #475569;
+      --pc-color-background: #F8FAFC;
+      --pc-color-surface: #FFFFFF;
+      --pc-color-text: #0f172a;
+      --pc-color-muted: #64748b;
+      --pc-spacing-sm: 10px;
+      --pc-spacing-md: 16px;
+      --pc-spacing-lg: 28px;
+      --pc-radius-md: 8px;
+      --pc-font-family: Inter, sans-serif;
+    }
+  </style>
+
+</head>
+<body data-theme="primecare_light_default" data-app="co" data-role="coo" data-screen="operations_command_center">
+  <aside class="pc-sidebar" data-testid="app-sidebar">
+  <div class="pc-sidebar-brand">
+    <div class="pc-brand-logo">CO</div>
+    <div>
+      <div class="pc-brand-title">Primecare Corporate</div>
+      <div class="pc-brand-subtitle">Chief Operating Officer (COO)</div>
+    </div>
+  </div>
+
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">Overview</div>
+    
+    <a href="/offices/corporate/roles/coo/dashboard" class="pc-sidebar-link " data-testid="sidebar-link-coo_dashboard" data-route="/offices/corporate/roles/coo/dashboard" data-screen="coo_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Coo Dashboard</span>
+    </a>
+    
+  </div>
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">General</div>
+    
+    <a href="/executive/coo-command-center" class="pc-sidebar-link " data-testid="sidebar-link-coo_command_center" data-route="/executive/coo-command-center" data-screen="coo_command_center">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Coo Command Center</span>
+    </a>
+    
+    <a href="/offices/corporate/roles/coo/operations-overview" class="pc-sidebar-link " data-testid="sidebar-link-coo_operations_overview" data-route="/offices/corporate/roles/coo/operations-overview" data-screen="coo_operations_overview">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Coo Operations Overview</span>
+    </a>
+    
+    <a href="/executive/coo-staffing" class="pc-sidebar-link " data-testid="sidebar-link-coo_staffing" data-route="/executive/coo-staffing" data-screen="coo_staffing">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Coo Staffing</span>
+    </a>
+    
+    <a href="/offices/corporate/roles/coo/scheduling-health" class="pc-sidebar-link " data-testid="sidebar-link-coo_scheduling_health" data-route="/offices/corporate/roles/coo/scheduling-health" data-screen="coo_scheduling_health">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Coo Scheduling Health</span>
+    </a>
+    
+    <a href="/executive/coo-workflow-issues" class="pc-sidebar-link " data-testid="sidebar-link-coo_workflow_issues" data-route="/executive/coo-workflow-issues" data-screen="coo_workflow_issues">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Coo Workflow Issues</span>
+    </a>
+    
+    <a href="/offices/corporate/roles/coo/branch-comparison" class="pc-sidebar-link " data-testid="sidebar-link-coo_branch_comparison" data-route="/offices/corporate/roles/coo/branch-comparison" data-screen="coo_branch_comparison">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Coo Branch Comparison</span>
+    </a>
+    
+    <a href="/executive/operations-command-center" class="pc-sidebar-link is-active" data-testid="sidebar-link-operations_command_center" data-route="/executive/operations-command-center" data-screen="operations_command_center">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Operations Command Center</span>
+    </a>
+    
+    <a href="/executive/staffing-overview" class="pc-sidebar-link " data-testid="sidebar-link-staffing_overview" data-route="/executive/staffing-overview" data-screen="staffing_overview">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Staffing Overview</span>
+    </a>
+    
+    <a href="/executive/workflow-issue" class="pc-sidebar-link " data-testid="sidebar-link-workflow_issue" data-route="/executive/workflow-issue" data-screen="workflow_issue">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Workflow Issue</span>
+    </a>
+    
+    <a href="/executive/service-quality" class="pc-sidebar-link " data-testid="sidebar-link-service_quality" data-route="/executive/service-quality" data-screen="service_quality">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Service Quality</span>
+    </a>
+    
+    <a href="/executive/branch-performance" class="pc-sidebar-link " data-testid="sidebar-link-branch_performance" data-route="/executive/branch-performance" data-screen="branch_performance">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Branch Performance</span>
+    </a>
+    
+  </div>
+  
+
+  <div class="pc-sidebar-footer">
+    <span class="pc-shell-status-dot"></span>
+    <span>Shell loaded</span>
+  </div>
+</aside>
+
+  <div class="pc-shell">
+    <header class="pc-topbar" data-testid="app-topbar">
+  <div class="pc-topbar-left">
+    <div class="pc-breadcrumb" data-testid="breadcrumb">Primecare Corporate / Chief Operating Officer (COO)</div>
+    <div class="pc-topbar-title-row">
+      <h1 class="pc-screen-title" data-testid="screen-title">ClinicWorkflowScreen</h1>
+      <span class="pc-role-badge" data-testid="role-badge">Chief Operating Officer (COO)</span>
+    </div>
+  </div>
+
+  <div class="pc-topbar-actions">
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in Primecare Corporate...</div>
+    
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    <div class="pc-profile-avatar" data-testid="topbar-profile-avatar">CO</div>
+  </div>
+</header>
+
+    <main class="pc-content" data-testid="main-content">
+  <div class="pc-content-shell" data-testid="content-page-shell">
+    <div class="pc-content-header">
+      <div>
+        <div class="pc-content-title">ClinicWorkflowScreen</div>
+        <div class="pc-content-subtitle">Visual interface layout contract.</div>
+      </div>
+      <span class="pc-content-state-badge" data-testid="content-state">Active</span>
+    </div>
+
+    
+
+    
+    <div class="pc-section-grid" data-testid="screen-section-grid">
+      
+      <section class="pc-section pc-section--header" data-testid="section-operations_command_center_header" data-section-type="header">
+        <div class="pc-section-header">
+          <div>
+            <h2>Header Section</h2>
+            <p>Fallback screen title.</p>
+          </div>
+          <span>header</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="operations_command_center-screen" data-element-type="layout">
+            OperationsCommandCenterScreen Screen Root
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="operations_command_center-title" data-element-type="header">
+            OperationsCommandCenterScreen Page Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--summary" data-testid="section-operations_command_center_content_summary" data-section-type="summary">
+        <div class="pc-section-header">
+          <div>
+            <h2>Content Summary Section</h2>
+            <p>Summary cards overview.</p>
+          </div>
+          <span>summary</span>
+        </div>
+        <div class="pc-section-body">
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--content" data-testid="section-operations_command_center_primary_content" data-section-type="content">
+        <div class="pc-section-header">
+          <div>
+            <h2>Primary Content Section</h2>
+            <p>Main details and grids.</p>
+          </div>
+          <span>content</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="operations_command_center-content" data-element-type="layout">
+            OperationsCommandCenterScreen Primary Content
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="operationscommandcenter-screen" data-element-type="layout">
+            Operationscommandcenter Screen
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="operationscommandcenter-title" data-element-type="header">
+            Operationscommandcenter Title
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="operationscommandcenter-content" data-element-type="layout">
+            Operationscommandcenter Content
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--action_bar" data-testid="section-operations_command_center_action_bar" data-section-type="action_bar">
+        <div class="pc-section-header">
+          <div>
+            <h2>Action Bar Section</h2>
+            <p>Interaction buttons.</p>
+          </div>
+          <span>action_bar</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--button" data-testid="operationscommandcenter-btn-2" data-element-type="button">
+            Operationscommandcenter Btn 2
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="operationscommandcenter-btn-1" data-element-type="button">
+            Operationscommandcenter Btn 1
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="operationscommandcenter-btn-3" data-element-type="button">
+            Operationscommandcenter Btn 3
+          </div>
+          
+        </div>
+      </section>
+      
+    </div>
+    
+  </div>
+</main>
+
+  </div>
+</body>
+</html>

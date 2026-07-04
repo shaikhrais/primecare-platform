@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Local Marketing Manager Assets
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class LocalMarketingManagerAssetsModel {
-  const LocalMarketingManagerAssetsModel();
-  
-  factory LocalMarketingManagerAssetsModel.fromJson(Map<String, dynamic> json) {
-    return const LocalMarketingManagerAssetsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const LocalMarketingManagerAssetsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  LocalMarketingManagerAssetsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return LocalMarketingManagerAssetsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

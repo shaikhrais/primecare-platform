@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Marketing Manager Dashboard
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class MarketingManagerDashboardModel {
-  const MarketingManagerDashboardModel();
-  
-  factory MarketingManagerDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const MarketingManagerDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const MarketingManagerDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  MarketingManagerDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return MarketingManagerDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

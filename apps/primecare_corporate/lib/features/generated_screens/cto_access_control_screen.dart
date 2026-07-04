@@ -59,7 +59,7 @@ class CtoAccessControlScreenController extends StateNotifier<CtoAccessControlScr
       : super(
           CtoAccessControlScreenState(
             isLoading: false,
-            title: 'CTO Access Control'.tr(),
+            title: 'Cto Access Control'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Peer Review Conference Room
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PeerReviewConferenceRoomModel {
-  const PeerReviewConferenceRoomModel();
-  
-  factory PeerReviewConferenceRoomModel.fromJson(Map<String, dynamic> json) {
-    return const PeerReviewConferenceRoomModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PeerReviewConferenceRoomModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PeerReviewConferenceRoomModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PeerReviewConferenceRoomModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

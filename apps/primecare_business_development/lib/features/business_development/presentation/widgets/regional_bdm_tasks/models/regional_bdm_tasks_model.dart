@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Regional Bdm Tasks
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class RegionalBdmTasksModel {
-  const RegionalBdmTasksModel();
-  
-  factory RegionalBdmTasksModel.fromJson(Map<String, dynamic> json) {
-    return const RegionalBdmTasksModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const RegionalBdmTasksModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  RegionalBdmTasksModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return RegionalBdmTasksModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

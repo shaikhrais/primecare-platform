@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for C M E Tracking Dashboard
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CMETrackingDashboardModel {
-  const CMETrackingDashboardModel();
-  
-  factory CMETrackingDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const CMETrackingDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CMETrackingDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CMETrackingDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CMETrackingDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

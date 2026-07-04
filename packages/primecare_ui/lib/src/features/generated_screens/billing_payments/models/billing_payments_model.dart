@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Billing Payments
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class BillingPaymentsModel {
-  const BillingPaymentsModel();
-  
-  factory BillingPaymentsModel.fromJson(Map<String, dynamic> json) {
-    return const BillingPaymentsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const BillingPaymentsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  BillingPaymentsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return BillingPaymentsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

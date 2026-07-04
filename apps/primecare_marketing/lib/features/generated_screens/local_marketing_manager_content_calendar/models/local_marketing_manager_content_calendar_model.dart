@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Local Marketing Manager Content Calendar
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class LocalMarketingManagerContentCalendarModel {
-  const LocalMarketingManagerContentCalendarModel();
-  
-  factory LocalMarketingManagerContentCalendarModel.fromJson(Map<String, dynamic> json) {
-    return const LocalMarketingManagerContentCalendarModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const LocalMarketingManagerContentCalendarModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  LocalMarketingManagerContentCalendarModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return LocalMarketingManagerContentCalendarModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

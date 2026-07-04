@@ -55,6 +55,7 @@ def main():
         FROM screens s
         LEFT JOIN roles r ON s.role_id = r.id
         LEFT JOIN screen_requirements req ON s.id = req.screen_id
+        WHERE s.active = 1
     """)
     screens = [dict(row) for row in c.fetchall()]
     total_screens = len(screens)
@@ -101,8 +102,12 @@ def main():
         for el in elements:
             key = el["element_key"]
             tid = el["test_id"]
+            if tid:
+                tid = tid.replace('$', '\\$')
             etype = el["element_type"]
             label = el["label"] or key.replace('_', ' ').capitalize()
+            if label:
+                label = label.replace('$', '\\$')
 
             if not tid:
                 continue

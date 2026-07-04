@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Supply Chain Cost Analyzer
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class SupplyChainCostAnalyzerModel {
-  const SupplyChainCostAnalyzerModel();
-  
-  factory SupplyChainCostAnalyzerModel.fromJson(Map<String, dynamic> json) {
-    return const SupplyChainCostAnalyzerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const SupplyChainCostAnalyzerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  SupplyChainCostAnalyzerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return SupplyChainCostAnalyzerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

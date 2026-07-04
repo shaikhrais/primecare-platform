@@ -59,7 +59,7 @@ class CtoSystemHealthScreenController extends StateNotifier<CtoSystemHealthScree
       : super(
           CtoSystemHealthScreenState(
             isLoading: false,
-            title: 'CTO System Health'.tr(),
+            title: 'Cto System Health'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

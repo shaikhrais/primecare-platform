@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Population Health Analyzer
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PopulationHealthAnalyzerModel {
-  const PopulationHealthAnalyzerModel();
-  
-  factory PopulationHealthAnalyzerModel.fromJson(Map<String, dynamic> json) {
-    return const PopulationHealthAnalyzerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PopulationHealthAnalyzerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PopulationHealthAnalyzerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PopulationHealthAnalyzerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

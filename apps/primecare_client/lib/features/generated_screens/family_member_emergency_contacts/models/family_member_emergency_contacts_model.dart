@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Family Member Emergency Contacts
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class FamilyMemberEmergencyContactsModel {
-  const FamilyMemberEmergencyContactsModel();
-  
-  factory FamilyMemberEmergencyContactsModel.fromJson(Map<String, dynamic> json) {
-    return const FamilyMemberEmergencyContactsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const FamilyMemberEmergencyContactsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  FamilyMemberEmergencyContactsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return FamilyMemberEmergencyContactsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

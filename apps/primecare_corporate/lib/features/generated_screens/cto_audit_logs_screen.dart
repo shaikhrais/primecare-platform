@@ -59,7 +59,7 @@ class CtoAuditLogsScreenController extends StateNotifier<CtoAuditLogsScreenState
       : super(
           CtoAuditLogsScreenState(
             isLoading: false,
-            title: 'CTO Audit Logs'.tr(),
+            title: 'Cto Audit Logs'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

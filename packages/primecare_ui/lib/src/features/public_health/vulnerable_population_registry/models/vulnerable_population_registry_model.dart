@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Vulnerable Population Registry
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class VulnerablePopulationRegistryModel {
-  const VulnerablePopulationRegistryModel();
-  
-  factory VulnerablePopulationRegistryModel.fromJson(Map<String, dynamic> json) {
-    return const VulnerablePopulationRegistryModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const VulnerablePopulationRegistryModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  VulnerablePopulationRegistryModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return VulnerablePopulationRegistryModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

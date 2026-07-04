@@ -59,7 +59,7 @@ class CooDashboardScreenController extends StateNotifier<CooDashboardScreenState
       : super(
           CooDashboardScreenState(
             isLoading: false,
-            title: 'COO Dashboard'.tr(),
+            title: 'CooDashboardScreen'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

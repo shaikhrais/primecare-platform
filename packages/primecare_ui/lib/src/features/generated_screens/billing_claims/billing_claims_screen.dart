@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Billing Claims
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/billing_claims_header_section.dart';
+import 'sections/billing_claims_content_summary_section.dart';
+import 'sections/billing_claims_primary_content_section.dart';
+import 'sections/billing_claims_action_bar_section.dart';
 
-class BillingClaimsScreen extends ConsumerWidget {
+class BillingClaimsScreen extends StatelessWidget {
   const BillingClaimsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Billing Claims Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'billing_claims',
+      title: 'Billing Claims',
+      child: Column(
+        children: const [
+          const BillingClaimsHeaderSection(),
+          const BillingClaimsContentSummarySection(),
+          const BillingClaimsPrimaryContentSection(),
+          const BillingClaimsActionBarSection(),
+        ],
       ),
     );
   }

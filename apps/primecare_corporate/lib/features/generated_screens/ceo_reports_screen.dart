@@ -59,7 +59,7 @@ class CeoReportsScreenController extends StateNotifier<CeoReportsScreenState> {
       : super(
           CeoReportsScreenState(
             isLoading: false,
-            title: 'CEO Reports'.tr(),
+            title: 'Ceo Reports'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

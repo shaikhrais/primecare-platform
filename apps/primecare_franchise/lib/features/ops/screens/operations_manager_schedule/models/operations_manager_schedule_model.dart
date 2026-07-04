@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Operations Manager Schedule
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class OperationsManagerScheduleModel {
-  const OperationsManagerScheduleModel();
-  
-  factory OperationsManagerScheduleModel.fromJson(Map<String, dynamic> json) {
-    return const OperationsManagerScheduleModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const OperationsManagerScheduleModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  OperationsManagerScheduleModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return OperationsManagerScheduleModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

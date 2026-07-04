@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Grant Funding Allocation
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class GrantFundingAllocationModel {
-  const GrantFundingAllocationModel();
-  
-  factory GrantFundingAllocationModel.fromJson(Map<String, dynamic> json) {
-    return const GrantFundingAllocationModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const GrantFundingAllocationModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  GrantFundingAllocationModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return GrantFundingAllocationModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

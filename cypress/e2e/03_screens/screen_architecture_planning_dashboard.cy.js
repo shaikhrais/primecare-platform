@@ -6,7 +6,7 @@
 describe("Screen - architecture_planning_dashboard", () => {
   it("opens and verifies screen architecture_planning_dashboard via real credentials login and logout", () => {
     cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
+      const user = users.find((u) => u.role_code === "cto");
       const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
       // 1. Visit login page
@@ -33,8 +33,8 @@ describe("Screen - architecture_planning_dashboard", () => {
       cy.wait(6000);
 
       // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart");
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /common/architecture-planning-dashboard...");
+      cy.visitWithSemantics(targetBaseUrl + "/common/architecture-planning-dashboard");
       cy.waitAndSee();
 
       cy.verifyShellExists();

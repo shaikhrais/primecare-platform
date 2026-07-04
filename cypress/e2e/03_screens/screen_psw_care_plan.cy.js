@@ -66,7 +66,7 @@ describe("Screen - psw_care_plan", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_care_plan");
-      cy.task("log", "✅ PROGRESS: - Verified PswCarePlanScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Psw Care Plan successfully!\n");
     });
   });
 });

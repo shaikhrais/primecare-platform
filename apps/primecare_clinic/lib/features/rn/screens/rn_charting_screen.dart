@@ -59,7 +59,7 @@ class RnChartingScreenController extends StateNotifier<RnChartingScreenState> {
       : super(
           RnChartingScreenState(
             isLoading: false,
-            title: 'RN Charting'.tr(),
+            title: 'Rn Charting'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

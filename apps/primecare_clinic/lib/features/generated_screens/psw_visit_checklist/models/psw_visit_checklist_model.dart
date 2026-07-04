@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Psw Visit Checklist
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PswVisitChecklistModel {
-  const PswVisitChecklistModel();
-  
-  factory PswVisitChecklistModel.fromJson(Map<String, dynamic> json) {
-    return const PswVisitChecklistModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PswVisitChecklistModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PswVisitChecklistModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PswVisitChecklistModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -66,7 +66,7 @@ describe("Screen - psw_workflow", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_workflow");
-      cy.task("log", "✅ PROGRESS: - Verified PswWorkflowScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Psw Workflow successfully!\n");
     });
   });
 });

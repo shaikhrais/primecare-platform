@@ -66,7 +66,7 @@ describe("Screen - psw_messages", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_messages");
-      cy.task("log", "✅ PROGRESS: - Verified PswMessagesScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Messages successfully!\n");
     });
   });
 });

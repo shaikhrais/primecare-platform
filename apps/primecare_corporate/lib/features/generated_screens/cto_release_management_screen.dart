@@ -59,7 +59,7 @@ class CtoReleaseManagementScreenController extends StateNotifier<CtoReleaseManag
       : super(
           CtoReleaseManagementScreenState(
             isLoading: false,
-            title: 'CTO Release Management'.tr(),
+            title: 'Cto Release Management'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

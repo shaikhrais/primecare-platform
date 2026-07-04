@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Operations Manager Staff Coordination
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class OperationsManagerStaffCoordinationModel {
-  const OperationsManagerStaffCoordinationModel();
-  
-  factory OperationsManagerStaffCoordinationModel.fromJson(Map<String, dynamic> json) {
-    return const OperationsManagerStaffCoordinationModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const OperationsManagerStaffCoordinationModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  OperationsManagerStaffCoordinationModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return OperationsManagerStaffCoordinationModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

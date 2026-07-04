@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Coo Workflow Performance
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CooWorkflowPerformanceModel {
-  const CooWorkflowPerformanceModel();
-  
-  factory CooWorkflowPerformanceModel.fromJson(Map<String, dynamic> json) {
-    return const CooWorkflowPerformanceModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CooWorkflowPerformanceModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CooWorkflowPerformanceModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CooWorkflowPerformanceModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

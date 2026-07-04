@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Coo Issue Escalations
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CooIssueEscalationsModel {
-  const CooIssueEscalationsModel();
-  
-  factory CooIssueEscalationsModel.fromJson(Map<String, dynamic> json) {
-    return const CooIssueEscalationsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CooIssueEscalationsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CooIssueEscalationsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CooIssueEscalationsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

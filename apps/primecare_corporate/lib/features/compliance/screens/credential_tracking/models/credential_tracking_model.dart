@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Credential Tracking
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CredentialTrackingModel {
-  const CredentialTrackingModel();
-  
-  factory CredentialTrackingModel.fromJson(Map<String, dynamic> json) {
-    return const CredentialTrackingModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CredentialTrackingModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CredentialTrackingModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CredentialTrackingModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -59,7 +59,7 @@ class ClinicalDashboardScreenController extends StateNotifier<ClinicalDashboardS
       : super(
           ClinicalDashboardScreenState(
             isLoading: false,
-            title: 'Clinical Dashboard'.tr(),
+            title: 'ClinicalDashboardScreen'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

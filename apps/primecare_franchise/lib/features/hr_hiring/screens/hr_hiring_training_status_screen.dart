@@ -59,7 +59,7 @@ class HrHiringTrainingStatusScreenController extends StateNotifier<HrHiringTrain
       : super(
           HrHiringTrainingStatusScreenState(
             isLoading: false,
-            title: 'HR Hiring Training Status'.tr(),
+            title: 'Hr Hiring Training Status'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Territory Sales Manager Field Activity
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class TerritorySalesManagerFieldActivityModel {
-  const TerritorySalesManagerFieldActivityModel();
-  
-  factory TerritorySalesManagerFieldActivityModel.fromJson(Map<String, dynamic> json) {
-    return const TerritorySalesManagerFieldActivityModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const TerritorySalesManagerFieldActivityModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  TerritorySalesManagerFieldActivityModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return TerritorySalesManagerFieldActivityModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

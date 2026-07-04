@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Operations Manager Reports
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class OperationsManagerReportsModel {
-  const OperationsManagerReportsModel();
-  
-  factory OperationsManagerReportsModel.fromJson(Map<String, dynamic> json) {
-    return const OperationsManagerReportsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const OperationsManagerReportsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  OperationsManagerReportsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return OperationsManagerReportsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

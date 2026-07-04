@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Document Expiry
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class DocumentExpiryModel {
-  const DocumentExpiryModel();
-  
-  factory DocumentExpiryModel.fromJson(Map<String, dynamic> json) {
-    return const DocumentExpiryModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const DocumentExpiryModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  DocumentExpiryModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return DocumentExpiryModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

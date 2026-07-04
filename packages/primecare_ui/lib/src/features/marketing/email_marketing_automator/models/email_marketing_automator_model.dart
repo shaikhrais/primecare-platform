@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Email Marketing Automator
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class EmailMarketingAutomatorModel {
-  const EmailMarketingAutomatorModel();
-  
-  factory EmailMarketingAutomatorModel.fromJson(Map<String, dynamic> json) {
-    return const EmailMarketingAutomatorModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const EmailMarketingAutomatorModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  EmailMarketingAutomatorModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return EmailMarketingAutomatorModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

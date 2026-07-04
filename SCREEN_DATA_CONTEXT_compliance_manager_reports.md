@@ -12,7 +12,7 @@ Below are the database records from `governance.db` used to configure and build 
 * **Screen Name**: `ComplianceManagerReportsScreen`
 * **Route Path**: `/offices/corporate/roles/compliance_manager/reports`
 * **Actual File Path**: `apps/primecare_corporate/lib/features/generated_screens/compliance_manager_reports_screen.dart`
-* **Stage/Status**: `wired`
+* **Stage/Status**: `template_created`
 
 ## 2. App Record
 * **ID**: `6`
@@ -54,20 +54,16 @@ Below are the database records from `governance.db` used to configure and build 
 
 ## 8. Test Definition & Steps
 * **Test Code**: `compliance_manager_reports_runtime`
-* **Test Name**: `Compliance Manager Reports Smoke Test`
+* **Test Name**: `Compliance Manager Reports Runtime Test`
 * **Test Type**: `e2e`
 * **Expected Title**: `Compliance Manager Reports`
 * **Expected Layout**: `dashboard`
 
 ### Test Steps
 1. **login_as_role** (Selector: `None`, Value: `guest`)
-2. **verify_sidebar_exists** (Selector: `app-sidebar`, Value: `None`)
-3. **verify_sidebar_link_exists** (Selector: `None`, Value: `Compliance Manager Reports`)
-4. **click_sidebar_link** (Selector: `None`, Value: `Compliance Manager Reports`)
-5. **check_url** (Selector: `None`, Value: `/offices/corporate/roles/compliance_manager/reports`)
-6. **verify_topbar_exists** (Selector: `app-topbar`, Value: `None`)
-7. **verify_main_content_exists** (Selector: `app-content-slot`, Value: `None`)
-8. **verify_screen_not_empty** (Selector: `None`, Value: `None`)
-9. **verify_forbidden_text_absent** (Selector: `None`, Value: `None`)
-10. **verify_no_console_errors** (Selector: `None`, Value: `None`)
-11. **screenshot** (Selector: `None`, Value: `None`)
+2. **visit** (Selector: `None`, Value: `/offices/corporate/roles/compliance_manager/reports`)
+3. **should_be_visible** (Selector: `compliance_manager_reports-screen`, Value: `None`)
+4. **should_be_visible** (Selector: `compliance_manager_reports-title`, Value: `None`)
+5. **should_be_visible** (Selector: `compliance_manager_reports-content`, Value: `None`)
+6. **check_no_console_error** (Selector: `None`, Value: `None`)
+7. **screenshot** (Selector: `None`, Value: `None`)

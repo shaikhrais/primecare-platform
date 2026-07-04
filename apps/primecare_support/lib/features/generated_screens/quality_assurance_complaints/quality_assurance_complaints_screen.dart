@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Quality Assurance Complaints
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/quality_assurance_complaints_header_section.dart';
+import 'sections/quality_assurance_complaints_content_summary_section.dart';
+import 'sections/quality_assurance_complaints_primary_content_section.dart';
+import 'sections/quality_assurance_complaints_action_bar_section.dart';
 
-class QualityAssuranceComplaintsScreen extends ConsumerWidget {
+class QualityAssuranceComplaintsScreen extends StatelessWidget {
   const QualityAssuranceComplaintsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Quality Assurance Complaints Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'quality_assurance_complaints',
+      title: 'Quality Assurance Complaints',
+      child: Column(
+        children: const [
+          const QualityAssuranceComplaintsHeaderSection(),
+          const QualityAssuranceComplaintsContentSummarySection(),
+          const QualityAssuranceComplaintsPrimaryContentSection(),
+          const QualityAssuranceComplaintsActionBarSection(),
+        ],
       ),
     );
   }

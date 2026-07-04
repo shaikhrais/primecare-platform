@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Cto System Verification
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CtoSystemVerificationModel {
-  const CtoSystemVerificationModel();
-  
-  factory CtoSystemVerificationModel.fromJson(Map<String, dynamic> json) {
-    return const CtoSystemVerificationModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CtoSystemVerificationModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CtoSystemVerificationModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CtoSystemVerificationModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

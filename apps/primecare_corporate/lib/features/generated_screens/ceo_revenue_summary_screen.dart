@@ -59,7 +59,7 @@ class CeoRevenueSummaryScreenController extends StateNotifier<CeoRevenueSummaryS
       : super(
           CeoRevenueSummaryScreenState(
             isLoading: false,
-            title: 'CEO Revenue Summary'.tr(),
+            title: 'Ceo Revenue Summary'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

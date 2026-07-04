@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Client Treatment History
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ClientTreatmentHistoryModel {
-  const ClientTreatmentHistoryModel();
-  
-  factory ClientTreatmentHistoryModel.fromJson(Map<String, dynamic> json) {
-    return const ClientTreatmentHistoryModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ClientTreatmentHistoryModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ClientTreatmentHistoryModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ClientTreatmentHistoryModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -59,7 +59,7 @@ class PswScheduleScreenController extends StateNotifier<PswScheduleScreenState> 
       : super(
           PswScheduleScreenState(
             isLoading: false,
-            title: 'PSW Schedule'.tr(),
+            title: 'Psw Schedule'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

@@ -1,16 +1,28 @@
-// Governance - Category: view | Purpose: Coordinator layout for Vulnerable Population Registry
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/vulnerable_population_registry_header_section.dart';
+import 'sections/vulnerable_population_registry_filter_bar_section.dart';
+import 'sections/vulnerable_population_registry_data_table_section.dart';
+import 'sections/vulnerable_population_registry_pagination_section.dart';
+import 'sections/vulnerable_population_registry_action_bar_section.dart';
 
-class VulnerablePopulationRegistryScreen extends ConsumerWidget {
+class VulnerablePopulationRegistryScreen extends StatelessWidget {
   const VulnerablePopulationRegistryScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Vulnerable Population Registry Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'vulnerable_population_registry',
+      title: 'Vulnerable Population Registry',
+      child: Column(
+        children: const [
+          const VulnerablePopulationRegistryHeaderSection(),
+          const VulnerablePopulationRegistryFilterBarSection(),
+          const VulnerablePopulationRegistryDataTableSection(),
+          const VulnerablePopulationRegistryPaginationSection(),
+          const VulnerablePopulationRegistryActionBarSection(),
+        ],
       ),
     );
   }

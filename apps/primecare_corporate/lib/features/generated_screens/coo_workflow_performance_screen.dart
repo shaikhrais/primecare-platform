@@ -59,7 +59,7 @@ class CooWorkflowPerformanceScreenController extends StateNotifier<CooWorkflowPe
       : super(
           CooWorkflowPerformanceScreenState(
             isLoading: false,
-            title: 'COO Workflow Performance'.tr(),
+            title: 'Coo Workflow Performance'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

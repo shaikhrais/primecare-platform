@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Territory Expansion Manager Site Selection
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class TerritoryExpansionManagerSiteSelectionModel {
-  const TerritoryExpansionManagerSiteSelectionModel();
-  
-  factory TerritoryExpansionManagerSiteSelectionModel.fromJson(Map<String, dynamic> json) {
-    return const TerritoryExpansionManagerSiteSelectionModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const TerritoryExpansionManagerSiteSelectionModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  TerritoryExpansionManagerSiteSelectionModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return TerritoryExpansionManagerSiteSelectionModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -59,7 +59,7 @@ class SystemDashboardScreenController extends StateNotifier<SystemDashboardScree
       : super(
           SystemDashboardScreenState(
             isLoading: false,
-            title: 'System Dashboard'.tr(),
+            title: 'SystemDashboardScreen'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

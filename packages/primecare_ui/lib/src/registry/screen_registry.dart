@@ -751,7 +751,7 @@ class ScreenRegistry {
     'SCREEN_PREMIUM_FEATURE_251': const PremiumFeature251(),
 
     // PSW Role
-    'SCREEN_PSW_DASHBOARD': const PswDashboardScreen(),
+    'SCREEN_PSW_DASHBOARD': const CareDashboardScreen(),
     'SCREEN_PSW_SHIFT_TRACKER': const ScreenNotImplementedView(
       screenName: 'PSW Shift Tracker',
     ),
@@ -761,8 +761,8 @@ class ScreenRegistry {
     'SCREEN_PSW_TASKS': const ScreenNotImplementedView(
       screenName: 'PSW Task List',
     ),
-    'SCREEN_PSW_MESSAGES': const PswMessagesScreen(),
-    'SCREEN_PSW_VISIT_NOTES': const PswVisitNotesScreen(),
+    'SCREEN_PSW_MESSAGES': const MessagesScreen(),
+    'SCREEN_PSW_VISIT_NOTES': const VisitNotesScreen(),
 
     // RN Role
     'SCREEN_RN_DASHBOARD': const ScreenNotImplementedView(
@@ -990,7 +990,7 @@ class ScreenRegistry {
     'SCREEN_RECEPTIONIST_DASHBOARD': const ReceptionistDashboardScreen(),
     'RECEPTIONIST_COMPLIANCE': const ReceptionistComplianceScreen(),
     'SCREEN_RECEPTIONIST_COMPLIANCE': const ReceptionistComplianceScreen(),
-    'PSW_DASHBOARD': const PswDashboardScreen(),
+    'PSW_DASHBOARD': const CareDashboardScreen(),
     'PSW_COMPLIANCE': const PswComplianceScreen(),
     'SCREEN_PSW_COMPLIANCE': const PswComplianceScreen(),
     'RN_DASHBOARD': const RnDashboardScreen(),
@@ -1159,3 +1159,19 @@ class ScreenAuditReport {
     required this.message,
   });
 }
+
+class ScreenNotImplementedView extends StatelessWidget {
+  final String screenName;
+  const ScreenNotImplementedView({super.key, required this.screenName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(screenName)),
+      body: Center(
+        child: Text('Screen "$screenName" is not implemented yet.'),
+      ),
+    );
+  }
+}
+

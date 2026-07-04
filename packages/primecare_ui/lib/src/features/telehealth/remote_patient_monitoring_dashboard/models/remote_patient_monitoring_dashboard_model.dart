@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Remote Patient Monitoring Dashboard
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class RemotePatientMonitoringDashboardModel {
-  const RemotePatientMonitoringDashboardModel();
-  
-  factory RemotePatientMonitoringDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const RemotePatientMonitoringDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const RemotePatientMonitoringDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  RemotePatientMonitoringDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return RemotePatientMonitoringDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

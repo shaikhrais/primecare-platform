@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Regional Manager Ontario Dashboard
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class RegionalManagerOntarioDashboardModel {
-  const RegionalManagerOntarioDashboardModel();
-  
-  factory RegionalManagerOntarioDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const RegionalManagerOntarioDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const RegionalManagerOntarioDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  RegionalManagerOntarioDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return RegionalManagerOntarioDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

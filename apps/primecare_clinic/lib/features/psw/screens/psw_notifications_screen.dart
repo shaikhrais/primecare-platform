@@ -59,7 +59,7 @@ class PswNotificationsScreenController extends StateNotifier<PswNotificationsScr
       : super(
           PswNotificationsScreenState(
             isLoading: false,
-            title: 'PSW Notifications'.tr(),
+            title: 'Psw Notifications'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

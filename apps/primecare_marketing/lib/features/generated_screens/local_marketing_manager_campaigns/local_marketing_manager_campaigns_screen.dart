@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Local Marketing Manager Campaigns
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/local_marketing_manager_campaigns_header_section.dart';
+import 'sections/local_marketing_manager_campaigns_content_summary_section.dart';
+import 'sections/local_marketing_manager_campaigns_primary_content_section.dart';
+import 'sections/local_marketing_manager_campaigns_action_bar_section.dart';
 
-class LocalMarketingManagerCampaignsScreen extends ConsumerWidget {
+class LocalMarketingManagerCampaignsScreen extends StatelessWidget {
   const LocalMarketingManagerCampaignsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Local Marketing Manager Campaigns Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'local_marketing_manager_campaigns',
+      title: 'Local Marketing Manager Campaigns',
+      child: Column(
+        children: const [
+          const LocalMarketingManagerCampaignsHeaderSection(),
+          const LocalMarketingManagerCampaignsContentSummarySection(),
+          const LocalMarketingManagerCampaignsPrimaryContentSection(),
+          const LocalMarketingManagerCampaignsActionBarSection(),
+        ],
       ),
     );
   }

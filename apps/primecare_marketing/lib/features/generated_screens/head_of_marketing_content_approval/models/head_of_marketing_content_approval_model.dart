@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Head Of Marketing Content Approval
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class HeadOfMarketingContentApprovalModel {
-  const HeadOfMarketingContentApprovalModel();
-  
-  factory HeadOfMarketingContentApprovalModel.fromJson(Map<String, dynamic> json) {
-    return const HeadOfMarketingContentApprovalModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const HeadOfMarketingContentApprovalModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  HeadOfMarketingContentApprovalModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return HeadOfMarketingContentApprovalModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

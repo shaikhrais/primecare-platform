@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Hr Onboarding
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class HrOnboardingModel {
-  const HrOnboardingModel();
-  
-  factory HrOnboardingModel.fromJson(Map<String, dynamic> json) {
-    return const HrOnboardingModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const HrOnboardingModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  HrOnboardingModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return HrOnboardingModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

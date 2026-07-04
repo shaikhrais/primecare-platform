@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" dir="LTR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Information successfully saved. | Primecare Client</title>
+  <link rel="stylesheet" href="./primecare_theme.css" />
+
+  <style>
+    :root {
+      --pc-color-primary: #0F172A;
+      --pc-color-secondary: #475569;
+      --pc-color-background: #F8FAFC;
+      --pc-color-surface: #FFFFFF;
+      --pc-color-text: #0f172a;
+      --pc-color-muted: #64748b;
+      --pc-spacing-sm: 10px;
+      --pc-spacing-md: 16px;
+      --pc-spacing-lg: 28px;
+      --pc-radius-md: 8px;
+      --pc-font-family: Inter, sans-serif;
+    }
+  </style>
+
+</head>
+<body data-theme="primecare_light_default" data-app="cl" data-role="patient" data-screen="patient_profile">
+  <aside class="pc-sidebar" data-testid="app-sidebar">
+  <div class="pc-sidebar-brand">
+    <div class="pc-brand-logo">CL</div>
+    <div>
+      <div class="pc-brand-title">Primecare Client</div>
+      <div class="pc-brand-subtitle">Patient</div>
+    </div>
+  </div>
+
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">Overview</div>
+    
+    <a href="/common/family-member-dashboard" class="pc-sidebar-link " data-testid="sidebar-link-family_member_dashboard" data-route="/common/family-member-dashboard" data-screen="family_member_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Family Member Dashboard</span>
+    </a>
+    
+    <a href="/offices/client/roles/client/dashboard" class="pc-sidebar-link " data-testid="sidebar-link-patient_dashboard" data-route="/offices/client/roles/client/dashboard" data-screen="patient_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Patient Dashboard</span>
+    </a>
+    
+    <a href="/management/screen-progress-dashboard" class="pc-sidebar-link " data-testid="sidebar-link-screen_progress_dashboard" data-route="/management/screen-progress-dashboard" data-screen="screen_progress_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Screen Progress Dashboard</span>
+    </a>
+    
+  </div>
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">General</div>
+    
+    <a href="/common/patient-command-center" class="pc-sidebar-link " data-testid="sidebar-link-patient_command_center" data-route="/common/patient-command-center" data-screen="patient_command_center">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Patient Command Center</span>
+    </a>
+    
+    <a href="/common/patient-appointments" class="pc-sidebar-link " data-testid="sidebar-link-patient_appointments" data-route="/common/patient-appointments" data-screen="patient_appointments">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Patient Appointments</span>
+    </a>
+    
+    <a href="/common/patient-care-plan" class="pc-sidebar-link " data-testid="sidebar-link-patient_care_plan" data-route="/common/patient-care-plan" data-screen="patient_care_plan">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Patient Care Plan</span>
+    </a>
+    
+    <a href="/common/patient-messages" class="pc-sidebar-link " data-testid="sidebar-link-patient_messages" data-route="/common/patient-messages" data-screen="patient_messages">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Patient Messages</span>
+    </a>
+    
+    <a href="/common/patient-documents" class="pc-sidebar-link " data-testid="sidebar-link-patient_documents" data-route="/common/patient-documents" data-screen="patient_documents">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Patient Documents</span>
+    </a>
+    
+    <a href="/common/patient-billing" class="pc-sidebar-link " data-testid="sidebar-link-patient_billing" data-route="/common/patient-billing" data-screen="patient_billing">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Patient Billing</span>
+    </a>
+    
+    <a href="/offices/client/roles/client/profile" class="pc-sidebar-link is-active" data-testid="sidebar-link-patient_profile" data-route="/offices/client/roles/client/profile" data-screen="patient_profile">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Patient Profile</span>
+    </a>
+    
+    <a href="/common/appointment" class="pc-sidebar-link " data-testid="sidebar-link-appointment" data-route="/common/appointment" data-screen="appointment">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Appointment</span>
+    </a>
+    
+    <a href="/clinic/care-plan" class="pc-sidebar-link " data-testid="sidebar-link-care_plan" data-route="/clinic/care-plan" data-screen="care_plan">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Care Plan</span>
+    </a>
+    
+    <a href="/common/billing" class="pc-sidebar-link " data-testid="sidebar-link-billing" data-route="/common/billing" data-screen="billing">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Billing</span>
+    </a>
+    
+    <a href="/common/documents" class="pc-sidebar-link " data-testid="sidebar-link-documents" data-route="/common/documents" data-screen="documents">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Documents</span>
+    </a>
+    
+  </div>
+  
+
+  <div class="pc-sidebar-footer">
+    <span class="pc-shell-status-dot"></span>
+    <span>Shell loaded</span>
+  </div>
+</aside>
+
+  <div class="pc-shell">
+    <header class="pc-topbar" data-testid="app-topbar">
+  <div class="pc-topbar-left">
+    <div class="pc-breadcrumb" data-testid="breadcrumb">Primecare Client / Patient</div>
+    <div class="pc-topbar-title-row">
+      <h1 class="pc-screen-title" data-testid="screen-title">Information successfully saved.</h1>
+      <span class="pc-role-badge" data-testid="role-badge">Patient</span>
+    </div>
+  </div>
+
+  <div class="pc-topbar-actions">
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in Primecare Client...</div>
+    
+    
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in Primecare Client...</div>
+    
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    <div class="pc-profile-avatar" data-testid="topbar-profile-avatar">P</div>
+  </div>
+</header>
+
+    <main class="pc-content" data-testid="main-content">
+  <div class="pc-content-shell" data-testid="content-page-shell">
+    <div class="pc-content-header">
+      <div>
+        <div class="pc-content-title">Information successfully saved.</div>
+        <div class="pc-content-subtitle">Visual interface layout contract.</div>
+      </div>
+      <span class="pc-content-state-badge" data-testid="content-state">Active</span>
+    </div>
+
+    
+
+    
+    <div class="pc-section-grid" data-testid="screen-section-grid">
+      
+      <section class="pc-section pc-section--header" data-testid="section-patient_profile_header" data-section-type="header">
+        <div class="pc-section-header">
+          <div>
+            <h2>Header Section</h2>
+            <p>Account header with name and basic credentials.</p>
+          </div>
+          <span>header</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="patient_profile-screen" data-element-type="layout">
+            PatientProfileScreen Screen Root
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="patient_profile-title" data-element-type="header">
+            PatientProfileScreen Page Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--summary" data-testid="section-patient_profile_identity_summary" data-section-type="summary">
+        <div class="pc-section-header">
+          <div>
+            <h2>Identity Summary Section</h2>
+            <p>Interactive card showing details (avatar, status badge).</p>
+          </div>
+          <span>summary</span>
+        </div>
+        <div class="pc-section-body">
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--form" data-testid="section-patient_profile_details_form" data-section-type="form">
+        <div class="pc-section-header">
+          <div>
+            <h2>Details Form Section</h2>
+            <p>Fields to update profile particulars.</p>
+          </div>
+          <span>form</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="patient_profile-content" data-element-type="layout">
+            PatientProfileScreen Primary Content
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--settings" data-testid="section-patient_profile_preferences_or_documents" data-section-type="settings">
+        <div class="pc-section-header">
+          <div>
+            <h2>Preferences and Documents Section</h2>
+            <p>Checkboxes for notification options and files list.</p>
+          </div>
+          <span>settings</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--header" data-testid="patientprofile-title" data-element-type="header">
+            Patientprofile Title
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="patientprofile-screen" data-element-type="layout">
+            Patientprofile Screen
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="patientprofile-content" data-element-type="layout">
+            Patientprofile Content
+          </div>
+          
+          <div class="pc-element pc-element--loading" data-testid="patientprofile-loading" data-element-type="loading">
+            Patientprofile Loading
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--action_bar" data-testid="section-patient_profile_action_bar" data-section-type="action_bar">
+        <div class="pc-section-header">
+          <div>
+            <h2>Action Bar Section</h2>
+            <p>Action button triggers.</p>
+          </div>
+          <span>action_bar</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--button" data-testid="patientprofile-btn-1" data-element-type="button">
+            Patientprofile Btn 1
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="patientprofile-btn-2" data-element-type="button">
+            Patientprofile Btn 2
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="patientprofile-btn-3" data-element-type="button">
+            Patientprofile Btn 3
+          </div>
+          
+        </div>
+      </section>
+      
+    </div>
+    
+  </div>
+</main>
+
+  </div>
+</body>
+</html>

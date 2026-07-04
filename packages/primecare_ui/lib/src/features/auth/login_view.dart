@@ -1,650 +1,1063 @@
-/* 
-PRIME:SCREEN=login
-PRIME:DESIGN=DESIGN_APPROVED
-PRIME:HTML=HTML_RESPONSIVE_DONE
-PRIME:COMP=COMP_REUSABLE
-PRIME:LOGIC=LOGIC_WORKING
-PRIME:API=API_CONNECTED
-PRIME:DB=DB_NONE
-PRIME:VALIDATION=VALIDATION_NONE
-PRIME:QA=QA_NOT_STARTED
-PRIME:FINAL=FINAL_NOT_READY
-PRIME:PROGRESS=100
-PRIME:BLOCKER=
-PRIME:NEXT_ACTION=
-*/
-// Governance - Category: view | Purpose: UI Screen component rendering the LoginScreen workspace interface.
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// Governance - Category: view | Purpose: An enterprise-grade, governed login screen. Follows 'No-Logic UI' policy by delegating all authentication logic to [L...
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 
-// --- MVC State Model ---
-class LoginScreenState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-  final bool hasData;
+import 'dart:ui';
 
-  const LoginScreenState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-    required this.hasData,
-  });
+/// An enterprise-grade, governed login screen.
+/// Follows 'No-Logic UI' policy by delegating all authentication logic to [LoginController].
+class LoginView extends GovernedScreen {
+  const LoginView({super.key});
 
-  LoginScreenState copyWith({
-    bool? isLoading,
-    String? error,
-    String? title,
-    List<String>? logs,
-    bool? hasData,
-  }) {
-    return LoginScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      title: title ?? this.title,
-      logs: logs ?? this.logs,
-      hasData: hasData ?? this.hasData,
+  @override
+  String get featureId => 'auth.login';
+
+  @override
+  String get requiredRole => 'Public';
+
+  @override
+  List<String> get translationKeys => [
+        'login_authorized_access',
+        'login_enter_credentials',
+        'login_identifier_label',
+        'login_security_token_label',
+        'login_forgot_password',
+        'login_button',
+        'login_access_demo',
+        'login_role_simulation_center',
+      ];
+
+  @override
+  Widget buildGovernedView(BuildContext context, WidgetRef ref) {
+    // Watch languageProvider to trigger immediate UI repaint and translations update on switcher selection
+    ref.watch(languageProvider);
+
+    final state = ref.watch(loginControllerProvider);
+    final isDesktop = MediaQuery.of(context).size.width > 900;
+
+    Widget formContent = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (!isDesktop) const _LoginBranding(),
+        if (!isDesktop) const SizedBox(height: 48),
+        _LoginCard(state: state),
+        const SizedBox(height: 48),
+        const _LoginFooter(),
+        const SizedBox(height: 24),
+        const _RoleSimulationCenter(),
+      ],
+    );
+
+    return AuthParentLayout(
+      child: isDesktop
+          ? Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Expanded(
+                  flex: 5,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.all(Radius.circular(24)),
+                    child: SizedBox(
+                      height: 600,
+                      child: _LoginBillboard(),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+                Expanded(
+                  flex: 4,
+                  child: formContent,
+                ),
+              ],
+            )
+          : formContent,
     );
   }
 }
 
-// --- Controller (Notifier) ---
-class LoginScreenController extends StateNotifier<LoginScreenState> {
-  final Ref ref;
 
-  LoginScreenController(this.ref)
-      : super(
-          LoginScreenState(
-            isLoading: false,
-            title: 'Login'.tr(),
-            logs: const [
-              'Workspace initialized.',
-              'Security clearance sync complete.',
-            ],
-            hasData: true,
+class _LoginBranding extends StatelessWidget {
+  const _LoginBranding();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    return Column(
+      children: [
+        Hero(
+          tag: 'app_logo',
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: theme.colors.primary.withValues(alpha: 0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.security_update_good_rounded,
+              size: 48,
+              color: theme.colors.primary,
+            ),
           ),
-        ) {
-    _init();
-  }
-
-  Future<void> _init() async {
-    await refreshData();
-  }
-
-  void addLog(String entry) {
-    state = state.copyWith(logs: [...state.logs, entry]);
-  }
-
-  void toggleLoading() {
-    state = state.copyWith(isLoading: true, error: null);
-  }
-
-  void toggleError(String msg) {
-    state = state.copyWith(isLoading: false, error: msg, hasData: false);
-  }
-
-  void toggleEmpty() {
-    state = state.copyWith(isLoading: false, error: null, hasData: false);
-  }
-
-  void toggleSuccess() {
-    state = state.copyWith(isLoading: false, error: null, hasData: true);
-  }
-
-  Future<void> refreshData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    
-    try {
-
-      final res_loadApiV1LoginList = await ref.read(generatedApiClientProvider).loadApiV1LoginList();
-      if (!res_loadApiV1LoginList.isSuccess) {
-        state = state.copyWith(isLoading: false, error: res_loadApiV1LoginList.error ?? 'Failed to load Load Login List Data', hasData: false);
-        return;
-      }
-      if (res_loadApiV1LoginList.data == null || (res_loadApiV1LoginList.data is List && (res_loadApiV1LoginList.data as List).isEmpty)) {
-        state = state.copyWith(isLoading: false, error: null, hasData: false);
-        return;
-      }
-      state = state.copyWith(isLoading: false, hasData: true);
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString(), hasData: false);
-    }
-  }
-
-  Future<void> runComplianceScan() async {
-    state = state.copyWith(isLoading: true);
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    state = state.copyWith(
-      isLoading: false,
-      logs: [
-        ...state.logs,
-        'Compliance audit executed at ${DateTime.now().toIso8601String()}',
+        ),
+        const SizedBox(height: 24),
+        Text(
+          'PRIMECARE',
+          style: theme.typography.h1.copyWith(
+            letterSpacing: 6,
+            fontWeight: FontWeight.w900,
+            fontSize: 28,
+          ),
+        ),
+        Text(
+          'GOVERNANCE GATEWAY',
+          style: theme.typography.labelMedium.copyWith(
+            letterSpacing: 3,
+            color: theme.colors.primary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ],
     );
   }
 }
 
-// --- Provider ---
-final loginProvider =
-    StateNotifierProvider<LoginScreenController, LoginScreenState>((ref) {
-  return LoginScreenController(ref);
-});
-
-// --- View ---
-class LoginScreen extends GovernedConsumerWidget {
-  const LoginScreen({super.key});
+class _LoginCard extends ConsumerStatefulWidget {
+  final LoginState state;
+  const _LoginCard({required this.state});
 
   @override
-  Widget buildScreen(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(loginProvider);
-    final controller = ref.read(loginProvider.notifier);
-    final theme = context.theme;
+  ConsumerState<_LoginCard> createState() => _LoginCardState();
+}
 
-    return Cy(
-      id: 'login-screen',
-      child: Scaffold(
-        key: const Key('login-screen'),
-        backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
-            id: 'login-title',
-            child: Text(
-              key: const Key('login-title'),
-              state.title,
-              style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+class _LoginCardState extends ConsumerState<_LoginCard> {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    // Watch languageProvider to trigger instant form translations update
+    ref.watch(languageProvider);
+
+    final theme = context.theme;
+    final controller = ref.read(loginControllerProvider.notifier);
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(32),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+        child: Container(
+          padding: EdgeInsets.all(theme.spacing.xxl),
+          decoration: BoxDecoration(
+            color: theme.colors.surface.withValues(alpha: 0.7),
+            borderRadius: BorderRadius.circular(32),
+            border: Border.all(
+              color: theme.colors.border.withValues(alpha: 0.3),
+              width: 1.5,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 40,
+                offset: const Offset(0, 20),
+              ),
+            ],
+          ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'login_authorized_access'.tr(),
+                  style: theme.typography.h3,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'login_enter_credentials'.tr(),
+                  style: theme.typography.labelMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32),
+                Cy(
+                  id: 'login-email',
+                  child: _InputField(
+                    label: 'login_identifier_label'.tr(),
+                    placeholder: 'admin@primecare.com',
+                    icon: Icons.person_outline_rounded,
+                    initialValue: widget.state.email,
+                    onChanged: controller.onEmailChanged,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) return 'Identifier is required';
+                      if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,6}$').hasMatch(value)) return 'Invalid email format';
+                      return null;
+                    },
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Cy(
+                  id: 'login-password',
+                  child: _InputField(
+                    label: 'login_security_token_label'.tr(),
+                    placeholder: '••••••••',
+                    icon: Icons.key_outlined,
+                    obscureText: true,
+                    initialValue: widget.state.password,
+                    onChanged: controller.onPasswordChanged,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) return 'Security token is required';
+                      if (value.length < 8) return 'Token must be at least 8 characters';
+                      return null;
+                    },
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(key: const Key('login_view_textbutton_button_1'), 
+                    onPressed: () => _showForgotPasswordDialog(context, controller),
+                    child: Text(
+                      'login_forgot_password'.tr(),
+                      style: theme.typography.labelMedium.copyWith(
+                        color: theme.colors.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                if (widget.state.errorMessage != null) ...[
+                  const SizedBox(height: 12),
+                  _ErrorDisplay(message: widget.state.errorMessage!),
+                ],
+                if (widget.state.successMessage != null) ...[
+                  const SizedBox(height: 12),
+                  _SuccessDisplay(message: widget.state.successMessage!),
+                ],
+                const SizedBox(height: 32),
+                if (widget.state.isLoading)
+                  const Center(child: CircularProgressIndicator())
+                else
+                  _ActionButtons(
+                    controller: controller,
+                    onLogin: () {
+                      if (_formKey.currentState!.validate()) {
+                        controller.login();
+                      }
+                    },
+                  ),
+              ],
             ),
           ),
-          actions: [
-            IconButton(
-              key: const Key('login-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
-              onPressed: () => controller.refreshData(),
+        ),
+      ),
+    );
+  }
+
+  void _showForgotPasswordDialog(BuildContext context, LoginController controller) {
+    final theme = context.theme;
+    String email = widget.state.email;
+    
+    showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: theme.colors.surface,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        title: Text(
+          'Password Recovery',
+          style: theme.typography.h3,
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              'Enter your email address to receive a secure password reset link.',
+              style: theme.typography.bodyMedium,
+            ),
+            const SizedBox(height: 24),
+            _InputField(
+              label: 'login_identifier_label'.tr(),
+              placeholder: 'admin@primecare.com',
+              icon: Icons.email_outlined,
+              initialValue: email,
+              onChanged: (v) => email = v,
             ),
           ],
         ),
-        body: Cy(
-          id: 'login-content',
-          child: ResponsiveSplitDashboard(
-            metrics: const [
-              GovMetricCard(
-                title: 'Operational Status',
-                value: 'Active',
-                trendLabel: 'Optimal',
-                progress: 0.92,
-                icon: LucideIcons.activity,
-                brandColor: Color(0xFF0D9488),
-              ),
-              GovMetricCard(
-                title: 'Security Sync',
-                value: 'Clear',
-                trendLabel: 'Secured',
-                progress: 1.0,
-                icon: LucideIcons.shieldCheck,
-                brandColor: Color(0xFF16A34A),
-              ),
-              GovMetricCard(
-                title: 'Latency Telemetry',
-                value: '14ms',
-                trendLabel: 'Optimal',
-                progress: 0.97,
-                icon: LucideIcons.zap,
-                brandColor: Color(0xFFEAB308),
-              ),
-            ],
-            mainContent: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  
-                  Offstage(
-                    child: Cy(
-                      id: 'api_v1_login_list_get-status',
-                      child: Text('mocked'),
-                    ),
-                  ),
-                  Semantics(
-                    label: 'data-cy:login-title',
-                    child: GovDashboardHero(
-                      title: state.title,
-                      roleName: 'Guest Workspace',
-                      description: "Provides a dedicated management interface within the Primecare Clinic module to enable Guest personnel to oversee, audit, and coordinate operations related to login.",
-                      onRefresh: () => controller.refreshData(),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  const LoginForm(),
-                  const SizedBox(height: 24),
-                  
-                  // API States Wrapper
-                  if (state.isLoading)
-                    Cy(
-                      id: 'api-loading',
-                      child: const Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 48.0),
-                          child: CircularProgressIndicator(),
-                        ),
-                      ),
-                    )
-                  else if (state.error != null)
-                    Cy(
-                      id: 'api-error',
-                      child: Container(
-                        padding: const EdgeInsets.all(24),
-                        decoration: BoxDecoration(
-                          color: theme.colors.surface,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.red),
-                        ),
-                        child: Column(
-                          children: [
-                            const Icon(LucideIcons.alertTriangle, color: Colors.red, size: 48),
-                            const SizedBox(height: 12),
-                            Text(state.error!, style: const TextStyle(color: Colors.red)),
-                            const SizedBox(height: 16),
-                            Cy(
-                              id: 'api-retry-button',
-                              child: ElevatedButton(
-                                onPressed: () => controller.refreshData(),
-                                child: Text('Retry'.tr()),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  else if (!state.hasData)
-                    Cy(
-                      id: 'api-empty-state',
-                      child: Container(
-                        padding: const EdgeInsets.all(48),
-                        alignment: Alignment.center,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(LucideIcons.inbox, size: 64, color: Colors.grey),
-                            const SizedBox(height: 16),
-                            Text('No data available.'.tr(), style: theme.typography.h4),
-                          ],
-                        ),
-                      ),
-                    )
-                  else
-                    Cy(
-                      id: 'api-success-content',
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
-                  child: Cy(
-                    id: 'api_v1_login_list_get-api-card',
-                    child: PrimeCareCard(
-                      key: const Key('api_v1_login_list_get-api-card'),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Load Login List Data'.tr(), style: theme.typography.h4),
-                                      Text('Endpoint: /v1/login'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                  decoration: BoxDecoration(
-                                    color: theme.colors.primary.withOpacity(0.1),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Text('GET', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 16),
-                            if (state.isLoading)
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                                child: Center(
-                                  child: Cy(
-                                    id: 'api_v1_login_list_get-loading',
-                                    child: const CircularProgressIndicator(),
-                                  ),
-                                ),
-                              )
-                            else if (state.error != null)
-                              Cy(
-                                id: 'api_v1_login_list_get-error',
-                                child: Row(
-                                  children: [
-                                    const Icon(LucideIcons.alertTriangle, color: Colors.red),
-                                    const SizedBox(width: 8),
-                                    Expanded(
-                                      child: Text(
-                                        state.error!,
-                                        style: const TextStyle(color: Colors.red),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            else if (!state.hasData)
-                              Cy(
-                                id: 'api_v1_login_list_get-empty',
-                                child: Column(
-                                  children: [
-                                    const Center(
-                                      child: Icon(LucideIcons.inbox, size: 48, color: Colors.grey),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Center(
-                                      child: Text(
-                                        'No data available.'.tr(),
-                                        style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            else
-                              Cy(
-                                id: 'api_v1_login_list_get-data',
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
-                                    const SizedBox(height: 8),
-                                    ...state.logs.map((log) => Padding(
-                                      padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Text('• $log', style: theme.typography.bodyMedium),
-                                    )),
-                                  ],
-                                ),
-                              ),
-                            const SizedBox(height: 16),
-                            // Quick State Toggles for testing compliance
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                TextButton(
-                                  key: const Key('api_v1_login_list_get-btn-loading'),
-                                  onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
-                                ),
-                                TextButton(
-                                  key: const Key('api_v1_login_list_get-btn-error'),
-                                  onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
-                                ),
-                                TextButton(
-                                  key: const Key('api_v1_login_list_get-btn-empty'),
-                                  onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
-                                ),
-                                TextButton(
-                                  key: const Key('api_v1_login_list_get-btn-success'),
-                                  onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                        ],
-                      ),
-                    ),
-                ],
+        actionsPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        actions: [
+          TextButton(key: const Key('login_view_textbutton_button_2'), 
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(
+              'CANCEL',
+              style: theme.typography.labelMedium.copyWith(
+                fontWeight: FontWeight.bold,
+                color: theme.colors.onSurfaceVariant,
               ),
             ),
-            defaultSidebarWidgets: [
-              
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: Cy(
-                        id: 'login_view_elevatedbutton_button_2',
-                        child: ElevatedButton(
-                          key: const Key('login_view_elevatedbutton_button_2'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Login_View_Elevatedbutton_Button_2 executed successfully.'),
-                          child: Text('Login_View_Elevatedbutton_Button_2'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                  ),
+          ),
+          ElevatedButton(key: const Key('login_view_elevatedbutton_button_1'), 
+            onPressed: () async {
+               Navigator.of(context).pop();
+               await controller.forgotPassword(email);
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: theme.colors.primary,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              elevation: 0,
+            ),
+            child: const Text('SEND RECOVERY LINK', style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: Cy(
-                        id: 'login_view_textbutton_signup',
-                        child: ElevatedButton(
-                          key: const Key('login_view_textbutton_signup'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Login_View_Textbutton_Signup executed successfully.'),
-                          child: Text('Login_View_Textbutton_Signup'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                  ),
+class _InputField extends StatelessWidget {
+  final Key? fieldKey;
+  final String label;
+  final String placeholder;
+  final IconData icon;
+  final bool obscureText;
+  final String initialValue;
+  final ValueChanged<String> onChanged;
+  final FormFieldValidator<String>? validator;
 
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: Cy(
-                        id: 'login_view_elevatedbutton_signup_ok',
-                        child: ElevatedButton(
-                          key: const Key('login_view_elevatedbutton_signup_ok'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Login_View_Elevatedbutton_Signup_Ok executed successfully.'),
-                          child: Text('Login_View_Elevatedbutton_Signup_Ok'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                  ),
+  const _InputField({
+    this.fieldKey,
+    required this.label,
+    required this.placeholder,
+    required this.icon,
+    this.obscureText = false,
+    required this.initialValue,
+    required this.onChanged,
+    this.validator,
+  });
 
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: Cy(
-                        id: 'login_view_outlinedbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('login_view_outlinedbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Login_View_Outlinedbutton_Button_1 executed successfully.'),
-                          child: Text('Login_View_Outlinedbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                  ),
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 4, bottom: 8),
+          child: Text(
+            label,
+            style: theme.typography.labelMedium.copyWith(
+              fontWeight: FontWeight.w900,
+              letterSpacing: 1,
+              color: theme.colors.onSurfaceVariant,
+            ),
+          ),
+        ),
+        TextFormField(
+          key: fieldKey,
+          initialValue: initialValue,
+          onChanged: onChanged,
+          validator: validator,
+          obscureText: obscureText,
+          style: theme.typography.bodyMedium.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+          decoration: InputDecoration(
+            hintText: placeholder,
+            prefixIcon: Icon(
+              icon,
+              size: 20,
+              color: theme.colors.primary.withValues(alpha: 0.6),
+            ),
+            filled: true,
+            fillColor: theme.colors.surfaceContainerHighest.withValues(
+              alpha: 0.3,
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 18,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide.none,
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide.none,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(16),
+              borderSide: BorderSide(color: theme.colors.primary, width: 2),
+            ),
+            hintStyle: theme.typography.labelMedium.copyWith(
+              color: theme.colors.onSurfaceVariant.withValues(alpha: 0.4),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
 
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: Cy(
-                        id: 'login_view_textbutton_button_2',
-                        child: ElevatedButton(
-                          key: const Key('login_view_textbutton_button_2'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Login_View_Textbutton_Button_2 executed successfully.'),
-                          child: Text('Login_View_Textbutton_Button_2'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                  ),
+class _ErrorDisplay extends StatelessWidget {
+  final String message;
+  const _ErrorDisplay({required this.message});
 
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: Cy(
-                        id: 'login_view_textbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('login_view_textbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Login_View_Textbutton_Button_1 executed successfully.'),
-                          child: Text('Login_View_Textbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                  ),
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: theme.colors.error.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: theme.colors.error.withValues(alpha: 0.2)),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.error_outline_rounded,
+            size: 16,
+            color: theme.colors.error,
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              message,
+              style: theme.typography.labelMedium.copyWith(
+                color: theme.colors.error,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: Cy(
-                        id: 'login_view_elevatedbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('login_view_elevatedbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Login_View_Elevatedbutton_Button_1 executed successfully.'),
-                          child: Text('Login_View_Elevatedbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                  ),
+class _SuccessDisplay extends StatelessWidget {
+  final String message;
+  const _SuccessDisplay({required this.message});
 
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.green.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
+      ),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.check_circle_outline_rounded,
+            size: 16,
+            color: Colors.green,
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Text(
+              message,
+              style: theme.typography.labelMedium.copyWith(
+                color: Colors.green,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ActionButtons extends StatelessWidget {
+  final LoginController controller;
+  final VoidCallback onLogin;
+  
+  const _ActionButtons({
+    required this.controller,
+    required this.onLogin,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    return Column(
+      children: [
+        Cy(
+          id: 'login-submit',
+          child: ElevatedButton(key: const Key('login_view_elevatedbutton_button_2'), 
+            onPressed: onLogin,
+            style:
+                ElevatedButton.styleFrom(
+                  backgroundColor: theme.colors.primary,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  elevation: 0,
+                ).copyWith(
+                  overlayColor: WidgetStateProperty.all(
+                    Colors.white.withValues(alpha: 0.1),
+                  ),
+                ),
+            child: Center(
+              child: Text(
+                'login_button'.tr(),
+                style: const TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1.5),
+              ),
+            ),
+          ),
+        ),
+        if (!kReleaseMode) ...[
+          const SizedBox(height: 16),
+          OutlinedButton(key: const Key('login_view_outlinedbutton_button_1'), 
+            onPressed: controller.loginWithDemo,
+            style: OutlinedButton.styleFrom(
+              foregroundColor: theme.colors.primary,
+              side: BorderSide(
+                color: theme.colors.primary.withValues(alpha: 0.5),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 18),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
+            child: Center(
+              child: Text(
+                'login_access_demo'.tr(),
+                style: const TextStyle(fontWeight: FontWeight.w700, letterSpacing: 1),
+              ),
+            ),
+          ),
+        ],
+        const SizedBox(height: 24),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Don't have an account? ",
+              style: theme.typography.labelMedium.copyWith(
+                color: theme.colors.onSurfaceVariant.withValues(alpha: 0.8),
+              ),
+            ),
+            TextButton(
+              key: const Key('login_view_textbutton_signup'),
+              onPressed: () => _showSignUpDialog(context),
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.zero,
+                minimumSize: Size.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              child: Text(
+                'Sign Up',
+                style: theme.typography.labelMedium.copyWith(
+                  color: theme.colors.primary,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  void _showSignUpDialog(BuildContext context) {
+    final theme = context.theme;
+    showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: theme.colors.surface,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        title: Row(
+          children: [
+            Icon(Icons.admin_panel_settings_rounded, color: theme.colors.primary, size: 28),
+            const SizedBox(width: 12),
+            Text(
+              'Access Request',
+              style: theme.typography.h3,
+            ),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              'PrimeCare is a regulated, secure healthcare platform enforcing Zero-Trust access controls.',
+              style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Public registration is restricted. To provision a new workspace or register as a provider, coordinator, or client, please contact your regional administrator or care team coordinator.',
+              style: theme.typography.bodyMedium.copyWith(
+                color: theme.colors.onSurfaceVariant,
+              ),
+            ),
+          ],
+        ),
+        actionsPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        actions: [
+          ElevatedButton(
+            key: const Key('login_view_elevatedbutton_signup_ok'), 
+            onPressed: () => Navigator.of(context).pop(),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: theme.colors.primary,
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              elevation: 0,
+            ),
+            child: const Text('UNDERSTOOD', style: TextStyle(fontWeight: FontWeight.bold)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LoginFooter extends StatelessWidget {
+  const _LoginFooter();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    return Text(
+      '© 2026 PRIMECARE PLATFORM · SECURITY LAYER 4',
+      style: theme.typography.labelMedium.copyWith(
+        color: theme.colors.onSurfaceVariant.withValues(alpha: 0.6),
+        letterSpacing: 1,
+      ),
+    );
+  }
+}
+
+class _LoginBillboard extends StatelessWidget {
+  const _LoginBillboard();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    return Container(
+      decoration: const BoxDecoration(color: Colors.black),
+      child: Stack(
+        children: [
+          // 1. Premium Security Image
+          Positioned.fill(
+            child: Image.network(
+              'security_billboard.png',
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.bottomLeft,
+                    end: Alignment.topRight,
+                    colors: [theme.colors.primary, theme.colors.secondary],
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // 2. Glassmorphism & Gradient Overlay
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.black.withValues(alpha: 0.1),
+                    Colors.black.withValues(alpha: 0.7),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          // 3. Animated Mesh Gradient (Subtle)
+          const Positioned.fill(child: _AnimatedBillboardMesh()),
+
+          // 4. Content
+          Padding(
+            padding: EdgeInsets.all(theme.spacing.xxxl),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Row(
+                  children: [
+                    _BillboardBadge(),
+                    SizedBox(width: 12),
+                    _SecurityVerifiedBadge(),
+                  ],
+                ),
+                const SizedBox(height: 32),
+                Text(
+                  'PRIMECARE',
+                  style: theme.typography.h1.copyWith(
+                    color: Colors.white,
+                    fontSize: 84,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: -2,
+                    height: 1,
+                  ),
+                ),
+                Text(
+                  'PLATFORM',
+                  style: theme.typography.h2.copyWith(
+                    color: Colors.white.withValues(alpha: 0.8),
+                    fontSize: 32,
+                    letterSpacing: 12,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                const SizedBox(height: 64),
+                const _RollingSlogans(),
+                const SizedBox(height: 64),
+                const _BillboardFooter(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BillboardBadge extends StatelessWidget {
+  const _BillboardBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(alpha: 0.15),
+        borderRadius: BorderRadius.circular(100),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(
+            Icons.verified_user_rounded,
+            color: Colors.white,
+            size: 16,
+          ),
+          const SizedBox(width: 8),
+          Text(
+            'SOC2 COMPLIANT · ISO 27001',
+            style: context.theme.typography.labelMedium.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SecurityVerifiedBadge extends StatelessWidget {
+  const _SecurityVerifiedBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.green.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(100),
+        border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.shield, color: Colors.greenAccent, size: 14),
+          const SizedBox(width: 8),
+          Text(
+            'GOVERNED & SECURE',
+            style: context.theme.typography.labelSmall.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 1,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RollingSlogans extends StatefulWidget {
+  const _RollingSlogans();
+
+  @override
+  State<_RollingSlogans> createState() => _RollingSlogansState();
+}
+
+class _RollingSlogansState extends State<_RollingSlogans>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  int _currentIndex = 0;
+
+  final List<String> _slogans = [
+    'HARDENED GOVERNANCE INFRASTRUCTURE',
+    'ZERO-ERROR AUDIT ENFORCEMENT',
+    'PRECISION CARE. ABSOLUTE SECURITY.',
+    'ARCHITECTURAL INTEGRITY VERIFIED',
+    'ZERO-TRUST SESSION MANAGEMENT',
+    'REAL-TIME COMPLIANCE MONITORING',
+    'ENTERPRISE SECURITY LAYER 4',
+    'DECENTRALIZED IDENTITY PROTECTION',
+    'CONTINUOUS PARITY VALIDATION',
+    'GOVERNANCE REGISTRY HARDENED',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 4))
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              if (mounted) {
+                setState(() {
+                  _currentIndex = (_currentIndex + 1) % _slogans.length;
+                });
+                _controller.forward(from: 0);
+              }
+            }
+          });
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'STABILITY & TRUST',
+          style: context.theme.typography.labelMedium.copyWith(
+            color: Colors.white.withValues(alpha: 0.7),
+            letterSpacing: 4,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 64,
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 500),
+            transitionBuilder: (child, animation) {
+              return FadeTransition(
+                opacity: animation,
+                child: SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(0, 0.2),
+                    end: Offset.zero,
+                  ).animate(animation),
+                  child: child,
+                ),
+              );
+            },
+            child: Text(
+              _slogans[_currentIndex],
+              key: ValueKey(_currentIndex),
+              style: context.theme.typography.h3.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w900,
+                fontSize: 28,
+                letterSpacing: -0.5,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _BillboardFooter extends StatelessWidget {
+  const _BillboardFooter();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'SECURE DEPLOYMENT NODE: NA-EAST-1',
+          style: context.theme.typography.labelSmall.copyWith(
+            color: Colors.white.withValues(alpha: 0.5),
+            letterSpacing: 1.5,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Row(
+          children: [
+            Container(
+              width: 8,
+              height: 8,
+              decoration: const BoxDecoration(
+                color: Colors.greenAccent,
+                shape: BoxShape.circle,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              'ALL SYSTEMS OPERATIONAL',
+              style: context.theme.typography.labelSmall.copyWith(
+                color: Colors.white.withValues(alpha: 0.7),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class _AnimatedBillboardMesh extends StatelessWidget {
+  const _AnimatedBillboardMesh();
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned(
+          top: -100,
+          right: -100,
+          child: _BlurredBlob(
+            color: Colors.white.withValues(alpha: 0.1),
+            size: 600,
+          ),
+        ),
+        Positioned(
+          bottom: -200,
+          left: -100,
+          child: _BlurredBlob(
+            color: Colors.black.withValues(alpha: 0.2),
+            size: 800,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _RoleSimulationCenter extends ConsumerWidget {
+  const _RoleSimulationCenter();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = context.theme;
+    final controller = ref.read(loginControllerProvider.notifier);
+
+    // Only show in non-production environments
+    if (kReleaseMode) {
+      return const SizedBox.shrink();
+    }
+
+    return Column(
+      children: [
+        Row(
+          children: [
+            const Expanded(child: Divider()),
             Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
-              child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: theme.colors.surface,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: theme.colors.border),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('API State Simulation'.tr(), style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                          key: const Key('sim-btn-loading'),
-                          onPressed: () => controller.toggleLoading(),
-                          child: Text('Load'.tr(), style: const TextStyle(fontSize: 11)),
-                        ),
-                        TextButton(
-                          key: const Key('sim-btn-error'),
-                          onPressed: () => controller.toggleError('Simulated network failure'),
-                          child: Text('Error'.tr(), style: const TextStyle(fontSize: 11)),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                          key: const Key('sim-btn-empty'),
-                          onPressed: () => controller.toggleEmpty(),
-                          child: Text('Empty'.tr(), style: const TextStyle(fontSize: 11)),
-                        ),
-                        TextButton(
-                          key: const Key('sim-btn-success'),
-                          onPressed: () => controller.toggleSuccess(),
-                          child: Text('Success'.tr(), style: const TextStyle(fontSize: 11)),
-                        ),
-                      ],
-                    ),
-                  ],
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'login_role_simulation_center'.tr(),
+                style: theme.typography.labelSmall.copyWith(
+                  fontWeight: FontWeight.w900,
+                  letterSpacing: 2,
+                  color: theme.colors.onSurfaceVariant.withValues(alpha: 0.5),
                 ),
               ),
             ),
-              const SizedBox(height: 24),
-              // Operational logs panel
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: theme.colors.surface,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: theme.colors.border),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Operational Action Logs',
-                      style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
-                    ),
-                    const SizedBox(height: 12),
-                    ...state.logs.map(
-                      (log) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '• ',
-                              style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
-                            ),
-                            Expanded(
-                              child: Text(
-                                log.tr(),
-                                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            const Expanded(child: Divider()),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          alignment: WrapAlignment.center,
+          children: TestCredentialsRegistry.allCredentials.map((cred) {
+            return _SimulationChip(
+              label: cred.role.name.toUpperCase().replaceAll('_', ' '),
+              onTap: () =>
+                  controller.loginWithTestCredential(cred.email, cred.password),
+              isHighPrivilege:
+                  cred.role == PlatformRole.ceo ||
+                  cred.role == PlatformRole.admin,
+              isGhost: false,
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+}
+
+class _SimulationChip extends StatelessWidget {
+  final String label;
+  final VoidCallback onTap;
+  final bool isHighPrivilege;
+  final bool isGhost;
+
+  const _SimulationChip({
+    required this.label,
+    required this.onTap,
+    this.isHighPrivilege = false,
+    this.isGhost = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = context.theme;
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(100),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(
+          color: isGhost
+              ? Colors.transparent
+              : (isHighPrivilege
+                    ? theme.colors.primary.withValues(alpha: 0.1)
+                    : theme.colors.surfaceContainerHighest.withValues(
+                        alpha: 0.5,
+                      )),
+          borderRadius: BorderRadius.circular(100),
+          border: Border.all(
+            color: isGhost
+                ? theme.colors.border
+                : (isHighPrivilege
+                      ? theme.colors.primary.withValues(alpha: 0.3)
+                      : Colors.transparent),
+          ),
+        ),
+        child: Text(
+          label,
+          style: theme.typography.labelSmall.copyWith(
+            fontWeight: FontWeight.bold,
+            color: isHighPrivilege ? theme.colors.primary : null,
           ),
         ),
       ),
@@ -652,183 +1065,21 @@ class LoginScreen extends GovernedConsumerWidget {
   }
 }
 
-class LoginForm extends ConsumerStatefulWidget {
-  const LoginForm({super.key});
+class _BlurredBlob extends StatelessWidget {
+  final Color color;
+  final double size;
 
-  @override
-  ConsumerState<LoginForm> createState() => _LoginFormState();
-}
-
-class _LoginFormState extends ConsumerState<LoginForm> {
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  bool _isLoading = false;
-  String? _errorMessage;
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _handleLogin() async {
-    if (!_formKey.currentState!.validate()) return;
-    
-    setState(() {
-      _isLoading = true;
-      _errorMessage = null;
-    });
-
-    try {
-      final success = await ref.read(authProvider.notifier).login(
-        _emailController.text.trim(),
-        _passwordController.text,
-      );
-      if (!success) {
-        setState(() {
-          _errorMessage = 'Invalid email or password.';
-        });
-      }
-    } catch (e) {
-      setState(() {
-        _errorMessage = 'An unexpected error occurred. Please try again.';
-      });
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    }
-  }
+  const _BlurredBlob({required this.color, required this.size});
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.theme;
-    return Form(
-      key: _formKey,
-      child: Container(
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          color: theme.colors.surface,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: theme.colors.border),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Sign In to PrimeCare',
-              style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              'Enter your credentials to access your secure portal.',
-              style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-            ),
-            const SizedBox(height: 24),
-            if (_errorMessage != null) ...[
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.red.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.red.withOpacity(0.3)),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(LucideIcons.alertTriangle, color: Colors.red, size: 20),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        _errorMessage!,
-                        style: theme.typography.bodyMedium.copyWith(color: Colors.red),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 16),
-            ],
-            Text(
-              'Email Address'.tr(),
-              style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Cy(
-              id: 'login-email',
-              child: TextFormField(
-                key: const Key('login-email-input'),
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  hintText: 'Enter your email address',
-                  prefixIcon: const Icon(LucideIcons.mail),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                ),
-                validator: (val) {
-                  if (val == null || val.trim().isEmpty) {
-                    return 'Email is required';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'Password'.tr(),
-              style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            Cy(
-              id: 'login-password',
-              child: TextFormField(
-                key: const Key('login-password-input'),
-                controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Enter your password',
-                  prefixIcon: const Icon(LucideIcons.lock),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                ),
-                validator: (val) {
-                  if (val == null || val.isEmpty) {
-                    return 'Password is required';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              height: 48,
-              child: Cy(
-                id: 'login-submit',
-                child: ElevatedButton(
-                  key: const Key('login-submit-btn'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: theme.colors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                  ),
-                  onPressed: _isLoading ? null : _handleLogin,
-                  child: _isLoading
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-                        )
-                      : Text(
-                          'Sign In'.tr(),
-                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                ),
-              ),
-            ),
-          ],
-        ),
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: size / 4, sigmaY: size / 4),
+        child: Container(color: Colors.transparent),
       ),
     );
   }

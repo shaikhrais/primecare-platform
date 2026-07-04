@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Local Marketing Manager Budget
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/local_marketing_manager_budget_header_section.dart';
+import 'sections/local_marketing_manager_budget_content_summary_section.dart';
+import 'sections/local_marketing_manager_budget_primary_content_section.dart';
+import 'sections/local_marketing_manager_budget_action_bar_section.dart';
 
-class LocalMarketingManagerBudgetScreen extends ConsumerWidget {
+class LocalMarketingManagerBudgetScreen extends StatelessWidget {
   const LocalMarketingManagerBudgetScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Local Marketing Manager Budget Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'local_marketing_manager_budget',
+      title: 'Local Marketing Manager Budget',
+      child: Column(
+        children: const [
+          const LocalMarketingManagerBudgetHeaderSection(),
+          const LocalMarketingManagerBudgetContentSummarySection(),
+          const LocalMarketingManagerBudgetPrimaryContentSection(),
+          const LocalMarketingManagerBudgetActionBarSection(),
+        ],
       ),
     );
   }

@@ -66,7 +66,7 @@ describe("Screen - psw_command_center", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_command_center");
-      cy.task("log", "✅ PROGRESS: - Verified PswCommandCenterScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Psw Command Center successfully!\n");
     });
   });
 });

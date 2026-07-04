@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Mobile Clinic Dispatch
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class MobileClinicDispatchModel {
-  const MobileClinicDispatchModel();
-  
-  factory MobileClinicDispatchModel.fromJson(Map<String, dynamic> json) {
-    return const MobileClinicDispatchModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const MobileClinicDispatchModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  MobileClinicDispatchModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return MobileClinicDispatchModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

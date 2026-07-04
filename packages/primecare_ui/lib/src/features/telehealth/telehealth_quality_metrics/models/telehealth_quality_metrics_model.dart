@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Telehealth Quality Metrics
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class TelehealthQualityMetricsModel {
-  const TelehealthQualityMetricsModel();
-  
-  factory TelehealthQualityMetricsModel.fromJson(Map<String, dynamic> json) {
-    return const TelehealthQualityMetricsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const TelehealthQualityMetricsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  TelehealthQualityMetricsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return TelehealthQualityMetricsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

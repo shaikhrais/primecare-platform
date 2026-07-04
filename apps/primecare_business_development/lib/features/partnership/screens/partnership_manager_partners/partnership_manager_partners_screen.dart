@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Partnership Manager Partners
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/partnership_manager_partners_header_section.dart';
+import 'sections/partnership_manager_partners_content_summary_section.dart';
+import 'sections/partnership_manager_partners_primary_content_section.dart';
+import 'sections/partnership_manager_partners_action_bar_section.dart';
 
-class PartnershipManagerPartnersScreen extends ConsumerWidget {
+class PartnershipManagerPartnersScreen extends StatelessWidget {
   const PartnershipManagerPartnersScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Partnership Manager Partners Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'partnership_manager_partners',
+      title: 'Partnership Manager Partners',
+      child: Column(
+        children: const [
+          const PartnershipManagerPartnersHeaderSection(),
+          const PartnershipManagerPartnersContentSummarySection(),
+          const PartnershipManagerPartnersPrimaryContentSection(),
+          const PartnershipManagerPartnersActionBarSection(),
+        ],
       ),
     );
   }

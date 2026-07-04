@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Client Book Appointment
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ClientBookAppointmentModel {
-  const ClientBookAppointmentModel();
-  
-  factory ClientBookAppointmentModel.fromJson(Map<String, dynamic> json) {
-    return const ClientBookAppointmentModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ClientBookAppointmentModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ClientBookAppointmentModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ClientBookAppointmentModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -59,7 +59,7 @@ class RnMessagingScreenController extends StateNotifier<RnMessagingScreenState> 
       : super(
           RnMessagingScreenState(
             isLoading: false,
-            title: 'RN Messaging'.tr(),
+            title: 'Rn Messaging'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

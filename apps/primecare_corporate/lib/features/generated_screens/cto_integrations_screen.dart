@@ -59,7 +59,7 @@ class CtoIntegrationsScreenController extends StateNotifier<CtoIntegrationsScree
       : super(
           CtoIntegrationsScreenState(
             isLoading: false,
-            title: 'CTO Integrations'.tr(),
+            title: 'Cto Integrations'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

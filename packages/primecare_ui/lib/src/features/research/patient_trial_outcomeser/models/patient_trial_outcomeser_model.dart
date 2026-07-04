@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Patient Trial Outcomeser
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PatientTrialOutcomeserModel {
-  const PatientTrialOutcomeserModel();
-  
-  factory PatientTrialOutcomeserModel.fromJson(Map<String, dynamic> json) {
-    return const PatientTrialOutcomeserModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PatientTrialOutcomeserModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PatientTrialOutcomeserModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PatientTrialOutcomeserModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

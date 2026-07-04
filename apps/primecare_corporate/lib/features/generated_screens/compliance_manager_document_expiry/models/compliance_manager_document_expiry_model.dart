@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Compliance Manager Document Expiry
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ComplianceManagerDocumentExpiryModel {
-  const ComplianceManagerDocumentExpiryModel();
-  
-  factory ComplianceManagerDocumentExpiryModel.fromJson(Map<String, dynamic> json) {
-    return const ComplianceManagerDocumentExpiryModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ComplianceManagerDocumentExpiryModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ComplianceManagerDocumentExpiryModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ComplianceManagerDocumentExpiryModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

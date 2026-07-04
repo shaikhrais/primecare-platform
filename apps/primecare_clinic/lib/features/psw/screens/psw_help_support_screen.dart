@@ -59,7 +59,7 @@ class PswHelpSupportScreenController extends StateNotifier<PswHelpSupportScreenS
       : super(
           PswHelpSupportScreenState(
             isLoading: false,
-            title: 'PSW Help Support'.tr(),
+            title: 'Psw Help Support'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

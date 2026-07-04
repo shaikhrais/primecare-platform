@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for No Access
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class NoAccessModel {
-  const NoAccessModel();
-  
-  factory NoAccessModel.fromJson(Map<String, dynamic> json) {
-    return const NoAccessModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const NoAccessModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  NoAccessModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return NoAccessModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

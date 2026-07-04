@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Surgical Video Archive
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class SurgicalVideoArchiveModel {
-  const SurgicalVideoArchiveModel();
-  
-  factory SurgicalVideoArchiveModel.fromJson(Map<String, dynamic> json) {
-    return const SurgicalVideoArchiveModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const SurgicalVideoArchiveModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  SurgicalVideoArchiveModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return SurgicalVideoArchiveModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

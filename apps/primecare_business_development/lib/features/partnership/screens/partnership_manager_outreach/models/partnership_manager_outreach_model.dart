@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Partnership Manager Outreach
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PartnershipManagerOutreachModel {
-  const PartnershipManagerOutreachModel();
-  
-  factory PartnershipManagerOutreachModel.fromJson(Map<String, dynamic> json) {
-    return const PartnershipManagerOutreachModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PartnershipManagerOutreachModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PartnershipManagerOutreachModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PartnershipManagerOutreachModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

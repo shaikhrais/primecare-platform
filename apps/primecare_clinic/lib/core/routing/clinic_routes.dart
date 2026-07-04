@@ -2,6 +2,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/theme/theme_config_generated.dart';
 import '../../features/shared/screens/clinic_incident_report_screen.dart';
 import '../../features/shared/screens/clinic_history_logs_screen.dart';
+import '../../features/generated_screens/psw_dashboard_screen.dart';
 
 class ClinicTenant extends PlatformTenant {
   @override
@@ -1150,7 +1151,7 @@ class ClinicOperationsModule extends PlatformModule {
       title: 'Clinical Intelligence',
       route: CommonRoutes.clinicDashboard,
       icon: LucideIcons.barChart4,
-      builder: (context) => const PswDashboardScreen(),
+      builder: (context) => const CareDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'My Shifts',
@@ -1319,7 +1320,7 @@ class ClinicPswModule extends PlatformModule {
       title: 'Care Dashboard',
       route: ClinicalRoutes.pswDashboard,
       icon: LucideIcons.home,
-      builder: (context) => const PswDashboardScreen(),
+      builder: (context) => const CareDashboardScreen(),
     ),
     PrimeCareScreen(
       title: 'Shift Tracker',

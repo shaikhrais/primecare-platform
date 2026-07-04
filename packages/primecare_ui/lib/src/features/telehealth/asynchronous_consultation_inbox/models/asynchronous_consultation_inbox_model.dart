@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Asynchronous Consultation Inbox
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class AsynchronousConsultationInboxModel {
-  const AsynchronousConsultationInboxModel();
-  
-  factory AsynchronousConsultationInboxModel.fromJson(Map<String, dynamic> json) {
-    return const AsynchronousConsultationInboxModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const AsynchronousConsultationInboxModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  AsynchronousConsultationInboxModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return AsynchronousConsultationInboxModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

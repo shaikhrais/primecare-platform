@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Regional Performance
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class RegionalPerformanceModel {
-  const RegionalPerformanceModel();
-  
-  factory RegionalPerformanceModel.fromJson(Map<String, dynamic> json) {
-    return const RegionalPerformanceModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const RegionalPerformanceModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  RegionalPerformanceModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return RegionalPerformanceModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

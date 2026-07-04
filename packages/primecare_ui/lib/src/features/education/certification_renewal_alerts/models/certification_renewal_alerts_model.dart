@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Certification Renewal Alerts
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CertificationRenewalAlertsModel {
-  const CertificationRenewalAlertsModel();
-  
-  factory CertificationRenewalAlertsModel.fromJson(Map<String, dynamic> json) {
-    return const CertificationRenewalAlertsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CertificationRenewalAlertsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CertificationRenewalAlertsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CertificationRenewalAlertsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

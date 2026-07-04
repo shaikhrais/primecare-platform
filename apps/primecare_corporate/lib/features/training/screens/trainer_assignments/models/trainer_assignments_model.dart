@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Trainer Assignments
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class TrainerAssignmentsModel {
-  const TrainerAssignmentsModel();
-  
-  factory TrainerAssignmentsModel.fromJson(Map<String, dynamic> json) {
-    return const TrainerAssignmentsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const TrainerAssignmentsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  TrainerAssignmentsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return TrainerAssignmentsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

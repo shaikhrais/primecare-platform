@@ -6,7 +6,7 @@
 describe("Screen - file_verification_dashboard", () => {
   it("opens and verifies screen file_verification_dashboard via real credentials login and logout", () => {
     cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
+      const user = users.find((u) => u.role_code === "governance");
       const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
       // 1. Visit login page
@@ -33,8 +33,8 @@ describe("Screen - file_verification_dashboard", () => {
       cy.wait(6000);
 
       // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/common/file_verification_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/common/file_verification_dashboard_screen.dart");
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /common/file-verification-dashboard...");
+      cy.visitWithSemantics(targetBaseUrl + "/common/file-verification-dashboard");
       cy.waitAndSee();
 
       cy.verifyShellExists();

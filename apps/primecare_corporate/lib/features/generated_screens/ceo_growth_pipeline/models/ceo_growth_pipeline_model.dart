@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Ceo Growth Pipeline
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CeoGrowthPipelineModel {
-  const CeoGrowthPipelineModel();
-  
-  factory CeoGrowthPipelineModel.fromJson(Map<String, dynamic> json) {
-    return const CeoGrowthPipelineModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CeoGrowthPipelineModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CeoGrowthPipelineModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CeoGrowthPipelineModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -59,7 +59,7 @@ class CooStaffingEfficiencyScreenController extends StateNotifier<CooStaffingEff
       : super(
           CooStaffingEfficiencyScreenState(
             isLoading: false,
-            title: 'COO Staffing Efficiency'.tr(),
+            title: 'Coo Staffing Efficiency'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

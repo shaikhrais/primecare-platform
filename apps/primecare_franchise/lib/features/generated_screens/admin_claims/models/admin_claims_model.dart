@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Admin Claims
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class AdminClaimsModel {
-  const AdminClaimsModel();
-  
-  factory AdminClaimsModel.fromJson(Map<String, dynamic> json) {
-    return const AdminClaimsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const AdminClaimsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  AdminClaimsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return AdminClaimsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

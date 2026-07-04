@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for CustomerSupportDashboardScreen
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CustomerSupportDashboardModel {
-  const CustomerSupportDashboardModel();
-  
-  factory CustomerSupportDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const CustomerSupportDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CustomerSupportDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CustomerSupportDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CustomerSupportDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Cto Platform Usage
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CtoPlatformUsageModel {
-  const CtoPlatformUsageModel();
-  
-  factory CtoPlatformUsageModel.fromJson(Map<String, dynamic> json) {
-    return const CtoPlatformUsageModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CtoPlatformUsageModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CtoPlatformUsageModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CtoPlatformUsageModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

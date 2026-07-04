@@ -66,7 +66,7 @@ describe("Screen - vitals_entry", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_vitals_entry");
-      cy.task("log", "✅ PROGRESS: - Verified VitalsEntryScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Vitals Entry successfully!\n");
     });
   });
 });

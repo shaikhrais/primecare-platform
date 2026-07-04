@@ -59,7 +59,7 @@ class PswTaskListScreenController extends StateNotifier<PswTaskListScreenState> 
       : super(
           PswTaskListScreenState(
             isLoading: false,
-            title: 'PSW Task List'.tr(),
+            title: 'Psw Task List'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

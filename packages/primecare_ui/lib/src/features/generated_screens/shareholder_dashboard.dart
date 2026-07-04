@@ -59,7 +59,7 @@ class ShareholderDashboardScreenController extends StateNotifier<ShareholderDash
       : super(
           ShareholderDashboardScreenState(
             isLoading: false,
-            title: 'Shareholder Dashboard'.tr(),
+            title: 'ShareholderDashboardScreen'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

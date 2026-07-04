@@ -33,8 +33,8 @@ describe("Screen - help_desk_dashboard", () => {
       cy.wait(6000);
 
       // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: SupportRoutes.helpDeskDashboard...");
-      cy.visitWithSemantics(targetBaseUrl + "SupportRoutes.helpDeskDashboard");
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /support/help-desk-dashboard...");
+      cy.visitWithSemantics(targetBaseUrl + "/support/help-desk-dashboard");
       cy.waitAndSee();
 
       cy.verifyShellExists();

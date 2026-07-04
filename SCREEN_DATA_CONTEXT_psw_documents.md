@@ -1,6 +1,6 @@
 # SCREEN DATA CONTEXT: psw_documents
 
-Below are the database records from `governance.db` used to configure and build the **Personal Support Worker (PSW) - PswDocumentsScreen** screen.
+Below are the database records from `governance.db` used to configure and build the **Personal Support Worker (PSW) - DocumentsScreen** screen.
 
 ---
 
@@ -9,10 +9,10 @@ Below are the database records from `governance.db` used to configure and build 
 * **App ID**: `6`
 * **Role ID**: `51`
 * **Screen Code**: `psw_documents`
-* **Screen Name**: `PswDocumentsScreen`
+* **Screen Name**: `DocumentsScreen`
 * **Route Path**: `/offices/clinical/roles/psw/documents`
 * **Actual File Path**: `packages/primecare_ui/lib/src/screens/psw/psw_documents_screen.dart`
-* **Stage/Status**: `wired`
+* **Stage/Status**: `template_created`
 
 ## 2. App Record
 * **ID**: `6`
@@ -67,20 +67,16 @@ Below are the database records from `governance.db` used to configure and build 
 
 ## 8. Test Definition & Steps
 * **Test Code**: `psw_documents_runtime`
-* **Test Name**: `PswDocumentsScreen Smoke Test`
+* **Test Name**: `Documents Runtime Test`
 * **Test Type**: `e2e`
-* **Expected Title**: `PSW Documents`
+* **Expected Title**: `Documents`
 * **Expected Layout**: `dashboard`
 
 ### Test Steps
 1. **login_as_role** (Selector: `None`, Value: `psw`)
-2. **verify_sidebar_exists** (Selector: `app-sidebar`, Value: `None`)
-3. **verify_sidebar_link_exists** (Selector: `None`, Value: `PSW Documents`)
-4. **click_sidebar_link** (Selector: `None`, Value: `PSW Documents`)
-5. **check_url** (Selector: `None`, Value: `/offices/clinical/roles/psw/documents`)
-6. **verify_topbar_exists** (Selector: `app-topbar`, Value: `None`)
-7. **verify_main_content_exists** (Selector: `app-content-slot`, Value: `None`)
-8. **verify_screen_not_empty** (Selector: `None`, Value: `None`)
-9. **verify_forbidden_text_absent** (Selector: `None`, Value: `None`)
-10. **verify_no_console_errors** (Selector: `None`, Value: `None`)
-11. **screenshot** (Selector: `None`, Value: `None`)
+2. **visit** (Selector: `None`, Value: `/offices/clinical/roles/psw/documents`)
+3. **should_be_visible** (Selector: `psw_documents-screen`, Value: `None`)
+4. **should_be_visible** (Selector: `psw_documents-title`, Value: `None`)
+5. **should_be_visible** (Selector: `psw_documents-content`, Value: `None`)
+6. **check_no_console_error** (Selector: `None`, Value: `None`)
+7. **screenshot** (Selector: `None`, Value: `None`)

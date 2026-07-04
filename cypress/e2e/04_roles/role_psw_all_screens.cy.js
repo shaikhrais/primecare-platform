@@ -8,11 +8,11 @@ describe("Role All Screens - psw", () => {
     cy.loginAsRole("psw");
 
 
-  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Navigating to /offices/clinical/roles/psw/dashboard (PswDashboardScreen)...");
+  cy.task("log", "⏳ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/18 | 5%] - Navigating to /offices/clinical/roles/psw/dashboard (Care Dashboard)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/dashboard");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Checking shell & content for PswDashboardScreen...");
+  cy.task("log", "🔍 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/18 | 5%] - Checking shell & content for Care Dashboard...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -20,17 +20,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswdashboard-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswdashboard-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Saving screenshot for PswDashboardScreen...");
+  cy.task("log", "📸 PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/18 | 5%] - Saving screenshot for Care Dashboard...");
   cy.waitAndSee();
   cy.screenshot("psw_dashboard");
   
-  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/20 | 5%] - Verified PswDashboardScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜ [1/18 | 5%] - Verified Care Dashboard successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Navigating to /offices/clinical/roles/psw/reports (PswAnalyticsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/18 | 11%] - Navigating to /offices/clinical/roles/psw/reports (Psw Analytics)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/reports");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Checking shell & content for PswAnalyticsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/18 | 11%] - Checking shell & content for Psw Analytics...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -38,17 +38,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswanalytics-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswanalytics-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Saving screenshot for PswAnalyticsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/18 | 11%] - Saving screenshot for Psw Analytics...");
   cy.waitAndSee();
   cy.screenshot("psw_analytics");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/20 | 10%] - Verified PswAnalyticsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [2/18 | 11%] - Verified Psw Analytics successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Navigating to /offices/clinical/roles/psw/patient-profile (PswClientsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/18 | 16%] - Navigating to /offices/clinical/roles/psw/patient-profile (My Clients)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/patient-profile");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Checking shell & content for PswClientsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/18 | 16%] - Checking shell & content for My Clients...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -56,17 +56,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswclients-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswclients-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Saving screenshot for PswClientsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/18 | 16%] - Saving screenshot for My Clients...");
   cy.waitAndSee();
   cy.screenshot("psw_clients");
   
-  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/20 | 15%] - Verified PswClientsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩⬜⬜⬜⬜⬜⬜⬜⬜⬜ [3/18 | 16%] - Verified My Clients successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Navigating to /offices/clinical/roles/psw/help-support (PswComplianceScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/18 | 22%] - Navigating to /offices/clinical/roles/psw/help-support (Psw Compliance)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/help-support");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Checking shell & content for PswComplianceScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/18 | 22%] - Checking shell & content for Psw Compliance...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -74,17 +74,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswcompliance-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswcompliance-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Saving screenshot for PswComplianceScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/18 | 22%] - Saving screenshot for Psw Compliance...");
   cy.waitAndSee();
   cy.screenshot("psw_compliance");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/20 | 20%] - Verified PswComplianceScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [4/18 | 22%] - Verified Psw Compliance successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Navigating to /offices/clinical/roles/psw/messages (PswMessagesScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/18 | 27%] - Navigating to /offices/clinical/roles/psw/messages (Messages)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/messages");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Checking shell & content for PswMessagesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/18 | 27%] - Checking shell & content for Messages...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -92,17 +92,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswmessages-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswmessages-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Saving screenshot for PswMessagesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/18 | 27%] - Saving screenshot for Messages...");
   cy.waitAndSee();
   cy.screenshot("psw_messages");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/20 | 25%] - Verified PswMessagesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩⬜⬜⬜⬜⬜⬜⬜⬜ [5/18 | 27%] - Verified Messages successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Navigating to /offices/clinical/roles/psw/schedule (PswShiftTrackerScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/18 | 33%] - Navigating to /offices/clinical/roles/psw/schedule (Shift Tracker)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/schedule");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Checking shell & content for PswShiftTrackerScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/18 | 33%] - Checking shell & content for Shift Tracker...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -110,17 +110,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswshifttracker-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswshifttracker-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Saving screenshot for PswShiftTrackerScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/18 | 33%] - Saving screenshot for Shift Tracker...");
   cy.waitAndSee();
   cy.screenshot("psw_shift_tracker");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/20 | 30%] - Verified PswShiftTrackerScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [6/18 | 33%] - Verified Shift Tracker successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Navigating to /offices/clinical/roles/psw/visit-checklist (PswTasksScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/18 | 38%] - Navigating to /offices/clinical/roles/psw/visit-checklist (Task List)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/visit-checklist");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Checking shell & content for PswTasksScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/18 | 38%] - Checking shell & content for Task List...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -128,17 +128,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswtasks-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswtasks-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Saving screenshot for PswTasksScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/18 | 38%] - Saving screenshot for Task List...");
   cy.waitAndSee();
   cy.screenshot("psw_tasks");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/20 | 35%] - Verified PswTasksScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩⬜⬜⬜⬜⬜⬜⬜ [7/18 | 38%] - Verified Task List successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Navigating to /offices/clinical/roles/psw/visit-notes (PswVisitNotesScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/18 | 44%] - Navigating to /offices/clinical/roles/psw/visit-notes (Visit Notes)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/visit-notes");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Checking shell & content for PswVisitNotesScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/18 | 44%] - Checking shell & content for Visit Notes...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -146,17 +146,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswvisitnotes-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswvisitnotes-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Saving screenshot for PswVisitNotesScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/18 | 44%] - Saving screenshot for Visit Notes...");
   cy.waitAndSee();
   cy.screenshot("psw_visit_notes");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/20 | 40%] - Verified PswVisitNotesScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [8/18 | 44%] - Verified Visit Notes successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Navigating to /offices/clinical/roles/psw/psw-workflow (PswWorkflowScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/18 | 50%] - Navigating to /offices/clinical/roles/psw/psw-workflow (Psw Workflow)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/psw-workflow");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Checking shell & content for PswWorkflowScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/18 | 50%] - Checking shell & content for Psw Workflow...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -164,17 +164,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswworkflow-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswworkflow-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Saving screenshot for PswWorkflowScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/18 | 50%] - Saving screenshot for Psw Workflow...");
   cy.waitAndSee();
   cy.screenshot("psw_workflow");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩⬜⬜⬜⬜⬜⬜ [9/20 | 45%] - Verified PswWorkflowScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [9/18 | 50%] - Verified Psw Workflow successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Navigating to /offices/clinical/roles/psw/system-logs (PswCommandCenterScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/18 | 55%] - Navigating to /offices/clinical/roles/psw/system-logs (Psw Command Center)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/system-logs");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Checking shell & content for PswCommandCenterScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/18 | 55%] - Checking shell & content for Psw Command Center...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -182,17 +182,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswcommandcenter-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswcommandcenter-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Saving screenshot for PswCommandCenterScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/18 | 55%] - Saving screenshot for Psw Command Center...");
   cy.waitAndSee();
   cy.screenshot("psw_command_center");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/20 | 50%] - Verified PswCommandCenterScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [10/18 | 55%] - Verified Psw Command Center successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Navigating to /offices/clinical/roles/psw/psw-my-shifts (PswMyShiftsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/18 | 61%] - Navigating to /offices/clinical/roles/psw/psw-my-shifts (Psw My Shifts)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/psw-my-shifts");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Checking shell & content for PswMyShiftsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/18 | 61%] - Checking shell & content for Psw My Shifts...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -200,17 +200,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswmyshifts-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswmyshifts-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Saving screenshot for PswMyShiftsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/18 | 61%] - Saving screenshot for Psw My Shifts...");
   cy.waitAndSee();
   cy.screenshot("psw_my_shifts");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩⬜⬜⬜⬜⬜ [11/20 | 55%] - Verified PswMyShiftsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [11/18 | 61%] - Verified Psw My Shifts successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Navigating to /offices/clinical/roles/psw/profile (PswClientProfileScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/18 | 66%] - Navigating to /offices/clinical/roles/psw/profile (Psw Client Profile)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/profile");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Checking shell & content for PswClientProfileScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/18 | 66%] - Checking shell & content for Psw Client Profile...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -218,35 +218,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswclientprofile-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswclientprofile-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Saving screenshot for PswClientProfileScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/18 | 66%] - Saving screenshot for Psw Client Profile...");
   cy.waitAndSee();
   cy.screenshot("psw_client_profile");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/20 | 60%] - Verified PswClientProfileScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [12/18 | 66%] - Verified Psw Client Profile successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Navigating to /offices/clinical/roles/psw/visit-notes (PswVisitNotesScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/psw/visit-notes");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Checking shell & content for PswVisitNotesScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("pswvisitnotes-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("pswvisitnotes-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("pswvisitnotes-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Saving screenshot for PswVisitNotesScreen...");
-  cy.waitAndSee();
-  cy.screenshot("psw_visit_notes");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩⬜⬜⬜⬜ [13/20 | 65%] - Verified PswVisitNotesScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Navigating to /offices/clinical/roles/psw/observation-vitals-log (PswVitalsLogScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [13/18 | 72%] - Navigating to /offices/clinical/roles/psw/observation-vitals-log (Vitals Entry)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/observation-vitals-log");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Checking shell & content for PswVitalsLogScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [13/18 | 72%] - Checking shell & content for Vitals Entry...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -254,17 +236,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswvitalslog-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswvitalslog-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Saving screenshot for PswVitalsLogScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [13/18 | 72%] - Saving screenshot for Vitals Entry...");
   cy.waitAndSee();
   cy.screenshot("psw_vitals_log");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/20 | 70%] - Verified PswVitalsLogScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [13/18 | 72%] - Verified Vitals Entry successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Navigating to /offices/clinical/roles/psw/incident-report (PswIncidentReportScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/18 | 77%] - Navigating to /offices/clinical/roles/psw/incident-report (Report Incident)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/incident-report");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Checking shell & content for PswIncidentReportScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/18 | 77%] - Checking shell & content for Report Incident...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -272,17 +254,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswincidentreport-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswincidentreport-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Saving screenshot for PswIncidentReportScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/18 | 77%] - Saving screenshot for Report Incident...");
   cy.waitAndSee();
   cy.screenshot("psw_incident_report");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [15/20 | 75%] - Verified PswIncidentReportScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩⬜⬜⬜ [14/18 | 77%] - Verified Report Incident successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Navigating to /offices/clinical/roles/psw/care-plan (PswCarePlanScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [15/18 | 83%] - Navigating to /offices/clinical/roles/psw/care-plan (Psw Care Plan)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/care-plan");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Checking shell & content for PswCarePlanScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [15/18 | 83%] - Checking shell & content for Psw Care Plan...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -290,35 +272,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswcareplan-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswcareplan-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Saving screenshot for PswCarePlanScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [15/18 | 83%] - Saving screenshot for Psw Care Plan...");
   cy.waitAndSee();
   cy.screenshot("psw_care_plan");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/20 | 80%] - Verified PswCarePlanScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [15/18 | 83%] - Verified Psw Care Plan successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Navigating to /offices/clinical/roles/psw/messages (PswMessagesScreen)...");
-  cy.visitWithSemantics("/offices/clinical/roles/psw/messages");
-  cy.waitAndSee();
-  
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Checking shell & content for PswMessagesScreen...");
-  cy.verifyShellExists();
-  cy.verifyNotBlank();
-
-  // cy.getCy("pswmessages-screen").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("pswmessages-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-  // cy.getCy("pswmessages-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
-
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Saving screenshot for PswMessagesScreen...");
-  cy.waitAndSee();
-  cy.screenshot("psw_messages");
-  
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [17/20 | 85%] - Verified PswMessagesScreen successfully!\n");
-
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Navigating to /offices/clinical/roles/psw/documents (PswDocumentsScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/18 | 88%] - Navigating to /offices/clinical/roles/psw/documents (Documents)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/documents");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Checking shell & content for PswDocumentsScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/18 | 88%] - Checking shell & content for Documents...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -326,17 +290,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("pswdocuments-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("pswdocuments-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Saving screenshot for PswDocumentsScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/18 | 88%] - Saving screenshot for Documents...");
   cy.waitAndSee();
   cy.screenshot("psw_documents");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [18/20 | 90%] - Verified PswDocumentsScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ [16/18 | 88%] - Verified Documents successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Navigating to /offices/clinical/roles/psw/shift-tasks (ShiftTasksScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [17/18 | 94%] - Navigating to /offices/clinical/roles/psw/shift-tasks (Shift Tasks)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/shift-tasks");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Checking shell & content for ShiftTasksScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [17/18 | 94%] - Checking shell & content for Shift Tasks...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -344,17 +308,17 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("shifttasks-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("shifttasks-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Saving screenshot for ShiftTasksScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [17/18 | 94%] - Saving screenshot for Shift Tasks...");
   cy.waitAndSee();
   cy.screenshot("shift_tasks");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [19/20 | 95%] - Verified ShiftTasksScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ [17/18 | 94%] - Verified Shift Tasks successfully!\n");
 
-  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Navigating to /offices/clinical/roles/psw/vitals-entry (VitalsEntryScreen)...");
+  cy.task("log", "⏳ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [18/18 | 100%] - Navigating to /offices/clinical/roles/psw/vitals-entry (Vitals Entry)...");
   cy.visitWithSemantics("/offices/clinical/roles/psw/vitals-entry");
   cy.waitAndSee();
   
-  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Checking shell & content for VitalsEntryScreen...");
+  cy.task("log", "🔍 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [18/18 | 100%] - Checking shell & content for Vitals Entry...");
   cy.verifyShellExists();
   cy.verifyNotBlank();
 
@@ -362,11 +326,11 @@ describe("Role All Screens - psw", () => {
   // cy.getCy("vitalsentry-title").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
   // cy.getCy("vitalsentry-content").should("be.visible"); // NOT FOUND IN DART WIDGET TREE
 
-  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Saving screenshot for VitalsEntryScreen...");
+  cy.task("log", "📸 PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [18/18 | 100%] - Saving screenshot for Vitals Entry...");
   cy.waitAndSee();
   cy.screenshot("vitals_entry");
   
-  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [20/20 | 100%] - Verified VitalsEntryScreen successfully!\n");
+  cy.task("log", "✅ PROGRESS: 🟩🟩🟩🟩🟩🟩🟩🟩🟩🟩 [18/18 | 100%] - Verified Vitals Entry successfully!\n");
 
   });
 });

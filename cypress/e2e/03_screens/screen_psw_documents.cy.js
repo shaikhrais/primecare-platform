@@ -66,7 +66,7 @@ describe("Screen - psw_documents", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_documents");
-      cy.task("log", "✅ PROGRESS: - Verified PswDocumentsScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Documents successfully!\n");
     });
   });
 });

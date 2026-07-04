@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Operational Efficiency Metrics
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class OperationalEfficiencyMetricsModel {
-  const OperationalEfficiencyMetricsModel();
-  
-  factory OperationalEfficiencyMetricsModel.fromJson(Map<String, dynamic> json) {
-    return const OperationalEfficiencyMetricsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const OperationalEfficiencyMetricsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  OperationalEfficiencyMetricsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return OperationalEfficiencyMetricsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

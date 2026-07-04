@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en" dir="LTR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit Data | Primecare Franchise</title>
+  <link rel="stylesheet" href="./primecare_theme.css" />
+
+  <style>
+    :root {
+      --pc-color-primary: #0F172A;
+      --pc-color-secondary: #475569;
+      --pc-color-background: #F8FAFC;
+      --pc-color-surface: #FFFFFF;
+      --pc-color-text: #0f172a;
+      --pc-color-muted: #64748b;
+      --pc-spacing-sm: 10px;
+      --pc-spacing-md: 16px;
+      --pc-spacing-lg: 28px;
+      --pc-radius-md: 8px;
+      --pc-font-family: Inter, sans-serif;
+    }
+  </style>
+
+</head>
+<body data-theme="primecare_light_default" data-app="fr" data-role="owner" data-screen="compliance_overview">
+  <aside class="pc-sidebar" data-testid="app-sidebar">
+  <div class="pc-sidebar-brand">
+    <div class="pc-brand-logo">FR</div>
+    <div>
+      <div class="pc-brand-title">Primecare Franchise</div>
+      <div class="pc-brand-subtitle">Franchise Owner</div>
+    </div>
+  </div>
+
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">Overview</div>
+    
+    <a href="/common/franchise-dashboard" class="pc-sidebar-link " data-testid="sidebar-link-franchise_dashboard" data-route="/common/franchise-dashboard" data-screen="franchise_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Franchise Dashboard</span>
+    </a>
+    
+    <a href="/offices/corporate/roles/owner/dashboard" class="pc-sidebar-link " data-testid="sidebar-link-owner_dashboard" data-route="/offices/corporate/roles/owner/dashboard" data-screen="owner_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Owner Dashboard</span>
+    </a>
+    
+  </div>
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">General</div>
+    
+    <a href="/executive/franchise-owner-command-center" class="pc-sidebar-link " data-testid="sidebar-link-franchise_owner_command_center" data-route="/executive/franchise-owner-command-center" data-screen="franchise_owner_command_center">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Franchise Owner Command Center</span>
+    </a>
+    
+    <a href="/offices/franchise/roles/franchise_owner/branch-overview" class="pc-sidebar-link " data-testid="sidebar-link-franchise_owner_branch_overview" data-route="/offices/franchise/roles/franchise_owner/branch-overview" data-screen="franchise_owner_branch_overview">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Franchise Owner Branch Overview</span>
+    </a>
+    
+    <a href="/offices/franchise/roles/franchise_owner/staff" class="pc-sidebar-link " data-testid="sidebar-link-franchise_owner_staff" data-route="/offices/franchise/roles/franchise_owner/staff" data-screen="franchise_owner_staff">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Franchise Owner Staff</span>
+    </a>
+    
+    <a href="/offices/franchise/roles/franchise_owner/clients" class="pc-sidebar-link " data-testid="sidebar-link-franchise_owner_clients" data-route="/offices/franchise/roles/franchise_owner/clients" data-screen="franchise_owner_clients">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Franchise Owner Clients</span>
+    </a>
+    
+    <a href="/offices/franchise/roles/franchise_owner/appointments" class="pc-sidebar-link " data-testid="sidebar-link-franchise_owner_appointments" data-route="/offices/franchise/roles/franchise_owner/appointments" data-screen="franchise_owner_appointments">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Franchise Owner Appointments</span>
+    </a>
+    
+    <a href="/executive/franchise-owner-finance-snapshot" class="pc-sidebar-link " data-testid="sidebar-link-franchise_owner_finance_snapshot" data-route="/executive/franchise-owner-finance-snapshot" data-screen="franchise_owner_finance_snapshot">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Franchise Owner Finance Snapshot</span>
+    </a>
+    
+    <a href="/offices/franchise/roles/franchise_owner/compliance" class="pc-sidebar-link " data-testid="sidebar-link-franchise_owner_compliance" data-route="/offices/franchise/roles/franchise_owner/compliance" data-screen="franchise_owner_compliance">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Franchise Owner Compliance</span>
+    </a>
+    
+    <a href="/offices/franchise/roles/franchise_owner/reports" class="pc-sidebar-link " data-testid="sidebar-link-franchise_owner_reports" data-route="/offices/franchise/roles/franchise_owner/reports" data-screen="franchise_owner_reports">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Franchise Owner Reports</span>
+    </a>
+    
+    <a href="/executive/franchise-command-center" class="pc-sidebar-link " data-testid="sidebar-link-franchise_command_center" data-route="/executive/franchise-command-center" data-screen="franchise_command_center">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Franchise Command Center</span>
+    </a>
+    
+    <a href="/executive/revenue-snapshot" class="pc-sidebar-link " data-testid="sidebar-link-revenue_snapshot" data-route="/executive/revenue-snapshot" data-screen="revenue_snapshot">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Revenue Snapshot</span>
+    </a>
+    
+    <a href="/executive/staff-management" class="pc-sidebar-link " data-testid="sidebar-link-staff_management" data-route="/executive/staff-management" data-screen="staff_management">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Staff Management</span>
+    </a>
+    
+    <a href="/executive/appointment-overview" class="pc-sidebar-link " data-testid="sidebar-link-appointment_overview" data-route="/executive/appointment-overview" data-screen="appointment_overview">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Appointment Overview</span>
+    </a>
+    
+    <a href="/executive/compliance-overview" class="pc-sidebar-link is-active" data-testid="sidebar-link-compliance_overview" data-route="/executive/compliance-overview" data-screen="compliance_overview">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Compliance Overview</span>
+    </a>
+    
+    <a href="/executive/franchise-command-center4-k" class="pc-sidebar-link " data-testid="sidebar-link-franchise_command_center4_k" data-route="/executive/franchise-command-center4-k" data-screen="franchise_command_center4_k">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Franchise Command Center4 K</span>
+    </a>
+    
+  </div>
+  
+
+  <div class="pc-sidebar-footer">
+    <span class="pc-shell-status-dot"></span>
+    <span>Shell loaded</span>
+  </div>
+</aside>
+
+  <div class="pc-shell">
+    <header class="pc-topbar" data-testid="app-topbar">
+  <div class="pc-topbar-left">
+    <div class="pc-breadcrumb" data-testid="breadcrumb">Primecare Franchise / Franchise Owner</div>
+    <div class="pc-topbar-title-row">
+      <h1 class="pc-screen-title" data-testid="screen-title">Submit Data</h1>
+      <span class="pc-role-badge" data-testid="role-badge">Franchise Owner</span>
+    </div>
+  </div>
+
+  <div class="pc-topbar-actions">
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in Primecare Franchise...</div>
+    
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    <div class="pc-profile-avatar" data-testid="topbar-profile-avatar">FO</div>
+  </div>
+</header>
+
+    <main class="pc-content" data-testid="main-content">
+  <div class="pc-content-shell" data-testid="content-page-shell">
+    <div class="pc-content-header">
+      <div>
+        <div class="pc-content-title">Submit Data</div>
+        <div class="pc-content-subtitle">Visual interface layout contract.</div>
+      </div>
+      <span class="pc-content-state-badge" data-testid="content-state">Active</span>
+    </div>
+
+    
+
+    
+    <div class="pc-section-grid" data-testid="screen-section-grid">
+      
+      <section class="pc-section pc-section--header" data-testid="section-compliance_overview_header" data-section-type="header">
+        <div class="pc-section-header">
+          <div>
+            <h2>Header Section</h2>
+            <p>Screen header with title, subtitle, and layout structure.</p>
+          </div>
+          <span>header</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="compliance_overview-screen" data-element-type="layout">
+            ComplianceOverviewScreen Screen Root
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="compliance_overview-title" data-element-type="header">
+            ComplianceOverviewScreen Page Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--filters" data-testid="section-compliance_overview_filter_bar" data-section-type="filters">
+        <div class="pc-section-header">
+          <div>
+            <h2>Filter Bar Section</h2>
+            <p>Advanced search input, status filters, and date picker controls.</p>
+          </div>
+          <span>filters</span>
+        </div>
+        <div class="pc-section-body">
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--table" data-testid="section-compliance_overview_data_table" data-section-type="table">
+        <div class="pc-section-header">
+          <div>
+            <h2>Data Table Section</h2>
+            <p>Responsive tabular grid showing records and operation details.</p>
+          </div>
+          <span>table</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="compliance_overview-content" data-element-type="layout">
+            ComplianceOverviewScreen Primary Content
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="complianceoverview-screen" data-element-type="layout">
+            Complianceoverview Screen
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="complianceoverview-content" data-element-type="layout">
+            Complianceoverview Content
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="complianceoverview-title" data-element-type="header">
+            Complianceoverview Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--pagination" data-testid="section-compliance_overview_pagination" data-section-type="pagination">
+        <div class="pc-section-header">
+          <div>
+            <h2>Pagination Section</h2>
+            <p>Controls to navigate across paginated list records.</p>
+          </div>
+          <span>pagination</span>
+        </div>
+        <div class="pc-section-body">
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--action_bar" data-testid="section-compliance_overview_action_bar" data-section-type="action_bar">
+        <div class="pc-section-header">
+          <div>
+            <h2>Action Bar Section</h2>
+            <p>Row of administrative button triggers (create, export, refresh).</p>
+          </div>
+          <span>action_bar</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--button" data-testid="complianceoverview-btn-1" data-element-type="button">
+            Complianceoverview Btn 1
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="complianceoverview-btn-2" data-element-type="button">
+            Complianceoverview Btn 2
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="complianceoverview-btn-3" data-element-type="button">
+            Complianceoverview Btn 3
+          </div>
+          
+        </div>
+      </section>
+      
+    </div>
+    
+  </div>
+</main>
+
+  </div>
+</body>
+</html>

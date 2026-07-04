@@ -66,7 +66,7 @@ describe("Screen - psw_my_shifts", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_my_shifts");
-      cy.task("log", "✅ PROGRESS: - Verified PswMyShiftsScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Psw My Shifts successfully!\n");
     });
   });
 });

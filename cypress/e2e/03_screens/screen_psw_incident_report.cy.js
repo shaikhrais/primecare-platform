@@ -66,7 +66,7 @@ describe("Screen - psw_incident_report", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_incident_report");
-      cy.task("log", "✅ PROGRESS: - Verified PswIncidentReportScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Report Incident successfully!\n");
     });
   });
 });

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Territory Expansion Manager Forecast
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class TerritoryExpansionManagerForecastModel {
-  const TerritoryExpansionManagerForecastModel();
-  
-  factory TerritoryExpansionManagerForecastModel.fromJson(Map<String, dynamic> json) {
-    return const TerritoryExpansionManagerForecastModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const TerritoryExpansionManagerForecastModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  TerritoryExpansionManagerForecastModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return TerritoryExpansionManagerForecastModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

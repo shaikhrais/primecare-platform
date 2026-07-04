@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Chemotherapy Protocol Builder
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ChemotherapyProtocolBuilderModel {
-  const ChemotherapyProtocolBuilderModel();
-  
-  factory ChemotherapyProtocolBuilderModel.fromJson(Map<String, dynamic> json) {
-    return const ChemotherapyProtocolBuilderModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ChemotherapyProtocolBuilderModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ChemotherapyProtocolBuilderModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ChemotherapyProtocolBuilderModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

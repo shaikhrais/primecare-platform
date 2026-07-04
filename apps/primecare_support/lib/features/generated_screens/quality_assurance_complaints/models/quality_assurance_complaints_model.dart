@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Quality Assurance Complaints
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class QualityAssuranceComplaintsModel {
-  const QualityAssuranceComplaintsModel();
-  
-  factory QualityAssuranceComplaintsModel.fromJson(Map<String, dynamic> json) {
-    return const QualityAssuranceComplaintsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const QualityAssuranceComplaintsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  QualityAssuranceComplaintsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return QualityAssuranceComplaintsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

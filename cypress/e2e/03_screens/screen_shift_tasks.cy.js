@@ -66,7 +66,7 @@ describe("Screen - shift_tasks", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_shift_tasks");
-      cy.task("log", "✅ PROGRESS: - Verified ShiftTasksScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Shift Tasks successfully!\n");
     });
   });
 });

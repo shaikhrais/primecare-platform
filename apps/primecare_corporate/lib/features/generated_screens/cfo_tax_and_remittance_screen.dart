@@ -59,7 +59,7 @@ class CfoTaxAndRemittanceScreenController extends StateNotifier<CfoTaxAndRemitta
       : super(
           CfoTaxAndRemittanceScreenState(
             isLoading: false,
-            title: 'CFO Tax And Remittance'.tr(),
+            title: 'Cfo Tax And Remittance'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

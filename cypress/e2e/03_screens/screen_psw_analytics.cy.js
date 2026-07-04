@@ -66,7 +66,7 @@ describe("Screen - psw_analytics", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_analytics");
-      cy.task("log", "✅ PROGRESS: - Verified PswAnalyticsScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Psw Analytics successfully!\n");
     });
   });
 });

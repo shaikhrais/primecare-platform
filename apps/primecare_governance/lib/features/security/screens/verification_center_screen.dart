@@ -282,15 +282,15 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: Cy(
-                    id: 'data-cy-deploy-card-static',
+                    id: 'data-cy-deploy-card-\${d.appName}',
                     child: PrimeCareCard(
-                      key: const Key('data-cy-deploy-card-static'),
+                      key: const Key('data-cy-deploy-card-\${d.appName}'),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Data Cy Deploy Card'.tr(), style: theme.typography.h4),
+                            Text('Data Cy Deploy Card \${D.Appname}'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
                             Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
@@ -303,15 +303,15 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: Cy(
-                    id: 'data-cy-live-link-static',
+                    id: 'data-cy-live-link-\${d.appName}',
                     child: PrimeCareCard(
-                      key: const Key('data-cy-live-link-static'),
+                      key: const Key('data-cy-live-link-\${d.appName}'),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Data Cy Live Link'.tr(), style: theme.typography.h4),
+                            Text('Data Cy Live Link \${D.Appname}'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
                             Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
@@ -482,15 +482,15 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
                       width: double.infinity,
                       height: 48,
                       child: Cy(
-                        id: 'data-cy-logs-btn-static',
+                        id: 'data-cy-logs-btn-\${d.appName}',
                         child: ElevatedButton(
-                          key: const Key('data-cy-logs-btn-static'),
+                          key: const Key('data-cy-logs-btn-\${d.appName}'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: theme.colors.primary,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                           ),
-                          onPressed: () => controller.addLog('Action: Data Cy Logs Btn executed successfully.'),
-                          child: Text('Data Cy Logs Btn'.tr(), style: const TextStyle(color: Colors.white)),
+                          onPressed: () => controller.addLog('Action: Data Cy Logs Btn \${D.Appname} executed successfully.'),
+                          child: Text('Data Cy Logs Btn \${D.Appname}'.tr(), style: const TextStyle(color: Colors.white)),
                         ),
                       ),
                     ),

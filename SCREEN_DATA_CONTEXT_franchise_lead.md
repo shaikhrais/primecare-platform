@@ -12,7 +12,7 @@ Below are the database records from `governance.db` used to configure and build 
 * **Screen Name**: `FranchiseLeadScreen`
 * **Route Path**: `/management/franchise-lead`
 * **Actual File Path**: `packages/primecare_ui/lib/src/screens/management/franchise_lead_screen.dart`
-* **Stage/Status**: `wired`
+* **Stage/Status**: `template_created`
 
 ## 2. App Record
 * **ID**: `4`
@@ -67,20 +67,16 @@ Below are the database records from `governance.db` used to configure and build 
 
 ## 8. Test Definition & Steps
 * **Test Code**: `franchise_lead_runtime`
-* **Test Name**: `FranchiseLeadScreen Smoke Test`
+* **Test Name**: `FranchiseLeadScreen Runtime Test`
 * **Test Type**: `e2e`
-* **Expected Title**: `Franchise Lead`
+* **Expected Title**: `FranchiseLeadScreen`
 * **Expected Layout**: `dashboard`
 
 ### Test Steps
 1. **login_as_role** (Selector: `None`, Value: `bus_dev`)
-2. **verify_sidebar_exists** (Selector: `app-sidebar`, Value: `None`)
-3. **verify_sidebar_link_exists** (Selector: `None`, Value: `Franchise Lead`)
-4. **click_sidebar_link** (Selector: `None`, Value: `Franchise Lead`)
-5. **check_url** (Selector: `None`, Value: `/management/franchise-lead`)
-6. **verify_topbar_exists** (Selector: `app-topbar`, Value: `None`)
-7. **verify_main_content_exists** (Selector: `app-content-slot`, Value: `None`)
-8. **verify_screen_not_empty** (Selector: `None`, Value: `None`)
-9. **verify_forbidden_text_absent** (Selector: `None`, Value: `None`)
-10. **verify_no_console_errors** (Selector: `None`, Value: `None`)
-11. **screenshot** (Selector: `None`, Value: `None`)
+2. **visit** (Selector: `None`, Value: `/management/franchise-lead`)
+3. **should_be_visible** (Selector: `franchise_lead-screen`, Value: `None`)
+4. **should_be_visible** (Selector: `franchise_lead-title`, Value: `None`)
+5. **should_be_visible** (Selector: `franchise_lead-content`, Value: `None`)
+6. **check_no_console_error** (Selector: `None`, Value: `None`)
+7. **screenshot** (Selector: `None`, Value: `None`)

@@ -59,7 +59,7 @@ class CeoAlertsAndRisksScreenController extends StateNotifier<CeoAlertsAndRisksS
       : super(
           CeoAlertsAndRisksScreenState(
             isLoading: false,
-            title: 'CEO Alerts And Risks'.tr(),
+            title: 'Ceo Alerts And Risks'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

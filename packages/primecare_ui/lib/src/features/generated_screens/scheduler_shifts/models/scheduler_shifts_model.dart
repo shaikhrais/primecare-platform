@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Scheduler Shifts
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class SchedulerShiftsModel {
-  const SchedulerShiftsModel();
-  
-  factory SchedulerShiftsModel.fromJson(Map<String, dynamic> json) {
-    return const SchedulerShiftsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const SchedulerShiftsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  SchedulerShiftsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return SchedulerShiftsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

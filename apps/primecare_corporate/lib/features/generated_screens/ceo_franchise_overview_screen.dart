@@ -59,7 +59,7 @@ class CeoFranchiseOverviewScreenController extends StateNotifier<CeoFranchiseOve
       : super(
           CeoFranchiseOverviewScreenState(
             isLoading: false,
-            title: 'CEO Franchise Overview'.tr(),
+            title: 'Ceo Franchise Overview'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Staff Training Matrix
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class StaffTrainingMatrixModel {
-  const StaffTrainingMatrixModel();
-  
-  factory StaffTrainingMatrixModel.fromJson(Map<String, dynamic> json) {
-    return const StaffTrainingMatrixModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const StaffTrainingMatrixModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  StaffTrainingMatrixModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return StaffTrainingMatrixModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

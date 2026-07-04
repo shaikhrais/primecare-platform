@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Coo Issue Escalations
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/coo_issue_escalations_header_section.dart';
+import 'sections/coo_issue_escalations_content_summary_section.dart';
+import 'sections/coo_issue_escalations_primary_content_section.dart';
+import 'sections/coo_issue_escalations_action_bar_section.dart';
 
-class CooIssueEscalationsScreen extends ConsumerWidget {
+class CooIssueEscalationsScreen extends StatelessWidget {
   const CooIssueEscalationsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Coo Issue Escalations Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'coo_issue_escalations',
+      title: 'Coo Issue Escalations',
+      child: Column(
+        children: const [
+          const CooIssueEscalationsHeaderSection(),
+          const CooIssueEscalationsContentSummarySection(),
+          const CooIssueEscalationsPrimaryContentSection(),
+          const CooIssueEscalationsActionBarSection(),
+        ],
       ),
     );
   }

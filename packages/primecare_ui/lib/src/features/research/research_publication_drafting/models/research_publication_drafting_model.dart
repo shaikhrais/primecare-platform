@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Research Publication Drafting
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ResearchPublicationDraftingModel {
-  const ResearchPublicationDraftingModel();
-  
-  factory ResearchPublicationDraftingModel.fromJson(Map<String, dynamic> json) {
-    return const ResearchPublicationDraftingModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ResearchPublicationDraftingModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ResearchPublicationDraftingModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ResearchPublicationDraftingModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

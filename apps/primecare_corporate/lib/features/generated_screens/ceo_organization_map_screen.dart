@@ -59,7 +59,7 @@ class CeoOrganizationMapScreenController extends StateNotifier<CeoOrganizationMa
       : super(
           CeoOrganizationMapScreenState(
             isLoading: false,
-            title: 'CEO Organization Map'.tr(),
+            title: 'Ceo Organization Map'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

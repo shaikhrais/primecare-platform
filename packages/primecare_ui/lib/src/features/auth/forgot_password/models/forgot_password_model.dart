@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Forgot Password
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ForgotPasswordModel {
-  const ForgotPasswordModel();
-  
-  factory ForgotPasswordModel.fromJson(Map<String, dynamic> json) {
-    return const ForgotPasswordModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ForgotPasswordModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ForgotPasswordModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ForgotPasswordModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

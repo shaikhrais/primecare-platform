@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Cfo Tax And Remittance
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CfoTaxAndRemittanceModel {
-  const CfoTaxAndRemittanceModel();
-  
-  factory CfoTaxAndRemittanceModel.fromJson(Map<String, dynamic> json) {
-    return const CfoTaxAndRemittanceModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CfoTaxAndRemittanceModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CfoTaxAndRemittanceModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CfoTaxAndRemittanceModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

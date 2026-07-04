@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Local Marketing Manager Budget
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class LocalMarketingManagerBudgetModel {
-  const LocalMarketingManagerBudgetModel();
-  
-  factory LocalMarketingManagerBudgetModel.fromJson(Map<String, dynamic> json) {
-    return const LocalMarketingManagerBudgetModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const LocalMarketingManagerBudgetModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  LocalMarketingManagerBudgetModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return LocalMarketingManagerBudgetModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

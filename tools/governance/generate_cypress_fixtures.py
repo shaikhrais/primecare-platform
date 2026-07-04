@@ -20,7 +20,7 @@ def dump(name, query):
 
 dump("apps.json", "SELECT * FROM apps")
 dump("roles.json", "SELECT * FROM roles")
-dump("screens.json", "SELECT * FROM screens WHERE cypress_ready = 1")
+dump("screens.json", "SELECT * FROM screens WHERE active = 1")
 dump("languages.json", "SELECT * FROM language_registry WHERE enabled = 1")
 dump("api_endpoints.json", "SELECT * FROM api_endpoints")
 

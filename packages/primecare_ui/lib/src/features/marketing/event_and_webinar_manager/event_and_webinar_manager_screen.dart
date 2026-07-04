@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Event And Webinar Manager
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/event_and_webinar_manager_header_section.dart';
+import 'sections/event_and_webinar_manager_content_summary_section.dart';
+import 'sections/event_and_webinar_manager_primary_content_section.dart';
+import 'sections/event_and_webinar_manager_action_bar_section.dart';
 
-class EventAndWebinarManagerScreen extends ConsumerWidget {
+class EventAndWebinarManagerScreen extends StatelessWidget {
   const EventAndWebinarManagerScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Event And Webinar Manager Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'event_and_webinar_manager',
+      title: 'Event And Webinar Manager',
+      child: Column(
+        children: const [
+          const EventAndWebinarManagerHeaderSection(),
+          const EventAndWebinarManagerContentSummarySection(),
+          const EventAndWebinarManagerPrimaryContentSection(),
+          const EventAndWebinarManagerActionBarSection(),
+        ],
       ),
     );
   }

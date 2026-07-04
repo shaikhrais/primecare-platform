@@ -59,7 +59,7 @@ class CtoIssueTrackingScreenController extends StateNotifier<CtoIssueTrackingScr
       : super(
           CtoIssueTrackingScreenState(
             isLoading: false,
-            title: 'CTO Issue Tracking'.tr(),
+            title: 'Cto Issue Tracking'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

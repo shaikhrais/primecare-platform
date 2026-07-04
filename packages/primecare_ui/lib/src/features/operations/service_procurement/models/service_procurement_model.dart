@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Service Procurement
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ServiceProcurementModel {
-  const ServiceProcurementModel();
-  
-  factory ServiceProcurementModel.fromJson(Map<String, dynamic> json) {
-    return const ServiceProcurementModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ServiceProcurementModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ServiceProcurementModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ServiceProcurementModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

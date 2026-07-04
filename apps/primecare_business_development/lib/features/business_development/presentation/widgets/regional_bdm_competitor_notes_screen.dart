@@ -59,7 +59,7 @@ class RegionalBdmCompetitorNotesScreenController extends StateNotifier<RegionalB
       : super(
           RegionalBdmCompetitorNotesScreenState(
             isLoading: false,
-            title: 'Regional BDM Competitor Notes'.tr(),
+            title: 'Regional Bdm Competitor Notes'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

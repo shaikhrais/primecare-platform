@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Compliance Manager Incident Review
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ComplianceManagerIncidentReviewModel {
-  const ComplianceManagerIncidentReviewModel();
-  
-  factory ComplianceManagerIncidentReviewModel.fromJson(Map<String, dynamic> json) {
-    return const ComplianceManagerIncidentReviewModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ComplianceManagerIncidentReviewModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ComplianceManagerIncidentReviewModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ComplianceManagerIncidentReviewModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

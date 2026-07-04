@@ -59,7 +59,7 @@ class HrHiringDashboardScreenController extends StateNotifier<HrHiringDashboardS
       : super(
           HrHiringDashboardScreenState(
             isLoading: false,
-            title: 'HR Hiring Dashboard'.tr(),
+            title: 'HrHiringDashboardScreen'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

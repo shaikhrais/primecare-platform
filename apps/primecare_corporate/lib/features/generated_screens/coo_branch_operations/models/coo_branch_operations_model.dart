@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Coo Branch Operations
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CooBranchOperationsModel {
-  const CooBranchOperationsModel();
-  
-  factory CooBranchOperationsModel.fromJson(Map<String, dynamic> json) {
-    return const CooBranchOperationsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CooBranchOperationsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CooBranchOperationsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CooBranchOperationsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

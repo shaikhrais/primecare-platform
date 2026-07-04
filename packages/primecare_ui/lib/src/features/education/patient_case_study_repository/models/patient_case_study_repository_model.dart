@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Patient Case Study Repository
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PatientCaseStudyRepositoryModel {
-  const PatientCaseStudyRepositoryModel();
-  
-  factory PatientCaseStudyRepositoryModel.fromJson(Map<String, dynamic> json) {
-    return const PatientCaseStudyRepositoryModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PatientCaseStudyRepositoryModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PatientCaseStudyRepositoryModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PatientCaseStudyRepositoryModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

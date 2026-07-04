@@ -59,7 +59,7 @@ class PswCheckInScreenController extends StateNotifier<PswCheckInScreenState> {
       : super(
           PswCheckInScreenState(
             isLoading: false,
-            title: 'PSW Check In'.tr(),
+            title: 'Psw Check In'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Family Care Updates
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class FamilyCareUpdatesModel {
-  const FamilyCareUpdatesModel();
-  
-  factory FamilyCareUpdatesModel.fromJson(Map<String, dynamic> json) {
-    return const FamilyCareUpdatesModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const FamilyCareUpdatesModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  FamilyCareUpdatesModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return FamilyCareUpdatesModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

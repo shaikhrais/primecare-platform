@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Client Payments
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ClientPaymentsModel {
-  const ClientPaymentsModel();
-  
-  factory ClientPaymentsModel.fromJson(Map<String, dynamic> json) {
-    return const ClientPaymentsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ClientPaymentsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ClientPaymentsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ClientPaymentsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

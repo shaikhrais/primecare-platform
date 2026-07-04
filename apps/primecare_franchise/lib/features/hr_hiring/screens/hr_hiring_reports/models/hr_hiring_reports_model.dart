@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Hr Hiring Reports
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class HrHiringReportsModel {
-  const HrHiringReportsModel();
-  
-  factory HrHiringReportsModel.fromJson(Map<String, dynamic> json) {
-    return const HrHiringReportsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const HrHiringReportsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  HrHiringReportsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return HrHiringReportsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

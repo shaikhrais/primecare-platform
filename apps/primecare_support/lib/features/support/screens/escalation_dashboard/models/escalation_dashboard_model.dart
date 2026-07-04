@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Escalation Dashboard
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class EscalationDashboardModel {
-  const EscalationDashboardModel();
-  
-  factory EscalationDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const EscalationDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const EscalationDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  EscalationDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return EscalationDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

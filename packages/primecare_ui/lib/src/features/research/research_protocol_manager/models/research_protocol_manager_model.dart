@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Research Protocol Manager
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ResearchProtocolManagerModel {
-  const ResearchProtocolManagerModel();
-  
-  factory ResearchProtocolManagerModel.fromJson(Map<String, dynamic> json) {
-    return const ResearchProtocolManagerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ResearchProtocolManagerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ResearchProtocolManagerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ResearchProtocolManagerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

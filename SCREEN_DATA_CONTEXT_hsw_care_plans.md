@@ -12,7 +12,7 @@ Below are the database records from `governance.db` used to configure and build 
 * **Screen Name**: `HswCarePlansScreen`
 * **Route Path**: `/clinical/hsw-care-plans`
 * **Actual File Path**: `packages/primecare_ui/lib/src/screens/clinical/hsw_care_plans_screen.dart`
-* **Stage/Status**: `wired`
+* **Stage/Status**: `template_created`
 
 ## 2. App Record
 * **ID**: `1`
@@ -67,20 +67,16 @@ Below are the database records from `governance.db` used to configure and build 
 
 ## 8. Test Definition & Steps
 * **Test Code**: `hsw_care_plans_runtime`
-* **Test Name**: `HswCarePlansScreen Smoke Test`
+* **Test Name**: `HswCarePlansScreen Runtime Test`
 * **Test Type**: `e2e`
-* **Expected Title**: `HSW Care Plans`
+* **Expected Title**: `HswCarePlansScreen`
 * **Expected Layout**: `dashboard`
 
 ### Test Steps
 1. **login_as_role** (Selector: `None`, Value: `hsw`)
-2. **verify_sidebar_exists** (Selector: `app-sidebar`, Value: `None`)
-3. **verify_sidebar_link_exists** (Selector: `None`, Value: `HSW Care Plans`)
-4. **click_sidebar_link** (Selector: `None`, Value: `HSW Care Plans`)
-5. **check_url** (Selector: `None`, Value: `/clinical/hsw-care-plans`)
-6. **verify_topbar_exists** (Selector: `app-topbar`, Value: `None`)
-7. **verify_main_content_exists** (Selector: `app-content-slot`, Value: `None`)
-8. **verify_screen_not_empty** (Selector: `None`, Value: `None`)
-9. **verify_forbidden_text_absent** (Selector: `None`, Value: `None`)
-10. **verify_no_console_errors** (Selector: `None`, Value: `None`)
-11. **screenshot** (Selector: `None`, Value: `None`)
+2. **visit** (Selector: `None`, Value: `/clinical/hsw-care-plans`)
+3. **should_be_visible** (Selector: `hsw_care_plans-screen`, Value: `None`)
+4. **should_be_visible** (Selector: `hsw_care_plans-title`, Value: `None`)
+5. **should_be_visible** (Selector: `hsw_care_plans-content`, Value: `None`)
+6. **check_no_console_error** (Selector: `None`, Value: `None`)
+7. **screenshot** (Selector: `None`, Value: `None`)

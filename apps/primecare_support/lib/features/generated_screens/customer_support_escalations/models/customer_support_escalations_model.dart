@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Customer Support Escalations
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CustomerSupportEscalationsModel {
-  const CustomerSupportEscalationsModel();
-  
-  factory CustomerSupportEscalationsModel.fromJson(Map<String, dynamic> json) {
-    return const CustomerSupportEscalationsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CustomerSupportEscalationsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CustomerSupportEscalationsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CustomerSupportEscalationsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

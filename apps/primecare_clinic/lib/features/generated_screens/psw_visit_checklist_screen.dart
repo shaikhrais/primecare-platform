@@ -59,7 +59,7 @@ class PswVisitChecklistScreenController extends StateNotifier<PswVisitChecklistS
       : super(
           PswVisitChecklistScreenState(
             isLoading: false,
-            title: 'PSW Visit Checklist'.tr(),
+            title: 'Psw Visit Checklist'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

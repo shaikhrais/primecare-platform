@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Simulation Lab Scheduler
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class SimulationLabSchedulerModel {
-  const SimulationLabSchedulerModel();
-  
-  factory SimulationLabSchedulerModel.fromJson(Map<String, dynamic> json) {
-    return const SimulationLabSchedulerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const SimulationLabSchedulerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  SimulationLabSchedulerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return SimulationLabSchedulerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

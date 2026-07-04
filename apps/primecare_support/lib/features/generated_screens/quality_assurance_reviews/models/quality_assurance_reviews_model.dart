@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Quality Assurance Reviews
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class QualityAssuranceReviewsModel {
-  const QualityAssuranceReviewsModel();
-  
-  factory QualityAssuranceReviewsModel.fromJson(Map<String, dynamic> json) {
-    return const QualityAssuranceReviewsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const QualityAssuranceReviewsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  QualityAssuranceReviewsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return QualityAssuranceReviewsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

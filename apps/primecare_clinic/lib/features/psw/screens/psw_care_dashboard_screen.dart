@@ -59,7 +59,7 @@ class PswCareDashboardScreenController extends StateNotifier<PswCareDashboardScr
       : super(
           PswCareDashboardScreenState(
             isLoading: false,
-            title: 'PSW Care Dashboard'.tr(),
+            title: 'Psw Care Dashboard'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

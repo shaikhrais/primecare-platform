@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Regional Bdm Meetings
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class RegionalBdmMeetingsModel {
-  const RegionalBdmMeetingsModel();
-  
-  factory RegionalBdmMeetingsModel.fromJson(Map<String, dynamic> json) {
-    return const RegionalBdmMeetingsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const RegionalBdmMeetingsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  RegionalBdmMeetingsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return RegionalBdmMeetingsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

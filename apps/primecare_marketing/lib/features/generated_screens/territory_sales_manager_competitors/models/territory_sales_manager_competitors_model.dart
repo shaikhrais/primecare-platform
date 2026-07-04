@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Territory Sales Manager Competitors
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class TerritorySalesManagerCompetitorsModel {
-  const TerritorySalesManagerCompetitorsModel();
-  
-  factory TerritorySalesManagerCompetitorsModel.fromJson(Map<String, dynamic> json) {
-    return const TerritorySalesManagerCompetitorsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const TerritorySalesManagerCompetitorsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  TerritorySalesManagerCompetitorsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return TerritorySalesManagerCompetitorsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

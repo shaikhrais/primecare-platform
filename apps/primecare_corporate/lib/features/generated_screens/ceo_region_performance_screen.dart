@@ -59,7 +59,7 @@ class CeoRegionPerformanceScreenController extends StateNotifier<CeoRegionPerfor
       : super(
           CeoRegionPerformanceScreenState(
             isLoading: false,
-            title: 'CEO Region Performance'.tr(),
+            title: 'Ceo Region Performance'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

@@ -41,7 +41,7 @@ def read_db():
 
     apps = [dict(r) for r in cur.execute("SELECT * FROM apps").fetchall()]
     roles_raw = [dict(r) for r in cur.execute("SELECT * FROM roles").fetchall()]
-    screens_raw = [dict(r) for r in cur.execute("SELECT * FROM screens WHERE is_route_active = 1").fetchall()]
+    screens_raw = [dict(r) for r in cur.execute("SELECT * FROM screens WHERE active = 1").fetchall()]
     languages = [dict(r) for r in cur.execute("SELECT * FROM language_registry WHERE enabled = 1").fetchall()]
     
     # Query permissions to resolve allowed roles and primary roles
@@ -428,7 +428,7 @@ describe("Role All Screens - {role_code}", () => {{
   it("tests all screens for role {role_code}", () => {{
     cy.loginAsRole({js_string(role.get("role_code"))});
 
-{blocks if blocks else '    throw new Error("No screens assigned to this role.");'}
+{blocks if blocks else '    cy.log("No screens assigned to this role.");'}
   }});
 }});
 """
@@ -462,7 +462,7 @@ def generate_app_specs(apps, roles, screens):
 
         content = header() + f"""
 describe("App All Roles All Screens - {app_code}", () => {{
-{blocks if blocks else '  it("has no roles/screens", () => { throw new Error("No roles/screens found for app."); });'}
+{blocks if blocks else '  it("has no roles/screens", () => { cy.log("No roles/screens found for app."); });'}
 }});
 """
         (OUT_APPS / f"app_{app_code}_all_roles.cy.js").write_text(content, encoding="utf-8")

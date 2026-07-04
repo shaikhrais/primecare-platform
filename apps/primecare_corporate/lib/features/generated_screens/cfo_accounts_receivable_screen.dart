@@ -59,7 +59,7 @@ class CfoAccountsReceivableScreenController extends StateNotifier<CfoAccountsRec
       : super(
           CfoAccountsReceivableScreenState(
             isLoading: false,
-            title: 'CFO Accounts Receivable'.tr(),
+            title: 'Cfo Accounts Receivable'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

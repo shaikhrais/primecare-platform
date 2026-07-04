@@ -59,7 +59,7 @@ class CooBranchOperationsScreenController extends StateNotifier<CooBranchOperati
       : super(
           CooBranchOperationsScreenState(
             isLoading: false,
-            title: 'COO Branch Operations'.tr(),
+            title: 'Coo Branch Operations'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

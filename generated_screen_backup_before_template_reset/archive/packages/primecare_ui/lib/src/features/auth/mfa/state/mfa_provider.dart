@@ -1,0 +1,20 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../models/mfa_model.dart';
+
+class MfaNotifier extends StateNotifier<MfaModel> {
+  MfaNotifier() : super(const MfaModel(isLoading: true));
+
+  Future<void> loadData() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      // TODO: Call API service
+      state = state.copyWith(isLoading: false, data: const {});
+    } catch (e) {
+      state = state.copyWith(isLoading: false, errorMessage: e.toString());
+    }
+  }
+}
+
+final mfaProvider = StateNotifierProvider<MfaNotifier, MfaModel>((ref) {
+  return MfaNotifier()..loadData();
+});

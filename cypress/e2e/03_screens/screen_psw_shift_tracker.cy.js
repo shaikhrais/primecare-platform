@@ -66,7 +66,7 @@ describe("Screen - psw_shift_tracker", () => {
 
       // Take logout screenshot
       cy.screenshot("logout_screen_psw_shift_tracker");
-      cy.task("log", "✅ PROGRESS: - Verified PswShiftTrackerScreen successfully!\n");
+      cy.task("log", "✅ PROGRESS: - Verified Shift Tracker successfully!\n");
     });
   });
 });

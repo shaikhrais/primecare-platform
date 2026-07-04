@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Api Key Manager
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ApiKeyManagerModel {
-  const ApiKeyManagerModel();
-  
-  factory ApiKeyManagerModel.fromJson(Map<String, dynamic> json) {
-    return const ApiKeyManagerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ApiKeyManagerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ApiKeyManagerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ApiKeyManagerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

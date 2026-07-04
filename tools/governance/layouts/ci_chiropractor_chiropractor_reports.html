@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" dir="LTR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VolunteerDashboardScreen | Primecare Clinic</title>
+  <link rel="stylesheet" href="./primecare_theme.css" />
+
+  <style>
+    :root {
+      --pc-color-primary: #0F172A;
+      --pc-color-secondary: #475569;
+      --pc-color-background: #F8FAFC;
+      --pc-color-surface: #FFFFFF;
+      --pc-color-text: #0f172a;
+      --pc-color-muted: #64748b;
+      --pc-spacing-sm: 10px;
+      --pc-spacing-md: 16px;
+      --pc-spacing-lg: 28px;
+      --pc-radius-md: 8px;
+      --pc-font-family: Inter, sans-serif;
+    }
+  </style>
+
+</head>
+<body data-theme="primecare_light_default" data-app="ci" data-role="chiropractor" data-screen="chiropractor_reports">
+  <aside class="pc-sidebar" data-testid="app-sidebar">
+  <div class="pc-sidebar-brand">
+    <div class="pc-brand-logo">CI</div>
+    <div>
+      <div class="pc-brand-title">Primecare Clinic</div>
+      <div class="pc-brand-subtitle">Chiropractor</div>
+    </div>
+  </div>
+
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">Overview</div>
+    
+    <a href="/offices/clinical/roles/chiropractor/dashboard" class="pc-sidebar-link " data-testid="sidebar-link-chiropractor_dashboard" data-route="/offices/clinical/roles/chiropractor/dashboard" data-screen="chiropractor_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Chiropractor Dashboard</span>
+    </a>
+    
+  </div>
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">General</div>
+    
+    <a href="/offices/clinical/roles/chiropractor/command-center" class="pc-sidebar-link " data-testid="sidebar-link-chiropractor_command_center" data-route="/offices/clinical/roles/chiropractor/command-center" data-screen="chiropractor_command_center">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Chiropractor Command Center</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/chiropractor/appointments" class="pc-sidebar-link " data-testid="sidebar-link-chiropractor_appointments" data-route="/offices/clinical/roles/chiropractor/appointments" data-screen="chiropractor_appointments">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Chiropractor Appointments</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/chiropractor/client-intake" class="pc-sidebar-link " data-testid="sidebar-link-chiropractor_client_intake" data-route="/offices/clinical/roles/chiropractor/client-intake" data-screen="chiropractor_client_intake">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Chiropractor Client Intake</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/chiropractor/assessment" class="pc-sidebar-link " data-testid="sidebar-link-chiropractor_assessment" data-route="/offices/clinical/roles/chiropractor/assessment" data-screen="chiropractor_assessment">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Chiropractor Assessment</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/chiropractor/treatment-notes" class="pc-sidebar-link " data-testid="sidebar-link-chiropractor_treatment_notes" data-route="/offices/clinical/roles/chiropractor/treatment-notes" data-screen="chiropractor_treatment_notes">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Chiropractor Treatment Notes</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/chiropractor/exercise-plan" class="pc-sidebar-link " data-testid="sidebar-link-chiropractor_exercise_plan" data-route="/offices/clinical/roles/chiropractor/exercise-plan" data-screen="chiropractor_exercise_plan">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Chiropractor Exercise Plan</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/chiropractor/billing-link" class="pc-sidebar-link " data-testid="sidebar-link-chiropractor_billing_link" data-route="/offices/clinical/roles/chiropractor/billing-link" data-screen="chiropractor_billing_link">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Chiropractor Billing Link</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/chiropractor/reports" class="pc-sidebar-link is-active" data-testid="sidebar-link-chiropractor_reports" data-route="/offices/clinical/roles/chiropractor/reports" data-screen="chiropractor_reports">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Chiropractor Reports</span>
+    </a>
+    
+  </div>
+  
+
+  <div class="pc-sidebar-footer">
+    <span class="pc-shell-status-dot"></span>
+    <span>Shell loaded</span>
+  </div>
+</aside>
+
+  <div class="pc-shell">
+    <header class="pc-topbar" data-testid="app-topbar">
+  <div class="pc-topbar-left">
+    <div class="pc-breadcrumb" data-testid="breadcrumb">Primecare Clinic / Chiropractor</div>
+    <div class="pc-topbar-title-row">
+      <h1 class="pc-screen-title" data-testid="screen-title">VolunteerDashboardScreen</h1>
+      <span class="pc-role-badge" data-testid="role-badge">Chiropractor</span>
+    </div>
+  </div>
+
+  <div class="pc-topbar-actions">
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in Primecare Clinic...</div>
+    
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    <div class="pc-profile-avatar" data-testid="topbar-profile-avatar">C</div>
+  </div>
+</header>
+
+    <main class="pc-content" data-testid="main-content">
+  <div class="pc-content-shell" data-testid="content-page-shell">
+    <div class="pc-content-header">
+      <div>
+        <div class="pc-content-title">VolunteerDashboardScreen</div>
+        <div class="pc-content-subtitle">Visual interface layout contract.</div>
+      </div>
+      <span class="pc-content-state-badge" data-testid="content-state">Active</span>
+    </div>
+
+    
+
+    
+    <div class="pc-section-grid" data-testid="screen-section-grid">
+      
+      <section class="pc-section pc-section--header" data-testid="section-chiropractor_reports_header" data-section-type="header">
+        <div class="pc-section-header">
+          <div>
+            <h2>Header Section</h2>
+            <p>Screen header with report title and timeframe.</p>
+          </div>
+          <span>header</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="chiropractor_reports-screen" data-element-type="layout">
+            ChiropractorReportsScreen Screen Root
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="chiropractor_reports-title" data-element-type="header">
+            ChiropractorReportsScreen Page Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--filters" data-testid="section-chiropractor_reports_filter_bar" data-section-type="filters">
+        <div class="pc-section-header">
+          <div>
+            <h2>Filter Bar Section</h2>
+            <p>Filters to configure parameters for the report.</p>
+          </div>
+          <span>filters</span>
+        </div>
+        <div class="pc-section-body">
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--metrics" data-testid="section-chiropractor_reports_metrics_summary" data-section-type="metrics">
+        <div class="pc-section-header">
+          <div>
+            <h2>Metrics Summary Section</h2>
+            <p>Total counters and summaries for selected parameters.</p>
+          </div>
+          <span>metrics</span>
+        </div>
+        <div class="pc-section-body">
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--chart" data-testid="section-chiropractor_reports_chart_area" data-section-type="chart">
+        <div class="pc-section-header">
+          <div>
+            <h2>Chart Area Section</h2>
+            <p>Visual graphs and comparative diagrams.</p>
+          </div>
+          <span>chart</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="chiropractor_reports-content" data-element-type="layout">
+            ChiropractorReportsScreen Primary Content
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="chiropractorreports-screen" data-element-type="layout">
+            Chiropractorreports Screen
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="chiropractorreports-title" data-element-type="header">
+            Chiropractorreports Title
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="chiropractorreports-content" data-element-type="layout">
+            Chiropractorreports Content
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--action_bar" data-testid="section-chiropractor_reports_export_actions" data-section-type="action_bar">
+        <div class="pc-section-header">
+          <div>
+            <h2>Export Actions Section</h2>
+            <p>PDF/CSV download buttons.</p>
+          </div>
+          <span>action_bar</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--button" data-testid="chiropractorreports-btn-3" data-element-type="button">
+            Chiropractorreports Btn 3
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="chiropractorreports-btn-2" data-element-type="button">
+            Chiropractorreports Btn 2
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="chiropractorreports-btn-1" data-element-type="button">
+            Chiropractorreports Btn 1
+          </div>
+          
+        </div>
+      </section>
+      
+    </div>
+    
+  </div>
+</main>
+
+  </div>
+</body>
+</html>

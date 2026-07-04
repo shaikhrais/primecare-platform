@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Clinical Outcomes Report
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ClinicalOutcomesReportModel {
-  const ClinicalOutcomesReportModel();
-  
-  factory ClinicalOutcomesReportModel.fromJson(Map<String, dynamic> json) {
-    return const ClinicalOutcomesReportModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ClinicalOutcomesReportModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ClinicalOutcomesReportModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ClinicalOutcomesReportModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

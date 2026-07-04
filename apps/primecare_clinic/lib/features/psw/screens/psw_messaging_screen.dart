@@ -59,7 +59,7 @@ class PswMessagingScreenController extends StateNotifier<PswMessagingScreenState
       : super(
           PswMessagingScreenState(
             isLoading: false,
-            title: 'PSW Messaging'.tr(),
+            title: 'Psw Messaging'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

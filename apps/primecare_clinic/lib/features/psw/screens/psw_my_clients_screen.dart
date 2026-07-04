@@ -59,7 +59,7 @@ class PswMyClientsScreenController extends StateNotifier<PswMyClientsScreenState
       : super(
           PswMyClientsScreenState(
             isLoading: false,
-            title: 'PSW My Clients'.tr(),
+            title: 'Psw My Clients'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Psw Help Support
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PswHelpSupportModel {
-  const PswHelpSupportModel();
-  
-  factory PswHelpSupportModel.fromJson(Map<String, dynamic> json) {
-    return const PswHelpSupportModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PswHelpSupportModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PswHelpSupportModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PswHelpSupportModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

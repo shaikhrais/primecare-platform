@@ -59,7 +59,7 @@ class HeadOfMarketingDashboardScreenController extends StateNotifier<HeadOfMarke
       : super(
           HeadOfMarketingDashboardScreenState(
             isLoading: false,
-            title: 'Head Of Marketing Dashboard'.tr(),
+            title: 'HeadOfMarketingDashboardScreen'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

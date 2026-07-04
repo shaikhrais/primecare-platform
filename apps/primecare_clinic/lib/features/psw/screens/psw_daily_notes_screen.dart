@@ -59,7 +59,7 @@ class PswDailyNotesScreenController extends StateNotifier<PswDailyNotesScreenSta
       : super(
           PswDailyNotesScreenState(
             isLoading: false,
-            title: 'PSW Daily Notes'.tr(),
+            title: 'Psw Daily Notes'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

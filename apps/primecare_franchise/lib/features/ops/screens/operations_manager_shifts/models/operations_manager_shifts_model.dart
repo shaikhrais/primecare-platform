@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Operations Manager Shifts
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class OperationsManagerShiftsModel {
-  const OperationsManagerShiftsModel();
-  
-  factory OperationsManagerShiftsModel.fromJson(Map<String, dynamic> json) {
-    return const OperationsManagerShiftsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const OperationsManagerShiftsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  OperationsManagerShiftsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return OperationsManagerShiftsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

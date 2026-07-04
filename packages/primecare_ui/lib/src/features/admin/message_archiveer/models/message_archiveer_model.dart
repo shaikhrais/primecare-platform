@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Message Archiveer
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class MessageArchiveerModel {
-  const MessageArchiveerModel();
-  
-  factory MessageArchiveerModel.fromJson(Map<String, dynamic> json) {
-    return const MessageArchiveerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const MessageArchiveerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  MessageArchiveerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return MessageArchiveerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

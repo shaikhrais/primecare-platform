@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Franchise Sales Manager Sales Pipeline
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/franchise_sales_manager_sales_pipeline_header_section.dart';
+import 'sections/franchise_sales_manager_sales_pipeline_content_summary_section.dart';
+import 'sections/franchise_sales_manager_sales_pipeline_primary_content_section.dart';
+import 'sections/franchise_sales_manager_sales_pipeline_action_bar_section.dart';
 
-class FranchiseSalesManagerSalesPipelineScreen extends ConsumerWidget {
+class FranchiseSalesManagerSalesPipelineScreen extends StatelessWidget {
   const FranchiseSalesManagerSalesPipelineScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Franchise Sales Manager Sales Pipeline Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'franchise_sales_manager_sales_pipeline',
+      title: 'Franchise Sales Manager Sales Pipeline',
+      child: Column(
+        children: const [
+          const FranchiseSalesManagerSalesPipelineHeaderSection(),
+          const FranchiseSalesManagerSalesPipelineContentSummarySection(),
+          const FranchiseSalesManagerSalesPipelinePrimaryContentSection(),
+          const FranchiseSalesManagerSalesPipelineActionBarSection(),
+        ],
       ),
     );
   }

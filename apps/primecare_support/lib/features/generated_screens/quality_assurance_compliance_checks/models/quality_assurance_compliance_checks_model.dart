@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Quality Assurance Compliance Checks
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class QualityAssuranceComplianceChecksModel {
-  const QualityAssuranceComplianceChecksModel();
-  
-  factory QualityAssuranceComplianceChecksModel.fromJson(Map<String, dynamic> json) {
-    return const QualityAssuranceComplianceChecksModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const QualityAssuranceComplianceChecksModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  QualityAssuranceComplianceChecksModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return QualityAssuranceComplianceChecksModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Cto Access Control
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CtoAccessControlModel {
-  const CtoAccessControlModel();
-  
-  factory CtoAccessControlModel.fromJson(Map<String, dynamic> json) {
-    return const CtoAccessControlModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CtoAccessControlModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CtoAccessControlModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CtoAccessControlModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

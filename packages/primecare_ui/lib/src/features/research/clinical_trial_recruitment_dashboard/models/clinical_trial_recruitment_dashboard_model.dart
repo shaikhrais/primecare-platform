@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Clinical Trial Recruitment Dashboard
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ClinicalTrialRecruitmentDashboardModel {
-  const ClinicalTrialRecruitmentDashboardModel();
-  
-  factory ClinicalTrialRecruitmentDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const ClinicalTrialRecruitmentDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ClinicalTrialRecruitmentDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ClinicalTrialRecruitmentDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ClinicalTrialRecruitmentDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

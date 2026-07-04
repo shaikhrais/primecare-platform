@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Community Outreach Volunteers
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/community_outreach_volunteers_header_section.dart';
+import 'sections/community_outreach_volunteers_content_summary_section.dart';
+import 'sections/community_outreach_volunteers_primary_content_section.dart';
+import 'sections/community_outreach_volunteers_action_bar_section.dart';
 
-class CommunityOutreachVolunteersScreen extends ConsumerWidget {
+class CommunityOutreachVolunteersScreen extends StatelessWidget {
   const CommunityOutreachVolunteersScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Community Outreach Volunteers Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'community_outreach_volunteers',
+      title: 'Community Outreach Volunteers',
+      child: Column(
+        children: const [
+          const CommunityOutreachVolunteersHeaderSection(),
+          const CommunityOutreachVolunteersContentSummarySection(),
+          const CommunityOutreachVolunteersPrimaryContentSection(),
+          const CommunityOutreachVolunteersActionBarSection(),
+        ],
       ),
     );
   }

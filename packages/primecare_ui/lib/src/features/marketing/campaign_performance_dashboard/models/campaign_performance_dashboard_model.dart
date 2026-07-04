@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Campaign Performance Dashboard
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CampaignPerformanceDashboardModel {
-  const CampaignPerformanceDashboardModel();
-  
-  factory CampaignPerformanceDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const CampaignPerformanceDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CampaignPerformanceDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CampaignPerformanceDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CampaignPerformanceDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

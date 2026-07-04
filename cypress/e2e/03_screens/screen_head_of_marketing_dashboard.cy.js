@@ -6,7 +6,7 @@
 describe("Screen - head_of_marketing_dashboard", () => {
   it("opens and verifies screen head_of_marketing_dashboard via real credentials login and logout", () => {
     cy.fixture("governance/test_users.json").then((users) => {
-      const user = users.find((u) => u.role_code === "guest");
+      const user = users.find((u) => u.role_code === "marketing");
       const targetBaseUrl = Cypress.config().baseUrl || user.app_url;
 
       // 1. Visit login page
@@ -33,8 +33,8 @@ describe("Screen - head_of_marketing_dashboard", () => {
       cy.wait(6000);
 
       // 3. Navigate to screen route and verify
-      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: packages/primecare_ui/lib/src/screens/management/head_of_marketing_dashboard_screen.dart...");
-      cy.visitWithSemantics(targetBaseUrl + "packages/primecare_ui/lib/src/screens/management/head_of_marketing_dashboard_screen.dart");
+      cy.task("log", "⏳ PROGRESS: - Navigating to screen route: /offices/corporate/roles/head_of_marketing/dashboard...");
+      cy.visitWithSemantics(targetBaseUrl + "/offices/corporate/roles/head_of_marketing/dashboard");
       cy.waitAndSee();
 
       cy.verifyShellExists();

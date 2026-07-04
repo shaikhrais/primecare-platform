@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Security Sentinel
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class SecuritySentinelModel {
-  const SecuritySentinelModel();
-  
-  factory SecuritySentinelModel.fromJson(Map<String, dynamic> json) {
-    return const SecuritySentinelModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const SecuritySentinelModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  SecuritySentinelModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return SecuritySentinelModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

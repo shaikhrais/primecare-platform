@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Formulary Compliance Manager
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class FormularyComplianceManagerModel {
-  const FormularyComplianceManagerModel();
-  
-  factory FormularyComplianceManagerModel.fromJson(Map<String, dynamic> json) {
-    return const FormularyComplianceManagerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const FormularyComplianceManagerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  FormularyComplianceManagerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return FormularyComplianceManagerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

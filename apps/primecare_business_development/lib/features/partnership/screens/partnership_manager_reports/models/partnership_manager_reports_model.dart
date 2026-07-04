@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Partnership Manager Reports
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PartnershipManagerReportsModel {
-  const PartnershipManagerReportsModel();
-  
-  factory PartnershipManagerReportsModel.fromJson(Map<String, dynamic> json) {
-    return const PartnershipManagerReportsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PartnershipManagerReportsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PartnershipManagerReportsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PartnershipManagerReportsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

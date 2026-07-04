@@ -1,16 +1,28 @@
-// Governance - Category: view | Purpose: Coordinator layout for Predictive Analytics Dashboard
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/predictive_analytics_dashboard_header_section.dart';
+import 'sections/predictive_analytics_dashboard_summary_cards_section.dart';
+import 'sections/predictive_analytics_dashboard_chart_overview_section.dart';
+import 'sections/predictive_analytics_dashboard_recent_activity_section.dart';
+import 'sections/predictive_analytics_dashboard_quick_actions_section.dart';
 
-class PredictiveAnalyticsDashboardScreen extends ConsumerWidget {
+class PredictiveAnalyticsDashboardScreen extends StatelessWidget {
   const PredictiveAnalyticsDashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Predictive Analytics Dashboard Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'predictive_analytics_dashboard',
+      title: 'Predictive Analytics Dashboard',
+      child: Column(
+        children: const [
+          const PredictiveAnalyticsDashboardHeaderSection(),
+          const PredictiveAnalyticsDashboardSummaryCardsSection(),
+          const PredictiveAnalyticsDashboardChartOverviewSection(),
+          const PredictiveAnalyticsDashboardRecentActivitySection(),
+          const PredictiveAnalyticsDashboardQuickActionsSection(),
+        ],
       ),
     );
   }

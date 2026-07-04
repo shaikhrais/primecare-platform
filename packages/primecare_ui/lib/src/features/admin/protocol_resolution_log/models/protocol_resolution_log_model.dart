@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Protocol Resolution Log
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ProtocolResolutionLogModel {
-  const ProtocolResolutionLogModel();
-  
-  factory ProtocolResolutionLogModel.fromJson(Map<String, dynamic> json) {
-    return const ProtocolResolutionLogModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ProtocolResolutionLogModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ProtocolResolutionLogModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ProtocolResolutionLogModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

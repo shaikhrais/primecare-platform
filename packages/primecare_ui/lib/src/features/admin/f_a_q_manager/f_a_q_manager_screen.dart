@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for F A Q Manager
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/f_a_q_manager_header_section.dart';
+import 'sections/f_a_q_manager_content_summary_section.dart';
+import 'sections/f_a_q_manager_primary_content_section.dart';
+import 'sections/f_a_q_manager_action_bar_section.dart';
 
-class FAQManagerScreen extends ConsumerWidget {
+class FAQManagerScreen extends StatelessWidget {
   const FAQManagerScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('F A Q Manager Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'f_a_q_manager',
+      title: 'F A Q Manager',
+      child: Column(
+        children: const [
+          const FAQManagerHeaderSection(),
+          const FAQManagerContentSummarySection(),
+          const FAQManagerPrimaryContentSection(),
+          const FAQManagerActionBarSection(),
+        ],
       ),
     );
   }

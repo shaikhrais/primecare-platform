@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Regional Bdm Reports
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class RegionalBdmReportsModel {
-  const RegionalBdmReportsModel();
-  
-  factory RegionalBdmReportsModel.fromJson(Map<String, dynamic> json) {
-    return const RegionalBdmReportsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const RegionalBdmReportsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  RegionalBdmReportsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return RegionalBdmReportsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

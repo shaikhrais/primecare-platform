@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Multi Center Trial Collaboration
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class MultiCenterTrialCollaborationModel {
-  const MultiCenterTrialCollaborationModel();
-  
-  factory MultiCenterTrialCollaborationModel.fromJson(Map<String, dynamic> json) {
-    return const MultiCenterTrialCollaborationModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const MultiCenterTrialCollaborationModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  MultiCenterTrialCollaborationModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return MultiCenterTrialCollaborationModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

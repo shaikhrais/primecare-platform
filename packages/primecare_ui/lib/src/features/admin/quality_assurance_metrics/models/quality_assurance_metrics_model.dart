@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Quality Assurance Metrics
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class QualityAssuranceMetricsModel {
-  const QualityAssuranceMetricsModel();
-  
-  factory QualityAssuranceMetricsModel.fromJson(Map<String, dynamic> json) {
-    return const QualityAssuranceMetricsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const QualityAssuranceMetricsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  QualityAssuranceMetricsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return QualityAssuranceMetricsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

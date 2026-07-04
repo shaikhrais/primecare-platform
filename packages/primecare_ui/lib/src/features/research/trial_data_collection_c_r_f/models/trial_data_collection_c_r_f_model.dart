@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Trial Data Collection C R F
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class TrialDataCollectionCRFModel {
-  const TrialDataCollectionCRFModel();
-  
-  factory TrialDataCollectionCRFModel.fromJson(Map<String, dynamic> json) {
-    return const TrialDataCollectionCRFModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const TrialDataCollectionCRFModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  TrialDataCollectionCRFModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return TrialDataCollectionCRFModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Security Incident
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class SecurityIncidentModel {
-  const SecurityIncidentModel();
-  
-  factory SecurityIncidentModel.fromJson(Map<String, dynamic> json) {
-    return const SecurityIncidentModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const SecurityIncidentModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  SecurityIncidentModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return SecurityIncidentModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

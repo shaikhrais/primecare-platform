@@ -1,0 +1,7 @@
+// Governance - Category: state | Purpose: Riverpod state notifier for CoordinatorDispatchMapScreen
+// TODO: Implement state providers, loading triggers, and action mutations.
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class CoordinatorDispatchMapNotifier extends StateNotifier<AsyncValue<void>> {
+  CoordinatorDispatchMapNotifier() : super(const AsyncValue.data(null));
+}

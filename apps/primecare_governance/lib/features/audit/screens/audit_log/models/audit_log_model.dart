@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Audit Log
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class AuditLogModel {
-  const AuditLogModel();
-  
-  factory AuditLogModel.fromJson(Map<String, dynamic> json) {
-    return const AuditLogModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const AuditLogModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  AuditLogModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return AuditLogModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

@@ -1,16 +1,26 @@
-// Governance - Category: view | Purpose: Coordinator layout for Registry Entry Editor
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/registry_entry_editor_header_section.dart';
+import 'sections/registry_entry_editor_form_body_section.dart';
+import 'sections/registry_entry_editor_validation_messages_section.dart';
+import 'sections/registry_entry_editor_action_bar_section.dart';
 
-class RegistryEntryEditorScreen extends ConsumerWidget {
+class RegistryEntryEditorScreen extends StatelessWidget {
   const RegistryEntryEditorScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Registry Entry Editor Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'registry_entry_editor',
+      title: 'Registry Entry Editor',
+      child: Column(
+        children: const [
+          const RegistryEntryEditorHeaderSection(),
+          const RegistryEntryEditorFormBodySection(),
+          const RegistryEntryEditorValidationMessagesSection(),
+          const RegistryEntryEditorActionBarSection(),
+        ],
       ),
     );
   }

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Partnership Manager Renewals
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PartnershipManagerRenewalsModel {
-  const PartnershipManagerRenewalsModel();
-  
-  factory PartnershipManagerRenewalsModel.fromJson(Map<String, dynamic> json) {
-    return const PartnershipManagerRenewalsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PartnershipManagerRenewalsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PartnershipManagerRenewalsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PartnershipManagerRenewalsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

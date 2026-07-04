@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for SystemDashboardScreen
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class SystemDashboardModel {
-  const SystemDashboardModel();
-  
-  factory SystemDashboardModel.fromJson(Map<String, dynamic> json) {
-    return const SystemDashboardModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const SystemDashboardModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  SystemDashboardModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return SystemDashboardModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

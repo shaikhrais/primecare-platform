@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Franchise Owner Financial Snapshot
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class FranchiseOwnerFinancialSnapshotModel {
-  const FranchiseOwnerFinancialSnapshotModel();
-  
-  factory FranchiseOwnerFinancialSnapshotModel.fromJson(Map<String, dynamic> json) {
-    return const FranchiseOwnerFinancialSnapshotModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const FranchiseOwnerFinancialSnapshotModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  FranchiseOwnerFinancialSnapshotModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return FranchiseOwnerFinancialSnapshotModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

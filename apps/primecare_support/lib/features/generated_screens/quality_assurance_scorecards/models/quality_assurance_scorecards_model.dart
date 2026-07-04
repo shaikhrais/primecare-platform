@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Quality Assurance Scorecards
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class QualityAssuranceScorecardsModel {
-  const QualityAssuranceScorecardsModel();
-  
-  factory QualityAssuranceScorecardsModel.fromJson(Map<String, dynamic> json) {
-    return const QualityAssuranceScorecardsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const QualityAssuranceScorecardsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  QualityAssuranceScorecardsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return QualityAssuranceScorecardsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

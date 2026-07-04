@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Psw Check In
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class PswCheckInModel {
-  const PswCheckInModel();
-  
-  factory PswCheckInModel.fromJson(Map<String, dynamic> json) {
-    return const PswCheckInModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const PswCheckInModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  PswCheckInModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return PswCheckInModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

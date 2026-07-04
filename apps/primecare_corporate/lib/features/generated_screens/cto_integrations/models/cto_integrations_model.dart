@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Cto Integrations
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class CtoIntegrationsModel {
-  const CtoIntegrationsModel();
-  
-  factory CtoIntegrationsModel.fromJson(Map<String, dynamic> json) {
-    return const CtoIntegrationsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const CtoIntegrationsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  CtoIntegrationsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return CtoIntegrationsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

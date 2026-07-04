@@ -59,7 +59,7 @@ class CooServiceDeliveryScreenController extends StateNotifier<CooServiceDeliver
       : super(
           CooServiceDeliveryScreenState(
             isLoading: false,
-            title: 'COO Service Delivery'.tr(),
+            title: 'Coo Service Delivery'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

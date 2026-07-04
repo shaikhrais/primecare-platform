@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Leadership Reports
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class LeadershipReportsModel {
-  const LeadershipReportsModel();
-  
-  factory LeadershipReportsModel.fromJson(Map<String, dynamic> json) {
-    return const LeadershipReportsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const LeadershipReportsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  LeadershipReportsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return LeadershipReportsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

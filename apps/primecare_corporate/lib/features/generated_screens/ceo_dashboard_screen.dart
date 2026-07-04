@@ -59,7 +59,7 @@ class CeoDashboardScreenController extends StateNotifier<CeoDashboardScreenState
       : super(
           CeoDashboardScreenState(
             isLoading: false,
-            title: 'CEO Dashboard'.tr(),
+            title: 'Ceo Dashboard'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

@@ -59,7 +59,7 @@ class CeoGrowthPipelineScreenController extends StateNotifier<CeoGrowthPipelineS
       : super(
           CeoGrowthPipelineScreenState(
             isLoading: false,
-            title: 'CEO Growth Pipeline'.tr(),
+            title: 'Ceo Growth Pipeline'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

@@ -59,7 +59,7 @@ class RegionalBdmFranchisePipelineScreenController extends StateNotifier<Regiona
       : super(
           RegionalBdmFranchisePipelineScreenState(
             isLoading: false,
-            title: 'Regional BDM Franchise Pipeline'.tr(),
+            title: 'Regional Bdm Franchise Pipeline'.tr(),
             logs: const [
               'Workspace initialized.',
               'Security clearance sync complete.',

@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Substance Abuse Prevention Tracker
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class SubstanceAbusePreventionTrackerModel {
-  const SubstanceAbusePreventionTrackerModel();
-  
-  factory SubstanceAbusePreventionTrackerModel.fromJson(Map<String, dynamic> json) {
-    return const SubstanceAbusePreventionTrackerModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const SubstanceAbusePreventionTrackerModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  SubstanceAbusePreventionTrackerModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return SubstanceAbusePreventionTrackerModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

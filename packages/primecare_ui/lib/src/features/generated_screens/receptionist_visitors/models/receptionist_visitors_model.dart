@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Receptionist Visitors
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class ReceptionistVisitorsModel {
-  const ReceptionistVisitorsModel();
-  
-  factory ReceptionistVisitorsModel.fromJson(Map<String, dynamic> json) {
-    return const ReceptionistVisitorsModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const ReceptionistVisitorsModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  ReceptionistVisitorsModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return ReceptionistVisitorsModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

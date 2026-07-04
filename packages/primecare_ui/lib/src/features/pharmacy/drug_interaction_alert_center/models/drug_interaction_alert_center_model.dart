@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Drug Interaction Alert Center
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class DrugInteractionAlertCenterModel {
-  const DrugInteractionAlertCenterModel();
-  
-  factory DrugInteractionAlertCenterModel.fromJson(Map<String, dynamic> json) {
-    return const DrugInteractionAlertCenterModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const DrugInteractionAlertCenterModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  DrugInteractionAlertCenterModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return DrugInteractionAlertCenterModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

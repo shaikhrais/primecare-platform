@@ -1,16 +1,28 @@
-// Governance - Category: view | Purpose: Coordinator layout for Head Of Marketing Funnel Analytics
-// TODO: Implement screen coordinator layout according to DB requirements.
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'sections/head_of_marketing_funnel_analytics_header_section.dart';
+import 'sections/head_of_marketing_funnel_analytics_filter_bar_section.dart';
+import 'sections/head_of_marketing_funnel_analytics_metrics_summary_section.dart';
+import 'sections/head_of_marketing_funnel_analytics_chart_area_section.dart';
+import 'sections/head_of_marketing_funnel_analytics_export_actions_section.dart';
 
-class HeadOfMarketingFunnelAnalyticsScreen extends ConsumerWidget {
+class HeadOfMarketingFunnelAnalyticsScreen extends StatelessWidget {
   const HeadOfMarketingFunnelAnalyticsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Head Of Marketing Funnel Analytics Coordinator'),
+  Widget build(BuildContext context) {
+    return ScreenScaffold(
+      screenCode: 'head_of_marketing_funnel_analytics',
+      title: 'Head Of Marketing Funnel Analytics',
+      child: Column(
+        children: const [
+          const HeadOfMarketingFunnelAnalyticsHeaderSection(),
+          const HeadOfMarketingFunnelAnalyticsFilterBarSection(),
+          const HeadOfMarketingFunnelAnalyticsMetricsSummarySection(),
+          const HeadOfMarketingFunnelAnalyticsChartAreaSection(),
+          const HeadOfMarketingFunnelAnalyticsExportActionsSection(),
+        ],
       ),
     );
   }

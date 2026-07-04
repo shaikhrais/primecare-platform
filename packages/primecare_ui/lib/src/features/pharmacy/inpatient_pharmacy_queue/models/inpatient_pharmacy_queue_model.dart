@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Inpatient Pharmacy Queue
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class InpatientPharmacyQueueModel {
-  const InpatientPharmacyQueueModel();
-  
-  factory InpatientPharmacyQueueModel.fromJson(Map<String, dynamic> json) {
-    return const InpatientPharmacyQueueModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const InpatientPharmacyQueueModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  InpatientPharmacyQueueModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return InpatientPharmacyQueueModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }

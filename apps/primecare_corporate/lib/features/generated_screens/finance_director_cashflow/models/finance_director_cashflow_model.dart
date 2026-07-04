@@ -1,12 +1,23 @@
-// Governance - Category: model | Purpose: Data entity definition for Finance Director Cashflow
-// TODO: Implement DTO, serialization mapping, and state values.
-
 class FinanceDirectorCashflowModel {
-  const FinanceDirectorCashflowModel();
-  
-  factory FinanceDirectorCashflowModel.fromJson(Map<String, dynamic> json) {
-    return const FinanceDirectorCashflowModel();
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const FinanceDirectorCashflowModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  FinanceDirectorCashflowModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return FinanceDirectorCashflowModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
   }
-  
-  Map<String, dynamic> toJson() => {};
 }
