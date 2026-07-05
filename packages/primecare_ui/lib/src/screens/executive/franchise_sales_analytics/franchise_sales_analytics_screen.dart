@@ -27,3 +27,5 @@ class FranchiseSalesAnalyticsScreen extends StatelessWidget {
     );
   }
 }
+
+typedef FranchiseSalesManagerAnalyticsScreen = FranchiseSalesAnalyticsScreen;

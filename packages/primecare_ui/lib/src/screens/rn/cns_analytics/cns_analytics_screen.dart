@@ -27,3 +27,5 @@ class CnsAnalyticsScreen extends StatelessWidget {
     );
   }
 }
+
+typedef ClinicalNurseSpecialistAnalyticsScreen = CnsAnalyticsScreen;

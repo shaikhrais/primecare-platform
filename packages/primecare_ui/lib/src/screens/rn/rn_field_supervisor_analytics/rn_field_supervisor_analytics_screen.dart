@@ -27,3 +27,5 @@ class RnFieldSupervisorAnalyticsScreen extends StatelessWidget {
     );
   }
 }
+
+typedef RegisteredNurseRNFieldSupervisorAnalyticsScreen = RnFieldSupervisorAnalyticsScreen;

@@ -27,3 +27,5 @@ class VipManagerAnalyticsScreen extends StatelessWidget {
     );
   }
 }
+
+typedef VIPClientManagerAnalyticsScreen = VipManagerAnalyticsScreen;

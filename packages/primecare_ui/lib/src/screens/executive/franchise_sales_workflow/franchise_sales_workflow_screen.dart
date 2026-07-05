@@ -27,3 +27,5 @@ class FranchiseSalesWorkflowScreen extends StatelessWidget {
     );
   }
 }
+
+typedef FranchiseSalesManagerComplianceWorkflowScreen = FranchiseSalesWorkflowScreen;

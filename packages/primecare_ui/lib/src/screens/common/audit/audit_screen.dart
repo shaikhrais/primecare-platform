@@ -25,3 +25,5 @@ class AuditScreen extends StatelessWidget {
     );
   }
 }
+
+typedef ScreenAuditScreen = AuditScreen;

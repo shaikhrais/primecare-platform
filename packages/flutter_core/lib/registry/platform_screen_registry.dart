@@ -3899,7 +3899,7 @@ class PlatformScreenRegistry {
       icon: Icons.health_and_safety_outlined,
       allowedRoles: ['ADMIN', 'SUPERADMIN', 'SYSTEM', 'IT_ADMIN', 'CEO'],
       lifecycleStatus: LifecycleStatus.completed,
-      sourcePath: 'packages/primecare_ui/lib/src/screens/admin/admin_screen_health_screen.dart',
+      sourcePath: 'packages/primecare_ui/lib/src/screens/admin/admin_screen_health/admin_screen_health_screen.dart',
       isVirtual: false,
     ),
   };

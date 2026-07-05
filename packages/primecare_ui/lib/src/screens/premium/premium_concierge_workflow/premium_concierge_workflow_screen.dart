@@ -27,3 +27,5 @@ class PremiumConciergeWorkflowScreen extends StatelessWidget {
     );
   }
 }
+
+typedef PremiumConciergeCareCoordinatorComplianceWorkflowScreen = PremiumConciergeWorkflowScreen;

@@ -27,3 +27,5 @@ class PswTasksScreen extends StatelessWidget {
     );
   }
 }
+
+typedef TaskListScreen = PswTasksScreen;

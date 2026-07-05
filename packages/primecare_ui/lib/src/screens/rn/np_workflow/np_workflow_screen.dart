@@ -27,3 +27,5 @@ class NpWorkflowScreen extends StatelessWidget {
     );
   }
 }
+
+typedef NursePractitionerNPComplianceWorkflowScreen = NpWorkflowScreen;

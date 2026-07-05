@@ -27,3 +27,5 @@ class LpnAnalyticsScreen extends StatelessWidget {
     );
   }
 }
+
+typedef LicensedPracticalNurseLPNAnalyticsScreen = LpnAnalyticsScreen;

@@ -27,3 +27,5 @@ class PswVitalsLogScreen extends StatelessWidget {
     );
   }
 }
+
+typedef VitalsEntryScreen = PswVitalsLogScreen;

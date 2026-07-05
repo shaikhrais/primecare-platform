@@ -27,3 +27,5 @@ class PediatricAnalyticsScreen extends StatelessWidget {
     );
   }
 }
+
+typedef PediatricSpecialistAnalyticsScreen = PediatricAnalyticsScreen;

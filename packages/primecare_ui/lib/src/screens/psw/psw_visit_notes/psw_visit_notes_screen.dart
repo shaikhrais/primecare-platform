@@ -27,3 +27,5 @@ class PswVisitNotesScreen extends StatelessWidget {
     );
   }
 }
+
+typedef VisitNotesScreen = PswVisitNotesScreen;

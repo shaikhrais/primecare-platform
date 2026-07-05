@@ -27,3 +27,5 @@ class NpAnalyticsScreen extends StatelessWidget {
     );
   }
 }
+
+typedef NursePractitionerNPAnalyticsScreen = NpAnalyticsScreen;

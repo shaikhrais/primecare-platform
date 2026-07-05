@@ -27,3 +27,5 @@ class PswShiftTrackerScreen extends StatelessWidget {
     );
   }
 }
+
+typedef ShiftTrackerScreen = PswShiftTrackerScreen;

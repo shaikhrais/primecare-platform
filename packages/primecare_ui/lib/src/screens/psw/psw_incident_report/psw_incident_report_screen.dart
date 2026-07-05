@@ -27,3 +27,5 @@ class PswIncidentReportScreen extends StatelessWidget {
     );
   }
 }
+
+typedef ReportIncidentScreen = PswIncidentReportScreen;

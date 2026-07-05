@@ -27,3 +27,5 @@ class PhysicianWorkflowScreen extends StatelessWidget {
     );
   }
 }
+
+typedef PhysicianComplianceWorkflowScreen = PhysicianWorkflowScreen;

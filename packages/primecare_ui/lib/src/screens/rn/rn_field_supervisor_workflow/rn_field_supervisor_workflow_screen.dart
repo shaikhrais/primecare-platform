@@ -27,3 +27,5 @@ class RnFieldSupervisorWorkflowScreen extends StatelessWidget {
     );
   }
 }
+
+typedef RegisteredNurseRNFieldSupervisorComplianceWorkflowScreen = RnFieldSupervisorWorkflowScreen;

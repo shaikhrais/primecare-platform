@@ -27,3 +27,5 @@ class EmployeeWorkflowScreen extends StatelessWidget {
     );
   }
 }
+
+typedef EmployeeComplianceWorkflowScreen = EmployeeWorkflowScreen;

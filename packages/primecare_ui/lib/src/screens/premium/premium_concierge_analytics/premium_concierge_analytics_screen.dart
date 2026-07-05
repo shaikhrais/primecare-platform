@@ -27,3 +27,5 @@ class PremiumConciergeAnalyticsScreen extends StatelessWidget {
     );
   }
 }
+
+typedef PremiumConciergeCareCoordinatorAnalyticsScreen = PremiumConciergeAnalyticsScreen;

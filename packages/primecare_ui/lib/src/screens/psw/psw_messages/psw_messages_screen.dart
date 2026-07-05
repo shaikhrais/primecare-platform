@@ -25,3 +25,5 @@ class PswMessagesScreen extends StatelessWidget {
     );
   }
 }
+
+typedef MessagesScreen = PswMessagesScreen;

@@ -27,3 +27,5 @@ class TherapistWorkflowScreen extends StatelessWidget {
     );
   }
 }
+
+typedef TherapistComplianceWorkflowScreen = TherapistWorkflowScreen;

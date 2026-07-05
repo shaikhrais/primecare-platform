@@ -27,3 +27,5 @@ class PswClientsScreen extends StatelessWidget {
     );
   }
 }
+
+typedef MyClientsScreen = PswClientsScreen;

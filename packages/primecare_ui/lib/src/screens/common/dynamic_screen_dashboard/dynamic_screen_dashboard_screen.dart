@@ -27,3 +27,5 @@ class DynamicScreenDashboardScreen extends StatelessWidget {
     );
   }
 }
+
+typedef DynamicDashboardScreen = DynamicScreenDashboardScreen;

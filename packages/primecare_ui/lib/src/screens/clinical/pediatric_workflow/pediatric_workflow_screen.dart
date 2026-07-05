@@ -27,3 +27,5 @@ class PediatricWorkflowScreen extends StatelessWidget {
     );
   }
 }
+
+typedef PediatricSpecialistComplianceWorkflowScreen = PediatricWorkflowScreen;

@@ -27,3 +27,5 @@ class LpnWorkflowScreen extends StatelessWidget {
     );
   }
 }
+
+typedef LicensedPracticalNurseLPNComplianceWorkflowScreen = LpnWorkflowScreen;

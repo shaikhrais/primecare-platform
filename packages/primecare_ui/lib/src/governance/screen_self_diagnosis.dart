@@ -404,7 +404,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/dashboard': ScreenHealthStatus(
     screenName: 'RmtDashboardScreen',
     routePath: '/offices/clinical/roles/rmt/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_dashboard/rmt_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -447,7 +447,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/therapist/dashboard': ScreenHealthStatus(
     screenName: 'TherapistDashboardScreen',
     routePath: '/offices/clinical/roles/therapist/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/therapist_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/therapist_dashboard/therapist_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -533,7 +533,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/cns-dashboard': ScreenHealthStatus(
     screenName: 'CnsDashboardScreen',
     routePath: '/clinical/cns-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/cns_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/cns_dashboard/cns_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -576,7 +576,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/hsw-dashboard': ScreenHealthStatus(
     screenName: 'HswDashboardScreen',
     routePath: '/clinical/hsw-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/hsw_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/hsw_dashboard/hsw_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -619,7 +619,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/lpn-dashboard': ScreenHealthStatus(
     screenName: 'LpnDashboardScreen',
     routePath: '/clinical/lpn-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/lpn_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/lpn_dashboard/lpn_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -662,7 +662,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/np-dashboard': ScreenHealthStatus(
     screenName: 'NpDashboardScreen',
     routePath: '/clinical/np-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/np_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/np_dashboard/np_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -705,7 +705,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/pediatric-dashboard': ScreenHealthStatus(
     screenName: 'PediatricDashboardScreen',
     routePath: '/clinical/pediatric-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/pediatric_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/pediatric_dashboard/pediatric_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -748,7 +748,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/physician-dashboard': ScreenHealthStatus(
     screenName: 'PhysicianDashboardScreen',
     routePath: '/clinical/physician-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/physician_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/physician_dashboard/physician_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -791,7 +791,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/architecture-planning-dashboard': ScreenHealthStatus(
     screenName: 'ArchitecturePlanningDashboardScreen',
     routePath: '/common/architecture-planning-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard/architecture_planning_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -834,7 +834,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/business-development-dashboard': ScreenHealthStatus(
     screenName: 'BusinessDevelopmentDashboardScreen',
     routePath: '/common/business-development-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/business_development_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/business_development_dashboard/business_development_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -877,7 +877,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/caregiver/dashboard': ScreenHealthStatus(
     screenName: 'CaregiverDashboardScreen',
     routePath: '/offices/clinical/roles/caregiver/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/caregiver_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/caregiver_dashboard/caregiver_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -920,7 +920,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/dashboard': ScreenHealthStatus(
     screenName: 'ChiropractorDashboardScreen',
     routePath: '/offices/clinical/roles/chiropractor/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/chiropractor_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/chiropractor_dashboard/chiropractor_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -963,7 +963,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/clinic-dashboard': ScreenHealthStatus(
     screenName: 'ClinicDashboardScreen',
     routePath: '/offices/clinical/roles/clinical_director/clinic-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/clinic_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/clinic_dashboard/clinic_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1006,7 +1006,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/course-architect-dashboard': ScreenHealthStatus(
     screenName: 'CourseArchitectDashboardScreen',
     routePath: '/common/course-architect-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/course_architect_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/course_architect_dashboard/course_architect_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1092,7 +1092,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/dynamic-dashboard': ScreenHealthStatus(
     screenName: 'DynamicScreenDashboardScreen',
     routePath: '/common/dynamic-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/dynamic_screen_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/dynamic_screen_dashboard/dynamic_screen_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1135,7 +1135,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/family-member-dashboard': ScreenHealthStatus(
     screenName: 'FamilyMemberDashboardScreen',
     routePath: '/common/family-member-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/family_member_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/family_member_dashboard/family_member_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1178,7 +1178,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/franchise-dashboard': ScreenHealthStatus(
     screenName: 'FranchiseDashboardScreen',
     routePath: '/common/franchise-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/franchise_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/franchise_dashboard/franchise_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1221,7 +1221,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/guest-dashboard': ScreenHealthStatus(
     screenName: 'GuestDashboardScreen',
     routePath: '/common/guest-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/guest_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/guest_dashboard/guest_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1264,7 +1264,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/infrastructure-dashboard': ScreenHealthStatus(
     screenName: 'InfrastructureDashboardScreen',
     routePath: '/common/infrastructure-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/infrastructure_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/infrastructure_dashboard/infrastructure_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1307,7 +1307,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/intake_coordinator/dashboard-dup-1': ScreenHealthStatus(
     screenName: 'IntakeDashboardScreen',
     routePath: '/offices/clinical/roles/intake_coordinator/dashboard-dup-1',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/intake_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/intake_dashboard/intake_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1350,7 +1350,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/office-dashboard': ScreenHealthStatus(
     screenName: 'OfficeDashboardScreen',
     routePath: '/common/office-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/office_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/office_dashboard/office_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1393,7 +1393,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/client/roles/client/dashboard': ScreenHealthStatus(
     screenName: 'PatientDashboardScreen',
     routePath: '/offices/client/roles/client/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_dashboard/patient_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1436,7 +1436,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/dashboard': ScreenHealthStatus(
     screenName: 'PhysiotherapistDashboardScreen',
     routePath: '/offices/clinical/roles/physiotherapist/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard/physiotherapist_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1479,7 +1479,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/portal-dashboard': ScreenHealthStatus(
     screenName: 'PortalDashboardScreen',
     routePath: '/common/portal-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/portal_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/portal_dashboard/portal_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1522,7 +1522,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/support/roles/quality_assurance/dashboard': ScreenHealthStatus(
     screenName: 'QaDashboardScreen',
     routePath: '/offices/support/roles/quality_assurance/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/qa_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/qa_dashboard/qa_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1565,7 +1565,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/social_worker/dashboard': ScreenHealthStatus(
     screenName: 'SocialWorkerDashboardScreen',
     routePath: '/offices/clinical/roles/social_worker/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/social_worker_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/social_worker_dashboard/social_worker_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1608,7 +1608,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/support-dashboard': ScreenHealthStatus(
     screenName: 'SupportDashboardScreen',
     routePath: '/common/support-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/support_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/support_dashboard/support_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1694,7 +1694,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/system-verification-dashboard': ScreenHealthStatus(
     screenName: 'SystemVerificationDashboardScreen',
     routePath: '/common/system-verification-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_verification_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_verification_dashboard/system_verification_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1737,7 +1737,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/training-hub-dashboard': ScreenHealthStatus(
     screenName: 'TrainingHubDashboardScreen',
     routePath: '/common/training-hub-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/training_hub_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/training_hub_dashboard/training_hub_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1823,7 +1823,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/ciso/dashboard': ScreenHealthStatus(
     screenName: 'CisoDashboardScreen',
     routePath: '/offices/corporate/roles/ciso/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/ciso_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/ciso_dashboard/ciso_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1952,7 +1952,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/cx_director/dashboard': ScreenHealthStatus(
     screenName: 'CxDirectorDashboardScreen',
     routePath: '/offices/corporate/roles/cx_director/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cx_director_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cx_director_dashboard/cx_director_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -1995,7 +1995,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/finance_director/dashboard': ScreenHealthStatus(
     screenName: 'FinanceDirectorDashboardScreen',
     routePath: '/offices/corporate/roles/finance_director/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/finance_director_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/finance_director_dashboard/finance_director_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2038,7 +2038,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/hr_director/dashboard': ScreenHealthStatus(
     screenName: 'HrDirectorDashboardScreen',
     routePath: '/offices/corporate/roles/hr_director/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_dashboard/hr_director_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2081,7 +2081,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/legal/dashboard': ScreenHealthStatus(
     screenName: 'LegalDashboardScreen',
     routePath: '/offices/corporate/roles/legal/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/legal_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/legal_dashboard/legal_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2124,7 +2124,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/owner/dashboard': ScreenHealthStatus(
     screenName: 'OwnerDashboardScreen',
     routePath: '/offices/corporate/roles/owner/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/owner_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/owner_dashboard/owner_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2210,7 +2210,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/training_director/dashboard': ScreenHealthStatus(
     screenName: 'TrainingDirectorDashboardScreen',
     routePath: '/offices/corporate/roles/training_director/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/training_director_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/training_director_dashboard/training_director_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2253,7 +2253,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/marketing/roles/community_outreach/dashboard': ScreenHealthStatus(
     screenName: 'CommunityOutreachDashboardScreen',
     routePath: '/offices/marketing/roles/community_outreach/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/community_outreach_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/community_outreach_dashboard/community_outreach_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2296,7 +2296,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/compliance_manager/dashboard': ScreenHealthStatus(
     screenName: 'ComplianceManagerDashboardScreen',
     routePath: '/offices/corporate/roles/compliance_manager/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard/compliance_manager_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2339,7 +2339,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/business_development/roles/franchise_sales_manager/dashboard': ScreenHealthStatus(
     screenName: 'FranchiseSalesManagerDashboardScreen',
     routePath: '/offices/business_development/roles/franchise_sales_manager/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard/franchise_sales_manager_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2382,7 +2382,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/business_development/roles/general_manager/dashboard': ScreenHealthStatus(
     screenName: 'GeneralManagerDashboardScreen',
     routePath: '/offices/business_development/roles/general_manager/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/general_manager_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/general_manager_dashboard/general_manager_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2425,7 +2425,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/governance-officer-dashboard': ScreenHealthStatus(
     screenName: 'GovernanceOfficerDashboardScreen',
     routePath: '/management/governance-officer-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard/governance_officer_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2554,7 +2554,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/marketing/roles/local_marketing_manager/dashboard': ScreenHealthStatus(
     screenName: 'LocalMarketingManagerDashboardScreen',
     routePath: '/offices/marketing/roles/local_marketing_manager/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard/local_marketing_manager_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2640,7 +2640,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/business_development/roles/partnership_manager/dashboard': ScreenHealthStatus(
     screenName: 'PartnershipManagerDashboardScreen',
     routePath: '/offices/business_development/roles/partnership_manager/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/partnership_manager_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/partnership_manager_dashboard/partnership_manager_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2683,7 +2683,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/premium-concierge-dashboard': ScreenHealthStatus(
     screenName: 'PremiumConciergeDashboardScreen',
     routePath: '/management/premium-concierge-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/premium_concierge_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/premium_concierge_dashboard/premium_concierge_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -2726,7 +2726,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/business_development/roles/regional_bdm/dashboard': ScreenHealthStatus(
     screenName: 'RegionalBdmDashboardScreen',
     routePath: '/offices/business_development/roles/regional_bdm/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_bdm_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_bdm_dashboard/regional_bdm_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2769,7 +2769,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/business_development/roles/regional_manager_usa/dashboard': ScreenHealthStatus(
     screenName: 'RegionalManagerUsaDashboardScreen',
     routePath: '/offices/business_development/roles/regional_manager_usa/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_manager_usa_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_manager_usa_dashboard/regional_manager_usa_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2812,7 +2812,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/scrum-master-dashboard': ScreenHealthStatus(
     screenName: 'ScrumMasterDashboardScreen',
     routePath: '/management/scrum-master-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/scrum_master_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/scrum_master_dashboard/scrum_master_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2855,7 +2855,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/business_development/roles/territory_expansion_manager/dashboard': ScreenHealthStatus(
     screenName: 'TerritoryExpansionManagerDashboardScreen',
     routePath: '/offices/business_development/roles/territory_expansion_manager/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_expansion_manager_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_expansion_manager_dashboard/territory_expansion_manager_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2898,7 +2898,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/marketing/roles/territory_sales_manager/dashboard': ScreenHealthStatus(
     screenName: 'TerritorySalesManagerDashboardScreen',
     routePath: '/offices/marketing/roles/territory_sales_manager/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_sales_manager_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_sales_manager_dashboard/territory_sales_manager_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -2941,7 +2941,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/vip-manager-dashboard': ScreenHealthStatus(
     screenName: 'VipManagerDashboardScreen',
     routePath: '/management/vip-manager-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/vip_manager_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/vip_manager_dashboard/vip_manager_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -3027,7 +3027,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/dashboard': ScreenHealthStatus(
     screenName: 'RnDashboardScreen',
     routePath: '/offices/clinical/roles/rn/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_dashboard/rn_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -3070,7 +3070,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/rn/rn-field-supervisor-dashboard': ScreenHealthStatus(
     screenName: 'RnFieldSupervisorDashboardScreen',
     routePath: '/rn/rn-field-supervisor-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_field_supervisor_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_field_supervisor_dashboard/rn_field_supervisor_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -3113,7 +3113,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/dashboard': ScreenHealthStatus(
     screenName: 'RpnDashboardScreen',
     routePath: '/offices/clinical/roles/rpn/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_dashboard/rpn_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -3156,7 +3156,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/franchise/roles/billing_admin/dashboard': ScreenHealthStatus(
     screenName: 'BillingAdminDashboardScreen',
     routePath: '/offices/franchise/roles/billing_admin/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/billing_admin_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/billing_admin_dashboard/billing_admin_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -3199,7 +3199,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/employee-dashboard': ScreenHealthStatus(
     screenName: 'EmployeeDashboardScreen',
     routePath: '/staff/employee-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/employee_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/employee_dashboard/employee_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -3285,7 +3285,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/hr_manager/dashboard': ScreenHealthStatus(
     screenName: 'HrManagerDashboardScreen',
     routePath: '/offices/corporate/roles/hr_manager/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard/hr_manager_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -3328,7 +3328,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/intake_coordinator/dashboard': ScreenHealthStatus(
     screenName: 'IntakeCoordinatorDashboardScreen',
     routePath: '/offices/clinical/roles/intake_coordinator/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard/intake_coordinator_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -3371,7 +3371,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/quality-assurance-dashboard': ScreenHealthStatus(
     screenName: 'QualityAssuranceDashboardScreen',
     routePath: '/staff/quality-assurance-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/quality_assurance_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/quality_assurance_dashboard/quality_assurance_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -3414,7 +3414,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/receptionist-dashboard': ScreenHealthStatus(
     screenName: 'ReceptionistDashboardScreen',
     routePath: '/staff/receptionist-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/receptionist_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/receptionist_dashboard/receptionist_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -3457,7 +3457,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/franchise/roles/scheduler/dashboard': ScreenHealthStatus(
     screenName: 'SchedulerDashboardScreen',
     routePath: '/offices/franchise/roles/scheduler/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_dashboard/scheduler_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -3500,7 +3500,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/support/roles/training_coordinator/dashboard': ScreenHealthStatus(
     screenName: 'TrainingCoordinatorDashboardScreen',
     routePath: '/offices/support/roles/training_coordinator/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/training_coordinator_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/training_coordinator_dashboard/training_coordinator_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -3543,7 +3543,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/volunteer_coordinator/dashboard': ScreenHealthStatus(
     screenName: 'VolunteerCoordinatorDashboardScreen',
     routePath: '/offices/corporate/roles/volunteer_coordinator/dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/volunteer_coordinator_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/volunteer_coordinator_dashboard/volunteer_coordinator_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -3586,7 +3586,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/volunteer-dashboard': ScreenHealthStatus(
     screenName: 'VolunteerDashboardScreen',
     routePath: '/staff/volunteer-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/volunteer_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/volunteer_dashboard/volunteer_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -3629,7 +3629,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/analytics': ScreenHealthStatus(
     screenName: 'RmtAnalyticsScreen',
     routePath: '/offices/clinical/roles/rmt/analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_analytics/rmt_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -3672,7 +3672,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/compliance': ScreenHealthStatus(
     screenName: 'RmtComplianceScreen',
     routePath: '/offices/clinical/roles/rmt/compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_compliance/rmt_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -3715,7 +3715,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/workflow': ScreenHealthStatus(
     screenName: 'RmtWorkflowScreen',
     routePath: '/offices/clinical/roles/rmt/workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_workflow/rmt_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -3758,7 +3758,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/analytics': ScreenHealthStatus(
     screenName: 'ClinicalAnalyticsScreen',
     routePath: '/offices/clinical/roles/clinical_director/analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_analytics/clinical_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -3801,7 +3801,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/compliance': ScreenHealthStatus(
     screenName: 'ClinicalComplianceScreen',
     routePath: '/offices/clinical/roles/clinical_director/compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_compliance/clinical_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -3844,7 +3844,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/workflow': ScreenHealthStatus(
     screenName: 'ClinicalWorkflowScreen',
     routePath: '/offices/clinical/roles/clinical_director/workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_workflow/clinical_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -3887,7 +3887,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/hsw-adl-logger': ScreenHealthStatus(
     screenName: 'HswAdlLoggerScreen',
     routePath: '/clinical/hsw-adl-logger',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/hsw_adl_logger_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/hsw_adl_logger/hsw_adl_logger_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -3930,7 +3930,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/hsw-care-plans': ScreenHealthStatus(
     screenName: 'HswCarePlansScreen',
     routePath: '/clinical/hsw-care-plans',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/hsw_care_plans_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/hsw_care_plans/hsw_care_plans_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -3973,7 +3973,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/hsw-incident-reports': ScreenHealthStatus(
     screenName: 'HswIncidentReportsScreen',
     routePath: '/clinical/hsw-incident-reports',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/hsw_incident_reports_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/hsw_incident_reports/hsw_incident_reports_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -4016,7 +4016,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/hsw-schedule': ScreenHealthStatus(
     screenName: 'HswScheduleScreen',
     routePath: '/clinical/hsw-schedule',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/hsw_schedule_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/hsw_schedule/hsw_schedule_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -4059,7 +4059,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/architecture-planning-analytics': ScreenHealthStatus(
     screenName: 'ArchitecturePlanningAnalyticsScreen',
     routePath: '/common/architecture-planning-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/architecture_planning_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/architecture_planning_analytics/architecture_planning_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -4102,7 +4102,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/architecture-planning-compliance': ScreenHealthStatus(
     screenName: 'ArchitecturePlanningComplianceScreen',
     routePath: '/common/architecture-planning-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/architecture_planning_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/architecture_planning_compliance/architecture_planning_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -4145,7 +4145,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/architecture-planning-workflow': ScreenHealthStatus(
     screenName: 'ArchitecturePlanningWorkflowScreen',
     routePath: '/common/architecture-planning-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/architecture_planning_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/architecture_planning_workflow/architecture_planning_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -4188,7 +4188,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/business-development-analytics': ScreenHealthStatus(
     screenName: 'BusinessDevelopmentAnalyticsScreen',
     routePath: '/common/business-development-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/business_development_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/business_development_analytics/business_development_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -4231,7 +4231,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/business-development-compliance': ScreenHealthStatus(
     screenName: 'BusinessDevelopmentComplianceScreen',
     routePath: '/common/business-development-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/business_development_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/business_development_compliance/business_development_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -4274,7 +4274,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/business-development-workflow': ScreenHealthStatus(
     screenName: 'BusinessDevelopmentWorkflowScreen',
     routePath: '/common/business-development-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/business_development_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/business_development_workflow/business_development_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -4317,7 +4317,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/analytics': ScreenHealthStatus(
     screenName: 'ChiropractorAnalyticsScreen',
     routePath: '/offices/clinical/roles/chiropractor/analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/chiropractor_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/chiropractor_analytics/chiropractor_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -4360,7 +4360,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/compliance': ScreenHealthStatus(
     screenName: 'ChiropractorComplianceScreen',
     routePath: '/offices/clinical/roles/chiropractor/compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/chiropractor_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/chiropractor_compliance/chiropractor_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -4403,7 +4403,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/workflow': ScreenHealthStatus(
     screenName: 'ChiropractorWorkflowScreen',
     routePath: '/offices/clinical/roles/chiropractor/workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/chiropractor_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/chiropractor_workflow/chiropractor_workflow_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -4446,7 +4446,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/clinic-analytics': ScreenHealthStatus(
     screenName: 'ClinicAnalyticsScreen',
     routePath: '/offices/clinical/roles/clinical_director/clinic-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/clinic_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/clinic_analytics/clinic_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -4489,7 +4489,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/clinic-compliance': ScreenHealthStatus(
     screenName: 'ClinicComplianceScreen',
     routePath: '/offices/clinical/roles/clinical_director/clinic-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/clinic_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/clinic_compliance/clinic_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -4532,7 +4532,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/clinic-workflow': ScreenHealthStatus(
     screenName: 'ClinicWorkflowScreen',
     routePath: '/offices/clinical/roles/clinical_director/clinic-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/clinic_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/clinic_workflow/clinic_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -4575,7 +4575,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/course-architect-analytics': ScreenHealthStatus(
     screenName: 'CourseArchitectAnalyticsScreen',
     routePath: '/common/course-architect-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/course_architect_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/course_architect_analytics/course_architect_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -4618,7 +4618,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/course-architect-compliance': ScreenHealthStatus(
     screenName: 'CourseArchitectComplianceScreen',
     routePath: '/common/course-architect-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/course_architect_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/course_architect_compliance/course_architect_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -4661,7 +4661,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/course-architect-workflow': ScreenHealthStatus(
     screenName: 'CourseArchitectWorkflowScreen',
     routePath: '/common/course-architect-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/course_architect_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/course_architect_workflow/course_architect_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -4704,7 +4704,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/customer-support-analytics': ScreenHealthStatus(
     screenName: 'CustomerSupportAnalyticsScreen',
     routePath: '/common/customer-support-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/customer_support_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/customer_support_analytics/customer_support_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -4747,7 +4747,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/customer-support-compliance': ScreenHealthStatus(
     screenName: 'CustomerSupportComplianceScreen',
     routePath: '/common/customer-support-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/customer_support_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/customer_support_compliance/customer_support_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -4790,7 +4790,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/customer-support-workflow': ScreenHealthStatus(
     screenName: 'CustomerSupportWorkflowScreen',
     routePath: '/common/customer-support-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/customer_support_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/customer_support_workflow/customer_support_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -4919,7 +4919,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/dynamic-workflow': ScreenHealthStatus(
     screenName: 'DynamicScreenWorkflowScreen',
     routePath: '/common/dynamic-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/dynamic_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/dynamic_workflow/dynamic_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -4962,7 +4962,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/family-member-analytics': ScreenHealthStatus(
     screenName: 'FamilyMemberAnalyticsScreen',
     routePath: '/common/family-member-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/family_member_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/family_member_analytics/family_member_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -5005,7 +5005,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/family-member-compliance': ScreenHealthStatus(
     screenName: 'FamilyMemberComplianceScreen',
     routePath: '/common/family-member-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/family_member_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/family_member_compliance/family_member_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -5048,7 +5048,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/family-member-workflow': ScreenHealthStatus(
     screenName: 'FamilyMemberWorkflowScreen',
     routePath: '/common/family-member-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/family_member_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/family_member_workflow/family_member_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -5091,7 +5091,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/franchise-analytics': ScreenHealthStatus(
     screenName: 'FranchiseAnalyticsScreen',
     routePath: '/common/franchise-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/franchise_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/franchise_analytics/franchise_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -5134,7 +5134,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/franchise-compliance': ScreenHealthStatus(
     screenName: 'FranchiseComplianceScreen',
     routePath: '/common/franchise-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/franchise_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/franchise_compliance/franchise_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -5177,7 +5177,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/franchise-workflow': ScreenHealthStatus(
     screenName: 'FranchiseWorkflowScreen',
     routePath: '/common/franchise-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/franchise_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/franchise_workflow/franchise_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -5220,7 +5220,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/guest-analytics': ScreenHealthStatus(
     screenName: 'GuestAnalyticsScreen',
     routePath: '/common/guest-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/guest_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/guest_analytics/guest_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -5263,7 +5263,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/guest-compliance': ScreenHealthStatus(
     screenName: 'GuestComplianceScreen',
     routePath: '/common/guest-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/guest_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/guest_compliance/guest_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -5306,7 +5306,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/guest-workflow': ScreenHealthStatus(
     screenName: 'GuestWorkflowScreen',
     routePath: '/common/guest-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/guest_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/guest_workflow/guest_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -5349,7 +5349,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/infrastructure-analytics': ScreenHealthStatus(
     screenName: 'InfrastructureAnalyticsScreen',
     routePath: '/common/infrastructure-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/infrastructure_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/infrastructure_analytics/infrastructure_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -5392,7 +5392,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/infrastructure-compliance': ScreenHealthStatus(
     screenName: 'InfrastructureComplianceScreen',
     routePath: '/common/infrastructure-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/infrastructure_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/infrastructure_compliance/infrastructure_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -5435,7 +5435,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/infrastructure-workflow': ScreenHealthStatus(
     screenName: 'InfrastructureWorkflowScreen',
     routePath: '/common/infrastructure-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/infrastructure_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/infrastructure_workflow/infrastructure_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -5478,7 +5478,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/intake_coordinator/analytics': ScreenHealthStatus(
     screenName: 'IntakeAnalyticsScreen',
     routePath: '/offices/clinical/roles/intake_coordinator/analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/intake_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/intake_analytics/intake_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -5521,7 +5521,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/intake_coordinator/compliance': ScreenHealthStatus(
     screenName: 'IntakeComplianceScreen',
     routePath: '/offices/clinical/roles/intake_coordinator/compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/intake_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/intake_compliance/intake_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -5564,7 +5564,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/intake_coordinator/workflow': ScreenHealthStatus(
     screenName: 'IntakeWorkflowScreen',
     routePath: '/offices/clinical/roles/intake_coordinator/workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/intake_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/intake_workflow/intake_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -5607,7 +5607,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/office-analytics': ScreenHealthStatus(
     screenName: 'OfficeAnalyticsScreen',
     routePath: '/common/office-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/office_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/office_analytics/office_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -5650,7 +5650,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/office-compliance': ScreenHealthStatus(
     screenName: 'OfficeComplianceScreen',
     routePath: '/common/office-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/office_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/office_compliance/office_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -5693,7 +5693,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/office-workflow': ScreenHealthStatus(
     screenName: 'OfficeWorkflowScreen',
     routePath: '/common/office-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/office_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/office_workflow/office_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -5736,7 +5736,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/patient-analytics': ScreenHealthStatus(
     screenName: 'PatientAnalyticsScreen',
     routePath: '/common/patient-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_analytics/patient_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -5779,7 +5779,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/patient-compliance': ScreenHealthStatus(
     screenName: 'PatientComplianceScreen',
     routePath: '/common/patient-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_compliance/patient_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -5822,7 +5822,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/patient-workflow': ScreenHealthStatus(
     screenName: 'PatientWorkflowScreen',
     routePath: '/common/patient-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_workflow/patient_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -5865,7 +5865,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/analytics': ScreenHealthStatus(
     screenName: 'PhysiotherapistAnalyticsScreen',
     routePath: '/offices/clinical/roles/physiotherapist/analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/physiotherapist_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/physiotherapist_analytics/physiotherapist_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -5908,7 +5908,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/compliance': ScreenHealthStatus(
     screenName: 'PhysiotherapistComplianceScreen',
     routePath: '/offices/clinical/roles/physiotherapist/compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/physiotherapist_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/physiotherapist_compliance/physiotherapist_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -5951,7 +5951,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/workflow': ScreenHealthStatus(
     screenName: 'PhysiotherapistWorkflowScreen',
     routePath: '/offices/clinical/roles/physiotherapist/workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/physiotherapist_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/physiotherapist_workflow/physiotherapist_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -5994,7 +5994,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/portal-analytics': ScreenHealthStatus(
     screenName: 'PortalAnalyticsScreen',
     routePath: '/common/portal-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/portal_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/portal_analytics/portal_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -6037,7 +6037,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/portal-compliance': ScreenHealthStatus(
     screenName: 'PortalComplianceScreen',
     routePath: '/common/portal-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/portal_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/portal_compliance/portal_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -6080,7 +6080,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/portal-workflow': ScreenHealthStatus(
     screenName: 'PortalWorkflowScreen',
     routePath: '/common/portal-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/portal_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/portal_workflow/portal_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -6123,7 +6123,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/qa-analytics': ScreenHealthStatus(
     screenName: 'QaAnalyticsScreen',
     routePath: '/common/qa-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/qa_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/qa_analytics/qa_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -6166,7 +6166,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/qa-compliance': ScreenHealthStatus(
     screenName: 'QaComplianceScreen',
     routePath: '/common/qa-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/qa_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/qa_compliance/qa_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -6209,7 +6209,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/qa-workflow': ScreenHealthStatus(
     screenName: 'QaWorkflowScreen',
     routePath: '/common/qa-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/qa_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/qa_workflow/qa_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -6295,7 +6295,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/social_worker/analytics': ScreenHealthStatus(
     screenName: 'SocialWorkerAnalyticsScreen',
     routePath: '/offices/clinical/roles/social_worker/analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/social_worker_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/social_worker_analytics/social_worker_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -6338,7 +6338,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/social_worker/compliance': ScreenHealthStatus(
     screenName: 'SocialWorkerComplianceScreen',
     routePath: '/offices/clinical/roles/social_worker/compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/social_worker_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/social_worker_compliance/social_worker_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -6381,7 +6381,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/social_worker/workflow': ScreenHealthStatus(
     screenName: 'SocialWorkerWorkflowScreen',
     routePath: '/offices/clinical/roles/social_worker/workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/social_worker_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/social_worker_workflow/social_worker_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -6424,7 +6424,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/support-analytics': ScreenHealthStatus(
     screenName: 'SupportAnalyticsScreen',
     routePath: '/common/support-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/support_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/support_analytics/support_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -6467,7 +6467,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/support-compliance': ScreenHealthStatus(
     screenName: 'SupportComplianceScreen',
     routePath: '/common/support-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/support_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/support_compliance/support_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -6510,7 +6510,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/support-workflow': ScreenHealthStatus(
     screenName: 'SupportWorkflowScreen',
     routePath: '/common/support-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/support_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/support_workflow/support_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -6553,7 +6553,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/system-analytics': ScreenHealthStatus(
     screenName: 'SystemAnalyticsScreen',
     routePath: '/common/system-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_analytics/system_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -6596,7 +6596,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/system-compliance': ScreenHealthStatus(
     screenName: 'SystemComplianceScreen',
     routePath: '/common/system-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_compliance/system_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -6639,7 +6639,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/system-verification-analytics': ScreenHealthStatus(
     screenName: 'SystemVerificationAnalyticsScreen',
     routePath: '/common/system-verification-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_verification_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_verification_analytics/system_verification_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -6682,7 +6682,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/system-verification-compliance': ScreenHealthStatus(
     screenName: 'SystemVerificationComplianceScreen',
     routePath: '/common/system-verification-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_verification_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_verification_compliance/system_verification_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -6725,7 +6725,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/system-verification-workflow': ScreenHealthStatus(
     screenName: 'SystemVerificationWorkflowScreen',
     routePath: '/common/system-verification-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_verification_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_verification_workflow/system_verification_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -6768,7 +6768,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/system-workflow': ScreenHealthStatus(
     screenName: 'SystemWorkflowScreen',
     routePath: '/common/system-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/system_workflow/system_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -6811,7 +6811,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/training-hub-analytics': ScreenHealthStatus(
     screenName: 'TrainingHubAnalyticsScreen',
     routePath: '/common/training-hub-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/training_hub_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/training_hub_analytics/training_hub_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -6854,7 +6854,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/training-hub-compliance': ScreenHealthStatus(
     screenName: 'TrainingHubComplianceScreen',
     routePath: '/common/training-hub-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/training_hub_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/training_hub_compliance/training_hub_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -6897,7 +6897,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/training-hub-workflow': ScreenHealthStatus(
     screenName: 'TrainingHubWorkflowScreen',
     routePath: '/common/training-hub-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/training_hub_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/training_hub_workflow/training_hub_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -6940,7 +6940,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/cfo-analytics': ScreenHealthStatus(
     screenName: 'CfoAnalyticsScreen',
     routePath: '/executive/cfo-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_analytics/cfo_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -6983,7 +6983,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/cfo-compliance': ScreenHealthStatus(
     screenName: 'CfoComplianceScreen',
     routePath: '/executive/cfo-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_compliance/cfo_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -7026,7 +7026,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/cfo-workflow': ScreenHealthStatus(
     screenName: 'CfoWorkflowScreen',
     routePath: '/executive/cfo-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_workflow/cfo_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -7069,7 +7069,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/ciso-analytics': ScreenHealthStatus(
     screenName: 'CisoAnalyticsScreen',
     routePath: '/executive/ciso-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/ciso_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/ciso_analytics/ciso_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -7112,7 +7112,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/ciso-compliance': ScreenHealthStatus(
     screenName: 'CisoComplianceScreen',
     routePath: '/executive/ciso-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/ciso_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/ciso_compliance/ciso_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -7155,7 +7155,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/ciso-workflow': ScreenHealthStatus(
     screenName: 'CisoWorkflowScreen',
     routePath: '/executive/ciso-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/ciso_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/ciso_workflow/ciso_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -7198,7 +7198,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/coo-analytics': ScreenHealthStatus(
     screenName: 'CooAnalyticsScreen',
     routePath: '/executive/coo-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_analytics/coo_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -7241,7 +7241,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/coo/compliance-view': ScreenHealthStatus(
     screenName: 'CooComplianceScreen',
     routePath: '/offices/corporate/roles/coo/compliance-view',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_compliance/coo_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -7284,7 +7284,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/coo-workflow': ScreenHealthStatus(
     screenName: 'CooWorkflowScreen',
     routePath: '/executive/coo-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_workflow/coo_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -7327,7 +7327,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/cto-analytics': ScreenHealthStatus(
     screenName: 'CtoAnalyticsScreen',
     routePath: '/executive/cto-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cto_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cto_analytics/cto_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -7370,7 +7370,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/cto-compliance': ScreenHealthStatus(
     screenName: 'CtoComplianceScreen',
     routePath: '/executive/cto-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cto_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cto_compliance/cto_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -7413,7 +7413,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/cto-workflow': ScreenHealthStatus(
     screenName: 'CtoWorkflowScreen',
     routePath: '/executive/cto-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cto_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cto_workflow/cto_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -7456,7 +7456,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/cx-director-analytics': ScreenHealthStatus(
     screenName: 'CxDirectorAnalyticsScreen',
     routePath: '/executive/cx-director-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cx_director_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cx_director_analytics/cx_director_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -7499,7 +7499,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/cx-director-compliance': ScreenHealthStatus(
     screenName: 'CxDirectorComplianceScreen',
     routePath: '/executive/cx-director-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cx_director_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cx_director_compliance/cx_director_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -7542,7 +7542,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/cx-director-workflow': ScreenHealthStatus(
     screenName: 'CxDirectorWorkflowScreen',
     routePath: '/executive/cx-director-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cx_director_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cx_director_workflow/cx_director_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -7585,7 +7585,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/finance-director-analytics': ScreenHealthStatus(
     screenName: 'FinanceDirectorAnalyticsScreen',
     routePath: '/executive/finance-director-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/finance_director_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/finance_director_analytics/finance_director_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -7628,7 +7628,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/finance-director-compliance': ScreenHealthStatus(
     screenName: 'FinanceDirectorComplianceScreen',
     routePath: '/executive/finance-director-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/finance_director_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/finance_director_compliance/finance_director_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -7671,7 +7671,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/finance-director-workflow': ScreenHealthStatus(
     screenName: 'FinanceDirectorWorkflowScreen',
     routePath: '/executive/finance-director-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/finance_director_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/finance_director_workflow/finance_director_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -7714,7 +7714,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/hr-director-analytics': ScreenHealthStatus(
     screenName: 'HrDirectorAnalyticsScreen',
     routePath: '/executive/hr-director-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_analytics/hr_director_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -7757,7 +7757,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/hr-director-compliance': ScreenHealthStatus(
     screenName: 'HrDirectorComplianceScreen',
     routePath: '/executive/hr-director-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_compliance/hr_director_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -7800,7 +7800,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/hr-director-workflow': ScreenHealthStatus(
     screenName: 'HrDirectorWorkflowScreen',
     routePath: '/executive/hr-director-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_workflow/hr_director_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -7843,7 +7843,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/legal-analytics': ScreenHealthStatus(
     screenName: 'LegalAnalyticsScreen',
     routePath: '/executive/legal-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/legal_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/legal_analytics/legal_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -7886,7 +7886,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/legal-compliance': ScreenHealthStatus(
     screenName: 'LegalComplianceScreen',
     routePath: '/executive/legal-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/legal_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/legal_compliance/legal_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -7929,7 +7929,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/legal-workflow': ScreenHealthStatus(
     screenName: 'LegalWorkflowScreen',
     routePath: '/executive/legal-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/legal_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/legal_workflow/legal_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -7972,7 +7972,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/owner-analytics': ScreenHealthStatus(
     screenName: 'OwnerAnalyticsScreen',
     routePath: '/executive/owner-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/owner_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/owner_analytics/owner_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -8015,7 +8015,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/owner-compliance': ScreenHealthStatus(
     screenName: 'OwnerComplianceScreen',
     routePath: '/executive/owner-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/owner_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/owner_compliance/owner_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -8058,7 +8058,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/owner-workflow': ScreenHealthStatus(
     screenName: 'OwnerWorkflowScreen',
     routePath: '/executive/owner-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/owner_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/owner_workflow/owner_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -8101,7 +8101,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/shareholder-analytics': ScreenHealthStatus(
     screenName: 'ShareholderAnalyticsScreen',
     routePath: '/executive/shareholder-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/shareholder_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/shareholder_analytics/shareholder_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -8144,7 +8144,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/shareholder-compliance': ScreenHealthStatus(
     screenName: 'ShareholderComplianceScreen',
     routePath: '/executive/shareholder-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/shareholder_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/shareholder_compliance/shareholder_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -8187,7 +8187,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/shareholder-workflow': ScreenHealthStatus(
     screenName: 'ShareholderWorkflowScreen',
     routePath: '/executive/shareholder-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/shareholder_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/shareholder_workflow/shareholder_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -8230,7 +8230,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/training_director/analytics': ScreenHealthStatus(
     screenName: 'TrainingDirectorAnalyticsScreen',
     routePath: '/offices/corporate/roles/training_director/analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/training_director_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/training_director_analytics/training_director_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -8273,7 +8273,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/training-director-compliance': ScreenHealthStatus(
     screenName: 'TrainingDirectorComplianceScreen',
     routePath: '/executive/training-director-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/training_director_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/training_director_compliance/training_director_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -8316,7 +8316,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/training-director-workflow': ScreenHealthStatus(
     screenName: 'TrainingDirectorWorkflowScreen',
     routePath: '/executive/training-director-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/training_director_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/training_director_workflow/training_director_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -8359,7 +8359,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/community-outreach-analytics': ScreenHealthStatus(
     screenName: 'CommunityOutreachAnalyticsScreen',
     routePath: '/management/community-outreach-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/community_outreach_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/community_outreach_analytics/community_outreach_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -8402,7 +8402,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/community-outreach-compliance': ScreenHealthStatus(
     screenName: 'CommunityOutreachComplianceScreen',
     routePath: '/management/community-outreach-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/community_outreach_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/community_outreach_compliance/community_outreach_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -8445,7 +8445,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/community-outreach-workflow': ScreenHealthStatus(
     screenName: 'CommunityOutreachWorkflowScreen',
     routePath: '/management/community-outreach-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/community_outreach_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/community_outreach_workflow/community_outreach_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -8488,7 +8488,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/compliance-manager-analytics': ScreenHealthStatus(
     screenName: 'ComplianceManagerAnalyticsScreen',
     routePath: '/management/compliance-manager-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_manager_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_manager_analytics/compliance_manager_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -8531,7 +8531,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/compliance-manager-compliance': ScreenHealthStatus(
     screenName: 'ComplianceManagerComplianceScreen',
     routePath: '/management/compliance-manager-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_manager_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_manager_compliance/compliance_manager_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -8574,7 +8574,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/compliance-manager-workflow': ScreenHealthStatus(
     screenName: 'ComplianceManagerWorkflowScreen',
     routePath: '/management/compliance-manager-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_manager_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_manager_workflow/compliance_manager_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -8617,7 +8617,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/franchise-sales-manager-analytics': ScreenHealthStatus(
     screenName: 'FranchiseSalesManagerAnalyticsScreen',
     routePath: '/management/franchise-sales-manager-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_analytics/franchise_sales_manager_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -8660,7 +8660,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/franchise-sales-manager-compliance': ScreenHealthStatus(
     screenName: 'FranchiseSalesManagerComplianceScreen',
     routePath: '/management/franchise-sales-manager-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_compliance/franchise_sales_manager_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -8703,7 +8703,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/franchise-sales-manager-workflow': ScreenHealthStatus(
     screenName: 'FranchiseSalesManagerWorkflowScreen',
     routePath: '/management/franchise-sales-manager-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_workflow/franchise_sales_manager_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -8746,7 +8746,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/general-manager-analytics': ScreenHealthStatus(
     screenName: 'GeneralManagerAnalyticsScreen',
     routePath: '/management/general-manager-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/general_manager_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/general_manager_analytics/general_manager_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -8789,7 +8789,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/general-manager-compliance': ScreenHealthStatus(
     screenName: 'GeneralManagerComplianceScreen',
     routePath: '/management/general-manager-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/general_manager_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/general_manager_compliance/general_manager_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -8832,7 +8832,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/general-manager-workflow': ScreenHealthStatus(
     screenName: 'GeneralManagerWorkflowScreen',
     routePath: '/management/general-manager-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/general_manager_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/general_manager_workflow/general_manager_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -8875,7 +8875,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/governance-officer-analytics': ScreenHealthStatus(
     screenName: 'GovernanceOfficerAnalyticsScreen',
     routePath: '/management/governance-officer-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/governance_officer_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/governance_officer_analytics/governance_officer_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -8918,7 +8918,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/governance-officer-compliance': ScreenHealthStatus(
     screenName: 'GovernanceOfficerComplianceScreen',
     routePath: '/management/governance-officer-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/governance_officer_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/governance_officer_compliance/governance_officer_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -8961,7 +8961,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/governance-officer-workflow': ScreenHealthStatus(
     screenName: 'GovernanceOfficerWorkflowScreen',
     routePath: '/management/governance-officer-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/governance_officer_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/governance_officer_workflow/governance_officer_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9004,7 +9004,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/head-of-bus-dev-analytics': ScreenHealthStatus(
     screenName: 'HeadOfBusDevAnalyticsScreen',
     routePath: '/management/head-of-bus-dev-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/head_of_bus_dev_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/head_of_bus_dev_analytics/head_of_bus_dev_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9047,7 +9047,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/head-of-bus-dev-compliance': ScreenHealthStatus(
     screenName: 'HeadOfBusDevComplianceScreen',
     routePath: '/management/head-of-bus-dev-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/head_of_bus_dev_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/head_of_bus_dev_compliance/head_of_bus_dev_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -9090,7 +9090,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/head-of-bus-dev-workflow': ScreenHealthStatus(
     screenName: 'HeadOfBusDevWorkflowScreen',
     routePath: '/management/head-of-bus-dev-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/head_of_bus_dev_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/head_of_bus_dev_workflow/head_of_bus_dev_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9133,7 +9133,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/head-of-marketing-analytics': ScreenHealthStatus(
     screenName: 'HeadOfMarketingAnalyticsScreen',
     routePath: '/management/head-of-marketing-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/head_of_marketing_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/head_of_marketing_analytics/head_of_marketing_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9176,7 +9176,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/head-of-marketing-compliance': ScreenHealthStatus(
     screenName: 'HeadOfMarketingComplianceScreen',
     routePath: '/management/head-of-marketing-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/head_of_marketing_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/head_of_marketing_compliance/head_of_marketing_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -9219,7 +9219,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/head-of-marketing-workflow': ScreenHealthStatus(
     screenName: 'HeadOfMarketingWorkflowScreen',
     routePath: '/management/head-of-marketing-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/head_of_marketing_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/head_of_marketing_workflow/head_of_marketing_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9262,7 +9262,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/local-marketing-manager-analytics': ScreenHealthStatus(
     screenName: 'LocalMarketingManagerAnalyticsScreen',
     routePath: '/management/local-marketing-manager-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_analytics/local_marketing_manager_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9305,7 +9305,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/local-marketing-manager-compliance': ScreenHealthStatus(
     screenName: 'LocalMarketingManagerComplianceScreen',
     routePath: '/management/local-marketing-manager-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_compliance/local_marketing_manager_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -9348,7 +9348,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/local-marketing-manager-workflow': ScreenHealthStatus(
     screenName: 'LocalMarketingManagerWorkflowScreen',
     routePath: '/management/local-marketing-manager-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_workflow/local_marketing_manager_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9391,7 +9391,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/operations-manager-analytics': ScreenHealthStatus(
     screenName: 'OperationsManagerAnalyticsScreen',
     routePath: '/management/operations-manager-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/operations_manager_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/operations_manager_analytics/operations_manager_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9434,7 +9434,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/operations-manager-compliance': ScreenHealthStatus(
     screenName: 'OperationsManagerComplianceScreen',
     routePath: '/management/operations-manager-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/operations_manager_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/operations_manager_compliance/operations_manager_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -9477,7 +9477,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/operations-manager-workflow': ScreenHealthStatus(
     screenName: 'OperationsManagerWorkflowScreen',
     routePath: '/management/operations-manager-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/operations_manager_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/operations_manager_workflow/operations_manager_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9520,7 +9520,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/partnership-manager-analytics': ScreenHealthStatus(
     screenName: 'PartnershipManagerAnalyticsScreen',
     routePath: '/management/partnership-manager-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/partnership_manager_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/partnership_manager_analytics/partnership_manager_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9563,7 +9563,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/partnership-manager-compliance': ScreenHealthStatus(
     screenName: 'PartnershipManagerComplianceScreen',
     routePath: '/management/partnership-manager-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/partnership_manager_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/partnership_manager_compliance/partnership_manager_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -9606,7 +9606,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/partnership-manager-workflow': ScreenHealthStatus(
     screenName: 'PartnershipManagerWorkflowScreen',
     routePath: '/management/partnership-manager-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/partnership_manager_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/partnership_manager_workflow/partnership_manager_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9649,7 +9649,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/regional-bdm-analytics': ScreenHealthStatus(
     screenName: 'RegionalBdmAnalyticsScreen',
     routePath: '/management/regional-bdm-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_bdm_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_bdm_analytics/regional_bdm_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9692,7 +9692,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/regional-bdm-compliance': ScreenHealthStatus(
     screenName: 'RegionalBdmComplianceScreen',
     routePath: '/management/regional-bdm-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_bdm_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_bdm_compliance/regional_bdm_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -9735,7 +9735,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/regional-bdm-workflow': ScreenHealthStatus(
     screenName: 'RegionalBdmWorkflowScreen',
     routePath: '/management/regional-bdm-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_bdm_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_bdm_workflow/regional_bdm_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9778,7 +9778,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/regional-manager-usa-analytics': ScreenHealthStatus(
     screenName: 'RegionalManagerUsaAnalyticsScreen',
     routePath: '/management/regional-manager-usa-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_manager_usa_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_manager_usa_analytics/regional_manager_usa_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9821,7 +9821,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/regional-manager-usa-compliance': ScreenHealthStatus(
     screenName: 'RegionalManagerUsaComplianceScreen',
     routePath: '/management/regional-manager-usa-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_manager_usa_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_manager_usa_compliance/regional_manager_usa_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -9864,7 +9864,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/regional-manager-usa-workflow': ScreenHealthStatus(
     screenName: 'RegionalManagerUsaWorkflowScreen',
     routePath: '/management/regional-manager-usa-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_manager_usa_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/regional_manager_usa_workflow/regional_manager_usa_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -9907,7 +9907,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/scrum-master-analytics': ScreenHealthStatus(
     screenName: 'ScrumMasterAnalyticsScreen',
     routePath: '/management/scrum-master-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scrum_master_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scrum_master_analytics/scrum_master_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -9950,7 +9950,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/scrum-master-compliance': ScreenHealthStatus(
     screenName: 'ScrumMasterComplianceScreen',
     routePath: '/management/scrum-master-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/scrum_master_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/scrum_master_compliance/scrum_master_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -9993,7 +9993,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/scrum-master-workflow': ScreenHealthStatus(
     screenName: 'ScrumMasterWorkflowScreen',
     routePath: '/management/scrum-master-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scrum_master_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scrum_master_workflow/scrum_master_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -10036,7 +10036,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/territory-expansion-manager-analytics': ScreenHealthStatus(
     screenName: 'TerritoryExpansionManagerAnalyticsScreen',
     routePath: '/management/territory-expansion-manager-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_expansion_manager_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_expansion_manager_analytics/territory_expansion_manager_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -10079,7 +10079,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/territory-expansion-manager-compliance': ScreenHealthStatus(
     screenName: 'TerritoryExpansionManagerComplianceScreen',
     routePath: '/management/territory-expansion-manager-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_expansion_manager_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_expansion_manager_compliance/territory_expansion_manager_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -10122,7 +10122,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/territory-expansion-manager-workflow': ScreenHealthStatus(
     screenName: 'TerritoryExpansionManagerWorkflowScreen',
     routePath: '/management/territory-expansion-manager-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_expansion_manager_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_expansion_manager_workflow/territory_expansion_manager_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -10165,7 +10165,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/territory-sales-manager-analytics': ScreenHealthStatus(
     screenName: 'TerritorySalesManagerAnalyticsScreen',
     routePath: '/management/territory-sales-manager-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_sales_manager_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_sales_manager_analytics/territory_sales_manager_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -10208,7 +10208,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/territory-sales-manager-compliance': ScreenHealthStatus(
     screenName: 'TerritorySalesManagerComplianceScreen',
     routePath: '/management/territory-sales-manager-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_sales_manager_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_sales_manager_compliance/territory_sales_manager_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -10251,7 +10251,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/territory-sales-manager-workflow': ScreenHealthStatus(
     screenName: 'TerritorySalesManagerWorkflowScreen',
     routePath: '/management/territory-sales-manager-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_sales_manager_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/territory_sales_manager_workflow/territory_sales_manager_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -10294,7 +10294,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/reports': ScreenHealthStatus(
     screenName: 'PswAnalyticsScreen',
     routePath: '/offices/clinical/roles/psw/reports',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_analytics/psw_analytics_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -10337,7 +10337,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/patient-profile': ScreenHealthStatus(
     screenName: 'PswClientsScreen',
     routePath: '/offices/clinical/roles/psw/patient-profile',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_clients_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_clients/psw_clients_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -10380,7 +10380,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/help-support': ScreenHealthStatus(
     screenName: 'PswComplianceScreen',
     routePath: '/offices/clinical/roles/psw/help-support',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_compliance/psw_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -10423,7 +10423,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/messages': ScreenHealthStatus(
     screenName: 'PswMessagesScreen',
     routePath: '/offices/clinical/roles/psw/messages',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_messages_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_messages/psw_messages_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -10466,7 +10466,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/schedule': ScreenHealthStatus(
     screenName: 'PswShiftTrackerScreen',
     routePath: '/offices/clinical/roles/psw/schedule',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_shift_tracker_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_shift_tracker/psw_shift_tracker_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -10509,7 +10509,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/visit-checklist': ScreenHealthStatus(
     screenName: 'PswTasksScreen',
     routePath: '/offices/clinical/roles/psw/visit-checklist',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_tasks_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_tasks/psw_tasks_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -10552,7 +10552,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/visit-notes': ScreenHealthStatus(
     screenName: 'PswVisitNotesScreen',
     routePath: '/offices/clinical/roles/psw/visit-notes',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_visit_notes_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_visit_notes/psw_visit_notes_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -10595,7 +10595,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/psw-workflow': ScreenHealthStatus(
     screenName: 'PswWorkflowScreen',
     routePath: '/offices/clinical/roles/psw/psw-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_workflow/psw_workflow_screen.dart',
     currentStage: 9,
     progressPercent: 90,
     isPlaceholder: false,
@@ -10638,7 +10638,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/rn-analytics': ScreenHealthStatus(
     screenName: 'RnAnalyticsScreen',
     routePath: '/offices/clinical/roles/rn/rn-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_analytics/rn_analytics_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -10681,7 +10681,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/rn-assessments': ScreenHealthStatus(
     screenName: 'RnAssessmentsScreen',
     routePath: '/offices/clinical/roles/rn/rn-assessments',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_assessments_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_assessments/rn_assessments_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -10724,7 +10724,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/rn-care-plans': ScreenHealthStatus(
     screenName: 'RnCarePlansScreen',
     routePath: '/offices/clinical/roles/rn/rn-care-plans',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_care_plans_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_care_plans/rn_care_plans_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -10767,7 +10767,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/rn-compliance': ScreenHealthStatus(
     screenName: 'RnComplianceScreen',
     routePath: '/offices/clinical/roles/rn/rn-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_compliance/rn_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -10810,7 +10810,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/rn-workflow': ScreenHealthStatus(
     screenName: 'RnWorkflowScreen',
     routePath: '/offices/clinical/roles/rn/rn-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_workflow/rn_workflow_screen.dart',
     currentStage: 9,
     progressPercent: 90,
     isPlaceholder: false,
@@ -10853,7 +10853,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/rpn-analytics': ScreenHealthStatus(
     screenName: 'RpnAnalyticsScreen',
     routePath: '/offices/clinical/roles/rpn/rpn-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_analytics/rpn_analytics_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -10896,7 +10896,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/rpn-compliance': ScreenHealthStatus(
     screenName: 'RpnComplianceScreen',
     routePath: '/offices/clinical/roles/rpn/rpn-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_compliance/rpn_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -10939,7 +10939,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/rpn-workflow': ScreenHealthStatus(
     screenName: 'RpnWorkflowScreen',
     routePath: '/offices/clinical/roles/rpn/rpn-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_workflow/rpn_workflow_screen.dart',
     currentStage: 9,
     progressPercent: 90,
     isPlaceholder: false,
@@ -10982,7 +10982,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/billing-admin-analytics': ScreenHealthStatus(
     screenName: 'BillingAdminAnalyticsScreen',
     routePath: '/staff/billing-admin-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/billing_admin_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/billing_admin_analytics/billing_admin_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -11025,7 +11025,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/billing-admin-compliance': ScreenHealthStatus(
     screenName: 'BillingAdminComplianceScreen',
     routePath: '/staff/billing-admin-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/billing_admin_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/billing_admin_compliance/billing_admin_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -11068,7 +11068,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/billing-admin-workflow': ScreenHealthStatus(
     screenName: 'BillingAdminWorkflowScreen',
     routePath: '/staff/billing-admin-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/billing_admin_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/billing_admin_workflow/billing_admin_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -11111,7 +11111,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/coordinator-dispatch-map': ScreenHealthStatus(
     screenName: 'CoordinatorDispatchMapScreen',
     routePath: '/staff/coordinator-dispatch-map',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/coordinator_dispatch_map_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/coordinator_dispatch_map/coordinator_dispatch_map_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -11154,7 +11154,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/coordinator-hub': ScreenHealthStatus(
     screenName: 'CoordinatorHubScreen',
     routePath: '/staff/coordinator-hub',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/coordinator_hub_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/coordinator_hub/coordinator_hub_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -11197,7 +11197,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/coordinator-sos': ScreenHealthStatus(
     screenName: 'CoordinatorSosScreen',
     routePath: '/staff/coordinator-sos',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/coordinator_sos_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/coordinator_sos/coordinator_sos_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -11240,7 +11240,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/coordinator-waitlist': ScreenHealthStatus(
     screenName: 'CoordinatorWaitlistScreen',
     routePath: '/staff/coordinator-waitlist',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/coordinator_waitlist_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/coordinator_waitlist/coordinator_waitlist_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -11283,7 +11283,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/hr-hiring-analytics': ScreenHealthStatus(
     screenName: 'HrHiringAnalyticsScreen',
     routePath: '/staff/hr-hiring-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_analytics/hr_hiring_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -11326,7 +11326,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/hr-hiring-compliance': ScreenHealthStatus(
     screenName: 'HrHiringComplianceScreen',
     routePath: '/staff/hr-hiring-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_compliance/hr_hiring_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -11369,7 +11369,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/hr-hiring-workflow': ScreenHealthStatus(
     screenName: 'HrHiringWorkflowScreen',
     routePath: '/staff/hr-hiring-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_workflow/hr_hiring_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -11412,7 +11412,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/hr-manager-analytics': ScreenHealthStatus(
     screenName: 'HrManagerAnalyticsScreen',
     routePath: '/staff/hr-manager-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_manager_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_manager_analytics/hr_manager_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -11455,7 +11455,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/hr-manager-compliance': ScreenHealthStatus(
     screenName: 'HrManagerComplianceScreen',
     routePath: '/staff/hr-manager-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_manager_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_manager_compliance/hr_manager_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -11498,7 +11498,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/hr-manager-workflow': ScreenHealthStatus(
     screenName: 'HrManagerWorkflowScreen',
     routePath: '/staff/hr-manager-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_manager_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_manager_workflow/hr_manager_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -11541,7 +11541,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/intake_coordinator/coordinator-analytics': ScreenHealthStatus(
     screenName: 'IntakeCoordinatorAnalyticsScreen',
     routePath: '/offices/clinical/roles/intake_coordinator/coordinator-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_analytics/intake_coordinator_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -11584,7 +11584,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/intake_coordinator/coordinator-compliance': ScreenHealthStatus(
     screenName: 'IntakeCoordinatorComplianceScreen',
     routePath: '/offices/clinical/roles/intake_coordinator/coordinator-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_compliance/intake_coordinator_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -11627,7 +11627,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/intake_coordinator/coordinator-workflow': ScreenHealthStatus(
     screenName: 'IntakeCoordinatorWorkflowScreen',
     routePath: '/offices/clinical/roles/intake_coordinator/coordinator-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_workflow/intake_coordinator_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -11670,7 +11670,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/quality-assurance-analytics': ScreenHealthStatus(
     screenName: 'QualityAssuranceAnalyticsScreen',
     routePath: '/staff/quality-assurance-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/quality_assurance_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/quality_assurance_analytics/quality_assurance_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -11713,7 +11713,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/quality-assurance-compliance': ScreenHealthStatus(
     screenName: 'QualityAssuranceComplianceScreen',
     routePath: '/staff/quality-assurance-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/quality_assurance_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/quality_assurance_compliance/quality_assurance_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -11756,7 +11756,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/quality-assurance-workflow': ScreenHealthStatus(
     screenName: 'QualityAssuranceWorkflowScreen',
     routePath: '/staff/quality-assurance-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/quality_assurance_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/quality_assurance_workflow/quality_assurance_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -11799,7 +11799,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/receptionist-analytics': ScreenHealthStatus(
     screenName: 'ReceptionistAnalyticsScreen',
     routePath: '/staff/receptionist-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/receptionist_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/receptionist_analytics/receptionist_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -11842,7 +11842,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/receptionist-compliance': ScreenHealthStatus(
     screenName: 'ReceptionistComplianceScreen',
     routePath: '/staff/receptionist-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/receptionist_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/receptionist_compliance/receptionist_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -11885,7 +11885,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/receptionist-workflow': ScreenHealthStatus(
     screenName: 'ReceptionistWorkflowScreen',
     routePath: '/staff/receptionist-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/receptionist_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/receptionist_workflow/receptionist_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -11928,7 +11928,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/scheduler-analytics': ScreenHealthStatus(
     screenName: 'SchedulerAnalyticsScreen',
     routePath: '/staff/scheduler-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_analytics/scheduler_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -11971,7 +11971,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/scheduler-compliance': ScreenHealthStatus(
     screenName: 'SchedulerComplianceScreen',
     routePath: '/staff/scheduler-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_compliance/scheduler_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -12014,7 +12014,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/scheduler-workflow': ScreenHealthStatus(
     screenName: 'SchedulerWorkflowScreen',
     routePath: '/staff/scheduler-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_workflow/scheduler_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -12057,7 +12057,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/training-coordinator-analytics': ScreenHealthStatus(
     screenName: 'TrainingCoordinatorAnalyticsScreen',
     routePath: '/staff/training-coordinator-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/training_coordinator_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/training_coordinator_analytics/training_coordinator_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -12100,7 +12100,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/training-coordinator-compliance': ScreenHealthStatus(
     screenName: 'TrainingCoordinatorComplianceScreen',
     routePath: '/staff/training-coordinator-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/training_coordinator_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/training_coordinator_compliance/training_coordinator_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -12143,7 +12143,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/training-coordinator-workflow': ScreenHealthStatus(
     screenName: 'TrainingCoordinatorWorkflowScreen',
     routePath: '/staff/training-coordinator-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/training_coordinator_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/training_coordinator_workflow/training_coordinator_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -12186,7 +12186,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/volunteer-coordinator-analytics': ScreenHealthStatus(
     screenName: 'VolunteerCoordinatorAnalyticsScreen',
     routePath: '/staff/volunteer-coordinator-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/volunteer_coordinator_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/volunteer_coordinator_analytics/volunteer_coordinator_analytics_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -12229,7 +12229,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/volunteer-coordinator-compliance': ScreenHealthStatus(
     screenName: 'VolunteerCoordinatorComplianceScreen',
     routePath: '/staff/volunteer-coordinator-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/volunteer_coordinator_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/volunteer_coordinator_compliance/volunteer_coordinator_compliance_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -12272,7 +12272,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/volunteer-coordinator-workflow': ScreenHealthStatus(
     screenName: 'VolunteerCoordinatorWorkflowScreen',
     routePath: '/staff/volunteer-coordinator-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/volunteer_coordinator_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/volunteer_coordinator_workflow/volunteer_coordinator_workflow_screen.dart',
     currentStage: 4,
     progressPercent: 40,
     isPlaceholder: false,
@@ -12315,7 +12315,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/caregiver/tasks': ScreenHealthStatus(
     screenName: 'CaregiverTasksScreen',
     routePath: '/offices/clinical/roles/caregiver/tasks',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/caregiver_tasks_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/caregiver_tasks/caregiver_tasks_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12358,7 +12358,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/caregiver/client-profile': ScreenHealthStatus(
     screenName: 'CaregiverClientProfileScreen',
     routePath: '/offices/clinical/roles/caregiver/client-profile',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/caregiver_client_profile_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/caregiver_client_profile/caregiver_client_profile_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12401,7 +12401,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/caregiver/visit-notes': ScreenHealthStatus(
     screenName: 'CaregiverVisitNotesScreen',
     routePath: '/offices/clinical/roles/caregiver/visit-notes',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/caregiver_visit_notes_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/caregiver_visit_notes/caregiver_visit_notes_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12444,7 +12444,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/caregiver/schedule': ScreenHealthStatus(
     screenName: 'CaregiverScheduleScreen',
     routePath: '/offices/clinical/roles/caregiver/schedule',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/caregiver_schedule_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/caregiver_schedule/caregiver_schedule_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12487,7 +12487,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/caregiver/incident-report': ScreenHealthStatus(
     screenName: 'CaregiverIncidentReportScreen',
     routePath: '/offices/clinical/roles/caregiver/incident-report',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/caregiver_incident_report_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/caregiver_incident_report/caregiver_incident_report_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12530,7 +12530,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/cfo/revenue': ScreenHealthStatus(
     screenName: 'CfoRevenueScreen',
     routePath: '/offices/corporate/roles/cfo/revenue',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_revenue_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_revenue/cfo_revenue_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12573,7 +12573,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/cfo/expenses': ScreenHealthStatus(
     screenName: 'CfoExpensesScreen',
     routePath: '/offices/corporate/roles/cfo/expenses',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_expenses_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_expenses/cfo_expenses_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12616,7 +12616,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/cfo/payroll': ScreenHealthStatus(
     screenName: 'CfoPayrollScreen',
     routePath: '/offices/corporate/roles/cfo/payroll',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_payroll_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_payroll/cfo_payroll_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12659,7 +12659,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/cfo/invoices': ScreenHealthStatus(
     screenName: 'CfoInvoicesScreen',
     routePath: '/offices/corporate/roles/cfo/invoices',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_invoices_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_invoices/cfo_invoices_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12702,7 +12702,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/cfo-tax': ScreenHealthStatus(
     screenName: 'CfoTaxScreen',
     routePath: '/executive/cfo-tax',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_tax_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_tax/cfo_tax_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12745,7 +12745,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/cfo/profitability': ScreenHealthStatus(
     screenName: 'CfoProfitabilityScreen',
     routePath: '/offices/corporate/roles/cfo/profitability',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_profitability_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_profitability/cfo_profitability_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12788,7 +12788,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/cfo-cashflow': ScreenHealthStatus(
     screenName: 'CfoCashflowScreen',
     routePath: '/executive/cfo-cashflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_cashflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/cfo_cashflow/cfo_cashflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12831,7 +12831,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/command-center': ScreenHealthStatus(
     screenName: 'ChiropractorCommandCenterScreen',
     routePath: '/offices/clinical/roles/chiropractor/command-center',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_command_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_command_center/chiropractor_command_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12874,7 +12874,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/appointments': ScreenHealthStatus(
     screenName: 'ChiropractorAppointmentsScreen',
     routePath: '/offices/clinical/roles/chiropractor/appointments',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_appointments_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_appointments/chiropractor_appointments_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12917,7 +12917,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/client-intake': ScreenHealthStatus(
     screenName: 'ChiropractorClientIntakeScreen',
     routePath: '/offices/clinical/roles/chiropractor/client-intake',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_client_intake_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_client_intake/chiropractor_client_intake_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -12960,7 +12960,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/assessment': ScreenHealthStatus(
     screenName: 'ChiropractorAssessmentScreen',
     routePath: '/offices/clinical/roles/chiropractor/assessment',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_assessment_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_assessment/chiropractor_assessment_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13003,7 +13003,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/treatment-notes': ScreenHealthStatus(
     screenName: 'ChiropractorTreatmentNotesScreen',
     routePath: '/offices/clinical/roles/chiropractor/treatment-notes',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_treatment_notes_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_treatment_notes/chiropractor_treatment_notes_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13046,7 +13046,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/exercise-plan': ScreenHealthStatus(
     screenName: 'ChiropractorExercisePlanScreen',
     routePath: '/offices/clinical/roles/chiropractor/exercise-plan',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_exercise_plan_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_exercise_plan/chiropractor_exercise_plan_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13089,7 +13089,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/billing-link': ScreenHealthStatus(
     screenName: 'ChiropractorBillingLinkScreen',
     routePath: '/offices/clinical/roles/chiropractor/billing-link',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_billing_link_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_billing_link/chiropractor_billing_link_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13132,7 +13132,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/reports': ScreenHealthStatus(
     screenName: 'ChiropractorReportsScreen',
     routePath: '/offices/clinical/roles/chiropractor/reports',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_reports_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractor_reports/chiropractor_reports_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13175,7 +13175,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/staff-quality': ScreenHealthStatus(
     screenName: 'ClinicalDirectorStaffQualityScreen',
     routePath: '/offices/clinical/roles/clinical_director/staff-quality',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_staff_quality_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_staff_quality/clinical_director_staff_quality_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13218,7 +13218,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/incident-review': ScreenHealthStatus(
     screenName: 'ClinicalDirectorIncidentReviewScreen',
     routePath: '/offices/clinical/roles/clinical_director/incident-review',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_incident_review_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_incident_review/clinical_director_incident_review_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13261,7 +13261,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/compliance-director': ScreenHealthStatus(
     screenName: 'ClinicalDirectorComplianceScreen',
     routePath: '/offices/clinical/roles/clinical_director/compliance-director',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_compliance/clinical_director_compliance_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13304,7 +13304,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/reports': ScreenHealthStatus(
     screenName: 'ClinicalDirectorReportsScreen',
     routePath: '/offices/clinical/roles/clinical_director/reports',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_reports_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_reports/clinical_director_reports_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13347,7 +13347,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/approvals': ScreenHealthStatus(
     screenName: 'ClinicalDirectorApprovalsScreen',
     routePath: '/offices/clinical/roles/clinical_director/approvals',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_approvals_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_approvals/clinical_director_approvals_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13390,7 +13390,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/performance': ScreenHealthStatus(
     screenName: 'ClinicalDirectorPerformanceScreen',
     routePath: '/offices/clinical/roles/clinical_director/performance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_performance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_performance/clinical_director_performance_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13433,7 +13433,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/coo-command-center': ScreenHealthStatus(
     screenName: 'CooCommandCenterScreen',
     routePath: '/executive/coo-command-center',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_command_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_command_center/coo_command_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13476,7 +13476,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/coo/operations-overview': ScreenHealthStatus(
     screenName: 'CooOperationsOverviewScreen',
     routePath: '/offices/corporate/roles/coo/operations-overview',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_operations_overview_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_operations_overview/coo_operations_overview_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13519,7 +13519,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/coo-staffing': ScreenHealthStatus(
     screenName: 'CooStaffingScreen',
     routePath: '/executive/coo-staffing',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_staffing_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_staffing/coo_staffing_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13562,7 +13562,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/coo/scheduling-health': ScreenHealthStatus(
     screenName: 'CooSchedulingHealthScreen',
     routePath: '/offices/corporate/roles/coo/scheduling-health',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_scheduling_health_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_scheduling_health/coo_scheduling_health_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13605,7 +13605,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/coo-workflow-issues': ScreenHealthStatus(
     screenName: 'CooWorkflowIssuesScreen',
     routePath: '/executive/coo-workflow-issues',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_workflow_issues_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_workflow_issues/coo_workflow_issues_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13648,7 +13648,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/corporate/roles/coo/branch-comparison': ScreenHealthStatus(
     screenName: 'CooBranchComparisonScreen',
     routePath: '/offices/corporate/roles/coo/branch-comparison',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_branch_comparison_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/coo_branch_comparison/coo_branch_comparison_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13691,7 +13691,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/hr-director-hiring-pipeline': ScreenHealthStatus(
     screenName: 'HrDirectorHiringPipelineScreen',
     routePath: '/executive/hr-director-hiring-pipeline',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_hiring_pipeline_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_hiring_pipeline/hr_director_hiring_pipeline_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13734,7 +13734,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/hr-director-staff-files': ScreenHealthStatus(
     screenName: 'HrDirectorStaffFilesScreen',
     routePath: '/executive/hr-director-staff-files',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_staff_files_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_staff_files/hr_director_staff_files_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13777,7 +13777,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/hr-director-training': ScreenHealthStatus(
     screenName: 'HrDirectorTrainingScreen',
     routePath: '/executive/hr-director-training',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_training_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_training/hr_director_training_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13820,7 +13820,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/hr-director-credential-expiry': ScreenHealthStatus(
     screenName: 'HrDirectorCredentialExpiryScreen',
     routePath: '/executive/hr-director-credential-expiry',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_credential_expiry_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_credential_expiry/hr_director_credential_expiry_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13863,7 +13863,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/hr-director-onboarding': ScreenHealthStatus(
     screenName: 'HrDirectorOnboardingScreen',
     routePath: '/executive/hr-director-onboarding',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_onboarding_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/hr_director_onboarding/hr_director_onboarding_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13906,7 +13906,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/franchise/roles/hr_hiring/applicants': ScreenHealthStatus(
     screenName: 'HrHiringApplicantsScreen',
     routePath: '/offices/franchise/roles/hr_hiring/applicants',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_applicants_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_applicants/hr_hiring_applicants_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13949,7 +13949,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/franchise/roles/hr_hiring/interviews': ScreenHealthStatus(
     screenName: 'HrHiringInterviewsScreen',
     routePath: '/offices/franchise/roles/hr_hiring/interviews',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_interviews_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_interviews/hr_hiring_interviews_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -13992,7 +13992,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/franchise/roles/hr_hiring/offers': ScreenHealthStatus(
     screenName: 'HrHiringOffersScreen',
     routePath: '/offices/franchise/roles/hr_hiring/offers',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_offers_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_offers/hr_hiring_offers_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14035,7 +14035,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/franchise/roles/hr_hiring/onboarding': ScreenHealthStatus(
     screenName: 'HrHiringOnboardingScreen',
     routePath: '/offices/franchise/roles/hr_hiring/onboarding',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_onboarding_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_onboarding/hr_hiring_onboarding_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14078,7 +14078,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/franchise/roles/hr_hiring/credentials': ScreenHealthStatus(
     screenName: 'HrHiringCredentialsScreen',
     routePath: '/offices/franchise/roles/hr_hiring/credentials',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_credentials_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_hiring_credentials/hr_hiring_credentials_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14121,7 +14121,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/franchise-owner-command-center': ScreenHealthStatus(
     screenName: 'FranchiseOwnerCommandCenterScreen',
     routePath: '/executive/franchise-owner-command-center',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_command_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_command_center/franchise_owner_command_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14164,7 +14164,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/franchise/roles/franchise_owner/branch-overview': ScreenHealthStatus(
     screenName: 'FranchiseOwnerBranchOverviewScreen',
     routePath: '/offices/franchise/roles/franchise_owner/branch-overview',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_branch_overview_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_branch_overview/franchise_owner_branch_overview_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14207,7 +14207,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/franchise/roles/franchise_owner/staff': ScreenHealthStatus(
     screenName: 'FranchiseOwnerStaffScreen',
     routePath: '/offices/franchise/roles/franchise_owner/staff',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_staff_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_staff/franchise_owner_staff_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14250,7 +14250,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/franchise/roles/franchise_owner/clients': ScreenHealthStatus(
     screenName: 'FranchiseOwnerClientsScreen',
     routePath: '/offices/franchise/roles/franchise_owner/clients',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_clients_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_clients/franchise_owner_clients_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14293,7 +14293,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/franchise/roles/franchise_owner/appointments': ScreenHealthStatus(
     screenName: 'FranchiseOwnerAppointmentsScreen',
     routePath: '/offices/franchise/roles/franchise_owner/appointments',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_appointments_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_appointments/franchise_owner_appointments_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14336,7 +14336,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/franchise-owner-finance-snapshot': ScreenHealthStatus(
     screenName: 'FranchiseOwnerFinanceSnapshotScreen',
     routePath: '/executive/franchise-owner-finance-snapshot',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_finance_snapshot_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_finance_snapshot/franchise_owner_finance_snapshot_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14379,7 +14379,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/franchise/roles/franchise_owner/compliance': ScreenHealthStatus(
     screenName: 'FranchiseOwnerComplianceScreen',
     routePath: '/offices/franchise/roles/franchise_owner/compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_compliance/franchise_owner_compliance_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14422,7 +14422,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/franchise/roles/franchise_owner/reports': ScreenHealthStatus(
     screenName: 'FranchiseOwnerReportsScreen',
     routePath: '/offices/franchise/roles/franchise_owner/reports',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_reports_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_owner_reports/franchise_owner_reports_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14465,7 +14465,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/patient-command-center': ScreenHealthStatus(
     screenName: 'PatientCommandCenterScreen',
     routePath: '/common/patient-command-center',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_command_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_command_center/patient_command_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14508,7 +14508,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/patient-appointments': ScreenHealthStatus(
     screenName: 'PatientAppointmentsScreen',
     routePath: '/common/patient-appointments',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_appointments_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_appointments/patient_appointments_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14551,7 +14551,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/patient-care-plan': ScreenHealthStatus(
     screenName: 'PatientCarePlanScreen',
     routePath: '/common/patient-care-plan',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_care_plan_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_care_plan/patient_care_plan_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14594,7 +14594,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/patient-messages': ScreenHealthStatus(
     screenName: 'PatientMessagesScreen',
     routePath: '/common/patient-messages',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_messages_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_messages/patient_messages_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14637,7 +14637,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/patient-documents': ScreenHealthStatus(
     screenName: 'PatientDocumentsScreen',
     routePath: '/common/patient-documents',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_documents_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_documents/patient_documents_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14680,7 +14680,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/patient-billing': ScreenHealthStatus(
     screenName: 'PatientBillingScreen',
     routePath: '/common/patient-billing',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_billing_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_billing/patient_billing_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14723,7 +14723,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/client/roles/client/profile': ScreenHealthStatus(
     screenName: 'PatientProfileScreen',
     routePath: '/offices/client/roles/client/profile',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_profile_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/patient_profile/patient_profile_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14766,7 +14766,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/command-center': ScreenHealthStatus(
     screenName: 'PhysiotherapistCommandCenterScreen',
     routePath: '/offices/clinical/roles/physiotherapist/command-center',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_command_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_command_center/physiotherapist_command_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14809,7 +14809,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/appointments': ScreenHealthStatus(
     screenName: 'PhysiotherapistAppointmentsScreen',
     routePath: '/offices/clinical/roles/physiotherapist/appointments',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_appointments_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_appointments/physiotherapist_appointments_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14852,7 +14852,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/client-intake': ScreenHealthStatus(
     screenName: 'PhysiotherapistClientIntakeScreen',
     routePath: '/offices/clinical/roles/physiotherapist/client-intake',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_client_intake_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_client_intake/physiotherapist_client_intake_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14895,7 +14895,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/assessment': ScreenHealthStatus(
     screenName: 'PhysiotherapistAssessmentScreen',
     routePath: '/offices/clinical/roles/physiotherapist/assessment',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_assessment_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_assessment/physiotherapist_assessment_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14938,7 +14938,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/treatment-notes': ScreenHealthStatus(
     screenName: 'PhysiotherapistTreatmentNotesScreen',
     routePath: '/offices/clinical/roles/physiotherapist/treatment-notes',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_treatment_notes_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_treatment_notes/physiotherapist_treatment_notes_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -14981,7 +14981,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/exercise-plan': ScreenHealthStatus(
     screenName: 'PhysiotherapistExercisePlanScreen',
     routePath: '/offices/clinical/roles/physiotherapist/exercise-plan',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_exercise_plan_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_exercise_plan/physiotherapist_exercise_plan_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15024,7 +15024,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/billing-link': ScreenHealthStatus(
     screenName: 'PhysiotherapistBillingLinkScreen',
     routePath: '/offices/clinical/roles/physiotherapist/billing-link',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_billing_link_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_billing_link/physiotherapist_billing_link_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15067,7 +15067,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/reports': ScreenHealthStatus(
     screenName: 'PhysiotherapistReportsScreen',
     routePath: '/offices/clinical/roles/physiotherapist/reports',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_reports_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/physiotherapist_reports/physiotherapist_reports_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15110,7 +15110,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/system-logs': ScreenHealthStatus(
     screenName: 'PswCommandCenterScreen',
     routePath: '/offices/clinical/roles/psw/system-logs',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_command_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_command_center/psw_command_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15153,7 +15153,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/psw-my-shifts': ScreenHealthStatus(
     screenName: 'PswMyShiftsScreen',
     routePath: '/offices/clinical/roles/psw/psw-my-shifts',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_my_shifts_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_my_shifts/psw_my_shifts_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15196,7 +15196,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/profile': ScreenHealthStatus(
     screenName: 'PswClientProfileScreen',
     routePath: '/offices/clinical/roles/psw/profile',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_client_profile_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_client_profile/psw_client_profile_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15239,7 +15239,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/visit-notes': ScreenHealthStatus(
     screenName: 'PswVisitNotesScreen',
     routePath: '/offices/clinical/roles/psw/visit-notes',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_visit_notes_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_visit_notes/psw_visit_notes_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15282,7 +15282,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/observation-vitals-log': ScreenHealthStatus(
     screenName: 'PswVitalsLogScreen',
     routePath: '/offices/clinical/roles/psw/observation-vitals-log',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_vitals_log_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_vitals_log/psw_vitals_log_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15325,7 +15325,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/incident-report': ScreenHealthStatus(
     screenName: 'PswIncidentReportScreen',
     routePath: '/offices/clinical/roles/psw/incident-report',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_incident_report_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_incident_report/psw_incident_report_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15368,7 +15368,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/care-plan': ScreenHealthStatus(
     screenName: 'PswCarePlanScreen',
     routePath: '/offices/clinical/roles/psw/care-plan',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_care_plan_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_care_plan/psw_care_plan_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15411,7 +15411,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/messages': ScreenHealthStatus(
     screenName: 'PswMessagesScreen',
     routePath: '/offices/clinical/roles/psw/messages',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_messages_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_messages/psw_messages_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15454,7 +15454,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/documents': ScreenHealthStatus(
     screenName: 'PswDocumentsScreen',
     routePath: '/offices/clinical/roles/psw/documents',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_documents_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/psw_documents/psw_documents_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15497,7 +15497,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/command-center': ScreenHealthStatus(
     screenName: 'RmtCommandCenterScreen',
     routePath: '/offices/clinical/roles/rmt/command-center',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_command_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_command_center/rmt_command_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15540,7 +15540,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/appointments': ScreenHealthStatus(
     screenName: 'RmtAppointmentsScreen',
     routePath: '/offices/clinical/roles/rmt/appointments',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_appointments_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_appointments/rmt_appointments_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15583,7 +15583,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/client-intake': ScreenHealthStatus(
     screenName: 'RmtClientIntakeScreen',
     routePath: '/offices/clinical/roles/rmt/client-intake',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_client_intake_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_client_intake/rmt_client_intake_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15626,7 +15626,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/assessment': ScreenHealthStatus(
     screenName: 'RmtAssessmentScreen',
     routePath: '/offices/clinical/roles/rmt/assessment',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_assessment_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_assessment/rmt_assessment_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15669,7 +15669,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/treatment-notes': ScreenHealthStatus(
     screenName: 'RmtTreatmentNotesScreen',
     routePath: '/offices/clinical/roles/rmt/treatment-notes',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_treatment_notes_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_treatment_notes/rmt_treatment_notes_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15712,7 +15712,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/exercise-plan': ScreenHealthStatus(
     screenName: 'RmtExercisePlanScreen',
     routePath: '/offices/clinical/roles/rmt/exercise-plan',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_exercise_plan_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_exercise_plan/rmt_exercise_plan_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15755,7 +15755,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/billing-link': ScreenHealthStatus(
     screenName: 'RmtBillingLinkScreen',
     routePath: '/offices/clinical/roles/rmt/billing-link',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_billing_link_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_billing_link/rmt_billing_link_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15798,7 +15798,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/reports': ScreenHealthStatus(
     screenName: 'RmtReportsScreen',
     routePath: '/offices/clinical/roles/rmt/reports',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_reports_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/rmt_reports/rmt_reports_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15841,7 +15841,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/rn-command-center': ScreenHealthStatus(
     screenName: 'RnCommandCenterScreen',
     routePath: '/offices/clinical/roles/rn/rn-command-center',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_command_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_command_center/rn_command_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15884,7 +15884,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/patient-charting': ScreenHealthStatus(
     screenName: 'RnPatientChartingScreen',
     routePath: '/offices/clinical/roles/rn/patient-charting',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_patient_charting_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_patient_charting/rn_patient_charting_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15927,7 +15927,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/medications': ScreenHealthStatus(
     screenName: 'RnMedicationsScreen',
     routePath: '/offices/clinical/roles/rn/medications',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_medications_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_medications/rn_medications_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -15970,7 +15970,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/vitals': ScreenHealthStatus(
     screenName: 'RnVitalsScreen',
     routePath: '/offices/clinical/roles/rn/vitals',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_vitals_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_vitals/rn_vitals_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16013,7 +16013,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/rn-care-plan-review': ScreenHealthStatus(
     screenName: 'RnCarePlanReviewScreen',
     routePath: '/offices/clinical/roles/rn/rn-care-plan-review',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_care_plan_review_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_care_plan_review/rn_care_plan_review_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16056,7 +16056,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/rn-incident-review': ScreenHealthStatus(
     screenName: 'RnIncidentReviewScreen',
     routePath: '/offices/clinical/roles/rn/rn-incident-review',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_incident_review_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_incident_review/rn_incident_review_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16099,7 +16099,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/rn-tasks': ScreenHealthStatus(
     screenName: 'RnTasksScreen',
     routePath: '/offices/clinical/roles/rn/rn-tasks',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_tasks_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_tasks/rn_tasks_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16142,7 +16142,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/rn-reports': ScreenHealthStatus(
     screenName: 'RnReportsScreen',
     routePath: '/offices/clinical/roles/rn/rn-reports',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_reports_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_reports/rn_reports_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16185,7 +16185,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/rpn-command-center': ScreenHealthStatus(
     screenName: 'RpnCommandCenterScreen',
     routePath: '/offices/clinical/roles/rpn/rpn-command-center',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_command_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_command_center/rpn_command_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16228,7 +16228,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/patient-charting': ScreenHealthStatus(
     screenName: 'RpnPatientChartingScreen',
     routePath: '/offices/clinical/roles/rpn/patient-charting',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_patient_charting_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_patient_charting/rpn_patient_charting_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16271,7 +16271,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/medications': ScreenHealthStatus(
     screenName: 'RpnMedicationsScreen',
     routePath: '/offices/clinical/roles/rpn/medications',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_medications_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_medications/rpn_medications_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16314,7 +16314,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/vitals': ScreenHealthStatus(
     screenName: 'RpnVitalsScreen',
     routePath: '/offices/clinical/roles/rpn/vitals',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_vitals_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_vitals/rpn_vitals_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16357,7 +16357,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/rpn-care-plan-review': ScreenHealthStatus(
     screenName: 'RpnCarePlanReviewScreen',
     routePath: '/offices/clinical/roles/rpn/rpn-care-plan-review',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_care_plan_review_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_care_plan_review/rpn_care_plan_review_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16400,7 +16400,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/rpn-incident-review': ScreenHealthStatus(
     screenName: 'RpnIncidentReviewScreen',
     routePath: '/offices/clinical/roles/rpn/rpn-incident-review',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_incident_review_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_incident_review/rpn_incident_review_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16443,7 +16443,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/rpn-tasks': ScreenHealthStatus(
     screenName: 'RpnTasksScreen',
     routePath: '/offices/clinical/roles/rpn/rpn-tasks',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_tasks_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_tasks/rpn_tasks_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16486,7 +16486,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/rpn-reports': ScreenHealthStatus(
     screenName: 'RpnReportsScreen',
     routePath: '/offices/clinical/roles/rpn/rpn-reports',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_reports_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/rpn_reports/rpn_reports_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16529,7 +16529,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/scheduler-command-center': ScreenHealthStatus(
     screenName: 'SchedulerCommandCenterScreen',
     routePath: '/staff/scheduler-command-center',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_command_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_command_center/scheduler_command_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16572,7 +16572,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/scheduler-calendar': ScreenHealthStatus(
     screenName: 'SchedulerCalendarScreen',
     routePath: '/staff/scheduler-calendar',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_calendar_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_calendar/scheduler_calendar_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16615,7 +16615,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/scheduler-booking-requests': ScreenHealthStatus(
     screenName: 'SchedulerBookingRequestsScreen',
     routePath: '/staff/scheduler-booking-requests',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_booking_requests_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_booking_requests/scheduler_booking_requests_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16658,7 +16658,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/scheduler-conflicts': ScreenHealthStatus(
     screenName: 'SchedulerConflictsScreen',
     routePath: '/staff/scheduler-conflicts',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_conflicts_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_conflicts/scheduler_conflicts_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16701,7 +16701,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/scheduler-open-shifts': ScreenHealthStatus(
     screenName: 'SchedulerOpenShiftsScreen',
     routePath: '/staff/scheduler-open-shifts',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_open_shifts_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_open_shifts/scheduler_open_shifts_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16744,7 +16744,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/scheduler-provider-availability': ScreenHealthStatus(
     screenName: 'SchedulerProviderAvailabilityScreen',
     routePath: '/staff/scheduler-provider-availability',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_provider_availability_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduler_provider_availability/scheduler_provider_availability_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16787,7 +16787,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/intake-coordinator-referrals': ScreenHealthStatus(
     screenName: 'IntakeCoordinatorReferralsScreen',
     routePath: '/executive/intake-coordinator-referrals',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/intake_coordinator_referrals_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/intake_coordinator_referrals/intake_coordinator_referrals_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16830,7 +16830,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/intake-coordinator-new-client-intake': ScreenHealthStatus(
     screenName: 'IntakeCoordinatorNewClientIntakeScreen',
     routePath: '/executive/intake-coordinator-new-client-intake',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/intake_coordinator_new_client_intake_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/intake_coordinator_new_client_intake/intake_coordinator_new_client_intake_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16873,7 +16873,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/intake-coordinator-assessment-queue': ScreenHealthStatus(
     screenName: 'IntakeCoordinatorAssessmentQueueScreen',
     routePath: '/executive/intake-coordinator-assessment-queue',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/intake_coordinator_assessment_queue_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/intake_coordinator_assessment_queue/intake_coordinator_assessment_queue_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16916,7 +16916,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/intake-coordinator-booking': ScreenHealthStatus(
     screenName: 'IntakeCoordinatorBookingScreen',
     routePath: '/executive/intake-coordinator-booking',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/intake_coordinator_booking_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/intake_coordinator_booking/intake_coordinator_booking_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -16959,7 +16959,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/intake-coordinator-documents': ScreenHealthStatus(
     screenName: 'IntakeCoordinatorDocumentsScreen',
     routePath: '/executive/intake-coordinator-documents',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/intake_coordinator_documents_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/intake_coordinator_documents/intake_coordinator_documents_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17002,7 +17002,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/intake-coordinator-follow-up': ScreenHealthStatus(
     screenName: 'IntakeCoordinatorFollowUpScreen',
     routePath: '/executive/intake-coordinator-follow-up',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/intake_coordinator_follow_up_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/intake_coordinator_follow_up/intake_coordinator_follow_up_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17045,7 +17045,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/executive-command-center': ScreenHealthStatus(
     screenName: 'ExecutiveCommandCenterScreen',
     routePath: '/executive/executive-command-center',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/executive_command_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/executive_command_center/executive_command_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17088,7 +17088,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/enterprise-health': ScreenHealthStatus(
     screenName: 'EnterpriseHealthScreen',
     routePath: '/executive/enterprise-health',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/enterprise_health_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/enterprise_health/enterprise_health_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17131,7 +17131,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/revenue-analytics': ScreenHealthStatus(
     screenName: 'RevenueAnalyticsScreen',
     routePath: '/executive/revenue-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/revenue_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/revenue_analytics/revenue_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17174,7 +17174,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/risk-management': ScreenHealthStatus(
     screenName: 'RiskManagementScreen',
     routePath: '/executive/risk-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/risk_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/risk_management/risk_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17217,7 +17217,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/franchise-overview': ScreenHealthStatus(
     screenName: 'FranchiseOverviewScreen',
     routePath: '/executive/franchise-overview',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_overview_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_overview/franchise_overview_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17260,7 +17260,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/operations-command-center': ScreenHealthStatus(
     screenName: 'OperationsCommandCenterScreen',
     routePath: '/executive/operations-command-center',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/operations_command_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/operations_command_center/operations_command_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17303,7 +17303,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/staffing-overview': ScreenHealthStatus(
     screenName: 'StaffingOverviewScreen',
     routePath: '/executive/staffing-overview',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/staffing_overview_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/staffing_overview/staffing_overview_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17346,7 +17346,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/workflow-issue': ScreenHealthStatus(
     screenName: 'WorkflowIssueScreen',
     routePath: '/executive/workflow-issue',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/workflow_issue_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/workflow_issue/workflow_issue_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17389,7 +17389,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/service-quality': ScreenHealthStatus(
     screenName: 'ServiceQualityScreen',
     routePath: '/executive/service-quality',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/service_quality_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/service_quality/service_quality_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17432,7 +17432,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/branch-performance': ScreenHealthStatus(
     screenName: 'BranchPerformanceScreen',
     routePath: '/executive/branch-performance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/branch_performance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/branch_performance/branch_performance_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17475,7 +17475,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/financial-dashboard': ScreenHealthStatus(
     screenName: 'FinancialDashboardScreen',
     routePath: '/executive/financial-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/financial_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/financial_dashboard/financial_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17518,7 +17518,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/revenue': ScreenHealthStatus(
     screenName: 'RevenueScreen',
     routePath: '/executive/revenue',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/revenue_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/revenue/revenue_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17561,7 +17561,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/expense-management': ScreenHealthStatus(
     screenName: 'ExpenseManagementScreen',
     routePath: '/executive/expense-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/expense_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/expense_management/expense_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17604,7 +17604,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/payroll': ScreenHealthStatus(
     screenName: 'PayrollScreen',
     routePath: '/executive/payroll',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/payroll_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/payroll/payroll_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17647,7 +17647,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/tax-compliance': ScreenHealthStatus(
     screenName: 'TaxComplianceScreen',
     routePath: '/executive/tax-compliance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/tax_compliance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/tax_compliance/tax_compliance_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17690,7 +17690,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/system-health': ScreenHealthStatus(
     screenName: 'SystemHealthScreen',
     routePath: '/executive/system-health',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/system_health_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/system_health/system_health_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17733,7 +17733,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/api-monitoring': ScreenHealthStatus(
     screenName: 'ApiMonitoringScreen',
     routePath: '/executive/api-monitoring',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/api_monitoring_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/api_monitoring/api_monitoring_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17776,7 +17776,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/deployment-center': ScreenHealthStatus(
     screenName: 'DeploymentCenterScreen',
     routePath: '/executive/deployment-center',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/deployment_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/deployment_center/deployment_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17819,7 +17819,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/security-audit': ScreenHealthStatus(
     screenName: 'SecurityAuditScreen',
     routePath: '/executive/security-audit',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/security_audit_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/security_audit/security_audit_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17862,7 +17862,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/release-management': ScreenHealthStatus(
     screenName: 'ReleaseManagementScreen',
     routePath: '/executive/release-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/release_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/release_management/release_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17905,7 +17905,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/compliance-dashboard': ScreenHealthStatus(
     screenName: 'ComplianceDashboardScreen',
     routePath: '/management/compliance-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_dashboard/compliance_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -17948,7 +17948,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/audit-review': ScreenHealthStatus(
     screenName: 'AuditReviewScreen',
     routePath: '/management/audit-review',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/audit_review_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/audit_review/audit_review_screen.dart',
     currentStage: 7,
     progressPercent: 70,
     isPlaceholder: false,
@@ -17991,7 +17991,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/incident-management': ScreenHealthStatus(
     screenName: 'IncidentManagementScreen',
     routePath: '/management/incident-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/incident_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/incident_management/incident_management_screen.dart',
     currentStage: 7,
     progressPercent: 70,
     isPlaceholder: false,
@@ -18034,7 +18034,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/policy-management': ScreenHealthStatus(
     screenName: 'PolicyManagementScreen',
     routePath: '/management/policy-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/policy_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/policy_management/policy_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18077,7 +18077,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/corrective-action': ScreenHealthStatus(
     screenName: 'CorrectiveActionScreen',
     routePath: '/management/corrective-action',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/corrective_action_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/corrective_action/corrective_action_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18120,7 +18120,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/hiring-pipeline': ScreenHealthStatus(
     screenName: 'HiringPipelineScreen',
     routePath: '/management/hiring-pipeline',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/hiring_pipeline_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/hiring_pipeline/hiring_pipeline_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18163,7 +18163,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/employee-records': ScreenHealthStatus(
     screenName: 'EmployeeRecordsScreen',
     routePath: '/management/employee-records',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/employee_records_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/employee_records/employee_records_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18206,7 +18206,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/credential-expiry': ScreenHealthStatus(
     screenName: 'CredentialExpiryScreen',
     routePath: '/management/credential-expiry',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/credential_expiry_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/credential_expiry/credential_expiry_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18249,7 +18249,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/training-management': ScreenHealthStatus(
     screenName: 'TrainingManagementScreen',
     routePath: '/management/training-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/training_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/training_management/training_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18292,7 +18292,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/onboarding': ScreenHealthStatus(
     screenName: 'OnboardingScreen',
     routePath: '/management/onboarding',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/onboarding_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/onboarding/onboarding_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18335,7 +18335,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/franchise-lead': ScreenHealthStatus(
     screenName: 'FranchiseLeadScreen',
     routePath: '/management/franchise-lead',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/franchise_lead_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/franchise_lead/franchise_lead_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18378,7 +18378,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/partnership-management': ScreenHealthStatus(
     screenName: 'PartnershipManagementScreen',
     routePath: '/management/partnership-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/partnership_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/partnership_management/partnership_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18421,7 +18421,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/growth-analytics': ScreenHealthStatus(
     screenName: 'GrowthAnalyticsScreen',
     routePath: '/management/growth-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/growth_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/growth_analytics/growth_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18464,7 +18464,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/outreach-campaign': ScreenHealthStatus(
     screenName: 'OutreachCampaignScreen',
     routePath: '/management/outreach-campaign',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/outreach_campaign_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/outreach_campaign/outreach_campaign_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18507,7 +18507,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/campaign-dashboard': ScreenHealthStatus(
     screenName: 'CampaignDashboardScreen',
     routePath: '/management/campaign-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/campaign_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/campaign_dashboard/campaign_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18550,7 +18550,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/lead-analytics': ScreenHealthStatus(
     screenName: 'LeadAnalyticsScreen',
     routePath: '/management/lead-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/lead_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/lead_analytics/lead_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18593,7 +18593,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/social-media': ScreenHealthStatus(
     screenName: 'SocialMediaScreen',
     routePath: '/management/social-media',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/social_media_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/social_media/social_media_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18636,7 +18636,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/brand-management': ScreenHealthStatus(
     screenName: 'BrandManagementScreen',
     routePath: '/management/brand-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/brand_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/brand_management/brand_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18679,7 +18679,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/franchise-command-center': ScreenHealthStatus(
     screenName: 'FranchiseCommandCenterScreen',
     routePath: '/executive/franchise-command-center',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_command_center_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_command_center/franchise_command_center_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18722,7 +18722,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/revenue-snapshot': ScreenHealthStatus(
     screenName: 'RevenueSnapshotScreen',
     routePath: '/executive/revenue-snapshot',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/revenue_snapshot_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/revenue_snapshot/revenue_snapshot_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18765,7 +18765,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/staff-management': ScreenHealthStatus(
     screenName: 'StaffManagementScreen',
     routePath: '/executive/staff-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/staff_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/staff_management/staff_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18808,7 +18808,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/appointment-overview': ScreenHealthStatus(
     screenName: 'AppointmentOverviewScreen',
     routePath: '/executive/appointment-overview',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/appointment_overview_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/appointment_overview/appointment_overview_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18851,7 +18851,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/compliance-overview': ScreenHealthStatus(
     screenName: 'ComplianceOverviewScreen',
     routePath: '/executive/compliance-overview',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/compliance_overview_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/compliance_overview/compliance_overview_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18894,7 +18894,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/daily-operations': ScreenHealthStatus(
     screenName: 'DailyOperationsScreen',
     routePath: '/management/daily-operations',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/daily_operations_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/daily_operations/daily_operations_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18937,7 +18937,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/attendance': ScreenHealthStatus(
     screenName: 'AttendanceScreen',
     routePath: '/management/attendance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/attendance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/attendance/attendance_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -18980,7 +18980,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/scheduling-health': ScreenHealthStatus(
     screenName: 'SchedulingHealthScreen',
     routePath: '/management/scheduling-health',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/scheduling_health_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/scheduling_health/scheduling_health_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19023,7 +19023,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/management/service-issue': ScreenHealthStatus(
     screenName: 'ServiceIssueScreen',
     routePath: '/management/service-issue',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/service_issue_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/service_issue/service_issue_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19066,7 +19066,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/scheduling-dashboard': ScreenHealthStatus(
     screenName: 'SchedulingDashboardScreen',
     routePath: '/staff/scheduling-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduling_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduling_dashboard/scheduling_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19109,7 +19109,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/calendar-management': ScreenHealthStatus(
     screenName: 'CalendarManagementScreen',
     routePath: '/staff/calendar-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/calendar_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/calendar_management/calendar_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19152,7 +19152,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/conflict-resolution': ScreenHealthStatus(
     screenName: 'ConflictResolutionScreen',
     routePath: '/staff/conflict-resolution',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/conflict_resolution_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/conflict_resolution/conflict_resolution_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19195,7 +19195,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/open-shift': ScreenHealthStatus(
     screenName: 'OpenShiftScreen',
     routePath: '/staff/open-shift',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/open_shift_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/open_shift/open_shift_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19238,7 +19238,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/invoice-management': ScreenHealthStatus(
     screenName: 'InvoiceManagementScreen',
     routePath: '/staff/invoice-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/invoice_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/invoice_management/invoice_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19281,7 +19281,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/claims-processing': ScreenHealthStatus(
     screenName: 'ClaimsProcessingScreen',
     routePath: '/staff/claims-processing',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/claims_processing_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/claims_processing/claims_processing_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19324,7 +19324,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/payment-tracking': ScreenHealthStatus(
     screenName: 'PaymentTrackingScreen',
     routePath: '/staff/payment-tracking',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/payment_tracking_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/payment_tracking/payment_tracking_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19367,7 +19367,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/refund-management': ScreenHealthStatus(
     screenName: 'RefundManagementScreen',
     routePath: '/staff/refund-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/refund_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/refund_management/refund_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19410,7 +19410,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/applicant-tracking': ScreenHealthStatus(
     screenName: 'ApplicantTrackingScreen',
     routePath: '/staff/applicant-tracking',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/applicant_tracking_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/applicant_tracking/applicant_tracking_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19453,7 +19453,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/interview-scheduling': ScreenHealthStatus(
     screenName: 'InterviewSchedulingScreen',
     routePath: '/staff/interview-scheduling',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/interview_scheduling_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/interview_scheduling/interview_scheduling_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19496,7 +19496,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/offer-management': ScreenHealthStatus(
     screenName: 'OfferManagementScreen',
     routePath: '/staff/offer-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/offer_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/offer_management/offer_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19539,7 +19539,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/onboarding-checklist': ScreenHealthStatus(
     screenName: 'OnboardingChecklistScreen',
     routePath: '/staff/onboarding-checklist',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/onboarding_checklist_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/onboarding_checklist/onboarding_checklist_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19582,7 +19582,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/medication-administration': ScreenHealthStatus(
     screenName: 'MedicationAdministrationScreen',
     routePath: '/offices/clinical/roles/rn/medication-administration',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/medication_administration_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/medication_administration/medication_administration_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19625,7 +19625,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/care-plan-review': ScreenHealthStatus(
     screenName: 'CarePlanReviewScreen',
     routePath: '/offices/clinical/roles/rn/care-plan-review',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/care_plan_review_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/care_plan_review/care_plan_review_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19668,7 +19668,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/incident-review': ScreenHealthStatus(
     screenName: 'IncidentReviewScreen',
     routePath: '/offices/clinical/roles/rn/incident-review',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/incident_review_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/incident_review/incident_review_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19711,7 +19711,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rn/shift-report': ScreenHealthStatus(
     screenName: 'ShiftReportScreen',
     routePath: '/offices/clinical/roles/rn/shift-report',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/shift_report_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/shift_report/shift_report_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19754,7 +19754,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/nursing-task': ScreenHealthStatus(
     screenName: 'NursingTaskScreen',
     routePath: '/offices/clinical/roles/rpn/nursing-task',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/nursing_task_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/nursing_task/nursing_task_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19797,7 +19797,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/vitals-tracking': ScreenHealthStatus(
     screenName: 'VitalsTrackingScreen',
     routePath: '/offices/clinical/roles/rpn/vitals-tracking',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/vitals_tracking_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/vitals_tracking/vitals_tracking_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19840,7 +19840,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/medication': ScreenHealthStatus(
     screenName: 'MedicationScreen',
     routePath: '/offices/clinical/roles/rpn/medication',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/medication_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/medication/medication_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19883,7 +19883,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rpn/patient-observation': ScreenHealthStatus(
     screenName: 'PatientObservationScreen',
     routePath: '/offices/clinical/roles/rpn/patient-observation',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/patient_observation_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/patient_observation/patient_observation_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19926,7 +19926,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/shift-tasks': ScreenHealthStatus(
     screenName: 'ShiftTasksScreen',
     routePath: '/offices/clinical/roles/psw/shift-tasks',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/shift_tasks_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/shift_tasks/shift_tasks_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -19969,7 +19969,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/psw/vitals-entry': ScreenHealthStatus(
     screenName: 'VitalsEntryScreen',
     routePath: '/offices/clinical/roles/psw/vitals-entry',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/vitals_entry_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/vitals_entry/vitals_entry_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20012,7 +20012,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/treatment-plan': ScreenHealthStatus(
     screenName: 'TreatmentPlanScreen',
     routePath: '/offices/clinical/roles/physiotherapist/treatment-plan',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/treatment_plan_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/treatment_plan/treatment_plan_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20055,7 +20055,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/exercise-prescription': ScreenHealthStatus(
     screenName: 'ExercisePrescriptionScreen',
     routePath: '/offices/clinical/roles/physiotherapist/exercise-prescription',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/exercise_prescription_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/exercise_prescription/exercise_prescription_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20098,7 +20098,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/physiotherapist/progress-tracking': ScreenHealthStatus(
     screenName: 'ProgressTrackingScreen',
     routePath: '/offices/clinical/roles/physiotherapist/progress-tracking',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/progress_tracking_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/progress_tracking/progress_tracking_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20141,7 +20141,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/massage-assessment': ScreenHealthStatus(
     screenName: 'MassageAssessmentScreen',
     routePath: '/offices/clinical/roles/rmt/massage-assessment',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/massage_assessment_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/massage_assessment/massage_assessment_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20184,7 +20184,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/home-care-plan': ScreenHealthStatus(
     screenName: 'HomeCarePlanScreen',
     routePath: '/offices/clinical/roles/rmt/home-care-plan',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/home_care_plan_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/home_care_plan/home_care_plan_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20227,7 +20227,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/rmt/client-progress': ScreenHealthStatus(
     screenName: 'ClientProgressScreen',
     routePath: '/offices/clinical/roles/rmt/client-progress',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/client_progress_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/client_progress/client_progress_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20270,7 +20270,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/chiropractic-assessment': ScreenHealthStatus(
     screenName: 'ChiropracticAssessmentScreen',
     routePath: '/offices/clinical/roles/chiropractor/chiropractic-assessment',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractic_assessment_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractic_assessment/chiropractic_assessment_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20313,7 +20313,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/adjustment-notes': ScreenHealthStatus(
     screenName: 'AdjustmentNotesScreen',
     routePath: '/offices/clinical/roles/chiropractor/adjustment-notes',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/adjustment_notes_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/adjustment_notes/adjustment_notes_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20356,7 +20356,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/xray-review': ScreenHealthStatus(
     screenName: 'XrayReviewScreen',
     routePath: '/offices/clinical/roles/chiropractor/xray-review',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/xray_review_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/xray_review/xray_review_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20399,7 +20399,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/chiropractor/chiropractic-progress-tracking': ScreenHealthStatus(
     screenName: 'ChiropracticProgressTrackingScreen',
     routePath: '/offices/clinical/roles/chiropractor/chiropractic-progress-tracking',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractic_progress_tracking_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/chiropractic_progress_tracking/chiropractic_progress_tracking_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20442,7 +20442,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/intake_coordinator/referral-management': ScreenHealthStatus(
     screenName: 'ReferralManagementScreen',
     routePath: '/offices/clinical/roles/intake_coordinator/referral-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/referral_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/referral_management/referral_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20485,7 +20485,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/intake_coordinator/client-intake': ScreenHealthStatus(
     screenName: 'ClientIntakeScreen',
     routePath: '/offices/clinical/roles/intake_coordinator/client-intake',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/client_intake_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/client_intake/client_intake_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20528,7 +20528,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/intake_coordinator/booking': ScreenHealthStatus(
     screenName: 'BookingScreen',
     routePath: '/offices/clinical/roles/intake_coordinator/booking',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/booking_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/booking/booking_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20571,7 +20571,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/intake_coordinator/followup': ScreenHealthStatus(
     screenName: 'FollowupScreen',
     routePath: '/offices/clinical/roles/intake_coordinator/followup',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/followup_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/followup/followup_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20614,7 +20614,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/quality': ScreenHealthStatus(
     screenName: 'ClinicalQualityScreen',
     routePath: '/offices/clinical/roles/clinical_director/quality',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_quality_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_quality/clinical_quality_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20657,7 +20657,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/staff-performance': ScreenHealthStatus(
     screenName: 'StaffPerformanceScreen',
     routePath: '/offices/clinical/roles/clinical_director/staff-performance',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/staff_performance_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/staff_performance/staff_performance_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20700,7 +20700,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/compliance-review': ScreenHealthStatus(
     screenName: 'ComplianceReviewScreen',
     routePath: '/offices/clinical/roles/clinical_director/compliance-review',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/compliance_review_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/compliance_review/compliance_review_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20743,7 +20743,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/incident-oversight': ScreenHealthStatus(
     screenName: 'IncidentOversightScreen',
     routePath: '/offices/clinical/roles/clinical_director/incident-oversight',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/incident_oversight_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/incident_oversight/incident_oversight_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20786,7 +20786,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/ticket-management': ScreenHealthStatus(
     screenName: 'TicketManagementScreen',
     routePath: '/staff/ticket-management',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/ticket_management_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/ticket_management/ticket_management_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20829,7 +20829,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/client-issue': ScreenHealthStatus(
     screenName: 'ClientIssueScreen',
     routePath: '/staff/client-issue',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/client_issue_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/client_issue/client_issue_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20872,7 +20872,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/communication': ScreenHealthStatus(
     screenName: 'CommunicationScreen',
     routePath: '/staff/communication',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/communication_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/communication/communication_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20915,7 +20915,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/resolution-tracking': ScreenHealthStatus(
     screenName: 'ResolutionTrackingScreen',
     routePath: '/staff/resolution-tracking',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/resolution_tracking_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/resolution_tracking/resolution_tracking_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -20958,7 +20958,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/training-dashboard': ScreenHealthStatus(
     screenName: 'TrainingDashboardScreen',
     routePath: '/staff/training-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/training_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/training_dashboard/training_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21001,7 +21001,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/course-assignment': ScreenHealthStatus(
     screenName: 'CourseAssignmentScreen',
     routePath: '/staff/course-assignment',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/course_assignment_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/course_assignment/course_assignment_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21044,7 +21044,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/certification-tracking': ScreenHealthStatus(
     screenName: 'CertificationTrackingScreen',
     routePath: '/staff/certification-tracking',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/certification_tracking_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/certification_tracking/certification_tracking_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21087,7 +21087,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/staff-progress': ScreenHealthStatus(
     screenName: 'StaffProgressScreen',
     routePath: '/staff/staff-progress',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/staff_progress_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/staff_progress/staff_progress_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21130,7 +21130,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/quality-audit': ScreenHealthStatus(
     screenName: 'QualityAuditScreen',
     routePath: '/staff/quality-audit',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/quality_audit_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/quality_audit/quality_audit_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21173,7 +21173,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/failed-workflow': ScreenHealthStatus(
     screenName: 'FailedWorkflowScreen',
     routePath: '/staff/failed-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/failed_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/failed_workflow/failed_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21216,7 +21216,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/testing-overview': ScreenHealthStatus(
     screenName: 'TestingOverviewScreen',
     routePath: '/staff/testing-overview',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/testing_overview_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/testing_overview/testing_overview_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21259,7 +21259,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/defect-tracking': ScreenHealthStatus(
     screenName: 'DefectTrackingScreen',
     routePath: '/staff/defect-tracking',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/defect_tracking_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/defect_tracking/defect_tracking_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21302,7 +21302,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/appointment': ScreenHealthStatus(
     screenName: 'AppointmentScreen',
     routePath: '/common/appointment',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/appointment_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/appointment/appointment_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21345,7 +21345,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinic/care-plan': ScreenHealthStatus(
     screenName: 'CarePlanScreen',
     routePath: '/clinic/care-plan',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/care_plan_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/care_plan/care_plan_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21388,7 +21388,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/billing': ScreenHealthStatus(
     screenName: 'BillingScreen',
     routePath: '/common/billing',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/billing_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/billing/billing_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21431,7 +21431,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/documents': ScreenHealthStatus(
     screenName: 'DocumentsScreen',
     routePath: '/common/documents',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/documents_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/documents/documents_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21474,7 +21474,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/family-overview': ScreenHealthStatus(
     screenName: 'FamilyOverviewScreen',
     routePath: '/common/family-overview',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/family_overview_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/family_overview/family_overview_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21517,7 +21517,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/care-updates': ScreenHealthStatus(
     screenName: 'CareUpdatesScreen',
     routePath: '/common/care-updates',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/care_updates_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/care_updates/care_updates_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21560,7 +21560,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/billing-overview': ScreenHealthStatus(
     screenName: 'BillingOverviewScreen',
     routePath: '/common/billing-overview',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/billing_overview_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/billing_overview/billing_overview_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21603,7 +21603,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/emergency-contacts': ScreenHealthStatus(
     screenName: 'EmergencyContactsScreen',
     routePath: '/common/emergency-contacts',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/emergency_contacts_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/emergency_contacts/emergency_contacts_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21646,7 +21646,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/caregiver/psw-schedule': ScreenHealthStatus(
     screenName: 'ScheduleScreen',
     routePath: '/offices/clinical/roles/caregiver/psw-schedule',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/schedule_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/schedule/schedule_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21689,7 +21689,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinic/messaging': ScreenHealthStatus(
     screenName: 'MessagingScreen',
     routePath: '/clinic/messaging',
-    componentFile: 'packages/primecare_ui/lib/src/screens/psw/messaging_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/psw/messaging/messaging_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21732,7 +21732,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/governance-control-room': ScreenHealthStatus(
     screenName: 'GovernanceControlRoomScreen',
     routePath: '/common/governance-control-room',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/governance_control_room_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/governance_control_room/governance_control_room_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21775,7 +21775,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/runtime-verification': ScreenHealthStatus(
     screenName: 'RuntimeVerificationScreen',
     routePath: '/common/runtime-verification',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/runtime_verification_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/runtime_verification/runtime_verification_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21818,7 +21818,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/drift-findings': ScreenHealthStatus(
     screenName: 'DriftFindingsScreen',
     routePath: '/common/drift-findings',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/drift_findings_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/drift_findings/drift_findings_screen.dart',
     currentStage: 7,
     progressPercent: 70,
     isPlaceholder: false,
@@ -21861,7 +21861,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/pending-task-queue': ScreenHealthStatus(
     screenName: 'PendingTaskQueueScreen',
     routePath: '/common/pending-task-queue',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/pending_task_queue_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/pending_task_queue/pending_task_queue_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21904,7 +21904,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/agent-dispatch': ScreenHealthStatus(
     screenName: 'AgentDispatchScreen',
     routePath: '/common/agent-dispatch',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/agent_dispatch_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/agent_dispatch/agent_dispatch_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -21947,7 +21947,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/audit': ScreenHealthStatus(
     screenName: 'ScreenAuditScreen',
     routePath: '/common/audit',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/audit_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/audit/audit_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -21990,7 +21990,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/api-health-dashboard': ScreenHealthStatus(
     screenName: 'ApiHealthDashboardScreen',
     routePath: '/common/api-health-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/api_health_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/api_health_dashboard/api_health_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22033,7 +22033,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/release-operations': ScreenHealthStatus(
     screenName: 'ReleaseOperationsScreen',
     routePath: '/common/release-operations',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/release_operations_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/release_operations/release_operations_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22076,7 +22076,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/file-verification-dashboard': ScreenHealthStatus(
     screenName: 'FileVerificationDashboardScreen',
     routePath: '/common/file-verification-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/file_verification_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/file_verification_dashboard/file_verification_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22119,7 +22119,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/role-coverage-dashboard': ScreenHealthStatus(
     screenName: 'RoleCoverageDashboardScreen',
     routePath: '/common/role-coverage-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/role_coverage_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/role_coverage_dashboard/role_coverage_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22162,7 +22162,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/responsive-preview': ScreenHealthStatus(
     screenName: 'ResponsivePreviewScreen',
     routePath: '/common/responsive-preview',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/responsive_preview_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/responsive_preview/responsive_preview_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22205,7 +22205,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/workflow-execution': ScreenHealthStatus(
     screenName: 'WorkflowExecutionScreen',
     routePath: '/common/workflow-execution',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/workflow_execution_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/workflow_execution/workflow_execution_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22248,7 +22248,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/enterprise-command-center4-k': ScreenHealthStatus(
     screenName: 'EnterpriseCommandCenter4KScreen',
     routePath: '/executive/enterprise-command-center4-k',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/enterprise_command_center4_k_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/enterprise_command_center4_k/enterprise_command_center4_k_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22291,7 +22291,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/franchise-command-center4-k': ScreenHealthStatus(
     screenName: 'FranchiseCommandCenter4KScreen',
     routePath: '/executive/franchise-command-center4-k',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_command_center4_k_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_command_center4_k/franchise_command_center4_k_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22334,7 +22334,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/clinical_director/operations4k': ScreenHealthStatus(
     screenName: 'ClinicalOperations4KScreen',
     routePath: '/offices/clinical/roles/clinical_director/operations4k',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_operations4_k_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/clinical_operations4_k/clinical_operations4_k_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22377,7 +22377,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/common/governance-operations4-k': ScreenHealthStatus(
     screenName: 'GovernanceOperations4KScreen',
     routePath: '/common/governance-operations4-k',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/governance_operations4_k_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/governance_operations4_k/governance_operations4_k_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22420,7 +22420,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/scheduling-operations4-k': ScreenHealthStatus(
     screenName: 'SchedulingOperations4KScreen',
     routePath: '/staff/scheduling-operations4-k',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduling_operations4_k_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/scheduling_operations4_k/scheduling_operations4_k_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22463,7 +22463,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/financial-operations4-k': ScreenHealthStatus(
     screenName: 'FinancialOperations4KScreen',
     routePath: '/executive/financial-operations4-k',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/financial_operations4_k_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/financial_operations4_k/financial_operations4_k_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22506,7 +22506,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/therapist/analytics': ScreenHealthStatus(
     screenName: 'Therapist Analytics',
     routePath: '/offices/clinical/roles/therapist/analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/therapist_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/therapist_analytics/therapist_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22549,7 +22549,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/offices/clinical/roles/therapist/workflow': ScreenHealthStatus(
     screenName: 'Therapist Compliance Workflow',
     routePath: '/offices/clinical/roles/therapist/workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/allied/therapist_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/allied/therapist_workflow/therapist_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22592,7 +22592,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/physician-analytics': ScreenHealthStatus(
     screenName: 'Physician Analytics',
     routePath: '/clinical/physician-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/physician_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/physician_analytics/physician_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22635,7 +22635,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/physician-workflow': ScreenHealthStatus(
     screenName: 'Physician Compliance Workflow',
     routePath: '/clinical/physician-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/physician_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/physician_workflow/physician_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22678,7 +22678,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/rn/cns-analytics': ScreenHealthStatus(
     screenName: 'Clinical Nurse Specialist Analytics',
     routePath: '/rn/cns-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/cns_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/cns_analytics/cns_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22721,7 +22721,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/rn/cns-workflow': ScreenHealthStatus(
     screenName: 'Clinical Nurse Specialist Compliance Workflow',
     routePath: '/rn/cns-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/cns_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/cns_workflow/cns_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22764,7 +22764,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/pediatric-analytics': ScreenHealthStatus(
     screenName: 'Pediatric Specialist Analytics',
     routePath: '/clinical/pediatric-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/pediatric_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/pediatric_analytics/pediatric_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22807,7 +22807,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/clinical/pediatric-workflow': ScreenHealthStatus(
     screenName: 'Pediatric Specialist Compliance Workflow',
     routePath: '/clinical/pediatric-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/pediatric_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/clinical/pediatric_workflow/pediatric_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22850,7 +22850,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/franchise-sales-analytics': ScreenHealthStatus(
     screenName: 'Franchise Sales Manager Analytics',
     routePath: '/executive/franchise-sales-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_sales_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_sales_analytics/franchise_sales_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22893,7 +22893,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/franchise-sales-workflow': ScreenHealthStatus(
     screenName: 'Franchise Sales Manager Compliance Workflow',
     routePath: '/executive/franchise-sales-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_sales_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/franchise_sales_workflow/franchise_sales_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22936,7 +22936,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/premium/premium-concierge-analytics': ScreenHealthStatus(
     screenName: 'Premium Concierge Care Coordinator Analytics',
     routePath: '/premium/premium-concierge-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/premium/premium_concierge_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/premium/premium_concierge_analytics/premium_concierge_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -22979,7 +22979,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/premium/premium-concierge-workflow': ScreenHealthStatus(
     screenName: 'Premium Concierge Care Coordinator Compliance Workflow',
     routePath: '/premium/premium-concierge-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/premium/premium_concierge_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/premium/premium_concierge_workflow/premium_concierge_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -23022,7 +23022,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/vip-manager-analytics': ScreenHealthStatus(
     screenName: 'VIP Client Manager Analytics',
     routePath: '/executive/vip-manager-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/vip_manager_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/vip_manager_analytics/vip_manager_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -23065,7 +23065,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/executive/vip-manager-workflow': ScreenHealthStatus(
     screenName: 'VIP Client Manager Compliance Workflow',
     routePath: '/executive/vip-manager-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/vip_manager_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/vip_manager_workflow/vip_manager_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -23108,7 +23108,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/rn/rn-field-supervisor-analytics': ScreenHealthStatus(
     screenName: 'Registered Nurse (RN) Field Supervisor Analytics',
     routePath: '/rn/rn-field-supervisor-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_field_supervisor_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_field_supervisor_analytics/rn_field_supervisor_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -23151,7 +23151,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/rn/rn-field-supervisor-workflow': ScreenHealthStatus(
     screenName: 'Registered Nurse (RN) Field Supervisor Compliance Workflow',
     routePath: '/rn/rn-field-supervisor-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_field_supervisor_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/rn_field_supervisor_workflow/rn_field_supervisor_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -23194,7 +23194,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/rn/np-analytics': ScreenHealthStatus(
     screenName: 'Nurse Practitioner (NP) Analytics',
     routePath: '/rn/np-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/np_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/np_analytics/np_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -23237,7 +23237,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/rn/np-workflow': ScreenHealthStatus(
     screenName: 'Nurse Practitioner (NP) Compliance Workflow',
     routePath: '/rn/np-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rn/np_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rn/np_workflow/np_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -23280,7 +23280,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/rpn/lpn-analytics': ScreenHealthStatus(
     screenName: 'Licensed Practical Nurse (LPN) Analytics',
     routePath: '/rpn/lpn-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/lpn_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/lpn_analytics/lpn_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -23323,7 +23323,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/rpn/lpn-workflow': ScreenHealthStatus(
     screenName: 'Licensed Practical Nurse (LPN) Compliance Workflow',
     routePath: '/rpn/lpn-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/lpn_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/rpn/lpn_workflow/lpn_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -23366,7 +23366,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/employee-analytics': ScreenHealthStatus(
     screenName: 'Employee Analytics',
     routePath: '/staff/employee-analytics',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/employee_analytics_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/employee_analytics/employee_analytics_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -23409,7 +23409,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/staff/employee-workflow': ScreenHealthStatus(
     screenName: 'Employee Compliance Workflow',
     routePath: '/staff/employee-workflow',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/employee_workflow_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/employee_workflow/employee_workflow_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -41039,7 +41039,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/generated/screen-audit': ScreenHealthStatus(
     screenName: 'Screen Audit',
     routePath: '/generated/screen-audit',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/audit_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/audit/audit_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -41082,7 +41082,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/generated/dynamic-dashboard': ScreenHealthStatus(
     screenName: 'Dynamic Dashboard',
     routePath: '/generated/dynamic-dashboard',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/dynamic_screen_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/dynamic_screen_dashboard/dynamic_screen_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -41208,10 +41208,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/common/api_health_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/common/api_health_dashboard/api_health_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'ApiHealthDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/common/api_health_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/api_health_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/common/api_health_dashboard/api_health_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/api_health_dashboard/api_health_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -41251,10 +41251,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard/architecture_planning_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'ArchitecturePlanningDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard/architecture_planning_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard/architecture_planning_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -41294,10 +41294,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/common/business_development_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/common/business_development_dashboard/business_development_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'BusinessDevelopmentDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/common/business_development_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/business_development_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/common/business_development_dashboard/business_development_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/business_development_dashboard/business_development_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -41337,10 +41337,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/common/clinic_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/common/clinic_dashboard/clinic_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'ClinicDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/common/clinic_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/clinic_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/common/clinic_dashboard/clinic_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/clinic_dashboard/clinic_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -41380,10 +41380,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/common/file_verification_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/common/file_verification_dashboard/file_verification_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'FileVerificationDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/common/file_verification_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/file_verification_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/common/file_verification_dashboard/file_verification_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/file_verification_dashboard/file_verification_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -41423,10 +41423,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/common/franchise_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/common/franchise_dashboard/franchise_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'FranchiseDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/common/franchise_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/franchise_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/common/franchise_dashboard/franchise_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/franchise_dashboard/franchise_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -41466,10 +41466,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard/physiotherapist_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'PhysiotherapistDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard/physiotherapist_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/physiotherapist_dashboard/physiotherapist_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -41509,10 +41509,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/common/role_coverage_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/common/role_coverage_dashboard/role_coverage_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'RoleCoverageDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/common/role_coverage_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/common/role_coverage_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/common/role_coverage_dashboard/role_coverage_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/common/role_coverage_dashboard/role_coverage_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -41595,10 +41595,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/executive/financial_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/executive/financial_dashboard/financial_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'FinancialDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/executive/financial_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/executive/financial_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/executive/financial_dashboard/financial_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/executive/financial_dashboard/financial_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -41638,10 +41638,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/management/campaign_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/management/campaign_dashboard/campaign_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'CampaignDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/management/campaign_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/campaign_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/management/campaign_dashboard/campaign_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/campaign_dashboard/campaign_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -41681,10 +41681,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/management/compliance_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/management/compliance_dashboard/compliance_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'ComplianceDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/management/compliance_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/management/compliance_dashboard/compliance_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_dashboard/compliance_dashboard_screen.dart',
     currentStage: 6,
     progressPercent: 60,
     isPlaceholder: false,
@@ -41724,10 +41724,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard/compliance_manager_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'ComplianceManagerDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard/compliance_manager_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/compliance_manager_dashboard/compliance_manager_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -41767,10 +41767,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard/franchise_sales_manager_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'FranchiseSalesManagerDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard/franchise_sales_manager_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard/franchise_sales_manager_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -41810,10 +41810,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard/governance_officer_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'GovernanceOfficerDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard/governance_officer_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/governance_officer_dashboard/governance_officer_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -41939,10 +41939,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard/local_marketing_manager_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'LocalMarketingManagerDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard/local_marketing_manager_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard/local_marketing_manager_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -41982,10 +41982,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard/hr_manager_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'HrManagerDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard/hr_manager_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/hr_manager_dashboard/hr_manager_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -42025,10 +42025,10 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
     productionReady: true,
     falseProgress: false,
   ),
-  'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard_screen.dart': ScreenHealthStatus(
+  'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard/intake_coordinator_dashboard_screen.dart': ScreenHealthStatus(
     screenName: 'IntakeCoordinatorDashboardScreen',
-    routePath: 'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard_screen.dart',
-    componentFile: 'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard_screen.dart',
+    routePath: 'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard/intake_coordinator_dashboard_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/staff/intake_coordinator_dashboard/intake_coordinator_dashboard_screen.dart',
     currentStage: 5,
     progressPercent: 50,
     isPlaceholder: false,
@@ -42114,7 +42114,7 @@ final Map<String, ScreenHealthStatus> screenHealthRegistry = {
   '/admin/screen-health': ScreenHealthStatus(
     screenName: 'AdminScreenHealthScreen',
     routePath: '/admin/screen-health',
-    componentFile: 'packages/primecare_ui/lib/src/screens/admin/admin_screen_health_screen.dart',
+    componentFile: 'packages/primecare_ui/lib/src/screens/admin/admin_screen_health/admin_screen_health_screen.dart',
     currentStage: 11,
     progressPercent: 100,
     isPlaceholder: false,

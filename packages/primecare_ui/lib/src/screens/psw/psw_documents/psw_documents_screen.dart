@@ -25,3 +25,5 @@ class PswDocumentsScreen extends StatelessWidget {
     );
   }
 }
+
+typedef DocumentsScreen = PswDocumentsScreen;

@@ -27,3 +27,5 @@ class DynamicWorkflowScreen extends StatelessWidget {
     );
   }
 }
+
+typedef DynamicScreenWorkflowScreen = DynamicWorkflowScreen;

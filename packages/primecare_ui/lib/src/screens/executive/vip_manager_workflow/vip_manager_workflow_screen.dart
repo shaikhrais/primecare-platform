@@ -27,3 +27,5 @@ class VipManagerWorkflowScreen extends StatelessWidget {
     );
   }
 }
+
+typedef VIPClientManagerComplianceWorkflowScreen = VipManagerWorkflowScreen;

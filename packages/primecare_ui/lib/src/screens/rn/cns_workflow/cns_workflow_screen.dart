@@ -27,3 +27,5 @@ class CnsWorkflowScreen extends StatelessWidget {
     );
   }
 }
+
+typedef ClinicalNurseSpecialistComplianceWorkflowScreen = CnsWorkflowScreen;
