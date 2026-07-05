@@ -23,6 +23,9 @@ foreach ($dir in $appDirs) {
     Write-Host "Building web package..." -ForegroundColor Yellow
     flutter build web --release --no-wasm-dry-run --dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api
 
+    Write-Host "Creating Cloudflare Pages _redirects file for SPA client-side routing..." -ForegroundColor Yellow
+    Set-Content -Path "build\web\_redirects" -Value "/* /index.html 200" -Encoding Ascii
+
     Write-Host "Deploying to Cloudflare Pages..." -ForegroundColor Yellow
     # Using wrangler from local node_modules
     npx wrangler pages deploy build/web --project-name $projectName

@@ -142,6 +142,11 @@ void main(List<String> args) async {
 
     // 3. Deploy to Cloudflare
     final projectName = app.replaceAll("_", "-");
+    final redirectsFile = File('$appPath/build/web/_redirects');
+    if (redirectsFile.parent.existsSync()) {
+      redirectsFile.writeAsStringSync('/* /index.html 200\n');
+      print('   - Created Cloudflare Pages _redirects file.');
+    }
     print('   - Deploying to Cloudflare Pages as $projectName...');
     final deployResult = await Process.run(
       'wrangler',

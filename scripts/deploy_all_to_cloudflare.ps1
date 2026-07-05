@@ -158,6 +158,9 @@ foreach ($app in $apps) {
         Remove-Item "build\web\flutter_service_worker.js" -Force
     }
 
+    Write-Host '⚡ Step 2.7: Creating Cloudflare Pages _redirects file for SPA client-side routing...' -ForegroundColor Yellow
+    Set-Content -Path "build\web\_redirects" -Value "/* /index.html 200" -Encoding Ascii
+
 
 
     Write-Host '⚡ Step 3: Deploying to Cloudflare Pages...' -ForegroundColor Yellow

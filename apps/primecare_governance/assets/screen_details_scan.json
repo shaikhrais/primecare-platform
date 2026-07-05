@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-05T05:11:57.775Z",
+  "timestamp": "2026-07-05T11:24:12.145Z",
   "overallI18nScore": "319.3%",
   "deployments": [
     {
@@ -21,12 +21,77 @@
         {
           "screenName": "ConsentScreen",
           "language": "dart",
+          "labels": [],
+          "textElements": [
+            "The consent screen requires user authentication, language selection, consent review, and session management functionalities.",
+            "LanguageSelector",
+            "ConsentInformationDisplay",
+            "SessionTokenDisplay",
+            "NotificationBanner",
+            "handleLogin",
+            "selectLanguage",
+            "reviewConsent",
+            "navigateToSuccess",
+            "handleSignOut",
+            "auth.consent",
+            "Public",
+            "auth_consent_authorize_title",
+            "auth_consent_security_required",
+            "auth_consent_permission_request",
+            "auth_consent_explanation",
+            "auth_consent_authorizing_account",
+            "auth_success_default_user",
+            "auth_consent_redirecting",
+            "auth_consent_approve",
+            "auth_consent_cancel",
+            ";\n      final urlWithToken =",
+            "}&role=${Uri.encodeComponent(authState.role ??",
+            ")}&userId=${authState.userId ??"
+          ],
+          "components": [
+            "Column",
+            "Provider: authProvider"
+          ],
+          "rawMetrics": {
+            "buttonsCount": 0,
+            "riverpodWired": true,
+            "hasController": false,
+            "issuesCount": 0,
+            "labelsCount": 0,
+            "textElementsCount": 24,
+            "qualityScore": 90,
+            "contentCoverage": 100,
+            "status": "PASS"
+          }
+        },
+        {
+          "screenName": "consent_action_bar_section",
+          "language": "dart",
+          "labels": [],
+          "textElements": [],
+          "components": [],
+          "rawMetrics": {
+            "buttonsCount": 0,
+            "riverpodWired": false,
+            "hasController": false,
+            "issuesCount": 0,
+            "labelsCount": 0,
+            "textElementsCount": 0,
+            "qualityScore": 30,
+            "contentCoverage": 0,
+            "status": "SCREEN REJECTED: Main content placeholder only"
+          }
+        },
+        {
+          "screenName": "consent_consent_content_section",
+          "language": "dart",
           "labels": [
-            "Consent"
+            "auth_consent_redirecting",
+            "Establishing secure session with the request application gateway..."
           ],
           "textElements": [
-            "consent",
-            "Consent"
+            "auth_consent_redirecting",
+            "Establishing secure session with the request application gateway..."
           ],
           "components": [
             "Column"
@@ -36,47 +101,64 @@
             "riverpodWired": false,
             "hasController": false,
             "issuesCount": 0,
-            "labelsCount": 1,
+            "labelsCount": 2,
             "textElementsCount": 2,
-            "qualityScore": 30,
-            "contentCoverage": 5.6000000000000005,
-            "status": "SCREEN REJECTED: Main content placeholder only"
+            "qualityScore": 70,
+            "contentCoverage": 36.4,
+            "status": "PASS"
           }
         },
         {
-          "screenName": "ConsentScreen",
+          "screenName": "consent_consent_inputs_section",
           "language": "dart",
-          "labels": [
-            "Consent Coordinator"
+          "labels": [],
+          "textElements": [],
+          "components": [
+            "Column",
+            "CircularProgressIndicator"
           ],
-          "textElements": [
-            "Consent Coordinator"
-          ],
-          "components": [],
           "rawMetrics": {
             "buttonsCount": 0,
             "riverpodWired": false,
             "hasController": false,
-            "issuesCount": 1,
-            "labelsCount": 1,
-            "textElementsCount": 1,
-            "qualityScore": 20,
-            "contentCoverage": 12,
+            "issuesCount": 0,
+            "labelsCount": 0,
+            "textElementsCount": 0,
+            "qualityScore": 30,
+            "contentCoverage": 0,
             "status": "SCREEN REJECTED: Main content placeholder only"
           }
         },
         {
-          "screenName": "SuccessProfileView",
+          "screenName": "consent_header_section",
           "language": "dart",
           "labels": [
-            "PrimeCare Identity Portal",
-            "PRIMECARE HQ",
-            "Application Hub",
-            "Welcome to PrimeCare, ${authState.userName ??",
-            "Launch your authorized workspace portals. Locked apps require role privilege upgrades.",
-            "PRIMECARE IDENTITY",
-            "auth_consent_redirecting",
-            "Establishing secure session with the request application gateway..."
+            "PRIMECARE IDENTITY"
+          ],
+          "textElements": [
+            "PRIMECARE IDENTITY"
+          ],
+          "components": [
+            "Column",
+            "LucideIcons.shieldCheck"
+          ],
+          "rawMetrics": {
+            "buttonsCount": 0,
+            "riverpodWired": false,
+            "hasController": false,
+            "issuesCount": 0,
+            "labelsCount": 1,
+            "textElementsCount": 1,
+            "qualityScore": 30,
+            "contentCoverage": 7.199999999999999,
+            "status": "SCREEN REJECTED: Main content placeholder only"
+          }
+        },
+        {
+          "screenName": "main",
+          "language": "dart",
+          "labels": [
+            "PrimeCare Identity Portal"
           ],
           "textElements": [
             "primecare_hq",
@@ -84,27 +166,12 @@
             "auth",
             "primecare_auth",
             "PrimeCare Identity Portal",
-            ").replaceAll(",
-            ");\r\n  \r\n  if (r.contains(",
-            ") || r.contains(",
-            ") || \r\n      r.contains(",
-            ")) {\r\n    return",
-            ";\r\n  }\r\n  \r\n  if (r.contains(",
-            ") || r ==",
-            "|| r ==",
-            "|| \r\n      r ==",
-            ") {\r\n    return",
-            ";\r\n  }\r\n  \r\n  if (r ==",
-            "|| r.contains(",
-            ";\r\n  }\r\n  \r\n  return",
-            ",\r\n    refreshListenable: authListenable,\r\n    redirect: (context, state) {\r\n      final authState = ref.read(authProvider);\r\n      if (!authState.isInitialized) {\r\n        return null;\r\n      }\r\n      final isAtLogin = state.uri.path ==",
-            ";\r\n      final isAtLanguage = state.uri.path ==",
-            ";\r\n      final redirectUri = state.uri.queryParameters[",
-            ") ?? false;\r\n\r\n      if (!hasSelectedLanguage && !isAtLanguage) {\r\n        return",
-            "?redirect_uri=${Uri.encodeComponent(redirectUri)}",
+            "redirect_uri",
+            "auth_language_selected",
             ";\r\n      if (forceLogin && !_hasForcedLogout) {\r\n        _hasForcedLogout = true;\r\n        if (authState.isAuthenticated) {\r\n          Future.microtask(() {\r\n            ref.read(authProvider.notifier).logout();\r\n          });\r\n        }\r\n        if (kIsWeb) {\r\n          try {\r\n            final uri = Uri.parse(web.window.location.href);\r\n            final params = Map<String, String>.from(uri.queryParameters)..remove(",
             ");\r\n            final newUri = uri.replace(queryParameters: params.isEmpty ? null : params);\r\n            web.window.history.replaceState(null,",
             ", newUri.toString());\r\n          } catch (_) {}\r\n        }\r\n        return",
+            "?redirect_uri=${Uri.encodeComponent(redirectUri)}",
             ";\r\n          final urlWithToken =",
             "}&role=${Uri.encodeComponent(authState.role ??",
             ")}&userId=${authState.userId ??",
@@ -113,67 +180,15 @@
             ";\r\n      }\r\n\r\n      return null;\r\n    },\r\n    routes: [\r\n      GoRoute(\r\n        path:",
             ",\r\n        builder: (context, state) => const LanguageSelectionView(),\r\n      ),\r\n      GoRoute(\r\n        path:",
             ",\r\n        builder: (context, state) => const LoginViewWrapper(),\r\n      ),\r\n      GoRoute(\r\n        path:",
-            ",\r\n        builder: (context, state) => const SuccessProfileView(),\r\n      ),\r\n      GoRoute(\r\n        path:",
+            ",\r\n        builder: (context, state) => const SuccessProfileScreen(),\r\n      ),\r\n      GoRoute(\r\n        path:",
             ",\r\n        builder: (context, state) {\r\n          final redirectUri = state.uri.queryParameters[",
-            ";\r\n          return ConsentView(redirectUri: redirectUri);\r\n        },\r\n      ),\r\n    ],\r\n  );\r\n});\r\n\r\nclass LoginViewWrapper extends ConsumerWidget {\r\n  const LoginViewWrapper({super.key});\r\n\r\n  @override\r\n  Widget build(BuildContext context, WidgetRef ref) {\r\n    ref.listen<AuthState>(authProvider, (previous, next) {\r\n      if (next.isAuthenticated && !(previous?.isAuthenticated ?? false)) {\r\n        ref.read(loginSuccessRedirectProvider.notifier).state = true;\r\n        final state = GoRouterState.of(context);\r\n        final redirectUri = state.uri.queryParameters[",
+            ";\r\n          return ConsentScreen(redirectUri: redirectUri);\r\n        },\r\n      ),\r\n    ],\r\n  );\r\n});\r\n\r\nclass LoginViewWrapper extends ConsumerWidget {\r\n  const LoginViewWrapper({super.key});\r\n\r\n  @override\r\n  Widget build(BuildContext context, WidgetRef ref) {\r\n    ref.listen<AuthState>(authProvider, (previous, next) {\r\n      if (next.isAuthenticated && !(previous?.isAuthenticated ?? false)) {\r\n        ref.read(loginSuccessRedirectProvider.notifier).state = true;\r\n        final state = GoRouterState.of(context);\r\n        final redirectUri = state.uri.queryParameters[",
             "];\r\n        if (redirectUri != null && redirectUri.isNotEmpty) {\r\n          final delimiter = redirectUri.contains(",
             "}&role=${Uri.encodeComponent(next.role ??",
             ")}&userId=${next.userId ??",
-            ";\r\n          if (kIsWeb) {\r\n            web.window.location.href = urlWithToken;\r\n          }\r\n        } else {\r\n          context.go(",
-            ");\r\n        }\r\n      }\r\n    });\r\n\r\n    return const LoginView();\r\n  }\r\n}\r\n\r\nclass SuccessProfileView extends GovernedScreen {\r\n  @override\r\n  String get screenDescription =>",
-            ";\r\n\r\n  @override\r\n  List<String> get requiredComponents => const [",
-            ",\r\n      ];\r\n\r\n  @override\r\n  List<String> get requiredFunctions => const [",
-            ",\r\n      ];\r\n\r\n  const SuccessProfileView({super.key});\r\n\r\n  @override\r\n  String get featureId =>",
-            ";\r\n\r\n  @override\r\n  String get requiredRole =>",
-            ";\r\n\r\n  @override\r\n  List<String> get translationKeys => [",
-            ") {\r\n      return true;\r\n    }\r\n    \r\n    return userPortal == portalUrl;\r\n  }\r\n\r\n  @override\r\n  Widget buildGovernedView(BuildContext context, WidgetRef ref) {\r\n    final authState = ref.watch(authProvider);\r\n    final theme = context.theme;\r\n\r\n    final portalApps = [\r\n      {",
-            ": LucideIcons.building,",
-            ": LucideIcons.trendingUp,",
-            ": LucideIcons.briefcase,",
-            ": LucideIcons.phone,",
-            ": LucideIcons.megaphone,",
-            ": LucideIcons.stethoscope,",
-            ": LucideIcons.heart,",
-            ": LucideIcons.shieldCheck,",
-            ",\r\n                              style: theme.typography.labelMedium.copyWith(\r\n                                color: Colors.white.withValues(alpha: 0.5),\r\n                                letterSpacing: 2.0,\r\n                                fontWeight: FontWeight.bold,\r\n                              ),\r\n                            ),\r\n                            Text(",
-            ")[0].toUpperCase(),\r\n                                  style: const TextStyle(\r\n                                    color: Colors.white,\r\n                                    fontSize: 12,\r\n                                    fontWeight: FontWeight.bold,\r\n                                  ),\r\n                                ),\r\n                              ),\r\n                              const SizedBox(width: 8),\r\n                              Text(\r\n                                authState.userName ??",
-            ".tr(),\r\n                                style: theme.typography.bodyMedium.copyWith(\r\n                                  color: Colors.white,\r\n                                  fontWeight: FontWeight.bold,\r\n                                ),\r\n                              ),\r\n                              const SizedBox(width: 8),\r\n                              Container(\r\n                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),\r\n                                decoration: BoxDecoration(\r\n                                  color: Colors.greenAccent.withValues(alpha: 0.15),\r\n                                  borderRadius: BorderRadius.circular(12),\r\n                                  border: Border.all(color: Colors.greenAccent.withValues(alpha: 0.3)),\r\n                                ),\r\n                                child: Text(\r\n                                  (authState.role ??",
-            ").toUpperCase(),\r\n                                  style: theme.typography.labelSmall.copyWith(\r\n                                    color: Colors.greenAccent,\r\n                                    fontSize: 10,\r\n                                    fontWeight: FontWeight.bold,\r\n                                  ),\r\n                                ),\r\n                              ),\r\n                            ],\r\n                          ),\r\n                        ),\r\n                        const SizedBox(width: 12),\r\n                        IconButton(\r\n                          tooltip:",
-            "User",
-            ",\r\n                  style: theme.typography.h1.copyWith(\r\n                    fontWeight: FontWeight.w800,\r\n                    color: Colors.white,\r\n                  ),\r\n                ),\r\n                const SizedBox(height: 8),\r\n                Text(",
-            "] as String;\r\n                    final url = app[",
-            "] as String;\r\n                    final icon = app[",
-            "] as IconData;\r\n                    final description = app[",
-            "] as String;\r\n                    final accentColor = app[",
-            "] as Color;\r\n                    \r\n                    final isAuthorized = _hasAccessToPortal(authState.role ??",
-            ", url);\r\n\r\n                    return AnimatedOpacity(\r\n                      duration: const Duration(milliseconds: 300),\r\n                      opacity: isAuthorized ? 1.0 : 0.45,\r\n                      child: Container(\r\n                        decoration: BoxDecoration(\r\n                          color: isAuthorized \r\n                              ? Colors.white.withValues(alpha: 0.03)\r\n                              : Colors.white.withValues(alpha: 0.01),\r\n                          borderRadius: BorderRadius.circular(16),\r\n                          border: Border.all(\r\n                            color: isAuthorized \r\n                                ? accentColor.withValues(alpha: 0.25)\r\n                                : Colors.white.withValues(alpha: 0.05),\r\n                            width: 1.5,\r\n                          ),\r\n                          boxShadow: isAuthorized ? [\r\n                            BoxShadow(\r\n                              color: accentColor.withValues(alpha: 0.05),\r\n                              blurRadius: 16,\r\n                              offset: const Offset(0, 8),\r\n                            )\r\n                          ] : null,\r\n                        ),\r\n                        child: Material(\r\n                          color: Colors.transparent,\r\n                          child: InkWell(\r\n                            borderRadius: BorderRadius.circular(16),\r\n                            onTap: isAuthorized ? () {\r\n                              final dashboardRoute = AuthNotifier.getDashboardRouteForRole(authState.role ??",
-            ");\r\n                              final delimiter = url.contains(",
-            ";\r\n                              final redirectUrl =",
-            ";\r\n                              if (kIsWeb) {\r\n                                web.window.location.href = redirectUrl;\r\n                              }\r\n                            } : null,\r\n                            child: Padding(\r\n                              padding: const EdgeInsets.all(24),\r\n                              child: Column(\r\n                                crossAxisAlignment: CrossAxisAlignment.start,\r\n                                children: [\r\n                                  Row(\r\n                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,\r\n                                    children: [\r\n                                      Container(\r\n                                        padding: const EdgeInsets.all(12),\r\n                                        decoration: BoxDecoration(\r\n                                          color: accentColor.withValues(alpha: 0.1),\r\n                                          shape: BoxShape.circle,\r\n                                          border: Border.all(\r\n                                            color: accentColor.withValues(alpha: 0.2),\r\n                                          ),\r\n                                        ),\r\n                                        child: Icon(\r\n                                          icon,\r\n                                          color: accentColor,\r\n                                          size: 24,\r\n                                        ),\r\n                                      ),\r\n                                      if (!isAuthorized)\r\n                                        Container(\r\n                                          padding: const EdgeInsets.all(6),\r\n                                          decoration: BoxDecoration(\r\n                                            color: Colors.white.withValues(alpha: 0.05),\r\n                                            shape: BoxShape.circle,\r\n                                          ),\r\n                                          child: const Icon(\r\n                                            LucideIcons.lock,\r\n                                            color: Colors.white54,\r\n                                            size: 14,\r\n                                          ),\r\n                                        )\r\n                                      else\r\n                                        const Icon(\r\n                                          LucideIcons.arrowRight,\r\n                                          color: Colors.white54,\r\n                                          size: 18,\r\n                                        ),\r\n                                    ],\r\n                                  ),\r\n                                  const SizedBox(height: 16),\r\n                                  Text(\r\n                                    name,\r\n                                    style: theme.typography.h3.copyWith(\r\n                                      fontWeight: FontWeight.bold,\r\n                                      color: Colors.white,\r\n                                    ),\r\n                                  ),\r\n                                  const SizedBox(height: 8),\r\n                                  Expanded(\r\n                                    child: Text(\r\n                                      description,\r\n                                      style: theme.typography.bodyMedium.copyWith(\r\n                                        color: Colors.white.withValues(alpha: 0.5),\r\n                                        fontSize: 12,\r\n                                        height: 1.4,\r\n                                      ),\r\n                                      maxLines: 3,\r\n                                      overflow: TextOverflow.ellipsis,\r\n                                    ),\r\n                                  ),\r\n                                ],\r\n                              ),\r\n                            ),\r\n                          ),\r\n                        ),\r\n                      ),\r\n                    );\r\n                  },\r\n                ),\r\n                \r\n                const SizedBox(height: 48),\r\n                const SystemIntegrityManifest(),\r\n              ],\r\n            ),\r\n          ),\r\n        ),\r\n      ),\r\n    );\r\n  }\r\n}\r\n\r\nclass ConsentView extends GovernedScreen {\r\n  @override\r\n  String get screenDescription =>",
-            ",\r\n      ];\r\n\r\n  final String redirectUri;\r\n\r\n  const ConsentView({super.key, required this.redirectUri});\r\n\r\n  @override\r\n  String get featureId =>",
-            ";\r\n      final urlWithToken =",
-            ".tr(),\r\n                style: theme.typography.labelMedium.copyWith(\r\n                  color: Colors.white.withValues(alpha: 0.5),\r\n                  letterSpacing: 4.0,\r\n                  fontWeight: FontWeight.w900,\r\n                ),\r\n              ),\r\n              const SizedBox(height: 12),\r\n              Text(",
-            ".tr(),\r\n                style: theme.typography.h2.copyWith(\r\n                  fontWeight: FontWeight.bold,\r\n                  color: Colors.white,\r\n                ),\r\n                textAlign: TextAlign.center,\r\n              ),\r\n              const SizedBox(height: 16),\r\n              Text("
+            ";\r\n          if (kIsWeb) {\r\n            web.window.location.href = urlWithToken;\r\n          }\r\n        } else {\r\n          context.go("
           ],
           "components": [
-            "LucideIcons.building",
-            "LucideIcons.trendingUp",
-            "LucideIcons.briefcase",
-            "LucideIcons.phone",
-            "LucideIcons.megaphone",
-            "LucideIcons.stethoscope",
-            "LucideIcons.heart",
-            "LucideIcons.shieldCheck",
-            "SafeArea",
-            "SingleChildScrollView",
-            "Column",
-            "Row",
-            "IconButton",
-            "LucideIcons.logOut",
-            "InkWell",
-            "LucideIcons.lock",
-            "LucideIcons.arrowRight",
-            "CircularProgressIndicator",
             "Provider: authRouterProvider",
             "Provider: languageProvider",
             "Provider: authProvider",
@@ -181,13 +196,13 @@
             "Provider: loginSuccessRedirectProvider"
           ],
           "rawMetrics": {
-            "buttonsCount": 2,
+            "buttonsCount": 0,
             "riverpodWired": true,
             "hasController": true,
             "issuesCount": 1,
-            "labelsCount": 8,
-            "textElementsCount": 75,
-            "qualityScore": 46,
+            "labelsCount": 1,
+            "textElementsCount": 26,
+            "qualityScore": 40,
             "contentCoverage": 12,
             "status": "SCREEN REJECTED: Main content placeholder only"
           }
@@ -427,16 +442,112 @@
           }
         },
         {
-          "screenName": "SuccessProfileScreen",
+          "screenName": "success_profile_action_bar_section",
           "language": "dart",
-          "labels": [
-            "Success Profile"
-          ],
+          "labels": [],
           "textElements": [
-            "success_profile",
-            "Success Profile"
+            ").replaceAll(",
+            ");\n    \n    if (r.contains(",
+            ") || r.contains(",
+            ") || \n        r.contains(",
+            ")) {\n      return",
+            ";\n    }\n    \n    if (r.contains(",
+            ") || r ==",
+            "|| r ==",
+            "|| \n        r ==",
+            ") {\n      return",
+            ";\n    }\n    \n    if (r ==",
+            "|| r.contains(",
+            ";\n    }\n    \n    return",
+            ") {\n      return true;\n    }\n    \n    return userPortal == portalUrl;\n  }\n\n  @override\n  Widget build(BuildContext context, WidgetRef ref) {\n    final authState = ref.watch(authProvider);\n    final theme = context.theme;\n\n    final portalApps = [\n      {",
+            ": LucideIcons.building,",
+            ": LucideIcons.trendingUp,",
+            ": LucideIcons.briefcase,",
+            ": LucideIcons.phone,",
+            ": LucideIcons.megaphone,",
+            ": LucideIcons.stethoscope,",
+            ": LucideIcons.heart,",
+            ": LucideIcons.shieldCheck,",
+            "] as String;\n        final url = app[",
+            "] as String;\n        final icon = app[",
+            "] as IconData;\n        final description = app[",
+            "] as String;\n        final accentColor = app[",
+            "] as Color;\n        \n        final isAuthorized = _hasAccessToPortal(authState.role ??",
+            ", url);\n\n        return AnimatedOpacity(\n          duration: const Duration(milliseconds: 300),\n          opacity: isAuthorized ? 1.0 : 0.45,\n          child: Container(\n            decoration: BoxDecoration(\n              color: isAuthorized \n                  ? Colors.white.withValues(alpha: 0.03)\n                  : Colors.white.withValues(alpha: 0.01),\n              borderRadius: BorderRadius.circular(16),\n              border: Border.all(\n                color: isAuthorized \n                    ? accentColor.withValues(alpha: 0.25)\n                    : Colors.white.withValues(alpha: 0.05),\n                width: 1.5,\n              ),\n              boxShadow: isAuthorized ? [\n                BoxShadow(\n                  color: accentColor.withValues(alpha: 0.05),\n                  blurRadius: 16,\n                  offset: const Offset(0, 8),\n                )\n              ] : null,\n            ),\n            child: Material(\n              color: Colors.transparent,\n              child: InkWell(\n                borderRadius: BorderRadius.circular(16),\n                onTap: isAuthorized ? () {\n                  final dashboardRoute = AuthNotifier.getDashboardRouteForRole(authState.role ??",
+            ");\n                  final delimiter = url.contains(",
+            ";\n                  final redirectUrl =",
+            "}&role=${Uri.encodeComponent(authState.role ??",
+            ")}&userId=${authState.userId ??"
           ],
           "components": [
+            "LucideIcons.building",
+            "LucideIcons.trendingUp",
+            "LucideIcons.briefcase",
+            "LucideIcons.phone",
+            "LucideIcons.megaphone",
+            "LucideIcons.stethoscope",
+            "LucideIcons.heart",
+            "LucideIcons.shieldCheck",
+            "InkWell",
+            "Column",
+            "Row",
+            "LucideIcons.lock",
+            "LucideIcons.arrowRight",
+            "Provider: authProvider"
+          ],
+          "rawMetrics": {
+            "buttonsCount": 1,
+            "riverpodWired": true,
+            "hasController": false,
+            "issuesCount": 0,
+            "labelsCount": 0,
+            "textElementsCount": 32,
+            "qualityScore": 93,
+            "contentCoverage": 100,
+            "status": "PASS"
+          }
+        },
+        {
+          "screenName": "success_profile_details_form_section",
+          "language": "dart",
+          "labels": [
+            "Welcome to PrimeCare, ${authState.userName ??",
+            "Launch your authorized workspace portals. Locked apps require role privilege upgrades."
+          ],
+          "textElements": [
+            "Welcome to PrimeCare, ${authState.userName ??",
+            "Launch your authorized workspace portals. Locked apps require role privilege upgrades."
+          ],
+          "components": [
+            "Column",
+            "Provider: authProvider"
+          ],
+          "rawMetrics": {
+            "buttonsCount": 0,
+            "riverpodWired": true,
+            "hasController": false,
+            "issuesCount": 0,
+            "labelsCount": 2,
+            "textElementsCount": 2,
+            "qualityScore": 90,
+            "contentCoverage": 52.400000000000006,
+            "status": "PASS"
+          }
+        },
+        {
+          "screenName": "success_profile_header_section",
+          "language": "dart",
+          "labels": [
+            "PRIMECARE HQ",
+            "Application Hub"
+          ],
+          "textElements": [
+            "PRIMECARE HQ",
+            "Application Hub"
+          ],
+          "components": [
+            "Row",
+            "LucideIcons.shieldCheck",
             "Column"
           ],
           "rawMetrics": {
@@ -444,33 +555,106 @@
             "riverpodWired": false,
             "hasController": false,
             "issuesCount": 0,
-            "labelsCount": 1,
+            "labelsCount": 2,
             "textElementsCount": 2,
             "qualityScore": 30,
-            "contentCoverage": 12,
+            "contentCoverage": 10.8,
+            "status": "SCREEN REJECTED: Main content placeholder only"
+          }
+        },
+        {
+          "screenName": "success_profile_identity_summary_section",
+          "language": "dart",
+          "labels": [],
+          "textElements": [
+            ")[0].toUpperCase(),\n                  style: const TextStyle(\n                    color: Colors.white,\n                    fontSize: 12,\n                    fontWeight: FontWeight.bold,\n                  ),\n                ),\n              ),\n              const SizedBox(width: 8),\n              Text(\n                authState.userName ??",
+            ".tr(),\n                style: theme.typography.bodyMedium.copyWith(\n                  color: Colors.white,\n                  fontWeight: FontWeight.bold,\n                ),\n              ),\n              const SizedBox(width: 8),\n              Container(\n                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),\n                decoration: BoxDecoration(\n                  color: Colors.greenAccent.withValues(alpha: 0.15),\n                  borderRadius: BorderRadius.circular(12),\n                  border: Border.all(color: Colors.greenAccent.withValues(alpha: 0.3)),\n                ),\n                child: Text(\n                  (authState.role ??",
+            ").toUpperCase(),\n                  style: theme.typography.labelSmall.copyWith(\n                    color: Colors.greenAccent,\n                    fontSize: 10,\n                    fontWeight: FontWeight.bold,\n                  ),\n                ),\n              ),\n            ],\n          ),\n        ),\n        const SizedBox(width: 12),\n        IconButton(\n          tooltip:"
+          ],
+          "components": [
+            "Row",
+            "IconButton",
+            "LucideIcons.logOut",
+            "Provider: authProvider"
+          ],
+          "rawMetrics": {
+            "buttonsCount": 1,
+            "riverpodWired": true,
+            "hasController": true,
+            "issuesCount": 0,
+            "labelsCount": 0,
+            "textElementsCount": 3,
+            "qualityScore": 93,
+            "contentCoverage": 100,
+            "status": "PASS"
+          }
+        },
+        {
+          "screenName": "success_profile_preferences_or_documents_section",
+          "language": "dart",
+          "labels": [],
+          "textElements": [],
+          "components": [],
+          "rawMetrics": {
+            "buttonsCount": 0,
+            "riverpodWired": false,
+            "hasController": false,
+            "issuesCount": 0,
+            "labelsCount": 0,
+            "textElementsCount": 0,
+            "qualityScore": 30,
+            "contentCoverage": 0,
             "status": "SCREEN REJECTED: Main content placeholder only"
           }
         },
         {
           "screenName": "SuccessProfileScreen",
           "language": "dart",
-          "labels": [
-            "Success Profile Coordinator"
-          ],
+          "labels": [],
           "textElements": [
-            "Success Profile Coordinator"
+            "The App Hub acts as the centralized gateway for all PrimeCare portals. Displays all available applications, enforces role-based access control, and allows direct secure single-sign-on launch.",
+            "UserAuthStatusIndicator",
+            "SessionVerificationStatus",
+            "UserDetailsDisplay",
+            "SessionTokenDisplay",
+            "SignOutButton",
+            "Notifications",
+            "AppGrid",
+            "verifySessionStatus",
+            "fetchUserDetails",
+            "fetchSessionToken",
+            "signOutUser",
+            "handleForcedLogout",
+            "launchPortalApp",
+            "auth.success",
+            "Public",
+            "auth_success_identity_portal",
+            "auth_success_session_verified",
+            "auth_success_active_session",
+            "auth_success_logged_in_as",
+            "auth_success_assigned_role",
+            "auth_success_session_token",
+            "auth_success_sign_out",
+            "auth_success_parity_title",
+            "auth_success_parity_subtitle",
+            "auth_success_default_user"
           ],
-          "components": [],
+          "components": [
+            "SafeArea",
+            "SingleChildScrollView",
+            "Column",
+            "Row"
+          ],
           "rawMetrics": {
             "buttonsCount": 0,
             "riverpodWired": false,
             "hasController": false,
-            "issuesCount": 1,
-            "labelsCount": 1,
-            "textElementsCount": 1,
-            "qualityScore": 20,
-            "contentCoverage": 12,
-            "status": "SCREEN REJECTED: Main content placeholder only"
+            "issuesCount": 0,
+            "labelsCount": 0,
+            "textElementsCount": 26,
+            "qualityScore": 70,
+            "contentCoverage": 100,
+            "status": "PASS"
           }
         }
       ]
