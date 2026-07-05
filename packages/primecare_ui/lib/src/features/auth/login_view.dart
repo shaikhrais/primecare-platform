@@ -262,7 +262,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
         backgroundColor: theme.colors.surface,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         title: Text(
-          'Password Recovery',
+          'auth.account_recovery'.tr(),
           style: theme.typography.h3,
         ),
         content: Column(
@@ -270,7 +270,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Enter your email address to receive a secure password reset link.',
+              'auth.recovery_subtitle'.tr(),
               style: theme.typography.bodyMedium,
             ),
             const SizedBox(height: 24),
@@ -288,7 +288,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
           TextButton(key: const Key('login_view_textbutton_button_2'), 
             onPressed: () => Navigator.of(context).pop(),
             child: Text(
-              'CANCEL',
+              'auth.cancel'.tr().toUpperCase(),
               style: theme.typography.labelMedium.copyWith(
                 fontWeight: FontWeight.bold,
                 color: theme.colors.onSurfaceVariant,
@@ -306,7 +306,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               elevation: 0,
             ),
-            child: const Text('SEND RECOVERY LINK', style: TextStyle(fontWeight: FontWeight.bold)),
+            child: Text('auth.send_recovery_link'.tr().toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
       ),

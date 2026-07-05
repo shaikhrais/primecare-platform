@@ -4137,7 +4137,8 @@
         "role": "Rol de plataforma",
         "language_system": "Sistema de idiomas",
         "join_clinical_atelier": "Unirse al Taller Clínico",
-        "send_again": "Enviar de nuevo"
+        "send_again": "Enviar de nuevo",
+        "cancel": "Cancelar"
     },
     "aura": {
         "adjust_budget": "Ajustar presupuesto",

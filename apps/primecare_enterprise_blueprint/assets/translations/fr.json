@@ -22,7 +22,8 @@
                     },
                     "subtitle": "Clinic Check In Out Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Staff Presence %), Real-time Geofence Log, Identity Verification Status. Intent: Attendance Integrity."
             },
             "clinic_client_profile_screen": {
                 "title": {
@@ -32,7 +33,8 @@
                     },
                     "subtitle": "Clinic Client Profile Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Profile Completion %), Clinical History Timeline, Active Allergies/Risks Alert. Intent: Comprehensive Patient View."
             },
             "clinic_daily_notes_screen": {
                 "title": {
@@ -42,7 +44,8 @@
                     },
                     "subtitle": "Clinic Daily Notes Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Documentation Latency), SOAP Note Editor, Clinical Event Stream. Intent: Point-of-Care Traceability."
             },
             "clinic_incident_report_screen": {
                 "title": {
@@ -52,7 +55,8 @@
                     },
                     "subtitle": "Clinic Incident Report Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Criticality Mix), Incident Investigation Flow, Regulatory Reporting Queue. Intent: Risk Remediation."
             },
             "clinic_my_shifts_screen": {
                 "title": {
@@ -83,7 +87,8 @@
                         },
                         "subtitle": "Clinic Dashboard Screen"
                     },
-                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                    "description": "Must have: Aura HUD (Unit Velocity %, Clinical Alerts), Staffing Heatmap, Bed/Case Capacity Index. Intent: Clinical Unit Oversight."
                 },
                 "sections": {
                     "clinic_kpi_section": {
@@ -108,7 +113,8 @@
                     },
                     "subtitle": "Intake Coordinator Client Assignment Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Waitlist Depth), Staff-to-Client Matching Engine, Capacity Heatmap. Intent: Resource Allocation."
             },
             "intake_coordinator_dashboard": {
                 "title": {
@@ -128,7 +134,8 @@
                     },
                     "subtitle": "Intake Coordinator Eligibility Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Verification Success %), Insurance/Funding Status Grid, Authorization Expiry Log. Intent: Financial Eligibility."
             },
             "intake_coordinator_intake_forms_screen": {
                 "title": {
@@ -138,7 +145,8 @@
                     },
                     "subtitle": "Intake Coordinator Intake Forms Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Form Abandonment %), Dynamic Form Builder, Signature Completion Status. Intent: Digital Onboarding."
             },
             "intake_coordinator_new_intakes_screen": {
                 "title": {
@@ -148,7 +156,8 @@
                     },
                     "subtitle": "Intake Coordinator New Intakes Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Conversion Rate %), Lead Velocity Chart, Urgent Intake Queue. Intent: Growth Pipeline Management."
             },
             "intake_coordinator_scheduling_screen": {
                 "title": {
@@ -158,7 +167,8 @@
                     },
                     "subtitle": "Intake Coordinator Scheduling Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Initial Visit Latency), Staff Availability Grid, Optimization Recommendations. Intent: Care Initiation."
             },
             "intakeCoordinator": {
                 "dashboard": {
@@ -397,7 +407,8 @@
                     },
                     "subtitle": "Training Coordinator Materials Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Asset Utilization), Document Repository Grid, Version Control Log. Intent: Curriculum Management."
             },
             "training_coordinator_progress_screen": {
                 "title": {
@@ -407,7 +418,8 @@
                     },
                     "subtitle": "Training Coordinator Progress Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Certification Velocity), Individual Progress Tracker, Overdue Alert List. Intent: Student Governance."
             },
             "training_coordinator_training_schedule_screen": {
                 "title": {
@@ -417,7 +429,8 @@
                     },
                     "subtitle": "Training Coordinator Training Schedule Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Seat Utilization %), Dynamic Workshop Calendar, Resource Conflict Grid. Intent: Logistics Optimization."
             },
             "training_coordinator_workshops_screen": {
                 "title": {
@@ -472,7 +485,16 @@
                     "subtitle": "Psw Tableau de Bord"
                 },
                 "description": "View top-level system dashboard.",
-                "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+                "subtitle": "Aperçu en temps réel récupéré nativement via l'API.",
+                "welcome_greeting": "Good Morning, {name}",
+                "care_plan_subtitle": "Here is your care plan for {date}.",
+                "log_care_note": "Log Care Note",
+                "shift_progress": "Shift Progress",
+                "shift_time": "{start} - {end}",
+                "next_review": "Next Review",
+                "clients_title": "Current Clients",
+                "tasks_title": "Assigned Tasks",
+                "view_all": "View All"
             },
             "psw_dashboard": {
                 "title": {
@@ -482,7 +504,8 @@
                     },
                     "subtitle": "Psw Dashboard"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Visit Completion %), Patient Quick-Look Cards, Shift Time Log. Intent: Field Operations."
             }
         },
         "patient": {
@@ -503,7 +526,8 @@
                         },
                         "subtitle": "Patient Dashboard Screen"
                     },
-                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                    "description": "Must have: Aura HUD (Health Snapshot), Upcoming Appointments Carousel, Medication Reminder List. Intent: Patient Empowerment."
                 },
                 "sections": {
                     "patient_kpi_section": {
@@ -524,6 +548,80 @@
                 "title": "Clinical Director Dashboard",
                 "description": "Oversee clinical quality metrics and provider performance.",
                 "subtitle": "Clinical Director"
+            }
+        },
+        "billing_admin": {
+            "billing_admin_dashboard": {
+                "title": {
+                    "value": {
+                        "title": "Billing Admin Dashboard",
+                        "subtitle": "Revenue Recovery Console"
+                    },
+                    "subtitle": "Billing Admin Dashboard"
+                },
+                "description": "Must have: Aura HUD (AR Velocity), Billing Stat Grid, Pending Claims Ledger, Collection Status Chart. Intent: Revenue Recovery Console.",
+                "subtitle": "Must have: Aura HUD (AR Velocity), Billing Stat Grid, Pending Claims Ledger, Collection Status Chart.",
+                "billing_admin_dashboard_screen": {
+                    "title": {
+                        "value": {
+                            "title": "Value",
+                            "subtitle": "Title"
+                        },
+                        "subtitle": "Billing Admin Dashboard Screen"
+                    },
+                    "description": "Must have: Aura HUD (AR Velocity), Billing Stat Grid, Pending Claims Ledger, Collection Status Chart. Intent: Revenue Recovery Console.",
+                    "subtitle": "Must have: Aura HUD (AR Velocity), Billing Stat Grid, Pending Claims Ledger, Collection Status Chart."
+                }
+            },
+            "invoice_management": {
+                "title": {
+                    "value": {
+                        "title": "Invoice Management",
+                        "subtitle": "Financial Data Engine"
+                    },
+                    "subtitle": "Invoice Management"
+                },
+                "description": "Must have: Aura HUD (Error Rate), Invoice Data Table, Batch Processing Actions, Tax Summary Card. Intent: Financial Data Engine.",
+                "subtitle": "Must have: Aura HUD (Error Rate), Invoice Data Table, Batch Processing Actions, Tax Summary Card."
+            }
+        },
+        "rn": {
+            "dashboard": {
+                "title": {
+                    "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                    },
+                    "subtitle": "RN Dashboard"
+                },
+                "description": "Must have: Aura HUD (Critical Vitals Monitor), Medication Administration Record (MAR), Wound Care Assessment Module. Intent: Acute Care Management.",
+                "subtitle": "Must have: Aura HUD (Critical Vitals Monitor), Medication Administration Record (MAR), Wound Care Assessment Module."
+            }
+        },
+        "rmt": {
+            "dashboard": {
+                "title": {
+                    "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                    },
+                    "subtitle": "RMT Dashboard"
+                },
+                "description": "Must have: Aura HUD (Patient History Summary), Interactive Anatomy Map, SOAP Note Assessment Tool. Intent: Therapeutic Governance.",
+                "subtitle": "Must have: Aura HUD (Patient History Summary), Interactive Anatomy Map, SOAP Note Assessment Tool."
+            }
+        },
+        "social_worker": {
+            "dashboard": {
+                "title": {
+                    "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                    },
+                    "subtitle": "Social Worker Dashboard"
+                },
+                "description": "Must have: Aura HUD (Community Resource Telemetry), Psychosocial Observation Log, Crisis Response Action Grid. Intent: Holistic Care Coordination.",
+                "subtitle": "Must have: Aura HUD (Community Resource Telemetry), Psychosocial Observation Log, Crisis Response Action Grid."
             }
         }
     },
@@ -682,7 +780,8 @@
                     },
                     "subtitle": "Ceo Revenue Summary Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Revenue Velocity), Revenue Waterfall Chart, Multi-Segment Growth Analysis. Intent: Financial Growth Analytics."
             },
             "ceo_strategic_kpis_screen": {
                 "title": {
@@ -708,7 +807,8 @@
                         },
                         "subtitle": "Compliance Manager Dashboard Screen"
                     },
-                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                    "description": "Must have: Aura HUD (Audit Completion %), Risk Score Heatmap, Regulatory Deadline Log, Institutional Risk Index. Intent: Compliance Oversight."
                 },
                 "sections": {
                     "compliance_manager_kpi_section": {
@@ -729,7 +829,8 @@
                     },
                     "subtitle": "Compliance Manager Dashboard"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Aura HUD (Audit Completion %), Risk Score Heatmap, Regulatory Deadline Log, Institutional Risk Index. Intent: Compliance Oversight."
             },
             "complianceManager": {
                 "dashboard": {
@@ -855,7 +956,13 @@
         },
         "head_of_bus_dev": {
             "head_of_bus_dev_dashboard": {
-                "title": "Head Of Bus Dev Dashboard",
+                "title": {
+                    "value": {
+                        "title": "Head Of Business Development",
+                        "subtitle": "Ecosystem Expansion Hub"
+                    },
+                    "subtitle": "Head Of Bus Dev Dashboard"
+                },
                 "description": "Monitor business development pipeline and partnership growth.",
                 "subtitle": "Bus Dev Dashboard"
             }
@@ -998,281 +1105,26 @@
             }
         },
         "coo": {
-            "dashboard": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Coo Tableau de Bord"
+            "title": {
+                "value": {
+                    "title": "COO Dashboard",
+                    "subtitle": "Operations Command"
                 },
-                "description": "View the chief operating officer command center.",
-                "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-            },
-            "coo_compliance_view": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Coo Compliance View"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "coo_branch_comparison_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "description": "Compare branch-level metrics side-by-side.",
-                        "subtitle": "Title"
-                    },
-                    "description": "Compare branch-level metrics side-by-side.",
-                    "subtitle": "Coo Branch Comparison Screen"
-                },
-                "description": "Compare branch-level metrics side-by-side.",
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "coo_branch_operations_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "description": "View health metrics for specific branches.",
-                        "subtitle": "Title"
-                    },
-                    "description": "View health metrics for specific branches.",
-                    "subtitle": "Coo Branch Operations Screen"
-                },
-                "description": "View health metrics for specific branches.",
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "coo_compliance_view_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Coo Compliance View Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "coo_dashboard": {
-                "title": "Coo Dashboard",
-                "description": "View the chief operating officer command center.",
                 "subtitle": "COO Dashboard"
             },
-            "coo_issue_escalations_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Coo Issue Escalations Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "coo_operations_overview_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Coo Operations Overview Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "coo_reports_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Coo Reports Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "coo_scheduling_health_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "description": "Ensure overall staff scheduling health.",
-                        "subtitle": "Title"
-                    },
-                    "description": "Ensure overall staff scheduling health.",
-                    "subtitle": "Coo Scheduling Health Screen"
-                },
-                "description": "Ensure overall staff scheduling health.",
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "coo_service_delivery_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Coo Service Delivery Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "coo_staffing_efficiency_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Coo Staffing Efficiency Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "coo_workflow_performance_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Coo Workflow Performance Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            }
+            "description": "Must have: Aura HUD (Efficiency %, Service Quality Index), Branch KPI Grid (Bed Occupancy, Staff Ratio), Service Quality Log (Real-time Feedback), Operational Heatmap. Intent: Tactical operations management.",
+            "subtitle": "Must have: Aura HUD (Efficiency %, Service Quality Index), Branch KPI Grid (Bed Occupancy, Staff Ratio)."
         },
         "cto": {
-            "dashboard": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Cto Tableau de Bord"
+            "title": {
+                "value": {
+                    "title": "CTO Dashboard",
+                    "subtitle": "Technical Governance Command"
                 },
-                "description": "View the chief technology officer command center.",
-                "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-            },
-            "cto_access_control_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Cto Access Control Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "cto_api_monitoring_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "description": "Observe API request flows and latency.",
-                        "subtitle": "Title"
-                    },
-                    "description": "Observe API request flows and latency.",
-                    "subtitle": "Cto Api Monitoring Screen"
-                },
-                "description": "Observe API request flows and latency.",
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "cto_audit_logs_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "description": "Investigate unified system audit logs.",
-                        "subtitle": "Title"
-                    },
-                    "description": "Investigate unified system audit logs.",
-                    "subtitle": "Cto Audit Logs Screen"
-                },
-                "description": "Investigate unified system audit logs.",
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "cto_dashboard": {
-                "title": "Cto Dashboard",
-                "description": "View the chief technology officer command center.",
                 "subtitle": "CTO Dashboard"
             },
-            "cto_feature_adoption_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Cto Feature Adoption Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "cto_infrastructure_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Cto Infrastructure Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "cto_integrations_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Cto Integrations Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "cto_issue_tracking_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Cto Issue Tracking Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "cto_platform_usage_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "description": "Track resource usage across the entire platform.",
-                        "subtitle": "Title"
-                    },
-                    "description": "Track resource usage across the entire platform.",
-                    "subtitle": "Cto Platform Usage Screen"
-                },
-                "description": "Track resource usage across the entire platform.",
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "cto_release_management_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Cto Release Management Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "cto_reports_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Cto Reports Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "cto_system_health_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "description": "Monitor platform and infrastructure health.",
-                        "subtitle": "Title"
-                    },
-                    "description": "Monitor platform and infrastructure health.",
-                    "subtitle": "Cto System Health Screen"
-                },
-                "description": "Monitor platform and infrastructure health.",
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            }
+            "description": "Must have: Aura HUD (API Latency ms, Server Load %, DB Connection Health), Deployment Monitor (Version Hash, Active Node Count), Security Telemetry (JWT Expiry, Firewall Hits). Intent: Technical integrity.",
+            "subtitle": "Must have: Aura HUD (API Latency ms, Server Load %, DB Connection Health), Deployment Monitor."
         },
         "training_director": {
             "trainingDirector": {
@@ -1305,7 +1157,8 @@
                     },
                     "subtitle": "Training Director Certifications Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Certification Expiry Table, Renewal Pipeline, Staff Compliance Stats. Intent: Credential Compliance."
             },
             "training_director_compliance_training_screen": {
                 "title": {
@@ -1315,7 +1168,8 @@
                     },
                     "subtitle": "Training Director Compliance Training Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Regulatory Course List, Mandatory Completion Tracking, Audit Log. Intent: Regulatory Training Compliance."
             },
             "training_director_course_library_screen": {
                 "title": {
@@ -1325,7 +1179,8 @@
                     },
                     "subtitle": "Training Director Course Library Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Course Catalog, Version Control, Multimedia Asset Bridge. Intent: Content Management."
             },
             "training_director_dashboard": {
                 "title": {
@@ -1344,7 +1199,8 @@
                         },
                         "subtitle": "Training Director Dashboard Screen"
                     },
-                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                    "description": "Must have: Aura HUD (Certification Rate), Active Course Enrollment, Competency Drift Alert. Intent: LMS Governance."
                 },
                 "sections": {
                     "training_director_kpi_section": {
@@ -1357,7 +1213,8 @@
                         },
                         "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                     }
-                }
+                },
+                "description": "Must have: Aura HUD (Certification Rate), Active Course Enrollment, Competency Drift Alert. Intent: LMS Governance."
             },
             "training_director_reports_screen": {
                 "title": {
@@ -1418,7 +1275,8 @@
                         },
                         "subtitle": "Scrum Master Dashboard Screen"
                     },
-                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                    "description": "Must have: Aura HUD (Sprint Health), Velocity Chart, Impediment Log, Active Burndown. Intent: Agile Governance."
                 },
                 "sections": {
                     "scrum_master_kpi_section": {
@@ -1431,7 +1289,8 @@
                         },
                         "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                     }
-                }
+                },
+                "description": "Must have: Aura HUD (Sprint Health), Velocity Chart, Impediment Log, Active Burndown. Intent: Agile Governance."
             }
         },
         "head_of_marketing": {
@@ -1465,7 +1324,8 @@
                     },
                     "subtitle": "Head Of Marketing Campaigns Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Campaign Lifecycle Tracker, Budget Utilization Chart, ROI Matrix. Intent: Marketing Strategy."
             },
             "head_of_marketing_content_approval_screen": {
                 "title": {
@@ -1478,7 +1338,13 @@
                 "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
             },
             "head_of_marketing_dashboard": {
-                "title": "Head Of Marketing Dashboard",
+                "title": {
+                    "value": {
+                        "title": "Head Of Marketing Dashboard",
+                        "subtitle": "Growth Governance Console"
+                    },
+                    "subtitle": "Head Of Marketing Dashboard"
+                },
                 "description": "Monitor marketing campaign performance and lead generation.",
                 "subtitle": "Marketing Dashboard"
             },
@@ -1500,7 +1366,8 @@
                     },
                     "subtitle": "Head Of Marketing Leads Screen"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                "description": "Must have: Lead Pipeline View, Source Attribution Grid, Scoring Distribution. Intent: Lead Acquisition."
             },
             "head_of_marketing_performance_reports_screen": {
                 "title": {
@@ -1522,6 +1389,293 @@
                 },
                 "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
             }
+        },
+        "hr_manager": {
+            "hr_manager_dashboard": {
+                "title": {
+                    "value": {
+                        "title": "HR Manager Dashboard",
+                        "subtitle": "Talent Pipeline Command"
+                    },
+                    "subtitle": "HR Manager Dashboard"
+                },
+                "description": "Must have: Aura HUD (Recruitment Throughput), Recruitment KPI Grid, Candidate Pipeline View, Onboarding Checklist. Intent: Talent Pipeline Command.",
+                "subtitle": "Must have: Aura HUD (Recruitment Throughput), Recruitment KPI Grid, Candidate Pipeline View, Onboarding Checklist.",
+                "hr_manager_dashboard_screen": {
+                    "title": {
+                        "value": {
+                            "title": "Value",
+                            "subtitle": "Title"
+                        },
+                        "subtitle": "HR Manager Dashboard Screen"
+                    },
+                    "description": "Must have: Aura HUD (Recruitment Throughput), Recruitment KPI Grid, Candidate Pipeline View, Onboarding Checklist. Intent: Talent Pipeline Command.",
+                    "subtitle": "Must have: Aura HUD (Recruitment Throughput), Recruitment KPI Grid, Candidate Pipeline View, Onboarding Checklist."
+                }
+            },
+            "onboarding_wizard": {
+                "title": {
+                    "value": {
+                        "title": "Onboarding Wizard",
+                        "subtitle": "Guided Integration Flow"
+                    },
+                    "subtitle": "Onboarding Wizard"
+                },
+                "description": "Must have: Aura HUD (Completion %), Multi-step Progress Bar, Document Upload Zone, Credential Verification. Intent: Guided Integration Flow.",
+                "subtitle": "Must have: Aura HUD (Completion %), Multi-step Progress Bar, Document Upload Zone, Credential Verification."
+            }
+        },
+        "coo_compliance_view": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Coo Compliance View"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "coo_branch_comparison_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "description": "Compare branch-level metrics side-by-side.",
+                    "subtitle": "Title"
+                },
+                "description": "Compare branch-level metrics side-by-side.",
+                "subtitle": "Coo Branch Comparison Screen"
+            },
+            "description": "Compare branch-level metrics side-by-side.",
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "coo_branch_operations_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "description": "View health metrics for specific branches.",
+                    "subtitle": "Title"
+                },
+                "description": "View health metrics for specific branches.",
+                "subtitle": "Coo Branch Operations Screen"
+            },
+            "description": "View health metrics for specific branches.",
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "coo_compliance_view_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Coo Compliance View Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "coo_dashboard": {
+            "title": "Coo Dashboard",
+            "description": "View the chief operating officer command center.",
+            "subtitle": "COO Dashboard"
+        },
+        "coo_issue_escalations_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Coo Issue Escalations Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "coo_operations_overview_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Coo Operations Overview Screen"
+            },
+            "description": "Must have: Aura HUD (Incident Summary), Active Issue Logs, Resource Utilization Table. Intent: Operational Oversight.",
+            "subtitle": "Must have: Aura HUD (Incident Summary), Active Issue Logs, Resource Utilization Table."
+        },
+        "coo_reports_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Coo Reports Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "coo_scheduling_health_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "description": "Must have: Aura HUD (Shift Coverage %), Overtime Density Map, Scheduling Conflict Log. Intent: Workforce Efficiency.",
+                    "subtitle": "Title"
+                },
+                "description": "Must have: Aura HUD (Shift Coverage %), Overtime Density Map, Scheduling Conflict Log. Intent: Workforce Efficiency.",
+                "subtitle": "Coo Scheduling Health Screen"
+            },
+            "description": "Must have: Aura HUD (Shift Coverage %), Overtime Density Map, Scheduling Conflict Log. Intent: Workforce Efficiency.",
+            "subtitle": "Must have: Aura HUD (Shift Coverage %), Overtime Density Map, Scheduling Conflict Log."
+        },
+        "coo_service_delivery_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Coo Service Delivery Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "coo_staffing_efficiency_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Coo Staffing Efficiency Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "coo_workflow_performance_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Coo Workflow Performance Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "cto_access_control_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Cto Access Control Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "cto_api_monitoring_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "description": "Must have: Aura HUD (API Success Rate %), Latency Heatmap, Traffic Burst Monitor. Intent: Technical Integrity.",
+                    "subtitle": "Title"
+                },
+                "description": "Must have: Aura HUD (API Success Rate %), Latency Heatmap, Traffic Burst Monitor. Intent: Technical Integrity.",
+                "subtitle": "Cto Api Monitoring Screen"
+            },
+            "description": "Must have: Aura HUD (API Success Rate %), Latency Heatmap, Traffic Burst Monitor. Intent: Technical Integrity.",
+            "subtitle": "Must have: Aura HUD (API Success Rate %), Latency Heatmap, Traffic Burst Monitor."
+        },
+        "cto_audit_logs_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "description": "Investigate unified system audit logs.",
+                    "subtitle": "Title"
+                },
+                "description": "Investigate unified system audit logs.",
+                "subtitle": "Cto Audit Logs Screen"
+            },
+            "description": "Investigate unified system audit logs.",
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "cto_dashboard": {
+            "title": "Cto Dashboard",
+            "description": "View the chief technology officer command center.",
+            "subtitle": "CTO Dashboard"
+        },
+        "cto_feature_adoption_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Cto Feature Adoption Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "cto_infrastructure_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Cto Infrastructure Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "cto_integrations_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Cto Integrations Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "cto_issue_tracking_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Cto Issue Tracking Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "cto_platform_usage_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "description": "Track resource usage across the entire platform.",
+                    "subtitle": "Title"
+                },
+                "description": "Track resource usage across the entire platform.",
+                "subtitle": "Cto Platform Usage Screen"
+            },
+            "description": "Track resource usage across the entire platform.",
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "cto_release_management_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Cto Release Management Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "cto_reports_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Cto Reports Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "cto_system_health_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "description": "Must have: Aura HUD (Cluster Health), Node Status Grid, Error Density Log. Intent: Infrastructure Governance.",
+                    "subtitle": "Title"
+                },
+                "description": "Must have: Aura HUD (Cluster Health), Node Status Grid, Error Density Log. Intent: Infrastructure Governance.",
+                "subtitle": "Cto System Health Screen"
+            },
+            "description": "Must have: Aura HUD (Cluster Health), Node Status Grid, Error Density Log. Intent: Infrastructure Governance.",
+            "subtitle": "Must have: Aura HUD (Cluster Health), Node Status Grid, Error Density Log."
         }
     },
     "franchise": {
@@ -1537,19 +1691,8 @@
                                 },
                                 "subtitle": "Owner Dashboard Screen"
                             },
-                            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-                        },
-                        "sections": {
-                            "owner_kpi_section": {
-                                "title": {
-                                    "value": {
-                                        "title": "Value",
-                                        "subtitle": "Title"
-                                    },
-                                    "subtitle": "Owner Kpi Section"
-                                },
-                                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-                            }
+                            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                            "description": "Must have: Aura HUD (Revenue Velocity), Business KPI Grid, Staff Oversight Table, Revenue Growth Chart. Intent: Local Business Command."
                         }
                     }
                 }
@@ -1677,6 +1820,28 @@
                     "subtitle": "Franchise Owner Staff Screen"
                 },
                 "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+            },
+            "financial_snapshot": {
+                "title": {
+                    "value": {
+                        "title": "Financial Snapshot",
+                        "subtitle": "Fiscal Transparency Portal"
+                    },
+                    "subtitle": "Financial Snapshot"
+                },
+                "description": "Must have: Aura HUD (Cash-on-Hand), Balance Sheet Grid, P&L Waterfall Chart, Cash Flow Forecast. Intent: Fiscal Transparency Portal.",
+                "subtitle": "Must have: Aura HUD (Cash-on-Hand), Balance Sheet Grid, P&L Waterfall Chart, Cash Flow Forecast."
+            },
+            "staff_oversight": {
+                "title": {
+                    "value": {
+                        "title": "Staff Oversight",
+                        "subtitle": "Workforce Performance View"
+                    },
+                    "subtitle": "Staff Oversight"
+                },
+                "description": "Must have: Staff Utilization Heatmap, Attendance Log, Performance Scorecards. Intent: Workforce Governance.",
+                "subtitle": "Must have: Staff Utilization Heatmap, Attendance Log, Performance Scorecards."
             }
         },
         "billing_admin": {
@@ -1773,142 +1938,18 @@
                 },
                 "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
             },
+            "title": {
+                "value": {
+                    "title": "Scheduler Dashboard",
+                    "subtitle": "Coordination Hub"
+                },
+                "subtitle": "Scheduler Dashboard"
+            },
+            "description": "Must have: Aura HUD (Shift Coverage %, Vacancy Count), Master Calendar (Multi-Site Drag-and-Drop), Remediation Sidebar (Candidate Matching Score, Instant Notify). Intent: Shift coordination.",
+            "subtitle": "Must have: Aura HUD (Shift Coverage %, Vacancy Count), Master Calendar."
+        },
+        "scheduling": {
             "dashboard": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Scheduler Tableau de Bord"
-                },
-                "description": "View top-level system dashboard.",
-                "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-            },
-            "scheduling": {
-                "dashboard": {
-                    "title": {
-                        "value": {
-                            "title": "Value",
-                            "subtitle": "Title"
-                        },
-                        "subtitle": "Scheduling Tableau de Bord"
-                    },
-                    "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-                }
-            },
-            "scheduler_coordinator_appointment_calendar_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Scheduler Coordinator Appointment Calendar Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "scheduler_coordinator_assignments_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Scheduler Coordinator Assignments Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "scheduler_coordinator_booking_requests_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Scheduler Coordinator Booking Requests Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "scheduler_coordinator_conflicts_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Scheduler Coordinator Conflicts Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "scheduler_coordinator_open_shifts_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Scheduler Coordinator Open Shifts Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "scheduler_coordinator_provider_availability_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Scheduler Coordinator Provider Availability Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "scheduler_coordinator_shift_calendar_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Scheduler Coordinator Shift Calendar Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "scheduler_dashboard": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Scheduler Dashboard"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
-                "scheduler_dashboard_screen": {
-                    "title": {
-                        "value": {
-                            "title": "Value",
-                            "subtitle": "Title"
-                        },
-                        "subtitle": "Scheduler Dashboard Screen"
-                    },
-                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-                },
-                "sections": {
-                    "scheduler_kpi_section": {
-                        "title": {
-                            "value": {
-                                "title": "Value",
-                                "subtitle": "Title"
-                            },
-                            "subtitle": "Scheduler Kpi Section"
-                        },
-                        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-                    }
-                }
-            },
-            "schedule_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Schedule Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "scheduling_dashboard": {
                 "title": {
                     "value": {
                         "title": "Value",
@@ -1916,252 +1957,132 @@
                     },
                     "subtitle": "Scheduling Dashboard"
                 },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "scheduling_health": "Scheduling Health"
-        },
-        "hr_hiring": {
-            "hr": {
-                "dashboard": {
-                    "title": {
-                        "value": {
-                            "title": "Value",
-                            "subtitle": "Title"
-                        },
-                        "subtitle": "Hr Tableau de Bord"
-                    },
-                    "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-                }
-            },
-            "hrHiring": {
-                "dashboard": {
-                    "title": {
-                        "value": {
-                            "title": "Value",
-                            "subtitle": "Title"
-                        },
-                        "subtitle": "Hrhiring Tableau de Bord"
-                    },
-                    "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-                }
-            },
-            "hr_dashboard": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Hr Dashboard"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "hr_hiring_applicants_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Hr Hiring Applicants Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "hr_hiring_credentials_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Hr Hiring Credentials Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "hr_hiring_dashboard": {
-                "title": "Hr Hiring Dashboard",
-                "description": "Manage recruitment, onboarding, and staff credentials.",
-                "subtitle": "HR Dashboard"
-            },
-            "hr_hiring_interviews_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Hr Hiring Interviews Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "hr_hiring_offers_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Hr Hiring Offers Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "hr_hiring_onboarding_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Hr Hiring Onboarding Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "hr_hiring_reports_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Hr Hiring Reports Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "hr_hiring_staff_documents_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Hr Hiring Staff Documents Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "hr_hiring_training_status_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Hr Hiring Training Status Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                "subtitle": "Real-time overview fetched natively via API."
             }
         },
-        "operations_manager": {
-            "operationsManager": {
-                "dashboard": {
+        "scheduler_coordinator_appointment_calendar_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Scheduler Coordinator Appointment Calendar Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "scheduler_coordinator_assignments_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Scheduler Coordinator Assignments Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "scheduler_coordinator_booking_requests_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Scheduler Coordinator Booking Requests Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "scheduler_coordinator_conflicts_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Scheduler Coordinator Conflicts Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "scheduler_coordinator_open_shifts_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Scheduler Coordinator Open Shifts Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "scheduler_coordinator_provider_availability_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Scheduler Coordinator Provider Availability Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "scheduler_coordinator_shift_calendar_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Scheduler Coordinator Shift Calendar Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "scheduler_dashboard": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Scheduler Dashboard"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+            "scheduler_dashboard_screen": {
+                "title": {
+                    "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                    },
+                    "subtitle": "Scheduler Dashboard Screen"
+                },
+                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+            },
+            "sections": {
+                "scheduler_kpi_section": {
                     "title": {
                         "value": {
                             "title": "Value",
                             "subtitle": "Title"
                         },
-                        "subtitle": "Operations Manager Tableau de Bord"
+                        "subtitle": "Scheduler Kpi Section"
                     },
-                    "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                 }
-            },
-            "opsManager": {
-                "dashboard": {
-                    "title": {
-                        "value": {
-                            "title": "Value",
-                            "subtitle": "Title"
-                        },
-                        "subtitle": "Ops Manager Tableau de Bord"
-                    },
-                    "subtitle": "Aperçu en temps réel récupéré nativement via l'API."
-                }
-            },
-            "operations_manager_attendance_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Operations Manager Attendance Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "operations_manager_daily_operations_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Operations Manager Daily Operations Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "operations_manager_dashboard": {
-                "title": "Operations Manager Dashboard",
-                "description": "Monitor daily franchise operations and logistics efficiency.",
-                "subtitle": "Ops Dashboard"
-            },
-            "operations_manager_issues_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Operations Manager Issues Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "operations_manager_reports_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Operations Manager Reports Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "operations_manager_schedule_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Operations Manager Schedule Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "operations_manager_service_quality_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Operations Manager Service Quality Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "operations_manager_shifts_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Operations Manager Shifts Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "operations_manager_staff_coordination_screen": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Operations Manager Staff Coordination Screen"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
-            },
-            "ops_manager_dashboard": {
-                "title": {
-                    "value": {
-                        "title": "Value",
-                        "subtitle": "Title"
-                    },
-                    "subtitle": "Ops Manager Dashboard"
-                },
-                "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
             }
-        }
+        },
+        "schedule_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Schedule Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "scheduling_dashboard": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Scheduling Dashboard"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "scheduling_health": "Scheduling Health"
     },
     "marketing": {
         "territory_sales_manager": {
@@ -2650,7 +2571,8 @@
                         },
                         "subtitle": "Local Marketing Manager Dashboard Screen"
                     },
-                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                    "description": "Must have: Aura HUD (Lead Velocity), Campaign ROI Funnel, Local Market Share. Intent: Growth Governance."
                 },
                 "sections": {
                     "local_marketing_manager_kpi_section": {
@@ -2663,7 +2585,8 @@
                         },
                         "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                     }
-                }
+                },
+                "description": "Must have: Aura HUD (Lead Velocity), Campaign ROI Funnel, Local Market Share. Intent: Growth Governance."
             },
             "local_marketing_manager_events_screen": {
                 "title": {
@@ -2864,7 +2787,8 @@
                         },
                         "subtitle": "General Manager Dashboard Screen"
                     },
-                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                    "description": "Must have: Aura HUD (Branch Health %), P&L Velocity Chart, Local Compliance Score. Intent: Regional P&L Governance."
                 },
                 "sections": {
                     "general_manager_kpi_section": {
@@ -2920,7 +2844,8 @@
                         },
                         "subtitle": "Partnership Manager Dashboard Screen"
                     },
-                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                    "description": "Must have: Aura HUD (Deal Velocity), Pipeline Stages Funnel, Stakeholder Interaction Log. Intent: Growth & Alliance Management."
                 },
                 "sections": {
                     "partnership_manager_kpi_section": {
@@ -3016,7 +2941,8 @@
                         },
                         "subtitle": "Regional Manager Ontario Dashboard Screen"
                     },
-                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                    "description": "Must have: Aura HUD (Ontario Site Health), Regulatory Compliance Tracker, Regional Staffing Grid. Intent: Territory Governance."
                 },
                 "sections": {
                     "regional_manager_ontario_kpi_section": {
@@ -3029,7 +2955,8 @@
                         },
                         "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                     }
-                }
+                },
+                "description": "Must have: Aura HUD (Ontario Site Health), Regulatory Compliance Tracker, Regional Staffing Grid. Intent: Territory Governance."
             }
         },
         "regional_manager_usa": {
@@ -3062,7 +2989,8 @@
                         },
                         "subtitle": "Regional Manager Usa Dashboard Screen"
                     },
-                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                    "description": "Must have: Aura HUD (US Site Health), Federal Compliance Tracker, Multi-State Staffing Grid. Intent: Territory Governance."
                 },
                 "sections": {
                     "regional_manager_usa_kpi_section": {
@@ -3075,7 +3003,8 @@
                         },
                         "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                     }
-                }
+                },
+                "description": "Must have: Aura HUD (US Site Health), Federal Compliance Tracker, Multi-State Staffing Grid. Intent: Territory Governance."
             }
         },
         "territory_expansion_manager": {
@@ -3108,7 +3037,8 @@
                         },
                         "subtitle": "Territory Expansion Manager Dashboard Screen"
                     },
-                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+                    "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+                    "description": "Must have: Aura HUD (Expansion Velocity), Demographic Potential Heatmap, Resource Provisioning Log. Intent: Growth Governance."
                 },
                 "sections": {
                     "territory_expansion_manager_kpi_section": {
@@ -3121,7 +3051,8 @@
                         },
                         "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
                     }
-                }
+                },
+                "description": "Must have: Aura HUD (Expansion Velocity), Demographic Potential Heatmap, Resource Provisioning Log. Intent: Growth Governance."
             },
             "territory_expansion_manager_demographics_screen": {
                 "title": {
@@ -4147,61 +4078,6 @@
         "regional_campaigns_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
         "volunteers_screen.title": "Volunteers Screen",
         "volunteers_screen.subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
-        "navigation.items.compliance_hub": "Compliance Hub",
-        "navigation.items.global_settings": "Global Settings",
-        "navigation.items.user_management": "User Management",
-        "navigation.items.enterprise_overview": "Enterprise Overview",
-        "navigation.items.strategic_kpis": "Strategic KPIs",
-        "navigation.items.growth_pipeline": "Growth Pipeline",
-        "navigation.items.region_performance": "Region Performance",
-        "navigation.items.leadership_reports": "Leadership Reports",
-        "navigation.items.financial_overview": "Financial Overview",
-        "navigation.items.revenue_tracker": "Revenue Tracker",
-        "navigation.items.profitability": "Profitability",
-        "navigation.items.tax_remittance": "Tax & Remittance",
-        "navigation.items.operations_board": "Operations Board",
-        "navigation.items.branch_operations": "Branch Operations",
-        "navigation.items.incident_reviews": "Incident Reviews",
-        "navigation.items.platform_usage": "Platform Usage",
-        "navigation.items.api_monitoring": "API Monitoring",
-        "navigation.items.audit_logs": "Audit Logs",
-        "navigation.items.cases": "Cases",
-        "navigation.items.policy_manager": "Policy Manager",
-        "navigation.items.audits": "Audits",
-        "navigation.items.risk_register": "Risk Register",
-        "navigation.items.curriculum_hub": "Curriculum Hub",
-        "navigation.items.skill_matrix": "Skill Matrix",
-        "navigation.items.region_dashboard": "Region Dashboard",
-        "navigation.items.branch_comparison": "Branch Comparison",
-        "navigation.items.ledger_command": "Ledger Command",
-        "navigation.items.cash_flow": "Cash Flow",
-        "navigation.items.referrals": "Referrals",
-        "navigation.items.pending_assessments": "Pending assessments",
-        "navigation.items.invoices": "Invoices",
-        "navigation.items.marketing_hub": "Marketing Hub",
-        "navigation.items.campaign_analytics": "Campaign Analytics",
-        "navigation.items.business_overview": "Business Overview",
-        "navigation.items.financial_performance": "Financial Performance",
-        "navigation.items.compliance_status": "Compliance Status",
-        "navigation.items.clinical_dashboard": "Clinical Dashboard",
-        "navigation.items.shift_tracker": "Shift Tracker",
-        "navigation.items.messages": "Messages",
-        "navigation.items.family_home": "Family Home",
-        "navigation.items.care_plan": "Care Plan",
-        "navigation.items.messaging_hub": "Messaging Hub",
-        "navigation.items.document_vault": "Document Vault",
-        "navigation.items.notification_center": "Notifications",
-        "navigation.sections.main": "Main",
-        "navigation.sections.management": "Management",
-        "navigation.sections.common_tools": "Common Tools",
-        "navigation.sections.strategic": "Strategic",
-        "navigation.sections.workflows": "Workflows",
-        "navigation.sections.operations": "Operations",
-        "navigation.sections.finance": "Finance",
-        "navigation.sections.clinical": "Clinical",
-        "navigation.sections.growth": "Growth",
-        "Institutional Dashboard": "Institutional Dashboard",
-        "Global Metrics scaling test": "Global Metrics scaling test",
         "languages": "Français",
         "language": "Français",
         "aura": {
@@ -4214,7 +4090,10 @@
         },
         "tooltips": {
             "change_language": "Changer de langue"
-        }
+        },
+        "governance.blueprint_integrity": "Blueprint Integrity Verified",
+        "infrastructure.health_telemetry": "Active Platform Health: Must have Aura Behavioral Telemetry, JWT Auth Bridge, Platform Registry, Skeleton Layout. Intent: System Integrity Layer.",
+        "infrastructure.governance_compliance": "Governance Compliance: Must have Aura Behavioral Telemetry, JWT Auth Bridge, Platform Registry, Skeleton Layout. Intent: System Integrity Layer."
     },
     "auth": {
         "title_curator": "Conservateur PrimeCare",
@@ -4258,7 +4137,8 @@
         "role": "Rôle de plateforme",
         "language_system": "Système de langue",
         "join_clinical_atelier": "Rejoindre l'Atelier Clinique",
-        "send_again": "Renvoyer"
+        "send_again": "Renvoyer",
+        "cancel": "Annuler"
     },
     "aura": {
         "adjust_budget": "Ajuster le budget",
@@ -4287,6 +4167,67 @@
     "navigation": {
         "footer": {
             "language": "Langue"
+        },
+        "items": {
+            "dashboard": "Dashboard",
+            "system_dashboard": "System Dashboard",
+            "shareholder_dashboard": "Shareholder Dashboard",
+            "compliance_hub": "Compliance Hub",
+            "global_settings": "Global Settings",
+            "user_management": "User Management",
+            "enterprise_overview": "Enterprise Overview",
+            "strategic_kpis": "Strategic KPIs",
+            "growth_pipeline": "Growth Pipeline",
+            "region_performance": "Region Performance",
+            "leadership_reports": "Leadership Reports",
+            "financial_overview": "Financial Overview",
+            "revenue_tracker": "Revenue Tracker",
+            "profitability": "Profitability",
+            "tax_remittance": "Tax & Remittance",
+            "tax_&_remittance": "Tax & Remittance",
+            "operations_board": "Operations Board",
+            "branch_operations": "Branch Operations",
+            "incident_reviews": "Incident Reviews",
+            "platform_usage": "Platform Usage",
+            "api_monitoring": "API Monitoring",
+            "audit_logs": "Audit Logs",
+            "cases": "Cases",
+            "policy_manager": "Policy Manager",
+            "audits": "Audits",
+            "risk_register": "Risk Register",
+            "curriculum_hub": "Curriculum Hub",
+            "skill_matrix": "Skill Matrix",
+            "region_dashboard": "Region Dashboard",
+            "branch_comparison": "Branch Comparison",
+            "ledger_command": "Ledger Command",
+            "cash_flow": "Cash Flow",
+            "referrals": "Referrals",
+            "pending_assessments": "Pending assessments",
+            "invoices": "Invoices",
+            "marketing_hub": "Marketing Hub",
+            "campaign_analytics": "Campaign Analytics",
+            "business_overview": "Business Overview",
+            "financial_performance": "Financial Performance",
+            "compliance_status": "Compliance Status",
+            "clinical_dashboard": "Clinical Dashboard",
+            "shift_tracker": "Shift Tracker",
+            "messages": "Messages",
+            "family_home": "Family Home",
+            "care_plan": "Care Plan",
+            "messaging_hub": "Messaging Hub",
+            "document_vault": "Document Vault",
+            "notification_center": "Notifications"
+        },
+        "sections": {
+            "main": "Main",
+            "management": "Management",
+            "common_tools": "Common Tools",
+            "strategic": "Strategic",
+            "workflows": "Workflows",
+            "operations": "Operations",
+            "finance": "Finance",
+            "clinical": "Clinical",
+            "growth": "Growth"
         }
     },
     "governance": {
@@ -4330,5 +4271,277 @@
     "login_forgot_password": "Mot de passe oublié ?",
     "login_button": "CONNEXION",
     "login_access_demo": "ACCÉDER AU MODE DÉMO",
-    "login_role_simulation_center": "CENTRE DE SIMULATION DES RÔLES"
+    "login_role_simulation_center": "CENTRE DE SIMULATION DES RÔLES",
+    "hr_hiring": {
+        "hr": {
+            "dashboard": {
+                "title": {
+                    "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                    },
+                    "subtitle": "Hr Dashboard"
+                },
+                "subtitle": "Real-time overview fetched natively via API."
+            }
+        },
+        "hrHiring": {
+            "dashboard": {
+                "title": {
+                    "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                    },
+                    "subtitle": "Hrhiring Dashboard"
+                },
+                "subtitle": "Real-time overview fetched natively via API."
+            }
+        },
+        "hr_dashboard": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Hr Dashboard"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "hr_hiring_applicants_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Hr Hiring Applicants Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "hr_hiring_credentials_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Hr Hiring Credentials Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "hr_hiring_dashboard": {
+            "title": "Hr Hiring Dashboard",
+            "description": "Manage recruitment, onboarding, and staff credentials.",
+            "subtitle": "HR Dashboard"
+        },
+        "hr_hiring_interviews_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Hr Hiring Interviews Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "hr_hiring_offers_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Hr Hiring Offers Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "hr_hiring_onboarding_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Hr Hiring Onboarding Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "hr_hiring_reports_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Hr Hiring Reports Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "hr_hiring_staff_documents_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Hr Hiring Staff Documents Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "hr_hiring_training_status_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Hr Hiring Training Status Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+    },
+    "operations_manager": {
+        "operations_manager_dashboard": {
+            "title": {
+                "value": {
+                    "title": "Operations Manager Dashboard",
+                    "subtitle": "Logistics Command Center"
+                },
+                "subtitle": "Operations Manager Dashboard"
+            },
+            "description": "Must have: Aura HUD (Supply Chain Health), Logistics KPI Grid, Resource Allocation Map, Efficiency Metrics. Intent: Logistics Command Center.",
+            "subtitle": "Must have: Aura HUD (Supply Chain Health), Logistics KPI Grid, Resource Allocation Map, Efficiency Metrics.",
+            "operations_manager_dashboard_screen": {
+                "title": {
+                    "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                    },
+                    "subtitle": "Operations Manager Dashboard Screen"
+                },
+                "description": "Must have: Aura HUD (Supply Chain Health), Logistics KPI Grid, Resource Allocation Map, Efficiency Metrics. Intent: Logistics Command Center.",
+                "subtitle": "Must have: Aura HUD (Supply Chain Health), Logistics KPI Grid, Resource Allocation Map, Efficiency Metrics."
+            }
+        },
+        "operationsManager": {
+            "dashboard": {
+                "title": {
+                    "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                    },
+                    "subtitle": "Operations Manager Dashboard"
+                },
+                "subtitle": "Real-time overview fetched natively via API."
+            }
+        },
+        "opsManager": {
+            "dashboard": {
+                "title": {
+                    "value": {
+                        "title": "Value",
+                        "subtitle": "Title"
+                    },
+                    "subtitle": "Ops Manager Dashboard"
+                },
+                "subtitle": "Real-time overview fetched natively via API."
+            }
+        },
+        "operations_manager_attendance_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Operations Manager Attendance Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "operations_manager_daily_operations_screen": {
+            "title": {
+                "value": {
+                    "title": "Operations Manager Dashboard",
+                    "subtitle": "Logistics Command Center"
+                },
+                "subtitle": "Operations Manager Dashboard"
+            },
+            "subtitle": "Must have: Aura HUD (Supply Chain Health %, Inventory Turn), Logistics KPI Grid (Vehicle Utilization, Fuel Efficiency), Resource Allocation Map (Live Field Staff Tracking). Intent: Logistics command."
+        },
+        "operations_manager_issues_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Operations Manager Issues Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "operations_manager_reports_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Operations Manager Reports Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "operations_manager_schedule_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Operations Manager Schedule Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "operations_manager_service_quality_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Operations Manager Service Quality Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "operations_manager_shifts_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Operations Manager Shifts Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "operations_manager_staff_coordination_screen": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Operations Manager Staff Coordination Screen"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        },
+        "ops_manager_dashboard": {
+            "title": {
+                "value": {
+                    "title": "Value",
+                    "subtitle": "Title"
+                },
+                "subtitle": "Ops Manager Dashboard"
+            },
+            "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+    },
+    "dashboards": {
+        "common": {
+            "labels": {
+                "sign_in_page_view": "Enterprise Command Login",
+                "operational_sector__sign_in_page_view": "Please verify your credentials to access the Governance HUD."
+            }
+        },
+        "corporategovernance": {
+            "labels": {
+                "compliance_score": "Global Compliance Score"
+            }
+        }
+    }
 }

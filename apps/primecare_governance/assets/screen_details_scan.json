@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-07-05T11:41:18.015Z",
-  "overallI18nScore": "319.3%",
+  "timestamp": "2026-07-05T12:08:49.166Z",
+  "overallI18nScore": "100.6%",
   "deployments": [
     {
       "appName": "primecare_auth",
@@ -11,11 +11,11 @@
       "verificationLog": "Verification passed for primecare_auth",
       "i18n": {
         "appName": "primecare_auth",
-        "enKeys": 2010,
-        "esKeys": 1913,
-        "frKeys": 1904,
-        "parityScore": "95.0%",
-        "status": "⚠️ Gaps Present"
+        "enKeys": 2011,
+        "esKeys": 2023,
+        "frKeys": 2023,
+        "parityScore": "100.6%",
+        "status": "✅ 100% Ready"
       },
       "screens": [
         {
@@ -668,10 +668,10 @@
       "verificationLog": "Verification passed for primecare_governance",
       "i18n": {
         "appName": "primecare_governance",
-        "enKeys": 82,
-        "esKeys": 1913,
-        "frKeys": 82,
-        "parityScore": "1216.5%",
+        "enKeys": 2011,
+        "esKeys": 2023,
+        "frKeys": 2023,
+        "parityScore": "100.6%",
         "status": "✅ 100% Ready"
       },
       "screens": [
@@ -10635,10 +10635,10 @@
       "verificationLog": "Verification passed for primecare_corporate",
       "i18n": {
         "appName": "primecare_corporate",
-        "enKeys": 82,
-        "esKeys": 1913,
-        "frKeys": 82,
-        "parityScore": "1216.5%",
+        "enKeys": 2011,
+        "esKeys": 2023,
+        "frKeys": 2023,
+        "parityScore": "100.6%",
         "status": "✅ 100% Ready"
       },
       "screens": [
@@ -47892,11 +47892,11 @@
       "verificationLog": "Verification passed for primecare_franchise",
       "i18n": {
         "appName": "primecare_franchise",
-        "enKeys": 2010,
-        "esKeys": 1913,
-        "frKeys": 1904,
-        "parityScore": "95.0%",
-        "status": "⚠️ Gaps Present"
+        "enKeys": 2011,
+        "esKeys": 2023,
+        "frKeys": 2023,
+        "parityScore": "100.6%",
+        "status": "✅ 100% Ready"
       },
       "screens": [
         {
@@ -68770,11 +68770,11 @@
       "verificationLog": "Verification passed for primecare_clinic",
       "i18n": {
         "appName": "primecare_clinic",
-        "enKeys": 2010,
-        "esKeys": 1913,
-        "frKeys": 1904,
-        "parityScore": "95.0%",
-        "status": "⚠️ Gaps Present"
+        "enKeys": 2011,
+        "esKeys": 2023,
+        "frKeys": 2023,
+        "parityScore": "100.6%",
+        "status": "✅ 100% Ready"
       },
       "screens": [
         {
@@ -80316,11 +80316,11 @@
       "verificationLog": "Verification passed for primecare_client",
       "i18n": {
         "appName": "primecare_client",
-        "enKeys": 2010,
-        "esKeys": 1913,
-        "frKeys": 1904,
-        "parityScore": "95.0%",
-        "status": "⚠️ Gaps Present"
+        "enKeys": 2011,
+        "esKeys": 2023,
+        "frKeys": 2023,
+        "parityScore": "100.6%",
+        "status": "✅ 100% Ready"
       },
       "screens": [
         {
@@ -90034,11 +90034,11 @@
       "verificationLog": "Verification passed for primecare_business_development",
       "i18n": {
         "appName": "primecare_business_development",
-        "enKeys": 2010,
-        "esKeys": 1913,
-        "frKeys": 1904,
-        "parityScore": "95.0%",
-        "status": "⚠️ Gaps Present"
+        "enKeys": 2011,
+        "esKeys": 2023,
+        "frKeys": 2023,
+        "parityScore": "100.6%",
+        "status": "✅ 100% Ready"
       },
       "screens": [
         {
@@ -100685,11 +100685,11 @@
       "verificationLog": "Verification passed for primecare_marketing",
       "i18n": {
         "appName": "primecare_marketing",
-        "enKeys": 2010,
-        "esKeys": 1913,
-        "frKeys": 1904,
-        "parityScore": "95.0%",
-        "status": "⚠️ Gaps Present"
+        "enKeys": 2011,
+        "esKeys": 2023,
+        "frKeys": 2023,
+        "parityScore": "100.6%",
+        "status": "✅ 100% Ready"
       },
       "screens": [
         {
@@ -111466,11 +111466,11 @@
       "verificationLog": "Verification passed for primecare_support",
       "i18n": {
         "appName": "primecare_support",
-        "enKeys": 2010,
-        "esKeys": 1913,
-        "frKeys": 1904,
-        "parityScore": "95.0%",
-        "status": "⚠️ Gaps Present"
+        "enKeys": 2011,
+        "esKeys": 2023,
+        "frKeys": 2023,
+        "parityScore": "100.6%",
+        "status": "✅ 100% Ready"
       },
       "screens": [
         {
@@ -123065,11 +123065,11 @@
       "verificationLog": "Verification passed for primecare_enterprise_blueprint",
       "i18n": {
         "appName": "primecare_enterprise_blueprint",
-        "enKeys": 2010,
-        "esKeys": 1913,
-        "frKeys": 1904,
-        "parityScore": "95.0%",
-        "status": "⚠️ Gaps Present"
+        "enKeys": 2011,
+        "esKeys": 2023,
+        "frKeys": 2023,
+        "parityScore": "100.6%",
+        "status": "✅ 100% Ready"
       },
       "screens": [
         {

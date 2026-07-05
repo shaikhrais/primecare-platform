@@ -56,7 +56,8 @@
         "role": "Platform Role",
         "language_system": "Language System",
         "join_clinical_atelier": "Join Clinical Atelier",
-        "send_again": "Send Again"
+        "send_again": "Send Again",
+        "cancel": "Cancel"
     },
     "aura": {
         "adjust_budget": "Adjust Budget",
