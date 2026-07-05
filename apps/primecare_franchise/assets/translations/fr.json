@@ -4543,5 +4543,20 @@
                 "compliance_score": "Global Compliance Score"
             }
         }
-    }
+    },
+    "login_stability_trust": "STABILITÉ ET CONFIANCE",
+    "login_soc2_compliant": "CONFORME SOC2 · ISO 27001",
+    "login_governed_secure": "GOUVERNÉ ET SÉCURISÉ",
+    "login_secure_deployment_node": "NŒUD DE DÉPLOIEMENT SÉCURISÉ : NA-EAST-1",
+    "login_all_systems_operational": "TOUS LES SYSTÈMES OPÉRATIONNELS",
+    "login_slogan_0": "INFRASTRUCTURE DE GOUVERNANCE RENFORCÉE",
+    "login_slogan_1": "APPLICATION DE L'AUDIT ZÉRO ERREUR",
+    "login_slogan_2": "SOINS DE PRÉCISION. SÉCURITÉ ABSOLUE.",
+    "login_slogan_3": "INTÉGRITÉ ARCHITECTURALE VÉRIFIÉE",
+    "login_slogan_4": "GESTION DES SESSIONS ZERO-TRUST",
+    "login_slogan_5": "SURVEILLANCE DE LA CONFORMITÉ EN TEMPS RÉEL",
+    "login_slogan_6": "COUCHE 4 DE SÉCURITÉ D'ENTREPRISE",
+    "login_slogan_7": "PROTECTION D'IDENTITÉ DÉCENTRALISÉE",
+    "login_slogan_8": "VALIDATION DE PARITÉ CONTINUE",
+    "login_slogan_9": "REGISTRE DE GOUVERNANCE RENFORCÉ"
 }

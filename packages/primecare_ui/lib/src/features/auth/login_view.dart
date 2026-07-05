@@ -26,6 +26,25 @@ class LoginView extends GovernedScreen {
         'login_button',
         'login_access_demo',
         'login_role_simulation_center',
+        'auth.account_recovery',
+        'auth.recovery_subtitle',
+        'auth.cancel',
+        'auth.send_recovery_link',
+        'login_stability_trust',
+        'login_soc2_compliant',
+        'login_governed_secure',
+        'login_secure_deployment_node',
+        'login_all_systems_operational',
+        'login_slogan_0',
+        'login_slogan_1',
+        'login_slogan_2',
+        'login_slogan_3',
+        'login_slogan_4',
+        'login_slogan_5',
+        'login_slogan_6',
+        'login_slogan_7',
+        'login_slogan_8',
+        'login_slogan_9',
       ];
 
   @override
@@ -752,7 +771,7 @@ class _BillboardBadge extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           Text(
-            'SOC2 COMPLIANT · ISO 27001',
+            'login_soc2_compliant'.tr(),
             style: context.theme.typography.labelMedium.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -783,7 +802,7 @@ class _SecurityVerifiedBadge extends StatelessWidget {
           const Icon(Icons.shield, color: Colors.greenAccent, size: 14),
           const SizedBox(width: 8),
           Text(
-            'GOVERNED & SECURE',
+            'login_governed_secure'.tr(),
             style: context.theme.typography.labelSmall.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -809,16 +828,16 @@ class _RollingSlogansState extends State<_RollingSlogans>
   int _currentIndex = 0;
 
   final List<String> _slogans = [
-    'HARDENED GOVERNANCE INFRASTRUCTURE',
-    'ZERO-ERROR AUDIT ENFORCEMENT',
-    'PRECISION CARE. ABSOLUTE SECURITY.',
-    'ARCHITECTURAL INTEGRITY VERIFIED',
-    'ZERO-TRUST SESSION MANAGEMENT',
-    'REAL-TIME COMPLIANCE MONITORING',
-    'ENTERPRISE SECURITY LAYER 4',
-    'DECENTRALIZED IDENTITY PROTECTION',
-    'CONTINUOUS PARITY VALIDATION',
-    'GOVERNANCE REGISTRY HARDENED',
+    'login_slogan_0',
+    'login_slogan_1',
+    'login_slogan_2',
+    'login_slogan_3',
+    'login_slogan_4',
+    'login_slogan_5',
+    'login_slogan_6',
+    'login_slogan_7',
+    'login_slogan_8',
+    'login_slogan_9',
   ];
 
   @override
@@ -851,7 +870,7 @@ class _RollingSlogansState extends State<_RollingSlogans>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'STABILITY & TRUST',
+          'login_stability_trust'.tr(),
           style: context.theme.typography.labelMedium.copyWith(
             color: Colors.white.withValues(alpha: 0.7),
             letterSpacing: 4,
@@ -876,7 +895,7 @@ class _RollingSlogansState extends State<_RollingSlogans>
               );
             },
             child: Text(
-              _slogans[_currentIndex],
+              _slogans[_currentIndex].tr(),
               key: ValueKey(_currentIndex),
               style: context.theme.typography.h3.copyWith(
                 color: Colors.white,
@@ -901,7 +920,7 @@ class _BillboardFooter extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'SECURE DEPLOYMENT NODE: NA-EAST-1',
+          'login_secure_deployment_node'.tr(),
           style: context.theme.typography.labelSmall.copyWith(
             color: Colors.white.withValues(alpha: 0.5),
             letterSpacing: 1.5,
@@ -920,7 +939,7 @@ class _BillboardFooter extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Text(
-              'ALL SYSTEMS OPERATIONAL',
+              'login_all_systems_operational'.tr(),
               style: context.theme.typography.labelSmall.copyWith(
                 color: Colors.white.withValues(alpha: 0.7),
                 fontWeight: FontWeight.bold,

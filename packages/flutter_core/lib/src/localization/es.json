@@ -185,5 +185,20 @@
     "login_forgot_password": "Recuperar Token de Seguridad",
     "login_button": "LOGIN",
     "login_access_demo": "Simular Sesión (Modo Demostración)",
-    "login_role_simulation_center": "CENTRO DE SIMULACIÓN DE ROLES"
+    "login_role_simulation_center": "CENTRO DE SIMULACIÓN DE ROLES",
+    "login_stability_trust": "ESTABILIDAD Y CONFIANZA",
+    "login_soc2_compliant": "CONFORMIDAD SOC2 · ISO 27001",
+    "login_governed_secure": "GOBERNADO Y SEGURO",
+    "login_secure_deployment_node": "NODO DE DESPLIEGUE SEGURO: NA-EAST-1",
+    "login_all_systems_operational": "TODOS LOS SISTEMAS OPERATIVOS",
+    "login_slogan_0": "INFRAESTRUCTURA DE GOBERNANZA REFORZADA",
+    "login_slogan_1": "APLICACIÓN DE AUDITORÍA CERO ERRORES",
+    "login_slogan_2": "ATENCIÓN DE PRECISIÓN. SEGURIDAD ABSOLUTA.",
+    "login_slogan_3": "INTEGRIDAD ARQUITECTÓNICA VERIFICADA",
+    "login_slogan_4": "GESTIÓN DE SESIONES ZERO-TRUST",
+    "login_slogan_5": "MONITOREO DE CUMPLIMIENTO EN TIEMPO REAL",
+    "login_slogan_6": "CAPA 4 DE SEGURIDAD EMPRESARIAL",
+    "login_slogan_7": "PROTECCIÓN DE IDENTIDAD DESCENTRALIZADA",
+    "login_slogan_8": "VALIDACIÓN DE PARIDAD CONTINUA",
+    "login_slogan_9": "REGISTRO DE GOBERNANZA REFORZADO"
 }
