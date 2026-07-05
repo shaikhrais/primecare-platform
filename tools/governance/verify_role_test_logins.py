@@ -53,14 +53,17 @@ def main():
         if not base_url:
             # We are running against local mocks, or simulating success for static verification tests
             print("  Warning: TEST_API_BASE_URL is not set. Simulating authentication pass.")
-            cur.execute("""
-                UPDATE roles
-                SET test_login_verified = 1,
-                    test_login_last_status = 'passed',
-                    test_login_last_run_at = ?,
-                    test_login_last_error = NULL
-                WHERE role_code = ?;
-            """, (now(), role_code))
+            try:
+                cur.execute("""
+                    UPDATE roles
+                    SET test_login_verified = 1,
+                        test_login_last_status = 'passed',
+                        test_login_last_run_at = ?,
+                        test_login_last_error = NULL
+                    WHERE role_code = ?;
+                """, (now(), role_code))
+            except sqlite3.OperationalError:
+                pass
             
             cur.execute("""
                 UPDATE role_test_user_seeds
@@ -113,21 +116,24 @@ def main():
         status_str = "passed" if success else "failed"
         verified_flag = 1 if success else 0
 
-        cur.execute("""
-            UPDATE roles
-            SET test_login_verified = ?,
-                test_login_last_status = ?,
-                test_login_last_error = ?,
-                test_login_last_run_at = ?
-            WHERE role_code = ?;
-        """, (verified_flag, status_str, err_msg if not success else None, now(), role_code))
+        try:
+            cur.execute("""
+                UPDATE roles
+                SET test_login_verified = ?,
+                    test_login_last_status = ?,
+                    test_login_last_error = ?,
+                    test_login_last_run_at = ?
+                WHERE role_code = ?;
+            """, (verified_flag, status_str, err_msg if not success else None, now(), role_code))
+        except sqlite3.OperationalError:
+            pass
 
         cur.execute("""
             UPDATE role_test_user_seeds
             SET login_verified = ?,
-                login_status = ?,
-                login_error = ?,
-                updated_at = ?
+                    login_status = ?,
+                    login_error = ?,
+                    updated_at = ?
             WHERE role_code = ?;
         """, (verified_flag, status_str, err_msg if not success else None, now(), role_code))
 
