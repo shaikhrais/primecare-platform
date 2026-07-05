@@ -681,3 +681,39 @@ If human review approves, update tag value.
 Production-ready requires all required tags to be ready.
 ```
 
+---
+
+# 21. Cypress Component Identification & data-cy Standards
+
+Every rendered component that can be tested MUST expose a unique, stable `data-cy` attribute.
+
+```text
+Naming rules:
+- Always use lowercase.
+- Use kebab-case.
+- Never use spaces.
+- Never generate random IDs.
+- Always derive from governance.db.
+```
+
+## Naming Examples
+- Screen container: `data-cy="screen-client-profile"`
+- Section container: `data-cy="section-medical-history"`
+- Elements: `data-cy="element-allergy-table"`
+- Buttons: `data-cy="save-visit-note-button"`, `data-cy="cancel-button"`
+- Forms: `data-cy="visit-note-form"`
+- Inputs: `data-cy="client-name-input"`
+- Sidebar: `data-cy="app-sidebar"`, `data-cy="sidebar-group-clients"`, `data-cy="sidebar-item-client-list"`
+- Topbar: `data-cy="app-topbar"`, `data-cy="topbar-search"`, `data-cy="topbar-logout"`
+- Dialogs: `data-cy="delete-confirm-dialog"`, `data-cy="confirm-delete-button"`
+- Loading: `data-cy="loading"`, `data-cy="loading-spinner"`
+- Empty State: `data-cy="empty-state"`
+- Error State: `data-cy="error-state"`
+- API Components: `data-cy="api-status"`, `data-cy="api-loading"`, `data-cy="api-error"`
+
+## Rule Exclusions & Enforcements
+- Every reusable PrimeCare UI component must expose `dataCy` through constructor parameters.
+- Cypress tests must interact with the application exclusively through `data-cy` selectors.
+- CSS classes, text, or DOM hierarchy selectors are not allowed in testing.
+
+

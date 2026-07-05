@@ -54,6 +54,7 @@ class PrimeCareTextField extends StatelessWidget {
   final int maxLines;
   final String? Function(String?)? validator;
   final ValueChanged<String>? onChanged;
+  final String? dataCy;
 
   const PrimeCareTextField({
     super.key,
@@ -64,12 +65,13 @@ class PrimeCareTextField extends StatelessWidget {
     this.maxLines = 1,
     this.validator,
     this.onChanged,
+    this.dataCy,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    return Column(
+    final widget = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label, style: theme.typography.labelMedium),
@@ -105,6 +107,11 @@ class PrimeCareTextField extends StatelessWidget {
         ),
       ],
     );
+
+    if (dataCy != null) {
+      return Cy(id: dataCy!, child: widget);
+    }
+    return widget;
   }
 }
 
@@ -465,6 +472,7 @@ class PrimeButton extends StatelessWidget {
   final Color? textColor;
   final Color? borderColor;
   final bool isGhost;
+  final String? dataCy;
 
   const PrimeButton({
     super.key,
@@ -477,6 +485,7 @@ class PrimeButton extends StatelessWidget {
     this.textColor,
     this.borderColor,
     this.isGhost = false,
+    this.dataCy,
   });
 
   /// Factory for the standard primary button.
@@ -487,6 +496,7 @@ class PrimeButton extends StatelessWidget {
     IconData? icon,
     bool isLoading = false,
     bool isFullWidth = false,
+    String? dataCy,
   }) {
     return PrimeButton(
       key: key,
@@ -495,6 +505,7 @@ class PrimeButton extends StatelessWidget {
       icon: icon,
       isLoading: isLoading,
       isFullWidth: isFullWidth,
+      dataCy: dataCy,
     );
   }
 
@@ -506,6 +517,7 @@ class PrimeButton extends StatelessWidget {
     IconData? icon,
     bool isLoading = false,
     bool isFullWidth = false,
+    String? dataCy,
   }) {
     return PrimeButton(
       key: key,
@@ -517,6 +529,7 @@ class PrimeButton extends StatelessWidget {
       color: Colors.transparent,
       textColor: const Color(0xFF004AC6),
       borderColor: const Color(0xFF004AC6).withValues(alpha: 0.2),
+      dataCy: dataCy,
     );
   }
 
@@ -528,6 +541,7 @@ class PrimeButton extends StatelessWidget {
     IconData? icon,
     bool isLoading = false,
     bool isFullWidth = false,
+    String? dataCy,
   }) {
     return PrimeButton(
       key: key,
@@ -539,6 +553,7 @@ class PrimeButton extends StatelessWidget {
       color: Colors.transparent,
       textColor: const Color(0xFF434655),
       isGhost: true,
+      dataCy: dataCy,
     );
   }
 
@@ -577,38 +592,46 @@ class PrimeButton extends StatelessWidget {
       ],
     );
 
-    if (isGhost) {
-      return TextButton(key: const Key('prime_components_textbutton_button_1'), 
-        onPressed: isLoading ? null : onPressed,
-        style: TextButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(theme.radiusDefault),
+    Widget buildButtonWidget() {
+      if (isGhost) {
+        return TextButton(key: const Key('prime_components_textbutton_button_1'), 
+          onPressed: isLoading ? null : onPressed,
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(theme.radiusDefault),
+            ),
           ),
+          child: child,
+        );
+      }
+
+      return SizedBox(
+        width: isFullWidth ? double.infinity : null,
+        child: ElevatedButton(key: const Key('prime_components_elevatedbutton_button_2'), 
+          onPressed: isLoading ? null : onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: buttonColor,
+            foregroundColor: actualTextColor,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(theme.radiusDefault),
+              side: borderColor != null
+                  ? BorderSide(color: borderColor!)
+                  : BorderSide.none,
+            ),
+            elevation: 0,
+          ),
+          child: child,
         ),
-        child: child,
       );
     }
 
-    return SizedBox(
-      width: isFullWidth ? double.infinity : null,
-      child: ElevatedButton(key: const Key('prime_components_elevatedbutton_button_2'), 
-        onPressed: isLoading ? null : onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: buttonColor,
-          foregroundColor: actualTextColor,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(theme.radiusDefault),
-            side: borderColor != null
-                ? BorderSide(color: borderColor!)
-                : BorderSide.none,
-          ),
-          elevation: 0,
-        ),
-        child: child,
-      ),
-    );
+    final buttonWidget = buildButtonWidget();
+    if (dataCy != null) {
+      return Cy(id: dataCy!, child: buttonWidget);
+    }
+    return buttonWidget;
   }
 }
 
