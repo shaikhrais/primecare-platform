@@ -15,10 +15,27 @@ for (const service of services) {
         console.log(`\nPatching [${service}]...`);
         
         const dummyJs = `
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Tenant-Id',
+  'Access-Control-Max-Age': '86400',
+};
+
 export default {
   async fetch(request, env, ctx) {
+    if (request.method === 'OPTIONS') {
+      return new Response(null, {
+        status: 204,
+        headers: corsHeaders,
+      });
+    }
+
     return new Response('{"status":"success","message":"PrimeCare [${service}] API is Live on Cloudflare Edge!"}', {
-      headers: { 'content-type': 'application/json' },
+      headers: { 
+        'content-type': 'application/json',
+        ...corsHeaders
+      },
     });
   },
 };
