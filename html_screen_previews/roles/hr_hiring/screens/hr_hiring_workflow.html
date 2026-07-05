@@ -106,28 +106,244 @@
         /* Toast style */
         .toast { position: absolute; bottom: 1rem; right: 1rem; background: #1e1b4b; border: 1px solid var(--accent); padding: 0.75rem 1.25rem; border-radius: 0.375rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
         .toast.show { opacity: 1; }
+
+        /* Tag panel badges */
+        .tag-badge { display: inline-flex; align-items: center; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .tag-badge.green { background: rgba(16, 185, 129, 0.12); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .tag-badge.yellow { background: rgba(245, 158, 11, 0.12); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tag-badge.red { background: rgba(239, 68, 68, 0.12); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .tag-badge.gray { background: rgba(255, 255, 255, 0.05); color: var(--text-sec); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
     <!-- Topbar -->
-    <div class="app-topbar">
+    <div class="app-topbar" data-entity-type="topbar" data-implementation-tag="implemented">
         <div class="topbar-brand">
             <i class="bi bi-shield-check"></i>
             <span>PrimeCare Portal</span>
         </div>
-        <div class="topbar-items"><i class="bi bi-search" title="Search"></i><i class="bi bi-notifications" title="Notifications"></i><i class="bi bi-badge" title="Role"></i><i class="bi bi-person" title="Profile"></i><i class="bi bi-logout" title="Logout"></i><i class="bi bi-search" title="Search"></i><i class="bi bi-notifications" title="Notifications"></i><i class="bi bi-badge" title="Role"></i><i class="bi bi-person" title="Profile"></i><i class="bi bi-logout" title="Logout"></i></div>
+        <div class="topbar-items">
+                    <i class="bi bi-search" title="Search" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="276" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-search"></i>
+                    
+                    <i class="bi bi-notifications" title="Notifications" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="277" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-notifications"></i>
+                    
+                    <i class="bi bi-badge" title="Role" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="278" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-role"></i>
+                    
+                    <i class="bi bi-person" title="Profile" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="279" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-profile"></i>
+                    
+                    <i class="bi bi-logout" title="Logout" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="280" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-logout"></i>
+                    
+                    <i class="bi bi-search" title="Search" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="531" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-search"></i>
+                    
+                    <i class="bi bi-notifications" title="Notifications" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="532" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-notifications"></i>
+                    
+                    <i class="bi bi-badge" title="Role" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="533" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-role"></i>
+                    
+                    <i class="bi bi-person" title="Profile" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="534" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-profile"></i>
+                    
+                    <i class="bi bi-logout" title="Logout" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="535" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-logout"></i>
+                    </div>
     </div>
     
     <div class="app-body">
         <!-- Sidebar -->
-        <div class="app-sidebar">
-            <div class="sidebar-section-title">Overview</div><a href="hr_hiring_dashboard.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>HrHiringDashboard</span></a><div class="sidebar-section-title">General</div><a href="hr_hiring_analytics.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>HrHiringAnalytics</span></a><a href="hr_hiring_compliance.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>HrHiringCompliance</span></a><a href="hr_hiring_workflow.html" class="sidebar-link active"><i class="bi bi-file-earmark-text"></i><span>HrHiringWorkflow</span></a><a href="hr_hiring_applicants.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>HrHiringApplicants</span></a><a href="hr_hiring_interviews.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>HrHiringInterviews</span></a><a href="hr_hiring_offers.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>HrHiringOffers</span></a><a href="hr_hiring_onboarding.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>HrHiringOnboarding</span></a><a href="hr_hiring_credentials.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>HrHiringCredentials</span></a><a href="applicant_tracking.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>ApplicantTracking</span></a><a href="interview_scheduling.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>InterviewScheduling</span></a><a href="offer_management.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>OfferManagement</span></a><a href="onboarding_checklist.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>OnboardingChecklist</span></a>
+        <div class="app-sidebar" data-entity-type="sidebar" data-implementation-tag="implemented">
+            <div class="sidebar-section-title">Overview</div>
+                        <a href="hr_hiring_dashboard.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="67" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-hrhiringdashboardscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>HrHiringDashboard</span>
+                        </a>
+                        <div class="sidebar-section-title">General</div>
+                        <a href="hr_hiring_analytics.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="254" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-hrhiringanalyticsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>HrHiringAnalytics</span>
+                        </a>
+                        
+                        <a href="hr_hiring_compliance.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="255" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-hrhiringcompliancescreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>HrHiringCompliance</span>
+                        </a>
+                        
+                        <a href="hr_hiring_workflow.html" class="sidebar-link active" 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="256" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-hrhiringworkflowscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>HrHiringWorkflow</span>
+                        </a>
+                        
+                        <a href="hr_hiring_applicants.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="315" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-hrhiringapplicantsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>HrHiringApplicants</span>
+                        </a>
+                        
+                        <a href="hr_hiring_interviews.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="316" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-hrhiringinterviewsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>HrHiringInterviews</span>
+                        </a>
+                        
+                        <a href="hr_hiring_offers.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="317" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-hrhiringoffersscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>HrHiringOffers</span>
+                        </a>
+                        
+                        <a href="hr_hiring_onboarding.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="318" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-hrhiringonboardingscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>HrHiringOnboarding</span>
+                        </a>
+                        
+                        <a href="hr_hiring_credentials.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="319" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-hrhiringcredentialsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>HrHiringCredentials</span>
+                        </a>
+                        
+                        <a href="applicant_tracking.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="441" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-applicanttrackingscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>ApplicantTracking</span>
+                        </a>
+                        
+                        <a href="interview_scheduling.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="442" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-interviewschedulingscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>InterviewScheduling</span>
+                        </a>
+                        
+                        <a href="offer_management.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="443" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-offermanagementscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>OfferManagement</span>
+                        </a>
+                        
+                        <a href="onboarding_checklist.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="444" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-onboardingchecklistscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>OnboardingChecklist</span>
+                        </a>
+                        
         </div>
         
         <!-- Main Content -->
         <div class="app-main">
             <!-- Viewport -->
-            <div class="app-viewport" id="viewport">
+            <div class="app-viewport" id="viewport" 
+                data-entity-type="screen"
+                data-entity-id="256"
+                data-implementation-tag="placeholder"
+                data-content-tag="placeholder"
+                data-api-tag="api_missing"
+                data-test-tag="no_test"
+                data-review-tag="not_reviewed"
+                data-testid="viewport-content"
+            >
                 <!-- Top warnings -->
                 
                 
@@ -135,44 +351,239 @@
                 <!-- Main viewport dynamic content container -->
                 <div id="viewport-active-content">
                     
-                        <div class="screen-header-section">
+                        <div class="screen-header-section" 
+                        data-entity-type="section" 
+                        data-entity-id="5455" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-hr_hiring_workflow_header"
+                    >
                             <div class="header-title">
                                 <h2>HrHiringWorkflow</h2>
                                 <div class="breadcrumb">PrimeCare / Talent Acquisition Manager / HrHiringWorkflowScreen</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
                             </div>
                             <div class="header-actions">
                                 
                             </div>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Task Filters Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="5456" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-hr_hiring_workflow_task_filters"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Task Filters Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Filters by priority, assignee, or deadline status.</p>
                             <ul style="list-style: none; padding-left: 0;"></ul>
                         </div>
                         
-                        <div class="content-card">
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="5457" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-hr_hiring_workflow_task_list"
+                    >
                             <div class="card-header">
                                 <div class="card-title">Task List Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
                             </div>
                             <div class="table-responsive">
                                 <table class="mock-table">
                                     <thead><tr><th>HrHiringWorkflowScreen Primary Content</th><th>Hrhiringworkflow Content</th><th>Hrhiringworkflow Screen</th><th>Hrhiringworkflow Title</th></tr></thead>
-                                    <tbody><tr><td>Mock HrHiringWorkflowScreen Primary Content 1</td><td>Mock Hrhiringworkflow Content 1</td><td>Mock Hrhiringworkflow Screen 1</td><td>Mock Hrhiringworkflow Title 1</td></tr><tr><td>Mock HrHiringWorkflowScreen Primary Content 2</td><td>Mock Hrhiringworkflow Content 2</td><td>Mock Hrhiringworkflow Screen 2</td><td>Mock Hrhiringworkflow Title 2</td></tr><tr><td>Mock HrHiringWorkflowScreen Primary Content 3</td><td>Mock Hrhiringworkflow Content 3</td><td>Mock Hrhiringworkflow Screen 3</td><td>Mock Hrhiringworkflow Title 3</td></tr></tbody>
+                                    <tbody><tr>
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9454" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-primary_content-1">
+                                        Mock HrHiringWorkflowScreen Primary Content 1
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9456" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-hrhiringworkflow_content-1">
+                                        Mock Hrhiringworkflow Content 1
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9457" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-hrhiringworkflow_screen-1">
+                                        Mock Hrhiringworkflow Screen 1
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9459" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-hrhiringworkflow_title-1">
+                                        Mock Hrhiringworkflow Title 1
+                                    </td>
+                                    </tr><tr>
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9454" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-primary_content-2">
+                                        Mock HrHiringWorkflowScreen Primary Content 2
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9456" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-hrhiringworkflow_content-2">
+                                        Mock Hrhiringworkflow Content 2
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9457" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-hrhiringworkflow_screen-2">
+                                        Mock Hrhiringworkflow Screen 2
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9459" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-hrhiringworkflow_title-2">
+                                        Mock Hrhiringworkflow Title 2
+                                    </td>
+                                    </tr><tr>
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9454" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-primary_content-3">
+                                        Mock HrHiringWorkflowScreen Primary Content 3
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9456" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-hrhiringworkflow_content-3">
+                                        Mock Hrhiringworkflow Content 3
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9457" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-hrhiringworkflow_screen-3">
+                                        Mock Hrhiringworkflow Screen 3
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9459" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-hrhiringworkflow_title-3">
+                                        Mock Hrhiringworkflow Title 3
+                                    </td>
+                                    </tr></tbody>
                                 </table>
                             </div>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Task Details Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="5458" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-hr_hiring_workflow_task_details"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Task Details Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Detailed panel showing sub-tasks and attachments.</p>
                             <ul style="list-style: none; padding-left: 0;"></ul>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Action Bar Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="5459" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-hr_hiring_workflow_action_bar"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Action Bar Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Operations (add task, complete task).</p>
-                            <ul style="list-style: none; padding-left: 0;"><li><i class='bi bi-dot'></i> Hrhiringworkflow Btn 3 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li><li><i class='bi bi-dot'></i> Hrhiringworkflow Btn 2 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li><li><i class='bi bi-dot'></i> Hrhiringworkflow Btn 1 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li></ul>
+                            <ul style="list-style: none; padding-left: 0;">
+                            <li data-entity-type="element" data-entity-id="9455" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Hrhiringworkflow Btn 3 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="9458" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Hrhiringworkflow Btn 2 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="9460" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Hrhiringworkflow Btn 1 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            </ul>
                         </div>
                         
                 </div>
@@ -209,6 +620,19 @@
                 </div>
                 
                 <div class="inspector-section">
+                    <div class="inspector-title">Compliance Tags</div>
+                    <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
+                        
+                <span class="tag-badge red">impl: placeholder</span>
+                <span class="tag-badge red">content: placeholder</span>
+                <span class="tag-badge red">api: api_missing</span>
+                <span class="tag-badge gray">test: no_test</span>
+                <span class="tag-badge gray">review: not_reviewed</span>
+            
+                    </div>
+                </div>
+
+                <div class="inspector-section">
                     <div class="inspector-title">Warnings / Gaps</div>
                     <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
                         <span class="warning-badge"><i class="bi bi-exclamation-triangle"></i> Not Production Ready</span>
@@ -219,10 +643,16 @@
                     <div class="inspector-title">Linked APIs</div>
                     <div style="margin-top:0.5rem;">
                         
-                    <div class="api-card">
+                    <div class="api-card" data-entity-type="api" data-entity-id="4571" data-api-tag="api_planned" data-test-tag="no_test">
                         <div class="api-method get">GET</div>
                         <div class="api-path">/v1/hr-hiring-workflow</div>
-                        <div style="font-size:0.7rem; color:var(--text-sec); margin-top:0.25rem;">Code: api_v1_hr_hiring_workflow_list_get</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
+                            <span style="font-size:0.7rem; color:var(--text-sec);">Code: api_v1_hr_hiring_workflow_list_get</span>
+                            <div style="display:flex; gap:0.2rem;">
+                                <span class="tag-badge yellow" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api_planned</span>
+                                <span class="tag-badge gray" style="font-size:0.55rem; padding:0.1rem 0.25rem;">no_test</span>
+                            </div>
+                        </div>
                     </div>
                     
                     </div>

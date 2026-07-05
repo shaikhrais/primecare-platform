@@ -646,3 +646,38 @@ Preserve backward compatibility unless an approved migration exists.
 
 All generated artifacts must be reproducible from governance.db.
 ```
+
+---
+
+# 20. Implementation Tag-Value Framework
+
+```text
+All generated entities must carry implementation tags.
+
+No screen, section, element, button, API, or feature may be called complete unless its tag values prove completion.
+
+Agents must update tag values honestly.
+
+Never mark placeholder as implemented.
+
+Never mark template_only as implemented.
+
+Never mark API missing as connected.
+
+Never mark Cypress failed as passed.
+
+Cypress must validate data tag attributes before accepting screenshots.
+
+Screenshot alone is not proof.
+
+Tag values + Cypress + screenshot = proof.
+
+If implementation changes, tags must change.
+If logic is implemented, update tag value.
+If API is connected, update tag value.
+If button becomes functional, update tag value.
+If Cypress passes, update tag value.
+If human review approves, update tag value.
+Production-ready requires all required tags to be ready.
+```
+

@@ -106,28 +106,274 @@
         /* Toast style */
         .toast { position: absolute; bottom: 1rem; right: 1rem; background: #1e1b4b; border: 1px solid var(--accent); padding: 0.75rem 1.25rem; border-radius: 0.375rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
         .toast.show { opacity: 1; }
+
+        /* Tag panel badges */
+        .tag-badge { display: inline-flex; align-items: center; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .tag-badge.green { background: rgba(16, 185, 129, 0.12); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .tag-badge.yellow { background: rgba(245, 158, 11, 0.12); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tag-badge.red { background: rgba(239, 68, 68, 0.12); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .tag-badge.gray { background: rgba(255, 255, 255, 0.05); color: var(--text-sec); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
     <!-- Topbar -->
-    <div class="app-topbar">
+    <div class="app-topbar" data-entity-type="topbar" data-implementation-tag="implemented">
         <div class="topbar-brand">
             <i class="bi bi-shield-check"></i>
             <span>PrimeCare Portal</span>
         </div>
-        <div class="topbar-items"><i class="bi bi-search" title="Search"></i><i class="bi bi-notifications" title="Notifications"></i><i class="bi bi-badge" title="Role"></i><i class="bi bi-person" title="Profile"></i><i class="bi bi-logout" title="Logout"></i><i class="bi bi-search" title="Search"></i><i class="bi bi-notifications" title="Notifications"></i><i class="bi bi-badge" title="Role"></i><i class="bi bi-person" title="Profile"></i><i class="bi bi-logout" title="Logout"></i></div>
+        <div class="topbar-items">
+                    <i class="bi bi-search" title="Search" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="266" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-search"></i>
+                    
+                    <i class="bi bi-notifications" title="Notifications" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="267" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-notifications"></i>
+                    
+                    <i class="bi bi-badge" title="Role" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="268" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-role"></i>
+                    
+                    <i class="bi bi-person" title="Profile" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="269" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-profile"></i>
+                    
+                    <i class="bi bi-logout" title="Logout" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="270" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-logout"></i>
+                    
+                    <i class="bi bi-search" title="Search" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="521" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-search"></i>
+                    
+                    <i class="bi bi-notifications" title="Notifications" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="522" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-notifications"></i>
+                    
+                    <i class="bi bi-badge" title="Role" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="523" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-role"></i>
+                    
+                    <i class="bi bi-person" title="Profile" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="524" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-profile"></i>
+                    
+                    <i class="bi bi-logout" title="Logout" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="525" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-logout"></i>
+                    </div>
     </div>
     
     <div class="app-body">
         <!-- Sidebar -->
-        <div class="app-sidebar">
-            <div class="sidebar-section-title">Overview</div><a href="rpn_dashboard.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>RpnDashboard</span></a><div class="sidebar-section-title">General</div><a href="rpn_analytics.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>RpnAnalytics</span></a><a href="rpn_compliance.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>RpnCompliance</span></a><a href="rpn_workflow.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>RpnWorkflow</span></a><a href="rpn_command_center.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>RpnCommandCenter</span></a><a href="rpn_patient_charting.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>RpnPatientCharting</span></a><a href="rpn_medications.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>RpnMedications</span></a><a href="rpn_vitals.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>RpnVitals</span></a><a href="rpn_care_plan_review.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>RpnCarePlanReview</span></a><a href="rpn_incident_review.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>RpnIncidentReview</span></a><a href="rpn_tasks.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>RpnTasks</span></a><a href="rpn_reports.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>RpnReports</span></a><a href="nursing_task.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>NursingTask</span></a><a href="vitals_tracking.html" class="sidebar-link active"><i class="bi bi-file-earmark-text"></i><span>VitalsTracking</span></a><a href="medication.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>Medication</span></a><a href="patient_observation.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>PatientObservation</span></a>
+        <div class="app-sidebar" data-entity-type="sidebar" data-implementation-tag="implemented">
+            <div class="sidebar-section-title">Overview</div>
+                        <a href="rpn_dashboard.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="64" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-rpndashboardscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>RpnDashboard</span>
+                        </a>
+                        <div class="sidebar-section-title">General</div>
+                        <a href="rpn_analytics.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="244" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-rpnanalyticsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>RpnAnalytics</span>
+                        </a>
+                        
+                        <a href="rpn_compliance.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="245" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-rpncompliancescreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>RpnCompliance</span>
+                        </a>
+                        
+                        <a href="rpn_workflow.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="246" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-rpnworkflowscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>RpnWorkflow</span>
+                        </a>
+                        
+                        <a href="rpn_command_center.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="366" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-rpncommandcenterscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>RpnCommandCenter</span>
+                        </a>
+                        
+                        <a href="rpn_patient_charting.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="367" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-rpnpatientchartingscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>RpnPatientCharting</span>
+                        </a>
+                        
+                        <a href="rpn_medications.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="368" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-rpnmedicationsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>RpnMedications</span>
+                        </a>
+                        
+                        <a href="rpn_vitals.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="369" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-rpnvitalsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>RpnVitals</span>
+                        </a>
+                        
+                        <a href="rpn_care_plan_review.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="370" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-rpncareplanreviewscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>RpnCarePlanReview</span>
+                        </a>
+                        
+                        <a href="rpn_incident_review.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="371" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-rpnincidentreviewscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>RpnIncidentReview</span>
+                        </a>
+                        
+                        <a href="rpn_tasks.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="372" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-rpntasksscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>RpnTasks</span>
+                        </a>
+                        
+                        <a href="rpn_reports.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="373" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-rpnreportsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>RpnReports</span>
+                        </a>
+                        
+                        <a href="nursing_task.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="449" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-nursingtaskscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>NursingTask</span>
+                        </a>
+                        
+                        <a href="vitals_tracking.html" class="sidebar-link active" 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="450" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-vitalstrackingscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>VitalsTracking</span>
+                        </a>
+                        
+                        <a href="medication.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="451" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-medicationscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Medication</span>
+                        </a>
+                        
+                        <a href="patient_observation.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="452" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-patientobservationscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>PatientObservation</span>
+                        </a>
+                        
         </div>
         
         <!-- Main Content -->
         <div class="app-main">
             <!-- Viewport -->
-            <div class="app-viewport" id="viewport">
+            <div class="app-viewport" id="viewport" 
+                data-entity-type="screen"
+                data-entity-id="530"
+                data-implementation-tag="placeholder"
+                data-content-tag="placeholder"
+                data-api-tag="api_missing"
+                data-test-tag="no_test"
+                data-review-tag="not_reviewed"
+                data-testid="viewport-content"
+            >
                 <!-- Top warnings -->
                 
                 
@@ -135,32 +381,146 @@
                 <!-- Main viewport dynamic content container -->
                 <div id="viewport-active-content">
                     
-                        <div class="screen-header-section">
+                        <div class="screen-header-section" 
+                        data-entity-type="section" 
+                        data-entity-id="6310" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-vitals_tracking_header"
+                    >
                             <div class="header-title">
                                 <h2>VitalsTracking</h2>
                                 <div class="breadcrumb">PrimeCare / Registered Practical Nurse (RPN) / VitalsTrackingScreen</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
                             </div>
                             <div class="header-actions">
                                 
                             </div>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Content Summary Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="6311" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-vitals_tracking_content_summary"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Content Summary Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Summary cards overview.</p>
                             <ul style="list-style: none; padding-left: 0;"></ul>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Primary Content Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="6312" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-vitals_tracking_primary_content"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Primary Content Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Main details and grids.</p>
-                            <ul style="list-style: none; padding-left: 0;"><li><i class='bi bi-dot'></i> VitalsTrackingScreen Primary Content <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span></li><li><i class='bi bi-dot'></i> Vitalstracking Content <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span></li><li><i class='bi bi-dot'></i> Vitalstracking Loading <span style='font-size:0.7rem; color:var(--text-muted);'>(loading)</span></li><li><i class='bi bi-dot'></i> Vitalstracking Screen <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span></li><li><i class='bi bi-dot'></i> Vitalstracking Title <span style='font-size:0.7rem; color:var(--text-muted);'>(header)</span></li></ul>
+                            <ul style="list-style: none; padding-left: 0;">
+                            <li data-entity-type="element" data-entity-id="11340" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> VitalsTrackingScreen Primary Content 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="11341" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Vitalstracking Content 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="11343" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Vitalstracking Loading 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(loading)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="11344" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Vitalstracking Screen 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="11346" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Vitalstracking Title 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(header)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            </ul>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Action Bar Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="6313" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-vitals_tracking_action_bar"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Action Bar Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Interaction buttons.</p>
-                            <ul style="list-style: none; padding-left: 0;"><li><i class='bi bi-dot'></i> Vitalstracking Btn 1 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li><li><i class='bi bi-dot'></i> Vitalstracking Btn 3 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li><li><i class='bi bi-dot'></i> Vitalstracking Btn 2 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li></ul>
+                            <ul style="list-style: none; padding-left: 0;">
+                            <li data-entity-type="element" data-entity-id="11342" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Vitalstracking Btn 1 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="11345" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Vitalstracking Btn 3 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="11347" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Vitalstracking Btn 2 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            </ul>
                         </div>
                         
                 </div>
@@ -197,6 +557,19 @@
                 </div>
                 
                 <div class="inspector-section">
+                    <div class="inspector-title">Compliance Tags</div>
+                    <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
+                        
+                <span class="tag-badge red">impl: placeholder</span>
+                <span class="tag-badge red">content: placeholder</span>
+                <span class="tag-badge red">api: api_missing</span>
+                <span class="tag-badge gray">test: no_test</span>
+                <span class="tag-badge gray">review: not_reviewed</span>
+            
+                    </div>
+                </div>
+
+                <div class="inspector-section">
                     <div class="inspector-title">Warnings / Gaps</div>
                     <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
                         <span class="warning-badge"><i class="bi bi-exclamation-triangle"></i> Not Production Ready</span>
@@ -207,22 +580,40 @@
                     <div class="inspector-title">Linked APIs</div>
                     <div style="margin-top:0.5rem;">
                         
-                    <div class="api-card">
+                    <div class="api-card" data-entity-type="api" data-entity-id="4855" data-api-tag="api_planned" data-test-tag="no_test">
                         <div class="api-method get">GET</div>
                         <div class="api-path">/v1/vitals-tracking</div>
-                        <div style="font-size:0.7rem; color:var(--text-sec); margin-top:0.25rem;">Code: api_v1_vitals_tracking_list_get</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
+                            <span style="font-size:0.7rem; color:var(--text-sec);">Code: api_v1_vitals_tracking_list_get</span>
+                            <div style="display:flex; gap:0.2rem;">
+                                <span class="tag-badge yellow" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api_planned</span>
+                                <span class="tag-badge gray" style="font-size:0.55rem; padding:0.1rem 0.25rem;">no_test</span>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="api-card">
+                    <div class="api-card" data-entity-type="api" data-entity-id="4856" data-api-tag="api_planned" data-test-tag="no_test">
                         <div class="api-method post">POST</div>
                         <div class="api-path">/v1/vitals-tracking</div>
-                        <div style="font-size:0.7rem; color:var(--text-sec); margin-top:0.25rem;">Code: api_v1_vitals_tracking_create_post</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
+                            <span style="font-size:0.7rem; color:var(--text-sec);">Code: api_v1_vitals_tracking_create_post</span>
+                            <div style="display:flex; gap:0.2rem;">
+                                <span class="tag-badge yellow" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api_planned</span>
+                                <span class="tag-badge gray" style="font-size:0.55rem; padding:0.1rem 0.25rem;">no_test</span>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="api-card">
+                    <div class="api-card" data-entity-type="api" data-entity-id="4857" data-api-tag="api_planned" data-test-tag="no_test">
                         <div class="api-method patch">PATCH</div>
                         <div class="api-path">/v1/vitals-tracking/:id</div>
-                        <div style="font-size:0.7rem; color:var(--text-sec); margin-top:0.25rem;">Code: api_v1_vitals_tracking_update_patch</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
+                            <span style="font-size:0.7rem; color:var(--text-sec);">Code: api_v1_vitals_tracking_update_patch</span>
+                            <div style="display:flex; gap:0.2rem;">
+                                <span class="tag-badge yellow" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api_planned</span>
+                                <span class="tag-badge gray" style="font-size:0.55rem; padding:0.1rem 0.25rem;">no_test</span>
+                            </div>
+                        </div>
                     </div>
                     
                     </div>

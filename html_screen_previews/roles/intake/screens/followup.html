@@ -106,28 +106,234 @@
         /* Toast style */
         .toast { position: absolute; bottom: 1rem; right: 1rem; background: #1e1b4b; border: 1px solid var(--accent); padding: 0.75rem 1.25rem; border-radius: 0.375rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
         .toast.show { opacity: 1; }
+
+        /* Tag panel badges */
+        .tag-badge { display: inline-flex; align-items: center; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .tag-badge.green { background: rgba(16, 185, 129, 0.12); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .tag-badge.yellow { background: rgba(245, 158, 11, 0.12); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tag-badge.red { background: rgba(239, 68, 68, 0.12); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .tag-badge.gray { background: rgba(255, 255, 255, 0.05); color: var(--text-sec); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
     <!-- Topbar -->
-    <div class="app-topbar">
+    <div class="app-topbar" data-entity-type="topbar" data-implementation-tag="implemented">
         <div class="topbar-brand">
             <i class="bi bi-shield-check"></i>
             <span>PrimeCare Portal</span>
         </div>
-        <div class="topbar-items"><i class="bi bi-search" title="Search"></i><i class="bi bi-notifications" title="Notifications"></i><i class="bi bi-badge" title="Role"></i><i class="bi bi-person" title="Profile"></i><i class="bi bi-logout" title="Logout"></i><i class="bi bi-search" title="Search"></i><i class="bi bi-notifications" title="Notifications"></i><i class="bi bi-badge" title="Role"></i><i class="bi bi-person" title="Profile"></i><i class="bi bi-logout" title="Logout"></i></div>
+        <div class="topbar-items">
+                    <i class="bi bi-search" title="Search" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="96" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-search"></i>
+                    
+                    <i class="bi bi-notifications" title="Notifications" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="97" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-notifications"></i>
+                    
+                    <i class="bi bi-badge" title="Role" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="98" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-role"></i>
+                    
+                    <i class="bi bi-person" title="Profile" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="99" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-profile"></i>
+                    
+                    <i class="bi bi-logout" title="Logout" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="100" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-logout"></i>
+                    
+                    <i class="bi bi-search" title="Search" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="356" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-search"></i>
+                    
+                    <i class="bi bi-notifications" title="Notifications" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="357" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-notifications"></i>
+                    
+                    <i class="bi bi-badge" title="Role" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="358" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-role"></i>
+                    
+                    <i class="bi bi-person" title="Profile" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="359" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-profile"></i>
+                    
+                    <i class="bi bi-logout" title="Logout" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="360" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-logout"></i>
+                    </div>
     </div>
     
     <div class="app-body">
         <!-- Sidebar -->
-        <div class="app-sidebar">
-            <div class="sidebar-section-title">Overview</div><a href="intake_dashboard.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>IntakeDashboard</span></a><a href="intake_coordinator_dashboard.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>IntakeCoordinatorDashboard</span></a><div class="sidebar-section-title">General</div><a href="intake_analytics.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>IntakeAnalytics</span></a><a href="intake_compliance.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>IntakeCompliance</span></a><a href="intake_workflow.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>IntakeWorkflow</span></a><a href="intake_coordinator_analytics.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>IntakeCoordinatorAnalytics</span></a><a href="intake_coordinator_compliance.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>IntakeCoordinatorCompliance</span></a><a href="intake_coordinator_workflow.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>IntakeCoordinatorWorkflow</span></a><a href="referral_management.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>ReferralManagement</span></a><a href="client_intake.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>ClientIntake</span></a><a href="booking.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>Booking</span></a><a href="followup.html" class="sidebar-link active"><i class="bi bi-file-earmark-text"></i><span>Followup</span></a>
+        <div class="app-sidebar" data-entity-type="sidebar" data-implementation-tag="implemented">
+            <div class="sidebar-section-title">Overview</div>
+                        <a href="intake_dashboard.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="22" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-intakedashboardscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>IntakeDashboard</span>
+                        </a>
+                        
+                        <a href="intake_coordinator_dashboard.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="69" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-intakecoordinatordashboardscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>IntakeCoordinatorDashboard</span>
+                        </a>
+                        <div class="sidebar-section-title">General</div>
+                        <a href="intake_analytics.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="119" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-intakeanalyticsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>IntakeAnalytics</span>
+                        </a>
+                        
+                        <a href="intake_compliance.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="120" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-intakecompliancescreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>IntakeCompliance</span>
+                        </a>
+                        
+                        <a href="intake_workflow.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="121" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-intakeworkflowscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>IntakeWorkflow</span>
+                        </a>
+                        
+                        <a href="intake_coordinator_analytics.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="260" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-intakecoordinatoranalyticsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>IntakeCoordinatorAnalytics</span>
+                        </a>
+                        
+                        <a href="intake_coordinator_compliance.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="261" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-intakecoordinatorcompliancescreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>IntakeCoordinatorCompliance</span>
+                        </a>
+                        
+                        <a href="intake_coordinator_workflow.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="262" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-intakecoordinatorworkflowscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>IntakeCoordinatorWorkflow</span>
+                        </a>
+                        
+                        <a href="referral_management.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="465" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-referralmanagementscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>ReferralManagement</span>
+                        </a>
+                        
+                        <a href="client_intake.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="466" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-clientintakescreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>ClientIntake</span>
+                        </a>
+                        
+                        <a href="booking.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="467" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-bookingscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Booking</span>
+                        </a>
+                        
+                        <a href="followup.html" class="sidebar-link active" 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="468" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-followupscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Followup</span>
+                        </a>
+                        
         </div>
         
         <!-- Main Content -->
         <div class="app-main">
             <!-- Viewport -->
-            <div class="app-viewport" id="viewport">
+            <div class="app-viewport" id="viewport" 
+                data-entity-type="screen"
+                data-entity-id="552"
+                data-implementation-tag="placeholder"
+                data-content-tag="placeholder"
+                data-api-tag="api_missing"
+                data-test-tag="no_test"
+                data-review-tag="not_reviewed"
+                data-testid="viewport-content"
+            >
                 <!-- Top warnings -->
                 
                 
@@ -135,32 +341,128 @@
                 <!-- Main viewport dynamic content container -->
                 <div id="viewport-active-content">
                     
-                        <div class="screen-header-section">
+                        <div class="screen-header-section" 
+                        data-entity-type="section" 
+                        data-entity-id="6385" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-followup_header"
+                    >
                             <div class="header-title">
                                 <h2>Followup</h2>
                                 <div class="breadcrumb">PrimeCare / Intake Coordinator / FollowupScreen</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
                             </div>
                             <div class="header-actions">
                                 
                             </div>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Content Summary Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="6386" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-followup_content_summary"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Content Summary Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Summary cards overview.</p>
                             <ul style="list-style: none; padding-left: 0;"></ul>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Primary Content Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="6387" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-followup_primary_content"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Primary Content Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Main details and grids.</p>
-                            <ul style="list-style: none; padding-left: 0;"><li><i class='bi bi-dot'></i> FollowupScreen Primary Content <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span></li><li><i class='bi bi-dot'></i> Followup Loading <span style='font-size:0.7rem; color:var(--text-muted);'>(loading)</span></li></ul>
+                            <ul style="list-style: none; padding-left: 0;">
+                            <li data-entity-type="element" data-entity-id="11509" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> FollowupScreen Primary Content 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="11512" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Followup Loading 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(loading)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            </ul>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Action Bar Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="6388" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-followup_action_bar"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Action Bar Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Interaction buttons.</p>
-                            <ul style="list-style: none; padding-left: 0;"><li><i class='bi bi-dot'></i> Followup Btn 3 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li><li><i class='bi bi-dot'></i> Followup Btn 1 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li><li><i class='bi bi-dot'></i> Followup Btn 2 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li></ul>
+                            <ul style="list-style: none; padding-left: 0;">
+                            <li data-entity-type="element" data-entity-id="11510" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Followup Btn 3 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="11511" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Followup Btn 1 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="11513" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Followup Btn 2 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            </ul>
                         </div>
                         
                 </div>
@@ -197,6 +499,19 @@
                 </div>
                 
                 <div class="inspector-section">
+                    <div class="inspector-title">Compliance Tags</div>
+                    <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
+                        
+                <span class="tag-badge red">impl: placeholder</span>
+                <span class="tag-badge red">content: placeholder</span>
+                <span class="tag-badge red">api: api_missing</span>
+                <span class="tag-badge gray">test: no_test</span>
+                <span class="tag-badge gray">review: not_reviewed</span>
+            
+                    </div>
+                </div>
+
+                <div class="inspector-section">
                     <div class="inspector-title">Warnings / Gaps</div>
                     <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
                         <span class="warning-badge"><i class="bi bi-exclamation-triangle"></i> Not Production Ready</span>
@@ -207,22 +522,40 @@
                     <div class="inspector-title">Linked APIs</div>
                     <div style="margin-top:0.5rem;">
                         
-                    <div class="api-card">
+                    <div class="api-card" data-entity-type="api" data-entity-id="4895" data-api-tag="api_planned" data-test-tag="no_test">
                         <div class="api-method get">GET</div>
                         <div class="api-path">/v1/followup</div>
-                        <div style="font-size:0.7rem; color:var(--text-sec); margin-top:0.25rem;">Code: api_v1_followup_list_get</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
+                            <span style="font-size:0.7rem; color:var(--text-sec);">Code: api_v1_followup_list_get</span>
+                            <div style="display:flex; gap:0.2rem;">
+                                <span class="tag-badge yellow" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api_planned</span>
+                                <span class="tag-badge gray" style="font-size:0.55rem; padding:0.1rem 0.25rem;">no_test</span>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="api-card">
+                    <div class="api-card" data-entity-type="api" data-entity-id="4896" data-api-tag="api_planned" data-test-tag="no_test">
                         <div class="api-method post">POST</div>
                         <div class="api-path">/v1/followup</div>
-                        <div style="font-size:0.7rem; color:var(--text-sec); margin-top:0.25rem;">Code: api_v1_followup_create_post</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
+                            <span style="font-size:0.7rem; color:var(--text-sec);">Code: api_v1_followup_create_post</span>
+                            <div style="display:flex; gap:0.2rem;">
+                                <span class="tag-badge yellow" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api_planned</span>
+                                <span class="tag-badge gray" style="font-size:0.55rem; padding:0.1rem 0.25rem;">no_test</span>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="api-card">
+                    <div class="api-card" data-entity-type="api" data-entity-id="4897" data-api-tag="api_planned" data-test-tag="no_test">
                         <div class="api-method patch">PATCH</div>
                         <div class="api-path">/v1/followup/:id</div>
-                        <div style="font-size:0.7rem; color:var(--text-sec); margin-top:0.25rem;">Code: api_v1_followup_update_patch</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
+                            <span style="font-size:0.7rem; color:var(--text-sec);">Code: api_v1_followup_update_patch</span>
+                            <div style="display:flex; gap:0.2rem;">
+                                <span class="tag-badge yellow" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api_planned</span>
+                                <span class="tag-badge gray" style="font-size:0.55rem; padding:0.1rem 0.25rem;">no_test</span>
+                            </div>
+                        </div>
                     </div>
                     
                     </div>

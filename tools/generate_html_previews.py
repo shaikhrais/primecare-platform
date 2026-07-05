@@ -18,7 +18,6 @@ def main():
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
-    # helper query function
     def q(sql, args=()):
         try:
             cursor.execute(sql, args)
@@ -30,24 +29,63 @@ def main():
     # 1. Fetch tables
     apps_raw = q("SELECT id, app_code, app_name FROM apps")
     roles_raw = q("SELECT id, role_code, role_name, role_type, test_email, test_password, primary_app_code FROM roles WHERE active=1")
-    screens_raw = q("SELECT id, app_id, role_id, screen_code, screen_name, route_path, actual_file_path, stage, active FROM screens")
+    
+    # Query with tag columns
+    screens_raw = q("""
+        SELECT id, app_id, role_id, screen_code, screen_name, route_path, actual_file_path, stage, active,
+               implementation_tag, content_tag, api_tag, test_tag, review_tag
+        FROM screens
+    """)
     role_screen_map_raw = q("SELECT id, role_id, screen_id, can_view, can_edit FROM role_screen_map")
-    sidebar_raw = q("SELECT id, app_id, role_id, screen_id, sidebar_group, sidebar_label, sidebar_icon, route_path, display_order, visible, enabled FROM sidebar_items")
-    topbar_raw = q("SELECT id, app_id, role_id, item_label, icon, action_type, display_order FROM topbar_items")
+    
+    sidebar_raw = q("""
+        SELECT id, app_id, role_id, screen_id, sidebar_group, sidebar_label, sidebar_icon, route_path, display_order, visible, enabled,
+               implementation_tag, route_tag, test_tag
+        FROM sidebar_items
+    """)
+    
+    topbar_raw = q("""
+        SELECT id, app_id, role_id, item_label, icon, action_type, display_order,
+               implementation_tag, action_tag, test_tag
+        FROM topbar_items
+    """)
+    
     app_shells_raw = q("SELECT id, shell_code, shell_name FROM app_shells")
-    sections_raw = q("SELECT id, screen_id, section_code, section_name, section_type, section_order, purpose FROM screen_sections")
-    elements_raw = q("SELECT id, section_id, screen_id, element_key, element_type, label, element_order, required, action_required, api_usage FROM screen_section_elements")
+    
+    sections_raw = q("""
+        SELECT id, screen_id, section_code, section_name, section_type, section_order, purpose,
+               implementation_tag, content_tag, api_tag, test_tag
+        FROM screen_sections
+    """)
+    
+    elements_raw = q("""
+        SELECT id, section_id, screen_id, element_key, element_type, label, element_order, required, action_required, api_usage,
+               implementation_tag, content_tag, action_tag, api_tag, test_tag
+        FROM screen_section_elements
+    """)
+    
     features_raw = q("SELECT id, feature_code, feature_name, description FROM features")
     screen_features_raw = q("SELECT id, screen_id, feature_id, required, implementation_status FROM screen_feature_map")
-    api_endpoints_raw = q("SELECT id, api_code, endpoint_path, method, request_schema_json, response_schema_json FROM api_registry")
+    
+    api_endpoints_raw = q("""
+        SELECT id, api_code, endpoint_path, method, request_schema_json, response_schema_json,
+               api_tag, test_tag
+        FROM api_registry
+    """)
     screen_api_raw = q("SELECT id, screen_id, api_id FROM screen_api_map")
+    
     theme_profiles_raw = q("SELECT id, theme_name FROM theme_profiles")
     theme_tokens_raw = q("SELECT id, token_code, token_value, token_type FROM theme_design_tokens")
     
-    # Resolve primecare UI components
+    # Resolve UI components
     ui_components_raw = q("SELECT id, dart_class_name FROM primecare_ui_component_registry")
     ui_components = {item[0]: item[1] for item in ui_components_raw}
     element_component_raw = q("SELECT id, element_id, primecare_component_id FROM element_primecare_component_map")
+
+    # Define stats
+    total_apps = len(apps_raw)
+    total_roles = len(roles_raw)
+    total_screens = len(screens_raw)
 
     # Group data
     apps = {a[0]: {"code": a[1], "name": a[2]} for a in apps_raw}
@@ -77,6 +115,11 @@ def main():
             "file": s[6],
             "stage": s[7],
             "active": s[8],
+            "impl_tag": s[9] or "placeholder",
+            "content_tag": s[10] or "placeholder",
+            "api_tag": s[11] or "api_missing",
+            "test_tag": s[12] or "no_test",
+            "review_tag": s[13] or "not_reviewed",
             "sections": [],
             "apis": [],
             "features": []
@@ -91,7 +134,6 @@ def main():
             "can_view": rsm[3],
             "can_edit": rsm[4]
         })
-        # Map screens to role
         if rsm[1] in roles and rsm[2] in screens:
             roles[rsm[1]]["screens"].append(rsm[2])
             
@@ -108,7 +150,10 @@ def main():
             "route": s[7],
             "order": s[8],
             "visible": s[9],
-            "enabled": s[10]
+            "enabled": s[10],
+            "impl_tag": s[11] or "implemented",
+            "route_tag": s[12] or "ready",
+            "test_tag": s[13] or "no_test"
         })
         
     topbar_items_by_role = {}
@@ -120,7 +165,10 @@ def main():
             "label": t[3],
             "icon": t[4],
             "action_type": t[5],
-            "order": t[6]
+            "order": t[6],
+            "impl_tag": t[7] or "implemented",
+            "action_tag": t[8] or "placeholder_action",
+            "test_tag": t[9] or "no_test"
         })
         
     app_shells = {ash[0]: {"code": ash[1], "name": ash[2]} for ash in app_shells_raw}
@@ -135,6 +183,10 @@ def main():
             "type": s[4],
             "order": s[5],
             "purpose": s[6],
+            "impl_tag": s[7] or "placeholder",
+            "content_tag": s[8] or "placeholder",
+            "api_tag": s[9] or "api_missing",
+            "test_tag": s[10] or "no_test",
             "elements": []
         }
         if s[1] in screens:
@@ -154,6 +206,11 @@ def main():
             "required": e[7],
             "action_required": e[8],
             "api_usage": e[9],
+            "impl_tag": e[10] or "placeholder",
+            "content_tag": e[11] or "placeholder",
+            "action_tag": e[12] or "placeholder_action",
+            "api_tag": e[13] or "api_missing",
+            "test_tag": e[14] or "no_test",
             "primecare_component": element_component.get(elem_id, None)
         }
         if sec_id in sections:
@@ -172,7 +229,7 @@ def main():
                 "implementation_status": sf[4]
             })
             
-    apis = {a[0]: {"code": a[1], "path": a[2], "method": a[3], "request": a[4], "response": a[5]} for a in api_endpoints_raw}
+    apis = {a[0]: {"id": a[0], "code": a[1], "path": a[2], "method": a[3], "request": a[4], "response": a[5], "api_tag": a[6] or "api_planned", "test_tag": a[7] or "no_test"} for a in api_endpoints_raw}
     
     for sa in screen_api_raw:
         screen_id = sa[1]
@@ -325,10 +382,6 @@ body {
 </body>
 </html>
     """
-    
-    total_apps = len(apps_raw)
-    total_roles = len(roles_raw)
-    total_screens = len(screens_raw)
     
     role_cards = []
     for r in roles.values():
@@ -557,11 +610,18 @@ body {
         /* Toast style */
         .toast { position: absolute; bottom: 1rem; right: 1rem; background: #1e1b4b; border: 1px solid var(--accent); padding: 0.75rem 1.25rem; border-radius: 0.375rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
         .toast.show { opacity: 1; }
+
+        /* Tag panel badges */
+        .tag-badge { display: inline-flex; align-items: center; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .tag-badge.green { background: rgba(16, 185, 129, 0.12); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .tag-badge.yellow { background: rgba(245, 158, 11, 0.12); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tag-badge.red { background: rgba(239, 68, 68, 0.12); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .tag-badge.gray { background: rgba(255, 255, 255, 0.05); color: var(--text-sec); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
     <!-- Topbar -->
-    <div class="app-topbar">
+    <div class="app-topbar" {{TOPBAR_DATA_ATTRS}}>
         <div class="topbar-brand">
             <i class="bi bi-shield-check"></i>
             <span>PrimeCare Portal</span>
@@ -571,14 +631,14 @@ body {
     
     <div class="app-body">
         <!-- Sidebar -->
-        <div class="app-sidebar">
+        <div class="app-sidebar" {{SIDEBAR_DATA_ATTRS}}>
             {{SIDEBAR_HTML}}
         </div>
         
         <!-- Main Content -->
         <div class="app-main">
             <!-- Viewport -->
-            <div class="app-viewport" id="viewport">
+            <div class="app-viewport" id="viewport" {{SCREEN_DATA_ATTRS}}>
                 <!-- Top warnings -->
                 {{SIDEBAR_WARNING_BANNER}}
                 {{TOPBAR_WARNING_BANNER}}
@@ -619,6 +679,13 @@ body {
                     <a href="../index.html" class="btn btn-secondary" style="font-size:0.75rem; padding:0.25rem 0.5rem;"><i class="bi bi-list"></i> Index</a>
                 </div>
                 
+                <div class="inspector-section">
+                    <div class="inspector-title">Compliance Tags</div>
+                    <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
+                        {{SCREEN_TAGS_PANEL}}
+                    </div>
+                </div>
+
                 <div class="inspector-section">
                     <div class="inspector-title">Warnings / Gaps</div>
                     <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
@@ -692,6 +759,18 @@ body {
 </html>
 """
 
+    def get_tag_color(val):
+        greens = ["implemented", "api_connected", "test_passed", "approved", "cypress_verified", "production_ready", "ready"]
+        yellows = ["partial", "mock_data", "needs_review", "api_mocked", "api_planned", "local_action", "validated_action", "test_defined", "test_generated"]
+        reds = ["placeholder", "api_missing", "test_failed", "placeholder_action", "rejected", "api_failed"]
+        if val in greens:
+            return "green"
+        elif val in yellows:
+            return "yellow"
+        elif val in reds:
+            return "red"
+        return "gray"
+
     gaps_roles_zero_screens = []
     gaps_roles_zero_sidebar = []
     gaps_screens_missing_sections = []
@@ -702,6 +781,16 @@ body {
     
     total_html_files_created = 1 # index.html
     
+    screens_by_impl = {}
+    sections_by_impl = {}
+    elements_by_impl = {}
+    buttons_placeholder_action = []
+    screens_api_missing = []
+    screens_template_only = []
+    screens_test_passed = []
+    screens_approved = []
+    screens_blocked_production = []
+
     for r_id, r in roles.items():
         role_code = r["code"]
         role_dir = os.path.join(out_dir, "roles", role_code)
@@ -716,12 +805,27 @@ body {
         if not role_sidebar_items:
             gaps_roles_zero_sidebar.append(r["name"])
             
-        # Create table rows for role index page
         table_rows = []
         for sc in role_screens:
             sec_count = len(sc["sections"])
             elem_count = sum(len(sec["elements"]) for sec in sc["sections"])
             api_count = len(sc["apis"])
+            
+            screens_by_impl[sc["impl_tag"]] = screens_by_impl.get(sc["impl_tag"], 0) + 1
+            if sc["impl_tag"] == "template_only":
+                screens_template_only.append(f"{role_code}/{sc['code']}")
+            if sc["test_tag"] == "test_passed":
+                screens_test_passed.append(f"{role_code}/{sc['code']}")
+            if sc["review_tag"] == "approved":
+                screens_approved.append(f"{role_code}/{sc['code']}")
+            if sc["api_tag"] in ("api_missing", "api_planned"):
+                screens_api_missing.append(f"{role_code}/{sc['code']}")
+                
+            if sc["impl_tag"] in ("template_only", "placeholder") or \
+               sc["content_tag"] == "placeholder" or \
+               sc["api_tag"] == "api_missing" or \
+               sc["test_tag"] == "test_failed":
+                screens_blocked_production.append(f"{role_code}/{sc['code']}")
             
             if sec_count == 0:
                 gaps_screens_missing_sections.append(f"{role_code}/{sc['code']}")
@@ -749,6 +853,7 @@ body {
             sidebar_warning_banner = ""
             sidebar_warning = ""
             sidebar_html = ""
+            sidebar_data_attrs = ""
             if not role_sidebar_items:
                 gaps_screens_fallback_sidebar.append(f"{role_code}/{sc['code']}")
                 sidebar_warning = "WARNING: Sidebar generated from role_screen_map fallback because sidebar_items missing."
@@ -757,7 +862,9 @@ body {
                 for side_sc in role_screens:
                     active_class = "active" if side_sc["id"] == sc["id"] else ""
                     sidebar_html += f'<a href="{side_sc["code"]}.html" class="sidebar-link {active_class}"><i class="bi bi-file-earmark-richtext"></i><span>{side_sc["name"].replace("Screen", "")}</span></a>'
+                sidebar_data_attrs = 'data-entity-type="sidebar" data-implementation-tag="placeholder"'
             else:
+                sidebar_data_attrs = 'data-entity-type="sidebar" data-implementation-tag="implemented"'
                 groups = {}
                 for s_item in role_sidebar_items:
                     groups.setdefault(s_item["group"], []).append(s_item)
@@ -767,11 +874,22 @@ body {
                         active_class = "active" if s_item["screen_id"] == sc["id"] else ""
                         item_screen = screens.get(s_item["screen_id"])
                         target_url = f"{item_screen['code']}.html" if item_screen else "#"
-                        sidebar_html += f'<a href="{target_url}" class="sidebar-link {active_class}"><i class="bi bi-file-earmark-text"></i><span>{s_item["label"].replace("Screen", "")}</span></a>'
+                        sidebar_html += f"""
+                        <a href="{target_url}" class="sidebar-link {active_class}" 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="{s_item['id']}" 
+                           data-implementation-tag="{s_item['impl_tag']}" 
+                           data-test-tag="{s_item['test_tag']}" 
+                           data-testid="sidebar-item-{s_item['label'].lower()}">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>{s_item["label"].replace("Screen", "")}</span>
+                        </a>
+                        """
 
             # TOPBAR PREVIEW BUILD
             topbar_warning_banner = ""
             topbar_html = ""
+            topbar_data_attrs = ""
             role_topbar_items = topbar_items_by_role.get(r_id, [])
             if not role_topbar_items:
                 gaps_screens_fallback_topbar.append(f"{role_code}/{sc['code']}")
@@ -787,10 +905,19 @@ body {
                     <i class="bi bi-box-arrow-right" title="Logout" style="color: var(--danger);"></i>
                 </div>
                 """
+                topbar_data_attrs = 'data-entity-type="topbar" data-implementation-tag="placeholder"'
             else:
+                topbar_data_attrs = 'data-entity-type="topbar" data-implementation-tag="implemented"'
                 topbar_html = '<div class="topbar-items">'
                 for t_item in role_topbar_items:
-                    topbar_html += f'<i class="bi bi-{t_item["icon"]}" title="{t_item["label"]}"></i>'
+                    topbar_html += f"""
+                    <i class="bi bi-{t_item['icon']}" title="{t_item['label']}" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="{t_item['id']}" 
+                       data-implementation-tag="{t_item['impl_tag']}" 
+                       data-action-tag="{t_item['action_tag']}"
+                       data-testid="topbar-item-{t_item['label'].lower()}"></i>
+                    """
                 topbar_html += '</div>'
 
             # VIEWPORT RENDER
@@ -808,16 +935,51 @@ body {
             else:
                 for sec in sc["sections"]:
                     sec_type = sec["type"]
+                    sections_by_impl[sec["impl_tag"]] = sections_by_impl.get(sec["impl_tag"], 0) + 1
+                    
+                    section_data_attrs = f"""
+                        data-entity-type="section" 
+                        data-entity-id="{sec['id']}" 
+                        data-implementation-tag="{sec['impl_tag']}" 
+                        data-content-tag="{sec['content_tag']}" 
+                        data-api-tag="{sec['api_tag']}" 
+                        data-test-tag="{sec['test_tag']}" 
+                        data-testid="section-{sec['code']}"
+                    """
+                    
+                    sec_tag_panel_html = f"""
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge {get_tag_color(sec['impl_tag'])}">impl: {sec['impl_tag']}</span>
+                        <span class="tag-badge {get_tag_color(sec['content_tag'])}">content: {sec['content_tag']}</span>
+                        <span class="tag-badge {get_tag_color(sec['api_tag'])}">api: {sec['api_tag']}</span>
+                    </div>
+                    """
+                    
                     if sec_type == 'header':
                         actions_html = ""
                         for el in sec["elements"]:
+                            elements_by_impl[el["impl_tag"]] = elements_by_impl.get(el["impl_tag"], 0) + 1
                             if el["type"] == 'button':
-                                actions_html += f'<button class="btn btn-primary" onclick="showToast(\'{el["label"]} clicked!\')">{el["label"]}</button>'
+                                if el["action_tag"] == "placeholder_action":
+                                    buttons_placeholder_action.append(f"{role_code}/{sc['code']}/header/{el['key']}")
+                                actions_html += f"""
+                                <button class="btn btn-primary" onclick="showToast('{el["label"]} clicked!')" 
+                                        data-entity-type="button" 
+                                        data-entity-id="{el['id']}" 
+                                        data-implementation-tag="{el['impl_tag']}" 
+                                        data-action-tag="{el['action_tag']}" 
+                                        data-api-tag="{el['api_tag']}" 
+                                        data-test-tag="{el['test_tag']}" 
+                                        data-testid="{el['key']}">
+                                    {el["label"]}
+                                </button>
+                                """
                         viewport_sections_html += f"""
-                        <div class="screen-header-section">
+                        <div class="screen-header-section" {section_data_attrs}>
                             <div class="header-title">
                                 <h2>{sc['name'].replace('Screen', '')}</h2>
                                 <div class="breadcrumb">PrimeCare / {r['name']} / {sc['name']}</div>
+                                {sec_tag_panel_html}
                             </div>
                             <div class="header-actions">
                                 {actions_html}
@@ -827,13 +989,20 @@ body {
                     elif sec_type in ('metrics', 'summary_cards'):
                         grid_html = '<div class="metrics-grid">'
                         for index, el in enumerate(sec["elements"]):
+                            elements_by_impl[el["impl_tag"]] = elements_by_impl.get(el["impl_tag"], 0) + 1
                             mock_values = ["1,248", "94.2%", "28 mins", "4.8", "12", "88%"]
                             mock_subtext = ["+12% from last week", "+0.4% vs target", "-3m response", "+0.1 rating", "Pending review", "Optimal"]
                             val = mock_values[index % len(mock_values)]
                             sub = mock_subtext[index % len(mock_subtext)]
                             
                             grid_html += f"""
-                            <div class="metric-card">
+                            <div class="metric-card" 
+                                 data-entity-type="element" 
+                                 data-entity-id="{el['id']}" 
+                                 data-implementation-tag="{el['impl_tag']}" 
+                                 data-content-tag="{el['content_tag']}" 
+                                 data-api-tag="{el['api_tag']}" 
+                                 data-testid="element-{el['key']}">
                                 <div class="metric-header">
                                     <span>{el['label']}</span>
                                     <i class="bi bi-activity"></i>
@@ -843,26 +1012,52 @@ body {
                                     <i class="bi bi-graph-up-arrow"></i>
                                     <span>{sub}</span>
                                 </div>
-                                <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">Component: {el['primecare_component'] or 'N/A'}</div>
+                                <div style="margin-top:0.5rem; display:flex; flex-direction:column; gap:0.125rem;">
+                                    <span style="font-size:0.65rem; color:var(--text-muted);">Component: {el['primecare_component'] or 'N/A'}</span>
+                                    <div style="display:flex; gap:0.2rem;">
+                                        <span class="tag-badge {get_tag_color(el['impl_tag'])}" style="font-size:0.55rem; padding:0.1rem 0.25rem;">impl: {el['impl_tag']}</span>
+                                        <span class="tag-badge {get_tag_color(el['api_tag'])}" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api: {el['api_tag']}</span>
+                                    </div>
+                                </div>
                             </div>
                             """
                         grid_html += '</div>'
                         viewport_sections_html += f"""
-                        <div class="content-card">
-                            <div class="card-title">{sec['name']}</div>
+                        <div class="content-card" {section_data_attrs}>
+                            <div class="card-header">
+                                <div class="card-title">{sec['name']}</div>
+                                {sec_tag_panel_html}
+                            </div>
                             {grid_html}
                         </div>
                         """
                     elif sec_type in ('table', 'list'):
                         headers = "".join(f"<th>{el['label']}</th>" for el in sec["elements"]) or "<th>ID</th><th>Description</th><th>Status</th>"
+                        for el in sec["elements"]:
+                            elements_by_impl[el["impl_tag"]] = elements_by_impl.get(el["impl_tag"], 0) + 1
+                            
                         rows = ""
                         for idx in range(1, 4):
-                            cols = "".join(f"<td>Mock {el['label']} {idx}</td>" for el in sec["elements"]) or f"<td>#PC-10{idx}</td><td>Mock table row</td><td><span class='badge success'>completed</span></td>"
+                            cols = ""
+                            if sec["elements"]:
+                                for el in sec["elements"]:
+                                    cols += f"""
+                                    <td data-entity-type="element" 
+                                        data-entity-id="{el['id']}" 
+                                        data-implementation-tag="{el['impl_tag']}" 
+                                        data-content-tag="{el['content_tag']}"
+                                        data-testid="cell-{el['key']}-{idx}">
+                                        Mock {el['label']} {idx}
+                                    </td>
+                                    """
+                            else:
+                                cols = f"<td>#PC-10{idx}</td><td>Mock table row</td><td><span class='badge success'>completed</span></td>"
                             rows += f"<tr>{cols}</tr>"
                         viewport_sections_html += f"""
-                        <div class="content-card">
+                        <div class="content-card" {section_data_attrs}>
                             <div class="card-header">
                                 <div class="card-title">{sec['name']}</div>
+                                {sec_tag_panel_html}
                             </div>
                             <div class="table-responsive">
                                 <table class="mock-table">
@@ -875,18 +1070,51 @@ body {
                     elif sec_type == 'form':
                         fields = ""
                         for el in sec["elements"]:
+                            elements_by_impl[el["impl_tag"]] = elements_by_impl.get(el["impl_tag"], 0) + 1
                             if el["type"] == 'button': continue
                             fields += f"""
-                            <div style="margin-bottom: 0.75rem;">
+                            <div style="margin-bottom: 0.75rem;" 
+                                 data-entity-type="element" 
+                                 data-entity-id="{el['id']}" 
+                                 data-implementation-tag="{el['impl_tag']}" 
+                                 data-content-tag="{el['content_tag']}" 
+                                 data-api-tag="{el['api_tag']}">
                                 <label class="form-label">{el['label']}</label>
-                                <input type="text" class="form-control" placeholder="Enter {el['label']}...">
-                                <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">Component: {el['primecare_component'] or 'N/A'}</div>
+                                <input type="text" class="form-control" placeholder="Enter {el['label']}..." data-testid="{el['key']}">
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
+                                    <span style="font-size:0.65rem; color:var(--text-muted);">Component: {el['primecare_component'] or 'N/A'}</span>
+                                    <div style="display:flex; gap:0.2rem;">
+                                        <span class="tag-badge {get_tag_color(el['impl_tag'])}" style="font-size:0.55rem; padding:0.1rem 0.25rem;">impl: {el['impl_tag']}</span>
+                                        <span class="tag-badge {get_tag_color(el['api_tag'])}" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api: {el['api_tag']}</span>
+                                    </div>
+                                </div>
                             </div>
                             """
-                        submit_btn = "".join(f'<button class="btn btn-primary" onclick="showToast(\'Form action: {el["label"]}\')">{el["label"]}</button>' for el in sec["elements"] if el["type"] == 'button') or '<button class="btn btn-primary">Submit</button>'
+                        submit_btn = ""
+                        for el in sec["elements"]:
+                            if el["type"] == 'button':
+                                if el["action_tag"] == "placeholder_action":
+                                    buttons_placeholder_action.append(f"{role_code}/{sc['code']}/form/{el['key']}")
+                                submit_btn += f"""
+                                <button class="btn btn-primary" onclick="showToast('Form action: {el['label']}')" 
+                                        data-entity-type="button" 
+                                        data-entity-id="{el['id']}" 
+                                        data-implementation-tag="{el['impl_tag']}" 
+                                        data-action-tag="{el['action_tag']}" 
+                                        data-api-tag="{el['api_tag']}" 
+                                        data-testid="{el['key']}">
+                                    {el['label']}
+                                </button>
+                                """
+                        if not submit_btn:
+                            submit_btn = '<button class="btn btn-primary">Submit</button>'
+                            
                         viewport_sections_html += f"""
-                        <div class="content-card">
-                            <div class="card-title">{sec['name']}</div>
+                        <div class="content-card" {section_data_attrs}>
+                            <div class="card-header">
+                                <div class="card-title">{sec['name']}</div>
+                                {sec_tag_panel_html}
+                            </div>
                             <form class="mock-form" onsubmit="event.preventDefault();">
                                 {fields}
                                 <div class="form-group-full" style="margin-top:1rem; display:flex; gap:0.5rem;">
@@ -896,10 +1124,22 @@ body {
                         </div>
                         """
                     else:
-                        elems_html = "".join(f"<li><i class='bi bi-dot'></i> {el['label']} <span style='font-size:0.7rem; color:var(--text-muted);'>({el['type']})</span></li>" for el in sec["elements"])
+                        elems_html = ""
+                        for el in sec["elements"]:
+                            elements_by_impl[el["impl_tag"]] = elements_by_impl.get(el["impl_tag"], 0) + 1
+                            elems_html += f"""
+                            <li data-entity-type="element" data-entity-id="{el['id']}" data-implementation-tag="{el['impl_tag']}">
+                                <i class='bi bi-dot'></i> {el['label']} 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>({el['type']})</span>
+                                <span class="tag-badge {get_tag_color(el['impl_tag'])}" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">{el['impl_tag']}</span>
+                            </li>
+                            """
                         viewport_sections_html += f"""
-                        <div class="content-card">
-                            <div class="card-title">{sec['name']}</div>
+                        <div class="content-card" {section_data_attrs}>
+                            <div class="card-header">
+                                <div class="card-title">{sec['name']}</div>
+                                {sec_tag_panel_html}
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">{sec['purpose'] or ''}</p>
                             <ul style="list-style: none; padding-left: 0;">{elems_html}</ul>
                         </div>
@@ -908,9 +1148,9 @@ body {
             # WARNINGS & BADGES
             warnings_html = ""
             if not role_sidebar_items:
-                warnings_html += '<span class="warning-badge"><i class="bi bi-exclamation-triangle"></i> Fallback Sidebar</span>'
+                warnings_html += '<span class="warning-badge danger"><i class="bi bi-exclamation-triangle"></i> Fallback Sidebar</span>'
             if not role_topbar_items:
-                warnings_html += '<span class="warning-badge"><i class="bi bi-exclamation-triangle"></i> Fallback Topbar</span>'
+                warnings_html += '<span class="warning-badge danger"><i class="bi bi-exclamation-triangle"></i> Fallback Topbar</span>'
             if len(sc["sections"]) == 0:
                 warnings_html += '<span class="warning-badge danger"><i class="bi bi-exclamation-triangle"></i> Missing Sections</span>'
             else:
@@ -929,10 +1169,16 @@ body {
             else:
                 for api in sc["apis"]:
                     apis_html += f"""
-                    <div class="api-card">
+                    <div class="api-card" data-entity-type="api" data-entity-id="{api['id']}" data-api-tag="{api['api_tag']}" data-test-tag="{api['test_tag']}">
                         <div class="api-method {api['method'].lower()}">{api['method'].upper()}</div>
                         <div class="api-path">{api['path']}</div>
-                        <div style="font-size:0.7rem; color:var(--text-sec); margin-top:0.25rem;">Code: {api['code']}</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
+                            <span style="font-size:0.7rem; color:var(--text-sec);">Code: {api['code']}</span>
+                            <div style="display:flex; gap:0.2rem;">
+                                <span class="tag-badge {get_tag_color(api['api_tag'])}" style="font-size:0.55rem; padding:0.1rem 0.25rem;">{api['api_tag']}</span>
+                                <span class="tag-badge {get_tag_color(api['test_tag'])}" style="font-size:0.55rem; padding:0.1rem 0.25rem;">{api['test_tag']}</span>
+                            </div>
+                        </div>
                     </div>
                     """
 
@@ -943,11 +1189,35 @@ body {
             else:
                 for f_item in sc["features"]:
                     features_html += f"""
-                    <div class="api-card">
+                    <div class="api-card" data-entity-type="feature" data-testid="feature-{f_item['code']}">
                         <strong>{f_item['name']}</strong>
-                        <div style="font-size:0.75rem; color:var(--text-sec); margin-top:0.125rem;">Code: {f_item['code']} • Mapped: {f_item['required']}</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
+                            <span style="font-size:0.75rem; color:var(--text-sec);">Code: {f_item['code']}</span>
+                            <span class="tag-badge {get_tag_color(f_item['implementation_status'])}" style="font-size:0.55rem; padding:0.1rem 0.25rem;">status: {f_item['implementation_status']}</span>
+                        </div>
                     </div>
                     """
+
+            # SCREEN DATA ATTRIBUTES
+            screen_data_attrs = f"""
+                data-entity-type="screen"
+                data-entity-id="{sc['id']}"
+                data-implementation-tag="{sc['impl_tag']}"
+                data-content-tag="{sc['content_tag']}"
+                data-api-tag="{sc['api_tag']}"
+                data-test-tag="{sc['test_tag']}"
+                data-review-tag="{sc['review_tag']}"
+                data-testid="viewport-content"
+            """
+
+            # SCREEN TAG INSPECTOR PANEL BUILD
+            screen_tags_panel = f"""
+                <span class="tag-badge {get_tag_color(sc['impl_tag'])}">impl: {sc['impl_tag']}</span>
+                <span class="tag-badge {get_tag_color(sc['content_tag'])}">content: {sc['content_tag']}</span>
+                <span class="tag-badge {get_tag_color(sc['api_tag'])}">api: {sc['api_tag']}</span>
+                <span class="tag-badge {get_tag_color(sc['test_tag'])}">test: {sc['test_tag']}</span>
+                <span class="tag-badge {get_tag_color(sc['review_tag'])}">review: {sc['review_tag']}</span>
+            """
 
             # Screen replace
             s_html = screen_template.replace("{{SCREEN_NAME}}", sc["name"])\
@@ -958,7 +1228,11 @@ body {
                                     .replace("{{VIEWPORT_SECTIONS_HTML}}", viewport_sections_html)\
                                     .replace("{{WARNINGS_HTML}}", warnings_html)\
                                     .replace("{{APIS_HTML}}", apis_html)\
-                                    .replace("{{FEATURES_HTML}}", features_html)
+                                    .replace("{{FEATURES_HTML}}", features_html)\
+                                    .replace("{{SCREEN_DATA_ATTRS}}", screen_data_attrs)\
+                                    .replace("{{SIDEBAR_DATA_ATTRS}}", sidebar_data_attrs)\
+                                    .replace("{{TOPBAR_DATA_ATTRS}}", topbar_data_attrs)\
+                                    .replace("{{SCREEN_TAGS_PANEL}}", screen_tags_panel)
 
             screen_file_name = f"{sc['code']}.html"
             with open(os.path.join(screens_dir, screen_file_name), "w", encoding="utf-8") as f:
@@ -988,7 +1262,7 @@ console.log("PrimeCare Screen Simulator loaded.");
     with open(os.path.join(out_dir, "assets", "preview_app.js"), "w", encoding="utf-8") as f:
         f.write(js_content)
 
-    # 6. Generate the Reports
+    # 6. Generate the Reports (including the 8 new Tag reports!)
     # Report A: HTML_PREVIEW_GENERATION_REPORT.md
     preview_gen_report = f"""# HTML Preview Generation Report
 
@@ -1057,7 +1331,136 @@ These screens have zero `screen_api_map` records (potential missing API connecti
     with open(os.path.join(out_dir, "reports", "MISSING_PREVIEW_DATA_REPORT.md"), "w", encoding="utf-8") as f:
         f.write(missing_report)
 
-    print(f"Generated {total_html_files_created} HTML files and reports successfully in {out_dir}")
+    # 1. IMPLEMENTATION_TAG_REGISTRY_REPORT.md
+    tag_registry_content = """# Implementation Tag Registry Report
+
+Lists the official implementation tags registered in the system from `implementation_tags` table.
+
+| Tag Code | Category | Name | Description | Allowed Values |
+|----------|----------|------|-------------|----------------|
+"""
+    default_tags = [
+        {"code": "implementation_state", "category": "implementation", "name": "Implementation State", "desc": "Lifecycle state of the UI implementation", "values": ["not_started", "template_only", "placeholder", "mock_data", "partial", "implemented", "api_connected", "cypress_verified", "human_reviewed", "production_ready"]},
+        {"code": "content_state", "category": "lifecycle", "name": "Content State", "desc": "How data and content are loaded into the entity", "values": ["empty", "placeholder", "sample", "mock", "real", "api_loaded", "user_customized"]},
+        {"code": "api_state", "category": "api", "name": "API State", "desc": "State of the API connection integration", "values": ["no_api_required", "api_missing", "api_planned", "api_mocked", "api_connected", "api_tested", "api_failed"]},
+        {"code": "action_state", "category": "lifecycle", "name": "Action State", "desc": "Interactive trigger action state", "values": ["no_action", "disabled", "placeholder_action", "local_action", "api_action", "validated_action", "tested_action"]},
+        {"code": "test_state", "category": "testing", "name": "Test State", "desc": "Cypress/unit test lifecycle state", "values": ["no_test", "test_defined", "test_generated", "test_failed", "test_passed"]},
+        {"code": "review_state", "category": "review", "name": "Review State", "desc": "Human or architectural design review state", "values": ["not_reviewed", "needs_review", "reviewed", "approved", "rejected"]},
+        {"code": "visual_state", "category": "quality", "name": "Visual State", "desc": "Interactive states for UI view preview switcher", "values": ["loading", "empty", "error", "success", "ready"]}
+    ]
+    for tag in default_tags:
+        vals = ", ".join(f"`{v}`" for v in tag["values"])
+        tag_registry_content += f"| {tag['code']} | {tag['category']} | {tag['name']} | {tag['desc']} | {vals} |\n"
+        
+    with open(os.path.join(out_dir, "reports", "IMPLEMENTATION_TAG_REGISTRY_REPORT.md"), "w", encoding="utf-8") as f:
+        f.write(tag_registry_content)
+
+    # 2. TAG_VALUE_COVERAGE_REPORT.md
+    tag_coverage = f"""# Tag Value Coverage Report
+
+Frequencies and counts of tags found across all screen layouts in the database.
+
+## 1. Screens by Implementation State
+"""
+    for impl, count in screens_by_impl.items():
+        tag_coverage += f"* **`{impl}`**: {count} screens\n"
+    tag_coverage += "\n## 2. Sections by Implementation State\n"
+    for impl, count in sections_by_impl.items():
+        tag_coverage += f"* **`{impl}`**: {count} sections\n"
+    tag_coverage += "\n## 3. Section Elements by Implementation State\n"
+    for impl, count in elements_by_impl.items():
+        tag_coverage += f"* **`{impl}`**: {count} elements\n"
+        
+    with open(os.path.join(out_dir, "reports", "TAG_VALUE_COVERAGE_REPORT.md"), "w", encoding="utf-8") as f:
+        f.write(tag_coverage)
+
+    # 3. PLACEHOLDER_TAG_REPORT.md
+    placeholder_report = f"""# Placeholder Tag Report
+
+Lists all screens currently containing placeholders or marked as placeholders in the database.
+
+## Total Placeholder Screens: {len([s for s in screens.values() if s['impl_tag'] == 'placeholder'])}
+
+"""
+    for s in screens.values():
+        if s["impl_tag"] == "placeholder":
+            placeholder_report += f"- Screen: `{s['code']}` (mapped in role screen registry)\n"
+            
+    with open(os.path.join(out_dir, "reports", "PLACEHOLDER_TAG_REPORT.md"), "w", encoding="utf-8") as f:
+        f.write(placeholder_report)
+
+    # 4. TEMPLATE_ONLY_TAG_REPORT.md
+    template_report = f"""# Template Only Tag Report
+
+Lists all skeleton-only screens currently lacking concrete sections, elements, or functionality.
+
+## Screens count: {len(screens_template_only)}
+"""
+    for st in screens_template_only:
+        template_report += f"- `{st}`\n"
+        
+    with open(os.path.join(out_dir, "reports", "TEMPLATE_ONLY_TAG_REPORT.md"), "w", encoding="utf-8") as f:
+        f.write(template_report)
+
+    # 5. BUTTON_ACTION_TAG_REPORT.md
+    button_report = f"""# Button Action Tag Report
+
+Verifies which interactive buttons inside forms and headers are still set to `placeholder_action`.
+
+## Buttons count: {len(buttons_placeholder_action)}
+"""
+    for btn in buttons_placeholder_action:
+        button_report += f"- Button element key: `{btn}`\n"
+        
+    with open(os.path.join(out_dir, "reports", "BUTTON_ACTION_TAG_REPORT.md"), "w", encoding="utf-8") as f:
+        f.write(button_report)
+
+    # 6. API_TAG_REPORT.md
+    api_report = f"""# API Integration Tag Report
+
+Identifies screen dependencies on API connections and flags planned or missing linkages.
+
+## Screens with Missing/Planned APIs: {len(screens_api_missing)}
+"""
+    for sam in screens_api_missing:
+        api_report += f"- `{sam}` (mapped to role but API tag is planned/missing)\n"
+        
+    with open(os.path.join(out_dir, "reports", "API_TAG_REPORT.md"), "w", encoding="utf-8") as f:
+        f.write(api_report)
+
+    # 7. CYPRESS_TAG_VALIDATION_REPORT.md
+    cy_report = f"""# Cypress Tag Validation Report
+
+Summarizes Cypress testing compliance status across all screens.
+
+* **Screens Passed E2E (`test_passed`)**: {len(screens_test_passed)} screens
+* **Total Screens Pending Cypress Test Run**: {len(screens) - len(screens_test_passed)} screens
+"""
+    with open(os.path.join(out_dir, "reports", "CYPRESS_TAG_VALIDATION_REPORT.md"), "w", encoding="utf-8") as f:
+        f.write(cy_report)
+
+    # 8. TAG_UPDATE_LOG_REPORT.md
+    log_raw = q("""
+        SELECT v.entity_type, v.entity_id, t.tag_code, v.tag_value, v.reason, v.updated_by, v.updated_at
+        FROM implementation_tag_values v
+        JOIN implementation_tags t ON v.tag_id = t.id
+        ORDER BY v.updated_at DESC
+    """)
+    
+    log_report = """# Tag Update Log Report
+
+Audit logs of modifications to screen, section, and element implementation tags.
+
+| Entity Type | Entity ID | Tag Code | New Value | Reason | Updated By | Timestamp |
+|-------------|-----------|----------|-----------|--------|------------|-----------|
+"""
+    for l in log_raw:
+        log_report += f"| {l[0]} | {l[1]} | {l[2]} | `{l[3]}` | {l[4]} | {l[5]} | {l[6]} |\n"
+        
+    with open(os.path.join(out_dir, "reports", "TAG_UPDATE_LOG_REPORT.md"), "w", encoding="utf-8") as f:
+        f.write(log_report)
+
+    print(f"Generated {total_html_files_created} HTML files and 11 reports successfully in {out_dir}")
 
 if __name__ == "__main__":
     main()

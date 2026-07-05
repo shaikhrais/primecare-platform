@@ -106,28 +106,234 @@
         /* Toast style */
         .toast { position: absolute; bottom: 1rem; right: 1rem; background: #1e1b4b; border: 1px solid var(--accent); padding: 0.75rem 1.25rem; border-radius: 0.375rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
         .toast.show { opacity: 1; }
+
+        /* Tag panel badges */
+        .tag-badge { display: inline-flex; align-items: center; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .tag-badge.green { background: rgba(16, 185, 129, 0.12); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .tag-badge.yellow { background: rgba(245, 158, 11, 0.12); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tag-badge.red { background: rgba(239, 68, 68, 0.12); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .tag-badge.gray { background: rgba(255, 255, 255, 0.05); color: var(--text-sec); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
     <!-- Topbar -->
-    <div class="app-topbar">
+    <div class="app-topbar" data-entity-type="topbar" data-implementation-tag="implemented">
         <div class="topbar-brand">
             <i class="bi bi-shield-check"></i>
             <span>PrimeCare Portal</span>
         </div>
-        <div class="topbar-items"><i class="bi bi-search" title="Search"></i><i class="bi bi-notifications" title="Notifications"></i><i class="bi bi-badge" title="Role"></i><i class="bi bi-person" title="Profile"></i><i class="bi bi-logout" title="Logout"></i><i class="bi bi-search" title="Search"></i><i class="bi bi-notifications" title="Notifications"></i><i class="bi bi-badge" title="Role"></i><i class="bi bi-person" title="Profile"></i><i class="bi bi-logout" title="Logout"></i></div>
+        <div class="topbar-items">
+                    <i class="bi bi-search" title="Search" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="51" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-search"></i>
+                    
+                    <i class="bi bi-notifications" title="Notifications" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="52" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-notifications"></i>
+                    
+                    <i class="bi bi-badge" title="Role" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="53" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-role"></i>
+                    
+                    <i class="bi bi-person" title="Profile" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="54" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-profile"></i>
+                    
+                    <i class="bi bi-logout" title="Logout" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="55" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-logout"></i>
+                    
+                    <i class="bi bi-search" title="Search" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="316" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-search"></i>
+                    
+                    <i class="bi bi-notifications" title="Notifications" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="317" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-notifications"></i>
+                    
+                    <i class="bi bi-badge" title="Role" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="318" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-role"></i>
+                    
+                    <i class="bi bi-person" title="Profile" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="319" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-profile"></i>
+                    
+                    <i class="bi bi-logout" title="Logout" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="320" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-logout"></i>
+                    </div>
     </div>
     
     <div class="app-body">
         <!-- Sidebar -->
-        <div class="app-sidebar">
-            <div class="sidebar-section-title">Overview</div><a href="business_development_dashboard.html" class="sidebar-link active"><i class="bi bi-file-earmark-text"></i><span>BusinessDevelopmentDashboard</span></a><a href="head_of_bus_dev_dashboard.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>HeadOfBusDevDashboard</span></a><div class="sidebar-section-title">General</div><a href="business_development_analytics.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>BusinessDevelopmentAnalytics</span></a><a href="business_development_compliance.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>BusinessDevelopmentCompliance</span></a><a href="business_development_workflow.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>BusinessDevelopmentWorkflow</span></a><a href="head_of_bus_dev_analytics.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>HeadOfBusDevAnalytics</span></a><a href="head_of_bus_dev_compliance.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>HeadOfBusDevCompliance</span></a><a href="head_of_bus_dev_workflow.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>HeadOfBusDevWorkflow</span></a><a href="franchise_lead.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>FranchiseLead</span></a><a href="partnership_management.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>PartnershipManagement</span></a><a href="growth_analytics.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>GrowthAnalytics</span></a><a href="outreach_campaign.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>OutreachCampaign</span></a>
+        <div class="app-sidebar" data-entity-type="sidebar" data-implementation-tag="implemented">
+            <div class="sidebar-section-title">Overview</div>
+                        <a href="business_development_dashboard.html" class="sidebar-link active" 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="11" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-businessdevelopmentdashboardscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>BusinessDevelopmentDashboard</span>
+                        </a>
+                        
+                        <a href="head_of_bus_dev_dashboard.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="49" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-headofbusdevdashboardscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>HeadOfBusDevDashboard</span>
+                        </a>
+                        <div class="sidebar-section-title">General</div>
+                        <a href="business_development_analytics.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="89" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-businessdevelopmentanalyticsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>BusinessDevelopmentAnalytics</span>
+                        </a>
+                        
+                        <a href="business_development_compliance.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="90" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-businessdevelopmentcompliancescreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>BusinessDevelopmentCompliance</span>
+                        </a>
+                        
+                        <a href="business_development_workflow.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="91" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-businessdevelopmentworkflowscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>BusinessDevelopmentWorkflow</span>
+                        </a>
+                        
+                        <a href="head_of_bus_dev_analytics.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="201" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-headofbusdevanalyticsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>HeadOfBusDevAnalytics</span>
+                        </a>
+                        
+                        <a href="head_of_bus_dev_compliance.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="202" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-headofbusdevcompliancescreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>HeadOfBusDevCompliance</span>
+                        </a>
+                        
+                        <a href="head_of_bus_dev_workflow.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="203" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-headofbusdevworkflowscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>HeadOfBusDevWorkflow</span>
+                        </a>
+                        
+                        <a href="franchise_lead.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="416" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-franchiseleadscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>FranchiseLead</span>
+                        </a>
+                        
+                        <a href="partnership_management.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="417" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-partnershipmanagementscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>PartnershipManagement</span>
+                        </a>
+                        
+                        <a href="growth_analytics.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="418" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-growthanalyticsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>GrowthAnalytics</span>
+                        </a>
+                        
+                        <a href="outreach_campaign.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="419" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-outreachcampaignscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>OutreachCampaign</span>
+                        </a>
+                        
         </div>
         
         <!-- Main Content -->
         <div class="app-main">
             <!-- Viewport -->
-            <div class="app-viewport" id="viewport">
+            <div class="app-viewport" id="viewport" 
+                data-entity-type="screen"
+                data-entity-id="11"
+                data-implementation-tag="placeholder"
+                data-content-tag="placeholder"
+                data-api-tag="api_missing"
+                data-test-tag="no_test"
+                data-review-tag="not_reviewed"
+                data-testid="viewport-content"
+            >
                 <!-- Top warnings -->
                 
                 
@@ -135,20 +341,58 @@
                 <!-- Main viewport dynamic content container -->
                 <div id="viewport-active-content">
                     
-                        <div class="screen-header-section">
+                        <div class="screen-header-section" 
+                        data-entity-type="section" 
+                        data-entity-id="4291" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-business_development_dashboard_header"
+                    >
                             <div class="header-title">
                                 <h2>BusinessDevelopmentDashboard</h2>
                                 <div class="breadcrumb">PrimeCare / Head of Business Development / BusinessDevelopmentDashboardScreen</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
                             </div>
                             <div class="header-actions">
                                 
                             </div>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Summary Cards Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="4292" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-business_development_dashboard_summary_cards"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Summary Cards Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <div class="metrics-grid">
-                            <div class="metric-card">
+                            <div class="metric-card" 
+                                 data-entity-type="element" 
+                                 data-entity-id="7227" 
+                                 data-implementation-tag="placeholder" 
+                                 data-content-tag="placeholder" 
+                                 data-api-tag="api_missing" 
+                                 data-testid="element-primary_content">
                                 <div class="metric-header">
                                     <span>BusinessDevelopmentDashboardScreen Primary Content</span>
                                     <i class="bi bi-activity"></i>
@@ -158,10 +402,22 @@
                                     <i class="bi bi-graph-up-arrow"></i>
                                     <span>+12% from last week</span>
                                 </div>
-                                <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">Component: PrimeButton</div>
+                                <div style="margin-top:0.5rem; display:flex; flex-direction:column; gap:0.125rem;">
+                                    <span style="font-size:0.65rem; color:var(--text-muted);">Component: PrimeButton</span>
+                                    <div style="display:flex; gap:0.2rem;">
+                                        <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem;">impl: placeholder</span>
+                                        <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api: api_missing</span>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <div class="metric-card">
+                            <div class="metric-card" 
+                                 data-entity-type="element" 
+                                 data-entity-id="7229" 
+                                 data-implementation-tag="placeholder" 
+                                 data-content-tag="placeholder" 
+                                 data-api-tag="api_missing" 
+                                 data-testid="element-businessdevelopmentdashboard_title">
                                 <div class="metric-header">
                                     <span>Businessdevelopmentdashboard Title</span>
                                     <i class="bi bi-activity"></i>
@@ -171,10 +427,22 @@
                                     <i class="bi bi-graph-up-arrow"></i>
                                     <span>+0.4% vs target</span>
                                 </div>
-                                <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">Component: PrimeButton</div>
+                                <div style="margin-top:0.5rem; display:flex; flex-direction:column; gap:0.125rem;">
+                                    <span style="font-size:0.65rem; color:var(--text-muted);">Component: PrimeButton</span>
+                                    <div style="display:flex; gap:0.2rem;">
+                                        <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem;">impl: placeholder</span>
+                                        <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api: api_missing</span>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <div class="metric-card">
+                            <div class="metric-card" 
+                                 data-entity-type="element" 
+                                 data-entity-id="7232" 
+                                 data-implementation-tag="placeholder" 
+                                 data-content-tag="placeholder" 
+                                 data-api-tag="api_missing" 
+                                 data-testid="element-businessdevelopmentdashboard_content">
                                 <div class="metric-header">
                                     <span>Businessdevelopmentdashboard Content</span>
                                     <i class="bi bi-activity"></i>
@@ -184,10 +452,22 @@
                                     <i class="bi bi-graph-up-arrow"></i>
                                     <span>-3m response</span>
                                 </div>
-                                <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">Component: PrimeButton</div>
+                                <div style="margin-top:0.5rem; display:flex; flex-direction:column; gap:0.125rem;">
+                                    <span style="font-size:0.65rem; color:var(--text-muted);">Component: PrimeButton</span>
+                                    <div style="display:flex; gap:0.2rem;">
+                                        <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem;">impl: placeholder</span>
+                                        <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api: api_missing</span>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <div class="metric-card">
+                            <div class="metric-card" 
+                                 data-entity-type="element" 
+                                 data-entity-id="7233" 
+                                 data-implementation-tag="placeholder" 
+                                 data-content-tag="placeholder" 
+                                 data-api-tag="api_missing" 
+                                 data-testid="element-businessdevelopmentdashboard_screen">
                                 <div class="metric-header">
                                     <span>Businessdevelopmentdashboard Screen</span>
                                     <i class="bi bi-activity"></i>
@@ -197,20 +477,58 @@
                                     <i class="bi bi-graph-up-arrow"></i>
                                     <span>+0.1 rating</span>
                                 </div>
-                                <div style="font-size:0.7rem; color:var(--text-muted); margin-top:0.25rem;">Component: PrimeButton</div>
+                                <div style="margin-top:0.5rem; display:flex; flex-direction:column; gap:0.125rem;">
+                                    <span style="font-size:0.65rem; color:var(--text-muted);">Component: PrimeButton</span>
+                                    <div style="display:flex; gap:0.2rem;">
+                                        <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem;">impl: placeholder</span>
+                                        <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api: api_missing</span>
+                                    </div>
+                                </div>
                             </div>
                             </div>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Chart Overview Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="4293" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-business_development_dashboard_chart_overview"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Chart Overview Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Interactive charts showing trend analysis and aggregated metrics.</p>
                             <ul style="list-style: none; padding-left: 0;"></ul>
                         </div>
                         
-                        <div class="content-card">
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="4294" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-business_development_dashboard_recent_activity"
+                    >
                             <div class="card-header">
                                 <div class="card-title">Recent Activity Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
                             </div>
                             <div class="table-responsive">
                                 <table class="mock-table">
@@ -220,10 +538,45 @@
                             </div>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Quick Actions Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="4295" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-business_development_dashboard_quick_actions"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Quick Actions Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Sleek interactive control actions for primary operations.</p>
-                            <ul style="list-style: none; padding-left: 0;"><li><i class='bi bi-dot'></i> Businessdevelopmentdashboard Btn 1 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li><li><i class='bi bi-dot'></i> Businessdevelopmentdashboard Btn 3 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li><li><i class='bi bi-dot'></i> Businessdevelopmentdashboard Btn 2 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li></ul>
+                            <ul style="list-style: none; padding-left: 0;">
+                            <li data-entity-type="element" data-entity-id="7228" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Businessdevelopmentdashboard Btn 1 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="7230" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Businessdevelopmentdashboard Btn 3 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="7231" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Businessdevelopmentdashboard Btn 2 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            </ul>
                         </div>
                         
                 </div>
@@ -260,6 +613,19 @@
                 </div>
                 
                 <div class="inspector-section">
+                    <div class="inspector-title">Compliance Tags</div>
+                    <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
+                        
+                <span class="tag-badge red">impl: placeholder</span>
+                <span class="tag-badge red">content: placeholder</span>
+                <span class="tag-badge red">api: api_missing</span>
+                <span class="tag-badge gray">test: no_test</span>
+                <span class="tag-badge gray">review: not_reviewed</span>
+            
+                    </div>
+                </div>
+
+                <div class="inspector-section">
                     <div class="inspector-title">Warnings / Gaps</div>
                     <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
                         <span class="warning-badge"><i class="bi bi-exclamation-triangle"></i> Not Production Ready</span>
@@ -270,10 +636,16 @@
                     <div class="inspector-title">Linked APIs</div>
                     <div style="margin-top:0.5rem;">
                         
-                    <div class="api-card">
+                    <div class="api-card" data-entity-type="api" data-entity-id="4260" data-api-tag="api_planned" data-test-tag="no_test">
                         <div class="api-method get">GET</div>
                         <div class="api-path">/v1/business-development</div>
-                        <div style="font-size:0.7rem; color:var(--text-sec); margin-top:0.25rem;">Code: api_v1_business_development_list_get</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
+                            <span style="font-size:0.7rem; color:var(--text-sec);">Code: api_v1_business_development_list_get</span>
+                            <div style="display:flex; gap:0.2rem;">
+                                <span class="tag-badge yellow" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api_planned</span>
+                                <span class="tag-badge gray" style="font-size:0.55rem; padding:0.1rem 0.25rem;">no_test</span>
+                            </div>
+                        </div>
                     </div>
                     
                     </div>

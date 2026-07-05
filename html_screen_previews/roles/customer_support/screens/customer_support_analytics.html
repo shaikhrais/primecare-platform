@@ -106,28 +106,214 @@
         /* Toast style */
         .toast { position: absolute; bottom: 1rem; right: 1rem; background: #1e1b4b; border: 1px solid var(--accent); padding: 0.75rem 1.25rem; border-radius: 0.375rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
         .toast.show { opacity: 1; }
+
+        /* Tag panel badges */
+        .tag-badge { display: inline-flex; align-items: center; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .tag-badge.green { background: rgba(16, 185, 129, 0.12); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .tag-badge.yellow { background: rgba(245, 158, 11, 0.12); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tag-badge.red { background: rgba(239, 68, 68, 0.12); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .tag-badge.gray { background: rgba(255, 255, 255, 0.05); color: var(--text-sec); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
     <!-- Topbar -->
-    <div class="app-topbar">
+    <div class="app-topbar" data-entity-type="topbar" data-implementation-tag="implemented">
         <div class="topbar-brand">
             <i class="bi bi-shield-check"></i>
             <span>PrimeCare Portal</span>
         </div>
-        <div class="topbar-items"><i class="bi bi-search" title="Search"></i><i class="bi bi-notifications" title="Notifications"></i><i class="bi bi-badge" title="Role"></i><i class="bi bi-person" title="Profile"></i><i class="bi bi-logout" title="Logout"></i><i class="bi bi-search" title="Search"></i><i class="bi bi-notifications" title="Notifications"></i><i class="bi bi-badge" title="Role"></i><i class="bi bi-person" title="Profile"></i><i class="bi bi-logout" title="Logout"></i></div>
+        <div class="topbar-items">
+                    <i class="bi bi-search" title="Search" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="331" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-search"></i>
+                    
+                    <i class="bi bi-notifications" title="Notifications" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="332" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-notifications"></i>
+                    
+                    <i class="bi bi-badge" title="Role" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="333" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-role"></i>
+                    
+                    <i class="bi bi-person" title="Profile" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="334" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-profile"></i>
+                    
+                    <i class="bi bi-logout" title="Logout" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="335" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-logout"></i>
+                    
+                    <i class="bi bi-search" title="Search" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="566" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-search"></i>
+                    
+                    <i class="bi bi-notifications" title="Notifications" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="567" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-notifications"></i>
+                    
+                    <i class="bi bi-badge" title="Role" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="568" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-role"></i>
+                    
+                    <i class="bi bi-person" title="Profile" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="569" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-profile"></i>
+                    
+                    <i class="bi bi-logout" title="Logout" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="570" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-logout"></i>
+                    </div>
     </div>
     
     <div class="app-body">
         <!-- Sidebar -->
-        <div class="app-sidebar">
-            <div class="sidebar-section-title">General</div><a href="customer_support_analytics.html" class="sidebar-link active"><i class="bi bi-file-earmark-text"></i><span>CustomerSupportAnalytics</span></a><a href="customer_support_compliance.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>CustomerSupportCompliance</span></a><a href="customer_support_workflow.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>CustomerSupportWorkflow</span></a><a href="support_analytics.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>SupportAnalytics</span></a><a href="support_compliance.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>SupportCompliance</span></a><a href="support_workflow.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>SupportWorkflow</span></a><a href="ticket_management.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>TicketManagement</span></a><a href="client_issue.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>ClientIssue</span></a><a href="communication.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>Communication</span></a><a href="resolution_tracking.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>ResolutionTracking</span></a>
+        <div class="app-sidebar" data-entity-type="sidebar" data-implementation-tag="implemented">
+            <div class="sidebar-section-title">General</div>
+                        <a href="customer_support_analytics.html" class="sidebar-link active" 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="101" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-customersupportanalyticsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>CustomerSupportAnalytics</span>
+                        </a>
+                        
+                        <a href="customer_support_compliance.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="102" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-customersupportcompliancescreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>CustomerSupportCompliance</span>
+                        </a>
+                        
+                        <a href="customer_support_workflow.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="103" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-customersupportworkflowscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>CustomerSupportWorkflow</span>
+                        </a>
+                        
+                        <a href="support_analytics.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="141" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-supportanalyticsscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>SupportAnalytics</span>
+                        </a>
+                        
+                        <a href="support_compliance.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="142" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-supportcompliancescreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>SupportCompliance</span>
+                        </a>
+                        
+                        <a href="support_workflow.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="143" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-supportworkflowscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>SupportWorkflow</span>
+                        </a>
+                        
+                        <a href="ticket_management.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="473" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-ticketmanagementscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>TicketManagement</span>
+                        </a>
+                        
+                        <a href="client_issue.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="474" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-clientissuescreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>ClientIssue</span>
+                        </a>
+                        
+                        <a href="communication.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="475" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-communicationscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Communication</span>
+                        </a>
+                        
+                        <a href="resolution_tracking.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="476" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-resolutiontrackingscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>ResolutionTracking</span>
+                        </a>
+                        
         </div>
         
         <!-- Main Content -->
         <div class="app-main">
             <!-- Viewport -->
-            <div class="app-viewport" id="viewport">
+            <div class="app-viewport" id="viewport" 
+                data-entity-type="screen"
+                data-entity-id="101"
+                data-implementation-tag="placeholder"
+                data-content-tag="placeholder"
+                data-api-tag="api_missing"
+                data-test-tag="no_test"
+                data-review-tag="not_reviewed"
+                data-testid="viewport-content"
+            >
                 <!-- Top warnings -->
                 
                 
@@ -135,37 +321,156 @@
                 <!-- Main viewport dynamic content container -->
                 <div id="viewport-active-content">
                     
-                        <div class="screen-header-section">
+                        <div class="screen-header-section" 
+                        data-entity-type="section" 
+                        data-entity-id="4734" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-customer_support_analytics_header"
+                    >
                             <div class="header-title">
                                 <h2>CustomerSupportAnalytics</h2>
                                 <div class="breadcrumb">PrimeCare / Customer Support / CustomerSupportAnalyticsScreen</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
                             </div>
                             <div class="header-actions">
                                 
                             </div>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Filter Bar Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="4735" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-customer_support_analytics_filter_bar"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Filter Bar Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Filters to configure parameters for the report.</p>
                             <ul style="list-style: none; padding-left: 0;"></ul>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Metrics Summary Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="4736" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-customer_support_analytics_metrics_summary"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Metrics Summary Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <div class="metrics-grid"></div>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Chart Area Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="4737" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-customer_support_analytics_chart_area"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Chart Area Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Visual graphs and comparative diagrams.</p>
-                            <ul style="list-style: none; padding-left: 0;"><li><i class='bi bi-dot'></i> CustomerSupportAnalyticsScreen Primary Content <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span></li><li><i class='bi bi-dot'></i> Customersupportanalytics Title <span style='font-size:0.7rem; color:var(--text-muted);'>(header)</span></li><li><i class='bi bi-dot'></i> Customersupportanalytics Screen <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span></li><li><i class='bi bi-dot'></i> Customersupportanalytics Content <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span></li></ul>
+                            <ul style="list-style: none; padding-left: 0;">
+                            <li data-entity-type="element" data-entity-id="8037" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> CustomerSupportAnalyticsScreen Primary Content 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="8038" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Customersupportanalytics Title 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(header)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="8040" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Customersupportanalytics Screen 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="8041" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Customersupportanalytics Content 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(layout)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            </ul>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Export Actions Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="4738" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-customer_support_analytics_export_actions"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Export Actions Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">PDF/CSV download buttons.</p>
-                            <ul style="list-style: none; padding-left: 0;"><li><i class='bi bi-dot'></i> Customersupportanalytics Btn 1 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li><li><i class='bi bi-dot'></i> Customersupportanalytics Btn 2 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li></ul>
+                            <ul style="list-style: none; padding-left: 0;">
+                            <li data-entity-type="element" data-entity-id="8039" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Customersupportanalytics Btn 1 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="8042" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Customersupportanalytics Btn 2 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            </ul>
                         </div>
                         
                 </div>
@@ -202,6 +507,19 @@
                 </div>
                 
                 <div class="inspector-section">
+                    <div class="inspector-title">Compliance Tags</div>
+                    <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
+                        
+                <span class="tag-badge red">impl: placeholder</span>
+                <span class="tag-badge red">content: placeholder</span>
+                <span class="tag-badge red">api: api_missing</span>
+                <span class="tag-badge gray">test: no_test</span>
+                <span class="tag-badge gray">review: not_reviewed</span>
+            
+                    </div>
+                </div>
+
+                <div class="inspector-section">
                     <div class="inspector-title">Warnings / Gaps</div>
                     <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
                         <span class="warning-badge"><i class="bi bi-exclamation-triangle"></i> Not Production Ready</span>
@@ -212,10 +530,16 @@
                     <div class="inspector-title">Linked APIs</div>
                     <div style="margin-top:0.5rem;">
                         
-                    <div class="api-card">
+                    <div class="api-card" data-entity-type="api" data-entity-id="4378" data-api-tag="api_planned" data-test-tag="no_test">
                         <div class="api-method get">GET</div>
                         <div class="api-path">/v1/customer-support-analytics</div>
-                        <div style="font-size:0.7rem; color:var(--text-sec); margin-top:0.25rem;">Code: api_v1_customer_support_analytics_list_get</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
+                            <span style="font-size:0.7rem; color:var(--text-sec);">Code: api_v1_customer_support_analytics_list_get</span>
+                            <div style="display:flex; gap:0.2rem;">
+                                <span class="tag-badge yellow" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api_planned</span>
+                                <span class="tag-badge gray" style="font-size:0.55rem; padding:0.1rem 0.25rem;">no_test</span>
+                            </div>
+                        </div>
                     </div>
                     
                     </div>

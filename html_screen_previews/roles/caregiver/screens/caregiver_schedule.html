@@ -106,28 +106,159 @@
         /* Toast style */
         .toast { position: absolute; bottom: 1rem; right: 1rem; background: #1e1b4b; border: 1px solid var(--accent); padding: 0.75rem 1.25rem; border-radius: 0.375rem; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
         .toast.show { opacity: 1; }
+
+        /* Tag panel badges */
+        .tag-badge { display: inline-flex; align-items: center; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .tag-badge.green { background: rgba(16, 185, 129, 0.12); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.2); }
+        .tag-badge.yellow { background: rgba(245, 158, 11, 0.12); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .tag-badge.red { background: rgba(239, 68, 68, 0.12); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .tag-badge.gray { background: rgba(255, 255, 255, 0.05); color: var(--text-sec); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
 <body>
     <!-- Topbar -->
-    <div class="app-topbar">
+    <div class="app-topbar" data-entity-type="topbar" data-implementation-tag="implemented">
         <div class="topbar-brand">
             <i class="bi bi-shield-check"></i>
             <span>PrimeCare Portal</span>
         </div>
-        <div class="topbar-items"><i class="bi bi-search" title="Search"></i><i class="bi bi-notifications" title="Notifications"></i><i class="bi bi-badge" title="Role"></i><i class="bi bi-person" title="Profile"></i><i class="bi bi-logout" title="Logout"></i></div>
+        <div class="topbar-items">
+                    <i class="bi bi-search" title="Search" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="56" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-search"></i>
+                    
+                    <i class="bi bi-notifications" title="Notifications" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="57" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-notifications"></i>
+                    
+                    <i class="bi bi-badge" title="Role" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="58" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-role"></i>
+                    
+                    <i class="bi bi-person" title="Profile" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="59" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-profile"></i>
+                    
+                    <i class="bi bi-logout" title="Logout" 
+                       data-entity-type="topbar_item" 
+                       data-entity-id="60" 
+                       data-implementation-tag="implemented" 
+                       data-action-tag="placeholder_action"
+                       data-testid="topbar-item-logout"></i>
+                    </div>
     </div>
     
     <div class="app-body">
         <!-- Sidebar -->
-        <div class="app-sidebar">
-            <div class="sidebar-section-title">Overview</div><a href="caregiver_dashboard.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>CaregiverDashboard</span></a><div class="sidebar-section-title">General</div><a href="caregiver_tasks.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>CaregiverTasks</span></a><a href="caregiver_client_profile.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>CaregiverClientProfile</span></a><a href="caregiver_visit_notes.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>CaregiverVisitNotes</span></a><a href="caregiver_schedule.html" class="sidebar-link active"><i class="bi bi-file-earmark-text"></i><span>CaregiverSchedule</span></a><a href="caregiver_incident_report.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>CaregiverIncidentReport</span></a><a href="schedule.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>Schedule</span></a><a href="messaging.html" class="sidebar-link "><i class="bi bi-file-earmark-text"></i><span>Messaging</span></a>
+        <div class="app-sidebar" data-entity-type="sidebar" data-implementation-tag="implemented">
+            <div class="sidebar-section-title">Overview</div>
+                        <a href="caregiver_dashboard.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="12" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-caregiverdashboardscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>CaregiverDashboard</span>
+                        </a>
+                        <div class="sidebar-section-title">General</div>
+                        <a href="caregiver_tasks.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="278" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-caregivertasksscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>CaregiverTasks</span>
+                        </a>
+                        
+                        <a href="caregiver_client_profile.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="279" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-caregiverclientprofilescreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>CaregiverClientProfile</span>
+                        </a>
+                        
+                        <a href="caregiver_visit_notes.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="280" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-caregivervisitnotesscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>CaregiverVisitNotes</span>
+                        </a>
+                        
+                        <a href="caregiver_schedule.html" class="sidebar-link active" 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="281" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-caregiverschedulescreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>CaregiverSchedule</span>
+                        </a>
+                        
+                        <a href="caregiver_incident_report.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="282" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-caregiverincidentreportscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>CaregiverIncidentReport</span>
+                        </a>
+                        
+                        <a href="schedule.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="493" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-schedulescreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Schedule</span>
+                        </a>
+                        
+                        <a href="messaging.html" class="sidebar-link " 
+                           data-entity-type="sidebar_item" 
+                           data-entity-id="494" 
+                           data-implementation-tag="implemented" 
+                           data-test-tag="no_test" 
+                           data-testid="sidebar-item-messagingscreen">
+                            <i class="bi bi-file-earmark-text"></i>
+                            <span>Messaging</span>
+                        </a>
+                        
         </div>
         
         <!-- Main Content -->
         <div class="app-main">
             <!-- Viewport -->
-            <div class="app-viewport" id="viewport">
+            <div class="app-viewport" id="viewport" 
+                data-entity-type="screen"
+                data-entity-id="281"
+                data-implementation-tag="placeholder"
+                data-content-tag="placeholder"
+                data-api-tag="api_missing"
+                data-test-tag="no_test"
+                data-review-tag="not_reviewed"
+                data-testid="viewport-content"
+            >
                 <!-- Top warnings -->
                 
                 
@@ -135,44 +266,263 @@
                 <!-- Main viewport dynamic content container -->
                 <div id="viewport-active-content">
                     
-                        <div class="screen-header-section">
+                        <div class="screen-header-section" 
+                        data-entity-type="section" 
+                        data-entity-id="5574" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-caregiver_schedule_header"
+                    >
                             <div class="header-title">
                                 <h2>CaregiverSchedule</h2>
                                 <div class="breadcrumb">PrimeCare / Caregiver / CaregiverScheduleScreen</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
                             </div>
                             <div class="header-actions">
                                 
                             </div>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Calendar Controls Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="5575" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-caregiver_schedule_calendar_controls"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Calendar Controls Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Day, week, month selector toggles.</p>
                             <ul style="list-style: none; padding-left: 0;"></ul>
                         </div>
                         
-                        <div class="content-card">
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="5576" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-caregiver_schedule_schedule_list"
+                    >
                             <div class="card-header">
                                 <div class="card-title">Schedule List Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
                             </div>
                             <div class="table-responsive">
                                 <table class="mock-table">
                                     <thead><tr><th>CaregiverScheduleScreen Primary Content</th><th>Caregiverschedule Content</th><th>Caregiverschedule Title</th><th>Caregiverschedule Loading</th><th>Caregiverschedule Screen</th></tr></thead>
-                                    <tbody><tr><td>Mock CaregiverScheduleScreen Primary Content 1</td><td>Mock Caregiverschedule Content 1</td><td>Mock Caregiverschedule Title 1</td><td>Mock Caregiverschedule Loading 1</td><td>Mock Caregiverschedule Screen 1</td></tr><tr><td>Mock CaregiverScheduleScreen Primary Content 2</td><td>Mock Caregiverschedule Content 2</td><td>Mock Caregiverschedule Title 2</td><td>Mock Caregiverschedule Loading 2</td><td>Mock Caregiverschedule Screen 2</td></tr><tr><td>Mock CaregiverScheduleScreen Primary Content 3</td><td>Mock Caregiverschedule Content 3</td><td>Mock Caregiverschedule Title 3</td><td>Mock Caregiverschedule Loading 3</td><td>Mock Caregiverschedule Screen 3</td></tr></tbody>
+                                    <tbody><tr>
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9693" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-primary_content-1">
+                                        Mock CaregiverScheduleScreen Primary Content 1
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9695" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-caregiverschedule_content-1">
+                                        Mock Caregiverschedule Content 1
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9696" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-caregiverschedule_title-1">
+                                        Mock Caregiverschedule Title 1
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9697" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-caregiverschedule_loading-1">
+                                        Mock Caregiverschedule Loading 1
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9699" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-caregiverschedule_screen-1">
+                                        Mock Caregiverschedule Screen 1
+                                    </td>
+                                    </tr><tr>
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9693" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-primary_content-2">
+                                        Mock CaregiverScheduleScreen Primary Content 2
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9695" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-caregiverschedule_content-2">
+                                        Mock Caregiverschedule Content 2
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9696" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-caregiverschedule_title-2">
+                                        Mock Caregiverschedule Title 2
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9697" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-caregiverschedule_loading-2">
+                                        Mock Caregiverschedule Loading 2
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9699" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-caregiverschedule_screen-2">
+                                        Mock Caregiverschedule Screen 2
+                                    </td>
+                                    </tr><tr>
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9693" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-primary_content-3">
+                                        Mock CaregiverScheduleScreen Primary Content 3
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9695" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-caregiverschedule_content-3">
+                                        Mock Caregiverschedule Content 3
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9696" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-caregiverschedule_title-3">
+                                        Mock Caregiverschedule Title 3
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9697" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-caregiverschedule_loading-3">
+                                        Mock Caregiverschedule Loading 3
+                                    </td>
+                                    
+                                    <td data-entity-type="element" 
+                                        data-entity-id="9699" 
+                                        data-implementation-tag="placeholder" 
+                                        data-content-tag="placeholder"
+                                        data-testid="cell-caregiverschedule_screen-3">
+                                        Mock Caregiverschedule Screen 3
+                                    </td>
+                                    </tr></tbody>
                                 </table>
                             </div>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Appointment Details Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="5577" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-caregiver_schedule_appointment_details"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Appointment Details Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Detailed card of the selected item.</p>
                             <ul style="list-style: none; padding-left: 0;"></ul>
                         </div>
                         
-                        <div class="content-card">
-                            <div class="card-title">Action Bar Section</div>
+                        <div class="content-card" 
+                        data-entity-type="section" 
+                        data-entity-id="5578" 
+                        data-implementation-tag="placeholder" 
+                        data-content-tag="placeholder" 
+                        data-api-tag="api_missing" 
+                        data-test-tag="no_test" 
+                        data-testid="section-caregiver_schedule_action_bar"
+                    >
+                            <div class="card-header">
+                                <div class="card-title">Action Bar Section</div>
+                                
+                    <div style="margin-top:0.25rem; display:flex; gap:0.25rem;">
+                        <span class="tag-badge red">impl: placeholder</span>
+                        <span class="tag-badge red">content: placeholder</span>
+                        <span class="tag-badge red">api: api_missing</span>
+                    </div>
+                    
+                            </div>
                             <p style="font-size: 0.9rem; color: var(--text-sec); margin-bottom: 1rem;">Action buttons (book, cancel, reschedule).</p>
-                            <ul style="list-style: none; padding-left: 0;"><li><i class='bi bi-dot'></i> Caregiverschedule Btn 2 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li><li><i class='bi bi-dot'></i> Caregiverschedule Btn 3 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li><li><i class='bi bi-dot'></i> Caregiverschedule Btn 1 <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span></li></ul>
+                            <ul style="list-style: none; padding-left: 0;">
+                            <li data-entity-type="element" data-entity-id="9694" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Caregiverschedule Btn 2 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="9698" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Caregiverschedule Btn 3 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            
+                            <li data-entity-type="element" data-entity-id="9700" data-implementation-tag="placeholder">
+                                <i class='bi bi-dot'></i> Caregiverschedule Btn 1 
+                                <span style='font-size:0.7rem; color:var(--text-muted);'>(button)</span>
+                                <span class="tag-badge red" style="font-size:0.55rem; padding:0.1rem 0.25rem; margin-left:0.5rem;">placeholder</span>
+                            </li>
+                            </ul>
                         </div>
                         
                 </div>
@@ -209,6 +559,19 @@
                 </div>
                 
                 <div class="inspector-section">
+                    <div class="inspector-title">Compliance Tags</div>
+                    <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
+                        
+                <span class="tag-badge red">impl: placeholder</span>
+                <span class="tag-badge red">content: placeholder</span>
+                <span class="tag-badge red">api: api_missing</span>
+                <span class="tag-badge gray">test: no_test</span>
+                <span class="tag-badge gray">review: not_reviewed</span>
+            
+                    </div>
+                </div>
+
+                <div class="inspector-section">
                     <div class="inspector-title">Warnings / Gaps</div>
                     <div style="display:flex; flex-direction:column; gap:0.25rem; margin-top:0.25rem;">
                         <span class="warning-badge"><i class="bi bi-exclamation-triangle"></i> Not Production Ready</span>
@@ -219,10 +582,16 @@
                     <div class="inspector-title">Linked APIs</div>
                     <div style="margin-top:0.5rem;">
                         
-                    <div class="api-card">
+                    <div class="api-card" data-entity-type="api" data-entity-id="4604" data-api-tag="api_planned" data-test-tag="no_test">
                         <div class="api-method get">GET</div>
                         <div class="api-path">/v1/caregiver-schedule</div>
-                        <div style="font-size:0.7rem; color:var(--text-sec); margin-top:0.25rem;">Code: api_v1_caregiver_schedule_list_get</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:0.25rem;">
+                            <span style="font-size:0.7rem; color:var(--text-sec);">Code: api_v1_caregiver_schedule_list_get</span>
+                            <div style="display:flex; gap:0.2rem;">
+                                <span class="tag-badge yellow" style="font-size:0.55rem; padding:0.1rem 0.25rem;">api_planned</span>
+                                <span class="tag-badge gray" style="font-size:0.55rem; padding:0.1rem 0.25rem;">no_test</span>
+                            </div>
+                        </div>
                     </div>
                     
                     </div>
