@@ -57,18 +57,18 @@ class LanguageNotifier extends Notifier<String> {
   }
 
   Future<void> setLanguage(String langCode) async {
-    if (state == langCode) return;
-
-    // Update local state (this will notify listeners immediately)
-    state = langCode;
-
-    // Persist and update the user profile via AuthProvider
-    await ref.read(authProvider.notifier).updatePreferredLanguage(langCode);
-
-    // Also save to SharedPreferences for guest/persistent use
+    // 1. Always persist selection preference to SharedPreferences for guest/persistent routing
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_langKey, langCode);
     await prefs.setBool('auth_language_selected', true);
+
+    if (state == langCode) return;
+
+    // 2. Update local state (this will notify listeners immediately)
+    state = langCode;
+
+    // 3. Persist and update the user profile via AuthProvider
+    await ref.read(authProvider.notifier).updatePreferredLanguage(langCode);
   }
 }
 
