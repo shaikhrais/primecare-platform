@@ -107,9 +107,6 @@ final loginSuccessRedirectProvider = StateProvider<bool>((ref) => false);
 bool _hasForcedLogout = false;
 
 final authRouterProvider = Provider<GoRouter>((ref) {
-  // Clean Rebuild: Recreates GoRouter delegate to force refreshing current active route with new locale context
-  ref.watch(languageProvider);
-
   return GoRouter(
     initialLocation: '/login',
     refreshListenable: authListenable,

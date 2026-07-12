@@ -261,14 +261,21 @@ class LanguageSelectionView extends GovernedScreen {
   }
 
   Future<void> _updateLanguage(BuildContext context, WidgetRef ref, String lang) async {
-    // 1. First trigger setLocale on BuildContext and await it to update easy_localization internal state
+    // 1. Update Riverpod provider and wait for SharedPreferences write to complete
+    await ref.read(languageProvider.notifier).setLanguage(lang);
+
+    // 2. Trigger setLocale on BuildContext to update easy_localization internal state
     if (context.mounted) {
       await context.setLocale(Locale(lang));
     }
-    // 2. Then update Riverpod provider state to trigger clean UI repaint
-    await ref.read(languageProvider.notifier).setLanguage(lang);
+
+    // 3. Persist key via sharedPreferencesProvider as backup if not null
+    final prefs = ref.read(sharedPreferencesProvider);
+    if (prefs != null) {
+      await prefs.setBool('auth_language_selected', true);
+    }
     
-    // 3. Automatically transition to login view
+    // 4. Automatically transition to login view
     if (context.mounted) {
       context.go('/login');
     }
