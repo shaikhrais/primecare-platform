@@ -69,10 +69,10 @@ class LanguageSelectionView extends GovernedScreen {
         constraints: const BoxConstraints(maxWidth: 500),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(32),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-            child: Container(
-              padding: EdgeInsets.all(theme.spacing.xxl),
+            child: Cy(
+              id: 'page-language-selection',
+              child: Container(
+                padding: EdgeInsets.all(theme.spacing.xxl),
               decoration: BoxDecoration(
                 color: theme.colors.surface.withValues(alpha: 0.7),
                 borderRadius: BorderRadius.circular(32),

@@ -69,28 +69,31 @@ class LoginView extends GovernedScreen {
     );
 
     return AuthParentLayout(
-      child: isDesktop
-          ? Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Expanded(
-                  flex: 5,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(24)),
-                    child: SizedBox(
-                      height: 600,
-                      child: _LoginBillboard(),
+      child: Cy(
+        id: 'page-login',
+        child: isDesktop
+            ? Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Expanded(
+                    flex: 5,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(24)),
+                      child: SizedBox(
+                        height: 600,
+                        child: _LoginBillboard(),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 48),
-                Expanded(
-                  flex: 4,
-                  child: formContent,
-                ),
-              ],
-            )
-          : formContent,
+                  const SizedBox(width: 48),
+                  Expanded(
+                    flex: 4,
+                    child: formContent,
+                  ),
+                ],
+              )
+            : formContent,
+      ),
     );
   }
 }
