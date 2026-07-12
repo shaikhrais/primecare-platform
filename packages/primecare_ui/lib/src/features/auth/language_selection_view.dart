@@ -139,29 +139,38 @@ class LanguageSelectionView extends GovernedScreen {
                   ),
                   const SizedBox(height: 36),
 
-                  // 2. Language Option Grid
-                  _LanguageOptionCard(
-                    title: 'language_en_title'.tr(),
-                    subtitle: 'language_en_subtitle'.tr(),
-                    flag: '🇺🇸',
-                    isSelected: activeLang == 'en',
-                    onTap: () => _updateLanguage(context, ref, 'en'),
+                   // 2. Language Option Grid
+                  Cy(
+                    id: 'language-card-en',
+                    child: _LanguageOptionCard(
+                      title: 'language_en_title'.tr(),
+                      subtitle: 'language_en_subtitle'.tr(),
+                      flag: '🇺🇸',
+                      isSelected: activeLang == 'en',
+                      onTap: () => _updateLanguage(context, ref, 'en'),
+                    ),
                   ),
                   const SizedBox(height: 12),
-                  _LanguageOptionCard(
-                    title: 'language_fr_title'.tr(),
-                    subtitle: 'language_fr_subtitle'.tr(),
-                    flag: '🇫🇷',
-                    isSelected: activeLang == 'fr',
-                    onTap: () => _updateLanguage(context, ref, 'fr'),
+                  Cy(
+                    id: 'language-card-fr',
+                    child: _LanguageOptionCard(
+                      title: 'language_fr_title'.tr(),
+                      subtitle: 'language_fr_subtitle'.tr(),
+                      flag: '🇫🇷',
+                      isSelected: activeLang == 'fr',
+                      onTap: () => _updateLanguage(context, ref, 'fr'),
+                    ),
                   ),
                   const SizedBox(height: 12),
-                  _LanguageOptionCard(
-                    title: 'language_es_title'.tr(),
-                    subtitle: 'language_es_subtitle'.tr(),
-                    flag: '🇪🇸',
-                    isSelected: activeLang == 'es',
-                    onTap: () => _updateLanguage(context, ref, 'es'),
+                  Cy(
+                    id: 'language-card-es',
+                    child: _LanguageOptionCard(
+                      title: 'language_es_title'.tr(),
+                      subtitle: 'language_es_subtitle'.tr(),
+                      flag: '🇪🇸',
+                      isSelected: activeLang == 'es',
+                      onTap: () => _updateLanguage(context, ref, 'es'),
+                    ),
                   ),
 
                   const SizedBox(height: 36),
