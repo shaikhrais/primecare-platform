@@ -258,6 +258,11 @@ class LanguageSelectionView extends GovernedScreen {
     }
     // 2. Then update Riverpod provider state to trigger clean UI repaint
     await ref.read(languageProvider.notifier).setLanguage(lang);
+    
+    // 3. Automatically transition to login view
+    if (context.mounted) {
+      context.go('/login');
+    }
   }
 }
 

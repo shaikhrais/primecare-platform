@@ -13,7 +13,7 @@ if (Test-Path ".env") {
             $val = $Matches[2].Trim()
             if ($val.StartsWith('"') -and $val.EndsWith('"')) { $val = $val.Substring(1, $val.Length - 2) }
             if ($val.StartsWith("'") -and $val.EndsWith("'")) { $val = $val.Substring(1, $val.Length - 2) }
-            $env:$key = $val
+            [System.Environment]::SetEnvironmentVariable($key, $val, "Process")
         }
     }
 }
