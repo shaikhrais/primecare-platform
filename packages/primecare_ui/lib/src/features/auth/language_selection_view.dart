@@ -70,7 +70,7 @@ class LanguageSelectionView extends GovernedScreen {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(32),
             child: Cy(
-              id: 'page-language-selection',
+              id: 'language-page',
               child: Container(
                 padding: EdgeInsets.all(theme.spacing.xxl),
               decoration: BoxDecoration(
@@ -141,7 +141,7 @@ class LanguageSelectionView extends GovernedScreen {
 
                    // 2. Language Option Grid
                   Cy(
-                    id: 'language-card-en',
+                    id: 'language-english',
                     child: _LanguageOptionCard(
                       title: 'language_en_title'.tr(),
                       subtitle: 'language_en_subtitle'.tr(),

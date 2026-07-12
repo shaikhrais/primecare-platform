@@ -70,7 +70,7 @@ class LoginView extends GovernedScreen {
 
     return AuthParentLayout(
       child: Cy(
-        id: 'page-login',
+        id: 'login-page',
         child: isDesktop
             ? Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
