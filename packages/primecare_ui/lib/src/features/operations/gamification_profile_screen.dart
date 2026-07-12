@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=gamification_profile
 PRIME:DESIGN=DESIGN_APPROVED

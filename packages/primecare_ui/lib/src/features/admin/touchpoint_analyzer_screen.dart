@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=touchpoint_analyzer
 PRIME:DESIGN=DESIGN_APPROVED

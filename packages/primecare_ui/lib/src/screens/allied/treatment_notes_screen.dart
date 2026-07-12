@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 // Governance - Category: view | Purpose: UI Screen component rendering the TreatmentNotesScreen workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 

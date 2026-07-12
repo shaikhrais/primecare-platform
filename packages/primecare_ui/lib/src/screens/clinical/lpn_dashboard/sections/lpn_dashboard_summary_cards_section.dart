@@ -1,19 +1,49 @@
 import 'package:flutter/material.dart';
 
 class LpnDashboardSummaryCardsSection extends StatelessWidget {
-  const LpnDashboardSummaryCardsSection({super.key});
+  final Map<String, dynamic> data;
+  const LpnDashboardSummaryCardsSection({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: const Key('lpn_dashboard_summary_cards-section'),
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text('Summary Cards Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          // TODO: Add element slots here from DB
-        ],
+    return Semantics(
+      label: 'lpndashboard_content',
+      container: true,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      const Text('Active Patients'),
+                      const SizedBox(height: 8),
+                      Text('${data['active_patients'] ?? 0}', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      const Text('Completed Treatments'),
+                      const SizedBox(height: 8),
+                      Text('${data['completed_treatments'] ?? 0}', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

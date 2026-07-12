@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=referral_network_manager
 PRIME:DESIGN=DESIGN_APPROVED

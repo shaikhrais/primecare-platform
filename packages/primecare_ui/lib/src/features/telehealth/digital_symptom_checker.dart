@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=digital_symptom_checker
 PRIME:DESIGN=DESIGN_APPROVED

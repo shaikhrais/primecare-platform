@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=vulnerable_population_registry
 PRIME:DESIGN=DESIGN_APPROVED

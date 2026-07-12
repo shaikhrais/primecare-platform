@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=controlled_substance_log
 PRIME:DESIGN=DESIGN_APPROVED

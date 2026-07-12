@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 
 class RnFieldSupervisorAnalyticsHeaderSection extends StatelessWidget {
-  const RnFieldSupervisorAnalyticsHeaderSection({super.key});
+  final Map<String, dynamic> data;
+  const RnFieldSupervisorAnalyticsHeaderSection({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: const Key('rn_field_supervisor_analytics_header-section'),
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text('Header Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          // TODO: Add element slots here from DB
-        ],
+    return Semantics(
+      label: 'rn_field_supervisor_analytics_header_title',
+      container: true,
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            Text('Header Section', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            SizedBox(height: 4),
+            Text('Clinical Care Operations Status.', style: TextStyle(color: Colors.grey)),
+          ],
+        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=virtual_waiting_room
 PRIME:DESIGN=DESIGN_APPROVED

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=event_and_webinar_manager
 PRIME:DESIGN=DESIGN_APPROVED

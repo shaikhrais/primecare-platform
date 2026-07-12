@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=telehealth_consultation_room
 PRIME:DESIGN=DESIGN_APPROVED

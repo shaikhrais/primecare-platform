@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=community_health_needs_assessment
 PRIME:DESIGN=DESIGN_APPROVED

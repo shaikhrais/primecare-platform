@@ -180,5 +180,3690 @@
     "login_slogan_6": "COUCHE 4 DE SÉCURITÉ D'ENTREPRISE",
     "login_slogan_7": "PROTECTION D'IDENTITÉ DÉCENTRALISÉE",
     "login_slogan_8": "VALIDATION DE PARITÉ CONTINUE",
-    "login_slogan_9": "REGISTRE DE GOUVERNANCE RENFORCÉ"
+    "login_slogan_9": "REGISTRE DE GOUVERNANCE RENFORCÉ",
+    "np_dashboard": {
+        "title": "Nurse Practitioner Tableau de bord",
+        "header_title": "NP Clinical Workspace",
+        "summary_title": "Metrics Summary",
+        "btn_save": "Save Visit Log",
+        "btn_export": "Export Report",
+        "btn_refresh": "Sync Clinic Data",
+        "active_cases": "Active Clinical Cases",
+        "pending_prescriptions": "Pending Prescriptions",
+        "avg_triage_time": "Avg Triage Duration"
+    },
+    "rmt_dashboard": {
+        "title": "RMT Clinical Tableau de bord",
+        "header_title": "RMT Therapeutic Workspace",
+        "summary_title": "Appointments Summary",
+        "btn_new_session": "New SOAP Entry",
+        "btn_complete": "Complete Session",
+        "btn_refresh": "Sync Appointments",
+        "active_patients": "Active Massage Cases Today",
+        "pending_notes": "Pending SOAP Documents"
+    },
+    "cns_dashboard": {
+        "title": "CNS Clinical Tableau de bord",
+        "header_title": "CNS Specialist Workspace",
+        "summary_title": "Consultations Summary",
+        "btn_new_protocol": "New Clinical Protocol",
+        "btn_audit": "Audit Practice",
+        "btn_refresh": "Sync Cases",
+        "active_consults": "Active Consultations",
+        "pending_approvals": "Pending Protocols"
+    },
+    "hsw_dashboard": {
+        "title": "HSW Clinical Tableau de bord",
+        "header_title": "Home Support Workspace",
+        "summary_title": "Visits Summary",
+        "btn_log_visit": "Log Patient Visit",
+        "btn_checkin": "Safety Check-in",
+        "btn_refresh": "Sync Care Plan",
+        "active_visits": "Scheduled Visits Today",
+        "completed_logs": "Completed Visit Logs"
+    },
+    "lpn_dashboard": {
+        "title": "LPN Clinical Tableau de bord",
+        "header_title": "LPN Clinical Workspace",
+        "summary_title": "Treatments Summary",
+        "btn_log_visit": "Record Medication",
+        "btn_vitals": "Log Vitals",
+        "btn_refresh": "Sync Medication Sheet",
+        "active_patients": "Active Patients Today",
+        "completed_treatments": "Completed Treatments"
+    },
+    "pediatric_dashboard": {
+        "title": "Pediatric Clinical Tableau de bord",
+        "header_title": "Spécialiste en pédiatrie Workspace",
+        "summary_title": "Pediatric Cases Summary",
+        "btn_growth": "Record Growth Chart",
+        "btn_vaccine": "Log Vaccination",
+        "btn_refresh": "Sync Pediatric Cases",
+        "active_patients": "Active Pediatric Cases",
+        "completed_immunizations": "Immunizations Logged"
+    },
+    "physician_dashboard": {
+        "title": "Médecin Clinical Tableau de bord",
+        "header_title": "Médecin Clinical Workspace",
+        "summary_title": "Clinical Status Summary",
+        "btn_admission": "Admit Patient",
+        "btn_labs": "Request Lab Order",
+        "btn_refresh": "Sync Cases",
+        "active_patients": "Active Admitted Patients",
+        "pending_labs": "Pending Labs & Diagnostics"
+    },
+    "architecture_planning_dashboard": {
+        "title": "Architecture Tableau de bord",
+        "header_title": "Architecture & Technology Workspace",
+        "summary_title": "Systems Summary",
+        "btn_new_blueprint": "New Tech Blueprint",
+        "btn_audit_db": "Audit DB Schema",
+        "btn_refresh": "Sync Roadmaps",
+        "active_designs": "Active System Designs",
+        "pending_reviews": "Pending Architectural Reviews"
+    },
+    "business_development_dashboard": {
+        "title": "Business Development Tableau de bord Centre",
+        "header_title": "Business Development Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "caregiver_dashboard": {
+        "title": "Caregiver Tableau de bord Centre",
+        "header_title": "Caregiver Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractor_dashboard": {
+        "title": "Chiropractor Tableau de bord Centre",
+        "header_title": "Chiropractor Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinic_dashboard": {
+        "title": "Clinic Tableau de bord Centre",
+        "header_title": "Clinic Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "course_architect_dashboard": {
+        "title": "Course Architect Tableau de bord Centre",
+        "header_title": "Course Architect Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "dynamic_screen_dashboard": {
+        "title": "Dynamic Screen Tableau de bord Centre",
+        "header_title": "Dynamic Screen Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "family_member_dashboard": {
+        "title": "Family Member Tableau de bord Centre",
+        "header_title": "Family Member Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_dashboard": {
+        "title": "Franchise Tableau de bord Centre",
+        "header_title": "Franchise Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "infrastructure_dashboard": {
+        "title": "Infrastructure Tableau de bord Centre",
+        "header_title": "Infrastructure Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_dashboard": {
+        "title": "Intake Tableau de bord Centre",
+        "header_title": "Intake Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "office_dashboard": {
+        "title": "Office Tableau de bord Centre",
+        "header_title": "Office Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "patient_dashboard": {
+        "title": "Patient Tableau de bord Centre",
+        "header_title": "Patient Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physiotherapist_dashboard": {
+        "title": "Physiotherapist Tableau de bord Centre",
+        "header_title": "Physiotherapist Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "portal_dashboard": {
+        "title": "Portal Tableau de bord Centre",
+        "header_title": "Portal Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "qa_dashboard": {
+        "title": "Qa Tableau de bord Centre",
+        "header_title": "Qa Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "social_worker_dashboard": {
+        "title": "Social Worker Tableau de bord Centre",
+        "header_title": "Social Worker Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "support_dashboard": {
+        "title": "Support Tableau de bord Centre",
+        "header_title": "Support Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "system_verification_dashboard": {
+        "title": "System Verification Tableau de bord Centre",
+        "header_title": "System Verification Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_hub_dashboard": {
+        "title": "Training Centre Tableau de bord Centre",
+        "header_title": "Training Centre Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "ciso_dashboard": {
+        "title": "Ciso Tableau de bord Centre",
+        "header_title": "Ciso Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cx_director_dashboard": {
+        "title": "Cx Director Tableau de bord Centre",
+        "header_title": "Cx Director Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "finance_director_dashboard": {
+        "title": "Finance Director Tableau de bord Centre",
+        "header_title": "Finance Director Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_director_dashboard": {
+        "title": "Hr Director Tableau de bord Centre",
+        "header_title": "Hr Director Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "legal_dashboard": {
+        "title": "Legal Tableau de bord Centre",
+        "header_title": "Legal Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "owner_dashboard": {
+        "title": "Owner Tableau de bord Centre",
+        "header_title": "Owner Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_director_dashboard": {
+        "title": "Training Director Tableau de bord Centre",
+        "header_title": "Training Director Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "community_outreach_dashboard": {
+        "title": "Community Outreach Tableau de bord Centre",
+        "header_title": "Community Outreach Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "compliance_manager_dashboard": {
+        "title": "Conformité Manager Tableau de bord Centre",
+        "header_title": "Conformité Manager Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_sales_manager_dashboard": {
+        "title": "Ventes de franchise Manager Tableau de bord Centre",
+        "header_title": "Ventes de franchise Manager Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "general_manager_dashboard": {
+        "title": "General Manager Tableau de bord Centre",
+        "header_title": "General Manager Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "governance_officer_dashboard": {
+        "title": "Gouvernance Officer Tableau de bord Centre",
+        "header_title": "Gouvernance Officer Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "local_marketing_manager_dashboard": {
+        "title": "Local Marketing Manager Tableau de bord Centre",
+        "header_title": "Local Marketing Manager Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "partnership_manager_dashboard": {
+        "title": "Partnership Manager Tableau de bord Centre",
+        "header_title": "Partnership Manager Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "premium_concierge_dashboard": {
+        "title": "Concierge Premium Tableau de bord Centre",
+        "header_title": "Concierge Premium Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "regional_bdm_dashboard": {
+        "title": "Regional Bdm Tableau de bord Centre",
+        "header_title": "Regional Bdm Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "regional_manager_usa_dashboard": {
+        "title": "Regional Manager Usa Tableau de bord Centre",
+        "header_title": "Regional Manager Usa Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "territory_expansion_manager_dashboard": {
+        "title": "Territory Expansion Manager Tableau de bord Centre",
+        "header_title": "Territory Expansion Manager Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "territory_sales_manager_dashboard": {
+        "title": "Territory Sales Manager Tableau de bord Centre",
+        "header_title": "Territory Sales Manager Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "vip_manager_dashboard": {
+        "title": "Vip Manager Tableau de bord Centre",
+        "header_title": "Vip Manager Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_dashboard": {
+        "title": "Rn Tableau de bord Centre",
+        "header_title": "Rn Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_field_supervisor_dashboard": {
+        "title": "Rn Superviseur de terrain Tableau de bord Centre",
+        "header_title": "Rn Superviseur de terrain Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rpn_dashboard": {
+        "title": "Rpn Tableau de bord Centre",
+        "header_title": "Rpn Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "employee_dashboard": {
+        "title": "Employé Tableau de bord Centre",
+        "header_title": "Employé Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_manager_dashboard": {
+        "title": "Hr Manager Tableau de bord Centre",
+        "header_title": "Hr Manager Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_coordinator_dashboard": {
+        "title": "Intake Coordinator Tableau de bord Centre",
+        "header_title": "Intake Coordinator Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "quality_assurance_dashboard": {
+        "title": "Quality Assurance Tableau de bord Centre",
+        "header_title": "Quality Assurance Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_coordinator_dashboard": {
+        "title": "Training Coordinator Tableau de bord Centre",
+        "header_title": "Training Coordinator Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "volunteer_coordinator_dashboard": {
+        "title": "Volunteer Coordinator Tableau de bord Centre",
+        "header_title": "Volunteer Coordinator Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "volunteer_dashboard": {
+        "title": "Volunteer Tableau de bord Centre",
+        "header_title": "Volunteer Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rmt_analytics": {
+        "title": "Rmt Analyses Centre",
+        "header_title": "Rmt Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rmt_compliance": {
+        "title": "Rmt Conformité Centre",
+        "header_title": "Rmt Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rmt_workflow": {
+        "title": "Rmt Flux de travail Centre",
+        "header_title": "Rmt Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinical_analytics": {
+        "title": "Clinical Analyses Centre",
+        "header_title": "Clinical Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinical_compliance": {
+        "title": "Clinical Conformité Centre",
+        "header_title": "Clinical Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinical_workflow": {
+        "title": "Clinical Flux de travail Centre",
+        "header_title": "Clinical Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hsw_adl_logger": {
+        "title": "Hsw Adl Logger Centre",
+        "header_title": "Hsw Adl Logger Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hsw_care_plans": {
+        "title": "Hsw Care Plans Centre",
+        "header_title": "Hsw Care Plans Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hsw_incident_reports": {
+        "title": "Hsw Incident Reports Centre",
+        "header_title": "Hsw Incident Reports Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hsw_schedule": {
+        "title": "Hsw Schedule Centre",
+        "header_title": "Hsw Schedule Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "architecture_planning_analytics": {
+        "title": "Architecture Planning Analyses Centre",
+        "header_title": "Architecture Planning Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "architecture_planning_compliance": {
+        "title": "Architecture Planning Conformité Centre",
+        "header_title": "Architecture Planning Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "architecture_planning_workflow": {
+        "title": "Architecture Planning Flux de travail Centre",
+        "header_title": "Architecture Planning Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "business_development_analytics": {
+        "title": "Business Development Analyses Centre",
+        "header_title": "Business Development Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "business_development_compliance": {
+        "title": "Business Development Conformité Centre",
+        "header_title": "Business Development Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "business_development_workflow": {
+        "title": "Business Development Flux de travail Centre",
+        "header_title": "Business Development Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractor_analytics": {
+        "title": "Chiropractor Analyses Centre",
+        "header_title": "Chiropractor Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractor_compliance": {
+        "title": "Chiropractor Conformité Centre",
+        "header_title": "Chiropractor Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractor_workflow": {
+        "title": "Chiropractor Flux de travail Centre",
+        "header_title": "Chiropractor Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinic_analytics": {
+        "title": "Clinic Analyses Centre",
+        "header_title": "Clinic Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinic_compliance": {
+        "title": "Clinic Conformité Centre",
+        "header_title": "Clinic Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinic_workflow": {
+        "title": "Clinic Flux de travail Centre",
+        "header_title": "Clinic Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "course_architect_analytics": {
+        "title": "Course Architect Analyses Centre",
+        "header_title": "Course Architect Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "course_architect_compliance": {
+        "title": "Course Architect Conformité Centre",
+        "header_title": "Course Architect Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "course_architect_workflow": {
+        "title": "Course Architect Flux de travail Centre",
+        "header_title": "Course Architect Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "customer_support_analytics": {
+        "title": "Customer Support Analyses Centre",
+        "header_title": "Customer Support Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "customer_support_compliance": {
+        "title": "Customer Support Conformité Centre",
+        "header_title": "Customer Support Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "customer_support_workflow": {
+        "title": "Customer Support Flux de travail Centre",
+        "header_title": "Customer Support Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "dynamic_workflow": {
+        "title": "Dynamic Flux de travail Centre",
+        "header_title": "Dynamic Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "family_member_analytics": {
+        "title": "Family Member Analyses Centre",
+        "header_title": "Family Member Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "family_member_compliance": {
+        "title": "Family Member Conformité Centre",
+        "header_title": "Family Member Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "family_member_workflow": {
+        "title": "Family Member Flux de travail Centre",
+        "header_title": "Family Member Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_analytics": {
+        "title": "Franchise Analyses Centre",
+        "header_title": "Franchise Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_compliance": {
+        "title": "Franchise Conformité Centre",
+        "header_title": "Franchise Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_workflow": {
+        "title": "Franchise Flux de travail Centre",
+        "header_title": "Franchise Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "guest_analytics": {
+        "title": "Guest Analyses Centre",
+        "header_title": "Guest Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "guest_compliance": {
+        "title": "Guest Conformité Centre",
+        "header_title": "Guest Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "guest_workflow": {
+        "title": "Guest Flux de travail Centre",
+        "header_title": "Guest Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "infrastructure_analytics": {
+        "title": "Infrastructure Analyses Centre",
+        "header_title": "Infrastructure Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "infrastructure_compliance": {
+        "title": "Infrastructure Conformité Centre",
+        "header_title": "Infrastructure Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "infrastructure_workflow": {
+        "title": "Infrastructure Flux de travail Centre",
+        "header_title": "Infrastructure Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_analytics": {
+        "title": "Intake Analyses Centre",
+        "header_title": "Intake Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_compliance": {
+        "title": "Intake Conformité Centre",
+        "header_title": "Intake Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_workflow": {
+        "title": "Intake Flux de travail Centre",
+        "header_title": "Intake Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "office_analytics": {
+        "title": "Office Analyses Centre",
+        "header_title": "Office Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "office_compliance": {
+        "title": "Office Conformité Centre",
+        "header_title": "Office Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "office_workflow": {
+        "title": "Office Flux de travail Centre",
+        "header_title": "Office Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "patient_analytics": {
+        "title": "Patient Analyses Centre",
+        "header_title": "Patient Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "patient_compliance": {
+        "title": "Patient Conformité Centre",
+        "header_title": "Patient Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "patient_workflow": {
+        "title": "Patient Flux de travail Centre",
+        "header_title": "Patient Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physiotherapist_analytics": {
+        "title": "Physiotherapist Analyses Centre",
+        "header_title": "Physiotherapist Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physiotherapist_compliance": {
+        "title": "Physiotherapist Conformité Centre",
+        "header_title": "Physiotherapist Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physiotherapist_workflow": {
+        "title": "Physiotherapist Flux de travail Centre",
+        "header_title": "Physiotherapist Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "portal_analytics": {
+        "title": "Portal Analyses Centre",
+        "header_title": "Portal Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "portal_compliance": {
+        "title": "Portal Conformité Centre",
+        "header_title": "Portal Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "portal_workflow": {
+        "title": "Portal Flux de travail Centre",
+        "header_title": "Portal Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "qa_analytics": {
+        "title": "Qa Analyses Centre",
+        "header_title": "Qa Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "qa_compliance": {
+        "title": "Qa Conformité Centre",
+        "header_title": "Qa Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "qa_workflow": {
+        "title": "Qa Flux de travail Centre",
+        "header_title": "Qa Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "social_worker_analytics": {
+        "title": "Social Worker Analyses Centre",
+        "header_title": "Social Worker Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "social_worker_compliance": {
+        "title": "Social Worker Conformité Centre",
+        "header_title": "Social Worker Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "social_worker_workflow": {
+        "title": "Social Worker Flux de travail Centre",
+        "header_title": "Social Worker Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "support_analytics": {
+        "title": "Support Analyses Centre",
+        "header_title": "Support Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "support_compliance": {
+        "title": "Support Conformité Centre",
+        "header_title": "Support Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "support_workflow": {
+        "title": "Support Flux de travail Centre",
+        "header_title": "Support Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "system_analytics": {
+        "title": "System Analyses Centre",
+        "header_title": "System Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "system_compliance": {
+        "title": "System Conformité Centre",
+        "header_title": "System Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "system_verification_analytics": {
+        "title": "System Verification Analyses Centre",
+        "header_title": "System Verification Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "system_verification_compliance": {
+        "title": "System Verification Conformité Centre",
+        "header_title": "System Verification Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "system_verification_workflow": {
+        "title": "System Verification Flux de travail Centre",
+        "header_title": "System Verification Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "system_workflow": {
+        "title": "System Flux de travail Centre",
+        "header_title": "System Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_hub_analytics": {
+        "title": "Training Centre Analyses Centre",
+        "header_title": "Training Centre Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_hub_compliance": {
+        "title": "Training Centre Conformité Centre",
+        "header_title": "Training Centre Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_hub_workflow": {
+        "title": "Training Centre Flux de travail Centre",
+        "header_title": "Training Centre Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cfo_analytics": {
+        "title": "Cfo Analyses Centre",
+        "header_title": "Cfo Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cfo_compliance": {
+        "title": "Cfo Conformité Centre",
+        "header_title": "Cfo Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cfo_workflow": {
+        "title": "Cfo Flux de travail Centre",
+        "header_title": "Cfo Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "ciso_analytics": {
+        "title": "Ciso Analyses Centre",
+        "header_title": "Ciso Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "ciso_compliance": {
+        "title": "Ciso Conformité Centre",
+        "header_title": "Ciso Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "ciso_workflow": {
+        "title": "Ciso Flux de travail Centre",
+        "header_title": "Ciso Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "coo_analytics": {
+        "title": "Coo Analyses Centre",
+        "header_title": "Coo Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "coo_compliance": {
+        "title": "Coo Conformité Centre",
+        "header_title": "Coo Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "coo_workflow": {
+        "title": "Coo Flux de travail Centre",
+        "header_title": "Coo Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cto_analytics": {
+        "title": "Cto Analyses Centre",
+        "header_title": "Cto Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cto_compliance": {
+        "title": "Cto Conformité Centre",
+        "header_title": "Cto Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cto_workflow": {
+        "title": "Cto Flux de travail Centre",
+        "header_title": "Cto Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cx_director_analytics": {
+        "title": "Cx Director Analyses Centre",
+        "header_title": "Cx Director Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cx_director_compliance": {
+        "title": "Cx Director Conformité Centre",
+        "header_title": "Cx Director Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cx_director_workflow": {
+        "title": "Cx Director Flux de travail Centre",
+        "header_title": "Cx Director Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "finance_director_analytics": {
+        "title": "Finance Director Analyses Centre",
+        "header_title": "Finance Director Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "finance_director_compliance": {
+        "title": "Finance Director Conformité Centre",
+        "header_title": "Finance Director Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "finance_director_workflow": {
+        "title": "Finance Director Flux de travail Centre",
+        "header_title": "Finance Director Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_director_analytics": {
+        "title": "Hr Director Analyses Centre",
+        "header_title": "Hr Director Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_director_compliance": {
+        "title": "Hr Director Conformité Centre",
+        "header_title": "Hr Director Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_director_workflow": {
+        "title": "Hr Director Flux de travail Centre",
+        "header_title": "Hr Director Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "legal_analytics": {
+        "title": "Legal Analyses Centre",
+        "header_title": "Legal Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "legal_compliance": {
+        "title": "Legal Conformité Centre",
+        "header_title": "Legal Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "legal_workflow": {
+        "title": "Legal Flux de travail Centre",
+        "header_title": "Legal Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "owner_analytics": {
+        "title": "Owner Analyses Centre",
+        "header_title": "Owner Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "owner_compliance": {
+        "title": "Owner Conformité Centre",
+        "header_title": "Owner Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "owner_workflow": {
+        "title": "Owner Flux de travail Centre",
+        "header_title": "Owner Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "shareholder_analytics": {
+        "title": "Shareholder Analyses Centre",
+        "header_title": "Shareholder Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "shareholder_compliance": {
+        "title": "Shareholder Conformité Centre",
+        "header_title": "Shareholder Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "shareholder_workflow": {
+        "title": "Shareholder Flux de travail Centre",
+        "header_title": "Shareholder Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_director_analytics": {
+        "title": "Training Director Analyses Centre",
+        "header_title": "Training Director Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_director_compliance": {
+        "title": "Training Director Conformité Centre",
+        "header_title": "Training Director Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_director_workflow": {
+        "title": "Training Director Flux de travail Centre",
+        "header_title": "Training Director Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "community_outreach_analytics": {
+        "title": "Community Outreach Analyses Centre",
+        "header_title": "Community Outreach Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "community_outreach_compliance": {
+        "title": "Community Outreach Conformité Centre",
+        "header_title": "Community Outreach Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "community_outreach_workflow": {
+        "title": "Community Outreach Flux de travail Centre",
+        "header_title": "Community Outreach Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "compliance_manager_analytics": {
+        "title": "Conformité Manager Analyses Centre",
+        "header_title": "Conformité Manager Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "compliance_manager_compliance": {
+        "title": "Conformité Manager Conformité Centre",
+        "header_title": "Conformité Manager Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "compliance_manager_workflow": {
+        "title": "Conformité Manager Flux de travail Centre",
+        "header_title": "Conformité Manager Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_sales_manager_analytics": {
+        "title": "Ventes de franchise Manager Analyses Centre",
+        "header_title": "Ventes de franchise Manager Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_sales_manager_compliance": {
+        "title": "Ventes de franchise Manager Conformité Centre",
+        "header_title": "Ventes de franchise Manager Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_sales_manager_workflow": {
+        "title": "Ventes de franchise Manager Flux de travail Centre",
+        "header_title": "Ventes de franchise Manager Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "general_manager_analytics": {
+        "title": "General Manager Analyses Centre",
+        "header_title": "General Manager Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "general_manager_compliance": {
+        "title": "General Manager Conformité Centre",
+        "header_title": "General Manager Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "general_manager_workflow": {
+        "title": "General Manager Flux de travail Centre",
+        "header_title": "General Manager Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "governance_officer_analytics": {
+        "title": "Gouvernance Officer Analyses Centre",
+        "header_title": "Gouvernance Officer Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "governance_officer_compliance": {
+        "title": "Gouvernance Officer Conformité Centre",
+        "header_title": "Gouvernance Officer Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "governance_officer_workflow": {
+        "title": "Gouvernance Officer Flux de travail Centre",
+        "header_title": "Gouvernance Officer Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "head_of_bus_dev_analytics": {
+        "title": "Head Of Bus Dev Analyses Centre",
+        "header_title": "Head Of Bus Dev Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "head_of_bus_dev_compliance": {
+        "title": "Head Of Bus Dev Conformité Centre",
+        "header_title": "Head Of Bus Dev Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "head_of_bus_dev_workflow": {
+        "title": "Head Of Bus Dev Flux de travail Centre",
+        "header_title": "Head Of Bus Dev Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "head_of_marketing_analytics": {
+        "title": "Head Of Marketing Analyses Centre",
+        "header_title": "Head Of Marketing Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "head_of_marketing_compliance": {
+        "title": "Head Of Marketing Conformité Centre",
+        "header_title": "Head Of Marketing Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "head_of_marketing_workflow": {
+        "title": "Head Of Marketing Flux de travail Centre",
+        "header_title": "Head Of Marketing Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "local_marketing_manager_analytics": {
+        "title": "Local Marketing Manager Analyses Centre",
+        "header_title": "Local Marketing Manager Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "local_marketing_manager_compliance": {
+        "title": "Local Marketing Manager Conformité Centre",
+        "header_title": "Local Marketing Manager Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "local_marketing_manager_workflow": {
+        "title": "Local Marketing Manager Flux de travail Centre",
+        "header_title": "Local Marketing Manager Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "operations_manager_analytics": {
+        "title": "Opérations Manager Analyses Centre",
+        "header_title": "Opérations Manager Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "operations_manager_compliance": {
+        "title": "Opérations Manager Conformité Centre",
+        "header_title": "Opérations Manager Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "operations_manager_workflow": {
+        "title": "Opérations Manager Flux de travail Centre",
+        "header_title": "Opérations Manager Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "partnership_manager_analytics": {
+        "title": "Partnership Manager Analyses Centre",
+        "header_title": "Partnership Manager Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "partnership_manager_compliance": {
+        "title": "Partnership Manager Conformité Centre",
+        "header_title": "Partnership Manager Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "partnership_manager_workflow": {
+        "title": "Partnership Manager Flux de travail Centre",
+        "header_title": "Partnership Manager Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "regional_bdm_analytics": {
+        "title": "Regional Bdm Analyses Centre",
+        "header_title": "Regional Bdm Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "regional_bdm_compliance": {
+        "title": "Regional Bdm Conformité Centre",
+        "header_title": "Regional Bdm Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "regional_bdm_workflow": {
+        "title": "Regional Bdm Flux de travail Centre",
+        "header_title": "Regional Bdm Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "regional_manager_usa_analytics": {
+        "title": "Regional Manager Usa Analyses Centre",
+        "header_title": "Regional Manager Usa Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "regional_manager_usa_compliance": {
+        "title": "Regional Manager Usa Conformité Centre",
+        "header_title": "Regional Manager Usa Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "regional_manager_usa_workflow": {
+        "title": "Regional Manager Usa Flux de travail Centre",
+        "header_title": "Regional Manager Usa Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scrum_master_analytics": {
+        "title": "Scrum Master Analyses Centre",
+        "header_title": "Scrum Master Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scrum_master_compliance": {
+        "title": "Scrum Master Conformité Centre",
+        "header_title": "Scrum Master Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scrum_master_workflow": {
+        "title": "Scrum Master Flux de travail Centre",
+        "header_title": "Scrum Master Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "territory_expansion_manager_analytics": {
+        "title": "Territory Expansion Manager Analyses Centre",
+        "header_title": "Territory Expansion Manager Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "territory_expansion_manager_compliance": {
+        "title": "Territory Expansion Manager Conformité Centre",
+        "header_title": "Territory Expansion Manager Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "territory_expansion_manager_workflow": {
+        "title": "Territory Expansion Manager Flux de travail Centre",
+        "header_title": "Territory Expansion Manager Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "territory_sales_manager_analytics": {
+        "title": "Territory Sales Manager Analyses Centre",
+        "header_title": "Territory Sales Manager Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "territory_sales_manager_compliance": {
+        "title": "Territory Sales Manager Conformité Centre",
+        "header_title": "Territory Sales Manager Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "territory_sales_manager_workflow": {
+        "title": "Territory Sales Manager Flux de travail Centre",
+        "header_title": "Territory Sales Manager Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_analytics": {
+        "title": "Psw Analyses Centre",
+        "header_title": "Psw Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_clients": {
+        "title": "Psw Clients Centre",
+        "header_title": "Psw Clients Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_compliance": {
+        "title": "Psw Conformité Centre",
+        "header_title": "Psw Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_messages": {
+        "title": "Psw Messages Centre",
+        "header_title": "Psw Messages Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_shift_tracker": {
+        "title": "Psw Shift Tracker Centre",
+        "header_title": "Psw Shift Tracker Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_tasks": {
+        "title": "Psw Tasks Centre",
+        "header_title": "Psw Tasks Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_visit_notes": {
+        "title": "Psw Visit Notes Centre",
+        "header_title": "Psw Visit Notes Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_workflow": {
+        "title": "Psw Flux de travail Centre",
+        "header_title": "Psw Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_analytics": {
+        "title": "Rn Analyses Centre",
+        "header_title": "Rn Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_assessments": {
+        "title": "Rn Assessments Centre",
+        "header_title": "Rn Assessments Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_care_plans": {
+        "title": "Rn Care Plans Centre",
+        "header_title": "Rn Care Plans Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_compliance": {
+        "title": "Rn Conformité Centre",
+        "header_title": "Rn Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_workflow": {
+        "title": "Rn Flux de travail Centre",
+        "header_title": "Rn Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rpn_analytics": {
+        "title": "Rpn Analyses Centre",
+        "header_title": "Rpn Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rpn_compliance": {
+        "title": "Rpn Conformité Centre",
+        "header_title": "Rpn Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rpn_workflow": {
+        "title": "Rpn Flux de travail Centre",
+        "header_title": "Rpn Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "billing_admin_analytics": {
+        "title": "Billing Admin Analyses Centre",
+        "header_title": "Billing Admin Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "billing_admin_compliance": {
+        "title": "Billing Admin Conformité Centre",
+        "header_title": "Billing Admin Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "billing_admin_workflow": {
+        "title": "Billing Admin Flux de travail Centre",
+        "header_title": "Billing Admin Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "coordinator_dispatch_map": {
+        "title": "Coordinator Dispatch Map Centre",
+        "header_title": "Coordinator Dispatch Map Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "coordinator_hub": {
+        "title": "Coordinator Centre Centre",
+        "header_title": "Coordinator Centre Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "coordinator_sos": {
+        "title": "Coordinator Sos Centre",
+        "header_title": "Coordinator Sos Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "coordinator_waitlist": {
+        "title": "Coordinator Waitlist Centre",
+        "header_title": "Coordinator Waitlist Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_hiring_analytics": {
+        "title": "Hr Hiring Analyses Centre",
+        "header_title": "Hr Hiring Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_hiring_compliance": {
+        "title": "Hr Hiring Conformité Centre",
+        "header_title": "Hr Hiring Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_hiring_workflow": {
+        "title": "Hr Hiring Flux de travail Centre",
+        "header_title": "Hr Hiring Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_manager_analytics": {
+        "title": "Hr Manager Analyses Centre",
+        "header_title": "Hr Manager Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_manager_compliance": {
+        "title": "Hr Manager Conformité Centre",
+        "header_title": "Hr Manager Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_manager_workflow": {
+        "title": "Hr Manager Flux de travail Centre",
+        "header_title": "Hr Manager Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_coordinator_analytics": {
+        "title": "Intake Coordinator Analyses Centre",
+        "header_title": "Intake Coordinator Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_coordinator_compliance": {
+        "title": "Intake Coordinator Conformité Centre",
+        "header_title": "Intake Coordinator Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_coordinator_workflow": {
+        "title": "Intake Coordinator Flux de travail Centre",
+        "header_title": "Intake Coordinator Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "quality_assurance_analytics": {
+        "title": "Quality Assurance Analyses Centre",
+        "header_title": "Quality Assurance Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "quality_assurance_compliance": {
+        "title": "Quality Assurance Conformité Centre",
+        "header_title": "Quality Assurance Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "quality_assurance_workflow": {
+        "title": "Quality Assurance Flux de travail Centre",
+        "header_title": "Quality Assurance Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "receptionist_analytics": {
+        "title": "Receptionist Analyses Centre",
+        "header_title": "Receptionist Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "receptionist_compliance": {
+        "title": "Receptionist Conformité Centre",
+        "header_title": "Receptionist Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "receptionist_workflow": {
+        "title": "Receptionist Flux de travail Centre",
+        "header_title": "Receptionist Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scheduler_analytics": {
+        "title": "Scheduler Analyses Centre",
+        "header_title": "Scheduler Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scheduler_compliance": {
+        "title": "Scheduler Conformité Centre",
+        "header_title": "Scheduler Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scheduler_workflow": {
+        "title": "Scheduler Flux de travail Centre",
+        "header_title": "Scheduler Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_coordinator_analytics": {
+        "title": "Training Coordinator Analyses Centre",
+        "header_title": "Training Coordinator Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_coordinator_compliance": {
+        "title": "Training Coordinator Conformité Centre",
+        "header_title": "Training Coordinator Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_coordinator_workflow": {
+        "title": "Training Coordinator Flux de travail Centre",
+        "header_title": "Training Coordinator Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "volunteer_coordinator_analytics": {
+        "title": "Volunteer Coordinator Analyses Centre",
+        "header_title": "Volunteer Coordinator Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "volunteer_coordinator_compliance": {
+        "title": "Volunteer Coordinator Conformité Centre",
+        "header_title": "Volunteer Coordinator Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "volunteer_coordinator_workflow": {
+        "title": "Volunteer Coordinator Flux de travail Centre",
+        "header_title": "Volunteer Coordinator Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "caregiver_tasks": {
+        "title": "Caregiver Tasks Centre",
+        "header_title": "Caregiver Tasks Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "caregiver_client_profile": {
+        "title": "Caregiver Client Profile Centre",
+        "header_title": "Caregiver Client Profile Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "caregiver_visit_notes": {
+        "title": "Caregiver Visit Notes Centre",
+        "header_title": "Caregiver Visit Notes Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "caregiver_schedule": {
+        "title": "Caregiver Schedule Centre",
+        "header_title": "Caregiver Schedule Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "caregiver_incident_report": {
+        "title": "Caregiver Incident Report Centre",
+        "header_title": "Caregiver Incident Report Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cfo_revenue": {
+        "title": "Cfo Revenue Centre",
+        "header_title": "Cfo Revenue Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cfo_expenses": {
+        "title": "Cfo Expenses Centre",
+        "header_title": "Cfo Expenses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cfo_payroll": {
+        "title": "Cfo Payroll Centre",
+        "header_title": "Cfo Payroll Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cfo_invoices": {
+        "title": "Cfo Invoices Centre",
+        "header_title": "Cfo Invoices Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cfo_tax": {
+        "title": "Cfo Tax Centre",
+        "header_title": "Cfo Tax Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cfo_profitability": {
+        "title": "Cfo Profitability Centre",
+        "header_title": "Cfo Profitability Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cfo_cashflow": {
+        "title": "Cfo Cashflow Centre",
+        "header_title": "Cfo Cashflow Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractor_command_center": {
+        "title": "Chiropractor Centre de commandement Centre",
+        "header_title": "Chiropractor Centre de commandement Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractor_appointments": {
+        "title": "Chiropractor Appointments Centre",
+        "header_title": "Chiropractor Appointments Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractor_client_intake": {
+        "title": "Chiropractor Client Intake Centre",
+        "header_title": "Chiropractor Client Intake Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractor_assessment": {
+        "title": "Chiropractor Assessment Centre",
+        "header_title": "Chiropractor Assessment Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractor_treatment_notes": {
+        "title": "Chiropractor Treatment Notes Centre",
+        "header_title": "Chiropractor Treatment Notes Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractor_exercise_plan": {
+        "title": "Chiropractor Exercise Plan Centre",
+        "header_title": "Chiropractor Exercise Plan Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractor_billing_link": {
+        "title": "Chiropractor Billing Link Centre",
+        "header_title": "Chiropractor Billing Link Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractor_reports": {
+        "title": "Chiropractor Reports Centre",
+        "header_title": "Chiropractor Reports Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinical_director_staff_quality": {
+        "title": "Clinical Director Staff Quality Centre",
+        "header_title": "Clinical Director Staff Quality Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinical_director_incident_review": {
+        "title": "Clinical Director Incident Review Centre",
+        "header_title": "Clinical Director Incident Review Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinical_director_compliance": {
+        "title": "Clinical Director Conformité Centre",
+        "header_title": "Clinical Director Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinical_director_reports": {
+        "title": "Clinical Director Reports Centre",
+        "header_title": "Clinical Director Reports Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinical_director_approvals": {
+        "title": "Clinical Director Approvals Centre",
+        "header_title": "Clinical Director Approvals Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinical_director_performance": {
+        "title": "Clinical Director Performance Centre",
+        "header_title": "Clinical Director Performance Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "coo_command_center": {
+        "title": "Coo Centre de commandement Centre",
+        "header_title": "Coo Centre de commandement Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "coo_operations_overview": {
+        "title": "Coo Opérations Overview Centre",
+        "header_title": "Coo Opérations Overview Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "coo_staffing": {
+        "title": "Coo Staffing Centre",
+        "header_title": "Coo Staffing Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "coo_scheduling_health": {
+        "title": "Coo Planification Health Centre",
+        "header_title": "Coo Planification Health Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "coo_workflow_issues": {
+        "title": "Coo Flux de travail Issues Centre",
+        "header_title": "Coo Flux de travail Issues Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "coo_branch_comparison": {
+        "title": "Coo Branch Comparison Centre",
+        "header_title": "Coo Branch Comparison Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_director_hiring_pipeline": {
+        "title": "Hr Director Hiring Pipeline Centre",
+        "header_title": "Hr Director Hiring Pipeline Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_director_staff_files": {
+        "title": "Hr Director Staff Files Centre",
+        "header_title": "Hr Director Staff Files Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_director_training": {
+        "title": "Hr Director Training Centre",
+        "header_title": "Hr Director Training Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_director_credential_expiry": {
+        "title": "Hr Director Credential Expiry Centre",
+        "header_title": "Hr Director Credential Expiry Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_director_onboarding": {
+        "title": "Hr Director Onboarding Centre",
+        "header_title": "Hr Director Onboarding Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_hiring_applicants": {
+        "title": "Hr Hiring Applicants Centre",
+        "header_title": "Hr Hiring Applicants Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_hiring_interviews": {
+        "title": "Hr Hiring Interviews Centre",
+        "header_title": "Hr Hiring Interviews Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_hiring_offers": {
+        "title": "Hr Hiring Offers Centre",
+        "header_title": "Hr Hiring Offers Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_hiring_onboarding": {
+        "title": "Hr Hiring Onboarding Centre",
+        "header_title": "Hr Hiring Onboarding Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hr_hiring_credentials": {
+        "title": "Hr Hiring Credentials Centre",
+        "header_title": "Hr Hiring Credentials Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_owner_command_center": {
+        "title": "Franchise Owner Centre de commandement Centre",
+        "header_title": "Franchise Owner Centre de commandement Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_owner_branch_overview": {
+        "title": "Franchise Owner Branch Overview Centre",
+        "header_title": "Franchise Owner Branch Overview Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_owner_staff": {
+        "title": "Franchise Owner Staff Centre",
+        "header_title": "Franchise Owner Staff Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_owner_clients": {
+        "title": "Franchise Owner Clients Centre",
+        "header_title": "Franchise Owner Clients Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_owner_appointments": {
+        "title": "Franchise Owner Appointments Centre",
+        "header_title": "Franchise Owner Appointments Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_owner_finance_snapshot": {
+        "title": "Franchise Owner Finance Snapshot Centre",
+        "header_title": "Franchise Owner Finance Snapshot Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_owner_compliance": {
+        "title": "Franchise Owner Conformité Centre",
+        "header_title": "Franchise Owner Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_owner_reports": {
+        "title": "Franchise Owner Reports Centre",
+        "header_title": "Franchise Owner Reports Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "patient_command_center": {
+        "title": "Patient Centre de commandement Centre",
+        "header_title": "Patient Centre de commandement Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "patient_appointments": {
+        "title": "Patient Appointments Centre",
+        "header_title": "Patient Appointments Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "patient_care_plan": {
+        "title": "Patient Care Plan Centre",
+        "header_title": "Patient Care Plan Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "patient_messages": {
+        "title": "Patient Messages Centre",
+        "header_title": "Patient Messages Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "patient_documents": {
+        "title": "Patient Documents Centre",
+        "header_title": "Patient Documents Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "patient_billing": {
+        "title": "Patient Billing Centre",
+        "header_title": "Patient Billing Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "patient_profile": {
+        "title": "Patient Profile Centre",
+        "header_title": "Patient Profile Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physiotherapist_command_center": {
+        "title": "Physiotherapist Centre de commandement Centre",
+        "header_title": "Physiotherapist Centre de commandement Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physiotherapist_appointments": {
+        "title": "Physiotherapist Appointments Centre",
+        "header_title": "Physiotherapist Appointments Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physiotherapist_client_intake": {
+        "title": "Physiotherapist Client Intake Centre",
+        "header_title": "Physiotherapist Client Intake Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physiotherapist_assessment": {
+        "title": "Physiotherapist Assessment Centre",
+        "header_title": "Physiotherapist Assessment Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physiotherapist_treatment_notes": {
+        "title": "Physiotherapist Treatment Notes Centre",
+        "header_title": "Physiotherapist Treatment Notes Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physiotherapist_exercise_plan": {
+        "title": "Physiotherapist Exercise Plan Centre",
+        "header_title": "Physiotherapist Exercise Plan Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physiotherapist_billing_link": {
+        "title": "Physiotherapist Billing Link Centre",
+        "header_title": "Physiotherapist Billing Link Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physiotherapist_reports": {
+        "title": "Physiotherapist Reports Centre",
+        "header_title": "Physiotherapist Reports Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_command_center": {
+        "title": "Psw Centre de commandement Centre",
+        "header_title": "Psw Centre de commandement Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_my_shifts": {
+        "title": "Psw My Shifts Centre",
+        "header_title": "Psw My Shifts Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_client_profile": {
+        "title": "Psw Client Profile Centre",
+        "header_title": "Psw Client Profile Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_vitals_log": {
+        "title": "Psw Vitals Log Centre",
+        "header_title": "Psw Vitals Log Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_incident_report": {
+        "title": "Psw Incident Report Centre",
+        "header_title": "Psw Incident Report Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_care_plan": {
+        "title": "Psw Care Plan Centre",
+        "header_title": "Psw Care Plan Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "psw_documents": {
+        "title": "Psw Documents Centre",
+        "header_title": "Psw Documents Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rmt_command_center": {
+        "title": "Rmt Centre de commandement Centre",
+        "header_title": "Rmt Centre de commandement Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rmt_appointments": {
+        "title": "Rmt Appointments Centre",
+        "header_title": "Rmt Appointments Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rmt_client_intake": {
+        "title": "Rmt Client Intake Centre",
+        "header_title": "Rmt Client Intake Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rmt_assessment": {
+        "title": "Rmt Assessment Centre",
+        "header_title": "Rmt Assessment Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rmt_treatment_notes": {
+        "title": "Rmt Treatment Notes Centre",
+        "header_title": "Rmt Treatment Notes Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rmt_exercise_plan": {
+        "title": "Rmt Exercise Plan Centre",
+        "header_title": "Rmt Exercise Plan Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rmt_billing_link": {
+        "title": "Rmt Billing Link Centre",
+        "header_title": "Rmt Billing Link Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rmt_reports": {
+        "title": "Rmt Reports Centre",
+        "header_title": "Rmt Reports Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_command_center": {
+        "title": "Rn Centre de commandement Centre",
+        "header_title": "Rn Centre de commandement Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_patient_charting": {
+        "title": "Rn Patient Charting Centre",
+        "header_title": "Rn Patient Charting Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_medications": {
+        "title": "Rn Medications Centre",
+        "header_title": "Rn Medications Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_vitals": {
+        "title": "Rn Vitals Centre",
+        "header_title": "Rn Vitals Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_care_plan_review": {
+        "title": "Rn Care Plan Review Centre",
+        "header_title": "Rn Care Plan Review Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_incident_review": {
+        "title": "Rn Incident Review Centre",
+        "header_title": "Rn Incident Review Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_tasks": {
+        "title": "Rn Tasks Centre",
+        "header_title": "Rn Tasks Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_reports": {
+        "title": "Rn Reports Centre",
+        "header_title": "Rn Reports Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rpn_command_center": {
+        "title": "Rpn Centre de commandement Centre",
+        "header_title": "Rpn Centre de commandement Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rpn_patient_charting": {
+        "title": "Rpn Patient Charting Centre",
+        "header_title": "Rpn Patient Charting Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rpn_medications": {
+        "title": "Rpn Medications Centre",
+        "header_title": "Rpn Medications Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rpn_vitals": {
+        "title": "Rpn Vitals Centre",
+        "header_title": "Rpn Vitals Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rpn_care_plan_review": {
+        "title": "Rpn Care Plan Review Centre",
+        "header_title": "Rpn Care Plan Review Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rpn_incident_review": {
+        "title": "Rpn Incident Review Centre",
+        "header_title": "Rpn Incident Review Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rpn_tasks": {
+        "title": "Rpn Tasks Centre",
+        "header_title": "Rpn Tasks Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rpn_reports": {
+        "title": "Rpn Reports Centre",
+        "header_title": "Rpn Reports Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scheduler_command_center": {
+        "title": "Scheduler Centre de commandement Centre",
+        "header_title": "Scheduler Centre de commandement Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scheduler_calendar": {
+        "title": "Scheduler Calendar Centre",
+        "header_title": "Scheduler Calendar Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scheduler_booking_requests": {
+        "title": "Scheduler Booking Requests Centre",
+        "header_title": "Scheduler Booking Requests Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scheduler_conflicts": {
+        "title": "Scheduler Conflicts Centre",
+        "header_title": "Scheduler Conflicts Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scheduler_open_shifts": {
+        "title": "Scheduler Open Shifts Centre",
+        "header_title": "Scheduler Open Shifts Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scheduler_provider_availability": {
+        "title": "Scheduler Provider Availability Centre",
+        "header_title": "Scheduler Provider Availability Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_coordinator_referrals": {
+        "title": "Intake Coordinator Referrals Centre",
+        "header_title": "Intake Coordinator Referrals Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_coordinator_new_client_intake": {
+        "title": "Intake Coordinator New Client Intake Centre",
+        "header_title": "Intake Coordinator New Client Intake Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_coordinator_assessment_queue": {
+        "title": "Intake Coordinator Assessment Queue Centre",
+        "header_title": "Intake Coordinator Assessment Queue Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_coordinator_booking": {
+        "title": "Intake Coordinator Booking Centre",
+        "header_title": "Intake Coordinator Booking Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_coordinator_documents": {
+        "title": "Intake Coordinator Documents Centre",
+        "header_title": "Intake Coordinator Documents Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "intake_coordinator_follow_up": {
+        "title": "Intake Coordinator Follow Up Centre",
+        "header_title": "Intake Coordinator Follow Up Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "executive_command_center": {
+        "title": "Executive Centre de commandement Centre",
+        "header_title": "Executive Centre de commandement Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "enterprise_health": {
+        "title": "Enterprise Health Centre",
+        "header_title": "Enterprise Health Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "revenue_analytics": {
+        "title": "Revenue Analyses Centre",
+        "header_title": "Revenue Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "risk_management": {
+        "title": "Risk Management Centre",
+        "header_title": "Risk Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_overview": {
+        "title": "Franchise Overview Centre",
+        "header_title": "Franchise Overview Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "operations_command_center": {
+        "title": "Opérations Centre de commandement Centre",
+        "header_title": "Opérations Centre de commandement Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "staffing_overview": {
+        "title": "Staffing Overview Centre",
+        "header_title": "Staffing Overview Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "workflow_issue": {
+        "title": "Flux de travail Issue Centre",
+        "header_title": "Flux de travail Issue Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "service_quality": {
+        "title": "Service Quality Centre",
+        "header_title": "Service Quality Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "branch_performance": {
+        "title": "Branch Performance Centre",
+        "header_title": "Branch Performance Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "financial_dashboard": {
+        "title": "Financier Tableau de bord Centre",
+        "header_title": "Financier Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "revenue": {
+        "title": "Revenue Centre",
+        "header_title": "Revenue Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "expense_management": {
+        "title": "Expense Management Centre",
+        "header_title": "Expense Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "payroll": {
+        "title": "Payroll Centre",
+        "header_title": "Payroll Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "tax_compliance": {
+        "title": "Tax Conformité Centre",
+        "header_title": "Tax Conformité Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "system_health": {
+        "title": "System Health Centre",
+        "header_title": "System Health Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "api_monitoring": {
+        "title": "Api Monitoring Centre",
+        "header_title": "Api Monitoring Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "deployment_center": {
+        "title": "Deployment Center Centre",
+        "header_title": "Deployment Center Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "security_audit": {
+        "title": "Security Audit Centre",
+        "header_title": "Security Audit Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "release_management": {
+        "title": "Release Management Centre",
+        "header_title": "Release Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "compliance_dashboard": {
+        "title": "Conformité Tableau de bord Centre",
+        "header_title": "Conformité Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "audit_review": {
+        "title": "Audit Review Centre",
+        "header_title": "Audit Review Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "incident_management": {
+        "title": "Incident Management Centre",
+        "header_title": "Incident Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "policy_management": {
+        "title": "Policy Management Centre",
+        "header_title": "Policy Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "corrective_action": {
+        "title": "Corrective Action Centre",
+        "header_title": "Corrective Action Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "hiring_pipeline": {
+        "title": "Hiring Pipeline Centre",
+        "header_title": "Hiring Pipeline Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "employee_records": {
+        "title": "Employé Records Centre",
+        "header_title": "Employé Records Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "credential_expiry": {
+        "title": "Credential Expiry Centre",
+        "header_title": "Credential Expiry Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_management": {
+        "title": "Training Management Centre",
+        "header_title": "Training Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "onboarding": {
+        "title": "Onboarding Centre",
+        "header_title": "Onboarding Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_lead": {
+        "title": "Franchise Lead Centre",
+        "header_title": "Franchise Lead Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "partnership_management": {
+        "title": "Partnership Management Centre",
+        "header_title": "Partnership Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "growth_analytics": {
+        "title": "Growth Analyses Centre",
+        "header_title": "Growth Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "outreach_campaign": {
+        "title": "Outreach Campaign Centre",
+        "header_title": "Outreach Campaign Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "campaign_dashboard": {
+        "title": "Campaign Tableau de bord Centre",
+        "header_title": "Campaign Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "lead_analytics": {
+        "title": "Lead Analyses Centre",
+        "header_title": "Lead Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "social_media": {
+        "title": "Social Media Centre",
+        "header_title": "Social Media Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "brand_management": {
+        "title": "Brand Management Centre",
+        "header_title": "Brand Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_command_center": {
+        "title": "Franchise Centre de commandement Centre",
+        "header_title": "Franchise Centre de commandement Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "revenue_snapshot": {
+        "title": "Revenue Snapshot Centre",
+        "header_title": "Revenue Snapshot Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "staff_management": {
+        "title": "Staff Management Centre",
+        "header_title": "Staff Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "appointment_overview": {
+        "title": "Appointment Overview Centre",
+        "header_title": "Appointment Overview Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "compliance_overview": {
+        "title": "Conformité Overview Centre",
+        "header_title": "Conformité Overview Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "daily_operations": {
+        "title": "Daily Opérations Centre",
+        "header_title": "Daily Opérations Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "attendance": {
+        "title": "Attendance Centre",
+        "header_title": "Attendance Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scheduling_health": {
+        "title": "Planification Health Centre",
+        "header_title": "Planification Health Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "service_issue": {
+        "title": "Service Issue Centre",
+        "header_title": "Service Issue Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scheduling_dashboard": {
+        "title": "Planification Tableau de bord Centre",
+        "header_title": "Planification Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "calendar_management": {
+        "title": "Calendar Management Centre",
+        "header_title": "Calendar Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "conflict_resolution": {
+        "title": "Conflict Resolution Centre",
+        "header_title": "Conflict Resolution Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "open_shift": {
+        "title": "Open Shift Centre",
+        "header_title": "Open Shift Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "invoice_management": {
+        "title": "Invoice Management Centre",
+        "header_title": "Invoice Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "claims_processing": {
+        "title": "Claims Processing Centre",
+        "header_title": "Claims Processing Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "payment_tracking": {
+        "title": "Payment Tracking Centre",
+        "header_title": "Payment Tracking Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "refund_management": {
+        "title": "Refund Management Centre",
+        "header_title": "Refund Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "applicant_tracking": {
+        "title": "Applicant Tracking Centre",
+        "header_title": "Applicant Tracking Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "interview_scheduling": {
+        "title": "Interview Planification Centre",
+        "header_title": "Interview Planification Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "offer_management": {
+        "title": "Offer Management Centre",
+        "header_title": "Offer Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "onboarding_checklist": {
+        "title": "Onboarding Checklist Centre",
+        "header_title": "Onboarding Checklist Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "medication_administration": {
+        "title": "Medication Administration Centre",
+        "header_title": "Medication Administration Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "care_plan_review": {
+        "title": "Care Plan Review Centre",
+        "header_title": "Care Plan Review Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "incident_review": {
+        "title": "Incident Review Centre",
+        "header_title": "Incident Review Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "shift_report": {
+        "title": "Shift Report Centre",
+        "header_title": "Shift Report Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "nursing_task": {
+        "title": "Nursing Task Centre",
+        "header_title": "Nursing Task Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "vitals_tracking": {
+        "title": "Vitals Tracking Centre",
+        "header_title": "Vitals Tracking Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "medication": {
+        "title": "Medication Centre",
+        "header_title": "Medication Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "patient_observation": {
+        "title": "Patient Observation Centre",
+        "header_title": "Patient Observation Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "shift_tasks": {
+        "title": "Shift Tasks Centre",
+        "header_title": "Shift Tasks Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "vitals_entry": {
+        "title": "Vitals Entry Centre",
+        "header_title": "Vitals Entry Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "treatment_plan": {
+        "title": "Treatment Plan Centre",
+        "header_title": "Treatment Plan Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "exercise_prescription": {
+        "title": "Exercise Prescription Centre",
+        "header_title": "Exercise Prescription Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "progress_tracking": {
+        "title": "Progress Tracking Centre",
+        "header_title": "Progress Tracking Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "massage_assessment": {
+        "title": "Massage Assessment Centre",
+        "header_title": "Massage Assessment Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "home_care_plan": {
+        "title": "Home Care Plan Centre",
+        "header_title": "Home Care Plan Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "client_progress": {
+        "title": "Client Progress Centre",
+        "header_title": "Client Progress Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractic_assessment": {
+        "title": "Chiropractic Assessment Centre",
+        "header_title": "Chiropractic Assessment Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "adjustment_notes": {
+        "title": "Adjustment Notes Centre",
+        "header_title": "Adjustment Notes Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "xray_review": {
+        "title": "Xray Review Centre",
+        "header_title": "Xray Review Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "chiropractic_progress_tracking": {
+        "title": "Chiropractic Progress Tracking Centre",
+        "header_title": "Chiropractic Progress Tracking Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "referral_management": {
+        "title": "Referral Management Centre",
+        "header_title": "Referral Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "client_intake": {
+        "title": "Client Intake Centre",
+        "header_title": "Client Intake Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "booking": {
+        "title": "Booking Centre",
+        "header_title": "Booking Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "followup": {
+        "title": "Followup Centre",
+        "header_title": "Followup Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinical_quality": {
+        "title": "Clinical Quality Centre",
+        "header_title": "Clinical Quality Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "staff_performance": {
+        "title": "Staff Performance Centre",
+        "header_title": "Staff Performance Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "compliance_review": {
+        "title": "Conformité Review Centre",
+        "header_title": "Conformité Review Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "incident_oversight": {
+        "title": "Incident Oversight Centre",
+        "header_title": "Incident Oversight Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "ticket_management": {
+        "title": "Ticket Management Centre",
+        "header_title": "Ticket Management Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "client_issue": {
+        "title": "Client Issue Centre",
+        "header_title": "Client Issue Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "communication": {
+        "title": "Communication Centre",
+        "header_title": "Communication Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "resolution_tracking": {
+        "title": "Resolution Tracking Centre",
+        "header_title": "Resolution Tracking Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "training_dashboard": {
+        "title": "Training Tableau de bord Centre",
+        "header_title": "Training Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "course_assignment": {
+        "title": "Course Assignment Centre",
+        "header_title": "Course Assignment Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "certification_tracking": {
+        "title": "Certification Tracking Centre",
+        "header_title": "Certification Tracking Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "staff_progress": {
+        "title": "Staff Progress Centre",
+        "header_title": "Staff Progress Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "quality_audit": {
+        "title": "Quality Audit Centre",
+        "header_title": "Quality Audit Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "failed_workflow": {
+        "title": "Failed Flux de travail Centre",
+        "header_title": "Failed Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "testing_overview": {
+        "title": "Testing Overview Centre",
+        "header_title": "Testing Overview Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "defect_tracking": {
+        "title": "Defect Tracking Centre",
+        "header_title": "Defect Tracking Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "appointment": {
+        "title": "Appointment Centre",
+        "header_title": "Appointment Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "care_plan": {
+        "title": "Care Plan Centre",
+        "header_title": "Care Plan Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "billing": {
+        "title": "Billing Centre",
+        "header_title": "Billing Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "documents": {
+        "title": "Documents Centre",
+        "header_title": "Documents Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "family_overview": {
+        "title": "Family Overview Centre",
+        "header_title": "Family Overview Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "care_updates": {
+        "title": "Care Updates Centre",
+        "header_title": "Care Updates Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "billing_overview": {
+        "title": "Billing Overview Centre",
+        "header_title": "Billing Overview Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "emergency_contacts": {
+        "title": "Emergency Contacts Centre",
+        "header_title": "Emergency Contacts Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "schedule": {
+        "title": "Schedule Centre",
+        "header_title": "Schedule Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "messaging": {
+        "title": "Messaging Centre",
+        "header_title": "Messaging Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "governance_control_room": {
+        "title": "Gouvernance Control Room Centre",
+        "header_title": "Gouvernance Control Room Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "runtime_verification": {
+        "title": "Runtime Verification Centre",
+        "header_title": "Runtime Verification Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "drift_findings": {
+        "title": "Drift Findings Centre",
+        "header_title": "Drift Findings Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "pending_task_queue": {
+        "title": "Pending Task Queue Centre",
+        "header_title": "Pending Task Queue Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "agent_dispatch": {
+        "title": "Agent Dispatch Centre",
+        "header_title": "Agent Dispatch Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "audit": {
+        "title": "Audit Centre",
+        "header_title": "Audit Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "api_health_dashboard": {
+        "title": "Api Health Tableau de bord Centre",
+        "header_title": "Api Health Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "release_operations": {
+        "title": "Release Opérations Centre",
+        "header_title": "Release Opérations Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "file_verification_dashboard": {
+        "title": "File Verification Tableau de bord Centre",
+        "header_title": "File Verification Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "role_coverage_dashboard": {
+        "title": "Role Coverage Tableau de bord Centre",
+        "header_title": "Role Coverage Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "responsive_preview": {
+        "title": "Aperçu adaptatif Centre",
+        "header_title": "Aperçu adaptatif Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "workflow_execution": {
+        "title": "Flux de travail Execution Centre",
+        "header_title": "Flux de travail Execution Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "enterprise_command_center4_k": {
+        "title": "Enterprise Centre de commandement4 K Centre",
+        "header_title": "Enterprise Centre de commandement4 K Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_command_center4_k": {
+        "title": "Franchise Centre de commandement4 K Centre",
+        "header_title": "Franchise Centre de commandement4 K Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "clinical_operations4_k": {
+        "title": "Clinical Opérations4 K Centre",
+        "header_title": "Clinical Opérations4 K Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "governance_operations4_k": {
+        "title": "Gouvernance Opérations4 K Centre",
+        "header_title": "Gouvernance Opérations4 K Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "scheduling_operations4_k": {
+        "title": "Planification Opérations4 K Centre",
+        "header_title": "Planification Opérations4 K Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "financial_operations4_k": {
+        "title": "Financier Opérations4 K Centre",
+        "header_title": "Financier Opérations4 K Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "therapist_analytics": {
+        "title": "Thérapeute Analyses Centre",
+        "header_title": "Thérapeute Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "therapist_workflow": {
+        "title": "Thérapeute Flux de travail Centre",
+        "header_title": "Thérapeute Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physician_analytics": {
+        "title": "Médecin Analyses Centre",
+        "header_title": "Médecin Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "physician_workflow": {
+        "title": "Médecin Flux de travail Centre",
+        "header_title": "Médecin Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cns_analytics": {
+        "title": "Cns Analyses Centre",
+        "header_title": "Cns Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "cns_workflow": {
+        "title": "Cns Flux de travail Centre",
+        "header_title": "Cns Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "pediatric_analytics": {
+        "title": "Pediatric Analyses Centre",
+        "header_title": "Pediatric Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "pediatric_workflow": {
+        "title": "Pediatric Flux de travail Centre",
+        "header_title": "Pediatric Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_sales_analytics": {
+        "title": "Ventes de franchise Analyses Centre",
+        "header_title": "Ventes de franchise Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "franchise_sales_workflow": {
+        "title": "Ventes de franchise Flux de travail Centre",
+        "header_title": "Ventes de franchise Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "premium_concierge_analytics": {
+        "title": "Concierge Premium Analyses Centre",
+        "header_title": "Concierge Premium Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "premium_concierge_workflow": {
+        "title": "Concierge Premium Flux de travail Centre",
+        "header_title": "Concierge Premium Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "vip_manager_analytics": {
+        "title": "Vip Manager Analyses Centre",
+        "header_title": "Vip Manager Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "vip_manager_workflow": {
+        "title": "Vip Manager Flux de travail Centre",
+        "header_title": "Vip Manager Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_field_supervisor_analytics": {
+        "title": "Rn Superviseur de terrain Analyses Centre",
+        "header_title": "Rn Superviseur de terrain Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "rn_field_supervisor_workflow": {
+        "title": "Rn Superviseur de terrain Flux de travail Centre",
+        "header_title": "Rn Superviseur de terrain Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "np_analytics": {
+        "title": "Np Analyses Centre",
+        "header_title": "Np Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "np_workflow": {
+        "title": "Np Flux de travail Centre",
+        "header_title": "Np Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "lpn_analytics": {
+        "title": "LPN Analyses Centre",
+        "header_title": "LPN Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "lpn_workflow": {
+        "title": "LPN Flux de travail Centre",
+        "header_title": "LPN Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "employee_analytics": {
+        "title": "Employé Analyses Centre",
+        "header_title": "Employé Analyses Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "employee_workflow": {
+        "title": "Employé Flux de travail Centre",
+        "header_title": "Employé Flux de travail Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "prime_care": {
+        "title": "Soins Prime Centre",
+        "header_title": "Soins Prime Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "default_not_implemented": {
+        "title": "Par défaut non implémenté Centre",
+        "header_title": "Par défaut non implémenté Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "sso_redirect": {
+        "title": "Redirection SSO Centre",
+        "header_title": "Redirection SSO Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "governed": {
+        "title": "Gouverné Centre",
+        "header_title": "Gouverné Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "screen_audit": {
+        "title": "Audit d'écran Centre",
+        "header_title": "Audit d'écran Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "dynamic_dashboard": {
+        "title": "Dynamic Tableau de bord Centre",
+        "header_title": "Dynamic Tableau de bord Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "admin_screen_health": {
+        "title": "Admin Screen Health Centre",
+        "header_title": "Admin Screen Health Espace Portail",
+        "summary_title": "Détails du résumé des métriques",
+        "btn_action": "Soumettre les modifications",
+        "btn_refresh": "Synchroniser le tableau de bord"
+    },
+    "security": {
+        "environment_audit": "Environment Audit",
+        "posture_status": "Posture Status",
+        "trusted_device": "Trusted Device",
+        "mfa_active": "MFA Active",
+        "bank_grade_secured": "Bank-Grade Secured",
+        "elevated_risk": "Elevated Risk",
+        "secure_environment": "Secure Environment",
+        "hardware_keystore": "Hardware Keystore",
+        "biometric_ready": "Biometric Ready",
+        "integrity_verified": "Integrity Verified",
+        "root_check": "Hardware Root Check",
+        "keystore_check": "Secure Keystore Check",
+        "biometric_status": "Biometric Status",
+        "upgrade_security": "Upgrade Security",
+        "lock_session": "Lock Session",
+        "verifying": "Verifying Integrity...",
+        "trust_upgrade_required": "Security Upgrade Required",
+        "trust_upgrade_desc": "Your device is not fully trusted. Please perform MFA to enable bank-grade access."
+    }
 }

@@ -18,7 +18,7 @@ class Cy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Semantics(
-      label: 'dy-data:$id data-cy:$id',
+      label: id,
       container: container,
       child: KeyedSubtree(
         key: Key(id),

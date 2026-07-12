@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 
 class RnPatientChartingPrimaryContentSection extends StatelessWidget {
-  const RnPatientChartingPrimaryContentSection({super.key});
+  final Map<String, dynamic> data;
+  const RnPatientChartingPrimaryContentSection({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: const Key('rn_patient_charting_primary_content-section'),
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text('Primary Content Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          // TODO: Add element slots here from DB
-        ],
+    return Semantics(
+      label: 'rn_patient_charting_primary_content_title',
+      container: true,
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            Text('Primary Content Section', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            SizedBox(height: 4),
+            Text('Clinical Care Operations Status.', style: TextStyle(color: Colors.grey)),
+          ],
+        ),
       ),
     );
   }

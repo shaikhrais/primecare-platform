@@ -1,3 +1,6 @@
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Governance - Category: service | Purpose: Core implementation file for the Care Plan platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -32,6 +35,7 @@ class CarePlanState {
 
 // --- Controller ---
 class CarePlanController extends StateNotifier<CarePlanState> {
+  final Ref ref;
   final Ref _ref;
 
   CarePlanController(this._ref)

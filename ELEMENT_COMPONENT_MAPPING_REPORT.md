@@ -1,6 +1,6 @@
 # Element Component Mapping Report
 
-Total Element Mappings: 7128
+Total Element Mappings: 7131
 
 | ID | Screen Code | Section Code | Element Key | Element Type | UI Component | Tag | Variant | Required |
 |---|---|---|---|---|---|---|---|---|
@@ -55,4 +55,4 @@ Total Element Mappings: 7128
 | 49 | lpn_dashboard | lpn_dashboard_header | page_title | header | PrimeButton | main_content | primary | 1 |
 | 50 | lpn_dashboard | lpn_dashboard_summary_cards | primary_content | layout | PrimeButton | main_content | primary | 1 |
 
-*...and 7078 more records.*
+*...and 7081 more records.*

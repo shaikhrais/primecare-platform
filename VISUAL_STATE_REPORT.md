@@ -1,6 +1,6 @@
 # Visual State Report
 
-Total Mappings: 10648
+Total Mappings: 10653
 
 | ID | Element Key | State Code | Required | Notes |
 |---|---|---|---|---|
@@ -55,4 +55,4 @@ Total Mappings: 10648
 | 49 | page_title | success | 1 | Success fully-rendered visual state |
 | 50 | primary_content | success | 1 | Success fully-rendered visual state |
 
-*...and 10598 more records.*
+*...and 10603 more records.*

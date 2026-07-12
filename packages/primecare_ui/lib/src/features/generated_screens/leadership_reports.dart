@@ -1,3 +1,6 @@
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Governance - Category: service | Purpose: Core implementation file for the Leadership Reports platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -48,6 +51,7 @@ class LeadershipReportsState {
 
 // --- Controller ---
 class LeadershipReportsController extends StateNotifier<LeadershipReportsState> {
+  final Ref ref;
   final Ref _ref;
 
   LeadershipReportsController(this._ref)

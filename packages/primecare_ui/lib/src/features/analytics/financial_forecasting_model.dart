@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=financial_forecasting_model
 PRIME:DESIGN=DESIGN_APPROVED

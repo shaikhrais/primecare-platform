@@ -1,3 +1,6 @@
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Governance - Category: service | Purpose: Core implementation file for the Operations Board platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -32,6 +35,7 @@ class OperationsBoardState {
 
 // --- Controller ---
 class OperationsBoardController extends StateNotifier<OperationsBoardState> {
+  final Ref ref;
   final Ref _ref;
 
   OperationsBoardController(this._ref)

@@ -1,26 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'architecture_planning_compliance_screen_controller.dart';
 import 'sections/architecture_planning_compliance_header_section.dart';
 import 'sections/architecture_planning_compliance_content_summary_section.dart';
 import 'sections/architecture_planning_compliance_primary_content_section.dart';
 import 'sections/architecture_planning_compliance_action_bar_section.dart';
 
-class ArchitecturePlanningComplianceScreen extends StatelessWidget {
+
+class ArchitecturePlanningComplianceScreen extends ConsumerWidget {
   const ArchitecturePlanningComplianceScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ScreenScaffold(
-      screenCode: 'architecture_planning_compliance',
-      title: 'ArchitecturePlanningComplianceScreen',
-      child: Column(
-        children: const [
-          const ArchitecturePlanningComplianceHeaderSection(),
-          const ArchitecturePlanningComplianceContentSummarySection(),
-          const ArchitecturePlanningCompliancePrimaryContentSection(),
-          const ArchitecturePlanningComplianceActionBarSection(),
-        ],
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(architecture_planning_complianceControllerProvider);
+
+    return Semantics(
+      label: 'screen-root',
+      container: true,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Semantics(
+            label: 'page-title',
+            child: const Text('ArchitecturePlanningCompliance'),
+          ),
+          actions: [
+            Semantics(
+              label: 'sync-button',
+              button: true,
+              child: IconButton(
+                icon: const Icon(Icons.sync),
+                onPressed: () => ref.read(architecture_planning_complianceControllerProvider.notifier).syncData(),
+              ),
+            ),
+          ],
+        ),
+        body: state.isLoading 
+            ? Center(key: ValueKey('architecture_planning_compliance_loading'), child: Semantics(label: 'architecture_planning_compliance_loading', child: CircularProgressIndicator()))
+            : state.error != null
+                ? Center(child: Text('Error: ${state.error}'))
+                : SingleChildScrollView(
+                    key: const Key('architecture_planning_compliance_screen'),
+                    child: Column(
+                      children: [
+                        ArchitecturePlanningComplianceHeaderSection(data: state.data),
+                        ArchitecturePlanningComplianceContentSummarySection(data: state.data),
+                        ArchitecturePlanningCompliancePrimaryContentSection(data: state.data),
+                        ArchitecturePlanningComplianceActionBarSection(data: state.data),
+
+                      ],
+                    ),
+                  ),
       ),
     );
   }

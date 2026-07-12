@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=asynchronous_consultation_inbox
 PRIME:DESIGN=DESIGN_APPROVED

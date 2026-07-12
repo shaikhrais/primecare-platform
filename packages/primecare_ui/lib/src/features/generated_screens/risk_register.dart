@@ -1,3 +1,6 @@
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Governance - Category: service | Purpose: Core implementation file for the Risk Register platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -68,6 +71,7 @@ class RiskRegisterState {
 
 // --- Controller (Notifier) ---
 class RiskRegisterController extends StateNotifier<RiskRegisterState> {
+  final Ref ref;
   RiskRegisterController()
       : super(
           const RiskRegisterState(
@@ -144,7 +148,7 @@ class RiskRegisterController extends StateNotifier<RiskRegisterState> {
 // --- Provider ---
 final riskRegisterProvider =
     StateNotifierProvider<RiskRegisterController, RiskRegisterState>((ref) {
-  return RiskRegisterController();
+  return RiskRegisterController(ref);
 });
 
 // --- View ---

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=secure_message_center
 PRIME:DESIGN=DESIGN_APPROVED

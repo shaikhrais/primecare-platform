@@ -1,31 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'cns_analytics_screen_controller.dart';
 import 'sections/cns_analytics_header_section.dart';
 import 'sections/cns_analytics_filter_bar_section.dart';
 import 'sections/cns_analytics_metrics_summary_section.dart';
 import 'sections/cns_analytics_chart_area_section.dart';
 import 'sections/cns_analytics_export_actions_section.dart';
 
-class CnsAnalyticsScreen extends StatelessWidget {
-  const CnsAnalyticsScreen({super.key});
+
+class ClinicalNurseSpecialistAnalyticsScreen extends ConsumerWidget {
+  const ClinicalNurseSpecialistAnalyticsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ScreenScaffold(
-      screenCode: 'cns_analytics',
-      title: 'Clinical Nurse Specialist Analytics',
-      child: Column(
-        children: const [
-          const CnsAnalyticsHeaderSection(),
-          const CnsAnalyticsFilterBarSection(),
-          const CnsAnalyticsMetricsSummarySection(),
-          const CnsAnalyticsChartAreaSection(),
-          const CnsAnalyticsExportActionsSection(),
-        ],
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(cns_analyticsControllerProvider);
+
+    return Semantics(
+      label: 'screen-root',
+      container: true,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Semantics(
+            label: 'page-title',
+            child: const Text('Clinical Nurse Specialist Analytics'),
+          ),
+          actions: [
+            Semantics(
+              label: 'sync-button',
+              button: true,
+              child: IconButton(
+                icon: const Icon(Icons.sync),
+                onPressed: () => ref.read(cns_analyticsControllerProvider.notifier).syncData(),
+              ),
+            ),
+          ],
+        ),
+        body: state.isLoading 
+            ? Center(key: ValueKey('cns_analytics_loading'), child: Semantics(label: 'cns_analytics_loading', child: CircularProgressIndicator()))
+            : state.error != null
+                ? Center(child: Text('Error: ${state.error}'))
+                : SingleChildScrollView(
+                    key: const Key('cns_analytics_screen'),
+                    child: Column(
+                      children: [
+                        CnsAnalyticsHeaderSection(data: state.data),
+                        CnsAnalyticsFilterBarSection(data: state.data),
+                        CnsAnalyticsMetricsSummarySection(data: state.data),
+                        CnsAnalyticsChartAreaSection(data: state.data),
+                        CnsAnalyticsExportActionsSection(data: state.data),
+
+                      ],
+                    ),
+                  ),
       ),
     );
   }
 }
-
-typedef ClinicalNurseSpecialistAnalyticsScreen = CnsAnalyticsScreen;

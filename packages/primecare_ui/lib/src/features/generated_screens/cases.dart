@@ -1,3 +1,6 @@
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Governance - Category: service | Purpose: Core implementation file for the Cases platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -64,6 +67,7 @@ class CasesState {
 
 // --- Controller (Notifier) ---
 class CasesController extends StateNotifier<CasesState> {
+  final Ref ref;
   CasesController()
       : super(
           CasesState(
@@ -133,7 +137,7 @@ class CasesController extends StateNotifier<CasesState> {
 
 // --- Provider ---
 final casesProvider = StateNotifierProvider<CasesController, CasesState>((ref) {
-  return CasesController();
+  return CasesController(ref);
 });
 
 // --- View ---

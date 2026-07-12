@@ -5,14 +5,40 @@ class PhysicianDashboardQuickActionsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: const Key('physician_dashboard_quick_actions-section'),
+    return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text('Quick Actions Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          // TODO: Add element slots here from DB
+        children: [
+          const Text('Physician Actions', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Semantics(
+                label: 'physiciandashboard_btn_1',
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Admit Patient'),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Semantics(
+                label: 'physiciandashboard_btn_2',
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Request Labs'),
+                ),
+              ),
+              const SizedBox(width: 12),
+              Semantics(
+                label: 'physiciandashboard_btn_3',
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Sync Cases'),
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );

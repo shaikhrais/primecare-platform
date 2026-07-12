@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/flutter_core.dart' as core;
 

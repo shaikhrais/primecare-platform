@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-05T12:22:26.492Z",
+  "timestamp": "2026-07-12T01:37:48.558Z",
   "overallI18nScore": "100.6%",
   "deployments": [
     {
@@ -44,7 +44,7 @@
             "auth_consent_redirecting",
             "auth_consent_approve",
             "auth_consent_cancel",
-            ";\n      final urlWithToken =",
+            ";\r\n      final urlWithToken =",
             "}&role=${Uri.encodeComponent(authState.role ??",
             ")}&userId=${authState.userId ??"
           ],

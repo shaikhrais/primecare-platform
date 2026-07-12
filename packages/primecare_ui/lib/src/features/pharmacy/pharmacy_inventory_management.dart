@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=pharmacy_inventory_management
 PRIME:DESIGN=DESIGN_APPROVED

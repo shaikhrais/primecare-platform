@@ -1,26 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'regional_manager_usa_compliance_screen_controller.dart';
 import 'sections/regional_manager_usa_compliance_header_section.dart';
 import 'sections/regional_manager_usa_compliance_content_summary_section.dart';
 import 'sections/regional_manager_usa_compliance_primary_content_section.dart';
 import 'sections/regional_manager_usa_compliance_action_bar_section.dart';
 
-class RegionalManagerUsaComplianceScreen extends StatelessWidget {
+
+class RegionalManagerUsaComplianceScreen extends ConsumerWidget {
   const RegionalManagerUsaComplianceScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ScreenScaffold(
-      screenCode: 'regional_manager_usa_compliance',
-      title: 'RegionalManagerUsaComplianceScreen',
-      child: Column(
-        children: const [
-          const RegionalManagerUsaComplianceHeaderSection(),
-          const RegionalManagerUsaComplianceContentSummarySection(),
-          const RegionalManagerUsaCompliancePrimaryContentSection(),
-          const RegionalManagerUsaComplianceActionBarSection(),
-        ],
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(regional_manager_usa_complianceControllerProvider);
+
+    return Semantics(
+      label: 'screen-root',
+      container: true,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Semantics(
+            label: 'page-title',
+            child: const Text('RegionalManagerUsaCompliance'),
+          ),
+          actions: [
+            Semantics(
+              label: 'sync-button',
+              button: true,
+              child: IconButton(
+                icon: const Icon(Icons.sync),
+                onPressed: () => ref.read(regional_manager_usa_complianceControllerProvider.notifier).syncData(),
+              ),
+            ),
+          ],
+        ),
+        body: state.isLoading 
+            ? Center(key: ValueKey('regional_manager_usa_compliance_loading'), child: Semantics(label: 'regional_manager_usa_compliance_loading', child: CircularProgressIndicator()))
+            : state.error != null
+                ? Center(child: Text('Error: ${state.error}'))
+                : SingleChildScrollView(
+                    key: const Key('regional_manager_usa_compliance_screen'),
+                    child: Column(
+                      children: [
+                        RegionalManagerUsaComplianceHeaderSection(data: state.data),
+                        RegionalManagerUsaComplianceContentSummarySection(data: state.data),
+                        RegionalManagerUsaCompliancePrimaryContentSection(data: state.data),
+                        RegionalManagerUsaComplianceActionBarSection(data: state.data),
+
+                      ],
+                    ),
+                  ),
       ),
     );
   }

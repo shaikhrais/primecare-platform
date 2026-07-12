@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=operational_efficiency_metrics
 PRIME:DESIGN=DESIGN_APPROVED

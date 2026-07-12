@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=epidemiological_surveillance_dashboard
 PRIME:DESIGN=DESIGN_APPROVED

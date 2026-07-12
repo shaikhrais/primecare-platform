@@ -1,3 +1,6 @@
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Governance - Category: service | Purpose: Core implementation file for the Compliance Status platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -36,6 +39,7 @@ class ComplianceStatusState {
 
 // --- Controller ---
 class ComplianceStatusController extends StateNotifier<ComplianceStatusState> {
+  final Ref ref;
   final Ref _ref;
 
   ComplianceStatusController(this._ref)

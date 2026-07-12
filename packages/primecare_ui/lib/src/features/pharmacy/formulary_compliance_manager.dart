@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=formulary_compliance_manager
 PRIME:DESIGN=DESIGN_APPROVED

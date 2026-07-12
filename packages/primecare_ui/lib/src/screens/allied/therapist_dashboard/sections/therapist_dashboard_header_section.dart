@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TherapistDashboardHeaderSection extends StatelessWidget {
-  const TherapistDashboardHeaderSection({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: const Key('therapist_dashboard_header-section'),
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text('Header Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          // TODO: Add element slots here from DB
-        ],
+    return Semantics(
+      label: 'therapist_title',
+      container: true,
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: const Text('Therapist Clinical Workspace', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
       ),
     );
   }

@@ -1,19 +1,49 @@
 import 'package:flutter/material.dart';
 
 class ArchitecturePlanningDashboardSummaryCardsSection extends StatelessWidget {
-  const ArchitecturePlanningDashboardSummaryCardsSection({super.key});
+  final Map<String, dynamic> data;
+  const ArchitecturePlanningDashboardSummaryCardsSection({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: const Key('architecture_planning_dashboard_summary_cards-section'),
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text('Summary Cards Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          // TODO: Add element slots here from DB
-        ],
+    return Semantics(
+      label: 'architectureplanningdashboard_content',
+      container: true,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      const Text('Active System Designs'),
+                      const SizedBox(height: 8),
+                      Text('${data['active_designs'] ?? 0}', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      const Text('Architectural Reviews'),
+                      const SizedBox(height: 8),
+                      Text('${data['pending_reviews'] ?? 0}', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

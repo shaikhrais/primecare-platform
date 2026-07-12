@@ -8,7 +8,7 @@ LOGOUT_BLOCK = """
     // Logout verification
     cy.task("log", "👆 PROGRESS: - Logging out...");
     cy.get("body").then(($body) => {
-      const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
+      const topbarLogout = $body.find('[aria-label*="data-cy:topbar-logout-button"], [aria-label*="topbar-logout-button"], [key="topbar-logout-button"], [data-cy="topbar-logout-button"]');
       if (topbarLogout.length > 0) {
         cy.wrap(topbarLogout).first().click({ force: true });
       } else {

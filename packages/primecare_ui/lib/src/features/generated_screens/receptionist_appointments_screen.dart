@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=receptionist_appointments
 PRIME:DESIGN=DESIGN_APPROVED

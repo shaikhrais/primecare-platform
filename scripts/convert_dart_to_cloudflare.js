@@ -2,6 +2,22 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+// Load .env file if present
+const envFile = path.join(__dirname, '..', '.env');
+if (fs.existsSync(envFile)) {
+    const lines = fs.readFileSync(envFile, 'utf8').split('\n');
+    for (const line of lines) {
+        const match = line.match(/^\s*([^#=]+)\s*=\s*(.*)$/);
+        if (match) {
+            const key = match[1].trim();
+            let val = match[2].trim();
+            if (val.startsWith('"') && val.endsWith('"')) val = val.slice(1, -1);
+            if (val.startsWith("'") && val.endsWith("'")) val = val.slice(1, -1);
+            process.env[key] = val;
+        }
+    }
+}
+
 const SERVICES_DIR = path.join(__dirname, '..', 'services');
 const services = fs.readdirSync(SERVICES_DIR).filter(file => fs.statSync(path.join(SERVICES_DIR, file)).isDirectory());
 
@@ -54,9 +70,14 @@ for (const service of services) {
         const projectName = `primecare-worker-${service.replace(/_/g, '-')}`;
         
         // Execute real wrangler deployment
-        const output = execSync(`npx wrangler deploy build/worker.js --name ${projectName} --compatibility-date 2026-05-20`, { 
+        const cleanEnv = { ...process.env };
+        cleanEnv.CLOUDFLARE_API_KEY = process.env.CLOUDFLARE_API_KEY;
+        cleanEnv.CLOUDFLARE_EMAIL = process.env.CLOUDFLARE_EMAIL;
+        delete cleanEnv.CLOUDFLARE_API_TOKEN;
+        execSync(`npx wrangler deploy build/worker.js --name ${projectName} --compatibility-date 2026-05-20`, { 
             cwd: serviceDir,
-            encoding: 'utf8'
+            stdio: 'inherit',
+            env: cleanEnv
         });
         
         console.log(`  ✅ Success! [${service}] is live at https://${projectName}.itpro.workers.dev`);

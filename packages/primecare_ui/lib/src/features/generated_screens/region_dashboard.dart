@@ -1,3 +1,6 @@
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Governance - Category: view | Purpose: UI Screen component rendering the Region Dashboard workspace interface.
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -40,6 +43,7 @@ class RegionDashboardState {
 
 // --- Controller ---
 class RegionDashboardController extends StateNotifier<RegionDashboardState> {
+  final Ref ref;
   final Ref _ref;
 
   RegionDashboardController(this._ref)

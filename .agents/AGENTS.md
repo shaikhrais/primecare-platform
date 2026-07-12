@@ -716,4 +716,22 @@ Naming rules:
 - Cypress tests must interact with the application exclusively through `data-cy` selectors.
 - CSS classes, text, or DOM hierarchy selectors are not allowed in testing.
 
+---
+
+# 22. Flutter Web Selenium Semantics Rules
+
+This is a Flutter Web app. Do not use data-cy for Selenium because Flutter widgets do not render as normal HTML attributes.
+
+Add Semantics labels to all testable widgets:
+- login-email
+- login-password
+- login-submit
+- topbar-logout-button
+
+Then Selenium should locate elements using XPath with aria-label:
+//*[@aria-label='login-email']
+
+Also ensure Flutter Web semantics are enabled so aria-label elements appear in the DOM.
+
+
 

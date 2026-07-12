@@ -124,7 +124,7 @@ async function main() {
   console.log("Injecting CSS rules to expose semantic interactions...");
   await page.addStyleTag({
     content: `
-      flt-semantics[aria-label*="data-cy:"], [aria-label*="data-cy:"] {
+      flt-semantics[aria-label*="data-cy:"], [aria-label*="data-cy:"], flt-semantics[aria-label], [aria-label] {
         min-width: 1px !important;
         min-height: 1px !important;
         visibility: visible !important;
@@ -199,7 +199,7 @@ async function main() {
   try {
     await page.addStyleTag({
       content: `
-        flt-semantics[aria-label*="data-cy:"], [aria-label*="data-cy:"] {
+        flt-semantics[aria-label*="data-cy:"], [aria-label*="data-cy:"], flt-semantics[aria-label], [aria-label] {
           min-width: 1px !important;
           min-height: 1px !important;
           visibility: visible !important;

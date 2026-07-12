@@ -1,28 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'hr_manager_workflow_screen_controller.dart';
 import 'sections/hr_manager_workflow_header_section.dart';
 import 'sections/hr_manager_workflow_task_filters_section.dart';
 import 'sections/hr_manager_workflow_task_list_section.dart';
 import 'sections/hr_manager_workflow_task_details_section.dart';
 import 'sections/hr_manager_workflow_action_bar_section.dart';
 
-class HrManagerWorkflowScreen extends StatelessWidget {
+
+class HrManagerWorkflowScreen extends ConsumerWidget {
   const HrManagerWorkflowScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ScreenScaffold(
-      screenCode: 'hr_manager_workflow',
-      title: 'HrManagerWorkflowScreen',
-      child: Column(
-        children: const [
-          const HrManagerWorkflowHeaderSection(),
-          const HrManagerWorkflowTaskFiltersSection(),
-          const HrManagerWorkflowTaskListSection(),
-          const HrManagerWorkflowTaskDetailsSection(),
-          const HrManagerWorkflowActionBarSection(),
-        ],
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(hr_manager_workflowControllerProvider);
+
+    return Semantics(
+      label: 'screen-root',
+      container: true,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Semantics(
+            label: 'page-title',
+            child: const Text('HrManagerWorkflow'),
+          ),
+          actions: [
+            Semantics(
+              label: 'sync-button',
+              button: true,
+              child: IconButton(
+                icon: const Icon(Icons.sync),
+                onPressed: () => ref.read(hr_manager_workflowControllerProvider.notifier).syncData(),
+              ),
+            ),
+          ],
+        ),
+        body: state.isLoading 
+            ? Center(key: ValueKey('hr_manager_workflow_loading'), child: Semantics(label: 'hr_manager_workflow_loading', child: CircularProgressIndicator()))
+            : state.error != null
+                ? Center(child: Text('Error: ${state.error}'))
+                : SingleChildScrollView(
+                    key: const Key('hr_manager_workflow_screen'),
+                    child: Column(
+                      children: [
+                        HrManagerWorkflowHeaderSection(data: state.data),
+                        HrManagerWorkflowTaskFiltersSection(data: state.data),
+                        HrManagerWorkflowTaskListSection(data: state.data),
+                        HrManagerWorkflowTaskDetailsSection(data: state.data),
+                        HrManagerWorkflowActionBarSection(data: state.data),
+
+                      ],
+                    ),
+                  ),
       ),
     );
   }

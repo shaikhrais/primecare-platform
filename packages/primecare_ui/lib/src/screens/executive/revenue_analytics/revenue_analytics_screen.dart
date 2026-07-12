@@ -1,28 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'revenue_analytics_screen_controller.dart';
 import 'sections/revenue_analytics_header_section.dart';
 import 'sections/revenue_analytics_filter_bar_section.dart';
 import 'sections/revenue_analytics_metrics_summary_section.dart';
 import 'sections/revenue_analytics_chart_area_section.dart';
 import 'sections/revenue_analytics_export_actions_section.dart';
 
-class RevenueAnalyticsScreen extends StatelessWidget {
+
+class RevenueAnalyticsScreen extends ConsumerWidget {
   const RevenueAnalyticsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ScreenScaffold(
-      screenCode: 'revenue_analytics',
-      title: 'RevenueAnalyticsScreen',
-      child: Column(
-        children: const [
-          const RevenueAnalyticsHeaderSection(),
-          const RevenueAnalyticsFilterBarSection(),
-          const RevenueAnalyticsMetricsSummarySection(),
-          const RevenueAnalyticsChartAreaSection(),
-          const RevenueAnalyticsExportActionsSection(),
-        ],
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(revenue_analyticsControllerProvider);
+
+    return Semantics(
+      label: 'screen-root',
+      container: true,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Semantics(
+            label: 'page-title',
+            child: const Text('RevenueAnalytics'),
+          ),
+          actions: [
+            Semantics(
+              label: 'sync-button',
+              button: true,
+              child: IconButton(
+                icon: const Icon(Icons.sync),
+                onPressed: () => ref.read(revenue_analyticsControllerProvider.notifier).syncData(),
+              ),
+            ),
+          ],
+        ),
+        body: state.isLoading 
+            ? Center(key: ValueKey('revenue_analytics_loading'), child: Semantics(label: 'revenue_analytics_loading', child: CircularProgressIndicator()))
+            : state.error != null
+                ? Center(child: Text('Error: ${state.error}'))
+                : SingleChildScrollView(
+                    key: const Key('revenue_analytics_screen'),
+                    child: Column(
+                      children: [
+                        RevenueAnalyticsHeaderSection(data: state.data),
+                        RevenueAnalyticsFilterBarSection(data: state.data),
+                        RevenueAnalyticsMetricsSummarySection(data: state.data),
+                        RevenueAnalyticsChartAreaSection(data: state.data),
+                        RevenueAnalyticsExportActionsSection(data: state.data),
+
+                      ],
+                    ),
+                  ),
       ),
     );
   }

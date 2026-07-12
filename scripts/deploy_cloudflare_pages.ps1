@@ -1,6 +1,19 @@
 $ErrorActionPreference = "Stop"
 $appsDir = Join-Path $PSScriptRoot "..\apps"
 
+# Load .env file if present
+if (Test-Path ".env") {
+    Get-Content ".env" | ForEach-Object {
+        if ($_ -match '^\s*([^#=]+)\s*=\s*(.*)$') {
+            $key = $Matches[1].Trim()
+            $val = $Matches[2].Trim()
+            if ($val.StartsWith('"') -and $val.EndsWith('"')) { $val = $val.Substring(1, $val.Length - 2) }
+            if ($val.StartsWith("'") -and $val.EndsWith("'")) { $val = $val.Substring(1, $val.Length - 2) }
+            $env:$key = $val
+        }
+    }
+}
+
 $appDirs = Get-ChildItem -Path $appsDir -Directory
 
 foreach ($dir in $appDirs) {
@@ -28,7 +41,12 @@ foreach ($dir in $appDirs) {
 
     Write-Host "Deploying to Cloudflare Pages..." -ForegroundColor Yellow
     # Using wrangler from local node_modules
+    $oldToken = $env:CLOUDFLARE_API_TOKEN
+    $env:CLOUDFLARE_API_TOKEN = $null
+    
     npx wrangler pages deploy build/web --project-name $projectName
+    
+    $env:CLOUDFLARE_API_TOKEN = $oldToken
     
     Write-Host "Successfully deployed $appName!" -ForegroundColor Green
 }

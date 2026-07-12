@@ -1,19 +1,49 @@
 import 'package:flutter/material.dart';
 
 class NpDashboardSummaryCardsSection extends StatelessWidget {
-  const NpDashboardSummaryCardsSection({super.key});
+  final Map<String, dynamic> data;
+  const NpDashboardSummaryCardsSection({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: const Key('np_dashboard_summary_cards-section'),
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text('Summary Cards Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          // TODO: Add element slots here from DB
-        ],
+    return Semantics(
+      label: 'npdashboard_content',
+      container: true,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      const Text('Active Cases'),
+                      const SizedBox(height: 8),
+                      Text('${data['active_cases'] ?? 0}', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      const Text('Pending Rx'),
+                      const SizedBox(height: 8),
+                      Text('${data['pending_prescriptions'] ?? 0}', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

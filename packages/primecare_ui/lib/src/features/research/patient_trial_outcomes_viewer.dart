@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=patient_trial_outcomeser
 PRIME:DESIGN=DESIGN_APPROVED

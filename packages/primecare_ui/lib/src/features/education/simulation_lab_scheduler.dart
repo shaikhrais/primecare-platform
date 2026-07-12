@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=simulation_lab_scheduler
 PRIME:DESIGN=DESIGN_APPROVED

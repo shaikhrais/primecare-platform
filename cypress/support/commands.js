@@ -83,6 +83,33 @@ Cypress.Commands.add("visitWithSemantics", (path) => {
     });
   }
   cy.wait(2000);
+
+  // Check for 404 or page errors
+  cy.title().then((title) => {
+    if (title) {
+      const lower = title.toLowerCase();
+      expect(lower).to.not.contain("404");
+      expect(lower).to.not.contain("not found");
+      expect(lower).to.not.contain("error");
+      expect(lower).to.not.contain("cloudflare");
+    }
+  });
+
+  cy.url().then((url) => {
+    const lower = url.toLowerCase();
+    expect(lower).to.not.contain("/404");
+    expect(lower).to.not.contain("/error");
+  });
+
+  cy.get("body").then(($body) => {
+    const text = $body.text().toLowerCase();
+    expect(text).to.not.contain("404 not found");
+    expect(text).to.not.contain("cannot get");
+    expect(text).to.not.contain("site not found");
+    expect(text).to.not.contain("cloudflare error");
+    expect(text).to.not.contain("error 404");
+  });
+
   cy.document().then((doc) => {
     const style = doc.createElement("style");
     style.innerHTML = `

@@ -1,3 +1,6 @@
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Business Overview platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -40,6 +43,7 @@ class BusinessOverviewState {
 
 // --- Controller ---
 class BusinessOverviewController extends StateNotifier<BusinessOverviewState> {
+  final Ref ref;
   final Ref _ref;
 
   BusinessOverviewController(this._ref)

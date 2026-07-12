@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=drug_interaction_alert_center
 PRIME:DESIGN=DESIGN_APPROVED

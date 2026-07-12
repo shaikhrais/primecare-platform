@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=integration_health_monitor
 PRIME:DESIGN=DESIGN_APPROVED

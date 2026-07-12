@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=vaccination_campaign_manager
 PRIME:DESIGN=DESIGN_APPROVED

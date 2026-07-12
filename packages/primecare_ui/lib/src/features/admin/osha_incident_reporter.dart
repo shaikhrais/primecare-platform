@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=osha_incident_reporter
 PRIME:DESIGN=DESIGN_APPROVED

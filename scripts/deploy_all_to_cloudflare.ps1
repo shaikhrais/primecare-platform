@@ -5,6 +5,19 @@ param(
 
 $ErrorActionPreference = "Continue"
 
+# Load .env file if present
+if (Test-Path ".env") {
+    Get-Content ".env" | ForEach-Object {
+        if ($_ -match '^\s*([^#=]+)\s*=\s*(.*)$') {
+            $key = $Matches[1].Trim()
+            $val = $Matches[2].Trim()
+            if ($val.StartsWith('"') -and $val.EndsWith('"')) { $val = $val.Substring(1, $val.Length - 2) }
+            if ($val.StartsWith("'") -and $val.EndsWith("'")) { $val = $val.Substring(1, $val.Length - 2) }
+            $env:$key = $val
+        }
+    }
+}
+
 $allApps = @(
     "primecare_auth",                # 1
     "primecare_governance",          # 2
@@ -164,7 +177,12 @@ foreach ($app in $apps) {
 
 
     Write-Host '⚡ Step 3: Deploying to Cloudflare Pages...' -ForegroundColor Yellow
+    $oldToken = $env:CLOUDFLARE_API_TOKEN
+    $env:CLOUDFLARE_API_TOKEN = $null
+    
     $deployOutput = npx wrangler pages deploy build/web --project-name $projectName --commit-dirty=true 2>&1 | Out-String
+    
+    $env:CLOUDFLARE_API_TOKEN = $oldToken
     
     $url = 'N/A'
     if ($deployOutput -match 'https://[a-zA-Z0-9.-]+\.pages\.dev') {

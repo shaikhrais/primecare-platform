@@ -1,26 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'physiotherapist_client_intake_screen_controller.dart';
 import 'sections/physiotherapist_client_intake_header_section.dart';
 import 'sections/physiotherapist_client_intake_content_summary_section.dart';
 import 'sections/physiotherapist_client_intake_primary_content_section.dart';
 import 'sections/physiotherapist_client_intake_action_bar_section.dart';
 
-class PhysiotherapistClientIntakeScreen extends StatelessWidget {
+
+class PhysiotherapistClientIntakeScreen extends ConsumerWidget {
   const PhysiotherapistClientIntakeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ScreenScaffold(
-      screenCode: 'physiotherapist_client_intake',
-      title: 'PhysiotherapistClientIntakeScreen',
-      child: Column(
-        children: const [
-          const PhysiotherapistClientIntakeHeaderSection(),
-          const PhysiotherapistClientIntakeContentSummarySection(),
-          const PhysiotherapistClientIntakePrimaryContentSection(),
-          const PhysiotherapistClientIntakeActionBarSection(),
-        ],
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(physiotherapist_client_intakeControllerProvider);
+
+    return Semantics(
+      label: 'screen-root',
+      container: true,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Semantics(
+            label: 'page-title',
+            child: const Text('PhysiotherapistClientIntake'),
+          ),
+          actions: [
+            Semantics(
+              label: 'sync-button',
+              button: true,
+              child: IconButton(
+                icon: const Icon(Icons.sync),
+                onPressed: () => ref.read(physiotherapist_client_intakeControllerProvider.notifier).syncData(),
+              ),
+            ),
+          ],
+        ),
+        body: state.isLoading 
+            ? Center(key: ValueKey('physiotherapist_client_intake_loading'), child: Semantics(label: 'physiotherapist_client_intake_loading', child: CircularProgressIndicator()))
+            : state.error != null
+                ? Center(child: Text('Error: ${state.error}'))
+                : SingleChildScrollView(
+                    key: const Key('physiotherapist_client_intake_screen'),
+                    child: Column(
+                      children: [
+                        PhysiotherapistClientIntakeHeaderSection(data: state.data),
+                        PhysiotherapistClientIntakeContentSummarySection(data: state.data),
+                        PhysiotherapistClientIntakePrimaryContentSection(data: state.data),
+                        PhysiotherapistClientIntakeActionBarSection(data: state.data),
+
+                      ],
+                    ),
+                  ),
       ),
     );
   }

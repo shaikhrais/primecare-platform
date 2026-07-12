@@ -232,13 +232,16 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: TextButton(key: const Key('login_view_textbutton_button_1'), 
-                    onPressed: () => _showForgotPasswordDialog(context, controller),
-                    child: Text(
-                      'login_forgot_password'.tr(),
-                      style: theme.typography.labelMedium.copyWith(
-                        color: theme.colors.primary,
-                        fontWeight: FontWeight.bold,
+                  child: Cy(
+                    id: 'login-forgot-password',
+                    child: TextButton(key: const Key('login_view_textbutton_button_1'), 
+                      onPressed: () => _showForgotPasswordDialog(context, controller),
+                      child: Text(
+                        'login_forgot_password'.tr(),
+                        style: theme.typography.labelMedium.copyWith(
+                          color: theme.colors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
@@ -293,39 +296,48 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
               style: theme.typography.bodyMedium,
             ),
             const SizedBox(height: 24),
-            _InputField(
-              label: 'login_identifier_label'.tr(),
-              placeholder: 'admin@primecare.com',
-              icon: Icons.email_outlined,
-              initialValue: email,
-              onChanged: (v) => email = v,
+            Cy(
+              id: 'forgot-password-email',
+              child: _InputField(
+                label: 'login_identifier_label'.tr(),
+                placeholder: 'admin@primecare.com',
+                icon: Icons.email_outlined,
+                initialValue: email,
+                onChanged: (v) => email = v,
+              ),
             ),
           ],
         ),
         actionsPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         actions: [
-          TextButton(key: const Key('login_view_textbutton_button_2'), 
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(
-              'auth.cancel'.tr().toUpperCase(),
-              style: theme.typography.labelMedium.copyWith(
-                fontWeight: FontWeight.bold,
-                color: theme.colors.onSurfaceVariant,
+          Cy(
+            id: 'forgot-password-cancel',
+            child: TextButton(key: const Key('login_view_textbutton_button_2'), 
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                'auth.cancel'.tr().toUpperCase(),
+                style: theme.typography.labelMedium.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colors.onSurfaceVariant,
+                ),
               ),
             ),
           ),
-          ElevatedButton(key: const Key('login_view_elevatedbutton_button_1'), 
-            onPressed: () async {
-               Navigator.of(context).pop();
-               await controller.forgotPassword(email);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: theme.colors.primary,
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              elevation: 0,
+          Cy(
+            id: 'forgot-password-submit',
+            child: ElevatedButton(key: const Key('login_view_elevatedbutton_button_1'), 
+              onPressed: () async {
+                 Navigator.of(context).pop();
+                 await controller.forgotPassword(email);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: theme.colors.primary,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                elevation: 0,
+              ),
+              child: Text('auth.send_recovery_link'.tr().toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold)),
             ),
-            child: Text('auth.send_recovery_link'.tr().toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -533,22 +545,25 @@ class _ActionButtons extends StatelessWidget {
         ),
         if (!kReleaseMode) ...[
           const SizedBox(height: 16),
-          OutlinedButton(key: const Key('login_view_outlinedbutton_button_1'), 
-            onPressed: controller.loginWithDemo,
-            style: OutlinedButton.styleFrom(
-              foregroundColor: theme.colors.primary,
-              side: BorderSide(
-                color: theme.colors.primary.withValues(alpha: 0.5),
+          Cy(
+            id: 'login-demo-access',
+            child: OutlinedButton(key: const Key('login_view_outlinedbutton_button_1'), 
+              onPressed: controller.loginWithDemo,
+              style: OutlinedButton.styleFrom(
+                foregroundColor: theme.colors.primary,
+                side: BorderSide(
+                  color: theme.colors.primary.withValues(alpha: 0.5),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 18),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
               ),
-              padding: const EdgeInsets.symmetric(vertical: 18),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-            ),
-            child: Center(
-              child: Text(
-                'login_access_demo'.tr(),
-                style: const TextStyle(fontWeight: FontWeight.w700, letterSpacing: 1),
+              child: Center(
+                child: Text(
+                  'login_access_demo'.tr(),
+                  style: const TextStyle(fontWeight: FontWeight.w700, letterSpacing: 1),
+                ),
               ),
             ),
           ),
@@ -563,20 +578,23 @@ class _ActionButtons extends StatelessWidget {
                 color: theme.colors.onSurfaceVariant.withValues(alpha: 0.8),
               ),
             ),
-            TextButton(
-              key: const Key('login_view_textbutton_signup'),
-              onPressed: () => _showSignUpDialog(context),
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                minimumSize: Size.zero,
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
-              child: Text(
-                'Sign Up',
-                style: theme.typography.labelMedium.copyWith(
-                  color: theme.colors.primary,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.underline,
+            Cy(
+              id: 'login-signup-link',
+              child: TextButton(
+                key: const Key('login_view_textbutton_signup'),
+                onPressed: () => _showSignUpDialog(context),
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  minimumSize: Size.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                child: Text(
+                  'Sign Up',
+                  style: theme.typography.labelMedium.copyWith(
+                    color: theme.colors.primary,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                  ),
                 ),
               ),
             ),

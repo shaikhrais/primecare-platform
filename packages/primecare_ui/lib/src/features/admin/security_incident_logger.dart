@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=security_incident_logger
 PRIME:DESIGN=DESIGN_APPROVED

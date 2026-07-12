@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=resource_allocation_map
 PRIME:DESIGN=DESIGN_APPROVED

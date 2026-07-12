@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=screen_not_implemented
 PRIME:DESIGN=DESIGN_APPROVED

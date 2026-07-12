@@ -1380,7 +1380,7 @@ def main():
             placements.append((scr_id, sec_id, target_region_id, idx + 1, 1, 1, 'fluid', 0, 0, 1, 'visible'))
 
             # Add QA test id for section
-            qa_registries.append((scr_id, sec_id, None, None, f"section-{sec_code}", "section", f"[data-testid='section-{sec_code}']", 1))
+            qa_registries.append((scr_id, sec_id, None, None, f"section-{sec_code}", "section", f"//*[starts-with(@aria-label, 'section-{sec_code}')]", 1))
 
             # Fetch elements for this section
             c.execute("SELECT id, element_key, element_type, label, test_id FROM screen_section_elements WHERE section_id = ?", (sec_id,))
@@ -1411,7 +1411,7 @@ def main():
                 element_maps.append((scr_id, sec_id, el_id, el_type, pref_comp_id, tag_id, 'primary', 'UI representation mapping', 1))
 
                 # QA Test ID Registry
-                qa_registries.append((scr_id, sec_id, el_id, None, test_id, "element", f"[data-testid='{test_id}']", 1))
+                qa_registries.append((scr_id, sec_id, el_id, None, test_id, "element", f"//*[starts-with(@aria-label, '{test_id}')]", 1))
 
                 # Accessibility implementation mapping
                 a11y_implementations.append((scr_id, sec_id, el_id, rule_ids['wcag_aria_labels'], "label", 1, 0, f"Accessibility prompt for {el_label}", 1))

@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=dynamic_analytics
 PRIME:DESIGN=DESIGN_APPROVED

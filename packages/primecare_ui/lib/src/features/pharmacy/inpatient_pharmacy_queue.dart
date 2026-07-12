@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=inpatient_pharmacy_queue
 PRIME:DESIGN=DESIGN_APPROVED

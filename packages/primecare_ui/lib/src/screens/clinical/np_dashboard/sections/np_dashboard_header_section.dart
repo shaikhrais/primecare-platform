@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 
 class NpDashboardHeaderSection extends StatelessWidget {
-  const NpDashboardHeaderSection({super.key});
+  final Map<String, dynamic> data;
+  const NpDashboardHeaderSection({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: const Key('np_dashboard_header-section'),
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          Text('Header Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          // TODO: Add element slots here from DB
-        ],
+    return Semantics(
+      label: 'npdashboard_title',
+      container: true,
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: const [
+            Text('NP Clinical Workspace', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            SizedBox(height: 4),
+            Text('Welcome back, Clinical Director.', style: TextStyle(color: Colors.grey)),
+          ],
+        ),
       ),
     );
   }

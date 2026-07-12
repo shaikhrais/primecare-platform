@@ -1,3 +1,6 @@
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Governance - Category: service | Purpose: Core implementation file for the Compliance Hub platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -48,6 +51,7 @@ class ComplianceAlert {
 
 // --- Controller (Notifier) ---
 class ComplianceHubController extends StateNotifier<ComplianceHubState> {
+  final Ref ref;
   ComplianceHubController()
       : super(
           ComplianceHubState(
@@ -108,7 +112,7 @@ class ComplianceHubController extends StateNotifier<ComplianceHubState> {
 // --- Provider ---
 final complianceHubProvider =
     StateNotifierProvider<ComplianceHubController, ComplianceHubState>((ref) {
-  return ComplianceHubController();
+  return ComplianceHubController(ref);
 });
 
 // --- View ---

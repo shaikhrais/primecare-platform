@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=medical_library_access_portal
 PRIME:DESIGN=DESIGN_APPROVED

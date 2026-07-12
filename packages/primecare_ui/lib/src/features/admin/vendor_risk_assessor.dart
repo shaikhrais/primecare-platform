@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=vendor_risk_assessor
 PRIME:DESIGN=DESIGN_APPROVED

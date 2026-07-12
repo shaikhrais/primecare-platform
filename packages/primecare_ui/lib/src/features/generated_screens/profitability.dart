@@ -1,3 +1,6 @@
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Governance - Category: service | Purpose: Core implementation file for the Profitability platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -40,6 +43,7 @@ class ProfitabilityState {
 
 // --- Controller ---
 class ProfitabilityController extends StateNotifier<ProfitabilityState> {
+  final Ref ref;
   final Ref _ref;
 
   ProfitabilityController(this._ref)

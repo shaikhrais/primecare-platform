@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=email_marketing_automator
 PRIME:DESIGN=DESIGN_APPROVED

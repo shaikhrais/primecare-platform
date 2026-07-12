@@ -1,26 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'community_outreach_compliance_screen_controller.dart';
 import 'sections/community_outreach_compliance_header_section.dart';
 import 'sections/community_outreach_compliance_content_summary_section.dart';
 import 'sections/community_outreach_compliance_primary_content_section.dart';
 import 'sections/community_outreach_compliance_action_bar_section.dart';
 
-class CommunityOutreachComplianceScreen extends StatelessWidget {
+
+class CommunityOutreachComplianceScreen extends ConsumerWidget {
   const CommunityOutreachComplianceScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ScreenScaffold(
-      screenCode: 'community_outreach_compliance',
-      title: 'CommunityOutreachComplianceScreen',
-      child: Column(
-        children: const [
-          const CommunityOutreachComplianceHeaderSection(),
-          const CommunityOutreachComplianceContentSummarySection(),
-          const CommunityOutreachCompliancePrimaryContentSection(),
-          const CommunityOutreachComplianceActionBarSection(),
-        ],
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(community_outreach_complianceControllerProvider);
+
+    return Semantics(
+      label: 'screen-root',
+      container: true,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Semantics(
+            label: 'page-title',
+            child: const Text('CommunityOutreachCompliance'),
+          ),
+          actions: [
+            Semantics(
+              label: 'sync-button',
+              button: true,
+              child: IconButton(
+                icon: const Icon(Icons.sync),
+                onPressed: () => ref.read(community_outreach_complianceControllerProvider.notifier).syncData(),
+              ),
+            ),
+          ],
+        ),
+        body: state.isLoading 
+            ? Center(key: ValueKey('community_outreach_compliance_loading'), child: Semantics(label: 'community_outreach_compliance_loading', child: CircularProgressIndicator()))
+            : state.error != null
+                ? Center(child: Text('Error: ${state.error}'))
+                : SingleChildScrollView(
+                    key: const Key('community_outreach_compliance_screen'),
+                    child: Column(
+                      children: [
+                        CommunityOutreachComplianceHeaderSection(data: state.data),
+                        CommunityOutreachComplianceContentSummarySection(data: state.data),
+                        CommunityOutreachCompliancePrimaryContentSection(data: state.data),
+                        CommunityOutreachComplianceActionBarSection(data: state.data),
+
+                      ],
+                    ),
+                  ),
       ),
     );
   }

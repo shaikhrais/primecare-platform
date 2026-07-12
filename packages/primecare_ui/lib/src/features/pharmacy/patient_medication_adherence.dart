@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=patient_medication_adherence
 PRIME:DESIGN=DESIGN_APPROVED

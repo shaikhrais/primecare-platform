@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=public_health_alert_broadcaster
 PRIME:DESIGN=DESIGN_APPROVED

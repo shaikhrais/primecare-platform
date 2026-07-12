@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=lead_conversion_funnel
 PRIME:DESIGN=DESIGN_APPROVED

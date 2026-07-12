@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=unknown_dashboard
 PRIME:DESIGN=DESIGN_APPROVED

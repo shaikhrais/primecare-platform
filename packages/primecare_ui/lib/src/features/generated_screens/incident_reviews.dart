@@ -1,3 +1,6 @@
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Incident Reviews platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
 
@@ -36,6 +39,7 @@ class IncidentReviewsState {
 
 // --- Controller ---
 class IncidentReviewsController extends StateNotifier<IncidentReviewsState> {
+  final Ref ref;
   final Ref _ref;
 
   IncidentReviewsController(this._ref)
