@@ -21,7 +21,7 @@ class RouteGuard {
   /// Maps a user role to a list of allowed route prefixes.
   /// This acts as our centralized permissions map.
       static final Map<String, List<String>> _defaultRolePermissions = {
-    'admin': ['/offices/franchise', '/common', '/offices/support', '/dynamic', '/roles', '/offices/governance'],
+    'admin': ['/offices/franchise', '/common', '/offices/support', '/dynamic', '/roles', '/offices/governance', '/clinic', '/offices/clinical'],
     'billing_admin': ['/offices/franchise', '/common'],
     'bus_dev': ['/common', '/offices/business_development', '/offices', '/offices/corporate'],
     'caregiver': ['/offices/clinical', '/clinic', '/common', '/dynamic', '/offices'],
@@ -142,6 +142,7 @@ class RouteGuard {
         requestedRoute == CommonRoutes.forgotPassword ||
         requestedRoute == CommonRoutes.ssoRedirect ||
         requestedRoute == CommonRoutes.authCallback ||
+        requestedRoute == CommonRoutes.language ||
         requestedRoute == '/') {
       // If logged in and trying to hit public unauthenticated routes, redirect to dashboard.
       if (isLoggedIn) {

@@ -141,7 +141,7 @@ class LanguageSelectionView extends GovernedScreen {
 
                    // 2. Language Option Grid
                   Cy(
-                    id: 'language-english',
+                    id: 'lang-english',
                     child: _LanguageOptionCard(
                       title: 'language_en_title'.tr(),
                       subtitle: 'language_en_subtitle'.tr(),
@@ -152,7 +152,7 @@ class LanguageSelectionView extends GovernedScreen {
                   ),
                   const SizedBox(height: 12),
                   Cy(
-                    id: 'language-card-fr',
+                    id: 'lang-french',
                     child: _LanguageOptionCard(
                       title: 'language_fr_title'.tr(),
                       subtitle: 'language_fr_subtitle'.tr(),
@@ -182,7 +182,7 @@ class LanguageSelectionView extends GovernedScreen {
                       key: const Key('language_selection_continue_button'),
                       onPressed: () {
                         // Choice is already persisted in setLanguage, navigate to login
-                        context.go('/login');
+                        _navigateToLogin(context);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
@@ -215,6 +215,13 @@ class LanguageSelectionView extends GovernedScreen {
         ),
       ),
     ));
+  }
+
+  void _navigateToLogin(BuildContext context) {
+    final state = GoRouterState.of(context);
+    final params = state.uri.queryParameters;
+    final uri = Uri(path: '/login', queryParameters: params.isEmpty ? null : params);
+    context.go(uri.toString());
   }
 
   Widget _buildSystemLanguageBanner(BuildContext context) {
@@ -277,7 +284,7 @@ class LanguageSelectionView extends GovernedScreen {
     
     // 4. Automatically transition to login view
     if (context.mounted) {
-      context.go('/login');
+      _navigateToLogin(context);
     }
   }
 }

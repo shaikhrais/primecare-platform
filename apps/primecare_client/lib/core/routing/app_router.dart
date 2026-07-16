@@ -49,10 +49,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   final activeRole = ref.watch(activeRoleProvider);
   final application = ref.read(clientApplicationProvider);
 
-  final dashboardRoute = !ref.watch(authProvider).isAuthenticated
+  final authState = ref.watch(authProvider);
+  final dashboardRoute = !authState.isAuthenticated
       ? CommonRoutes.login
       : application.getDefinition(activeRole)?.dashboardRoute ??
-            CommonRoutes.login;
+            AuthNotifier.getDashboardRouteForRole(authState.role ?? '');
 
   return GovernanceRouter.buildZeroTrustRouter(
     application: application,
@@ -80,6 +81,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       final isAtLanding =
           requestedRoute == '/' ||
           requestedRoute == CommonRoutes.login ||
+          requestedRoute == CommonRoutes.language ||
           requestedRoute == CommonRoutes.authCallback;
       if (authState.isAuthenticated && isAtLanding) {
         return dashboardRoute;
@@ -102,12 +104,18 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     },
     publicRoutes: [
       GoRoute(
+        path: CommonRoutes.language,
+        builder: (context, state) => const AppShellBoundary(
+          child: LanguageSelectionView(),
+        ),
+      ),
+      GoRoute(
         path: CommonRoutes.ssoRedirect,
         builder: (context, state) {
           final url =
               state.uri.queryParameters['url'] ??
               'https://primecare-auth.pages.dev';
-          return SsoRedirectView(redirectUrl: url);
+          return AppShellBoundary(child: SsoRedirectView(redirectUrl: url));
         },
       ),
       GoRoute(

@@ -102,7 +102,11 @@ class GovernanceRouter {
               
           final fullRedirectUrl = '$ssoPortal/login?redirect_uri=${Uri.encodeComponent(redirectUri)}&force_login=true';
           
-          return SsoRedirectView(redirectUrl: fullRedirectUrl);
+          return GovernanceMasterLayout(
+            application: application,
+            activeRole: activeRole,
+            child: SsoRedirectView(redirectUrl: fullRedirectUrl),
+          );
         }
 
         return GovernanceMasterLayout(

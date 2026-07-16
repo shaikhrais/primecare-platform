@@ -50,6 +50,9 @@ class _AuthCallbackViewState extends GovernedConsumerState<AuthCallbackView> {
     final token = widget.queryParameters['token'];
     final role = widget.queryParameters['role'];
     final userId = widget.queryParameters['userId'] ?? 'unknown';
+    final rawReturnUrl = widget.queryParameters['returnUrl'];
+    
+    final safeReturnUrl = validateClinicReturnUrl(rawReturnUrl);
 
     if (token != null && token.isNotEmpty && role != null && role.isNotEmpty) {
       // Authenticate via notifier
@@ -59,15 +62,14 @@ class _AuthCallbackViewState extends GovernedConsumerState<AuthCallbackView> {
         userId: userId,
       );
       
-      // Redirect to the dashboard route or root of the app
       if (mounted) {
-        final dashboardRoute = AuthNotifier.getDashboardRouteForRole(role);
+        final dashboardRoute = safeReturnUrl ?? AuthNotifier.getDashboardRouteForRole(role);
         context.go(dashboardRoute);
       }
     } else {
-      // Fallback if missing params
       if (mounted) {
-        context.go(CommonRoutes.login);
+        final encodedReturn = rawReturnUrl != null ? '&returnUrl=${Uri.encodeQueryComponent(rawReturnUrl)}' : '';
+        context.go('${CommonRoutes.authError}?error=missing_params$encodedReturn');
       }
     }
   }

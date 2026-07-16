@@ -5,10 +5,12 @@ class CommonRoutes {
 
   static const String splash = '/';
   static const String login = '/login';
+  static const String language = '/language';
   static const String signup = '/signup';
   static const String forgotPassword = '/forgot-password';
   static const String ssoRedirect = '/sso-redirect';
   static const String authCallback = '/auth/callback';
+  static const String authError = '/auth/error';
   static const String globalSettings = '/common/settings';
   static const String globalProfile = '/common/profile';
   static const String notificationCenter = '/common/notifications';

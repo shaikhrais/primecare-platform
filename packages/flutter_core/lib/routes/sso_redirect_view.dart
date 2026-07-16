@@ -49,7 +49,7 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
       ];
 
   late TextEditingController _urlController;
-  bool _useSystemBrowser = true;
+  bool _useSystemBrowser = false;
   String _selectedProvider = 'Google Auth';
   bool _redirecting = true;
 

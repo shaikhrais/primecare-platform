@@ -1495,6 +1495,15 @@ class ClinicApplication extends PlatformApplication {
   @override
   List<PlatformRoleDefinition> get roleDefinitions => [
     PlatformRoleDefinition(
+      role: PlatformRole.admin,
+      dashboardRoute: CommonRoutes.clinicDashboard,
+      modules: [
+        ClinicCareModule(),
+        ClinicOperationsModule(),
+        ClinicSafetyModule(),
+      ],
+    ),
+    PlatformRoleDefinition(
       role: PlatformRole.clinic,
       dashboardRoute: CommonRoutes.clinicDashboard,
       modules: [

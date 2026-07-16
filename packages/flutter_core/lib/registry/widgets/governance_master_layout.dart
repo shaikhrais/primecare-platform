@@ -182,7 +182,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   key: const Key('app-content-slot'),
                   child: Container(
                     color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
-                    child: AppShellBoundary(child: const SizedBox.shrink()),
+                    child: AppShellBoundary(child: child),
                   ),
                 ),
               ),
@@ -228,7 +228,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   key: const Key('app-content-slot'),
                   child: Container(
                     color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
-                    child: AppShellBoundary(child: const SizedBox.shrink()),
+                    child: AppShellBoundary(child: child),
                   ),
                 ),
               ),
@@ -250,7 +250,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                 key: const Key('app-content-slot'),
                 child: Container(
                   color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),
-                  child: AppShellBoundary(child: const SizedBox.shrink()),
+                  child: AppShellBoundary(child: child),
                 ),
               ),
             ),
@@ -492,14 +492,69 @@ class GovernanceMasterLayout extends ConsumerWidget {
                           ),
                           const SizedBox(width: 8),
                           Semantics(
-                            label: 'data-cy:topbar-logout-button',
+                            label: 'data-cy:topbar-user-menu',
                             container: true,
-                            child: IconButton(
-                              key: const Key('topbar-logout-button'),
-                              icon: Icon(LucideIcons.logOut, color: topbarIconColor),
-                              onPressed: () {
-                                ref.read(authProvider.notifier).logout();
-                              },
+                            child: KeyedSubtree(
+                              key: const Key('topbar-user-menu'),
+                              child: PopupMenuButton<String>(
+                                offset: const Offset(0, 48),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  side: BorderSide(color: theme.dividerColor),
+                                ),
+                                tooltip: 'User Functions',
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                  child: CircleAvatar(
+                                    radius: 16,
+                                    backgroundColor: resolvedPrimary.withValues(alpha: 0.1),
+                                    backgroundImage: NetworkImage(
+                                      'https://api.dicebear.com/7.x/avataaars/png?seed=${ref.watch(authProvider).userName ?? 'User'}',
+                                    ),
+                                  ),
+                                ),
+                                onSelected: (value) {
+                                  if (value == 'logout') {
+                                    ref.read(authProvider.notifier).logout();
+                                  }
+                                },
+                                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                                  PopupMenuItem<String>(
+                                    enabled: false,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          ref.watch(authProvider).userName ?? 'System User',
+                                          style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          ref.watch(authProvider).role ?? 'Guest',
+                                          style: theme.textTheme.labelSmall,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const PopupMenuDivider(),
+                                  PopupMenuItem<String>(
+                                    value: 'logout',
+                                    child: Semantics(
+                                      label: 'data-cy:topbar-logout-button',
+                                      container: false,
+                                      child: KeyedSubtree(
+                                        key: const Key('topbar-logout-button'),
+                                        child: Row(
+                                          children: [
+                                            Icon(LucideIcons.logOut, size: 18, color: theme.colorScheme.error),
+                                            const SizedBox(width: 12),
+                                            Text(tr('login_button'), style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.error)),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           const SizedBox(width: 8),

@@ -131,7 +131,8 @@ final authRouterProvider = Provider<GoRouter>((ref) {
       final hasSelectedLanguage = prefs?.getBool('auth_language_selected') ?? false;
 
       if (!hasSelectedLanguage && !isAtLanguage) {
-        return '/language${redirectUri != null ? '?redirect_uri=${Uri.encodeComponent(redirectUri)}' : ''}';
+        final query = state.uri.query;
+        return '/language${query.isNotEmpty ? '?$query' : ''}';
       }
 
       final justLoggedIn = ref.read(loginSuccessRedirectProvider);
@@ -160,7 +161,8 @@ final authRouterProvider = Provider<GoRouter>((ref) {
             web.window.history.replaceState(null, '', newUri.toString());
           } catch (_) {}
         }
-        return '/login${redirectUri != null ? '?redirect_uri=${Uri.encodeComponent(redirectUri)}' : ''}';
+        final query = state.uri.query;
+        return '/login${query.isNotEmpty ? '?$query' : ''}';
       }
 
       if (!forceLogin) {
@@ -169,9 +171,11 @@ final authRouterProvider = Provider<GoRouter>((ref) {
 
       // If authenticated and trying to log in (or just logged in)
       if (authState.isAuthenticated) {
-        if (redirectUri != null && redirectUri.isNotEmpty) {
-          final delimiter = redirectUri.contains('?') ? '&' : '?';
-          final urlWithToken = '$redirectUri${delimiter}token=${authState.token ?? ''}&role=${Uri.encodeComponent(authState.role ?? '')}&userId=${authState.userId ?? ''}';
+        final callbackUrl = state.uri.queryParameters['callbackUrl'] ?? redirectUri;
+        final returnUrl = state.uri.queryParameters['returnUrl'] ?? '';
+        if (callbackUrl != null && callbackUrl.isNotEmpty) {
+          final delimiter = callbackUrl.contains('?') ? '&' : '?';
+          final urlWithToken = '$callbackUrl${delimiter}token=${authState.token ?? ''}&role=${Uri.encodeComponent(authState.role ?? '')}&userId=${authState.userId ?? ''}&route=${Uri.encodeComponent(returnUrl)}';
           if (kIsWeb) {
             Future.microtask(() {
               web.window.location.href = urlWithToken;
@@ -188,7 +192,8 @@ final authRouterProvider = Provider<GoRouter>((ref) {
       }
 
       if (!authState.isAuthenticated && !isAtLogin && !isAtLanguage) {
-        return '/login${redirectUri != null ? '?redirect_uri=${Uri.encodeComponent(redirectUri)}' : ''}';
+        final query = state.uri.query;
+        return '/login${query.isNotEmpty ? '?$query' : ''}';
       }
 
       return null;
@@ -227,9 +232,11 @@ class LoginViewWrapper extends ConsumerWidget {
         ref.read(loginSuccessRedirectProvider.notifier).state = true;
         final state = GoRouterState.of(context);
         final redirectUri = state.uri.queryParameters['redirect_uri'];
-        if (redirectUri != null && redirectUri.isNotEmpty) {
-          final delimiter = redirectUri.contains('?') ? '&' : '?';
-          final urlWithToken = '$redirectUri${delimiter}token=${next.token ?? ''}&role=${Uri.encodeComponent(next.role ?? '')}&userId=${next.userId ?? ''}';
+        final callbackUrl = state.uri.queryParameters['callbackUrl'] ?? redirectUri;
+        final returnUrl = state.uri.queryParameters['returnUrl'] ?? '';
+        if (callbackUrl != null && callbackUrl.isNotEmpty) {
+          final delimiter = callbackUrl.contains('?') ? '&' : '?';
+          final urlWithToken = '$callbackUrl${delimiter}token=${next.token ?? ''}&role=${Uri.encodeComponent(next.role ?? '')}&userId=${next.userId ?? ''}&route=${Uri.encodeComponent(returnUrl)}';
           if (kIsWeb) {
             web.window.location.href = urlWithToken;
           }

@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 import 'clinic_routes.dart';
@@ -20,10 +21,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   final activeRole = ref.watch(activeRoleProvider);
   final application = ref.read(clinicApplicationProvider);
 
-  final dashboardRoute = !ref.watch(authProvider).isAuthenticated
+  final authState = ref.watch(authProvider);
+  final dashboardRoute = !authState.isAuthenticated
       ? CommonRoutes.login
       : application.getDefinition(activeRole)?.dashboardRoute ??
-            CommonRoutes.login;
+            AuthNotifier.getDashboardRouteForRole(authState.role ?? '');
 
   return GovernanceRouter.buildZeroTrustRouter(
     application: application,
@@ -33,29 +35,42 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     redirect: (context, state) {
       final authState = ref.read(authProvider);
       
-      // If the authentication system has not completed its initial session restoration check yet,
-      // DO NOT redirect the user! Prevent early redirects and let the startup check finalize.
       if (!authState.isInitialized) {
         return null;
       }
 
       final requestedRoute = state.uri.path;
+      final requestedLocation = state.uri.toString();
 
-      // Ensure SSO Portal URL is configured (this normally goes in app initialization)
-      RouteGuard.ssoPortalUrl ??= const String.fromEnvironment(
-        'SSO_PORTAL_URL',
-        defaultValue: 'https://primecare-auth.pages.dev',
-      );
+      final publicRoutes = <String>{
+        '/login',
+        '/language',
+        '/auth/callback',
+        '/auth/error',
+        '/sso-redirect',
+        '/success',
+        '/forgot-password',
+        '/404',
+        '/403',
+        '/500',
+        '/503',
+        '/health',
+        '/version',
+      };
 
-      // If trying to hit root/login/callback while authenticated, redirect to dashboard immediately
-      final isAtLanding =
-          requestedRoute == '/' ||
-          requestedRoute == CommonRoutes.login ||
-          requestedRoute == CommonRoutes.authCallback;
-      if (authState.isAuthenticated && isAtLanding) {
-        return dashboardRoute;
+      if (publicRoutes.contains(requestedRoute)) {
+        if (authState.isAuthenticated && (requestedRoute == '/login' || requestedRoute == '/auth/callback' || requestedRoute == '/')) {
+          return dashboardRoute;
+        }
+        return null;
       }
 
+      if (!authState.isAuthenticated) {
+        final encodedTarget = Uri.encodeQueryComponent(requestedLocation);
+        return '/login?returnUrl=$encodedTarget';
+      }
+
+      // Check boundary permissions for authenticated users
       final result = RouteGuard.verify(
         requestedRoute: requestedRoute,
         isLoggedIn: authState.isAuthenticated,
@@ -63,10 +78,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       );
 
       if (!result.isAllowed) {
-        if (result.externalRedirectUrl != null) {
-          return '${CommonRoutes.ssoRedirect}?url=${Uri.encodeComponent(result.externalRedirectUrl!)}';
-        }
-        return result.redirectRoute;
+        return result.redirectRoute ?? '/common/settings';
       }
 
       return null;
@@ -75,22 +87,39 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: CommonRoutes.ssoRedirect,
         builder: (context, state) {
-          final url =
-              state.uri.queryParameters['url'] ??
-              'https://primecare-auth.pages.dev';
-          return SsoRedirectView(redirectUrl: url);
+          final originalTarget = state.uri.queryParameters['returnUrl'] ??
+              state.uri.queryParameters['target'] ??
+              '/dashboard';
+          final safeTarget = validateClinicReturnUrl(originalTarget) ?? '/dashboard';
+          return AppShellBoundary(child: ClinicLoginBridge(returnUrl: safeTarget));
         },
       ),
       GoRoute(
-        path: CommonRoutes.login,
+        path: CommonRoutes.language,
         builder: (context, state) => const AppShellBoundary(
-          child: LoginScreen(),
+          child: LanguageSelectionView(),
+        ),
+      ),
+      GoRoute(
+        path: CommonRoutes.login,
+        builder: (context, state) => AppShellBoundary(
+          child: ClinicLoginBridge(
+            returnUrl: state.uri.queryParameters['returnUrl'],
+          ),
         ),
       ),
       GoRoute(
         path: CommonRoutes.globalSettings,
         builder: (context, state) => const AppShellBoundary(
           child: GlobalSettingsScreen(),
+        ),
+      ),
+      GoRoute(
+        path: CommonRoutes.authError,
+        builder: (context, state) => AppShellBoundary(
+          child: AuthErrorView(
+            returnUrl: state.uri.queryParameters['returnUrl'],
+          ),
         ),
       ),
     ],

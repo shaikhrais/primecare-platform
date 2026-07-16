@@ -27,6 +27,8 @@ export 'routes/route_guard.dart';
 export 'routes/governance_navigator.dart';
 export 'routes/governance_router.dart';
 export 'routes/sso_redirect_view.dart';
+export 'routes/clinic_login_bridge.dart';
+export 'routes/auth_error_view.dart';
 export 'registry/governance_registry.dart';
 export 'registry/platform_role.dart';
 export 'registry/role_registry.dart';

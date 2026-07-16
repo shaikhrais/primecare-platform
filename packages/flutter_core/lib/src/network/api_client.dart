@@ -586,7 +586,15 @@ class ApiResponse {
 
 /// Centralized configuration for API endpoints and base URL.
 class ApiConfig {
-  static const String baseUrl = String.fromEnvironment('API_BASE_URL', defaultValue: 'http://localhost:8700');
+  static String get baseUrl {
+    if (kIsWeb) {
+      final host = Uri.base.host;
+      if (host.isNotEmpty && host != 'localhost' && host != '127.0.0.1') {
+        return '/api';
+      }
+    }
+    return const String.fromEnvironment('API_BASE_URL', defaultValue: 'http://localhost:8700');
+  }
 
   static const Map<String, String> endpoints = {
     'login': '/v1/auth/login',
