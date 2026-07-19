@@ -10,7 +10,7 @@
     </listeners>
     <test name="L2 Component Tests">
         <classes>
-            <class name="primecare.testing.layers.l2.L2ComponentTest" />
+            <class name="testNG.PrimeCare.L2ComponentTest" />
         </classes>
     </test>
 </suite>

@@ -10,7 +10,7 @@
     </listeners>
     <test name="L5 API Tests">
         <classes>
-            <class name="primecare.testing.layers.l5.L5ApiTest" />
+            <class name="testNG.PrimeCare.L5ApiTest" />
         </classes>
     </test>
 </suite>

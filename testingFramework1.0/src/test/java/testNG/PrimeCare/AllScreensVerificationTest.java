@@ -177,6 +177,7 @@ public class AllScreensVerificationTest extends baseUserCredentials {
         String targetUrl = base + screen.route + (screen.route.contains("?") ? "&" : "?") + "enable-semantics=true";
 
         try {
+            clearSessionAndCookies();
             // Invoke redirection recovery to login/redirect to target page
             try {
                 redirectToRequestedPage(

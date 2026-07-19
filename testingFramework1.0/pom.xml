@@ -7,9 +7,9 @@ https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <artifactId>testingFramework1.0</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>testingFramework1.0</name>
-  
-  
-  
+  <properties>
+    <suiteXmlFile>testng.xml</suiteXmlFile>
+  </properties>
 	<dependencies>
 		
 		<!-- https://mvnrepository.com/artifact/com.opencsv/opencsv -->
@@ -135,8 +135,11 @@ https://maven.apache.org/xsd/maven-4.0.0.xsd">
             <artifactId>maven-surefire-plugin</artifactId>
             <version>3.5.2</version>
             <configuration>
+                <systemPropertyVariables>
+                    <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                </systemPropertyVariables>
                 <suiteXmlFiles>
-                    <suiteXmlFile>testng.xml</suiteXmlFile>
+                    <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                 </suiteXmlFiles>
             </configuration>
         </plugin>

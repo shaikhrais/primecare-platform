@@ -10,7 +10,7 @@
     </listeners>
     <test name="L1 Route Tests">
         <classes>
-            <class name="primecare.testing.layers.l1.L1RouteTest" />
+            <class name="testNG.PrimeCare.L1RouteTest" />
         </classes>
     </test>
 </suite>

@@ -10,16 +10,16 @@
     </listeners>
     <test name="Full Regression Tests">
         <classes>
-            <class name="primecare.testing.layers.l1.L1RouteTest" />
-            <class name="primecare.testing.layers.l2.L2ComponentTest" />
-            <class name="primecare.testing.layers.l3.L3FunctionalTest" />
-            <class name="primecare.testing.layers.l4.L4BusinessLogicTest" />
-            <class name="primecare.testing.layers.l5.L5ApiTest" />
-            <class name="primecare.testing.layers.l6.L6IntegrationTest" />
-            <class name="primecare.testing.layers.l7.L7DataFlowTest" />
-            <class name="primecare.testing.layers.l8.L8SecurityTest" />
-            <class name="primecare.testing.layers.l9.L9WorkflowTest" />
-            <class name="primecare.testing.layers.l10.L10CertificationTest" />
+            <class name="testNG.PrimeCare.L1RouteTest" />
+            <class name="testNG.PrimeCare.L2ComponentTest" />
+            <class name="testNG.PrimeCare.L3FunctionalTest" />
+            <class name="testNG.PrimeCare.L4BusinessLogicTest" />
+            <class name="testNG.PrimeCare.L5ApiTest" />
+            <class name="testNG.PrimeCare.L6IntegrationTest" />
+            <class name="testNG.PrimeCare.L7DataFlowTest" />
+            <class name="testNG.PrimeCare.L8SecurityTest" />
+            <class name="testNG.PrimeCare.L9WorkflowTest" />
+            <class name="testNG.PrimeCare.L10CertificationTest" />
         </classes>
     </test>
 </suite>

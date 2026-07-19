@@ -53,6 +53,7 @@ public class baseUserCredentials extends baseRedirect {
         System.out.println("Starting fresh Chrome browser instance...");
 
         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");

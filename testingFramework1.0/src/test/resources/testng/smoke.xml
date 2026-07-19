@@ -15,8 +15,8 @@
             </run>
         </groups>
         <classes>
-            <class name="primecare.testing.layers.l1.L1RouteTest" />
-            <class name="primecare.testing.layers.l2.L2ComponentTest" />
+            <class name="testNG.PrimeCare.L1RouteTest" />
+            <class name="testNG.PrimeCare.L2ComponentTest" />
         </classes>
     </test>
 </suite>
