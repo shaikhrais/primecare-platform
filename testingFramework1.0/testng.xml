@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite
+        name="PrimeCare Verification Suite"
+        verbose="2"
+        preserve-order="true"
+        parallel="false">
+
+    <listeners>
+        <listener class-name="base.TestNGVerificationListener"/>
+    </listeners>
+
+    <test name="PrimeCare Redirect Test">
+
+        <classes>
+            <class name="testNG.PrimeCare.Auth.LanguagePageTest"/>
+            <class name="testNG.PrimeCare.PrimeCareTest"/>
+            <class name="testNG.PrimeCare.PswDashboardTest"/>
+            <class name="testNG.PrimeCare.AllScreensVerificationTest"/>
+        </classes>
+
+    </test>
+
+</suite>

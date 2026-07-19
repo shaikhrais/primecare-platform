@@ -1,0 +1,3 @@
+ExecutionDate;ExecutionTime;TargetDaysFromNow;Location;Status;AppointmentDate;AppointmentTime;DaysFromNow;ExecutionDuration;Rescheduled
+2025-07-20;09:42:07;60;Toronto;SYSTEM_BUSY;;;;00:00:09;NO
+2025-07-20;09:49:05;60;Toronto;SYSTEM_BUSY;;;;00:00:09;NO

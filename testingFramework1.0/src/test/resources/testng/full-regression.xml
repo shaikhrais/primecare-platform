@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="PrimeCare 10-Layer Full Regression Suite">
+    <listeners>
+        <listener class-name="primecare.testing.listeners.ExecutionListener" />
+        <listener class-name="primecare.testing.listeners.TestResultListener" />
+        <listener class-name="primecare.testing.listeners.DependencyListener" />
+        <listener class-name="primecare.testing.listeners.RetryListener" />
+        <listener class-name="primecare.testing.listeners.GovernanceReporter" />
+    </listeners>
+    <test name="Full Regression Tests">
+        <classes>
+            <class name="primecare.testing.layers.l1.L1RouteTest" />
+            <class name="primecare.testing.layers.l2.L2ComponentTest" />
+            <class name="primecare.testing.layers.l3.L3FunctionalTest" />
+            <class name="primecare.testing.layers.l4.L4BusinessLogicTest" />
+            <class name="primecare.testing.layers.l5.L5ApiTest" />
+            <class name="primecare.testing.layers.l6.L6IntegrationTest" />
+            <class name="primecare.testing.layers.l7.L7DataFlowTest" />
+            <class name="primecare.testing.layers.l8.L8SecurityTest" />
+            <class name="primecare.testing.layers.l9.L9WorkflowTest" />
+            <class name="primecare.testing.layers.l10.L10CertificationTest" />
+        </classes>
+    </test>
+</suite>
