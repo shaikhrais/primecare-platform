@@ -27,7 +27,7 @@ public class L6IntegrationTest extends BaseUiTest {
         // Since we seeded mappings, we verify that UI actions correspond to backend endpoint bindings
         driver.get(appProps.getProperty("login.url", "http://localhost:8080/login"));
         
-        page = new DynamicScreen("login");
+        page = new DynamicScreen(driver, "login");
         String testUser = appProps.getProperty("username.admin", "clinic@primecare.com");
         String testPass = appProps.getProperty("password.admin", "Password123");
 

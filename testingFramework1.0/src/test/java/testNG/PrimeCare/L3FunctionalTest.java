@@ -38,7 +38,7 @@ public class L3FunctionalTest extends BaseUiTest {
         // Open Login Screen
         driver.get(appProps.getProperty("login.url", "http://localhost:8080/login"));
         
-        page = new DynamicScreen("login");
+        page = new DynamicScreen(driver, "login");
         String testUser = appProps.getProperty("username.admin", "clinic@primecare.com");
         String testPass = appProps.getProperty("password.admin", "Password123");
 

@@ -36,7 +36,7 @@ public class L9WorkflowTest extends BaseWorkflowTest {
                 Assert.assertTrue(driver.getCurrentUrl().contains(step.screenKey), "Step " + step.stepKey + " failed. Unexpected URL: " + driver.getCurrentUrl());
             
             } else if ("EXECUTE_FUNCTION".equalsIgnoreCase(step.actionType)) {
-                page = new DynamicScreen("login");
+                page = new DynamicScreen(driver, "login");
                 String email = appProps.getProperty("username.admin", "clinic@primecare.com");
                 String password = appProps.getProperty("password.admin", "Password123");
 
