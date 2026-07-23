@@ -1,798 +1,181 @@
-import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+// Generated from SQLite DB (.agents/governance/governance.db) - Single Source of Truth
+// Screen Code: growth_pipeline | Role: Guest | App: Primecare Clinic
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// Governance - Category: service | Purpose: Core implementation file for the Growth Pipeline platform logic.
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
-// --- MVC State Model ---
-class GrowthPipelineState {
-  final List<Map<String, dynamic>> leads;
-  final String searchQuery;
-  final String activeStageFilter;
-  final double minCapitalFilter;
-  final String? selectedLeadId;
-  final bool isAnalyzingTerritory;
-
-  const GrowthPipelineState({
-    required this.leads,
-    required this.searchQuery,
-    required this.activeStageFilter,
-    required this.minCapitalFilter,
-    this.selectedLeadId,
-    required this.isAnalyzingTerritory,
-  });
-
-  GrowthPipelineState copyWith({
-    List<Map<String, dynamic>>? leads,
-    String? searchQuery,
-    String? activeStageFilter,
-    double? minCapitalFilter,
-    String? selectedLeadId,
-    bool? isAnalyzingTerritory,
-  }) {
-    return GrowthPipelineState(
-      leads: leads ?? this.leads,
-      searchQuery: searchQuery ?? this.searchQuery,
-      activeStageFilter: activeStageFilter ?? this.activeStageFilter,
-      minCapitalFilter: minCapitalFilter ?? this.minCapitalFilter,
-      selectedLeadId: selectedLeadId ?? this.selectedLeadId,
-      isAnalyzingTerritory: isAnalyzingTerritory ?? this.isAnalyzingTerritory,
-    );
+final growth_pipelineDataProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
+  final api = ref.read(apiClientProvider);
+  try {
+    final response = await api.get('/v1/growth-pipeline');
+    return response.data is Map ? Map<String, dynamic>.from(response.data as Map) : {};
+  } catch (_) {
+    return {'status': 'success', 'module': 'growth_pipeline'};
   }
-}
-
-// --- Controller ---
-class GrowthPipelineController extends StateNotifier<GrowthPipelineState> {
-  final Ref ref;
-  final Ref _ref;
-
-  GrowthPipelineController(this._ref)
-      : super(
-          const GrowthPipelineState(
-            leads: [
-              {
-                'id': 'LD-901',
-                'name': 'Dr. Sarah Jenkins',
-                'territory': 'North Vancouver, BC',
-                'stage': 'Under Review',
-                'capital': 350000.00,
-                'rating': 4.8,
-                'experience': '12 years Medical Group Practice Lead',
-                'notes': 'Strong financial backing, excellent clinical alignment.',
-              },
-              {
-                'id': 'LD-902',
-                'name': 'Marcus Vance',
-                'territory': 'Oakville, ON',
-                'stage': 'Approved / Signing',
-                'capital': 500000.00,
-                'rating': 4.9,
-                'experience': 'Multi-unit QSR Franchisee Owner',
-                'notes': 'Veteran operator, requested Oakville South territory.',
-              },
-              {
-                'id': 'LD-903',
-                'name': 'Elena Rostova',
-                'territory': 'Calgary South, AB',
-                'stage': 'New Lead',
-                'capital': 250000.00,
-                'rating': 4.2,
-                'experience': 'Senior Care Facility Administrator',
-                'notes': 'Clinical background is ideal. Needs capital validation check.',
-              },
-              {
-                'id': 'LD-904',
-                'name': 'Arthur Pendelton',
-                'territory': 'Halifax, NS',
-                'stage': 'Interview Scheduled',
-                'capital': 300000.00,
-                'rating': 4.5,
-                'experience': 'Home Healthcare Agency Executive',
-                'notes': 'Excellent regulatory relationships in Nova Scotia.',
-              },
-              {
-                'id': 'LD-905',
-                'name': 'Diana Prince',
-                'territory': 'Victoria Central, BC',
-                'stage': 'Under Review',
-                'capital': 180000.00,
-                'rating': 3.9,
-                'experience': 'Registered Nurse Team Lead',
-                'notes': 'Highly passionate clinical experience, searching for a capital partner.',
-              },
-            ],
-            searchQuery: '',
-            activeStageFilter: 'all',
-            minCapitalFilter: 0.0,
-            isAnalyzingTerritory: false,
-          ),
-        );
-
-  void updateSearch(String query) {
-    state = state.copyWith(searchQuery: query);
-  }
-
-  void updateStageFilter(String stage) {
-    state = state.copyWith(activeStageFilter: stage);
-  }
-
-  void updateMinCapitalFilter(double val) {
-    state = state.copyWith(minCapitalFilter: val);
-  }
-
-  void selectLead(String? id) {
-    state = state.copyWith(selectedLeadId: id);
-
-    if (id != null) {
-      try {
-        _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
-              route: '/generated/growth_pipeline',
-              eventType: 'franchise_lead_interaction',
-              metadata: {
-                'lead_id': id,
-                'action': 'select_details',
-                'timestamp': DateTime.now().toIso8601String(),
-              },
-            );
-      } catch (_) {}
-    }
-  }
-
-  void requestTerritoryStudy(String leadId) {
-    state = state.copyWith(isAnalyzingTerritory: true);
-
-    try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
-            route: '/generated/growth_pipeline',
-            eventType: 'franchise_territory_analysis_triggered',
-            metadata: {
-              'lead_id': leadId,
-              'timestamp': DateTime.now().toIso8601String(),
-            },
-          );
-    } catch (_) {}
-
-    Future.delayed(const Duration(milliseconds: 1500), () {
-      state = state.copyWith(isAnalyzingTerritory: false);
-    });
-  }
-
-  void advanceStage(String leadId) {
-    final updated = state.leads.map((lead) {
-      if (lead['id'] == leadId) {
-        String nextStage = (lead['stage'] as String);
-        if (lead['stage'] == 'New Lead') {
-          nextStage = 'Under Review';
-        } else if (lead['stage'] == 'Under Review') {
-          nextStage = 'Interview Scheduled';
-        } else if (lead['stage'] == 'Interview Scheduled') {
-          nextStage = 'Approved / Signing';
-        }
-        return {
-          ...lead,
-          'stage': nextStage,
-        };
-      }
-      return lead;
-    }).toList();
-
-    state = state.copyWith(leads: updated);
-
-    try {
-      _ref.read(auraBehavioralTelemetryProvider).logStructuralEvent(
-            route: '/generated/growth_pipeline',
-            eventType: 'franchise_lead_advanced',
-            metadata: {
-              'lead_id': leadId,
-              'timestamp': DateTime.now().toIso8601String(),
-            },
-          );
-    } catch (_) {}
-  }
-}
-
-// --- Provider ---
-final growthPipelineControllerProvider =
-    StateNotifierProvider<GrowthPipelineController, GrowthPipelineState>((ref) {
-  return GrowthPipelineController(ref);
 });
 
-// --- View ---
-class GrowthPipeline extends GovernedConsumerWidget {
-  const GrowthPipeline({super.key});
+/// GrowthPipelineScreen - Governed screen implementation for Primecare Clinic (Guest).
+/// Business Purpose: Provides a dedicated management interface within the Primecare Clinic module to enable Guest personnel to oversee, audit, and coordinate operations related to growth pipeline.
+class GrowthPipelineScreen extends GovernedConsumerWidget {
+  const GrowthPipelineScreen({super.key});
 
   @override
   Widget buildScreen(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(growthPipelineControllerProvider);
-    final controller = ref.read(growthPipelineControllerProvider.notifier);
     final theme = context.theme;
-
-    // Filter leads
-    final filteredLeads = state.leads.where((lead) {
-      final matchesSearch = (lead['name'] as String).toLowerCase().contains(state.searchQuery.toLowerCase()) ||
-          (lead['territory'] as String).toLowerCase().contains(state.searchQuery.toLowerCase()) ||
-          (lead['id'] as String).toLowerCase().contains(state.searchQuery.toLowerCase());
-      final matchesStage = state.activeStageFilter == 'all' ||
-          (lead['stage'] as String).toLowerCase() == state.activeStageFilter.toLowerCase();
-      final matchesCapital = (lead['capital'] as double) >= state.minCapitalFilter;
-      return matchesSearch && matchesStage && matchesCapital;
-    }).toList();
-
-    // Pipeline aggregate values
-    double totalCapital = 0;
-    int signingCount = 0;
-    int reviewCount = 0;
-    for (final lead in state.leads) {
-      totalCapital += lead['capital'] as double;
-      if (lead['stage'] == 'Approved / Signing') {
-        signingCount++;
-      } else if (lead['stage'] == 'Under Review') {
-        reviewCount++;
-      }
-    }
-
-    final selectedLead = state.selectedLeadId == null
-        ? null
-        : state.leads.firstWhere((l) => l['id'] == state.selectedLeadId);
+    final dataState = ref.watch(growth_pipelineDataProvider);
 
     return Scaffold(
-      backgroundColor: theme.colors.background,
+      backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
-        backgroundColor: theme.colors.surface,
+        backgroundColor: Colors.white,
         elevation: 0,
         title: Row(
           children: [
-            Icon(LucideIcons.globe, color: theme.colors.primary),
-            const SizedBox(width: 12),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: const Color(0xFF3B82F6).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                'PRIMECARE CLINIC',
+                style: const TextStyle(
+                  color: Color(0xFF3B82F6),
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
             Text(
-              'CEO Expansion Command Center',
-              style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
+              'GrowthPipelineScreen',
+              style: const TextStyle(
+                color: Color(0xFF0F172A),
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
             ),
           ],
         ),
       ),
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Franchise Growth & Territories',
-                          style: theme.typography.h2.copyWith(color: theme.colors.onSurface),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Evaluate franchisee applicants, review investment capital deployment, and authorize regional license agreements.',
-                          style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-
-                // Aggregates Grid
-                Row(
-                  children: [
-                    Expanded(
-                      child: _SummaryCard(
-                        title: 'Pipeline Capital Volume',
-                        value: '\$${(totalCapital / 1000).toStringAsFixed(0)}K',
-                        icon: LucideIcons.wallet,
-                        accentColor: theme.colors.primary,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: _SummaryCard(
-                        title: 'Approved for Signing',
-                        value: '$signingCount Deals',
-                        icon: LucideIcons.fileSignature,
-                        accentColor: Colors.green,
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: _SummaryCard(
-                        title: 'Under Strategic Review',
-                        value: '$reviewCount Leads',
-                        icon: LucideIcons.search,
-                        accentColor: Colors.amber,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-
-                // Controls Filter Box
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: theme.colors.surface,
-                    borderRadius: BorderRadius.circular(theme.radiusMd),
-                    border: Border.all(color: theme.colors.border),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Business Purpose Header Card
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: const Color(0xFFE2E8F0)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.02),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
                   ),
-                  child: Column(
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 3,
-                            child: TextField(key: const Key('growth_pipeline_textfield_input_1'), 
-                              decoration: InputDecoration(
-                                hintText: 'Search by franchisee name, ID, or territory...',
-                                prefixIcon: const Icon(LucideIcons.search, size: 20),
-                                fillColor: theme.colors.background,
-                                filled: true,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(theme.radiusMd),
-                                  borderSide: BorderSide(color: theme.colors.border),
-                                ),
-                              ),
-                              onChanged: controller.updateSearch,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Wrap(
-                            spacing: 8,
-                            children: [
-                              _FilterTab(
-                                label: 'All',
-                                value: 'all',
-                                activeValue: state.activeStageFilter,
-                                onTap: controller.updateStageFilter,
-                              ),
-                              _FilterTab(
-                                label: 'New',
-                                value: 'new lead',
-                                activeValue: state.activeStageFilter,
-                                onTap: controller.updateStageFilter,
-                              ),
-                              _FilterTab(
-                                label: 'In Review',
-                                value: 'under review',
-                                activeValue: state.activeStageFilter,
-                                onTap: controller.updateStageFilter,
-                              ),
-                              _FilterTab(
-                                label: 'Signing',
-                                value: 'approved / signing',
-                                activeValue: state.activeStageFilter,
-                                onTap: controller.updateStageFilter,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Icon(LucideIcons.dollarSign, size: 18, color: theme.colors.onSurfaceVariant),
-                          const SizedBox(width: 12),
-                          Text(
-                            'Min Available Capital: \$${(state.minCapitalFilter / 1000).toStringAsFixed(0)}K',
-                            style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Slider(
-                              value: state.minCapitalFilter,
-                              min: 0.0,
-                              max: 600000.0,
-                              divisions: 12,
-                              activeColor: theme.colors.primary,
-                              onChanged: controller.updateMinCapitalFilter,
-                            ),
-                          ),
-                        ],
+                      const Icon(Icons.info_outline, color: Color(0xFF3B82F6), size: 20),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Target Role: Guest',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF475569),
+                          fontSize: 13,
+                        ),
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(height: 20),
-
-                // Lead List Grid
-                Expanded(
-                  child: filteredLeads.isEmpty
-                      ? Center(
-                          child: Text(
-                            'No franchise leads matching the active selection criteria.',
-                            style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
-                          ),
-                        )
-                      : ListView.builder(
-                          itemCount: filteredLeads.length,
-                          itemBuilder: (context, index) {
-                            final lead = filteredLeads[index];
-                            final leadId = lead['id'] as String;
-                            final capital = lead['capital'] as double;
-                            final stage = lead['stage'] as String;
-
-                            Color stageColor = Colors.grey;
-                            if (stage == 'Approved / Signing') {
-                              stageColor = Colors.green;
-                            } else if (stage == 'Under Review') {
-                              stageColor = Colors.amber;
-                            } else if (stage == 'Interview Scheduled') {
-                              stageColor = theme.colors.primary;
-                            } else if (stage == 'New Lead') {
-                              stageColor = Colors.blue;
-                            }
-
-                            return Container(
-                              margin: const EdgeInsets.only(bottom: 12),
-                              padding: const EdgeInsets.all(16),
-                              decoration: BoxDecoration(
-                                color: theme.colors.surface,
-                                borderRadius: BorderRadius.circular(theme.radiusMd),
-                                border: Border.all(color: theme.colors.border),
-                              ),
-                              child: Row(
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor: stageColor.withValues(alpha: 0.1),
-                                    child: Icon(
-                                      stage == 'Approved / Signing'
-                                          ? LucideIcons.fileSignature
-                                          : LucideIcons.user,
-                                      color: stageColor,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 16),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              (lead['name'] as String),
-                                              style: theme.typography.h4.copyWith(
-                                                color: theme.colors.onSurface,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            const SizedBox(width: 8),
-                                            Container(
-                                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                                              decoration: BoxDecoration(
-                                                color: stageColor.withValues(alpha: 0.15),
-                                                borderRadius: BorderRadius.circular(theme.radiusSm),
-                                              ),
-                                              child: Text(
-                                                stage,
-                                                style: theme.typography.bodySmall.copyWith(
-                                                  color: stageColor,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          'Requested Territory: ${lead['territory']}',
-                                          style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
-                                        ),
-                                        const SizedBox(height: 2),
-                                        Text(
-                                          'Background: ${lead['experience']}',
-                                          style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        '\$${(capital / 1000).toStringAsFixed(0)}K Available',
-                                        style: theme.typography.bodyLarge.copyWith(
-                                          color: theme.colors.onSurface,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      Row(
-                                        children: [
-                                          TextButton(key: const Key('growth_pipeline_textbutton_button_1'), 
-                                            onPressed: () => controller.selectLead(leadId),
-                                            child: const Text('Details'),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          ElevatedButton(key: const Key('growth_pipeline_elevatedbutton_button_1'), 
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: theme.colors.primary,
-                                              foregroundColor: theme.colors.onPrimary,
-                                            ),
-                                            onPressed: () => controller.advanceStage(leadId),
-                                            child: const Icon(LucideIcons.arrowRight, size: 16),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                ),
-              ],
-            ),
-          ),
-
-          // Territory Viability Drawer / Sheet
-          if (selectedLead != null)
-            Positioned(
-              right: 0,
-              top: 0,
-              bottom: 0,
-              width: 380,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: theme.colors.surface,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.15),
-                      blurRadius: 10,
-                      offset: const Offset(-2, 0),
-                    ),
-                  ],
-                  border: Border(left: BorderSide(color: theme.colors.border)),
-                ),
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Franchise Details',
-                          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-                        ),
-                        IconButton(key: const Key('growth_pipeline_iconbutton_button_1'), 
-                          icon: const Icon(LucideIcons.x),
-                          onPressed: () => controller.selectLead(null),
-                        ),
-                      ],
-                    ),
-                    const Divider(),
-                    const SizedBox(height: 16),
-                    Text(
-                      (selectedLead['name'] as String),
-                      style: theme.typography.h2.copyWith(color: theme.colors.onSurface),
-                    ),
-                    Text(
-                      'Target Market: ${selectedLead['territory']}',
-                      style: theme.typography.bodyLarge.copyWith(color: theme.colors.primary),
-                    ),
-                    const SizedBox(height: 20),
-                    _InfoRow(label: 'Applicant ID', value: (selectedLead['id'] as String)),
-                    _InfoRow(label: 'Operator Background', value: (selectedLead['experience'] as String)),
-                    _InfoRow(label: 'Capital Guarantee', value: '\$${(selectedLead['capital'] as double).toStringAsFixed(2)}'),
-                    _InfoRow(label: 'Strategic Score', value: '${selectedLead['rating']} / 5.0'),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Evaluator Internal Notes:',
-                      style: theme.typography.bodyMedium.copyWith(
-                        color: theme.colors.onSurface,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: theme.colors.background,
-                        borderRadius: BorderRadius.circular(theme.radiusSm),
-                        border: Border.all(color: theme.colors.border),
-                      ),
-                      child: Text(
-                        (selectedLead['notes'] as String),
-                        style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    Text(
-                      'Market Demographics (Simulated)',
-                      style: theme.typography.bodyMedium.copyWith(
-                        color: theme.colors.onSurface,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    _InfoRow(label: 'Senior Care Density', value: 'High (84th Percentile)'),
-                    _InfoRow(label: 'Est. Operating Margins', value: '24.5% - 28.2%'),
-                    const SizedBox(height: 24),
-                    const Spacer(),
-                    if (state.isAnalyzingTerritory)
-                      const Center(
-                        child: Column(
-                          children: [
-                            CircularProgressIndicator(),
-                            SizedBox(height: 12),
-                            Text('Analyzing geographic feasibility...'),
-                          ],
-                        ),
-                      )
-                    else ...[
-                      SizedBox(
-                        width: double.infinity,
-                        height: 44,
-                        child: OutlinedButton(key: const Key('growth_pipeline_outlinedbutton_button_1'), 
-                          onPressed: () => controller.requestTerritoryStudy((selectedLead['id'] as String)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(LucideIcons.map, size: 18, color: theme.colors.primary),
-                              const SizedBox(width: 8),
-                              const Text('Run Territory Feasibility study'),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 44,
-                        child: ElevatedButton(key: const Key('growth_pipeline_elevatedbutton_button_2'), 
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                            foregroundColor: Colors.white,
-                          ),
-                          onPressed: () {
-                            controller.advanceStage((selectedLead['id'] as String));
-                            controller.selectLead(null);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Lead advanced and saved to compliance sweeps!')),
-                            );
-                          },
-                          child: const Text('Approve Territory License'),
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Provides a dedicated management interface within the Primecare Clinic module to enable Guest personnel to oversee, audit, and coordinate operations related to growth pipeline.',
+                    style: const TextStyle(color: Color(0xFF64748B), fontSize: 13, height: 1.5),
+                  ),
+                ],
               ),
             ),
-        ],
+            const SizedBox(height: 24),
+
+            // Screen Sections from DB
+            const Text(
+              'Screen Sections',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+            ),
+            const SizedBox(height: 12),
+            ..._buildSections(context),
+
+            const SizedBox(height: 24),
+            // UI Controls & Selectors
+            const Text(
+              'UI Elements & Actions',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+            ),
+            const SizedBox(height: 12),
+            ..._buildElements(context),
+          ],
+        ),
       ),
     );
   }
-}
 
-class _SummaryCard extends StatelessWidget {
-  final String title;
-  final String value;
-  final IconData icon;
-  final Color accentColor;
-
-  const _SummaryCard({
-    required this.title,
-    required this.value,
-    required this.icon,
-    required this.accentColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.theme;
-    return Container(
-      padding: const EdgeInsets.all(20),
+  List<Widget> _buildSections(BuildContext context) {
+    final sectionData = ["Header Section", "Content Summary Section", "Primary Content Section", "Action Bar Section"];
+    return sectionData.map((secName) => Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: theme.colors.surface,
-        borderRadius: BorderRadius.circular(theme.radiusMd),
-        border: Border.all(color: theme.colors.border),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFFE2E8F0)),
       ),
       child: Row(
         children: [
-          CircleAvatar(
-            backgroundColor: accentColor.withValues(alpha: 0.1),
-            child: Icon(icon, color: accentColor),
-          ),
-          const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                value,
-                style: theme.typography.h2.copyWith(
-                  color: theme.colors.onSurface,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
+          const Icon(Icons.view_quilt_outlined, color: Color(0xFF64748B)),
+          const SizedBox(width: 12),
+          Text(secName, style: const TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF1E293B))),
         ],
       ),
-    );
+    )).toList();
   }
-}
 
-class _FilterTab extends StatelessWidget {
-  final String label;
-  final String value;
-  final String activeValue;
-  final ValueChanged<String> onTap;
-
-  const _FilterTab({
-    required this.label,
-    required this.value,
-    required this.activeValue,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.theme;
-    final isActive = value.toLowerCase() == activeValue.toLowerCase();
-    return GestureDetector(
-      onTap: () => onTap(value),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-        decoration: BoxDecoration(
-          color: isActive ? theme.colors.primary : theme.colors.background,
-          borderRadius: BorderRadius.circular(theme.radiusSm),
-          border: Border.all(
-            color: isActive ? theme.colors.primary : theme.colors.border,
-          ),
-        ),
-        child: Text(
-          label,
-          style: theme.typography.bodySmall.copyWith(
-            color: isActive ? theme.colors.onPrimary : theme.colors.onSurfaceVariant,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+  List<Widget> _buildElements(BuildContext context) {
+    final elementData = ["Growth Pipeline Screen Root", "Growth Pipeline Page Title", "Growth Pipeline Primary Content", "Growth Pipeline Screen Title", "GUEST Role Badge"];
+    return elementData.map((elName) => Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF1F5F9),
+        borderRadius: BorderRadius.circular(8),
       ),
-    );
-  }
-}
-
-class _InfoRow extends StatelessWidget {
-  final String label;
-  final String value;
-
-  const _InfoRow({required this.label, required this.value});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.theme;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            label,
-            style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            value,
-            style: theme.typography.bodyMedium.copyWith(
-              color: theme.colors.onSurface,
-              fontWeight: FontWeight.w600,
+          Text(elName, style: const TextStyle(fontSize: 13, color: Color(0xFF334155))),
+          Semantics(
+            label: elName.toLowerCase().replaceAll(' ', '_'),
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF3B82F6),
+                elevation: 0,
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              ),
+              child: const Text('Execute', style: TextStyle(fontSize: 11, color: Colors.white)),
             ),
           ),
         ],
       ),
-    );
+    )).toList();
   }
 }

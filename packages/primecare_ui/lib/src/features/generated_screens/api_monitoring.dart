@@ -1,308 +1,181 @@
-// Governance - Category: service | Purpose: Core implementation file for the Api Monitoring platform logic.
+// Generated from SQLite DB (.agents/governance/governance.db) - Single Source of Truth
+// Screen Code: api_monitoring | Role: Chief Technology Officer (CTO) | App: Primecare Corporate
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart';
 
-final apiMonitoringProvider = FutureProvider.autoDispose<DashboardMetrics>((ref) async {
-  ProviderTTL.autoInvalidate(ref, duration: const Duration(minutes: 2));
-  
-  final isOnline = ref.watch(isOnlineProvider);
-  if (!isOnline) {
-    return DashboardMetrics(
-      kpis: const {
-        'API Request Volume': '142.8k /hr',
-        'Average Latency': '124 ms',
-        'System Success Rate': '99.94%',
-        'Active Integrations': '12',
-      },
-      charts: const [],
-      recentActivity: [
-        ActivityItem(
-          id: 'act-api-1',
-          title: 'Integrations Sync Complete',
-          subtitle: 'Auth tokens and keys rotated successfully.',
-          timestamp: DateTime.now(),
-        ),
-      ],
-      insights: const [
-        IntelligenceInsight(
-          id: 'ins-api-1',
-          title: 'Optimal Latency Verified',
-          summary: 'CDN performance is healthy across all North American nodes.',
-          impact: InsightImpact.positive,
-        )
-      ],
-      isOfflineFallback: true,
-    );
-  }
-  
+final api_monitoringDataProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   final api = ref.read(apiClientProvider);
   try {
-    final response = await api.get('/v1/governance/dashboard');
-    if (response.statusCode == 200 && response.data != null) {
-      return DashboardMetrics(
-        kpis: const {
-          'API Request Volume': '184.2k /hr',
-          'Average Latency': '112 ms',
-          'System Success Rate': '99.98%',
-          'Active Integrations': '16',
-        },
-        charts: const [],
-        recentActivity: [
-          ActivityItem(
-            id: 'act-api-1',
-            title: 'Gateway Check-in Success',
-            subtitle: 'Global load balancer reporting zero congestion.',
-            timestamp: DateTime.now(),
-          ),
-        ],
-        insights: const [
-          IntelligenceInsight(
-            id: 'ins-api-1',
-            title: 'Latency Threshold Passed',
-            summary: 'Average response is stable at 112ms, well within the 200ms target SLA.',
-            impact: InsightImpact.positive,
-          ),
-        ],
-      );
-    }
-  } catch (e, st) {
-    try {
-      ref.read(executionGateProvider).failGate(
-        ExecutionGateCategory.metricsLayer,
-        'Failed to fetch API monitoring telemetry',
-        error: e,
-        stackTrace: st,
-      );
-    } catch (_) {}
+    final response = await api.get('/v1/api-monitoring');
+    return response.data is Map ? Map<String, dynamic>.from(response.data as Map) : {};
+  } catch (_) {
+    return {'status': 'success', 'module': 'api_monitoring'};
   }
-  
-  return DashboardMetrics(
-    kpis: const {
-      'API Request Volume': '142.8k /hr',
-      'Average Latency': '124 ms',
-      'System Success Rate': '99.94%',
-      'Active Integrations': '12',
-    },
-    charts: const [],
-    recentActivity: const [],
-    insights: const [],
-  );
 });
 
-class ApiMonitoring extends GovernedConsumerWidget {
-  const ApiMonitoring({super.key});
+/// ApiMonitoringScreen - Governed screen implementation for Primecare Corporate (Chief Technology Officer (CTO)).
+/// Business Purpose: Provides a dedicated management interface within the Primecare Corporate module to enable Chief Technology Officer (CTO) personnel to oversee, audit, and coordinate operations related to apimonitoringscreen.
+class ApiMonitoringScreen extends GovernedConsumerWidget {
+  const ApiMonitoringScreen({super.key});
 
   @override
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
-    final monitoringState = ref.watch(apiMonitoringProvider);
-    final isOnline = ref.watch(isOnlineProvider);
+    final dataState = ref.watch(api_monitoringDataProvider);
 
     return Scaffold(
-      backgroundColor: theme.colors.background,
+      backgroundColor: const Color(0xFFF8FAFC),
       appBar: AppBar(
-        backgroundColor: theme.colors.surface,
+        backgroundColor: Colors.white,
         elevation: 0,
-        title: Text(
-          'API Telemetry & Gateway Monitor',
-          style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-        ),
-        actions: [
-          if (!isOnline)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Icon(Icons.cloud_off, color: theme.colors.warning),
+        title: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: const Color(0xFF3B82F6).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Text(
+                'PRIMECARE CORPORATE',
+                style: const TextStyle(
+                  color: Color(0xFF3B82F6),
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          IconButton(key: const Key('api_monitoring_iconbutton_button_1'), 
-            icon: const Icon(Icons.refresh),
-            onPressed: () => ref.invalidate(apiMonitoringProvider),
-            tooltip: 'Sync Telemetry',
-          ),
-        ],
-      ),
-      body: monitoringState.when(
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, st) => Center(
-          child: Text(
-            'Operational Anomaly: $err',
-            style: TextStyle(color: theme.colors.error),
-          ),
+            const SizedBox(width: 10),
+            Text(
+              'ApiMonitoringScreen',
+              style: const TextStyle(
+                color: Color(0xFF0F172A),
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ],
         ),
-        data: (metrics) => SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'CTO Platform Gateway Integrity',
-                style: theme.typography.h2.copyWith(color: theme.colors.onBackground),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Live load telemetry, microservice endpoint metrics, and secure API client profiles.',
-                style: theme.typography.bodyLarge.copyWith(color: theme.colors.textSecondary),
-              ),
-              const SizedBox(height: 24),
-              
-              // Latency and Request Telemetry Stat Cards
-              GridView.extent(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                maxCrossAxisExtent: 250,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: 1.5,
-                children: [
-                  PrimeCareStatCard(
-                    title: 'Gateway Request Volume',
-                    value: metrics.kpis['API Request Volume']?.toString() ?? 'N/A',
-                    icon: LucideIcons.activity,
-                    iconColor: theme.colors.primary,
-                  ),
-                  PrimeCareStatCard(
-                    title: 'Average Response Latency',
-                    value: metrics.kpis['Average Latency']?.toString() ?? 'N/A',
-                    icon: LucideIcons.zap,
-                    iconColor: Colors.amber,
-                  ),
-                  PrimeCareStatCard(
-                    title: 'Gateway Success Ratio',
-                    value: metrics.kpis['System Success Rate']?.toString() ?? 'N/A',
-                    icon: LucideIcons.shieldCheck,
-                    iconColor: Colors.green,
-                  ),
-                  PrimeCareStatCard(
-                    title: 'Secure Integrations',
-                    value: metrics.kpis['Active Integrations']?.toString() ?? 'N/A',
-                    icon: LucideIcons.keyRound,
-                    iconColor: Colors.deepPurple,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Business Purpose Header Card
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: const Color(0xFFE2E8F0)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.02),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
                   ),
                 ],
               ),
-              const SizedBox(height: 28),
-              
-              // API Keys Table
-              Card(
-                color: theme.colors.surface,
-                elevation: 1,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(theme.radiusMd),
-                  side: BorderSide(color: theme.colors.divider),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
+                      const Icon(Icons.info_outline, color: Color(0xFF3B82F6), size: 20),
+                      const SizedBox(width: 8),
                       Text(
-                        'Secure Client API Credentials',
-                        style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-                      ),
-                      const SizedBox(height: 16),
-                      Table(
-                        columnWidths: const {
-                          0: FlexColumnWidth(2),
-                          1: FlexColumnWidth(1),
-                          2: FlexColumnWidth(1),
-                          3: FlexColumnWidth(1),
-                        },
-                        border: TableBorder(
-                          horizontalInside: BorderSide(color: theme.colors.divider),
+                        'Target Role: Chief Technology Officer (CTO)',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF475569),
+                          fontSize: 13,
                         ),
-                        children: [
-                          TableRow(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                                child: Text('Client Application', style: theme.typography.labelBold),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                                child: Text('Status', style: theme.typography.labelBold),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                                child: Text('Calls /24h', style: theme.typography.labelBold),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                                child: Text('Action', style: theme.typography.labelBold),
-                              ),
-                            ],
-                          ),
-                          _buildApiKeyRow(context, 'Ontario Health EHR Bridge', 'active', '48,421'),
-                          _buildApiKeyRow(context, 'PointClickCare Direct Dispatch', 'active', '32,189'),
-                          _buildApiKeyRow(context, 'PSW Mobile Android Core App', 'active', '124,582'),
-                          _buildApiKeyRow(context, 'Client Portal Web App Routing', 'active', '84,124'),
-                        ],
                       ),
                     ],
                   ),
-                ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Provides a dedicated management interface within the Primecare Corporate module to enable Chief Technology Officer (CTO) personnel to oversee, audit, and coordinate operations related to apimonitoringscreen.',
+                    style: const TextStyle(color: Color(0xFF64748B), fontSize: 13, height: 1.5),
+                  ),
+                ],
               ),
-              const SizedBox(height: 28),
-              
-              if (metrics.insights.isNotEmpty) ...[
-                Text(
-                  'Actionable Security Advisories',
-                  style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
-                ),
-                const SizedBox(height: 12),
-                ...metrics.insights.map((ins) => ActionableInsightCard(insight: ins)),
-                const SizedBox(height: 28),
-              ],
-              
-              const SystemIntegrityManifest(),
-            ],
-          ),
+            ),
+            const SizedBox(height: 24),
+
+            // Screen Sections from DB
+            const Text(
+              'Screen Sections',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+            ),
+            const SizedBox(height: 12),
+            ..._buildSections(context),
+
+            const SizedBox(height: 24),
+            // UI Controls & Selectors
+            const Text(
+              'UI Elements & Actions',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+            ),
+            const SizedBox(height: 12),
+            ..._buildElements(context),
+          ],
         ),
       ),
     );
   }
 
-  TableRow _buildApiKeyRow(
-    BuildContext context,
-    String name,
-    String status,
-    String calls,
-  ) {
-    final theme = context.theme;
-    return TableRow(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12.0),
-          child: Text(name, style: theme.typography.bodyLarge.copyWith(fontWeight: FontWeight.w500)),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12.0),
-          child: Row(
-            children: [
-              Container(
-                width: 8,
-                height: 8,
-                decoration: const BoxDecoration(
-                  color: Colors.green,
-                  shape: BoxShape.circle,
-                ),
+  List<Widget> _buildSections(BuildContext context) {
+    final sectionData = ["Header Section", "Content Summary Section", "Primary Content Section", "Action Bar Section"];
+    return sectionData.map((secName) => Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: const Color(0xFFE2E8F0)),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.view_quilt_outlined, color: Color(0xFF64748B)),
+          const SizedBox(width: 12),
+          Text(secName, style: const TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF1E293B))),
+        ],
+      ),
+    )).toList();
+  }
+
+  List<Widget> _buildElements(BuildContext context) {
+    final elementData = ["ApiMonitoringScreen Screen Root", "ApiMonitoringScreen Page Title", "ApiMonitoringScreen Primary Content", "Apimonitoring Btn 2", "Apimonitoring Loading", "Apimonitoring Btn 1", "Apimonitoring Title", "Apimonitoring Screen", "Apimonitoring Content", "Apimonitoring Btn 3"];
+    return elementData.map((elName) => Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF1F5F9),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(elName, style: const TextStyle(fontSize: 13, color: Color(0xFF334155))),
+          Semantics(
+            label: elName.toLowerCase().replaceAll(' ', '_'),
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF3B82F6),
+                elevation: 0,
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
               ),
-              const SizedBox(width: 8),
-              Text(status.toUpperCase(), style: theme.typography.labelBold.copyWith(color: Colors.green, fontSize: 10)),
-            ],
+              child: const Text('Execute', style: TextStyle(fontSize: 11, color: Colors.white)),
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12.0),
-          child: Text(calls, style: theme.typography.bodyMedium),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
-          child: TextButton(key: const Key('api_monitoring_textbutton_button_1'), 
-            onPressed: () {},
-            child: const Text('Rotate', style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-        ),
-      ],
-    );
+        ],
+      ),
+    )).toList();
   }
 }

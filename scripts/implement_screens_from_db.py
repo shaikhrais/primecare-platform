@@ -50,9 +50,9 @@ def implement_screens_from_db():
     screens = [dict(r) for r in cursor.fetchall()]
     print(f"[DB Implementer] Found {len(screens)} screens in governance.db.")
 
-    # Process batch of screens to generate/update Dart widgets
+    # Process all screens to generate/update Dart widgets
     implemented_count = 0
-    for s in screens[:50]: # Process top screen specifications
+    for s in screens:
         sid = s['id']
         screen_code = s['screen_code']
         screen_name = s['screen_name'] or f"Screen{sid}"
