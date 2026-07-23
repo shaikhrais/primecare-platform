@@ -42,30 +42,51 @@ public class PageRecoveryUtility {
         );
     }
 
-    private WebElement findElementByAriaLabel(String label) {
+    public WebElement findSemanticElement(String value) {
         try {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             return (WebElement) js.executeScript(
-                "var findByAriaLabel = function(root, label) { " +
+                "var findSemanticElement = function(root, val) { " +
                 "    if (!root) return null; " +
-                "    var el = root.querySelector(\"[aria-label*='\" + label + \"']\"); " +
-                "    if (el) return el; " +
+                "    var selectors = [ " +
+                "        \"[aria-label='\" + val + \"']\", " +
+                "        \"[aria-label*='\" + val + \"']\", " +
+                "        \"[data-cy='\" + val + \"']\", " +
+                "        \"[id='\" + val + \"']\", " +
+                "        \"[name='\" + val + \"']\" " +
+                "    ]; " +
+                "    for (var i = 0; i < selectors.length; i++) { " +
+                "        try { " +
+                "            var el = root.querySelector(selectors[i]); " +
+                "            if (el) return el; " +
+                "        } catch (e) {} " +
+                "    } " +
                 "    var all = root.querySelectorAll('*'); " +
                 "    for (var i = 0; i < all.length; i++) { " +
                 "        var child = all[i]; " +
+                "        if (child.tagName.toLowerCase() === 'flt-semantics') { " +
+                "            var txt = child.textContent || ''; " +
+                "            if (txt.trim().startsWith(val) || txt.trim().includes(val)) { " +
+                "                return child; " +
+                "            } " +
+                "        } " +
                 "        if (child.shadowRoot) { " +
-                "            var found = findByAriaLabel(child.shadowRoot, label); " +
+                "            var found = findSemanticElement(child.shadowRoot, val); " +
                 "            if (found) return found; " +
                 "        } " +
                 "    } " +
                 "    return null; " +
                 "}; " +
-                "return findByAriaLabel(document, arguments[0]);",
-                label
+                "return findSemanticElement(document, arguments[0]);",
+                value
             );
         } catch (Exception e) {
             return null;
         }
+    }
+
+    private WebElement findElementByAriaLabel(String label) {
+        return findSemanticElement(label);
     }
 
     public boolean isElementVisible(String label) {
@@ -127,21 +148,11 @@ public class PageRecoveryUtility {
                 }
             }
 
-            /*
-             * If app sends us to Language page,
-             * do not test anything there.
-             *
-             * Go directly to Login.
-             */
-            if (isElementVisible(langPageLabel)) {
+            if (isElementVisible(langPageLabel) && !requestedUrl.contains("/language")) {
                 System.out.println(
-                    "[PAGE RECOVERY] Language page detected. "
-                        + "Redirecting to Login."
+                    "[PAGE RECOVERY] Language page detected. Handling language selection..."
                 );
-
-                getWithSemantics(loginUrl);
-                waitForDocumentReady();
-                enableSemantics();
+                handleLanguageState();
             }
 
             /*
@@ -606,10 +617,10 @@ public class PageRecoveryUtility {
 
     private void handleLanguageState() {
         enableSemantics();
-        WebElement langCard = null;
-        try {
-            langCard = driver.findElement(By.xpath("//*[contains(@aria-label, 'lang-english') or contains(@aria-label, 'language-english') or contains(text(), 'lang-english') or contains(text(), 'language-english')]"));
-        } catch (Exception ignored) {}
+        WebElement langCard = findSemanticElement("lang-english");
+        if (langCard == null) {
+            langCard = findSemanticElement("language-english");
+        }
         
         if (langCard != null) {
             System.out.println("[PAGE RECOVERY] Clicking English language card.");

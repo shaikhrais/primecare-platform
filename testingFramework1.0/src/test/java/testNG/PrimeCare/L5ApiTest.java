@@ -42,9 +42,13 @@ public class L5ApiTest extends BaseApiTest {
         System.out.println("  * Request Payload (redacted): " + redactedBody);
 
         try {
+            String path = endpoint.path;
+            if (path.startsWith("/api") && apiBaseUrl.endsWith("/api")) {
+                path = path.substring(4);
+            }
             Response response = getGuestRequest()
                     .body(requestBody)
-                    .post(endpoint.path);
+                    .post(path);
             
             System.out.println("  * Response Status: " + response.getStatusCode());
             int actual = response.getStatusCode();

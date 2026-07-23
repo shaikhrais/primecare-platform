@@ -741,6 +741,43 @@ public class Repositories {
                 System.err.println("[DB] Error in insertDefect: " + e.getMessage());
             }
         }
+
+        public static void resolveDefects(int layerId, Integer screenId, Integer endpointId, Integer workflowId, String testCaseKey) {
+            String sql = "UPDATE defects SET status = 'RESOLVED', resolved_at = ?, updated_at = ? WHERE status = 'OPEN' AND layer_id = ? " +
+                         "AND (screen_id = ? OR (? IS NULL AND screen_id IS NULL)) " +
+                         "AND (endpoint_id = ? OR (? IS NULL AND endpoint_id IS NULL)) " +
+                         "AND (workflow_id = ? OR (? IS NULL AND workflow_id IS NULL))";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, Instant.now().toString());
+                pstmt.setString(2, Instant.now().toString());
+                pstmt.setInt(3, layerId);
+                if (screenId != null) {
+                    pstmt.setInt(4, screenId);
+                    pstmt.setInt(5, screenId);
+                } else {
+                    pstmt.setNull(4, Types.INTEGER);
+                    pstmt.setNull(5, Types.INTEGER);
+                }
+                if (endpointId != null) {
+                    pstmt.setInt(6, endpointId);
+                    pstmt.setInt(7, endpointId);
+                } else {
+                    pstmt.setNull(6, Types.INTEGER);
+                    pstmt.setNull(7, Types.INTEGER);
+                }
+                if (workflowId != null) {
+                    pstmt.setInt(8, workflowId);
+                    pstmt.setInt(9, workflowId);
+                } else {
+                    pstmt.setNull(8, Types.INTEGER);
+                    pstmt.setNull(9, Types.INTEGER);
+                }
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in resolveDefects: " + e.getMessage());
+            }
+        }
     }
 
     // 18. VerificationRepository
@@ -1368,6 +1405,40 @@ public class Repositories {
                 System.err.println("[DB] Error in getFixAttemptCount: " + e.getMessage());
             }
             return 0;
+        }
+
+        public static void resolveIssuesForScreen(String screenId, String testRunId) {
+            String sql = "SELECT * FROM issues WHERE screen_id = ? AND status != 'CLOSED'";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, screenId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        Issue issue = new Issue();
+                        issue.issueId = rs.getString("issue_id");
+                        issue.status = "CLOSED";
+                        issue.latestTestRunId = testRunId;
+                        issue.updatedAt = Instant.now().toString();
+                        issue.closedAt = Instant.now().toString();
+                        issue.resolvedAt = Instant.now().toString();
+                        updateIssue(issue);
+                        
+                        // Status History
+                        IssueStatusHistory history = new IssueStatusHistory();
+                        history.historyId = java.util.UUID.randomUUID().toString();
+                        history.issueId = issue.issueId;
+                        history.previousStatus = rs.getString("status");
+                        history.newStatus = "CLOSED";
+                        history.reason = "Test passed successfully in run: " + testRunId;
+                        history.changedBy = "ANTIGRAVITY";
+                        history.testRunId = testRunId;
+                        history.changedAt = issue.updatedAt;
+                        insertStatusHistory(history);
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in resolveIssuesForScreen: " + e.getMessage());
+            }
         }
     }
 }

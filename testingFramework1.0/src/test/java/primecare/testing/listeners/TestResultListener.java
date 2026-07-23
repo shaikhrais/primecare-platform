@@ -180,6 +180,18 @@ public class TestResultListener implements ITestListener {
             registerIssueForFailure(tr, result);
         }
 
+        // Auto-resolve defects and issues on success
+        if ("PASSED".equals(status)) {
+            DefectRepository.resolveDefects(
+                tr.layerId, tr.screenId, tr.endpointId, tr.workflowId, tr.testCaseKey
+            );
+            if (tr.screenId != null) {
+                IssueRepository.resolveIssuesForScreen(
+                    String.valueOf(tr.screenId), String.valueOf(tr.executionId)
+                );
+            }
+        }
+
         // Update verification summary
         updateVerificationSummary(tr);
     }

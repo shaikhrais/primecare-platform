@@ -32,8 +32,8 @@ public class L9WorkflowTest extends BaseWorkflowTest {
 
             if ("NAVIGATE".equalsIgnoreCase(step.actionType)) {
                 String targetUrl = appProps.getProperty("APP_BASE_URL", "http://localhost:8080") + "/" + step.screenKey;
-                driver.get(targetUrl);
-                Assert.assertTrue(driver.getCurrentUrl().contains(step.screenKey), "Step " + step.stepKey + " failed. Unexpected URL: " + driver.getCurrentUrl());
+                utilities.PageRecoveryUtility recovery = new utilities.PageRecoveryUtility(driver, appProps.getProperty("login.url"));
+                recovery.openRequestedPage(targetUrl, step.screenKey);
             
             } else if ("EXECUTE_FUNCTION".equalsIgnoreCase(step.actionType)) {
                 page = new DynamicScreen(driver, "login");

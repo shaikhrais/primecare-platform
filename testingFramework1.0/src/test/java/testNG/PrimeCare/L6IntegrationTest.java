@@ -25,7 +25,8 @@ public class L6IntegrationTest extends BaseUiTest {
         List<IntegrationMapping> mappings = IntegrationRepository.getMappingsForScreen(loginScreenId);
         
         // Since we seeded mappings, we verify that UI actions correspond to backend endpoint bindings
-        driver.get(appProps.getProperty("login.url", "http://localhost:8080/login"));
+        utilities.PageRecoveryUtility recovery = new utilities.PageRecoveryUtility(driver, appProps.getProperty("login.url"));
+        recovery.openRequestedPage(appProps.getProperty("login.url"), "Login Screen");
         
         page = new DynamicScreen(driver, "login");
         String testUser = appProps.getProperty("username.admin", "clinic@primecare.com");
