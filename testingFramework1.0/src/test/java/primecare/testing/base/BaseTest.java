@@ -53,15 +53,44 @@ public class BaseTest {
     }
 
     private void loadProperties() {
+        // Load application.properties
+        boolean loadedApp = false;
         try (InputStream appInput = BaseTest.class.getClassLoader().getResourceAsStream("config/application.properties")) {
-            if (appInput != null) appProps.load(appInput);
-        } catch (Exception e) {
-            System.err.println("[BASE] Warning: Failed to load application.properties");
+            if (appInput != null) {
+                appProps.load(appInput);
+                loadedApp = true;
+            }
+        } catch (Exception e) {}
+        if (!loadedApp) {
+            java.io.File file = new java.io.File("src/test/resources/config/application.properties");
+            if (!file.exists()) {
+                file = new java.io.File("testingFramework1.0/src/test/resources/config/application.properties");
+            }
+            if (file.exists()) {
+                try (InputStream in = new java.io.FileInputStream(file)) {
+                    appProps.load(in);
+                } catch (Exception e) {}
+            }
         }
+
+        // Load test.properties
+        boolean loadedTest = false;
         try (InputStream testInput = BaseTest.class.getClassLoader().getResourceAsStream("config/test.properties")) {
-            if (testInput != null) appProps.load(testInput);
-        } catch (Exception e) {
-            System.err.println("[BASE] Warning: Failed to load test.properties");
+            if (testInput != null) {
+                appProps.load(testInput);
+                loadedTest = true;
+            }
+        } catch (Exception e) {}
+        if (!loadedTest) {
+            java.io.File file = new java.io.File("src/test/resources/config/test.properties");
+            if (!file.exists()) {
+                file = new java.io.File("testingFramework1.0/src/test/resources/config/test.properties");
+            }
+            if (file.exists()) {
+                try (InputStream in = new java.io.FileInputStream(file)) {
+                    appProps.load(in);
+                } catch (Exception e) {}
+            }
         }
 
         // Overwrite properties dynamically via System properties if specified on command line
