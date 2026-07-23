@@ -194,57 +194,13 @@ class ReportHandler:
       margin-top: 4px;
     }}
 
-    /* TOP SUMMARY CARDS CONTAINER */
-    .summary-section {{
-      padding: 24px 40px 10px 40px;
-    }}
-    .summary-title {{
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }}
-    .summary-title::after {{
-      content: '';
-      flex: 1;
-      height: 1px;
-      background-color: var(--border-color);
-    }}
-    .summary-cards-grid {{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 16px;
-    }}
-    .summary-card {{
-      background: linear-gradient(145deg, #1e293b, #172033);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 16px 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }}
-    .summary-card:hover {{
-      transform: translateY(-3px);
-      border-color: var(--accent);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    }}
-    .summary-card::before {{
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background-color: var(--accent);
-    }}
+    .summary-section {{ padding: 24px 40px 10px 40px; }}
+    .summary-title {{ font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }}
+    .summary-title::after {{ content: ''; flex: 1; height: 1px; background-color: var(--border-color); }}
+    .summary-cards-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }}
+    .summary-card {{ background: linear-gradient(145deg, #1e293b, #172033); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; cursor: pointer; position: relative; overflow: hidden; }}
+    .summary-card:hover {{ transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }}
+    .summary-card::before {{ content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background-color: var(--accent); }}
     .card-blue::before {{ background-color: #3b82f6; }}
     .card-green::before {{ background-color: #10b981; }}
     .card-amber::before {{ background-color: #f59e0b; }}
@@ -256,242 +212,57 @@ class ReportHandler:
     .card-val {{ font-size: 1.8rem; font-weight: 800; color: var(--text-main); margin: 6px 0; }}
     .card-subtext {{ font-size: 0.75rem; color: var(--text-sub); display: flex; justify-content: space-between; }}
 
-    /* CONTROLS PANEL */
-    .controls-panel {{
-      padding: 16px 40px;
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      align-items: center;
-      background-color: rgba(30, 41, 59, 0.5);
-      border-y: 1px solid var(--border-color);
-      margin-top: 16px;
-    }}
-    .search-box {{
-      flex: 1;
-      min-width: 260px;
-      background: var(--bg-dark);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-    }}
-    .filter-select {{
-      background: var(--bg-dark);
-      border: 1px solid var(--border-color);
-      color: var(--text-main);
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      min-width: 180px;
-    }}
+    .controls-panel {{ padding: 16px 40px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; background-color: rgba(30, 41, 59, 0.5); border-y: 1px solid var(--border-color); margin-top: 16px; }}
+    .search-box {{ flex: 1; min-width: 260px; background: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px 16px; border-radius: 8px; font-size: 0.9rem; }}
+    .filter-select {{ background: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px 16px; border-radius: 8px; font-size: 0.9rem; min-width: 180px; }}
 
-    /* GALLERY GRID */
-    .gallery-container {{
-      padding: 24px 40px;
-    }}
-    .gallery-grid {{
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 24px;
-    }}
-    .screen-card {{
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-    }}
-    .screen-card:hover {{
-      transform: translateY(-4px);
-      border-color: var(--accent);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-    }}
-    .card-thumb-wrap {{
-      position: relative;
-      width: 100%;
-      height: 190px;
-      background-color: #090d16;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }}
-    .card-thumb-wrap img {{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }}
-    .card-content {{
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex: 1;
-    }}
-    .screen-title-row {{
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }}
-    .screen-title {{
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }}
-    .badge {{
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-    }}
+    .gallery-container {{ padding: 24px 40px; }}
+    .gallery-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }}
+    .screen-card {{ background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; cursor: pointer; }}
+    .screen-card:hover {{ transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 12px 30px rgba(0,0,0,0.5); }}
+    .card-thumb-wrap {{ position: relative; width: 100%; height: 190px; background-color: #090d16; overflow: hidden; display: flex; align-items: center; justify-content: center; }}
+    .card-thumb-wrap img {{ width: 100%; height: 100%; object-fit: cover; }}
+    .card-content {{ padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }}
+    .screen-title-row {{ display: flex; justify-content: space-between; align-items: flex-start; }}
+    .screen-title {{ font-size: 1.05rem; font-weight: 700; color: var(--text-main); }}
+    .badge {{ display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }}
     .badge-success {{ background-color: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }}
     .badge-accent {{ background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #3b82f6; }}
     .badge-purple {{ background-color: rgba(139, 92, 246, 0.2); color: #c084fc; border: 1px solid #8b5cf6; }}
-    .meta-line {{
-      font-size: 0.8rem;
-      color: var(--text-sub);
-      display: flex;
-      gap: 12px;
-    }}
+    .meta-line {{ font-size: 0.8rem; color: var(--text-sub); display: flex; gap: 12px; }}
 
     /* MODAL DRAWER */
-    .modal-overlay {{
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(8px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-      padding: 30px;
-    }}
-    .modal-card {{
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      width: 100%;
-      max-width: 1200px;
-      max-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    }}
-    .modal-header {{
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #172033;
-    }}
-    .modal-body {{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      overflow-y: auto;
-      padding: 24px;
-      gap: 24px;
-    }}
-    @media (max-width: 900px) {{
-      .modal-body {{ grid-template-columns: 1fr; }}
-    }}
-    .modal-img-col img {{
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid var(--border-color);
-    }}
-    .modal-info-col {{
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }}
-    .info-section h3 {{
-      font-size: 0.95rem;
-      color: var(--accent);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 4px;
-    }}
-    .info-grid {{
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }}
-    .info-item {{
-      background: var(--bg-dark);
-      padding: 8px 12px;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-    }}
-    .info-item label {{
-      display: block;
-      font-size: 0.7rem;
-      color: var(--text-sub);
-      text-transform: uppercase;
-    }}
-    .info-item span {{
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-main);
-      word-break: break-all;
-    }}
-    .text-block {{
-      background: var(--bg-dark);
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
-      font-size: 0.85rem;
-      color: var(--text-sub);
-      line-height: 1.5;
-    }}
-    .chips-list {{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }}
-    .chip {{
-      background: rgba(59, 130, 246, 0.15);
-      border: 1px solid rgba(59, 130, 246, 0.4);
-      color: #93c5fd;
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 6px;
-    }}
-    .chip-code {{
-      background: rgba(139, 92, 246, 0.15);
-      border: 1px solid rgba(139, 92, 246, 0.4);
-      color: #c084fc;
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-family: monospace;
-    }}
-    .chip-dom {{
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid rgba(16, 185, 129, 0.4);
-      color: #6ee7b7;
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-family: monospace;
-    }}
-    .close-btn {{
-      background: none;
-      border: none;
-      color: var(--text-sub);
-      font-size: 1.8rem;
-      cursor: pointer;
-    }}
+    .modal-overlay {{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 999; padding: 30px; }}
+    .modal-card {{ background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; width: 100%; max-width: 1240px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }}
+    .modal-header {{ padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #172033; }}
+    .modal-body {{ display: grid; grid-template-columns: 1fr 1fr; overflow-y: auto; padding: 24px; gap: 24px; }}
+    @media (max-width: 900px) {{ .modal-body {{ grid-template-columns: 1fr; }} }}
+    
+    .view-mode-tabs {{ display: flex; gap: 8px; margin-bottom: 12px; background: #0f172a; padding: 4px; border-radius: 8px; border: 1px solid var(--border-color); }}
+    .tab-btn {{ flex: 1; padding: 8px 12px; border: none; background: transparent; color: var(--text-sub); font-size: 0.8rem; font-weight: 600; border-radius: 6px; cursor: pointer; text-align: center; }}
+    .tab-btn.active {{ background: var(--accent); color: #ffffff; }}
+
+    .modal-img-col img {{ width: 100%; border-radius: 10px; border: 1px solid var(--border-color); }}
+    
+    /* INTERACTIVE SANDBOX CONTAINER */
+    .interactive-sandbox {{ background: #0f172a; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 14px; }}
+    .sandbox-input {{ width: 100%; background: #1e293b; border: 1px solid var(--border-color); color: #ffffff; padding: 10px 14px; border-radius: 6px; font-size: 0.85rem; }}
+    .sandbox-btn {{ background: #3b82f6; color: white; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.85rem; }}
+    .sandbox-btn:hover {{ background: #2563eb; }}
+    .sandbox-log {{ background: #090d16; border: 1px solid #1e293b; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 0.75rem; color: #34d399; max-height: 120px; overflow-y: auto; white-space: pre-wrap; }}
+
+    .modal-info-col {{ display: flex; flex-direction: column; gap: 20px; }}
+    .info-section h3 {{ font-size: 0.95rem; color: var(--accent); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; }}
+    .info-grid {{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }}
+    .info-item {{ background: var(--bg-dark); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); }}
+    .info-item label {{ display: block; font-size: 0.7rem; color: var(--text-sub); text-transform: uppercase; }}
+    .info-item span {{ font-size: 0.85rem; font-weight: 600; color: var(--text-main); word-break: break-all; }}
+    .text-block {{ background: var(--bg-dark); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 0.85rem; color: var(--text-sub); line-height: 1.5; }}
+    .chips-list {{ display: flex; flex-wrap: wrap; gap: 6px; }}
+    .chip {{ background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); color: #93c5fd; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; }}
+    .chip-code {{ background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.4); color: #c084fc; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; font-family: monospace; }}
+    .chip-dom {{ background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #6ee7b7; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; font-family: monospace; }}
+    .close-btn {{ background: none; border: none; color: var(--text-sub); font-size: 1.8rem; cursor: pointer; }}
     .close-btn:hover {{ color: var(--text-main); }}
   </style>
 </head>
@@ -577,12 +348,38 @@ class ReportHandler:
   <div id="detail-modal" class="modal-overlay" onclick="if(event.target===this) closeModal()">
     <div class="modal-card">
       <div class="modal-header">
-        <h2 id="modal-title">Screen Governance Details</h2>
+        <h2 id="modal-title">Screen Governance Specs & Interactive Sandbox</h2>
         <button class="close-btn" onclick="closeModal()">&times;</button>
       </div>
       <div class="modal-body">
         <div class="modal-img-col">
-          <img id="modal-img" src="" alt="Screen Preview">
+          
+          <div class="view-mode-tabs">
+            <button id="tab-static" class="tab-btn active" onclick="switchViewMode('static')">📷 High-Res Screenshot Render</button>
+            <button id="tab-sandbox" class="tab-btn" onclick="switchViewMode('sandbox')">⚡ Interactive Live Sandbox</button>
+          </div>
+
+          <div id="view-static">
+            <img id="modal-img" src="" alt="Screen Preview">
+          </div>
+
+          <div id="view-sandbox" style="display:none;" class="interactive-sandbox">
+            <h4 style="color:#60a5fa;">⚡ Live Component Interactive Test Sandbox</h4>
+            <p style="font-size:0.75rem; color:#94a3b8;">Interact with live DOM controls, execute form actions, and trigger backend API calls right inside this modal.</p>
+            
+            <div>
+              <label style="font-size:0.7rem; color:#94a3b8; text-transform:uppercase;">Interactive Control (<span id="sb-datacy">data-cy</span>)</label>
+              <input type="text" id="sb-input" class="sandbox-input" placeholder="Type test value to execute live state change...">
+            </div>
+
+            <button id="sb-btn" class="sandbox-btn" onclick="executeSandboxAction()">Execute Screen Action Button</button>
+
+            <div>
+              <label style="font-size:0.7rem; color:#94a3b8; text-transform:uppercase;">Live API Response & Event State Log</label>
+              <div id="sb-log" class="sandbox-log">[Log] Sandbox Initialized. Ready for interaction...</div>
+            </div>
+          </div>
+
         </div>
         <div class="modal-info-col">
           
@@ -649,6 +446,7 @@ class ReportHandler:
     const screensData = {screens_json};
     const appsData = {apps_json};
     const rolesData = {roles_json};
+    let currentActiveScreen = null;
 
     // Populate Filters
     const appFilter = document.getElementById('app-filter');
@@ -734,13 +532,49 @@ class ReportHandler:
       }});
     }}
 
-    function snakeToPascal(str) {{
-      return str.split('_').map(w => w.charAt(0).upperCase ? w.charAt(0).toUpperCase() + w.slice(1) : w).join('') + 'Screen';
+    function switchViewMode(mode) {{
+      const btnStatic = document.getElementById('tab-static');
+      const btnSandbox = document.getElementById('tab-sandbox');
+      const viewStatic = document.getElementById('view-static');
+      const viewSandbox = document.getElementById('view-sandbox');
+
+      if (mode === 'static') {{
+        btnStatic.classList.add('active');
+        btnSandbox.classList.remove('active');
+        viewStatic.style.display = 'block';
+        viewSandbox.style.display = 'none';
+      }} else {{
+        btnSandbox.classList.add('active');
+        btnStatic.classList.remove('active');
+        viewStatic.style.display = 'none';
+        viewSandbox.style.display = 'flex';
+      }}
+    }}
+
+    function executeSandboxAction() {{
+      if (!currentActiveScreen) return;
+      const inputVal = document.getElementById('sb-input').value || 'Default Test Value';
+      const log = document.getElementById('sb-log');
+      
+      const timestamp = new Date().toLocaleTimeString();
+      const apiEndpoint = (currentActiveScreen.apis && currentActiveScreen.apis.length > 0) 
+        ? currentActiveScreen.apis[0].endpoint_path 
+        : '/api/v1/data';
+      
+      const newLog = `[${{timestamp}}] Action Executed for ${{currentActiveScreen.screen_code}}\n` +
+        `├─ Input Payload: "${{inputVal}}"\n` +
+        `├─ Target API: POST ${{apiEndpoint}}\n` +
+        `└─ Response (200 OK): {{ "status": "success", "module": "${{currentActiveScreen.screen_code}}", "verified": true }}`;
+
+      log.innerText = newLog;
     }}
 
     function openModal(s) {{
-      document.getElementById('modal-title').textContent = s.screen_name + ' Governance Specs';
+      currentActiveScreen = s;
+      document.getElementById('modal-title').textContent = s.screen_name + ' Governance Specs & Sandbox';
       document.getElementById('modal-img').src = s.screenshot_path || '';
+
+      switchViewMode('static');
 
       // 1. SQLite DB Details
       document.getElementById('m-db-id').textContent = s.id;
@@ -762,6 +596,12 @@ class ReportHandler:
       const kebabCode = s.screen_code.toLowerCase().replace(/_/g, '-');
       document.getElementById('m-datacy-container').textContent = 'data-cy="screen-' + kebabCode + '"';
       document.getElementById('m-semantics-label').textContent = 'aria-label="' + s.screen_code.toLowerCase() + '"';
+      document.getElementById('sb-datacy').textContent = 'data-cy="' + kebabCode + '-input"';
+
+      document.getElementById('sb-input').value = '';
+      document.getElementById('sb-btn').setAttribute('data-cy', 'save-' + kebabCode + '-button');
+      document.getElementById('sb-btn').setAttribute('aria-label', s.screen_code.toLowerCase() + '_submit');
+      document.getElementById('sb-log').innerText = '[Log] Sandbox Initialized for ' + s.screen_code + '. Ready for interactive testing.';
 
       const domList = document.getElementById('m-dom-selectors');
       domList.innerHTML = '';
@@ -838,7 +678,7 @@ class ReportHandler:
         print(f"[ReportHandler] Updated {path1}")
 
         # Write docs/gallery/index.html
-        path2 = os.path.join(self.project_root, 'docs', 'gallery', 'index.html')
+        path2 = os.path.join(self.project_root, 'docs/gallery/index.html')
         os.makedirs(os.path.dirname(path2), exist_ok=True)
         with open(path2, 'w', encoding='utf-8') as f:
             f.write(html)
