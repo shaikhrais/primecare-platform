@@ -3,7 +3,7 @@ class DbScreenStatusRegistry {
   static const Map<String, Map<String, dynamic>> screens = {
     'access_review_certifier': {
       'screenCode': 'access_review_certifier',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -15,7 +15,7 @@ class DbScreenStatusRegistry {
     },
     'adjustment_notes': {
       'screenCode': 'adjustment_notes',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -27,7 +27,7 @@ class DbScreenStatusRegistry {
     },
     'admin_claims': {
       'screenCode': 'admin_claims',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -39,7 +39,7 @@ class DbScreenStatusRegistry {
     },
     'admin_dashboard': {
       'screenCode': 'admin_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -51,7 +51,7 @@ class DbScreenStatusRegistry {
     },
     'admin_invoices': {
       'screenCode': 'admin_invoices',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -63,7 +63,7 @@ class DbScreenStatusRegistry {
     },
     'admin_outstanding_balances': {
       'screenCode': 'admin_outstanding_balances',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -75,7 +75,7 @@ class DbScreenStatusRegistry {
     },
     'admin_payments': {
       'screenCode': 'admin_payments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -87,7 +87,7 @@ class DbScreenStatusRegistry {
     },
     'admin_reconciliation': {
       'screenCode': 'admin_reconciliation',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -99,7 +99,7 @@ class DbScreenStatusRegistry {
     },
     'admin_refunds': {
       'screenCode': 'admin_refunds',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -111,7 +111,7 @@ class DbScreenStatusRegistry {
     },
     'admin_reports': {
       'screenCode': 'admin_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -123,7 +123,7 @@ class DbScreenStatusRegistry {
     },
     'admin_screen_health': {
       'screenCode': 'admin_screen_health',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -135,7 +135,7 @@ class DbScreenStatusRegistry {
     },
     'admin_user_management': {
       'screenCode': 'admin_user_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -147,7 +147,7 @@ class DbScreenStatusRegistry {
     },
     'adverse_event_reporting_portal': {
       'screenCode': 'adverse_event_reporting_portal',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -159,7 +159,7 @@ class DbScreenStatusRegistry {
     },
     'agent_dispatch': {
       'screenCode': 'agent_dispatch',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -171,7 +171,7 @@ class DbScreenStatusRegistry {
     },
     'ai_chatbot': {
       'screenCode': 'ai_chatbot',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -183,7 +183,7 @@ class DbScreenStatusRegistry {
     },
     'api_health_dashboard': {
       'screenCode': 'api_health_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -195,7 +195,7 @@ class DbScreenStatusRegistry {
     },
     'api_key_manager': {
       'screenCode': 'api_key_manager',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -207,7 +207,7 @@ class DbScreenStatusRegistry {
     },
     'api_monitoring': {
       'screenCode': 'api_monitoring',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -219,7 +219,7 @@ class DbScreenStatusRegistry {
     },
     'app_notification': {
       'screenCode': 'app_notification',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -231,7 +231,7 @@ class DbScreenStatusRegistry {
     },
     'applicant_tracking': {
       'screenCode': 'applicant_tracking',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -243,7 +243,7 @@ class DbScreenStatusRegistry {
     },
     'appointment': {
       'screenCode': 'appointment',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -255,7 +255,7 @@ class DbScreenStatusRegistry {
     },
     'appointment_overview': {
       'screenCode': 'appointment_overview',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -267,7 +267,7 @@ class DbScreenStatusRegistry {
     },
     'architecture_planning_analytics': {
       'screenCode': 'architecture_planning_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -279,7 +279,7 @@ class DbScreenStatusRegistry {
     },
     'architecture_planning_compliance': {
       'screenCode': 'architecture_planning_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -291,7 +291,7 @@ class DbScreenStatusRegistry {
     },
     'architecture_planning_dashboard': {
       'screenCode': 'architecture_planning_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -303,7 +303,7 @@ class DbScreenStatusRegistry {
     },
     'architecture_planning_workflow': {
       'screenCode': 'architecture_planning_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -315,7 +315,7 @@ class DbScreenStatusRegistry {
     },
     'assessments': {
       'screenCode': 'assessments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -327,7 +327,7 @@ class DbScreenStatusRegistry {
     },
     'asynchronous_consultation_inbox': {
       'screenCode': 'asynchronous_consultation_inbox',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -339,7 +339,7 @@ class DbScreenStatusRegistry {
     },
     'attendance': {
       'screenCode': 'attendance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -351,7 +351,7 @@ class DbScreenStatusRegistry {
     },
     'audit': {
       'screenCode': 'audit',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -363,7 +363,7 @@ class DbScreenStatusRegistry {
     },
     'audit_dashboard': {
       'screenCode': 'audit_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -375,7 +375,7 @@ class DbScreenStatusRegistry {
     },
     'audit_log': {
       'screenCode': 'audit_log',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -387,7 +387,7 @@ class DbScreenStatusRegistry {
     },
     'audit_review': {
       'screenCode': 'audit_review',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -399,7 +399,7 @@ class DbScreenStatusRegistry {
     },
     'audit_sandbox': {
       'screenCode': 'audit_sandbox',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -411,7 +411,7 @@ class DbScreenStatusRegistry {
     },
     'audits': {
       'screenCode': 'audits',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -423,7 +423,7 @@ class DbScreenStatusRegistry {
     },
     'billing': {
       'screenCode': 'billing',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -435,7 +435,7 @@ class DbScreenStatusRegistry {
     },
     'billing_admin_analytics': {
       'screenCode': 'billing_admin_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -447,7 +447,7 @@ class DbScreenStatusRegistry {
     },
     'billing_admin_compliance': {
       'screenCode': 'billing_admin_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -459,7 +459,7 @@ class DbScreenStatusRegistry {
     },
     'billing_admin_dashboard': {
       'screenCode': 'billing_admin_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -471,7 +471,7 @@ class DbScreenStatusRegistry {
     },
     'billing_admin_invoices': {
       'screenCode': 'billing_admin_invoices',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -483,7 +483,7 @@ class DbScreenStatusRegistry {
     },
     'billing_admin_workflow': {
       'screenCode': 'billing_admin_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -495,7 +495,7 @@ class DbScreenStatusRegistry {
     },
     'billing_claims': {
       'screenCode': 'billing_claims',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -507,7 +507,7 @@ class DbScreenStatusRegistry {
     },
     'billing_invoices': {
       'screenCode': 'billing_invoices',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -519,7 +519,7 @@ class DbScreenStatusRegistry {
     },
     'billing_overview': {
       'screenCode': 'billing_overview',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -531,7 +531,7 @@ class DbScreenStatusRegistry {
     },
     'billing_payments': {
       'screenCode': 'billing_payments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -543,7 +543,7 @@ class DbScreenStatusRegistry {
     },
     'biospecimen_inventory_tracker': {
       'screenCode': 'biospecimen_inventory_tracker',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -555,7 +555,7 @@ class DbScreenStatusRegistry {
     },
     'blueprint_sandbox': {
       'screenCode': 'blueprint_sandbox',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -567,7 +567,7 @@ class DbScreenStatusRegistry {
     },
     'board_of_directors_summary': {
       'screenCode': 'board_of_directors_summary',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -579,7 +579,7 @@ class DbScreenStatusRegistry {
     },
     'booking': {
       'screenCode': 'booking',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -591,7 +591,7 @@ class DbScreenStatusRegistry {
     },
     'branch_performance': {
       'screenCode': 'branch_performance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -603,7 +603,7 @@ class DbScreenStatusRegistry {
     },
     'brand_asset_library': {
       'screenCode': 'brand_asset_library',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -615,7 +615,7 @@ class DbScreenStatusRegistry {
     },
     'brand_management': {
       'screenCode': 'brand_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -627,7 +627,7 @@ class DbScreenStatusRegistry {
     },
     'business_development_analytics': {
       'screenCode': 'business_development_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -639,7 +639,7 @@ class DbScreenStatusRegistry {
     },
     'business_development_compliance': {
       'screenCode': 'business_development_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -663,7 +663,7 @@ class DbScreenStatusRegistry {
     },
     'business_development_workflow': {
       'screenCode': 'business_development_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -675,7 +675,7 @@ class DbScreenStatusRegistry {
     },
     'c_m_e_tracking_dashboard': {
       'screenCode': 'c_m_e_tracking_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -687,7 +687,7 @@ class DbScreenStatusRegistry {
     },
     'calendar_management': {
       'screenCode': 'calendar_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -699,7 +699,7 @@ class DbScreenStatusRegistry {
     },
     'campaign_dashboard': {
       'screenCode': 'campaign_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -711,7 +711,7 @@ class DbScreenStatusRegistry {
     },
     'campaign_performance_dashboard': {
       'screenCode': 'campaign_performance_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -723,7 +723,7 @@ class DbScreenStatusRegistry {
     },
     'care_plan': {
       'screenCode': 'care_plan',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -735,7 +735,7 @@ class DbScreenStatusRegistry {
     },
     'care_plan_review': {
       'screenCode': 'care_plan_review',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -747,7 +747,7 @@ class DbScreenStatusRegistry {
     },
     'care_updates': {
       'screenCode': 'care_updates',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -759,7 +759,7 @@ class DbScreenStatusRegistry {
     },
     'caregiver_client_profile': {
       'screenCode': 'caregiver_client_profile',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -771,7 +771,7 @@ class DbScreenStatusRegistry {
     },
     'caregiver_dashboard': {
       'screenCode': 'caregiver_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -783,7 +783,7 @@ class DbScreenStatusRegistry {
     },
     'caregiver_incident_report': {
       'screenCode': 'caregiver_incident_report',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -795,7 +795,7 @@ class DbScreenStatusRegistry {
     },
     'caregiver_schedule': {
       'screenCode': 'caregiver_schedule',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -807,7 +807,7 @@ class DbScreenStatusRegistry {
     },
     'caregiver_tasks': {
       'screenCode': 'caregiver_tasks',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -819,7 +819,7 @@ class DbScreenStatusRegistry {
     },
     'caregiver_visit_notes': {
       'screenCode': 'caregiver_visit_notes',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -831,7 +831,7 @@ class DbScreenStatusRegistry {
     },
     'ceo_alerts_and_risks': {
       'screenCode': 'ceo_alerts_and_risks',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -843,7 +843,7 @@ class DbScreenStatusRegistry {
     },
     'ceo_approvals': {
       'screenCode': 'ceo_approvals',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -855,7 +855,7 @@ class DbScreenStatusRegistry {
     },
     'ceo_dashboard': {
       'screenCode': 'ceo_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -867,7 +867,7 @@ class DbScreenStatusRegistry {
     },
     'ceo_enterprise_overview': {
       'screenCode': 'ceo_enterprise_overview',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -879,7 +879,7 @@ class DbScreenStatusRegistry {
     },
     'ceo_franchise_overview': {
       'screenCode': 'ceo_franchise_overview',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -891,7 +891,7 @@ class DbScreenStatusRegistry {
     },
     'ceo_growth_pipeline': {
       'screenCode': 'ceo_growth_pipeline',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -903,7 +903,7 @@ class DbScreenStatusRegistry {
     },
     'ceo_leadership_reports': {
       'screenCode': 'ceo_leadership_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -915,7 +915,7 @@ class DbScreenStatusRegistry {
     },
     'ceo_organization_map': {
       'screenCode': 'ceo_organization_map',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -927,7 +927,7 @@ class DbScreenStatusRegistry {
     },
     'ceo_region_performance': {
       'screenCode': 'ceo_region_performance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -939,7 +939,7 @@ class DbScreenStatusRegistry {
     },
     'ceo_reports': {
       'screenCode': 'ceo_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -951,7 +951,7 @@ class DbScreenStatusRegistry {
     },
     'ceo_revenue_summary': {
       'screenCode': 'ceo_revenue_summary',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -963,7 +963,7 @@ class DbScreenStatusRegistry {
     },
     'ceo_strategic_kpis': {
       'screenCode': 'ceo_strategic_kpis',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -975,7 +975,7 @@ class DbScreenStatusRegistry {
     },
     'certificates': {
       'screenCode': 'certificates',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -987,7 +987,7 @@ class DbScreenStatusRegistry {
     },
     'certification_renewal_alerts': {
       'screenCode': 'certification_renewal_alerts',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -999,7 +999,7 @@ class DbScreenStatusRegistry {
     },
     'certification_tracking': {
       'screenCode': 'certification_tracking',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1011,7 +1011,7 @@ class DbScreenStatusRegistry {
     },
     'certifications': {
       'screenCode': 'certifications',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1023,7 +1023,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_accounts_payable': {
       'screenCode': 'cfo_accounts_payable',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1035,7 +1035,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_accounts_receivable': {
       'screenCode': 'cfo_accounts_receivable',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1047,7 +1047,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_analytics': {
       'screenCode': 'cfo_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1059,7 +1059,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_cashflow': {
       'screenCode': 'cfo_cashflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1071,7 +1071,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_compliance': {
       'screenCode': 'cfo_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1083,7 +1083,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_dashboard': {
       'screenCode': 'cfo_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1095,7 +1095,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_expenses': {
       'screenCode': 'cfo_expenses',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1107,7 +1107,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_financial_overview': {
       'screenCode': 'cfo_financial_overview',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1119,7 +1119,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_franchise_financials': {
       'screenCode': 'cfo_franchise_financials',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1131,7 +1131,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_invoices': {
       'screenCode': 'cfo_invoices',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1143,7 +1143,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_payroll': {
       'screenCode': 'cfo_payroll',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1155,7 +1155,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_profitability': {
       'screenCode': 'cfo_profitability',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1167,7 +1167,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_reports': {
       'screenCode': 'cfo_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1179,7 +1179,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_revenue': {
       'screenCode': 'cfo_revenue',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1191,7 +1191,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_tax': {
       'screenCode': 'cfo_tax',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1203,7 +1203,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_tax_and_remittance': {
       'screenCode': 'cfo_tax_and_remittance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1215,7 +1215,7 @@ class DbScreenStatusRegistry {
     },
     'cfo_workflow': {
       'screenCode': 'cfo_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1227,7 +1227,7 @@ class DbScreenStatusRegistry {
     },
     'chemotherapy_protocol_builder': {
       'screenCode': 'chemotherapy_protocol_builder',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1239,7 +1239,7 @@ class DbScreenStatusRegistry {
     },
     'chiropractic_assessment': {
       'screenCode': 'chiropractic_assessment',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1251,7 +1251,7 @@ class DbScreenStatusRegistry {
     },
     'chiropractic_progress_tracking': {
       'screenCode': 'chiropractic_progress_tracking',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1263,7 +1263,7 @@ class DbScreenStatusRegistry {
     },
     'chiropractor_analytics': {
       'screenCode': 'chiropractor_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1335,7 +1335,7 @@ class DbScreenStatusRegistry {
     },
     'chiropractor_compliance': {
       'screenCode': 'chiropractor_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1395,7 +1395,7 @@ class DbScreenStatusRegistry {
     },
     'chiropractor_workflow': {
       'screenCode': 'chiropractor_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1407,7 +1407,7 @@ class DbScreenStatusRegistry {
     },
     'chronic_care_management_tracker': {
       'screenCode': 'chronic_care_management_tracker',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1419,7 +1419,7 @@ class DbScreenStatusRegistry {
     },
     'ciso_analytics': {
       'screenCode': 'ciso_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1431,7 +1431,7 @@ class DbScreenStatusRegistry {
     },
     'ciso_compliance': {
       'screenCode': 'ciso_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1443,7 +1443,7 @@ class DbScreenStatusRegistry {
     },
     'ciso_dashboard': {
       'screenCode': 'ciso_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1455,7 +1455,7 @@ class DbScreenStatusRegistry {
     },
     'ciso_workflow': {
       'screenCode': 'ciso_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1467,7 +1467,7 @@ class DbScreenStatusRegistry {
     },
     'claims_processing': {
       'screenCode': 'claims_processing',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1479,7 +1479,7 @@ class DbScreenStatusRegistry {
     },
     'client_book_appointment': {
       'screenCode': 'client_book_appointment',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1491,7 +1491,7 @@ class DbScreenStatusRegistry {
     },
     'client_care_team': {
       'screenCode': 'client_care_team',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1503,7 +1503,7 @@ class DbScreenStatusRegistry {
     },
     'client_dashboard': {
       'screenCode': 'client_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1515,7 +1515,7 @@ class DbScreenStatusRegistry {
     },
     'client_intake': {
       'screenCode': 'client_intake',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1527,7 +1527,7 @@ class DbScreenStatusRegistry {
     },
     'client_issue': {
       'screenCode': 'client_issue',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1539,7 +1539,7 @@ class DbScreenStatusRegistry {
     },
     'client_my_appointments': {
       'screenCode': 'client_my_appointments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1551,7 +1551,7 @@ class DbScreenStatusRegistry {
     },
     'client_payments': {
       'screenCode': 'client_payments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1563,7 +1563,7 @@ class DbScreenStatusRegistry {
     },
     'client_profile': {
       'screenCode': 'client_profile',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1575,7 +1575,7 @@ class DbScreenStatusRegistry {
     },
     'client_progress': {
       'screenCode': 'client_progress',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1587,7 +1587,7 @@ class DbScreenStatusRegistry {
     },
     'client_treatment_history': {
       'screenCode': 'client_treatment_history',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1599,7 +1599,7 @@ class DbScreenStatusRegistry {
     },
     'clinic_analytics': {
       'screenCode': 'clinic_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1611,7 +1611,7 @@ class DbScreenStatusRegistry {
     },
     'clinic_compliance': {
       'screenCode': 'clinic_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1635,7 +1635,7 @@ class DbScreenStatusRegistry {
     },
     'clinic_history_logs': {
       'screenCode': 'clinic_history_logs',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1647,7 +1647,7 @@ class DbScreenStatusRegistry {
     },
     'clinic_incident_report': {
       'screenCode': 'clinic_incident_report',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1659,7 +1659,7 @@ class DbScreenStatusRegistry {
     },
     'clinic_workflow': {
       'screenCode': 'clinic_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1671,7 +1671,7 @@ class DbScreenStatusRegistry {
     },
     'clinical_analytics': {
       'screenCode': 'clinical_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1683,7 +1683,7 @@ class DbScreenStatusRegistry {
     },
     'clinical_compliance': {
       'screenCode': 'clinical_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1731,7 +1731,7 @@ class DbScreenStatusRegistry {
     },
     'clinical_director_dashboard': {
       'screenCode': 'clinical_director_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1767,7 +1767,7 @@ class DbScreenStatusRegistry {
     },
     'clinical_director_quality_metrics': {
       'screenCode': 'clinical_director_quality_metrics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1803,7 +1803,7 @@ class DbScreenStatusRegistry {
     },
     'clinical_director_staffing': {
       'screenCode': 'clinical_director_staffing',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1815,7 +1815,7 @@ class DbScreenStatusRegistry {
     },
     'clinical_guideline_library': {
       'screenCode': 'clinical_guideline_library',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1839,7 +1839,7 @@ class DbScreenStatusRegistry {
     },
     'clinical_outcomes_report': {
       'screenCode': 'clinical_outcomes_report',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1863,7 +1863,7 @@ class DbScreenStatusRegistry {
     },
     'clinical_reference': {
       'screenCode': 'clinical_reference',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1875,7 +1875,7 @@ class DbScreenStatusRegistry {
     },
     'clinical_trial_recruitment_dashboard': {
       'screenCode': 'clinical_trial_recruitment_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1887,7 +1887,7 @@ class DbScreenStatusRegistry {
     },
     'clinical_workflow': {
       'screenCode': 'clinical_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1899,7 +1899,7 @@ class DbScreenStatusRegistry {
     },
     'cns_analytics': {
       'screenCode': 'cns_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1911,7 +1911,7 @@ class DbScreenStatusRegistry {
     },
     'cns_dashboard': {
       'screenCode': 'cns_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1923,7 +1923,7 @@ class DbScreenStatusRegistry {
     },
     'cns_workflow': {
       'screenCode': 'cns_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1935,7 +1935,7 @@ class DbScreenStatusRegistry {
     },
     'communication': {
       'screenCode': 'communication',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1947,7 +1947,7 @@ class DbScreenStatusRegistry {
     },
     'community_health_needs_assessment': {
       'screenCode': 'community_health_needs_assessment',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1959,7 +1959,7 @@ class DbScreenStatusRegistry {
     },
     'community_outreach_analytics': {
       'screenCode': 'community_outreach_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1971,7 +1971,7 @@ class DbScreenStatusRegistry {
     },
     'community_outreach_compliance': {
       'screenCode': 'community_outreach_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1983,7 +1983,7 @@ class DbScreenStatusRegistry {
     },
     'community_outreach_contacts': {
       'screenCode': 'community_outreach_contacts',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -1995,7 +1995,7 @@ class DbScreenStatusRegistry {
     },
     'community_outreach_dashboard': {
       'screenCode': 'community_outreach_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2007,7 +2007,7 @@ class DbScreenStatusRegistry {
     },
     'community_outreach_events': {
       'screenCode': 'community_outreach_events',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2019,7 +2019,7 @@ class DbScreenStatusRegistry {
     },
     'community_outreach_follow_ups': {
       'screenCode': 'community_outreach_follow_ups',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2031,7 +2031,7 @@ class DbScreenStatusRegistry {
     },
     'community_outreach_partnerships': {
       'screenCode': 'community_outreach_partnerships',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2043,7 +2043,7 @@ class DbScreenStatusRegistry {
     },
     'community_outreach_programs': {
       'screenCode': 'community_outreach_programs',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2055,7 +2055,7 @@ class DbScreenStatusRegistry {
     },
     'community_outreach_reports': {
       'screenCode': 'community_outreach_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2067,7 +2067,7 @@ class DbScreenStatusRegistry {
     },
     'community_outreach_volunteers': {
       'screenCode': 'community_outreach_volunteers',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2079,7 +2079,7 @@ class DbScreenStatusRegistry {
     },
     'community_outreach_workflow': {
       'screenCode': 'community_outreach_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2091,7 +2091,7 @@ class DbScreenStatusRegistry {
     },
     'competitor_analysis_board': {
       'screenCode': 'competitor_analysis_board',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2103,7 +2103,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_cases': {
       'screenCode': 'compliance_cases',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2115,7 +2115,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_dashboard': {
       'screenCode': 'compliance_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2127,7 +2127,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_analytics': {
       'screenCode': 'compliance_manager_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2139,7 +2139,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_audits': {
       'screenCode': 'compliance_manager_audits',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2151,7 +2151,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_compliance': {
       'screenCode': 'compliance_manager_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2163,7 +2163,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_compliance_cases': {
       'screenCode': 'compliance_manager_compliance_cases',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2175,7 +2175,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_corrective_actions': {
       'screenCode': 'compliance_manager_corrective_actions',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2187,7 +2187,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_credential_tracking': {
       'screenCode': 'compliance_manager_credential_tracking',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2199,7 +2199,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_dashboard': {
       'screenCode': 'compliance_manager_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2211,7 +2211,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_document_expiry': {
       'screenCode': 'compliance_manager_document_expiry',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2223,7 +2223,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_incident_review': {
       'screenCode': 'compliance_manager_incident_review',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2235,7 +2235,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_policies': {
       'screenCode': 'compliance_manager_policies',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2247,7 +2247,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_reports': {
       'screenCode': 'compliance_manager_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2259,7 +2259,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_risk_register': {
       'screenCode': 'compliance_manager_risk_register',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2271,7 +2271,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_training_compliance': {
       'screenCode': 'compliance_manager_training_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2283,7 +2283,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_manager_workflow': {
       'screenCode': 'compliance_manager_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2295,7 +2295,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_overview': {
       'screenCode': 'compliance_overview',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2307,7 +2307,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_reports': {
       'screenCode': 'compliance_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2319,7 +2319,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_review': {
       'screenCode': 'compliance_review',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2331,7 +2331,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_reviews': {
       'screenCode': 'compliance_reviews',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2343,7 +2343,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_training': {
       'screenCode': 'compliance_training',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2355,7 +2355,7 @@ class DbScreenStatusRegistry {
     },
     'compliance_training_tracker': {
       'screenCode': 'compliance_training_tracker',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2367,7 +2367,7 @@ class DbScreenStatusRegistry {
     },
     'configuration_version_control': {
       'screenCode': 'configuration_version_control',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2379,7 +2379,7 @@ class DbScreenStatusRegistry {
     },
     'conflict_resolution': {
       'screenCode': 'conflict_resolution',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2391,7 +2391,7 @@ class DbScreenStatusRegistry {
     },
     'consent': {
       'screenCode': 'consent',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2403,7 +2403,7 @@ class DbScreenStatusRegistry {
     },
     'consent_management_console': {
       'screenCode': 'consent_management_console',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2415,7 +2415,7 @@ class DbScreenStatusRegistry {
     },
     'control_center': {
       'screenCode': 'control_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2427,7 +2427,7 @@ class DbScreenStatusRegistry {
     },
     'controlled_substance_log': {
       'screenCode': 'controlled_substance_log',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2439,7 +2439,7 @@ class DbScreenStatusRegistry {
     },
     'coo_analytics': {
       'screenCode': 'coo_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2451,7 +2451,7 @@ class DbScreenStatusRegistry {
     },
     'coo_branch_comparison': {
       'screenCode': 'coo_branch_comparison',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2463,7 +2463,7 @@ class DbScreenStatusRegistry {
     },
     'coo_branch_operations': {
       'screenCode': 'coo_branch_operations',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2475,7 +2475,7 @@ class DbScreenStatusRegistry {
     },
     'coo_command_center': {
       'screenCode': 'coo_command_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2487,7 +2487,7 @@ class DbScreenStatusRegistry {
     },
     'coo_compliance': {
       'screenCode': 'coo_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2499,7 +2499,7 @@ class DbScreenStatusRegistry {
     },
     'coo_dashboard': {
       'screenCode': 'coo_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2511,7 +2511,7 @@ class DbScreenStatusRegistry {
     },
     'coo_issue_escalations': {
       'screenCode': 'coo_issue_escalations',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2523,7 +2523,7 @@ class DbScreenStatusRegistry {
     },
     'coo_operations_overview': {
       'screenCode': 'coo_operations_overview',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2535,7 +2535,7 @@ class DbScreenStatusRegistry {
     },
     'coo_reports': {
       'screenCode': 'coo_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2547,7 +2547,7 @@ class DbScreenStatusRegistry {
     },
     'coo_scheduling_health': {
       'screenCode': 'coo_scheduling_health',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2559,7 +2559,7 @@ class DbScreenStatusRegistry {
     },
     'coo_service_delivery': {
       'screenCode': 'coo_service_delivery',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2571,7 +2571,7 @@ class DbScreenStatusRegistry {
     },
     'coo_staffing': {
       'screenCode': 'coo_staffing',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2583,7 +2583,7 @@ class DbScreenStatusRegistry {
     },
     'coo_staffing_efficiency': {
       'screenCode': 'coo_staffing_efficiency',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2595,7 +2595,7 @@ class DbScreenStatusRegistry {
     },
     'coo_workflow': {
       'screenCode': 'coo_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2607,7 +2607,7 @@ class DbScreenStatusRegistry {
     },
     'coo_workflow_issues': {
       'screenCode': 'coo_workflow_issues',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2619,7 +2619,7 @@ class DbScreenStatusRegistry {
     },
     'coo_workflow_performance': {
       'screenCode': 'coo_workflow_performance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2631,7 +2631,7 @@ class DbScreenStatusRegistry {
     },
     'coordinator_dispatch_map': {
       'screenCode': 'coordinator_dispatch_map',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2643,7 +2643,7 @@ class DbScreenStatusRegistry {
     },
     'coordinator_hub': {
       'screenCode': 'coordinator_hub',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2655,7 +2655,7 @@ class DbScreenStatusRegistry {
     },
     'coordinator_sos': {
       'screenCode': 'coordinator_sos',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2667,7 +2667,7 @@ class DbScreenStatusRegistry {
     },
     'coordinator_waitlist': {
       'screenCode': 'coordinator_waitlist',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2679,7 +2679,7 @@ class DbScreenStatusRegistry {
     },
     'corrective_action': {
       'screenCode': 'corrective_action',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2691,7 +2691,7 @@ class DbScreenStatusRegistry {
     },
     'corrective_actions': {
       'screenCode': 'corrective_actions',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2703,7 +2703,7 @@ class DbScreenStatusRegistry {
     },
     'course_architect': {
       'screenCode': 'course_architect',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2715,7 +2715,7 @@ class DbScreenStatusRegistry {
     },
     'course_architect_analytics': {
       'screenCode': 'course_architect_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2727,7 +2727,7 @@ class DbScreenStatusRegistry {
     },
     'course_architect_compliance': {
       'screenCode': 'course_architect_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2739,7 +2739,7 @@ class DbScreenStatusRegistry {
     },
     'course_architect_dashboard': {
       'screenCode': 'course_architect_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2751,7 +2751,7 @@ class DbScreenStatusRegistry {
     },
     'course_architect_workflow': {
       'screenCode': 'course_architect_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2763,7 +2763,7 @@ class DbScreenStatusRegistry {
     },
     'course_assignment': {
       'screenCode': 'course_assignment',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2775,7 +2775,7 @@ class DbScreenStatusRegistry {
     },
     'course_library': {
       'screenCode': 'course_library',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2787,7 +2787,7 @@ class DbScreenStatusRegistry {
     },
     'credential_expiry': {
       'screenCode': 'credential_expiry',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2799,7 +2799,7 @@ class DbScreenStatusRegistry {
     },
     'credential_tracking': {
       'screenCode': 'credential_tracking',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2811,7 +2811,7 @@ class DbScreenStatusRegistry {
     },
     'crisis_protocol_trigger': {
       'screenCode': 'crisis_protocol_trigger',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2823,7 +2823,7 @@ class DbScreenStatusRegistry {
     },
     'cto_access_control': {
       'screenCode': 'cto_access_control',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2835,7 +2835,7 @@ class DbScreenStatusRegistry {
     },
     'cto_analytics': {
       'screenCode': 'cto_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2847,7 +2847,7 @@ class DbScreenStatusRegistry {
     },
     'cto_api_monitoring': {
       'screenCode': 'cto_api_monitoring',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2859,7 +2859,7 @@ class DbScreenStatusRegistry {
     },
     'cto_audit_logs': {
       'screenCode': 'cto_audit_logs',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2871,7 +2871,7 @@ class DbScreenStatusRegistry {
     },
     'cto_compliance': {
       'screenCode': 'cto_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2883,7 +2883,7 @@ class DbScreenStatusRegistry {
     },
     'cto_dashboard': {
       'screenCode': 'cto_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2895,7 +2895,7 @@ class DbScreenStatusRegistry {
     },
     'cto_feature_adoption': {
       'screenCode': 'cto_feature_adoption',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2907,7 +2907,7 @@ class DbScreenStatusRegistry {
     },
     'cto_infrastructure': {
       'screenCode': 'cto_infrastructure',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2919,7 +2919,7 @@ class DbScreenStatusRegistry {
     },
     'cto_integrations': {
       'screenCode': 'cto_integrations',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2931,7 +2931,7 @@ class DbScreenStatusRegistry {
     },
     'cto_issue_tracking': {
       'screenCode': 'cto_issue_tracking',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2943,7 +2943,7 @@ class DbScreenStatusRegistry {
     },
     'cto_platform_usage': {
       'screenCode': 'cto_platform_usage',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2955,7 +2955,7 @@ class DbScreenStatusRegistry {
     },
     'cto_release_management': {
       'screenCode': 'cto_release_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2967,7 +2967,7 @@ class DbScreenStatusRegistry {
     },
     'cto_reports': {
       'screenCode': 'cto_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2979,7 +2979,7 @@ class DbScreenStatusRegistry {
     },
     'cto_system_health': {
       'screenCode': 'cto_system_health',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -2991,7 +2991,7 @@ class DbScreenStatusRegistry {
     },
     'cto_system_verification': {
       'screenCode': 'cto_system_verification',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3003,7 +3003,7 @@ class DbScreenStatusRegistry {
     },
     'cto_verification_hub': {
       'screenCode': 'cto_verification_hub',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3015,7 +3015,7 @@ class DbScreenStatusRegistry {
     },
     'cto_workflow': {
       'screenCode': 'cto_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3027,7 +3027,7 @@ class DbScreenStatusRegistry {
     },
     'customer_support_analytics': {
       'screenCode': 'customer_support_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3039,7 +3039,7 @@ class DbScreenStatusRegistry {
     },
     'customer_support_compliance': {
       'screenCode': 'customer_support_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3051,7 +3051,7 @@ class DbScreenStatusRegistry {
     },
     'customer_support_dashboard': {
       'screenCode': 'customer_support_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3063,7 +3063,7 @@ class DbScreenStatusRegistry {
     },
     'customer_support_escalations': {
       'screenCode': 'customer_support_escalations',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3075,7 +3075,7 @@ class DbScreenStatusRegistry {
     },
     'customer_support_issue_categories': {
       'screenCode': 'customer_support_issue_categories',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3087,7 +3087,7 @@ class DbScreenStatusRegistry {
     },
     'customer_support_reports': {
       'screenCode': 'customer_support_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3099,7 +3099,7 @@ class DbScreenStatusRegistry {
     },
     'customer_support_templates': {
       'screenCode': 'customer_support_templates',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3111,7 +3111,7 @@ class DbScreenStatusRegistry {
     },
     'customer_support_tickets': {
       'screenCode': 'customer_support_tickets',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3123,7 +3123,7 @@ class DbScreenStatusRegistry {
     },
     'customer_support_workflow': {
       'screenCode': 'customer_support_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3135,7 +3135,7 @@ class DbScreenStatusRegistry {
     },
     'cx_director_analytics': {
       'screenCode': 'cx_director_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3147,7 +3147,7 @@ class DbScreenStatusRegistry {
     },
     'cx_director_compliance': {
       'screenCode': 'cx_director_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3159,7 +3159,7 @@ class DbScreenStatusRegistry {
     },
     'cx_director_dashboard': {
       'screenCode': 'cx_director_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3171,7 +3171,7 @@ class DbScreenStatusRegistry {
     },
     'cx_director_workflow': {
       'screenCode': 'cx_director_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3183,7 +3183,7 @@ class DbScreenStatusRegistry {
     },
     'daily_operations': {
       'screenCode': 'daily_operations',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3195,7 +3195,7 @@ class DbScreenStatusRegistry {
     },
     'data_privacy_monitor': {
       'screenCode': 'data_privacy_monitor',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3207,7 +3207,7 @@ class DbScreenStatusRegistry {
     },
     'default_not_implemented': {
       'screenCode': 'default_not_implemented',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3219,7 +3219,7 @@ class DbScreenStatusRegistry {
     },
     'defect_tracking': {
       'screenCode': 'defect_tracking',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3231,7 +3231,7 @@ class DbScreenStatusRegistry {
     },
     'deployment_center': {
       'screenCode': 'deployment_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3243,7 +3243,7 @@ class DbScreenStatusRegistry {
     },
     'device_integration_hub': {
       'screenCode': 'device_integration_hub',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3255,7 +3255,7 @@ class DbScreenStatusRegistry {
     },
     'digital_symptom_checker': {
       'screenCode': 'digital_symptom_checker',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3267,7 +3267,7 @@ class DbScreenStatusRegistry {
     },
     'document_expiry': {
       'screenCode': 'document_expiry',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3279,7 +3279,7 @@ class DbScreenStatusRegistry {
     },
     'documents': {
       'screenCode': 'documents',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3291,7 +3291,7 @@ class DbScreenStatusRegistry {
     },
     'drift_findings': {
       'screenCode': 'drift_findings',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3303,7 +3303,7 @@ class DbScreenStatusRegistry {
     },
     'drug_interaction_alert_center': {
       'screenCode': 'drug_interaction_alert_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3315,7 +3315,7 @@ class DbScreenStatusRegistry {
     },
     'dynamic': {
       'screenCode': 'dynamic',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3327,7 +3327,7 @@ class DbScreenStatusRegistry {
     },
     'dynamic_analytics': {
       'screenCode': 'dynamic_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3339,7 +3339,7 @@ class DbScreenStatusRegistry {
     },
     'dynamic_compliance': {
       'screenCode': 'dynamic_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3351,7 +3351,7 @@ class DbScreenStatusRegistry {
     },
     'dynamic_dashboard': {
       'screenCode': 'dynamic_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3363,7 +3363,7 @@ class DbScreenStatusRegistry {
     },
     'dynamic_screen_dashboard': {
       'screenCode': 'dynamic_screen_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3375,7 +3375,7 @@ class DbScreenStatusRegistry {
     },
     'dynamic_workflow': {
       'screenCode': 'dynamic_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3387,7 +3387,7 @@ class DbScreenStatusRegistry {
     },
     'ecosystem_state_board': {
       'screenCode': 'ecosystem_state_board',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3399,7 +3399,7 @@ class DbScreenStatusRegistry {
     },
     'email_marketing_automator': {
       'screenCode': 'email_marketing_automator',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3411,7 +3411,7 @@ class DbScreenStatusRegistry {
     },
     'emergency_contacts': {
       'screenCode': 'emergency_contacts',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3423,7 +3423,7 @@ class DbScreenStatusRegistry {
     },
     'employee_analytics': {
       'screenCode': 'employee_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3435,7 +3435,7 @@ class DbScreenStatusRegistry {
     },
     'employee_dashboard': {
       'screenCode': 'employee_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3447,7 +3447,7 @@ class DbScreenStatusRegistry {
     },
     'employee_records': {
       'screenCode': 'employee_records',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3459,7 +3459,7 @@ class DbScreenStatusRegistry {
     },
     'employee_workflow': {
       'screenCode': 'employee_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3471,7 +3471,7 @@ class DbScreenStatusRegistry {
     },
     'enterprise_command_center4_k': {
       'screenCode': 'enterprise_command_center4_k',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3483,7 +3483,7 @@ class DbScreenStatusRegistry {
     },
     'enterprise_health': {
       'screenCode': 'enterprise_health',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3495,7 +3495,7 @@ class DbScreenStatusRegistry {
     },
     'environmental_health_hazards': {
       'screenCode': 'environmental_health_hazards',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3507,7 +3507,7 @@ class DbScreenStatusRegistry {
     },
     'epidemiological_surveillance_dashboard': {
       'screenCode': 'epidemiological_surveillance_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3519,7 +3519,7 @@ class DbScreenStatusRegistry {
     },
     'escalation_dashboard': {
       'screenCode': 'escalation_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3531,7 +3531,7 @@ class DbScreenStatusRegistry {
     },
     'event_and_webinar_manager': {
       'screenCode': 'event_and_webinar_manager',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3543,7 +3543,7 @@ class DbScreenStatusRegistry {
     },
     'executive_command_center': {
       'screenCode': 'executive_command_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3555,7 +3555,7 @@ class DbScreenStatusRegistry {
     },
     'exercise_prescription': {
       'screenCode': 'exercise_prescription',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3567,7 +3567,7 @@ class DbScreenStatusRegistry {
     },
     'expense_management': {
       'screenCode': 'expense_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3579,7 +3579,7 @@ class DbScreenStatusRegistry {
     },
     'f_a_q_manager': {
       'screenCode': 'f_a_q_manager',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3591,7 +3591,7 @@ class DbScreenStatusRegistry {
     },
     'failed_workflow': {
       'screenCode': 'failed_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3603,7 +3603,7 @@ class DbScreenStatusRegistry {
     },
     'family_billing': {
       'screenCode': 'family_billing',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3615,7 +3615,7 @@ class DbScreenStatusRegistry {
     },
     'family_care_updates': {
       'screenCode': 'family_care_updates',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3627,7 +3627,7 @@ class DbScreenStatusRegistry {
     },
     'family_dashboard': {
       'screenCode': 'family_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3639,7 +3639,7 @@ class DbScreenStatusRegistry {
     },
     'family_emergency_contacts': {
       'screenCode': 'family_emergency_contacts',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3651,7 +3651,7 @@ class DbScreenStatusRegistry {
     },
     'family_loved_one_schedule': {
       'screenCode': 'family_loved_one_schedule',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3663,7 +3663,7 @@ class DbScreenStatusRegistry {
     },
     'family_member_analytics': {
       'screenCode': 'family_member_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3675,7 +3675,7 @@ class DbScreenStatusRegistry {
     },
     'family_member_billing': {
       'screenCode': 'family_member_billing',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3687,7 +3687,7 @@ class DbScreenStatusRegistry {
     },
     'family_member_care_updates': {
       'screenCode': 'family_member_care_updates',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3699,7 +3699,7 @@ class DbScreenStatusRegistry {
     },
     'family_member_compliance': {
       'screenCode': 'family_member_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3711,7 +3711,7 @@ class DbScreenStatusRegistry {
     },
     'family_member_dashboard': {
       'screenCode': 'family_member_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3723,7 +3723,7 @@ class DbScreenStatusRegistry {
     },
     'family_member_emergency_contacts': {
       'screenCode': 'family_member_emergency_contacts',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3735,7 +3735,7 @@ class DbScreenStatusRegistry {
     },
     'family_member_loved_one_schedule': {
       'screenCode': 'family_member_loved_one_schedule',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3747,7 +3747,7 @@ class DbScreenStatusRegistry {
     },
     'family_member_profile': {
       'screenCode': 'family_member_profile',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3759,7 +3759,7 @@ class DbScreenStatusRegistry {
     },
     'family_member_workflow': {
       'screenCode': 'family_member_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3771,7 +3771,7 @@ class DbScreenStatusRegistry {
     },
     'family_overview': {
       'screenCode': 'family_overview',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3783,7 +3783,7 @@ class DbScreenStatusRegistry {
     },
     'family_profile': {
       'screenCode': 'family_profile',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3795,7 +3795,7 @@ class DbScreenStatusRegistry {
     },
     'feature_flag_controller': {
       'screenCode': 'feature_flag_controller',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3807,7 +3807,7 @@ class DbScreenStatusRegistry {
     },
     'file_verification_dashboard': {
       'screenCode': 'file_verification_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3819,7 +3819,7 @@ class DbScreenStatusRegistry {
     },
     'finance_director_analytics': {
       'screenCode': 'finance_director_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3831,7 +3831,7 @@ class DbScreenStatusRegistry {
     },
     'finance_director_cashflow': {
       'screenCode': 'finance_director_cashflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3843,7 +3843,7 @@ class DbScreenStatusRegistry {
     },
     'finance_director_compliance': {
       'screenCode': 'finance_director_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3855,7 +3855,7 @@ class DbScreenStatusRegistry {
     },
     'finance_director_dashboard': {
       'screenCode': 'finance_director_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3867,7 +3867,7 @@ class DbScreenStatusRegistry {
     },
     'finance_director_workflow': {
       'screenCode': 'finance_director_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3879,7 +3879,7 @@ class DbScreenStatusRegistry {
     },
     'financial_dashboard': {
       'screenCode': 'financial_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3891,7 +3891,7 @@ class DbScreenStatusRegistry {
     },
     'financial_forecasting_model': {
       'screenCode': 'financial_forecasting_model',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3903,7 +3903,7 @@ class DbScreenStatusRegistry {
     },
     'financial_operations4_k': {
       'screenCode': 'financial_operations4_k',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3915,7 +3915,7 @@ class DbScreenStatusRegistry {
     },
     'followup': {
       'screenCode': 'followup',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3927,7 +3927,7 @@ class DbScreenStatusRegistry {
     },
     'forgot_password': {
       'screenCode': 'forgot_password',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3939,7 +3939,7 @@ class DbScreenStatusRegistry {
     },
     'formulary_compliance_manager': {
       'screenCode': 'formulary_compliance_manager',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3951,7 +3951,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_analytics': {
       'screenCode': 'franchise_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3963,7 +3963,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_command_center': {
       'screenCode': 'franchise_command_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3975,7 +3975,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_command_center4_k': {
       'screenCode': 'franchise_command_center4_k',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3987,7 +3987,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_compliance': {
       'screenCode': 'franchise_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -3999,7 +3999,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_dashboard': {
       'screenCode': 'franchise_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4023,7 +4023,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_overview': {
       'screenCode': 'franchise_overview',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4035,7 +4035,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_owner_appointments': {
       'screenCode': 'franchise_owner_appointments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4047,7 +4047,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_owner_branch_overview': {
       'screenCode': 'franchise_owner_branch_overview',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4059,7 +4059,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_owner_clients': {
       'screenCode': 'franchise_owner_clients',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4071,7 +4071,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_owner_command_center': {
       'screenCode': 'franchise_owner_command_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4083,7 +4083,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_owner_compliance': {
       'screenCode': 'franchise_owner_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4095,7 +4095,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_owner_dashboard': {
       'screenCode': 'franchise_owner_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4107,7 +4107,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_owner_finance_snapshot': {
       'screenCode': 'franchise_owner_finance_snapshot',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4119,7 +4119,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_owner_financial_snapshot': {
       'screenCode': 'franchise_owner_financial_snapshot',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4131,7 +4131,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_owner_hiring': {
       'screenCode': 'franchise_owner_hiring',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4143,7 +4143,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_owner_reports': {
       'screenCode': 'franchise_owner_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4155,7 +4155,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_owner_staff': {
       'screenCode': 'franchise_owner_staff',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4167,7 +4167,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_analytics': {
       'screenCode': 'franchise_sales_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4179,7 +4179,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_manager_analytics': {
       'screenCode': 'franchise_sales_manager_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4191,7 +4191,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_manager_compliance': {
       'screenCode': 'franchise_sales_manager_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4203,7 +4203,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_manager_contracts': {
       'screenCode': 'franchise_sales_manager_contracts',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4215,7 +4215,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_manager_dashboard': {
       'screenCode': 'franchise_sales_manager_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4227,7 +4227,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_manager_discovery_calls': {
       'screenCode': 'franchise_sales_manager_discovery_calls',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4239,7 +4239,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_manager_follow_ups': {
       'screenCode': 'franchise_sales_manager_follow_ups',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4251,7 +4251,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_manager_leads': {
       'screenCode': 'franchise_sales_manager_leads',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4263,7 +4263,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_manager_proposals': {
       'screenCode': 'franchise_sales_manager_proposals',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4275,7 +4275,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_manager_prospects': {
       'screenCode': 'franchise_sales_manager_prospects',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4287,7 +4287,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_manager_reports': {
       'screenCode': 'franchise_sales_manager_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4299,7 +4299,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_manager_sales_pipeline': {
       'screenCode': 'franchise_sales_manager_sales_pipeline',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4311,7 +4311,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_manager_workflow': {
       'screenCode': 'franchise_sales_manager_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4323,7 +4323,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_sales_workflow': {
       'screenCode': 'franchise_sales_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4335,7 +4335,7 @@ class DbScreenStatusRegistry {
     },
     'franchise_workflow': {
       'screenCode': 'franchise_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4347,7 +4347,7 @@ class DbScreenStatusRegistry {
     },
     'gamification_profile': {
       'screenCode': 'gamification_profile',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4359,7 +4359,7 @@ class DbScreenStatusRegistry {
     },
     'general_manager_analytics': {
       'screenCode': 'general_manager_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4371,7 +4371,7 @@ class DbScreenStatusRegistry {
     },
     'general_manager_compliance': {
       'screenCode': 'general_manager_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4383,7 +4383,7 @@ class DbScreenStatusRegistry {
     },
     'general_manager_dashboard': {
       'screenCode': 'general_manager_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4395,7 +4395,7 @@ class DbScreenStatusRegistry {
     },
     'general_manager_workflow': {
       'screenCode': 'general_manager_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4407,7 +4407,7 @@ class DbScreenStatusRegistry {
     },
     'governance_control_room': {
       'screenCode': 'governance_control_room',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4419,7 +4419,7 @@ class DbScreenStatusRegistry {
     },
     'governance_hud': {
       'screenCode': 'governance_hud',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4431,7 +4431,7 @@ class DbScreenStatusRegistry {
     },
     'governance_officer_analytics': {
       'screenCode': 'governance_officer_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4443,7 +4443,7 @@ class DbScreenStatusRegistry {
     },
     'governance_officer_compliance': {
       'screenCode': 'governance_officer_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4455,7 +4455,7 @@ class DbScreenStatusRegistry {
     },
     'governance_officer_dashboard': {
       'screenCode': 'governance_officer_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4467,7 +4467,7 @@ class DbScreenStatusRegistry {
     },
     'governance_officer_workflow': {
       'screenCode': 'governance_officer_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4479,7 +4479,7 @@ class DbScreenStatusRegistry {
     },
     'governance_operations4_k': {
       'screenCode': 'governance_operations4_k',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4491,7 +4491,7 @@ class DbScreenStatusRegistry {
     },
     'governed': {
       'screenCode': 'governed',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4503,7 +4503,7 @@ class DbScreenStatusRegistry {
     },
     'grant_funding_allocation': {
       'screenCode': 'grant_funding_allocation',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4527,7 +4527,7 @@ class DbScreenStatusRegistry {
     },
     'growth_pipeline': {
       'screenCode': 'growth_pipeline',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4539,7 +4539,7 @@ class DbScreenStatusRegistry {
     },
     'guest_analytics': {
       'screenCode': 'guest_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4551,7 +4551,7 @@ class DbScreenStatusRegistry {
     },
     'guest_compliance': {
       'screenCode': 'guest_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4563,7 +4563,7 @@ class DbScreenStatusRegistry {
     },
     'guest_dashboard': {
       'screenCode': 'guest_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4575,7 +4575,7 @@ class DbScreenStatusRegistry {
     },
     'guest_workflow': {
       'screenCode': 'guest_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4587,7 +4587,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_bus_dev_analytics': {
       'screenCode': 'head_of_bus_dev_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4599,7 +4599,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_bus_dev_compliance': {
       'screenCode': 'head_of_bus_dev_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4623,7 +4623,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_bus_dev_workflow': {
       'screenCode': 'head_of_bus_dev_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4635,7 +4635,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_marketing_analytics': {
       'screenCode': 'head_of_marketing_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4647,7 +4647,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_marketing_brand_assets': {
       'screenCode': 'head_of_marketing_brand_assets',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4659,7 +4659,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_marketing_campaigns': {
       'screenCode': 'head_of_marketing_campaigns',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4671,7 +4671,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_marketing_compliance': {
       'screenCode': 'head_of_marketing_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4683,7 +4683,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_marketing_content_approval': {
       'screenCode': 'head_of_marketing_content_approval',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4695,7 +4695,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_marketing_dashboard': {
       'screenCode': 'head_of_marketing_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4707,7 +4707,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_marketing_funnel_analytics': {
       'screenCode': 'head_of_marketing_funnel_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4719,7 +4719,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_marketing_leads': {
       'screenCode': 'head_of_marketing_leads',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4731,7 +4731,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_marketing_performance_reports': {
       'screenCode': 'head_of_marketing_performance_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4743,7 +4743,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_marketing_regional_campaigns': {
       'screenCode': 'head_of_marketing_regional_campaigns',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4755,7 +4755,7 @@ class DbScreenStatusRegistry {
     },
     'head_of_marketing_workflow': {
       'screenCode': 'head_of_marketing_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4767,7 +4767,7 @@ class DbScreenStatusRegistry {
     },
     'help_desk_dashboard': {
       'screenCode': 'help_desk_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4779,7 +4779,7 @@ class DbScreenStatusRegistry {
     },
     'hipaa_audit_dashboard': {
       'screenCode': 'hipaa_audit_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4791,7 +4791,7 @@ class DbScreenStatusRegistry {
     },
     'hiring_pipeline': {
       'screenCode': 'hiring_pipeline',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4803,7 +4803,7 @@ class DbScreenStatusRegistry {
     },
     'home_care_plan': {
       'screenCode': 'home_care_plan',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4815,7 +4815,7 @@ class DbScreenStatusRegistry {
     },
     'hr_applicants': {
       'screenCode': 'hr_applicants',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4827,7 +4827,7 @@ class DbScreenStatusRegistry {
     },
     'hr_director_analytics': {
       'screenCode': 'hr_director_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4839,7 +4839,7 @@ class DbScreenStatusRegistry {
     },
     'hr_director_compliance': {
       'screenCode': 'hr_director_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4851,7 +4851,7 @@ class DbScreenStatusRegistry {
     },
     'hr_director_credential_expiry': {
       'screenCode': 'hr_director_credential_expiry',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4863,7 +4863,7 @@ class DbScreenStatusRegistry {
     },
     'hr_director_dashboard': {
       'screenCode': 'hr_director_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4875,7 +4875,7 @@ class DbScreenStatusRegistry {
     },
     'hr_director_hiring_pipeline': {
       'screenCode': 'hr_director_hiring_pipeline',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4887,7 +4887,7 @@ class DbScreenStatusRegistry {
     },
     'hr_director_onboarding': {
       'screenCode': 'hr_director_onboarding',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4899,7 +4899,7 @@ class DbScreenStatusRegistry {
     },
     'hr_director_staff_files': {
       'screenCode': 'hr_director_staff_files',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4911,7 +4911,7 @@ class DbScreenStatusRegistry {
     },
     'hr_director_training': {
       'screenCode': 'hr_director_training',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4923,7 +4923,7 @@ class DbScreenStatusRegistry {
     },
     'hr_director_workflow': {
       'screenCode': 'hr_director_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4935,7 +4935,7 @@ class DbScreenStatusRegistry {
     },
     'hr_hiring_analytics': {
       'screenCode': 'hr_hiring_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4947,7 +4947,7 @@ class DbScreenStatusRegistry {
     },
     'hr_hiring_applicants': {
       'screenCode': 'hr_hiring_applicants',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4959,7 +4959,7 @@ class DbScreenStatusRegistry {
     },
     'hr_hiring_compliance': {
       'screenCode': 'hr_hiring_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4971,7 +4971,7 @@ class DbScreenStatusRegistry {
     },
     'hr_hiring_credentials': {
       'screenCode': 'hr_hiring_credentials',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4983,7 +4983,7 @@ class DbScreenStatusRegistry {
     },
     'hr_hiring_dashboard': {
       'screenCode': 'hr_hiring_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -4995,7 +4995,7 @@ class DbScreenStatusRegistry {
     },
     'hr_hiring_interviews': {
       'screenCode': 'hr_hiring_interviews',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5007,7 +5007,7 @@ class DbScreenStatusRegistry {
     },
     'hr_hiring_offers': {
       'screenCode': 'hr_hiring_offers',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5019,7 +5019,7 @@ class DbScreenStatusRegistry {
     },
     'hr_hiring_onboarding': {
       'screenCode': 'hr_hiring_onboarding',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5031,7 +5031,7 @@ class DbScreenStatusRegistry {
     },
     'hr_hiring_reports': {
       'screenCode': 'hr_hiring_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5043,7 +5043,7 @@ class DbScreenStatusRegistry {
     },
     'hr_hiring_staff_documents': {
       'screenCode': 'hr_hiring_staff_documents',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5055,7 +5055,7 @@ class DbScreenStatusRegistry {
     },
     'hr_hiring_training_status': {
       'screenCode': 'hr_hiring_training_status',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5067,7 +5067,7 @@ class DbScreenStatusRegistry {
     },
     'hr_hiring_workflow': {
       'screenCode': 'hr_hiring_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5079,7 +5079,7 @@ class DbScreenStatusRegistry {
     },
     'hr_manager_analytics': {
       'screenCode': 'hr_manager_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5091,7 +5091,7 @@ class DbScreenStatusRegistry {
     },
     'hr_manager_compliance': {
       'screenCode': 'hr_manager_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5103,7 +5103,7 @@ class DbScreenStatusRegistry {
     },
     'hr_manager_dashboard': {
       'screenCode': 'hr_manager_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5115,7 +5115,7 @@ class DbScreenStatusRegistry {
     },
     'hr_manager_workflow': {
       'screenCode': 'hr_manager_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5127,7 +5127,7 @@ class DbScreenStatusRegistry {
     },
     'hr_onboarding': {
       'screenCode': 'hr_onboarding',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5139,7 +5139,7 @@ class DbScreenStatusRegistry {
     },
     'hr_staff_files': {
       'screenCode': 'hr_staff_files',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5151,7 +5151,7 @@ class DbScreenStatusRegistry {
     },
     'hsw_adl_logger': {
       'screenCode': 'hsw_adl_logger',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5163,7 +5163,7 @@ class DbScreenStatusRegistry {
     },
     'hsw_care_plans': {
       'screenCode': 'hsw_care_plans',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5175,7 +5175,7 @@ class DbScreenStatusRegistry {
     },
     'hsw_dashboard': {
       'screenCode': 'hsw_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5187,7 +5187,7 @@ class DbScreenStatusRegistry {
     },
     'hsw_incident_reports': {
       'screenCode': 'hsw_incident_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5199,7 +5199,7 @@ class DbScreenStatusRegistry {
     },
     'hsw_schedule': {
       'screenCode': 'hsw_schedule',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5211,7 +5211,7 @@ class DbScreenStatusRegistry {
     },
     'incident_management': {
       'screenCode': 'incident_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5223,7 +5223,7 @@ class DbScreenStatusRegistry {
     },
     'incident_oversight': {
       'screenCode': 'incident_oversight',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5235,7 +5235,7 @@ class DbScreenStatusRegistry {
     },
     'incident_reports': {
       'screenCode': 'incident_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5247,7 +5247,7 @@ class DbScreenStatusRegistry {
     },
     'incident_response_hub': {
       'screenCode': 'incident_response_hub',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5259,7 +5259,7 @@ class DbScreenStatusRegistry {
     },
     'incident_review': {
       'screenCode': 'incident_review',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5271,7 +5271,7 @@ class DbScreenStatusRegistry {
     },
     'infection_control_dashboard': {
       'screenCode': 'infection_control_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5283,7 +5283,7 @@ class DbScreenStatusRegistry {
     },
     'informed_consent_tracker': {
       'screenCode': 'informed_consent_tracker',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5295,7 +5295,7 @@ class DbScreenStatusRegistry {
     },
     'infrastructure_analytics': {
       'screenCode': 'infrastructure_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5307,7 +5307,7 @@ class DbScreenStatusRegistry {
     },
     'infrastructure_compliance': {
       'screenCode': 'infrastructure_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5319,7 +5319,7 @@ class DbScreenStatusRegistry {
     },
     'infrastructure_dashboard': {
       'screenCode': 'infrastructure_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5331,7 +5331,7 @@ class DbScreenStatusRegistry {
     },
     'infrastructure_workflow': {
       'screenCode': 'infrastructure_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5343,7 +5343,7 @@ class DbScreenStatusRegistry {
     },
     'inpatient_pharmacy_queue': {
       'screenCode': 'inpatient_pharmacy_queue',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5355,7 +5355,7 @@ class DbScreenStatusRegistry {
     },
     'intake_analytics': {
       'screenCode': 'intake_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5367,7 +5367,7 @@ class DbScreenStatusRegistry {
     },
     'intake_compliance': {
       'screenCode': 'intake_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5379,7 +5379,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_analytics': {
       'screenCode': 'intake_coordinator_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5391,7 +5391,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_assessment_queue': {
       'screenCode': 'intake_coordinator_assessment_queue',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5403,7 +5403,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_assessments': {
       'screenCode': 'intake_coordinator_assessments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5415,7 +5415,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_booking': {
       'screenCode': 'intake_coordinator_booking',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5427,7 +5427,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_client_assignment': {
       'screenCode': 'intake_coordinator_client_assignment',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5439,7 +5439,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_compliance': {
       'screenCode': 'intake_coordinator_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5451,7 +5451,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_dashboard': {
       'screenCode': 'intake_coordinator_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5463,7 +5463,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_documents': {
       'screenCode': 'intake_coordinator_documents',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5475,7 +5475,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_eligibility': {
       'screenCode': 'intake_coordinator_eligibility',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5487,7 +5487,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_follow_up': {
       'screenCode': 'intake_coordinator_follow_up',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5499,7 +5499,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_intake_forms': {
       'screenCode': 'intake_coordinator_intake_forms',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5511,7 +5511,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_new_client_intake': {
       'screenCode': 'intake_coordinator_new_client_intake',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5523,7 +5523,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_new_intakes': {
       'screenCode': 'intake_coordinator_new_intakes',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5535,7 +5535,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_referrals': {
       'screenCode': 'intake_coordinator_referrals',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5547,7 +5547,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_reports': {
       'screenCode': 'intake_coordinator_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5559,7 +5559,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_scheduling': {
       'screenCode': 'intake_coordinator_scheduling',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5571,7 +5571,7 @@ class DbScreenStatusRegistry {
     },
     'intake_coordinator_workflow': {
       'screenCode': 'intake_coordinator_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5583,7 +5583,7 @@ class DbScreenStatusRegistry {
     },
     'intake_dashboard': {
       'screenCode': 'intake_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5595,7 +5595,7 @@ class DbScreenStatusRegistry {
     },
     'intake_workflow': {
       'screenCode': 'intake_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5607,7 +5607,7 @@ class DbScreenStatusRegistry {
     },
     'integration_health_monitor': {
       'screenCode': 'integration_health_monitor',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5619,7 +5619,7 @@ class DbScreenStatusRegistry {
     },
     'interview_scheduling': {
       'screenCode': 'interview_scheduling',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5631,7 +5631,7 @@ class DbScreenStatusRegistry {
     },
     'invoice_management': {
       'screenCode': 'invoice_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5643,7 +5643,7 @@ class DbScreenStatusRegistry {
     },
     'it_admin_dashboard': {
       'screenCode': 'it_admin_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5655,7 +5655,7 @@ class DbScreenStatusRegistry {
     },
     'it_administrator_dashboard': {
       'screenCode': 'it_administrator_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5667,7 +5667,7 @@ class DbScreenStatusRegistry {
     },
     'journal_club_discussion_board': {
       'screenCode': 'journal_club_discussion_board',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5679,7 +5679,7 @@ class DbScreenStatusRegistry {
     },
     'lead_analytics': {
       'screenCode': 'lead_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5691,7 +5691,7 @@ class DbScreenStatusRegistry {
     },
     'lead_conversion_funnel': {
       'screenCode': 'lead_conversion_funnel',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5703,7 +5703,7 @@ class DbScreenStatusRegistry {
     },
     'lead_pipeline': {
       'screenCode': 'lead_pipeline',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5715,7 +5715,7 @@ class DbScreenStatusRegistry {
     },
     'leadership_reports': {
       'screenCode': 'leadership_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5727,7 +5727,7 @@ class DbScreenStatusRegistry {
     },
     'legal_analytics': {
       'screenCode': 'legal_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5739,7 +5739,7 @@ class DbScreenStatusRegistry {
     },
     'legal_compliance': {
       'screenCode': 'legal_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5751,7 +5751,7 @@ class DbScreenStatusRegistry {
     },
     'legal_dashboard': {
       'screenCode': 'legal_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5763,7 +5763,7 @@ class DbScreenStatusRegistry {
     },
     'legal_workflow': {
       'screenCode': 'legal_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5775,7 +5775,7 @@ class DbScreenStatusRegistry {
     },
     'local_marketing_manager_analytics': {
       'screenCode': 'local_marketing_manager_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5787,7 +5787,7 @@ class DbScreenStatusRegistry {
     },
     'local_marketing_manager_assets': {
       'screenCode': 'local_marketing_manager_assets',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5799,7 +5799,7 @@ class DbScreenStatusRegistry {
     },
     'local_marketing_manager_budget': {
       'screenCode': 'local_marketing_manager_budget',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5811,7 +5811,7 @@ class DbScreenStatusRegistry {
     },
     'local_marketing_manager_campaigns': {
       'screenCode': 'local_marketing_manager_campaigns',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5823,7 +5823,7 @@ class DbScreenStatusRegistry {
     },
     'local_marketing_manager_compliance': {
       'screenCode': 'local_marketing_manager_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5835,7 +5835,7 @@ class DbScreenStatusRegistry {
     },
     'local_marketing_manager_content_calendar': {
       'screenCode': 'local_marketing_manager_content_calendar',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5847,7 +5847,7 @@ class DbScreenStatusRegistry {
     },
     'local_marketing_manager_dashboard': {
       'screenCode': 'local_marketing_manager_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5859,7 +5859,7 @@ class DbScreenStatusRegistry {
     },
     'local_marketing_manager_events': {
       'screenCode': 'local_marketing_manager_events',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5871,7 +5871,7 @@ class DbScreenStatusRegistry {
     },
     'local_marketing_manager_leads': {
       'screenCode': 'local_marketing_manager_leads',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5883,7 +5883,7 @@ class DbScreenStatusRegistry {
     },
     'local_marketing_manager_reports': {
       'screenCode': 'local_marketing_manager_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5895,7 +5895,7 @@ class DbScreenStatusRegistry {
     },
     'local_marketing_manager_workflow': {
       'screenCode': 'local_marketing_manager_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5907,7 +5907,7 @@ class DbScreenStatusRegistry {
     },
     'lpn_analytics': {
       'screenCode': 'lpn_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5919,7 +5919,7 @@ class DbScreenStatusRegistry {
     },
     'lpn_dashboard': {
       'screenCode': 'lpn_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5931,7 +5931,7 @@ class DbScreenStatusRegistry {
     },
     'lpn_workflow': {
       'screenCode': 'lpn_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5943,7 +5943,7 @@ class DbScreenStatusRegistry {
     },
     'marketing_manager_campaigns': {
       'screenCode': 'marketing_manager_campaigns',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5955,7 +5955,7 @@ class DbScreenStatusRegistry {
     },
     'marketing_manager_dashboard': {
       'screenCode': 'marketing_manager_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5967,7 +5967,7 @@ class DbScreenStatusRegistry {
     },
     'marketing_r_o_i_report': {
       'screenCode': 'marketing_r_o_i_report',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5979,7 +5979,7 @@ class DbScreenStatusRegistry {
     },
     'massage_assessment': {
       'screenCode': 'massage_assessment',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -5991,7 +5991,7 @@ class DbScreenStatusRegistry {
     },
     'medical_library_access_portal': {
       'screenCode': 'medical_library_access_portal',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6003,7 +6003,7 @@ class DbScreenStatusRegistry {
     },
     'medication': {
       'screenCode': 'medication',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6015,7 +6015,7 @@ class DbScreenStatusRegistry {
     },
     'medication_administration': {
       'screenCode': 'medication_administration',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6027,7 +6027,7 @@ class DbScreenStatusRegistry {
     },
     'medication_reconciliation_tool': {
       'screenCode': 'medication_reconciliation_tool',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6039,7 +6039,7 @@ class DbScreenStatusRegistry {
     },
     'message_archiveer': {
       'screenCode': 'message_archiveer',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6051,7 +6051,7 @@ class DbScreenStatusRegistry {
     },
     'messaging': {
       'screenCode': 'messaging',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6063,7 +6063,7 @@ class DbScreenStatusRegistry {
     },
     'mfa': {
       'screenCode': 'mfa',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6075,7 +6075,7 @@ class DbScreenStatusRegistry {
     },
     'mobile_clinic_dispatch': {
       'screenCode': 'mobile_clinic_dispatch',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6087,7 +6087,7 @@ class DbScreenStatusRegistry {
     },
     'monitoring': {
       'screenCode': 'monitoring',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6099,7 +6099,7 @@ class DbScreenStatusRegistry {
     },
     'multi_center_trial_collaboration': {
       'screenCode': 'multi_center_trial_collaboration',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6111,7 +6111,7 @@ class DbScreenStatusRegistry {
     },
     'no_access': {
       'screenCode': 'no_access',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6123,7 +6123,7 @@ class DbScreenStatusRegistry {
     },
     'np_analytics': {
       'screenCode': 'np_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6135,7 +6135,7 @@ class DbScreenStatusRegistry {
     },
     'np_dashboard': {
       'screenCode': 'np_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6147,7 +6147,7 @@ class DbScreenStatusRegistry {
     },
     'np_workflow': {
       'screenCode': 'np_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6159,7 +6159,7 @@ class DbScreenStatusRegistry {
     },
     'nurse_dashboard': {
       'screenCode': 'nurse_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6171,7 +6171,7 @@ class DbScreenStatusRegistry {
     },
     'nursing_task': {
       'screenCode': 'nursing_task',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6183,7 +6183,7 @@ class DbScreenStatusRegistry {
     },
     'offer_management': {
       'screenCode': 'offer_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6195,7 +6195,7 @@ class DbScreenStatusRegistry {
     },
     'office_analytics': {
       'screenCode': 'office_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6207,7 +6207,7 @@ class DbScreenStatusRegistry {
     },
     'office_compliance': {
       'screenCode': 'office_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6219,7 +6219,7 @@ class DbScreenStatusRegistry {
     },
     'office_dashboard': {
       'screenCode': 'office_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6231,7 +6231,7 @@ class DbScreenStatusRegistry {
     },
     'office_workflow': {
       'screenCode': 'office_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6243,7 +6243,7 @@ class DbScreenStatusRegistry {
     },
     'onboarding': {
       'screenCode': 'onboarding',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6255,7 +6255,7 @@ class DbScreenStatusRegistry {
     },
     'onboarding_checklist': {
       'screenCode': 'onboarding_checklist',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6267,7 +6267,7 @@ class DbScreenStatusRegistry {
     },
     'open_shift': {
       'screenCode': 'open_shift',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6279,7 +6279,7 @@ class DbScreenStatusRegistry {
     },
     'operational_efficiency_metrics': {
       'screenCode': 'operational_efficiency_metrics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6291,7 +6291,7 @@ class DbScreenStatusRegistry {
     },
     'operations_command_center': {
       'screenCode': 'operations_command_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6303,7 +6303,7 @@ class DbScreenStatusRegistry {
     },
     'operations_manager_analytics': {
       'screenCode': 'operations_manager_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6315,7 +6315,7 @@ class DbScreenStatusRegistry {
     },
     'operations_manager_attendance': {
       'screenCode': 'operations_manager_attendance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6327,7 +6327,7 @@ class DbScreenStatusRegistry {
     },
     'operations_manager_compliance': {
       'screenCode': 'operations_manager_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6339,7 +6339,7 @@ class DbScreenStatusRegistry {
     },
     'operations_manager_daily_operations': {
       'screenCode': 'operations_manager_daily_operations',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6351,7 +6351,7 @@ class DbScreenStatusRegistry {
     },
     'operations_manager_dashboard': {
       'screenCode': 'operations_manager_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6363,7 +6363,7 @@ class DbScreenStatusRegistry {
     },
     'operations_manager_issues': {
       'screenCode': 'operations_manager_issues',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6375,7 +6375,7 @@ class DbScreenStatusRegistry {
     },
     'operations_manager_reports': {
       'screenCode': 'operations_manager_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6387,7 +6387,7 @@ class DbScreenStatusRegistry {
     },
     'operations_manager_schedule': {
       'screenCode': 'operations_manager_schedule',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6399,7 +6399,7 @@ class DbScreenStatusRegistry {
     },
     'operations_manager_service_quality': {
       'screenCode': 'operations_manager_service_quality',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6411,7 +6411,7 @@ class DbScreenStatusRegistry {
     },
     'operations_manager_shifts': {
       'screenCode': 'operations_manager_shifts',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6423,7 +6423,7 @@ class DbScreenStatusRegistry {
     },
     'operations_manager_staff_coordination': {
       'screenCode': 'operations_manager_staff_coordination',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6435,7 +6435,7 @@ class DbScreenStatusRegistry {
     },
     'operations_manager_workflow': {
       'screenCode': 'operations_manager_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6447,7 +6447,7 @@ class DbScreenStatusRegistry {
     },
     'osha_incident_reporter': {
       'screenCode': 'osha_incident_reporter',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6459,7 +6459,7 @@ class DbScreenStatusRegistry {
     },
     'outpatient_prescription_tracker': {
       'screenCode': 'outpatient_prescription_tracker',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6483,7 +6483,7 @@ class DbScreenStatusRegistry {
     },
     'owner_analytics': {
       'screenCode': 'owner_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6495,7 +6495,7 @@ class DbScreenStatusRegistry {
     },
     'owner_compliance': {
       'screenCode': 'owner_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6507,7 +6507,7 @@ class DbScreenStatusRegistry {
     },
     'owner_dashboard': {
       'screenCode': 'owner_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6519,7 +6519,7 @@ class DbScreenStatusRegistry {
     },
     'owner_workflow': {
       'screenCode': 'owner_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6543,7 +6543,7 @@ class DbScreenStatusRegistry {
     },
     'partnership_manager_active_deals': {
       'screenCode': 'partnership_manager_active_deals',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6555,7 +6555,7 @@ class DbScreenStatusRegistry {
     },
     'partnership_manager_analytics': {
       'screenCode': 'partnership_manager_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6567,7 +6567,7 @@ class DbScreenStatusRegistry {
     },
     'partnership_manager_compliance': {
       'screenCode': 'partnership_manager_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6579,7 +6579,7 @@ class DbScreenStatusRegistry {
     },
     'partnership_manager_dashboard': {
       'screenCode': 'partnership_manager_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6591,7 +6591,7 @@ class DbScreenStatusRegistry {
     },
     'partnership_manager_outreach': {
       'screenCode': 'partnership_manager_outreach',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6603,7 +6603,7 @@ class DbScreenStatusRegistry {
     },
     'partnership_manager_partners': {
       'screenCode': 'partnership_manager_partners',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6615,7 +6615,7 @@ class DbScreenStatusRegistry {
     },
     'partnership_manager_proposals': {
       'screenCode': 'partnership_manager_proposals',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6627,7 +6627,7 @@ class DbScreenStatusRegistry {
     },
     'partnership_manager_renewals': {
       'screenCode': 'partnership_manager_renewals',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6639,7 +6639,7 @@ class DbScreenStatusRegistry {
     },
     'partnership_manager_reports': {
       'screenCode': 'partnership_manager_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6651,7 +6651,7 @@ class DbScreenStatusRegistry {
     },
     'partnership_manager_workflow': {
       'screenCode': 'partnership_manager_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6663,7 +6663,7 @@ class DbScreenStatusRegistry {
     },
     'patient_acquisition_cost_tracker': {
       'screenCode': 'patient_acquisition_cost_tracker',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6675,7 +6675,7 @@ class DbScreenStatusRegistry {
     },
     'patient_analytics': {
       'screenCode': 'patient_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6687,7 +6687,7 @@ class DbScreenStatusRegistry {
     },
     'patient_appointments': {
       'screenCode': 'patient_appointments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6699,7 +6699,7 @@ class DbScreenStatusRegistry {
     },
     'patient_billing': {
       'screenCode': 'patient_billing',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6711,7 +6711,7 @@ class DbScreenStatusRegistry {
     },
     'patient_book_appointment': {
       'screenCode': 'patient_book_appointment',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6723,7 +6723,7 @@ class DbScreenStatusRegistry {
     },
     'patient_care_plan': {
       'screenCode': 'patient_care_plan',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6735,7 +6735,7 @@ class DbScreenStatusRegistry {
     },
     'patient_care_team': {
       'screenCode': 'patient_care_team',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6747,7 +6747,7 @@ class DbScreenStatusRegistry {
     },
     'patient_case_study_repository': {
       'screenCode': 'patient_case_study_repository',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6759,7 +6759,7 @@ class DbScreenStatusRegistry {
     },
     'patient_command_center': {
       'screenCode': 'patient_command_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6771,7 +6771,7 @@ class DbScreenStatusRegistry {
     },
     'patient_compliance': {
       'screenCode': 'patient_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6783,7 +6783,7 @@ class DbScreenStatusRegistry {
     },
     'patient_dashboard': {
       'screenCode': 'patient_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6795,7 +6795,7 @@ class DbScreenStatusRegistry {
     },
     'patient_documents': {
       'screenCode': 'patient_documents',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6807,7 +6807,7 @@ class DbScreenStatusRegistry {
     },
     'patient_medication_adherence': {
       'screenCode': 'patient_medication_adherence',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6819,7 +6819,7 @@ class DbScreenStatusRegistry {
     },
     'patient_messages': {
       'screenCode': 'patient_messages',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6831,7 +6831,7 @@ class DbScreenStatusRegistry {
     },
     'patient_my_appointments': {
       'screenCode': 'patient_my_appointments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6843,7 +6843,7 @@ class DbScreenStatusRegistry {
     },
     'patient_observation': {
       'screenCode': 'patient_observation',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6855,7 +6855,7 @@ class DbScreenStatusRegistry {
     },
     'patient_payments': {
       'screenCode': 'patient_payments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6867,7 +6867,7 @@ class DbScreenStatusRegistry {
     },
     'patient_profile': {
       'screenCode': 'patient_profile',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6879,7 +6879,7 @@ class DbScreenStatusRegistry {
     },
     'patient_retention_analytics': {
       'screenCode': 'patient_retention_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6891,7 +6891,7 @@ class DbScreenStatusRegistry {
     },
     'patient_treatment_history': {
       'screenCode': 'patient_treatment_history',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6903,7 +6903,7 @@ class DbScreenStatusRegistry {
     },
     'patient_trial_outcomeser': {
       'screenCode': 'patient_trial_outcomeser',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6915,7 +6915,7 @@ class DbScreenStatusRegistry {
     },
     'patient_workflow': {
       'screenCode': 'patient_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6927,7 +6927,7 @@ class DbScreenStatusRegistry {
     },
     'payment_tracking': {
       'screenCode': 'payment_tracking',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6939,7 +6939,7 @@ class DbScreenStatusRegistry {
     },
     'payroll': {
       'screenCode': 'payroll',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6951,7 +6951,7 @@ class DbScreenStatusRegistry {
     },
     'pediatric_analytics': {
       'screenCode': 'pediatric_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6963,7 +6963,7 @@ class DbScreenStatusRegistry {
     },
     'pediatric_dashboard': {
       'screenCode': 'pediatric_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6975,7 +6975,7 @@ class DbScreenStatusRegistry {
     },
     'pediatric_workflow': {
       'screenCode': 'pediatric_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6987,7 +6987,7 @@ class DbScreenStatusRegistry {
     },
     'peer_review_conference_room': {
       'screenCode': 'peer_review_conference_room',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -6999,7 +6999,7 @@ class DbScreenStatusRegistry {
     },
     'pending_task_queue': {
       'screenCode': 'pending_task_queue',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7011,7 +7011,7 @@ class DbScreenStatusRegistry {
     },
     'pharmacy_dispensing_dashboard': {
       'screenCode': 'pharmacy_dispensing_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7023,7 +7023,7 @@ class DbScreenStatusRegistry {
     },
     'pharmacy_inventory_management': {
       'screenCode': 'pharmacy_inventory_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7035,7 +7035,7 @@ class DbScreenStatusRegistry {
     },
     'physician_analytics': {
       'screenCode': 'physician_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7047,7 +7047,7 @@ class DbScreenStatusRegistry {
     },
     'physician_dashboard': {
       'screenCode': 'physician_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7059,7 +7059,7 @@ class DbScreenStatusRegistry {
     },
     'physician_workflow': {
       'screenCode': 'physician_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7071,7 +7071,7 @@ class DbScreenStatusRegistry {
     },
     'physiotherapist_analytics': {
       'screenCode': 'physiotherapist_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7083,7 +7083,7 @@ class DbScreenStatusRegistry {
     },
     'physiotherapist_appointments': {
       'screenCode': 'physiotherapist_appointments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7095,7 +7095,7 @@ class DbScreenStatusRegistry {
     },
     'physiotherapist_assessment': {
       'screenCode': 'physiotherapist_assessment',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7107,7 +7107,7 @@ class DbScreenStatusRegistry {
     },
     'physiotherapist_billing_link': {
       'screenCode': 'physiotherapist_billing_link',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7119,7 +7119,7 @@ class DbScreenStatusRegistry {
     },
     'physiotherapist_client_intake': {
       'screenCode': 'physiotherapist_client_intake',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7131,7 +7131,7 @@ class DbScreenStatusRegistry {
     },
     'physiotherapist_command_center': {
       'screenCode': 'physiotherapist_command_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7143,7 +7143,7 @@ class DbScreenStatusRegistry {
     },
     'physiotherapist_compliance': {
       'screenCode': 'physiotherapist_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7155,7 +7155,7 @@ class DbScreenStatusRegistry {
     },
     'physiotherapist_dashboard': {
       'screenCode': 'physiotherapist_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7167,7 +7167,7 @@ class DbScreenStatusRegistry {
     },
     'physiotherapist_exercise_plan': {
       'screenCode': 'physiotherapist_exercise_plan',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7179,7 +7179,7 @@ class DbScreenStatusRegistry {
     },
     'physiotherapist_reports': {
       'screenCode': 'physiotherapist_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7191,7 +7191,7 @@ class DbScreenStatusRegistry {
     },
     'physiotherapist_treatment_notes': {
       'screenCode': 'physiotherapist_treatment_notes',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7203,7 +7203,7 @@ class DbScreenStatusRegistry {
     },
     'physiotherapist_workflow': {
       'screenCode': 'physiotherapist_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7215,7 +7215,7 @@ class DbScreenStatusRegistry {
     },
     'policies': {
       'screenCode': 'policies',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7227,7 +7227,7 @@ class DbScreenStatusRegistry {
     },
     'policy_exception_tracker': {
       'screenCode': 'policy_exception_tracker',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7239,7 +7239,7 @@ class DbScreenStatusRegistry {
     },
     'policy_management': {
       'screenCode': 'policy_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7251,7 +7251,7 @@ class DbScreenStatusRegistry {
     },
     'population_health_analyzer': {
       'screenCode': 'population_health_analyzer',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7263,7 +7263,7 @@ class DbScreenStatusRegistry {
     },
     'portal_analytics': {
       'screenCode': 'portal_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7275,7 +7275,7 @@ class DbScreenStatusRegistry {
     },
     'portal_compliance': {
       'screenCode': 'portal_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7287,7 +7287,7 @@ class DbScreenStatusRegistry {
     },
     'portal_dashboard': {
       'screenCode': 'portal_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7299,7 +7299,7 @@ class DbScreenStatusRegistry {
     },
     'portal_workflow': {
       'screenCode': 'portal_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7311,7 +7311,7 @@ class DbScreenStatusRegistry {
     },
     'predictive_analytics_dashboard': {
       'screenCode': 'predictive_analytics_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7323,7 +7323,7 @@ class DbScreenStatusRegistry {
     },
     'premium_concierge_analytics': {
       'screenCode': 'premium_concierge_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7335,7 +7335,7 @@ class DbScreenStatusRegistry {
     },
     'premium_concierge_dashboard': {
       'screenCode': 'premium_concierge_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7347,7 +7347,7 @@ class DbScreenStatusRegistry {
     },
     'premium_concierge_workflow': {
       'screenCode': 'premium_concierge_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7359,7 +7359,7 @@ class DbScreenStatusRegistry {
     },
     'prime_care': {
       'screenCode': 'prime_care',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7371,7 +7371,7 @@ class DbScreenStatusRegistry {
     },
     'progress_tracking': {
       'screenCode': 'progress_tracking',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7383,7 +7383,7 @@ class DbScreenStatusRegistry {
     },
     'proposals': {
       'screenCode': 'proposals',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7395,7 +7395,7 @@ class DbScreenStatusRegistry {
     },
     'protocol_resolution_log': {
       'screenCode': 'protocol_resolution_log',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7407,7 +7407,7 @@ class DbScreenStatusRegistry {
     },
     'provider_performance_dashboard': {
       'screenCode': 'provider_performance_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7419,7 +7419,7 @@ class DbScreenStatusRegistry {
     },
     'psw_analytics': {
       'screenCode': 'psw_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7431,7 +7431,7 @@ class DbScreenStatusRegistry {
     },
     'psw_care_dashboard': {
       'screenCode': 'psw_care_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7443,7 +7443,7 @@ class DbScreenStatusRegistry {
     },
     'psw_care_plan': {
       'screenCode': 'psw_care_plan',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7455,7 +7455,7 @@ class DbScreenStatusRegistry {
     },
     'psw_check_in': {
       'screenCode': 'psw_check_in',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7467,7 +7467,7 @@ class DbScreenStatusRegistry {
     },
     'psw_client_profile': {
       'screenCode': 'psw_client_profile',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7479,7 +7479,7 @@ class DbScreenStatusRegistry {
     },
     'psw_clients': {
       'screenCode': 'psw_clients',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7491,7 +7491,7 @@ class DbScreenStatusRegistry {
     },
     'psw_command_center': {
       'screenCode': 'psw_command_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7503,7 +7503,7 @@ class DbScreenStatusRegistry {
     },
     'psw_compliance': {
       'screenCode': 'psw_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7515,7 +7515,7 @@ class DbScreenStatusRegistry {
     },
     'psw_daily_notes': {
       'screenCode': 'psw_daily_notes',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7527,7 +7527,7 @@ class DbScreenStatusRegistry {
     },
     'psw_dashboard': {
       'screenCode': 'psw_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7539,7 +7539,7 @@ class DbScreenStatusRegistry {
     },
     'psw_documents': {
       'screenCode': 'psw_documents',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7551,7 +7551,7 @@ class DbScreenStatusRegistry {
     },
     'psw_help_support': {
       'screenCode': 'psw_help_support',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7563,7 +7563,7 @@ class DbScreenStatusRegistry {
     },
     'psw_incident_report': {
       'screenCode': 'psw_incident_report',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7575,7 +7575,7 @@ class DbScreenStatusRegistry {
     },
     'psw_messages': {
       'screenCode': 'psw_messages',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7587,7 +7587,7 @@ class DbScreenStatusRegistry {
     },
     'psw_messaging': {
       'screenCode': 'psw_messaging',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7599,7 +7599,7 @@ class DbScreenStatusRegistry {
     },
     'psw_my_clients': {
       'screenCode': 'psw_my_clients',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7611,7 +7611,7 @@ class DbScreenStatusRegistry {
     },
     'psw_my_shifts': {
       'screenCode': 'psw_my_shifts',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7623,7 +7623,7 @@ class DbScreenStatusRegistry {
     },
     'psw_notifications': {
       'screenCode': 'psw_notifications',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7635,7 +7635,7 @@ class DbScreenStatusRegistry {
     },
     'psw_observation_vitals_log': {
       'screenCode': 'psw_observation_vitals_log',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7647,7 +7647,7 @@ class DbScreenStatusRegistry {
     },
     'psw_patient_profile': {
       'screenCode': 'psw_patient_profile',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7659,7 +7659,7 @@ class DbScreenStatusRegistry {
     },
     'psw_profile': {
       'screenCode': 'psw_profile',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7671,7 +7671,7 @@ class DbScreenStatusRegistry {
     },
     'psw_reports': {
       'screenCode': 'psw_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7683,7 +7683,7 @@ class DbScreenStatusRegistry {
     },
     'psw_schedule': {
       'screenCode': 'psw_schedule',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7695,7 +7695,7 @@ class DbScreenStatusRegistry {
     },
     'psw_shift_tracker': {
       'screenCode': 'psw_shift_tracker',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7707,7 +7707,7 @@ class DbScreenStatusRegistry {
     },
     'psw_system_logs': {
       'screenCode': 'psw_system_logs',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7719,7 +7719,7 @@ class DbScreenStatusRegistry {
     },
     'psw_task_list': {
       'screenCode': 'psw_task_list',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7731,7 +7731,7 @@ class DbScreenStatusRegistry {
     },
     'psw_tasks': {
       'screenCode': 'psw_tasks',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7743,7 +7743,7 @@ class DbScreenStatusRegistry {
     },
     'psw_visit_checklist': {
       'screenCode': 'psw_visit_checklist',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7755,7 +7755,7 @@ class DbScreenStatusRegistry {
     },
     'psw_visit_notes': {
       'screenCode': 'psw_visit_notes',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7767,7 +7767,7 @@ class DbScreenStatusRegistry {
     },
     'psw_vitals_log': {
       'screenCode': 'psw_vitals_log',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7779,7 +7779,7 @@ class DbScreenStatusRegistry {
     },
     'psw_workflow': {
       'screenCode': 'psw_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7791,7 +7791,7 @@ class DbScreenStatusRegistry {
     },
     'public_health_alert_broadcaster': {
       'screenCode': 'public_health_alert_broadcaster',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7803,7 +7803,7 @@ class DbScreenStatusRegistry {
     },
     'qa_analytics': {
       'screenCode': 'qa_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7815,7 +7815,7 @@ class DbScreenStatusRegistry {
     },
     'qa_compliance': {
       'screenCode': 'qa_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7827,7 +7827,7 @@ class DbScreenStatusRegistry {
     },
     'qa_dashboard': {
       'screenCode': 'qa_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7839,7 +7839,7 @@ class DbScreenStatusRegistry {
     },
     'qa_workflow': {
       'screenCode': 'qa_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7851,7 +7851,7 @@ class DbScreenStatusRegistry {
     },
     'quality_assurance_analytics': {
       'screenCode': 'quality_assurance_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7863,7 +7863,7 @@ class DbScreenStatusRegistry {
     },
     'quality_assurance_audits': {
       'screenCode': 'quality_assurance_audits',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7875,7 +7875,7 @@ class DbScreenStatusRegistry {
     },
     'quality_assurance_complaints': {
       'screenCode': 'quality_assurance_complaints',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7887,7 +7887,7 @@ class DbScreenStatusRegistry {
     },
     'quality_assurance_compliance': {
       'screenCode': 'quality_assurance_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7899,7 +7899,7 @@ class DbScreenStatusRegistry {
     },
     'quality_assurance_compliance_checks': {
       'screenCode': 'quality_assurance_compliance_checks',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7911,7 +7911,7 @@ class DbScreenStatusRegistry {
     },
     'quality_assurance_corrective_actions': {
       'screenCode': 'quality_assurance_corrective_actions',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7923,7 +7923,7 @@ class DbScreenStatusRegistry {
     },
     'quality_assurance_dashboard': {
       'screenCode': 'quality_assurance_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7935,7 +7935,7 @@ class DbScreenStatusRegistry {
     },
     'quality_assurance_metrics': {
       'screenCode': 'quality_assurance_metrics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7947,7 +7947,7 @@ class DbScreenStatusRegistry {
     },
     'quality_assurance_reports': {
       'screenCode': 'quality_assurance_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7959,7 +7959,7 @@ class DbScreenStatusRegistry {
     },
     'quality_assurance_reviews': {
       'screenCode': 'quality_assurance_reviews',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7971,7 +7971,7 @@ class DbScreenStatusRegistry {
     },
     'quality_assurance_scorecards': {
       'screenCode': 'quality_assurance_scorecards',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7983,7 +7983,7 @@ class DbScreenStatusRegistry {
     },
     'quality_assurance_workflow': {
       'screenCode': 'quality_assurance_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -7995,7 +7995,7 @@ class DbScreenStatusRegistry {
     },
     'quality_audit': {
       'screenCode': 'quality_audit',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8007,7 +8007,7 @@ class DbScreenStatusRegistry {
     },
     'quality_metrics': {
       'screenCode': 'quality_metrics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8019,7 +8019,7 @@ class DbScreenStatusRegistry {
     },
     'receptionist_analytics': {
       'screenCode': 'receptionist_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8031,7 +8031,7 @@ class DbScreenStatusRegistry {
     },
     'receptionist_appointments': {
       'screenCode': 'receptionist_appointments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8043,7 +8043,7 @@ class DbScreenStatusRegistry {
     },
     'receptionist_calls': {
       'screenCode': 'receptionist_calls',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8055,7 +8055,7 @@ class DbScreenStatusRegistry {
     },
     'receptionist_compliance': {
       'screenCode': 'receptionist_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8067,7 +8067,7 @@ class DbScreenStatusRegistry {
     },
     'receptionist_dashboard': {
       'screenCode': 'receptionist_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8079,7 +8079,7 @@ class DbScreenStatusRegistry {
     },
     'receptionist_visitors': {
       'screenCode': 'receptionist_visitors',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8091,7 +8091,7 @@ class DbScreenStatusRegistry {
     },
     'receptionist_workflow': {
       'screenCode': 'receptionist_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8103,7 +8103,7 @@ class DbScreenStatusRegistry {
     },
     'referral_management': {
       'screenCode': 'referral_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8115,7 +8115,7 @@ class DbScreenStatusRegistry {
     },
     'referral_network_manager': {
       'screenCode': 'referral_network_manager',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8127,7 +8127,7 @@ class DbScreenStatusRegistry {
     },
     'refund_management': {
       'screenCode': 'refund_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8139,7 +8139,7 @@ class DbScreenStatusRegistry {
     },
     'regional_bdm_analytics': {
       'screenCode': 'regional_bdm_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8151,7 +8151,7 @@ class DbScreenStatusRegistry {
     },
     'regional_bdm_competitor_notes': {
       'screenCode': 'regional_bdm_competitor_notes',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8163,7 +8163,7 @@ class DbScreenStatusRegistry {
     },
     'regional_bdm_compliance': {
       'screenCode': 'regional_bdm_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8175,7 +8175,7 @@ class DbScreenStatusRegistry {
     },
     'regional_bdm_dashboard': {
       'screenCode': 'regional_bdm_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8187,7 +8187,7 @@ class DbScreenStatusRegistry {
     },
     'regional_bdm_deal_tracker': {
       'screenCode': 'regional_bdm_deal_tracker',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8199,7 +8199,7 @@ class DbScreenStatusRegistry {
     },
     'regional_bdm_franchise_pipeline': {
       'screenCode': 'regional_bdm_franchise_pipeline',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8211,7 +8211,7 @@ class DbScreenStatusRegistry {
     },
     'regional_bdm_leads': {
       'screenCode': 'regional_bdm_leads',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8223,7 +8223,7 @@ class DbScreenStatusRegistry {
     },
     'regional_bdm_meetings': {
       'screenCode': 'regional_bdm_meetings',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8235,7 +8235,7 @@ class DbScreenStatusRegistry {
     },
     'regional_bdm_partners': {
       'screenCode': 'regional_bdm_partners',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8247,7 +8247,7 @@ class DbScreenStatusRegistry {
     },
     'regional_bdm_reports': {
       'screenCode': 'regional_bdm_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8259,7 +8259,7 @@ class DbScreenStatusRegistry {
     },
     'regional_bdm_tasks': {
       'screenCode': 'regional_bdm_tasks',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8271,7 +8271,7 @@ class DbScreenStatusRegistry {
     },
     'regional_bdm_territory_growth': {
       'screenCode': 'regional_bdm_territory_growth',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8283,7 +8283,7 @@ class DbScreenStatusRegistry {
     },
     'regional_bdm_workflow': {
       'screenCode': 'regional_bdm_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8295,7 +8295,7 @@ class DbScreenStatusRegistry {
     },
     'regional_manager_branch_comparison': {
       'screenCode': 'regional_manager_branch_comparison',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8307,7 +8307,7 @@ class DbScreenStatusRegistry {
     },
     'regional_manager_dashboard': {
       'screenCode': 'regional_manager_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8319,7 +8319,7 @@ class DbScreenStatusRegistry {
     },
     'regional_manager_ontario_dashboard': {
       'screenCode': 'regional_manager_ontario_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8331,7 +8331,7 @@ class DbScreenStatusRegistry {
     },
     'regional_manager_usa_analytics': {
       'screenCode': 'regional_manager_usa_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8343,7 +8343,7 @@ class DbScreenStatusRegistry {
     },
     'regional_manager_usa_compliance': {
       'screenCode': 'regional_manager_usa_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8355,7 +8355,7 @@ class DbScreenStatusRegistry {
     },
     'regional_manager_usa_dashboard': {
       'screenCode': 'regional_manager_usa_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8367,7 +8367,7 @@ class DbScreenStatusRegistry {
     },
     'regional_manager_usa_workflow': {
       'screenCode': 'regional_manager_usa_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8379,7 +8379,7 @@ class DbScreenStatusRegistry {
     },
     'regional_performance': {
       'screenCode': 'regional_performance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8391,7 +8391,7 @@ class DbScreenStatusRegistry {
     },
     'registry_entry_editor': {
       'screenCode': 'registry_entry_editor',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8403,7 +8403,7 @@ class DbScreenStatusRegistry {
     },
     'regulatory_change_radar': {
       'screenCode': 'regulatory_change_radar',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8415,7 +8415,7 @@ class DbScreenStatusRegistry {
     },
     'release_management': {
       'screenCode': 'release_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8427,7 +8427,7 @@ class DbScreenStatusRegistry {
     },
     'release_operations': {
       'screenCode': 'release_operations',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8439,7 +8439,7 @@ class DbScreenStatusRegistry {
     },
     'remote_diagnosticser': {
       'screenCode': 'remote_diagnosticser',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8451,7 +8451,7 @@ class DbScreenStatusRegistry {
     },
     'remote_patient_monitoring_dashboard': {
       'screenCode': 'remote_patient_monitoring_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8463,7 +8463,7 @@ class DbScreenStatusRegistry {
     },
     'research_protocol_manager': {
       'screenCode': 'research_protocol_manager',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8475,7 +8475,7 @@ class DbScreenStatusRegistry {
     },
     'research_publication_drafting': {
       'screenCode': 'research_publication_drafting',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8487,7 +8487,7 @@ class DbScreenStatusRegistry {
     },
     'reset_password': {
       'screenCode': 'reset_password',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8499,7 +8499,7 @@ class DbScreenStatusRegistry {
     },
     'residency_program_tracker': {
       'screenCode': 'residency_program_tracker',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8511,7 +8511,7 @@ class DbScreenStatusRegistry {
     },
     'resolution_tracking': {
       'screenCode': 'resolution_tracking',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8523,7 +8523,7 @@ class DbScreenStatusRegistry {
     },
     'resource_allocation_map': {
       'screenCode': 'resource_allocation_map',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8535,7 +8535,7 @@ class DbScreenStatusRegistry {
     },
     'response_bot_audit': {
       'screenCode': 'response_bot_audit',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8547,7 +8547,7 @@ class DbScreenStatusRegistry {
     },
     'responsive_preview': {
       'screenCode': 'responsive_preview',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8559,7 +8559,7 @@ class DbScreenStatusRegistry {
     },
     'revenue': {
       'screenCode': 'revenue',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8571,7 +8571,7 @@ class DbScreenStatusRegistry {
     },
     'revenue_analytics': {
       'screenCode': 'revenue_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8583,7 +8583,7 @@ class DbScreenStatusRegistry {
     },
     'revenue_snapshot': {
       'screenCode': 'revenue_snapshot',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8595,7 +8595,7 @@ class DbScreenStatusRegistry {
     },
     'risk_management': {
       'screenCode': 'risk_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8607,7 +8607,7 @@ class DbScreenStatusRegistry {
     },
     'risk_register': {
       'screenCode': 'risk_register',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8619,7 +8619,7 @@ class DbScreenStatusRegistry {
     },
     'rmt_analytics': {
       'screenCode': 'rmt_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8631,7 +8631,7 @@ class DbScreenStatusRegistry {
     },
     'rmt_appointments': {
       'screenCode': 'rmt_appointments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8643,7 +8643,7 @@ class DbScreenStatusRegistry {
     },
     'rmt_assessment': {
       'screenCode': 'rmt_assessment',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8655,7 +8655,7 @@ class DbScreenStatusRegistry {
     },
     'rmt_billing_link': {
       'screenCode': 'rmt_billing_link',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8667,7 +8667,7 @@ class DbScreenStatusRegistry {
     },
     'rmt_client_intake': {
       'screenCode': 'rmt_client_intake',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8679,7 +8679,7 @@ class DbScreenStatusRegistry {
     },
     'rmt_command_center': {
       'screenCode': 'rmt_command_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8691,7 +8691,7 @@ class DbScreenStatusRegistry {
     },
     'rmt_compliance': {
       'screenCode': 'rmt_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8703,7 +8703,7 @@ class DbScreenStatusRegistry {
     },
     'rmt_dashboard': {
       'screenCode': 'rmt_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8715,7 +8715,7 @@ class DbScreenStatusRegistry {
     },
     'rmt_exercise_plan': {
       'screenCode': 'rmt_exercise_plan',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8727,7 +8727,7 @@ class DbScreenStatusRegistry {
     },
     'rmt_reports': {
       'screenCode': 'rmt_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8739,7 +8739,7 @@ class DbScreenStatusRegistry {
     },
     'rmt_treatment_notes': {
       'screenCode': 'rmt_treatment_notes',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8751,7 +8751,7 @@ class DbScreenStatusRegistry {
     },
     'rmt_workflow': {
       'screenCode': 'rmt_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8763,7 +8763,7 @@ class DbScreenStatusRegistry {
     },
     'rn_analytics': {
       'screenCode': 'rn_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8775,7 +8775,7 @@ class DbScreenStatusRegistry {
     },
     'rn_assessments': {
       'screenCode': 'rn_assessments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8787,7 +8787,7 @@ class DbScreenStatusRegistry {
     },
     'rn_care_plan_review': {
       'screenCode': 'rn_care_plan_review',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8799,7 +8799,7 @@ class DbScreenStatusRegistry {
     },
     'rn_care_plans': {
       'screenCode': 'rn_care_plans',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8811,7 +8811,7 @@ class DbScreenStatusRegistry {
     },
     'rn_charting': {
       'screenCode': 'rn_charting',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8823,7 +8823,7 @@ class DbScreenStatusRegistry {
     },
     'rn_command_center': {
       'screenCode': 'rn_command_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8835,7 +8835,7 @@ class DbScreenStatusRegistry {
     },
     'rn_compliance': {
       'screenCode': 'rn_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8847,7 +8847,7 @@ class DbScreenStatusRegistry {
     },
     'rn_dashboard': {
       'screenCode': 'rn_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8859,7 +8859,7 @@ class DbScreenStatusRegistry {
     },
     'rn_field_supervisor_analytics': {
       'screenCode': 'rn_field_supervisor_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8871,7 +8871,7 @@ class DbScreenStatusRegistry {
     },
     'rn_field_supervisor_dashboard': {
       'screenCode': 'rn_field_supervisor_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8883,7 +8883,7 @@ class DbScreenStatusRegistry {
     },
     'rn_field_supervisor_workflow': {
       'screenCode': 'rn_field_supervisor_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8895,7 +8895,7 @@ class DbScreenStatusRegistry {
     },
     'rn_incident_review': {
       'screenCode': 'rn_incident_review',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8907,7 +8907,7 @@ class DbScreenStatusRegistry {
     },
     'rn_medications': {
       'screenCode': 'rn_medications',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8919,7 +8919,7 @@ class DbScreenStatusRegistry {
     },
     'rn_messaging': {
       'screenCode': 'rn_messaging',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8931,7 +8931,7 @@ class DbScreenStatusRegistry {
     },
     'rn_patient_charting': {
       'screenCode': 'rn_patient_charting',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8943,7 +8943,7 @@ class DbScreenStatusRegistry {
     },
     'rn_reports': {
       'screenCode': 'rn_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8955,7 +8955,7 @@ class DbScreenStatusRegistry {
     },
     'rn_tasks': {
       'screenCode': 'rn_tasks',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8967,7 +8967,7 @@ class DbScreenStatusRegistry {
     },
     'rn_vitals': {
       'screenCode': 'rn_vitals',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8979,7 +8979,7 @@ class DbScreenStatusRegistry {
     },
     'rn_workflow': {
       'screenCode': 'rn_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -8991,7 +8991,7 @@ class DbScreenStatusRegistry {
     },
     'role_access': {
       'screenCode': 'role_access',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9003,7 +9003,7 @@ class DbScreenStatusRegistry {
     },
     'role_access_matrix': {
       'screenCode': 'role_access_matrix',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9015,7 +9015,7 @@ class DbScreenStatusRegistry {
     },
     'role_coverage_dashboard': {
       'screenCode': 'role_coverage_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9027,7 +9027,7 @@ class DbScreenStatusRegistry {
     },
     'rpn_analytics': {
       'screenCode': 'rpn_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9039,7 +9039,7 @@ class DbScreenStatusRegistry {
     },
     'rpn_care_plan_review': {
       'screenCode': 'rpn_care_plan_review',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9051,7 +9051,7 @@ class DbScreenStatusRegistry {
     },
     'rpn_command_center': {
       'screenCode': 'rpn_command_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9063,7 +9063,7 @@ class DbScreenStatusRegistry {
     },
     'rpn_compliance': {
       'screenCode': 'rpn_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9075,7 +9075,7 @@ class DbScreenStatusRegistry {
     },
     'rpn_dashboard': {
       'screenCode': 'rpn_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9087,7 +9087,7 @@ class DbScreenStatusRegistry {
     },
     'rpn_incident_review': {
       'screenCode': 'rpn_incident_review',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9099,7 +9099,7 @@ class DbScreenStatusRegistry {
     },
     'rpn_medications': {
       'screenCode': 'rpn_medications',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9111,7 +9111,7 @@ class DbScreenStatusRegistry {
     },
     'rpn_patient_charting': {
       'screenCode': 'rpn_patient_charting',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9123,7 +9123,7 @@ class DbScreenStatusRegistry {
     },
     'rpn_reports': {
       'screenCode': 'rpn_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9135,7 +9135,7 @@ class DbScreenStatusRegistry {
     },
     'rpn_tasks': {
       'screenCode': 'rpn_tasks',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9147,7 +9147,7 @@ class DbScreenStatusRegistry {
     },
     'rpn_vitals': {
       'screenCode': 'rpn_vitals',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9159,7 +9159,7 @@ class DbScreenStatusRegistry {
     },
     'rpn_workflow': {
       'screenCode': 'rpn_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9171,7 +9171,7 @@ class DbScreenStatusRegistry {
     },
     'runtime_verification': {
       'screenCode': 'runtime_verification',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9183,7 +9183,7 @@ class DbScreenStatusRegistry {
     },
     'schedule': {
       'screenCode': 'schedule',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9195,7 +9195,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_analytics': {
       'screenCode': 'scheduler_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9207,7 +9207,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_availability': {
       'screenCode': 'scheduler_availability',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9219,7 +9219,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_booking_requests': {
       'screenCode': 'scheduler_booking_requests',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9231,7 +9231,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_calendar': {
       'screenCode': 'scheduler_calendar',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9243,7 +9243,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_command_center': {
       'screenCode': 'scheduler_command_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9255,7 +9255,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_compliance': {
       'screenCode': 'scheduler_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9267,7 +9267,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_conflicts': {
       'screenCode': 'scheduler_conflicts',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9279,7 +9279,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_coordinator_appointment_calendar': {
       'screenCode': 'scheduler_coordinator_appointment_calendar',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9291,7 +9291,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_coordinator_assignments': {
       'screenCode': 'scheduler_coordinator_assignments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9303,7 +9303,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_coordinator_booking_requests': {
       'screenCode': 'scheduler_coordinator_booking_requests',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9315,7 +9315,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_coordinator_conflicts': {
       'screenCode': 'scheduler_coordinator_conflicts',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9327,7 +9327,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_coordinator_open_shifts': {
       'screenCode': 'scheduler_coordinator_open_shifts',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9339,7 +9339,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_coordinator_provider_availability': {
       'screenCode': 'scheduler_coordinator_provider_availability',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9351,7 +9351,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_coordinator_reports': {
       'screenCode': 'scheduler_coordinator_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9363,7 +9363,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_coordinator_shift_calendar': {
       'screenCode': 'scheduler_coordinator_shift_calendar',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9375,7 +9375,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_dashboard': {
       'screenCode': 'scheduler_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9387,7 +9387,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_open_shifts': {
       'screenCode': 'scheduler_open_shifts',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9399,7 +9399,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_provider_availability': {
       'screenCode': 'scheduler_provider_availability',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9411,7 +9411,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_shifts': {
       'screenCode': 'scheduler_shifts',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9423,7 +9423,7 @@ class DbScreenStatusRegistry {
     },
     'scheduler_workflow': {
       'screenCode': 'scheduler_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9435,7 +9435,7 @@ class DbScreenStatusRegistry {
     },
     'scheduling_dashboard': {
       'screenCode': 'scheduling_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9447,7 +9447,7 @@ class DbScreenStatusRegistry {
     },
     'scheduling_health': {
       'screenCode': 'scheduling_health',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9459,7 +9459,7 @@ class DbScreenStatusRegistry {
     },
     'scheduling_operations4_k': {
       'screenCode': 'scheduling_operations4_k',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9471,7 +9471,7 @@ class DbScreenStatusRegistry {
     },
     'school_health_program_dashboard': {
       'screenCode': 'school_health_program_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9483,7 +9483,7 @@ class DbScreenStatusRegistry {
     },
     'screen_audit': {
       'screenCode': 'screen_audit',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9495,7 +9495,7 @@ class DbScreenStatusRegistry {
     },
     'screen_not_implemented': {
       'screenCode': 'screen_not_implemented',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9507,7 +9507,7 @@ class DbScreenStatusRegistry {
     },
     'screen_progress_dashboard': {
       'screenCode': 'screen_progress_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9519,7 +9519,7 @@ class DbScreenStatusRegistry {
     },
     'screen_status': {
       'screenCode': 'screen_status',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9531,7 +9531,7 @@ class DbScreenStatusRegistry {
     },
     'scrum_master_analytics': {
       'screenCode': 'scrum_master_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9543,7 +9543,7 @@ class DbScreenStatusRegistry {
     },
     'scrum_master_compliance': {
       'screenCode': 'scrum_master_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9555,7 +9555,7 @@ class DbScreenStatusRegistry {
     },
     'scrum_master_dashboard': {
       'screenCode': 'scrum_master_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9567,7 +9567,7 @@ class DbScreenStatusRegistry {
     },
     'scrum_master_workflow': {
       'screenCode': 'scrum_master_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9579,7 +9579,7 @@ class DbScreenStatusRegistry {
     },
     'secure_message_center': {
       'screenCode': 'secure_message_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9591,7 +9591,7 @@ class DbScreenStatusRegistry {
     },
     'security_audit': {
       'screenCode': 'security_audit',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9603,7 +9603,7 @@ class DbScreenStatusRegistry {
     },
     'security_hub': {
       'screenCode': 'security_hub',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9615,7 +9615,7 @@ class DbScreenStatusRegistry {
     },
     'security_incident': {
       'screenCode': 'security_incident',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9627,7 +9627,7 @@ class DbScreenStatusRegistry {
     },
     'security_incident_logger': {
       'screenCode': 'security_incident_logger',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9639,7 +9639,7 @@ class DbScreenStatusRegistry {
     },
     'security_sentinel': {
       'screenCode': 'security_sentinel',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9651,7 +9651,7 @@ class DbScreenStatusRegistry {
     },
     'service_issue': {
       'screenCode': 'service_issue',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9663,7 +9663,7 @@ class DbScreenStatusRegistry {
     },
     'service_mesh_topology': {
       'screenCode': 'service_mesh_topology',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9675,7 +9675,7 @@ class DbScreenStatusRegistry {
     },
     'service_procurement': {
       'screenCode': 'service_procurement',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9687,7 +9687,7 @@ class DbScreenStatusRegistry {
     },
     'service_quality': {
       'screenCode': 'service_quality',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9699,7 +9699,7 @@ class DbScreenStatusRegistry {
     },
     'shared_stubs': {
       'screenCode': 'shared_stubs',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9711,7 +9711,7 @@ class DbScreenStatusRegistry {
     },
     'shareholder_analytics': {
       'screenCode': 'shareholder_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9723,7 +9723,7 @@ class DbScreenStatusRegistry {
     },
     'shareholder_compliance': {
       'screenCode': 'shareholder_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9735,7 +9735,7 @@ class DbScreenStatusRegistry {
     },
     'shareholder_dashboard': {
       'screenCode': 'shareholder_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9747,7 +9747,7 @@ class DbScreenStatusRegistry {
     },
     'shareholder_workflow': {
       'screenCode': 'shareholder_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9759,7 +9759,7 @@ class DbScreenStatusRegistry {
     },
     'shift_report': {
       'screenCode': 'shift_report',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9771,7 +9771,7 @@ class DbScreenStatusRegistry {
     },
     'shift_tasks': {
       'screenCode': 'shift_tasks',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9783,7 +9783,7 @@ class DbScreenStatusRegistry {
     },
     'simulation_lab_scheduler': {
       'screenCode': 'simulation_lab_scheduler',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9795,7 +9795,7 @@ class DbScreenStatusRegistry {
     },
     'site_readiness': {
       'screenCode': 'site_readiness',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9807,7 +9807,7 @@ class DbScreenStatusRegistry {
     },
     'social_determinants_of_health_tracker': {
       'screenCode': 'social_determinants_of_health_tracker',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9819,7 +9819,7 @@ class DbScreenStatusRegistry {
     },
     'social_media': {
       'screenCode': 'social_media',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9831,7 +9831,7 @@ class DbScreenStatusRegistry {
     },
     'social_media_sentiment_analyzer': {
       'screenCode': 'social_media_sentiment_analyzer',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9843,7 +9843,7 @@ class DbScreenStatusRegistry {
     },
     'social_worker_analytics': {
       'screenCode': 'social_worker_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9855,7 +9855,7 @@ class DbScreenStatusRegistry {
     },
     'social_worker_compliance': {
       'screenCode': 'social_worker_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9867,7 +9867,7 @@ class DbScreenStatusRegistry {
     },
     'social_worker_dashboard': {
       'screenCode': 'social_worker_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9879,7 +9879,7 @@ class DbScreenStatusRegistry {
     },
     'social_worker_workflow': {
       'screenCode': 'social_worker_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9891,7 +9891,7 @@ class DbScreenStatusRegistry {
     },
     'sso_redirect': {
       'screenCode': 'sso_redirect',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9903,7 +9903,7 @@ class DbScreenStatusRegistry {
     },
     'staff_management': {
       'screenCode': 'staff_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9915,7 +9915,7 @@ class DbScreenStatusRegistry {
     },
     'staff_performance': {
       'screenCode': 'staff_performance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9927,7 +9927,7 @@ class DbScreenStatusRegistry {
     },
     'staff_progress': {
       'screenCode': 'staff_progress',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9939,7 +9939,7 @@ class DbScreenStatusRegistry {
     },
     'staff_training_matrix': {
       'screenCode': 'staff_training_matrix',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9951,7 +9951,7 @@ class DbScreenStatusRegistry {
     },
     'staff_utilization_heatmap': {
       'screenCode': 'staff_utilization_heatmap',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9963,7 +9963,7 @@ class DbScreenStatusRegistry {
     },
     'staffing_overview': {
       'screenCode': 'staffing_overview',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9975,7 +9975,7 @@ class DbScreenStatusRegistry {
     },
     'substance_abuse_prevention_tracker': {
       'screenCode': 'substance_abuse_prevention_tracker',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9987,7 +9987,7 @@ class DbScreenStatusRegistry {
     },
     'success_profile': {
       'screenCode': 'success_profile',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -9999,7 +9999,7 @@ class DbScreenStatusRegistry {
     },
     'supply_chain_cost_analyzer': {
       'screenCode': 'supply_chain_cost_analyzer',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10011,7 +10011,7 @@ class DbScreenStatusRegistry {
     },
     'support_analytics': {
       'screenCode': 'support_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10023,7 +10023,7 @@ class DbScreenStatusRegistry {
     },
     'support_compliance': {
       'screenCode': 'support_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10035,7 +10035,7 @@ class DbScreenStatusRegistry {
     },
     'support_dashboard': {
       'screenCode': 'support_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10047,7 +10047,7 @@ class DbScreenStatusRegistry {
     },
     'support_workflow': {
       'screenCode': 'support_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10059,7 +10059,7 @@ class DbScreenStatusRegistry {
     },
     'surgical_video_archive': {
       'screenCode': 'surgical_video_archive',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10071,7 +10071,7 @@ class DbScreenStatusRegistry {
     },
     'system_analytics': {
       'screenCode': 'system_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10083,7 +10083,7 @@ class DbScreenStatusRegistry {
     },
     'system_capacity_planner': {
       'screenCode': 'system_capacity_planner',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10095,7 +10095,7 @@ class DbScreenStatusRegistry {
     },
     'system_compliance': {
       'screenCode': 'system_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10107,7 +10107,7 @@ class DbScreenStatusRegistry {
     },
     'system_dashboard': {
       'screenCode': 'system_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10119,7 +10119,7 @@ class DbScreenStatusRegistry {
     },
     'system_health': {
       'screenCode': 'system_health',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10131,7 +10131,7 @@ class DbScreenStatusRegistry {
     },
     'system_verification_analytics': {
       'screenCode': 'system_verification_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10143,7 +10143,7 @@ class DbScreenStatusRegistry {
     },
     'system_verification_compliance': {
       'screenCode': 'system_verification_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10155,7 +10155,7 @@ class DbScreenStatusRegistry {
     },
     'system_verification_dashboard': {
       'screenCode': 'system_verification_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10167,7 +10167,7 @@ class DbScreenStatusRegistry {
     },
     'system_verification_workflow': {
       'screenCode': 'system_verification_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10179,7 +10179,7 @@ class DbScreenStatusRegistry {
     },
     'system_workflow': {
       'screenCode': 'system_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10191,7 +10191,7 @@ class DbScreenStatusRegistry {
     },
     'tax_compliance': {
       'screenCode': 'tax_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10203,7 +10203,7 @@ class DbScreenStatusRegistry {
     },
     'telehealth_consultation_room': {
       'screenCode': 'telehealth_consultation_room',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10215,7 +10215,7 @@ class DbScreenStatusRegistry {
     },
     'telehealth_quality_metrics': {
       'screenCode': 'telehealth_quality_metrics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10227,7 +10227,7 @@ class DbScreenStatusRegistry {
     },
     'telemedicine_prescription_pad': {
       'screenCode': 'telemedicine_prescription_pad',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10239,7 +10239,7 @@ class DbScreenStatusRegistry {
     },
     'tenant_configuration': {
       'screenCode': 'tenant_configuration',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10251,7 +10251,7 @@ class DbScreenStatusRegistry {
     },
     'territory_expansion_manager_analytics': {
       'screenCode': 'territory_expansion_manager_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10263,7 +10263,7 @@ class DbScreenStatusRegistry {
     },
     'territory_expansion_manager_compliance': {
       'screenCode': 'territory_expansion_manager_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10275,7 +10275,7 @@ class DbScreenStatusRegistry {
     },
     'territory_expansion_manager_dashboard': {
       'screenCode': 'territory_expansion_manager_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10287,7 +10287,7 @@ class DbScreenStatusRegistry {
     },
     'territory_expansion_manager_demographics': {
       'screenCode': 'territory_expansion_manager_demographics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10299,7 +10299,7 @@ class DbScreenStatusRegistry {
     },
     'territory_expansion_manager_expansion_plans': {
       'screenCode': 'territory_expansion_manager_expansion_plans',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10311,7 +10311,7 @@ class DbScreenStatusRegistry {
     },
     'territory_expansion_manager_forecast': {
       'screenCode': 'territory_expansion_manager_forecast',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10323,7 +10323,7 @@ class DbScreenStatusRegistry {
     },
     'territory_expansion_manager_market_research': {
       'screenCode': 'territory_expansion_manager_market_research',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10335,7 +10335,7 @@ class DbScreenStatusRegistry {
     },
     'territory_expansion_manager_open_territories': {
       'screenCode': 'territory_expansion_manager_open_territories',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10347,7 +10347,7 @@ class DbScreenStatusRegistry {
     },
     'territory_expansion_manager_reports': {
       'screenCode': 'territory_expansion_manager_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10359,7 +10359,7 @@ class DbScreenStatusRegistry {
     },
     'territory_expansion_manager_site_selection': {
       'screenCode': 'territory_expansion_manager_site_selection',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10371,7 +10371,7 @@ class DbScreenStatusRegistry {
     },
     'territory_expansion_manager_territory_map': {
       'screenCode': 'territory_expansion_manager_territory_map',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10383,7 +10383,7 @@ class DbScreenStatusRegistry {
     },
     'territory_expansion_manager_workflow': {
       'screenCode': 'territory_expansion_manager_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10395,7 +10395,7 @@ class DbScreenStatusRegistry {
     },
     'territory_sales_manager_analytics': {
       'screenCode': 'territory_sales_manager_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10407,7 +10407,7 @@ class DbScreenStatusRegistry {
     },
     'territory_sales_manager_area_performance': {
       'screenCode': 'territory_sales_manager_area_performance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10419,7 +10419,7 @@ class DbScreenStatusRegistry {
     },
     'territory_sales_manager_competitors': {
       'screenCode': 'territory_sales_manager_competitors',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10431,7 +10431,7 @@ class DbScreenStatusRegistry {
     },
     'territory_sales_manager_compliance': {
       'screenCode': 'territory_sales_manager_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10443,7 +10443,7 @@ class DbScreenStatusRegistry {
     },
     'territory_sales_manager_conversions': {
       'screenCode': 'territory_sales_manager_conversions',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10455,7 +10455,7 @@ class DbScreenStatusRegistry {
     },
     'territory_sales_manager_dashboard': {
       'screenCode': 'territory_sales_manager_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10467,7 +10467,7 @@ class DbScreenStatusRegistry {
     },
     'territory_sales_manager_field_activity': {
       'screenCode': 'territory_sales_manager_field_activity',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10479,7 +10479,7 @@ class DbScreenStatusRegistry {
     },
     'territory_sales_manager_leads': {
       'screenCode': 'territory_sales_manager_leads',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10491,7 +10491,7 @@ class DbScreenStatusRegistry {
     },
     'territory_sales_manager_pipeline': {
       'screenCode': 'territory_sales_manager_pipeline',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10503,7 +10503,7 @@ class DbScreenStatusRegistry {
     },
     'territory_sales_manager_reports': {
       'screenCode': 'territory_sales_manager_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10515,7 +10515,7 @@ class DbScreenStatusRegistry {
     },
     'territory_sales_manager_workflow': {
       'screenCode': 'territory_sales_manager_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10527,7 +10527,7 @@ class DbScreenStatusRegistry {
     },
     'territory_sales_mapping': {
       'screenCode': 'territory_sales_mapping',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10539,7 +10539,7 @@ class DbScreenStatusRegistry {
     },
     'testing_overview': {
       'screenCode': 'testing_overview',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10551,7 +10551,7 @@ class DbScreenStatusRegistry {
     },
     'therapist_analytics': {
       'screenCode': 'therapist_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10563,7 +10563,7 @@ class DbScreenStatusRegistry {
     },
     'therapist_dashboard': {
       'screenCode': 'therapist_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10575,7 +10575,7 @@ class DbScreenStatusRegistry {
     },
     'therapist_workflow': {
       'screenCode': 'therapist_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10587,7 +10587,7 @@ class DbScreenStatusRegistry {
     },
     'ticket_center': {
       'screenCode': 'ticket_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10599,7 +10599,7 @@ class DbScreenStatusRegistry {
     },
     'ticket_management': {
       'screenCode': 'ticket_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10611,7 +10611,7 @@ class DbScreenStatusRegistry {
     },
     'touchpoint_analyzer': {
       'screenCode': 'touchpoint_analyzer',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10623,7 +10623,7 @@ class DbScreenStatusRegistry {
     },
     'trainer_assignments': {
       'screenCode': 'trainer_assignments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10635,7 +10635,7 @@ class DbScreenStatusRegistry {
     },
     'training_analytics': {
       'screenCode': 'training_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10647,7 +10647,7 @@ class DbScreenStatusRegistry {
     },
     'training_compliance': {
       'screenCode': 'training_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10659,7 +10659,7 @@ class DbScreenStatusRegistry {
     },
     'training_coordinator_analytics': {
       'screenCode': 'training_coordinator_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10671,7 +10671,7 @@ class DbScreenStatusRegistry {
     },
     'training_coordinator_attendance': {
       'screenCode': 'training_coordinator_attendance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10683,7 +10683,7 @@ class DbScreenStatusRegistry {
     },
     'training_coordinator_certifications': {
       'screenCode': 'training_coordinator_certifications',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10695,7 +10695,7 @@ class DbScreenStatusRegistry {
     },
     'training_coordinator_compliance': {
       'screenCode': 'training_coordinator_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10707,7 +10707,7 @@ class DbScreenStatusRegistry {
     },
     'training_coordinator_courses': {
       'screenCode': 'training_coordinator_courses',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10719,7 +10719,7 @@ class DbScreenStatusRegistry {
     },
     'training_coordinator_dashboard': {
       'screenCode': 'training_coordinator_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10731,7 +10731,7 @@ class DbScreenStatusRegistry {
     },
     'training_coordinator_materials': {
       'screenCode': 'training_coordinator_materials',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10743,7 +10743,7 @@ class DbScreenStatusRegistry {
     },
     'training_coordinator_progress': {
       'screenCode': 'training_coordinator_progress',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10755,7 +10755,7 @@ class DbScreenStatusRegistry {
     },
     'training_coordinator_reports': {
       'screenCode': 'training_coordinator_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10767,7 +10767,7 @@ class DbScreenStatusRegistry {
     },
     'training_coordinator_training_schedule': {
       'screenCode': 'training_coordinator_training_schedule',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10779,7 +10779,7 @@ class DbScreenStatusRegistry {
     },
     'training_coordinator_workflow': {
       'screenCode': 'training_coordinator_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10791,7 +10791,7 @@ class DbScreenStatusRegistry {
     },
     'training_coordinator_workshops': {
       'screenCode': 'training_coordinator_workshops',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10803,7 +10803,7 @@ class DbScreenStatusRegistry {
     },
     'training_dashboard': {
       'screenCode': 'training_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10815,7 +10815,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_analytics': {
       'screenCode': 'training_director_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10827,7 +10827,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_assessments': {
       'screenCode': 'training_director_assessments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10839,7 +10839,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_certificates': {
       'screenCode': 'training_director_certificates',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10851,7 +10851,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_certifications': {
       'screenCode': 'training_director_certifications',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10863,7 +10863,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_compliance': {
       'screenCode': 'training_director_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10875,7 +10875,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_compliance_training': {
       'screenCode': 'training_director_compliance_training',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10887,7 +10887,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_course_architect': {
       'screenCode': 'training_director_course_architect',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10899,7 +10899,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_course_library': {
       'screenCode': 'training_director_course_library',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10911,7 +10911,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_dashboard': {
       'screenCode': 'training_director_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10923,7 +10923,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_hub': {
       'screenCode': 'training_director_hub',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10935,7 +10935,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_reports': {
       'screenCode': 'training_director_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10947,7 +10947,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_staff_training_matrix': {
       'screenCode': 'training_director_staff_training_matrix',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10959,7 +10959,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_trainer_assignments': {
       'screenCode': 'training_director_trainer_assignments',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10971,7 +10971,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_training_programs': {
       'screenCode': 'training_director_training_programs',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10983,7 +10983,7 @@ class DbScreenStatusRegistry {
     },
     'training_director_workflow': {
       'screenCode': 'training_director_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -10995,7 +10995,7 @@ class DbScreenStatusRegistry {
     },
     'training_hub': {
       'screenCode': 'training_hub',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11007,7 +11007,7 @@ class DbScreenStatusRegistry {
     },
     'training_hub_analytics': {
       'screenCode': 'training_hub_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11019,7 +11019,7 @@ class DbScreenStatusRegistry {
     },
     'training_hub_compliance': {
       'screenCode': 'training_hub_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11031,7 +11031,7 @@ class DbScreenStatusRegistry {
     },
     'training_hub_dashboard': {
       'screenCode': 'training_hub_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11043,7 +11043,7 @@ class DbScreenStatusRegistry {
     },
     'training_hub_workflow': {
       'screenCode': 'training_hub_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11055,7 +11055,7 @@ class DbScreenStatusRegistry {
     },
     'training_management': {
       'screenCode': 'training_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11067,7 +11067,7 @@ class DbScreenStatusRegistry {
     },
     'training_programs': {
       'screenCode': 'training_programs',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11079,7 +11079,7 @@ class DbScreenStatusRegistry {
     },
     'training_reports': {
       'screenCode': 'training_reports',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11091,7 +11091,7 @@ class DbScreenStatusRegistry {
     },
     'treatment_plan': {
       'screenCode': 'treatment_plan',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11103,7 +11103,7 @@ class DbScreenStatusRegistry {
     },
     'trial_data_collection_c_r_f': {
       'screenCode': 'trial_data_collection_c_r_f',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11115,7 +11115,7 @@ class DbScreenStatusRegistry {
     },
     'unknown_dashboard': {
       'screenCode': 'unknown_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11127,7 +11127,7 @@ class DbScreenStatusRegistry {
     },
     'user_management': {
       'screenCode': 'user_management',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11139,7 +11139,7 @@ class DbScreenStatusRegistry {
     },
     'vaccination_campaign_manager': {
       'screenCode': 'vaccination_campaign_manager',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11151,7 +11151,7 @@ class DbScreenStatusRegistry {
     },
     'vendor_risk_assessor': {
       'screenCode': 'vendor_risk_assessor',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11163,7 +11163,7 @@ class DbScreenStatusRegistry {
     },
     'verification_center': {
       'screenCode': 'verification_center',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11175,7 +11175,7 @@ class DbScreenStatusRegistry {
     },
     'vip_manager_analytics': {
       'screenCode': 'vip_manager_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11187,7 +11187,7 @@ class DbScreenStatusRegistry {
     },
     'vip_manager_dashboard': {
       'screenCode': 'vip_manager_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11199,7 +11199,7 @@ class DbScreenStatusRegistry {
     },
     'vip_manager_workflow': {
       'screenCode': 'vip_manager_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11211,7 +11211,7 @@ class DbScreenStatusRegistry {
     },
     'virtual_consult': {
       'screenCode': 'virtual_consult',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11223,7 +11223,7 @@ class DbScreenStatusRegistry {
     },
     'virtual_waiting_room': {
       'screenCode': 'virtual_waiting_room',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11235,7 +11235,7 @@ class DbScreenStatusRegistry {
     },
     'vitals_entry': {
       'screenCode': 'vitals_entry',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11247,7 +11247,7 @@ class DbScreenStatusRegistry {
     },
     'vitals_tracking': {
       'screenCode': 'vitals_tracking',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11259,7 +11259,7 @@ class DbScreenStatusRegistry {
     },
     'volunteer_coordinator_analytics': {
       'screenCode': 'volunteer_coordinator_analytics',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11271,7 +11271,7 @@ class DbScreenStatusRegistry {
     },
     'volunteer_coordinator_compliance': {
       'screenCode': 'volunteer_coordinator_compliance',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11283,7 +11283,7 @@ class DbScreenStatusRegistry {
     },
     'volunteer_coordinator_dashboard': {
       'screenCode': 'volunteer_coordinator_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11295,7 +11295,7 @@ class DbScreenStatusRegistry {
     },
     'volunteer_coordinator_workflow': {
       'screenCode': 'volunteer_coordinator_workflow',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11307,7 +11307,7 @@ class DbScreenStatusRegistry {
     },
     'volunteer_dashboard': {
       'screenCode': 'volunteer_dashboard',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11319,7 +11319,7 @@ class DbScreenStatusRegistry {
     },
     'vulnerable_population_registry': {
       'screenCode': 'vulnerable_population_registry',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11331,7 +11331,7 @@ class DbScreenStatusRegistry {
     },
     'workflow_execution': {
       'screenCode': 'workflow_execution',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11343,7 +11343,7 @@ class DbScreenStatusRegistry {
     },
     'workflow_issue': {
       'screenCode': 'workflow_issue',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
@@ -11355,7 +11355,7 @@ class DbScreenStatusRegistry {
     },
     'xray_review': {
       'screenCode': 'xray_review',
-      'completenessScore': 95,
+      'completenessScore': 100,
       'implementationTag': 'implemented',
       'apiTag': 'api_connected',
       'testTag': 'test_passed',
