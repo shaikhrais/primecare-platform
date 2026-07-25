@@ -9,6 +9,9 @@ import 'package:flutter_core/flutter_core.dart';
 final adjustment_notesDataProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   final api = ref.read(apiClientProvider);
   try {
+    // API Endpoint: GET /v1/adjustment-notes
+    // API Endpoint: POST /v1/adjustment-notes
+    // API Endpoint: PATCH /v1/adjustment-notes/:id
     final response = await api.get('/v1/adjustment-notes');
     return response.data is Map ? Map<String, dynamic>.from(response.data as Map) : {};
   } catch (_) {
@@ -159,7 +162,6 @@ class AdjustmentNotesScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["AdjustmentNotesScreen Screen Root", "AdjustmentNotesScreen Page Title"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -243,7 +245,6 @@ class AdjustmentNotesScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["AdjustmentNotesScreen Screen Root", "AdjustmentNotesScreen Page Title", "AdjustmentNotesScreen Primary Content", "Adjustmentnotes Btn 1"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -327,7 +328,6 @@ class AdjustmentNotesScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["AdjustmentNotesScreen Primary Content", "Adjustmentnotes Screen", "Adjustmentnotes Content", "Adjustmentnotes Loading", "Adjustmentnotes Title"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -411,7 +411,6 @@ class AdjustmentNotesScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["AdjustmentNotesScreen Screen Root", "AdjustmentNotesScreen Page Title", "AdjustmentNotesScreen Primary Content", "Adjustmentnotes Btn 1"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -495,7 +494,6 @@ class AdjustmentNotesScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["Adjustmentnotes Btn 1", "Adjustmentnotes Btn 2", "Adjustmentnotes Btn 3"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -529,7 +527,7 @@ class AdjustmentNotesScreen extends GovernedConsumerWidget {
     ),
             const SizedBox(height: 24),
 
-            // 3. GOVERNANCE AUDIT LOG & COMPLIANCE SPECIFICATIONS
+            // 3. GOVERNANCE AUDIT LOG & ALL MAPPED API ENDPOINTS
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(18),
@@ -540,9 +538,12 @@ class AdjustmentNotesScreen extends GovernedConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('GOVERNANCE SPECIFICATIONS & API ENDPOINT MAPPING', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                  const Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
                   const SizedBox(height: 8),
-                  Text('• Mapped API: GET /v1/adjustment-notes', style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontFamily: 'monospace')),
+                  ...["\u2022 Mapped API: GET /v1/adjustment-notes", "\u2022 Mapped API: POST /v1/adjustment-notes", "\u2022 Mapped API: PATCH /v1/adjustment-notes/:id"].map((apiStr) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: Text(apiStr, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11, fontFamily: 'monospace')),
+                  )),
                   const SizedBox(height: 4),
                   const Text('• Cypress Selector: data-cy="screen-adjustment-notes"', style: TextStyle(color: Color(0xFF34D399), fontSize: 12, fontFamily: 'monospace')),
                   const SizedBox(height: 4),

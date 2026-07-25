@@ -9,6 +9,7 @@ import 'package:flutter_core/flutter_core.dart';
 final hr_hiring_onboardingDataProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   final api = ref.read(apiClientProvider);
   try {
+    // API Endpoint: GET /v1/hr-hiring-onboarding
     final response = await api.get('/v1/hr-hiring-onboarding');
     return response.data is Map ? Map<String, dynamic>.from(response.data as Map) : {};
   } catch (_) {
@@ -159,7 +160,6 @@ class HrHiringOnboardingScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["HrHiringOnboardingScreen Screen Root", "HrHiringOnboardingScreen Page Title"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -243,7 +243,6 @@ class HrHiringOnboardingScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["HrHiringOnboardingScreen Screen Root", "HrHiringOnboardingScreen Page Title", "HrHiringOnboardingScreen Primary Content", "Hrhiringonboarding Screen"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -327,7 +326,6 @@ class HrHiringOnboardingScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["HrHiringOnboardingScreen Primary Content", "Hrhiringonboarding Screen", "Hrhiringonboarding Content", "Hrhiringonboarding Title"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -411,7 +409,6 @@ class HrHiringOnboardingScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["Hrhiringonboarding Btn 5", "Hrhiringonboarding Btn 1", "Hrhiringonboarding Btn 4", "Hrhiringonboarding Btn 2", "Hrhiringonboarding Btn 3"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -445,7 +442,7 @@ class HrHiringOnboardingScreen extends GovernedConsumerWidget {
     ),
             const SizedBox(height: 24),
 
-            // 3. GOVERNANCE AUDIT LOG & COMPLIANCE SPECIFICATIONS
+            // 3. GOVERNANCE AUDIT LOG & ALL MAPPED API ENDPOINTS
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(18),
@@ -456,9 +453,12 @@ class HrHiringOnboardingScreen extends GovernedConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('GOVERNANCE SPECIFICATIONS & API ENDPOINT MAPPING', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                  const Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
                   const SizedBox(height: 8),
-                  Text('• Mapped API: GET /v1/hr-hiring-onboarding', style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontFamily: 'monospace')),
+                  ...["\u2022 Mapped API: GET /v1/hr-hiring-onboarding"].map((apiStr) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: Text(apiStr, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11, fontFamily: 'monospace')),
+                  )),
                   const SizedBox(height: 4),
                   const Text('• Cypress Selector: data-cy="screen-hr-hiring-onboarding"', style: TextStyle(color: Color(0xFF34D399), fontSize: 12, fontFamily: 'monospace')),
                   const SizedBox(height: 4),

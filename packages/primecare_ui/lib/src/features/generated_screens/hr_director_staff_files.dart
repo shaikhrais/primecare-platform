@@ -9,6 +9,7 @@ import 'package:flutter_core/flutter_core.dart';
 final hr_director_staff_filesDataProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   final api = ref.read(apiClientProvider);
   try {
+    // API Endpoint: GET /v1/hr-director-staff-files
     final response = await api.get('/v1/hr-director-staff-files');
     return response.data is Map ? Map<String, dynamic>.from(response.data as Map) : {};
   } catch (_) {
@@ -159,7 +160,6 @@ class HrDirectorStaffFilesScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["HrDirectorStaffFilesScreen Screen Root", "HrDirectorStaffFilesScreen Page Title"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -243,7 +243,6 @@ class HrDirectorStaffFilesScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["HrDirectorStaffFilesScreen Screen Root", "HrDirectorStaffFilesScreen Page Title", "HrDirectorStaffFilesScreen Primary Content", "Hrdirectorstafffiles Btn 2"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -327,7 +326,6 @@ class HrDirectorStaffFilesScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["HrDirectorStaffFilesScreen Primary Content", "Hrdirectorstafffiles Screen", "Hrdirectorstafffiles Title", "Hrdirectorstafffiles Content"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -411,7 +409,6 @@ class HrDirectorStaffFilesScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["Hrdirectorstafffiles Btn 2", "Hrdirectorstafffiles Btn 3", "Hrdirectorstafffiles Btn 1"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -445,7 +442,7 @@ class HrDirectorStaffFilesScreen extends GovernedConsumerWidget {
     ),
             const SizedBox(height: 24),
 
-            // 3. GOVERNANCE AUDIT LOG & COMPLIANCE SPECIFICATIONS
+            // 3. GOVERNANCE AUDIT LOG & ALL MAPPED API ENDPOINTS
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(18),
@@ -456,9 +453,12 @@ class HrDirectorStaffFilesScreen extends GovernedConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('GOVERNANCE SPECIFICATIONS & API ENDPOINT MAPPING', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                  const Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
                   const SizedBox(height: 8),
-                  Text('• Mapped API: GET /v1/hr-director-staff-files', style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontFamily: 'monospace')),
+                  ...["\u2022 Mapped API: GET /v1/hr-director-staff-files"].map((apiStr) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: Text(apiStr, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11, fontFamily: 'monospace')),
+                  )),
                   const SizedBox(height: 4),
                   const Text('• Cypress Selector: data-cy="screen-hr-director-staff-files"', style: TextStyle(color: Color(0xFF34D399), fontSize: 12, fontFamily: 'monospace')),
                   const SizedBox(height: 4),

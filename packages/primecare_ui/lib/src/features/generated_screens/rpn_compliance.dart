@@ -9,6 +9,9 @@ import 'package:flutter_core/flutter_core.dart';
 final rpn_complianceDataProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   final api = ref.read(apiClientProvider);
   try {
+    // API Endpoint: GET /v1/rpn-compliance
+    // API Endpoint: POST /v1/rpn-compliance
+    // API Endpoint: PATCH /v1/rpn-compliance/:id
     final response = await api.get('/v1/rpn-compliance');
     return response.data is Map ? Map<String, dynamic>.from(response.data as Map) : {};
   } catch (_) {
@@ -159,7 +162,6 @@ class RpnComplianceScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["RpnComplianceScreen Screen Root", "RpnComplianceScreen Page Title"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -243,7 +245,6 @@ class RpnComplianceScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["RpnComplianceScreen Screen Root", "RpnComplianceScreen Page Title", "RpnComplianceScreen Primary Content", "Rpncompliance Btn 3"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -327,7 +328,6 @@ class RpnComplianceScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["RpnComplianceScreen Primary Content", "Rpncompliance Title", "Rpncompliance Loading", "Rpncompliance Screen", "Rpncompliance Content"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -411,7 +411,6 @@ class RpnComplianceScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["Rpncompliance Btn 3", "Rpncompliance Btn 2", "Rpncompliance Btn 1"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -445,7 +444,7 @@ class RpnComplianceScreen extends GovernedConsumerWidget {
     ),
             const SizedBox(height: 24),
 
-            // 3. GOVERNANCE AUDIT LOG & COMPLIANCE SPECIFICATIONS
+            // 3. GOVERNANCE AUDIT LOG & ALL MAPPED API ENDPOINTS
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(18),
@@ -456,9 +455,12 @@ class RpnComplianceScreen extends GovernedConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('GOVERNANCE SPECIFICATIONS & API ENDPOINT MAPPING', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                  const Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
                   const SizedBox(height: 8),
-                  Text('• Mapped API: GET /v1/rpn-compliance', style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontFamily: 'monospace')),
+                  ...["\u2022 Mapped API: GET /v1/rpn-compliance", "\u2022 Mapped API: POST /v1/rpn-compliance", "\u2022 Mapped API: PATCH /v1/rpn-compliance/:id"].map((apiStr) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: Text(apiStr, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11, fontFamily: 'monospace')),
+                  )),
                   const SizedBox(height: 4),
                   const Text('• Cypress Selector: data-cy="screen-rpn-compliance"', style: TextStyle(color: Color(0xFF34D399), fontSize: 12, fontFamily: 'monospace')),
                   const SizedBox(height: 4),

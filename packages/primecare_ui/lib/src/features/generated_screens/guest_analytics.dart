@@ -9,6 +9,7 @@ import 'package:flutter_core/flutter_core.dart';
 final guest_analyticsDataProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   final api = ref.read(apiClientProvider);
   try {
+    // API Endpoint: GET /v1/guest-analytics
     final response = await api.get('/v1/guest-analytics');
     return response.data is Map ? Map<String, dynamic>.from(response.data as Map) : {};
   } catch (_) {
@@ -159,7 +160,6 @@ class GuestAnalyticsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["GuestAnalyticsScreen Screen Root", "GuestAnalyticsScreen Page Title"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -243,7 +243,6 @@ class GuestAnalyticsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["GuestAnalyticsScreen Screen Root", "GuestAnalyticsScreen Page Title", "GuestAnalyticsScreen Primary Content", "Guestanalytics Screen"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -327,7 +326,6 @@ class GuestAnalyticsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["GuestAnalyticsScreen Screen Root", "GuestAnalyticsScreen Page Title", "GuestAnalyticsScreen Primary Content", "Guestanalytics Screen"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -411,7 +409,6 @@ class GuestAnalyticsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["GuestAnalyticsScreen Primary Content", "Guestanalytics Screen", "Guestanalytics Title", "Guestanalytics Content"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -495,7 +492,6 @@ class GuestAnalyticsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["Guestanalytics Btn 1", "Guestanalytics Btn 3", "Guestanalytics Btn 2"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -529,7 +525,7 @@ class GuestAnalyticsScreen extends GovernedConsumerWidget {
     ),
             const SizedBox(height: 24),
 
-            // 3. GOVERNANCE AUDIT LOG & COMPLIANCE SPECIFICATIONS
+            // 3. GOVERNANCE AUDIT LOG & ALL MAPPED API ENDPOINTS
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(18),
@@ -540,9 +536,12 @@ class GuestAnalyticsScreen extends GovernedConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('GOVERNANCE SPECIFICATIONS & API ENDPOINT MAPPING', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                  const Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
                   const SizedBox(height: 8),
-                  Text('• Mapped API: GET /v1/guest-analytics', style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontFamily: 'monospace')),
+                  ...["\u2022 Mapped API: GET /v1/guest-analytics"].map((apiStr) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: Text(apiStr, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11, fontFamily: 'monospace')),
+                  )),
                   const SizedBox(height: 4),
                   const Text('• Cypress Selector: data-cy="screen-guest-analytics"', style: TextStyle(color: Color(0xFF34D399), fontSize: 12, fontFamily: 'monospace')),
                   const SizedBox(height: 4),

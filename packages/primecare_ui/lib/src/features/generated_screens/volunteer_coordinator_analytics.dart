@@ -9,6 +9,7 @@ import 'package:flutter_core/flutter_core.dart';
 final volunteer_coordinator_analyticsDataProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   final api = ref.read(apiClientProvider);
   try {
+    // API Endpoint: GET /v1/volunteer-coordinator-analytics
     final response = await api.get('/v1/volunteer-coordinator-analytics');
     return response.data is Map ? Map<String, dynamic>.from(response.data as Map) : {};
   } catch (_) {
@@ -159,7 +160,6 @@ class VolunteerCoordinatorAnalyticsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["VolunteerCoordinatorAnalyticsScreen Screen Root", "VolunteerCoordinatorAnalyticsScreen Page Title"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -243,7 +243,6 @@ class VolunteerCoordinatorAnalyticsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["VolunteerCoordinatorAnalyticsScreen Screen Root", "VolunteerCoordinatorAnalyticsScreen Page Title", "VolunteerCoordinatorAnalyticsScreen Primary Content", "Volunteercoordinatoranalytics Title"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -327,7 +326,6 @@ class VolunteerCoordinatorAnalyticsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["VolunteerCoordinatorAnalyticsScreen Screen Root", "VolunteerCoordinatorAnalyticsScreen Page Title", "VolunteerCoordinatorAnalyticsScreen Primary Content", "Volunteercoordinatoranalytics Title"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -411,7 +409,6 @@ class VolunteerCoordinatorAnalyticsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["VolunteerCoordinatorAnalyticsScreen Primary Content", "Volunteercoordinatoranalytics Title", "Volunteercoordinatoranalytics Screen", "Volunteercoordinatoranalytics Content"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -495,7 +492,6 @@ class VolunteerCoordinatorAnalyticsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["Volunteercoordinatoranalytics Btn 2", "Volunteercoordinatoranalytics Btn 3", "Volunteercoordinatoranalytics Btn 1"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -529,7 +525,7 @@ class VolunteerCoordinatorAnalyticsScreen extends GovernedConsumerWidget {
     ),
             const SizedBox(height: 24),
 
-            // 3. GOVERNANCE AUDIT LOG & COMPLIANCE SPECIFICATIONS
+            // 3. GOVERNANCE AUDIT LOG & ALL MAPPED API ENDPOINTS
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(18),
@@ -540,9 +536,12 @@ class VolunteerCoordinatorAnalyticsScreen extends GovernedConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('GOVERNANCE SPECIFICATIONS & API ENDPOINT MAPPING', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                  const Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
                   const SizedBox(height: 8),
-                  Text('• Mapped API: GET /v1/volunteer-coordinator-analytics', style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontFamily: 'monospace')),
+                  ...["\u2022 Mapped API: GET /v1/volunteer-coordinator-analytics"].map((apiStr) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: Text(apiStr, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11, fontFamily: 'monospace')),
+                  )),
                   const SizedBox(height: 4),
                   const Text('• Cypress Selector: data-cy="screen-volunteer-coordinator-analytics"', style: TextStyle(color: Color(0xFF34D399), fontSize: 12, fontFamily: 'monospace')),
                   const SizedBox(height: 4),

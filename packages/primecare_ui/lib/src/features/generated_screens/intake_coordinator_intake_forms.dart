@@ -9,6 +9,9 @@ import 'package:flutter_core/flutter_core.dart';
 final intake_coordinator_intake_formsDataProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   final api = ref.read(apiClientProvider);
   try {
+    // API Endpoint: GET /v1/intake-coordinator-intake-forms
+    // API Endpoint: POST /v1/intake-coordinator-intake-forms
+    // API Endpoint: PATCH /v1/intake-coordinator-intake-forms/:id
     final response = await api.get('/v1/intake-coordinator-intake-forms');
     return response.data is Map ? Map<String, dynamic>.from(response.data as Map) : {};
   } catch (_) {
@@ -159,7 +162,6 @@ class IntakeCoordinatorIntakeFormsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["Intake Coordinator Intake Forms Screen Root", "Intake Coordinator Intake Forms Page Title", "Intake Coordinator Intake Forms Screen Title", "GUEST Role Badge"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -243,7 +245,6 @@ class IntakeCoordinatorIntakeFormsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["Intake Coordinator Intake Forms Primary Content"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -327,7 +328,6 @@ class IntakeCoordinatorIntakeFormsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["Intake Coordinator Intake Forms Screen Root", "Intake Coordinator Intake Forms Page Title", "Intake Coordinator Intake Forms Primary Content", "Intake Coordinator Intake Forms Screen Title"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -411,7 +411,6 @@ class IntakeCoordinatorIntakeFormsScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          // SECTION ELEMENTS & INTERACTIVE CONTROLS FROM DB
           ...["Intake Coordinator Intake Forms Screen Root", "Intake Coordinator Intake Forms Page Title", "Intake Coordinator Intake Forms Primary Content", "Intake Coordinator Intake Forms Screen Title"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
@@ -445,7 +444,7 @@ class IntakeCoordinatorIntakeFormsScreen extends GovernedConsumerWidget {
     ),
             const SizedBox(height: 24),
 
-            // 3. GOVERNANCE AUDIT LOG & COMPLIANCE SPECIFICATIONS
+            // 3. GOVERNANCE AUDIT LOG & ALL MAPPED API ENDPOINTS
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(18),
@@ -456,9 +455,12 @@ class IntakeCoordinatorIntakeFormsScreen extends GovernedConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('GOVERNANCE SPECIFICATIONS & API ENDPOINT MAPPING', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                  const Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
                   const SizedBox(height: 8),
-                  Text('• Mapped API: GET /v1/intake-coordinator-intake-forms', style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12, fontFamily: 'monospace')),
+                  ...["\u2022 Mapped API: GET /v1/intake-coordinator-intake-forms", "\u2022 Mapped API: POST /v1/intake-coordinator-intake-forms", "\u2022 Mapped API: PATCH /v1/intake-coordinator-intake-forms/:id"].map((apiStr) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4.0),
+                    child: Text(apiStr, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11, fontFamily: 'monospace')),
+                  )),
                   const SizedBox(height: 4),
                   const Text('• Cypress Selector: data-cy="screen-intake-coordinator-intake-forms"', style: TextStyle(color: Color(0xFF34D399), fontSize: 12, fontFamily: 'monospace')),
                   const SizedBox(height: 4),
