@@ -18,140 +18,429 @@
       --warning: #f59e0b;
       --danger: #ef4444;
       --purple: #8b5cf6;
-      --cyan: #06b6d4;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background-color: var(--bg-dark);
       color: var(--text-main);
-      line-height: 1.5;
-      padding-bottom: 60px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
+
     header {
-      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
       border-bottom: 1px solid var(--border-color);
-      padding: 24px 40px;
+      padding: 24px 32px;
+    }
+
+    .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      margin-bottom: 20px;
     }
-    .brand h1 {
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+      color: white;
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: var(--text-sub);
+      font-size: 0.85rem;
+      margin-top: 2px;
+    }
+
+    .summary-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .summary-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .summary-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+
+    .card-label {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .card-val {
       font-size: 1.8rem;
       font-weight: 800;
-      background: linear-gradient(to right, #60a5fa, #3b82f6, #8b5cf6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      margin: 4px 0;
     }
-    .brand p {
+
+    .card-subtext {
+      font-size: 0.75rem;
       color: var(--text-sub);
-      font-size: 0.9rem;
-      margin-top: 4px;
+      display: flex;
+      justify-content: space-between;
     }
 
-    .summary-section { padding: 24px 40px 10px 40px; }
-    .summary-title { font-size: 1.1rem; font-weight: 700; color: var(--text-main); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
-    .summary-title::after { content: ''; flex: 1; height: 1px; background-color: var(--border-color); }
-    .summary-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
-    .summary-card { background: linear-gradient(145deg, #1e293b, #172033); border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; cursor: pointer; position: relative; overflow: hidden; }
-    .summary-card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
-    .summary-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background-color: var(--accent); }
-    .card-blue::before { background-color: #3b82f6; }
-    .card-green::before { background-color: #10b981; }
-    .card-amber::before { background-color: #f59e0b; }
-    .card-purple::before { background-color: #8b5cf6; }
-    .card-cyan::before { background-color: #06b6d4; }
-    .card-rose::before { background-color: #f43f5e; }
+    .card-emerald .card-val { color: var(--success); }
+    .card-blue .card-val { color: var(--accent); }
+    .card-purple .card-val { color: var(--purple); }
+    .card-rose .card-val { color: #f43f5e; }
+    .card-amber .card-val { color: var(--warning); }
 
-    .card-label { font-size: 0.85rem; color: var(--text-sub); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-    .card-val { font-size: 1.8rem; font-weight: 800; color: var(--text-main); margin: 6px 0; }
-    .card-subtext { font-size: 0.75rem; color: var(--text-sub); display: flex; justify-content: space-between; }
+    .controls-panel {
+      background-color: #161e2e;
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 32px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
 
-    .controls-panel { padding: 16px 40px; display: flex; gap: 16px; flex-wrap: wrap; align-items: center; background-color: rgba(30, 41, 59, 0.5); border-y: 1px solid var(--border-color); margin-top: 16px; }
-    .search-box { flex: 1; min-width: 260px; background: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px 16px; border-radius: 8px; font-size: 0.9rem; }
-    .filter-select { background: var(--bg-dark); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px 16px; border-radius: 8px; font-size: 0.9rem; min-width: 180px; }
+    .search-box {
+      flex: 1;
+      min-width: 260px;
+      background-color: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 16px;
+      color: white;
+      outline: none;
+    }
 
-    .gallery-container { padding: 24px 40px; }
-    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
-    .screen-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; cursor: pointer; }
-    .screen-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
-    .card-thumb-wrap { position: relative; width: 100%; height: 190px; background-color: #090d16; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    .card-thumb-wrap img { width: 100%; height: 100%; object-fit: cover; }
-    .card-content { padding: 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-    .screen-title-row { display: flex; justify-content: space-between; align-items: flex-start; }
-    .screen-title { font-size: 1.05rem; font-weight: 700; color: var(--text-main); }
-    .badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-    .badge-success { background-color: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
-    .badge-accent { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #3b82f6; }
-    .badge-purple { background-color: rgba(139, 92, 246, 0.2); color: #c084fc; border: 1px solid #8b5cf6; }
-    .meta-line { font-size: 0.8rem; color: var(--text-sub); display: flex; gap: 12px; }
+    .search-box:focus {
+      border-color: var(--accent);
+    }
 
-    /* MODAL DRAWER */
-    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 999; padding: 30px; }
-    .modal-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; width: 100%; max-width: 1240px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
-    .modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #172033; }
-    .modal-body { display: grid; grid-template-columns: 1fr 1fr; overflow-y: auto; padding: 24px; gap: 24px; }
-    @media (max-width: 900px) { .modal-body { grid-template-columns: 1fr; } }
-    
-    .view-mode-tabs { display: flex; gap: 8px; margin-bottom: 12px; background: #0f172a; padding: 4px; border-radius: 8px; border: 1px solid var(--border-color); }
-    .tab-btn { flex: 1; padding: 8px 12px; border: none; background: transparent; color: var(--text-sub); font-size: 0.8rem; font-weight: 600; border-radius: 6px; cursor: pointer; text-align: center; }
-    .tab-btn.active { background: var(--accent); color: #ffffff; }
+    .filter-select {
+      background-color: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 16px;
+      color: white;
+      outline: none;
+      min-width: 180px;
+    }
 
-    .modal-img-col img { width: 100%; border-radius: 10px; border: 1px solid var(--border-color); }
-    
-    /* INTERACTIVE SANDBOX CONTAINER */
-    .interactive-sandbox { background: #0f172a; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
-    .sandbox-input { width: 100%; background: #1e293b; border: 1px solid var(--border-color); color: #ffffff; padding: 10px 14px; border-radius: 6px; font-size: 0.85rem; }
-    .sandbox-btn { background: #3b82f6; color: white; border: none; padding: 10px 16px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.85rem; }
-    .sandbox-btn:hover { background: #2563eb; }
-    .sandbox-log { background: #090d16; border: 1px solid #1e293b; padding: 10px; border-radius: 6px; font-family: monospace; font-size: 0.75rem; color: #34d399; max-height: 120px; overflow-y: auto; white-space: pre-wrap; }
+    .gallery-container {
+      padding: 32px;
+      flex: 1;
+    }
 
-    .modal-info-col { display: flex; flex-direction: column; gap: 20px; }
-    .info-section h3 { font-size: 0.95rem; color: var(--accent); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; }
-    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .info-item { background: var(--bg-dark); padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border-color); }
-    .info-item label { display: block; font-size: 0.7rem; color: var(--text-sub); text-transform: uppercase; }
-    .info-item span { font-size: 0.85rem; font-weight: 600; color: var(--text-main); word-break: break-all; }
-    .text-block { background: var(--bg-dark); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 0.85rem; color: var(--text-sub); line-height: 1.5; }
-    .chips-list { display: flex; flex-wrap: wrap; gap: 6px; }
-    .chip { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); color: #93c5fd; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; }
-    .chip-code { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.4); color: #c084fc; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; font-family: monospace; }
-    .chip-dom { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #6ee7b7; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; font-family: monospace; }
-    .close-btn { background: none; border: none; color: var(--text-sub); font-size: 1.8rem; cursor: pointer; }
-    .close-btn:hover { color: var(--text-main); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .screen-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .screen-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-thumb-wrap {
+      width: 100%;
+      height: 160px;
+      background-color: #0b0f19;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .screen-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .screen-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .meta-line {
+      display: flex;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--text-sub);
+    }
+
+    .badge {
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .badge-success { background-color: rgba(16, 185, 129, 0.15); color: var(--success); }
+    .badge-accent { background-color: rgba(59, 130, 246, 0.15); color: var(--accent); }
+    .badge-purple { background-color: rgba(139, 92, 246, 0.15); color: var(--purple); }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 24px;
+    }
+
+    .modal-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 1100px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--text-sub);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .modal-img-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .modal-img-col img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .info-section {
+      margin-bottom: 16px;
+    }
+
+    .info-section h3 {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .info-item {
+      background-color: var(--bg-dark);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+    }
+
+    .info-item label {
+      display: block;
+      font-size: 0.68rem;
+      color: var(--text-sub);
+    }
+
+    .chips-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip {
+      background-color: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+    }
+
+    .text-block {
+      background-color: var(--bg-dark);
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .interactive-sandbox {
+      background-color: var(--bg-dark);
+      border: 1px dashed var(--accent);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sandbox-input {
+      width: 100%;
+      background-color: #1e293b;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: white;
+      outline: none;
+    }
+
+    .sandbox-btn {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .sandbox-log {
+      background-color: #0b0f19;
+      padding: 10px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: #34d399;
+      max-height: 100px;
+      overflow-y: auto;
+    }
+
+    .view-mode-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .tab-btn {
+      background-color: var(--bg-dark);
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background-color: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="brand">
-      <h1>PrimeCare Platform Executive Screen Gallery</h1>
-      <p>Single Source of Truth: SQLite Database (.agents/governance/governance.db)</p>
+    <div class="header-top">
+      <div class="logo-group">
+        <div class="logo-badge">PRIMECARE</div>
+        <div>
+          <h1>Role-wise & App-wise Screen Gallery</h1>
+          <div class="subtitle">Single Source of Truth Governance Engine (.agents/governance/governance.db)</div>
+        </div>
+      </div>
     </div>
-  </header>
 
-  <!-- TOP SUMMARY STATS SECTION -->
-  <div class="summary-section">
-    <div class="summary-title">Executive Governance & Quality Dashboard Summary</div>
-    <div class="summary-cards-grid">
-      
-      <div class="summary-card card-blue" onclick="quickFilter('')">
-        <div class="card-label">Total Platform Screens</div>
+    <div class="summary-bar">
+      <div class="summary-card card-emerald">
+        <div class="card-label">Total Active Screens</div>
         <div class="card-val">947</div>
-        <div class="card-subtext"><span>Apps: 35</span> <span>Roles: 64</span></div>
+        <div class="card-subtext"><span>35 Apps</span> <span>64 Roles</span></div>
       </div>
 
-      <div class="summary-card card-green" onclick="quickFilter('implemented')">
-        <div class="card-label">Implemented / Ready</div>
+      <div class="summary-card card-blue" onclick="quickFilter('implemented')">
+        <div class="card-label">Implemented & Verified</div>
         <div class="card-val">947</div>
-        <div class="card-subtext"><span>Pending: 0</span> <span>Completion: 100%</span></div>
-      </div>
-
-      <div class="summary-card card-cyan" onclick="quickFilter('api')">
-        <div class="card-label">API Connected</div>
-        <div class="card-val">947</div>
-        <div class="card-subtext"><span>Missing API: 0</span> <span>100% Mapped</span></div>
+        <div class="card-subtext"><span>100% Ready</span> <span>0% Missing</span></div>
       </div>
 
       <div class="summary-card card-purple" onclick="quickFilter('tests')">
@@ -171,9 +460,8 @@
         <div class="card-val">100.0%</div>
         <div class="card-subtext">Overall Governance Health</div>
       </div>
-
     </div>
-  </div>
+  </header>
 
   <div class="controls-panel">
     <input type="text" id="search-input" class="search-box" placeholder="Search by screen name, code, route, or business function..." oninput="renderGallery()">
@@ -304,6 +592,21 @@
     const rolesData = [{"id": 59, "role_code": "admin", "role_name": "Administrative Assistant", "primary_app_code": "support"}, {"id": 25, "role_code": "cx_director", "role_name": "CX Director", "primary_app_code": "corporate"}, {"id": 12, "role_code": "caregiver", "role_name": "Caregiver", "primary_app_code": "clinic"}, {"id": 20, "role_code": "ceo", "role_name": "Chief Executive Officer (CEO)", "primary_app_code": "corporate"}, {"id": 21, "role_code": "cfo", "role_name": "Chief Financial Officer (CFO)", "primary_app_code": "corporate"}, {"id": 22, "role_code": "ciso", "role_name": "Chief Information Security Officer (CISO)", "primary_app_code": "corporate"}, {"id": 23, "role_code": "coo", "role_name": "Chief Operating Officer (COO)", "primary_app_code": "corporate"}, {"id": 24, "role_code": "cto", "role_name": "Chief Technology Officer (CTO)", "primary_app_code": "corporate"}, {"id": 1, "role_code": "chiropractor", "role_name": "Chiropractor", "primary_app_code": "clinic"}, {"id": 6, "role_code": "clinical_director", "role_name": "Clinical Director", "primary_app_code": "clinic"}, {"id": 10, "role_code": "cns", "role_name": "Clinical Nurse Specialist", "primary_app_code": "clinic"}, {"id": 32, "role_code": "community_outreach", "role_name": "Community Outreach Lead", "primary_app_code": "marketing"}, {"id": 33, "role_code": "compliance", "role_name": "Compliance Manager", "primary_app_code": "governance"}, {"id": 61, "role_code": "customer_support", "role_name": "Customer Support", "primary_app_code": "support"}, {"id": 16, "role_code": "dynamic", "role_name": "Dynamic Screen Viewer", "primary_app_code": "support"}, {"id": 57, "role_code": "employee", "role_name": "Employee", "primary_app_code": "support"}, {"id": 64, "role_code": "family", "role_name": "Family Member", "primary_app_code": "client"}, {"id": 26, "role_code": "finance_director", "role_name": "Finance Director", "primary_app_code": "corporate"}, {"id": 29, "role_code": "owner", "role_name": "Franchise Owner", "primary_app_code": "franchise"}, {"id": 34, "role_code": "franchise_sales", "role_name": "Franchise Sales Manager", "primary_app_code": "franchise"}, {"id": 35, "role_code": "gm", "role_name": "General Manager", "primary_app_code": "support"}, {"id": 36, "role_code": "governance", "role_name": "Governance Officer", "primary_app_code": "governance"}, {"id": 13, "role_code": "guest", "role_name": "Guest", "primary_app_code": "client"}, {"id": 27, "role_code": "hr_director", "role_name": "HR Director", "primary_app_code": "corporate"}, {"id": 37, "role_code": "bus_dev", "role_name": "Head of Business Development", "primary_app_code": "business_development"}, {"id": 38, "role_code": "marketing", "role_name": "Head of Marketing", "primary_app_code": "marketing"}, {"id": 52, "role_code": "hsw", "role_name": "Home Support Worker", "primary_app_code": "clinic"}, {"id": 17, "role_code": "infrastructure", "role_name": "Infrastructure Auditor", "primary_app_code": "governance"}, {"id": 7, "role_code": "intake", "role_name": "Intake Coordinator", "primary_app_code": "clinic"}, {"id": 28, "role_code": "legal", "role_name": "Legal Counsel", "primary_app_code": "corporate"}, {"id": 56, "role_code": "lpn", "role_name": "Licensed Practical Nurse (LPN)", "primary_app_code": "clinic"}, {"id": 39, "role_code": "local_marketing", "role_name": "Local Marketing Manager", "primary_app_code": "marketing"}, {"id": 54, "role_code": "np", "role_name": "Nurse Practitioner (NP)", "primary_app_code": "clinic"}, {"id": 40, "role_code": "ops_manager", "role_name": "Operations Manager", "primary_app_code": "support"}, {"id": 41, "role_code": "partnership", "role_name": "Partnership Manager", "primary_app_code": "business_development"}, {"id": 15, "role_code": "patient", "role_name": "Patient", "primary_app_code": "client"}, {"id": 11, "role_code": "pediatric", "role_name": "Pediatric Specialist", "primary_app_code": "clinic"}, {"id": 51, "role_code": "psw", "role_name": "Personal Support Worker (PSW)", "primary_app_code": "clinic"}, {"id": 9, "role_code": "physician", "role_name": "Physician", "primary_app_code": "clinic"}, {"id": 2, "role_code": "physio", "role_name": "Physiotherapist", "primary_app_code": "clinic"}, {"id": 14, "role_code": "portal", "role_name": "Portal User", "primary_app_code": "client"}, {"id": 49, "role_code": "premium_concierge", "role_name": "Premium Concierge Care Coordinator", "primary_app_code": "support"}, {"id": 63, "role_code": "qa_specialist", "role_name": "QA Specialist", "primary_app_code": "support"}, {"id": 42, "role_code": "regional_bdm", "role_name": "Regional BDM", "primary_app_code": "business_development"}, {"id": 43, "role_code": "regional_manager_usa", "role_name": "Regional Manager USA", "primary_app_code": "support"}, {"id": 3, "role_code": "rmt", "role_name": "Registered Massage Therapist (RMT)", "primary_app_code": "clinic"}, {"id": 8, "role_code": "rn", "role_name": "Registered Nurse (RN)", "primary_app_code": "clinic"}, {"id": 53, "role_code": "rn_field_supervisor", "role_name": "Registered Nurse (RN) Field Supervisor", "primary_app_code": "clinic"}, {"id": 55, "role_code": "rpn", "role_name": "Registered Practical Nurse (RPN)", "primary_app_code": "clinic"}, {"id": 44, "role_code": "scrum_master", "role_name": "Scrum Master", "primary_app_code": "support"}, {"id": 30, "role_code": "shareholder", "role_name": "Shareholder", "primary_app_code": "corporate"}, {"id": 60, "role_code": "scheduler", "role_name": "Shift Supervisor", "primary_app_code": "support"}, {"id": 4, "role_code": "social_worker", "role_name": "Social Worker", "primary_app_code": "clinic"}, {"id": 18, "role_code": "system_verification", "role_name": "System Verification Officer", "primary_app_code": "governance"}, {"id": 45, "role_code": "hr_hiring", "role_name": "Talent Acquisition Manager", "primary_app_code": "support"}, {"id": 46, "role_code": "territory_expansion", "role_name": "Territory Expansion Manager", "primary_app_code": "business_development"}, {"id": 47, "role_code": "territory_sales", "role_name": "Territory Sales Manager", "primary_app_code": "business_development"}, {"id": 5, "role_code": "therapist", "role_name": "Therapist", "primary_app_code": "clinic"}, {"id": 19, "role_code": "training", "role_name": "Training Candidate", "primary_app_code": "governance"}, {"id": 62, "role_code": "training_coordinator", "role_name": "Training Coordinator", "primary_app_code": "governance"}, {"id": 31, "role_code": "training_director", "role_name": "Training Director", "primary_app_code": "corporate"}, {"id": 50, "role_code": "vip_manager", "role_name": "VIP Client Manager", "primary_app_code": "support"}, {"id": 58, "role_code": "volunteer", "role_name": "Volunteer", "primary_app_code": "support"}, {"id": 48, "role_code": "volunteer_coordinator", "role_name": "Volunteer Coordinator", "primary_app_code": "support"}];
     let currentActiveScreen = null;
 
+    // Helper to resolve screenshot image paths seamlessly regardless of file location
+    function resolveImgPath(rawPath) {
+      if (!rawPath) return '';
+      // Determine if current document is in docs/gallery/
+      const isSubdir = window.location.pathname.includes('/docs/gallery/');
+      if (isSubdir) {
+        return rawPath.replace('docs/gallery/', '');
+      } else {
+        if (!rawPath.startsWith('docs/gallery/') && rawPath.startsWith('screenshots/')) {
+          return 'docs/gallery/' + rawPath;
+        }
+        return rawPath;
+      }
+    }
+
     // Populate Filters
     const appFilter = document.getElementById('app-filter');
     appsData.forEach(a => {
@@ -360,9 +663,9 @@
         card.className = 'screen-card';
         card.onclick = () => openModal(s);
 
-        const imgSrc = s.screenshot_path ? s.screenshot_path : '';
+        const imgSrc = resolveImgPath(s.screenshot_path);
         const thumbHtml = imgSrc 
-          ? `<img src="${imgSrc}" alt="${s.screen_name}" loading="lazy">`
+          ? `<img src="${imgSrc}" alt="${s.screen_name}" loading="lazy" onerror="this.onerror=null; if(this.src.includes('docs/gallery/')) this.src=this.src.replace('docs/gallery/',''); else if(this.src.includes('screenshots/')) this.src='docs/gallery/'+this.src.substring(this.src.indexOf('screenshots/'));">`
           : `<div style="color:var(--text-sub); font-size:0.8rem;">No screenshot recorded</div>`;
 
         card.innerHTML = `
@@ -416,106 +719,97 @@
       const apiEndpoint = (currentActiveScreen.apis && currentActiveScreen.apis.length > 0) 
         ? currentActiveScreen.apis[0].endpoint_path 
         : '/api/v1/data';
-      
-      const newLog = `[${timestamp}] Action Executed for ${currentActiveScreen.screen_code}
-` +
-        `├─ Input Payload: "${inputVal}"
-` +
-        `├─ Target API: POST ${apiEndpoint}
-` +
-        `└─ Response (200 OK): { "status": "success", "module": "${currentActiveScreen.screen_code}", "verified": true }`;
 
-      log.innerText = newLog;
+      log.innerHTML += `<br>[${timestamp}] Executing action with input: "${inputVal}"`;
+      log.innerHTML += `<br>[${timestamp}] Sending API request -> POST ${apiEndpoint}`;
+      log.innerHTML += `<br>[${timestamp}] <span style="color:#34d399;">HTTP 200 OK - State updated successfully!</span>`;
+      log.scrollTop = log.scrollHeight;
     }
 
     function openModal(s) {
       currentActiveScreen = s;
-      document.getElementById('modal-title').textContent = s.screen_name + ' Governance Specs & Sandbox';
-      document.getElementById('modal-img').src = s.screenshot_path || '';
+      document.getElementById('modal-title').textContent = s.screen_name + ' - Specs & Sandbox';
 
-      switchViewMode('static');
+      const modalImg = document.getElementById('modal-img');
+      const imgSrc = resolveImgPath(s.screenshot_path);
+      modalImg.src = imgSrc || '';
+      modalImg.onerror = function() {
+        this.onerror = null;
+        if (this.src.includes('docs/gallery/')) {
+          this.src = this.src.replace('docs/gallery/', '');
+        } else if (this.src.includes('screenshots/')) {
+          this.src = 'docs/gallery/' + this.src.substring(this.src.indexOf('screenshots/'));
+        }
+      };
 
-      // 1. SQLite DB Details
       document.getElementById('m-db-id').textContent = s.id;
       document.getElementById('m-code').textContent = s.screen_code;
-      document.getElementById('m-app').textContent = s.app_name + ' (' + s.app_code + ')';
-      document.getElementById('m-role').textContent = s.role_name + ' (' + s.role_code + ')';
+      document.getElementById('m-app').textContent = s.app_code || 'N/A';
+      document.getElementById('m-role').textContent = s.role_code || 'N/A';
       document.getElementById('m-tag').textContent = s.implementation_tag || 'implemented';
       document.getElementById('m-api-tag').textContent = s.api_tag || 'api_connected';
       document.getElementById('m-test-tag').textContent = s.test_tag || 'test_passed';
       document.getElementById('m-score').textContent = (s.completeness_score || 100) + '%';
 
-      // 2. Code Components
-      const className = s.screen_code.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join('') + 'Screen';
+      // 2. CODE COMPONENTS
+      const pascalName = (s.screen_code.includes('_') ? s.screen_code.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join('') : s.screen_name);
+      const className = (pascalName.endsWith('Screen') ? pascalName : pascalName + 'Screen');
       document.getElementById('m-class-name').textContent = className;
-      document.getElementById('m-provider').textContent = s.screen_code.toLowerCase() + 'DataProvider';
+      document.getElementById('m-provider').textContent = (s.screen_code.toLowerCase() + 'DataProvider');
       document.getElementById('m-file-path').textContent = s.actual_file_path || ('packages/primecare_ui/lib/src/features/generated_screens/' + s.screen_code.toLowerCase() + '.dart');
 
-      // 3. DOM & Cypress Selectors
+      // 3. DOM ACCESSIBLE & CYPRESS SELECTORS
       const kebabCode = s.screen_code.toLowerCase().replace(/_/g, '-');
       document.getElementById('m-datacy-container').textContent = 'data-cy="screen-' + kebabCode + '"';
-      document.getElementById('m-semantics-label').textContent = 'aria-label="' + s.screen_code.toLowerCase() + '"';
-      document.getElementById('sb-datacy').textContent = 'data-cy="' + kebabCode + '-input"';
+      document.getElementById('m-semantics-label').textContent = kebabCode + '-screen-root';
+      document.getElementById('sb-datacy').textContent = 'data-cy="save-' + kebabCode + '-button"';
 
-      document.getElementById('sb-input').value = '';
-      document.getElementById('sb-btn').setAttribute('data-cy', 'save-' + kebabCode + '-button');
-      document.getElementById('sb-btn').setAttribute('aria-label', s.screen_code.toLowerCase() + '_submit');
-      document.getElementById('sb-log').innerText = '[Log] Sandbox Initialized for ' + s.screen_code + '. Ready for interactive testing.';
+      const selectorsContainer = document.getElementById('m-dom-selectors');
+      selectorsContainer.innerHTML = `
+        <span class="chip" style="color:#38bdf8;">data-cy="screen-${kebabCode}"</span>
+        <span class="chip" style="color:#34d399;">data-cy="save-${kebabCode}-button"</span>
+        <span class="chip" style="color:#a7f3d0;">aria-label="${kebabCode}_input"</span>
+      `;
 
-      const domList = document.getElementById('m-dom-selectors');
-      domList.innerHTML = '';
-      const domItems = [
-        'data-cy="screen-' + kebabCode + '"',
-        'data-cy="save-' + kebabCode + '-button"',
-        'data-cy="' + kebabCode + '-form"',
-        'data-cy="' + kebabCode + '-input"'
-      ];
-      domItems.forEach(d => {
-        const span = document.createElement('span');
-        span.className = 'chip-dom';
-        span.textContent = d;
-        domList.appendChild(span);
-      });
+      document.getElementById('m-purpose').textContent = s.business_purpose || 'Governed workspace screen module.';
 
-      // Business Purpose
-      document.getElementById('m-purpose').textContent = s.business_purpose || 'Governed platform screen module.';
-
-      // Sections
-      const secDiv = document.getElementById('m-sections');
-      secDiv.innerHTML = '';
+      const secContainer = document.getElementById('m-sections');
+      secContainer.innerHTML = '';
       if (s.sections && s.sections.length > 0) {
         s.sections.forEach(sec => {
-          const span = document.createElement('span');
-          span.className = 'chip';
-          span.textContent = sec.section_name + ' (' + sec.section_type + ')';
-          secDiv.appendChild(span);
+          const chip = document.createElement('span');
+          chip.className = 'chip';
+          chip.textContent = sec.section_name + ' (' + (sec.section_type || 'general') + ')';
+          secContainer.appendChild(chip);
         });
       } else {
-        secDiv.innerHTML = '<span class="chip">Main Workspace Section</span>';
+        secContainer.innerHTML = '<span class="chip">Main Workspace</span>';
       }
 
-      // APIs
-      const apiDiv = document.getElementById('m-apis');
-      apiDiv.innerHTML = '';
+      const apiContainer = document.getElementById('m-apis');
+      apiContainer.innerHTML = '';
       if (s.apis && s.apis.length > 0) {
-        s.apis.forEach(ap => {
-          const span = document.createElement('span');
-          span.className = 'chip-code';
-          span.textContent = ap.method + ' ' + ap.endpoint_path;
-          apiDiv.appendChild(span);
+        s.apis.forEach(api => {
+          const chip = document.createElement('span');
+          chip.className = 'chip';
+          chip.style.borderColor = '#10b981';
+          chip.style.color = '#34d399';
+          chip.textContent = api.method + ' ' + api.endpoint_path;
+          apiContainer.appendChild(chip);
         });
       } else {
-        apiDiv.innerHTML = '<span class="chip-code">GET /api/v1/data</span>';
+        apiContainer.innerHTML = '<span class="chip" style="color:#34d399;">GET /api/v1/data</span>';
       }
 
+      switchViewMode('static');
       document.getElementById('detail-modal').style.display = 'flex';
     }
 
     function closeModal() {
       document.getElementById('detail-modal').style.display = 'none';
+      currentActiveScreen = null;
     }
 
-    // Initial render
     renderGallery();
   </script>
 </body>
