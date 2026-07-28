@@ -129,11 +129,30 @@ public class Action extends baseTest implements ActionInterface {
 	public boolean type(WebElement ele, String text) {
 		boolean flag = false;
 		try {
-			flag = ele.isDisplayed();
-			ele.clear();
-			ele.sendKeys(text);
-			// logger.info("Entered text :"+text);
-			flag = true;
+			if (ele != null) {
+				try {
+					ele.clear();
+					ele.sendKeys(text);
+					flag = true;
+				} catch (Exception ex) {
+					// Fallback to JavaScript dispatch for Flutter Web and custom inputs
+					try {
+						JavascriptExecutor js = (JavascriptExecutor) driver;
+						js.executeScript(
+							"var input = arguments[0]; " +
+							"if (input) { " +
+							"  input.value = arguments[1]; " +
+							"  input.dispatchEvent(new Event('input', { bubbles: true })); " +
+							"  input.dispatchEvent(new Event('change', { bubbles: true })); " +
+							"}",
+							ele, text
+						);
+						flag = true;
+					} catch (Exception jsEx) {
+						flag = false;
+					}
+				}
+			}
 		} catch (Exception e) {
 			System.out.println("Location Not found");
 			flag = false;
@@ -143,7 +162,6 @@ public class Action extends baseTest implements ActionInterface {
 			} else {
 				System.out.println("Unable to enter value");
 			}
-
 		}
 		return flag;
 	}
