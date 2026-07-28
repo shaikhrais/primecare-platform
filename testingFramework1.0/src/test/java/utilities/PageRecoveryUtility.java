@@ -1,14 +1,10 @@
 package utilities;
 
 import java.time.Duration;
-import java.util.List;
-import java.util.ArrayList;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
@@ -17,9 +13,10 @@ public class PageRecoveryUtility {
     private static final int MAX_ATTEMPTS = 3;
 
     public enum PageState {
+        SYSTEM_ERROR,
         LANGUAGE_PAGE,
         LOGIN_PAGE,
-        SYSTEM_ERROR,
+        TARGET_PAGE,
         AUTHENTICATED_DASHBOARD,
         UNKNOWN
     }
@@ -42,105 +39,106 @@ public class PageRecoveryUtility {
     }
 
     /**
-     * STEP 1: Identify current state by inspecting actual URL and DOM elements.
+     * STRICT 4-STEP RECOVERY FLOW:
+     * 1. Check Error Page? (YES -> Record error & reload; NO -> Step 2)
+     * 2. Check Language Page? (YES -> Select lang & continue; NO -> Step 3)
+     * 3. Check Login Page? (YES -> Fill creds & submit; NO -> Step 4)
+     * 4. Check Target Page? (YES -> Ready to run test; NO -> Retry up to 3 times)
      */
-    public PageState identifyPageState() {
-        String currentUrl = "";
-        try {
-            currentUrl = driver.getCurrentUrl();
-        } catch (Exception e) {
-            currentUrl = "";
-        }
+    public boolean executeSequentialRecoveryProtocol(String targetRoute, String email, String password) {
+        for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+            System.out.println("\n[Recovery Protocol] ATTEMPT " + attempt + " of " + MAX_ATTEMPTS + " | Route: " + targetRoute);
 
-        System.out.println("[PageRecovery] Identifying current page state. Actual URL: " + currentUrl);
-
-        // Check System Error State first
-        if (isSystemErrorState(currentUrl)) {
-            System.out.println("[PageRecovery] Detected State: SYSTEM_ERROR");
-            return PageState.SYSTEM_ERROR;
-        }
-
-        // Check Language Page State
-        if (isLanguagePageState(currentUrl)) {
-            System.out.println("[PageRecovery] Detected State: LANGUAGE_PAGE");
-            return PageState.LANGUAGE_PAGE;
-        }
-
-        // Check Login Page State
-        if (isLoginPageState(currentUrl)) {
-            System.out.println("[PageRecovery] Detected State: LOGIN_PAGE");
-            return PageState.LOGIN_PAGE;
-        }
-
-        // Check Authenticated Dashboard State
-        if (isLoggedIn()) {
-            System.out.println("[PageRecovery] Detected State: AUTHENTICATED_DASHBOARD");
-            return PageState.AUTHENTICATED_DASHBOARD;
-        }
-
-        return PageState.UNKNOWN;
-    }
-
-    /**
-     * STEP 2: Execute target flow based on identified page state.
-     */
-    public void executeStateFlow(String email, String password) {
-        PageState state = identifyPageState();
-
-        switch (state) {
-            case LANGUAGE_PAGE:
-                System.out.println("[Flow] Executing Language Flow...");
-                handleLanguageFlow();
-                break;
-
-            case LOGIN_PAGE:
-                System.out.println("[Flow] Executing Login Flow...");
-                handleLoginFlow(email, password);
-                break;
-
-            case SYSTEM_ERROR:
-                System.out.println("[Flow] Recording System Error & Recovering...");
+            // -------------------------------------------------------------
+            // STEP 1: CHECK IS THIS SYSTEM ERROR PAGE?
+            // -------------------------------------------------------------
+            if (isSystemErrorPage()) {
+                System.err.println("  [Step 1: YES] System Error Page Detected! Recording Error...");
                 recordSystemError();
-                recoverToLoginPage();
-                break;
-
-            case AUTHENTICATED_DASHBOARD:
-                System.out.println("[Flow] Already authenticated. Proceeding to target workspace...");
-                break;
-
-            default:
-                System.out.println("[Flow] Unknown state. Navigating to login URL: " + loginUrl);
                 driver.get(loginUrl);
-                break;
+                sleep(1000);
+            } else {
+                System.out.println("  [Step 1: NO] Not an Error Page. Proceeding to Step 2...");
+            }
+
+            // -------------------------------------------------------------
+            // STEP 2: CHECK IS THIS LANGUAGE PAGE?
+            // -------------------------------------------------------------
+            if (isLanguagePage()) {
+                System.out.println("  [Step 2: YES] Language Page Detected! Running Language Flow...");
+                handleLanguageFlow();
+                sleep(1000);
+            } else {
+                System.out.println("  [Step 2: NO] Not a Language Page. Proceeding to Step 3...");
+            }
+
+            // -------------------------------------------------------------
+            // STEP 3: CHECK IS THIS LOGIN PAGE?
+            // -------------------------------------------------------------
+            if (isLoginPage()) {
+                System.out.println("  [Step 3: YES] Login Page Detected! Running Login Flow...");
+                handleLoginFlow(email, password);
+                sleep(1000);
+            } else {
+                System.out.println("  [Step 3: NO] Not a Login Page. Proceeding to Step 4...");
+            }
+
+            // -------------------------------------------------------------
+            // STEP 4: CHECK HAS TARGETED PAGE BEEN REACHED?
+            // -------------------------------------------------------------
+            if (isTargetPageReached(targetRoute)) {
+                System.out.println("  [Step 4: YES] Targeted Page Reached Successfully! Ready to Run Test.");
+                return true;
+            } else {
+                System.out.println("  [Step 4: NO] Target Page Not Reached Yet. Actual URL: " + getCurrentUrl());
+                // Force navigation to target route if attempt < MAX
+                if (attempt < MAX_ATTEMPTS) {
+                    String targetUrl = targetRoute.startsWith("http") ? targetRoute : loginUrl.replace("/login", "") + targetRoute;
+                    driver.get(targetUrl);
+                    sleep(1000);
+                }
+            }
         }
+
+        System.err.println("[Recovery Protocol] Failed to reach targeted page after " + MAX_ATTEMPTS + " attempts.");
+        return false;
     }
 
-    public boolean isLanguagePageState(String currentUrl) {
-        if (currentUrl != null && currentUrl.contains("/language")) return true;
-        return isElementVisible("lang-english") || isElementVisible("lang-french") || isElementVisible(langPageLabel) || isElementVisible("continue");
-    }
-
-    public boolean isLoginPageState(String currentUrl) {
-        if (currentUrl != null && currentUrl.contains("/login")) return true;
-        return isElementVisible(loginPageLabel) || isElementVisible(emailLabel);
-    }
-
-    public boolean isSystemErrorState(String currentUrl) {
-        if (currentUrl != null && (currentUrl.contains("/error") || currentUrl.contains("/404") || currentUrl.contains("/500"))) {
+    public boolean isSystemErrorPage() {
+        String currentUrl = getCurrentUrl();
+        if (currentUrl.contains("/error") || currentUrl.contains("/404") || currentUrl.contains("/500")) {
             return true;
         }
         return isElementVisible("error-state") || isElementVisible("system-error") || isElementVisible("exception-stack");
+    }
+
+    public boolean isLanguagePage() {
+        String currentUrl = getCurrentUrl();
+        if (currentUrl.contains("/language")) return true;
+        return isElementVisible("lang-english") || isElementVisible("lang-french") || isElementVisible(langPageLabel) || isElementVisible("continue");
+    }
+
+    public boolean isLoginPage() {
+        String currentUrl = getCurrentUrl();
+        if (currentUrl.contains("/login")) return true;
+        return isElementVisible(loginPageLabel) || isElementVisible(emailLabel);
+    }
+
+    public boolean isTargetPageReached(String targetRoute) {
+        String currentUrl = getCurrentUrl();
+        if (targetRoute == null || targetRoute.isEmpty()) return true;
+        String cleanRoute = targetRoute.split("\\?")[0];
+        if (cleanRoute.startsWith("http")) {
+            cleanRoute = cleanRoute.substring(cleanRoute.indexOf("/", 8));
+        }
+        return currentUrl.contains(cleanRoute);
     }
 
     public boolean isLoggedIn() {
         return isElementVisible(logoutLabel);
     }
 
-    /**
-     * LANGUAGE FLOW: Select English/French language and click Continue
-     */
     public void handleLanguageFlow() {
-        System.out.println("[Language Flow] Selecting default language (English) and clicking Continue...");
         try {
             WebElement engBtn = findElementByAriaLabel("lang-english");
             if (engBtn == null) engBtn = findElementByAriaLabel("english");
@@ -153,17 +151,12 @@ public class PageRecoveryUtility {
             if (contBtn != null) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", contBtn);
             }
-            System.out.println("[Language Flow] Language selection completed successfully!");
         } catch (Exception e) {
-            System.err.println("[Language Flow] Warning: " + e.getMessage());
+            System.err.println("Language Flow Exception: " + e.getMessage());
         }
     }
 
-    /**
-     * LOGIN FLOW: Fill credentials and submit
-     */
     public void handleLoginFlow(String email, String password) {
-        System.out.println("[Login Flow] Filling credentials for: " + email);
         try {
             WebElement emailInput = findElementByAriaLabel(emailLabel);
             if (emailInput != null) {
@@ -181,63 +174,37 @@ public class PageRecoveryUtility {
             if (submitBtn != null) {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", submitBtn);
             }
-            System.out.println("[Login Flow] Submitted login credentials.");
         } catch (Exception e) {
-            System.err.println("[Login Flow] Warning: " + e.getMessage());
+            System.err.println("Login Flow Exception: " + e.getMessage());
         }
     }
 
-    /**
-     * RECORD SYSTEM ERROR: Capture stack trace, URL, and log error details
-     */
     public void recordSystemError() {
         try {
-            String errorUrl = driver.getCurrentUrl();
-            System.err.println("[ERROR RECORD] System Error Detected at URL: " + errorUrl);
+            String errorUrl = getCurrentUrl();
+            System.err.println("[RECORD SYSTEM ERROR] URL: " + errorUrl);
             JavascriptExecutor js = (JavascriptExecutor) driver;
-            String pageText = (String) js.executeScript("return document.body ? document.body.innerText : '';");
-            System.err.println("[ERROR RECORD] Page Contents Preview: " + (pageText != null ? pageText.substring(0, Math.min(200, pageText.length())) : "EMPTY"));
+            String text = (String) js.executeScript("return document.body ? document.body.innerText : '';");
+            if (text != null && text.length() > 0) {
+                System.err.println("[RECORD SYSTEM ERROR] Error Snippet: " + text.substring(0, Math.min(250, text.length())));
+            }
         } catch (Exception e) {
-            System.err.println("[ERROR RECORD] Failed to record error: " + e.getMessage());
+            System.err.println("[RECORD SYSTEM ERROR] Failed to capture: " + e.getMessage());
         }
     }
 
-    public void recoverToLoginPage() {
-        for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-            System.out.println("[Recovery] Recovery attempt " + attempt + " of " + MAX_ATTEMPTS);
-            try {
-                if (isLoggedIn()) {
-                    System.out.println("[Recovery] User is logged in. Clicking logout...");
-                    WebElement logout = findElementByAriaLabel(logoutLabel);
-                    if (logout != null) {
-                        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", logout);
-                        Thread.sleep(1000);
-                    }
-                }
-
-                PageState state = identifyPageState();
-                if (state == PageState.LANGUAGE_PAGE) {
-                    handleLanguageFlow();
-                    Thread.sleep(1000);
-                }
-
-                if (state == PageState.LOGIN_PAGE) {
-                    System.out.println("[Recovery] Reached Login page successfully!");
-                    return;
-                }
-
-                System.out.println("[Recovery] Directing to Login URL: " + loginUrl);
-                driver.get(loginUrl);
-                Thread.sleep(1000);
-
-                if (identifyPageState() == PageState.LOGIN_PAGE) {
-                    System.out.println("[Recovery] Successfully arrived on Login page!");
-                    return;
-                }
-            } catch (Exception e) {
-                System.err.println("[Recovery] Attempt " + attempt + " exception: " + e.getMessage());
-            }
+    private String getCurrentUrl() {
+        try {
+            return driver.getCurrentUrl();
+        } catch (Exception e) {
+            return "";
         }
+    }
+
+    private void sleep(long ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (Exception ignored) {}
     }
 
     public WebElement findSemanticElement(String value) {

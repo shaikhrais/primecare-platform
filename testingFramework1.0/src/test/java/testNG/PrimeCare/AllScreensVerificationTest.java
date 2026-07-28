@@ -6,7 +6,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import base.baseUserCredentials;
 import utilities.PageRecoveryUtility;
-import utilities.PageRecoveryUtility.PageState;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -156,13 +155,6 @@ public class AllScreensVerificationTest extends baseUserCredentials {
         return data;
     }
 
-    protected void submitLoginCredentials(String email, String password) throws InterruptedException {
-        Thread.sleep(1000);
-        PageObjectsPrimeCare.ui.Auth2LoginScreen loginPage = new PageObjectsPrimeCare.ui.Auth2LoginScreen(driver);
-        System.out.println("Attempting login via Auth2LoginScreen...");
-        loginPage.Login(email, password);
-    }
-
     @Test(dataProvider = "activeScreens")
     public void verifyScreenLayoutAndDOM(ScreenTestData screen) {
         System.out.println("====== STARTING VERIFICATION FOR SCREEN " + screen.screenId + " (" + screen.screenName + ") ======");
@@ -188,32 +180,16 @@ public class AllScreensVerificationTest extends baseUserCredentials {
             driver.get(targetUrl);
 
             // =========================================================================
-            // 🔍 STEP 1 & STEP 2: IDENTIFY PAGE STATE & EXECUTE CORRESPONDING FLOW
+            // 🔍 EXECUTE 4-STEP SEQUENTIAL RECOVERY PROTOCOL BEFORE TEST:
+            // Step 1: Check Error Page? (YES -> Record error & reload; NO -> Step 2)
+            // Step 2: Check Language Page? (YES -> Run Language Flow; NO -> Step 3)
+            // Step 3: Check Login Page? (YES -> Run Login Flow; NO -> Step 4)
+            // Step 4: Check Target Page? (YES -> Ready to run test!)
             // =========================================================================
             PageRecoveryUtility recovery = new PageRecoveryUtility(driver, base + "/login");
-            PageState state = recovery.identifyPageState();
+            boolean targetReached = recovery.executeSequentialRecoveryProtocol(screen.route, screen.testEmail, screen.testPassword);
 
-            if (state == PageState.LANGUAGE_PAGE) {
-                System.out.println("  -> [State Identified: LANGUAGE_PAGE] Running Language Flow...");
-                recovery.handleLanguageFlow();
-                Thread.sleep(1000);
-                // Check state again after language selection
-                state = recovery.identifyPageState();
-            }
-
-            if (state == PageState.LOGIN_PAGE) {
-                System.out.println("  -> [State Identified: LOGIN_PAGE] Running Login Flow...");
-                recovery.handleLoginFlow(screen.testEmail, screen.testPassword);
-                Thread.sleep(1000);
-            } else if (state == PageState.SYSTEM_ERROR) {
-                System.out.println("  -> [State Identified: SYSTEM_ERROR] Recording Error & Attempting Recovery...");
-                recovery.recordSystemError();
-                recovery.recoverToLoginPage();
-            }
-
-            // Check actual URL after flow execution
-            String actualUrl = driver.getCurrentUrl();
-            System.out.println("  -> Actual URL after flow execution: " + actualUrl);
+            Assert.assertTrue(targetReached, "Failed to navigate to target page: " + screen.route);
 
             // Dynamically instantiate POM class and invoke isLoaded()
             try {
