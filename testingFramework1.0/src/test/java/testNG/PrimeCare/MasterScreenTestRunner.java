@@ -20,10 +20,30 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * MasterScreenTestRunner - 1-CLICK ECLIPSE TEST RUNNER WITH DEFAULT CONFIGURATION
+ * ====================================================================================
+ * 📖 HOW TO USE THIS MASTER JAVA TEST RUNNER IN ECLIPSE / INTELLIJ
+ * ====================================================================================
  * 
- * Change DEFAULT_RUN_MODE to "ALL", "SCREEN", "ROLE", or "APP".
- * Simply click the ▶️ PLAY BUTTON directly on testRunMasterSuite() to execute!
+ * 🛠️ OPTION 1: 1-CLICK DEFAULT RUN (Runs all 947 screens by default)
+ *   1. Open MasterScreenTestRunner.java in Eclipse.
+ *   2. Simply click the green ▶️ PLAY BUTTON on `testRunMasterSuite()` or on the Class name!
+ * 
+ * 🛠️ OPTION 2: RUN A SINGLE SPECIFIC SCREEN
+ *   1. Change DEFAULT_RUN_MODE = "SCREEN";
+ *   2. Change DEFAULT_SCREEN_CODE = "rmt_dashboard"; (or any screen code)
+ *   3. Click the green ▶️ PLAY BUTTON!
+ * 
+ * 🛠️ OPTION 3: RUN A SINGLE SPECIFIC ROLE
+ *   1. Change DEFAULT_RUN_MODE = "ROLE";
+ *   2. Change DEFAULT_ROLE_CODE = "cfo"; (or "ciso", "patient", "rmt", "doctor")
+ *   3. Click the green ▶️ PLAY BUTTON!
+ * 
+ * 🛠️ OPTION 4: RUN A SINGLE SPECIFIC APPLICATION
+ *   1. Change DEFAULT_RUN_MODE = "APP";
+ *   2. Change DEFAULT_APP_CODE = "primecare_clinic"; (or "primecare_client")
+ *   3. Click the green ▶️ PLAY BUTTON!
+ * 
+ * ====================================================================================
  */
 public class MasterScreenTestRunner extends baseUserCredentials {
 
@@ -32,9 +52,9 @@ public class MasterScreenTestRunner extends baseUserCredentials {
     // =========================================================================
     // Modes supported: "ALL" (Runs all 947 screens), "SCREEN", "ROLE", "APP"
     public static String DEFAULT_RUN_MODE    = "ALL";                // "ALL" | "SCREEN" | "ROLE" | "APP"
-    public static String DEFAULT_SCREEN_CODE = "rmt_dashboard";      // Screen code or "ALL"
-    public static String DEFAULT_ROLE_CODE   = "cfo";                // Role code or "ALL"
-    public static String DEFAULT_APP_CODE    = "primecare_clinic";   // App code or "ALL"
+    public static String DEFAULT_SCREEN_CODE = "rmt_dashboard";      // Target Screen Code or "ALL"
+    public static String DEFAULT_ROLE_CODE   = "cfo";                // Target Role Code or "ALL"
+    public static String DEFAULT_APP_CODE    = "primecare_clinic";   // Target App Code or "ALL"
     // =========================================================================
 
     private static final Map<String, String> routeToClassMap = new HashMap<>();
@@ -96,7 +116,7 @@ public class MasterScreenTestRunner extends baseUserCredentials {
         }
     }
 
-    // Optional Quick Test Helpers for direct 1-click methods
+    // Direct 1-Click Test Methods for Instant Execution
     @Test
     public void testRunSingleScreen() {
         runFilteredQuery("screen", DEFAULT_SCREEN_CODE);
