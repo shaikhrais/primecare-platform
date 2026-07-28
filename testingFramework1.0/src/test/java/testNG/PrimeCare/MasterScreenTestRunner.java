@@ -24,36 +24,35 @@ import java.util.regex.Pattern;
  * 📖 HOW TO USE THIS MASTER JAVA TEST RUNNER IN ECLIPSE / INTELLIJ
  * ====================================================================================
  * 
- * 🛠️ OPTION 1: 1-CLICK DEFAULT RUN (Runs all 947 screens by default)
+ * 🛠️ DEFAULT MODE: Set to run ALL Personal Support Worker (PSW) screens by default!
  *   1. Open MasterScreenTestRunner.java in Eclipse.
  *   2. Simply click the green ▶️ PLAY BUTTON on `testRunMasterSuite()` or on the Class name!
  * 
  * 🛠️ OPTION 2: RUN A SINGLE SPECIFIC SCREEN
  *   1. Change DEFAULT_RUN_MODE = "SCREEN";
- *   2. Change DEFAULT_SCREEN_CODE = "rmt_dashboard"; (or any screen code)
+ *   2. Change DEFAULT_SCREEN_CODE = "psw_dashboard"; (or any screen code)
  *   3. Click the green ▶️ PLAY BUTTON!
  * 
  * 🛠️ OPTION 3: RUN A SINGLE SPECIFIC ROLE
  *   1. Change DEFAULT_RUN_MODE = "ROLE";
- *   2. Change DEFAULT_ROLE_CODE = "cfo"; (or "ciso", "patient", "rmt", "doctor")
+ *   2. Change DEFAULT_ROLE_CODE = "psw"; (or "cfo", "ciso", "patient", "rmt", "doctor")
  *   3. Click the green ▶️ PLAY BUTTON!
  * 
- * 🛠️ OPTION 4: RUN A SINGLE SPECIFIC APPLICATION
- *   1. Change DEFAULT_RUN_MODE = "APP";
- *   2. Change DEFAULT_APP_CODE = "primecare_clinic"; (or "primecare_client")
- *   3. Click the green ▶️ PLAY BUTTON!
+ * 🛠️ OPTION 4: RUN ALL PLATFORM SCREENS (947 Screens)
+ *   1. Change DEFAULT_RUN_MODE = "ALL";
+ *   2. Click the green ▶️ PLAY BUTTON!
  * 
  * ====================================================================================
  */
 public class MasterScreenTestRunner extends baseUserCredentials {
 
     // =========================================================================
-    // ⚙️ DEFAULT CONFIGURATION (Change these default values as needed!)
+    // ⚙️ DEFAULT CONFIGURATION (Set to run ALL PSW Screens by Default!)
     // =========================================================================
-    // Modes supported: "ALL" (Runs all 947 screens), "SCREEN", "ROLE", "APP"
-    public static String DEFAULT_RUN_MODE    = "ALL";                // "ALL" | "SCREEN" | "ROLE" | "APP"
-    public static String DEFAULT_SCREEN_CODE = "rmt_dashboard";      // Target Screen Code or "ALL"
-    public static String DEFAULT_ROLE_CODE   = "cfo";                // Target Role Code or "ALL"
+    // Modes supported: "ROLE" (Default: Runs all PSW screens), "ALL", "SCREEN", "APP"
+    public static String DEFAULT_RUN_MODE    = "ROLE";               // "ROLE" | "ALL" | "SCREEN" | "APP"
+    public static String DEFAULT_ROLE_CODE   = "psw";                // Personal Support Worker (PSW) Role
+    public static String DEFAULT_SCREEN_CODE = "psw_dashboard";      // Target Screen Code or "ALL"
     public static String DEFAULT_APP_CODE    = "primecare_clinic";   // Target App Code or "ALL"
     // =========================================================================
 
@@ -105,7 +104,7 @@ public class MasterScreenTestRunner extends baseUserCredentials {
             System.out.println("   Target Screen: " + DEFAULT_SCREEN_CODE);
             runFilteredQuery("screen", DEFAULT_SCREEN_CODE);
         } else if (mode.equals("ROLE")) {
-            System.out.println("   Target Role: " + DEFAULT_ROLE_CODE);
+            System.out.println("   Target Role: " + DEFAULT_ROLE_CODE.toUpperCase() + " (Personal Support Worker)");
             runFilteredQuery("role", DEFAULT_ROLE_CODE);
         } else if (mode.equals("APP")) {
             System.out.println("   Target App: " + DEFAULT_APP_CODE);
@@ -118,13 +117,14 @@ public class MasterScreenTestRunner extends baseUserCredentials {
 
     // Direct 1-Click Test Methods for Instant Execution
     @Test
-    public void testRunSingleScreen() {
-        runFilteredQuery("screen", DEFAULT_SCREEN_CODE);
+    public void testRunAllPswScreens() {
+        System.out.println("\n▶️ [RUNNING TEST] ALL PSW (Personal Support Worker) SCREENS");
+        runFilteredQuery("role", "psw");
     }
 
     @Test
-    public void testRunSingleRole() {
-        runFilteredQuery("role", DEFAULT_ROLE_CODE);
+    public void testRunSingleScreen() {
+        runFilteredQuery("screen", DEFAULT_SCREEN_CODE);
     }
 
     @Test
