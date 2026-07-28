@@ -20,17 +20,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * MasterScreenTestRunner - 1-CLICK EASY EXECUTION FOR ECLIPSE / IDE
- * Simply click the ▶️ PLAY BUTTON directly on any test method below to run!
+ * MasterScreenTestRunner - 1-CLICK ECLIPSE TEST RUNNER WITH DEFAULT CONFIGURATION
+ * 
+ * Change DEFAULT_RUN_MODE to "ALL", "SCREEN", "ROLE", or "APP".
+ * Simply click the ▶️ PLAY BUTTON directly on testRunMasterSuite() to execute!
  */
 public class MasterScreenTestRunner extends baseUserCredentials {
 
     // =========================================================================
-    // ⚙️ EASY CONFIGURATION (Change these names to test any screen/role/app!)
+    // ⚙️ DEFAULT CONFIGURATION (Change these default values as needed!)
     // =========================================================================
-    public static String SINGLE_SCREEN_TO_RUN = "rmt_dashboard";          // e.g. "rmt_dashboard", "cfo_tax_and_remittance"
-    public static String SINGLE_ROLE_TO_RUN   = "cfo";                    // e.g. "cfo", "ciso", "patient", "rmt"
-    public static String SINGLE_APP_TO_RUN    = "primecare_clinic";       // e.g. "primecare_clinic", "primecare_client"
+    // Modes supported: "ALL" (Runs all 947 screens), "SCREEN", "ROLE", "APP"
+    public static String DEFAULT_RUN_MODE    = "ALL";                // "ALL" | "SCREEN" | "ROLE" | "APP"
+    public static String DEFAULT_SCREEN_CODE = "rmt_dashboard";      // Screen code or "ALL"
+    public static String DEFAULT_ROLE_CODE   = "cfo";                // Role code or "ALL"
+    public static String DEFAULT_APP_CODE    = "primecare_clinic";   // App code or "ALL"
     // =========================================================================
 
     private static final Map<String, String> routeToClassMap = new HashMap<>();
@@ -38,7 +42,7 @@ public class MasterScreenTestRunner extends baseUserCredentials {
     @BeforeClass
     public void scanPageObjects() {
         System.out.println("==================================================");
-        System.out.println("PRIMECARE PLATFORM - EASY 1-CLICK JAVA TEST RUNNER");
+        System.out.println("PRIMECARE PLATFORM - MASTER ECLIPSE TEST RUNNER");
         System.out.println("==================================================");
         System.out.println("[MasterRunner] Scanning Java Page Objects...");
 
@@ -70,39 +74,47 @@ public class MasterScreenTestRunner extends baseUserCredentials {
     }
 
     // =========================================================================
-    // ▶️ TEST 1: RUN SINGLE SCREEN (Click ▶️ Play Button in Eclipse to Run!)
+    // ▶️ PRIMARY TEST METHOD (Click ▶️ Play Button in Eclipse to Run Default!)
     // =========================================================================
     @Test
-    public void test1_RunSingleScreen() {
-        System.out.println("\n▶️ [RUNNING TEST 1] SINGLE SCREEN TEST: " + SINGLE_SCREEN_TO_RUN);
-        runFilteredQuery("screen", SINGLE_SCREEN_TO_RUN);
+    public void testRunMasterSuite() {
+        String mode = DEFAULT_RUN_MODE.trim().toUpperCase();
+        System.out.println("\n▶️ [PRIMARY RUNNER] EXECUTING IN MODE: [" + mode + "]");
+
+        if (mode.equals("SCREEN")) {
+            System.out.println("   Target Screen: " + DEFAULT_SCREEN_CODE);
+            runFilteredQuery("screen", DEFAULT_SCREEN_CODE);
+        } else if (mode.equals("ROLE")) {
+            System.out.println("   Target Role: " + DEFAULT_ROLE_CODE);
+            runFilteredQuery("role", DEFAULT_ROLE_CODE);
+        } else if (mode.equals("APP")) {
+            System.out.println("   Target App: " + DEFAULT_APP_CODE);
+            runFilteredQuery("app", DEFAULT_APP_CODE);
+        } else {
+            System.out.println("   Target: ALL Platform Screens & Applications");
+            runFilteredQuery("all", "ALL");
+        }
     }
 
-    // =========================================================================
-    // ▶️ TEST 2: RUN SINGLE ROLE (Click ▶️ Play Button in Eclipse to Run!)
-    // =========================================================================
+    // Optional Quick Test Helpers for direct 1-click methods
     @Test
-    public void test2_RunSingleRole() {
-        System.out.println("\n▶️ [RUNNING TEST 2] SINGLE ROLE TEST: " + SINGLE_ROLE_TO_RUN);
-        runFilteredQuery("role", SINGLE_ROLE_TO_RUN);
+    public void testRunSingleScreen() {
+        runFilteredQuery("screen", DEFAULT_SCREEN_CODE);
     }
 
-    // =========================================================================
-    // ▶️ TEST 3: RUN SINGLE APPLICATION (Click ▶️ Play Button in Eclipse to Run!)
-    // =========================================================================
     @Test
-    public void test3_RunSingleApp() {
-        System.out.println("\n▶️ [RUNNING TEST 3] SINGLE APP TEST: " + SINGLE_APP_TO_RUN);
-        runFilteredQuery("app", SINGLE_APP_TO_RUN);
+    public void testRunSingleRole() {
+        runFilteredQuery("role", DEFAULT_ROLE_CODE);
     }
 
-    // =========================================================================
-    // ▶️ TEST 4: RUN ALL PLATFORM SCREENS (Click ▶️ Play Button in Eclipse to Run!)
-    // =========================================================================
     @Test
-    public void test4_RunAllPlatformScreens() {
-        System.out.println("\n▶️ [RUNNING TEST 4] ALL PLATFORM SCREENS TEST");
-        runFilteredQuery("all", "");
+    public void testRunSingleApp() {
+        runFilteredQuery("app", DEFAULT_APP_CODE);
+    }
+
+    @Test
+    public void testRunAllScreens() {
+        runFilteredQuery("all", "ALL");
     }
 
     // Core helper method to query SQLite governance DB and execute user journey assertions
@@ -123,11 +135,11 @@ public class MasterScreenTestRunner extends baseUserCredentials {
                          "LEFT JOIN roles r ON s.role_id = r.id " +
                          "WHERE s.active = 1 ";
 
-            if (filterType.equals("screen") && !filterVal.isEmpty()) {
+            if (filterType.equalsIgnoreCase("screen") && !filterVal.equalsIgnoreCase("ALL")) {
                 sql += "AND (LOWER(s.screen_code) = '" + filterVal.toLowerCase() + "' OR LOWER(s.screen_name) = '" + filterVal.toLowerCase() + "') ";
-            } else if (filterType.equals("role") && !filterVal.isEmpty()) {
+            } else if (filterType.equalsIgnoreCase("role") && !filterVal.equalsIgnoreCase("ALL")) {
                 sql += "AND LOWER(r.role_code) = '" + filterVal.toLowerCase() + "' ";
-            } else if (filterType.equals("app") && !filterVal.isEmpty()) {
+            } else if (filterType.equalsIgnoreCase("app") && !filterVal.equalsIgnoreCase("ALL")) {
                 sql += "AND LOWER(a.app_code) = '" + filterVal.toLowerCase() + "' ";
             }
 
