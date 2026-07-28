@@ -21,26 +21,16 @@ import java.util.regex.Pattern;
 
 /**
  * ====================================================================================
- * 📖 HOW TO USE THIS MASTER JAVA TEST RUNNER IN ECLIPSE / INTELLIJ
+ * 📖 HOW TO RUN THIS FILE IN ECLIPSE / INTELLIJ (JAVA APPLICATION & TESTNG)
  * ====================================================================================
  * 
- * 🛠️ DEFAULT MODE: Set to run ALL Personal Support Worker (PSW) screens by default!
- *   1. Open MasterScreenTestRunner.java in Eclipse.
- *   2. Simply click the green ▶️ PLAY BUTTON on `testRunMasterSuite()` or on the Class name!
+ * 🛠️ 1-CLICK RUN (JAVA APPLICATION):
+ *   Right-click this file in Eclipse ➔ Run As ➔ Java Application
+ *   (or click the green ▶️ Play Button at the top of the file!)
  * 
- * 🛠️ OPTION 2: RUN A SINGLE SPECIFIC SCREEN
- *   1. Change DEFAULT_RUN_MODE = "SCREEN";
- *   2. Change DEFAULT_SCREEN_CODE = "psw_dashboard"; (or any screen code)
- *   3. Click the green ▶️ PLAY BUTTON!
- * 
- * 🛠️ OPTION 3: RUN A SINGLE SPECIFIC ROLE
- *   1. Change DEFAULT_RUN_MODE = "ROLE";
- *   2. Change DEFAULT_ROLE_CODE = "psw"; (or "cfo", "ciso", "patient", "rmt", "doctor")
- *   3. Click the green ▶️ PLAY BUTTON!
- * 
- * 🛠️ OPTION 4: RUN ALL PLATFORM SCREENS (947 Screens)
- *   1. Change DEFAULT_RUN_MODE = "ALL";
- *   2. Click the green ▶️ PLAY BUTTON!
+ * ⚙️ DEFAULT MODE: Configured to run ALL Personal Support Worker (PSW) screens!
+ *   - Change DEFAULT_RUN_MODE = "ROLE", "ALL", "SCREEN", or "APP" below.
+ *   - Change DEFAULT_ROLE_CODE = "psw", "cfo", "ciso", "patient", "rmt", etc.
  * 
  * ====================================================================================
  */
@@ -57,6 +47,19 @@ public class MasterScreenTestRunner extends baseUserCredentials {
     // =========================================================================
 
     private static final Map<String, String> routeToClassMap = new HashMap<>();
+
+    /**
+     * Standard Java main method enabling 1-click "Run As Java Application" in Eclipse!
+     */
+    public static void main(String[] args) {
+        System.out.println("==================================================");
+        System.out.println("PRIMECARE PLATFORM - ECLIPSE JAVA APPLICATION RUNNER");
+        System.out.println("==================================================");
+        
+        MasterScreenTestRunner runner = new MasterScreenTestRunner();
+        runner.scanPageObjects();
+        runner.testRunMasterSuite();
+    }
 
     @BeforeClass
     public void scanPageObjects() {
@@ -93,7 +96,7 @@ public class MasterScreenTestRunner extends baseUserCredentials {
     }
 
     // =========================================================================
-    // ▶️ PRIMARY TEST METHOD (Click ▶️ Play Button in Eclipse to Run Default!)
+    // ▶️ PRIMARY TEST METHOD (TestNG & Java Main Entrypoint)
     // =========================================================================
     @Test
     public void testRunMasterSuite() {
