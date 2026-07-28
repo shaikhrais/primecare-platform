@@ -2,7 +2,7 @@ package testNG.PrimeCare.Auth;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import PageObjectsPrimeCare.ui.Auth1LanguageScreen;
+import pageobjects.primecare.ui.Auth1LanguageScreen;
 import base.baseUserCredentials;
 
 public class LanguagePageTest extends baseUserCredentials {

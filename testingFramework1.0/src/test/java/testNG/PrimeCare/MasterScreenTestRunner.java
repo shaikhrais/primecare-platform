@@ -53,12 +53,12 @@ public class MasterScreenTestRunner extends baseUserCredentials {
     @BeforeClass
     public void scanPageObjects() {
         System.out.println("====== SCANNING PAGE OBJECTS ======");
-        File dir = new File("src/test/java/PageObjectsPrimeCare/ui");
+        File dir = new File("src/test/java/pageobjects/primecare/ui");
         if (!dir.exists()) {
-            dir = new File("testingFramework1.0/src/test/java/PageObjectsPrimeCare/ui");
+            dir = new File("testingFramework1.0/src/test/java/pageobjects/primecare/ui");
         }
         if (!dir.exists()) {
-            dir = new File("H:/My Drive/eclipse-workspace/testingFramework1.0/src/test/java/PageObjectsPrimeCare/ui");
+            dir = new File("H:/My Drive/eclipse-workspace/testingFramework1.0/src/test/java/pageobjects/primecare/ui");
         }
 
         if (dir.exists() && dir.isDirectory()) {
@@ -110,12 +110,14 @@ public class MasterScreenTestRunner extends baseUserCredentials {
     public Object[][] getFilteredScreens() {
         List<ScreenTestData> list = new ArrayList<>();
         String dbPath = ".agents/governance/governance.db";
-        File dbFile = new File(dbPath);
-        if (!dbFile.exists()) {
+        if (!new File(dbPath).exists()) {
+            dbPath = "governance.db";
+        }
+        if (!new File(dbPath).exists()) {
             dbPath = "../.agents/governance/governance.db";
         }
-        if (!dbFile.exists()) {
-            dbPath = "governance.db";
+        if (!new File(dbPath).exists()) {
+            dbPath = "testingFramework1.0/governance.db";
         }
         String dbUrl = "jdbc:sqlite:" + dbPath;
 

@@ -2,7 +2,7 @@
 package testNG.PrimeCare;
 
 import org.testng.annotations.Test;
-import PageObjectsPrimeCare.ui.Clinic61PswDashboardScreen;
+import pageobjects.primecare.ui.Clinic61PswDashboardScreen;
 import base.baseUserCredentials;
 
 public class PswDashboardTest extends baseUserCredentials {

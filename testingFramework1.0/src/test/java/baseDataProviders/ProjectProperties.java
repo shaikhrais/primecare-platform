@@ -1,9 +1,8 @@
 package baseDataProviders;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
-
-import utilities.PropertyReader;
 
 public class ProjectProperties {
 
@@ -19,14 +18,11 @@ public class ProjectProperties {
 	}
 
 	private static Properties configFileData() throws FileNotFoundException {
-		// TODO Auto-generated method stub
-		try {
-			Properties myprop = PropertyReader.readPropertyFile(
-					System.getProperty("user.dir") + "\\src\\test\\resources\\configFiles\\config.properties");
-			System.out.println(myprop);
+		try (FileInputStream fis = new FileInputStream(configFile)) {
+			Properties myprop = new Properties();
+			myprop.load(fis);
 			return myprop;
 		} catch (Exception ex) {
-
 			System.err.println("[Error] : " + ex.getMessage());
 		}
 		return null;

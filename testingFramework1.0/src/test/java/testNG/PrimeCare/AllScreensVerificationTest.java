@@ -30,12 +30,12 @@ public class AllScreensVerificationTest extends baseUserCredentials {
     @BeforeClass
     public void scanPageObjects() {
         System.out.println("====== SCANNING PAGE OBJECTS ======");
-        File dir = new File("src/test/java/PageObjectsPrimeCare/ui");
+        File dir = new File("src/test/java/pageobjects/primecare/ui");
         if (!dir.exists()) {
-            dir = new File("testingFramework1.0/src/test/java/PageObjectsPrimeCare/ui");
+            dir = new File("testingFramework1.0/src/test/java/pageobjects/primecare/ui");
         }
         if (!dir.exists()) {
-            dir = new File("H:/My Drive/eclipse-workspace/testingFramework1.0/src/test/java/PageObjectsPrimeCare/ui");
+            dir = new File("H:/My Drive/eclipse-workspace/testingFramework1.0/src/test/java/pageobjects/primecare/ui");
         }
         if (dir.exists() && dir.isDirectory()) {
             File[] files = dir.listFiles((d, name) -> name.endsWith(".java"));
@@ -88,12 +88,14 @@ public class AllScreensVerificationTest extends baseUserCredentials {
     public Object[][] getActiveScreens() {
         List<ScreenTestData> list = new ArrayList<>();
         String dbPath = ".agents/governance/governance.db";
-        File dbFile = new File(dbPath);
-        if (!dbFile.exists()) {
+        if (!new File(dbPath).exists()) {
+            dbPath = "governance.db";
+        }
+        if (!new File(dbPath).exists()) {
             dbPath = "../.agents/governance/governance.db";
         }
-        if (!dbFile.exists()) {
-            dbPath = "governance.db";
+        if (!new File(dbPath).exists()) {
+            dbPath = "testingFramework1.0/governance.db";
         }
 
         String dbUrl = "jdbc:sqlite:" + dbPath;
@@ -186,14 +188,13 @@ public class AllScreensVerificationTest extends baseUserCredentials {
             // Step 3: Check Login Page? (YES -> Run Login Flow; NO -> Step 4)
             // Step 4: Check Target Page? (YES -> Ready to run test!)
             // =========================================================================
-            PageRecoveryUtility recovery = new PageRecoveryUtility(driver, base + "/login");
-            boolean targetReached = recovery.executeSequentialRecoveryProtocol(screen.route, screen.testEmail, screen.testPassword);
+            boolean targetReached = navigateToTargetPage(screen.route, screen.testEmail, screen.testPassword);
 
             Assert.assertTrue(targetReached, "Failed to navigate to target page: " + screen.route);
 
             // Dynamically instantiate POM class and invoke isLoaded()
             try {
-                Class<?> clazz = Class.forName("PageObjectsPrimeCare.ui." + className);
+                Class<?> clazz = Class.forName("pageobjects.primecare.ui." + className);
                 Constructor<?> constructor = clazz.getDeclaredConstructor();
                 Object pageInstance = constructor.newInstance();
                 Method isLoadedMethod = clazz.getMethod("isLoaded");

@@ -1,9 +1,9 @@
 package testNG.PrimeCare;
 
 import org.testng.annotations.Test;
-import PageObjectsPrimeCare.ui.Auth1LanguageScreen;
-import PageObjectsPrimeCare.ui.Auth2LoginScreen;
-import PageObjectsPrimeCare.ui.Auth3SuccessScreen;
+import pageobjects.primecare.ui.Auth1LanguageScreen;
+import pageobjects.primecare.ui.Auth2LoginScreen;
+import pageobjects.primecare.ui.Auth3SuccessScreen;
 import base.baseUserCredentials;
 
 public class PrimeCareTest extends baseUserCredentials {
