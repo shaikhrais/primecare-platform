@@ -5,6 +5,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import base.baseUserCredentials;
+import utilities.PageRecoveryUtility;
+import utilities.PageRecoveryUtility.PageState;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -30,6 +32,9 @@ public class AllScreensVerificationTest extends baseUserCredentials {
     public void scanPageObjects() {
         System.out.println("====== SCANNING PAGE OBJECTS ======");
         File dir = new File("src/test/java/PageObjectsPrimeCare/ui");
+        if (!dir.exists()) {
+            dir = new File("testingFramework1.0/src/test/java/PageObjectsPrimeCare/ui");
+        }
         if (!dir.exists()) {
             dir = new File("H:/My Drive/eclipse-workspace/testingFramework1.0/src/test/java/PageObjectsPrimeCare/ui");
         }
@@ -83,64 +88,66 @@ public class AllScreensVerificationTest extends baseUserCredentials {
     @DataProvider(name = "activeScreens")
     public Object[][] getActiveScreens() {
         List<ScreenTestData> list = new ArrayList<>();
-        String dbUrl = "jdbc:sqlite:governance.db";
+        String dbPath = ".agents/governance/governance.db";
+        File dbFile = new File(dbPath);
+        if (!dbFile.exists()) {
+            dbPath = "../.agents/governance/governance.db";
+        }
+        if (!dbFile.exists()) {
+            dbPath = "governance.db";
+        }
+
+        String dbUrl = "jdbc:sqlite:" + dbPath;
         try (Connection conn = DriverManager.getConnection(dbUrl)) {
-            // Build application-to-baseUrl map
             Map<Integer, String> appUrls = new HashMap<>();
-            String appsSql = "SELECT application_id, base_url FROM applications";
+            String appsSql = "SELECT id, base_url FROM apps";
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(appsSql)) {
                 while (rs.next()) {
-                    appUrls.put(rs.getInt("application_id"), rs.getString("base_url"));
+                    appUrls.put(rs.getInt("id"), rs.getString("base_url"));
                 }
             }
 
-            // Build role-to-credentials map
             Map<String, String[]> roleCreds = new HashMap<>();
-            String rolesSql = "SELECT role_key, test_email, test_password FROM roles WHERE active = 1";
+            String rolesSql = "SELECT role_code, test_email, test_password FROM roles WHERE active = 1";
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(rolesSql)) {
                 while (rs.next()) {
-                    String roleKey = rs.getString("role_key").toUpperCase();
-                    String email = rs.getString("test_email");
-                    String pass = rs.getString("test_password");
-                    roleCreds.put(roleKey, new String[]{email, pass});
+                    roleCreds.put(rs.getString("role_code"), new String[]{
+                        rs.getString("test_email"),
+                        rs.getString("test_password")
+                    });
                 }
             }
 
-            // Query active screens
-            String screensSql = "SELECT screen_id, screen_name, route, required_role, application_id FROM screens WHERE active = 1";
+            String screensSql = "SELECT s.id, s.screen_name, s.route_path, s.app_id, r.role_code " +
+                               "FROM screens s LEFT JOIN roles r ON s.role_id = r.id WHERE s.active = 1 ORDER BY s.id";
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(screensSql)) {
                 while (rs.next()) {
-                    int sid = rs.getInt("screen_id");
-                    String sname = rs.getString("screen_name");
-                    String route = rs.getString("route");
-                    String reqRole = rs.getString("required_role");
-                    int appId = rs.getInt("application_id");
-
-                    // Bypasses (language, login, success are handled during recovery)
-                    if ("/language".equals(route) || "/login".equals(route) || "/success".equals(route) || "/invalid-test-path-for-404".equals(route)) {
-                        continue;
-                    }
-
-                    String email = "qa.psw@test.primecare.local"; // Fallback role email
-                    String password = "Test@12345";
-                    if (reqRole != null && !reqRole.isEmpty() && !"ANY".equalsIgnoreCase(reqRole)) {
-                        String[] creds = roleCreds.get(reqRole.trim().toUpperCase());
-                        if (creds != null && creds[0] != null && !creds[0].isEmpty()) {
-                            email = creds[0];
-                            password = creds[1] != null ? creds[1] : "Test@12345";
-                        }
-                    }
+                    int id = rs.getInt("id");
+                    String name = rs.getString("screen_name");
+                    String route = rs.getString("route_path");
+                    int appId = rs.getInt("app_id");
+                    String roleKey = rs.getString("role_code");
 
                     String baseUrl = appUrls.get(appId);
-                    list.add(new ScreenTestData(sid, sname, route, reqRole, email, password, baseUrl));
+                    if (baseUrl == null || baseUrl.isEmpty()) {
+                        baseUrl = "https://primecare-clinic.pages.dev";
+                    }
+
+                    String[] creds = roleCreds.get(roleKey);
+                    String email = (creds != null) ? creds[0] : "test@primecare.ca";
+                    String pass = (creds != null) ? creds[1] : "Test1234!";
+
+                    list.add(new ScreenTestData(id, name, route, roleKey, email, pass, baseUrl));
                 }
             }
         } catch (Exception e) {
-            System.err.println("Failed to read screens from SQLite: " + e.getMessage());
+            System.err.println("Database load failed: " + e.getMessage());
         }
+
+        System.out.println("  Loaded " + list.size() + " active screens for verification.");
 
         Object[][] data = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
@@ -150,15 +157,15 @@ public class AllScreensVerificationTest extends baseUserCredentials {
     }
 
     protected void submitLoginCredentials(String email, String password) throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         PageObjectsPrimeCare.ui.Auth2LoginScreen loginPage = new PageObjectsPrimeCare.ui.Auth2LoginScreen(driver);
-        System.out.println("Attempting login...");
+        System.out.println("Attempting login via Auth2LoginScreen...");
         loginPage.Login(email, password);
     }
 
     @Test(dataProvider = "activeScreens")
     public void verifyScreenLayoutAndDOM(ScreenTestData screen) {
-        System.out.println("====== STARTING VERIFICATION FOR SCREEN " + screen.screenId + " ======");
+        System.out.println("====== STARTING VERIFICATION FOR SCREEN " + screen.screenId + " (" + screen.screenName + ") ======");
         
         String cleanRoute = screen.route.split("\\?")[0];
         String className = routeToClassMap.get(cleanRoute);
@@ -178,20 +185,37 @@ public class AllScreensVerificationTest extends baseUserCredentials {
 
         try {
             clearSessionAndCookies();
-            // Invoke redirection recovery to login/redirect to target page
-            try {
-                redirectToRequestedPage(
-                    targetUrl,
-                    className,
-                    screen.testEmail,
-                    screen.testPassword,
-                    this::submitLoginCredentials
-                );
-            } catch (Exception e) {
-                Assert.fail("Redirection recovery failed: " + e.getMessage());
+            driver.get(targetUrl);
+
+            // =========================================================================
+            // 🔍 STEP 1 & STEP 2: IDENTIFY PAGE STATE & EXECUTE CORRESPONDING FLOW
+            // =========================================================================
+            PageRecoveryUtility recovery = new PageRecoveryUtility(driver, base + "/login");
+            PageState state = recovery.identifyPageState();
+
+            if (state == PageState.LANGUAGE_PAGE) {
+                System.out.println("  -> [State Identified: LANGUAGE_PAGE] Running Language Flow...");
+                recovery.handleLanguageFlow();
+                Thread.sleep(1000);
+                // Check state again after language selection
+                state = recovery.identifyPageState();
             }
 
-            // Dynamically instantiate class and call isLoaded()
+            if (state == PageState.LOGIN_PAGE) {
+                System.out.println("  -> [State Identified: LOGIN_PAGE] Running Login Flow...");
+                recovery.handleLoginFlow(screen.testEmail, screen.testPassword);
+                Thread.sleep(1000);
+            } else if (state == PageState.SYSTEM_ERROR) {
+                System.out.println("  -> [State Identified: SYSTEM_ERROR] Recording Error & Attempting Recovery...");
+                recovery.recordSystemError();
+                recovery.recoverToLoginPage();
+            }
+
+            // Check actual URL after flow execution
+            String actualUrl = driver.getCurrentUrl();
+            System.out.println("  -> Actual URL after flow execution: " + actualUrl);
+
+            // Dynamically instantiate POM class and invoke isLoaded()
             try {
                 Class<?> clazz = Class.forName("PageObjectsPrimeCare.ui." + className);
                 Constructor<?> constructor = clazz.getDeclaredConstructor();
