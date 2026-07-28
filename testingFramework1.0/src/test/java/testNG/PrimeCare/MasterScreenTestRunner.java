@@ -20,9 +20,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * ====================================================================================
+ * Package: testNG.PrimeCare
+ * Class: MasterScreenTestRunner
+ * 
  * 📖 HOW TO RUN THIS FILE IN ECLIPSE / INTELLIJ (JAVA APPLICATION & TESTNG)
- * ====================================================================================
  * 
  * 🛠️ 1-CLICK RUN (JAVA APPLICATION):
  *   Right-click this file in Eclipse ➔ Run As ➔ Java Application
@@ -31,8 +32,6 @@ import java.util.regex.Pattern;
  * ⚙️ DEFAULT MODE: Configured to run ALL Personal Support Worker (PSW) screens!
  *   - Change DEFAULT_RUN_MODE = "ROLE", "ALL", "SCREEN", or "APP" below.
  *   - Change DEFAULT_ROLE_CODE = "psw", "cfo", "ciso", "patient", "rmt", etc.
- * 
- * ====================================================================================
  */
 public class MasterScreenTestRunner extends baseUserCredentials {
 
