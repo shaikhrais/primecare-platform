@@ -151,6 +151,14 @@ public class MasterScreenTestRunner extends baseUserCredentials {
             System.err.println("DB Error: " + e.getMessage());
         }
 
+        if (list.isEmpty()) {
+            System.out.println("  [MasterRunner FALLBACK] Populating test list from mapped Page Objects...");
+            int idx = 1;
+            for (Map.Entry<String, String> entry : routeToClassMap.entrySet()) {
+                list.add(new ScreenTestData(idx++, entry.getKey(), entry.getKey(), entry.getValue(), "primecare_clinic", "psw"));
+            }
+        }
+
         System.out.println("[MasterRunner] Filter Mode [" + mode + "]: Prepared " + list.size() + " screen test cases.");
 
         Object[][] data = new Object[list.size()][1];
