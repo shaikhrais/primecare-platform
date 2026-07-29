@@ -1,4 +1,4 @@
-package primecare.testing.base;
+﻿package primecare.testing.base;
 
 import utilities.PageRecoveryUtility;
 import org.openqa.selenium.OutputType;
@@ -12,7 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import primecare.testing.framework.database.DeploymentConfig;
+import primecare.testing.framework.DeploymentConfig;
 
 import java.io.File;
 import java.io.IOException;
@@ -158,3 +158,4 @@ public class BaseUiTest extends BaseTest {
         return null;
     }
 }
+

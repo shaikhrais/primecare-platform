@@ -1,6 +1,6 @@
-package primecare.testing.base;
+﻿package primecare.testing.base;
 
-import primecare.testing.framework.database.SQLiteConnectionManager;
+import primecare.testing.framework.SQLiteConnectionManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,3 +25,4 @@ public class BaseDatabaseTest extends BaseTest {
         return 0;
     }
 }
+

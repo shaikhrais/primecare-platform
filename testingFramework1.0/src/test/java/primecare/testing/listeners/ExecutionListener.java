@@ -1,9 +1,9 @@
-package primecare.testing.listeners;
+﻿package primecare.testing.listeners;
 
 import primecare.testing.base.BaseTest;
-import primecare.testing.framework.planning.Models.TestExecution;
-import primecare.testing.framework.database.Repositories.ExecutionRepository;
-import primecare.testing.framework.database.SQLiteConnectionManager;
+import primecare.testing.framework.Models.TestExecution;
+import primecare.testing.framework.Repositories.ExecutionRepository;
+import primecare.testing.framework.SQLiteConnectionManager;
 import org.testng.IExecutionListener;
 
 import java.sql.Connection;
@@ -67,3 +67,4 @@ public class ExecutionListener implements IExecutionListener {
         System.out.println("[EXECUTION LISTENER] Execution final status written to DB: " + exec.status + " (" + passed + "/" + total + " passed)");
     }
 }
+

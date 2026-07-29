@@ -1,6 +1,6 @@
 ﻿package primecare.testing.screens;
 
-import primecare.testing.framework.planning.*;
+import primecare.testing.framework.*;
 import primecare.testing.models.TestingLayerCode;
 
 import java.util.Collections;
@@ -42,4 +42,5 @@ public final class LanguageScreenTestSuite implements ScreenTestProvider {
         };
     }
 }
+
 

@@ -1,7 +1,7 @@
 ﻿package primecare.testing.screens;
 
 
-import primecare.testing.framework.planning.*;
+import primecare.testing.framework.*;
 import primecare.testing.models.TestingLayerCode;
 import java.util.*;
 
@@ -60,4 +60,5 @@ public final class AdminDashboardScreenTestSuite implements ScreenTestProvider {
         return list;
     }
 }
+
 

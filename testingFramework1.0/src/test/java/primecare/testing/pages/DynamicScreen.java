@@ -1,9 +1,9 @@
-package primecare.testing.pages;
+﻿package primecare.testing.pages;
 
-import primecare.testing.framework.planning.Models.ScreenDefinition;
-import primecare.testing.framework.planning.Models.UiComponentDefinition;
-import primecare.testing.framework.database.Repositories.ScreenRepository;
-import primecare.testing.framework.database.Repositories.ComponentRepository;
+import primecare.testing.framework.Models.ScreenDefinition;
+import primecare.testing.framework.Models.UiComponentDefinition;
+import primecare.testing.framework.Repositories.ScreenRepository;
+import primecare.testing.framework.Repositories.ComponentRepository;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -120,3 +120,4 @@ public class DynamicScreen extends BasePage {
         return screenDefinition;
     }
 }
+

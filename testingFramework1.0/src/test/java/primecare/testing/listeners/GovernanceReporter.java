@@ -1,7 +1,7 @@
-package primecare.testing.listeners;
+﻿package primecare.testing.listeners;
 
 import primecare.testing.base.BaseTest;
-import primecare.testing.framework.database.SQLiteConnectionManager;
+import primecare.testing.framework.SQLiteConnectionManager;
 import org.testng.IReporter;
 import org.testng.ISuite;
 import org.testng.xml.XmlSuite;
@@ -222,3 +222,4 @@ public class GovernanceReporter implements IReporter {
         }
     }
 }
+

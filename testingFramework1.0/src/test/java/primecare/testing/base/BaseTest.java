@@ -1,10 +1,10 @@
-package primecare.testing.base;
+﻿package primecare.testing.base;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import primecare.testing.framework.database.DatabaseMigrationRunner;
-import primecare.testing.framework.database.DatabaseHealthCheck;
-import primecare.testing.framework.planning.Models.TestExecution;
-import primecare.testing.framework.database.Repositories.ExecutionRepository;
+import primecare.testing.framework.DatabaseMigrationRunner;
+import primecare.testing.framework.DatabaseHealthCheck;
+import primecare.testing.framework.Models.TestExecution;
+import primecare.testing.framework.Repositories.ExecutionRepository;
 import org.testng.annotations.BeforeSuite;
 
 import java.io.InputStream;
@@ -109,3 +109,4 @@ public class BaseTest {
         }
     }
 }
+

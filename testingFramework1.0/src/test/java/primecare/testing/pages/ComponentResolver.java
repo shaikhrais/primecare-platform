@@ -1,6 +1,6 @@
-package primecare.testing.pages;
+﻿package primecare.testing.pages;
 
-import primecare.testing.framework.planning.Models.UiComponentDefinition;
+import primecare.testing.framework.Models.UiComponentDefinition;
 import org.openqa.selenium.By;
 
 public class ComponentResolver {
@@ -36,3 +36,4 @@ public class ComponentResolver {
         return value.replace("\\", "\\\\").replace("'", "\\'");
     }
 }
+

@@ -1,11 +1,11 @@
 ﻿package primecare.testing.screens;
 
 import primecare.testing.base.BaseUiTest;
-import primecare.testing.framework.database.Repositories.ScreenRepository;
-import primecare.testing.framework.database.Repositories.ApplicationRepository;
-import primecare.testing.framework.planning.Models.ScreenDefinition;
-import primecare.testing.framework.planning.Models.ApplicationDefinition;
-import primecare.testing.framework.data.TestDataLayer;
+import primecare.testing.framework.Repositories.ScreenRepository;
+import primecare.testing.framework.Repositories.ApplicationRepository;
+import primecare.testing.framework.Models.ScreenDefinition;
+import primecare.testing.framework.Models.ApplicationDefinition;
+import primecare.testing.framework.TestDataLayer;
 import primecare.testing.pages.DynamicScreen;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -79,4 +79,5 @@ public class LanguageNavigationTest extends BaseUiTest {
             "Clicking the English button did not redirect to the expected login page. Current URL: " + currentUrl);
     }
 }
+
 
