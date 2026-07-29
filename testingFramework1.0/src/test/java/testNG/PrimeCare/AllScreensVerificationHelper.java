@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 
 /**
  * AllScreensVerificationHelper - Encapsulates all scanning, database data-provider loading,
- * recovery navigation, page object reflection verification, and screenshot reporting.
+ * page correctness validation, recovery navigation, page object reflection verification, and screenshot reporting.
  */
 public class AllScreensVerificationHelper {
 
@@ -169,7 +169,22 @@ public class AllScreensVerificationHelper {
     }
 
     /**
-     * Executes individual screen verification with recovery, reflection, and screenshot capture.
+     * Checks if current browser URL matches expected target route.
+     */
+    private boolean isCorrectPage(WebDriver driver, String expectedRoute) {
+        try {
+            String currentUrl = driver.getCurrentUrl();
+            String cleanExpected = expectedRoute.split("\\?")[0];
+            return currentUrl != null && currentUrl.contains(cleanExpected);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Executes 2-stage verification:
+     * Stage 1: Page Correctness Pre-Check Validation & Recovery
+     * Stage 2: Page Object & DOM Component Verification
      */
     public void executeVerification(ScreenTestData screen, WebDriver driver, Runnable clearSession, NavigationFunction navigator) {
         System.out.println("====== STARTING VERIFICATION FOR SCREEN " + screen.screenId + " (" + screen.screenName + ") ======");
@@ -196,9 +211,26 @@ public class AllScreensVerificationHelper {
             }
             driver.get(targetUrl);
 
-            boolean targetReached = navigator.navigate(screen.route, screen.testEmail, screen.testPassword);
-            Assert.assertTrue(targetReached, "Failed to navigate to target page: " + screen.route);
+            // =========================================================================
+            // STAGE 1: PAGE CORRECTNESS PRE-CHECK
+            // Verify browser is on the correct page before scanning page objects.
+            // =========================================================================
+            System.out.println("  [STAGE 1] Checking page correctness for route: " + screen.route);
+            boolean isPageRight = isCorrectPage(driver, screen.route);
+            if (!isPageRight) {
+                System.out.println("  [STAGE 1] Page pre-check failed. Initiating 4-step recovery navigation...");
+                boolean targetReached = navigator.navigate(screen.route, screen.testEmail, screen.testPassword);
+                Assert.assertTrue(targetReached, "Page correctness pre-check failed: Could not navigate to " + screen.route);
+                System.out.println("  [STAGE 1] Recovery complete! Browser is now on target page.");
+            } else {
+                System.out.println("  [STAGE 1] Page pre-check passed! Browser is confirmed on target page.");
+            }
 
+            // =========================================================================
+            // STAGE 2: PAGE OBJECT & DOM COMPONENT SCANNING
+            // Scan, instantiate Page Object class, and execute isLoaded() assertions.
+            // =========================================================================
+            System.out.println("  [STAGE 2] Scanning page objects and executing DOM assertions for class: " + className);
             try {
                 Class<?> clazz = Class.forName("pageobjects.primecare.ui." + className);
                 Constructor<?> constructor = clazz.getDeclaredConstructor();
