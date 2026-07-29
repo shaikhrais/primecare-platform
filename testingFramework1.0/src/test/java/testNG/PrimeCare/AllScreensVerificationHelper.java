@@ -182,9 +182,26 @@ public class AllScreensVerificationHelper {
     }
 
     /**
-     * Executes 2-stage verification:
-     * Stage 1: Page Correctness Pre-Check Validation & Recovery
-     * Stage 2: Page Object & DOM Component Verification
+     * BEFORE scanning Page Objects, checks if browser is on the right page.
+     * If on another page or redirected, handles Error, Language, or Login redirect automatically!
+     */
+    public boolean checkPageIfOtherRedirectHandleErrorLanguageOrLogin(WebDriver driver, String targetRoute, String email, String password) {
+        System.out.println("  [PRE-CHECK] Verifying browser page location before scanning page objects...");
+        utilities.PageRecoveryUtility recovery = new utilities.PageRecoveryUtility(driver, "https://primecare-clinic.pages.dev/auth/login");
+        
+        if (recovery.isTargetPageReached(targetRoute)) {
+            System.out.println("  [PRE-CHECK: PASSED] Browser is confirmed on the target page: " + targetRoute);
+            return true;
+        }
+
+        System.out.println("  [PRE-CHECK: REDIRECT DETECTED] Browser is on another page. Handling Error, Language, or Login redirect...");
+        return recovery.executeSequentialRecoveryProtocol(targetRoute, email, password);
+    }
+
+    /**
+     * Executes verification flow:
+     * 1. Pre-Check Page Correctness (handles Error, Language, Login redirect if on wrong page)
+     * 2. Scan Page Objects & Execute DOM Assertions
      */
     public void executeVerification(ScreenTestData screen, WebDriver driver, Runnable clearSession, NavigationFunction navigator) {
         System.out.println("====== STARTING VERIFICATION FOR SCREEN " + screen.screenId + " (" + screen.screenName + ") ======");
@@ -212,25 +229,16 @@ public class AllScreensVerificationHelper {
             driver.get(targetUrl);
 
             // =========================================================================
-            // STAGE 1: PAGE CORRECTNESS PRE-CHECK
-            // Verify browser is on the correct page before scanning page objects.
+            // 🔍 PRE-CHECK: VERIFY PAGE BEFORE OBJECT SCANNING
+            // Handle Error Page, Language Selection, or Login Redirect if on wrong page.
             // =========================================================================
-            System.out.println("  [STAGE 1] Checking page correctness for route: " + screen.route);
-            boolean isPageRight = isCorrectPage(driver, screen.route);
-            if (!isPageRight) {
-                System.out.println("  [STAGE 1] Page pre-check failed. Initiating 4-step recovery navigation...");
-                boolean targetReached = navigator.navigate(screen.route, screen.testEmail, screen.testPassword);
-                Assert.assertTrue(targetReached, "Page correctness pre-check failed: Could not navigate to " + screen.route);
-                System.out.println("  [STAGE 1] Recovery complete! Browser is now on target page.");
-            } else {
-                System.out.println("  [STAGE 1] Page pre-check passed! Browser is confirmed on target page.");
-            }
+            boolean isPageReady = checkPageIfOtherRedirectHandleErrorLanguageOrLogin(driver, screen.route, screen.testEmail, screen.testPassword);
+            Assert.assertTrue(isPageReady, "Page Pre-Check failed: Could not reach target page " + screen.route);
 
             // =========================================================================
-            // STAGE 2: PAGE OBJECT & DOM COMPONENT SCANNING
-            // Scan, instantiate Page Object class, and execute isLoaded() assertions.
+            // 🧩 NOW SCAN PAGE OBJECTS & EXECUTE DOM ASSERTIONS
             // =========================================================================
-            System.out.println("  [STAGE 2] Scanning page objects and executing DOM assertions for class: " + className);
+            System.out.println("  [OBJECT SCANNER] Scanning page objects and executing DOM assertions for class: " + className);
             try {
                 Class<?> clazz = Class.forName("pageobjects.primecare.ui." + className);
                 Constructor<?> constructor = clazz.getDeclaredConstructor();

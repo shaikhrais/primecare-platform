@@ -1,4 +1,4 @@
-﻿package primecare.testing.framework;
+package primecare.testing.framework;
 
 import static primecare.testing.framework.Models.*;
 import static primecare.testing.framework.Repositories.*;
@@ -32,6 +32,9 @@ public class LayerExecutors {
             String targetUrl = primecare.testing.base.BaseTest.appProps.getProperty("APP_BASE_URL", "http://localhost:8080") + screen.route;
             driver.get(targetUrl);
             
+            boolean isPageReady = pageRecovery.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(screen.route, "clinic@primecare.com", "Password123");
+            Assert.assertTrue(isPageReady, "Logical Guard Failed: Could not navigate to target page " + screen.route);
+
             Assert.assertNotNull(driver.getCurrentUrl(), "Driver could not resolve current URL.");
             boolean isPlaceholder = PlaceholderDetectionService.isPlaceholderPage(driver);
             Assert.assertFalse(isPlaceholder, "Page contains placeholder construction texts!");

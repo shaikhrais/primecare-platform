@@ -39,6 +39,22 @@ public class PageRecoveryUtility {
     }
 
     /**
+     * LOGICAL PRE-CONDITION GUARD:
+     * Before scanning objects or running test assertions, checks if browser is on target page.
+     * If redirected or on another page, handles Error Page, Language Selection, or Login automatically.
+     */
+    public boolean checkPageIfOtherRedirectHandleErrorLanguageOrLogin(String targetRoute, String email, String password) {
+        System.out.println("  [LOGICAL GUARD] Checking browser page location before scanning page objects...");
+        if (isTargetPageReached(targetRoute)) {
+            System.out.println("  [LOGICAL GUARD: PASSED] Browser is confirmed on target page: " + targetRoute);
+            return true;
+        }
+
+        System.out.println("  [LOGICAL GUARD: REDIRECT DETECTED] Browser is on wrong page. Handling Error, Language, or Login redirect...");
+        return executeSequentialRecoveryProtocol(targetRoute, email, password);
+    }
+
+    /**
      * STRICT 4-STEP RECOVERY FLOW:
      * 1. Check Error Page? (YES -> Record error & reload; NO -> Step 2)
      * 2. Check Language Page? (YES -> Select lang & continue; NO -> Step 3)
