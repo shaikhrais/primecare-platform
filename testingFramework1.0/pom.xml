@@ -125,8 +125,8 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.12.1</version> <!-- Use the latest version available -->
             <configuration>
-                <source>21</source> <!-- Set your desired Java source version -->
-                <target>21</target> <!-- Set your desired Java target version -->
+                <source>17</source>
+                <target>17</target>
             </configuration>
         </plugin>
         
