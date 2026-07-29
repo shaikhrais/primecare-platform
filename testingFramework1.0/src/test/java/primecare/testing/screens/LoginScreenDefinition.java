@@ -1,4 +1,4 @@
-﻿package primecare.testing.screens;
+package primecare.testing.screens;
 
 public final class LoginScreenDefinition {
     public static final String SCREEN_KEY = "login";

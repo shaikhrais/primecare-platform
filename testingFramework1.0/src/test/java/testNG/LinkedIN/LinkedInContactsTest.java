@@ -1,4 +1,4 @@
-﻿package testNG.LinkedIN;
+package testNG.LinkedIN;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;

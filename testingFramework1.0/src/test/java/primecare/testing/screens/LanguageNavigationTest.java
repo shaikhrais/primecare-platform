@@ -1,4 +1,4 @@
-﻿package primecare.testing.screens;
+package primecare.testing.screens;
 
 import primecare.testing.base.BaseUiTest;
 import primecare.testing.framework.Repositories.ScreenRepository;

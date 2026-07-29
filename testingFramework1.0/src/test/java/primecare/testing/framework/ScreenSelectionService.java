@@ -1,4 +1,4 @@
-﻿package primecare.testing.framework;
+package primecare.testing.framework;
 
 import static primecare.testing.framework.Models.*;
 import static primecare.testing.framework.Repositories.*;

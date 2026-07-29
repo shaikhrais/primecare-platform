@@ -1,4 +1,4 @@
-﻿package primecare.testing.pages;
+package primecare.testing.pages;
 
 import primecare.testing.framework.Models.UiComponentDefinition;
 import org.openqa.selenium.By;

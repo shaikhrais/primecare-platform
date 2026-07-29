@@ -1,4 +1,4 @@
-﻿// Fresh compilation touch: 2026-07-17T00:51:00Z
+// Fresh compilation touch: 2026-07-17T00:51:00Z
 package testNG.PrimeCare;
 
 import primecare.testing.framework.*;

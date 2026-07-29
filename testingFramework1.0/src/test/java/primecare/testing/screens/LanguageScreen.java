@@ -1,4 +1,4 @@
-﻿package primecare.testing.screens;
+package primecare.testing.screens;
 
 import primecare.testing.pages.BasePage;
 import org.openqa.selenium.By;

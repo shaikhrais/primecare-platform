@@ -1,4 +1,4 @@
-﻿package testNG.LinkedIN;
+package testNG.LinkedIN;
 
 import java.util.List;
 

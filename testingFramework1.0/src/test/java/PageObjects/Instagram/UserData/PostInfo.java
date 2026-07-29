@@ -1,4 +1,4 @@
-﻿package pageobjects.Instagram.UserData;
+package pageobjects.Instagram.UserData;
 
 public class PostInfo {
     private String type;

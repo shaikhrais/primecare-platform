@@ -1,4 +1,4 @@
-﻿package primecare.testing.listeners;
+package primecare.testing.listeners;
 
 import primecare.testing.base.BaseTest;
 import primecare.testing.framework.SQLiteConnectionManager;

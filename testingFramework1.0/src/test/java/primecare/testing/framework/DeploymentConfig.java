@@ -1,4 +1,4 @@
-﻿package primecare.testing.framework;
+package primecare.testing.framework;
 
 import java.io.FileInputStream;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-﻿package primecare.testing.listeners;
+package primecare.testing.listeners;
 
 import primecare.testing.framework.*;
 import static primecare.testing.framework.Models.*;

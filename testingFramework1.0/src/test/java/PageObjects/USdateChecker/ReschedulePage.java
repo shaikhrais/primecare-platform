@@ -1,4 +1,4 @@
-﻿package pageobjects.USdateChecker;
+package pageobjects.USdateChecker;
 
 import java.time.Duration;
 import java.time.LocalDate;

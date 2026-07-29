@@ -1,1 +1,1 @@
-﻿package pageobjects.ChatGPT;
+package pageobjects.ChatGPT;

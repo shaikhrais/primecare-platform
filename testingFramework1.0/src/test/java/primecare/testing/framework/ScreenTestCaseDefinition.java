@@ -1,4 +1,4 @@
-﻿package primecare.testing.framework;
+package primecare.testing.framework;
 
 import primecare.testing.models.TestingLayerCode;
 import java.util.Set;

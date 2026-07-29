@@ -1,4 +1,4 @@
-﻿package primecare.testing.framework;
+package primecare.testing.framework;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

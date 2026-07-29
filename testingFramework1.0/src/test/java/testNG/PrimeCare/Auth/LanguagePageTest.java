@@ -1,4 +1,4 @@
-﻿package testNG.PrimeCare.Auth;
+package testNG.PrimeCare.Auth;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

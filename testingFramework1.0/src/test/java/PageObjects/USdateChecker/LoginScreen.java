@@ -1,4 +1,4 @@
-﻿package pageobjects.USdateChecker;
+package pageobjects.USdateChecker;
 
 
 import org.openqa.selenium.By;

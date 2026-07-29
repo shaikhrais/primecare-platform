@@ -1,4 +1,4 @@
-﻿package primecare.testing.framework;
+package primecare.testing.framework;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

@@ -1,4 +1,4 @@
-﻿package testNG.GoogleMaps;
+package testNG.GoogleMaps;
 
 import org.testng.annotations.Test;
 import pageobjects.GoogleMaps.GoogleSearch;

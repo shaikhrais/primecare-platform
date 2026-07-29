@@ -1,4 +1,4 @@
-﻿package testNG.AspRestApi;
+package testNG.AspRestApi;
 
 import org.testng.annotations.Test;
 import pageobjects.AspRestApi.ApiIndexPage;

@@ -1,4 +1,4 @@
-﻿package primecare.testing.base;
+package primecare.testing.base;
 
 import utilities.PageRecoveryUtility;
 import org.openqa.selenium.OutputType;

@@ -1,4 +1,4 @@
-﻿package pageobjects.primecare.ui;
+package pageobjects.primecare.ui;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;

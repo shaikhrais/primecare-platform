@@ -1,4 +1,4 @@
-﻿package pageobjects.GoogleMaps;
+package pageobjects.GoogleMaps;
 
 import java.io.FileWriter;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-﻿package testNG.Instagram.Posting;
+package testNG.Instagram.Posting;
 
 import java.time.Duration;
 

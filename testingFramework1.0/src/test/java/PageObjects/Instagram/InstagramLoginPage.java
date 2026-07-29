@@ -1,4 +1,4 @@
-﻿package pageobjects.Instagram;
+package pageobjects.Instagram;
 
 import java.time.Duration;
 

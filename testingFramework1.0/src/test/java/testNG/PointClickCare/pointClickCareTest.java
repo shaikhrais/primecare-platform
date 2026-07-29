@@ -1,4 +1,4 @@
-﻿package testNG.PointClickCare;
+package testNG.PointClickCare;
 
 import java.time.Duration;
 

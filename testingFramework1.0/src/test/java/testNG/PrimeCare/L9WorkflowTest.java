@@ -1,4 +1,4 @@
-﻿package testNG.PrimeCare;
+package testNG.PrimeCare;
 
 import primecare.testing.framework.*;
 import static primecare.testing.framework.Models.*;

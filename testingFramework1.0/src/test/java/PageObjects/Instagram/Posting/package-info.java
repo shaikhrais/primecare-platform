@@ -1,1 +1,1 @@
-﻿package pageobjects.Instagram.Posting;
+package pageobjects.Instagram.Posting;

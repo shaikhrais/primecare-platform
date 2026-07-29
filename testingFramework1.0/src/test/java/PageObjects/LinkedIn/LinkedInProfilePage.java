@@ -1,4 +1,4 @@
-﻿package pageobjects.LinkedIn;
+package pageobjects.LinkedIn;
 
 import java.util.List;
 

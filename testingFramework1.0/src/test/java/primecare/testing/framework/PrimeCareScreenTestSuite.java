@@ -1,4 +1,4 @@
-﻿package primecare.testing.framework;
+package primecare.testing.framework;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

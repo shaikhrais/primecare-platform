@@ -1,4 +1,4 @@
-﻿package primecare.testing.framework;
+package primecare.testing.framework;
 
 public enum ExecutionStrategy {
     SCREEN_FIRST,

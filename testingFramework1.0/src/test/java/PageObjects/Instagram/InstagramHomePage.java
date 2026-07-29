@@ -1,4 +1,4 @@
-﻿package pageobjects.Instagram;
+package pageobjects.Instagram;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

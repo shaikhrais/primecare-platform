@@ -1,4 +1,4 @@
-﻿package testNG.Instagram.UserData;
+package testNG.Instagram.UserData;
 
 import org.testng.annotations.Test;
 import pageobjects.Instagram.InstagramLoginPage;

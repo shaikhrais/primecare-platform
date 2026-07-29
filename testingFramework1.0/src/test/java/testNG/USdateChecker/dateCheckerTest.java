@@ -1,4 +1,4 @@
-﻿package testNG.USdateChecker;
+package testNG.USdateChecker;
 
 
 import java.time.Duration;
