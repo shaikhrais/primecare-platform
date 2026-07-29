@@ -1,4 +1,4 @@
-﻿package testNG.PrimeCare;
+package testNG.PrimeCare;
 
 import primecare.testing.framework.*;
 import static primecare.testing.framework.Models.*;
@@ -91,25 +91,14 @@ public class AllScreensVerificationTest extends baseUserCredentials {
     @DataProvider(name = "activeScreens")
     public Object[][] getActiveScreens() {
         List<ScreenTestData> list = new ArrayList<>();
-        String dbPath = ".agents/governance/governance.db";
-        if (!new File(dbPath).exists()) {
-            dbPath = "governance.db";
-        }
-        if (!new File(dbPath).exists()) {
-            dbPath = "../.agents/governance/governance.db";
-        }
-        if (!new File(dbPath).exists()) {
-            dbPath = "testingFramework1.0/governance.db";
-        }
-
-        String dbUrl = "jdbc:sqlite:" + dbPath;
+        String dbUrl = DatabaseConfig.getDbUrl();
         try (Connection conn = DriverManager.getConnection(dbUrl)) {
             Map<Integer, String> appUrls = new HashMap<>();
-            String appsSql = "SELECT id, base_url FROM apps";
+            String appsSql = "SELECT id, app_code FROM apps";
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(appsSql)) {
                 while (rs.next()) {
-                    appUrls.put(rs.getInt("id"), rs.getString("base_url"));
+                    appUrls.put(rs.getInt("id"), "https://primecare-clinic.pages.dev");
                 }
             }
 

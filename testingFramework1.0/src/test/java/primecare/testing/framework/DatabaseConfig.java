@@ -1,4 +1,4 @@
-﻿package primecare.testing.framework;
+package primecare.testing.framework;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -19,11 +19,20 @@ public class DatabaseConfig {
 
     public static String getDbUrl() {
         String url = System.getProperty("db.url");
-        if (url == null) {
+        if (url == null || url.trim().isEmpty()) {
             url = System.getenv("db_url");
         }
-        if (url == null) {
-            url = properties.getProperty("db.url", "jdbc:sqlite:governance.db");
+        if (url == null || url.trim().isEmpty()) {
+            url = properties.getProperty("db.url");
+        }
+        if (url == null || url.trim().isEmpty()) {
+            java.io.File primaryDb = new java.io.File("c:/Users/Admin2/Documents/GitHub/primecare-platform/.agents/governance/governance.db");
+            if (primaryDb.exists()) {
+                url = "jdbc:sqlite:" + primaryDb.getAbsolutePath();
+            } else {
+                java.io.File localDb = new java.io.File("governance.db");
+                url = "jdbc:sqlite:" + localDb.getAbsolutePath();
+            }
         }
         return url;
     }

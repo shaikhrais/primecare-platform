@@ -1,4 +1,4 @@
-﻿package testNG.PrimeCare;
+package testNG.PrimeCare;
 
 import primecare.testing.framework.*;
 import static primecare.testing.framework.Models.*;
@@ -113,17 +113,7 @@ public class MasterScreenTestRunner extends baseUserCredentials {
     @DataProvider(name = "masterScreenFilter")
     public Object[][] getFilteredScreens() {
         List<ScreenTestData> list = new ArrayList<>();
-        String dbPath = ".agents/governance/governance.db";
-        if (!new File(dbPath).exists()) {
-            dbPath = "governance.db";
-        }
-        if (!new File(dbPath).exists()) {
-            dbPath = "../.agents/governance/governance.db";
-        }
-        if (!new File(dbPath).exists()) {
-            dbPath = "testingFramework1.0/governance.db";
-        }
-        String dbUrl = "jdbc:sqlite:" + dbPath;
+        String dbUrl = DatabaseConfig.getDbUrl();
 
         String mode = DEFAULT_RUN_MODE.trim().toUpperCase();
 
