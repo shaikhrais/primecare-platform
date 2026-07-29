@@ -1,5 +1,9 @@
 ﻿package primecare.testing.listeners;
 
+import primecare.testing.framework.*;
+import static primecare.testing.framework.Models.*;
+import static primecare.testing.framework.Repositories.*;
+
 import primecare.testing.base.BaseTest;
 import primecare.testing.base.BaseUiTest;
 import primecare.testing.framework.Models.*;

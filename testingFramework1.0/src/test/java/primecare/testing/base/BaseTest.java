@@ -1,5 +1,9 @@
 ﻿package primecare.testing.base;
 
+import primecare.testing.framework.*;
+import static primecare.testing.framework.Models.*;
+import static primecare.testing.framework.Repositories.*;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import primecare.testing.framework.DatabaseMigrationRunner;
 import primecare.testing.framework.DatabaseHealthCheck;

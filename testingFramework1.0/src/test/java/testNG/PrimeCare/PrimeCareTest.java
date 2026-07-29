@@ -1,5 +1,9 @@
 ﻿package testNG.PrimeCare;
 
+import primecare.testing.framework.*;
+import static primecare.testing.framework.Models.*;
+import static primecare.testing.framework.Repositories.*;
+
 import org.testng.annotations.Test;
 import pageobjects.primecare.ui.Auth1LanguageScreen;
 import pageobjects.primecare.ui.Auth2LoginScreen;

@@ -1,5 +1,8 @@
 ﻿package primecare.testing.framework;
 
+import static primecare.testing.framework.Models.*;
+import static primecare.testing.framework.Repositories.*;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

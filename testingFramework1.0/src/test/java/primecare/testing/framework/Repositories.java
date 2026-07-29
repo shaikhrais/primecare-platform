@@ -1,5 +1,7 @@
 ﻿package primecare.testing.framework;
 
+import static primecare.testing.framework.Models.*;
+
 import primecare.testing.models.*;
 import primecare.testing.base.BaseTest;
 

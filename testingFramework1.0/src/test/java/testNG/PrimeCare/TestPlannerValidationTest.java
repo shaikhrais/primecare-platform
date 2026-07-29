@@ -1,5 +1,9 @@
 ﻿package testNG.PrimeCare;
 
+import primecare.testing.framework.*;
+import static primecare.testing.framework.Models.*;
+import static primecare.testing.framework.Repositories.*;
+
 import primecare.testing.base.BaseTest;
 import primecare.testing.models.*;
 import primecare.testing.framework.*;

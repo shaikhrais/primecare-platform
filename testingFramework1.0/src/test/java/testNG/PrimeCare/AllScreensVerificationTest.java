@@ -1,4 +1,8 @@
-package testNG.PrimeCare;
+﻿package testNG.PrimeCare;
+
+import primecare.testing.framework.*;
+import static primecare.testing.framework.Models.*;
+import static primecare.testing.framework.Repositories.*;
 
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
