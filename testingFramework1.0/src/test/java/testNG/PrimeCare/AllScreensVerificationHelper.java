@@ -27,6 +27,7 @@ import java.util.regex.Pattern;
 /**
  * AllScreensVerificationHelper - Encapsulates all scanning, database data-provider loading,
  * page correctness validation, recovery navigation, page object reflection verification, and screenshot reporting.
+ * Features comprehensive [CALL] and [RESULT] function tracing across all execution paths.
  */
 public class AllScreensVerificationHelper {
 
@@ -66,6 +67,7 @@ public class AllScreensVerificationHelper {
      * Scans all Page Object Java files in the pageobjects directory to build the route-to-class map.
      */
     public void scanPageObjects() {
+        System.out.println("  [CALL] AllScreensVerificationHelper.scanPageObjects()");
         System.out.println("====== SCANNING PAGE OBJECTS ======");
         File dir = new File("src/test/java/pageobjects/primecare/ui");
         if (!dir.exists()) {
@@ -94,12 +96,14 @@ public class AllScreensVerificationHelper {
             }
         }
         System.out.println("  Total mapped routes: " + routeToClassMap.size());
+        System.out.println("  [RESULT] AllScreensVerificationHelper.scanPageObjects() -> Mapped " + routeToClassMap.size() + " routes.");
     }
 
     /**
      * Loads active screens from governance.db with fallback to mapped Page Objects.
      */
     public Object[][] getActiveScreens() {
+        System.out.println("  [CALL] AllScreensVerificationHelper.getActiveScreens()");
         List<ScreenTestData> list = new ArrayList<>();
         String dbUrl = DatabaseConfig.getDbUrl();
         try (Connection conn = DriverManager.getConnection(dbUrl)) {
@@ -165,6 +169,7 @@ public class AllScreensVerificationHelper {
         for (int i = 0; i < list.size(); i++) {
             data[i][0] = list.get(i);
         }
+        System.out.println("  [RESULT] AllScreensVerificationHelper.getActiveScreens() -> Returned " + data.length + " test items.");
         return data;
     }
 
@@ -172,11 +177,15 @@ public class AllScreensVerificationHelper {
      * Checks if current browser URL matches expected target route.
      */
     private boolean isCorrectPage(WebDriver driver, String expectedRoute) {
+        System.out.println("  [CALL] AllScreensVerificationHelper.isCorrectPage(expectedRoute=\"" + expectedRoute + "\")");
         try {
             String currentUrl = driver.getCurrentUrl();
             String cleanExpected = expectedRoute.split("\\?")[0];
-            return currentUrl != null && currentUrl.contains(cleanExpected);
+            boolean result = currentUrl != null && currentUrl.contains(cleanExpected);
+            System.out.println("  [RESULT] AllScreensVerificationHelper.isCorrectPage() -> " + result + " (Current URL: " + currentUrl + ")");
+            return result;
         } catch (Exception e) {
+            System.out.println("  [RESULT] AllScreensVerificationHelper.isCorrectPage() -> false (Exception: " + e.getMessage() + ")");
             return false;
         }
     }
@@ -186,8 +195,11 @@ public class AllScreensVerificationHelper {
      * If on another page or redirected, handles Error, Language, or Login redirect automatically!
      */
     public boolean checkPageIfOtherRedirectHandleErrorLanguageOrLogin(WebDriver driver, String targetRoute, String expectedTitle, String email, String password) {
+        System.out.println("  [CALL] AllScreensVerificationHelper.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(targetRoute=\"" + targetRoute + "\", expectedTitle=\"" + expectedTitle + "\", email=\"" + email + "\")");
         utilities.PageRecoveryUtility recovery = new utilities.PageRecoveryUtility(driver, "https://primecare-clinic.pages.dev/auth/login");
-        return recovery.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(targetRoute, expectedTitle, email, password);
+        boolean result = recovery.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(targetRoute, expectedTitle, email, password);
+        System.out.println("  [RESULT] AllScreensVerificationHelper.checkPageIfOtherRedirectHandleErrorLanguageOrLogin() -> " + result);
+        return result;
     }
 
     /**
@@ -196,12 +208,14 @@ public class AllScreensVerificationHelper {
      * 2. Scan Page Objects & Execute DOM Assertions
      */
     public void executeVerification(ScreenTestData screen, WebDriver driver, Runnable clearSession, NavigationFunction navigator) {
+        System.out.println("\n  [CALL] AllScreensVerificationHelper.executeVerification(screenId=" + screen.screenId + ", screenName=\"" + screen.screenName + "\", route=\"" + screen.route + "\", role=\"" + screen.requiredRole + "\")");
         System.out.println("====== STARTING VERIFICATION FOR SCREEN " + screen.screenId + " (" + screen.screenName + ") ======");
         
         String cleanRoute = screen.route.split("\\?")[0];
         String className = routeToClassMap.get(cleanRoute);
         if (className == null) {
             System.out.println("  [Skip] No PageObject class found for route: " + cleanRoute);
+            System.out.println("  [RESULT] AllScreensVerificationHelper.executeVerification() -> SKIPPED (No POM class found)");
             return;
         }
 
@@ -216,9 +230,14 @@ public class AllScreensVerificationHelper {
 
         try {
             if (clearSession != null) {
+                System.out.println("  [CALL] clearSession.run()");
                 clearSession.run();
+                System.out.println("  [RESULT] clearSession.run() -> Completed.");
             }
+            System.out.println("  [CALL] driver.get(\"" + targetUrl + "\")");
             driver.get(targetUrl);
+            utilities.PageRecoveryUtility.waitForPageLoadToSettle(driver, 3000);
+            System.out.println("  [RESULT] driver.get() -> Current URL: " + driver.getCurrentUrl());
 
             // =========================================================================
             // 🔍 PRE-CHECK: VERIFY TARGET URL & TITLE MATCH BEFORE OBJECT SCANNING
@@ -232,19 +251,26 @@ public class AllScreensVerificationHelper {
             // =========================================================================
             System.out.println("  [OBJECT SCANNER] Scanning page objects and executing DOM assertions for class: " + className);
             try {
+                System.out.println("  [CALL] Reflection Class.forName(\"pageobjects.primecare.ui." + className + "\")");
                 Class<?> clazz = Class.forName("pageobjects.primecare.ui." + className);
                 Constructor<?> constructor = clazz.getDeclaredConstructor();
                 Object pageInstance = constructor.newInstance();
                 Method isLoadedMethod = clazz.getMethod("isLoaded");
+                
+                System.out.println("  [CALL] POM Method.invoke(" + className + ".isLoaded())");
                 boolean loaded = (Boolean) isLoadedMethod.invoke(pageInstance);
+                System.out.println("  [RESULT] POM Method.invoke(" + className + ".isLoaded()) -> " + loaded);
                 Assert.assertTrue(loaded, "Failed to verify screen is loaded: " + className);
                 System.out.println("====== SUCCESSFUL VERIFICATION FOR SCREEN " + screen.screenId + " ======");
+                System.out.println("  [RESULT] AllScreensVerificationHelper.executeVerification() -> PASSED.");
             } catch (Exception e) {
+                System.err.println("  [RESULT] AllScreensVerificationHelper.executeVerification() -> FAILED (Reflection error: " + e.getMessage() + ")");
                 Assert.fail("Reflection execution of page object failed: " + e.getMessage(), e);
             }
         } finally {
             try {
                 if (driver instanceof TakesScreenshot) {
+                    System.out.println("  [CALL] TakesScreenshot.getScreenshotAs(FILE)");
                     File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
                     File destDir = new File("screenshots");
                     if (!destDir.exists()) {
@@ -252,10 +278,10 @@ public class AllScreensVerificationHelper {
                     }
                     File destFile = new File(destDir, className + ".png");
                     Files.copy(srcFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                    System.out.println("  [Screenshot] Saved screenshot to: " + destFile.getAbsolutePath());
+                    System.out.println("  [RESULT] Saved screenshot artifact -> " + destFile.getAbsolutePath());
                 }
             } catch (Exception ex) {
-                System.err.println("  [Screenshot] Failed to capture screenshot: " + ex.getMessage());
+                System.err.println("  [Screenshot Exception] " + ex.getMessage());
             }
         }
     }

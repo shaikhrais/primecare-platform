@@ -80,7 +80,8 @@ public class LayerExecutors {
             }
 
             By marker = primecare.testing.pages.ComponentResolver.resolveLocator(components.get(0));
-            pageRecovery.openRequestedPage(targetUrl, marker, screen.screenName, email, password);
+            boolean isPageReady = pageRecovery.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(screen.route, screen.screenName, email, password);
+            Assert.assertTrue(isPageReady, "Logical Guard Failed: Could not navigate to target page " + screen.route);
 
             primecare.testing.pages.DynamicScreen page = new primecare.testing.pages.DynamicScreen(driver, screenKey);
             for (UiComponentDefinition c : components) {

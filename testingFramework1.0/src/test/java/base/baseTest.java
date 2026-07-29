@@ -178,10 +178,10 @@ public class baseTest {
 			// Fallback to browser title
 			actualTitle = driver.getTitle();
 			String cleanActual = actualTitle.toLowerCase().replaceAll("\\s+", "");
-			System.out.println("  [Title Check] Fallback to browser title: \"" + actualTitle + "\" (cleaned: " + cleanActual + ")");
-			titleMatches = cleanActual.contains(cleanExpected) || cleanExpected.contains(cleanActual)
-					|| ((cleanActual.contains("identity") || cleanActual.contains("primecare") || cleanActual.contains("portal")) 
-						&& currentUrl.contains(expectedRoute));
+			titleMatches = cleanActual.contains(cleanExpected) || cleanExpected.contains(cleanActual);
+			if ((cleanActual.contains("identity") || cleanActual.contains("portal") || cleanActual.contains("login")) && !expectedRoute.contains("/auth/")) {
+				titleMatches = false;
+			}
 		}
 		System.out.println("  [Title Check] Match result: " + titleMatches);
 
