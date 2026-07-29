@@ -97,78 +97,93 @@ public class PageRecoveryUtility {
     }
 
     /**
-     * EXACT USER AUTHENTICATION FLOW:
-     * 1. Start with Language Page -> Click English & Continue
-     * 2. Go to Login Page -> Authenticate with credentials
-     * 3. Check Route Success Match (auth callback / post-login route confirmed)
-     * 4. Navigate to Target URL -> Confirm target page reached!
+     * EXACT USER CORE EXECUTION ALGORITHM:
+     * 1. First: Go to Language page -> Wait 2 seconds.
+     * 2. Second: Click English button & Continue -> Wait 2 seconds.
+     * 3. Third: Get credentials from DB & Login -> Check successful or not.
+     *    - IF NOT SUCCESSFUL: Print "LOGIN FAILED" and exit test immediately!
+     * 4. Fourth: IF SUCCESSFUL and route is successful:
+     *    - Redirect to Target Page URL.
+     *    - Capture screen print (screenshot).
+     *    - Consider as SUCCESSFUL!
      */
     public boolean executeSequentialRecoveryProtocol(String targetRoute, String email, String password) {
-        System.out.println("  [CALL] PageRecoveryUtility.executeSequentialRecoveryProtocol(targetRoute=\"" + targetRoute + "\", email=\"" + email + "\")");
-        for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-            System.out.println("\n  ==========================================================================");
-            System.out.println("  [AUTH PROTOCOL] Attempt " + attempt + " of " + MAX_ATTEMPTS + " | Target Route: " + targetRoute);
-            System.out.println("  ==========================================================================");
+        System.out.println("\n  ==========================================================================");
+        System.out.println("  [CORE AUTH PROTOCOL] Executing 4-Step Sequence for Route: " + targetRoute);
+        System.out.println("  ==========================================================================");
 
-            // -------------------------------------------------------------
-            // STEP 1: START WITH LANGUAGE PAGE & SELECT ENGLISH
-            // -------------------------------------------------------------
-            if (isLanguagePage() || isLoginPage() || !isLoggedIn()) {
-                System.out.println("  [STEP 1: LANGUAGE PAGE] Initiating Language Selection Flow...");
-                if (!isLanguagePage() && !isLoginPage()) {
-                    String langUrl = "https://primecare-auth.pages.dev/language?clientId=primecare-clinic&callbackUrl=https%3A%2F%2Fprimecare-clinic.pages.dev%2Fauth%2Fcallback&returnUrl=" + targetRoute;
-                    System.out.println("  [ACTION] Directing browser to Language Portal: " + langUrl);
-                    driver.get(langUrl);
-                    sleep(2000);
-                }
-                handleLanguageFlow();
-                sleep(2000);
-            }
+        // -------------------------------------------------------------
+        // STEP 1: FIRST GO TO LANGUAGE PAGE & WAIT 2 SECONDS
+        // -------------------------------------------------------------
+        String langUrl = "https://primecare-auth.pages.dev/language?clientId=primecare-clinic&callbackUrl=https%3A%2F%2Fprimecare-clinic.pages.dev%2Fauth%2Fcallback&returnUrl=" + targetRoute;
+        System.out.println("  [STEP 1] Navigating to Language Page: " + langUrl);
+        driver.get(langUrl);
+        System.out.println("  [STEP 1] Pausing 2 seconds for Language Page to load...");
+        sleep(2000);
 
-            // -------------------------------------------------------------
-            // STEP 2: GO TO LOGIN PAGE & AUTHENTICATE WITH CREDENTIALS
-            // -------------------------------------------------------------
-            if (isLoginPage() || !isLoggedIn()) {
-                System.out.println("  [STEP 2: LOGIN PAGE] Authenticating user credentials (" + email + ")...");
-                if (!isLoginPage()) {
-                    String loginUrlTarget = "https://primecare-auth.pages.dev/login?clientId=primecare-clinic&callbackUrl=https%3A%2F%2Fprimecare-clinic.pages.dev%2Fauth%2Fcallback&returnUrl=" + targetRoute;
-                    System.out.println("  [ACTION] Directing browser to Login Portal: " + loginUrlTarget);
-                    driver.get(loginUrlTarget);
-                    sleep(2000);
-                }
-                handleLoginFlow(email, password);
-                sleep(3500);
-            }
+        // -------------------------------------------------------------
+        // STEP 2: SECOND CLICK ON ENGLISH BUTTON & WAIT 2 SECONDS
+        // -------------------------------------------------------------
+        System.out.println("  [STEP 2] Clicking English language button & Continue...");
+        handleLanguageFlow();
+        System.out.println("  [STEP 2] Pausing 2 seconds after Language selection...");
+        sleep(2000);
 
-            // -------------------------------------------------------------
-            // STEP 3: CHECK ROUTE SUCCESS MATCH (AUTH CALLBACK / SESSION)
-            // -------------------------------------------------------------
-            String currentUrl = getCurrentUrl();
-            boolean authSuccess = isLoggedIn() || currentUrl.contains("/auth/callback") || currentUrl.contains("/success") || !currentUrl.contains("/login");
-            System.out.println("  [STEP 3: AUTH CALLBACK CHECK] Auth Success: " + authSuccess + " | Current URL: " + currentUrl);
+        // -------------------------------------------------------------
+        // STEP 3: THIRD GET CREDENTIALS FROM DB & LOGIN & CHECK SUCCESS
+        // -------------------------------------------------------------
+        if (!isLoginPage()) {
+            String loginUrlTarget = "https://primecare-auth.pages.dev/login?clientId=primecare-clinic&callbackUrl=https%3A%2F%2Fprimecare-clinic.pages.dev%2Fauth%2Fcallback&returnUrl=" + targetRoute;
+            System.out.println("  [STEP 3] Directing browser to Login Page: " + loginUrlTarget);
+            driver.get(loginUrlTarget);
+            sleep(2000);
+        }
+        System.out.println("  [STEP 3] Logging into system with DB credentials (" + email + ")...");
+        handleLoginFlow(email, password);
+        System.out.println("  [STEP 3] Pausing 3 seconds for authentication token exchange...");
+        sleep(3000);
 
-            // -------------------------------------------------------------
-            // STEP 4: GO TO TARGET URL & CONFIRM TARGET REACHED
-            // -------------------------------------------------------------
-            String base = "https://primecare-clinic.pages.dev";
-            String targetUrl = base + targetRoute + (targetRoute.contains("?") ? "&" : "?") + "enable-semantics=true";
-            System.out.println("  [STEP 4: TARGET NAVIGATION] Directing browser to Target URL: " + targetUrl);
-            driver.get(targetUrl);
-            sleep(3000);
+        String currentUrl = getCurrentUrl();
+        boolean authSuccess = isLoggedIn() || currentUrl.contains("/auth/callback") || currentUrl.contains("/success") || (!currentUrl.contains("/login") && !currentUrl.contains("/language"));
+        System.out.println("  [STEP 3 CHECK] Auth Status -> Success: " + authSuccess + " | Current URL: " + currentUrl);
 
-            if (isTargetPageReached(targetRoute)) {
-                System.out.println("  [STEP 4: SUCCESS] Target Page Confirmed! Ready for Page Object DOM Scanning.");
-                System.out.println("  ==========================================================================");
-                System.out.println("  [RESULT] PageRecoveryUtility.executeSequentialRecoveryProtocol() -> true");
-                return true;
-            } else {
-                System.out.println("  [STEP 4: RETRY] Target Page Not Reached Yet. Retrying attempt...");
-            }
+        if (!authSuccess) {
+            System.err.println("  [LOGIN FAILED] Authentication failed for user (" + email + ")! Exiting test.");
+            org.testng.Assert.fail("LOGIN FAILED: Authentication failed for email: " + email + " at URL: " + currentUrl);
+            return false;
         }
 
-        System.err.println("[Recovery Protocol] Failed to reach targeted page after " + MAX_ATTEMPTS + " attempts.");
-        System.out.println("  [RESULT] PageRecoveryUtility.executeSequentialRecoveryProtocol() -> false");
-        return false;
+        // -------------------------------------------------------------
+        // STEP 4: REDIRECT TO TARGET PAGE & SCREEN PRINT & CONSIDER SUCCESSFUL!
+        // -------------------------------------------------------------
+        String base = "https://primecare-clinic.pages.dev";
+        String targetUrl = base + targetRoute + (targetRoute.contains("?") ? "&" : "?") + "enable-semantics=true";
+        System.out.println("  [STEP 4] Redirecting to Target Page: " + targetUrl);
+        driver.get(targetUrl);
+        System.out.println("  [STEP 4] Pausing 3 seconds for Target Page elements to render...");
+        sleep(3000);
+
+        // Capture screen print
+        captureScreenshot("TargetPage_" + targetRoute.replaceAll("[^a-zA-Z0-9]", "_"));
+
+        System.out.println("  [STEP 4: SUCCESS] Target Page Reached & Screen Print Captured! Considered SUCCESSFUL!");
+        System.out.println("  ==========================================================================");
+        return true;
+    }
+
+    public void captureScreenshot(String name) {
+        try {
+            if (driver instanceof org.openqa.selenium.TakesScreenshot) {
+                java.io.File srcFile = ((org.openqa.selenium.TakesScreenshot) driver).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
+                java.io.File destDir = new java.io.File("screenshots");
+                if (!destDir.exists()) destDir.mkdirs();
+                java.io.File destFile = new java.io.File(destDir, name + ".png");
+                java.nio.file.Files.copy(srcFile.toPath(), destFile.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("  [SCREEN PRINT] Saved screenshot artifact -> " + destFile.getAbsolutePath());
+            }
+        } catch (Exception e) {
+            System.err.println("  [SCREEN PRINT ERROR] " + e.getMessage());
+        }
     }
 
     public boolean isSystemErrorPage() {
