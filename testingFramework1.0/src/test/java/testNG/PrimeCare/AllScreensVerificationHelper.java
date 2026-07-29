@@ -190,18 +190,9 @@ public class AllScreensVerificationHelper {
         }
     }
 
-    public boolean executeCoreAuthAndNavigateToTarget(WebDriver driver, String targetRoute, String email, String password) {
-        System.out.println("  [CALL] AllScreensVerificationHelper.executeCoreAuthAndNavigateToTarget(targetRoute=\"" + targetRoute + "\", email=\"" + email + "\")");
-        utilities.PageRecoveryUtility recovery = new utilities.PageRecoveryUtility(driver, "https://primecare-clinic.pages.dev/auth/login");
-        boolean result = recovery.executeCoreAuthAndNavigateToTarget(targetRoute, email, password);
-        System.out.println("  [RESULT] AllScreensVerificationHelper.executeCoreAuthAndNavigateToTarget() -> " + result);
-        return result;
-    }
-
     /**
      * Executes verification flow:
-     * 1. Core Auth Protocol (Language -> Click English -> Login DB Creds -> Auth Check / Exit -> Target Redirect + Screen Print)
-     * 2. Scan Page Objects & Execute DOM Assertions
+     * 1. Scan Page Objects & Execute DOM Assertions (Navigation and Core Auth Protocol is handled by baseTest.verifyNavigationProtocol)
      */
     public void executeVerification(ScreenTestData screen, WebDriver driver, Runnable clearSession, NavigationFunction navigator) {
         System.out.println("\n  [CALL] AllScreensVerificationHelper.executeVerification(screenId=" + screen.screenId + ", screenName=\"" + screen.screenName + "\", route=\"" + screen.route + "\", role=\"" + screen.requiredRole + "\")");
@@ -224,12 +215,6 @@ public class AllScreensVerificationHelper {
                 clearSession.run();
                 System.out.println("  [RESULT] clearSession.run() -> Completed.");
             }
-
-            // =========================================================================
-            // 🛑 CORE AUTH PROTOCOL: LANGUAGE -> LOGIN -> DB CREDS -> TARGET REDIRECT
-            // =========================================================================
-            boolean isPageReady = executeCoreAuthAndNavigateToTarget(driver, screen.route, screen.testEmail, screen.testPassword);
-            Assert.assertTrue(isPageReady, "Core Auth Protocol failed for target route: " + screen.route);
 
             // =========================================================================
             // 🧩 NOW SCAN PAGE OBJECTS & EXECUTE DOM ASSERTIONS

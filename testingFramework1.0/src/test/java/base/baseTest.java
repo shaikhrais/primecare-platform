@@ -111,70 +111,20 @@ public class baseTest {
 	}
 
 	public boolean verifyNavigationProtocol(int screenId, String expectedTitle, String expectedRoute) {
-		System.out.println("\n====== CORE NAVIGATION PROTOCOL (Screen ID: " + screenId + " | Title: " + expectedTitle
-				+ ") ======");
+		System.out.println("\n====== CORE NAVIGATION PROTOCOL (Screen ID: " + screenId + " | Title: " + expectedTitle + ") ======");
 		System.out.println("  Target Route: " + expectedRoute);
 
-		String base = primecare.testing.framework.DatabaseConfig.getBaseUrlForRoute(expectedRoute);
-		String authBase = primecare.testing.framework.DatabaseConfig.getAuthUrl();
-
-		utilities.PageRecoveryUtility pageRecovery = new utilities.PageRecoveryUtility(driver, authBase + "/login");
-
-		// -------------------------------------------------------------
-		// STEP 1: FIRST GO TO LANGUAGE PAGE & WAIT 2 SECONDS
-		// -------------------------------------------------------------
-		String langUrl = authBase + "/language?clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute;
-		System.out.println("  [STEP 1] Base first: Navigating to Language Page (from SQLite DB): " + langUrl);
-		driver.get(langUrl);
-		try { Thread.sleep(2000); } catch (Exception ignored) {}
-
-		// -------------------------------------------------------------
-		// STEP 2: SECOND CLICK ON ENGLISH BUTTON & WAIT 2 SECONDS
-		// -------------------------------------------------------------
-		System.out.println("  [STEP 2] Second: Clicking English button & Continue...");
-		pageRecovery.handleLanguageFlow();
-		try { Thread.sleep(2000); } catch (Exception ignored) {}
-
-		// -------------------------------------------------------------
-		// STEP 3: THIRD GET CREDENTIALS FROM DB & LOGIN IN SYSTEM & CHECK SUCCESSFUL OR NOT
-		// -------------------------------------------------------------
-		if (!pageRecovery.isLoginPage()) {
-			String loginUrlTarget = authBase + "/login?clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute;
-			driver.get(loginUrlTarget);
-			try { Thread.sleep(2000); } catch (Exception ignored) {}
-		}
-		System.out.println("  [STEP 3] Third: Logging into system with DB credentials (clinic@primecare.com)...");
-		pageRecovery.handleLoginFlow("clinic@primecare.com", "Password123");
-		try { Thread.sleep(3000); } catch (Exception ignored) {}
-
-		String currentUrl = driver.getCurrentUrl();
-		boolean authSuccess = pageRecovery.isLoggedIn() || currentUrl.contains("/auth/callback") || currentUrl.contains("/success") || (!currentUrl.contains("/login") && !currentUrl.contains("/language"));
-		System.out.println("  [STEP 3 CHECK] Auth Status -> Success: " + authSuccess + " | Current URL: " + currentUrl);
-
-		if (!authSuccess) {
+		utilities.PageRecoveryUtility pageRecovery = new utilities.PageRecoveryUtility(driver, "https://primecare-auth.pages.dev/login");
+		boolean isSuccess = pageRecovery.executeCoreAuthAndNavigateToTarget(expectedRoute, "clinic@primecare.com", "Password123");
+		
+		if (!isSuccess) {
 			System.err.println("  [LOGIN FAILED] Authentication failed for user credentials! Exiting test.");
-			org.testng.Assert.fail("LOGIN FAILED: Authentication failed for email: clinic@primecare.com at URL: " + currentUrl);
+			org.testng.Assert.fail("LOGIN FAILED: Authentication failed for email: clinic@primecare.com at URL: " + driver.getCurrentUrl());
 			return false;
 		}
 
-		// -------------------------------------------------------------
-		// STEP 4: IF SUCCESSFUL AND ROUTE IS SUCCESSFUL THEN REDIRECT TO TARGET PAGE & SCREEN PRINT IT & CONSIDER SUCCESSFUL!
-		// -------------------------------------------------------------
-		String targetUrl = base + expectedRoute + (expectedRoute.contains("?") ? "&" : "?") + "enable-semantics=true";
-		System.out.println("  [STEP 4] Fourth: Redirecting to Target Page (from SQLite DB): " + targetUrl);
-		driver.get(targetUrl);
-		try {
-			Thread.sleep(3000);
-		} catch (Exception ignored) {
-		}
-
-		pageRecovery.captureScreenshot("TargetPage_" + expectedRoute.replaceAll("[^a-zA-Z0-9]", "_"));
-		System.out.println("  [STEP 4: SUCCESS] Target Page Reached & Screen Print Captured! Considered SUCCESSFUL!");
-		System.out.println("==========================================================================");
-
 		// Record result to DB
-		saveVerificationToDb(screenId, expectedTitle, expectedRoute, driver.getTitle(), driver.getCurrentUrl(), 1, 1, 1,
-				1, 1, 1, 0, 0, "PASSED", null);
+		saveVerificationToDb(screenId, expectedTitle, expectedRoute, driver.getTitle(), driver.getCurrentUrl(), 1, 1, 1, 1, 1, 1, 0, 0, "PASSED", null);
 		return true;
 	}
 

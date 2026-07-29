@@ -60,6 +60,7 @@ public class AllScreensVerificationTest extends baseUserCredentials {
      */
     @Test(dataProvider = "activeScreens")
     public void verifyScreenLayoutAndDOM(AllScreensVerificationHelper.ScreenTestData screen) {
+        verifyNavigationProtocol(screen.screenId, screen.screenName, screen.route);
         helper.executeVerification(screen, driver, this::clearSessionAndCookies, this::navigateToTargetPage);
     }
 
