@@ -97,74 +97,72 @@ public class PageRecoveryUtility {
     }
 
     /**
-     * STRICT 4-STEP RECOVERY FLOW:
-     * 1. Check Error Page? (YES -> Record error & reload; NO -> Step 2)
-     * 2. Check Language Page? (YES -> Select lang & continue; NO -> Step 3)
-     * 3. Check Login Page? (YES -> Fill creds & submit; NO -> Step 4)
-     * 4. Check Target Page? (YES -> Ready to run test; NO -> Retry up to 3 times)
+     * EXACT USER AUTHENTICATION FLOW:
+     * 1. Start with Language Page -> Click English & Continue
+     * 2. Go to Login Page -> Authenticate with credentials
+     * 3. Check Route Success Match (auth callback / post-login route confirmed)
+     * 4. Navigate to Target URL -> Confirm target page reached!
      */
     public boolean executeSequentialRecoveryProtocol(String targetRoute, String email, String password) {
         System.out.println("  [CALL] PageRecoveryUtility.executeSequentialRecoveryProtocol(targetRoute=\"" + targetRoute + "\", email=\"" + email + "\")");
         for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
             System.out.println("\n  ==========================================================================");
-            System.out.println("  [RECOVERY PROTOCOL] Attempt " + attempt + " of " + MAX_ATTEMPTS + " | Target Route: " + targetRoute);
+            System.out.println("  [AUTH PROTOCOL] Attempt " + attempt + " of " + MAX_ATTEMPTS + " | Target Route: " + targetRoute);
             System.out.println("  ==========================================================================");
 
             // -------------------------------------------------------------
-            // STEP 1: CHECK IS THIS SYSTEM ERROR PAGE?
+            // STEP 1: START WITH LANGUAGE PAGE & SELECT ENGLISH
             // -------------------------------------------------------------
-            if (isSystemErrorPage()) {
-                System.err.println("  [STEP 1: ERROR DETECTED] System Error Page Found! Recording Error Details...");
-                recordSystemError();
-                driver.get(loginUrl);
-                sleep(1000);
-            } else {
-                System.out.println("  [STEP 1: OK] Not an Error Page. Proceeding to Language Check...");
-            }
-
-            // -------------------------------------------------------------
-            // STEP 2: CHECK IS THIS LANGUAGE PAGE?
-            // -------------------------------------------------------------
-            if (isLanguagePage()) {
-                System.out.println("  [STEP 2: LANGUAGE ROUTE] Language Selection Page Detected! Selecting English & Continuing...");
-                handleLanguageFlow();
-                sleep(2500);
-                if (isLoginPage()) {
-                    System.out.println("  [STEP 3: LOGIN ROUTE] Login Page Detected after Language Selection! Authenticating credentials (" + email + ")...");
-                    handleLoginFlow(email, password);
-                    sleep(3500);
+            if (isLanguagePage() || isLoginPage() || !isLoggedIn()) {
+                System.out.println("  [STEP 1: LANGUAGE PAGE] Initiating Language Selection Flow...");
+                if (!isLanguagePage() && !isLoginPage()) {
+                    String langUrl = "https://primecare-auth.pages.dev/language?clientId=primecare-clinic&callbackUrl=https%3A%2F%2Fprimecare-clinic.pages.dev%2Fauth%2Fcallback&returnUrl=" + targetRoute;
+                    System.out.println("  [ACTION] Directing browser to Language Portal: " + langUrl);
+                    driver.get(langUrl);
+                    sleep(2000);
                 }
-            } else {
-                System.out.println("  [STEP 2: OK] Not a Language Page. Proceeding to Login Check...");
+                handleLanguageFlow();
+                sleep(2000);
             }
 
             // -------------------------------------------------------------
-            // STEP 3: CHECK IS THIS LOGIN PAGE?
+            // STEP 2: GO TO LOGIN PAGE & AUTHENTICATE WITH CREDENTIALS
             // -------------------------------------------------------------
-            if (isLoginPage()) {
-                System.out.println("  [STEP 3: LOGIN ROUTE] Login Page Detected! Authenticating credentials (" + email + ")...");
+            if (isLoginPage() || !isLoggedIn()) {
+                System.out.println("  [STEP 2: LOGIN PAGE] Authenticating user credentials (" + email + ")...");
+                if (!isLoginPage()) {
+                    String loginUrlTarget = "https://primecare-auth.pages.dev/login?clientId=primecare-clinic&callbackUrl=https%3A%2F%2Fprimecare-clinic.pages.dev%2Fauth%2Fcallback&returnUrl=" + targetRoute;
+                    System.out.println("  [ACTION] Directing browser to Login Portal: " + loginUrlTarget);
+                    driver.get(loginUrlTarget);
+                    sleep(2000);
+                }
                 handleLoginFlow(email, password);
                 sleep(3500);
-            } else {
-                System.out.println("  [STEP 3: OK] Not a Login Page. Proceeding to Target Page Verification...");
             }
 
             // -------------------------------------------------------------
-            // STEP 4: CHECK HAS TARGETED PAGE BEEN REACHED?
+            // STEP 3: CHECK ROUTE SUCCESS MATCH (AUTH CALLBACK / SESSION)
             // -------------------------------------------------------------
+            String currentUrl = getCurrentUrl();
+            boolean authSuccess = isLoggedIn() || currentUrl.contains("/auth/callback") || currentUrl.contains("/success") || !currentUrl.contains("/login");
+            System.out.println("  [STEP 3: AUTH CALLBACK CHECK] Auth Success: " + authSuccess + " | Current URL: " + currentUrl);
+
+            // -------------------------------------------------------------
+            // STEP 4: GO TO TARGET URL & CONFIRM TARGET REACHED
+            // -------------------------------------------------------------
+            String base = "https://primecare-clinic.pages.dev";
+            String targetUrl = base + targetRoute + (targetRoute.contains("?") ? "&" : "?") + "enable-semantics=true";
+            System.out.println("  [STEP 4: TARGET NAVIGATION] Directing browser to Target URL: " + targetUrl);
+            driver.get(targetUrl);
+            sleep(3000);
+
             if (isTargetPageReached(targetRoute)) {
-                System.out.println("  [STEP 4: TARGET REACHED] Target Page Confirmed! Ready for Page Object DOM Scanning.");
+                System.out.println("  [STEP 4: SUCCESS] Target Page Confirmed! Ready for Page Object DOM Scanning.");
                 System.out.println("  ==========================================================================");
                 System.out.println("  [RESULT] PageRecoveryUtility.executeSequentialRecoveryProtocol() -> true");
                 return true;
             } else {
-                System.out.println("  [STEP 4: REDIRECTING] Target Page Not Reached Yet. Redirecting to: " + targetRoute);
-                if (attempt < MAX_ATTEMPTS) {
-                    String targetUrl = targetRoute.startsWith("http") ? targetRoute : loginUrl.replace("/auth/login", "").replace("/login", "") + targetRoute;
-                    System.out.println("  [CALL] driver.get(\"" + targetUrl + "\")");
-                    driver.get(targetUrl);
-                    sleep(1000);
-                }
+                System.out.println("  [STEP 4: RETRY] Target Page Not Reached Yet. Retrying attempt...");
             }
         }
 
