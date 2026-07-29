@@ -1,13 +1,12 @@
-package testNG.USdateChecker;
+﻿package testNG.USdateChecker;
 
 
 import java.time.Duration;
 
 import org.testng.annotations.Test;
-
-import PageObjects.GoogleMaps.PointClickCare;
-import PageObjects.USdateChecker.LoginScreen;
-import PageObjects.USdateChecker.ReschedulePage;
+import pageobjects.GoogleMaps.PointClickCare;
+import pageobjects.USdateChecker.LoginScreen;
+import pageobjects.USdateChecker.ReschedulePage;
 import PageObjectsPoint.ClickCare.HomePage;
 import PageObjectsPoint.ClickCare.PatientsListPage;
 import base.baseTest;

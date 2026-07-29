@@ -19,7 +19,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
 import pageobjects.primecare.ui.Auth2LoginScreen;
 import pageobjects.primecare.ui.Auth1LanguageScreen;
 import io.github.bonigarcia.wdm.WebDriverManager;

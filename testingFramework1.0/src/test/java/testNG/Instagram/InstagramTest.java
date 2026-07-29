@@ -1,13 +1,12 @@
-package testNG.Instagram;
+﻿package testNG.Instagram;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import PageObjects.Instagram.InstagramHomePage;
-import PageObjects.Instagram.InstagramLoginPage;
+import pageobjects.Instagram.InstagramHomePage;
+import pageobjects.Instagram.InstagramLoginPage;
 
 public class InstagramTest {
 

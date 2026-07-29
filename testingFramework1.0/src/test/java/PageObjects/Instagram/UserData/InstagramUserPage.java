@@ -1,4 +1,4 @@
-package PageObjects.Instagram.UserData;
+﻿package pageobjects.Instagram.UserData;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;

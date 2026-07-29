@@ -1,9 +1,8 @@
-package testNG.Instagram.UserData;
+﻿package testNG.Instagram.UserData;
 
 import org.testng.annotations.Test;
-
-import PageObjects.Instagram.InstagramLoginPage;
-import PageObjects.Instagram.UserData.InstagramUserPage;
+import pageobjects.Instagram.InstagramLoginPage;
+import pageobjects.Instagram.UserData.InstagramUserPage;
 import base.baseTest;
 
 public class InstagramUserDataTest extends baseTest {

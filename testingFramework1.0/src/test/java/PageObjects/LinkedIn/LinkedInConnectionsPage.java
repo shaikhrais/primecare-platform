@@ -1,4 +1,4 @@
-package PageObjects.LinkedIn;
+﻿package pageobjects.LinkedIn;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;

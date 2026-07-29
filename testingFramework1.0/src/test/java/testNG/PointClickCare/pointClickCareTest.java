@@ -1,10 +1,9 @@
-package testNG.PointClickCare;
+﻿package testNG.PointClickCare;
 
 import java.time.Duration;
 
 import org.testng.annotations.Test;
-
-import PageObjects.GoogleMaps.PointClickCare;
+import pageobjects.GoogleMaps.PointClickCare;
 import PageObjectsPoint.ClickCare.HomePage;
 import PageObjectsPoint.ClickCare.PatientsListPage;
 import base.baseTest;

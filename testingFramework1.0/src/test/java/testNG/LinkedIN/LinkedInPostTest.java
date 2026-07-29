@@ -1,4 +1,4 @@
-package testNG.LinkedIN;
+﻿package testNG.LinkedIN;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,9 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import PageObjects.LinkedIn.LinkedInHomePage;
-import PageObjects.LinkedIn.LinkedInLoginPage;
+import pageobjects.LinkedIn.LinkedInHomePage;
+import pageobjects.LinkedIn.LinkedInLoginPage;
 import base.baseTest;
 
 public class LinkedInPostTest extends baseTest {

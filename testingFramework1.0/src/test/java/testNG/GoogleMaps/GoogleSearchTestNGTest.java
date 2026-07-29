@@ -1,8 +1,7 @@
-package testNG.GoogleMaps;
+﻿package testNG.GoogleMaps;
 
 import org.testng.annotations.Test;
-
-import PageObjects.GoogleMaps.GoogleSearch;
+import pageobjects.GoogleMaps.GoogleSearch;
 import base.baseTest;
 
 public class GoogleSearchTestNGTest extends baseTest {

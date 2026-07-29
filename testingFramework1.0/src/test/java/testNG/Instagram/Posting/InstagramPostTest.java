@@ -1,10 +1,9 @@
-package testNG.Instagram.Posting;
+﻿package testNG.Instagram.Posting;
 
 import java.time.Duration;
 
 import org.testng.annotations.Test;
-
-import PageObjects.Instagram.Posting.InstagramPage;
+import pageobjects.Instagram.Posting.InstagramPage;
 import base.baseTest;
 
 public class InstagramPostTest extends baseTest {

@@ -1,4 +1,4 @@
-package PageObjects.ChatGPT;
+﻿package pageobjects.ChatGPT;
 
 public class ChatGPTHomePage {
 

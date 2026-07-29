@@ -273,4 +273,19 @@ public class PageRecoveryUtility {
             return false;
         }
     }
+
+    public void enableSemantics() {
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.flutterConfiguration = { enableSemantics: true };");
+        } catch (Exception ignored) {}
+    }
+
+    public boolean navigateToTargetScreen(String targetUrl, String screenKey, String email, String password) {
+        return executeSequentialRecoveryProtocol(targetUrl, email, password);
+    }
+
+    public boolean openRequestedPage(String targetUrl, By marker, String email, String password, String role) {
+        return executeSequentialRecoveryProtocol(targetUrl, email, password);
+    }
 }

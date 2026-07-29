@@ -1,8 +1,7 @@
-package testNG.AspRestApi;
+﻿package testNG.AspRestApi;
 
 import org.testng.annotations.Test;
-
-import PageObjects.AspRestApi.ApiIndexPage;
+import pageobjects.AspRestApi.ApiIndexPage;
 import base.baseTest;
 
 public class testIndexPage extends baseTest {
