@@ -186,6 +186,36 @@ public class PageRecoveryUtility {
         }
     }
 
+    // =========================================================================
+    // 🔄 BACKWARD COMPATIBILITY ALIASES (Delegating all legacy tests to 4-Step Core Flow)
+    // =========================================================================
+    public boolean executeSequentialRecoveryProtocol(String targetRoute, String email, String password) {
+        return executeCoreAuthAndNavigateToTarget(targetRoute, email, password);
+    }
+
+    public boolean navigateToTargetScreen(String targetRoute, String expectedTitle, String email, String password) {
+        return executeCoreAuthAndNavigateToTarget(targetRoute, email, password);
+    }
+
+    public boolean openRequestedPage(String targetRoute, org.openqa.selenium.By marker, String expectedTitle, String email, String password) {
+        return executeCoreAuthAndNavigateToTarget(targetRoute, email, password);
+    }
+
+    public void enableSemantics() {
+        try {
+            String currentUrl = driver.getCurrentUrl();
+            if (!currentUrl.contains("enable-semantics=true")) {
+                String target = currentUrl + (currentUrl.contains("?") ? "&" : "?") + "enable-semantics=true";
+                driver.get(target);
+            }
+        } catch (Exception ignored) {}
+    }
+
+    public boolean isElementVisible(String label) {
+        WebElement el = findSemanticElement(label);
+        return el != null && el.isDisplayed();
+    }
+
     private WebElement findSemanticElement(String value) {
         try {
             JavascriptExecutor js = (JavascriptExecutor) driver;

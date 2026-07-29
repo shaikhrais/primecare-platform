@@ -1,4 +1,4 @@
-﻿package testNG.PrimeCare;
+package testNG.PrimeCare;
 
 import primecare.testing.framework.*;
 import static primecare.testing.framework.Models.*;
@@ -108,18 +108,18 @@ public class L1RouteTest extends BaseUiTest {
         if (!isPublic) {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             try {
-                wait.until(d -> pageRecovery.isElementVisible("app-sidebar"));
+                wait.until((WebDriver d) -> pageRecovery.isElementVisible("app-sidebar"));
             } catch (Exception e) {
                 captureScreenshot(screen.screenKey + "_sidebar_failed");
                 Assert.fail("Layout Check Failed: Sidebar 'app-sidebar' not found or not rendered for screen: " + screen.screenKey);
             }
             try {
-                wait.until(d -> pageRecovery.isElementVisible("app-topbar"));
+                wait.until((WebDriver d) -> pageRecovery.isElementVisible("app-topbar"));
             } catch (Exception e) {
                 Assert.fail("Layout Check Failed: Topbar 'app-topbar' not found or not rendered for screen: " + screen.screenKey);
             }
             try {
-                wait.until(d -> pageRecovery.isElementVisible("app-content-slot"));
+                wait.until((WebDriver d) -> pageRecovery.isElementVisible("app-content-slot"));
             } catch (Exception e) {
                 Assert.fail("Layout Check Failed: Content area 'app-content-slot' not found or not rendered for screen: " + screen.screenKey);
             }
