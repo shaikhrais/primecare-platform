@@ -44,13 +44,16 @@ public class PageRecoveryUtility {
      * If redirected or on another page, handles Error Page, Language Selection, or Login automatically.
      */
     public boolean checkPageIfOtherRedirectHandleErrorLanguageOrLogin(String targetRoute, String email, String password) {
-        System.out.println("  [LOGICAL GUARD] Checking browser page location before scanning page objects...");
-        if (isTargetPageReached(targetRoute)) {
+        System.out.println("  [LOGICAL GUARD] Waiting 3 seconds for client-side router & redirects to settle...");
+        sleep(3000);
+
+        System.out.println("  [LOGICAL GUARD] Checking browser page location after 3s delay...");
+        if (!isLanguagePage() && !isLoginPage() && !isSystemErrorPage() && isTargetPageReached(targetRoute)) {
             System.out.println("  [LOGICAL GUARD: PASSED] Browser is confirmed on target page: " + targetRoute);
             return true;
         }
 
-        System.out.println("  [LOGICAL GUARD: REDIRECT DETECTED] Browser is on wrong page. Handling Error, Language, or Login redirect...");
+        System.out.println("  [LOGICAL GUARD: REDIRECT DETECTED] Browser redirected to " + getCurrentUrl() + ". Handling Error, Language, or Login redirect...");
         return executeSequentialRecoveryProtocol(targetRoute, email, password);
     }
 

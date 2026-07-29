@@ -186,16 +186,8 @@ public class AllScreensVerificationHelper {
      * If on another page or redirected, handles Error, Language, or Login redirect automatically!
      */
     public boolean checkPageIfOtherRedirectHandleErrorLanguageOrLogin(WebDriver driver, String targetRoute, String email, String password) {
-        System.out.println("  [PRE-CHECK] Verifying browser page location before scanning page objects...");
         utilities.PageRecoveryUtility recovery = new utilities.PageRecoveryUtility(driver, "https://primecare-clinic.pages.dev/auth/login");
-        
-        if (recovery.isTargetPageReached(targetRoute)) {
-            System.out.println("  [PRE-CHECK: PASSED] Browser is confirmed on the target page: " + targetRoute);
-            return true;
-        }
-
-        System.out.println("  [PRE-CHECK: REDIRECT DETECTED] Browser is on another page. Handling Error, Language, or Login redirect...");
-        return recovery.executeSequentialRecoveryProtocol(targetRoute, email, password);
+        return recovery.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(targetRoute, email, password);
     }
 
     /**
