@@ -190,21 +190,17 @@ public class AllScreensVerificationHelper {
         }
     }
 
-    /**
-     * BEFORE scanning Page Objects, checks if browser is on the right page.
-     * If on another page or redirected, handles Error, Language, or Login redirect automatically!
-     */
-    public boolean checkPageIfOtherRedirectHandleErrorLanguageOrLogin(WebDriver driver, String targetRoute, String expectedTitle, String email, String password) {
-        System.out.println("  [CALL] AllScreensVerificationHelper.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(targetRoute=\"" + targetRoute + "\", expectedTitle=\"" + expectedTitle + "\", email=\"" + email + "\")");
+    public boolean executeCoreAuthAndNavigateToTarget(WebDriver driver, String targetRoute, String email, String password) {
+        System.out.println("  [CALL] AllScreensVerificationHelper.executeCoreAuthAndNavigateToTarget(targetRoute=\"" + targetRoute + "\", email=\"" + email + "\")");
         utilities.PageRecoveryUtility recovery = new utilities.PageRecoveryUtility(driver, "https://primecare-clinic.pages.dev/auth/login");
-        boolean result = recovery.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(targetRoute, expectedTitle, email, password);
-        System.out.println("  [RESULT] AllScreensVerificationHelper.checkPageIfOtherRedirectHandleErrorLanguageOrLogin() -> " + result);
+        boolean result = recovery.executeCoreAuthAndNavigateToTarget(targetRoute, email, password);
+        System.out.println("  [RESULT] AllScreensVerificationHelper.executeCoreAuthAndNavigateToTarget() -> " + result);
         return result;
     }
 
     /**
      * Executes verification flow:
-     * 1. Pre-Check Page Correctness (verifies Target URL & Target Title match, handles Error, Language, Login redirect if on wrong page)
+     * 1. Core Auth Protocol (Language -> Click English -> Login DB Creds -> Auth Check / Exit -> Target Redirect + Screen Print)
      * 2. Scan Page Objects & Execute DOM Assertions
      */
     public void executeVerification(ScreenTestData screen, WebDriver driver, Runnable clearSession, NavigationFunction navigator) {
@@ -222,29 +218,18 @@ public class AllScreensVerificationHelper {
         System.out.println("  Target Route: " + screen.route);
         System.out.println("  PageObject Class: " + className);
 
-        String base = screen.baseUrl;
-        if (base == null || base.isEmpty()) {
-            base = "https://primecare-clinic.pages.dev";
-        }
-        String targetUrl = base + screen.route + (screen.route.contains("?") ? "&" : "?") + "enable-semantics=true";
-
         try {
             if (clearSession != null) {
                 System.out.println("  [CALL] clearSession.run()");
                 clearSession.run();
                 System.out.println("  [RESULT] clearSession.run() -> Completed.");
             }
-            System.out.println("  [CALL] driver.get(\"" + targetUrl + "\")");
-            driver.get(targetUrl);
-            utilities.PageRecoveryUtility.waitForPageLoadToSettle(driver, 3000);
-            System.out.println("  [RESULT] driver.get() -> Current URL: " + driver.getCurrentUrl());
 
             // =========================================================================
-            // 🔍 PRE-CHECK: VERIFY TARGET URL & TITLE MATCH BEFORE OBJECT SCANNING
-            // Handle Error Page, Language Selection, or Login Redirect if on wrong page.
+            // 🛑 CORE AUTH PROTOCOL: LANGUAGE -> LOGIN -> DB CREDS -> TARGET REDIRECT
             // =========================================================================
-            boolean isPageReady = checkPageIfOtherRedirectHandleErrorLanguageOrLogin(driver, screen.route, screen.screenName, screen.testEmail, screen.testPassword);
-            Assert.assertTrue(isPageReady, "Page Pre-Check failed: Could not reach target page " + screen.route);
+            boolean isPageReady = executeCoreAuthAndNavigateToTarget(driver, screen.route, screen.testEmail, screen.testPassword);
+            Assert.assertTrue(isPageReady, "Core Auth Protocol failed for target route: " + screen.route);
 
             // =========================================================================
             // 🧩 NOW SCAN PAGE OBJECTS & EXECUTE DOM ASSERTIONS

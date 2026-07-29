@@ -42,34 +42,18 @@ public class PageRecoveryUtility {
     }
 
     /**
-     * LOGICAL PRE-CONDITION GUARD:
-     * Before scanning objects or running test assertions, checks if browser is on target page
-     * by verifying BOTH target URL and target Page Title match.
-     * If redirected or on another page, handles Error Page, Language Selection, or Login automatically.
+     * CORE AUTH & TARGET NAVIGATION PROTOCOL:
+     * 1. Base first: Go to Language page -> Wait 2 seconds.
+     * 2. Second: Click English button & Continue -> Wait 2 seconds.
+     * 3. Third: Get credentials from DB & Login in system -> Check successful or not.
+     *    - IF NOT SUCCESSFUL: Print "LOGIN FAILED" and exit test immediately!
+     * 4. Fourth: IF SUCCESSFUL and route is successful:
+     *    - Redirect to Target Page URL.
+     *    - Capture screen print (screenshot).
+     *    - Consider as SUCCESSFUL!
      */
-    public boolean checkPageIfOtherRedirectHandleErrorLanguageOrLogin(String targetRoute, String expectedTitle, String email, String password) {
-        System.out.println("  [CALL] PageRecoveryUtility.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(targetRoute=\"" + targetRoute + "\", expectedTitle=\"" + expectedTitle + "\", email=\"" + email + "\")");
-        System.out.println("  [LOGICAL GUARD] Waiting 3 seconds for client-side router & redirects to settle...");
-        sleep(3000);
-
-        boolean urlMatches = isTargetPageReached(targetRoute);
-        boolean titleMatches = isTitleMatches(expectedTitle);
-
-        System.out.println("  [LOGICAL GUARD] Checking URL & Title match (URL Match: " + urlMatches + ", Title Match: " + titleMatches + ")...");
-        if (!isLanguagePage() && !isLoginPage() && !isSystemErrorPage() && urlMatches && titleMatches) {
-            System.out.println("  [LOGICAL GUARD: PASSED] Browser confirmed on target page! URL: " + getCurrentUrl() + " | Title: " + driver.getTitle());
-            System.out.println("  [RESULT] PageRecoveryUtility.checkPageIfOtherRedirectHandleErrorLanguageOrLogin() -> true");
-            return true;
-        }
-
-        System.out.println("  [LOGICAL GUARD: REDIRECT DETECTED] Browser redirected to " + getCurrentUrl() + ". Handling Error, Language, or Login redirect...");
-        boolean result = executeSequentialRecoveryProtocol(targetRoute, email, password);
-        System.out.println("  [RESULT] PageRecoveryUtility.checkPageIfOtherRedirectHandleErrorLanguageOrLogin() -> " + result);
-        return result;
-    }
-
-    public boolean checkPageIfOtherRedirectHandleErrorLanguageOrLogin(String targetRoute, String email, String password) {
-        return checkPageIfOtherRedirectHandleErrorLanguageOrLogin(targetRoute, "", email, password);
+    public boolean executeCoreAuthAndNavigateToTarget(String targetRoute, String email, String password) {
+        return executeSequentialRecoveryProtocol(targetRoute, email, password);
     }
 
     public boolean isTitleMatches(String expectedTitle) {

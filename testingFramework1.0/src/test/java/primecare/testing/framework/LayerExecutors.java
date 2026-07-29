@@ -32,7 +32,7 @@ public class LayerExecutors {
             String targetUrl = primecare.testing.base.BaseTest.appProps.getProperty("APP_BASE_URL", "http://localhost:8080") + screen.route;
             driver.get(targetUrl);
             
-            boolean isPageReady = pageRecovery.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(screen.route, "clinic@primecare.com", "Password123");
+            boolean isPageReady = pageRecovery.executeCoreAuthAndNavigateToTarget(screen.route, "clinic@primecare.com", "Password123");
             Assert.assertTrue(isPageReady, "Logical Guard Failed: Could not navigate to target page " + screen.route);
 
             Assert.assertNotNull(driver.getCurrentUrl(), "Driver could not resolve current URL.");
@@ -80,7 +80,7 @@ public class LayerExecutors {
             }
 
             By marker = primecare.testing.pages.ComponentResolver.resolveLocator(components.get(0));
-            boolean isPageReady = pageRecovery.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(screen.route, screen.screenName, email, password);
+            boolean isPageReady = pageRecovery.executeCoreAuthAndNavigateToTarget(screen.route, email, password);
             Assert.assertTrue(isPageReady, "Logical Guard Failed: Could not navigate to target page " + screen.route);
 
             primecare.testing.pages.DynamicScreen page = new primecare.testing.pages.DynamicScreen(driver, screenKey);
