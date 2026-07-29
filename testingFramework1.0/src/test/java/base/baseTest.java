@@ -87,21 +87,11 @@ public class baseTest {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		// PageLoad TimeOuts
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
-		// Launching the URL
-		String startUrl = ProjectExcelFileData.url();
-		if (!startUrl.contains("enable-semantics=true")) {
-			if (startUrl.contains("?")) {
-				startUrl += "&enable-semantics=true";
-			} else {
-				startUrl += "?enable-semantics=true";
-			}
-		}
+		// Launching the Auth Language Portal from SQLite DB
+		String authBase = primecare.testing.framework.DatabaseConfig.getAuthUrl();
+		String startUrl = authBase + "/language";
+		System.out.println("  [BASE SETUP] Initializing browser to Auth Language Portal: " + startUrl);
 		driver.get(startUrl);
-
-		// driver.get(
-		// "https://www.google.com/maps/search/computer+store+in+Hamilton,+ON/@43.4678993,-79.8280935,11z/data=!3m1!4b1?entry=ttu");
-
-		// driver.get(ProjectExcelFileData.url());
 	}
 
 	@AfterTest
