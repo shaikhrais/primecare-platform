@@ -111,11 +111,22 @@ public class baseTest {
 	}
 
 	public boolean verifyNavigationProtocol(int screenId, String expectedTitle, String expectedRoute) {
-		String currentUrl = driver.getCurrentUrl();
 		System.out.println("====== NAVIGATION PROTOCOL VERIFICATION ======");
 		System.out.println("  Screen ID: " + screenId);
 		System.out.println("  Expected Route: " + expectedRoute);
 		System.out.println("  Expected Title: " + expectedTitle);
+
+		// =========================================================================
+		// 🛑 MANDATORY STEP 1: VERIFY LOCATION & RESOLVE REDIRECTS BEFORE ASSERTIONS
+		// =========================================================================
+		utilities.PageRecoveryUtility pageRecovery = new utilities.PageRecoveryUtility(driver, "https://primecare-clinic.pages.dev/auth/login");
+		boolean isPageReady = pageRecovery.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(expectedRoute, expectedTitle, "clinic@primecare.com", "Password123");
+		if (!isPageReady) {
+			System.err.println("  [NAVIGATION PROTOCOL FAILED] Could not navigate to target page " + expectedRoute);
+			return false;
+		}
+
+		String currentUrl = driver.getCurrentUrl();
 		System.out.println("  Current URL: " + currentUrl);
 
 		routeLoaded = 1;
@@ -328,7 +339,7 @@ public class baseTest {
 		System.out.println("  Result Status: " + finalStatus);
 
 		// 9. Log results to SQLite database
-		String dbUrl = "jdbc:sqlite:c:/Users/Admin2/Documents/GitHub/primecare-platform/.agents/governance/governance.db";
+		String dbUrl = primecare.testing.framework.DatabaseConfig.getDbUrl();
 		try (Connection conn = DriverManager.getConnection(dbUrl)) {
 			// Clean previous entries
 			try (PreparedStatement delStmt = conn.prepareStatement("DELETE FROM screen_verification WHERE screen_id = ?")) {
