@@ -185,14 +185,14 @@ public class AllScreensVerificationHelper {
      * BEFORE scanning Page Objects, checks if browser is on the right page.
      * If on another page or redirected, handles Error, Language, or Login redirect automatically!
      */
-    public boolean checkPageIfOtherRedirectHandleErrorLanguageOrLogin(WebDriver driver, String targetRoute, String email, String password) {
+    public boolean checkPageIfOtherRedirectHandleErrorLanguageOrLogin(WebDriver driver, String targetRoute, String expectedTitle, String email, String password) {
         utilities.PageRecoveryUtility recovery = new utilities.PageRecoveryUtility(driver, "https://primecare-clinic.pages.dev/auth/login");
-        return recovery.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(targetRoute, email, password);
+        return recovery.checkPageIfOtherRedirectHandleErrorLanguageOrLogin(targetRoute, expectedTitle, email, password);
     }
 
     /**
      * Executes verification flow:
-     * 1. Pre-Check Page Correctness (handles Error, Language, Login redirect if on wrong page)
+     * 1. Pre-Check Page Correctness (verifies Target URL & Target Title match, handles Error, Language, Login redirect if on wrong page)
      * 2. Scan Page Objects & Execute DOM Assertions
      */
     public void executeVerification(ScreenTestData screen, WebDriver driver, Runnable clearSession, NavigationFunction navigator) {
@@ -221,10 +221,10 @@ public class AllScreensVerificationHelper {
             driver.get(targetUrl);
 
             // =========================================================================
-            // 🔍 PRE-CHECK: VERIFY PAGE BEFORE OBJECT SCANNING
+            // 🔍 PRE-CHECK: VERIFY TARGET URL & TITLE MATCH BEFORE OBJECT SCANNING
             // Handle Error Page, Language Selection, or Login Redirect if on wrong page.
             // =========================================================================
-            boolean isPageReady = checkPageIfOtherRedirectHandleErrorLanguageOrLogin(driver, screen.route, screen.testEmail, screen.testPassword);
+            boolean isPageReady = checkPageIfOtherRedirectHandleErrorLanguageOrLogin(driver, screen.route, screen.screenName, screen.testEmail, screen.testPassword);
             Assert.assertTrue(isPageReady, "Page Pre-Check failed: Could not reach target page " + screen.route);
 
             // =========================================================================

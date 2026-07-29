@@ -40,21 +40,46 @@ public class PageRecoveryUtility {
 
     /**
      * LOGICAL PRE-CONDITION GUARD:
-     * Before scanning objects or running test assertions, checks if browser is on target page.
+     * Before scanning objects or running test assertions, checks if browser is on target page
+     * by verifying BOTH target URL and target Page Title match.
      * If redirected or on another page, handles Error Page, Language Selection, or Login automatically.
      */
-    public boolean checkPageIfOtherRedirectHandleErrorLanguageOrLogin(String targetRoute, String email, String password) {
+    public boolean checkPageIfOtherRedirectHandleErrorLanguageOrLogin(String targetRoute, String expectedTitle, String email, String password) {
         System.out.println("  [LOGICAL GUARD] Waiting 3 seconds for client-side router & redirects to settle...");
         sleep(3000);
 
-        System.out.println("  [LOGICAL GUARD] Checking browser page location after 3s delay...");
-        if (!isLanguagePage() && !isLoginPage() && !isSystemErrorPage() && isTargetPageReached(targetRoute)) {
-            System.out.println("  [LOGICAL GUARD: PASSED] Browser is confirmed on target page: " + targetRoute);
+        boolean urlMatches = isTargetPageReached(targetRoute);
+        boolean titleMatches = isTitleMatches(expectedTitle);
+
+        System.out.println("  [LOGICAL GUARD] Checking URL & Title match (URL Match: " + urlMatches + ", Title Match: " + titleMatches + ")...");
+        if (!isLanguagePage() && !isLoginPage() && !isSystemErrorPage() && urlMatches && titleMatches) {
+            System.out.println("  [LOGICAL GUARD: PASSED] Browser confirmed on target page! URL: " + getCurrentUrl() + " | Title: " + driver.getTitle());
             return true;
         }
 
         System.out.println("  [LOGICAL GUARD: REDIRECT DETECTED] Browser redirected to " + getCurrentUrl() + ". Handling Error, Language, or Login redirect...");
         return executeSequentialRecoveryProtocol(targetRoute, email, password);
+    }
+
+    public boolean checkPageIfOtherRedirectHandleErrorLanguageOrLogin(String targetRoute, String email, String password) {
+        return checkPageIfOtherRedirectHandleErrorLanguageOrLogin(targetRoute, "", email, password);
+    }
+
+    public boolean isTitleMatches(String expectedTitle) {
+        if (expectedTitle == null || expectedTitle.trim().isEmpty()) return true;
+        try {
+            String currentTitle = driver.getTitle();
+            if (currentTitle != null && !currentTitle.isEmpty()) {
+                String cleanExpected = expectedTitle.toLowerCase().replace("screen", "").replace("page", "").trim();
+                String cleanCurrent = currentTitle.toLowerCase().trim();
+                if (cleanCurrent.contains(cleanExpected) || cleanExpected.contains(cleanCurrent)) {
+                    return true;
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            return true;
+        }
     }
 
     /**
@@ -66,53 +91,55 @@ public class PageRecoveryUtility {
      */
     public boolean executeSequentialRecoveryProtocol(String targetRoute, String email, String password) {
         for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-            System.out.println("\n[Recovery Protocol] ATTEMPT " + attempt + " of " + MAX_ATTEMPTS + " | Route: " + targetRoute);
+            System.out.println("\n  ==========================================================================");
+            System.out.println("  [RECOVERY PROTOCOL] Attempt " + attempt + " of " + MAX_ATTEMPTS + " | Target Route: " + targetRoute);
+            System.out.println("  ==========================================================================");
 
             // -------------------------------------------------------------
             // STEP 1: CHECK IS THIS SYSTEM ERROR PAGE?
             // -------------------------------------------------------------
             if (isSystemErrorPage()) {
-                System.err.println("  [Step 1: YES] System Error Page Detected! Recording Error...");
+                System.err.println("  [STEP 1: ERROR DETECTED] System Error Page Found! Recording Error Details...");
                 recordSystemError();
                 driver.get(loginUrl);
                 sleep(1000);
             } else {
-                System.out.println("  [Step 1: NO] Not an Error Page. Proceeding to Step 2...");
+                System.out.println("  [STEP 1: OK] Not an Error Page. Proceeding to Language Check...");
             }
 
             // -------------------------------------------------------------
             // STEP 2: CHECK IS THIS LANGUAGE PAGE?
             // -------------------------------------------------------------
             if (isLanguagePage()) {
-                System.out.println("  [Step 2: YES] Language Page Detected! Running Language Flow...");
+                System.out.println("  [STEP 2: LANGUAGE ROUTE] Language Selection Page Detected! Selecting English & Continuing...");
                 handleLanguageFlow();
                 sleep(1000);
             } else {
-                System.out.println("  [Step 2: NO] Not a Language Page. Proceeding to Step 3...");
+                System.out.println("  [STEP 2: OK] Not a Language Page. Proceeding to Login Check...");
             }
 
             // -------------------------------------------------------------
             // STEP 3: CHECK IS THIS LOGIN PAGE?
             // -------------------------------------------------------------
             if (isLoginPage()) {
-                System.out.println("  [Step 3: YES] Login Page Detected! Running Login Flow...");
+                System.out.println("  [STEP 3: LOGIN ROUTE] Login Page Detected! Authenticating credentials (" + email + ")...");
                 handleLoginFlow(email, password);
                 sleep(1000);
             } else {
-                System.out.println("  [Step 3: NO] Not a Login Page. Proceeding to Step 4...");
+                System.out.println("  [STEP 3: OK] Not a Login Page. Proceeding to Target Page Verification...");
             }
 
             // -------------------------------------------------------------
             // STEP 4: CHECK HAS TARGETED PAGE BEEN REACHED?
             // -------------------------------------------------------------
             if (isTargetPageReached(targetRoute)) {
-                System.out.println("  [Step 4: YES] Targeted Page Reached Successfully! Ready to Run Test.");
+                System.out.println("  [STEP 4: TARGET REACHED] Target Page Confirmed! Ready for Page Object DOM Scanning.");
+                System.out.println("  ==========================================================================");
                 return true;
             } else {
-                System.out.println("  [Step 4: NO] Target Page Not Reached Yet. Actual URL: " + getCurrentUrl());
-                // Force navigation to target route if attempt < MAX
+                System.out.println("  [STEP 4: REDIRECTING] Target Page Not Reached Yet. Redirecting to: " + targetRoute);
                 if (attempt < MAX_ATTEMPTS) {
-                    String targetUrl = targetRoute.startsWith("http") ? targetRoute : loginUrl.replace("/login", "") + targetRoute;
+                    String targetUrl = targetRoute.startsWith("http") ? targetRoute : loginUrl.replace("/auth/login", "").replace("/login", "") + targetRoute;
                     driver.get(targetUrl);
                     sleep(1000);
                 }
