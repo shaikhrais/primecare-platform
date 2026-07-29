@@ -247,6 +247,16 @@ public class PageRecoveryUtility {
                 System.out.println("  [ACTION] Clicking Language Continue button...");
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", contBtn);
             }
+            sleep(1500);
+
+            // 🔄 URL REWRITE FALLBACK: If browser remains on /language, rewrite URL to /login preserving query params!
+            String currentUrl = getCurrentUrl();
+            if (currentUrl.contains("/language")) {
+                String loginTarget = currentUrl.replace("/language", "/login");
+                System.out.println("  [LANGUAGE ROUTE RESOLVER] Directing browser from language route to login route: " + loginTarget);
+                driver.get(loginTarget);
+                sleep(2000);
+            }
             System.out.println("  [RESULT] PageRecoveryUtility.handleLanguageFlow() -> Completed.");
         } catch (Exception e) {
             System.err.println("Language Flow Exception: " + e.getMessage());
