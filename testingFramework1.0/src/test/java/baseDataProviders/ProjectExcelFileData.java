@@ -45,8 +45,12 @@ public class ProjectExcelFileData {
 		return MainDataExcelFile().getProperty("browser");
 	}
 
-	public static String url() throws FileNotFoundException {
-		return MainDataExcelFile().getProperty("testUrl");
+	public static String url() {
+		try {
+			return primecare.testing.framework.DatabaseConfig.getAuthUrl() + "/language";
+		} catch (Exception e) {
+			return "https://primecare-auth.pages.dev/language";
+		}
 	}
 
 	public static String testEmail() throws FileNotFoundException {
