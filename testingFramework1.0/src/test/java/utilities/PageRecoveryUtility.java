@@ -128,7 +128,12 @@ public class PageRecoveryUtility {
             if (isLanguagePage()) {
                 System.out.println("  [STEP 2: LANGUAGE ROUTE] Language Selection Page Detected! Selecting English & Continuing...");
                 handleLanguageFlow();
-                sleep(1000);
+                sleep(2500);
+                if (isLoginPage()) {
+                    System.out.println("  [STEP 3: LOGIN ROUTE] Login Page Detected after Language Selection! Authenticating credentials (" + email + ")...");
+                    handleLoginFlow(email, password);
+                    sleep(3500);
+                }
             } else {
                 System.out.println("  [STEP 2: OK] Not a Language Page. Proceeding to Login Check...");
             }
@@ -139,7 +144,7 @@ public class PageRecoveryUtility {
             if (isLoginPage()) {
                 System.out.println("  [STEP 3: LOGIN ROUTE] Login Page Detected! Authenticating credentials (" + email + ")...");
                 handleLoginFlow(email, password);
-                sleep(1000);
+                sleep(3500);
             } else {
                 System.out.println("  [STEP 3: OK] Not a Login Page. Proceeding to Target Page Verification...");
             }
