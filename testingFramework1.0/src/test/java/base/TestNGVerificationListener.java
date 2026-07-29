@@ -32,8 +32,10 @@ public class TestNGVerificationListener
 
         importer.importExcel(excelPath);
 
+        TestNGHtmlReportWriter.generateDashboardReport(REPORT_DIRECTORY);
+
         System.out.println(
-                "[TESTNG] Excel created and imported into SQLite."
+                "[TESTNG] Executive HTML Dashboard & Excel report generated successfully."
         );
     }
 }

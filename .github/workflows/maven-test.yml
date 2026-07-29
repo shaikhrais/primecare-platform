@@ -1,0 +1,36 @@
+name: PrimeCare Automated Test Suite
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Java 21 JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'maven'
+
+    - name: Build & Run Headless Verification Tests
+      run: |
+        cd testingFramework1.0
+        mvn clean test -Dtest=AllScreensVerificationTest -Ddb.url="jdbc:sqlite:.agents/governance/governance.db"
+
+    - name: Upload HTML & Excel Test Reports
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: testng-verification-reports
+        path: |
+          testingFramework1.0/test-output/
+          testingFramework1.0/target/reports/
