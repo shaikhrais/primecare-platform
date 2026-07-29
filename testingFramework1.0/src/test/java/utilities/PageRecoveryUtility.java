@@ -12,12 +12,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * PageRecoveryUtility - Simplified Core Authentication & Navigation Flow Utility.
+ * PageRecoveryUtility - Simplified Core Authentication & Navigation Flow
+ * Utility.
  * Executes exact 4-Step Sequence:
  * 1. Base first: Go to Language page -> Wait 2 seconds.
  * 2. Second: Click English button & Continue -> Wait 2 seconds.
- * 3. Third: Get credentials from DB & Login -> Check successful or not (exit/fail if unsuccessful).
- * 4. Fourth: If successful -> Redirect to Target Page URL & Capture Screen Print!
+ * 3. Third: Get credentials from DB & Login -> Check successful or not
+ * (exit/fail if unsuccessful).
+ * 4. Fourth: If successful -> Redirect to Target Page URL & Capture Screen
+ * Print!
  */
 public class PageRecoveryUtility {
 
@@ -34,7 +37,8 @@ public class PageRecoveryUtility {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(10));
             shortWait.until(webDriver -> js.executeScript("return document.readyState").equals("complete"));
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     public boolean executeCoreAuthAndNavigateToTarget(String targetRoute, String email, String password) {
@@ -42,11 +46,14 @@ public class PageRecoveryUtility {
         System.out.println("  [CORE AUTH FLOW] Target Route Requested: " + targetRoute);
         System.out.println("  ==========================================================================");
 
+        String base = primecare.testing.framework.DatabaseConfig.getBaseUrlForRoute(targetRoute);
+        String authBase = primecare.testing.framework.DatabaseConfig.getAuthUrl();
+
         // -------------------------------------------------------------
         // STEP 1: BASE FIRST GO TO LANGUAGE PAGE & WAIT 2 SECONDS
         // -------------------------------------------------------------
-        String langUrl = "https://primecare-auth.pages.dev/language?clientId=primecare-clinic&callbackUrl=https%3A%2F%2Fprimecare-clinic.pages.dev%2Fauth%2Fcallback&returnUrl=" + targetRoute;
-        System.out.println("  [STEP 1] Base first: Navigating to Language Page: " + langUrl);
+        String langUrl = authBase + "/language";
+        System.out.println("  [STEP 1] Base first: Navigating to Language Page (from SQLite DB): " + langUrl);
         driver.get(langUrl);
         System.out.println("  [STEP 1] Waiting 2 seconds...");
         sleep(2000);
@@ -63,8 +70,9 @@ public class PageRecoveryUtility {
         // STEP 3: THIRD GET CREDENTIALS FROM DB & LOGIN IN SYSTEM & CHECK SUCCESS
         // -------------------------------------------------------------
         if (!driver.getCurrentUrl().contains("/login")) {
-            String loginUrlTarget = "https://primecare-auth.pages.dev/login?clientId=primecare-clinic&callbackUrl=https%3A%2F%2Fprimecare-clinic.pages.dev%2Fauth%2Fcallback&returnUrl=" + targetRoute;
-            System.out.println("  [STEP 3] Directing browser to Login Page: " + loginUrlTarget);
+            String loginUrlTarget = authBase + "/login?clientId=primecare-clinic&callbackUrl=" + base
+                    + "%2Fauth%2Fcallback&returnUrl=" + targetRoute;
+            System.out.println("  [STEP 3] Directing browser to Login Page (from SQLite DB): " + loginUrlTarget);
             driver.get(loginUrlTarget);
             sleep(2000);
         }
@@ -74,21 +82,24 @@ public class PageRecoveryUtility {
         sleep(3000);
 
         String currentUrl = driver.getCurrentUrl();
-        boolean authSuccess = currentUrl.contains("/auth/callback") || currentUrl.contains("/success") || (!currentUrl.contains("/login") && !currentUrl.contains("/language"));
-        System.out.println("  [STEP 3 CHECK] Login Status -> Success: " + authSuccess + " | Current URL: " + currentUrl);
+        boolean authSuccess = currentUrl.contains("/auth/callback") || currentUrl.contains("/success")
+                || (!currentUrl.contains("/login") && !currentUrl.contains("/language"));
+        System.out
+                .println("  [STEP 3 CHECK] Login Status -> Success: " + authSuccess + " | Current URL: " + currentUrl);
 
         if (!authSuccess) {
             System.err.println("  [LOGIN FAILED] Authentication failed for user (" + email + ")! Exiting test.");
-            org.testng.Assert.fail("LOGIN FAILED: Authentication failed for email: " + email + " at URL: " + currentUrl);
+            org.testng.Assert
+                    .fail("LOGIN FAILED: Authentication failed for email: " + email + " at URL: " + currentUrl);
             return false;
         }
 
         // -------------------------------------------------------------
-        // STEP 4: IF SUCCESSFUL AND ROUTE IS SUCCESSFUL THEN REDIRECT TO TARGET PAGE & SCREEN PRINT IT & CONSIDER SUCCESSFUL!
+        // STEP 4: IF SUCCESSFUL AND ROUTE IS SUCCESSFUL THEN REDIRECT TO TARGET PAGE &
+        // SCREEN PRINT IT & CONSIDER SUCCESSFUL!
         // -------------------------------------------------------------
-        String base = "https://primecare-clinic.pages.dev";
         String targetUrl = base + targetRoute + (targetRoute.contains("?") ? "&" : "?") + "enable-semantics=true";
-        System.out.println("  [STEP 4] Fourth: Redirecting to Target Page: " + targetUrl);
+        System.out.println("  [STEP 4] Fourth: Redirecting to Target Page (from SQLite DB): " + targetUrl);
         driver.get(targetUrl);
         System.out.println("  [STEP 4] Waiting 3 seconds for Target Page to load...");
         sleep(3000);
@@ -104,13 +115,15 @@ public class PageRecoveryUtility {
     public void handleLanguageFlow() {
         try {
             WebElement engBtn = findSemanticElement("lang-english");
-            if (engBtn == null) engBtn = findSemanticElement("english");
+            if (engBtn == null)
+                engBtn = findSemanticElement("english");
             if (engBtn != null) {
                 System.out.println("  [ACTION] Clicking English button...");
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", engBtn);
             }
             WebElement contBtn = findSemanticElement("language-continue-button");
-            if (contBtn == null) contBtn = findSemanticElement("continue");
+            if (contBtn == null)
+                contBtn = findSemanticElement("continue");
             if (contBtn != null) {
                 System.out.println("  [ACTION] Clicking Continue button...");
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", contBtn);
@@ -124,7 +137,8 @@ public class PageRecoveryUtility {
                 driver.get(loginTarget);
                 sleep(2000);
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     public void handleLoginFlow(String email, String password) {
@@ -146,7 +160,8 @@ public class PageRecoveryUtility {
                 System.out.println("  [ACTION] Clicking Login Submit...");
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", submitBtn);
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     public void captureScreenshot(String name) {
@@ -154,44 +169,46 @@ public class PageRecoveryUtility {
             if (driver instanceof TakesScreenshot) {
                 File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
                 File destDir = new File("screenshots");
-                if (!destDir.exists()) destDir.mkdirs();
+                if (!destDir.exists())
+                    destDir.mkdirs();
                 File destFile = new File(destDir, name + ".png");
                 Files.copy(srcFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 System.out.println("  [SCREEN PRINT] Saved screenshot artifact -> " + destFile.getAbsolutePath());
             }
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     private void sleep(long ms) {
         try {
             Thread.sleep(ms);
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
     }
 
     private WebElement findSemanticElement(String value) {
         try {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             return (WebElement) js.executeScript(
-                "var findSemanticElement = function(root, val) { " +
-                "    if (!root) return null; " +
-                "    var selectors = [ " +
-                "        \"[aria-label='\" + val + \"']\", " +
-                "        \"[aria-label*='\" + val + \"']\", " +
-                "        \"[data-cy='\" + val + \"']\", " +
-                "        \"[id='\" + val + \"']\", " +
-                "        \"[name='\" + val + \"']\" " +
-                "    ]; " +
-                "    for (var i = 0; i < selectors.length; i++) { " +
-                "        try { " +
-                "            var el = root.querySelector(selectors[i]); " +
-                "            if (el) return el; " +
-                "        } catch (e) {} " +
-                "    } " +
-                "    return null; " +
-                "}; " +
-                "return findSemanticElement(document, arguments[0]);",
-                value
-            );
+                    "var findSemanticElement = function(root, val) { " +
+                            "    if (!root) return null; " +
+                            "    var selectors = [ " +
+                            "        \"[aria-label='\" + val + \"']\", " +
+                            "        \"[aria-label*='\" + val + \"']\", " +
+                            "        \"[data-cy='\" + val + \"']\", " +
+                            "        \"[id='\" + val + \"']\", " +
+                            "        \"[name='\" + val + \"']\" " +
+                            "    ]; " +
+                            "    for (var i = 0; i < selectors.length; i++) { " +
+                            "        try { " +
+                            "            var el = root.querySelector(selectors[i]); " +
+                            "            if (el) return el; " +
+                            "        } catch (e) {} " +
+                            "    } " +
+                            "    return null; " +
+                            "}; " +
+                            "return findSemanticElement(document, arguments[0]);",
+                    value);
         } catch (Exception e) {
             return null;
         }
