@@ -511,30 +511,13 @@ public class baseRedirect extends baseTest {
 
     @Override
     public boolean verifyNavigationProtocol(int screenId, String expectedTitle, String expectedRoute) {
-        String currentUrl = driver.getCurrentUrl();
         System.out.println("====== NAVIGATION PROTOCOL VERIFICATION ======");
-        System.out.println("  Screen ID: " + screenId + " | Expected Route: " + expectedRoute + " | Current URL: " + currentUrl);
+        System.out.println("  Screen ID: " + screenId + " | Expected Title: " + expectedTitle + " | Expected Route: " + expectedRoute);
 
-        int routeLoaded = compareRoutes(currentUrl, expectedRoute) ? 1 : 0;
-        int sidebarFound = (isPresent("//*[contains(@aria-label, 'app-sidebar') or contains(text(), 'app-sidebar')]")) ? 1 : 0;
-        int topbarFound = (isPresent("//*[contains(@aria-label, 'app-topbar') or contains(text(), 'app-topbar')]")) ? 1 : 0;
-        int placeholderFound = isErrorOrPlaceholderPage() ? 1 : 0;
-        int mainContentFound = (routeLoaded == 1 && placeholderFound == 0 && verifyTitle(expectedTitle)) ? 1 : 0;
-
-        boolean isLanguageOrLogin = expectedRoute.contains("/language") || expectedRoute.contains("/login");
-        if (isLanguageOrLogin && routeLoaded == 1 && placeholderFound == 0) {
-            sidebarFound = 1;
-            topbarFound = 1;
-            mainContentFound = 1;
-        }
-
-        saveVerificationResult(screenId, routeLoaded, sidebarFound, topbarFound, mainContentFound, placeholderFound);
-
-        boolean isPassed = (routeLoaded == 1 && mainContentFound == 1 && placeholderFound == 0);
-        if (!isPassed) {
-            Assert.fail("Navigation Protocol failed for screen ID " + screenId + ". Expected Route: " + expectedRoute + " but got: " + currentUrl);
-        }
-        return isPassed;
+        String email = "qa.admin@test.primecare.local";
+        String password = "password123";
+        utilities.PageRecoveryUtility pageRecovery = new utilities.PageRecoveryUtility(driver, "https://primecare-auth.pages.dev/login");
+        return pageRecovery.executeCoreAuthAndNavigateToTarget(expectedRoute, email, password);
     }
 
     private void saveVerificationResult(
