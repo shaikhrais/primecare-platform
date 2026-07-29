@@ -141,6 +141,14 @@ public class AllScreensVerificationTest extends baseUserCredentials {
             System.err.println("Database load failed: " + e.getMessage());
         }
 
+        if (list.isEmpty()) {
+            System.out.println("  [FALLBACK] Populating screen test list from mapped Page Objects...");
+            int idx = 1;
+            for (Map.Entry<String, String> entry : PAGE_OBJECT_MAP.entrySet()) {
+                list.add(new ScreenTestData(idx++, entry.getKey(), entry.getValue(), "ADMIN", "clinic@primecare.com", "Password123", "https://primecare-clinic.pages.dev"));
+            }
+        }
+
         System.out.println("  Loaded " + list.size() + " active screens for verification.");
 
         Object[][] data = new Object[list.size()][1];

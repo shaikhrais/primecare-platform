@@ -19,22 +19,31 @@ public class DatabaseConfig {
 
     public static String getDbUrl() {
         String url = System.getProperty("db.url");
-        if (url == null || url.trim().isEmpty()) {
-            url = System.getenv("db_url");
-        }
-        if (url == null || url.trim().isEmpty()) {
-            url = properties.getProperty("db.url");
-        }
-        if (url == null || url.trim().isEmpty()) {
-            java.io.File primaryDb = new java.io.File("c:/Users/Admin2/Documents/GitHub/primecare-platform/.agents/governance/governance.db");
-            if (primaryDb.exists()) {
-                url = "jdbc:sqlite:" + primaryDb.getAbsolutePath();
-            } else {
-                java.io.File localDb = new java.io.File("governance.db");
-                url = "jdbc:sqlite:" + localDb.getAbsolutePath();
+        if (url != null && !url.trim().isEmpty()) return url;
+
+        url = System.getenv("db_url");
+        if (url != null && !url.trim().isEmpty()) return url;
+
+        url = properties.getProperty("db.url");
+        if (url != null && !url.trim().isEmpty()) return url;
+
+        String[] candidates = new String[]{
+            "c:/Users/Admin2/Documents/GitHub/primecare-platform/.agents/governance/governance.db",
+            "H:/My Drive/eclipse-workspace/testingFramework1.0/governance.db",
+            "testingFramework1.0/governance.db",
+            ".agents/governance/governance.db",
+            "../.agents/governance/governance.db",
+            "governance.db"
+        };
+
+        for (String path : candidates) {
+            java.io.File file = new java.io.File(path);
+            if (file.exists() && file.length() > 100000) {
+                return "jdbc:sqlite:" + file.getAbsolutePath();
             }
         }
-        return url;
+
+        return "jdbc:sqlite:governance.db";
     }
 }
 
