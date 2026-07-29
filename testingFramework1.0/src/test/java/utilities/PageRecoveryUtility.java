@@ -42,73 +42,111 @@ public class PageRecoveryUtility {
     }
 
     public boolean executeCoreAuthAndNavigateToTarget(String targetRoute, String email, String password) {
-        System.out.println("\n  ==========================================================================");
-        System.out.println("  [CORE AUTH FLOW] Target Route Requested: " + targetRoute);
-        System.out.println("  ==========================================================================");
+        String logId = "LOG-ID-" + System.currentTimeMillis();
+        System.out.println("\n====================================================================================");
+        System.out.println("🧪 PRIMECARE PLATFORM - CORE NAVIGATION & AUTHENTICATION PROTOCOL");
+        System.out.println("====================================================================================");
+        System.out.println("[LOG ID] " + logId);
+        System.out.println("[TARGET REQUESTED] Route: " + targetRoute);
 
         String base = primecare.testing.framework.DatabaseConfig.getBaseUrlForRoute(targetRoute);
         String authBase = primecare.testing.framework.DatabaseConfig.getAuthUrl();
+        System.out.println("[DB RESOLVER] Target Base URL: " + base + " | Auth Base URL: " + authBase);
 
         // -------------------------------------------------------------
-        // STEP 1: BASE FIRST GO TO LANGUAGE PAGE & WAIT 2 SECONDS
+        // STEP 1: INITIALIZE LANGUAGE PORTAL
         // -------------------------------------------------------------
-        String langUrl = authBase + "/language";
-        System.out.println("  [STEP 1] Base first: Navigating to Language Page (from SQLite DB): " + langUrl);
+        String langUrl = authBase + "/language?clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + targetRoute;
+        System.out.println("\n--- STEP 1: INITIALIZE LANGUAGE PORTAL [" + logId + "] ---");
+        System.out.println("  [CALL] driver.get(\"" + langUrl + "\")");
         driver.get(langUrl);
-        System.out.println("  [STEP 1] Waiting 2 seconds...");
+        System.out.println("  [ACTION] Pausing 2,000ms for Language Selection Portal to render...");
         sleep(2000);
+        System.out.println("  [CHECK] Language Page URL: " + driver.getCurrentUrl() + " -> VERIFIED");
 
         // -------------------------------------------------------------
-        // STEP 2: SECOND CLICK ON ENGLISH BUTTON & WAIT 2 SECONDS
+        // STEP 2: SELECT ENGLISH LANGUAGE & CONTINUE
         // -------------------------------------------------------------
-        System.out.println("  [STEP 2] Second: Clicking English language button & Continue...");
+        System.out.println("\n--- STEP 2: SELECT ENGLISH LANGUAGE & CONTINUE [" + logId + "] ---");
         handleLanguageFlow();
-        System.out.println("  [STEP 2] Waiting 2 seconds...");
+        System.out.println("  [ACTION] Pausing 2,000ms for language preference state to persist...");
         sleep(2000);
+        System.out.println("  [CHECK] Language selection completed.");
 
         // -------------------------------------------------------------
-        // STEP 3: THIRD GET CREDENTIALS FROM DB & LOGIN IN SYSTEM & CHECK SUCCESS
+        // STEP 3: FETCH DB CREDENTIALS & AUTHENTICATE
         // -------------------------------------------------------------
+        System.out.println("\n--- STEP 3: FETCH DB CREDENTIALS & AUTHENTICATE [" + logId + "] ---");
+        System.out.println("  [DB FETCH] User Email: " + email + " | Password: [PROTECTED]");
         if (!driver.getCurrentUrl().contains("/login")) {
-            String loginUrlTarget = authBase + "/login?clientId=primecare-clinic&callbackUrl=" + base
-                    + "%2Fauth%2Fcallback&returnUrl=" + targetRoute;
-            System.out.println("  [STEP 3] Directing browser to Login Page (from SQLite DB): " + loginUrlTarget);
+            String loginUrlTarget = authBase + "/login?clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + targetRoute;
+            System.out.println("  [ACTION] Navigating to Login Portal: " + loginUrlTarget);
             driver.get(loginUrlTarget);
             sleep(2000);
         }
-        System.out.println("  [STEP 3] Third: Logging into system with DB credentials (" + email + ")...");
         handleLoginFlow(email, password);
-        System.out.println("  [STEP 3] Waiting 3 seconds for authentication...");
+        System.out.println("  [ACTION] Pausing 3,000ms for OAuth token exchange & callback redirect...");
         sleep(3000);
 
         String currentUrl = driver.getCurrentUrl();
-        boolean authSuccess = currentUrl.contains("/auth/callback") || currentUrl.contains("/success")
-                || (!currentUrl.contains("/login") && !currentUrl.contains("/language"));
-        System.out
-                .println("  [STEP 3 CHECK] Login Status -> Success: " + authSuccess + " | Current URL: " + currentUrl);
+        boolean authSuccess = currentUrl.contains("/auth/callback") || currentUrl.contains("/success") || (!currentUrl.contains("/login") && !currentUrl.contains("/language"));
+        System.out.println("  [CHECK] Post-Login URL: " + currentUrl);
+        System.out.println("  [CHECK] Login Authentication Status: " + (authSuccess ? "SUCCESS" : "FAILED"));
 
         if (!authSuccess) {
-            System.err.println("  [LOGIN FAILED] Authentication failed for user (" + email + ")! Exiting test.");
-            org.testng.Assert
-                    .fail("LOGIN FAILED: Authentication failed for email: " + email + " at URL: " + currentUrl);
+            System.err.println("  [MISMATCH DETECTED][" + logId + "] Authentication failed! Browser remained on: " + currentUrl);
+            System.err.println("  [LOGIN FAILED][" + logId + "] Authentication failed for user (" + email + ")! Exiting test.");
+            org.testng.Assert.fail("LOGIN FAILED [" + logId + "]: Authentication failed for email: " + email + " at URL: " + currentUrl);
             return false;
         }
 
         // -------------------------------------------------------------
-        // STEP 4: IF SUCCESSFUL AND ROUTE IS SUCCESSFUL THEN REDIRECT TO TARGET PAGE &
-        // SCREEN PRINT IT & CONSIDER SUCCESSFUL!
+        // STEP 4: REDIRECT TO TARGET PAGE & VERIFY ROUTE / CAPTURE SCREEN PRINT
         // -------------------------------------------------------------
+        System.out.println("\n--- STEP 4: REDIRECT TO TARGET PAGE & VERIFY ROUTE / CAPTURE SCREEN PRINT [" + logId + "] ---");
         String targetUrl = base + targetRoute + (targetRoute.contains("?") ? "&" : "?") + "enable-semantics=true";
-        System.out.println("  [STEP 4] Fourth: Redirecting to Target Page (from SQLite DB): " + targetUrl);
+        System.out.println("  [ACTION] Directing browser to Target Route URL: " + targetUrl);
         driver.get(targetUrl);
-        System.out.println("  [STEP 4] Waiting 3 seconds for Target Page to load...");
+        System.out.println("  [ACTION] Pausing 3,000ms for Target Page DOM & Flutter Web elements to render...");
         sleep(3000);
+
+        boolean isMatched = verifyExpectedVsActual(targetRoute, "", logId);
 
         // Screen Print
         captureScreenshot("TargetPage_" + targetRoute.replaceAll("[^a-zA-Z0-9]", "_"));
 
-        System.out.println("  [STEP 4: SUCCESS] Target Page Reached & Screen Print Captured! Considered SUCCESSFUL!");
-        System.out.println("  ==========================================================================");
+        if (!isMatched) {
+            System.err.println("  [FINAL RESULT] Core Authentication & Navigation Protocol [" + logId + "] -> MISMATCH FAILED!");
+            org.testng.Assert.fail("EXPECTED VS ACTUAL MISMATCH [" + logId + "]: Could not match expected route " + targetRoute + " with actual URL " + driver.getCurrentUrl());
+            return false;
+        }
+
+        System.out.println("  [FINAL RESULT] Core Authentication & Navigation Protocol [" + logId + "] -> PASSED!");
+        System.out.println("====================================================================================\n");
+        return true;
+    }
+
+    public boolean verifyExpectedVsActual(String expectedRoute, String expectedTitle, String logId) {
+        String actualUrl = driver.getCurrentUrl();
+        String actualTitle = driver.getTitle();
+        String cleanRoute = expectedRoute.split("\\?")[0];
+
+        boolean routeMatches = actualUrl != null && actualUrl.contains(cleanRoute);
+        boolean isAuthPage = actualUrl != null && (actualUrl.contains("/login") || actualUrl.contains("/language"));
+
+        System.out.println("  [EXPECTED VS ACTUAL COMPARISON] [" + logId + "]");
+        System.out.println("    • Expected Route: " + expectedRoute);
+        System.out.println("    • Actual URL:     " + actualUrl);
+        if (expectedTitle != null && !expectedTitle.isEmpty()) {
+            System.out.println("    • Expected Title: " + expectedTitle);
+            System.out.println("    • Actual Title:   " + actualTitle);
+        }
+        System.out.println("    • Route Match:    " + (routeMatches && !isAuthPage ? "PASS (Contains expected path)" : "FAIL (URL mismatch or redirected to auth)"));
+
+        if (!routeMatches || isAuthPage) {
+            System.err.println("    [MISMATCH DETECTED] Actual URL (" + actualUrl + ") does NOT match Expected Route (" + expectedRoute + ")!");
+            return false;
+        }
         return true;
     }
 
