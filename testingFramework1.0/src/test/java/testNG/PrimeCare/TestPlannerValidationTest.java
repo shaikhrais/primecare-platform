@@ -1,8 +1,8 @@
-package testNG.PrimeCare;
+﻿package testNG.PrimeCare;
 
 import primecare.testing.base.BaseTest;
 import primecare.testing.models.*;
-import primecare.testing.framework.planning.*;
+import primecare.testing.framework.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -114,3 +114,4 @@ public class TestPlannerValidationTest extends BaseTest {
         Assert.assertTrue(plan.items.size() >= 2);
     }
 }
+

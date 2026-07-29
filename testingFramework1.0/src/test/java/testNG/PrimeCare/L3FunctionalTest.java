@@ -1,12 +1,12 @@
-package testNG.PrimeCare;
+﻿package testNG.PrimeCare;
 
 import primecare.testing.base.BaseUiTest;
-import primecare.testing.framework.planning.Models.ScreenDefinition;
-import primecare.testing.framework.planning.Models.ScreenFunctionDefinition;
+import primecare.testing.framework.Models.ScreenDefinition;
+import primecare.testing.framework.Models.ScreenFunctionDefinition;
 import primecare.testing.pages.DynamicScreen;
 import primecare.testing.models.TestingLayerCode;
-import primecare.testing.framework.database.Repositories.ScreenRepository;
-import primecare.testing.framework.database.Repositories.FunctionRepository;
+import primecare.testing.framework.Repositories.ScreenRepository;
+import primecare.testing.framework.Repositories.FunctionRepository;
 import primecare.testing.validation.TestLayer;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -73,3 +73,4 @@ public class L3FunctionalTest extends BaseUiTest {
         System.out.println("[L3] Function verified successfully: " + func.functionKey);
     }
 }
+

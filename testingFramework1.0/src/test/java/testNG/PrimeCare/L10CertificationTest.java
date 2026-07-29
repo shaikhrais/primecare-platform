@@ -1,11 +1,11 @@
-package testNG.PrimeCare;
+﻿package testNG.PrimeCare;
 
 import primecare.testing.base.BaseTest;
-import primecare.testing.framework.planning.Models.CertificationRecord;
-import primecare.testing.framework.planning.Models.ScreenDefinition;
+import primecare.testing.framework.Models.CertificationRecord;
+import primecare.testing.framework.Models.ScreenDefinition;
 import primecare.testing.models.TestingLayerCode;
-import primecare.testing.framework.database.Repositories.ScreenRepository;
-import primecare.testing.framework.execution.CertificationService;
+import primecare.testing.framework.Repositories.ScreenRepository;
+import primecare.testing.framework.CertificationService;
 import primecare.testing.validation.TestLayer;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -36,3 +36,4 @@ public class L10CertificationTest extends BaseTest {
         System.out.println("[L10] Certification Audit completed for screen: " + screen.screenKey + ". Status: " + record.certificationStatus);
     }
 }
+

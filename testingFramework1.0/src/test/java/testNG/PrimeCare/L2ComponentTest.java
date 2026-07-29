@@ -1,12 +1,12 @@
-package testNG.PrimeCare;
+﻿package testNG.PrimeCare;
 
 import primecare.testing.base.BaseUiTest;
-import primecare.testing.framework.planning.Models.ScreenDefinition;
-import primecare.testing.framework.planning.Models.UiComponentDefinition;
+import primecare.testing.framework.Models.ScreenDefinition;
+import primecare.testing.framework.Models.UiComponentDefinition;
 import primecare.testing.pages.DynamicScreen;
 import primecare.testing.models.TestingLayerCode;
-import primecare.testing.framework.database.Repositories.ScreenRepository;
-import primecare.testing.framework.database.Repositories.ComponentRepository;
+import primecare.testing.framework.Repositories.ScreenRepository;
+import primecare.testing.framework.Repositories.ComponentRepository;
 import primecare.testing.validation.TestLayer;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -93,3 +93,4 @@ public class L2ComponentTest extends BaseUiTest {
         System.out.println("[L2] Component validation successful for screen: " + screen.screenKey);
     }
 }
+

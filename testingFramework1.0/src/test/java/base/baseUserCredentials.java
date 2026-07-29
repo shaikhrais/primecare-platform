@@ -1,4 +1,4 @@
-package base;
+﻿package base;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -537,3 +537,4 @@ public class baseUserCredentials extends baseRedirect {
         }
     }
 }
+

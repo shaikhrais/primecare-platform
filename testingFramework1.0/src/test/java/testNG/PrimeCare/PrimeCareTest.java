@@ -1,4 +1,4 @@
-package testNG.PrimeCare;
+﻿package testNG.PrimeCare;
 
 import org.testng.annotations.Test;
 import pageobjects.primecare.ui.Auth1LanguageScreen;
@@ -45,3 +45,4 @@ public class PrimeCareTest extends baseUserCredentials {
         System.out.println("[STEP 3] PrimeCare Dashboard verified successfully.");
     }
 }
+

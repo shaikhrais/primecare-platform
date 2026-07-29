@@ -1,11 +1,11 @@
-package testNG.PrimeCare;
+﻿package testNG.PrimeCare;
 
 import primecare.testing.base.BaseUiTest;
-import primecare.testing.framework.planning.Models.IntegrationMapping;
+import primecare.testing.framework.Models.IntegrationMapping;
 import primecare.testing.pages.DynamicScreen;
 import primecare.testing.models.TestingLayerCode;
-import primecare.testing.framework.database.Repositories.IntegrationRepository;
-import primecare.testing.framework.database.Repositories.ScreenRepository;
+import primecare.testing.framework.Repositories.IntegrationRepository;
+import primecare.testing.framework.Repositories.ScreenRepository;
 import primecare.testing.validation.TestLayer;
 import org.testng.annotations.Test;
 import org.testng.Assert;
@@ -63,3 +63,4 @@ public class L6IntegrationTest extends BaseUiTest {
         System.out.println("[L6] UI/API Integration mappings validated successfully.");
     }
 }
+

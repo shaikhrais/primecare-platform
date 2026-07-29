@@ -1,11 +1,11 @@
-package testNG.PrimeCare;
+﻿package testNG.PrimeCare;
 
 import primecare.testing.base.BaseApiTest;
-import primecare.testing.framework.planning.Models.ApiEndpointDefinition;
-import primecare.testing.framework.planning.Models.ApiTestCaseDefinition;
+import primecare.testing.framework.Models.ApiEndpointDefinition;
+import primecare.testing.framework.Models.ApiTestCaseDefinition;
 import primecare.testing.models.TestingLayerCode;
-import primecare.testing.framework.database.Repositories.ApiEndpointRepository;
-import primecare.testing.framework.database.Repositories.ApiTestCaseRepository;
+import primecare.testing.framework.Repositories.ApiEndpointRepository;
+import primecare.testing.framework.Repositories.ApiTestCaseRepository;
 import primecare.testing.validation.TestLayer;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -76,3 +76,4 @@ public class L5ApiTest extends BaseApiTest {
         }
     }
 }
+

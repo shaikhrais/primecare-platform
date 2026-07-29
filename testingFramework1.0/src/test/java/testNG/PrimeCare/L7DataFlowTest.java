@@ -1,9 +1,9 @@
-package testNG.PrimeCare;
+﻿package testNG.PrimeCare;
 
 import primecare.testing.base.BaseDatabaseTest;
-import primecare.testing.framework.planning.Models.DatabaseValidationRule;
+import primecare.testing.framework.Models.DatabaseValidationRule;
 import primecare.testing.models.TestingLayerCode;
-import primecare.testing.framework.database.Repositories.DatabaseValidationRepository;
+import primecare.testing.framework.Repositories.DatabaseValidationRepository;
 import primecare.testing.validation.TestLayer;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -26,3 +26,4 @@ public class L7DataFlowTest extends BaseDatabaseTest {
         System.out.println("[L7] DB Data Flow validation passed. Execution logged: " + count);
     }
 }
+

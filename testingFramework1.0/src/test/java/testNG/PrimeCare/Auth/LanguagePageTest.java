@@ -1,4 +1,4 @@
-package testNG.PrimeCare.Auth;
+﻿package testNG.PrimeCare.Auth;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -28,3 +28,4 @@ public class LanguagePageTest extends baseUserCredentials {
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"), "Selecting language did not navigate to /login. Current URL: " + driver.getCurrentUrl());
     }
 }
+

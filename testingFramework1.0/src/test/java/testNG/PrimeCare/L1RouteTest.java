@@ -1,10 +1,10 @@
-package testNG.PrimeCare;
+﻿package testNG.PrimeCare;
 
 import primecare.testing.base.BaseUiTest;
-import primecare.testing.framework.planning.Models.ScreenDefinition;
+import primecare.testing.framework.Models.ScreenDefinition;
 import primecare.testing.models.TestingLayerCode;
-import primecare.testing.framework.database.Repositories.ScreenRepository;
-import primecare.testing.framework.execution.PlaceholderDetectionService;
+import primecare.testing.framework.Repositories.ScreenRepository;
+import primecare.testing.framework.PlaceholderDetectionService;
 import primecare.testing.validation.TestLayer;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -126,3 +126,4 @@ public class L1RouteTest extends BaseUiTest {
         System.out.println("[L1] Navigation verification successful for screen: " + screen.screenKey);
     }
 }
+

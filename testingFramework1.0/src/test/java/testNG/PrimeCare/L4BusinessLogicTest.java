@@ -1,9 +1,9 @@
-package testNG.PrimeCare;
+﻿package testNG.PrimeCare;
 
 import primecare.testing.base.BaseTest;
-import primecare.testing.framework.planning.Models.BusinessRuleDefinition;
+import primecare.testing.framework.Models.BusinessRuleDefinition;
 import primecare.testing.models.TestingLayerCode;
-import primecare.testing.framework.database.Repositories.BusinessRuleRepository;
+import primecare.testing.framework.Repositories.BusinessRuleRepository;
 import primecare.testing.validation.TestLayer;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -39,3 +39,4 @@ public class L4BusinessLogicTest extends BaseTest {
         System.out.println("[L4] Business logic boundaries verified successfully.");
     }
 }
+
