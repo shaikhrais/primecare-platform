@@ -43,8 +43,8 @@ public class L1RouteTest extends BaseUiTest {
         }
         if (base == null || base.isEmpty()) {
             try {
-                primecare.testing.framework.planning.Models.ApplicationDefinition app = 
-                    primecare.testing.framework.database.Repositories.ApplicationRepository.getApplicationById(screen.applicationId);
+                primecare.testing.framework.Models.ApplicationDefinition app = 
+                    primecare.testing.framework.Repositories.ApplicationRepository.getApplicationById(screen.applicationId);
                 if (app != null && app.baseUrl != null && !app.baseUrl.isEmpty()) {
                     base = app.baseUrl;
                 }
@@ -60,8 +60,8 @@ public class L1RouteTest extends BaseUiTest {
 
         if (screen.requiredRole != null && !screen.requiredRole.isEmpty() && !"ANY".equalsIgnoreCase(screen.requiredRole)) {
             try {
-                primecare.testing.framework.planning.Models.RoleDefinition rd = 
-                    primecare.testing.framework.database.Repositories.RoleRepository.getRoleByKey(screen.requiredRole.trim().toUpperCase());
+                primecare.testing.framework.Models.RoleDefinition rd = 
+                    primecare.testing.framework.Repositories.RoleRepository.getRoleByKey(screen.requiredRole.trim().toUpperCase());
                 if (rd != null && rd.testEmail != null && !rd.testEmail.isEmpty()) {
                     email = rd.testEmail;
                     password = (rd.testPassword != null && !rd.testPassword.isEmpty()) ? rd.testPassword : "Test@12345";

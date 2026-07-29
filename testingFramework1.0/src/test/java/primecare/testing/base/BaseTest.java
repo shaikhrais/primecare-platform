@@ -31,7 +31,7 @@ public class BaseTest {
         DatabaseMigrationRunner.runMigrations();
         
         // Hydrate TestDataLayer from database
-        primecare.testing.framework.data.TestDataLayer.initialize();
+        primecare.testing.framework.TestDataLayer.initialize();
         
         // Verify database state health
         DatabaseHealthCheck.verifyDatabaseState();

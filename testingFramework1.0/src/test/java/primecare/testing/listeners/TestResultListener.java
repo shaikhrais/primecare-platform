@@ -43,8 +43,8 @@ public class TestResultListener implements ITestListener {
         int layerId = resolveLayer(result);
         tr.layerId = layerId;
 
-        if (result.getInstance() instanceof primecare.testing.framework.factory.DynamicScreenTest) {
-            primecare.testing.framework.factory.DynamicScreenTest dst = (primecare.testing.framework.factory.DynamicScreenTest) result.getInstance();
+        if (result.getInstance() instanceof primecare.testing.framework.DynamicScreenTest) {
+            primecare.testing.framework.DynamicScreenTest dst = (primecare.testing.framework.DynamicScreenTest) result.getInstance();
             tr.screenId = dst.planItem.screenId;
             tr.testCaseKey = dst.testCase.testCaseKey;
             tr.layerId = dst.planItem.layerCode.ordinal() + 1;
@@ -92,8 +92,8 @@ public class TestResultListener implements ITestListener {
         TestResultRepository.insertResult(tr);
         result.setAttribute(TEST_RESULT_ATTR, tr);
 
-        if (result.getInstance() instanceof primecare.testing.framework.factory.DynamicScreenTest) {
-            primecare.testing.framework.factory.DynamicScreenTest dst = (primecare.testing.framework.factory.DynamicScreenTest) result.getInstance();
+        if (result.getInstance() instanceof primecare.testing.framework.DynamicScreenTest) {
+            primecare.testing.framework.DynamicScreenTest dst = (primecare.testing.framework.DynamicScreenTest) result.getInstance();
             TestPlanItemRepository.updateItemStatus(dst.planItem.planItemId, "RUNNING", tr.resultId);
         }
     }
@@ -148,8 +148,8 @@ public class TestResultListener implements ITestListener {
         // Save final result to SQLite
         TestResultRepository.updateResult(tr);
 
-        if (result.getInstance() instanceof primecare.testing.framework.factory.DynamicScreenTest) {
-            primecare.testing.framework.factory.DynamicScreenTest dst = (primecare.testing.framework.factory.DynamicScreenTest) result.getInstance();
+        if (result.getInstance() instanceof primecare.testing.framework.DynamicScreenTest) {
+            primecare.testing.framework.DynamicScreenTest dst = (primecare.testing.framework.DynamicScreenTest) result.getInstance();
             TestPlanItemRepository.updateItemStatus(dst.planItem.planItemId, status, tr.resultId);
         }
 
@@ -316,8 +316,8 @@ public class TestResultListener implements ITestListener {
             String hash = String.format("%08x", signature.hashCode());
             
             // Read deployment properties
-            String deploymentId = primecare.testing.framework.database.DeploymentConfig.getDeploymentId();
-            String deploymentUrl = primecare.testing.framework.database.DeploymentConfig.getDeploymentUrl();
+            String deploymentId = primecare.testing.framework.DeploymentConfig.getDeploymentId();
+            String deploymentUrl = primecare.testing.framework.DeploymentConfig.getDeploymentUrl();
             
             String runIdStr = String.valueOf(tr.executionId);
             
