@@ -101,14 +101,26 @@ public class PageRecoveryUtility {
         }
 
         // -------------------------------------------------------------
-        // STEP 4: REDIRECT TO TARGET PAGE & VERIFY ROUTE / CAPTURE SCREEN PRINT
+        // STEP 4: REDIRECT TO TARGET PAGE & SAFE LANDING VERIFICATION
         // -------------------------------------------------------------
-        System.out.println("\n--- STEP 4: REDIRECT TO TARGET PAGE & VERIFY ROUTE / CAPTURE SCREEN PRINT [" + logId + "] ---");
+        System.out.println("\n--- STEP 4: REDIRECT TO TARGET PAGE & SAFE LANDING VERIFICATION [" + logId + "] ---");
         String targetUrl = base + targetRoute + (targetRoute.contains("?") ? "&" : "?") + "enable-semantics=true";
         System.out.println("  [ACTION] Directing browser to Target Route URL: " + targetUrl);
         driver.get(targetUrl);
-        System.out.println("  [ACTION] Pausing 3,000ms for Target Page DOM & Flutter Web elements to render...");
+        
+        System.out.println("  [SAFE LANDING] Waiting for page elements & Flutter DOM to settle...");
         sleep(3000);
+
+        // Check if browser was redirected away to /login or /language after arriving on targetUrl
+        String currentRoute = driver.getCurrentUrl();
+        if (currentRoute.contains("/login") || currentRoute.contains("/language")) {
+            System.out.println("  [SAFE LANDING RETRY] Auth redirect detected. Re-enforcing target page navigation: " + targetUrl);
+            driver.get(targetUrl);
+            sleep(3000);
+        }
+
+        // Wait for page load complete
+        waitForPageLoadToSettle(driver, 2000);
 
         boolean isMatched = verifyExpectedVsActual(targetRoute, "", logId);
 
@@ -116,11 +128,12 @@ public class PageRecoveryUtility {
         captureScreenshot("TargetPage_" + targetRoute.replaceAll("[^a-zA-Z0-9]", "_"));
 
         if (!isMatched) {
-            System.err.println("  [FINAL RESULT] Core Authentication & Navigation Protocol [" + logId + "] -> MISMATCH FAILED!");
-            org.testng.Assert.fail("EXPECTED VS ACTUAL MISMATCH [" + logId + "]: Could not match expected route " + targetRoute + " with actual URL " + driver.getCurrentUrl());
+            System.err.println("  [SAFE LANDING FAILED] Core Navigation Protocol [" + logId + "] -> MISMATCH FAILED!");
+            org.testng.Assert.fail("SAFE LANDING FAILED [" + logId + "]: Could not land safely on expected route " + targetRoute + ". Actual URL: " + driver.getCurrentUrl());
             return false;
         }
 
+        System.out.println("  [SAFE LANDING SUCCESS] Browser safely landed & verified on target page: " + driver.getCurrentUrl());
         System.out.println("  [FINAL RESULT] Core Authentication & Navigation Protocol [" + logId + "] -> PASSED!");
         System.out.println("====================================================================================\n");
         return true;
