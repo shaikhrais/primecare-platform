@@ -733,5 +733,9 @@ Then Selenium should locate elements using XPath with aria-label:
 
 Also ensure Flutter Web semantics are enabled so aria-label elements appear in the DOM.
 
+---
 
+# 23. Mandatory URL Semantics Query Rule
 
+All URLs rendered or navigated to in the testing framework MUST append `enable-semantics=true` at the end (e.g., `https://primecare-clinic.pages.dev/dashboard?enable-semantics=true`).
+This ensures Flutter Web initializes the HTML Accessibility DOM tree for element identification and Selenium interaction across all screens and portals.

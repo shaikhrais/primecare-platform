@@ -98,5 +98,11 @@ public class DatabaseConfig {
         }
         return "https://primecare-auth.pages.dev";
     }
+
+    public static String ensureSemanticsUrl(String url) {
+        if (url == null || url.trim().isEmpty()) return url;
+        if (url.contains("enable-semantics=true")) return url;
+        return url + (url.contains("?") ? "&" : "?") + "enable-semantics=true";
+    }
 }
 

@@ -89,7 +89,7 @@ public class baseTest {
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
 		// Launching the Auth Language Portal from SQLite DB
 		String authBase = primecare.testing.framework.DatabaseConfig.getAuthUrl();
-		String startUrl = authBase + "/language";
+		String startUrl = primecare.testing.framework.DatabaseConfig.ensureSemanticsUrl(authBase + "/language");
 		System.out.println("  [BASE SETUP] Initializing browser to Auth Language Portal: " + startUrl);
 		driver.get(startUrl);
 	}
@@ -114,32 +114,72 @@ public class baseTest {
 		String targetUrl = base + expectedRoute + (expectedRoute.contains("?") ? "&" : "?") + "enable-semantics=true";
 
 		if (!isGlobalAuthenticated) {
-			String langUrl = authBase + "/language?clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute;
+			String langUrl = authBase + "/language?enable-semantics=true&clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute;
 			System.out.println("  [INITIAL AUTH] Navigating to Language Portal: " + langUrl);
 			driver.get(langUrl);
-			try { Thread.sleep(2000); } catch (Exception ignored) {}
+			try { Thread.sleep(2500); } catch (Exception ignored) {}
 
-			try {
-				org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
-				js.executeScript("var findAndClick = function(label) { var el = document.querySelector('[aria-label*=\"' + label + '\"]'); if (el) el.click(); }; findAndClick('english'); findAndClick('continue');");
-				Thread.sleep(2000);
-			} catch (Exception ignored) {}
-
-			String loginUrl = authBase + "/login?clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute;
-			if (!driver.getCurrentUrl().contains("/login")) {
-				driver.get(loginUrl);
-				try { Thread.sleep(2000); } catch (Exception ignored) {}
-			}
-
+			// 1. Enable Flutter Web Semantics & click English + Continue
 			try {
 				org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
 				js.executeScript(
-					"var fill = function(label, val) { var el = document.querySelector('[aria-label*=\"' + label + '\"]'); if (el) { el.value = val; el.dispatchEvent(new Event('input', {bubbles:true})); } }; " +
-					"fill('login-email', 'qa.admin@test.primecare.local'); " +
-					"fill('login-password', 'password123'); " +
-					"var btn = document.querySelector('[aria-label*=\"login-submit\"]'); if (btn) btn.click();"
+					"var placeholder = document.querySelector('flt-semantics-placeholder'); if (placeholder) { placeholder.click(); }\n" +
+					"var clickByTextOrLabel = function(target) {\n" +
+					"  var elements = Array.from(document.querySelectorAll('*'));\n" +
+					"  for (var i = 0; i < elements.length; i++) {\n" +
+					"    var attr = (elements[i].getAttribute('aria-label') || elements[i].getAttribute('data-cy') || elements[i].innerText || '').toLowerCase();\n" +
+					"    if (attr.indexOf(target) !== -1) {\n" +
+					"      elements[i].click();\n" +
+					"      return true;\n" +
+					"    }\n" +
+					"  }\n" +
+					"  return false;\n" +
+					"};\n" +
+					"clickByTextOrLabel('english');\n" +
+					"setTimeout(function() { clickByTextOrLabel('continue'); }, 1200);"
 				);
 				Thread.sleep(3000);
+			} catch (Exception ignored) {}
+
+			String loginUrl = authBase + "/login?enable-semantics=true&clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute;
+			if (!driver.getCurrentUrl().contains("/login")) {
+				driver.get(loginUrl);
+				try { Thread.sleep(2500); } catch (Exception ignored) {}
+			}
+
+			// 2. Fill Email, Password, and Submit Login
+			try {
+				org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
+				js.executeScript(
+					"var fillInput = function(target, val) {\n" +
+					"  var elements = Array.from(document.querySelectorAll('input, [aria-label*=\"login\"]'));\n" +
+					"  for (var i = 0; i < elements.length; i++) {\n" +
+					"    var attr = (elements[i].getAttribute('aria-label') || elements[i].getAttribute('data-cy') || elements[i].name || '').toLowerCase();\n" +
+					"    if (attr.indexOf(target) !== -1) {\n" +
+					"      elements[i].value = val;\n" +
+					"      elements[i].dispatchEvent(new Event('input', {bubbles:true}));\n" +
+					"      elements[i].dispatchEvent(new Event('change', {bubbles:true}));\n" +
+					"      return true;\n" +
+					"    }\n" +
+					"  }\n" +
+					"  return false;\n" +
+					"};\n" +
+					"var clickButton = function(target) {\n" +
+					"  var elements = Array.from(document.querySelectorAll('button, [aria-label*=\"login\"], [aria-label*=\"submit\"]'));\n" +
+					"  for (var i = 0; i < elements.length; i++) {\n" +
+					"    var attr = (elements[i].getAttribute('aria-label') || elements[i].getAttribute('data-cy') || elements[i].innerText || '').toLowerCase();\n" +
+					"    if (attr.indexOf(target) !== -1) {\n" +
+					"      elements[i].click();\n" +
+					"      return true;\n" +
+					"    }\n" +
+					"  }\n" +
+					"  return false;\n" +
+					"};\n" +
+					"fillInput('email', 'qa.admin@test.primecare.local');\n" +
+					"fillInput('password', 'password123');\n" +
+					"setTimeout(function() { clickButton('submit'); }, 1000);"
+				);
+				Thread.sleep(4000);
 			} catch (Exception ignored) {}
 			isGlobalAuthenticated = true;
 		}

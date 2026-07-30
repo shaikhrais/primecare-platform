@@ -47,9 +47,9 @@ public class ProjectExcelFileData {
 
 	public static String url() {
 		try {
-			return primecare.testing.framework.DatabaseConfig.getAuthUrl() + "/language";
+			return primecare.testing.framework.DatabaseConfig.ensureSemanticsUrl(primecare.testing.framework.DatabaseConfig.getAuthUrl() + "/language");
 		} catch (Exception e) {
-			return "https://primecare-auth.pages.dev/language";
+			return "https://primecare-auth.pages.dev/language?enable-semantics=true";
 		}
 	}
 
