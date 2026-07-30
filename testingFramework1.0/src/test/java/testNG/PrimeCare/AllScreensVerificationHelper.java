@@ -210,11 +210,7 @@ public class AllScreensVerificationHelper {
         System.out.println("  PageObject Class: " + className);
 
         try {
-            if (clearSession != null) {
-                System.out.println("  [CALL] clearSession.run()");
-                clearSession.run();
-                System.out.println("  [RESULT] clearSession.run() -> Completed.");
-            }
+            // Keep authenticated session active across screen verifications
 
             // =========================================================================
             // 🧩 NOW SCAN PAGE OBJECTS & EXECUTE DOM ASSERTIONS
