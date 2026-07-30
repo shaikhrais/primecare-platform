@@ -104,138 +104,72 @@ public class baseTest {
 
 	public boolean verifyNavigationProtocol(int screenId, String expectedTitle, String expectedRoute) {
 		String logId = "LOG-ID-" + System.currentTimeMillis();
-		System.out.println("\n====================================================================================");
-		System.out.println("🧪 PRIMECARE PLATFORM - CORE NAVIGATION PROTOCOL [" + logId + "]");
-		System.out.println("====================================================================================");
-		System.out.println("  Screen ID: " + screenId + " | Title: " + expectedTitle + " | Target Route: " + expectedRoute);
-
 		String base = primecare.testing.framework.DatabaseConfig.getBaseUrlForRoute(expectedRoute);
 		String authBase = primecare.testing.framework.DatabaseConfig.getAuthUrl();
 		String targetUrl = primecare.testing.framework.DatabaseConfig.ensureSemanticsUrl(base + expectedRoute);
 
-		// STEP 1: CLEAR CACHE, COOKIES & LOCALSTORAGE FOR FRESH SCREEN FLOW
-		System.out.println("--- STEP 1: CLEARING CACHE & COOKIES [" + logId + "] ---");
+		System.out.println("\n--- [" + logId + "] PROTOCOL: Screen " + screenId + " (" + expectedTitle + ") -> " + expectedRoute + " ---");
+
+		// 1. Clear session for clean run
 		try {
 			driver.manage().deleteAllCookies();
-			org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
-			js.executeScript("window.localStorage.clear();");
-			js.executeScript("window.sessionStorage.clear();");
+			((org.openqa.selenium.JavascriptExecutor) driver).executeScript("window.localStorage.clear(); window.sessionStorage.clear();");
 		} catch (Exception ignored) {}
-		System.out.println("  [CHECK] Browser cache & cookies cleared.");
 
-		// STEP 2: OPEN LANGUAGE PAGE & CLICK ENGLISH BUTTON
+		// 2. Open Language Portal & Select English (App auto-transitions to Login)
 		String langUrl = primecare.testing.framework.DatabaseConfig.ensureSemanticsUrl(
 			authBase + "/language?clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute
 		);
-		System.out.println("--- STEP 2: OPEN LANGUAGE PAGE & SELECT ENGLISH [" + logId + "] ---");
-		System.out.println("  [CALL] driver.get(\"" + langUrl + "\")");
 		driver.get(langUrl);
-		try { Thread.sleep(2000); } catch (Exception ignored) {}
+		sleep(2000);
 
-		try {
-			org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
-			js.executeScript(
-				"var placeholder = document.querySelector('flt-semantics-placeholder'); if (placeholder) { placeholder.click(); }\n" +
-				"var clickByTextOrLabel = function(target) {\n" +
-				"  var elements = Array.from(document.querySelectorAll('*'));\n" +
-				"  for (var i = 0; i < elements.length; i++) {\n" +
-				"    var attr = (elements[i].getAttribute('aria-label') || elements[i].getAttribute('data-cy') || elements[i].innerText || '').toLowerCase();\n" +
-				"    if (attr.indexOf(target) !== -1) {\n" +
-				"      elements[i].click();\n" +
-				"      return true;\n" +
-				"    }\n" +
-				"  }\n" +
-				"  return false;\n" +
-				"};\n" +
-				"clickByTextOrLabel('english');\n" +
-				"setTimeout(function() { clickByTextOrLabel('continue'); }, 1000);"
-			);
-			Thread.sleep(2500);
-		} catch (Exception ignored) {}
-		System.out.println("  [CHECK] English language selected & continued.");
+		execJs("var p = document.querySelector('flt-semantics-placeholder'); if (p) p.click(); " +
+			"var click = function(t) { var els = Array.from(document.querySelectorAll('*')); for (var i=0; i<els.length; i++) { var a = (els[i].getAttribute('aria-label')||els[i].innerText||'').toLowerCase(); if (a.indexOf(t)!==-1) { els[i].click(); return true; } } return false; }; " +
+			"click('english'); setTimeout(function(){ click('continue'); }, 800);");
+		sleep(2500);
 
-		// STEP 3: GO TO LOGIN PAGE, FILL DB CREDENTIALS & SUBMIT
-		String loginUrl = primecare.testing.framework.DatabaseConfig.ensureSemanticsUrl(
-			authBase + "/login?clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute
-		);
-		System.out.println("--- STEP 3: LOGIN WITH DATABASE CREDENTIALS [" + logId + "] ---");
-		if (!driver.getCurrentUrl().contains("/login")) {
-			driver.get(loginUrl);
-			try { Thread.sleep(2000); } catch (Exception ignored) {}
-		}
+		// 3. Fill Credentials & Submit Login (On automatically loaded Login form)
+		execJs("var fill = function(t, v) { var els = Array.from(document.querySelectorAll('input, [aria-label*=\"login\"]')); for (var i=0; i<els.length; i++) { var a = (els[i].getAttribute('aria-label')||els[i].name||'').toLowerCase(); if (a.indexOf(t)!==-1) { els[i].value = v; els[i].dispatchEvent(new Event('input', {bubbles:true})); return true; } } return false; }; " +
+			"var btn = function(t) { var els = Array.from(document.querySelectorAll('button, [aria-label*=\"submit\"]')); for (var i=0; i<els.length; i++) { var a = (els[i].getAttribute('aria-label')||els[i].innerText||'').toLowerCase(); if (a.indexOf(t)!==-1) { els[i].click(); return true; } } return false; }; " +
+			"fill('email', 'qa.admin@test.primecare.local'); fill('password', 'password123'); setTimeout(function(){ btn('submit'); }, 800);");
+		sleep(3000);
 
-		try {
-			org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
-			js.executeScript(
-				"var fillInput = function(target, val) {\n" +
-				"  var elements = Array.from(document.querySelectorAll('input, [aria-label*=\"login\"]'));\n" +
-				"  for (var i = 0; i < elements.length; i++) {\n" +
-				"    var attr = (elements[i].getAttribute('aria-label') || elements[i].getAttribute('data-cy') || elements[i].name || '').toLowerCase();\n" +
-				"    if (attr.indexOf(target) !== -1) {\n" +
-				"      elements[i].value = val;\n" +
-				"      elements[i].dispatchEvent(new Event('input', {bubbles:true}));\n" +
-				"      elements[i].dispatchEvent(new Event('change', {bubbles:true}));\n" +
-				"      return true;\n" +
-				"    }\n" +
-				"  }\n" +
-				"  return false;\n" +
-				"};\n" +
-				"var clickButton = function(target) {\n" +
-				"  var elements = Array.from(document.querySelectorAll('button, [aria-label*=\"login\"], [aria-label*=\"submit\"]'));\n" +
-				"  for (var i = 0; i < elements.length; i++) {\n" +
-				"    var attr = (elements[i].getAttribute('aria-label') || elements[i].getAttribute('data-cy') || elements[i].innerText || '').toLowerCase();\n" +
-				"    if (attr.indexOf(target) !== -1) {\n" +
-				"      elements[i].click();\n" +
-				"      return true;\n" +
-				"    }\n" +
-				"  }\n" +
-				"  return false;\n" +
-				"};\n" +
-				"fillInput('email', 'qa.admin@test.primecare.local');\n" +
-				"fillInput('password', 'password123');\n" +
-				"setTimeout(function() { clickButton('submit'); }, 800);"
-			);
-			Thread.sleep(3000);
-		} catch (Exception ignored) {}
-
-		String postLoginUrl = driver.getCurrentUrl();
-		boolean authSuccess = postLoginUrl != null && (postLoginUrl.contains("/auth/callback") || postLoginUrl.contains("/success") || (!postLoginUrl.contains("/login") && !postLoginUrl.contains("/language")));
-		System.out.println("  [CHECK] Post-Login URL: " + postLoginUrl + " | Auth Status: " + (authSuccess ? "SUCCESS" : "FAILED"));
-
-		if (!authSuccess) {
-			System.err.println("  [LOGIN FAILED][" + logId + "] Login was not successful! Exiting test for screen " + screenId);
-			saveVerificationToDb(screenId, expectedTitle, expectedRoute, driver.getTitle(), postLoginUrl, 0, 0, 0, 0, 0, 0, 0, 0, "FAILED", "Login failed");
-			org.testng.Assert.fail("LOGIN FAILED [" + logId + "]: Could not authenticate user. Current URL: " + postLoginUrl);
+		String postLogin = driver.getCurrentUrl();
+		boolean authPassed = postLogin != null && (!postLogin.contains("/login") && !postLogin.contains("/language"));
+		if (!authPassed) {
+			System.err.println("  ❌ LOGIN FAILED [" + logId + "] at URL: " + postLogin);
+			saveVerificationToDb(screenId, expectedTitle, expectedRoute, driver.getTitle(), postLogin, 0, 0, 0, 0, 0, 0, 0, 0, "FAILED", "Login failed");
+			org.testng.Assert.fail("LOGIN FAILED [" + logId + "]: Could not authenticate. URL: " + postLogin);
 			return false;
 		}
 
-		// STEP 4: REDIRECT TO TARGET PAGE & SCREENSHOT
-		System.out.println("--- STEP 4: REDIRECT TO TARGET PAGE & VERIFY [" + logId + "] ---");
-		System.out.println("  [ACTION] Directing browser to target: " + targetUrl);
+		// 4. Direct Target Page Navigation & Screenshot
 		driver.get(targetUrl);
-		try { Thread.sleep(2500); } catch (Exception ignored) {}
+		sleep(2000);
 
-		String currentUrl = driver.getCurrentUrl();
-		System.out.println("  [CHECK] Target Page Landed URL: " + currentUrl);
-		System.out.println("  [SCREENSHOT] Capturing screenshot for screen " + screenId + "...");
+		String finalUrl = driver.getCurrentUrl();
+		saveScreenshot(screenId, expectedTitle);
 
-		try {
-			org.openqa.selenium.TakesScreenshot ts = (org.openqa.selenium.TakesScreenshot) driver;
-			java.io.File src = ts.getScreenshotAs(org.openqa.selenium.OutputType.FILE);
-			java.io.File destDir = new java.io.File("screenshots");
-			if (!destDir.exists()) destDir.mkdirs();
-			java.io.File dest = new java.io.File(destDir, "Screen_" + screenId + "_" + expectedTitle + ".png");
-			java.nio.file.Files.copy(src.toPath(), dest.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-			System.out.println("  [SCREENSHOT SAVED] " + dest.getAbsolutePath());
-		} catch (Exception e) {
-			System.out.println("  [SCREENSHOT ERROR] " + e.getMessage());
-		}
-
-		System.out.println("  [RESULT] Core Flow for Screen " + screenId + " (" + expectedTitle + ") -> PASSED!");
-		System.out.println("====================================================================================\n");
-
-		saveVerificationToDb(screenId, expectedTitle, expectedRoute, driver.getTitle(), currentUrl, 1, 1, 1, 1, 1, 1, 0, 0, "PASSED", null);
+		System.out.println("  ✅ PASSED: Screen " + screenId + " landed at " + finalUrl);
+		saveVerificationToDb(screenId, expectedTitle, expectedRoute, driver.getTitle(), finalUrl, 1, 1, 1, 1, 1, 1, 0, 0, "PASSED", null);
 		return true;
+	}
+
+	private void execJs(String script) {
+		try { ((org.openqa.selenium.JavascriptExecutor) driver).executeScript(script); } catch (Exception ignored) {}
+	}
+
+	private void sleep(long ms) {
+		try { Thread.sleep(ms); } catch (Exception ignored) {}
+	}
+
+	private void saveScreenshot(int screenId, String title) {
+		try {
+			java.io.File src = ((org.openqa.selenium.TakesScreenshot) driver).getScreenshotAs(org.openqa.selenium.OutputType.FILE);
+			java.io.File dir = new java.io.File("screenshots");
+			if (!dir.exists()) dir.mkdirs();
+			java.nio.file.Files.copy(src.toPath(), new java.io.File(dir, "Screen_" + screenId + "_" + title + ".png").toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+		} catch (Exception ignored) {}
 	}
 
 	private void saveVerificationToDb(int screenId, String expectedTitle, String expectedRoute, String actualTitle,
