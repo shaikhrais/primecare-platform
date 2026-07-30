@@ -91,7 +91,7 @@ public class L1RouteTest extends BaseUiTest {
         }
 
         try {
-            pageRecovery.navigateToTargetScreen(targetUrl, screen.screenKey, email, password);
+            driver.get(targetUrl);
         } catch (Throwable e) {
             captureScreenshot(screen.screenKey + "_failed");
             Assert.fail("[L1] Navigation to target screen failed: " + targetUrl + ". Error: " + e.getMessage());
@@ -109,18 +109,18 @@ public class L1RouteTest extends BaseUiTest {
         if (!isPublic) {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             try {
-                wait.until((WebDriver d) -> pageRecovery.isElementVisible("app-sidebar"));
+                wait.until((WebDriver d) -> d.findElements(By.xpath("//*[contains(@aria-label, 'app-sidebar') or contains(@data-cy, 'app-sidebar')]")).size() > 0);
             } catch (Exception e) {
                 captureScreenshot(screen.screenKey + "_sidebar_failed");
                 Assert.fail("Layout Check Failed: Sidebar 'app-sidebar' not found or not rendered for screen: " + screen.screenKey);
             }
             try {
-                wait.until((WebDriver d) -> pageRecovery.isElementVisible("app-topbar"));
+                wait.until((WebDriver d) -> d.findElements(By.xpath("//*[contains(@aria-label, 'app-topbar') or contains(@data-cy, 'app-topbar')]")).size() > 0);
             } catch (Exception e) {
                 Assert.fail("Layout Check Failed: Topbar 'app-topbar' not found or not rendered for screen: " + screen.screenKey);
             }
             try {
-                wait.until((WebDriver d) -> pageRecovery.isElementVisible("app-content-slot"));
+                wait.until((WebDriver d) -> d.findElements(By.xpath("//*[contains(@aria-label, 'app-content-slot') or contains(@data-cy, 'app-content-slot')]")).size() > 0);
             } catch (Exception e) {
                 Assert.fail("Layout Check Failed: Content area 'app-content-slot' not found or not rendered for screen: " + screen.screenKey);
             }

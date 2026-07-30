@@ -43,7 +43,7 @@ public class DynamicScreenTest extends BaseUiTest {
                 }
             } else {
                 LayerTestExecutor executor = LayerTestExecutorRegistry.getExecutor(planItem.layerCode);
-                executor.execute(driver, pageRecovery, planItem.screenId, planItem.screenKey);
+                executor.execute(driver, null, planItem.screenId, planItem.screenKey);
             }
 
             System.out.println("[RUNNER] Test case PASSED: " + testCase.testCaseKey);

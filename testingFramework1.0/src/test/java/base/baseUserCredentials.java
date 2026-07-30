@@ -23,7 +23,6 @@ import pageobjects.primecare.ui.Auth2LoginScreen;
 import pageobjects.primecare.ui.Auth1LanguageScreen;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import utilities.PageNavigationUtility;
-import utilities.PageRecoveryUtility;
 
 /**
  * Base class containing Excel reader/writer utilities and Selenium setup helpers.
@@ -51,12 +50,9 @@ public class baseUserCredentials extends baseRedirect {
 
     /**
      * Unified pre-test navigation helper function to achieve target page reaching.
-     * Executes the 4-step recovery protocol before running test assertions.
      */
     public boolean navigateToTargetPage(String targetRoute, String email, String password) {
-        String baseLoginUrl = BASE_URL + "/login";
-        PageRecoveryUtility recovery = new PageRecoveryUtility(driver, baseLoginUrl);
-        return recovery.executeSequentialRecoveryProtocol(targetRoute, email, password);
+        return verifyNavigationProtocol(0, "", targetRoute);
     }
 
     public boolean navigateToTargetPage(String targetRoute) {

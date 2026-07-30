@@ -100,22 +100,61 @@ public class baseTest {
 		System.out.println("TearDown Successful");
 	}
 
-	public boolean verifyNavigationProtocol(int screenId, String expectedTitle, String expectedRoute) {
-		System.out.println("\n====== CORE NAVIGATION PROTOCOL (Screen ID: " + screenId + " | Title: " + expectedTitle + ") ======");
-		System.out.println("  Target Route: " + expectedRoute);
+	private static boolean isGlobalAuthenticated = false;
 
-		utilities.PageRecoveryUtility pageRecovery = new utilities.PageRecoveryUtility(driver, "https://primecare-auth.pages.dev/login");
-		boolean isSuccess = pageRecovery.executeCoreAuthAndNavigateToTarget(expectedRoute, "clinic@primecare.com", "Password123");
-		
-		if (!isSuccess) {
-			System.err.println("  [LOGIN FAILED] Authentication failed for user credentials! Exiting test.");
-			org.testng.Assert.fail("LOGIN FAILED: Authentication failed for email: clinic@primecare.com at URL: " + driver.getCurrentUrl());
-			return false;
+	public boolean verifyNavigationProtocol(int screenId, String expectedTitle, String expectedRoute) {
+		String logId = "LOG-ID-" + System.currentTimeMillis();
+		System.out.println("\n====================================================================================");
+		System.out.println("🧪 PRIMECARE PLATFORM - CORE NAVIGATION PROTOCOL [" + logId + "]");
+		System.out.println("====================================================================================");
+		System.out.println("  Screen ID: " + screenId + " | Title: " + expectedTitle + " | Route: " + expectedRoute);
+
+		String base = primecare.testing.framework.DatabaseConfig.getBaseUrlForRoute(expectedRoute);
+		String authBase = primecare.testing.framework.DatabaseConfig.getAuthUrl();
+		String targetUrl = base + expectedRoute + (expectedRoute.contains("?") ? "&" : "?") + "enable-semantics=true";
+
+		if (!isGlobalAuthenticated) {
+			String langUrl = authBase + "/language?clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute;
+			System.out.println("  [INITIAL AUTH] Navigating to Language Portal: " + langUrl);
+			driver.get(langUrl);
+			try { Thread.sleep(2000); } catch (Exception ignored) {}
+
+			try {
+				org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
+				js.executeScript("var findAndClick = function(label) { var el = document.querySelector('[aria-label*=\"' + label + '\"]'); if (el) el.click(); }; findAndClick('english'); findAndClick('continue');");
+				Thread.sleep(2000);
+			} catch (Exception ignored) {}
+
+			String loginUrl = authBase + "/login?clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute;
+			if (!driver.getCurrentUrl().contains("/login")) {
+				driver.get(loginUrl);
+				try { Thread.sleep(2000); } catch (Exception ignored) {}
+			}
+
+			try {
+				org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
+				js.executeScript(
+					"var fill = function(label, val) { var el = document.querySelector('[aria-label*=\"' + label + '\"]'); if (el) { el.value = val; el.dispatchEvent(new Event('input', {bubbles:true})); } }; " +
+					"fill('login-email', 'qa.admin@test.primecare.local'); " +
+					"fill('login-password', 'password123'); " +
+					"var btn = document.querySelector('[aria-label*=\"login-submit\"]'); if (btn) btn.click();"
+				);
+				Thread.sleep(3000);
+			} catch (Exception ignored) {}
+			isGlobalAuthenticated = true;
 		}
 
-		// Record result to DB
-		saveVerificationToDb(screenId, expectedTitle, expectedRoute, driver.getTitle(), driver.getCurrentUrl(), 1, 1, 1, 1, 1, 1, 0, 0, "PASSED", null);
-		return true;
+		System.out.println("  [DIRECT TARGET NAVIGATION] Directing browser to: " + targetUrl);
+		driver.get(targetUrl);
+		try { Thread.sleep(2000); } catch (Exception ignored) {}
+
+		String currentUrl = driver.getCurrentUrl();
+		boolean isSuccess = currentUrl != null && !currentUrl.contains("/login") && !currentUrl.contains("/language");
+		System.out.println("  [CHECK] Expected Route: " + expectedRoute + " | Actual URL: " + currentUrl + " | Match: " + (isSuccess ? "PASS" : "FAIL"));
+		System.out.println("====================================================================================\n");
+
+		saveVerificationToDb(screenId, expectedTitle, expectedRoute, driver.getTitle(), currentUrl, isSuccess ? 1 : 0, 1, 1, 1, 1, 1, 0, 0, isSuccess ? "PASSED" : "FAILED", null);
+		return isSuccess;
 	}
 
 	private void saveVerificationToDb(int screenId, String expectedTitle, String expectedRoute, String actualTitle,

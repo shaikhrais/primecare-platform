@@ -73,8 +73,7 @@ public class L2ComponentTest extends BaseUiTest {
             return;
         }
 
-        By marker = primecare.testing.pages.ComponentResolver.resolveLocator(components.get(0));
-        pageRecovery.openRequestedPage(targetUrl, marker, screen.screenName, email, password);
+        driver.get(targetUrl);
 
         page = new DynamicScreen(screen.screenKey);
         for (UiComponentDefinition c : components) {

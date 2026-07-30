@@ -511,13 +511,7 @@ public class baseRedirect extends baseTest {
 
     @Override
     public boolean verifyNavigationProtocol(int screenId, String expectedTitle, String expectedRoute) {
-        System.out.println("====== NAVIGATION PROTOCOL VERIFICATION ======");
-        System.out.println("  Screen ID: " + screenId + " | Expected Title: " + expectedTitle + " | Expected Route: " + expectedRoute);
-
-        String email = "qa.admin@test.primecare.local";
-        String password = "password123";
-        utilities.PageRecoveryUtility pageRecovery = new utilities.PageRecoveryUtility(driver, "https://primecare-auth.pages.dev/login");
-        return pageRecovery.executeCoreAuthAndNavigateToTarget(expectedRoute, email, password);
+        return super.verifyNavigationProtocol(screenId, expectedTitle, expectedRoute);
     }
 
     private void saveVerificationResult(

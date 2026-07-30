@@ -31,15 +31,7 @@ public class L6IntegrationTest extends BaseUiTest {
         // Since we seeded mappings, we verify that UI actions correspond to backend endpoint bindings
         String testUser = appProps.getProperty("username.admin", "clinic@primecare.com");
         String testPass = appProps.getProperty("password.admin", "Password123");
-        utilities.PageRecoveryUtility recovery = new utilities.PageRecoveryUtility(driver, appProps.getProperty("login.url"));
-        org.openqa.selenium.By loginMarker = org.openqa.selenium.By.xpath("//*[@data-cy='login-email' or @aria-label='login-email']");
-        recovery.openRequestedPage(
-            appProps.getProperty("login.url"), 
-            loginMarker, 
-            "login", 
-            testUser, 
-            testPass
-        );
+        driver.get(appProps.getProperty("login.url", "https://primecare-auth.pages.dev/login"));
         
         page = new DynamicScreen(driver, "login");
 

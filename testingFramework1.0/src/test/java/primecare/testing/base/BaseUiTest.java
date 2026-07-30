@@ -1,6 +1,5 @@
 package primecare.testing.base;
 
-import utilities.PageRecoveryUtility;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -21,7 +20,6 @@ import java.time.Duration;
 
 public class BaseUiTest extends BaseTest {
     protected WebDriver driver;
-    protected PageRecoveryUtility pageRecovery;
 
     public WebDriver getDriver() {
         return driver;
@@ -76,15 +74,6 @@ public class BaseUiTest extends BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(
             Integer.parseInt(appProps.getProperty("element.timeout", "5"))
         ));
-
-        String base = System.getProperty("APP_BASE_URL");
-        String loginUrl;
-        if (base != null) {
-            loginUrl = base + "/login";
-        } else {
-            loginUrl = System.getProperty("login.url", appProps.getProperty("login.url", "http://localhost:8080/login"));
-        }
-        pageRecovery = new PageRecoveryUtility(driver, loginUrl);
     }
 
     @AfterMethod(alwaysRun = true)

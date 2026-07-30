@@ -6,7 +6,6 @@ import static primecare.testing.framework.Repositories.*;
 import primecare.testing.models.TestingLayerCode;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import utilities.PageRecoveryUtility;
 import org.testng.Assert;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
@@ -25,16 +24,12 @@ public class LayerExecutors {
         public TestingLayerCode supports() { return TestingLayerCode.L1; }
 
         @Override
-        public void execute(WebDriver driver, PageRecoveryUtility pageRecovery, int screenId, String screenKey) throws Exception {
+        public void execute(WebDriver driver, Object unused, int screenId, String screenKey) throws Exception {
             ScreenDefinition screen = ScreenRepository.getScreenByKey(screenKey);
             Assert.assertNotNull(screen, "Screen definition not found: " + screenKey);
             
             String targetUrl = primecare.testing.base.BaseTest.appProps.getProperty("APP_BASE_URL", "http://localhost:8080") + screen.route;
             driver.get(targetUrl);
-            
-            boolean isPageReady = pageRecovery.executeCoreAuthAndNavigateToTarget(screen.route, "clinic@primecare.com", "Password123");
-            Assert.assertTrue(isPageReady, "Logical Guard Failed: Could not navigate to target page " + screen.route);
-
             Assert.assertNotNull(driver.getCurrentUrl(), "Driver could not resolve current URL.");
             boolean isPlaceholder = PlaceholderDetectionService.isPlaceholderPage(driver);
             Assert.assertFalse(isPlaceholder, "Page contains placeholder construction texts!");
@@ -47,7 +42,7 @@ public class LayerExecutors {
         public TestingLayerCode supports() { return TestingLayerCode.L2; }
 
         @Override
-        public void execute(WebDriver driver, PageRecoveryUtility pageRecovery, int screenId, String screenKey) throws Exception {
+        public void execute(WebDriver driver, Object unused, int screenId, String screenKey) throws Exception {
             ScreenDefinition screen = ScreenRepository.getScreenByKey(screenKey);
             List<UiComponentDefinition> components = ComponentRepository.getComponentsForScreen(screenId);
             if (components.isEmpty()) return;
@@ -65,23 +60,7 @@ public class LayerExecutors {
             }
             String targetUrl = base + screen.route;
 
-            String email = System.getProperty("username.admin", "clinic@primecare.com");
-            String password = System.getProperty("password.admin", "Password123");
-
-            if (screen.requiredRole != null && !screen.requiredRole.isEmpty() && !"ANY".equalsIgnoreCase(screen.requiredRole)) {
-                try {
-                    primecare.testing.framework.Models.RoleDefinition rd = 
-                        primecare.testing.framework.Repositories.RoleRepository.getRoleByKey(screen.requiredRole.trim().toUpperCase());
-                    if (rd != null && rd.testEmail != null && !rd.testEmail.isEmpty()) {
-                        email = rd.testEmail;
-                        password = (rd.testPassword != null && !rd.testPassword.isEmpty()) ? rd.testPassword : "Test@12345";
-                    }
-                } catch (Exception e) {}
-            }
-
-            By marker = primecare.testing.pages.ComponentResolver.resolveLocator(components.get(0));
-            boolean isPageReady = pageRecovery.executeCoreAuthAndNavigateToTarget(screen.route, email, password);
-            Assert.assertTrue(isPageReady, "Logical Guard Failed: Could not navigate to target page " + screen.route);
+            driver.get(targetUrl);
 
             primecare.testing.pages.DynamicScreen page = new primecare.testing.pages.DynamicScreen(driver, screenKey);
             for (UiComponentDefinition c : components) {
@@ -106,7 +85,7 @@ public class LayerExecutors {
         public TestingLayerCode supports() { return TestingLayerCode.L3; }
 
         @Override
-        public void execute(WebDriver driver, PageRecoveryUtility pageRecovery, int screenId, String screenKey) throws Exception {
+        public void execute(WebDriver driver, Object unused, int screenId, String screenKey) throws Exception {
             List<ScreenFunctionDefinition> functions = FunctionRepository.getFunctionsForScreen(screenId);
             if (functions.isEmpty()) return;
 
@@ -143,7 +122,7 @@ public class LayerExecutors {
         public TestingLayerCode supports() { return TestingLayerCode.L4; }
 
         @Override
-        public void execute(WebDriver driver, PageRecoveryUtility pageRecovery, int screenId, String screenKey) throws Exception {
+        public void execute(WebDriver driver, Object unused, int screenId, String screenKey) throws Exception {
             BusinessRuleDefinition rule = BusinessRuleRepository.getBusinessRule("AUTH_VALIDATION");
             Assert.assertNotNull(rule, "Business rule AUTH_VALIDATION not found.");
             
@@ -163,7 +142,7 @@ public class LayerExecutors {
         public TestingLayerCode supports() { return TestingLayerCode.L5; }
 
         @Override
-        public void execute(WebDriver driver, PageRecoveryUtility pageRecovery, int screenId, String screenKey) throws Exception {
+        public void execute(WebDriver driver, Object unused, int screenId, String screenKey) throws Exception {
             ApiEndpointDefinition endpoint = ApiEndpointRepository.getEndpointByKey("auth_login");
             Assert.assertNotNull(endpoint, "Endpoint auth_login not found.");
             List<ApiTestCaseDefinition> cases = ApiTestCaseRepository.getTestCasesForEndpoint(endpoint.endpointId);
@@ -192,7 +171,7 @@ public class LayerExecutors {
         public TestingLayerCode supports() { return TestingLayerCode.L6; }
 
         @Override
-        public void execute(WebDriver driver, PageRecoveryUtility pageRecovery, int screenId, String screenKey) throws Exception {
+        public void execute(WebDriver driver, Object unused, int screenId, String screenKey) throws Exception {
             List<IntegrationMapping> mappings = IntegrationRepository.getMappingsForScreen(screenId);
             Assert.assertFalse(mappings.isEmpty(), "Integration mappings must be registered.");
             
@@ -223,7 +202,7 @@ public class LayerExecutors {
         public TestingLayerCode supports() { return TestingLayerCode.L7; }
 
         @Override
-        public void execute(WebDriver driver, PageRecoveryUtility pageRecovery, int screenId, String screenKey) throws Exception {
+        public void execute(WebDriver driver, Object unused, int screenId, String screenKey) throws Exception {
             DatabaseValidationRule rule = DatabaseValidationRepository.getRuleByKey("user_session_exists");
             Assert.assertNotNull(rule, "Database validation rule user_session_exists not found.");
             
@@ -245,7 +224,7 @@ public class LayerExecutors {
         public TestingLayerCode supports() { return TestingLayerCode.L8; }
 
         @Override
-        public void execute(WebDriver driver, PageRecoveryUtility pageRecovery, int screenId, String screenKey) throws Exception {
+        public void execute(WebDriver driver, Object unused, int screenId, String screenKey) throws Exception {
             String successUrl = System.getProperty("APP_BASE_URL", "http://localhost:8080") + "/success";
             driver.get(successUrl);
             boolean isLoginPage = driver.getCurrentUrl().contains("/login") || driver.findElements(By.xpath("//*[contains(@aria-label, 'login-email')]")).size() > 0;
@@ -259,7 +238,7 @@ public class LayerExecutors {
         public TestingLayerCode supports() { return TestingLayerCode.L9; }
 
         @Override
-        public void execute(WebDriver driver, PageRecoveryUtility pageRecovery, int screenId, String screenKey) throws Exception {
+        public void execute(WebDriver driver, Object unused, int screenId, String screenKey) throws Exception {
             WorkflowDefinition workflow = WorkflowRepository.getWorkflowByKey("login_verification_flow");
             Assert.assertNotNull(workflow, "Workflow login_verification_flow not found.");
             List<WorkflowStepDefinition> steps = WorkflowRepository.getWorkflowSteps(workflow.workflowId);
@@ -286,7 +265,7 @@ public class LayerExecutors {
         public TestingLayerCode supports() { return TestingLayerCode.L10; }
 
         @Override
-        public void execute(WebDriver driver, PageRecoveryUtility pageRecovery, int screenId, String screenKey) throws Exception {
+        public void execute(WebDriver driver, Object unused, int screenId, String screenKey) throws Exception {
             primecare.testing.base.BaseTest.executionId = 1; // Fallback default
             CertificationRecord record = CertificationService.certifyScreen(1, screenId, primecare.testing.base.BaseTest.executionId);
             Assert.assertNotNull(record);

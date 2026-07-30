@@ -38,9 +38,7 @@ public class L9WorkflowTest extends BaseWorkflowTest {
                 String targetUrl = appProps.getProperty("APP_BASE_URL", "http://localhost:8080") + "/" + step.screenKey;
                 String email = appProps.getProperty("username.admin", "clinic@primecare.com");
                 String password = appProps.getProperty("password.admin", "Password123");
-                org.openqa.selenium.By marker = org.openqa.selenium.By.xpath("//*[@data-cy='" + step.screenKey + "' or @aria-label='" + step.screenKey + "']");
-                utilities.PageRecoveryUtility recovery = new utilities.PageRecoveryUtility(driver, appProps.getProperty("login.url"));
-                recovery.openRequestedPage(targetUrl, marker, step.screenKey, email, password);
+                driver.get(targetUrl);
             
             } else if ("EXECUTE_FUNCTION".equalsIgnoreCase(step.actionType)) {
                 page = new DynamicScreen(driver, "login");
