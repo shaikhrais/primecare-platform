@@ -116,26 +116,41 @@ public class baseTest {
 			((org.openqa.selenium.JavascriptExecutor) driver).executeScript("window.localStorage.clear(); window.sessionStorage.clear();");
 		} catch (Exception ignored) {}
 
-		// 2. Open Language Portal & Select English (App auto-transitions to Login)
+		// 2. Open Language Portal & Continue to Login
 		String langUrl = primecare.testing.framework.DatabaseConfig.ensureSemanticsUrl(
 			authBase + "/language?clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute
 		);
 		driver.get(langUrl);
 		sleep(2000);
 
+		// Click flt-semantics-placeholder to enable accessibility, then click language-continue-button / flt-semantics
 		execJs("var p = document.querySelector('flt-semantics-placeholder'); if (p) p.click(); " +
-			"var click = function(t) { var els = Array.from(document.querySelectorAll('*')); for (var i=0; i<els.length; i++) { var a = (els[i].getAttribute('aria-label')||els[i].innerText||'').toLowerCase(); if (a.indexOf(t)!==-1) { els[i].click(); return true; } } return false; }; " +
-			"click('english'); setTimeout(function(){ click('continue'); }, 800);");
+			"var els = document.querySelectorAll('flt-semantics'); for (var i=0; i<els.length; i++) { els[i].click(); }");
 		sleep(2500);
 
-		// 3. Fill Credentials & Submit Login (On automatically loaded Login form)
-		execJs("var fill = function(t, v) { var els = Array.from(document.querySelectorAll('input, [aria-label*=\"login\"]')); for (var i=0; i<els.length; i++) { var a = (els[i].getAttribute('aria-label')||els[i].name||'').toLowerCase(); if (a.indexOf(t)!==-1) { els[i].value = v; els[i].dispatchEvent(new Event('input', {bubbles:true})); return true; } } return false; }; " +
-			"var btn = function(t) { var els = Array.from(document.querySelectorAll('button, [aria-label*=\"submit\"]')); for (var i=0; i<els.length; i++) { var a = (els[i].getAttribute('aria-label')||els[i].innerText||'').toLowerCase(); if (a.indexOf(t)!==-1) { els[i].click(); return true; } } return false; }; " +
-			"fill('email', 'qa.admin@test.primecare.local'); fill('password', 'password123'); setTimeout(function(){ btn('submit'); }, 800);");
+		// 3. Fill Credentials & Submit Login using Selenium WebElement interactions
+		try {
+			org.openqa.selenium.WebElement emailEl = driver.findElement(org.openqa.selenium.By.xpath("//*[@aria-label[contains(.,'login-email')]]"));
+			org.openqa.selenium.WebElement passEl = driver.findElement(org.openqa.selenium.By.xpath("//*[@aria-label[contains(.,'login-password')]]"));
+			org.openqa.selenium.WebElement submitEl = driver.findElement(org.openqa.selenium.By.xpath("//*[@aria-label[contains(.,'login-submit')]]"));
+
+			emailEl.clear();
+			emailEl.sendKeys("admin@primecare.com");
+			passEl.clear();
+			passEl.sendKeys("Password123");
+			sleep(500);
+			submitEl.click();
+		} catch (Exception e) {
+			execJs("var fill = function(t, v) { var els = Array.from(document.querySelectorAll('input, [aria-label*=\"login\"]')); for (var i=0; i<els.length; i++) { var a = (els[i].getAttribute('aria-label')||els[i].name||'').toLowerCase(); if (a.indexOf(t)!==-1) { els[i].value = v; els[i].dispatchEvent(new Event('input', {bubbles:true})); els[i].dispatchEvent(new Event('change', {bubbles:true})); return true; } } return false; }; " +
+				"var btn = function(t) { var els = Array.from(document.querySelectorAll('button, [aria-label*=\"submit\"], flt-semantics')); for (var i=0; i<els.length; i++) { var a = (els[i].getAttribute('aria-label')||els[i].innerText||'').toLowerCase(); if (a.indexOf(t)!==-1) { els[i].click(); return true; } } return false; }; " +
+				"fill('email', 'admin@primecare.com'); fill('password', 'Password123'); setTimeout(function(){ btn('submit'); }, 500);");
+		}
 		sleep(3000);
 
 		String postLogin = driver.getCurrentUrl();
 		boolean authPassed = postLogin != null && (!postLogin.contains("/login") && !postLogin.contains("/language"));
+		System.out.println("  [AUTH CHECK] Post-Login URL: " + postLogin + " | Status: " + (authPassed ? "SUCCESS" : "FAILED"));
+
 		if (!authPassed) {
 			System.err.println("  ❌ LOGIN FAILED [" + logId + "] at URL: " + postLogin);
 			saveVerificationToDb(screenId, expectedTitle, expectedRoute, driver.getTitle(), postLogin, 0, 0, 0, 0, 0, 0, 0, 0, "FAILED", "Login failed");
