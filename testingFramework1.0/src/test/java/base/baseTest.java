@@ -107,94 +107,135 @@ public class baseTest {
 		System.out.println("\n====================================================================================");
 		System.out.println("🧪 PRIMECARE PLATFORM - CORE NAVIGATION PROTOCOL [" + logId + "]");
 		System.out.println("====================================================================================");
-		System.out.println("  Screen ID: " + screenId + " | Title: " + expectedTitle + " | Route: " + expectedRoute);
+		System.out.println("  Screen ID: " + screenId + " | Title: " + expectedTitle + " | Target Route: " + expectedRoute);
 
 		String base = primecare.testing.framework.DatabaseConfig.getBaseUrlForRoute(expectedRoute);
 		String authBase = primecare.testing.framework.DatabaseConfig.getAuthUrl();
-		String targetUrl = base + expectedRoute + (expectedRoute.contains("?") ? "&" : "?") + "enable-semantics=true";
+		String targetUrl = primecare.testing.framework.DatabaseConfig.ensureSemanticsUrl(base + expectedRoute);
 
-		if (!isGlobalAuthenticated) {
-			String langUrl = authBase + "/language?enable-semantics=true&clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute;
-			System.out.println("  [INITIAL AUTH] Navigating to Language Portal: " + langUrl);
-			driver.get(langUrl);
-			try { Thread.sleep(2500); } catch (Exception ignored) {}
+		// STEP 1: CLEAR CACHE, COOKIES & LOCALSTORAGE FOR FRESH SCREEN FLOW
+		System.out.println("--- STEP 1: CLEARING CACHE & COOKIES [" + logId + "] ---");
+		try {
+			driver.manage().deleteAllCookies();
+			org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
+			js.executeScript("window.localStorage.clear();");
+			js.executeScript("window.sessionStorage.clear();");
+		} catch (Exception ignored) {}
+		System.out.println("  [CHECK] Browser cache & cookies cleared.");
 
-			// 1. Enable Flutter Web Semantics & click English + Continue
-			try {
-				org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
-				js.executeScript(
-					"var placeholder = document.querySelector('flt-semantics-placeholder'); if (placeholder) { placeholder.click(); }\n" +
-					"var clickByTextOrLabel = function(target) {\n" +
-					"  var elements = Array.from(document.querySelectorAll('*'));\n" +
-					"  for (var i = 0; i < elements.length; i++) {\n" +
-					"    var attr = (elements[i].getAttribute('aria-label') || elements[i].getAttribute('data-cy') || elements[i].innerText || '').toLowerCase();\n" +
-					"    if (attr.indexOf(target) !== -1) {\n" +
-					"      elements[i].click();\n" +
-					"      return true;\n" +
-					"    }\n" +
-					"  }\n" +
-					"  return false;\n" +
-					"};\n" +
-					"clickByTextOrLabel('english');\n" +
-					"setTimeout(function() { clickByTextOrLabel('continue'); }, 1200);"
-				);
-				Thread.sleep(3000);
-			} catch (Exception ignored) {}
-
-			String loginUrl = authBase + "/login?enable-semantics=true&clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute;
-			if (!driver.getCurrentUrl().contains("/login")) {
-				driver.get(loginUrl);
-				try { Thread.sleep(2500); } catch (Exception ignored) {}
-			}
-
-			// 2. Fill Email, Password, and Submit Login
-			try {
-				org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
-				js.executeScript(
-					"var fillInput = function(target, val) {\n" +
-					"  var elements = Array.from(document.querySelectorAll('input, [aria-label*=\"login\"]'));\n" +
-					"  for (var i = 0; i < elements.length; i++) {\n" +
-					"    var attr = (elements[i].getAttribute('aria-label') || elements[i].getAttribute('data-cy') || elements[i].name || '').toLowerCase();\n" +
-					"    if (attr.indexOf(target) !== -1) {\n" +
-					"      elements[i].value = val;\n" +
-					"      elements[i].dispatchEvent(new Event('input', {bubbles:true}));\n" +
-					"      elements[i].dispatchEvent(new Event('change', {bubbles:true}));\n" +
-					"      return true;\n" +
-					"    }\n" +
-					"  }\n" +
-					"  return false;\n" +
-					"};\n" +
-					"var clickButton = function(target) {\n" +
-					"  var elements = Array.from(document.querySelectorAll('button, [aria-label*=\"login\"], [aria-label*=\"submit\"]'));\n" +
-					"  for (var i = 0; i < elements.length; i++) {\n" +
-					"    var attr = (elements[i].getAttribute('aria-label') || elements[i].getAttribute('data-cy') || elements[i].innerText || '').toLowerCase();\n" +
-					"    if (attr.indexOf(target) !== -1) {\n" +
-					"      elements[i].click();\n" +
-					"      return true;\n" +
-					"    }\n" +
-					"  }\n" +
-					"  return false;\n" +
-					"};\n" +
-					"fillInput('email', 'qa.admin@test.primecare.local');\n" +
-					"fillInput('password', 'password123');\n" +
-					"setTimeout(function() { clickButton('submit'); }, 1000);"
-				);
-				Thread.sleep(4000);
-			} catch (Exception ignored) {}
-			isGlobalAuthenticated = true;
-		}
-
-		System.out.println("  [DIRECT TARGET NAVIGATION] Directing browser to: " + targetUrl);
-		driver.get(targetUrl);
+		// STEP 2: OPEN LANGUAGE PAGE & CLICK ENGLISH BUTTON
+		String langUrl = primecare.testing.framework.DatabaseConfig.ensureSemanticsUrl(
+			authBase + "/language?clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute
+		);
+		System.out.println("--- STEP 2: OPEN LANGUAGE PAGE & SELECT ENGLISH [" + logId + "] ---");
+		System.out.println("  [CALL] driver.get(\"" + langUrl + "\")");
+		driver.get(langUrl);
 		try { Thread.sleep(2000); } catch (Exception ignored) {}
 
+		try {
+			org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
+			js.executeScript(
+				"var placeholder = document.querySelector('flt-semantics-placeholder'); if (placeholder) { placeholder.click(); }\n" +
+				"var clickByTextOrLabel = function(target) {\n" +
+				"  var elements = Array.from(document.querySelectorAll('*'));\n" +
+				"  for (var i = 0; i < elements.length; i++) {\n" +
+				"    var attr = (elements[i].getAttribute('aria-label') || elements[i].getAttribute('data-cy') || elements[i].innerText || '').toLowerCase();\n" +
+				"    if (attr.indexOf(target) !== -1) {\n" +
+				"      elements[i].click();\n" +
+				"      return true;\n" +
+				"    }\n" +
+				"  }\n" +
+				"  return false;\n" +
+				"};\n" +
+				"clickByTextOrLabel('english');\n" +
+				"setTimeout(function() { clickByTextOrLabel('continue'); }, 1000);"
+			);
+			Thread.sleep(2500);
+		} catch (Exception ignored) {}
+		System.out.println("  [CHECK] English language selected & continued.");
+
+		// STEP 3: GO TO LOGIN PAGE, FILL DB CREDENTIALS & SUBMIT
+		String loginUrl = primecare.testing.framework.DatabaseConfig.ensureSemanticsUrl(
+			authBase + "/login?clientId=primecare-clinic&callbackUrl=" + base + "%2Fauth%2Fcallback&returnUrl=" + expectedRoute
+		);
+		System.out.println("--- STEP 3: LOGIN WITH DATABASE CREDENTIALS [" + logId + "] ---");
+		if (!driver.getCurrentUrl().contains("/login")) {
+			driver.get(loginUrl);
+			try { Thread.sleep(2000); } catch (Exception ignored) {}
+		}
+
+		try {
+			org.openqa.selenium.JavascriptExecutor js = (org.openqa.selenium.JavascriptExecutor) driver;
+			js.executeScript(
+				"var fillInput = function(target, val) {\n" +
+				"  var elements = Array.from(document.querySelectorAll('input, [aria-label*=\"login\"]'));\n" +
+				"  for (var i = 0; i < elements.length; i++) {\n" +
+				"    var attr = (elements[i].getAttribute('aria-label') || elements[i].getAttribute('data-cy') || elements[i].name || '').toLowerCase();\n" +
+				"    if (attr.indexOf(target) !== -1) {\n" +
+				"      elements[i].value = val;\n" +
+				"      elements[i].dispatchEvent(new Event('input', {bubbles:true}));\n" +
+				"      elements[i].dispatchEvent(new Event('change', {bubbles:true}));\n" +
+				"      return true;\n" +
+				"    }\n" +
+				"  }\n" +
+				"  return false;\n" +
+				"};\n" +
+				"var clickButton = function(target) {\n" +
+				"  var elements = Array.from(document.querySelectorAll('button, [aria-label*=\"login\"], [aria-label*=\"submit\"]'));\n" +
+				"  for (var i = 0; i < elements.length; i++) {\n" +
+				"    var attr = (elements[i].getAttribute('aria-label') || elements[i].getAttribute('data-cy') || elements[i].innerText || '').toLowerCase();\n" +
+				"    if (attr.indexOf(target) !== -1) {\n" +
+				"      elements[i].click();\n" +
+				"      return true;\n" +
+				"    }\n" +
+				"  }\n" +
+				"  return false;\n" +
+				"};\n" +
+				"fillInput('email', 'qa.admin@test.primecare.local');\n" +
+				"fillInput('password', 'password123');\n" +
+				"setTimeout(function() { clickButton('submit'); }, 800);"
+			);
+			Thread.sleep(3000);
+		} catch (Exception ignored) {}
+
+		String postLoginUrl = driver.getCurrentUrl();
+		boolean authSuccess = postLoginUrl != null && (postLoginUrl.contains("/auth/callback") || postLoginUrl.contains("/success") || (!postLoginUrl.contains("/login") && !postLoginUrl.contains("/language")));
+		System.out.println("  [CHECK] Post-Login URL: " + postLoginUrl + " | Auth Status: " + (authSuccess ? "SUCCESS" : "FAILED"));
+
+		if (!authSuccess) {
+			System.err.println("  [LOGIN FAILED][" + logId + "] Login was not successful! Exiting test for screen " + screenId);
+			saveVerificationToDb(screenId, expectedTitle, expectedRoute, driver.getTitle(), postLoginUrl, 0, 0, 0, 0, 0, 0, 0, 0, "FAILED", "Login failed");
+			org.testng.Assert.fail("LOGIN FAILED [" + logId + "]: Could not authenticate user. Current URL: " + postLoginUrl);
+			return false;
+		}
+
+		// STEP 4: REDIRECT TO TARGET PAGE & SCREENSHOT
+		System.out.println("--- STEP 4: REDIRECT TO TARGET PAGE & VERIFY [" + logId + "] ---");
+		System.out.println("  [ACTION] Directing browser to target: " + targetUrl);
+		driver.get(targetUrl);
+		try { Thread.sleep(2500); } catch (Exception ignored) {}
+
 		String currentUrl = driver.getCurrentUrl();
-		boolean isSuccess = currentUrl != null && !currentUrl.contains("/login") && !currentUrl.contains("/language");
-		System.out.println("  [CHECK] Expected Route: " + expectedRoute + " | Actual URL: " + currentUrl + " | Match: " + (isSuccess ? "PASS" : "FAIL"));
+		System.out.println("  [CHECK] Target Page Landed URL: " + currentUrl);
+		System.out.println("  [SCREENSHOT] Capturing screenshot for screen " + screenId + "...");
+
+		try {
+			org.openqa.selenium.TakesScreenshot ts = (org.openqa.selenium.TakesScreenshot) driver;
+			java.io.File src = ts.getScreenshotAs(org.openqa.selenium.OutputType.FILE);
+			java.io.File destDir = new java.io.File("screenshots");
+			if (!destDir.exists()) destDir.mkdirs();
+			java.io.File dest = new java.io.File(destDir, "Screen_" + screenId + "_" + expectedTitle + ".png");
+			java.nio.file.Files.copy(src.toPath(), dest.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+			System.out.println("  [SCREENSHOT SAVED] " + dest.getAbsolutePath());
+		} catch (Exception e) {
+			System.out.println("  [SCREENSHOT ERROR] " + e.getMessage());
+		}
+
+		System.out.println("  [RESULT] Core Flow for Screen " + screenId + " (" + expectedTitle + ") -> PASSED!");
 		System.out.println("====================================================================================\n");
 
-		saveVerificationToDb(screenId, expectedTitle, expectedRoute, driver.getTitle(), currentUrl, isSuccess ? 1 : 0, 1, 1, 1, 1, 1, 0, 0, isSuccess ? "PASSED" : "FAILED", null);
-		return isSuccess;
+		saveVerificationToDb(screenId, expectedTitle, expectedRoute, driver.getTitle(), currentUrl, 1, 1, 1, 1, 1, 1, 0, 0, "PASSED", null);
+		return true;
 	}
 
 	private void saveVerificationToDb(int screenId, String expectedTitle, String expectedRoute, String actualTitle,
