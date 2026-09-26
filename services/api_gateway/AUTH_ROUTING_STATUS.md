@@ -1,11 +1,19 @@
-# Gateway auth routing status
+# Authentication integration status
 
-The gateway exposes `/api/auth/<path>` and `/v1/auth/<path>` through the existing auth service. For example, a request to `/v1/auth/health` is forwarded to `AUTH_SERVICE_URL/health`. The gateway preserves query parameters, request bodies, response status, and response headers.
+## Implemented in this branch
+- The gateway sends `/v1/auth/<path>` and `/api/auth/<path>` to the auth service and preserves query strings.
+- `POST /login` checks a bcrypt password hash and active user status. It issues a 32-byte random token, stores only its SHA-256 digest in `auth_sessions`, and expires the session after 12 hours.
+- `GET /me` requires a valid, unexpired bearer token or session cookie. `POST /logout` removes that session.
+- Flutter no longer grants demo access or infers a role from an email. Stored sessions must pass `/me`. The auth app no longer transfers tokens in callback URLs.
 
-The default upstream hostname is `auth_api:8080` for the Docker service network. Set `AUTH_SERVICE_URL=http://localhost:8080` when running the auth service directly on the host; the hostname `auth_api` will not resolve outside Docker.
+## Before running
+1. Apply `packages/database/migrations/20260926_auth_sessions.sql` to a database whose `users` table follows the Prisma schema with `roles`, `status`, and `password_hash`. The older `infra/migrations/001_initial_schema.sql` instead uses a `role` column and is incompatible.
+2. Provision a user with a unique bcrypt `password_hash` using `BCrypt.hashpw(password, BCrypt.gensalt())`. Existing seed hashes with 64 hexadecimal characters are SHA-256 and are deliberately rejected; reset those passwords. Never reuse the example seed password.
+3. Set the Flutter `API_BASE_URL` to the reachable gateway origin and route `/v1/auth/*` to that gateway. The deployed web configuration currently defaults to `/api`, which yields `/api/v1/auth/*` and does not match the gateway route.
+4. Set `AUTH_SERVICE_URL` to the auth service address when it is not running in the Docker network.
 
-This change does **not** make login safe to use. `services/auth_api/bin/server.dart` currently accepts an email without checking a password and uses the user ID as a session token. The Flutter auth app also puts a token into a redirect URL. Do not enter real credentials or patient information until those flows are replaced and verified.
-
-The root `docker-compose.yml` references several directories that do not exist, and the service Dockerfiles use build contexts that cannot resolve the monorepo's relative package dependencies. The full stack cannot be started through that Compose file yet.
-
-Suggested next implementation: choose a single Flutter login screen, define a real password verification and session flow in the auth service, then connect that screen to `/v1/auth/login` through the gateway. Remove URL tokens and mock responses before deploying.
+## Remaining blockers
+- Root Compose references nonexistent service directories. The individual Dockerfiles cannot build workspace packages using their current contexts. The database client requires TLS even for the local plaintext Postgres Compose service.
+- The Flutter client retains bearer tokens in SharedPreferences and the old cross-portal callback path is intentionally disabled. A production browser login should use a same-origin gateway, secure cookie sessions, and a server-side one-time authorization handoff for other portals.
+- Other generated routes and gateway mock endpoints are not protected by this session implementation. No clinical or personal data should be exposed through them.
+- No Dart or Flutter SDK is available in the current execution workspace, so this branch is untested at runtime and must remain a draft.
