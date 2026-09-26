@@ -75,16 +75,6 @@ class ApiClient {
   static ApiResponse? _getMockResponse(String path, String method, {dynamic body}) {
     final cleanPath = path.split('?')[0];
 
-    if (cleanPath == '/v1/auth/forgot-password') {
-      return ApiResponse(
-        statusCode: 200,
-        data: {
-          'success': true,
-          'message': 'Password reset link sent to email.',
-        },
-      );
-    }
-
     if (cleanPath == '/v1/system/permissions') {
       return ApiResponse(
         statusCode: 200,
