@@ -56,49 +56,8 @@ final authListenable = ValueNotifier<bool>(false);
 class AuthNotifier extends Notifier<AuthState> {
   @override
   AuthState build() {
-    AuthState initialState = AuthState(isInitialized: false);
-
-    String? cleanStorageValue(String? val) {
-      if (val == null) return null;
-      var cleaned = val.trim();
-      while ((cleaned.startsWith('"') && cleaned.endsWith('"') && cleaned.length >= 2) ||
-             (cleaned.startsWith("'") && cleaned.endsWith("'") && cleaned.length >= 2)) {
-        cleaned = cleaned.substring(1, cleaned.length - 1);
-        cleaned = cleaned.trim();
-      }
-      return cleaned;
-    }
-
-    if (kIsWeb) {
-      try {
-        // Read directly from browser local storage synchronously to prevent asynchronous GoRouter race conditions!
-        final token = cleanStorageValue(getLocalStorageItem('flutter.auth_token'));
-        final role = cleanStorageValue(getLocalStorageItem('flutter.auth_role'));
-        final tenantId = cleanStorageValue(getLocalStorageItem('flutter.auth_tenant_id'));
-        final userName = cleanStorageValue(getLocalStorageItem('flutter.auth_username')) ?? 'PrimeCare User';
-        final userId = cleanStorageValue(getLocalStorageItem('flutter.auth_user_id'));
-        final preferredLanguage = cleanStorageValue(getLocalStorageItem('flutter.auth_preferred_language')) ?? 'en';
-
-        if (token != null && token.isNotEmpty && role != null && role.isNotEmpty) {
-          initialState = AuthState(
-            isAuthenticated: true,
-            isInitialized: true, // We have successfully initialized synchronously!
-            token: token,
-            role: role,
-            tenantId: tenantId,
-            userName: userName,
-            userId: userId,
-            preferredLanguage: preferredLanguage,
-          );
-          authListenable.value = true;
-        }
-      } catch (e) {
-        debugPrint('Synchronous local storage read failed: $e');
-      }
-    }
-
     _loadStoredAuth();
-    return initialState;
+    return AuthState(isInitialized: false);
   }
 
   static String getDashboardRouteForRole(String role) {
