@@ -41,6 +41,7 @@ services:
       DB_NAME: primecare
       DB_SSL_MODE: disable
       AUTH_SERVICE_URL: http://auth_api:8080
+      CORS_ALLOWED_ORIGIN: http://localhost:8085
     ports:
       - "8700:8080"
     depends_on:
