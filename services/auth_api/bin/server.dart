@@ -43,7 +43,6 @@ void main() async {
   final db = PlatformDatabase();
   await db.initialize();
   final router = Router();
-  router.mount('/', ApiRoutes().router.call);
 
   router.post('/login', (Request request) async {
     Map<String, dynamic> payload;
@@ -127,6 +126,8 @@ void main() async {
 
   router.get('/health', (Request request) =>
       _json(200, {'status': 'healthy'}));
+
+  router.mount('/', ApiRoutes().router.call);
 
   final handler = const Pipeline().addMiddleware(logRequests()).addHandler(router.call);
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
