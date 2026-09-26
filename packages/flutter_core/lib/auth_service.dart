@@ -463,62 +463,6 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<bool> login(String email, String password) async {
     final result = await Result.guardFuture<bool>(
       () async {
-        final emailLower = email.toLowerCase().trim();
-        TestCredential? matchedCred;
-        if (!kReleaseMode) {
-          try {
-            matchedCred = TestCredentialsRegistry.allCredentials.firstWhere(
-              (c) => c.email.toLowerCase().trim() == emailLower && c.password == password,
-            );
-          } catch (_) {}
-        }
-
-        if (matchedCred != null) {
-          final role = matchedCred.role.nameSnake;
-          final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('auth_token', 'demo-token');
-          await prefs.setString('auth_role', role);
-          await prefs.setString('auth_username', matchedCred.role.displayName);
-          await prefs.setString('auth_user_id', 'mock-user-id-${matchedCred.role.name}');
-
-          state = state.copyWith(
-            isAuthenticated: true,
-            token: 'demo-token',
-            role: role,
-            userName: matchedCred.role.displayName,
-            userId: 'mock-user-id-${matchedCred.role.name}',
-            preferredLanguage: 'en',
-          );
-          authListenable.value = true;
-          ref
-              .read<ExecutionGateService>(executionGateProvider)
-              .passGate(
-                ExecutionGateCategory.auth,
-                'Offline Test Authentication successful. Role: $role',
-                metadata: {'email': email},
-              );
-          return true;
-        }
-
-        // Debug Bypass for local verification fallback
-        if (!kReleaseMode && (emailLower.endsWith('@demo.primecare.com') || emailLower.endsWith('@primecare.test'))) {
-          final role = emailLower.split('@')[0];
-          final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('auth_token', 'demo-token');
-          await prefs.setString('auth_role', role);
-          await prefs.setString('auth_username', 'Demo User');
-
-          state = state.copyWith(
-            isAuthenticated: true,
-            token: 'demo-token',
-            role: role,
-            userName: 'Demo User',
-            preferredLanguage: 'en',
-          );
-          authListenable.value = true;
-          return true;
-        }
-
         final apiClient = ref.read(apiClientProvider);
         final response = await apiClient.post(
           ApiConfig.endpoints['login']!,
@@ -528,47 +472,19 @@ class AuthNotifier extends Notifier<AuthState> {
         if (response.statusCode == 200) {
           final Map<String, dynamic> data =
               response.data as Map<String, dynamic>;
-          final token = (data['token'] as String?) ?? 'mock-token';
+          final token = data['token'] as String?;
+          if (token == null || token.isEmpty) return false;
 
-          // Deeply unpack role from Worker-API or root
-          String role = 'PSW';
-          final emailLower = email.toLowerCase().trim();
-          final user = data['user'] as Map<String, dynamic>?;
-
-          if (emailLower == 'itpro.mohammed@gmail.com') {
-            role = 'Super Admin';
-          } else if (data['role'] != null) {
-            role = data['role'] as String;
-          } else if (user != null &&
-              user['roles'] != null &&
-              (user['roles'] as List).isNotEmpty) {
-            role = (user['roles'] as List)[0] as String;
-          } else if (data['activeRole'] != null) {
-            role = data['activeRole'] as String;
-          } else if (emailLower.endsWith('@primecare.com')) {
-            // Dynamic role mapping for high-fidelity orchestration sandbox
-            role = emailLower.split('@')[0];
+          final role = data['role'] as String?;
+          final userId = data['userId']?.toString();
+          if (role == null || role.isEmpty || userId == null || userId.isEmpty) {
+            return false;
           }
+          final userName = email.trim();
+          final tenantId = data['tenantId']?.toString() ?? '';
+          final preferredLanguage = state.preferredLanguage ?? 'en';
 
           final prefs = await SharedPreferences.getInstance();
-
-          final tenantId =
-              (data['tenantId'] as String?) ??
-              (user != null ? user['tenantId'] as String? : null) ??
-              '00000000-0000-0000-0000-000000000000';
-
-          final firstName =
-              (user != null ? user['firstName'] as String? : null) ?? 'Active';
-          final lastName =
-              (user != null ? user['lastName'] as String? : null) ?? 'User';
-          final userName = '$firstName $lastName';
-
-          final userId =
-              (user != null ? user['id'] as String? : null) ?? 'unknown';
-          final preferredLanguage =
-              (user != null ? user['preferredLanguage'] as String? : null) ??
-              state.preferredLanguage ??
-              'en';
 
           await prefs.setString('auth_token', token);
           await prefs.setString('auth_role', role);
