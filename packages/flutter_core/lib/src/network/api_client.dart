@@ -578,13 +578,10 @@ class ApiResponse {
 /// Centralized configuration for API endpoints and base URL.
 class ApiConfig {
   static String get baseUrl {
-    if (kIsWeb) {
-      final host = Uri.base.host;
-      if (host.isNotEmpty && host != 'localhost' && host != '127.0.0.1') {
-        return '/api';
-      }
-    }
-    return const String.fromEnvironment('API_BASE_URL', defaultValue: 'http://localhost:8700');
+    const configured = String.fromEnvironment('API_BASE_URL');
+    if (configured.isNotEmpty) return configured;
+    if (kIsWeb) return ''; // Same-origin reverse proxy at /v1/auth/*.
+    return 'http://localhost:8700';
   }
 
   static const Map<String, String> endpoints = {
