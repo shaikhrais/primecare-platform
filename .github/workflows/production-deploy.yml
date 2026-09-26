@@ -146,6 +146,11 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+      - name: Enable required Google Cloud APIs
+        run: |
+          gcloud services enable run.googleapis.com artifactregistry.googleapis.com secretmanager.googleapis.com \
+            --project="${{ secrets.GCP_PROJECT_ID }}"
+
       - name: Ensure Artifact Registry repository
         run: |
           gcloud artifacts repositories describe "${ARTIFACT_REPOSITORY}" \
@@ -173,6 +178,11 @@ jobs:
             gcloud secrets create primecare-database-url --project="${{ secrets.GCP_PROJECT_ID }}" --replication-policy=automatic
           printf '%s' "${PRODUCTION_DATABASE_URL}" | \
             gcloud secrets versions add primecare-database-url --project="${{ secrets.GCP_PROJECT_ID }}" --data-file=-
+          project_number="$(gcloud projects describe "${{ secrets.GCP_PROJECT_ID }}" --format='value(projectNumber)')"
+          gcloud secrets add-iam-policy-binding primecare-database-url \
+            --project="${{ secrets.GCP_PROJECT_ID }}" \
+            --member="serviceAccount:${project_number}-compute@developer.gserviceaccount.com" \
+            --role="roles/secretmanager.secretAccessor"
 
       - id: auth
         name: Deploy Auth API
