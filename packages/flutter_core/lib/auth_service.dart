@@ -56,49 +56,8 @@ final authListenable = ValueNotifier<bool>(false);
 class AuthNotifier extends Notifier<AuthState> {
   @override
   AuthState build() {
-    AuthState initialState = AuthState(isInitialized: false);
-
-    String? cleanStorageValue(String? val) {
-      if (val == null) return null;
-      var cleaned = val.trim();
-      while ((cleaned.startsWith('"') && cleaned.endsWith('"') && cleaned.length >= 2) ||
-             (cleaned.startsWith("'") && cleaned.endsWith("'") && cleaned.length >= 2)) {
-        cleaned = cleaned.substring(1, cleaned.length - 1);
-        cleaned = cleaned.trim();
-      }
-      return cleaned;
-    }
-
-    if (kIsWeb) {
-      try {
-        // Read directly from browser local storage synchronously to prevent asynchronous GoRouter race conditions!
-        final token = cleanStorageValue(getLocalStorageItem('flutter.auth_token'));
-        final role = cleanStorageValue(getLocalStorageItem('flutter.auth_role'));
-        final tenantId = cleanStorageValue(getLocalStorageItem('flutter.auth_tenant_id'));
-        final userName = cleanStorageValue(getLocalStorageItem('flutter.auth_username')) ?? 'PrimeCare User';
-        final userId = cleanStorageValue(getLocalStorageItem('flutter.auth_user_id'));
-        final preferredLanguage = cleanStorageValue(getLocalStorageItem('flutter.auth_preferred_language')) ?? 'en';
-
-        if (token != null && token.isNotEmpty && role != null && role.isNotEmpty) {
-          initialState = AuthState(
-            isAuthenticated: true,
-            isInitialized: true, // We have successfully initialized synchronously!
-            token: token,
-            role: role,
-            tenantId: tenantId,
-            userName: userName,
-            userId: userId,
-            preferredLanguage: preferredLanguage,
-          );
-          authListenable.value = true;
-        }
-      } catch (e) {
-        debugPrint('Synchronous local storage read failed: $e');
-      }
-    }
-
     _loadStoredAuth();
-    return initialState;
+    return AuthState(isInitialized: false);
   }
 
   static String getDashboardRouteForRole(String role) {
@@ -293,142 +252,54 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   Future<void> _loadStoredAuth() async {
-    await Result.guardFuture<void>(
-      () async {
-        final prefs = await SharedPreferences.getInstance();
-
-        // 1. Try SSO Session Restoration
-        try {
-          if (kIsWeb && Uri.base.path.contains('/auth/callback')) {
-            ref.read<ExecutionGateService>(executionGateProvider).passGate(
-              ExecutionGateCategory.auth,
-              'Skipping initial session restoration: actively in auth callback flow.',
-            );
-            
-            // Read stored session directly without hit to auth/me to avoid race conditions
-            final token = prefs.getString('auth_token');
-            final role = prefs.getString('auth_role');
-            final tenantId = prefs.getString('auth_tenant_id');
-            final userName = prefs.getString('auth_username') ?? 'PrimeCare User';
-            final userId = prefs.getString('auth_user_id');
-            final preferredLanguage = prefs.getString('auth_preferred_language') ?? 'en';
-            
-            if (token != null && role != null) {
-              state = state.copyWith(
-                isAuthenticated: true,
-                token: token,
-                role: role,
-                userName: userName,
-                tenantId: tenantId,
-                userId: userId,
-                preferredLanguage: preferredLanguage,
-              );
-              authListenable.value = true;
-            }
-            return;
-          }
-
-          // Pre-load stored token/role into state so interceptors can use it for the /me call!
-          final preToken = prefs.getString('auth_token');
-          final preRole = prefs.getString('auth_role');
-          final preTenantId = prefs.getString('auth_tenant_id');
-          final preUserName = prefs.getString('auth_username') ?? 'PrimeCare User';
-          final preUserId = prefs.getString('auth_user_id');
-          final prePreferredLanguage = prefs.getString('auth_preferred_language') ?? 'en';
-
-          if (preToken != null && preToken.isNotEmpty && preRole != null && preRole.isNotEmpty) {
-            state = state.copyWith(
-              isAuthenticated: true,
-              token: preToken,
-              role: preRole,
-              userName: preUserName,
-              tenantId: preTenantId,
-              userId: preUserId,
-              preferredLanguage: prePreferredLanguage,
-            );
-            authListenable.value = true;
-
-            try {
-              final apiClient = ref.read(apiClientProvider);
-              final response = await apiClient.get(ApiConfig.endpoints['me']!);
-              if (response.isSuccess) {
-                final data = response.data as Map<String, dynamic>;
-                await prefs.setString('auth_token', 'sso-token');
-                final rawRoles = data['roles'];
-                String roleStr = 'psw';
-                if (rawRoles is List && rawRoles.isNotEmpty) {
-                  roleStr = rawRoles.first.toString();
-                } else if (rawRoles != null) {
-                  roleStr = rawRoles.toString();
-                }
-                await prefs.setString('auth_role', roleStr);
-                await prefs.setString('auth_user_id', data['userId']?.toString() ?? '');
-                // keep existing username if any
-              } else {
-                 if (prefs.getString('auth_token') != 'demo-token') {
-                   await prefs.remove('auth_token');
-                   await prefs.remove('auth_role');
-                   // Clear active state to force login on failure
-                   state = AuthState();
-                   authListenable.value = false;
-                 }
-              }
-            } catch (e) {
-              // In case of network error, we might still want to clear or keep? 
-              // For true SSO, no cookie = no auth. But we'll leave it for now.
-            }
-          }
-
-        final token = prefs.getString('auth_token');
-        final role = prefs.getString('auth_role');
-        final tenantId = prefs.getString('auth_tenant_id');
-        final userName = prefs.getString('auth_username') ?? 'PrimeCare User';
-        final userId = prefs.getString('auth_user_id');
-        final preferredLanguage =
-            prefs.getString('auth_preferred_language') ?? 'en';
-
-        if (token != null && role != null) {
-          state = state.copyWith(
-            isAuthenticated: true,
-            token: token,
-            role: role,
-            userName: userName,
-            tenantId: tenantId,
-            userId: userId,
-            preferredLanguage: preferredLanguage,
-          );
-          authListenable.value = true;
-          ref
-              .read<ExecutionGateService>(executionGateProvider)
-              .passGate(
-                ExecutionGateCategory.auth,
-                'Session restored for active role: $role',
-                metadata: {
-                  'tenantId': tenantId,
-                  'hasToken': true,
-                  'userName': userName,
-                },
-              );
-        }
-        } catch (e) {
-          debugPrint('SSO Restoration error: $e');
-        }
-      },
-      onError: (e, st) {
-        ref
-            .read<ExecutionGateService>(executionGateProvider)
-            .failGate(
-              ExecutionGateCategory.auth,
-              'SharedPreferences restoration failure.',
-              error: e,
-              stackTrace: st,
-            );
-        // Ensure we stay in a safe unauthenticated state
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('auth_token');
+      if (token == null || token.isEmpty) {
         state = AuthState(isInitialized: true);
         authListenable.value = false;
-      },
-    );
-    state = state.copyWith(isInitialized: true);
+        return;
+      }
+
+      // The token is provisional until the server confirms it is active.
+      state = AuthState(
+        isInitialized: false,
+        token: token,
+        role: prefs.getString('auth_role'),
+      );
+      final response = await ref.read(apiClientProvider)
+          .get(ApiConfig.endpoints['me']!);
+      if (!response.isSuccess || response.data is! Map<String, dynamic>) {
+        await prefs.remove('auth_token');
+        await prefs.remove('auth_role');
+        state = AuthState(isInitialized: true);
+        authListenable.value = false;
+        return;
+      }
+      final data = response.data as Map<String, dynamic>;
+      final role = data['roles']?.toString();
+      final userId = data['userId']?.toString();
+      if (role == null || role.isEmpty || userId == null || userId.isEmpty) {
+        await prefs.remove('auth_token');
+        state = AuthState(isInitialized: true);
+        authListenable.value = false;
+        return;
+      }
+      state = AuthState(
+        isAuthenticated: true,
+        isInitialized: true,
+        token: token,
+        role: role,
+        userId: userId,
+        userName: prefs.getString('auth_username'),
+        tenantId: prefs.getString('auth_tenant_id'),
+        preferredLanguage: prefs.getString('auth_preferred_language') ?? 'en',
+      );
+      authListenable.value = true;
+    } catch (_) {
+      state = AuthState(isInitialized: true);
+      authListenable.value = false;
+    }
   }
 
   Future<void> handleDeepLinkAuth({
@@ -436,89 +307,15 @@ class AuthNotifier extends Notifier<AuthState> {
     required String role,
     required String userId,
   }) async {
-    final prefs = await SharedPreferences.getInstance();
-    
-    // Save to SharedPreferences so session persists across app restarts
-    await prefs.setString('auth_token', token);
-    await prefs.setString('auth_role', role);
-    await prefs.setString('auth_user_id', userId);
-    
-    // Update State
-    state = state.copyWith(
-      isAuthenticated: true,
-      isInitialized: true,
-      token: token,
-      role: role,
-      userId: userId,
-    );
-    authListenable.value = true;
-    
-    ref.read<ExecutionGateService>(executionGateProvider).passGate(
-      ExecutionGateCategory.auth,
-      'Session restored via Deep Link SSO for role: $role',
-      metadata: {'hasToken': true, 'userId': userId},
-    );
+    // Legacy callback URLs cannot establish a session. A URL may be copied or
+    // logged, and client-provided role and user ID are never authority.
+    state = AuthState(isInitialized: true);
+    authListenable.value = false;
   }
 
   Future<bool> login(String email, String password) async {
     final result = await Result.guardFuture<bool>(
       () async {
-        final emailLower = email.toLowerCase().trim();
-        TestCredential? matchedCred;
-        if (!kReleaseMode) {
-          try {
-            matchedCred = TestCredentialsRegistry.allCredentials.firstWhere(
-              (c) => c.email.toLowerCase().trim() == emailLower && c.password == password,
-            );
-          } catch (_) {}
-        }
-
-        if (matchedCred != null) {
-          final role = matchedCred.role.nameSnake;
-          final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('auth_token', 'demo-token');
-          await prefs.setString('auth_role', role);
-          await prefs.setString('auth_username', matchedCred.role.displayName);
-          await prefs.setString('auth_user_id', 'mock-user-id-${matchedCred.role.name}');
-
-          state = state.copyWith(
-            isAuthenticated: true,
-            token: 'demo-token',
-            role: role,
-            userName: matchedCred.role.displayName,
-            userId: 'mock-user-id-${matchedCred.role.name}',
-            preferredLanguage: 'en',
-          );
-          authListenable.value = true;
-          ref
-              .read<ExecutionGateService>(executionGateProvider)
-              .passGate(
-                ExecutionGateCategory.auth,
-                'Offline Test Authentication successful. Role: $role',
-                metadata: {'email': email},
-              );
-          return true;
-        }
-
-        // Debug Bypass for local verification fallback
-        if (!kReleaseMode && (emailLower.endsWith('@demo.primecare.com') || emailLower.endsWith('@primecare.test'))) {
-          final role = emailLower.split('@')[0];
-          final prefs = await SharedPreferences.getInstance();
-          await prefs.setString('auth_token', 'demo-token');
-          await prefs.setString('auth_role', role);
-          await prefs.setString('auth_username', 'Demo User');
-
-          state = state.copyWith(
-            isAuthenticated: true,
-            token: 'demo-token',
-            role: role,
-            userName: 'Demo User',
-            preferredLanguage: 'en',
-          );
-          authListenable.value = true;
-          return true;
-        }
-
         final apiClient = ref.read(apiClientProvider);
         final response = await apiClient.post(
           ApiConfig.endpoints['login']!,
@@ -528,47 +325,19 @@ class AuthNotifier extends Notifier<AuthState> {
         if (response.statusCode == 200) {
           final Map<String, dynamic> data =
               response.data as Map<String, dynamic>;
-          final token = (data['token'] as String?) ?? 'mock-token';
+          final token = data['token'] as String?;
+          if (token == null || token.isEmpty) return false;
 
-          // Deeply unpack role from Worker-API or root
-          String role = 'PSW';
-          final emailLower = email.toLowerCase().trim();
-          final user = data['user'] as Map<String, dynamic>?;
-
-          if (emailLower == 'itpro.mohammed@gmail.com') {
-            role = 'Super Admin';
-          } else if (data['role'] != null) {
-            role = data['role'] as String;
-          } else if (user != null &&
-              user['roles'] != null &&
-              (user['roles'] as List).isNotEmpty) {
-            role = (user['roles'] as List)[0] as String;
-          } else if (data['activeRole'] != null) {
-            role = data['activeRole'] as String;
-          } else if (emailLower.endsWith('@primecare.com')) {
-            // Dynamic role mapping for high-fidelity orchestration sandbox
-            role = emailLower.split('@')[0];
+          final role = data['role'] as String?;
+          final userId = data['userId']?.toString();
+          if (role == null || role.isEmpty || userId == null || userId.isEmpty) {
+            return false;
           }
+          final userName = email.trim();
+          final tenantId = data['tenantId']?.toString() ?? '';
+          final preferredLanguage = state.preferredLanguage ?? 'en';
 
           final prefs = await SharedPreferences.getInstance();
-
-          final tenantId =
-              (data['tenantId'] as String?) ??
-              (user != null ? user['tenantId'] as String? : null) ??
-              '00000000-0000-0000-0000-000000000000';
-
-          final firstName =
-              (user != null ? user['firstName'] as String? : null) ?? 'Active';
-          final lastName =
-              (user != null ? user['lastName'] as String? : null) ?? 'User';
-          final userName = '$firstName $lastName';
-
-          final userId =
-              (user != null ? user['id'] as String? : null) ?? 'unknown';
-          final preferredLanguage =
-              (user != null ? user['preferredLanguage'] as String? : null) ??
-              state.preferredLanguage ??
-              'en';
 
           await prefs.setString('auth_token', token);
           await prefs.setString('auth_role', role);
@@ -679,16 +448,6 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<bool> forgotPassword(String email) async {
     final result = await Result.guardFuture<bool>(
       () async {
-        // Offline test mock bypass
-        if (!kReleaseMode && (email.toLowerCase().endsWith('@demo.primecare.com') || email.toLowerCase().endsWith('@primecare.test'))) {
-           ref.read<ExecutionGateService>(executionGateProvider).passGate(
-            ExecutionGateCategory.auth,
-            'Offline Forgot Password mock successful.',
-            metadata: {'email': email},
-          );
-          return true;
-        }
-
         final apiClient = ref.read(apiClientProvider);
         final response = await apiClient.post(
           ApiConfig.endpoints['forgotPassword']!,
@@ -731,6 +490,13 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<void> logout() async {
     await Result.guardFuture<void>(
       () async {
+        try {
+          if (state.token != null) {
+            await ref.read(apiClientProvider).post('/v1/auth/logout');
+          }
+        } catch (_) {
+          // Local state is cleared even if the network is unavailable.
+        }
         final prefs = await SharedPreferences.getInstance();
         await prefs.remove('auth_token');
         await prefs.remove('auth_role');
@@ -786,26 +552,8 @@ class AuthNotifier extends Notifier<AuthState> {
     }
   }
   Future<void> simulateRoleSession(String role) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('auth_token', 'simulated-token');
-    await prefs.setString('auth_role', role);
-    await prefs.setString('auth_username', 'Simulated $role');
-    await prefs.setString('auth_tenant_id', 'simulated-tenant');
+    throw UnsupportedError('Simulated authentication is disabled.');
 
-    state = state.copyWith(
-      isAuthenticated: true,
-      token: 'simulated-token',
-      role: role,
-      userName: 'Simulated $role',
-      tenantId: 'simulated-tenant',
-      preferredLanguage: 'en',
-    );
-    authListenable.value = true;
-
-    ref.read<ExecutionGateService>(executionGateProvider).passGate(
-      ExecutionGateCategory.auth,
-      'Architectural Parity Simulation active for role: $role',
-    );
   }
 }
 

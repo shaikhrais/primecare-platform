@@ -22,6 +22,11 @@ class MockApiClient implements ApiClient {
   }
 
   @override
+  Future<ApiResponse> patch(String path, {dynamic body}) async {
+    return ApiResponse(data: <String, dynamic>{}, statusCode: 200);
+  }
+
+  @override
   Future<ApiResponse> delete(String path) async {
     return ApiResponse(data: <String, dynamic>{}, statusCode: 200);
   }

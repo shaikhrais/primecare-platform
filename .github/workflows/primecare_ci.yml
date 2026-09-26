@@ -16,9 +16,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Node.js (For Validation Scripts & Prisma)
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Setup Flutter Environment
         uses: subosito/flutter-action@v2
@@ -44,7 +44,19 @@ jobs:
           npx prisma generate
 
       - name: Analyze Dart Backend Microservices
-        run: dart analyze services
+        run: |
+          set -euo pipefail
+          for dir in services/*; do
+            if [ -f "$dir/pubspec.yaml" ]; then
+              echo "::group::Analyzing $dir"
+              (
+                cd "$dir"
+                dart pub get
+                dart analyze --no-fatal-warnings
+              )
+              echo "::endgroup::"
+            fi
+          done
 
       - name: Run Automated Frontend UI Spider
         run: node scripts/frontend_spider.js

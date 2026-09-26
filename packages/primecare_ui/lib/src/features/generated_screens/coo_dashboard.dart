@@ -101,7 +101,7 @@ class CooDashboardScreen extends GovernedConsumerWidget {
                   const SizedBox(height: 10),
                   Text('Provides a dedicated management interface within the Primecare Corporate module to enable Chief Operating Officer (COO) personnel to oversee, audit, and coordinate operations related to coodashboardscreen.', style: const TextStyle(color: Color(0xFF475569), fontSize: 13, height: 1.5)),
                   const SizedBox(height: 8),
-                  Text('User Story: As a Chief Operating Officer (COO), I want to access the CooDashboardScreen within the Primecare Corporate application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style: const TextStyle(color: Color(0xFF64748B), fontSize: 12, italic: true)),
+                  Text('User Story: As a Chief Operating Officer (COO), I want to access the CooDashboardScreen within the Primecare Corporate application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style: const TextStyle(color: Color(0xFF64748B), fontSize: 12, fontStyle: FontStyle.italic)),
                 ],
               ),
             ),

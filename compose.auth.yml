@@ -1,0 +1,51 @@
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: primecare
+      POSTGRES_PASSWORD: ${PRIMECARE_DB_PASSWORD:?Set PRIMECARE_DB_PASSWORD}
+      POSTGRES_DB: primecare
+    volumes:
+      - auth_db:/var/lib/postgresql/data
+      - ./services/auth_api/dev_schema.sql:/docker-entrypoint-initdb.d/01_dev_schema.sql:ro
+      - ./packages/database/migrations/20260926_auth_sessions.sql:/docker-entrypoint-initdb.d/02_sessions.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U primecare -d primecare"]
+      interval: 5s
+      retries: 10
+
+  auth_api:
+    build:
+      context: .
+      dockerfile: services/auth_api/Dockerfile
+    environment:
+      PORT: 8080
+      DB_HOST: db
+      DB_USER: primecare
+      DB_PASSWORD: ${PRIMECARE_DB_PASSWORD:?Set PRIMECARE_DB_PASSWORD}
+      DB_NAME: primecare
+      DB_SSL_MODE: disable
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api_gateway:
+    build:
+      context: .
+      dockerfile: services/api_gateway/Dockerfile
+    environment:
+      PORT: 8080
+      DB_HOST: db
+      DB_USER: primecare
+      DB_PASSWORD: ${PRIMECARE_DB_PASSWORD:?Set PRIMECARE_DB_PASSWORD}
+      DB_NAME: primecare
+      DB_SSL_MODE: disable
+      AUTH_SERVICE_URL: http://auth_api:8080
+      CORS_ALLOWED_ORIGIN: http://localhost:8085
+    ports:
+      - "8700:8080"
+    depends_on:
+      - auth_api
+
+volumes:
+  auth_db:

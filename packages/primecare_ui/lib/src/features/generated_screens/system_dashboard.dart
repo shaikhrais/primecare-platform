@@ -101,7 +101,7 @@ class SystemDashboardScreen extends GovernedConsumerWidget {
                   const SizedBox(height: 10),
                   Text('Provides a dedicated management interface within the Primecare Governance module to enable Governance Officer personnel to oversee, audit, and coordinate operations related to systemdashboardscreen.', style: const TextStyle(color: Color(0xFF475569), fontSize: 13, height: 1.5)),
                   const SizedBox(height: 8),
-                  Text('User Story: As a Governance Officer, I want to access the SystemDashboardScreen within the Primecare Governance application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style: const TextStyle(color: Color(0xFF64748B), fontSize: 12, italic: true)),
+                  Text('User Story: As a Governance Officer, I want to access the SystemDashboardScreen within the Primecare Governance application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style: const TextStyle(color: Color(0xFF64748B), fontSize: 12, fontStyle: FontStyle.italic)),
                 ],
               ),
             ),

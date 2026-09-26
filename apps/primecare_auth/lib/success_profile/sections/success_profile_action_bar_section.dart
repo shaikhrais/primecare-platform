@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:web/web.dart' as web;
 
@@ -181,11 +179,8 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(16),
                 onTap: isAuthorized ? () {
-                  final dashboardRoute = AuthNotifier.getDashboardRouteForRole(authState.role ?? '');
-                  final delimiter = url.contains('?') ? '&' : '?';
-                  final redirectUrl = '$url/auth/callback${delimiter}route=${Uri.encodeComponent(dashboardRoute)}&token=${authState.token ?? ''}&role=${Uri.encodeComponent(authState.role ?? '')}&userId=${authState.userId ?? ''}';
                   if (kIsWeb) {
-                    web.window.location.href = redirectUrl;
+                    web.window.location.href = url;
                   }
                 } : null,
                 child: Padding(

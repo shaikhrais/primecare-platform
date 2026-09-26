@@ -28,7 +28,8 @@ void main() async {
   final handler = const Pipeline()
       .addMiddleware(logRequests())
       .addMiddleware(corsHeaders(headers: {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': Platform.environment['CORS_ALLOWED_ORIGIN'] ?? 'http://localhost:8085',
+        'Access-Control-Allow-Credentials': 'true',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
         'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization, x-device-id, x-device-fingerprint, x-tenant-id, x-request-signature, x-requested-signature, x-requested-with, x-app-version, x-api-key',
       }))

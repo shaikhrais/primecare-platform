@@ -101,7 +101,7 @@ class HeadOfBusDevDashboardScreen extends GovernedConsumerWidget {
                   const SizedBox(height: 10),
                   Text('Provides a dedicated management interface within the Primecare Business Development module to enable Head of Business Development personnel to oversee, audit, and coordinate operations related to headofbusdevdashboardscreen.', style: const TextStyle(color: Color(0xFF475569), fontSize: 13, height: 1.5)),
                   const SizedBox(height: 8),
-                  Text('User Story: As a Head of Business Development, I want to access the HeadOfBusDevDashboardScreen within the Primecare Business Development application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style: const TextStyle(color: Color(0xFF64748B), fontSize: 12, italic: true)),
+                  Text('User Story: As a Head of Business Development, I want to access the HeadOfBusDevDashboardScreen within the Primecare Business Development application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style: const TextStyle(color: Color(0xFF64748B), fontSize: 12, fontStyle: FontStyle.italic)),
                 ],
               ),
             ),

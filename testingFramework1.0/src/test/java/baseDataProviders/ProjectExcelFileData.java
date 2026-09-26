@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+import java.nio.file.Path;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -12,7 +13,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ProjectExcelFileData {
 
-	static String mainDataFile = System.getProperty("user.dir") + "\\src\\test\\resources\\testData\\MainData.xlsx";
+	static String mainDataFile = Path.of(
+			System.getProperty("user.dir"), "src", "test", "resources", "testData", "MainData.xlsx"
+	).toString();
 
 	public static Properties readXLSXFile(String filePath, String workbookName) {
 		Properties properties = new Properties();
@@ -42,7 +45,7 @@ public class ProjectExcelFileData {
 	}
 
 	public static String Browser() throws FileNotFoundException {
-		return MainDataExcelFile().getProperty("browser");
+		return MainDataExcelFile().getProperty("browser", System.getProperty("browser", "chrome"));
 	}
 
 	public static String url() {

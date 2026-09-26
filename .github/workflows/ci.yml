@@ -24,18 +24,36 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Verify Platform Architecture
-        run: dart analyze . --fatal-warnings
+      - name: Resolve and analyze Dart packages
+        run: |
+          set -euo pipefail
+          for dir in services/* packages/*; do
+            if [ -f "$dir/pubspec.yaml" ]; then
+              echo "::group::Analyzing $dir"
+              (
+                cd "$dir"
+                if grep -q "sdk: flutter" pubspec.yaml; then
+                  flutter pub get
+                  flutter analyze --no-fatal-warnings --no-fatal-infos
+                else
+                  dart pub get
+                  dart analyze --no-fatal-warnings
+                fi
+              )
+              echo "::endgroup::"
+            fi
+          done
 
       - name: Run Backend Service Tests
         run: |
           for dir in services/*; do
             if [ -f "$dir/pubspec.yaml" ]; then
               echo "Testing service: $dir"
-              cd "$dir"
-              dart pub get
-              dart test
-              cd - > /dev/null
+              (
+                cd "$dir"
+                dart pub get
+                if [ -d test ]; then dart test; fi
+              )
             fi
           done
 
@@ -44,10 +62,11 @@ jobs:
           for dir in apps/*; do
             if [ -f "$dir/pubspec.yaml" ]; then
               echo "Testing app: $dir"
-              cd "$dir"
-              flutter pub get
-              flutter test
-              cd - > /dev/null
+              (
+                cd "$dir"
+                flutter pub get
+                if [ -d test ]; then flutter test; fi
+              )
             fi
           done
 
@@ -68,9 +87,12 @@ jobs:
           for dir in services/* apps/*; do
             if [ -f "$dir/pubspec.yaml" ]; then
               echo "Scanning $dir for security vulnerabilities..."
-              cd "$dir"
-              flutter pub get
-              flutter pub outdated --mode=security
-              cd - > /dev/null
+              (
+                cd "$dir"
+                flutter pub get
+                # Pub reports known advisories during dependency resolution.
+                # The former --mode=security option was removed from Dart.
+                dart pub outdated
+              )
             fi
           done

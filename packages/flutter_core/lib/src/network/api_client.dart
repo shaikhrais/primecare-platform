@@ -75,27 +75,6 @@ class ApiClient {
   static ApiResponse? _getMockResponse(String path, String method, {dynamic body}) {
     final cleanPath = path.split('?')[0];
 
-    if (cleanPath == '/v1/auth/forgot-password') {
-      return ApiResponse(
-        statusCode: 200,
-        data: {
-          'success': true,
-          'message': 'Password reset link sent to email.',
-        },
-      );
-    }
-
-    if (cleanPath == '/v1/auth/me') {
-      return ApiResponse(
-        statusCode: 401,
-        data: {
-          'status': 'error',
-          'message': 'Unauthorized: No active session token found (Offline Mock).',
-        },
-        error: 'Unauthorized',
-      );
-    }
-
     if (cleanPath == '/v1/system/permissions') {
       return ApiResponse(
         statusCode: 200,
@@ -408,7 +387,7 @@ class ApiClient {
         queryParameters: queryParameters,
       );
       
-      if (response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
+      if (!path.startsWith('/v1/auth/') && response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
         try {
           final cacheService = _ref.read(localCacheServiceProvider);
           await cacheService.cacheResponse(path, response.data ?? {});
@@ -433,6 +412,7 @@ class ApiClient {
         }
       }
       try {
+        if (!path.startsWith('/v1/auth/')) {
         final cacheService = _ref.read(localCacheServiceProvider);
         final cachedData = cacheService.getCachedResponse(path);
         if (cachedData != null) {
@@ -441,6 +421,7 @@ class ApiClient {
             data: cachedData,
             statusCode: 200,
           );
+        }
         }
       } catch (cacheError) {
         debugPrint('Cache read error for $path: $cacheError');
@@ -587,13 +568,10 @@ class ApiResponse {
 /// Centralized configuration for API endpoints and base URL.
 class ApiConfig {
   static String get baseUrl {
-    if (kIsWeb) {
-      final host = Uri.base.host;
-      if (host.isNotEmpty && host != 'localhost' && host != '127.0.0.1') {
-        return '/api';
-      }
-    }
-    return const String.fromEnvironment('API_BASE_URL', defaultValue: 'http://localhost:8700');
+    const configured = String.fromEnvironment('API_BASE_URL');
+    if (configured.isNotEmpty) return configured;
+    if (kIsWeb) return ''; // Same-origin reverse proxy at /v1/auth/*.
+    return 'http://localhost:8700';
   }
 
   static const Map<String, String> endpoints = {

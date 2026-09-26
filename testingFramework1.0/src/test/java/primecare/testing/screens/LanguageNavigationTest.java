@@ -6,10 +6,10 @@ import primecare.testing.framework.Repositories.ApplicationRepository;
 import primecare.testing.framework.Models.ScreenDefinition;
 import primecare.testing.framework.Models.ApplicationDefinition;
 import primecare.testing.framework.TestDataLayer;
+import primecare.testing.framework.DatabaseConfig;
 import primecare.testing.pages.DynamicScreen;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
@@ -29,7 +29,7 @@ public class LanguageNavigationTest extends BaseUiTest {
         // 3. Resolve target URL (uses command-line/properties override, falls back to DB baseUrl)
         String route = TestDataLayer.getParameter("language", "target_route", languageScreen.route);
         String baseUrl = appProps.getProperty("APP_BASE_URL", appDef.baseUrl);
-        String targetUrl = baseUrl + route;
+        String targetUrl = DatabaseConfig.ensureSemanticsUrl(baseUrl + route);
         
         System.out.println("[TEST] Navigating to: " + targetUrl);
         try {
@@ -40,10 +40,6 @@ public class LanguageNavigationTest extends BaseUiTest {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-
-
-
-            pageRecovery.enableSemantics();
         } finally {
             try {
                 org.openqa.selenium.logging.LogEntries logEntries = driver.manage().logs().get(org.openqa.selenium.logging.LogType.BROWSER);
@@ -79,5 +75,4 @@ public class LanguageNavigationTest extends BaseUiTest {
             "Clicking the English button did not redirect to the expected login page. Current URL: " + currentUrl);
     }
 }
-
 

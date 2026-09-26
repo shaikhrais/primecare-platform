@@ -1,110 +1,136 @@
-// Governance - Category: service | Purpose: The migrated Auth API with DB Hydration Mount the 456 AI-generated routes Root route
-import 'dart:io';
 import 'dart:convert';
+import 'dart:io';
+import 'dart:math';
+
+import 'package:auth_api/routes.dart';
+import 'package:bcrypt/bcrypt.dart';
+import 'package:crypto/crypto.dart';
+import 'package:database_client/database_client.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
 import 'package:shelf_router/shelf_router.dart';
-import 'package:auth_api/routes.dart';
-import 'package:shelf_cors_headers/shelf_cors_headers.dart';
-import 'package:database_client/database_client.dart';
 
-// The migrated Auth API with DB Hydration
+String? _bearerToken(Request request) {
+  final header = request.headers['authorization'] ?? '';
+  if (header.startsWith('Bearer ')) return header.substring(7).trim();
+  return null;
+}
+
+String? _sessionToken(Request request) {
+  final bearer = _bearerToken(request);
+  if (bearer != null && bearer.isNotEmpty) return bearer;
+  final cookies = request.headers['cookie'] ?? '';
+  for (final cookie in cookies.split(';')) {
+    final pair = cookie.trim().split('=');
+    if (pair.length == 2 && pair.first == 'session_token') return pair.last;
+  }
+  return null;
+}
+
+String _hashToken(String token) => sha256.convert(utf8.encode(token)).toString();
+
+String _newToken() {
+  final random = Random.secure();
+  return base64UrlEncode(List<int>.generate(32, (_) => random.nextInt(256)))
+      .replaceAll('=', '');
+}
+
+Response _json(int code, Map<String, Object?> body, {Map<String, String>? headers}) =>
+    Response(code, body: jsonEncode(body),
+        headers: {'content-type': 'application/json', ...?headers});
+
 void main() async {
   final db = PlatformDatabase();
   await db.initialize();
-
   final router = Router();
 
-  // Mount the 456 AI-generated routes
-  final apiRoutes = ApiRoutes();
-  router.mount('/', apiRoutes.router.call);
-
-  // Root route
-  router.get('/', (Request request) {
-    return Response.ok('Hello from auth-service (Hydrated with Dart DB Client)');
-  });
-
-  // Login route (Example of DB interaction)
   router.post('/login', (Request request) async {
-    final payload = jsonDecode(await request.readAsString()) as Map<String, dynamic>;
-    final email = payload['email'];
-
-    // Real DB Query using the shared client
-    final results = await db.query(
-      'SELECT id, roles FROM users WHERE email = @email LIMIT 1',
-      substitutionValues: {'email': email},
-    );
-
-    if (results.isEmpty) {
-      return Response.forbidden('{"error": "User not found"}', headers: {'Content-Type': 'application/json'});
+    Map<String, dynamic> payload;
+    try {
+      payload = jsonDecode(await request.readAsString()) as Map<String, dynamic>;
+    } catch (_) {
+      return _json(400, {'error': 'Invalid request'});
+    }
+    final email = (payload['email'] as String?)?.trim().toLowerCase();
+    final password = payload['password'];
+    if (email == null || email.isEmpty || email.length > 254 ||
+        password is! String || password.isEmpty) {
+      return _json(400, {'error': 'Email and password are required'});
     }
 
-    final user = results.first;
-    
-    // Set cookie for SSO across subdomains
-    // Domain=.primecare.com is crucial for primecare_clinic and primecare_corporate to share it.
-    final token = user[0]; // For demo, using ID as token. In reality, a JWT.
-    final cookie = 'session_token=$token; Domain=.primecare.com; Path=/; HttpOnly; SameSite=Lax';
+    final users = await db.query(
+      'SELECT id, roles, password_hash, status FROM users WHERE LOWER(email) = @email LIMIT 1',
+      substitutionValues: {'email': email},
+    );
+    if (users.isEmpty) return _json(401, {'error': 'Invalid credentials'});
+    final user = users.first;
+    final hash = user[2]?.toString() ?? '';
+    var valid = false;
+    if (hash.startsWith(r'$2')) {
+      try {
+        valid = BCrypt.checkpw(password, hash);
+      } catch (_) {
+        valid = false;
+      }
+    }
+    if (!valid || user[3]?.toString().toLowerCase() != 'active') {
+      return _json(401, {'error': 'Invalid credentials'});
+    }
 
-    return Response.ok(jsonEncode({
-      'userId': user[0],
-      'roles': user[1],
+    final token = _newToken();
+    await db.query(
+      'INSERT INTO auth_sessions (token_hash, user_id, expires_at) '
+      "VALUES (@hash, @id, NOW() + INTERVAL '12 hours')",
+      substitutionValues: {'hash': _hashToken(token), 'id': user[0]},
+    );
+    return _json(200, {
+      'userId': user[0].toString(),
+      'role': user[1].toString(),
       'token': token,
       'status': 'authenticated',
-    }), headers: {
-      'Content-Type': 'application/json',
-      'Set-Cookie': cookie,
+    }, headers: {
+      'set-cookie': 'session_token=$token; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=43200',
+      'cache-control': 'no-store',
     });
   });
 
-  // /me route to restore session using cookie
   router.get('/me', (Request request) async {
-    final cookieHeader = request.headers['cookie'];
-    if (cookieHeader == null || !cookieHeader.contains('session_token=')) {
-      return Response.forbidden('{"error": "No session"}', headers: {'Content-Type': 'application/json'});
-    }
-
-    // Extract token
-    final tokenMatch = RegExp(r'session_token=([^;]+)').firstMatch(cookieHeader);
-    final token = tokenMatch?.group(1);
-
-    if (token == null) {
-      return Response.forbidden('{"error": "Invalid session"}', headers: {'Content-Type': 'application/json'});
-    }
-
-    // Mock validation against DB (using token as userId for demo)
-    final results = await db.query(
-      'SELECT id, roles FROM users WHERE id = @id LIMIT 1',
-      substitutionValues: {'id': token},
+    final token = _sessionToken(request);
+    if (token == null || token.isEmpty) return _json(401, {'error': 'No session'});
+    final users = await db.query(
+      'SELECT u.id, u.roles FROM auth_sessions s '
+      'JOIN users u ON u.id = s.user_id '
+      'WHERE s.token_hash = @hash AND s.expires_at > NOW() '
+      "AND LOWER(u.status) = 'active' LIMIT 1",
+      substitutionValues: {'hash': _hashToken(token)},
     );
-
-    if (results.isEmpty) {
-      return Response.forbidden('{"error": "User not found"}', headers: {'Content-Type': 'application/json'});
-    }
-
-    final user = results.first;
-    return Response.ok(jsonEncode({
-      'userId': user[0],
-      'roles': user[1],
+    if (users.isEmpty) return _json(401, {'error': 'Invalid session'});
+    return _json(200, {
+      'userId': users.first[0].toString(),
+      'roles': users.first[1].toString(),
       'status': 'authenticated',
-    }), headers: {'Content-Type': 'application/json'});
+    }, headers: {'cache-control': 'no-store'});
   });
 
-  // Health check
-  router.get('/health', (Request request) {
-    return Response.ok('{"status": "healthy", "database": "connected"}', headers: {'Content-Type': 'application/json'});
+  router.post('/logout', (Request request) async {
+    final token = _sessionToken(request);
+    if (token != null && token.isNotEmpty) {
+      await db.query('DELETE FROM auth_sessions WHERE token_hash = @hash',
+          substitutionValues: {'hash': _hashToken(token)});
+    }
+    return _json(200, {'status': 'signed_out'}, headers: {
+      'set-cookie': 'session_token=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0',
+      'cache-control': 'no-store',
+    });
   });
 
-  final handler = const Pipeline()
-      .addMiddleware(logRequests())
-      .addMiddleware(corsHeaders(headers: {
-        'Access-Control-Allow-Origin': 'https://auth.primecare.com', // Or dynamically read from origin
-        'Access-Control-Allow-Credentials': 'true',
-        'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization',
-      }))
-      .addHandler(router.call);
+  router.get('/health', (Request request) =>
+      _json(200, {'status': 'healthy'}));
 
+  router.mount('/', ApiRoutes().router.call);
+
+  final handler = const Pipeline().addMiddleware(logRequests()).addHandler(router.call);
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
   final server = await serve(handler, InternetAddress.anyIPv4, port);
-  print('Auth API serving at http://${server.address.host}:${server.port}');
+  print('Auth API serving at port ${server.port}');
 }

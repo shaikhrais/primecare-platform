@@ -42,7 +42,7 @@ dependencies:
   app_links: ^7.0.0
   protocol_registry: ^0.0.5
   image: ^4.0.17
-  drift: ^2.34.0
+  drift: ^2.31.0
 
   flutter_test:
     sdk: flutter
@@ -50,8 +50,8 @@ dependencies:
     sdk: flutter
 dev_dependencies:
   build_runner: any
-  drift_dev: ^2.34.0
-  riverpod_generator: any
+  drift_dev: ^2.31.0
+  riverpod_generator: ^4.0.3
   go_router_builder: any
   flutter_lints: ^6.0.0
   freezed: ^3.2.5
@@ -63,5 +63,4 @@ flutter:
     - assets/data/
     - assets/db/
     - assets/db/precision_education.json
-
 

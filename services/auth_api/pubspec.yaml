@@ -11,8 +11,8 @@ dependencies:
   shelf_router: ^1.1.4
   shelf_cors_headers: ^0.1.5
   json_annotation: ^4.9.0
-  flutter_core:
-    path: ../../packages/flutter_core
+  bcrypt: ^1.2.0
+  crypto: ^3.0.7
   database_client:
     path: ../../packages/database_client
 

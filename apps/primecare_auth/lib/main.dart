@@ -16,11 +16,8 @@ PRIME:NEXT_ACTION=Remediate placeholder elements with real visual widgets
 // Governance - Category: app_entry | Purpose: System-level main entrypoint
 // PRIME:SCREEN=consent
 // PRIME:SCREEN=success_profile
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/theme/theme_config_generated.dart';
 import 'package:web/web.dart' as web;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/semantics.dart';
@@ -101,8 +98,6 @@ class PrimeCareAuthApp extends ConsumerWidget {
 
 
 
-final loginSuccessRedirectProvider = StateProvider<bool>((ref) => false);
-
 // Memory-safe guard to ensure force_login is only evaluated once per page mount
 bool _hasForcedLogout = false;
 
@@ -117,15 +112,6 @@ final authRouterProvider = Provider<GoRouter>((ref) {
       }
       final isAtLogin = state.uri.path == '/login';
       final isAtLanguage = state.uri.path == '/language';
-      final redirectUri = state.uri.queryParameters['redirect_uri'];
-
-      // Reset the flag when we leave the login page
-      if (!isAtLogin) {
-        Future.microtask(() {
-          ref.read(loginSuccessRedirectProvider.notifier).state = false;
-        });
-      }
-
       // Redirection: Check if a language has ever been persistently selected
       final prefs = ref.read(sharedPreferencesProvider);
       final hasSelectedLanguage = prefs?.getBool('auth_language_selected') ?? false;
@@ -133,16 +119,6 @@ final authRouterProvider = Provider<GoRouter>((ref) {
       if (!hasSelectedLanguage && !isAtLanguage) {
         final query = state.uri.query;
         return '/language${query.isNotEmpty ? '?$query' : ''}';
-      }
-
-      final justLoggedIn = ref.read(loginSuccessRedirectProvider);
-
-      // Force logout if the user directly accesses the login route to ensure credentials entry is shown
-      if (isAtLogin && authState.isAuthenticated && !justLoggedIn) {
-        Future.microtask(() {
-          ref.read(authProvider.notifier).logout();
-        });
-        return null;
       }
 
       final forceLogin = state.uri.queryParameters['force_login'] == 'true';
@@ -171,18 +147,6 @@ final authRouterProvider = Provider<GoRouter>((ref) {
 
       // If authenticated and trying to log in (or just logged in)
       if (authState.isAuthenticated) {
-        final callbackUrl = state.uri.queryParameters['callbackUrl'] ?? redirectUri;
-        final returnUrl = state.uri.queryParameters['returnUrl'] ?? '';
-        if (callbackUrl != null && callbackUrl.isNotEmpty) {
-          final delimiter = callbackUrl.contains('?') ? '&' : '?';
-          final urlWithToken = '$callbackUrl${delimiter}token=${authState.token ?? ''}&role=${Uri.encodeComponent(authState.role ?? '')}&userId=${authState.userId ?? ''}&route=${Uri.encodeComponent(returnUrl)}';
-          if (kIsWeb) {
-            Future.microtask(() {
-              web.window.location.href = urlWithToken;
-            });
-          }
-          return null;
-        }
 
         // If not redirecting, show App Hub success route
         if (state.uri.path == '/success') {
@@ -229,20 +193,7 @@ class LoginViewWrapper extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<AuthState>(authProvider, (previous, next) {
       if (next.isAuthenticated && !(previous?.isAuthenticated ?? false)) {
-        ref.read(loginSuccessRedirectProvider.notifier).state = true;
-        final state = GoRouterState.of(context);
-        final redirectUri = state.uri.queryParameters['redirect_uri'];
-        final callbackUrl = state.uri.queryParameters['callbackUrl'] ?? redirectUri;
-        final returnUrl = state.uri.queryParameters['returnUrl'] ?? '';
-        if (callbackUrl != null && callbackUrl.isNotEmpty) {
-          final delimiter = callbackUrl.contains('?') ? '&' : '?';
-          final urlWithToken = '$callbackUrl${delimiter}token=${next.token ?? ''}&role=${Uri.encodeComponent(next.role ?? '')}&userId=${next.userId ?? ''}&route=${Uri.encodeComponent(returnUrl)}';
-          if (kIsWeb) {
-            web.window.location.href = urlWithToken;
-          }
-        } else {
-          context.go('/success');
-        }
+        context.go('/success');
       }
     });
 
