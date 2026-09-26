@@ -16,4 +16,4 @@
 - Root Compose references nonexistent service directories. Use `compose.auth.yml` for this isolated auth flow. The standalone service Dockerfiles now use the repository root as build context, and local Compose explicitly disables database TLS.
 - The Flutter client retains bearer tokens in SharedPreferences and the old cross-portal callback path is intentionally disabled. A production browser login should use a same-origin gateway, secure cookie sessions, and a server-side one-time authorization handoff for other portals.
 - Other generated routes and gateway mock endpoints are not protected by this session implementation. No clinical or personal data should be exposed through them.
-- No Dart or Flutter SDK is available in the current execution workspace, so this branch is untested at runtime and must remain a draft.
+- GitHub Actions `Auth Gateway Verification` now passes Dart service analysis, Flutter auth file analysis, and a PostgreSQL login/logout smoke test through the gateway. It does not exercise the full Flutter UI, cross-portal login, or all generated backend endpoints. Keep the PR in draft for those remaining integration checks.
