@@ -20,7 +20,7 @@ class ApiRoutes {
         return Response.ok(jsonEncode({
           'status': 'success',
           'message': 'Data retrieved successfully',
-          'data': [] // Fallback array if table is empty
+          'data': <Object>[] // Fallback array if table is empty
         }), headers: {'Content-Type': 'application/json'});
       } catch (e) {
         return Response.internalServerError(body: jsonEncode({'error': e.toString()}));
@@ -29,7 +29,7 @@ class ApiRoutes {
 
     router.post('/api/compliance-manager-risk-register-screen/action', (Request request) async {
       try {
-        final payload = await request.readAsString();
+        await request.readAsString();
         // Insert payload into Prisma
         
         return Response.ok(jsonEncode({
