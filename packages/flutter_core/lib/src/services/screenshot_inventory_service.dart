@@ -36,7 +36,7 @@ class ScreenshotInventoryService {
       final componentFile = 'generated_screens/${screenName}.dart';
       final status = size == 0 ? 'EMPTY_FILE' : (duplicateCount[basename]! > 1 ? 'DUPLICATE' : 'GENERATED');
       final visualScore = _calculateVisualScore(file);
-      await db.execute('''
+      await db.runCustom('''
         INSERT OR REPLACE INTO screens (screen_name, role, route_path, component_file, screenshot_status, screenshot_file_path, screenshot_generated_at, screenshot_file_size, visual_quality_score)
         VALUES (?,?,?,?,?,?,?,?,?)
       ''', [
