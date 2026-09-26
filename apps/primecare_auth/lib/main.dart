@@ -117,8 +117,6 @@ final authRouterProvider = Provider<GoRouter>((ref) {
       }
       final isAtLogin = state.uri.path == '/login';
       final isAtLanguage = state.uri.path == '/language';
-      final redirectUri = state.uri.queryParameters['redirect_uri'];
-
       // Reset the flag when we leave the login page
       if (!isAtLogin) {
         Future.microtask(() {
@@ -218,9 +216,6 @@ class LoginViewWrapper extends ConsumerWidget {
     ref.listen<AuthState>(authProvider, (previous, next) {
       if (next.isAuthenticated && !(previous?.isAuthenticated ?? false)) {
         ref.read(loginSuccessRedirectProvider.notifier).state = true;
-        final state = GoRouterState.of(context);
-        final callbackUrl = state.uri.queryParameters['callbackUrl'] ?? redirectUri;
-        final returnUrl = state.uri.queryParameters['returnUrl'] ?? '';
         context.go('/success');
       }
     });
