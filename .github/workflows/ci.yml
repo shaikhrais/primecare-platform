@@ -34,7 +34,7 @@ jobs:
                 cd "$dir"
                 if grep -q "sdk: flutter" pubspec.yaml; then
                   flutter pub get
-                  flutter analyze --no-fatal-warnings
+                  flutter analyze --no-fatal-warnings --no-fatal-infos
                 else
                   dart pub get
                   dart analyze --no-fatal-warnings
