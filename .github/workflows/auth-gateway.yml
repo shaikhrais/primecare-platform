@@ -1,0 +1,84 @@
+name: Auth Gateway Verification
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'services/auth_api/**'
+      - 'services/api_gateway/**'
+      - 'packages/database_client/**'
+      - 'packages/flutter_core/lib/auth_service.dart'
+      - 'packages/flutter_core/lib/src/network/api_client.dart'
+      - 'apps/primecare_auth/lib/**'
+      - 'compose.auth.yml'
+      - '.github/workflows/auth-gateway.yml'
+
+jobs:
+  dart-services:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - name: Analyze auth service
+        working-directory: services/auth_api
+        run: |
+          dart pub get
+          dart analyze bin/server.dart bin/hash_password.dart lib
+      - name: Analyze gateway
+        working-directory: services/api_gateway
+        run: |
+          dart pub get
+          dart analyze bin/server.dart lib
+          dart test
+
+  docker-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Start isolated auth stack
+        env:
+          PRIMECARE_DB_PASSWORD: integration-only-password
+        run: |
+          docker compose -f compose.auth.yml up --build -d
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://localhost:8700/v1/auth/health; then break; fi
+            sleep 2
+          done
+          curl -fsS http://localhost:8700/v1/auth/health
+      - name: Verify bad credentials and session lifecycle
+        env:
+          PRIMECARE_DB_PASSWORD: integration-only-password
+        run: |
+          set -euo pipefail
+          hash=$(printf 'integration-password-123\n' | docker compose -f compose.auth.yml exec -T auth_api dart run bin/hash_password.dart | tail -n 1)
+          printf "INSERT INTO users (email, roles, password_hash) VALUES ('smoke@example.test', 'client', '%s');\n" "$hash" |
+            docker compose -f compose.auth.yml exec -T db psql -U primecare -d primecare
+          wrong=$(curl -s -o /dev/null -w '%{http_code}' -H 'Content-Type: application/json' -d '{"email":"smoke@example.test","password":"wrong"}' http://localhost:8700/v1/auth/login)
+          test "$wrong" = 401
+          login=$(curl -fsS -H 'Content-Type: application/json' -d '{"email":"smoke@example.test","password":"integration-password-123"}' http://localhost:8700/v1/auth/login)
+          token=$(echo "$login" | python3 -c 'import json,sys; print(json.load(sys.stdin)["token"])')
+          curl -fsS -H "Authorization: Bearer $token" http://localhost:8700/v1/auth/me |
+            python3 -c 'import json,sys; assert json.load(sys.stdin)["roles"] == "client"'
+          curl -fsS -X POST -H "Authorization: Bearer $token" http://localhost:8700/v1/auth/logout
+          expired=$(curl -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $token" http://localhost:8700/v1/auth/me)
+          test "$expired" = 401
+      - name: Print logs on failure
+        if: failure()
+        env:
+          PRIMECARE_DB_PASSWORD: integration-only-password
+        run: docker compose -f compose.auth.yml logs --tail=100
+
+  flutter-auth:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+      - name: Analyze Flutter auth app
+        working-directory: apps/primecare_auth
+        run: |
+          flutter pub get
+          flutter analyze lib/main.dart lib/success_profile/sections/success_profile_action_bar_section.dart
