@@ -10,7 +10,12 @@ on:
       - 'packages/flutter_core/lib/src/network/api_client.dart'
       - 'apps/primecare_auth/lib/**'
       - 'compose.auth.yml'
+      - '.dockerignore'
       - '.github/workflows/auth-gateway.yml'
+
+concurrency:
+  group: auth-gateway-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   dart-services:
