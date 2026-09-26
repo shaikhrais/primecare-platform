@@ -8,8 +8,6 @@ environment:
 
 dependencies:
   postgres: ^3.5.9
-  flutter_core:
-    path: ../flutter_core
 
 dev_dependencies:
   lints: ^3.0.0
