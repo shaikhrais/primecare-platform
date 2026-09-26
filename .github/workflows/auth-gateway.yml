@@ -84,19 +84,19 @@ jobs:
           (cd services/api_gateway && PORT=8700 dart run bin/server.dart > /tmp/primecare-gateway.log 2>&1) &
           trap 'cat /tmp/primecare-auth.log /tmp/primecare-gateway.log' ERR
           for attempt in $(seq 1 60); do
-            if curl -fsS http://localhost:8700/v1/auth/health >/dev/null; then break; fi
+            if curl --max-time 5 -fsS http://localhost:8700/v1/auth/health >/dev/null; then break; fi
             sleep 2
           done
-          curl -fsS http://localhost:8700/v1/auth/health
+          curl --max-time 5 -fsS http://localhost:8700/v1/auth/health
           echo 'Checking credentials and logout'
-          wrong=$(curl -s -o /dev/null -w '%{http_code}' -H 'Content-Type: application/json' -d '{"email":"smoke@example.test","password":"wrong"}' http://localhost:8700/v1/auth/login)
+          wrong=$(curl --max-time 5 -s -o /dev/null -w '%{http_code}' -H 'Content-Type: application/json' -d '{"email":"smoke@example.test","password":"wrong"}' http://localhost:8700/v1/auth/login)
           test "$wrong" = 401
-          login=$(curl -fsS -H 'Content-Type: application/json' -d '{"email":"smoke@example.test","password":"integration-password-123"}' http://localhost:8700/v1/auth/login)
+          login=$(curl --max-time 5 -fsS -H 'Content-Type: application/json' -d '{"email":"smoke@example.test","password":"integration-password-123"}' http://localhost:8700/v1/auth/login)
           token=$(echo "$login" | python3 -c 'import json,sys; print(json.load(sys.stdin)["token"])')
-          curl -fsS -H "Authorization: Bearer $token" http://localhost:8700/v1/auth/me |
+          curl --max-time 5 -fsS -H "Authorization: Bearer $token" http://localhost:8700/v1/auth/me |
             python3 -c 'import json,sys; assert json.load(sys.stdin)["roles"] == "client"'
-          curl -fsS -X POST -H "Authorization: Bearer $token" http://localhost:8700/v1/auth/logout
-          expired=$(curl -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $token" http://localhost:8700/v1/auth/me)
+          curl --max-time 5 -fsS -X POST -H "Authorization: Bearer $token" http://localhost:8700/v1/auth/logout
+          expired=$(curl --max-time 5 -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $token" http://localhost:8700/v1/auth/me)
           test "$expired" = 401
 
   flutter-auth:
