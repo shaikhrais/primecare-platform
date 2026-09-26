@@ -85,17 +85,6 @@ class ApiClient {
       );
     }
 
-    if (cleanPath == '/v1/auth/me') {
-      return ApiResponse(
-        statusCode: 401,
-        data: {
-          'status': 'error',
-          'message': 'Unauthorized: No active session token found (Offline Mock).',
-        },
-        error: 'Unauthorized',
-      );
-    }
-
     if (cleanPath == '/v1/system/permissions') {
       return ApiResponse(
         statusCode: 200,
@@ -408,7 +397,7 @@ class ApiClient {
         queryParameters: queryParameters,
       );
       
-      if (response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
+      if (!path.startsWith('/v1/auth/') && response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
         try {
           final cacheService = _ref.read(localCacheServiceProvider);
           await cacheService.cacheResponse(path, response.data ?? {});
@@ -433,6 +422,7 @@ class ApiClient {
         }
       }
       try {
+        if (path.startsWith('/v1/auth/')) rethrow;
         final cacheService = _ref.read(localCacheServiceProvider);
         final cachedData = cacheService.getCachedResponse(path);
         if (cachedData != null) {
