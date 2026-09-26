@@ -13,8 +13,6 @@ dependencies:
   json_annotation: ^4.9.0
   bcrypt: ^1.2.0
   crypto: ^3.0.7
-  flutter_core:
-    path: ../../packages/flutter_core
   database_client:
     path: ../../packages/database_client
 
