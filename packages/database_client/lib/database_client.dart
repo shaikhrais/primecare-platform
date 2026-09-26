@@ -39,7 +39,11 @@ class PlatformDatabase {
     try {
       _connection = await Connection.open(
         endpoint,
-        settings: const ConnectionSettings(sslMode: SslMode.require),
+        settings: ConnectionSettings(
+          sslMode: Platform.environment['DB_SSL_MODE'] == 'disable'
+              ? SslMode.disable
+              : SslMode.require,
+        ),
       );
       print('Connected to PostgreSQL at ${endpoint.host}:${endpoint.port}');
     } catch (e) {
