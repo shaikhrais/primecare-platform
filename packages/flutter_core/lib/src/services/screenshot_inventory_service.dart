@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:path/path.dart' as p;
+import 'package:drift/drift.dart';
 import 'package:flutter_core/database/database.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:image/image.dart' as img;
@@ -76,16 +77,16 @@ Future<Uint8List> _applyOverlay(Uint8List baseImageBytes, Map<String, String> da
   final image = img.decodeImage(baseImageBytes);
   if (image == null) return baseImageBytes;
   // Create an overlay image with transparent background
-  final overlay = img.Image(image.width, image.height);
-  img.fill(overlay, img.getColor(0, 0, 0, 0));
+  final overlay = img.Image(width: image.width, height: image.height);
+  img.fill(overlay, color: img.ColorRgba8(0, 0, 0, 0));
   // Prepare top header text
   final header = '${data['platform'] ?? 'PrimeCare Platform'} | ${data['role'] ?? ''} | ${data['screen'] ?? ''}';
-  img.drawString(overlay, img.arial_24, 10, 10, header, color: img.getColor(255, 255, 255));
+  img.drawString(overlay, header, font: img.arial24, x: 10, y: 10, color: img.ColorRgb8(255, 255, 255));
   // Subtext with route and component
   final sub = 'Route: ${data['route'] ?? ''}';
-  img.drawString(overlay, img.arial_18, 10, 40, sub, color: img.getColor(200, 200, 200));
+  img.drawString(overlay, sub, font: img.arial14, x: 10, y: 40, color: img.ColorRgb8(200, 200, 200));
   // Draw overlay onto original image
-  img.copyInto(image, overlay);
+  img.compositeImage(image, overlay);
   return Uint8List.fromList(img.encodePng(image));
 }
 
