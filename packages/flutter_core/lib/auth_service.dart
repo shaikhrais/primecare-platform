@@ -448,16 +448,6 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<bool> forgotPassword(String email) async {
     final result = await Result.guardFuture<bool>(
       () async {
-        // Offline test mock bypass
-        if (!kReleaseMode && (email.toLowerCase().endsWith('@demo.primecare.com') || email.toLowerCase().endsWith('@primecare.test'))) {
-           ref.read<ExecutionGateService>(executionGateProvider).passGate(
-            ExecutionGateCategory.auth,
-            'Offline Forgot Password mock successful.',
-            metadata: {'email': email},
-          );
-          return true;
-        }
-
         final apiClient = ref.read(apiClientProvider);
         final response = await apiClient.post(
           ApiConfig.endpoints['forgotPassword']!,
