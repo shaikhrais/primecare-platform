@@ -422,7 +422,7 @@ class ApiClient {
         }
       }
       try {
-        if (path.startsWith('/v1/auth/')) rethrow;
+        if (!path.startsWith('/v1/auth/')) {
         final cacheService = _ref.read(localCacheServiceProvider);
         final cachedData = cacheService.getCachedResponse(path);
         if (cachedData != null) {
@@ -431,6 +431,7 @@ class ApiClient {
             data: cachedData,
             statusCode: 200,
           );
+        }
         }
       } catch (cacheError) {
         debugPrint('Cache read error for $path: $cacheError');
