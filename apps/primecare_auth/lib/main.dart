@@ -135,14 +135,6 @@ final authRouterProvider = Provider<GoRouter>((ref) {
 
       final justLoggedIn = ref.read(loginSuccessRedirectProvider);
 
-      // Force logout if the user directly accesses the login route to ensure credentials entry is shown
-      if (isAtLogin && authState.isAuthenticated && !justLoggedIn) {
-        Future.microtask(() {
-          ref.read(authProvider.notifier).logout();
-        });
-        return null;
-      }
-
       final forceLogin = state.uri.queryParameters['force_login'] == 'true';
       if (forceLogin && !_hasForcedLogout) {
         _hasForcedLogout = true;
