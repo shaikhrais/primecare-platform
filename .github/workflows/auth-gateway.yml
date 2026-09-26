@@ -57,6 +57,7 @@ jobs:
         with:
           sdk: stable
       - name: Verify login and logout against PostgreSQL
+        timeout-minutes: 8
         env:
           PGPASSWORD: integration-only-password
           DB_HOST: localhost
@@ -67,14 +68,18 @@ jobs:
           AUTH_SERVICE_URL: http://127.0.0.1:8081
         run: |
           set -euo pipefail
-          sudo apt-get update -qq && sudo apt-get install -y -qq postgresql-client
-          psql -h localhost -U primecare -d primecare -f services/auth_api/dev_schema.sql
-          psql -h localhost -U primecare -d primecare -f packages/database/migrations/20260926_auth_sessions.sql
+          echo 'Preparing PostgreSQL schemas'
+          postgres_container=$(docker ps --format '{{.Image}} {{.ID}}' | awk '$1 ~ /postgres/ {print $2; exit}')
+          test -n "$postgres_container"
+          docker exec -i "$postgres_container" psql -U primecare -d primecare < services/auth_api/dev_schema.sql
+          docker exec -i "$postgres_container" psql -U primecare -d primecare < packages/database/migrations/20260926_auth_sessions.sql
+          echo 'Resolving Dart dependencies'
           (cd services/auth_api && dart pub get)
           (cd services/api_gateway && dart pub get)
           hash=$(printf 'integration-password-123\n' | (cd services/auth_api && dart run bin/hash_password.dart) | tail -n 1)
           printf "INSERT INTO users (email, roles, password_hash) VALUES ('smoke@example.test', 'client', '%s');\n" "$hash" |
-            psql -h localhost -U primecare -d primecare
+            docker exec -i "$postgres_container" psql -U primecare -d primecare
+          echo 'Starting auth and gateway services'
           (cd services/auth_api && PORT=8081 dart run bin/server.dart > /tmp/primecare-auth.log 2>&1) &
           (cd services/api_gateway && PORT=8700 dart run bin/server.dart > /tmp/primecare-gateway.log 2>&1) &
           trap 'cat /tmp/primecare-auth.log /tmp/primecare-gateway.log' ERR
@@ -83,6 +88,7 @@ jobs:
             sleep 2
           done
           curl -fsS http://localhost:8700/v1/auth/health
+          echo 'Checking credentials and logout'
           wrong=$(curl -s -o /dev/null -w '%{http_code}' -H 'Content-Type: application/json' -d '{"email":"smoke@example.test","password":"wrong"}' http://localhost:8700/v1/auth/login)
           test "$wrong" = 401
           login=$(curl -fsS -H 'Content-Type: application/json' -d '{"email":"smoke@example.test","password":"integration-password-123"}' http://localhost:8700/v1/auth/login)
