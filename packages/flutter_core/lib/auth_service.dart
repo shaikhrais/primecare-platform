@@ -307,28 +307,10 @@ class AuthNotifier extends Notifier<AuthState> {
     required String role,
     required String userId,
   }) async {
-    final prefs = await SharedPreferences.getInstance();
-    
-    // Save to SharedPreferences so session persists across app restarts
-    await prefs.setString('auth_token', token);
-    await prefs.setString('auth_role', role);
-    await prefs.setString('auth_user_id', userId);
-    
-    // Update State
-    state = state.copyWith(
-      isAuthenticated: true,
-      isInitialized: true,
-      token: token,
-      role: role,
-      userId: userId,
-    );
-    authListenable.value = true;
-    
-    ref.read<ExecutionGateService>(executionGateProvider).passGate(
-      ExecutionGateCategory.auth,
-      'Session restored via Deep Link SSO for role: $role',
-      metadata: {'hasToken': true, 'userId': userId},
-    );
+    // Legacy callback URLs cannot establish a session. A URL may be copied or
+    // logged, and client-provided role and user ID are never authority.
+    state = AuthState(isInitialized: true);
+    authListenable.value = false;
   }
 
   Future<bool> login(String email, String password) async {
