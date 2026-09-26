@@ -24,7 +24,7 @@ jobs:
     - name: Build & Run Headless Verification Tests
       run: |
         cd testingFramework1.0
-        mvn clean test -Dtest=AllScreensVerificationTest -Ddb.url="jdbc:sqlite:.agents/governance/governance.db"
+        mvn clean test -Dtest=AllScreensVerificationTest -Ddb.url="jdbc:sqlite:../.agents/governance/governance.db"
 
     - name: Upload HTML & Excel Test Reports
       if: always()
