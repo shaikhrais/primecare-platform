@@ -71,11 +71,14 @@ class ServiceMesh {
               proxiedRequest.headers[entry.key] = entry.value;
             }
           }
+          // Start the HTTP client reading the body before waiting for the sink.
+          // StreamedRequest.close can wait for a listener on an empty GET body.
+          final responseFuture = _client.send(proxiedRequest)
+              .timeout(const Duration(seconds: 30));
           await proxiedRequest.sink.addStream(request.read());
           await proxiedRequest.sink.close();
 
-          final upstreamResponse = await _client.send(proxiedRequest)
-              .timeout(const Duration(seconds: 30));
+          final upstreamResponse = await responseFuture;
           final responseHeaders = Map<String, String>.from(upstreamResponse.headers)
             ..removeWhere((key, value) =>
                 const {'connection', 'transfer-encoding', 'content-length'}
