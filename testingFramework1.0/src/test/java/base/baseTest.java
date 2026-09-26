@@ -40,11 +40,16 @@ public class baseTest {
 	public void setUp() throws IOException {
 
 		if (driver == null) {
+			String browser = ProjectExcelFileData.Browser();
 
-			if (ProjectExcelFileData.Browser().equalsIgnoreCase("chrome")) {
+			if (browser.equalsIgnoreCase("chrome")) {
 				if (ProjectExcelFileData.chromeProfile() == null) {
 					System.out.println("Select Chrome without User Profile");
-					driver = WebDriverManager.chromedriver().create();
+					ChromeOptions options = new ChromeOptions();
+					if (Boolean.parseBoolean(System.getProperty("headless", System.getenv("CI") != null ? "true" : "false"))) {
+						options.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
+					}
+					driver = WebDriverManager.chromedriver().capabilities(options).create();
 				} else {
 					System.out.println("Select Chrome With User Profile=" + ProjectExcelFileData.chromeProfile());
 					ChromeOptions options = new ChromeOptions();
@@ -53,24 +58,21 @@ public class baseTest {
 					driver = WebDriverManager.chromedriver().capabilities(options).create();
 				}
 
-			} else if (ProjectExcelFileData.Browser().equalsIgnoreCase("firefox")) {
+			} else if (browser.equalsIgnoreCase("firefox")) {
 				driver = WebDriverManager.firefoxdriver().create();
 
-			} else if (ProjectExcelFileData.Browser().equalsIgnoreCase("edge")) {
+			} else if (browser.equalsIgnoreCase("edge")) {
 				driver = WebDriverManager.edgedriver().create();
 
-			} else if (ProjectExcelFileData.Browser().equalsIgnoreCase("safari")) {
+			} else if (browser.equalsIgnoreCase("safari")) {
 				driver = WebDriverManager.safaridriver().create();
 
-			} else if (ProjectExcelFileData.Browser().equalsIgnoreCase("Opera")) {
+			} else if (browser.equalsIgnoreCase("Opera")) {
 				driver = WebDriverManager.operadriver().create();
 
 			} else {
 
-				ChromeOptions options = new ChromeOptions();
-				options.addArguments("user-data-dir=" + ProjectExcelFileData.chromeProfile());
-				driver = WebDriverManager.chromedriver().capabilities(options).create();
-				// driver = WebDriverManager.chromedriver().create();
+				throw new IllegalArgumentException("Unsupported browser: " + browser);
 			}
 
 		}
