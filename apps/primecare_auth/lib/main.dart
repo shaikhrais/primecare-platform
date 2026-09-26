@@ -16,11 +16,8 @@ PRIME:NEXT_ACTION=Remediate placeholder elements with real visual widgets
 // Governance - Category: app_entry | Purpose: System-level main entrypoint
 // PRIME:SCREEN=consent
 // PRIME:SCREEN=success_profile
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/theme/theme_config_generated.dart';
 import 'package:web/web.dart' as web;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/semantics.dart';
@@ -101,8 +98,6 @@ class PrimeCareAuthApp extends ConsumerWidget {
 
 
 
-final loginSuccessRedirectProvider = StateProvider<bool>((ref) => false);
-
 // Memory-safe guard to ensure force_login is only evaluated once per page mount
 bool _hasForcedLogout = false;
 
@@ -117,13 +112,6 @@ final authRouterProvider = Provider<GoRouter>((ref) {
       }
       final isAtLogin = state.uri.path == '/login';
       final isAtLanguage = state.uri.path == '/language';
-      // Reset the flag when we leave the login page
-      if (!isAtLogin) {
-        Future.microtask(() {
-          ref.read(loginSuccessRedirectProvider.notifier).state = false;
-        });
-      }
-
       // Redirection: Check if a language has ever been persistently selected
       final prefs = ref.read(sharedPreferencesProvider);
       final hasSelectedLanguage = prefs?.getBool('auth_language_selected') ?? false;
@@ -132,8 +120,6 @@ final authRouterProvider = Provider<GoRouter>((ref) {
         final query = state.uri.query;
         return '/language${query.isNotEmpty ? '?$query' : ''}';
       }
-
-      final justLoggedIn = ref.read(loginSuccessRedirectProvider);
 
       final forceLogin = state.uri.queryParameters['force_login'] == 'true';
       if (forceLogin && !_hasForcedLogout) {
@@ -207,7 +193,6 @@ class LoginViewWrapper extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen<AuthState>(authProvider, (previous, next) {
       if (next.isAuthenticated && !(previous?.isAuthenticated ?? false)) {
-        ref.read(loginSuccessRedirectProvider.notifier).state = true;
         context.go('/success');
       }
     });
