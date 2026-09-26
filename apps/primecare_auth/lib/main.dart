@@ -171,18 +171,6 @@ final authRouterProvider = Provider<GoRouter>((ref) {
 
       // If authenticated and trying to log in (or just logged in)
       if (authState.isAuthenticated) {
-        final callbackUrl = state.uri.queryParameters['callbackUrl'] ?? redirectUri;
-        final returnUrl = state.uri.queryParameters['returnUrl'] ?? '';
-        if (callbackUrl != null && callbackUrl.isNotEmpty) {
-          final delimiter = callbackUrl.contains('?') ? '&' : '?';
-          final urlWithToken = '$callbackUrl${delimiter}token=${authState.token ?? ''}&role=${Uri.encodeComponent(authState.role ?? '')}&userId=${authState.userId ?? ''}&route=${Uri.encodeComponent(returnUrl)}';
-          if (kIsWeb) {
-            Future.microtask(() {
-              web.window.location.href = urlWithToken;
-            });
-          }
-          return null;
-        }
 
         // If not redirecting, show App Hub success route
         if (state.uri.path == '/success') {
@@ -231,18 +219,9 @@ class LoginViewWrapper extends ConsumerWidget {
       if (next.isAuthenticated && !(previous?.isAuthenticated ?? false)) {
         ref.read(loginSuccessRedirectProvider.notifier).state = true;
         final state = GoRouterState.of(context);
-        final redirectUri = state.uri.queryParameters['redirect_uri'];
         final callbackUrl = state.uri.queryParameters['callbackUrl'] ?? redirectUri;
         final returnUrl = state.uri.queryParameters['returnUrl'] ?? '';
-        if (callbackUrl != null && callbackUrl.isNotEmpty) {
-          final delimiter = callbackUrl.contains('?') ? '&' : '?';
-          final urlWithToken = '$callbackUrl${delimiter}token=${next.token ?? ''}&role=${Uri.encodeComponent(next.role ?? '')}&userId=${next.userId ?? ''}&route=${Uri.encodeComponent(returnUrl)}';
-          if (kIsWeb) {
-            web.window.location.href = urlWithToken;
-          }
-        } else {
-          context.go('/success');
-        }
+        context.go('/success');
       }
     });
 
