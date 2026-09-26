@@ -500,6 +500,13 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<void> logout() async {
     await Result.guardFuture<void>(
       () async {
+        try {
+          if (state.token != null) {
+            await ref.read(apiClientProvider).post('/v1/auth/logout');
+          }
+        } catch (_) {
+          // Local state is cleared even if the network is unavailable.
+        }
         final prefs = await SharedPreferences.getInstance();
         await prefs.remove('auth_token');
         await prefs.remove('auth_role');
@@ -555,26 +562,8 @@ class AuthNotifier extends Notifier<AuthState> {
     }
   }
   Future<void> simulateRoleSession(String role) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('auth_token', 'simulated-token');
-    await prefs.setString('auth_role', role);
-    await prefs.setString('auth_username', 'Simulated $role');
-    await prefs.setString('auth_tenant_id', 'simulated-tenant');
+    throw UnsupportedError('Simulated authentication is disabled.');
 
-    state = state.copyWith(
-      isAuthenticated: true,
-      token: 'simulated-token',
-      role: role,
-      userName: 'Simulated $role',
-      tenantId: 'simulated-tenant',
-      preferredLanguage: 'en',
-    );
-    authListenable.value = true;
-
-    ref.read<ExecutionGateService>(executionGateProvider).passGate(
-      ExecutionGateCategory.auth,
-      'Architectural Parity Simulation active for role: $role',
-    );
   }
 }
 
