@@ -1,0 +1,279 @@
+name: PrimeCare Production Deployment
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/**'
+      - 'packages/flutter_core/**'
+      - 'packages/primecare_ui/**'
+      - 'packages/database_client/**'
+      - 'packages/database/migrations/**'
+      - 'services/api_gateway/**'
+      - 'services/auth_api/**'
+      - '.github/workflows/production-deploy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  deployments: write
+
+concurrency:
+  group: primecare-production
+  cancel-in-progress: false
+
+env:
+  GCP_REGION: northamerica-northeast1
+  ARTIFACT_REPOSITORY: primecare
+  AUTH_SERVICE: primecare-auth-api
+  GATEWAY_SERVICE: primecare-api-gateway
+
+jobs:
+  preflight:
+    name: Verify production configuration
+    runs-on: ubuntu-latest
+    env:
+      GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      GCP_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+      GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - name: Require deployment secrets
+        shell: bash
+        run: |
+          missing=0
+          for name in GCP_PROJECT_ID GCP_WORKLOAD_IDENTITY_PROVIDER GCP_SERVICE_ACCOUNT PRODUCTION_DATABASE_URL CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Required GitHub Actions secret is missing: ${name}"
+              missing=1
+            fi
+          done
+          exit "${missing}"
+
+  verify:
+    name: Verify auth and gateway
+    needs: preflight
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: primecare
+          POSTGRES_PASSWORD: test-password
+          POSTGRES_DB: primecare
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U primecare -d primecare"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Create verification schema
+        env:
+          PGPASSWORD: test-password
+        run: |
+          psql -h localhost -U primecare -d primecare -v ON_ERROR_STOP=1 -f services/auth_api/dev_schema.sql
+          psql -h localhost -U primecare -d primecare -v ON_ERROR_STOP=1 -f packages/database/migrations/20260926_auth_sessions.sql
+
+      - name: Analyze and test auth API
+        working-directory: services/auth_api
+        run: |
+          dart pub get
+          dart analyze --fatal-infos
+          dart test
+
+      - name: Analyze and test API gateway
+        working-directory: services/api_gateway
+        run: |
+          dart pub get
+          dart analyze --fatal-infos
+          dart test
+
+      - name: Build production containers
+        run: |
+          docker build -f services/auth_api/Dockerfile -t primecare-auth-api:test .
+          docker build -f services/api_gateway/Dockerfile -t primecare-api-gateway:test .
+
+  migrate:
+    name: Apply production database migrations
+    needs: verify
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply append-only migrations
+        run: |
+          psql "${PRODUCTION_DATABASE_URL}" -v ON_ERROR_STOP=1 \
+            -f packages/database/migrations/20260926_auth_sessions.sql
+
+      - name: Verify required tables
+        run: |
+          psql "${PRODUCTION_DATABASE_URL}" -v ON_ERROR_STOP=1 -c \
+            "SELECT to_regclass('public.users') AS users_table, to_regclass('public.auth_sessions') AS sessions_table;"
+
+  deploy_backend:
+    name: Deploy Auth API and gateway
+    needs: migrate
+    runs-on: ubuntu-latest
+    environment: production
+    outputs:
+      gateway_url: ${{ steps.gateway.outputs.url }}
+      auth_url: ${{ steps.auth.outputs.url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: google-auth
+        name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Ensure Artifact Registry repository
+        run: |
+          gcloud artifacts repositories describe "${ARTIFACT_REPOSITORY}" \
+            --project="${{ secrets.GCP_PROJECT_ID }}" --location="${GCP_REGION}" >/dev/null 2>&1 || \
+          gcloud artifacts repositories create "${ARTIFACT_REPOSITORY}" \
+            --project="${{ secrets.GCP_PROJECT_ID }}" --location="${GCP_REGION}" \
+            --repository-format=docker --description="PrimeCare production containers"
+          gcloud auth configure-docker "${GCP_REGION}-docker.pkg.dev" --quiet
+
+      - name: Publish immutable containers
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          registry="${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/${ARTIFACT_REPOSITORY}"
+          docker build -f services/auth_api/Dockerfile -t "${registry}/auth-api:${GITHUB_SHA}" .
+          docker build -f services/api_gateway/Dockerfile -t "${registry}/api-gateway:${GITHUB_SHA}" .
+          docker push "${registry}/auth-api:${GITHUB_SHA}"
+          docker push "${registry}/api-gateway:${GITHUB_SHA}"
+
+      - name: Store database URL in Secret Manager
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          gcloud secrets describe primecare-database-url --project="${{ secrets.GCP_PROJECT_ID }}" >/dev/null 2>&1 || \
+            gcloud secrets create primecare-database-url --project="${{ secrets.GCP_PROJECT_ID }}" --replication-policy=automatic
+          printf '%s' "${PRODUCTION_DATABASE_URL}" | \
+            gcloud secrets versions add primecare-database-url --project="${{ secrets.GCP_PROJECT_ID }}" --data-file=-
+
+      - id: auth
+        name: Deploy Auth API
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          image="${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/${ARTIFACT_REPOSITORY}/auth-api:${GITHUB_SHA}"
+          gcloud run deploy "${AUTH_SERVICE}" --project="${PROJECT_ID}" --region="${GCP_REGION}" \
+            --platform=managed --image="${image}" --port=8080 --allow-unauthenticated \
+            --set-secrets=DATABASE_URL=primecare-database-url:latest
+          url="$(gcloud run services describe "${AUTH_SERVICE}" --project="${PROJECT_ID}" \
+            --region="${GCP_REGION}" --format='value(status.url)')"
+          echo "url=${url}" >> "${GITHUB_OUTPUT}"
+
+      - id: gateway
+        name: Deploy API gateway
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          AUTH_URL: ${{ steps.auth.outputs.url }}
+        run: |
+          image="${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/${ARTIFACT_REPOSITORY}/api-gateway:${GITHUB_SHA}"
+          gcloud run deploy "${GATEWAY_SERVICE}" --project="${PROJECT_ID}" --region="${GCP_REGION}" \
+            --platform=managed --image="${image}" --port=8080 --allow-unauthenticated \
+            --set-secrets=DATABASE_URL=primecare-database-url:latest \
+            --set-env-vars="AUTH_SERVICE_URL=${AUTH_URL},CORS_ALLOWED_ORIGIN=https://primecare-auth.pages.dev"
+          url="$(gcloud run services describe "${GATEWAY_SERVICE}" --project="${PROJECT_ID}" \
+            --region="${GCP_REGION}" --format='value(status.url)')"
+          echo "url=${url}" >> "${GITHUB_OUTPUT}"
+
+      - name: Verify deployed backend
+        env:
+          GATEWAY_URL: ${{ steps.gateway.outputs.url }}
+        run: |
+          curl --fail --show-error --retry 10 --retry-delay 5 "${GATEWAY_URL}/health"
+          curl --fail --show-error --retry 10 --retry-delay 5 "${GATEWAY_URL}/v1/auth/health"
+
+  deploy_web:
+    name: Build and deploy ${{ matrix.app }}
+    needs: deploy_backend
+    runs-on: ubuntu-latest
+    environment: production
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - primecare_business_development
+          - primecare_client
+          - primecare_clinic
+          - primecare_corporate
+          - primecare_franchise
+          - primecare_marketing
+          - primecare_support
+          - primecare_governance
+          - primecare_enterprise_blueprint
+          - primecare_auth
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+
+      - name: Derive Cloudflare project name
+        shell: bash
+        run: |
+          app="${{ matrix.app }}"
+          echo "project_name=${app//_/-}" >> "${GITHUB_ENV}"
+
+      - name: Build web release with production gateway
+        working-directory: apps/${{ matrix.app }}
+        env:
+          GATEWAY_URL: ${{ needs.deploy_backend.outputs.gateway_url }}
+        run: |
+          flutter pub get
+          flutter build web --release --no-tree-shake-icons \
+            --dart-define=API_BASE_URL="${GATEWAY_URL}" \
+            --dart-define=SSO_PORTAL_URL=https://primecare-auth.pages.dev \
+            --dart-define=APP_BASE_URL="https://${{ env.project_name }}.pages.dev"
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy apps/${{ matrix.app }}/build/web --project-name=${{ env.project_name }} --branch=main
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+  release_summary:
+    name: Verify production release
+    needs: [deploy_backend, deploy_web]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require successful backend and websites
+        env:
+          BACKEND_RESULT: ${{ needs.deploy_backend.result }}
+          WEB_RESULT: ${{ needs.deploy_web.result }}
+          GATEWAY_URL: ${{ needs.deploy_backend.outputs.gateway_url }}
+        run: |
+          echo "Gateway: ${GATEWAY_URL}"
+          test "${BACKEND_RESULT}" = success
+          test "${WEB_RESULT}" = success
