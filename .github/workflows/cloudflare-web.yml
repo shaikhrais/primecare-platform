@@ -1,78 +1,249 @@
 name: Deploy PrimeCare Websites to Cloudflare
 
 on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Tested branch, tag, or commit to deploy
+        required: false
+        default: main
+        type: string
   push:
     branches: [main]
     paths:
-      - 'apps/**'
-      - 'packages/flutter_core/**'
-      - 'packages/primecare_ui/**'
       - '.github/workflows/cloudflare-web.yml'
-  workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   deployments: write
 
 concurrency:
-  group: primecare-cloudflare-web
-  cancel-in-progress: true
+  group: primecare-cloudflare-production
+  cancel-in-progress: false
+
+env:
+  FLUTTER_VERSION: '3.41.5'
+  WRANGLER_VERSION: '3.90.0'
 
 jobs:
-  deploy:
-    name: Deploy ${{ matrix.app }}
+  preflight:
+    name: Verify release authorization
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      max-parallel: 1
-      matrix:
-        app:
-          - primecare_business_development
-          - primecare_client
-          - primecare_clinic
-          - primecare_corporate
-          - primecare_franchise
-          - primecare_marketing
-          - primecare_support
-          - primecare_governance
-          - primecare_enterprise_blueprint
-          - primecare_auth
+    outputs:
+      release_sha: ${{ steps.release.outputs.sha }}
     env:
-      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN || secrets.CF_API_TOKEN }}
-      CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || secrets.CF_ACCOUNT_ID }}
+      GH_TOKEN: ${{ github.token }}
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      API_GATEWAY_URL: ${{ vars.API_GATEWAY_URL }}
     steps:
-      - name: Verify Cloudflare configuration
+      - id: release
+        name: Resolve immutable release commit
+        shell: bash
+        env:
+          REQUESTED_REF: ${{ inputs.ref || github.sha }}
+        run: |
+          set -euo pipefail
+          sha="$(gh api "repos/${GITHUB_REPOSITORY}/commits/${REQUESTED_REF}" --jq .sha)"
+          test -n "${sha}"
+          echo "sha=${sha}" >> "${GITHUB_OUTPUT}"
+          echo "Release commit: ${sha}"
+
+      - name: Require successful tests for release commit
+        shell: bash
+        env:
+          RELEASE_SHA: ${{ steps.release.outputs.sha }}
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 60); do
+            payload="$(gh api --method GET "repos/${GITHUB_REPOSITORY}/actions/runs"               -f head_sha="${RELEASE_SHA}" -f per_page=100)"
+            conclusion="$(jq -r '[.workflow_runs[] |
+              select(.name == "PrimeCare Automated Test Suite")] |
+              sort_by(.created_at) | reverse | .[0].conclusion // "waiting"' <<<"${payload}")"
+            status="$(jq -r '[.workflow_runs[] |
+              select(.name == "PrimeCare Automated Test Suite")] |
+              sort_by(.created_at) | reverse | .[0].status // "waiting"' <<<"${payload}")"
+            echo "Verification status: ${status}; conclusion: ${conclusion}"
+            if [ "${conclusion}" = "success" ]; then
+              exit 0
+            fi
+            if [ "${status}" = "completed" ] && [ "${conclusion}" != "success" ]; then
+              echo "::error::The exact release commit did not pass the automated test suite."
+              exit 1
+            fi
+            sleep 20
+          done
+          echo "::error::Timed out waiting for the exact release commit to pass tests."
+          exit 1
+
+      - name: Validate deployment configuration
         shell: bash
         run: |
-          test -n "${CF_TOKEN}" || { echo "::error::Cloudflare API token is missing"; exit 1; }
-          test -n "${CF_ACCOUNT}" || { echo "::error::Cloudflare account ID is missing"; exit 1; }
+          set -euo pipefail
+          test -n "${CF_TOKEN}" || { echo "::error::CLOUDFLARE_API_TOKEN is missing"; exit 1; }
+          test -n "${CF_ACCOUNT}" || { echo "::error::CLOUDFLARE_ACCOUNT_ID is missing"; exit 1; }
+          test -n "${API_GATEWAY_URL}" || { echo "::error::Repository variable API_GATEWAY_URL is missing"; exit 1; }
+          case "${API_GATEWAY_URL}" in
+            https://*) ;;
+            *) echo "::error::API_GATEWAY_URL must use HTTPS"; exit 1 ;;
+          esac
+          response="$(curl --silent --show-error --fail             --header "Authorization: Bearer ${CF_TOKEN}"             "https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT}")"
+          jq -e '.success == true' <<<"${response}" >/dev/null
 
-      - uses: actions/checkout@v4
-
-      - uses: subosito/flutter-action@v2
+  deploy:
+    name: Deploy ${{ matrix.project }}
+    needs: preflight
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        include:
+          - app: primecare_business_development
+            project: primecare-business-development
+          - app: primecare_client
+            project: primecare-client
+          - app: primecare_clinic
+            project: primecare-clinic
+          - app: primecare_corporate
+            project: primecare-corporate
+          - app: primecare_franchise
+            project: primecare-franchise
+          - app: primecare_marketing
+            project: primecare-marketing
+          - app: primecare_support
+            project: primecare-support
+          - app: primecare_governance
+            project: primecare-governance
+          - app: primecare_enterprise_blueprint
+            project: primecare-enterprise-blueprint
+          - app: primecare_auth
+            project: primecare-auth
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      API_GATEWAY_URL: ${{ vars.API_GATEWAY_URL }}
+      RELEASE_SHA: ${{ needs.preflight.outputs.release_sha }}
+    steps:
+      - name: Checkout verified release
+        uses: actions/checkout@v4
         with:
-          flutter-version: '3.41.5'
+          ref: ${{ env.RELEASE_SHA }}
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: stable
           cache: true
 
-      - name: Derive project name
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Build immutable web release
+        working-directory: apps/${{ matrix.app }}
         shell: bash
         run: |
-          app="${{ matrix.app }}"
-          echo "project_name=${app//_/-}" >> "${GITHUB_ENV}"
-
-      - name: Build website
-        working-directory: apps/${{ matrix.app }}
-        run: |
+          set -euo pipefail
           flutter pub get
-          flutter build web --release --no-tree-shake-icons \
-            --dart-define=SSO_PORTAL_URL=https://primecare-auth.pages.dev \
-            --dart-define=APP_BASE_URL="https://${{ env.project_name }}.pages.dev"
+          flutter analyze --no-fatal-infos
+          flutter build web --release --no-tree-shake-icons             --dart-define=API_BASE_URL="${API_GATEWAY_URL}"             --dart-define=SSO_PORTAL_URL=https://primecare-auth.pages.dev             --dart-define=APP_BASE_URL="https://${{ matrix.project }}.pages.dev"
+          test -s build/web/index.html
+          test -s build/web/main.dart.js
+          printf '/* /index.html 200\n' > build/web/_redirects
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+      - name: Archive deployable website
+        uses: actions/upload-artifact@v4
         with:
-          apiToken: ${{ env.CF_TOKEN }}
-          accountId: ${{ env.CF_ACCOUNT }}
-          command: pages deploy apps/${{ matrix.app }}/build/web --project-name=${{ env.project_name }} --branch=main
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          name: cloudflare-${{ matrix.project }}-${{ env.RELEASE_SHA }}
+          path: apps/${{ matrix.app }}/build/web
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Ensure Pages project exists
+        shell: bash
+        env:
+          PROJECT: ${{ matrix.project }}
+        run: |
+          set -euo pipefail
+          code="$(curl --silent --show-error --output /tmp/pages-project.json             --write-out '%{http_code}'             --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"             "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/${PROJECT}")"
+          if [ "${code}" = "404" ]; then
+            npx --yes wrangler@"${WRANGLER_VERSION}" pages project create "${PROJECT}"               --production-branch=main
+          elif [ "${code}" = "200" ]; then
+            jq -e '.success == true' /tmp/pages-project.json >/dev/null
+          else
+            echo "::error::Cloudflare project lookup returned HTTP ${code}"
+            jq '{success, errors}' /tmp/pages-project.json || true
+            exit 1
+          fi
+
+      - name: Deploy with bounded retries
+        working-directory: apps/${{ matrix.app }}
+        shell: bash
+        env:
+          PROJECT: ${{ matrix.project }}
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5; do
+            if npx --yes wrangler@"${WRANGLER_VERSION}" pages deploy build/web               --project-name="${PROJECT}"               --branch=main               --commit-hash="${RELEASE_SHA}"               --commit-message="PrimeCare verified release ${RELEASE_SHA}"; then
+              exit 0
+            fi
+            if [ "${attempt}" = 5 ]; then
+              echo "::error::Cloudflare deployment failed after five attempts."
+              exit 1
+            fi
+            delay=$((attempt * 30))
+            echo "Deployment attempt ${attempt} failed; retrying in ${delay}s."
+            sleep "${delay}"
+          done
+
+      - name: Verify production website
+        shell: bash
+        env:
+          URL: https://${{ matrix.project }}.pages.dev
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 20); do
+            if body="$(curl --silent --show-error --fail --location               --max-time 30 --retry 2 "${URL}/")" && grep -qi '<html' <<<"${body}"; then
+              echo "Verified ${URL}"
+              {
+                echo "### ${{ matrix.project }}"
+                echo "- Status: deployed and verified"
+                echo "- URL: ${URL}"
+                echo "- Commit: \`${RELEASE_SHA}\`"
+              } >> "${GITHUB_STEP_SUMMARY}"
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "::error::Deployment completed but ${URL} did not pass its health check."
+          exit 1
+
+  release:
+    name: Require every website
+    if: always()
+    needs: [preflight, deploy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish release result
+        env:
+          PREFLIGHT: ${{ needs.preflight.result }}
+          DEPLOYMENTS: ${{ needs.deploy.result }}
+          RELEASE_SHA: ${{ needs.preflight.outputs.release_sha }}
+        run: |
+          {
+            echo "# PrimeCare Cloudflare release"
+            echo
+            echo "- Commit: \`${RELEASE_SHA}\`"
+            echo "- Preflight: ${PREFLIGHT}"
+            echo "- All 10 websites: ${DEPLOYMENTS}"
+          } >> "${GITHUB_STEP_SUMMARY}"
+          test "${PREFLIGHT}" = success
+          test "${DEPLOYMENTS}" = success
