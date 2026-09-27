@@ -1,11 +1,6 @@
 name: Deploy API Gateway - primecare-api-gateway
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'services/api_gateway/**'
-      - '.github/workflows/deploy-api-gateway.yml'
   workflow_dispatch:
 
 permissions:
