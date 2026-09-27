@@ -1,0 +1,19 @@
+name: Deploy API - primecare-notes-api
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/notes_api/**'
+      - 'packages/database_client/**'
+      - '.github/workflows/deploy-api-notes.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy-api.yml
+    with:
+      service_dir: services/notes_api
+      service_name: primecare-notes-api
+      image_name: notes-api
+    secrets: inherit
