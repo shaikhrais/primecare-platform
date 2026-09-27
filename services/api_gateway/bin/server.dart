@@ -20,9 +20,14 @@ void main() async {
   router.get('/health', controller.healthCheck);
   mesh.registerRoutes(router);
 
-  // 3. UI Compatibility Layer
-  router.all('/v1/<ignored|.*>', controller.mockUI);
-  router.all('/dashboard/<ignored|.*>', controller.mockUI);
+  // 3. Development-only UI compatibility layer. Production must never
+  // silently return generated data for an unknown clinical endpoint.
+  final mockUiEnabled =
+      Platform.environment['ENABLE_MOCK_UI']?.toLowerCase() == 'true';
+  if (mockUiEnabled) {
+    router.all('/v1/<ignored|.*>', controller.mockUI);
+    router.all('/dashboard/<ignored|.*>', controller.mockUI);
+  }
 
   // 4. Middleware Pipeline
   final handler = const Pipeline()
