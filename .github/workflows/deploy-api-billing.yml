@@ -1,0 +1,19 @@
+name: Deploy API - primecare-billing-api
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/billing_api/**'
+      - 'packages/database_client/**'
+      - '.github/workflows/deploy-api-billing.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy-api.yml
+    with:
+      service_dir: services/billing_api
+      service_name: primecare-billing-api
+      image_name: billing-api
+    secrets: inherit
