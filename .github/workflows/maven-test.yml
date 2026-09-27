@@ -7,12 +7,16 @@ on:
     paths:
       - 'testingFramework1.0/**'
       - '.agents/governance/governance.db'
+      - 'packages/primecare_ui/lib/**/*.dart'
+      - 'scripts/reconcile_governance_screens.py'
       - '.github/workflows/maven-test.yml'
   pull_request:
     branches: [main]
     paths:
       - 'testingFramework1.0/**'
       - '.agents/governance/governance.db'
+      - 'packages/primecare_ui/lib/**/*.dart'
+      - 'scripts/reconcile_governance_screens.py'
       - '.github/workflows/maven-test.yml'
 
 permissions:
@@ -35,6 +39,8 @@ jobs:
           sparse-checkout: |
             testingFramework1.0
             .agents/governance/governance.db
+            packages/primecare_ui/lib
+            scripts/reconcile_governance_screens.py
           sparse-checkout-cone-mode: false
 
       - name: Set up Java 21 JDK
@@ -44,6 +50,10 @@ jobs:
           distribution: temurin
           cache: maven
           cache-dependency-path: testingFramework1.0/pom.xml
+
+      - name: Audit screen governance evidence
+        run: |
+          python scripts/reconcile_governance_screens.py --check --report governance-screen-audit.json
 
       - name: Validate all active-screen POM mappings
         working-directory: testingFramework1.0
@@ -79,5 +89,6 @@ jobs:
             testingFramework1.0/test-output/
             testingFramework1.0/target-maven/surefire-reports/
             testingFramework1.0/screenshots/
+            governance-screen-audit.json
           if-no-files-found: warn
           retention-days: 14
