@@ -7,6 +7,7 @@ on:
       - 'services/client_api/**'
       - 'packages/database_client/**'
       - '.github/workflows/deploy-api-client.yml'
+      - '.github/workflows/_deploy-api.yml'
   workflow_dispatch:
 
 permissions:
