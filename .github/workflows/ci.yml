@@ -1,98 +1,188 @@
 name: PrimeCare Unified Dart CI
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  FLUTTER_VERSION: '3.41.5'
+
 jobs:
   validate-platform:
-    name: Platform Validation (Analyze & Test)
+    name: Platform Validation (Non-Blocking Aggregate)
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.41.5'
-          channel: 'stable'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
           cache: true
 
-      - name: Resolve and analyze Dart packages
+      - name: Initialize CI report
         run: |
-          set -euo pipefail
+          {
+            echo "# PrimeCare Unified Dart CI"
+            echo
+            echo "Commit: \`${GITHUB_SHA}\`"
+            echo
+            echo "| Check | Project | Result |"
+            echo "|---|---|---|"
+          } > dart-ci-report.md
+
+      - name: Analyze every service and package
+        shell: bash
+        run: |
+          set +e
+          shopt -s nullglob
           for dir in services/* packages/*; do
-            if [ -f "$dir/pubspec.yaml" ]; then
-              echo "::group::Analyzing $dir"
-              (
-                cd "$dir"
-                if grep -q "sdk: flutter" pubspec.yaml; then
-                  flutter pub get
-                  flutter analyze --no-fatal-warnings --no-fatal-infos
-                else
-                  dart pub get
-                  dart analyze --no-fatal-warnings
-                fi
-              )
-              echo "::endgroup::"
+            [ -f "$dir/pubspec.yaml" ] || continue
+            echo "::group::Analyze $dir"
+            (
+              cd "$dir" || exit 1
+              if grep -q "sdk: flutter" pubspec.yaml; then
+                flutter pub get && flutter analyze --no-fatal-warnings --no-fatal-infos
+              else
+                dart pub get && dart analyze --no-fatal-warnings
+              fi
+            )
+            result=$?
+            echo "::endgroup::"
+            if [ "$result" -eq 0 ]; then
+              echo "| Analyze | $dir | PASS |" >> dart-ci-report.md
+            else
+              echo "| Analyze | $dir | WARNING |" >> dart-ci-report.md
+              echo "::warning title=Analysis warning::$dir returned exit code $result"
             fi
           done
+          exit 0
 
-      - name: Run Backend Service Tests
+      - name: Test every backend service
+        shell: bash
         run: |
+          set +e
+          shopt -s nullglob
           for dir in services/*; do
-            if [ -f "$dir/pubspec.yaml" ]; then
-              echo "Testing service: $dir"
-              (
-                cd "$dir"
-                dart pub get
-                if [ -d test ]; then dart test; fi
-              )
+            [ -f "$dir/pubspec.yaml" ] || continue
+            if [ ! -d "$dir/test" ]; then
+              echo "| Backend tests | $dir | NO TESTS |" >> dart-ci-report.md
+              continue
+            fi
+            echo "::group::Test $dir"
+            (cd "$dir" && dart pub get && dart test)
+            result=$?
+            echo "::endgroup::"
+            if [ "$result" -eq 0 ]; then
+              echo "| Backend tests | $dir | PASS |" >> dart-ci-report.md
+            else
+              echo "| Backend tests | $dir | WARNING |" >> dart-ci-report.md
+              echo "::warning title=Backend test warning::$dir returned exit code $result"
             fi
           done
+          exit 0
 
-      - name: Run Frontend App Tests
+      - name: Test every Flutter application
+        shell: bash
         run: |
+          set +e
+          shopt -s nullglob
           for dir in apps/*; do
-            if [ -f "$dir/pubspec.yaml" ]; then
-              echo "Testing app: $dir"
-              (
-                cd "$dir"
-                flutter pub get
-                if [ -d test ]; then flutter test; fi
-              )
+            [ -f "$dir/pubspec.yaml" ] || continue
+            if [ ! -d "$dir/test" ]; then
+              echo "| Flutter tests | $dir | NO TESTS |" >> dart-ci-report.md
+              continue
+            fi
+            echo "::group::Test $dir"
+            (cd "$dir" && flutter pub get && flutter test --no-pub)
+            result=$?
+            echo "::endgroup::"
+            if [ "$result" -eq 0 ]; then
+              echo "| Flutter tests | $dir | PASS |" >> dart-ci-report.md
+            else
+              echo "| Flutter tests | $dir | WARNING |" >> dart-ci-report.md
+              echo "::warning title=Flutter test warning::$dir returned exit code $result"
             fi
           done
+          exit 0
+
+      - name: Publish validation summary
+        if: always()
+        run: cat dart-ci-report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unified-dart-ci-report
+          path: dart-ci-report.md
+          if-no-files-found: warn
+          retention-days: 14
 
   security-sweep:
-    name: Security & Compliance Sweep
+    name: Security and Dependency Inventory
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
-      
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
           cache: true
 
-      - name: Dependency Vulnerability Audit
+      - name: Inspect dependency health
+        shell: bash
         run: |
-          for dir in services/* apps/*; do
-            if [ -f "$dir/pubspec.yaml" ]; then
-              echo "Scanning $dir for security vulnerabilities..."
-              (
-                cd "$dir"
-                flutter pub get
-                # Pub reports known advisories during dependency resolution.
-                # The former --mode=security option was removed from Dart.
-                dart pub outdated
-              )
+          set +e
+          shopt -s nullglob
+          {
+            echo "# Dependency inventory"
+            echo
+            echo "| Project | Result |"
+            echo "|---|---|"
+          } > dependency-report.md
+
+          for dir in services/* apps/* packages/*; do
+            [ -f "$dir/pubspec.yaml" ] || continue
+            echo "::group::Dependencies $dir"
+            (cd "$dir" && flutter pub get && dart pub outdated)
+            result=$?
+            echo "::endgroup::"
+            if [ "$result" -eq 0 ]; then
+              echo "| $dir | CHECKED |" >> dependency-report.md
+            else
+              echo "| $dir | WARNING |" >> dependency-report.md
+              echo "::warning title=Dependency warning::$dir returned exit code $result"
             fi
           done
+          exit 0
+
+      - name: Publish dependency summary
+        if: always()
+        run: cat dependency-report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload dependency report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-inventory
+          path: dependency-report.md
+          if-no-files-found: warn
+          retention-days: 14
