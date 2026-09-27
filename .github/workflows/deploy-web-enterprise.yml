@@ -1,0 +1,19 @@
+name: Deploy Web - primecare-enterprise-blueprint
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/primecare_enterprise_blueprint/**'
+      - 'packages/flutter_core/**'
+      - 'packages/primecare_ui/**'
+      - '.github/workflows/deploy-web-enterprise.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy-web.yml
+    with:
+      app: primecare_enterprise_blueprint
+      project: primecare-enterprise-blueprint
+    secrets: inherit
