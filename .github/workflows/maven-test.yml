@@ -28,7 +28,7 @@ concurrency:
 
 jobs:
   test:
-    name: Complete POM Coverage Verification
+    name: Governance and Complete POM Verification
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
