@@ -1,36 +1,83 @@
 name: PrimeCare Automated Test Suite
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [main]
+    paths:
+      - 'testingFramework1.0/**'
+      - '.agents/governance/governance.db'
+      - '.github/workflows/maven-test.yml'
   pull_request:
-    branches: [ main ]
+    branches: [main]
+    paths:
+      - 'testingFramework1.0/**'
+      - '.agents/governance/governance.db'
+      - '.github/workflows/maven-test.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: automated-tests-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
+    name: Mapped Screen Verification
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
-    - name: Checkout Code Repository
-      uses: actions/checkout@v4
+      - name: Checkout test sources only
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            testingFramework1.0
+            .agents/governance/governance.db
+          sparse-checkout-cone-mode: false
 
-    - name: Set up Java 21 JDK
-      uses: actions/setup-java@v4
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: 'maven'
+      - name: Set up Java 21 JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: temurin
+          cache: maven
+          cache-dependency-path: testingFramework1.0/pom.xml
 
-    - name: Build & Run Headless Verification Tests
-      run: |
-        cd testingFramework1.0
-        mvn clean test -Dtest=AllScreensVerificationTest -Ddb.url="jdbc:sqlite:../.agents/governance/governance.db"
+      - name: Run mapped headless verification tests
+        working-directory: testingFramework1.0
+        env:
+          CI: 'true'
+        run: |
+          mvn --batch-mode --no-transfer-progress test \
+            -Dtest=AllScreensVerificationTest \
+            -Ddb.url="jdbc:sqlite:../.agents/governance/governance.db" \
+            -Dsurefire.printSummary=true \
+            -Dsurefire.useFile=true
 
-    - name: Upload HTML & Excel Test Reports
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: testng-verification-reports
-        path: |
-          testingFramework1.0/test-output/
-          testingFramework1.0/target/reports/
+      - name: Publish test summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "# PrimeCare mapped-screen verification"
+            echo
+            if compgen -G "testingFramework1.0/target-maven/surefire-reports/*.txt" > /dev/null; then
+              grep -h "Tests run:" testingFramework1.0/target-maven/surefire-reports/*.txt || true
+            else
+              echo "No Surefire text report was produced."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload verification reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapped-screen-verification-reports
+          path: |
+            testingFramework1.0/test-output/
+            testingFramework1.0/target-maven/surefire-reports/
+            testingFramework1.0/screenshots/
+          if-no-files-found: warn
+          retention-days: 14

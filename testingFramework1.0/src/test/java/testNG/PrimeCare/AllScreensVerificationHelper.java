@@ -136,6 +136,15 @@ public class AllScreensVerificationHelper {
                     int id = rs.getInt("id");
                     String name = rs.getString("screen_name");
                     String route = rs.getString("route_path");
+                    String cleanRoute = route == null ? "" : route.split("\\?")[0];
+
+                    // Filter before Selenium navigation. Previously every database row
+                    // opened a browser and waited for a timeout before discovering that
+                    // no Page Object existed, making skipped screens cost ~54 seconds.
+                    if (!routeToClassMap.containsKey(cleanRoute)) {
+                        continue;
+                    }
+
                     int appId = rs.getInt("app_id");
                     String roleKey = rs.getString("role_code");
 
@@ -163,7 +172,7 @@ public class AllScreensVerificationHelper {
             }
         }
 
-        System.out.println("  Loaded " + list.size() + " active screens for verification.");
+        System.out.println("  Loaded " + list.size() + " mapped screens for browser verification.");
 
         Object[][] data = new Object[list.size()][1];
         for (int i = 0; i < list.size(); i++) {
