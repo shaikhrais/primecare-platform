@@ -1,0 +1,19 @@
+name: Deploy API - primecare-verification-api
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/verification_api/**'
+      - 'packages/database_client/**'
+      - '.github/workflows/deploy-api-verification.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy-api.yml
+    with:
+      service_dir: services/verification_api
+      service_name: primecare-verification-api
+      image_name: verification-api
+    secrets: inherit
