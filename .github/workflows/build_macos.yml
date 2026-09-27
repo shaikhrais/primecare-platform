@@ -39,6 +39,9 @@ jobs:
         run: |
           cd apps/${{ matrix.app }}
           flutter pub get
+          if [ ! -d macos/Runner.xcodeproj ]; then
+            flutter create --platforms=macos .
+          fi
           flutter build macos --release
 
       - name: Upload macOS Artifact

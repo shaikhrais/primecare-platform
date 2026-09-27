@@ -36,6 +36,9 @@ jobs:
         run: |
           cd apps/${{ matrix.app }}
           flutter pub get
+          if [ ! -d ios/Runner.xcodeproj ]; then
+            flutter create --platforms=ios .
+          fi
           flutter build ios --release --no-codesign
 
       - name: Upload iOS App Artifact
