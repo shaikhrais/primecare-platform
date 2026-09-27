@@ -47,6 +47,9 @@ class ServiceMesh {
       'compliance': Platform.environment['COMPLIANCE_SERVICE_URL'] ?? 'http://compliance_api:8080',
       'scheduling': Platform.environment['SCHEDULING_SERVICE_URL'] ?? 'http://scheduling_api:8080',
       'visits': Platform.environment['VISIT_SERVICE_URL'] ?? 'http://visit_api:8080',
+      'notes': Platform.environment['NOTES_SERVICE_URL'] ?? 'http://notes_api:8080',
+      'notifications': Platform.environment['NOTIFICATION_SERVICE_URL'] ?? 'http://notification_api:8080',
+      'franchise-reporting': Platform.environment['FRANCHISE_REPORTING_SERVICE_URL'] ?? 'http://franchise_reporting_api:8080',
     });
   }
 
