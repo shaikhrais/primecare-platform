@@ -10,6 +10,7 @@ on:
       - 'packages/primecare_ui/lib/**/*.dart'
       - 'scripts/reconcile_governance_screens.py'
       - '.github/workflows/maven-test.yml'
+      - '.github/workflows/cloudflare-web.yml'
   pull_request:
     branches: [main]
     paths:
@@ -18,6 +19,7 @@ on:
       - 'packages/primecare_ui/lib/**/*.dart'
       - 'scripts/reconcile_governance_screens.py'
       - '.github/workflows/maven-test.yml'
+      - '.github/workflows/cloudflare-web.yml'
 
 permissions:
   contents: read
