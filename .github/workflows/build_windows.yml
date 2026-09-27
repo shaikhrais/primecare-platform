@@ -23,6 +23,10 @@ jobs:
           - primecare_enterprise_blueprint
 
     steps:
+      - name: Enable Git long paths
+        shell: powershell
+        run: git config --system core.longpaths true
+
       - name: Checkout repository
         uses: actions/checkout@v4
 
