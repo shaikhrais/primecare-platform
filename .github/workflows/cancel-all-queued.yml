@@ -1,0 +1,46 @@
+name: Cancel All Queued Runs
+
+on:
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  cancel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel every queued run
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const runs = await github.paginate(
+              github.rest.actions.listWorkflowRunsForRepo,
+              { owner, repo, status: 'queued', per_page: 100 }
+            );
+
+            core.info(`Found ${runs.length} queued workflow runs.`);
+
+            let cancelled = 0;
+            for (let index = 0; index < runs.length; index += 20) {
+              const batch = runs.slice(index, index + 20);
+              const results = await Promise.allSettled(
+                batch.map(run =>
+                  github.rest.actions.cancelWorkflowRun({
+                    owner,
+                    repo,
+                    run_id: run.id
+                  })
+                )
+              );
+
+              cancelled += results.filter(result => result.status === 'fulfilled').length;
+              const failed = results.filter(result => result.status === 'rejected');
+              for (const result of failed) {
+                core.warning(String(result.reason));
+              }
+            }
+
+            core.info(`Cancellation requested for ${cancelled} queued runs.`);
