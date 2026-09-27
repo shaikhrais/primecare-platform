@@ -1,0 +1,25 @@
+Screen Code: provider_performance_dashboard
+Screen Name: Provider Performance Dashboard
+
+Required Components:
+- KPIIndicator
+- PerformanceTrendChart
+- ErrorMessageDisplay
+- SummarySection
+- ProviderFilter
+
+Required Functions/Handlers:
+- refreshMetrics
+- identifyUnderperformingProviders
+- analyzePerformanceTrends
+
+Required Buttons:
+- Refresh Data
+
+Required APIs:
+- /v1/provider/performance/metrics
+- /v1/provider/performance/trends
+
+Required Semantic Keys (data-cy):
+- provider-dashboard-btn-refresh
+- provider-dashboard-error-message

@@ -1,0 +1,41 @@
+Screen Code: intake_coordinator_intake_forms
+Screen Name: Intake Coordinator Intake Forms
+
+Required Components:
+- FormList
+- StatusIndicator
+- NotificationPanel
+- MetricsDashboard
+- ResourceQuickAccess
+- CommunicationTool
+
+Required Functions/Handlers:
+- submitForm
+- reviewForm
+- followUpWithClient
+- collectDocumentation
+- monitorFormStatus
+- updateCommunication
+
+Required Buttons:
+- Submit Form
+- Review Form
+- Follow Up
+- Collect Documentation
+- Track Progress
+- Communicate
+
+Required APIs:
+- /v1/intake/forms/submit
+- /v1/intake/forms/review
+- /v1/intake/forms/followup
+- /v1/intake/forms/status
+- /v1/intake/forms/communication
+
+Required Semantic Keys (data-cy):
+- intake-form-submit
+- intake-form-review
+- intake-follow-up
+- intake-documentation-collection
+- intake-status-monitor
+- intake-communication-tool

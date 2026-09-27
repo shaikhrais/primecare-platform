@@ -1,0 +1,46 @@
+Screen Code: audit_review
+Screen Name: AuditReviewScreen
+
+Required Components:
+- ComplianceStatusOverview
+- RecentAuditsList
+- ComplianceAlerts
+- EmployeeTrainingStatus
+- ComplianceTimeline
+- DocumentationRepository
+- RegulatoryChangesReport
+- CompliancePerformanceIndicators
+- ComplianceTrendsChart
+- UserFriendlyInterface
+
+Required Functions/Handlers:
+- generateComplianceReport
+- updateCompliancePolicies
+- trainEmployees
+- investigateBreach
+- viewDocumentation
+
+Required Buttons:
+- Generate Compliance Report
+- Update Compliance Policies
+- Train Employees
+- Investigate Breach
+- View Documentation
+
+Required APIs:
+- /v1/compliance/audits
+- /v1/compliance/alerts
+- /v1/compliance/training
+- /v1/compliance/documentation
+- /v1/compliance/reports
+
+Required Semantic Keys (data-cy):
+- compliance-status-overview
+- recent-audits-list
+- compliance-alerts
+- employee-training-status
+- compliance-timeline
+- documentation-repository
+- regulatory-changes-report
+- compliance-performance-indicators
+- compliance-trends-chart

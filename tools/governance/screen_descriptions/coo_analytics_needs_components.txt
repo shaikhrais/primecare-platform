@@ -1,0 +1,50 @@
+Screen Code: coo_analytics
+Screen Name: CooAnalyticsScreen
+
+Required Components:
+- PerformanceMetricCard
+- FinancialDashboard
+- EmployeeEngagementChart
+- OperationalEfficiencyIndicator
+- CustomerFeedbackWidget
+- ComplianceReport
+- ProjectStatusTracker
+- ResourceUtilizationChart
+- StrategicGoalTracker
+- AlertNotification
+
+Required Functions/Handlers:
+- fetchPerformanceMetrics
+- fetchFinancialData
+- fetchEmployeeEngagementScores
+- fetchOperationalIndicators
+- fetchCustomerFeedback
+- fetchComplianceReports
+- fetchProjectStatus
+- fetchResourceUtilization
+- fetchStrategicGoals
+- triggerAlert
+
+Required Buttons:
+- Refresh Data
+- View Detailed Report
+- Export Data
+- Set Alerts
+
+Required APIs:
+- /v1/analytics/performance
+- /v1/analytics/financials
+- /v1/analytics/employee-engagement
+- /v1/analytics/operational-efficiency
+- /v1/analytics/customer-feedback
+- /v1/analytics/compliance
+- /v1/analytics/project-status
+- /v1/analytics/resource-utilization
+- /v1/analytics/strategic-goals
+- /v1/analytics/alerts
+
+Required Semantic Keys (data-cy):
+- coo-dashboard-refresh
+- coo-dashboard-view-report
+- coo-dashboard-export
+- coo-dashboard-set-alerts

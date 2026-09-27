@@ -1,0 +1,29 @@
+Clinical Nurse Specialist Responsibilities:
+1. Conduct patient assessments and evaluations.
+2. Develop and implement care plans.
+3. Provide education and support to patients and families.
+4. Collaborate with healthcare teams to ensure quality care.
+5. Monitor patient progress and adjust care plans as necessary.
+6. Advocate for patients' needs and preferences.
+7. Participate in research and quality improvement initiatives.
+8. Maintain accurate and up-to-date patient records.
+9. Provide training and mentorship to nursing staff.
+
+Red Flags in Operations:
+1. Increased patient complaints or dissatisfaction.
+2. High rates of readmission or complications.
+3. Delays in patient care or treatment.
+4. Inconsistent documentation or record-keeping.
+5. Lack of communication among healthcare team members.
+6. Unusual patterns in patient outcomes or metrics.
+7. Staff burnout or high turnover rates.
+
+Dashboard Needs for Clinical Nurse Specialist:
+1. Patient assessment metrics and outcomes.
+2. Compliance and quality assurance logs.
+3. Real-time updates on patient care plans.
+4. Alerts for red flags or operational issues.
+5. Performance indicators for nursing staff.
+6. Education and training resources for staff.
+7. Patient satisfaction scores and feedback.
+8. Collaboration tools for team communication.

@@ -1,0 +1,812 @@
+package primecare.testing.repositories;
+
+import primecare.testing.database.SQLiteConnectionManager;
+import primecare.testing.models.Models.*;
+
+import java.sql.*;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Repositories {
+
+    // 1. ApplicationRepository
+    public static class ApplicationRepository {
+        public static ApplicationDefinition getApplicationByKey(String key) {
+            String sql = "SELECT * FROM applications WHERE application_key = ? AND active = 1";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, key);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        ApplicationDefinition app = new ApplicationDefinition();
+                        app.applicationId = rs.getInt("application_id");
+                        app.applicationKey = rs.getString("application_key");
+                        app.applicationName = rs.getString("application_name");
+                        app.baseUrl = rs.getString("base_url");
+                        app.apiBaseUrl = rs.getString("api_base_url");
+                        app.environment = rs.getString("environment");
+                        app.active = rs.getInt("active") == 1;
+                        app.createdAt = rs.getString("created_at");
+                        app.updatedAt = rs.getString("updated_at");
+                        return app;
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getApplicationByKey: " + e.getMessage());
+            }
+            return null;
+        }
+    }
+
+    // 2. ScreenRepository
+    public static class ScreenRepository {
+        public static ScreenDefinition getScreenByKey(String key) {
+            String sql = "SELECT * FROM screens WHERE screen_key = ? AND active = 1";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, key);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        return mapScreen(rs);
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getScreenByKey: " + e.getMessage());
+            }
+            return null;
+        }
+
+        public static List<ScreenDefinition> getScreens() {
+            List<ScreenDefinition> list = new ArrayList<>();
+            String sql = "SELECT * FROM screens WHERE active = 1";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+                while (rs.next()) {
+                    list.add(mapScreen(rs));
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getScreens: " + e.getMessage());
+            }
+            return list;
+        }
+
+        public static void updateScreenStatus(int screenId, String implStatus, String verStatus) {
+            String sql = "UPDATE screens SET implementation_status = ?, verification_status = ?, updated_at = ? WHERE screen_id = ?";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, implStatus);
+                pstmt.setString(2, verStatus);
+                pstmt.setString(3, Instant.now().toString());
+                pstmt.setInt(4, screenId);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in updateScreenStatus: " + e.getMessage());
+            }
+        }
+
+        private static ScreenDefinition mapScreen(ResultSet rs) throws SQLException {
+            ScreenDefinition s = new ScreenDefinition();
+            s.screenId = rs.getInt("screen_id");
+            s.applicationId = rs.getInt("application_id");
+            s.screenKey = rs.getString("screen_key");
+            s.screenName = rs.getString("screen_name");
+            s.route = rs.getString("route");
+            s.pageClass = rs.getString("page_class");
+            s.moduleName = rs.getString("module_name");
+            s.requiredRole = rs.getString("required_role");
+            s.implementationStatus = rs.getString("implementation_status");
+            s.verificationStatus = rs.getString("verification_status");
+            s.active = rs.getInt("active") == 1;
+            s.createdAt = rs.getString("created_at");
+            s.updatedAt = rs.getString("updated_at");
+            return s;
+        }
+    }
+
+    // 3. TestingLayerRepository
+    public static class TestingLayerRepository {
+        public static List<TestingLayer> getTestingLayers() {
+            List<TestingLayer> list = new ArrayList<>();
+            String sql = "SELECT * FROM testing_layers WHERE active = 1 ORDER BY layer_order";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+                while (rs.next()) {
+                    TestingLayer layer = new TestingLayer();
+                    layer.layerId = rs.getInt("layer_id");
+                    layer.layerCode = rs.getString("layer_code");
+                    layer.layerName = rs.getString("layer_name");
+                    layer.layerOrder = rs.getInt("layer_order");
+                    layer.description = rs.getString("description");
+                    layer.blocking = rs.getInt("blocking") == 1;
+                    layer.active = rs.getInt("active") == 1;
+                    list.add(layer);
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getTestingLayers: " + e.getMessage());
+            }
+            return list;
+        }
+    }
+
+    // 4. ComponentRepository
+    public static class ComponentRepository {
+        public static List<UiComponentDefinition> getComponentsForScreen(int screenId) {
+            List<UiComponentDefinition> list = new ArrayList<>();
+            String sql = "SELECT * FROM ui_components WHERE screen_id = ? AND active = 1";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, screenId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        UiComponentDefinition c = new UiComponentDefinition();
+                        c.componentId = rs.getInt("component_id");
+                        c.screenId = rs.getInt("screen_id");
+                        c.componentKey = rs.getString("component_key");
+                        c.componentName = rs.getString("component_name");
+                        c.componentType = rs.getString("component_type");
+                        c.locatorStrategy = rs.getString("locator_strategy");
+                        c.locatorValue = rs.getString("locator_value");
+                        c.dataCy = rs.getString("data_cy");
+                        c.required = rs.getInt("required") == 1;
+                        c.visibleRequired = rs.getInt("visible_required") == 1;
+                        c.enabledRequired = rs.getInt("enabled_required") == 1;
+                        c.expectedText = rs.getString("expected_text");
+                        c.parentComponentKey = rs.getString("parent_component_key");
+                        c.metadataJson = rs.getString("metadata_json");
+                        c.active = rs.getInt("active") == 1;
+                        c.createdAt = rs.getString("created_at");
+                        c.updatedAt = rs.getString("updated_at");
+                        list.add(c);
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getComponentsForScreen: " + e.getMessage());
+            }
+            return list;
+        }
+    }
+
+    // 5. FunctionRepository
+    public static class FunctionRepository {
+        public static List<ScreenFunctionDefinition> getFunctionsForScreen(int screenId) {
+            List<ScreenFunctionDefinition> list = new ArrayList<>();
+            String sql = "SELECT * FROM screen_functions WHERE screen_id = ? AND active = 1";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, screenId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        ScreenFunctionDefinition f = new ScreenFunctionDefinition();
+                        f.functionId = rs.getInt("function_id");
+                        f.screenId = rs.getInt("screen_id");
+                        f.functionKey = rs.getString("function_key");
+                        f.functionName = rs.getString("function_name");
+                        f.triggerComponentKey = rs.getString("trigger_component_key");
+                        f.functionType = rs.getString("function_type");
+                        f.expectedResult = rs.getString("expected_result");
+                        f.validationRule = rs.getString("validation_rule");
+                        f.businessRuleKey = rs.getString("business_rule_key");
+                        f.apiEndpointKey = rs.getString("api_endpoint_key");
+                        f.databaseValidationKey = rs.getString("database_validation_key");
+                        f.required = rs.getInt("required") == 1;
+                        f.active = rs.getInt("active") == 1;
+                        f.createdAt = rs.getString("created_at");
+                        f.updatedAt = rs.getString("updated_at");
+                        list.add(f);
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getFunctionsForScreen: " + e.getMessage());
+            }
+            return list;
+        }
+    }
+
+    // 6. BusinessRuleRepository
+    public static class BusinessRuleRepository {
+        public static BusinessRuleDefinition getBusinessRule(String key) {
+            String sql = "SELECT * FROM business_rules WHERE rule_key = ? AND active = 1";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, key);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        BusinessRuleDefinition r = new BusinessRuleDefinition();
+                        r.businessRuleId = rs.getInt("business_rule_id");
+                        r.ruleKey = rs.getString("rule_key");
+                        r.ruleName = rs.getString("rule_name");
+                        r.moduleName = rs.getString("module_name");
+                        r.description = rs.getString("description");
+                        r.inputDefinitionJson = rs.getString("input_definition_json");
+                        r.expectedLogicJson = rs.getString("expected_logic_json");
+                        r.validationExpression = rs.getString("validation_expression");
+                        r.active = rs.getInt("active") == 1;
+                        r.createdAt = rs.getString("created_at");
+                        r.updatedAt = rs.getString("updated_at");
+                        return r;
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getBusinessRule: " + e.getMessage());
+            }
+            return null;
+        }
+    }
+
+    // 7. ApiEndpointRepository
+    public static class ApiEndpointRepository {
+        public static ApiEndpointDefinition getEndpointByKey(String key) {
+            String sql = "SELECT * FROM api_endpoints WHERE endpoint_key = ? AND active = 1";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, key);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        ApiEndpointDefinition ed = new ApiEndpointDefinition();
+                        ed.endpointId = rs.getInt("endpoint_id");
+                        ed.applicationId = rs.getInt("application_id");
+                        ed.endpointKey = rs.getString("endpoint_key");
+                        ed.endpointName = rs.getString("endpoint_name");
+                        ed.httpMethod = rs.getString("http_method");
+                        ed.path = rs.getString("path");
+                        ed.authenticationType = rs.getString("authentication_type");
+                        ed.requestSchemaPath = rs.getString("request_schema_path");
+                        ed.responseSchemaPath = rs.getString("response_schema_path");
+                        ed.expectedStatusCodes = rs.getString("expected_status_codes");
+                        ed.requiredRole = rs.getString("required_role");
+                        ed.operationType = rs.getString("operation_type");
+                        ed.active = rs.getInt("active") == 1;
+                        ed.createdAt = rs.getString("created_at");
+                        ed.updatedAt = rs.getString("updated_at");
+                        return ed;
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getEndpointByKey: " + e.getMessage());
+            }
+            return null;
+        }
+    }
+
+    // 8. ApiTestCaseRepository
+    public static class ApiTestCaseRepository {
+        public static List<ApiTestCaseDefinition> getTestCasesForEndpoint(int endpointId) {
+            List<ApiTestCaseDefinition> list = new ArrayList<>();
+            String sql = "SELECT * FROM api_test_cases WHERE endpoint_id = ? AND active = 1";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, endpointId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        ApiTestCaseDefinition tc = new ApiTestCaseDefinition();
+                        tc.apiTestCaseId = rs.getInt("api_test_case_id");
+                        tc.endpointId = rs.getInt("endpoint_id");
+                        tc.testCaseKey = rs.getString("test_case_key");
+                        tc.testCaseName = rs.getString("test_case_name");
+                        tc.testType = rs.getString("test_type");
+                        tc.requestHeadersJson = rs.getString("request_headers_json");
+                        tc.requestPathParamsJson = rs.getString("request_path_params_json");
+                        tc.requestQueryParamsJson = rs.getString("request_query_params_json");
+                        tc.requestBodyJson = rs.getString("request_body_json");
+                        tc.expectedStatusCode = rs.getInt("expected_status_code");
+                        if (rs.wasNull()) tc.expectedStatusCode = null;
+                        tc.expectedResponseJson = rs.getString("expected_response_json");
+                        tc.expectedSchemaPath = rs.getString("expected_schema_path");
+                        tc.expectedErrorCode = rs.getString("expected_error_code");
+                        tc.required = rs.getInt("required") == 1;
+                        tc.active = rs.getInt("active") == 1;
+                        tc.createdAt = rs.getString("created_at");
+                        tc.updatedAt = rs.getString("updated_at");
+                        list.add(tc);
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getTestCasesForEndpoint: " + e.getMessage());
+            }
+            return list;
+        }
+    }
+
+    // 9. IntegrationRepository
+    public static class IntegrationRepository {
+        public static List<IntegrationMapping> getMappingsForScreen(int screenId) {
+            List<IntegrationMapping> list = new ArrayList<>();
+            String sql = "SELECT * FROM integration_mappings WHERE screen_id = ? AND active = 1";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, screenId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        IntegrationMapping m = new IntegrationMapping();
+                        m.integrationId = rs.getInt("integration_id");
+                        m.screenId = rs.getInt("screen_id");
+                        m.functionId = rs.getInt("function_id");
+                        if (rs.wasNull()) m.functionId = null;
+                        m.componentId = rs.getInt("component_id");
+                        if (rs.wasNull()) m.componentId = null;
+                        m.endpointId = rs.getInt("endpoint_id");
+                        if (rs.wasNull()) m.endpointId = null;
+                        m.requestMappingJson = rs.getString("request_mapping_json");
+                        m.responseMappingJson = rs.getString("response_mapping_json");
+                        m.expectedUiChangeJson = rs.getString("expected_ui_change_json");
+                        m.expectedDatabaseChangeJson = rs.getString("expected_database_change_json");
+                        m.required = rs.getInt("required") == 1;
+                        m.active = rs.getInt("active") == 1;
+                        m.createdAt = rs.getString("created_at");
+                        m.updatedAt = rs.getString("updated_at");
+                        list.add(m);
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getMappingsForScreen: " + e.getMessage());
+            }
+            return list;
+        }
+    }
+
+    // 10. DatabaseValidationRepository
+    public static class DatabaseValidationRepository {
+        public static DatabaseValidationRule getRuleByKey(String key) {
+            String sql = "SELECT * FROM database_validation_rules WHERE validation_key = ? AND active = 1";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, key);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        DatabaseValidationRule r = new DatabaseValidationRule();
+                        r.databaseValidationId = rs.getInt("database_validation_id");
+                        r.validationKey = rs.getString("validation_key");
+                        r.validationName = rs.getString("validation_name");
+                        r.databaseName = rs.getString("database_name");
+                        r.tableName = rs.getString("table_name");
+                        r.validationType = rs.getString("validation_type");
+                        r.setupSql = rs.getString("setup_sql");
+                        r.verificationSql = rs.getString("verification_sql");
+                        r.cleanupSql = rs.getString("cleanup_sql");
+                        r.expectedResultJson = rs.getString("expected_result_json");
+                        r.parametersJson = rs.getString("parameters_json");
+                        r.active = rs.getInt("active") == 1;
+                        r.createdAt = rs.getString("created_at");
+                        r.updatedAt = rs.getString("updated_at");
+                        return r;
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getRuleByKey: " + e.getMessage());
+            }
+            return null;
+        }
+    }
+
+    // 11. RoleRepository
+    public static class RoleRepository {
+        public static RoleDefinition getRoleByKey(String key) {
+            String sql = "SELECT * FROM roles WHERE role_key = ? AND active = 1";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, key);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        RoleDefinition rd = new RoleDefinition();
+                        rd.roleId = rs.getInt("role_id");
+                        rd.roleKey = rs.getString("role_key");
+                        rd.roleName = rs.getString("role_name");
+                        rd.description = rs.getString("description");
+                        rd.active = rs.getInt("active") == 1;
+                        rd.createdAt = rs.getString("created_at");
+                        rd.updatedAt = rs.getString("updated_at");
+                        return rd;
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getRoleByKey: " + e.getMessage());
+            }
+            return null;
+        }
+    }
+
+    // 12. PermissionRepository
+    public static class PermissionRepository {
+        public static boolean isAllowed(String roleKey, String permissionKey) {
+            String sql = "SELECT rp.allowed FROM role_permissions rp " +
+                         "JOIN roles r ON r.role_id = rp.role_id " +
+                         "JOIN permissions p ON p.permission_id = rp.permission_id " +
+                         "WHERE r.role_key = ? AND p.permission_key = ? AND r.active = 1 AND p.active = 1";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, roleKey);
+                pstmt.setString(2, permissionKey);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt(1) == 1;
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in isAllowed: " + e.getMessage());
+            }
+            return false;
+        }
+    }
+
+    // 13. WorkflowRepository
+    public static class WorkflowRepository {
+        public static WorkflowDefinition getWorkflowByKey(String key) {
+            String sql = "SELECT * FROM workflows WHERE workflow_key = ? AND active = 1";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, key);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        WorkflowDefinition w = new WorkflowDefinition();
+                        w.workflowId = rs.getInt("workflow_id");
+                        w.workflowKey = rs.getString("workflow_key");
+                        w.workflowName = rs.getString("workflow_name");
+                        w.moduleName = rs.getString("module_name");
+                        w.description = rs.getString("description");
+                        w.requiredRole = rs.getString("required_role");
+                        w.active = rs.getInt("active") == 1;
+                        w.createdAt = rs.getString("created_at");
+                        w.updatedAt = rs.getString("updated_at");
+                        return w;
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getWorkflowByKey: " + e.getMessage());
+            }
+            return null;
+        }
+
+        public static List<WorkflowStepDefinition> getWorkflowSteps(int workflowId) {
+            List<WorkflowStepDefinition> list = new ArrayList<>();
+            String sql = "SELECT * FROM workflow_steps WHERE workflow_id = ? ORDER BY step_order";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, workflowId);
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    while (rs.next()) {
+                        WorkflowStepDefinition ws = new WorkflowStepDefinition();
+                        ws.workflowStepId = rs.getInt("workflow_step_id");
+                        ws.workflowId = rs.getInt("workflow_id");
+                        ws.stepOrder = rs.getInt("step_order");
+                        ws.stepKey = rs.getString("step_key");
+                        ws.screenKey = rs.getString("screen_key");
+                        ws.functionKey = rs.getString("function_key");
+                        ws.endpointKey = rs.getString("endpoint_key");
+                        ws.actionType = rs.getString("action_type");
+                        ws.actionConfigurationJson = rs.getString("action_configuration_json");
+                        ws.expectedResultJson = rs.getString("expected_result_json");
+                        ws.continueOnFailure = rs.getInt("continue_on_failure") == 1;
+                        ws.createdAt = rs.getString("created_at");
+                        ws.updatedAt = rs.getString("updated_at");
+                        list.add(ws);
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in getWorkflowSteps: " + e.getMessage());
+            }
+            return list;
+        }
+    }
+
+    // 14. ExecutionRepository
+    public static class ExecutionRepository {
+        public static void insertExecution(TestExecution exec) {
+            String sql = "INSERT INTO test_executions (execution_uuid, suite_name, environment, application_id, started_at, status, triggered_by, git_branch, git_commit, java_version, browser_name, browser_version, operating_system) " +
+                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                pstmt.setString(1, exec.executionUuid);
+                pstmt.setString(2, exec.suiteName);
+                pstmt.setString(3, exec.environment);
+                if (exec.applicationId != null) pstmt.setInt(4, exec.applicationId);
+                else pstmt.setNull(4, Types.INTEGER);
+                pstmt.setString(5, exec.startedAt);
+                pstmt.setString(6, exec.status);
+                pstmt.setString(7, exec.triggeredBy);
+                pstmt.setString(8, exec.gitBranch);
+                pstmt.setString(9, exec.gitCommit);
+                pstmt.setString(10, exec.javaVersion);
+                pstmt.setString(11, exec.browserName);
+                pstmt.setString(12, exec.browserVersion);
+                pstmt.setString(13, exec.operatingSystem);
+                pstmt.executeUpdate();
+
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        exec.executionId = generatedKeys.getInt(1);
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in insertExecution: " + e.getMessage());
+            }
+        }
+
+        public static void updateExecution(TestExecution exec) {
+            String sql = "UPDATE test_executions SET completed_at = ?, status = ?, total_tests = ?, passed_tests = ?, failed_tests = ?, skipped_tests = ? WHERE execution_id = ?";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, exec.completedAt);
+                pstmt.setString(2, exec.status);
+                pstmt.setInt(3, exec.totalTests);
+                pstmt.setInt(4, exec.passedTests);
+                pstmt.setInt(5, exec.failedTests);
+                pstmt.setInt(6, exec.skippedTests);
+                pstmt.setInt(7, exec.executionId);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in updateExecution: " + e.getMessage());
+            }
+        }
+    }
+
+    // 15. TestResultRepository
+    public static class TestResultRepository {
+        public static void insertResult(TestResult res) {
+            String sql = "INSERT INTO test_results (execution_id, layer_id, screen_id, endpoint_id, workflow_id, test_class, test_method, test_case_key, status, started_at, completed_at, duration_ms, expected_result, actual_result, error_type, error_message, stack_trace, retry_count, blocked_by_result_id, created_at) " +
+                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                pstmt.setInt(1, res.executionId);
+                pstmt.setInt(2, res.layerId);
+                if (res.screenId != null) pstmt.setInt(3, res.screenId);
+                else pstmt.setNull(3, Types.INTEGER);
+                if (res.endpointId != null) pstmt.setInt(4, res.endpointId);
+                else pstmt.setNull(4, Types.INTEGER);
+                if (res.workflowId != null) pstmt.setInt(5, res.workflowId);
+                else pstmt.setNull(5, Types.INTEGER);
+                pstmt.setString(6, res.testClass);
+                pstmt.setString(7, res.testMethod);
+                pstmt.setString(8, res.testCaseKey);
+                pstmt.setString(9, res.status);
+                pstmt.setString(10, res.startedAt);
+                pstmt.setString(11, res.completedAt);
+                pstmt.setInt(12, res.durationMs);
+                pstmt.setString(13, res.expectedResult);
+                pstmt.setString(14, res.actualResult);
+                pstmt.setString(15, res.errorType);
+                pstmt.setString(16, res.errorMessage);
+                pstmt.setString(17, res.stackTrace);
+                pstmt.setInt(18, res.retryCount);
+                if (res.blockedByResultId != null) pstmt.setInt(19, res.blockedByResultId);
+                else pstmt.setNull(19, Types.INTEGER);
+                pstmt.setString(20, Instant.now().toString());
+                pstmt.executeUpdate();
+
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        res.resultId = generatedKeys.getInt(1);
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in insertResult: " + e.getMessage());
+            }
+        }
+    }
+
+    // 16. EvidenceRepository
+    public static class EvidenceRepository {
+        public static void insertEvidence(TestEvidence ev) {
+            String sql = "INSERT INTO test_evidence (result_id, evidence_type, evidence_name, file_path, content_text, content_json, checksum, created_at) " +
+                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, ev.resultId);
+                pstmt.setString(2, ev.evidenceType);
+                pstmt.setString(3, ev.evidenceName);
+                pstmt.setString(4, ev.filePath);
+                pstmt.setString(5, ev.contentText);
+                pstmt.setString(6, ev.contentJson);
+                pstmt.setString(7, ev.checksum);
+                pstmt.setString(8, Instant.now().toString());
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in insertEvidence: " + e.getMessage());
+            }
+        }
+    }
+
+    // 17. DefectRepository
+    public static class DefectRepository {
+        public static boolean hasOpenDefectFor(int layerId, Integer screenId, Integer endpointId, Integer workflowId, String testCaseKey, String errorType) {
+            String sql = "SELECT COUNT(*) FROM defects WHERE layer_id = ? AND status = 'OPEN' " +
+                         "AND (screen_id = ? OR (? IS NULL AND screen_id IS NULL)) " +
+                         "AND (endpoint_id = ? OR (? IS NULL AND endpoint_id IS NULL)) " +
+                         "AND (workflow_id = ? OR (? IS NULL AND workflow_id IS NULL)) " +
+                         "AND (defect_key = ?)";
+            
+            // Defect key template: layer + screen/endpoint/workflow + test_case_key + error_type
+            String ref = screenId != null ? "screen_" + screenId : (endpointId != null ? "endpoint_" + endpointId : "workflow_" + workflowId);
+            String defectKey = "DEF_" + layerId + "_" + ref + "_" + testCaseKey + "_" + errorType;
+
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, layerId);
+                if (screenId != null) {
+                    pstmt.setInt(2, screenId);
+                    pstmt.setInt(3, screenId);
+                } else {
+                    pstmt.setNull(2, Types.INTEGER);
+                    pstmt.setNull(3, Types.INTEGER);
+                }
+                if (endpointId != null) {
+                    pstmt.setInt(4, endpointId);
+                    pstmt.setInt(5, endpointId);
+                } else {
+                    pstmt.setNull(4, Types.INTEGER);
+                    pstmt.setNull(5, Types.INTEGER);
+                }
+                if (workflowId != null) {
+                    pstmt.setInt(6, workflowId);
+                    pstmt.setInt(7, workflowId);
+                } else {
+                    pstmt.setNull(6, Types.INTEGER);
+                    pstmt.setNull(7, Types.INTEGER);
+                }
+                pstmt.setString(8, defectKey);
+
+                try (ResultSet rs = pstmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt(1) > 0;
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in hasOpenDefectFor: " + e.getMessage());
+            }
+            return false;
+        }
+
+        public static void insertDefect(Defect df) {
+            String sql = "INSERT INTO defects (defect_key, result_id, layer_id, screen_id, endpoint_id, workflow_id, severity, title, description, reproduction_steps, expected_result, actual_result, status, assigned_to, created_at, updated_at) " +
+                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, df.defectKey);
+                if (df.resultId != null) pstmt.setInt(2, df.resultId);
+                else pstmt.setNull(2, Types.INTEGER);
+                pstmt.setInt(3, df.layerId);
+                if (df.screenId != null) pstmt.setInt(4, df.screenId);
+                else pstmt.setNull(4, Types.INTEGER);
+                if (df.endpointId != null) pstmt.setInt(5, df.endpointId);
+                else pstmt.setNull(5, Types.INTEGER);
+                if (df.workflowId != null) pstmt.setInt(6, df.workflowId);
+                else pstmt.setNull(6, Types.INTEGER);
+                pstmt.setString(7, df.severity);
+                pstmt.setString(8, df.title);
+                pstmt.setString(9, df.description);
+                pstmt.setString(10, df.reproductionSteps);
+                pstmt.setString(11, df.expectedResult);
+                pstmt.setString(12, df.actualResult);
+                pstmt.setString(13, df.status);
+                pstmt.setString(14, df.assignedTo);
+                pstmt.setString(15, Instant.now().toString());
+                pstmt.setString(16, Instant.now().toString());
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in insertDefect: " + e.getMessage());
+            }
+        }
+    }
+
+    // 18. VerificationRepository
+    public static class VerificationRepository {
+        public static void insertOrUpdateSummary(VerificationSummary sum) {
+            String checkSql = "SELECT verification_id FROM verification_summary WHERE application_id = ? AND layer_id = ? " +
+                              "AND (screen_id = ? OR (? IS NULL AND screen_id IS NULL)) " +
+                              "AND (endpoint_id = ? OR (? IS NULL AND endpoint_id IS NULL)) " +
+                              "AND (workflow_id = ? OR (? IS NULL AND workflow_id IS NULL))";
+            
+            String insertSql = "INSERT INTO verification_summary (application_id, screen_id, endpoint_id, workflow_id, layer_id, latest_result_id, status, required_test_count, passed_test_count, failed_test_count, blocked_test_count, coverage_percent, last_verified_at, updated_at) " +
+                               "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            String updateSql = "UPDATE verification_summary SET latest_result_id = ?, status = ?, required_test_count = ?, passed_test_count = ?, failed_test_count = ?, blocked_test_count = ?, coverage_percent = ?, last_verified_at = ?, updated_at = ? WHERE verification_id = ?";
+
+            try (Connection conn = SQLiteConnectionManager.getConnection()) {
+                Integer existingId = null;
+                try (PreparedStatement pstmt = conn.prepareStatement(checkSql)) {
+                    pstmt.setInt(1, sum.applicationId);
+                    pstmt.setInt(2, sum.layerId);
+                    if (sum.screenId != null) {
+                        pstmt.setInt(3, sum.screenId);
+                        pstmt.setInt(4, sum.screenId);
+                    } else {
+                        pstmt.setNull(3, Types.INTEGER);
+                        pstmt.setNull(4, Types.INTEGER);
+                    }
+                    if (sum.endpointId != null) {
+                        pstmt.setInt(5, sum.endpointId);
+                        pstmt.setInt(6, sum.endpointId);
+                    } else {
+                        pstmt.setNull(5, Types.INTEGER);
+                        pstmt.setNull(6, Types.INTEGER);
+                    }
+                    if (sum.workflowId != null) {
+                        pstmt.setInt(7, sum.workflowId);
+                        pstmt.setInt(8, sum.workflowId);
+                    } else {
+                        pstmt.setNull(7, Types.INTEGER);
+                        pstmt.setNull(8, Types.INTEGER);
+                    }
+
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        if (rs.next()) {
+                            existingId = rs.getInt(1);
+                        }
+                    }
+                }
+
+                if (existingId == null) {
+                    try (PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
+                        pstmt.setInt(1, sum.applicationId);
+                        if (sum.screenId != null) pstmt.setInt(2, sum.screenId);
+                        else pstmt.setNull(2, Types.INTEGER);
+                        if (sum.endpointId != null) pstmt.setInt(3, sum.endpointId);
+                        else pstmt.setNull(3, Types.INTEGER);
+                        if (sum.workflowId != null) pstmt.setInt(4, sum.workflowId);
+                        else pstmt.setNull(4, Types.INTEGER);
+                        pstmt.setInt(5, sum.layerId);
+                        if (sum.latestResultId != null) pstmt.setInt(6, sum.latestResultId);
+                        else pstmt.setNull(6, Types.INTEGER);
+                        pstmt.setString(7, sum.status);
+                        pstmt.setInt(8, sum.requiredTestCount);
+                        pstmt.setInt(9, sum.passedTestCount);
+                        pstmt.setInt(10, sum.failedTestCount);
+                        pstmt.setInt(11, sum.blockedTestCount);
+                        pstmt.setDouble(12, sum.coveragePercent);
+                        pstmt.setString(13, sum.lastVerifiedAt);
+                        pstmt.setString(14, Instant.now().toString());
+                        pstmt.executeUpdate();
+                    }
+                } else {
+                    try (PreparedStatement pstmt = conn.prepareStatement(updateSql)) {
+                        if (sum.latestResultId != null) pstmt.setInt(1, sum.latestResultId);
+                        else pstmt.setNull(1, Types.INTEGER);
+                        pstmt.setString(2, sum.status);
+                        pstmt.setInt(3, sum.requiredTestCount);
+                        pstmt.setInt(4, sum.passedTestCount);
+                        pstmt.setInt(5, sum.failedTestCount);
+                        pstmt.setInt(6, sum.blockedTestCount);
+                        pstmt.setDouble(7, sum.coveragePercent);
+                        pstmt.setString(8, sum.lastVerifiedAt);
+                        pstmt.setString(9, Instant.now().toString());
+                        pstmt.setInt(10, existingId);
+                        pstmt.executeUpdate();
+                    }
+                }
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in insertOrUpdateSummary: " + e.getMessage());
+            }
+        }
+    }
+
+    // 19. CertificationRepository
+    public static class CertificationRepository {
+        public static void insertCertification(CertificationRecord cert) {
+            String sql = "INSERT INTO certification_records (application_id, screen_id, endpoint_id, workflow_id, certification_status, certified_execution_id, certified_at, certification_notes, layer_summary_json, open_defect_count, evidence_complete) " +
+                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            try (Connection conn = SQLiteConnectionManager.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, cert.applicationId);
+                if (cert.screenId != null) pstmt.setInt(2, cert.screenId);
+                else pstmt.setNull(2, Types.INTEGER);
+                if (cert.endpointId != null) pstmt.setInt(3, cert.endpointId);
+                else pstmt.setNull(3, Types.INTEGER);
+                if (cert.workflowId != null) pstmt.setInt(4, cert.workflowId);
+                else pstmt.setNull(4, Types.INTEGER);
+                pstmt.setString(5, cert.certificationStatus);
+                if (cert.certifiedExecutionId != null) pstmt.setInt(6, cert.certifiedExecutionId);
+                else pstmt.setNull(6, Types.INTEGER);
+                pstmt.setString(7, cert.certifiedAt);
+                pstmt.setString(8, cert.certificationNotes);
+                pstmt.setString(9, cert.layerSummaryJson);
+                pstmt.setInt(10, cert.openDefectCount);
+                pstmt.setInt(11, cert.evidenceComplete ? 1 : 0);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                System.err.println("[DB] Error in insertCertification: " + e.getMessage());
+            }
+        }
+    }
+}

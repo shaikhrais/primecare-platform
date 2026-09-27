@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrimeCare Role Navigator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #090d16;
+            --surface: #101625;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.15);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-sec: #94a3b8;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-hover: rgba(255, 255, 255, 0.05);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg-dark); color: var(--text-main); padding: 3rem; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem; }
+        .header i { font-size: 2.5rem; color: var(--accent); }
+        .header h1 { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.03em; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+        .stat-card { background: var(--surface); border: 1px solid var(--border); padding: 1.5rem; border-radius: 0.75rem; }
+        .stat-card .label { font-size: 0.85rem; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.05em; }
+        .stat-card .val { font-size: 2.5rem; font-weight: 700; margin-top: 0.5rem; }
+        
+        .search-section { margin-bottom: 2rem; }
+        .search-box { width: 100%; padding: 1rem 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 0.5rem; color: white; font-family: inherit; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+        .search-box:focus { border-color: var(--accent); }
+        
+        .roles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+        .role-card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; transition: all 0.2s ease; cursor: pointer; text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: space-between; }
+        .role-card:hover { transform: translateY(-2px); border-color: var(--accent); background: var(--card-hover); }
+        .role-card h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .role-card .meta { font-size: 0.75rem; color: var(--text-sec); margin-bottom: 1.5rem; text-transform: uppercase; }
+        .role-card .footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-sec); border-top: 1px solid var(--border); padding-top: 1rem; }
+        .role-card .screen-count { background: var(--accent-glow); color: var(--accent); font-weight: 600; padding: 0.25rem 0.5rem; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <i class="bi bi-shield-check"></i>
+            <div>
+                <h1>PrimeCare Screen Simulator</h1>
+                <p style="color: var(--text-sec); margin-top: 0.25rem;">Select a role to inspect navigation and screen previews from the database.</p>
+            </div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card"><div class="label">Total Apps</div><div class="val">35</div></div>
+            <div class="stat-card"><div class="label">Total Roles</div><div class="val">64</div></div>
+            <div class="stat-card"><div class="label">Total Screens</div><div class="val">948</div></div>
+        </div>
+        
+        <div class="search-section">
+            <input type="text" id="search" class="search-box" placeholder="Search roles by name or code...">
+        </div>
+        
+        <div class="roles-grid" id="roles-grid">
+            
+        <a class="role-card" href="roles/chiropractor/index.html" data-name="Chiropractor" data-code="chiropractor">
+            <div>
+                <h3>Chiropractor</h3>
+                <div class="meta">CHIROPRACTOR • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">16</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/physio/index.html" data-name="Physiotherapist" data-code="physio">
+            <div>
+                <h3>Physiotherapist</h3>
+                <div class="meta">PHYSIO • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">15</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/rmt/index.html" data-name="Registered Massage Therapist (RMT)" data-code="rmt">
+            <div>
+                <h3>Registered Massage Therapist (RMT)</h3>
+                <div class="meta">RMT • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">15</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/social_worker/index.html" data-name="Social Worker" data-code="social_worker">
+            <div>
+                <h3>Social Worker</h3>
+                <div class="meta">SOCIAL_WORKER • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/therapist/index.html" data-name="Therapist" data-code="therapist">
+            <div>
+                <h3>Therapist</h3>
+                <div class="meta">THERAPIST • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">3</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/clinical_director/index.html" data-name="Clinical Director" data-code="clinical_director">
+            <div>
+                <h3>Clinical Director</h3>
+                <div class="meta">CLINICAL_DIRECTOR • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">20</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/intake/index.html" data-name="Intake Coordinator" data-code="intake">
+            <div>
+                <h3>Intake Coordinator</h3>
+                <div class="meta">INTAKE • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">12</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/rn/index.html" data-name="Registered Nurse (RN)" data-code="rn">
+            <div>
+                <h3>Registered Nurse (RN)</h3>
+                <div class="meta">RN • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">18</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/physician/index.html" data-name="Physician" data-code="physician">
+            <div>
+                <h3>Physician</h3>
+                <div class="meta">PHYSICIAN • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">3</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/cns/index.html" data-name="Clinical Nurse Specialist" data-code="cns">
+            <div>
+                <h3>Clinical Nurse Specialist</h3>
+                <div class="meta">CNS • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">3</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/pediatric/index.html" data-name="Pediatric Specialist" data-code="pediatric">
+            <div>
+                <h3>Pediatric Specialist</h3>
+                <div class="meta">PEDIATRIC • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">3</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/caregiver/index.html" data-name="Caregiver" data-code="caregiver">
+            <div>
+                <h3>Caregiver</h3>
+                <div class="meta">CAREGIVER • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">8</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/guest/index.html" data-name="Guest" data-code="guest">
+            <div>
+                <h3>Guest</h3>
+                <div class="meta">GUEST • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">434</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/portal/index.html" data-name="Portal User" data-code="portal">
+            <div>
+                <h3>Portal User</h3>
+                <div class="meta">PORTAL • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/patient/index.html" data-name="Patient" data-code="patient">
+            <div>
+                <h3>Patient</h3>
+                <div class="meta">PATIENT • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">16</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/dynamic/index.html" data-name="Dynamic Screen Viewer" data-code="dynamic">
+            <div>
+                <h3>Dynamic Screen Viewer</h3>
+                <div class="meta">DYNAMIC • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">6</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/infrastructure/index.html" data-name="Infrastructure Auditor" data-code="infrastructure">
+            <div>
+                <h3>Infrastructure Auditor</h3>
+                <div class="meta">INFRASTRUCTURE • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">7</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/system_verification/index.html" data-name="System Verification Officer" data-code="system_verification">
+            <div>
+                <h3>System Verification Officer</h3>
+                <div class="meta">SYSTEM_VERIFICATION • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">9</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/training/index.html" data-name="Training Candidate" data-code="training">
+            <div>
+                <h3>Training Candidate</h3>
+                <div class="meta">TRAINING • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">12</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/ceo/index.html" data-name="Chief Executive Officer (CEO)" data-code="ceo">
+            <div>
+                <h3>Chief Executive Officer (CEO)</h3>
+                <div class="meta">CEO • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">6</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/cfo/index.html" data-name="Chief Financial Officer (CFO)" data-code="cfo">
+            <div>
+                <h3>Chief Financial Officer (CFO)</h3>
+                <div class="meta">CFO • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">17</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/ciso/index.html" data-name="Chief Information Security Officer (CISO)" data-code="ciso">
+            <div>
+                <h3>Chief Information Security Officer (CISO)</h3>
+                <div class="meta">CISO • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/coo/index.html" data-name="Chief Operating Officer (COO)" data-code="coo">
+            <div>
+                <h3>Chief Operating Officer (COO)</h3>
+                <div class="meta">COO • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">15</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/cto/index.html" data-name="Chief Technology Officer (CTO)" data-code="cto">
+            <div>
+                <h3>Chief Technology Officer (CTO)</h3>
+                <div class="meta">CTO • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">10</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/cx_director/index.html" data-name="CX Director" data-code="cx_director">
+            <div>
+                <h3>CX Director</h3>
+                <div class="meta">CX_DIRECTOR • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/finance_director/index.html" data-name="Finance Director" data-code="finance_director">
+            <div>
+                <h3>Finance Director</h3>
+                <div class="meta">FINANCE_DIRECTOR • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/hr_director/index.html" data-name="HR Director" data-code="hr_director">
+            <div>
+                <h3>HR Director</h3>
+                <div class="meta">HR_DIRECTOR • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">18</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/legal/index.html" data-name="Legal Counsel" data-code="legal">
+            <div>
+                <h3>Legal Counsel</h3>
+                <div class="meta">LEGAL • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/owner/index.html" data-name="Franchise Owner" data-code="owner">
+            <div>
+                <h3>Franchise Owner</h3>
+                <div class="meta">OWNER • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">25</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/shareholder/index.html" data-name="Shareholder" data-code="shareholder">
+            <div>
+                <h3>Shareholder</h3>
+                <div class="meta">SHAREHOLDER • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/training_director/index.html" data-name="Training Director" data-code="training_director">
+            <div>
+                <h3>Training Director</h3>
+                <div class="meta">TRAINING_DIRECTOR • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">5</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/community_outreach/index.html" data-name="Community Outreach Lead" data-code="community_outreach">
+            <div>
+                <h3>Community Outreach Lead</h3>
+                <div class="meta">COMMUNITY_OUTREACH • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/compliance/index.html" data-name="Compliance Manager" data-code="compliance">
+            <div>
+                <h3>Compliance Manager</h3>
+                <div class="meta">COMPLIANCE • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">9</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/franchise_sales/index.html" data-name="Franchise Sales Manager" data-code="franchise_sales">
+            <div>
+                <h3>Franchise Sales Manager</h3>
+                <div class="meta">FRANCHISE_SALES • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">3</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/gm/index.html" data-name="General Manager" data-code="gm">
+            <div>
+                <h3>General Manager</h3>
+                <div class="meta">GM • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/governance/index.html" data-name="Governance Officer" data-code="governance">
+            <div>
+                <h3>Governance Officer</h3>
+                <div class="meta">GOVERNANCE • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">18</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/bus_dev/index.html" data-name="Head of Business Development" data-code="bus_dev">
+            <div>
+                <h3>Head of Business Development</h3>
+                <div class="meta">BUS_DEV • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">12</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/marketing/index.html" data-name="Head of Marketing" data-code="marketing">
+            <div>
+                <h3>Head of Marketing</h3>
+                <div class="meta">MARKETING • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">8</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/local_marketing/index.html" data-name="Local Marketing Manager" data-code="local_marketing">
+            <div>
+                <h3>Local Marketing Manager</h3>
+                <div class="meta">LOCAL_MARKETING • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/ops_manager/index.html" data-name="Operations Manager" data-code="ops_manager">
+            <div>
+                <h3>Operations Manager</h3>
+                <div class="meta">OPS_MANAGER • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">8</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/partnership/index.html" data-name="Partnership Manager" data-code="partnership">
+            <div>
+                <h3>Partnership Manager</h3>
+                <div class="meta">PARTNERSHIP • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/regional_bdm/index.html" data-name="Regional BDM" data-code="regional_bdm">
+            <div>
+                <h3>Regional BDM</h3>
+                <div class="meta">REGIONAL_BDM • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/regional_manager_usa/index.html" data-name="Regional Manager USA" data-code="regional_manager_usa">
+            <div>
+                <h3>Regional Manager USA</h3>
+                <div class="meta">REGIONAL_MANAGER_USA • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/scrum_master/index.html" data-name="Scrum Master" data-code="scrum_master">
+            <div>
+                <h3>Scrum Master</h3>
+                <div class="meta">SCRUM_MASTER • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/hr_hiring/index.html" data-name="Talent Acquisition Manager" data-code="hr_hiring">
+            <div>
+                <h3>Talent Acquisition Manager</h3>
+                <div class="meta">HR_HIRING • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">13</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/territory_expansion/index.html" data-name="Territory Expansion Manager" data-code="territory_expansion">
+            <div>
+                <h3>Territory Expansion Manager</h3>
+                <div class="meta">TERRITORY_EXPANSION • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/territory_sales/index.html" data-name="Territory Sales Manager" data-code="territory_sales">
+            <div>
+                <h3>Territory Sales Manager</h3>
+                <div class="meta">TERRITORY_SALES • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/volunteer_coordinator/index.html" data-name="Volunteer Coordinator" data-code="volunteer_coordinator">
+            <div>
+                <h3>Volunteer Coordinator</h3>
+                <div class="meta">VOLUNTEER_COORDINATOR • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">7</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/premium_concierge/index.html" data-name="Premium Concierge Care Coordinator" data-code="premium_concierge">
+            <div>
+                <h3>Premium Concierge Care Coordinator</h3>
+                <div class="meta">PREMIUM_CONCIERGE • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">3</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/vip_manager/index.html" data-name="VIP Client Manager" data-code="vip_manager">
+            <div>
+                <h3>VIP Client Manager</h3>
+                <div class="meta">VIP_MANAGER • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">3</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/psw/index.html" data-name="Personal Support Worker (PSW)" data-code="psw">
+            <div>
+                <h3>Personal Support Worker (PSW)</h3>
+                <div class="meta">PSW • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">18</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/hsw/index.html" data-name="Home Support Worker" data-code="hsw">
+            <div>
+                <h3>Home Support Worker</h3>
+                <div class="meta">HSW • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">5</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/rn_field_supervisor/index.html" data-name="Registered Nurse (RN) Field Supervisor" data-code="rn_field_supervisor">
+            <div>
+                <h3>Registered Nurse (RN) Field Supervisor</h3>
+                <div class="meta">RN_FIELD_SUPERVISOR • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">3</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/np/index.html" data-name="Nurse Practitioner (NP)" data-code="np">
+            <div>
+                <h3>Nurse Practitioner (NP)</h3>
+                <div class="meta">NP • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">3</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/rpn/index.html" data-name="Registered Practical Nurse (RPN)" data-code="rpn">
+            <div>
+                <h3>Registered Practical Nurse (RPN)</h3>
+                <div class="meta">RPN • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">16</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/lpn/index.html" data-name="Licensed Practical Nurse (LPN)" data-code="lpn">
+            <div>
+                <h3>Licensed Practical Nurse (LPN)</h3>
+                <div class="meta">LPN • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">3</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/employee/index.html" data-name="Employee" data-code="employee">
+            <div>
+                <h3>Employee</h3>
+                <div class="meta">EMPLOYEE • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">3</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/volunteer/index.html" data-name="Volunteer" data-code="volunteer">
+            <div>
+                <h3>Volunteer</h3>
+                <div class="meta">VOLUNTEER • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/admin/index.html" data-name="Administrative Assistant" data-code="admin">
+            <div>
+                <h3>Administrative Assistant</h3>
+                <div class="meta">ADMIN • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">16</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/scheduler/index.html" data-name="Shift Supervisor" data-code="scheduler">
+            <div>
+                <h3>Shift Supervisor</h3>
+                <div class="meta">SCHEDULER • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">19</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/customer_support/index.html" data-name="Customer Support" data-code="customer_support">
+            <div>
+                <h3>Customer Support</h3>
+                <div class="meta">CUSTOMER_SUPPORT • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">10</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/training_coordinator/index.html" data-name="Training Coordinator" data-code="training_coordinator">
+            <div>
+                <h3>Training Coordinator</h3>
+                <div class="meta">TRAINING_COORDINATOR • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">4</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/qa_specialist/index.html" data-name="QA Specialist" data-code="qa_specialist">
+            <div>
+                <h3>QA Specialist</h3>
+                <div class="meta">QA_SPECIALIST • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">10</span>
+            </div>
+        </a>
+        
+
+        <a class="role-card" href="roles/family/index.html" data-name="Family Member" data-code="family">
+            <div>
+                <h3>Family Member</h3>
+                <div class="meta">FAMILY • staff</div>
+            </div>
+            <div class="footer">
+                <span>Assigned Screens</span>
+                <span class="screen-count">7</span>
+            </div>
+        </a>
+        
+        </div>
+    </div>
+    
+    <script>
+        const searchInput = document.getElementById('search');
+        const cards = document.querySelectorAll('.role-card');
+        
+        searchInput.addEventListener('input', (e) => {
+            const filter = e.target.value.toLowerCase();
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name').toLowerCase();
+                const code = card.getAttribute('data-code').toLowerCase();
+                if (name.includes(filter) || code.includes(filter)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    

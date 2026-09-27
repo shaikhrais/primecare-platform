@@ -1,0 +1,25 @@
+User Work List:
+1. Conduct community health needs assessments.
+2. Collect and analyze health data from various sources.
+3. Engage with community stakeholders for input and feedback.
+4. Identify health disparities and priority health issues.
+5. Develop action plans based on assessment findings.
+6. Monitor and evaluate the effectiveness of health interventions.
+7. Report findings to relevant health authorities and stakeholders.
+
+Red Flags of Operation:
+1. Lack of stakeholder engagement leading to incomplete assessments.
+2. Insufficient data collection methods resulting in unreliable data.
+3. Ignoring community feedback which may lead to ineffective solutions.
+4. Failure to identify and address health disparities.
+5. Inadequate monitoring of implemented health interventions.
+6. Poor communication of findings to stakeholders.
+
+Dashboard Needs:
+1. Overview of assessment progress and timelines.
+2. Data visualization of health metrics and disparities.
+3. Stakeholder engagement metrics (e.g., number of participants).
+4. Action plan tracking and status updates.
+5. Feedback collection mechanism from community members.
+6. Reports on the effectiveness of health interventions.
+7. Alerts for any identified red flags in the assessment process.

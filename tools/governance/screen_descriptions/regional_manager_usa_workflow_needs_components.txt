@@ -1,0 +1,43 @@
+Screen Code: regional_manager_usa_workflow
+Screen Name: RegionalManagerUsaWorkflowScreen
+
+Required Components:
+- PerformanceMetricCard
+- EmployeeSatisfactionChart
+- CustomerFeedbackTracker
+- BudgetPerformanceIndicator
+- ProjectStatusTimeline
+- CollaborationTool
+- TrainingProgressTracker
+- ComplianceReport
+- AlertsDashboard
+
+Required Functions/Handlers:
+- generateReport
+- scheduleMeeting
+- allocateResources
+- provideTraining
+- addressFeedback
+
+Required Buttons:
+- Generate Report
+- Schedule Meeting
+- Allocate Resources
+- Provide Training
+- Address Feedback
+
+Required APIs:
+- /v1/operations/performance
+- /v1/employees/satisfaction
+- /v1/customers/feedback
+- /v1/budget/performance
+- /v1/projects/status
+- /v1/training/progress
+- /v1/compliance/status
+
+Required Semantic Keys (data-cy):
+- dashboard-btn-generate-report
+- dashboard-btn-schedule-meeting
+- dashboard-btn-allocate-resources
+- dashboard-btn-provide-training
+- dashboard-btn-address-feedback

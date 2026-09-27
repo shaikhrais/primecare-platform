@@ -1,0 +1,19 @@
+User Tasks:
+1. Monitor compliance risks and register them in the system.
+2. Review and update existing risk entries as necessary.
+3. Generate reports on compliance status and risk assessments.
+4. Collaborate with team members to address compliance issues.
+5. Ensure timely communication of compliance updates to stakeholders.
+
+Red Flags of Operation:
+1. Delays in updating risk entries may indicate a lack of engagement or awareness.
+2. Frequent errors or issues reported during data loading may suggest underlying technical problems.
+3. Low user interaction with the dashboard could indicate usability issues or lack of necessary features.
+4. High turnover of compliance-related tasks may signal inefficiencies in processes or resource allocation.
+
+Dashboard Requirements:
+1. Overview of current compliance risks with status indicators (e.g., open, resolved).
+2. Visual representation of risk trends over time (graphs/charts).
+3. Notifications for pending updates or actions required on compliance risks.
+4. Access to historical data for analysis and reporting purposes.
+5. User activity logs to track engagement and identify areas for improvement.

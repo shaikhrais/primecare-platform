@@ -1,0 +1,18 @@
+name: verification_api
+description: PrimeCare Verification Service - Migrated to Full-Stack Dart.
+version: 1.0.0
+publish_to: 'none'
+
+environment:
+  sdk: ^3.11.3
+
+dependencies:
+  shelf: ^1.4.2
+  shelf_router: ^1.1.4
+  shelf_cors_headers: ^0.1.5
+  flutter_core:
+    path: ../../packages/flutter_core
+
+dev_dependencies:
+  lints: ^3.0.0
+  test: ^1.24.0

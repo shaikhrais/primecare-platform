@@ -1,0 +1,32 @@
+{
+  "primecare_auth": {
+    "lastDeployedAt": "2026-06-12T02:46:41.219084Z"
+  },
+  "primecare_governance": {
+    "lastDeployedAt": "2026-06-12T03:14:00.388384Z"
+  },
+  "primecare_client": {
+    "lastDeployedAt": "2026-06-12T03:14:56.496209Z"
+  },
+  "primecare_clinic": {
+    "lastDeployedAt": "2026-06-12T03:15:10.077056Z"
+  },
+  "primecare_corporate": {
+    "lastDeployedAt": "2026-06-12T03:15:28.172284Z"
+  },
+  "primecare_marketing": {
+    "lastDeployedAt": "2026-06-12T03:16:16.622524Z"
+  },
+  "primecare_support": {
+    "lastDeployedAt": "2026-06-12T03:16:28.371725Z"
+  },
+  "primecare_franchise": {
+    "lastDeployedAt": "2026-06-12T03:16:45.483068Z"
+  },
+  "primecare_business_development": {
+    "lastDeployedAt": "2026-06-12T03:17:28.935141Z"
+  },
+  "primecare_enterprise_blueprint": {
+    "lastDeployedAt": "2026-06-12T03:17:40.196650Z"
+  }
+}

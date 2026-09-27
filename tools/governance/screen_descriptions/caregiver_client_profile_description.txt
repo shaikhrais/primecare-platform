@@ -1,0 +1,29 @@
+List of caregiver tasks:
+1. Monitor client health and well-being.
+2. Assist with daily living activities (bathing, dressing, grooming).
+3. Administer medications as prescribed.
+4. Provide companionship and emotional support.
+5. Maintain a clean and safe environment.
+6. Document care provided and any changes in client condition.
+7. Communicate with healthcare professionals and family members.
+8. Run compliance scans and audits as required.
+9. Log operational activities and incidents.
+
+Red flags of operation:
+1. Frequent errors in medication administration.
+2. Unreported changes in client condition.
+3. Lack of communication with healthcare professionals.
+4. Inconsistent documentation of care provided.
+5. High turnover of caregivers.
+6. Negative feedback from clients or family members.
+7. Failure to follow safety protocols.
+8. Delays in responding to client needs.
+
+Dashboard needs for caregivers:
+1. Real-time updates on client health status.
+2. Alerts for medication schedules and compliance issues.
+3. Access to logs of care provided and incidents.
+4. Performance metrics (e.g., active operations, security clearance).
+5. Compliance audit results and action items.
+6. Communication tools for contacting healthcare professionals.
+7. Training resources and guidelines for best practices.

@@ -1,0 +1,35 @@
+Screen Code: family_member_emergency_contacts
+Screen Name: Family Member Emergency Contacts
+
+Required Components:
+- EmergencyContactList
+- ContactForm
+- NotificationBanner
+- ActionSummary
+- PerformanceMetrics
+
+Required Functions/Handlers:
+- addEmergencyContact
+- editEmergencyContact
+- deleteEmergencyContact
+- validateContactInfo
+- fetchEmergencyContacts
+
+Required Buttons:
+- Add Contact
+- Edit Contact
+- Delete Contact
+- Save Changes
+
+Required APIs:
+- /v1/emergency_contacts
+- /v1/emergency_contacts/add
+- /v1/emergency_contacts/edit
+- /v1/emergency_contacts/delete
+
+Required Semantic Keys (data-cy):
+- emergency-contact-list
+- add-contact-btn
+- edit-contact-btn
+- delete-contact-btn
+- notification-banner

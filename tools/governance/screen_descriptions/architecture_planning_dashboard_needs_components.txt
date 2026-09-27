@@ -1,0 +1,47 @@
+Screen Code: architecture_planning_dashboard
+Screen Name: ArchitecturePlanningDashboardScreen
+
+Required Components:
+- KPIWidget
+- SecurityMetricsChart
+- BudgetTracker
+- TeamPerformanceDashboard
+- ComplianceStatusCard
+- InnovationMetricsWidget
+- StakeholderFeedbackWidget
+- InfrastructureMonitoringPanel
+- RiskAssessmentWidget
+- TechnologyTrendsVisualization
+
+Required Functions/Handlers:
+- refreshDashboardData
+- viewDetailedReport
+- exportMetrics
+- setBudgetAlerts
+- addNewTechnology
+
+Required Buttons:
+- Refresh Data
+- View Detailed Report
+- Export Metrics
+- Set Budget Alerts
+- Add New Technology
+
+Required APIs:
+- /v1/technology/kpis
+- /v1/security/metrics
+- /v1/budget/tracking
+- /v1/team/performance
+- /v1/compliance/status
+- /v1/innovation/metrics
+- /v1/stakeholder/feedback
+- /v1/infrastructure/performance
+- /v1/risk/assessment
+- /v1/technology/trends
+
+Required Semantic Keys (data-cy):
+- ctodashboard-btn-refresh
+- ctodashboard-btn-view-report
+- ctodashboard-btn-export-metrics
+- ctodashboard-btn-set-budget-alerts
+- ctodashboard-btn-add-technology

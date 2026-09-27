@@ -1,0 +1,43 @@
+Screen Code: scrum_master_analytics
+Screen Name: ScrumMasterAnalyticsScreen
+
+Required Components:
+- SprintProgressChart
+- TeamPerformanceIndicator
+- ImpedimentTracker
+- TeamEngagementMeter
+- RetrospectiveFeedbackPanel
+- BacklogHealthWidget
+- StakeholderFeedbackScore
+- TeamCapacityChart
+- HistoricalPerformanceTrend
+- TeamDynamicsVisualization
+
+Required Functions/Handlers:
+- addImpediment
+- resolveImpediment
+- startSprintPlanning
+- conductRetrospective
+- viewMetrics
+
+Required Buttons:
+- Add Impediment
+- Resolve Impediment
+- Start Sprint Planning
+- Conduct Retrospective
+- View Metrics
+
+Required APIs:
+- /v1/scrum/sprint/progress
+- /v1/scrum/team/performance
+- /v1/scrum/impediments
+- /v1/scrum/engagement
+- /v1/scrum/backlog
+- /v1/scrum/feedback
+
+Required Semantic Keys (data-cy):
+- scrum-dashboard-btn-add-impediment
+- scrum-dashboard-btn-resolve-impediment
+- scrum-dashboard-btn-start-sprint-planning
+- scrum-dashboard-btn-conduct-retrospective
+- scrum-dashboard-btn-view-metrics

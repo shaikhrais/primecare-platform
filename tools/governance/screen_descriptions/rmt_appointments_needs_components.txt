@@ -1,0 +1,54 @@
+Screen Code: rmt_appointments
+Screen Name: RmtAppointmentsScreen
+
+Required Components:
+- AppointmentList
+- ClientAssessmentForm
+- TreatmentPlanEditor
+- ClientRecordsManager
+- FeedbackTracker
+- ComplianceLog
+- PerformanceMetricsDashboard
+- CommunicationTool
+- FinancialMetricsCard
+- TrainingResourcesAccess
+
+Required Functions/Handlers:
+- scheduleAppointment
+- submitAssessment
+- saveTreatmentPlan
+- updateClientRecords
+- sendFeedback
+- viewComplianceLogs
+- accessTrainingResources
+- generateReport
+
+Required Buttons:
+- Schedule Appointment
+- Submit Assessment
+- Save Treatment Plan
+- Update Client Records
+- Send Feedback
+- View Compliance Logs
+- Access Training Resources
+- Generate Report
+
+Required APIs:
+- /v1/appointments/schedule
+- /v1/clients/assessment
+- /v1/treatment/plans
+- /v1/clients/records
+- /v1/feedback
+- /v1/compliance/logs
+- /v1/training/resources
+- /v1/reports/generate
+
+Required Semantic Keys (data-cy):
+- rmt-appointments-schedule
+- rmt-assessment-submit
+- rmt-treatment-save
+- rmt-records-update
+- rmt-feedback-send
+- rmt-compliance-view
+- rmt-training-access
+- rmt-report-generate

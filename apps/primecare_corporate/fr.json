@@ -1,0 +1,380 @@
+{
+  "dashboards": {
+    "architecture_planning": {
+      "title": "Architecture Planning",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "billing_admin": {
+      "title": "Gestion du Cycle de Revenus",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "ceo": {
+      "title": "Centre de Commandement Exécutif",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "corporate_governance": {
+      "title": "Corporate Governance",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "cfo": {
+      "title": "Hub d'Intelligence Financière",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "client": {
+      "title": "Portail de Soins Client",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "clinic": {
+      "title": "Tableau de Bord de l'Unité Clinique",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "clinical_director": {
+      "title": "Hub de Gouvernance Clinique",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "community_outreach": {
+      "title": "Community Outreach",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "compliance_manager": {
+      "title": "Hub de Conformité Réglementaire",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "coo": {
+      "title": "Centre de Commandement des Opérations",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "course_architect": {
+      "title": "Course Architect",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "cto": {
+      "title": "Hub de Gouvernance Technologique",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "customer_support": {
+      "title": "Hub d'Intelligence de Support",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "cx_director": {
+      "title": "Cx Director",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "dynamic_screen": {
+      "title": "Dynamic Screen",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "family": {
+      "title": "Portail de Connexion Familiale",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "family_member": {
+      "title": "Family Member",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "finance_director": {
+      "title": "Hub des Opérations Fiscales",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "franchise_owner": {
+      "title": "Franchise Owner",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "franchise_sales_manager": {
+      "title": "Franchise Sales Manager",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "general_manager": {
+      "title": "General Manager",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "guest": {
+      "title": "Guest",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "head_of_bus_dev": {
+      "title": "Head Of Bus Dev",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "head_of_marketing": {
+      "title": "Head Of Marketing",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "hr_director": {
+      "title": "Commandement du Capital Humain",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "hr_manager": {
+      "title": "Hr Manager",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "hr_hiring": {
+      "title": "Hr Hiring",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "intake_coordinator": {
+      "title": "Intake Coordinator",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "intake": {
+      "title": "Intake",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "local_marketing_manager": {
+      "title": "Local Marketing Manager",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "operations_manager": {
+      "title": "Hub des Opérations Régionales",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "owner": {
+      "title": "Owner",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "partnership_manager": {
+      "title": "Partnership Manager",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "patient": {
+      "title": "Hub de Bien-être du Patient",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "psw": {
+      "title": "Portail des Soignants",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "qa": {
+      "title": "Qa",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "quality_assurance": {
+      "title": "Hub d'Assurance Qualité",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "receptionist": {
+      "title": "Receptionist",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "regional_bdm": {
+      "title": "Regional Bdm",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "regional_manager_ontario": {
+      "title": "Regional Manager Ontario",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "regional_manager_usa": {
+      "title": "Regional Manager Usa",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "rmt": {
+      "title": "Rmt",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "rn": {
+      "title": "Commandement des Infirmiers",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "scheduler": {
+      "title": "Logistique et Planification",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "scrum_master": {
+      "title": "Scrum Master",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "support": {
+      "title": "Support",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "system_verification": {
+      "title": "System Verification",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "territory_expansion_manager": {
+      "title": "Territory Expansion Manager",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "territory_sales_manager": {
+      "title": "Territory Sales Manager",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "training_coordinator": {
+      "title": "Training Coordinator",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "training_director_certificate": {
+      "title": "Training Director Certificate",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "training_director": {
+      "title": "Gouvernance de l'Éducation",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "training_hub": {
+      "title": "Training Hub",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "volunteer_coordinator": {
+      "title": "Volunteer Coordinator",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "infection_control": {
+      "title": "Commandement de Lutte contre les Infections",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    },
+    "shareholder_intelligence": {
+      "title": "Shareholder Intelligence",
+      "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel."
+    }
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "retry": "Réessayer",
+    "save": "Enregistrer les modifications",
+    "cancel": "Annuler",
+    "back": "Retour",
+    "next": "Suivant",
+    "language": {
+      "en": "Anglais",
+      "fr": "Français",
+      "es": "Espagnol"
+    },
+    "languages": {
+      "en": "Anglais",
+      "fr": "Français",
+      "es": "Espagnol"
+    },
+    "language_short": {
+      "en": "AN",
+      "fr": "FR",
+      "es": "ES"
+    },
+    "finish": "Terminer",
+    "offline_mode": "Mode hors ligne actif",
+    "connected": "Connecté",
+    "disconnected": "Déconnecté",
+    "refresh": "Actualiser",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "no_data": "Aucune donnée disponible",
+    "actions": "Actions",
+    "settings": "Paramètres",
+    "profile": "Profil",
+    "help": "Aide",
+    "logout": "Déconnexion",
+    "tooltips": {
+      "change_language": "Changer de langue"
+    }
+  },
+  "auth": {
+    "title_curator": "Bienvenue chez PrimeCare",
+    "curator_subtitle": "Portail d'Accès Entreprise",
+    "welcome_back": "Ravi de vous revoir",
+    "login_instructions": "Connectez-vous à votre compte",
+    "email": "Adresse Courriel",
+    "password": "Mot de passe",
+    "forgot_password": "Mot de passe oublié ?",
+    "sign_in": "Se connecter",
+    "language_system": "Langue",
+    "security_notice_short": "Accès Sécurisé",
+    "encryption_active": "Chiffrement de bout en bout activé",
+    "enter_credentials_to_continue": "Veuillez entrer vos identifiants pour continuer.",
+    "authentication_failed": "Échec de l'authentification. Veuillez vérifier vos identifiants.",
+    "account_recovery": "Récupération de compte",
+    "already_have_account": "Déjà un compte ?",
+    "back_to_login": "Retour à la connexion",
+    "create_account": "Créer un compte",
+    "enter_institutional_email": "Entrez votre courriel institutionnel",
+    "first_name": "Prénom",
+    "hydrating_registries": "Hydratation des registres",
+    "join_clinical_atelier": "Rejoindre l'Atelier Clinique",
+    "last_name": "Nom de famille",
+    "login": "Connexion",
+    "provision_workspace": "Provisionnement de l'espace",
+    "recovery_link_sent": "Lien de récupération envoyé",
+    "recovery_subtitle": "Sous-titre de récupération",
+    "register": "S'inscrire",
+    "reset_password": "Réinitialiser le mot de passe",
+    "role": "Rôle",
+    "send_again": "Renvoyer",
+    "send_recovery_link": "Envoyer le lien de récupération",
+    "subtitle": "Accédez aux indicateurs de votre tableau de bord, suivez les performances et gérez les opérations en temps réel.",
+    "zero_trust_platform": "Plateforme Zero Trust",
+    "email_placeholder": "Entrez votre courriel",
+    "security_notice_long": "AVIS DE SÉCURITÉ : Votre connexion est chiffrée. Veuillez vérifier que vous êtes sur le portail officiel de PrimeCare Enterprise avant de saisir vos identifiants."
+  },
+  "navigation": {
+    "sections": {
+      "main": "Navigation principale",
+      "strategic": "Intelligence stratégique",
+      "common_tools": "Outils communs",
+      "workflows": "Flux de travail",
+      "operations": "Opérations",
+      "finance": "Gestion financière",
+      "clinical": "Exécution clinique",
+      "growth": "Croissance et Marketing"
+    },
+    "items": {
+      "growth_pipeline": "Pipeline de croissance",
+      "region_performance": "Performance régionale",
+      "leadership_reports": "Rapports de direction",
+      "global_settings": "Paramètres globaux",
+      "messaging_hub": "Centre de messagerie",
+      "document_vault": "Coffre-fort de documents",
+      "notifications": "Notifications",
+      "revenue_tracker": "Suivi des revenus",
+      "profitability": "Analyse de rentabilité",
+      "tax_&_remittance": "Impôts et versements",
+      "branch_operations": "Opérations de succursale",
+      "scheduling_health": "Santé de la planification",
+      "incident_reviews": "Revues d'incidents",
+      "platform_usage": "Utilisation de la plateforme",
+      "api_monitoring": "Surveillance API",
+      "audit_logs": "Journaux d'audit",
+      "cases": "Cas de conformité",
+      "policy_manager": "Gestionnaire de politiques",
+      "audits": "Audits",
+      "risk_register": "Registre des risques",
+      "curriculum_hub": "Centre de formation",
+      "skill_matrix": "Matrice de compétences",
+      "region_dashboard": "Tableau de bord régional",
+      "branch_comparison": "Comparaison de succursales",
+      "ledger_command": "Commande du grand livre",
+      "cash_flow": "Flux de trésorerie",
+      "intake_pipeline": "Pipeline d'admission",
+      "referrals": "Références",
+      "pending_assessments": "Évaluations en attente",
+      "billing_console": "Console de facturation",
+      "invoices": "Factures",
+      "marketing_hub": "Centre de marketing",
+      "campaign_analytics": "Analytique de campagne",
+      "business_overview": "Aperçu de l'entreprise",
+      "financial_performance": "Performance financière",
+      "compliance_status": "Statut de conformité",
+      "clinical_dashboard": "Tableau de bord clinique",
+      "shift_tracker": "Suivi des quarts",
+      "messages": "Messages",
+      "family_home": "Accueil famille",
+      "care_plan": "Plan de soins",
+      "billing": "Facturation",
+      "marketing_dashboard": "Tableau de bord marketing",
+      "bus_dev_dashboard": "Tableau de bord dév. commercial",
+      "ops_dashboard": "Tableau de bord ops",
+      "hr_dashboard": "Tableau de bord RH",
+      "clinical_director": "Directeur clinique"
+    }
+  },
+  "aura": {
+    "search_hint": "Rechercher dans l'intelligence Aura...",
+    "profile": "Aperçu du profil",
+    "system_preferences": "Préférences système",
+    "sign_out": "Se déconnecter",
+    "confirm_departure": "Confirmer le départ",
+    "exit_message": "Êtes-vous sûr de vouloir mettre fin à votre session actuelle ?",
+    "stay": "Rester",
+    "exit_session": "Quitter la session"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "app": {
+    "id": 16,
+    "app_code": "dc",
+    "app_name": "Database Client",
+    "description": null,
+    "owner_team": null,
+    "active": 1
+  },
+  "screens_count": 0,
+  "screens": []
+}

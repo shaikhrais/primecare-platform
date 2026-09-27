@@ -1,0 +1,34 @@
+Screen Code: community_outreach_reports
+Screen Name: Community Outreach Reports
+
+Required Components:
+- OutreachMetricsCard
+- DataTrendChart
+- AlertsNotification
+- ReportGenerator
+- CollaborationTool
+- FeedbackSection
+
+Required Functions/Handlers:
+- generateReport
+- downloadReport
+- submitFeedback
+- collaborateWithTeam
+
+Required Buttons:
+- Generate Report
+- Download Report
+- Submit Feedback
+- Collaborate
+
+Required APIs:
+- /v1/outreach/metrics
+- /v1/outreach/reports
+- /v1/outreach/feedback
+- /v1/outreach/collaboration
+
+Required Semantic Keys (data-cy):
+- outreach-dashboard-btn-generate-report
+- outreach-dashboard-btn-download-report
+- outreach-dashboard-btn-submit-feedback
+- outreach-dashboard-btn-collaborate

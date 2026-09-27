@@ -1,0 +1,24 @@
+User Work Tasks:
+1. Monitor the inpatient pharmacy queue for new prescriptions.
+2. Review and verify prescription details.
+3. Prepare medications for inpatient delivery.
+4. Communicate with healthcare providers regarding any prescription issues.
+5. Update the status of prescriptions in the system.
+6. Track medication inventory levels.
+7. Generate reports on prescription processing times.
+
+Red Flags of Operation:
+1. Delays in prescription processing.
+2. High error rates in prescription verification.
+3. Inconsistent communication with healthcare providers.
+4. Low medication inventory levels leading to stockouts.
+5. Increased patient complaints regarding medication delivery times.
+6. Lack of visibility into the status of prescriptions.
+
+Dashboard Requirements for User:
+1. Real-time updates on the status of the pharmacy queue.
+2. Alerts for delayed prescriptions or inventory shortages.
+3. Metrics on prescription processing times and error rates.
+4. Communication logs with healthcare providers.
+5. Inventory levels and alerts for low stock items.
+6. User-friendly interface for quick access to critical information.

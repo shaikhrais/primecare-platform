@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor provider availability schedules.
+2. Update provider availability as needed.
+3. Review and resolve any conflicts in scheduling.
+4. Communicate with providers regarding their availability.
+5. Generate reports on provider availability for management.
+
+Red flags of operation:
+1. Frequent scheduling conflicts indicating poor communication.
+2. Delays in updating provider availability leading to missed appointments.
+3. High number of error messages when loading features.
+4. Inconsistent data displayed on the dashboard.
+5. Low user engagement with the scheduling tool.
+
+What is needed on the user dashboard:
+1. Real-time provider availability status.
+2. Notifications for scheduling conflicts or updates.
+3. A summary of recent changes to provider schedules.
+4. Performance metrics on scheduling efficiency.
+5. Quick access to communication tools for contacting providers.

@@ -1,0 +1,38 @@
+Screen Code: compliance_manager_training_compliance
+Screen Name: Compliance Manager Training Compliance
+
+Required Components:
+- TrainingCompletionOverview
+- DeadlineAlerts
+- TrainingMaterialsAccess
+- ComplianceReportingTool
+- TeamCommunicationTool
+- ErrorLogAlert
+
+Required Functions/Handlers:
+- fetchTrainingCompletionRates
+- checkUpcomingDeadlines
+- accessTrainingMaterials
+- generateComplianceReport
+- sendCommunication
+- logErrorAlerts
+
+Required Buttons:
+- Generate Report
+- Send Reminder
+- Review Materials
+
+Required APIs:
+- /v1/training/completion/status
+- /v1/training/materials
+- /v1/training/compliance/report
+- /v1/training/communication
+- /v1/training/errors
+
+Required Semantic Keys (data-cy):
+- compliance-dashboard-training-completion
+- compliance-dashboard-deadline-alerts
+- compliance-dashboard-training-materials
+- compliance-dashboard-report-generation
+- compliance-dashboard-team-communication
+- compliance-dashboard-error-logs

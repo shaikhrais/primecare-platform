@@ -1,0 +1,19 @@
+List of work the user must do:
+1. Monitor provider performance metrics such as patient satisfaction, response time, and completion rates.
+2. Refresh the data to ensure the latest performance metrics are displayed.
+3. Identify underperforming providers based on the displayed metrics.
+4. Analyze trends in provider performance over time.
+
+Red flags of operation:
+1. Low patient satisfaction scores indicating potential issues with provider quality.
+2. High average response times suggesting delays in service delivery.
+3. Low completion rates which may indicate inefficiencies or problems in the provider's operations.
+4. Frequent errors or failures to load performance metrics, indicating potential issues with data retrieval or API connectivity.
+
+What is needed on the dashboard:
+1. A clear display of key performance indicators (KPIs) for each provider.
+2. Visual indicators (e.g., color coding) to highlight performance issues.
+3. A refresh button to update metrics in real-time.
+4. Error messages that provide clear information when data fails to load.
+5. A summary section that aggregates performance metrics for quick insights.
+6. Filters or sorting options to focus on specific providers or regions.

@@ -1,0 +1,14 @@
+target/
+bin/
+target-maven/
+test-output/
+.wrangler/
+.settings/
+.classpath
+.project
+*.log
+compile_output.txt
+test_run_output.txt
+mvn_output.txt
+evidence/
+ScreenShots/

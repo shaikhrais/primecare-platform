@@ -1,0 +1,40 @@
+Screen Code: patient_medication_adherence
+Screen Name: Patient Medication Adherence
+
+Required Components:
+- AdherenceOverviewCard
+- PatientListTable
+- MissedRemindersAlert
+- CommunicationLog
+- AdherenceTrendsChart
+- MedicationScheduleUpdater
+- InteractionSummaryCard
+- ProviderIntegrationPanel
+
+Required Functions/Handlers:
+- updateMedicationSchedule
+- sendMedicationReminder
+- generateAdherenceReport
+- logCommunication
+
+Required Buttons:
+- Update Schedule
+- Send Reminder
+- View Report
+- Communicate with Patient
+
+Required APIs:
+- /v1/patient/adherence
+- /v1/patient/medication/schedule
+- /v1/patient/communication/logs
+- /v1/patient/adherence/trends
+
+Required Semantic Keys (data-cy):
+- patient-adherence-overview
+- patient-list-table
+- missed-reminders-alert
+- communication-log
+- adherence-trends-chart
+- medication-schedule-updater
+- interaction-summary-card
+- provider-integration-panel

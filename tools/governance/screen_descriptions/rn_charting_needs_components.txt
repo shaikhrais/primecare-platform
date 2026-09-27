@@ -1,0 +1,30 @@
+Screen Code: rn_charting
+Screen Name: Rn Charting
+
+Required Components:
+- RNChartDisplay
+- DataTrendGraph
+- UserFeedbackSection
+- AlertsNotification
+- RecentActivitiesSummary
+
+Required Functions/Handlers:
+- loadChartData
+- submitFeedback
+- refreshData
+- getAlerts
+
+Required Buttons:
+- Submit Feedback
+- Report Issue
+- Refresh Data
+
+Required APIs:
+- /v1/rn/charting/data
+- /v1/rn/charting/feedback
+- /v1/rn/charting/alerts
+
+Required Semantic Keys (data-cy):
+- rn-charting-btn-submit-feedback
+- rn-charting-btn-report-issue
+- rn-charting-btn-refresh

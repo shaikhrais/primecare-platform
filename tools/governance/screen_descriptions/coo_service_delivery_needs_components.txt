@@ -1,0 +1,41 @@
+Screen Code: coo_service_delivery
+Screen Name: Coo Service Delivery
+
+Required Components:
+- ServiceDeliveryMetricsCard
+- UserFeedbackChart
+- IncidentTracker
+- TeamCollaborationTool
+- AlertsDashboard
+- HistoricalDataAnalyzer
+- DocumentationManager
+
+Required Functions/Handlers:
+- updateDocumentation
+- trackIncident
+- analyzeMetrics
+- collaborateWithTeam
+- attendMeeting
+
+Required Buttons:
+- Update Documentation
+- Track Incident
+- Analyze Metrics
+- Collaborate
+- Attend Meeting
+
+Required APIs:
+- /v1/service/delivery/metrics
+- /v1/user/feedback
+- /v1/incidents
+- /v1/team/collaboration
+- /v1/alerts
+
+Required Semantic Keys (data-cy):
+- service-delivery-metrics-card
+- user-feedback-chart
+- incident-tracker
+- team-collaboration-tool
+- alerts-dashboard
+- historical-data-analyzer
+- documentation-manager

@@ -1,0 +1,26 @@
+User Work List:
+1. Monitor drug interactions.
+2. Review alerts for potential drug interactions.
+3. Assess patient medication lists for safety.
+4. Update medication records based on alerts.
+5. Communicate with healthcare providers regarding alerts.
+6. Document actions taken in response to alerts.
+7. Provide feedback on alert accuracy and relevance.
+
+Red Flags of Operation:
+1. High frequency of false positive alerts.
+2. Delays in reviewing alerts.
+3. Lack of communication with healthcare providers.
+4. Incomplete medication records leading to missed interactions.
+5. User fatigue from excessive alerts.
+6. Inconsistent documentation of actions taken.
+7. Low user engagement with the alert system.
+
+Dashboard Needs:
+1. Summary of active alerts.
+2. Statistics on alert accuracy (false positives/negatives).
+3. User engagement metrics (alerts reviewed, actions taken).
+4. Trends in drug interactions over time.
+5. Feedback mechanism for users to report alert issues.
+6. Integration with patient medication records for real-time updates.
+7. Notifications for urgent alerts requiring immediate attention.

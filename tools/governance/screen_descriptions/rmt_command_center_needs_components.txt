@@ -1,0 +1,46 @@
+Screen Code: rmt_command_center
+Screen Name: RmtCommandCenterScreen
+
+Required Components:
+- ClientAppointmentOverview
+- ComplianceStatusCard
+- KPIChart
+- ClientFeedbackWidget
+- OperationalMetricsDashboard
+- AlertsNotification
+- ContinuingEducationResources
+- TreatmentPlanSummary
+- CommunicationTool
+
+Required Functions/Handlers:
+- fetchClientAppointments
+- checkComplianceStatus
+- calculateKPIs
+- retrieveClientFeedback
+- logOperationalMetrics
+- triggerAlert
+- accessEducationResources
+- summarizeTreatmentPlans
+- sendClientCommunication
+
+Required Buttons:
+- Schedule Appointment
+- View Client Records
+- Update Treatment Plan
+- Send Reminder
+- Log Compliance Issue
+
+Required APIs:
+- /v1/clients/appointments
+- /v1/compliance/status
+- /v1/clients/feedback
+- /v1/metrics/operational
+- /v1/education/resources
+- /v1/treatment/plans
+
+Required Semantic Keys (data-cy):
+- rmt-dashboard-btn-schedule-appointment
+- rmt-dashboard-btn-view-client-records
+- rmt-dashboard-btn-update-treatment-plan
+- rmt-dashboard-btn-send-reminder
+- rmt-dashboard-btn-log-compliance

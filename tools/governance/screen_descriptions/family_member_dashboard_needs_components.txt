@@ -1,0 +1,32 @@
+Screen Code: family_member_dashboard
+Screen Name: FamilyMemberDashboardScreen
+
+Required Components:
+- KeyPerformanceIndicatorCard
+- TelemetryLogViewer
+- ComplianceAuditPanel
+- SecurityPostureSynchronizer
+- SecurityPolicyUpdater
+- AuditLogExporter
+- GovernanceActionTrigger
+
+Required Functions/Handlers:
+- triggerAudit
+- refreshTelemetryData
+
+Required Buttons:
+- Execute Audit
+- Refresh Data
+
+Required APIs:
+- /v1/patient/performance-indicators
+- /v1/patient/telemetry/logs
+- /v1/patient/compliance/audits
+- /v1/patient/security/posture/synchronize
+- /v1/patient/security/policies/update
+- /v1/patient/audit/logs/export
+- /v1/patient/governance/actions/trigger
+
+Required Semantic Keys (data-cy):
+- family_member_dashboard-btn-execute-audit
+- family_member_dashboard-btn-refresh-data

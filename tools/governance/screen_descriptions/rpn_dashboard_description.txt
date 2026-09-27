@@ -1,0 +1,35 @@
+Registered Practical Nurse (RPN) Responsibilities:
+1. Administer medications and treatments as prescribed.
+2. Monitor patients' vital signs and report changes to the healthcare team.
+3. Assist in patient assessments and care planning.
+4. Provide personal care and support to patients.
+5. Educate patients and families about health management.
+6. Document patient care and progress accurately.
+7. Collaborate with other healthcare professionals.
+8. Ensure compliance with health and safety regulations.
+9. Participate in quality improvement initiatives.
+10. Maintain patient confidentiality and privacy.
+
+Red Flags for RPN Operations:
+1. Unexplained changes in patient vital signs.
+2. Inconsistent documentation or missing records.
+3. High rates of medication errors.
+4. Frequent patient complaints or dissatisfaction.
+5. Delays in patient care or treatment.
+6. Lack of communication among team members.
+7. Non-compliance with safety protocols.
+8. Increased incidents of falls or injuries.
+9. Unresolved conflicts within the healthcare team.
+10. Inadequate staffing levels impacting patient care.
+
+Dashboard Requirements for RPN:
+1. Real-time monitoring of patient vital signs.
+2. Alerts for abnormal vital signs or critical lab results.
+3. Compliance tracking for medication administration.
+4. Documentation status indicators (e.g., completed, pending).
+5. Patient satisfaction metrics and feedback.
+6. Incident reporting and tracking system.
+7. Staffing levels and workload indicators.
+8. Access to educational resources for patient care.
+9. Audit logs for compliance and operational reviews.
+10. Communication tools for team collaboration.

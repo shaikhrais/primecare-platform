@@ -1,0 +1,23 @@
+List of work the user must do:
+1. Monitor key performance indicators (KPIs) for the Ontario region.
+2. Review operational reports and metrics.
+3. Identify trends and areas for improvement.
+4. Communicate with team members and stakeholders.
+5. Make data-driven decisions based on dashboard insights.
+6. Address any operational issues or red flags promptly.
+
+Red flags of operation:
+1. Significant deviations from expected KPIs.
+2. Increased error rates in operations.
+3. Delays in project timelines or deliverables.
+4. Low team morale or high turnover rates.
+5. Customer complaints or negative feedback trends.
+6. Budget overruns or financial discrepancies.
+
+What is needed on the user dashboard:
+1. Real-time KPIs and metrics display.
+2. Visualizations (charts/graphs) for trends over time.
+3. Alerts for any red flags or critical issues.
+4. Summary of team performance and workload.
+5. Access to detailed reports for deeper analysis.
+6. Communication tools for team collaboration.

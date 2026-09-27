@@ -1,0 +1,46 @@
+Screen Code: compliance_review
+Screen Name: ComplianceReviewScreen
+
+Required Components:
+- ComplianceStatusCard
+- AuditResultsChart
+- KPIWidget
+- PatientSatisfactionChart
+- IncidentReportTable
+- OperationalEfficiencyMetrics
+- FinancialPerformanceCard
+- AlertsNotification
+- TrendsVisualization
+
+Required Functions/Handlers:
+- fetchComplianceStatus
+- fetchAuditResults
+- generateReport
+- addressPatientComplaint
+- updateTrainingStatus
+
+Required Buttons:
+- Generate Report
+- View Audit Details
+- Address Complaint
+- Train Staff
+- Update Compliance Status
+
+Required APIs:
+- /v1/compliance/status
+- /v1/audits/results
+- /v1/patient/satisfaction
+- /v1/incidents/report
+- /v1/operational/efficiency
+- /v1/financial/performance
+
+Required Semantic Keys (data-cy):
+- compliance-status-card
+- audit-results-chart
+- kpi-widget
+- patient-satisfaction-chart
+- incident-report-table
+- operational-efficiency-metrics
+- financial-performance-card
+- alerts-notification
+- trends-visualization

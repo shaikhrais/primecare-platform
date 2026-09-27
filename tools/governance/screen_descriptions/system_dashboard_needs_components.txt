@@ -1,0 +1,46 @@
+Screen Code: system_dashboard
+Screen Name: SystemDashboardScreen
+
+Required Components:
+- ComplianceMetricCard
+- AuditLogTable
+- RiskAssessmentReport
+- KPIChart
+- RealTimeUpdateFeed
+- ComplianceAlertBanner
+- TrendAnalysisGraph
+- StakeholderEngagementWidget
+- PolicyUpdateNotification
+- GovernancePerformanceVisualization
+
+Required Functions/Handlers:
+- refreshData
+- viewAuditDetails
+- downloadReport
+- notifyStakeholders
+- updatePolicy
+
+Required Buttons:
+- Refresh Data
+- View Audit Details
+- Download Report
+- Notify Stakeholders
+- Update Policy
+
+Required APIs:
+- /v1/governance/compliance/metrics
+- /v1/governance/audits/recent
+- /v1/governance/risk/assessment
+- /v1/governance/kpis
+- /v1/governance/activities/updates
+- /v1/governance/alerts/violations
+- /v1/governance/trends/data
+- /v1/governance/stakeholder/engagement
+- /v1/governance/policies/updates
+
+Required Semantic Keys (data-cy):
+- govdashboard-btn-refresh
+- govdashboard-btn-view-audit
+- govdashboard-btn-download-report
+- govdashboard-btn-notify-stakeholders
+- govdashboard-btn-update-policy

@@ -1,0 +1,23 @@
+List of work Family Member must do:
+1. Monitor compliance and operational audits.
+2. Review key performance indicators and telemetry logs.
+3. Trigger compliance scans and manage operational logs.
+4. Ensure security clearance and operational integrity.
+5. Respond to system alerts and errors.
+6. Refresh dashboard data and logs as needed.
+
+Red flags of operation:
+1. High error rates during compliance scans.
+2. Unusual activity in operational logs.
+3. Delays in executing compliance scans.
+4. Low security clearance levels.
+5. Inconsistent telemetry data trends.
+6. System loading issues or prolonged downtime.
+
+Dashboard needs for Family Member:
+1. Real-time updates on compliance scan results.
+2. Visual representation of key performance indicators.
+3. Access to operational audit logs.
+4. Alerts for any compliance or security issues.
+5. Functionality to manually refresh data.
+6. Clear indicators of system loading status.

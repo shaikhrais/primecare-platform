@@ -1,0 +1,35 @@
+Screen Code: environmental_health_hazards
+Screen Name: Environmental Health Hazards
+
+Required Components:
+- RealTimeHazardUpdates
+- HazardTrendChart
+- HazardAlerts
+- CollaborationTools
+- UnresolvedHazardsSummary
+
+Required Functions/Handlers:
+- monitorHazards
+- reportHazard
+- accessReports
+- collaborateOnHazards
+- updateHazardStatus
+
+Required Buttons:
+- Report Hazard
+- Update Status
+- View Reports
+- Collaborate
+
+Required APIs:
+- /v1/hazards/report
+- /v1/hazards/trends
+- /v1/hazards/alerts
+- /v1/hazards/collaborate
+- /v1/hazards/status
+
+Required Semantic Keys (data-cy):
+- ehhazards-btn-report
+- ehhazards-btn-update
+- ehhazards-btn-viewreports
+- ehhazards-btn-collaborate

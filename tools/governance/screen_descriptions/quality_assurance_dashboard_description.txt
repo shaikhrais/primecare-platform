@@ -1,0 +1,30 @@
+Responsibilities of a System Verification Officer:
+1. Conduct compliance audits to ensure adherence to regulations and standards.
+2. Monitor system performance and security posture.
+3. Validate governance invariants and operational metrics.
+4. Synchronize security and operational data.
+5. Update security policies based on audit findings.
+6. Compile and export audit logs for review.
+7. Maintain and review operational logs for anomalies.
+8. Communicate findings and recommendations to stakeholders.
+9. Collaborate with IT and security teams to address vulnerabilities.
+
+Red flags of operation:
+1. Increased system latency beyond acceptable thresholds.
+2. Decrease in data integrity metrics.
+3. Unapproved changes to security policies.
+4. Frequent errors or failures in compliance audits.
+5. Inconsistent or missing operational logs.
+6. Low security clearance levels.
+7. Unusual activity patterns in system performance.
+
+Dashboard requirements for a System Verification Officer:
+1. Real-time metrics on active operations and system performance.
+2. Security clearance levels and trends.
+3. Data integrity statistics.
+4. System latency measurements.
+5. A log panel displaying recent operational logs and audit results.
+6. A compliance scan execution button with loading indicators.
+7. A refresh button to update telemetry data.
+8. Visual representations of telemetry data over time (charts/graphs).
+9. Alerts or notifications for any critical issues detected.

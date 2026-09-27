@@ -1,0 +1,26 @@
+User Tasks:
+1. Monitor patient care metrics.
+2. Review patient feedback and satisfaction scores.
+3. Track medication adherence and compliance.
+4. Analyze operational efficiency and resource allocation.
+5. Generate reports on patient outcomes and care quality.
+6. Update patient records and care plans as needed.
+7. Collaborate with healthcare team members for patient care.
+
+Red Flags of Operation:
+1. Decrease in patient satisfaction scores.
+2. Increased medication errors or non-compliance rates.
+3. High staff turnover or absenteeism.
+4. Delays in patient care or treatment plans.
+5. Inconsistent data reporting or discrepancies in patient records.
+6. Low engagement from healthcare team members.
+7. Unresolved patient complaints or issues.
+
+Dashboard Requirements:
+1. Real-time patient care metrics display.
+2. Visual representation of patient satisfaction scores.
+3. Alerts for medication adherence issues.
+4. Operational efficiency indicators (e.g., average wait times).
+5. Easy access to patient records and care plans.
+6. Collaboration tools for team communication.
+7. Reporting features for generating insights and trends.

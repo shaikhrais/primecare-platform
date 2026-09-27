@@ -1,0 +1,26 @@
+List of work the user must do:
+1. Monitor system performance and user activity.
+2. Manage user accounts and permissions.
+3. Review and respond to user feedback and issues.
+4. Generate reports on system usage and performance metrics.
+5. Ensure data security and compliance with regulations.
+6. Update and maintain system features and functionalities.
+7. Coordinate with development teams for feature requests and bug fixes.
+
+Red flags of operation:
+1. Increased error rates or system downtime.
+2. Slow response times or performance lags.
+3. Unusual spikes in user activity or access patterns.
+4. User complaints or negative feedback trends.
+5. Security breaches or unauthorized access attempts.
+6. Lack of engagement or low usage metrics from users.
+7. Failure to meet compliance standards or regulations.
+
+What is needed on the user dashboard:
+1. Real-time performance metrics (e.g., uptime, response time).
+2. User activity logs and reports.
+3. Alerts for errors or performance issues.
+4. User feedback summary and trends.
+5. Security monitoring alerts.
+6. Quick access to user management tools.
+7. Visual representation of system usage statistics (e.g., graphs, charts).

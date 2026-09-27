@@ -1,0 +1,28 @@
+User Work List:
+1. Monitor mobile clinic dispatch operations.
+2. Schedule and manage clinic routes.
+3. Track clinic vehicle locations in real-time.
+4. Assign staff to specific clinics or routes.
+5. Review patient appointments and manage schedules.
+6. Collect and analyze patient feedback.
+7. Generate reports on clinic performance and efficiency.
+8. Communicate with clinic staff and patients.
+
+Red Flags of Operation:
+1. Delays in dispatching clinics.
+2. High number of missed appointments.
+3. Frequent changes in staff assignments.
+4. Inaccurate tracking of vehicle locations.
+5. Low patient satisfaction scores.
+6. Inconsistent reporting metrics.
+7. Communication breakdowns between staff and patients.
+
+Dashboard Requirements:
+1. Real-time vehicle tracking map.
+2. Appointment scheduling overview.
+3. Staff assignment status.
+4. Patient feedback summary.
+5. Performance metrics and KPIs.
+6. Alerts for missed appointments or delays.
+7. Communication tools for staff and patients.
+8. Reporting tools for generating performance reports.

@@ -1,0 +1,47 @@
+Screen Code: nurse_dashboard
+Screen Name: Nurse Dashboard
+
+Required Components:
+- PatientStatusOverview
+- PatientRecordsAccess
+- MedicationManagement
+- CommunicationTools
+- VitalSignsTracker
+- AlertsNotifications
+- CareDocumentation
+- TaskReminders
+
+Required Functions/Handlers:
+- loadPatientData
+- updatePatientRecords
+- manageMedicationSchedule
+- sendCommunication
+- trackVitalSigns
+- respondToAlerts
+- documentCareProvided
+
+Required Buttons:
+- Access Patient Records
+- Manage Medications
+- Send Message
+- Update Patient Info
+- Document Care
+- View Alerts
+
+Required APIs:
+- /v1/patients/status
+- /v1/patients/records
+- /v1/medications/schedule
+- /v1/communications/send
+- /v1/vitals/track
+- /v1/alerts/notifications
+- /v1/care/document
+
+Required Semantic Keys (data-cy):
+- nurse-dashboard-patient-status
+- nurse-dashboard-patient-records
+- nurse-dashboard-medication-management
+- nurse-dashboard-communication-tools
+- nurse-dashboard-vital-signs
+- nurse-dashboard-alerts
+- nurse-dashboard-document-care

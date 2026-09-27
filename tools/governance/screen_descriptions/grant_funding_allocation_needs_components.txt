@@ -1,0 +1,36 @@
+Screen Code: grant_funding_allocation
+Screen Name: Grant Funding Allocation
+
+Required Components:
+- FundingOverviewCard
+- FundingAllocationChart
+- FundingStatusTable
+- ReportingTool
+- AlertsDashboard
+
+Required Functions/Handlers:
+- reviewFundingOptions
+- allocateFunding
+- monitorFundingStatus
+- generateReports
+- communicateWithStakeholders
+
+Required Buttons:
+- Allocate Funds
+- Generate Report
+- Monitor Status
+- Communicate with Stakeholders
+
+Required APIs:
+- /v1/funding/options
+- /v1/funding/allocation
+- /v1/funding/status
+- /v1/funding/reports
+- /v1/communication/stakeholders
+
+Required Semantic Keys (data-cy):
+- funding-overview-card
+- funding-allocation-chart
+- funding-status-table
+- reporting-tool
+- alerts-dashboard

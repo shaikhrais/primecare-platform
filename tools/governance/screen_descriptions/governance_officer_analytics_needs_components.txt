@@ -1,0 +1,47 @@
+Screen Code: governance_officer_analytics
+Screen Name: GovernanceOfficerAnalyticsScreen
+
+Required Components:
+- ComplianceMetricCard
+- RiskAssessmentChart
+- StakeholderEngagementStats
+- AuditFindingsList
+- TrainingCompletionTracker
+- GovernanceStrategyProgress
+- DocumentManagementSystem
+- RealTimeAlerts
+- PerformanceIndicatorDashboard
+- GovernanceSummaryReport
+
+Required Functions/Handlers:
+- generateReport
+- sendAlert
+- updateTrainingStatus
+- viewAuditDetails
+- engageStakeholders
+
+Required Buttons:
+- Generate Report
+- Send Alert
+- Update Training
+- View Audit
+- Engage Stakeholders
+
+Required APIs:
+- /v1/governance/compliance/metrics
+- /v1/governance/risk/assessment
+- /v1/governance/stakeholders/engagement
+- /v1/governance/audit/findings
+- /v1/governance/training/completion
+- /v1/governance/strategy/progress
+- /v1/governance/documents/manage
+- /v1/governance/alerts/real-time
+- /v1/governance/performance/indicators
+- /v1/governance/summary/report
+
+Required Semantic Keys (data-cy):
+- gov-dashboard-btn-generate-report
+- gov-dashboard-btn-send-alert
+- gov-dashboard-btn-update-training
+- gov-dashboard-btn-view-audit
+- gov-dashboard-btn-engage-stakeholders

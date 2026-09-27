@@ -1,0 +1,23 @@
+Screen Code: resource_allocation_map
+Screen Name: Resource Allocation Map
+
+Required Components:
+- ResourceAllocationMap
+- GeospatialMappingComponent
+- UtilizationIndicator
+
+Required Functions/Handlers:
+- refreshResourceAllocation
+- analyzeUtilizationLevels
+- identifyUtilizationCategories
+
+Required Buttons:
+- Refresh
+
+Required APIs:
+- /v1/resource/allocation
+- /v1/resource/utilization
+
+Required Semantic Keys (data-cy):
+- resource-allocation-refresh
+- resource-utilization-indicator

@@ -1,0 +1,23 @@
+Screen Code: training_reports
+Screen Name: Training Reports
+
+Required Components:
+- LoadingIndicator
+- ErrorMessage
+- TrainingReportSummary
+- StatusIndicator
+
+Required Functions/Handlers:
+- loadTrainingReports
+- handleLoadingError
+
+Required Buttons:
+- [None specified]
+
+Required APIs:
+- /v1/training/reports
+
+Required Semantic Keys (data-cy):
+- training-reports-loading
+- training-reports-error
+- training-reports-summary

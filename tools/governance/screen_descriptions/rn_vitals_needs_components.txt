@@ -1,0 +1,39 @@
+Screen Code: rn_vitals
+Screen Name: RnVitalsScreen
+
+Required Components:
+- VitalSignsMonitor
+- MedicationAdminRecord
+- PatientSatisfactionChart
+- StaffingLevelIndicator
+- IncidentReportTracker
+- CommunicationTool
+
+Required Functions/Handlers:
+- monitorVitalSigns
+- administerMedication
+- documentPatientCare
+- reportIncident
+- fetchPatientSatisfaction
+- updateStaffingLevels
+
+Required Buttons:
+- Administer Medication
+- Document Care
+- Report Incident
+- View KPIs
+- Access Training
+
+Required APIs:
+- /v1/patient/vitals
+- /v1/medications/administer
+- /v1/documentation/record
+- /v1/patient/satisfaction
+- /v1/staffing/levels
+
+Required Semantic Keys (data-cy):
+- rn-vitals-monitor
+- rn-medication-admin
+- rn-document-care
+- rn-patient-satisfaction
+- rn-staffing-levels

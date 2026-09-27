@@ -1,0 +1,26 @@
+User Work List:
+1. Monitor reconciliation processes.
+2. Review reconciliation reports.
+3. Identify discrepancies in data.
+4. Approve or reject reconciliation entries.
+5. Communicate with relevant departments for clarification.
+6. Update reconciliation records as needed.
+7. Generate summary reports for management.
+
+Red Flags of Operation:
+1. Frequent discrepancies in reconciliation reports.
+2. Delays in data processing or report generation.
+3. High volume of rejected entries.
+4. Lack of communication from departments involved.
+5. Inconsistent data sources leading to confusion.
+6. Repeated errors in manual data entry.
+7. Unclear approval processes causing bottlenecks.
+
+Dashboard Needs:
+1. Real-time reconciliation status overview.
+2. Alerts for discrepancies and errors.
+3. Summary of approved and rejected entries.
+4. Communication logs with departments.
+5. Historical data trends for reconciliation.
+6. Performance metrics for reconciliation efficiency.
+7. Quick access to generate reports.

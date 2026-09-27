@@ -1,0 +1,124 @@
+{
+  "test_suite": "test_all_api_endpoints_real",
+  "overall_passed": true,
+  "timestamp": "2026-05-26T03:31:06.305Z",
+  "results": [
+    {
+      "api_name": "primecare-worker-api-gateway",
+      "method": "GET",
+      "path": "/health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 185,
+      "emulated": false
+    },
+    {
+      "api_name": "primecare-worker-auth-api",
+      "method": "GET",
+      "path": "/health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 98,
+      "emulated": false
+    },
+    {
+      "api_name": "primecare-worker-billing-api",
+      "method": "GET",
+      "path": "/health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 123,
+      "emulated": false
+    },
+    {
+      "api_name": "primecare-worker-client-api",
+      "method": "GET",
+      "path": "/health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 130,
+      "emulated": false
+    },
+    {
+      "api_name": "primecare-worker-compliance-api",
+      "method": "GET",
+      "path": "/health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 131,
+      "emulated": false
+    },
+    {
+      "api_name": "primecare-worker-franchise-reporting-api",
+      "method": "GET",
+      "path": "/health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 156,
+      "emulated": false
+    },
+    {
+      "api_name": "primecare-worker-governance-api",
+      "method": "GET",
+      "path": "/health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 81,
+      "emulated": false
+    },
+    {
+      "api_name": "primecare-worker-notes-api",
+      "method": "GET",
+      "path": "/health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 128,
+      "emulated": false
+    },
+    {
+      "api_name": "primecare-worker-notification-api",
+      "method": "GET",
+      "path": "/health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 103,
+      "emulated": false
+    },
+    {
+      "api_name": "primecare-worker-provider-api",
+      "method": "GET",
+      "path": "/health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 127,
+      "emulated": false
+    },
+    {
+      "api_name": "primecare-worker-scheduling-api",
+      "method": "GET",
+      "path": "/health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 127,
+      "emulated": false
+    },
+    {
+      "api_name": "primecare-worker-verification-api",
+      "method": "GET",
+      "path": "/health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 149,
+      "emulated": false
+    },
+    {
+      "api_name": "primecare-worker-visit-api",
+      "method": "GET",
+      "path": "/health",
+      "passed": true,
+      "status": 200,
+      "latency_ms": 122,
+      "emulated": false
+    }
+  ]
+}

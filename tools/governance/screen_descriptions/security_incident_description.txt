@@ -1,0 +1,20 @@
+User Work List:
+1. Monitor and review security incidents reported in the system.
+2. Submit new security incidents with detailed descriptions and relevant categories.
+3. Update the status of ongoing incidents as they progress through investigation and resolution.
+4. Analyze incident metrics such as active alerts, incidents under investigation, and resolved incidents.
+5. Collaborate with the cybersecurity team to address critical incidents and ensure compliance with safety protocols.
+
+Red Flags of Operation:
+1. High number of active incidents indicating potential security vulnerabilities.
+2. Increased severity of incidents reported, especially critical and high severity cases.
+3. Delays in resolving incidents, particularly those marked as investigating.
+4. Recurring types of incidents suggesting systemic issues that need addressing.
+5. Lack of timely updates on incident statuses, leading to potential oversight.
+
+Dashboard Requirements for User:
+1. Overview of active alerts, incidents under investigation, and resolved incidents with metrics.
+2. Visual representation of incident trends over time (e.g., charts or graphs).
+3. Quick access to submit new incidents with a user-friendly form.
+4. Detailed incident log table displaying all reported incidents with filters for status and severity.
+5. Notifications or alerts for critical incidents that require immediate attention.

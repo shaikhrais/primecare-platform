@@ -1,0 +1,7 @@
+# Screen: SUP-435
+**Component Name:** `WorkshopsScreen`  
+**Implementation Status:** 🔄 Discovery  
+**Associated Roles:** [Training Coordinator](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-SUP-435-01](tasks/tsk_sup_435_01.md): Organize hands-on specialized care seminars (e.g., Alzheimer's care, CPR).

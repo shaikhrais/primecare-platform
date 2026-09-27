@@ -1,0 +1,39 @@
+Screen Code: territory_sales_manager_area_performance
+Screen Name: Territory Sales Manager Area Performance
+
+Required Components:
+- SalesPerformanceMetricCard
+- SalesTrendChart
+- AnomalyAlertWidget
+- TerritoryComparisonTool
+- TeamCollaborationPanel
+- HistoricalDataViewer
+
+Required Functions/Handlers:
+- fetchSalesMetrics
+- analyzeSalesData
+- reportDiscrepancy
+- collaborateWithTeam
+- adjustSalesTargets
+- provideFeedback
+
+Required Buttons:
+- Review Targets
+- Submit Feedback
+- Analyze Trends
+- Report Discrepancy
+
+Required APIs:
+- /v1/sales/performance
+- /v1/sales/trends
+- /v1/sales/report
+- /v1/sales/feedback
+- /v1/sales/targets
+
+Required Semantic Keys (data-cy):
+- dashboard-sales-metrics
+- dashboard-sales-trends
+- dashboard-anomaly-alerts
+- dashboard-territory-comparison
+- dashboard-team-collaboration
+- dashboard-historical-data

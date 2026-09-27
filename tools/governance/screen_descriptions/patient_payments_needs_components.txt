@@ -1,0 +1,35 @@
+Screen Code: patient_payments
+Screen Name: Patient Payments
+
+Required Components:
+- PaymentStatusOverview
+- PaymentErrorAlerts
+- PaymentTrendsChart
+- PaymentHistoryAccess
+- PaymentInquiryNotifications
+
+Required Functions/Handlers:
+- monitorPaymentStatuses
+- processIncomingPayments
+- reviewPaymentHistory
+- handlePaymentInquiries
+- generatePaymentReports
+
+Required Buttons:
+- Process Payment
+- View Payment History
+- Generate Report
+- Handle Inquiry
+
+Required APIs:
+- /v1/payments/status
+- /v1/payments/process
+- /v1/payments/history
+- /v1/payments/inquiries
+- /v1/payments/reports
+
+Required Semantic Keys (data-cy):
+- patientpayments-btn-process
+- patientpayments-btn-viewhistory
+- patientpayments-btn-generateReport
+- patientpayments-btn-handleInquiry

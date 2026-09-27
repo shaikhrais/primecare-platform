@@ -1,0 +1,28 @@
+Customer Support Work Responsibilities:
+1. Respond to customer inquiries and issues promptly.
+2. Provide technical support and troubleshooting assistance.
+3. Maintain accurate records of customer interactions and transactions.
+4. Follow up with customers to ensure their issues are resolved.
+5. Collaborate with other departments to address customer needs.
+6. Train and educate customers on product usage.
+7. Gather customer feedback for product improvement.
+8. Monitor and report on customer satisfaction metrics.
+
+Red Flags of Operation:
+1. Increased response times to customer inquiries.
+2. High volume of unresolved customer issues.
+3. Negative customer feedback or low satisfaction scores.
+4. Frequent escalations to higher support tiers.
+5. Lack of communication between support and other departments.
+6. Inconsistent documentation of customer interactions.
+7. High turnover rate within the support team.
+
+Dashboard Requirements for Customer Support:
+1. Real-time metrics on response and resolution times.
+2. Customer satisfaction scores and feedback trends.
+3. Volume of incoming inquiries and issues.
+4. Status of open and closed tickets.
+5. Performance metrics for individual support agents.
+6. Alerts for unresolved issues exceeding a certain timeframe.
+7. Integration with customer relationship management (CRM) tools.
+8. Historical data for trend analysis and reporting.

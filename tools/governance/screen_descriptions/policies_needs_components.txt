@@ -1,0 +1,31 @@
+Screen Code: policies
+Screen Name: Policies
+
+Required Components:
+- LoadingIndicator
+- ErrorMessage
+- PolicyList
+- PolicyActionButtons
+
+Required Functions/Handlers:
+- fetchPolicies
+- handleError
+- viewPolicyDetails
+- editPolicy
+- deletePolicy
+
+Required Buttons:
+- View Details
+- Edit
+- Delete
+
+Required APIs:
+- /v1/policies
+
+Required Semantic Keys (data-cy):
+- policies-loading-indicator
+- policies-error-message
+- policies-list
+- policies-btn-view
+- policies-btn-edit
+- policies-btn-delete

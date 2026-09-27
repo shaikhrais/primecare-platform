@@ -1,0 +1,43 @@
+Screen Code: ceo_dashboard
+Screen Name: Ceo Dashboard
+
+Required Components:
+- KPIVisualization
+- FinancialSummary
+- ProjectManagementOverview
+- EmployeePerformanceMetrics
+- AlertsDashboard
+- InteractiveCharts
+- CommunicationTools
+
+Required Functions/Handlers:
+- fetchKPIs
+- generateFinancialReport
+- updateProjectStatus
+- evaluateEmployeePerformance
+- checkAlerts
+- renderCharts
+- sendCommunication
+
+Required Buttons:
+- Refresh Data
+- View Detailed Report
+- Send Update
+
+Required APIs:
+- /v1/kpis
+- /v1/financials
+- /v1/projects
+- /v1/employees
+- /v1/alerts
+- /v1/charts
+- /v1/communication
+
+Required Semantic Keys (data-cy):
+- dashboard-kpi-visualization
+- dashboard-financial-summary
+- dashboard-project-overview
+- dashboard-employee-metrics
+- dashboard-alerts
+- dashboard-charts
+- dashboard-communication-tools

@@ -1,0 +1,21 @@
+List of work the user must do:
+1. Monitor the scheduling of reports.
+2. Review the status of scheduled reports.
+3. Identify any discrepancies or issues in report generation.
+4. Ensure timely delivery of reports to stakeholders.
+5. Communicate with team members regarding scheduling changes or issues.
+6. Analyze report data for insights and improvements.
+
+Red flags of operation:
+1. Delays in report generation or delivery.
+2. Frequent errors or failures in scheduled reports.
+3. Lack of communication regarding scheduling changes.
+4. Inconsistent data in reports.
+5. High volume of manual interventions required.
+
+Dashboard needs for the user:
+1. Overview of scheduled reports with status indicators (e.g., on-time, delayed, failed).
+2. Notifications for any errors or issues in report generation.
+3. Historical data analysis for report performance.
+4. Communication tools for team collaboration.
+5. Insights and analytics on report data trends.

@@ -1,0 +1,20 @@
+User Tasks:
+1. Monitor environmental health hazards.
+2. Report any identified hazards.
+3. Access data on previous reports and trends.
+4. Collaborate with other users on hazard management.
+5. Update hazard status and mitigation efforts.
+
+Red Flags of Operation:
+1. Delays in reporting hazards.
+2. Lack of collaboration among users.
+3. Incomplete or inaccurate data entries.
+4. Low engagement with the dashboard features.
+5. High number of unresolved hazards.
+
+Dashboard Requirements:
+1. Real-time updates on reported hazards.
+2. Visual representation of hazard trends over time.
+3. Alerts for new hazards reported.
+4. Collaboration tools for user communication.
+5. Summary of unresolved hazards and their statuses.

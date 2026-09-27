@@ -1,0 +1,36 @@
+Screen Code: client_my_appointments
+Screen Name: Client My Appointments
+
+Required Components:
+- AppointmentList
+- AppointmentDetails
+- NotificationSection
+- FeedbackSection
+- AppointmentStatusIndicator
+
+Required Functions/Handlers:
+- fetchUpcomingAppointments
+- cancelAppointment
+- rescheduleAppointment
+- getAppointmentDetails
+- sendNotification
+- submitFeedback
+
+Required Buttons:
+- Cancel Appointment
+- Reschedule Appointment
+- Provide Feedback
+
+Required APIs:
+- /v1/appointments/upcoming
+- /v1/appointments/cancel
+- /v1/appointments/reschedule
+- /v1/appointments/details
+- /v1/notifications/send
+- /v1/feedback/submit
+
+Required Semantic Keys (data-cy):
+- appointment-list
+- btn-cancel-appointment
+- btn-reschedule-appointment
+- btn-provide-feedback

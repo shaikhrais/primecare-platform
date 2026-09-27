@@ -1,0 +1,52 @@
+Screen Code: outreach_campaign
+Screen Name: OutreachCampaignScreen
+
+Required Components:
+- KPIWidget
+- ClientMetricsChart
+- MarketAnalysisPanel
+- ProgressTracker
+- ComplianceStatusCard
+- TeamPerformanceDashboard
+- FinancialForecastWidget
+- NegotiationStatusPanel
+- ClientFeedbackWidget
+- MarketTrendsVisualization
+
+Required Functions/Handlers:
+- fetchKPIData
+- fetchClientMetrics
+- fetchMarketAnalysis
+- trackProgress
+- fetchComplianceData
+- fetchTeamPerformance
+- fetchFinancialForecast
+- fetchNegotiationStatus
+- fetchClientFeedback
+- fetchMarketTrends
+
+Required Buttons:
+- Add New Opportunity
+- View Reports
+- Export Data
+- Initiate Negotiation
+- Update Compliance Status
+
+Required APIs:
+- /v1/business-development/kpis
+- /v1/business-development/client-metrics
+- /v1/business-development/market-analysis
+- /v1/business-development/progress
+- /v1/business-development/compliance
+- /v1/business-development/team-performance
+- /v1/business-development/financial-forecast
+- /v1/business-development/negotiations
+- /v1/business-development/client-feedback
+- /v1/business-development/market-trends
+
+Required Semantic Keys (data-cy):
+- bdashboard-btn-add-opportunity
+- bdashboard-btn-view-reports
+- bdashboard-btn-export-data
+- bdashboard-btn-initiate-negotiation
+- bdashboard-btn-update-compliance

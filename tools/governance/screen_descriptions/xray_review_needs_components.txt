@@ -1,0 +1,43 @@
+Screen Code: xray_review
+Screen Name: XrayReviewScreen
+
+Required Components:
+- PatientRecordCard
+- XRayImageViewer
+- ComplianceAuditLog
+- PerformanceMetricsChart
+- TelemetryDataDisplay
+- RedFlagAlert
+- EducationalResourcePanel
+- CommunicationTool
+
+Required Functions/Handlers:
+- saveTreatmentPlan
+- reviewXRay
+- logPatientProgress
+- generateComplianceReport
+- sendMessageToProvider
+
+Required Buttons:
+- Save Treatment Plan
+- Review X-Ray
+- Log Patient Progress
+- Generate Compliance Report
+- Send Message to Provider
+
+Required APIs:
+- /v1/patients/records
+- /v1/xrays/review
+- /v1/compliance/audit
+- /v1/performance/metrics
+- /v1/telemetry/data
+- /v1/alerts/redflags
+- /v1/education/resources
+- /v1/communication/send
+
+Required Semantic Keys (data-cy):
+- xrayreview-btn-save
+- xrayreview-btn-review
+- xrayreview-btn-logprogress
+- xrayreview-btn-generatecompliance
+- xrayreview-btn-sendmessage

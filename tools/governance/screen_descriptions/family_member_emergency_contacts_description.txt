@@ -1,0 +1,21 @@
+User Work List:
+1. Review and manage family member emergency contacts.
+2. Add new emergency contacts.
+3. Edit existing emergency contacts.
+4. Delete emergency contacts.
+5. Ensure the accuracy of contact information.
+6. Access emergency contacts quickly in case of an emergency.
+
+Red Flags of Operation:
+1. Slow loading times when accessing the screen.
+2. Errors in loading data or features.
+3. Inconsistent data display or incorrect information.
+4. Lack of user feedback during loading or error states.
+5. Difficulty in navigating back to previous screens.
+
+Dashboard Needs:
+1. Quick access to emergency contacts.
+2. Notifications for missing or outdated contact information.
+3. Visual indicators for contact status (active/inactive).
+4. Summary of recent actions taken (added, edited, deleted contacts).
+5. Performance metrics (loading times, error rates).

@@ -1,0 +1,24 @@
+Screen Code: no_access
+Screen Name: No Access
+
+Required Components:
+- PermissionOverview
+- NotificationAlert
+- PermissionRequestLink
+- AccessHistory
+
+Required Functions/Handlers:
+- navigateBack
+- requestPermissions
+
+Required Buttons:
+- Go Back
+- Request Permissions
+
+Required APIs:
+- /v1/access/permissions
+- /v1/access/request
+
+Required Semantic Keys (data-cy):
+- no-access-btn-go-back
+- no-access-btn-request-permissions

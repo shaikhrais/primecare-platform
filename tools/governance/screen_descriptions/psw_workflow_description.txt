@@ -1,0 +1,29 @@
+List of tasks Personal Support Workers (PSWs) must perform:
+1. Clock in and out of shifts.
+2. Maintain an active checklist of Activities of Daily Living (ADLs) for clients.
+3. Log vital signs (blood pressure, heart rate, temperature, oxygen levels).
+4. Track travel mileage to and from client locations.
+5. Communicate with clients and healthcare teams regarding client needs and status.
+6. Document any changes in client condition or care requirements.
+7. Ensure compliance with care plans and protocols.
+8. Report any incidents or concerns to supervisors.
+
+Red flags of operation that indicate ineffective work:
+1. Frequent clocking in and out without valid reasons.
+2. Incomplete or inconsistent logging of ADLs.
+3. Delays in submitting vital signs.
+4. High travel mileage without justification.
+5. Lack of communication with clients or healthcare teams.
+6. Repeated incidents of missed care tasks.
+7. Failure to report changes in client condition.
+8. Non-compliance with care plans.
+
+Dashboard needs for Personal Support Workers (PSWs):
+1. Real-time clock in/out status.
+2. Active client information.
+3. Summary of logged ADLs with completion status.
+4. Vital signs submission status and history.
+5. Travel mileage tracker.
+6. Alerts for overdue tasks or submissions.
+7. Communication log with clients and healthcare teams.
+8. Incident reporting feature for quick documentation.

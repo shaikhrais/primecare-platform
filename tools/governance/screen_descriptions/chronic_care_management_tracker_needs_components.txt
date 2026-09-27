@@ -1,0 +1,47 @@
+Screen Code: chronic_care_management_tracker
+Screen Name: Chronic Care Management Tracker
+
+Required Components:
+- PatientHealthMetricsCard
+- AppointmentScheduler
+- DocumentationTracker
+- MedicationListManager
+- CommunicationLog
+- PatientDataAnalytics
+- RedFlagAlerts
+- UserActivityTracker
+
+Required Functions/Handlers:
+- monitorHealthMetrics
+- scheduleAppointment
+- documentInteraction
+- updateMedicationList
+- sendMessage
+- analyzePatientData
+- generateReport
+- trackUserActivity
+
+Required Buttons:
+- Schedule Appointment
+- Update Medication List
+- Document Interaction
+- Send Message
+- Generate Report
+- Track Activity
+
+Required APIs:
+- /v1/patients/metrics
+- /v1/appointments/schedule
+- /v1/patients/document
+- /v1/patients/medications
+- /v1/communication/logs
+- /v1/patients/analytics
+- /v1/reports/progress
+
+Required Semantic Keys (data-cy):
+- chroniccare-btn-schedule
+- chroniccare-btn-update-medication
+- chroniccare-btn-document
+- chroniccare-btn-send-message
+- chroniccare-btn-generate-report
+- chroniccare-btn-track-activity

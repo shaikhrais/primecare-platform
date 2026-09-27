@@ -1,0 +1,41 @@
+Screen Code: training_coordinator_compliance
+Screen Name: TrainingCoordinatorComplianceScreen
+
+Required Components:
+- TrainingCompletionOverview
+- TrainingSessionSchedule
+- ComplianceAuditResults
+- RealTimeNotifications
+- GovernanceDirectivesSummary
+- SecureEventReporting
+- TrainingActivityLogs
+
+Required Functions/Handlers:
+- submitSecureEventReport
+- updateGovernanceDirectives
+- fetchAuditResults
+- registerForTrainingSession
+
+Required Buttons:
+- Submit Report
+- Update Directives
+- View Audit Results
+- Participate in Training
+
+Required APIs:
+- /v1/training/completion/status
+- /v1/training/sessions/upcoming
+- /v1/compliance/audit/results
+- /v1/notifications/real-time
+- /v1/governance/directives/status
+- /v1/event/report/submit
+- /v1/training/activity/logs
+
+Required Semantic Keys (data-cy):
+- training-completion-overview
+- training-session-schedule
+- compliance-audit-results
+- real-time-notifications
+- governance-directives-summary
+- secure-event-reporting
+- training-activity-logs

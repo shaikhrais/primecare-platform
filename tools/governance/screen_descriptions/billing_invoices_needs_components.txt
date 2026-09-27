@@ -1,0 +1,29 @@
+Screen Code: billing_invoices
+Screen Name: Billing Invoices
+
+Required Components:
+- OperationalStatusCard
+- VerificationAuditAlert
+- TransactionFlowChart
+- SecureEventLogForm
+
+Required Functions/Handlers:
+- updateOperationalStatus
+- fetchVerificationAudit
+- trackTransactionFlow
+- submitSecureEventLog
+
+Required Buttons:
+- Submit Event Log
+
+Required APIs:
+- /v1/billing/invoices/status
+- /v1/compliance/audit/results
+- /v1/transactions/hourly
+- /v1/events/submit
+
+Required Semantic Keys (data-cy):
+- billing-invoices-status
+- billing-audit-alert
+- billing-transaction-flow
+- billing-submit-event-log

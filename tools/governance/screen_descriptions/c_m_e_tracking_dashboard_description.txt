@@ -1,0 +1,20 @@
+User Tasks:
+1. View earned CME credits.
+2. View required CME credits.
+3. View renewal deadline for CME credits.
+4. Log new CME credits.
+5. Refresh the dashboard to get the latest data.
+6. Review recent CME activities.
+
+Red Flags of Operation:
+1. Loading state taking too long may indicate API issues or network problems.
+2. Error messages displayed on the dashboard suggest problems with data retrieval.
+3. If earned credits are less than required credits, it indicates a potential compliance issue.
+4. Approaching renewal deadline without sufficient earned credits may lead to lapses in certification.
+
+Dashboard Requirements:
+1. Display earned credits, required credits, and renewal deadline prominently.
+2. Provide a refresh button to update data.
+3. Include a button to log new CME credits.
+4. List recent CME activities with details such as course name, provider, date, and credits earned.
+5. Use visual indicators (e.g., progress bars) to show progress towards credit requirements.

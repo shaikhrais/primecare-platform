@@ -1,0 +1,47 @@
+Screen Code: franchise_sales_analytics
+Screen Name: Franchise Sales Manager Analytics
+
+Required Components:
+- SalesPerformanceMetricCard
+- ComplianceStatusIndicator
+- SatisfactionRatingWidget
+- MarketAnalysisReportChart
+- TrainingEngagementMetric
+- PerformanceAlert
+- HistoricalSalesComparisonChart
+- MarketingEffectivenessTracker
+- CommunicationLog
+- OperationalActivityLog
+
+Required Functions/Handlers:
+- generateSalesReport
+- sendTrainingInvite
+- resolveFranchiseeIssue
+- viewMarketAnalysis
+- trackMarketingCampaign
+
+Required Buttons:
+- Generate Report
+- Send Training Invite
+- Resolve Issue
+- View Market Analysis
+- Track Marketing Campaign
+
+Required APIs:
+- /v1/franchise/sales/performance
+- /v1/franchise/compliance/status
+- /v1/franchise/satisfaction/ratings
+- /v1/market/analysis/reports
+- /v1/training/support/engagement
+- /v1/franchise/performance/alerts
+- /v1/sales/data/history
+- /v1/marketing/campaign/effectiveness
+- /v1/franchise/communication/logs
+- /v1/franchise/operations/logs
+
+Required Semantic Keys (data-cy):
+- franchise-sales-dashboard-btn-generate-report
+- franchise-sales-dashboard-btn-send-training-invite
+- franchise-sales-dashboard-btn-resolve-issue
+- franchise-sales-dashboard-btn-view-market-analysis
+- franchise-sales-dashboard-btn-track-marketing-campaign

@@ -1,0 +1,223 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: primecare
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+
+  api_gateway:
+    build:
+      context: ./services/api_gateway
+      dockerfile: Dockerfile
+    ports:
+      - "3001:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  auth-api:
+    build:
+      context: ./services/auth-api
+      dockerfile: Dockerfile
+    ports:
+      - "3002:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  auth_api:
+    build:
+      context: ./services/auth_api
+      dockerfile: Dockerfile
+    ports:
+      - "3003:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  billing-api:
+    build:
+      context: ./services/billing-api
+      dockerfile: Dockerfile
+    ports:
+      - "3004:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  billing_api:
+    build:
+      context: ./services/billing_api
+      dockerfile: Dockerfile
+    ports:
+      - "3005:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  client_api:
+    build:
+      context: ./services/client_api
+      dockerfile: Dockerfile
+    ports:
+      - "3006:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  compliance_api:
+    build:
+      context: ./services/compliance_api
+      dockerfile: Dockerfile
+    ports:
+      - "3007:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  franchise_reporting_api:
+    build:
+      context: ./services/franchise_reporting_api
+      dockerfile: Dockerfile
+    ports:
+      - "3008:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  governance_api:
+    build:
+      context: ./services/governance_api
+      dockerfile: Dockerfile
+    ports:
+      - "3009:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  notes-api:
+    build:
+      context: ./services/notes-api
+      dockerfile: Dockerfile
+    ports:
+      - "3010:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  notes_api:
+    build:
+      context: ./services/notes_api
+      dockerfile: Dockerfile
+    ports:
+      - "3011:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  notification-api:
+    build:
+      context: ./services/notification-api
+      dockerfile: Dockerfile
+    ports:
+      - "3012:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  notification_api:
+    build:
+      context: ./services/notification_api
+      dockerfile: Dockerfile
+    ports:
+      - "3013:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  provider_api:
+    build:
+      context: ./services/provider_api
+      dockerfile: Dockerfile
+    ports:
+      - "3014:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  scheduling_api:
+    build:
+      context: ./services/scheduling_api
+      dockerfile: Dockerfile
+    ports:
+      - "3015:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  verification_api:
+    build:
+      context: ./services/verification_api
+      dockerfile: Dockerfile
+    ports:
+      - "3016:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+  visit_api:
+    build:
+      context: ./services/visit_api
+      dockerfile: Dockerfile
+    ports:
+      - "3017:8080"
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://admin:password123@db:5432/primecare?schema=public
+    depends_on:
+      - db
+
+
+volumes:
+  pgdata:

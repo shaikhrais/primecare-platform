@@ -1,0 +1,28 @@
+Screen Code: training_director_course_library
+Screen Name: Training Director Course Library
+
+Required Components:
+- CourseList
+- LoadingIndicator
+- ErrorNotification
+- CourseSummary
+- UserFeedbackForm
+
+Required Functions/Handlers:
+- loadCourses
+- handleLoadingError
+- submitFeedback
+
+Required Buttons:
+- Refresh
+- Report Issue
+
+Required APIs:
+- /v1/courses
+- /v1/courses/updates
+
+Required Semantic Keys (data-cy):
+- training-library-loading
+- training-library-error
+- training-library-refresh
+- training-library-report-issue

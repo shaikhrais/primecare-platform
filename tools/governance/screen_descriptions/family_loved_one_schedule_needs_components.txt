@@ -1,0 +1,28 @@
+Screen Code: family_loved_one_schedule
+Screen Name: Family Loved One Schedule
+
+Required Components:
+- ScheduleView
+- LoadingIndicator
+- ErrorMessage
+- UserFeedbackForm
+
+Required Functions/Handlers:
+- loadSchedule
+- handleLoadingState
+- handleError
+- submitFeedback
+
+Required Buttons:
+- Refresh
+- Report Issue
+
+Required APIs:
+- /v1/family/schedule
+- /v1/family/schedule/updates
+
+Required Semantic Keys (data-cy):
+- family-schedule-view
+- loading-indicator
+- error-message
+- user-feedback-form

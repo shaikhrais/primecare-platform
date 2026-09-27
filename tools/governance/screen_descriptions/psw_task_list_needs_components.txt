@@ -1,0 +1,37 @@
+Screen Code: psw_task_list
+Screen Name: Psw Task List
+
+Required Components:
+- TaskList
+- TaskDetailView
+- TaskFilter
+- TaskNotification
+- TaskPerformanceSummary
+
+Required Functions/Handlers:
+- viewTaskList
+- updateTaskStatus
+- addNewTask
+- removeTask
+- filterTasks
+- getTaskDetails
+
+Required Buttons:
+- Add Task
+- Update Status
+- Remove Task
+- Filter Tasks
+
+Required APIs:
+- /v1/tasks
+- /v1/tasks/update
+- /v1/tasks/add
+- /v1/tasks/remove
+- /v1/tasks/filter
+
+Required Semantic Keys (data-cy):
+- tasklist-btn-add
+- tasklist-btn-update
+- tasklist-btn-remove
+- tasklist-filter
+- tasklist-notification

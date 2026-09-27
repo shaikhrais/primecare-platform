@@ -1,0 +1,7 @@
+# Screen: MKT-913
+**Component Name:** `LocalMarketingManagerLeadsScreen`  
+**Implementation Status:** 🔄 Discovery (Implemented)  
+**Associated Roles:** [Local Marketing Manager](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-MKT-913-01](tasks/tsk_mkt_913_01.md): Nurture and categorize localized leads before handing off to the Intake Coordinator.

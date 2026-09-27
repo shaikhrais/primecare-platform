@@ -1,0 +1,39 @@
+Screen Code: head_of_marketing_brand_assets
+Screen Name: Head Of Marketing Brand Assets
+
+Required Components:
+- BrandAssetOverview
+- PerformanceMetricsChart
+- ApprovalNotifications
+- CollaborationTool
+- BrandGuidelinesAccess
+- QuickLinks
+
+Required Functions/Handlers:
+- updateAssetStatus
+- requestApproval
+- submitFeedback
+- fetchBrandGuidelines
+- navigateToTemplate
+
+Required Buttons:
+- Update Asset
+- Request Approval
+- Provide Feedback
+- View Guidelines
+- Access Templates
+
+Required APIs:
+- /v1/brand/assets
+- /v1/brand/performance
+- /v1/brand/approvals
+- /v1/brand/collaboration
+- /v1/brand/guidelines
+
+Required Semantic Keys (data-cy):
+- brandasset-overview
+- performance-metrics-chart
+- approval-notifications
+- collaboration-tool
+- brand-guidelines-access
+- quick-links

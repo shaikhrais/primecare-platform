@@ -1,0 +1,41 @@
+Screen Code: scheduler_compliance
+Screen Name: SchedulerComplianceScreen
+
+Required Components:
+- PerformanceMetricCard
+- StaffScheduleOverview
+- IncidentReportWidget
+- AttendanceTracker
+- CustomerFeedbackTracker
+- TaskProgressIndicator
+- OperationalAlerts
+- HistoricalDataChart
+
+Required Functions/Handlers:
+- updateSchedule
+- generateReport
+- resolveCustomerComplaint
+- scheduleTeamMeeting
+- initiateTraining
+
+Required Buttons:
+- Add Schedule
+- View Reports
+- Resolve Complaint
+- Conduct Meeting
+- Provide Training
+
+Required APIs:
+- /v1/scheduler/performance
+- /v1/scheduler/schedule
+- /v1/scheduler/incidents
+- /v1/scheduler/attendance
+- /v1/scheduler/feedback
+- /v1/scheduler/tasks
+
+Required Semantic Keys (data-cy):
+- scheduler-btn-add-schedule
+- scheduler-btn-view-reports
+- scheduler-btn-resolve-complaint
+- scheduler-btn-conduct-meeting
+- scheduler-btn-provide-training

@@ -1,0 +1,34 @@
+Screen Code: community_outreach_volunteers
+Screen Name: Community Outreach Volunteers
+
+Required Components:
+- VolunteerStatsCard
+- EventsCalendar
+- FeedbackSummaryWidget
+- AlertsWidget
+- CommunicationLog
+
+Required Functions/Handlers:
+- trackParticipation
+- manageSchedules
+- reportEffectiveness
+- communicateWithVolunteers
+
+Required Buttons:
+- Add Event
+- Send Message
+- Generate Report
+
+Required APIs:
+- /v1/volunteers/participation
+- /v1/events/upcoming
+- /v1/feedback/summary
+- /v1/alerts/participation
+- /v1/communication/logs
+
+Required Semantic Keys (data-cy):
+- volunteer-stats-card
+- events-calendar
+- feedback-summary
+- alerts-widget
+- communication-log

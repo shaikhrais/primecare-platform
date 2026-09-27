@@ -1,0 +1,57 @@
+Screen Code: clinical_dashboard
+Screen Name: ClinicalDashboardScreen
+
+Required Components:
+- ComplianceStatusWidget
+- PerformanceMetricsChart
+- ActivityLogList
+- AlertNotificationPanel
+- PatientSafetyMetricsCard
+- StaffPerformanceIndicator
+- PolicyUpdateOverview
+- CommunicationTool
+- TrainingResourceAccess
+- HistoricalDataTrendChart
+
+Required Functions/Handlers:
+- fetchComplianceStatus
+- getPerformanceMetrics
+- logRecentActivity
+- triggerAlert
+- fetchPatientSafetyMetrics
+- getStaffPerformance
+- updatePolicyStatus
+- coordinateCommunication
+- accessTrainingResources
+- analyzeHistoricalData
+
+Required Buttons:
+- View Audit Results
+- Update Policy
+- Send Alert
+- Access Training Resources
+- Generate Report
+
+Required APIs:
+- /v1/clinical/compliance/status
+- /v1/clinical/performance/metrics
+- /v1/clinical/activity/logs
+- /v1/clinical/alerts
+- /v1/clinical/patient/safety
+- /v1/clinical/staff/performance
+- /v1/clinical/policy/updates
+- /v1/clinical/communication/tools
+- /v1/clinical/training/resources
+- /v1/clinical/historical/data
+
+Required Semantic Keys (data-cy):
+- clinical-dashboard-compliance-status
+- clinical-dashboard-performance-metrics
+- clinical-dashboard-activity-log
+- clinical-dashboard-alerts
+- clinical-dashboard-patient-safety
+- clinical-dashboard-staff-performance
+- clinical-dashboard-policy-updates
+- clinical-dashboard-communication-tools
+- clinical-dashboard-training-resources
+- clinical-dashboard-historical-data

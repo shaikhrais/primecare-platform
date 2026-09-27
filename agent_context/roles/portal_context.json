@@ -1,0 +1,72 @@
+{
+  "role": {
+    "id": 14,
+    "role_code": "portal",
+    "role_name": "Portal User",
+    "role_type": "staff",
+    "active": 1
+  },
+  "screens_count": 4,
+  "screens": [
+    {
+      "id": 26,
+      "app_id": 5,
+      "role_id": 14,
+      "screen_code": "portal_dashboard",
+      "screen_name": "PortalDashboardScreen",
+      "route_path": "/common/portal-dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/common/portal_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 131,
+      "app_id": 1,
+      "role_id": 14,
+      "screen_code": "portal_analytics",
+      "screen_name": "PortalAnalyticsScreen",
+      "route_path": "/common/portal-analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/common/portal_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 132,
+      "app_id": 1,
+      "role_id": 14,
+      "screen_code": "portal_compliance",
+      "screen_name": "PortalComplianceScreen",
+      "route_path": "/common/portal-compliance",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/common/portal_compliance_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 133,
+      "app_id": 1,
+      "role_id": 14,
+      "screen_code": "portal_workflow",
+      "screen_name": "PortalWorkflowScreen",
+      "route_path": "/common/portal-workflow",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/common/portal_workflow_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

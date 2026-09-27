@@ -1,0 +1,17 @@
+List of work the user must do:
+1. Review the data displayed on the Cfo Reports screen.
+2. Monitor the loading status of the reports.
+3. Handle any errors that may occur during data loading.
+4. Interpret the results presented in the reports.
+
+Red flags of operation:
+1. Long loading times indicating potential performance issues.
+2. Frequent errors during data loading suggesting instability or data source problems.
+3. Inaccurate or unexpected data in the reports indicating possible data integrity issues.
+
+What is needed on the dashboard of the user:
+1. A summary of key performance indicators (KPIs) relevant to CFO reports.
+2. Visual representations of data trends (charts/graphs).
+3. Notifications for errors or loading issues.
+4. Quick access to detailed reports for deeper analysis.
+5. User feedback options for continuous improvement.

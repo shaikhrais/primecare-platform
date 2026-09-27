@@ -1,0 +1,56 @@
+Screen Code: head_of_marketing_dashboard
+Screen Name: HeadOfMarketingDashboardScreen
+
+Required Components:
+- CampaignOverviewWidget
+- RealTimeAnalyticsChart
+- BudgetTrackingWidget
+- CustomerFeedbackWidget
+- SocialMediaMetricsWidget
+- KPIsTrackingWidget
+- MarketTrendsWidget
+- TeamPerformanceWidget
+- AuditLogWidget
+- AlertsWidget
+
+Required Functions/Handlers:
+- fetchCampaignData
+- fetchAnalyticsData
+- trackBudget
+- fetchCustomerFeedback
+- fetchSocialMediaMetrics
+- trackKPIs
+- fetchMarketTrends
+- fetchTeamPerformance
+- fetchAuditLogs
+- checkForAlerts
+
+Required Buttons:
+- View Campaign Details
+- Generate Report
+- Export Data
+- Set Alert Preferences
+
+Required APIs:
+- /v1/marketing/campaigns
+- /v1/analytics/website-traffic
+- /v1/marketing/budget
+- /v1/customer/feedback
+- /v1/social-media/performance
+- /v1/marketing/kpis
+- /v1/market/trends
+- /v1/team/performance
+- /v1/marketing/audit-logs
+- /v1/alerts/red-flags
+
+Required Semantic Keys (data-cy):
+- marketing-dashboard-campaigns
+- marketing-dashboard-analytics
+- marketing-dashboard-budget
+- marketing-dashboard-feedback
+- marketing-dashboard-social-media
+- marketing-dashboard-kpis
+- marketing-dashboard-trends
+- marketing-dashboard-team-performance
+- marketing-dashboard-audit-logs
+- marketing-dashboard-alerts

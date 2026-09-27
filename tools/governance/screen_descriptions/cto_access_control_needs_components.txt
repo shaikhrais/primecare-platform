@@ -1,0 +1,34 @@
+Screen Code: cto_access_control
+Screen Name: Cto Access Control
+
+Required Components:
+- AccessControlOverview
+- PendingRequestsNotification
+- SecurityAlerts
+- UserPermissionManagement
+- AccessLogsVisualization
+
+Required Functions/Handlers:
+- monitorAccessControl
+- reviewUserPermissions
+- manageAccessRequests
+- analyzeAccessLogs
+- updateAccessPolicies
+
+Required Buttons:
+- Approve Request
+- Deny Request
+- Update Policies
+
+Required APIs:
+- /v1/access/control/overview
+- /v1/access/requests
+- /v1/access/logs
+- /v1/access/policies
+
+Required Semantic Keys (data-cy):
+- accesscontrol-overview
+- pending-requests-notification
+- security-alerts
+- user-permission-management
+- access-logs-visualization

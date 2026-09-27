@@ -1,0 +1,22 @@
+User Tasks:
+1. Monitor marketing leads and their status.
+2. Analyze lead conversion rates.
+3. Review marketing campaign performance.
+4. Collaborate with the sales team for lead follow-up.
+5. Update lead information as necessary.
+6. Generate reports on lead performance.
+
+Red Flags of Operation:
+1. High lead drop-off rates.
+2. Low conversion rates from leads to customers.
+3. Delays in lead follow-up by the sales team.
+4. Inconsistent lead data updates.
+5. Negative feedback from leads regarding marketing efforts.
+
+Dashboard Needs:
+1. Real-time lead status overview.
+2. Conversion rate metrics.
+3. Performance analytics for marketing campaigns.
+4. Notifications for overdue lead follow-ups.
+5. Visual representation of lead trends over time.
+6. Access to detailed reports for in-depth analysis.

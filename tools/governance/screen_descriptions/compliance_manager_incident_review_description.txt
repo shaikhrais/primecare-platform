@@ -1,0 +1,24 @@
+User Tasks:
+1. Review compliance incidents reported in the system.
+2. Analyze incident data for patterns or recurring issues.
+3. Document findings and actions taken for each incident.
+4. Collaborate with other departments to ensure compliance standards are met.
+5. Generate reports on compliance incidents for management review.
+6. Stay updated on compliance regulations and best practices.
+
+Red Flags of Operation:
+1. High frequency of incidents in a specific area or department.
+2. Delays in incident reporting or resolution.
+3. Lack of documentation for incidents and actions taken.
+4. Repeated incidents of the same nature without corrective actions.
+5. Inconsistent compliance with regulatory requirements.
+6. Low engagement from team members in compliance discussions.
+
+Dashboard Requirements:
+1. Overview of current incidents with status (open, resolved, pending).
+2. Metrics on incident frequency and types over time.
+3. Alerts for overdue incidents or unresolved issues.
+4. Documentation status for each incident.
+5. Compliance score or rating based on incident management.
+6. Access to historical data for trend analysis.
+7. Collaboration tools for communication with other departments.

@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Review client profile information.
+2. Update client details as necessary.
+3. Monitor client interactions and feedback.
+4. Analyze client data for insights.
+5. Ensure data accuracy and completeness.
+
+Red flags of operation:
+1. Frequent errors loading client data.
+2. Delays in updating client information.
+3. Inconsistent data displayed on the client profile.
+4. Lack of user feedback or engagement.
+5. High error rates in data entry or retrieval.
+
+What we need on the dashboard of the user:
+1. Overview of client profile status.
+2. Notifications for updates or changes.
+3. Quick access to edit client information.
+4. Analytics on client interactions and feedback.
+5. Alerts for any operational issues or errors.

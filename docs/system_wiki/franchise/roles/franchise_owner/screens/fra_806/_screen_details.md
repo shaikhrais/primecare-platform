@@ -1,0 +1,7 @@
+# Screen: FRA-806
+**Component Name:** `FranchiseOwnerBranchOverviewScreen`  
+**Implementation Status:** ✅ Implemented  
+**Associated Roles:** [Franchise Owner](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-FRA-806-01](tasks/tsk_fra_806_01.md): View aggregated performance across all owned sub-branches.

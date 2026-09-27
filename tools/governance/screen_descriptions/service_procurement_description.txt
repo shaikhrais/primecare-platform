@@ -1,0 +1,20 @@
+User Work List:
+1. Submit procurement requests including vendor name, service type, cost, and target hub.
+2. Review and approve pending procurement orders.
+3. Monitor total approved spend and pending approvals.
+4. Update the status of procurement orders.
+5. Access and analyze procurement data and trends.
+
+Red Flags of Operation:
+1. High number of pending approvals indicating bottlenecks in the approval process.
+2. Significant discrepancies in procurement costs compared to budget expectations.
+3. Frequent errors in vendor information or service types leading to delays.
+4. Low on-time delivery rates for procured supplies.
+5. Lack of compliance with regional spending limits.
+
+Dashboard Requirements:
+1. Total approved spend with a trend indicator.
+2. Count of pending procurement requests awaiting approval.
+3. Count of approved procurement orders.
+4. Visualization of spending trends over time.
+5. Alerts for high-value procurement requests or compliance issues.

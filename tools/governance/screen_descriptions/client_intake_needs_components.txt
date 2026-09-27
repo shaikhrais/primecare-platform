@@ -1,0 +1,45 @@
+Screen Code: client_intake
+Screen Name: ClientIntakeScreen
+
+Required Components:
+- ClientIntakeStatusCard
+- ComplianceScanResultsTable
+- OperationalMetricsChart
+- SecurityClearanceStatusWidget
+- ActivityLogList
+- AlertsNotificationPanel
+- ClientFeedbackSurvey
+- CommunicationToolPanel
+
+Required Functions/Handlers:
+- updateIntakeStatus
+- generateComplianceReport
+- addressClientInquiry
+- logOperationalActivity
+- requestComplianceAudit
+
+Required Buttons:
+- Update Status
+- Generate Report
+- Address Inquiry
+- Log Activity
+- Request Audit
+
+Required APIs:
+- /v1/client/intake/status
+- /v1/compliance/scans/results
+- /v1/operations/metrics
+- /v1/security/clearance/status
+- /v1/activities/log
+- /v1/alerts/notifications
+- /v1/client/feedback
+
+Required Semantic Keys (data-cy):
+- client-intake-status-card
+- compliance-scan-results-table
+- operational-metrics-chart
+- security-clearance-status-widget
+- activity-log-list
+- alerts-notification-panel
+- client-feedback-survey
+- communication-tool-panel

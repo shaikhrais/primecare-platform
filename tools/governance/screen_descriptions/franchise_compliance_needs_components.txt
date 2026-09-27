@@ -1,0 +1,49 @@
+Screen Code: franchise_compliance
+Screen Name: FranchiseComplianceScreen
+
+Required Components:
+- ComplianceStatusIndicator
+- AuditLogViewer
+- ComplianceAlert
+- PerformanceMetricsChart
+- SecurityComplianceCard
+- OperationalIssuesTracker
+- TrainingProgressTracker
+- CommunicationLogViewer
+
+Required Functions/Handlers:
+- fetchComplianceStatus
+- fetchAuditLogs
+- setComplianceAlert
+- fetchPerformanceMetrics
+- checkSecurityCompliance
+- logOperationalIssue
+- trackTrainingProgress
+- logCommunication
+
+Required Buttons:
+- View Audit Logs
+- Generate Compliance Report
+- Schedule Audit
+- Update Training Program
+- Send Communication
+
+Required APIs:
+- /v1/franchise/compliance/status
+- /v1/franchise/audit/logs
+- /v1/franchise/compliance/alerts
+- /v1/franchise/performance/metrics
+- /v1/franchise/security/compliance
+- /v1/franchise/operational/issues
+- /v1/franchise/training/progress
+- /v1/franchise/communication/logs
+
+Required Semantic Keys (data-cy):
+- franchise-compliance-status-indicator
+- franchise-audit-log-viewer
+- franchise-compliance-alert
+- franchise-performance-metrics-chart
+- franchise-security-compliance-card
+- franchise-operational-issues-tracker
+- franchise-training-progress-tracker
+- franchise-communication-log-viewer

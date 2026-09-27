@@ -1,0 +1,20 @@
+List of work the user must do:
+1. View the shift calendar.
+2. Manage and coordinate shifts for staff.
+3. Monitor shift assignments and availability.
+4. Update shifts as necessary.
+5. Communicate with staff regarding shift changes.
+
+Red flags of operation:
+1. Frequent errors when loading data.
+2. Delays in updating shifts.
+3. Inconsistent shift assignments.
+4. Lack of communication from staff about availability.
+5. High number of unresolved conflicts in shift scheduling.
+
+What we need on the dashboard of the user:
+1. Overview of current shifts and assignments.
+2. Notifications for upcoming shifts and changes.
+3. Alerts for conflicts or issues in scheduling.
+4. Performance metrics on shift management efficiency.
+5. Quick access to communication tools for staff.

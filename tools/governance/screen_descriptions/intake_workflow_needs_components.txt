@@ -1,0 +1,46 @@
+Screen Code: intake_workflow
+Screen Name: IntakeWorkflowScreen
+
+Required Components:
+- ReferralStatusOverview
+- AppointmentSchedulingCalendar
+- PatientInformationSummary
+- NoShowMetricsChart
+- FollowUpReminders
+- CommunicationLogs
+- ComplianceChecklist
+- PerformanceMetrics
+- EHRIntegration
+- DataVisualization
+
+Required Functions/Handlers:
+- scheduleAppointment
+- sendReminder
+- logCommunication
+- checkCompliance
+- analyzeData
+
+Required Buttons:
+- Schedule Appointment
+- Send Reminder
+- Log Communication
+- Check Compliance
+- Analyze Data
+
+Required APIs:
+- /v1/referrals
+- /v1/appointments
+- /v1/patients
+- /v1/compliance
+- /v1/data-analysis
+
+Required Semantic Keys (data-cy):
+- intake-dashboard-referral-status
+- intake-dashboard-appointment-calendar
+- intake-dashboard-patient-summary
+- intake-dashboard-no-show-metrics
+- intake-dashboard-follow-up-reminders
+- intake-dashboard-communication-logs
+- intake-dashboard-compliance-checklist
+- intake-dashboard-performance-metrics
+- intake-dashboard-data-visualization

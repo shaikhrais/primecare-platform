@@ -1,0 +1,20 @@
+User Work List:
+1. Verify the functionality of the Cto System Verification screen.
+2. Monitor the loading state and ensure it displays correctly.
+3. Handle any errors that may arise during data loading.
+4. Interact with the displayed content and confirm it meets requirements.
+5. Report any discrepancies or issues encountered during verification.
+
+Red Flags of Operation:
+1. Long loading times that may indicate performance issues.
+2. Frequent error messages that suggest problems with data retrieval.
+3. Inconsistent UI elements that do not match design specifications.
+4. Lack of responsiveness or crashes during user interaction.
+5. Missing or incorrect data displayed on the screen.
+
+Dashboard Requirements for User:
+1. Real-time loading status indicator.
+2. Error logs for tracking issues encountered during operation.
+3. Performance metrics (loading times, error rates).
+4. User feedback section for reporting issues or suggestions.
+5. Summary of verification results and any actions taken.

@@ -1,0 +1,20 @@
+User Work List:
+1. Access the Digital Symptom Checker screen.
+2. Input symptoms or health concerns.
+3. Review the generated recommendations or next steps.
+4. Save or share the results if needed.
+5. Provide feedback on the accuracy of the recommendations.
+
+Red Flags of Operation:
+1. Slow response time when inputting symptoms.
+2. Inaccurate or irrelevant recommendations provided.
+3. User interface is not intuitive or user-friendly.
+4. Lack of clear instructions or guidance on how to use the tool.
+5. Errors or crashes when submitting symptoms.
+
+Dashboard Needs:
+1. User input history for tracking symptoms over time.
+2. Summary of recommendations provided.
+3. Feedback mechanism for users to report inaccuracies.
+4. Performance metrics (e.g., response time, user satisfaction).
+5. Alerts for any critical health concerns identified by the checker.

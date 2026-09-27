@@ -1,0 +1,25 @@
+User Work List:
+1. Review proposals submitted by team members.
+2. Create new proposals for projects or initiatives.
+3. Edit existing proposals as needed.
+4. Submit proposals for approval.
+5. Track the status of submitted proposals.
+6. Provide feedback on proposals.
+7. Collaborate with team members on proposal development.
+
+Red Flags of Operation:
+1. Frequent errors when loading proposals.
+2. Delays in proposal submission or approval processes.
+3. Lack of clarity in proposal statuses.
+4. Inconsistent feedback from team members.
+5. Low engagement in proposal reviews.
+6. High number of rejected proposals without clear reasons.
+
+Dashboard Requirements:
+1. Overview of all proposals (submitted, in review, approved, rejected).
+2. Status indicators for each proposal.
+3. Notifications for proposal updates or required actions.
+4. Metrics on proposal success rates and feedback trends.
+5. Collaboration tools for team discussions on proposals.
+6. Quick access to create and edit proposals.
+7. Historical data on past proposals for reference.

@@ -1,0 +1,37 @@
+Screen Code: physiotherapist_client_intake
+Screen Name: PhysiotherapistClientIntakeScreen
+
+Required Components:
+- PatientOverviewCard
+- KPIChart
+- ComplianceAuditLog
+- TelemetryDataChart
+- AlertNotification
+- EducationalResourceLink
+- CollaborationTool
+
+Required Functions/Handlers:
+- saveTreatmentPlan
+- updatePatientProgress
+- triggerEmergencyAlert
+- fetchEducationalResources
+
+Required Buttons:
+- Save Treatment Plan
+- Update Patient Progress
+- Emergency Alert
+- Access Resources
+
+Required APIs:
+- /v1/patients/overview
+- /v1/treatment/kpis
+- /v1/compliance/audit
+- /v1/patients/progress
+- /v1/alerts/redflags
+- /v1/resources/latest
+
+Required Semantic Keys (data-cy):
+- physio-dashboard-btn-save
+- physio-dashboard-btn-update
+- physio-dashboard-btn-emergency
+- physio-dashboard-btn-resources

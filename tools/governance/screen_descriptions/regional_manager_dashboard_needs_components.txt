@@ -1,0 +1,48 @@
+Screen Code: regional_manager_dashboard
+Screen Name: Regional Manager Dashboard
+
+Required Components:
+- SalesPerformanceMetric
+- SalesTrendVisualization
+- TeamPerformanceIndicator
+- RedFlagAlert
+- CustomerFeedbackSection
+- GoalTrackingIndicator
+- ReportsAccess
+- CommunicationTool
+
+Required Functions/Handlers:
+- monitorPerformanceMetrics
+- analyzeSalesData
+- reviewTeamPerformance
+- identifyImprovementAreas
+- communicateWithTeam
+- setRegionalGoals
+- prepareManagementReports
+- implementStrategies
+
+Required Buttons:
+- Set Goals
+- Prepare Report
+- Communicate
+- Analyze Data
+
+Required APIs:
+- /v1/region/performance/metrics
+- /v1/sales/data/trends
+- /v1/team/performance
+- /v1/alerts/redflags
+- /v1/customer/feedback
+- /v1/goals/tracking
+- /v1/reports/access
+- /v1/communication/tools
+
+Required Semantic Keys (data-cy):
+- dashboard-sales-performance
+- dashboard-sales-trend
+- dashboard-team-performance
+- dashboard-red-flag-alert
+- dashboard-customer-feedback
+- dashboard-goal-tracking
+- dashboard-reports-access
+- dashboard-communication-tool

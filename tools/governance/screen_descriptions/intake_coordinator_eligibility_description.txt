@@ -1,0 +1,20 @@
+User Work List:
+1. Monitor the loading state of the eligibility data.
+2. Review the error messages if data fails to load.
+3. Confirm that the eligibility screen is fully implemented and functioning.
+4. Interact with the UI elements to ensure they respond correctly.
+5. Provide feedback on the user experience and any issues encountered.
+
+Red Flags of Operation:
+1. Frequent loading states indicating potential performance issues.
+2. Repeated error messages suggesting backend or data retrieval problems.
+3. UI elements that do not respond or behave unexpectedly.
+4. Lack of clarity in error messages that could hinder troubleshooting.
+5. User feedback indicating confusion or dissatisfaction with the interface.
+
+Dashboard Needs:
+1. Real-time loading indicators for data retrieval.
+2. Error logs or alerts for any issues encountered during data loading.
+3. User feedback section to capture experiences and suggestions.
+4. Performance metrics to track loading times and error rates.
+5. Visual representation of the eligibility data once loaded for quick review.

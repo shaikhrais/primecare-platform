@@ -1,0 +1,49 @@
+Screen Code: support_workflow
+Screen Name: SupportWorkflowScreen
+
+Required Components:
+- TicketOverviewWidget
+- ResponseTimeChart
+- CustomerSatisfactionGauge
+- EscalationRateChart
+- KnowledgeBaseStatsWidget
+- StaffPerformanceDashboard
+- CommonIssuesList
+- RealTimeAlertsWidget
+- HistoricalDataTrendsChart
+- IntegrationStatusWidget
+
+Required Functions/Handlers:
+- respondToInquiry
+- escalateIssue
+- updateTicket
+- gatherFeedback
+- trainStaff
+- generateReport
+
+Required Buttons:
+- Respond to Inquiry
+- Escalate Issue
+- Update Ticket
+- Gather Feedback
+- Train Staff
+- Generate Report
+
+Required APIs:
+- /v1/support/tickets
+- /v1/support/metrics
+- /v1/support/feedback
+- /v1/support/escalations
+- /v1/support/knowledgebase
+- /v1/support/staff/performance
+
+Required Semantic Keys (data-cy):
+- support-dashboard-ticket-overview
+- support-dashboard-response-time
+- support-dashboard-customer-satisfaction
+- support-dashboard-escalation-rate
+- support-dashboard-knowledgebase-stats
+- support-dashboard-staff-performance
+- support-dashboard-common-issues
+- support-dashboard-real-time-alerts
+- support-dashboard-historical-data

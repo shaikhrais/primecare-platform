@@ -1,0 +1,26 @@
+Screen Code: territory_sales_mapping
+Screen Name: Territory Sales Mapping
+
+Required Components:
+- InteractiveMap
+- PerformanceHeatmap
+- RegionDetailsPanel
+
+Required Functions/Handlers:
+- refreshTerritoryData
+- fetchPerformanceMetrics
+- getRegionManagers
+
+Required Buttons:
+- Refresh Territories
+- View Reports
+
+Required APIs:
+- /v1/territories
+- /v1/performance
+- /v1/managers
+
+Required Semantic Keys (data-cy):
+- territory-map
+- refresh-button
+- performance-metrics

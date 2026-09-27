@@ -1,0 +1,29 @@
+Screen Code: clinic_incident_report
+Screen Name: Clinic Incident Report
+
+Required Components:
+- IncidentReportTable
+- LoadingIndicator
+- ErrorNotification
+- SuccessMessage
+- SummaryStatistics
+
+Required Functions/Handlers:
+- loadIncidentReports
+- handleLoadingError
+- displaySuccessMessage
+- updateDashboard
+
+Required Buttons:
+- Refresh
+- View Details
+
+Required APIs:
+- /v1/clinic/incident_reports
+
+Required Semantic Keys (data-cy):
+- clinic-incident-report-table
+- loading-indicator
+- error-notification
+- success-message
+- summary-statistics

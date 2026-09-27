@@ -1,0 +1,20 @@
+List of work Family Member must do:
+1. Run compliance scans regularly to ensure adherence to governance policies.
+2. Maintain logs of all actions and events for auditing purposes.
+3. Update governance directives as necessary based on operational needs.
+4. Submit secure event reports for any operational incidents.
+5. Monitor and review recent compliance verification audits.
+
+Red flags of operation:
+1. Frequent errors or failures during compliance scans.
+2. Inconsistent or missing logs which may indicate operational issues.
+3. Non-compliance statuses in recent audits.
+4. Delays in submitting secure event reports.
+5. Changes in governance directives that are not communicated effectively.
+
+What is needed on the dashboard of Family Member:
+1. Real-time status of compliance scans and their results.
+2. A summary of recent logs and actions taken.
+3. Alerts for any non-compliance issues or operational red flags.
+4. A section for governance directives with toggle options for updates.
+5. Access to recent compliance verification audits and their statuses.

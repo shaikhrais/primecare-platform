@@ -1,0 +1,25 @@
+Screen Code: feature_flag_controller
+Screen Name: Feature Flag Controller
+
+Required Components:
+- FeatureFlagList
+- FeatureFlagToggle
+- ErrorNotification
+- FeatureFlagDescription
+
+Required Functions/Handlers:
+- loadFeatureFlags
+- toggleFeatureFlag
+- refreshFeatureFlags
+
+Required Buttons:
+- Refresh
+
+Required APIs:
+- /v1/feature-flags
+
+Required Semantic Keys (data-cy):
+- feature-flag-list
+- feature-flag-toggle
+- error-notification
+- refresh-button

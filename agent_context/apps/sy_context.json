@@ -1,0 +1,12 @@
+{
+  "app": {
+    "id": 23,
+    "app_code": "sy",
+    "app_name": "Security",
+    "description": null,
+    "owner_team": null,
+    "active": 1
+  },
+  "screens_count": 0,
+  "screens": []
+}

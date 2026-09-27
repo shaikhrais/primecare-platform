@@ -1,0 +1,31 @@
+Screen Code: clinical_trial_recruitment_dashboard
+Screen Name: Clinical Trial Recruitment Dashboard
+
+Required Components:
+- RecruitmentMetricsCard
+- DemographicsChart
+- TimelineTracker
+- AlertsPanel
+- ReportingTool
+
+Required Functions/Handlers:
+- fetchRecruitmentMetrics
+- analyzeDemographics
+- trackTimelines
+- triggerAlerts
+- generateReports
+
+Required Buttons:
+- Generate Report
+- Refresh Data
+
+Required APIs:
+- /v1/clinical/trials/metrics
+- /v1/clinical/trials/demographics
+- /v1/clinical/trials/timelines
+- /v1/clinical/trials/alerts
+- /v1/clinical/trials/reports
+
+Required Semantic Keys (data-cy):
+- dashboard-btn-generate-report
+- dashboard-btn-refresh-data

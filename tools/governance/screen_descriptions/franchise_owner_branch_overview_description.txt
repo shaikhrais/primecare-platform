@@ -1,0 +1,28 @@
+Franchise Owner Responsibilities:
+1. Monitor active operations and ensure optimal productivity.
+2. Maintain security clearance and compliance with regulations.
+3. Review operational audit logs for any discrepancies or issues.
+4. Execute compliance scans and audits regularly.
+5. Manage and respond to any alerts or notifications from the system.
+6. Refresh and synchronize dashboard telemetry data.
+7. Document and log any significant events or changes in operations.
+8. Communicate with staff and stakeholders regarding operational status.
+
+Red Flags of Operation:
+1. Decrease in active operations or productivity levels.
+2. Security clearance issues or exceptions logged.
+3. Frequent errors or failures during compliance scans.
+4. Unusual patterns in telemetry data indicating potential problems.
+5. Lack of timely updates in operational audit logs.
+6. High number of manual refreshes indicating system instability.
+7. Delays in responding to alerts or notifications.
+
+Dashboard Requirements for Franchise Owner:
+1. Overview of active operations with productivity metrics.
+2. Security clearance status and any exceptions.
+3. Real-time telemetry data and historical trends.
+4. Operational audit logs with timestamps and details.
+5. Compliance scan results and any issues identified.
+6. Notifications for alerts or required actions.
+7. Button to manually trigger compliance scans or refresh data.
+8. Log entry feature for documenting significant events.

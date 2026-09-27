@@ -1,0 +1,40 @@
+Screen Code: client_issue
+Screen Name: ClientIssueScreen
+
+Required Components:
+- TicketVolumeChart
+- ResponseTimeMetric
+- CustomerSatisfactionCard
+- OpenClosedTicketsStatus
+- EscalationRateChart
+- TeamPerformanceMetrics
+- CommonIssuesList
+- TrainingResources
+
+Required Functions/Handlers:
+- respondToInquiry
+- escalateTicket
+- documentInteraction
+- conductFollowUp
+- fetchTrainingResources
+
+Required Buttons:
+- Respond to Inquiry
+- Escalate Ticket
+- Document Interaction
+- Conduct Follow-Up
+- View Training Resources
+
+Required APIs:
+- /v1/support/tickets
+- /v1/support/satisfaction
+- /v1/support/escalations
+- /v1/support/performance
+- /v1/support/common-issues
+
+Required Semantic Keys (data-cy):
+- support-dashboard-btn-respond
+- support-dashboard-btn-escalate
+- support-dashboard-btn-document
+- support-dashboard-btn-followup
+- support-dashboard-btn-training

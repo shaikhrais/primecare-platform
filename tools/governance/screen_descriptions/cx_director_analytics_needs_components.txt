@@ -1,0 +1,48 @@
+Screen Code: cx_director_analytics
+Screen Name: CxDirectorAnalyticsScreen
+
+Required Components:
+- CustomerSatisfactionCard
+- FeedbackTrendsChart
+- KPIOverviewWidget
+- OperationalMetricsPanel
+- EmployeeEngagementCard
+- CustomerJourneyMap
+- InteractionLogsTable
+- SurveyInsightsWidget
+- AlertsNotification
+- ImprovementVisualizationsChart
+
+Required Functions/Handlers:
+- fetchCustomerSatisfactionData
+- analyzeFeedbackTrends
+- retrieveKPIs
+- getOperationalMetrics
+- fetchEmployeeEngagementScores
+- mapCustomerJourney
+- logCustomerInteractions
+- gatherSurveyInsights
+- checkAlerts
+- visualizeImprovements
+
+Required Buttons:
+- Refresh Data
+- Export Report
+- View Details
+
+Required APIs:
+- /v1/customer/satisfaction
+- /v1/customer/feedback/trends
+- /v1/customer/kpis
+- /v1/operational/metrics
+- /v1/employee/engagement
+- /v1/customer/journey
+- /v1/customer/interactions
+- /v1/customer/surveys
+- /v1/alerts
+- /v1/improvements/visualizations
+
+Required Semantic Keys (data-cy):
+- cxdashboard-btn-refresh
+- cxdashboard-btn-export
+- cxdashboard-btn-viewdetails

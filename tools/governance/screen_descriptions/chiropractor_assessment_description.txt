@@ -1,0 +1,30 @@
+Chiropractor Work Responsibilities:
+1. Conduct patient assessments and evaluations.
+2. Develop treatment plans based on patient needs.
+3. Perform chiropractic adjustments and manipulations.
+4. Educate patients on lifestyle changes and exercises.
+5. Monitor patient progress and adjust treatment plans as necessary.
+6. Maintain accurate patient records and documentation.
+7. Collaborate with other healthcare professionals when needed.
+8. Stay updated on chiropractic techniques and practices.
+9. Ensure compliance with healthcare regulations and standards.
+
+Red Flags for Operations:
+1. Increased patient complaints or dissatisfaction.
+2. High rate of treatment failures or lack of improvement.
+3. Significant changes in patient demographics or volume.
+4. Non-compliance with regulatory standards or guidelines.
+5. Frequent errors in patient documentation or records.
+6. Unusual patterns in billing or insurance claims.
+7. Staff turnover or dissatisfaction.
+8. Negative feedback from other healthcare providers.
+
+Dashboard Requirements for Chiropractor:
+1. Active Operations Metric: Display current active patient treatments.
+2. Security Clearance Status: Show compliance level and any exceptions.
+3. Telemetry Chart: Visual representation of patient treatment metrics over time.
+4. Operational Audit Logs: List of recent activities and compliance checks.
+5. Compliance Scan Button: Option to run compliance audits.
+6. Loading Indicator: Show progress during compliance scans.
+7. Manual Refresh Button: Allow refreshing of dashboard data.
+8. Notifications for any red flags or alerts related to operations.

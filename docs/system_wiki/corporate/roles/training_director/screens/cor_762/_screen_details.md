@@ -1,0 +1,7 @@
+# Screen: COR-762
+**Component Name:** `ComplianceTrainingScreen`  
+**Implementation Status:** 🔄 Discovery (Implemented)  
+**Associated Roles:** [Training Director](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-COR-762-01](tasks/tsk_cor_762_01.md): Dedicated workflow to enforce government-mandated healthcare certifications.

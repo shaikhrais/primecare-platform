@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrimeCare - Clinical Dashboard [Live Render]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; height: 100vh; }
+
+        /* Sidebar */
+        .sidebar { width: 260px; background: #020617; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+        .nav-item { padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem; cursor: pointer; color: var(--text-muted); transition: 0.2s; }
+        .nav-item:hover { color: var(--text); background: rgba(255, 255, 255, 0.05); }
+        .nav-item.active { color: var(--primary); background: rgba(99, 102, 241, 0.1); border-right: 3px solid var(--primary); }
+
+        /* Main */
+        .main { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+        .header { height: 70px; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 10; }
+
+        .dashboard-content { padding: 2rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--surface); padding: 1.5rem; border-radius: 1rem; border: 1px solid var(--border); }
+        .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem; }
+        .stat-value { font-size: 1.5rem; font-weight: 700; }
+
+        .main-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
+        
+        .card { background: var(--surface); border-radius: 1rem; border: 1px solid var(--border); padding: 1.5rem; }
+        .card-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+
+        /* Table */
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 1rem; font-size: 0.8rem; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+        td { padding: 1rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+        .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--primary); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 0.5rem; }
+
+        .status-pill { padding: 0.2rem 0.6rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight: 600; }
+        .status-stable { background: rgba(34, 197, 94, 0.1); color: var(--success); }
+        .status-critical { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+
+        /* Aura HUD */
+        .aura-hud { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); padding: 1.5rem; border-radius: 1rem; border: 1px solid rgba(129, 140, 248, 0.3); }
+        .aura-ai { font-weight: 700; color: #818cf8; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .aura-msg { font-size: 0.9rem; font-style: italic; color: #c7d2fe; line-height: 1.4; }
+
+        .chart-mock { height: 150px; background: rgba(255, 255, 255, 0.03); border-radius: 0.5rem; display: flex; align-items: flex-end; gap: 4px; padding: 1rem; }
+        .bar { flex: 1; background: var(--primary); border-radius: 2px 2px 0 0; opacity: 0.7; transition: 0.3s; }
+        .bar:hover { opacity: 1; transform: scaleY(1.1); }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div style="padding: 2rem; font-weight: 800; font-size: 1.2rem; color: var(--primary);"><i class="fas fa-heartbeat"></i> PRIMECARE</div>
+        <div class="nav-item active"><i class="fas fa-th-large"></i> Dashboard</div>
+        <div class="nav-item"><i class="fas fa-user-injured"></i> Patients</div>
+        <div class="nav-item"><i class="fas fa-calendar-alt"></i> Appointments</div>
+        <div class="nav-item"><i class="fas fa-file-medical"></i> Reports</div>
+        <div class="nav-item"><i class="fas fa-cog"></i> Settings</div>
+    </div>
+
+    <div class="main">
+        <div class="header">
+            <div style="font-weight: 600;">Clinical Team Dashboard</div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <i class="fas fa-bell" style="color: var(--text-muted);"></i>
+                <div style="width: 35px; height: 35px; border-radius: 50%; background: var(--secondary); display: flex; align-items: center; justify-content: center; font-weight: 700;">DR</div>
+            </div>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Patients</div>
+                    <div class="stat-value">1,284</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Cases</div>
+                    <div class="stat-value" style="color: var(--primary);">42</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Critical Alerts</div>
+                    <div class="stat-value" style="color: var(--danger);">3</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg Recovery</div>
+                    <div class="stat-value">84%</div>
+                </div>
+            </div>
+
+            <div class="main-grid">
+                <div class="card">
+                    <div class="card-title"><i class="fas fa-users"></i> Recent Patient Activity</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Patient Name</th>
+                                <th>Assigned To</th>
+                                <th>Condition</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><div class="avatar" style="background: #fbbf24;">JD</div> John Doe</td>
+                                <td>Nurse Sarah</td>
+                                <td>Post-Op Recovery</td>
+                                <td><span class="status-pill status-stable">Stable</span></td>
+                            </tr>
+                            <tr>
+                                <td><div class="avatar" style="background: #f87171;">AS</div> Alice Smith</td>
+                                <td>Dr. Wilson</td>
+                                <td>Acute Respiratory</td>
+                                <td><span class="status-pill status-critical">Critical</span></td>
+                            </tr>
+                            <tr>
+                                <td><div class="avatar" style="background: #60a5fa;">RB</div> Robert Brown</td>
+                                <td>Nurse Sarah</td>
+                                <td>Physiotherapy</td>
+                                <td><span class="status-pill status-stable">Stable</span></td>
+                            </tr>
+                            <tr>
+                                <td><div class="avatar" style="background: #34d399;">EM</div> Elena Martinez</td>
+                                <td>Dr. Chen</td>
+                                <td>Cardiac Checkup</td>
+                                <td><span class="status-pill status-stable">Stable</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <div class="aura-hud">
+                        <div class="aura-ai"><i class="fas fa-robot"></i> AURA INTELLIGENCE</div>
+                        <div class="aura-msg">"Patient Alice Smith's oxygen levels have fluctuated 4% in the last hour. Recommend immediate pulmonary review."</div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title">Weekly Vitals Trend</div>
+                        <div class="chart-mock">
+                            <div class="bar" style="height: 40%;"></div>
+                            <div class="bar" style="height: 60%;"></div>
+                            <div class="bar" style="height: 45%;"></div>
+                            <div class="bar" style="height: 90%;"></div>
+                            <div class="bar" style="height: 70%;"></div>
+                            <div class="bar" style="height: 55%;"></div>
+                            <div class="bar" style="height: 80%;"></div>
+                        </div>
+                        <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted); text-align: center;">Compliance score: 92%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

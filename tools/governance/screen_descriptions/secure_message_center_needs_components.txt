@@ -1,0 +1,43 @@
+Screen Code: secure_message_center
+Screen Name: Secure Message Center
+
+Required Components:
+- MessageList
+- SearchBar
+- RefreshButton
+- ComposeMessageButton
+- MessageDetailView
+- ReplyButton
+- ArchiveButton
+- FileAttachment
+
+Required Functions/Handlers:
+- fetchMessages
+- searchMessages
+- refreshInbox
+- composeMessage
+- viewMessageDetails
+- replyToMessage
+- archiveMessage
+- attachFile
+
+Required Buttons:
+- Refresh
+- Compose
+- Reply
+- Archive
+
+Required APIs:
+- /v1/messages/inbox
+- /v1/messages/search
+- /v1/messages/refresh
+- /v1/messages/compose
+- /v1/messages/reply
+- /v1/messages/archive
+
+Required Semantic Keys (data-cy):
+- message-center-btn-refresh
+- message-center-btn-compose
+- message-center-btn-reply
+- message-center-btn-archive
+- message-center-search-bar

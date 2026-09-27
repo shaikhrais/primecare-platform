@@ -1,0 +1,38 @@
+Screen Code: training_compliance
+Screen Name: Training Compliance
+
+Required Components:
+- ComplianceOverviewCard
+- CompletionRateChart
+- UserListTable
+- TrainingMaterialsAccess
+- ReportGenerationButton
+- DeadlineNotification
+
+Required Functions/Handlers:
+- fetchComplianceStatus
+- fetchCompletionRates
+- fetchNonCompliantUsers
+- accessTrainingMaterials
+- generateComplianceReport
+- sendDeadlineNotifications
+
+Required Buttons:
+- Generate Report
+- Access Materials
+
+Required APIs:
+- /v1/training/compliance/status
+- /v1/training/completion/rates
+- /v1/training/noncompliant/users
+- /v1/training/materials
+- /v1/training/reports/generate
+- /v1/training/deadlines/notifications
+
+Required Semantic Keys (data-cy):
+- training-compliance-overview
+- training-completion-chart
+- training-user-list
+- training-materials-access
+- training-report-button
+- training-deadline-notification

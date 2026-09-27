@@ -1,0 +1,38 @@
+Screen Code: caregiver_client_profile
+Screen Name: CaregiverClientProfileScreen
+
+Required Components:
+- TaskList
+- HealthStatusCard
+- MedicationAlert
+- CommunicationTool
+- PerformanceMetrics
+- ComplianceAuditResults
+- TrainingResources
+
+Required Functions/Handlers:
+- logCareProvided
+- reportIncident
+- requestAssistance
+- viewComplianceAudit
+
+Required Buttons:
+- Log Care
+- Report Incident
+- Request Assistance
+- View Compliance Audit
+
+Required APIs:
+- /v1/caregiver/tasks
+- /v1/client/health/status
+- /v1/medications/alerts
+- /v1/compliance/audit/results
+- /v1/communication/contact
+
+Required Semantic Keys (data-cy):
+- caregiver-task-list
+- client-health-status
+- medication-alert
+- performance-metrics
+- compliance-audit
+- communication-tool

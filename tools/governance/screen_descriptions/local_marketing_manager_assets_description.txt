@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor local marketing assets.
+2. Analyze performance metrics of local marketing campaigns.
+3. Update and manage marketing materials.
+4. Collaborate with local teams for asset utilization.
+5. Report on marketing effectiveness and ROI.
+
+Red flags of operation:
+1. Delayed loading times for data.
+2. Frequent errors when fetching features.
+3. Lack of updates or stale content in marketing assets.
+4. Low engagement metrics from local campaigns.
+5. Inconsistent branding across marketing materials.
+
+What is needed on the user dashboard:
+1. Overview of current marketing assets.
+2. Performance metrics and analytics dashboard.
+3. Notifications for updates or required actions.
+4. Quick access to frequently used tools and resources.
+5. Error reporting and troubleshooting section.

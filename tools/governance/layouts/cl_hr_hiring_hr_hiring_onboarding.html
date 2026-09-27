@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" dir="LTR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit Data | Primecare Client</title>
+  <link rel="stylesheet" href="./primecare_theme.css" />
+
+  <style>
+    :root {
+      --pc-color-primary: #0F172A;
+      --pc-color-secondary: #475569;
+      --pc-color-background: #F8FAFC;
+      --pc-color-surface: #FFFFFF;
+      --pc-color-text: #0f172a;
+      --pc-color-muted: #64748b;
+      --pc-spacing-sm: 10px;
+      --pc-spacing-md: 16px;
+      --pc-spacing-lg: 28px;
+      --pc-radius-md: 8px;
+      --pc-font-family: Inter, sans-serif;
+    }
+  </style>
+
+</head>
+<body data-theme="primecare_light_default" data-app="cl" data-role="hr_hiring" data-screen="hr_hiring_onboarding">
+  <aside class="pc-sidebar" data-testid="app-sidebar">
+  <div class="pc-sidebar-brand">
+    <div class="pc-brand-logo">CL</div>
+    <div>
+      <div class="pc-brand-title">Primecare Client</div>
+      <div class="pc-brand-subtitle">Talent Acquisition Manager</div>
+    </div>
+  </div>
+
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">Overview</div>
+    
+    <a href="/offices/corporate/roles/hr_hiring/dashboard" class="pc-sidebar-link " data-testid="sidebar-link-hr_hiring_dashboard" data-route="/offices/corporate/roles/hr_hiring/dashboard" data-screen="hr_hiring_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Hr Hiring Dashboard</span>
+    </a>
+    
+    <a href="/management/screen-progress-dashboard" class="pc-sidebar-link " data-testid="sidebar-link-screen_progress_dashboard" data-route="/management/screen-progress-dashboard" data-screen="screen_progress_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Screen Progress Dashboard</span>
+    </a>
+    
+  </div>
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">General</div>
+    
+    <a href="/offices/franchise/roles/hr_hiring/applicants" class="pc-sidebar-link " data-testid="sidebar-link-hr_hiring_applicants" data-route="/offices/franchise/roles/hr_hiring/applicants" data-screen="hr_hiring_applicants">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Hr Hiring Applicants</span>
+    </a>
+    
+    <a href="/offices/franchise/roles/hr_hiring/interviews" class="pc-sidebar-link " data-testid="sidebar-link-hr_hiring_interviews" data-route="/offices/franchise/roles/hr_hiring/interviews" data-screen="hr_hiring_interviews">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Hr Hiring Interviews</span>
+    </a>
+    
+    <a href="/offices/franchise/roles/hr_hiring/offers" class="pc-sidebar-link " data-testid="sidebar-link-hr_hiring_offers" data-route="/offices/franchise/roles/hr_hiring/offers" data-screen="hr_hiring_offers">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Hr Hiring Offers</span>
+    </a>
+    
+    <a href="/offices/franchise/roles/hr_hiring/onboarding" class="pc-sidebar-link is-active" data-testid="sidebar-link-hr_hiring_onboarding" data-route="/offices/franchise/roles/hr_hiring/onboarding" data-screen="hr_hiring_onboarding">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Hr Hiring Onboarding</span>
+    </a>
+    
+    <a href="/offices/franchise/roles/hr_hiring/credentials" class="pc-sidebar-link " data-testid="sidebar-link-hr_hiring_credentials" data-route="/offices/franchise/roles/hr_hiring/credentials" data-screen="hr_hiring_credentials">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Hr Hiring Credentials</span>
+    </a>
+    
+    <a href="/staff/applicant-tracking" class="pc-sidebar-link " data-testid="sidebar-link-applicant_tracking" data-route="/staff/applicant-tracking" data-screen="applicant_tracking">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Applicant Tracking</span>
+    </a>
+    
+    <a href="/staff/interview-scheduling" class="pc-sidebar-link " data-testid="sidebar-link-interview_scheduling" data-route="/staff/interview-scheduling" data-screen="interview_scheduling">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Interview Scheduling</span>
+    </a>
+    
+    <a href="/staff/offer-management" class="pc-sidebar-link " data-testid="sidebar-link-offer_management" data-route="/staff/offer-management" data-screen="offer_management">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Offer Management</span>
+    </a>
+    
+    <a href="/staff/onboarding-checklist" class="pc-sidebar-link " data-testid="sidebar-link-onboarding_checklist" data-route="/staff/onboarding-checklist" data-screen="onboarding_checklist">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Onboarding Checklist</span>
+    </a>
+    
+  </div>
+  
+
+  <div class="pc-sidebar-footer">
+    <span class="pc-shell-status-dot"></span>
+    <span>Shell loaded</span>
+  </div>
+</aside>
+
+  <div class="pc-shell">
+    <header class="pc-topbar" data-testid="app-topbar">
+  <div class="pc-topbar-left">
+    <div class="pc-breadcrumb" data-testid="breadcrumb">Primecare Client / Talent Acquisition Manager</div>
+    <div class="pc-topbar-title-row">
+      <h1 class="pc-screen-title" data-testid="screen-title">Submit Data</h1>
+      <span class="pc-role-badge" data-testid="role-badge">Talent Acquisition Manager</span>
+    </div>
+  </div>
+
+  <div class="pc-topbar-actions">
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in Primecare Client...</div>
+    
+    
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in Primecare Client...</div>
+    
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    <div class="pc-profile-avatar" data-testid="topbar-profile-avatar">TA</div>
+  </div>
+</header>
+
+    <main class="pc-content" data-testid="main-content">
+  <div class="pc-content-shell" data-testid="content-page-shell">
+    <div class="pc-content-header">
+      <div>
+        <div class="pc-content-title">Submit Data</div>
+        <div class="pc-content-subtitle">Visual interface layout contract.</div>
+      </div>
+      <span class="pc-content-state-badge" data-testid="content-state">Active</span>
+    </div>
+
+    
+
+    
+    <div class="pc-section-grid" data-testid="screen-section-grid">
+      
+      <section class="pc-section pc-section--header" data-testid="section-hr_hiring_onboarding_header" data-section-type="header">
+        <div class="pc-section-header">
+          <div>
+            <h2>Header Section</h2>
+            <p>Fallback screen title.</p>
+          </div>
+          <span>header</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="hr_hiring_onboarding-screen" data-element-type="layout">
+            HrHiringOnboardingScreen Screen Root
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="hr_hiring_onboarding-title" data-element-type="header">
+            HrHiringOnboardingScreen Page Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--summary" data-testid="section-hr_hiring_onboarding_content_summary" data-section-type="summary">
+        <div class="pc-section-header">
+          <div>
+            <h2>Content Summary Section</h2>
+            <p>Summary cards overview.</p>
+          </div>
+          <span>summary</span>
+        </div>
+        <div class="pc-section-body">
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--content" data-testid="section-hr_hiring_onboarding_primary_content" data-section-type="content">
+        <div class="pc-section-header">
+          <div>
+            <h2>Primary Content Section</h2>
+            <p>Main details and grids.</p>
+          </div>
+          <span>content</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="hr_hiring_onboarding-content" data-element-type="layout">
+            HrHiringOnboardingScreen Primary Content
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="hrhiringonboarding-screen" data-element-type="layout">
+            Hrhiringonboarding Screen
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="hrhiringonboarding-content" data-element-type="layout">
+            Hrhiringonboarding Content
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="hrhiringonboarding-title" data-element-type="header">
+            Hrhiringonboarding Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--action_bar" data-testid="section-hr_hiring_onboarding_action_bar" data-section-type="action_bar">
+        <div class="pc-section-header">
+          <div>
+            <h2>Action Bar Section</h2>
+            <p>Interaction buttons.</p>
+          </div>
+          <span>action_bar</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--button" data-testid="hrhiringonboarding-btn-5" data-element-type="button">
+            Hrhiringonboarding Btn 5
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="hrhiringonboarding-btn-1" data-element-type="button">
+            Hrhiringonboarding Btn 1
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="hrhiringonboarding-btn-4" data-element-type="button">
+            Hrhiringonboarding Btn 4
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="hrhiringonboarding-btn-2" data-element-type="button">
+            Hrhiringonboarding Btn 2
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="hrhiringonboarding-btn-3" data-element-type="button">
+            Hrhiringonboarding Btn 3
+          </div>
+          
+        </div>
+      </section>
+      
+    </div>
+    
+  </div>
+</main>
+
+  </div>
+</body>
+</html>

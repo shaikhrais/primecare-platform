@@ -1,0 +1,62 @@
+Screen Code: vitals_tracking
+Screen Name: VitalsTrackingScreen
+
+Required Components:
+- VitalSignMonitor
+- MedicationTracker
+- PatientCareLog
+- AlertSystem
+- CommunicationTool
+- ComplianceTracker
+- PatientSatisfactionMetric
+- TrainingResource
+- PatientCarePlanAccess
+- ReportingTool
+
+Required Functions/Handlers:
+- recordVitalSigns
+- administerMedication
+- documentPatientCare
+- sendAlert
+- collaborateWithTeam
+- trackCompliance
+- viewPatientSatisfaction
+- accessTrainingResources
+- viewCarePlans
+- generateReport
+
+Required Buttons:
+- Record Vital Signs
+- Administer Medication
+- Document Care
+- Send Alert
+- Collaborate
+- Track Compliance
+- View Patient Satisfaction
+- Access Training Resources
+- View Care Plans
+- Generate Report
+
+Required APIs:
+- /v1/patient/vital-signs
+- /v1/patient/medications
+- /v1/patient/care-logs
+- /v1/alerts
+- /v1/communication
+- /v1/compliance
+- /v1/patient/satisfaction
+- /v1/training/resources
+- /v1/patient/care-plans
+- /v1/reports
+
+Required Semantic Keys (data-cy):
+- vitals-tracking-btn-record-vital-signs
+- vitals-tracking-btn-administer-medication
+- vitals-tracking-btn-document-care
+- vitals-tracking-btn-send-alert
+- vitals-tracking-btn-collaborate
+- vitals-tracking-btn-track-compliance
+- vitals-tracking-btn-view-satisfaction
+- vitals-tracking-btn-access-training
+- vitals-tracking-btn-view-care-plans
+- vitals-tracking-btn-generate-report

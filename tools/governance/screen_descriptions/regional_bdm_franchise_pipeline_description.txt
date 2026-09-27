@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor the franchise pipeline for regional business development managers.
+2. Analyze data related to franchise performance and opportunities.
+3. Identify potential franchise leads and follow up on them.
+4. Collaborate with other teams to ensure alignment on franchise strategies.
+5. Report on pipeline status and progress to stakeholders.
+
+Red flags of operation:
+1. Delays in data loading or errors in fetching franchise information.
+2. Inconsistent or missing data in the franchise pipeline.
+3. Low engagement or follow-up rates on identified leads.
+4. Lack of communication or collaboration with other teams.
+5. Negative feedback from stakeholders regarding pipeline reporting.
+
+What is needed on the user dashboard:
+1. Real-time data visualization of the franchise pipeline.
+2. Key performance indicators (KPIs) related to franchise leads and conversions.
+3. Alerts for any operational issues or red flags.
+4. A summary of tasks and follow-ups required by the user.
+5. Collaboration tools or links to communicate with other teams.

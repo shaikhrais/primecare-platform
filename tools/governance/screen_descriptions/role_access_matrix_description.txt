@@ -1,0 +1,17 @@
+User Work List:
+1. View the Role Access Matrix.
+2. Configure granular permissions for different roles.
+3. Save permissions after making changes.
+4. Monitor loading and error states while fetching data.
+
+Red Flags of Operation:
+1. Failure to load the matrix data.
+2. Inconsistent or incorrect permission settings.
+3. Unresponsive UI during data fetching.
+4. Lack of feedback after saving permissions.
+
+Dashboard Needs:
+1. Display current loading status and error messages.
+2. Show a summary of permissions configured for each role.
+3. Provide a notification for successful or failed permission saves.
+4. Include a visual representation of access levels across roles.

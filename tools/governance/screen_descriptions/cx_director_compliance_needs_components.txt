@@ -1,0 +1,47 @@
+Screen Code: cx_director_compliance
+Screen Name: CxDirectorComplianceScreen
+
+Required Components:
+- CustomerSatisfactionCard
+- FeedbackTrendChart
+- KPIOverviewWidget
+- ComplianceStatusCard
+- ComplaintResolutionMetrics
+- EmployeeEngagementChart
+- RealTimePerformanceDashboard
+- CustomerJourneyMapInsights
+- RetentionLoyaltyTrends
+- ActionItemsList
+
+Required Functions/Handlers:
+- generateReport
+- initiateAudit
+- sendFeedbackRequest
+- trainStaff
+- viewDetailedMetrics
+
+Required Buttons:
+- Generate Report
+- Initiate Audit
+- Send Feedback Request
+- Train Staff
+- View Detailed Metrics
+
+Required APIs:
+- /v1/customer/satisfaction/scores
+- /v1/customer/feedback/trends
+- /v1/customer/kpis
+- /v1/compliance/status
+- /v1/complaints/resolution
+- /v1/employee/engagement
+- /v1/customer/service/performance
+- /v1/customer/journey/insights
+- /v1/customer/retention/trends
+- /v1/action/items
+
+Required Semantic Keys (data-cy):
+- cxdirector-btn-generate-report
+- cxdirector-btn-initiate-audit
+- cxdirector-btn-send-feedback
+- cxdirector-btn-train-staff
+- cxdirector-btn-view-metrics

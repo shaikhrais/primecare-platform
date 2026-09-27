@@ -1,0 +1,26 @@
+List of work the user must do:
+1. Monitor security alerts and notifications.
+2. Review security logs and reports.
+3. Respond to security incidents as they arise.
+4. Configure security settings and preferences.
+5. Update security policies and protocols.
+6. Conduct regular security assessments and audits.
+7. Collaborate with the IT team for security improvements.
+
+Red flags of operation:
+1. Increased frequency of security alerts.
+2. Unusual access patterns or unauthorized access attempts.
+3. Delays in incident response times.
+4. Incomplete or outdated security logs.
+5. Lack of user engagement with security features.
+6. High number of false positives in alerts.
+7. Failure to update security settings or policies.
+
+What is needed on the user dashboard:
+1. Real-time security alerts and notifications.
+2. Summary of recent security incidents and responses.
+3. Visual representation of security status (e.g., graphs, charts).
+4. Access to security logs and reports.
+5. Quick links to configure settings and policies.
+6. User engagement metrics (e.g., frequency of logins, actions taken).
+7. Recommendations for improving security posture.

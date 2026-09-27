@@ -1,0 +1,31 @@
+Dynamic Screen Viewer Tasks:
+1. Render the Support Dashboard Screen interface.
+2. Display loading states and error messages.
+3. Show the title and logs of operations.
+4. Execute compliance scans and update logs.
+5. Sync security posture and update logs.
+6. Update security policies and log changes.
+7. Export logs and confirm successful export.
+8. Trigger governance actions and log execution.
+9. Provide UI components for manual refresh and action execution.
+10. Display key performance indicators and telemetry data.
+11. Present operational audit logs and allow for user interaction.
+
+Red Flags of Operation:
+1. Long loading times during compliance scans.
+2. Frequent error messages indicating system failures.
+3. Lack of log entries suggesting inactivity or issues.
+4. Inconsistent updates to security posture or policies.
+5. Failure to execute governance actions.
+6. Unresponsive UI components during operations.
+7. Missing or incomplete telemetry data.
+
+Dashboard Requirements:
+1. Real-time loading indicators for ongoing operations.
+2. Clear error messages for troubleshooting.
+3. A summary of recent logs and actions taken.
+4. Visual representation of key metrics (e.g., active operations, security clearance).
+5. Interactive charts for telemetry data.
+6. Buttons for executing compliance scans and refreshing data.
+7. Export functionality for audit logs.
+8. User-friendly navigation and layout for ease of use.

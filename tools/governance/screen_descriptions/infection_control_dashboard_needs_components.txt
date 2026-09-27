@@ -1,0 +1,32 @@
+Screen Code: infection_control_dashboard
+Screen Name: Infection Control Dashboard
+
+Required Components:
+- InfectionRateCard
+- TrendVisualizationChart
+- AlertNotificationBanner
+- HistoricalDataTable
+- NavigationMenu
+
+Required Functions/Handlers:
+- fetchInfectionMetrics
+- generateTrendVisualizations
+- sendAlertNotifications
+- retrieveHistoricalData
+- navigateToReports
+
+Required Buttons:
+- View Reports
+- Collaborate
+- Refresh Data
+
+Required APIs:
+- /v1/infection_control/metrics
+- /v1/infection_control/trends
+- /v1/infection_control/reports
+- /v1/infection_control/collaboration
+
+Required Semantic Keys (data-cy):
+- infection-dashboard-btn-view-reports
+- infection-dashboard-btn-collaborate
+- infection-dashboard-btn-refresh

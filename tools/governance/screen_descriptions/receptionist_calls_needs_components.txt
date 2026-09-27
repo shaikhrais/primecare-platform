@@ -1,0 +1,28 @@
+Screen Code: receptionist_calls
+Screen Name: Receptionist Calls
+
+Required Components:
+- OperationalStatusIndicator
+- VerificationAuditStatus
+- TelemetryChart
+- SecureEventLoggingForm
+
+Required Functions/Handlers:
+- checkCompliance
+- logOperationalEvent
+- trackTransactionFlow
+
+Required Buttons:
+- Submit Event
+
+Required APIs:
+- /v1/settings/manage
+- /v1/workflows/track
+- /v1/compliance/verify
+- /v1/events/submit
+
+Required Semantic Keys (data-cy):
+- receptionist-calls-status-indicator
+- receptionist-calls-audit-status
+- receptionist-calls-telemetry-chart
+- receptionist-calls-submit-event

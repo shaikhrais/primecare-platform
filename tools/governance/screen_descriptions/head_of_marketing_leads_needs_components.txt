@@ -1,0 +1,37 @@
+Screen Code: head_of_marketing_leads
+Screen Name: Head Of Marketing Leads
+
+Required Components:
+- LeadStatusOverview
+- ConversionRateMetric
+- CampaignPerformanceAnalytics
+- LeadFollowUpNotification
+- LeadTrendsChart
+- DetailedReportsAccess
+
+Required Functions/Handlers:
+- monitorLeads
+- analyzeConversionRates
+- reviewCampaignPerformance
+- updateLeadInformation
+- generateLeadReports
+
+Required Buttons:
+- Update Lead Information
+- Generate Report
+- Collaborate with Sales Team
+
+Required APIs:
+- /v1/marketing/leads/status
+- /v1/marketing/leads/conversion
+- /v1/marketing/campaigns/performance
+- /v1/marketing/leads/update
+- /v1/marketing/reports/generate
+
+Required Semantic Keys (data-cy):
+- lead-status-overview
+- conversion-rate-metric
+- campaign-performance-analytics
+- lead-follow-up-notification
+- lead-trends-chart
+- detailed-reports-access

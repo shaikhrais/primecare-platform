@@ -1,0 +1,32 @@
+Screen Code: community_outreach_contacts
+Screen Name: Community Outreach Contacts
+
+Required Components:
+- CommunityOutreachOverview
+- DataLoadingIndicator
+- EngagementMetricsCard
+- ErrorAlert
+- ContactUpdateButton
+- OutreachReportButton
+
+Required Functions/Handlers:
+- monitorContacts
+- updateContactInfo
+- engageCommunity
+- analyzeOutreach
+- reportOutreach
+
+Required Buttons:
+- Update Contact Info
+- View Outreach Report
+
+Required APIs:
+- /v1/community/outreach/contacts
+- /v1/community/outreach/update
+- /v1/community/outreach/engage
+- /v1/community/outreach/analyze
+- /v1/community/outreach/report
+
+Required Semantic Keys (data-cy):
+- community-outreach-btn-update-contact
+- community-outreach-btn-view-report

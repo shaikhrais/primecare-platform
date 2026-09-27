@@ -1,0 +1,35 @@
+Registered Massage Therapist (RMT) Responsibilities:
+1. Conduct client intake assessments.
+2. Develop treatment plans based on client needs.
+3. Perform massage therapy techniques.
+4. Maintain accurate client records.
+5. Ensure compliance with health and safety regulations.
+6. Communicate effectively with clients regarding their treatment.
+7. Stay updated on industry best practices and continuing education.
+8. Manage appointment scheduling and client follow-ups.
+9. Handle billing and insurance claims as necessary.
+10. Maintain a clean and safe work environment.
+
+Red Flags in Operations:
+1. High client cancellation or no-show rates.
+2. Frequent complaints or negative feedback from clients.
+3. Inconsistent documentation of client treatments.
+4. Non-compliance with health and safety regulations.
+5. Lack of communication or follow-up with clients.
+6. Inability to manage appointment schedules effectively.
+7. High turnover rate of staff or therapists.
+8. Insufficient training or knowledge of new techniques.
+9. Poor financial management or billing errors.
+10. Failure to maintain professional boundaries with clients.
+
+Dashboard Requirements for RMT:
+1. Client intake metrics (number of new clients, completed assessments).
+2. Treatment plan effectiveness (client progress tracking).
+3. Appointment scheduling overview (upcoming appointments, cancellations).
+4. Compliance status (health and safety checks, audit results).
+5. Client feedback and satisfaction ratings.
+6. Financial overview (revenue, billing status, insurance claims).
+7. Operational logs (notes on client sessions, compliance scans).
+8. Training and development tracking (completed courses, certifications).
+9. Performance metrics (number of sessions performed, client retention).
+10. Alerts for any red flags or issues requiring attention.

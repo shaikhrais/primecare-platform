@@ -1,0 +1,56 @@
+Screen Code: coo_compliance
+Screen Name: CooComplianceScreen
+
+Required Components:
+- KPIWidget
+- FinancialMetricsChart
+- ComplianceStatusCard
+- EmployeeEngagementWidget
+- CustomerSatisfactionGauge
+- ProjectTimelineTracker
+- ResourceUtilizationChart
+- RiskManagementDashboard
+- OperationalBottleneckAnalyzer
+- PerformanceTrendsGraph
+
+Required Functions/Handlers:
+- fetchKPIData
+- fetchFinancialMetrics
+- fetchComplianceStatus
+- fetchEmployeeEngagement
+- fetchCustomerSatisfaction
+- fetchProjectStatus
+- fetchResourceUtilization
+- fetchRiskIndicators
+- fetchOperationalBottlenecks
+- fetchPerformanceTrends
+
+Required Buttons:
+- View Detailed Metrics
+- Export Report
+- Notify Stakeholders
+- Refresh Data
+
+Required APIs:
+- /v1/coo/kpis
+- /v1/coo/financials
+- /v1/coo/compliance
+- /v1/coo/employee-engagement
+- /v1/coo/customer-satisfaction
+- /v1/coo/projects
+- /v1/coo/resources
+- /v1/coo/risk
+- /v1/coo/bottlenecks
+- /v1/coo/performance-trends
+
+Required Semantic Keys (data-cy):
+- coo-dashboard-kpi-widget
+- coo-dashboard-financial-metrics
+- coo-dashboard-compliance-status
+- coo-dashboard-employee-engagement
+- coo-dashboard-customer-satisfaction
+- coo-dashboard-project-timeline
+- coo-dashboard-resource-utilization
+- coo-dashboard-risk-management
+- coo-dashboard-operational-bottlenecks
+- coo-dashboard-performance-trends

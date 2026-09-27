@@ -1,0 +1,20 @@
+User Work List:
+1. Monitor customer support reports.
+2. Analyze data for trends and issues.
+3. Respond to customer inquiries based on report findings.
+4. Collaborate with other departments to resolve customer issues.
+5. Provide feedback for improving customer support processes.
+
+Red Flags of Operation:
+1. High volume of unresolved customer issues.
+2. Increased response times to customer inquiries.
+3. Frequent errors in report data.
+4. Low customer satisfaction ratings.
+5. Lack of communication between support and other departments.
+
+Dashboard Needs:
+1. Real-time metrics on customer inquiries and resolutions.
+2. Visual representation of trends in customer support data.
+3. Alerts for red flags (e.g., high unresolved issues).
+4. Feedback mechanism for users to report issues with the dashboard.
+5. Integration with other tools for a holistic view of customer interactions.

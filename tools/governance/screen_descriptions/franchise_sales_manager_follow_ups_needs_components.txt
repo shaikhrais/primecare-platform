@@ -1,0 +1,33 @@
+Screen Code: franchise_sales_manager_follow_ups
+Screen Name: Franchise Sales Manager Follow Ups
+
+Required Components:
+- FranchiseLeadList
+- FollowUpMetricsCard
+- AlertNotification
+- HistoricalDataChart
+- TeamPerformanceMetrics
+
+Required Functions/Handlers:
+- monitorFollowUps
+- trackLeadStatus
+- updateFollowUpStatus
+- analyzeFollowUpEffectiveness
+- communicateWithTeam
+
+Required Buttons:
+- Update Status
+- Communicate
+- Analyze Effectiveness
+
+Required APIs:
+- /v1/franchise/leads
+- /v1/franchise/followups
+- /v1/franchise/metrics
+
+Required Semantic Keys (data-cy):
+- franchise-lead-list
+- followup-metrics-card
+- alert-notification
+- historical-data-chart
+- team-performance-metrics

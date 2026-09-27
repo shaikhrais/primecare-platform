@@ -1,0 +1,46 @@
+Screen Code: scheduling_health
+Screen Name: SchedulingHealthScreen
+
+Required Components:
+- PerformanceMetricCard
+- ComplianceStatusIndicator
+- ResourceAllocationChart
+- EmployeeEngagementMetric
+- OperationalCostAnalysis
+- CustomerSatisfactionGauge
+- AuditLogViewer
+- AlertNotificationSystem
+- HistoricalDataTrendChart
+- DataVisualizationPanel
+
+Required Functions/Handlers:
+- generateReport
+- conductAudit
+- trainStaff
+- addressOperationalIssue
+- viewComplianceStatus
+
+Required Buttons:
+- Generate Report
+- Conduct Audit
+- Train Staff
+- Address Issue
+- View Compliance
+
+Required APIs:
+- /v1/operations/performance-metrics
+- /v1/operations/compliance-status
+- /v1/operations/resource-allocation
+- /v1/operations/employee-engagement
+- /v1/operations/operational-costs
+- /v1/operations/customer-satisfaction
+- /v1/operations/audit-logs
+- /v1/operations/alerts
+- /v1/operations/historical-data
+
+Required Semantic Keys (data-cy):
+- ops-dashboard-btn-generate-report
+- ops-dashboard-btn-conduct-audit
+- ops-dashboard-btn-train-staff
+- ops-dashboard-btn-address-issue
+- ops-dashboard-btn-view-compliance

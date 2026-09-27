@@ -1,0 +1,37 @@
+Screen Code: intake_coordinator_booking
+Screen Name: IntakeCoordinatorBookingScreen
+
+Required Components:
+- VolunteerMetricsCard
+- VolunteerShiftScheduler
+- VolunteerFeedbackChart
+- VolunteerTrainingTracker
+- VolunteerRecognitionPanel
+
+Required Functions/Handlers:
+- recruitVolunteer
+- scheduleShift
+- logVolunteerHours
+- sendCommunication
+- evaluateVolunteer
+
+Required Buttons:
+- Add Volunteer
+- Schedule Shift
+- Log Hours
+- Send Update
+- Evaluate Performance
+
+Required APIs:
+- /v1/volunteers/recruit
+- /v1/volunteers/schedule
+- /v1/volunteers/logHours
+- /v1/volunteers/communication
+- /v1/volunteers/evaluate
+
+Required Semantic Keys (data-cy):
+- volunteer-dashboard-btn-add
+- volunteer-dashboard-btn-schedule
+- volunteer-dashboard-btn-log-hours
+- volunteer-dashboard-btn-send-update
+- volunteer-dashboard-btn-evaluate

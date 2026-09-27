@@ -1,0 +1,20 @@
+User Work List:
+1. Monitor billing information for family members.
+2. Review and update payment methods.
+3. Check billing history and statements.
+4. Resolve any discrepancies in billing.
+5. Access support for billing-related inquiries.
+
+Red Flags of Operation:
+1. Frequent errors loading billing data.
+2. Delays in displaying billing information.
+3. Inconsistencies in billing amounts.
+4. Lack of user feedback during loading states.
+5. Unclear error messages that do not guide users on next steps.
+
+Dashboard Needs:
+1. Overview of current billing status for each family member.
+2. Notifications for upcoming payments or overdue bills.
+3. Quick access to recent billing history.
+4. Visual indicators for any issues or discrepancies.
+5. Support contact information readily available.

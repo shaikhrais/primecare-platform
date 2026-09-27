@@ -1,0 +1,24 @@
+Screen Code: family_profile
+Screen Name: Family Profile
+
+Required Components:
+- FamilyProfileSummary
+- LoadingIndicator
+- ErrorNotification
+- UserFeedbackSection
+
+Required Functions/Handlers:
+- fetchFamilyProfileData
+- handleLoadingError
+- displayFamilyProfileContent
+
+Required Buttons:
+- [None specified]
+
+Required APIs:
+- /v1/family/profile
+
+Required Semantic Keys (data-cy):
+- familyprofile-loading-indicator
+- familyprofile-error-notification
+- familyprofile-summary

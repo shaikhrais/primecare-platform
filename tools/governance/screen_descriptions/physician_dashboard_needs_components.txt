@@ -1,0 +1,42 @@
+Screen Code: physician_dashboard
+Screen Name: PhysicianDashboardScreen
+
+Required Components:
+- GovMetricCard
+- GovTelemetryChart
+- LoadingIndicator
+- ActionButton
+- AuditLogsSection
+- RecentActionsLog
+
+Required Functions/Handlers:
+- submitEPrescription
+- authorizeLabOrder
+- runComplianceScan
+- syncSecurityPosture
+- updatePolicies
+- exportAuditLogs
+
+Required Buttons:
+- Submit E-Prescription
+- Authorize Lab Order
+- Run Compliance Scan
+- Sync Security Posture
+- Update Policies
+- Export Audit Logs
+
+Required APIs:
+- /v1/prescriptions/submit
+- /v1/laborders/authorize
+- /v1/compliance/scan
+- /v1/security/sync
+- /v1/policies/update
+- /v1/auditlogs/export
+
+Required Semantic Keys (data-cy):
+- physician-dashboard-btn-submit-prescription
+- physician-dashboard-btn-authorize-lab-order
+- physician-dashboard-btn-run-compliance-scan
+- physician-dashboard-btn-sync-security
+- physician-dashboard-btn-update-policies
+- physician-dashboard-btn-export-audit-logs

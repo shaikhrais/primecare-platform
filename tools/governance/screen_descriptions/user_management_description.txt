@@ -1,0 +1,18 @@
+List of work the user must do:
+1. View the list of registered users.
+2. Add new users.
+3. Edit existing user details.
+4. Manage user roles and access permissions.
+5. Monitor role distribution among users.
+
+Red flags of operation:
+1. Failure to load user data, indicated by an error message.
+2. No users found in the directory, which may suggest issues with user registration or data retrieval.
+3. Long loading times for user data, indicating potential performance issues with the API or backend.
+
+Dashboard needs for the user:
+1. A clear display of the number of registered users.
+2. Quick access buttons for adding and editing users.
+3. Visual representation of role distribution (e.g., charts or graphs).
+4. Notifications for any errors or issues encountered during data loading.
+5. Summary metrics for user activity or engagement, if applicable.

@@ -1,0 +1,34 @@
+Screen Code: chiropractor_assessment
+Screen Name: ChiropractorAssessmentScreen
+
+Required Components:
+- ActiveOperationsMetric
+- SecurityClearanceStatus
+- TelemetryChart
+- OperationalAuditLogs
+- ComplianceScanButton
+- LoadingIndicator
+- ManualRefreshButton
+- Notifications
+
+Required Functions/Handlers:
+- runComplianceScan
+- refreshDashboardData
+
+Required Buttons:
+- Run Compliance Scan
+- Refresh Data
+
+Required APIs:
+- /v1/chiropractor/patient/active-treatments
+- /v1/chiropractor/compliance/status
+- /v1/chiropractor/treatment/metrics
+- /v1/chiropractor/audit/logs
+
+Required Semantic Keys (data-cy):
+- chiropractor-dashboard-active-operations
+- chiropractor-dashboard-security-status
+- chiropractor-dashboard-telemetry-chart
+- chiropractor-dashboard-audit-logs
+- chiropractor-btn-compliance-scan
+- chiropractor-btn-refresh

@@ -1,0 +1,42 @@
+Screen Code: community_outreach_dashboard
+Screen Name: CommunityOutreachDashboardScreen
+
+Required Components:
+- KPIWidget
+- EngagementMetricChart
+- BudgetTracker
+- ActivityLog
+- ComplianceStatusCard
+- DemographicsVisualization
+- RealTimeUpdatesPanel
+- FeedbackCollectionTool
+- CollaborationTool
+- AlertNotification
+
+Required Functions/Handlers:
+- addEvent
+- collectFeedback
+- viewReports
+- manageBudget
+- trainStaff
+
+Required Buttons:
+- Add Event
+- Collect Feedback
+- View Reports
+- Manage Budget
+- Train Staff
+
+Required APIs:
+- /v1/community/outreach/events
+- /v1/community/outreach/feedback
+- /v1/community/outreach/reports
+- /v1/community/outreach/budget
+- /v1/community/outreach/compliance
+
+Required Semantic Keys (data-cy):
+- community-outreach-btn-add-event
+- community-outreach-btn-collect-feedback
+- community-outreach-btn-view-reports
+- community-outreach-btn-manage-budget
+- community-outreach-btn-train-staff

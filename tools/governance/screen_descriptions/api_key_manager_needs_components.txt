@@ -1,0 +1,35 @@
+Screen Code: api_key_manager
+Screen Name: Api Key Manager
+
+Required Components:
+- ApiKeyList
+- ApiKeyDetails
+- ApiKeyUsageChart
+- LoadingIndicator
+- ErrorMessage
+
+Required Functions/Handlers:
+- generateApiKey
+- rotateApiKey
+- revokeApiKey
+- loadApiKeys
+- monitorApiUsage
+
+Required Buttons:
+- Generate API Key
+- Rotate API Key
+- Revoke API Key
+
+Required APIs:
+- /v1/api_keys/generate
+- /v1/api_keys/rotate
+- /v1/api_keys/revoke
+- /v1/api_keys
+- /v1/api_usage
+
+Required Semantic Keys (data-cy):
+- api-key-manager-btn-generate
+- api-key-manager-btn-rotate
+- api-key-manager-btn-revoke
+- api-key-manager-loading
+- api-key-manager-error

@@ -1,0 +1,22 @@
+Screen Code: system_capacity_planner
+Screen Name: System Capacity Planner
+
+Required Components:
+- CapacityMetricCard
+- ResourceProjectionChart
+- ErrorMessageDisplay
+
+Required Functions/Handlers:
+- refreshCapacityData
+- analyzeResourceProjection
+
+Required Buttons:
+- Refresh Data
+
+Required APIs:
+- /v1/system/capacity/metrics
+- /v1/system/capacity/projection
+
+Required Semantic Keys (data-cy):
+- capacity-monitor-refresh
+- capacity-error-message

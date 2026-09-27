@@ -1,0 +1,46 @@
+Screen Code: governance_officer_compliance
+Screen Name: GovernanceOfficerComplianceScreen
+
+Required Components:
+- GovAuditStatusWidget
+- GovTelemetryChart
+- GovAuditLogViewer
+- GovPolicyMetricsCard
+- GovIncidentReportWidget
+- GovTrainingMetricsCard
+- GovComplianceTrendsChart
+- GovActionsSummaryWidget
+- GovNotificationsPanel
+- GovComplianceMetricsGraph
+
+Required Functions/Handlers:
+- startComplianceAudit
+- viewIncidentReports
+- generateTrainingReport
+- notifyStakeholders
+- scheduleNextAudit
+
+Required Buttons:
+- Start Compliance Audit
+- View Incident Reports
+- Generate Training Report
+- Notify Stakeholders
+- Schedule Next Audit
+
+Required APIs:
+- /v1/governance/audit/status
+- /v1/governance/telemetry/data
+- /v1/governance/audit/logs
+- /v1/governance/policy/enforcement
+- /v1/governance/incidents
+- /v1/governance/training/participation
+- /v1/governance/compliance/violations
+- /v1/governance/actions
+- /v1/governance/notifications
+
+Required Semantic Keys (data-cy):
+- govdashboard-btn-start-audit
+- govdashboard-btn-view-reports
+- govdashboard-btn-generate-training-report
+- govdashboard-btn-notify-stakeholders
+- govdashboard-btn-schedule-audit

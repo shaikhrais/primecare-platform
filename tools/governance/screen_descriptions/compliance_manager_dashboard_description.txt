@@ -1,0 +1,25 @@
+Compliance Manager Responsibilities:
+1. Conduct compliance audits.
+2. Monitor and validate governance invariants.
+3. Synchronize security posture.
+4. Update compliance policies.
+5. Export audit logs.
+6. Maintain operational logs.
+7. Trigger state actions as required.
+
+Red Flags of Operation:
+1. High number of compliance audit failures.
+2. Delays in security posture synchronization.
+3. Unresolved policy updates.
+4. Incomplete or missing audit logs.
+5. Frequent manual interventions required.
+6. Low compliance scores in key performance indicators.
+
+Dashboard Requirements for Compliance Manager:
+1. Title and summary of compliance status.
+2. Real-time logs of compliance activities.
+3. Metrics on active operations and security clearance levels.
+4. Visual representation of telemetry data.
+5. Button for executing compliance scans.
+6. Log export functionality.
+7. Manual refresh option for telemetry data.

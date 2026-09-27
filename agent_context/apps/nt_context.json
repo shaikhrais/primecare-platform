@@ -1,0 +1,12 @@
+{
+  "app": {
+    "id": 33,
+    "app_code": "nt",
+    "app_name": "Notification Api",
+    "description": null,
+    "owner_team": null,
+    "active": 1
+  },
+  "screens_count": 0,
+  "screens": []
+}

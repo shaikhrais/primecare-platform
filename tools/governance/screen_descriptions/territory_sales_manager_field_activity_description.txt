@@ -1,0 +1,24 @@
+List of work the user must do:
+1. Monitor field activities of sales representatives in their territory.
+2. Track performance metrics and sales data.
+3. Manage and assign tasks to team members.
+4. Analyze customer interactions and feedback.
+5. Report on sales trends and territory performance.
+6. Coordinate with marketing and support teams for effective sales strategies.
+
+Red flags of operation:
+1. Low sales performance compared to targets.
+2. High turnover rate of sales representatives.
+3. Frequent customer complaints or negative feedback.
+4. Inconsistent reporting and data entry errors.
+5. Lack of communication within the team.
+6. Delays in task completion or follow-ups.
+
+What is needed on the user dashboard:
+1. Overview of sales performance metrics (e.g., total sales, conversion rates).
+2. Task management section with assigned tasks and deadlines.
+3. Customer feedback and satisfaction scores.
+4. Alerts for low performance or other red flags.
+5. Visualizations of sales trends over time.
+6. Communication tools for team collaboration.
+7. Quick access to reports and analytics.

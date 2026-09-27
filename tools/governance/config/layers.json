@@ -1,0 +1,36 @@
+{
+  "version": "1.0.0",
+  "layers": {
+    "00": { "code": "B", "name": "ENTRY_POINT", "description": "Package entry, exports, and main application shells." },
+    "01": { "code": "I", "name": "INFRASTRUCTURE", "description": "Routes, resilience, services, middleware, and utilities." },
+    "02": { "code": "M", "name": "MODELS_FOUNDATION", "description": "Domain entities, DTOs, and Prisma schemas." },
+    "03": { "code": "D", "name": "DATA_DOMAIN_LOGIC", "description": "Repositories, Mappers, and Data Providers." },
+    "04": { "code": "V", "name": "VIEW_MODELS", "description": "Business logic controllers, Notifiers, and State management." },
+    "05": { "code": "U", "name": "UI_PRESENTATION", "description": "Screens, Widgets, and Layout components." }
+  },
+  "project_rules": {
+    "flutter": {
+      "extensions": [".dart"],
+      "ignore_patterns": [".g.dart", ".freezed.dart"],
+      "mappings": [
+        { "pattern": "main.dart", "layer": "00" },
+        { "pattern": "app.dart", "layer": "00" },
+        { "pattern": "routes/", "layer": "01" },
+        { "pattern": "resilience/", "layer": "01" },
+        { "pattern": "services/", "layer": "01" },
+        { "pattern": "utils/", "layer": "01" },
+        { "pattern": "models/", "layer": "02" },
+        { "pattern": "dtos/", "layer": "02" },
+        { "pattern": "repositories/", "layer": "03" },
+        { "pattern": "mappers/", "layer": "03" },
+        { "pattern": "providers/", "layer": "03" },
+        { "pattern": "view_models/", "layer": "04" },
+        { "pattern": "notifiers/", "layer": "04" },
+        { "pattern": "presentation/", "layer": "05" },
+        { "pattern": "widgets/", "layer": "05" },
+        { "pattern": "screens/", "layer": "05" }
+      ]
+    },
+    }
+  }
+}

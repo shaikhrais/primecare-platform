@@ -1,0 +1,29 @@
+Screen Code: family_member_analytics
+Screen Name: FamilyMemberAnalyticsScreen
+
+Required Components:
+- RealTimeAnalyticsChart
+- ActionExecutionLog
+- RefreshButton
+- IntegrationSandboxAccess
+- OperationalAlerts
+
+Required Functions/Handlers:
+- monitorAnalyticsData
+- executeAction
+- refreshData
+- engageSandbox
+- displayAlerts
+
+Required Buttons:
+- Refresh Data
+- Access Sandbox
+
+Required APIs:
+- /v1/family_member/analytics
+- /v1/family_member/actions
+- /v1/family_member/sandbox
+
+Required Semantic Keys (data-cy):
+- family-member-analytics-refresh
+- family-member-sandbox-access

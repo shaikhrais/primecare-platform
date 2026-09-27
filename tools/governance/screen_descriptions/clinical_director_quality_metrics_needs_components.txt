@@ -1,0 +1,32 @@
+Screen Code: clinical_director_quality_metrics
+Screen Name: Clinical Director Quality Metrics
+
+Required Components:
+- QualityMetricCard
+- TrendVisualizationChart
+- AlertNotification
+- ReportAccessPanel
+- DataFilterOptions
+
+Required Functions/Handlers:
+- fetchQualityMetrics
+- generateReport
+- setAlerts
+- filterData
+
+Required Buttons:
+- Generate Report
+- View Details
+- Filter Data
+
+Required APIs:
+- /v1/clinical/metrics
+- /v1/clinical/reports
+- /v1/clinical/alerts
+
+Required Semantic Keys (data-cy):
+- quality-metrics-card
+- trend-visualization-chart
+- alert-notification
+- report-access-panel
+- data-filter-options

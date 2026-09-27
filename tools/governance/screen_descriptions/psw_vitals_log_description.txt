@@ -1,0 +1,35 @@
+Personal Support Worker (PSW) Responsibilities:
+1. Assist clients with daily living activities such as bathing, dressing, and grooming.
+2. Provide companionship and emotional support to clients.
+3. Monitor and record clients' vital signs and health status.
+4. Assist with mobility and physical exercises.
+5. Prepare and serve meals according to dietary requirements.
+6. Administer medications as prescribed by healthcare professionals.
+7. Maintain a clean and safe environment for clients.
+8. Communicate effectively with clients, families, and healthcare teams.
+9. Document care provided and report any changes in clients' conditions.
+10. Participate in training and professional development activities.
+
+Red Flags of Operation:
+1. Frequent errors in medication administration.
+2. Inconsistent documentation of care provided.
+3. Lack of communication with healthcare teams.
+4. Unexplained changes in clients' health status.
+5. High turnover rates among staff.
+6. Complaints from clients or families regarding care quality.
+7. Failure to follow safety protocols and procedures.
+8. Inadequate training or support for new staff.
+9. Poor time management leading to missed care tasks.
+10. Non-compliance with regulatory standards.
+
+Dashboard Needs for Personal Support Worker (PSW):
+1. Overview of active clients and their care plans.
+2. Real-time updates on clients' vital signs and health status.
+3. Alerts for medication schedules and administration.
+4. Documentation logs for care provided and incidents reported.
+5. Compliance status with regulatory standards.
+6. Performance metrics such as client satisfaction scores.
+7. Training and development resources for staff.
+8. Communication tools for coordination with healthcare teams.
+9. Incident reporting and tracking system.
+10. Access to emergency protocols and contact information.

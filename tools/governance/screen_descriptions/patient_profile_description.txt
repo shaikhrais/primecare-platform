@@ -1,0 +1,27 @@
+List of work the patient must do:
+1. Review key performance indicators on the dashboard.
+2. Monitor live telemetry logs.
+3. Check compliance standings.
+4. Trigger manual refresh of the dashboard.
+5. Execute operational audit scan.
+
+Red flags for operation:
+1. Any error messages during compliance scan execution.
+2. Network errors while attempting to run scans.
+3. Low security clearance levels.
+4. High number of exceptions logged in security clearance.
+5. Significant drops in telemetry data.
+
+Effective work strategies:
+1. Regularly update and review operational audit logs.
+2. Ensure timely execution of compliance scans.
+3. Maintain clear communication with the API for error handling.
+4. Monitor the dashboard for real-time updates and alerts.
+5. Implement a feedback loop for continuous improvement based on logs.
+
+Dashboard needs:
+1. Display of active operations and their status.
+2. Security clearance level indicator.
+3. Telemetry chart for hourly performance.
+4. Operational audit logs with timestamps.
+5. Buttons for executing compliance scans and refreshing data.

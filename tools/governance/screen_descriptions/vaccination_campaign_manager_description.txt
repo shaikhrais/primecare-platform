@@ -1,0 +1,26 @@
+User Tasks:
+1. Create and manage vaccination campaigns.
+2. Monitor vaccination progress and statistics.
+3. Schedule vaccination events and manage locations.
+4. Track participant registrations and attendance.
+5. Generate reports on vaccination outcomes and demographics.
+6. Communicate with stakeholders and participants.
+7. Update campaign details and respond to feedback.
+
+Red Flags of Operation:
+1. Low participation rates in vaccination events.
+2. Delays in scheduling or rescheduling events.
+3. Inaccurate data reporting or discrepancies in statistics.
+4. High dropout rates of registered participants.
+5. Negative feedback from users regarding the campaign process.
+6. Technical issues with the platform affecting user experience.
+7. Lack of engagement from stakeholders or community partners.
+
+Dashboard Needs:
+1. Overview of active and upcoming vaccination campaigns.
+2. Real-time statistics on vaccination progress (e.g., doses administered).
+3. Participant registration and attendance tracking.
+4. Alerts for low participation or other operational issues.
+5. Feedback and satisfaction ratings from participants.
+6. Visualizations of demographic data related to vaccination uptake.
+7. Communication tools for reaching out to participants and stakeholders.

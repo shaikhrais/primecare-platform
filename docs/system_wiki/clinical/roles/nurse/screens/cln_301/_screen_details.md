@@ -1,0 +1,8 @@
+# Screen: CLN-301
+**Component Name:** `ClinicCarePlanScreenStitch`  
+**Implementation Status:** ⏳ Stitch Pend  
+**Associated Roles:** [Personal Support Worker (PSW)](../../_role_metrics.md), [Registered Nurse](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-CLN-301-01](tasks/tsk_cln_301_01.md): Review or modify the formal medical care plan assigned to a specific client.
+- [TSK-CLN-301-01](tasks/tsk_cln_301_01.md): Read-only access to the active ADL (Activities of Daily Living) care plan.

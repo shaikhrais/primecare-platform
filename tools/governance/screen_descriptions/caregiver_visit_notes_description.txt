@@ -1,0 +1,26 @@
+List of caregiver responsibilities:
+1. Document visit notes accurately.
+2. Conduct compliance scans as needed.
+3. Maintain logs of operational activities.
+4. Ensure security protocols are followed.
+5. Report any discrepancies or issues encountered during visits.
+6. Communicate effectively with team members and supervisors.
+7. Participate in training and development sessions.
+
+Red flags of operation:
+1. Frequent errors in documentation.
+2. Delays in compliance scan execution.
+3. Inconsistent logging of activities.
+4. Security breaches or lapses.
+5. Lack of communication or collaboration with team members.
+6. High turnover of caregivers or dissatisfaction reported.
+7. Negative feedback from patients or families.
+
+Dashboard needs for caregivers:
+1. Real-time updates on compliance status.
+2. Access to logs and historical data for reference.
+3. Metrics on active operations and productivity levels.
+4. Alerts for any compliance issues or red flags.
+5. A summary of security clearance levels.
+6. Tools for easy documentation of visit notes.
+7. A section for feedback and communication with supervisors.

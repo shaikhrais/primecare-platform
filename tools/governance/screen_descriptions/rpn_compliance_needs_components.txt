@@ -1,0 +1,44 @@
+Screen Code: rpn_compliance
+Screen Name: RpnComplianceScreen
+
+Required Components:
+- VitalSignsMonitor
+- MedicationAdminRecord
+- AlertNotification
+- ComplianceTracker
+- DocumentationReminder
+- PatientFeedbackMetrics
+- StaffingIndicator
+- IncidentReportTracker
+- EducationResourceDisplay
+- AuditLogViewer
+
+Required Functions/Handlers:
+- recordVitalSigns
+- administerMedication
+- reportIncident
+- trackCompliance
+- submitFeedback
+- requestAssistance
+
+Required Buttons:
+- Record Vital Signs
+- Administer Medication
+- Report Incident
+- View Compliance
+- Submit Feedback
+- Request Assistance
+
+Required APIs:
+- /v1/patient/vitals
+- /v1/medications/administer
+- /v1/incidents/report
+- /v1/compliance/check
+- /v1/feedback/submit
+
+Required Semantic Keys (data-cy):
+- rpn-vitals-monitor
+- rpn-medication-admin
+- rpn-incident-report
+- rpn-compliance-track
+- rpn-feedback-submit

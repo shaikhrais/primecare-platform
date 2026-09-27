@@ -1,0 +1,20 @@
+User Tasks:
+1. Monitor document expiry dates for compliance.
+2. Review and update compliance documents as necessary.
+3. Generate reports on document status and expiry.
+4. Set reminders for upcoming document expirations.
+5. Ensure all compliance documents are stored securely and are easily accessible.
+
+Red Flags of Operation:
+1. Frequent errors or loading issues when accessing the screen.
+2. Delays in data retrieval or updates.
+3. Inconsistent or missing data in compliance documents.
+4. Lack of notifications for upcoming expirations.
+5. User feedback indicating difficulty in navigating the interface.
+
+Dashboard Needs:
+1. Overview of upcoming document expirations.
+2. Alerts or notifications for documents nearing expiry.
+3. Quick access to frequently used compliance documents.
+4. Summary statistics on compliance document status.
+5. User activity logs to track interactions with the compliance system.

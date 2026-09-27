@@ -1,0 +1,52 @@
+Screen Code: legal_analytics
+Screen Name: LegalAnalyticsScreen
+
+Required Components:
+- KPIChart
+- LitigationStatusWidget
+- ComplianceTracker
+- ContractManagementOverview
+- RiskAssessmentDashboard
+- TrainingCompletionRates
+- LegalAdviceSummary
+- ExternalCounselCostTracker
+- DocumentManagementWidget
+- DeadlineAlerts
+
+Required Functions/Handlers:
+- approveContract
+- requestLegalAdvice
+- initiateLitigation
+- generateComplianceReport
+- trainStaff
+
+Required Buttons:
+- Approve Contract
+- Request Legal Advice
+- Initiate Litigation
+- Generate Compliance Report
+- Train Staff
+
+Required APIs:
+- /v1/legal/kpis
+- /v1/legal/litigation/status
+- /v1/legal/compliance/tracking
+- /v1/legal/contracts/overview
+- /v1/legal/risk/assessment
+- /v1/legal/training/completion
+- /v1/legal/advice/summary
+- /v1/legal/externalCounsel/costs
+- /v1/legal/document/status
+- /v1/legal/deadlines/alerts
+
+Required Semantic Keys (data-cy):
+- legal-dashboard-kpi-chart
+- legal-dashboard-litigation-status
+- legal-dashboard-compliance-tracker
+- legal-dashboard-contract-overview
+- legal-dashboard-risk-assessment
+- legal-dashboard-training-completion
+- legal-dashboard-advice-summary
+- legal-dashboard-external-counsel-costs
+- legal-dashboard-document-status
+- legal-dashboard-deadline-alerts

@@ -1,0 +1,49 @@
+Screen Code: shift_tasks
+Screen Name: ShiftTasksScreen
+
+Required Components:
+- ClientOverviewCard
+- HealthStatusChart
+- ActivityLogTable
+- MedicationAlertWidget
+- PerformanceMetricsCard
+- TrainingStatusCard
+- CommunicationTool
+- ResourceAccessPanel
+
+Required Functions/Handlers:
+- fetchClientOverview
+- updateHealthStatus
+- logDailyActivity
+- setMedicationAlert
+- getPerformanceMetrics
+- checkTrainingStatus
+- openCommunicationTool
+- accessResources
+
+Required Buttons:
+- View Client Details
+- Log Activity
+- Report Incident
+- Check Medication Compliance
+- Access Training Resources
+
+Required APIs:
+- /v1/clients/overview
+- /v1/clients/status
+- /v1/clients/activity/log
+- /v1/medications/alerts
+- /v1/performance/metrics
+- /v1/training/status
+- /v1/communication
+- /v1/resources
+
+Required Semantic Keys (data-cy):
+- pswdashboard-client-overview
+- pswdashboard-health-status
+- pswdashboard-activity-log
+- pswdashboard-medication-alert
+- pswdashboard-performance-metrics
+- pswdashboard-training-status
+- pswdashboard-communication-tool
+- pswdashboard-resources

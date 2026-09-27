@@ -1,0 +1,33 @@
+List of tasks Registered Practical Nurse (RPN) must perform:
+1. Conduct wound assessments and document findings.
+2. Monitor and log vital signs.
+3. Administer immunizations and track immunization status.
+4. Update wound care plans based on patient progress.
+5. Communicate with patients regarding their care and treatment plans.
+6. Collaborate with healthcare teams to ensure comprehensive patient care.
+7. Educate patients and families about wound care and prevention.
+8. Maintain accurate and up-to-date patient records.
+9. Report any changes in patient conditions to the supervising nurse or physician.
+10. Participate in quality improvement initiatives related to patient care.
+
+Red flags of operation for RPN effectiveness:
+1. High number of unhealed or deteriorating wounds.
+2. Low compliance rates in vital signs logging.
+3. Decreased immunization rates compared to targets.
+4. Frequent patient complaints regarding care or communication.
+5. Inconsistent documentation or missing patient records.
+6. Delays in dressing changes or wound assessments.
+7. Lack of collaboration or communication with the healthcare team.
+8. Increased incidence of pressure injuries or complications.
+
+Dashboard needs for Registered Practical Nurse (RPN):
+1. Active wound cases count.
+2. Vitals logging compliance percentage.
+3. Total immunizations administered.
+4. Immunization status breakdown by type.
+5. Wound assessment details including patient name, location, stage, status, dimensions, and dressing age.
+6. Alerts for overdue dressing changes or assessments.
+7. Patient education resources and materials.
+8. Performance metrics and trends over time for quality improvement.
+9. Communication tools for team collaboration.
+10. Access to patient records and history for informed decision-making.

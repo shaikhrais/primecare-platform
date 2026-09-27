@@ -1,0 +1,20 @@
+{
+  "theme_code": "primecare_light_default",
+  "theme_name": "PrimeCare Light Default",
+  "mode": "light",
+  "tokens": {
+    "color.primary": "#0f172a",
+    "color.accent": "#2563eb",
+    "color.accent_2": "#38bdf8",
+    "color.background": "#eef3f8",
+    "color.surface": "#ffffff",
+    "color.text": "#0f172a",
+    "color.muted": "#64748b",
+    "spacing.md": "16px",
+    "spacing.lg": "28px",
+    "radius.md": "14px",
+    "shadow.topbar": "0 8px 28px rgba(15, 23, 42, 0.10)",
+    "shadow.sidebar": "10px 0 36px rgba(15, 23, 42, 0.22)",
+    "shadow.card": "0 12px 30px rgba(15, 23, 42, 0.08)"
+  }
+}

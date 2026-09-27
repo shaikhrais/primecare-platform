@@ -1,0 +1,43 @@
+Screen Code: franchise_sales_manager_dashboard
+Screen Name: FranchiseSalesManagerDashboardScreen
+
+Required Components:
+- KPIDashboard
+- SalesTrendChart
+- ComplianceStatusCard
+- FranchiseeSatisfactionGauge
+- MarketAnalysisWidget
+- OperationalLogsTable
+- AlertsNotification
+- TrainingSupportTracker
+- SalesForecastVisualization
+- HistoricalPerformanceChart
+
+Required Functions/Handlers:
+- generateSalesReport
+- sendAlertNotification
+- updateTrainingRecords
+- viewMarketAnalysis
+- exportDashboardData
+
+Required Buttons:
+- Generate Report
+- Send Alert
+- Update Training
+- View Market Analysis
+- Export Data
+
+Required APIs:
+- /v1/franchise/sales/performance
+- /v1/franchise/compliance/status
+- /v1/franchise/satisfaction/metrics
+- /v1/market/analysis
+- /v1/franchise/training/support
+
+Required Semantic Keys (data-cy):
+- franchise-dashboard-kpi
+- franchise-dashboard-sales-trend
+- franchise-dashboard-compliance-status
+- franchise-dashboard-satisfaction-metrics
+- franchise-dashboard-alerts
+- franchise-dashboard-training-tracker

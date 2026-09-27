@@ -1,0 +1,50 @@
+Screen Code: coo_operations_overview
+Screen Name: CooOperationsOverviewScreen
+
+Required Components:
+- KPIOverviewWidget
+- EfficiencyMetricsChart
+- FinancialPerformanceCard
+- ComplianceStatusWidget
+- EmployeeEngagementWidget
+- CustomerFeedbackWidget
+- RiskManagementWidget
+- ProjectTimelineWidget
+- ResourceAllocationChart
+- OperationalLogsWidget
+
+Required Functions/Handlers:
+- refreshDashboardData
+- viewDetailedReports
+- exportMetrics
+- setAlerts
+
+Required Buttons:
+- Refresh Data
+- View Detailed Reports
+- Export Metrics
+- Set Alerts
+
+Required APIs:
+- /v1/operations/kpis
+- /v1/operations/efficiency
+- /v1/financial/performance
+- /v1/compliance/status
+- /v1/employee/engagement
+- /v1/customer/feedback
+- /v1/risk/status
+- /v1/projects/timelines
+- /v1/resources/allocation
+- /v1/operations/logs
+
+Required Semantic Keys (data-cy):
+- coo-dashboard-kpi-overview
+- coo-dashboard-efficiency-metrics
+- coo-dashboard-financial-performance
+- coo-dashboard-compliance-status
+- coo-dashboard-employee-engagement
+- coo-dashboard-customer-feedback
+- coo-dashboard-risk-management
+- coo-dashboard-project-timelines
+- coo-dashboard-resource-allocation
+- coo-dashboard-operational-logs

@@ -1,0 +1,35 @@
+List of tasks Personal Support Workers (PSWs) must perform:
+1. Assist clients with daily living activities (bathing, dressing, grooming).
+2. Monitor and record vital signs (blood pressure, temperature).
+3. Administer medications as prescribed.
+4. Provide companionship and emotional support.
+5. Help with mobility and physical exercises.
+6. Prepare meals and assist with feeding if necessary.
+7. Maintain a clean and safe environment for clients.
+8. Communicate with healthcare professionals about client status.
+9. Document care provided and any changes in client condition.
+10. Report any concerns or emergencies to supervisors.
+
+Red flags of operation that indicate ineffective work:
+1. Missed scheduled visits or appointments.
+2. Inconsistent documentation of care provided.
+3. Lack of communication with clients or their families.
+4. Failure to follow care plans or medication schedules.
+5. Signs of neglect or abuse in client care.
+6. High turnover rates among PSWs.
+7. Frequent complaints from clients or families.
+8. Inadequate training or support for PSWs.
+9. Poor time management leading to rushed care.
+10. Lack of adherence to safety protocols.
+
+Dashboard needs for Personal Support Workers (PSWs):
+1. Client list with essential details (name, age, address, care level).
+2. Search functionality for quick access to client profiles.
+3. Filter options (e.g., by visit status: today, pending).
+4. Notifications for upcoming visits or tasks.
+5. Summary of vital signs and health status for each client.
+6. Documentation section for recording care provided.
+7. Alerts for any red flags or concerns regarding clients.
+8. Communication tools for contacting healthcare professionals.
+9. Training resources and support materials.
+10. Performance metrics to track PSW effectiveness and client satisfaction.

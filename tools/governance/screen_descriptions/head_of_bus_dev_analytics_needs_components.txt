@@ -1,0 +1,47 @@
+Screen Code: head_of_bus_dev_analytics
+Screen Name: HeadOfBusDevAnalyticsScreen
+
+Required Components:
+- SalesPerformanceMetricCard
+- ClientAcquisitionRetentionChart
+- MarketAnalysisOverview
+- KPITrackingWidget
+- PipelineStatusChart
+- TeamPerformanceMetricCard
+- ClientFeedbackScoreCard
+- BudgetUtilizationChart
+- OpportunitiesRisksOverview
+- CRMIntegrationWidget
+
+Required Functions/Handlers:
+- generateReport
+- viewProposal
+- negotiateContract
+- trackPerformanceMetrics
+- conductMarketResearch
+
+Required Buttons:
+- Generate Report
+- View Proposal
+- Negotiate Contract
+- Track Performance
+- Market Research
+
+Required APIs:
+- /v1/businessdevelopment/salesperformance
+- /v1/businessdevelopment/clientacquisition
+- /v1/businessdevelopment/marketanalysis
+- /v1/businessdevelopment/kpitracking
+- /v1/businessdevelopment/pipelinestatus
+- /v1/businessdevelopment/teamperformance
+- /v1/businessdevelopment/clientfeedback
+- /v1/businessdevelopment/budgetutilization
+- /v1/businessdevelopment/opportunitiesrisks
+- /v1/crm/integration
+
+Required Semantic Keys (data-cy):
+- bd-dashboard-btn-generate-report
+- bd-dashboard-btn-view-proposal
+- bd-dashboard-btn-negotiate-contract
+- bd-dashboard-btn-track-performance
+- bd-dashboard-btn-market-research

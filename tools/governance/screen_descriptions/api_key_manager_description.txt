@@ -1,0 +1,17 @@
+User Tasks:
+1. Generate new API keys.
+2. Rotate existing API keys.
+3. Revoke API keys.
+4. View active API keys and their details.
+5. Monitor API usage and access logs.
+
+Red Flags of Operation:
+1. Failure to load API keys, indicated by an error message.
+2. No API keys generated yet, which may indicate a lack of integration or usage.
+3. Performance issues when loading data, leading to long loading times.
+
+Dashboard Needs:
+1. Display active API keys with their names, prefixes, and creation dates.
+2. Provide options to generate, rotate, and revoke keys.
+3. Include a section for API usage and access logs, possibly with a graph or chart for visualization.
+4. Show loading indicators and error messages for better user feedback.

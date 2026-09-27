@@ -1,0 +1,77 @@
+# SCREEN DATA CONTEXT: patient_documents
+
+Below are the database records from `governance.db` used to configure and build the **Patient - PatientDocumentsScreen** screen.
+
+---
+
+## 1. Screen Record
+* **ID**: `332`
+* **App ID**: `5`
+* **Role ID**: `15`
+* **Screen Code**: `patient_documents`
+* **Screen Name**: `PatientDocumentsScreen`
+* **Route Path**: `/common/patient-documents`
+* **Actual File Path**: `packages/primecare_ui/lib/src/screens/common/patient_documents_screen.dart`
+* **Stage/Status**: `template_created`
+
+## 2. App Record
+* **ID**: `5`
+* **App Code**: `cl`
+* **App Name**: `Primecare Client`
+
+## 3. Role Record
+* **ID**: `15`
+* **Role Code**: `patient`
+* **Role Name**: `Patient`
+* **Role Type**: `staff`
+
+## 4. Screen Requirement Record
+* **Business Purpose**: `Provides a dedicated management interface within the Primecare Client module to enable Patient personnel to oversee, audit, and coordinate operations related to patientdocumentsscreen.`
+* **User Story**: `As a Patient, I want to access the PatientDocumentsScreen within the Primecare Client application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.`
+* **Sidebar Label**: `PatientDocumentsScreen`
+* **Acceptance Criteria**:
+- The PatientDocumentsScreen route loads successfully within the Primecare Client workspace.
+- The interface correctly displays all primary modules and active widgets.
+- Role-based access control restricts unauthorized actions, permitting only Patient access.
+- System telemetry and data tables refresh correctly upon user interaction.
+
+## 5. Required Elements
+* **screen_root** -> `patient_documents-screen` (Type: layout, Required: 1)
+* **page_title** -> `patient_documents-title` (Type: header, Required: 1)
+* **primary_content** -> `patient_documents-content` (Type: layout, Required: 1)
+* **patientdocuments_btn_2** -> `patientdocuments-btn-2` (Type: button, Required: 0)
+* **patientdocuments_title** -> `patientdocuments-title` (Type: header, Required: 0)
+* **patientdocuments_content** -> `patientdocuments-content` (Type: layout, Required: 0)
+* **patientdocuments_loading** -> `patientdocuments-loading` (Type: loading, Required: 0)
+* **patientdocuments_btn_1** -> `patientdocuments-btn-1` (Type: button, Required: 0)
+* **patientdocuments_screen** -> `patientdocuments-screen` (Type: layout, Required: 0)
+* **patientdocuments_btn_3** -> `patientdocuments-btn-3` (Type: button, Required: 0)
+
+## 6. Component Mapping
+* Component ID: `340` (Required: 1)
+* Component ID: `874` (Required: 1)
+* Component ID: `1408` (Required: 1)
+* Component ID: `4547` (Required: 1)
+* Component ID: `4548` (Required: 1)
+* Component ID: `4549` (Required: 1)
+* Component ID: `4550` (Required: 1)
+* Component ID: `4551` (Required: 1)
+
+## 7. API / Data Mapping
+* API ID: `4661` (Required: 1)
+
+## 8. Test Definition & Steps
+* **Test Code**: `patient_documents_runtime`
+* **Test Name**: `PatientDocumentsScreen Runtime Test`
+* **Test Type**: `e2e`
+* **Expected Title**: `PatientDocumentsScreen`
+* **Expected Layout**: `dashboard`
+
+### Test Steps
+1. **login_as_role** (Selector: `None`, Value: `patient`)
+2. **visit** (Selector: `None`, Value: `/common/patient-documents`)
+3. **should_be_visible** (Selector: `patient_documents-screen`, Value: `None`)
+4. **should_be_visible** (Selector: `patient_documents-title`, Value: `None`)
+5. **should_be_visible** (Selector: `patient_documents-content`, Value: `None`)
+6. **check_no_console_error** (Selector: `None`, Value: `None`)
+7. **screenshot** (Selector: `None`, Value: `None`)

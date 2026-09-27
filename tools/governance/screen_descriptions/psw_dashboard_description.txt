@@ -1,0 +1,28 @@
+List of tasks Personal Support Workers (PSWs) must do:
+1. Check-in and check-out for shifts.
+2. Complete Activities of Daily Living (ADLs) for residents.
+3. Log incidents and care activities.
+4. Monitor and respond to safety alerts.
+5. Communicate with clinical staff regarding resident care.
+6. Trigger emergency alerts when necessary.
+7. Participate in compliance audits and ensure adherence to standards.
+8. Maintain accurate documentation of care provided.
+
+Red flags of operation for effective work:
+1. High number of active alerts indicating potential safety issues.
+2. Low completion rate of tasks compared to total assigned tasks.
+3. Frequent check-outs without proper documentation.
+4. Delays in logging incidents or care activities.
+5. Lack of communication or updates in logs.
+6. Emergency alerts triggered frequently without resolution.
+7. Non-compliance with care standards during audits.
+
+Dashboard needs for Personal Support Workers (PSWs):
+1. Shift status indicator (checked in or off-duty).
+2. Progress tracker for ADL tasks (completed vs. total).
+3. Active wing information for care assignments.
+4. Safety alerts count and status.
+5. Logs of recent activities and incidents.
+6. Emergency alert button for immediate action.
+7. Compliance audit results and reminders.
+8. Refresh button for manual updates.

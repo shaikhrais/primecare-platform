@@ -1,0 +1,41 @@
+Screen Code: head_of_marketing_funnel_analytics
+Screen Name: Head Of Marketing Funnel Analytics
+
+Required Components:
+- FunnelPerformanceMetricCard
+- UserEngagementChart
+- ConversionRateChart
+- BottleneckIdentifier
+- ReportGenerator
+- CollaborationTool
+- KPITracker
+
+Required Functions/Handlers:
+- monitorFunnelPerformance
+- analyzeUserEngagement
+- identifyBottlenecks
+- generateReports
+- collaborateWithTeam
+- reviewCampaigns
+- trackKPIs
+
+Required Buttons:
+- Generate Report
+- Optimize Strategy
+- Adjust Campaign
+
+Required APIs:
+- /v1/marketing/funnel/performance
+- /v1/marketing/user/engagement
+- /v1/marketing/conversion/rates
+- /v1/marketing/reports
+- /v1/marketing/campaigns
+
+Required Semantic Keys (data-cy):
+- funnel-metrics-card
+- engagement-chart
+- conversion-rate-chart
+- bottleneck-identifier
+- report-generator
+- collaboration-tool
+- kpi-tracker

@@ -1,0 +1,4 @@
+﻿S.No.,Tx ID,User ID,User Role,Transaction Action,Target Entity,Entity ID,Before State (JSON),After State (JSON),Transaction Description,Executed At
+1,1,user_psw_john,psw,login,user,user_psw_john,NULL,NULL,Successful login from mobile app (iOS),2026-05-22 15:02:56
+2,2,user_psw_john,psw,create,note,REC-VN-98213,NULL,"{""client_id"": ""CL-8871"", ""status"": ""submitted""}",Visit note created and sent for clinical review,2026-05-22 15:02:56
+3,3,user_director_clinical,chiropractor,approve,client,REC-IN-55412,"{""status"": ""pending_approval""}","{""status"": ""approved""}",Clinical assessment approved by Clinical Director.,2026-05-22 15:02:56

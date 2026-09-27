@@ -1,0 +1,27 @@
+Screen Code: assessments
+Screen Name: Assessments
+
+Required Components:
+- LoadingIndicator
+- ErrorMessage
+- AssessmentList
+- PerformanceMetrics
+
+Required Functions/Handlers:
+- fetchAssessments
+- handleError
+- interactWithAssessment
+
+Required Buttons:
+- Start Assessment
+- Review Results
+
+Required APIs:
+- /v1/assessments/load
+- /v1/assessments/error
+
+Required Semantic Keys (data-cy):
+- assessments-loading-indicator
+- assessments-error-message
+- assessments-list
+- assessments-performance-metrics

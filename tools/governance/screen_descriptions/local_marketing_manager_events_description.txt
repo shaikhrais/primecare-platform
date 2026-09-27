@@ -1,0 +1,20 @@
+List of work the User must do:
+1. Monitor and manage local marketing events.
+2. Analyze event performance metrics.
+3. Coordinate with local teams for event execution.
+4. Update event details and statuses in the system.
+5. Communicate with stakeholders regarding event outcomes.
+
+Red flags of operation:
+1. Delays in event updates or status changes.
+2. Inconsistent data reporting or metrics.
+3. Lack of communication from local teams.
+4. High error rates in event execution.
+5. Low engagement or attendance at events.
+
+What is needed on the User dashboard:
+1. Overview of upcoming and past events.
+2. Performance metrics (attendance, engagement, feedback).
+3. Alerts for any delays or issues with events.
+4. Communication tools for team coordination.
+5. Quick access to update event details.

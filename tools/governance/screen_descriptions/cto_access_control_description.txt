@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor access control features.
+2. Review user permissions and roles.
+3. Manage access requests and approvals.
+4. Analyze access logs for security compliance.
+5. Update access control policies as needed.
+
+Red flags of operation:
+1. Unusual access patterns detected in logs.
+2. Pending access requests that exceed a certain threshold.
+3. Frequent errors or failures in loading access control features.
+4. Unauthorized access attempts reported.
+5. Delays in processing access requests.
+
+What we need on the dashboard of the user:
+1. Overview of current access control status.
+2. Notifications for pending access requests.
+3. Alerts for any security breaches or anomalies.
+4. Quick access to user permission management tools.
+5. Visual representation of access logs and trends.

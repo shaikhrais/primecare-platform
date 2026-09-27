@@ -1,0 +1,7 @@
+# Screen: FRA-814
+**Component Name:** `OperationsManagerDailyOperationsScreen`  
+**Implementation Status:** ✅ Implemented  
+**Associated Roles:** [Operations Manager](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-FRA-814-01](tasks/tsk_fra_814_01.md): Command center for monitoring ongoing day-to-day franchise activities.

@@ -1,0 +1,57 @@
+Screen Code: clinical_analytics
+Screen Name: ClinicalAnalyticsScreen
+
+Required Components:
+- KPIChart
+- StaffPerformanceCard
+- ComplianceTracker
+- FinancialMetricsCard
+- PatientFeedbackTrends
+- ResourceUtilizationChart
+- TrainingProgressTracker
+- PatientOutcomesVisualization
+- OperationalAlerts
+- DataIntegrationPanel
+
+Required Functions/Handlers:
+- fetchKPIData
+- fetchStaffPerformance
+- trackCompliance
+- fetchFinancialMetrics
+- analyzePatientFeedback
+- calculateResourceUtilization
+- updateTrainingProgress
+- visualizePatientOutcomes
+- triggerOperationalAlert
+- integrateClinicalData
+
+Required Buttons:
+- View Details
+- Export Report
+- Refresh Data
+- Add Training Session
+- Address Complaint
+
+Required APIs:
+- /v1/clinical/kpi
+- /v1/clinical/staff/performance
+- /v1/clinical/compliance
+- /v1/clinical/financial
+- /v1/clinical/patient/feedback
+- /v1/clinical/resource/utilization
+- /v1/clinical/training/progress
+- /v1/clinical/patient/outcomes
+- /v1/clinical/alerts
+- /v1/clinical/data/integration
+
+Required Semantic Keys (data-cy):
+- clinical-analytics-kpi-chart
+- clinical-analytics-staff-performance
+- clinical-analytics-compliance-tracker
+- clinical-analytics-financial-metrics
+- clinical-analytics-patient-feedback
+- clinical-analytics-resource-utilization
+- clinical-analytics-training-progress
+- clinical-analytics-patient-outcomes
+- clinical-analytics-operational-alerts
+- clinical-analytics-data-integration

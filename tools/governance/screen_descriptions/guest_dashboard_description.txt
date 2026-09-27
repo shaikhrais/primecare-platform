@@ -1,0 +1,22 @@
+List of work Guest must do:
+1. Run compliance scans to ensure governance and compliance.
+2. Sync security posture to maintain up-to-date security measures.
+3. Update security policies as needed.
+4. Export audit logs for record-keeping and analysis.
+5. Monitor operational audit logs for any irregularities.
+6. Trigger state actions as required for governance.
+
+Red flags of operation:
+1. Extended loading times during compliance scans.
+2. Errors or failures during synchronization or policy updates.
+3. Inconsistencies in operational audit logs.
+4. Low security clearance levels or exceptions logged.
+5. Deviation from expected telemetry data trends.
+
+Dashboard needs:
+1. Real-time status indicators for compliance and security posture.
+2. Logs of recent actions and their outcomes.
+3. Metrics on active operations and security clearance levels.
+4. Visual representation of telemetry data trends.
+5. Quick access buttons for executing key actions (e.g., compliance scan, sync).
+6. Alerts for any red flags or issues detected in operations.

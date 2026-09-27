@@ -1,0 +1,52 @@
+Screen Code: hr_director_hiring_pipeline
+Screen Name: HrDirectorHiringPipelineScreen
+
+Required Components:
+- KPIDashboard
+- ComplianceStatusCard
+- EmployeePerformanceChart
+- DiversityStatisticsWidget
+- EngagementSurveyResults
+- TurnoverRetentionChart
+- TrainingParticipationWidget
+- AuditLogViewer
+- HiringPipelineStatus
+- AlertsNotification
+
+Required Functions/Handlers:
+- fetchKPIs
+- checkComplianceStatus
+- getEmployeePerformanceData
+- fetchDiversityStats
+- retrieveEngagementResults
+- calculateTurnoverRates
+- trackTrainingParticipation
+- viewAuditLogs
+- updateHiringPipeline
+- triggerAlerts
+
+Required Buttons:
+- View Detailed Report
+- Export Data
+- Refresh Metrics
+- Add New Policy
+- Initiate Training Program
+
+Required APIs:
+- /v1/hr/kpis
+- /v1/hr/compliance/status
+- /v1/hr/performance/data
+- /v1/hr/diversity/stats
+- /v1/hr/engagement/results
+- /v1/hr/turnover/rates
+- /v1/hr/training/participation
+- /v1/hr/audit/logs
+- /v1/hr/hiring/pipeline
+- /v1/hr/alerts
+
+Required Semantic Keys (data-cy):
+- hrdashboard-btn-view-report
+- hrdashboard-btn-export-data
+- hrdashboard-btn-refresh-metrics
+- hrdashboard-btn-add-policy
+- hrdashboard-btn-initiate-training

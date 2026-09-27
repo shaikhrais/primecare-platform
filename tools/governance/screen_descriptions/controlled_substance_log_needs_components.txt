@@ -1,0 +1,45 @@
+Screen Code: controlled_substance_log
+Screen Name: Controlled Substance Log
+
+Required Components:
+- ControlledSubstanceList
+- EntryForm
+- SearchBar
+- ComplianceAlert
+- ActivityLog
+- PerformanceMetrics
+- ReportGenerator
+- UserAccessLog
+
+Required Functions/Handlers:
+- accessLogScreen
+- viewSubstanceList
+- addEntry
+- editEntry
+- deleteEntry
+- searchSubstances
+- generateReports
+- checkCompliance
+
+Required Buttons:
+- Add Entry
+- Edit Entry
+- Delete Entry
+- Search
+- Generate Report
+
+Required APIs:
+- /v1/controlled_substances
+- /v1/controlled_substances/add
+- /v1/controlled_substances/edit
+- /v1/controlled_substances/delete
+- /v1/controlled_substances/search
+- /v1/controlled_substances/reports
+
+Required Semantic Keys (data-cy):
+- controlledsubstance-log
+- controlledsubstance-btn-add
+- controlledsubstance-btn-edit
+- controlledsubstance-btn-delete
+- controlledsubstance-btn-search
+- controlledsubstance-btn-generate-report

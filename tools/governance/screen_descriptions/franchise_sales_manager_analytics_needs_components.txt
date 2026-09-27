@@ -1,0 +1,57 @@
+Screen Code: franchise_sales_manager_analytics
+Screen Name: FranchiseSalesManagerAnalyticsScreen
+
+Required Components:
+- SalesPerformanceChart
+- EmployeeTurnoverStats
+- CustomerSatisfactionWidget
+- InventoryManagementPanel
+- FinancialSummaryCard
+- MarketingCampaignROI
+- ComplianceChecklist
+- OperationalKPIs
+- CommunityEngagementMetrics
+- RedFlagAlerts
+
+Required Functions/Handlers:
+- fetchSalesData
+- fetchEmployeeStats
+- fetchCustomerFeedback
+- fetchInventoryData
+- fetchFinancialSummary
+- fetchMarketingROI
+- checkCompliance
+- fetchOperationalKPIs
+- fetchCommunityMetrics
+- alertRedFlags
+
+Required Buttons:
+- View Detailed Report
+- Export Data
+- Refresh Metrics
+- Add Marketing Campaign
+- Resolve Customer Issue
+
+Required APIs:
+- /v1/franchise/sales/performance
+- /v1/franchise/employee/stats
+- /v1/franchise/customer/feedback
+- /v1/franchise/inventory
+- /v1/franchise/financial/summary
+- /v1/franchise/marketing/campaigns
+- /v1/franchise/compliance/checklist
+- /v1/franchise/operational/kpis
+- /v1/franchise/community/engagement
+- /v1/franchise/redflags/alerts
+
+Required Semantic Keys (data-cy):
+- franchise-sales-performance-chart
+- franchise-employee-turnover-stats
+- franchise-customer-satisfaction-widget
+- franchise-inventory-management-panel
+- franchise-financial-summary-card
+- franchise-marketing-campaign-roi
+- franchise-compliance-checklist
+- franchise-operational-kpis
+- franchise-community-engagement-metrics
+- franchise-red-flag-alerts

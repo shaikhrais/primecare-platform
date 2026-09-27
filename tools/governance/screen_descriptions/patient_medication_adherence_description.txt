@@ -1,0 +1,28 @@
+User Work List:
+1. Monitor patient medication adherence.
+2. Input and update patient medication schedules.
+3. Review patient adherence reports.
+4. Identify patients with low adherence rates.
+5. Communicate with patients regarding their medication.
+6. Set reminders for patients to take their medications.
+7. Analyze trends in medication adherence over time.
+8. Collaborate with healthcare providers to improve adherence.
+
+Red Flags of Operation:
+1. High percentage of patients with low adherence rates.
+2. Frequent missed medication reminders.
+3. Lack of patient engagement or communication.
+4. Inconsistent data entry or updates on medication schedules.
+5. Delays in reporting adherence metrics.
+6. Increased patient inquiries about medication schedules.
+7. Patterns of non-adherence linked to specific medications.
+
+Dashboard Requirements:
+1. Overview of patient adherence rates (percentage and trends).
+2. List of patients with low adherence and their medication details.
+3. Alerts for missed medication reminders.
+4. Communication logs with patients regarding adherence.
+5. Graphical representation of adherence trends over time.
+6. Quick access to update patient medication schedules.
+7. Summary of recent patient interactions and follow-ups.
+8. Integration with healthcare provider notes and recommendations.

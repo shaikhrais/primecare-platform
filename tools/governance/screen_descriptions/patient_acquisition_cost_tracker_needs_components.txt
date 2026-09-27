@@ -1,0 +1,28 @@
+Screen Code: patient_acquisition_cost_tracker
+Screen Name: Patient Acquisition Cost Tracker
+
+Required Components:
+- CACOverviewCard
+- TotalSpendCard
+- NewPatientsCard
+- CACByChannelChart
+- LoadingIndicator
+- ErrorMessage
+
+Required Functions/Handlers:
+- fetchCACData
+- refreshData
+
+Required Buttons:
+- Refresh Data
+
+Required APIs:
+- /v1/patient/acquisition/cost
+- /v1/patient/acquisition/new
+
+Required Semantic Keys (data-cy):
+- cac-overview-card
+- total-spend-card
+- new-patients-card
+- refresh-data-btn
+- error-message

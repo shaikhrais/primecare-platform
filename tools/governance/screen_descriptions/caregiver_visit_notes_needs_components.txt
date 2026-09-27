@@ -1,0 +1,39 @@
+Screen Code: caregiver_visit_notes
+Screen Name: CaregiverVisitNotesScreen
+
+Required Components:
+- ComplianceStatusCard
+- ActivityLogTable
+- ProductivityMetricsChart
+- AlertsNotification
+- SecurityClearanceSummary
+- VisitNotesInput
+- FeedbackCommunicationSection
+
+Required Functions/Handlers:
+- submitVisitNotes
+- conductComplianceScan
+- fetchActivityLogs
+- reportIssue
+- requestTraining
+
+Required Buttons:
+- Submit Visit Notes
+- Conduct Compliance Scan
+- View Logs
+- Report Issue
+- Request Training
+
+Required APIs:
+- /v1/caregiver/visit/notes
+- /v1/caregiver/compliance/scan
+- /v1/caregiver/activity/logs
+- /v1/caregiver/report/issue
+- /v1/caregiver/training/request
+
+Required Semantic Keys (data-cy):
+- caregiver-visit-notes-submit
+- caregiver-compliance-scan
+- caregiver-logs-view
+- caregiver-report-issue
+- caregiver-training-request

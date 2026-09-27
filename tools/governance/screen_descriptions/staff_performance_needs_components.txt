@@ -1,0 +1,57 @@
+Screen Code: staff_performance
+Screen Name: StaffPerformanceScreen
+
+Required Components:
+- KPIWidget
+- ComplianceStatusCard
+- PatientSatisfactionChart
+- OperationalEfficiencyChart
+- TrainingProgressTracker
+- IncidentReportLog
+- TelemetryDataDisplay
+- AuditLogViewer
+- AlertNotificationSystem
+- PatientOutcomeTrendChart
+
+Required Functions/Handlers:
+- fetchKPIData
+- fetchComplianceData
+- fetchPatientSatisfaction
+- fetchOperationalMetrics
+- fetchTrainingProgress
+- fetchIncidentReports
+- fetchTelemetryData
+- fetchAuditLogs
+- checkAlerts
+- fetchOutcomeTrends
+
+Required Buttons:
+- View Audit Results
+- Generate Report
+- Resolve Issue
+- Initiate Training
+- Send Feedback
+
+Required APIs:
+- /v1/staff/performance/kpis
+- /v1/staff/compliance/status
+- /v1/patient/satisfaction/scores
+- /v1/operations/efficiency
+- /v1/staff/training/progress
+- /v1/incidents/reports
+- /v1/patient/telemetry
+- /v1/audits/logs
+- /v1/alerts/redflags
+- /v1/patient/outcomes/trends
+
+Required Semantic Keys (data-cy):
+- staffperformance-kpi-widget
+- staffperformance-compliance-card
+- staffperformance-satisfaction-chart
+- staffperformance-efficiency-chart
+- staffperformance-training-tracker
+- staffperformance-incident-log
+- staffperformance-telemetry-display
+- staffperformance-audit-log
+- staffperformance-alerts
+- staffperformance-outcome-trend

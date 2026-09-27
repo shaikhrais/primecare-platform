@@ -1,0 +1,31 @@
+Screen Code: local_marketing_manager_events
+Screen Name: Local Marketing Manager Events
+
+Required Components:
+- EventOverview
+- PerformanceMetricsChart
+- AlertsNotification
+- CommunicationTool
+- EventUpdateForm
+
+Required Functions/Handlers:
+- fetchEventData
+- updateEventStatus
+- sendCommunication
+- analyzePerformanceMetrics
+
+Required Buttons:
+- Update Event
+- Send Notification
+- View Details
+
+Required APIs:
+- /v1/events/upcoming
+- /v1/events/past
+- /v1/events/update
+- /v1/events/performance
+
+Required Semantic Keys (data-cy):
+- localmarketing-btn-update
+- localmarketing-btn-notify
+- localmarketing-metric-performance

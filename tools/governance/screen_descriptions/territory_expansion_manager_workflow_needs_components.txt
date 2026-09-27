@@ -1,0 +1,42 @@
+Screen Code: territory_expansion_manager_workflow
+Screen Name: TerritoryExpansionManagerWorkflowScreen
+
+Required Components:
+- KPIWidget
+- MarketResearchChart
+- BudgetTracker
+- ProjectTimeline
+- StakeholderEngagementWidget
+- TeamPerformanceChart
+- ComplianceStatusWidget
+- MarketPotentialVisualization
+
+Required Functions/Handlers:
+- generateReport
+- updateStrategy
+- monitorPerformance
+- reviewBudget
+- trainLocalTeams
+
+Required Buttons:
+- Generate Report
+- Update Strategy
+- Monitor Performance
+- Budget Review
+- Train Local Teams
+
+Required APIs:
+- /v1/territory/expansion/kpis
+- /v1/market/research/insights
+- /v1/budget/tracking
+- /v1/projects/status
+- /v1/stakeholders/engagement
+- /v1/team/performance
+- /v1/compliance/status
+
+Required Semantic Keys (data-cy):
+- territory-expansion-btn-generate-report
+- territory-expansion-btn-update-strategy
+- territory-expansion-btn-monitor-performance
+- territory-expansion-btn-budget-review
+- territory-expansion-btn-train-local-teams

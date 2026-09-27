@@ -1,0 +1,79 @@
+name: Deploy API Gateway - primecare-api-gateway
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/api_gateway/**'
+      - '.github/workflows/deploy-api-gateway.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: primecare-cloudrun-deploy
+  cancel-in-progress: false
+
+env:
+  GCP_REGION: northamerica-northeast1
+  ARTIFACT_REPOSITORY: primecare
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - name: Validate gateway
+        working-directory: services/api_gateway
+        run: |
+          dart pub get
+          dart analyze --fatal-infos
+          dart test
+      - id: google-auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      - uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+      - name: Publish gateway container
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          gcloud auth configure-docker "${GCP_REGION}-docker.pkg.dev" --quiet
+          registry="${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/${ARTIFACT_REPOSITORY}"
+          docker build -f services/api_gateway/Dockerfile -t "${registry}/api-gateway:${GITHUB_SHA}" .
+          docker push "${registry}/api-gateway:${GITHUB_SHA}"
+      - name: Discover API URLs and deploy gateway
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          service_url() {
+            gcloud run services describe "$1" --project="${PROJECT_ID}" --region="${GCP_REGION}" --format='value(status.url)'
+          }
+          envs="AUTH_SERVICE_URL=$(service_url primecare-auth-api)"
+          envs="${envs},CLIENT_SERVICE_URL=$(service_url primecare-client-api)"
+          envs="${envs},PROVIDER_SERVICE_URL=$(service_url primecare-provider-api)"
+          envs="${envs},VISIT_SERVICE_URL=$(service_url primecare-visit-api)"
+          envs="${envs},NOTES_SERVICE_URL=$(service_url primecare-notes-api)"
+          envs="${envs},BILLING_SERVICE_URL=$(service_url primecare-billing-api)"
+          envs="${envs},SCHEDULING_SERVICE_URL=$(service_url primecare-scheduling-api)"
+          envs="${envs},NOTIFICATION_SERVICE_URL=$(service_url primecare-notification-api)"
+          envs="${envs},VERIFICATION_SERVICE_URL=$(service_url primecare-verification-api)"
+          envs="${envs},COMPLIANCE_SERVICE_URL=$(service_url primecare-compliance-api)"
+          envs="${envs},GOVERNANCE_SERVICE_URL=$(service_url primecare-governance-api)"
+          envs="${envs},FRANCHISE_REPORTING_SERVICE_URL=$(service_url primecare-franchise-reporting-api)"
+          image="${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/${ARTIFACT_REPOSITORY}/api-gateway:${GITHUB_SHA}"
+          gcloud run deploy primecare-api-gateway --project="${PROJECT_ID}" --region="${GCP_REGION}" \
+            --platform=managed --image="${image}" --port=8080 --allow-unauthenticated \
+            --set-secrets=DATABASE_URL=primecare-database-url:latest \
+            --set-env-vars="${envs},CORS_ALLOWED_ORIGIN=https://primecare-auth.pages.dev"
+          url="$(gcloud run services describe primecare-api-gateway --project="${PROJECT_ID}" --region="${GCP_REGION}" --format='value(status.url)')"
+          curl --fail --show-error --retry 10 --retry-delay 5 "${url}/health"

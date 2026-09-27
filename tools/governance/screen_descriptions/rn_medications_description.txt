@@ -1,0 +1,35 @@
+Registered Nurse (RN) Responsibilities:
+1. Administer medications and monitor patient responses.
+2. Conduct patient assessments and document findings.
+3. Collaborate with healthcare team members for patient care.
+4. Educate patients and families about health conditions and treatments.
+5. Maintain accurate patient records and logs.
+6. Ensure compliance with healthcare regulations and protocols.
+7. Participate in quality improvement initiatives.
+8. Respond to patient emergencies and provide appropriate interventions.
+9. Manage patient care plans and coordinate with other healthcare providers.
+10. Stay updated on medical practices and advancements.
+
+Red Flags in Operations:
+1. Increased medication errors or adverse drug reactions.
+2. Delays in patient assessments or treatments.
+3. High patient-to-nurse ratios leading to inadequate care.
+4. Frequent complaints from patients or families.
+5. Non-compliance with safety protocols or regulations.
+6. Inconsistent documentation or missing patient records.
+7. Lack of communication among healthcare team members.
+8. High turnover rates among nursing staff.
+9. Unresolved conflicts or issues within the team.
+10. Poor patient outcomes or satisfaction scores.
+
+Dashboard Needs for Registered Nurse (RN):
+1. Real-time patient status updates and alerts.
+2. Medication administration records and compliance tracking.
+3. Patient assessment logs and documentation status.
+4. Key performance indicators (KPIs) for patient care.
+5. Compliance audit results and action items.
+6. Communication tools for team collaboration.
+7. Access to educational resources and training materials.
+8. Incident reporting and tracking system.
+9. Patient satisfaction metrics and feedback.
+10. Visualizations of workload and staffing levels.

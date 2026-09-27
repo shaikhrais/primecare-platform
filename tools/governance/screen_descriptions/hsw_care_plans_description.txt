@@ -1,0 +1,35 @@
+Home Support Worker Responsibilities:
+1. Access and review personalized patient care plans.
+2. Monitor dietary outlines and restrictions.
+3. Provide medication support and reminders.
+4. Assist with mobility aids and transfer instructions.
+5. Document patient progress and changes in care needs.
+6. Communicate effectively with patients and their families.
+7. Report any changes in patient condition to healthcare professionals.
+8. Ensure compliance with safety and health regulations.
+9. Participate in training and professional development.
+10. Maintain confidentiality of patient information.
+
+Red Flags of Operation:
+1. Inconsistent documentation of patient care.
+2. Frequent missed medication reminders.
+3. Lack of communication with patients or families.
+4. Unreported changes in patient condition.
+5. Non-compliance with dietary restrictions.
+6. Inadequate training on mobility aids.
+7. High turnover of Home Support Workers.
+8. Negative feedback from patients or families.
+9. Delays in responding to patient needs.
+10. Poor collaboration with healthcare teams.
+
+Dashboard Needs for Home Support Worker:
+1. Overview of patient care plans and status.
+2. Alerts for medication reminders and dietary restrictions.
+3. Communication log with patients and families.
+4. Documentation section for recording patient progress.
+5. Training and compliance tracking.
+6. Performance metrics and feedback.
+7. Incident reporting and follow-up actions.
+8. Resource links for additional support and training.
+9. Calendar for scheduling visits and appointments.
+10. Access to emergency contact information.

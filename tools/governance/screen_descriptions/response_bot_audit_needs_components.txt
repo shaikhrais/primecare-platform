@@ -1,0 +1,28 @@
+Screen Code: response_bot_audit
+Screen Name: Response Bot Audit
+
+Required Components:
+- ConversationList
+- TranscriptViewer
+- SafetyScoreChart
+- FlaggedConversationsOverview
+
+Required Functions/Handlers:
+- approveConversation
+- flagConversation
+- searchTranscripts
+
+Required Buttons:
+- Approve Conversation
+- Flag for Tuning
+- Search Transcripts
+
+Required APIs:
+- /v1/audits/flagged
+- /v1/audits/transcripts
+- /v1/audits/approve
+
+Required Semantic Keys (data-cy):
+- responsebot-btn-approve
+- responsebot-btn-flag
+- responsebot-input-search

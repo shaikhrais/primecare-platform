@@ -1,0 +1,72 @@
+{
+  "role": {
+    "id": 22,
+    "role_code": "ciso",
+    "role_name": "Chief Information Security Officer (CISO)",
+    "role_type": "staff",
+    "active": 1
+  },
+  "screens_count": 4,
+  "screens": [
+    {
+      "id": 34,
+      "app_id": 7,
+      "role_id": 22,
+      "screen_code": "ciso_dashboard",
+      "screen_name": "CisoDashboardScreen",
+      "route_path": "/offices/corporate/roles/ciso/dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/executive/ciso_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 156,
+      "app_id": 1,
+      "role_id": 22,
+      "screen_code": "ciso_analytics",
+      "screen_name": "CisoAnalyticsScreen",
+      "route_path": "/executive/ciso-analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/staff/ciso_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 157,
+      "app_id": 1,
+      "role_id": 22,
+      "screen_code": "ciso_compliance",
+      "screen_name": "CisoComplianceScreen",
+      "route_path": "/executive/ciso-compliance",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/executive/ciso_compliance_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 158,
+      "app_id": 1,
+      "role_id": 22,
+      "screen_code": "ciso_workflow",
+      "screen_name": "CisoWorkflowScreen",
+      "route_path": "/executive/ciso-workflow",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/staff/ciso_workflow_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

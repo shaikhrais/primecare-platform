@@ -1,0 +1,17 @@
+User Tasks:
+1. Manage institutional settings related to billing invoices.
+2. Track real-time clinical workflows.
+3. Verify live compliance standing.
+4. Submit secure operational event logs.
+
+Red Flags of Operation:
+1. Operational Status not marked as ACTIVE.
+2. Verification Audits showing non-compliance or issues detected.
+3. Significant drops in hourly transaction flow.
+4. Delays in submitting secure operational event logs.
+
+Dashboard Needs:
+1. Display of Operational Status with real-time updates.
+2. Verification Audit results with alerts for any compliance issues.
+3. Graphical representation of hourly transaction flow.
+4. Form for submitting secure operational events with clear instructions.

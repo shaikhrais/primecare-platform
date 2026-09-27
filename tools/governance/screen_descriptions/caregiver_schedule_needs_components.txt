@@ -1,0 +1,39 @@
+Screen Code: caregiver_schedule
+Screen Name: CaregiverScheduleScreen
+
+Required Components:
+- PatientAssignmentList
+- MedicationAlert
+- HealthUpdateLog
+- ComplianceScanResults
+- PerformanceMetrics
+- TrainingResources
+- CommunicationTools
+- WorkloadVisualization
+
+Required Functions/Handlers:
+- logHealthUpdate
+- reportIssue
+- accessTrainingResources
+- viewSchedule
+
+Required Buttons:
+- Log Health Update
+- Report Issue
+- Access Training
+- View Schedule
+
+Required APIs:
+- /v1/caregiver/patient-assignments
+- /v1/caregiver/medication-alerts
+- /v1/caregiver/health-updates
+- /v1/caregiver/compliance-scans
+- /v1/caregiver/performance-metrics
+- /v1/caregiver/training-resources
+- /v1/caregiver/communication-tools
+
+Required Semantic Keys (data-cy):
+- caregiver-btn-log-health-update
+- caregiver-btn-report-issue
+- caregiver-btn-access-training
+- caregiver-btn-view-schedule

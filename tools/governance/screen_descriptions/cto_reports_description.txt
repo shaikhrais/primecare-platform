@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor the performance of the CtoReports screen.
+2. Analyze the data presented in the reports.
+3. Identify any discrepancies or issues in the report data.
+4. Provide feedback on the usability and functionality of the screen.
+5. Ensure that the loading states and error handling are functioning as expected.
+
+Red flags of operation:
+1. Frequent loading states that do not resolve, indicating potential backend issues.
+2. Errors displayed on the screen that are not actionable or informative.
+3. Inconsistent data being presented in the reports.
+4. User feedback indicating difficulty in navigating or understanding the reports.
+5. Lack of updates or stale data being shown on the dashboard.
+
+What is needed on the dashboard of the user:
+1. Real-time data updates to ensure accuracy.
+2. Clear error messages with actionable steps for resolution.
+3. Performance metrics to assess the loading times and responsiveness of the screen.
+4. User feedback section to gather insights and suggestions.
+5. Visual indicators for data integrity and report accuracy.

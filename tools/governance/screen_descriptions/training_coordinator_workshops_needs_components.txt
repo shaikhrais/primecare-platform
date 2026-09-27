@@ -1,0 +1,36 @@
+Screen Code: training_coordinator_workshops
+Screen Name: Training Coordinator Workshops
+
+Required Components:
+- WorkshopOverviewCard
+- RegistrationStatusWidget
+- FeedbackSummaryChart
+- PerformanceMetricsDashboard
+- AlertsNotification
+
+Required Functions/Handlers:
+- monitorWorkshopStatus
+- scheduleNewWorkshop
+- manageParticipantRegistrations
+- reviewFeedback
+- generateReports
+
+Required Buttons:
+- Schedule Workshop
+- Manage Registrations
+- View Feedback
+- Generate Report
+
+Required APIs:
+- /v1/workshops/status
+- /v1/workshops/schedule
+- /v1/registrations/manage
+- /v1/feedback/review
+- /v1/reports/generate
+
+Required Semantic Keys (data-cy):
+- workshop-status-monitor
+- schedule-workshop-btn
+- manage-registrations-btn
+- view-feedback-btn
+- generate-report-btn

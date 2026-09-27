@@ -1,0 +1,52 @@
+Screen Code: hr_manager_dashboard
+Screen Name: HrManagerDashboardScreen
+
+Required Components:
+- RecruitmentMetricsCard
+- EmployeeTurnoverChart
+- EngagementScoreWidget
+- ComplianceStatusIndicator
+- PerformanceEvaluationTracker
+- TrainingParticipationChart
+- CompensationAnalysisCard
+- EmployeeSatisfactionSurvey
+- HROperationalLogs
+- KPIOverview
+
+Required Functions/Handlers:
+- fetchRecruitmentMetrics
+- fetchTurnoverRates
+- fetchEngagementScores
+- checkComplianceStatus
+- trackPerformanceEvaluations
+- analyzeTrainingParticipation
+- analyzeCompensationBenefits
+- fetchEmployeeSatisfactionResults
+- logHROperations
+- fetchKPIs
+
+Required Buttons:
+- View Detailed Reports
+- Export Data
+- Initiate Recruitment Process
+- Send Employee Feedback
+- Resolve Conflict
+
+Required APIs:
+- /v1/hr/recruitment/metrics
+- /v1/hr/turnover/stats
+- /v1/hr/engagement/scores
+- /v1/hr/compliance/status
+- /v1/hr/performance/evaluations
+- /v1/hr/training/participation
+- /v1/hr/compensation/analysis
+- /v1/hr/satisfaction/results
+- /v1/hr/logs
+- /v1/hr/kpis
+
+Required Semantic Keys (data-cy):
+- hrdashboard-btn-view-reports
+- hrdashboard-btn-export-data
+- hrdashboard-btn-initiate-recruitment
+- hrdashboard-btn-send-feedback
+- hrdashboard-btn-resolve-conflict

@@ -1,0 +1,50 @@
+Screen Code: coo_dashboard
+Screen Name: CooDashboardScreen
+
+Required Components:
+- ActiveOperationsCount
+- OperationalProductivityMetric
+- SecurityClearanceStatus
+- ClearanceExceptionsHighlight
+- TelemetryDataDisplay
+- AuditLogs
+- PerformanceTrendsChart
+- QuickActionsPanel
+- InsightsRecommendations
+- ErrorHandlingDisplay
+
+Required Functions/Handlers:
+- fetchActiveOperations
+- fetchProductivityMetrics
+- fetchSecurityClearanceStatus
+- fetchClearanceExceptions
+- fetchTelemetryData
+- fetchAuditLogs
+- fetchPerformanceTrends
+- runComplianceScan
+- syncData
+
+Required Buttons:
+- Run Compliance Scan
+- Sync Data
+
+Required APIs:
+- /v1/operations/active
+- /v1/operations/productivity
+- /v1/security/clearance
+- /v1/security/exceptions
+- /v1/operations/telemetry
+- /v1/audit/logs
+- /v1/operations/performance
+
+Required Semantic Keys (data-cy):
+- coo-dashboard-active-operations
+- coo-dashboard-productivity-metric
+- coo-dashboard-security-clearance
+- coo-dashboard-clearance-exceptions
+- coo-dashboard-telemetry-data
+- coo-dashboard-audit-logs
+- coo-dashboard-performance-trends
+- coo-dashboard-quick-actions
+- coo-dashboard-insights
+- coo-dashboard-error-handling

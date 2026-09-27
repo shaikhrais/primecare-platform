@@ -1,0 +1,34 @@
+Screen Code: coo_staffing_efficiency
+Screen Name: Coo Staffing Efficiency
+
+Required Components:
+- RealTimeMetricsCard
+- TrendVisualizationChart
+- AlertsNotificationPanel
+- EmployeeSatisfactionWidget
+- ReportsAccessButton
+
+Required Functions/Handlers:
+- monitorStaffingMetrics
+- analyzeStaffingData
+- identifyImprovementAreas
+- generateReports
+- collaborateOnIssues
+
+Required Buttons:
+- Generate Report
+- Collaborate
+
+Required APIs:
+- /v1/staffing/metrics
+- /v1/staffing/trends
+- /v1/staffing/alerts
+- /v1/staffing/satisfaction
+- /v1/staffing/reports
+
+Required Semantic Keys (data-cy):
+- staffing-metrics-card
+- trend-visualization-chart
+- alerts-notification-panel
+- employee-satisfaction-widget
+- reports-access-button

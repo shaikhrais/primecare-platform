@@ -1,0 +1,33 @@
+Screen Code: audit_dashboard
+Screen Name: Audit Dashboard
+
+Required Components:
+- AuditLogOverview
+- SuspiciousActivityAlert
+- ReportGenerationButton
+- UserAccessPatternChart
+- ComplianceStatusIndicator
+- HistoricalDataTrendChart
+
+Required Functions/Handlers:
+- generateReport
+- monitorAuditLogs
+- reviewUserActivities
+- identifyAnomalies
+- checkCompliance
+
+Required Buttons:
+- Generate Report
+- Investigate Anomaly
+- Review Activities
+
+Required APIs:
+- /v1/audit/logs
+- /v1/user/activities
+- /v1/reports/generate
+- /v1/compliance/status
+
+Required Semantic Keys (data-cy):
+- audit-dashboard-btn-generate-report
+- audit-dashboard-btn-review-activities
+- audit-dashboard-alert-suspicious-activity

@@ -1,0 +1,32 @@
+User Work List:
+1. View current prescriptions.
+2. Dispense medications to patients.
+3. Track inventory levels of medications.
+4. Manage patient profiles and medication history.
+5. Generate reports on dispensing activities.
+6. Monitor medication expiration dates.
+7. Communicate with healthcare providers regarding prescriptions.
+8. Handle medication refills and renewals.
+9. Address patient inquiries and concerns.
+
+Red Flags of Operation:
+1. High rate of medication errors.
+2. Frequent stockouts of critical medications.
+3. Delays in prescription processing.
+4. Increased patient complaints regarding service.
+5. Inaccurate inventory records.
+6. Low staff engagement or high turnover rates.
+7. Non-compliance with regulatory requirements.
+8. Lack of timely communication with healthcare providers.
+9. Inconsistent tracking of medication expiration.
+
+Dashboard Requirements:
+1. Real-time inventory levels and alerts for low stock.
+2. Overview of current prescriptions and their statuses.
+3. Metrics on dispensing accuracy and error rates.
+4. Patient feedback and satisfaction scores.
+5. Reports on medication expiration dates.
+6. Alerts for pending refills and renewals.
+7. Communication logs with healthcare providers.
+8. Staff performance metrics and workload distribution.
+9. Compliance checklists and audit trails.

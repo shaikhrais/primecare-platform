@@ -1,0 +1,42 @@
+Screen Code: guest_compliance
+Screen Name: GuestComplianceScreen
+
+Required Components:
+- ComplianceAuditWidget
+- AuditLogMonitor
+- GovernanceDirectivesUpdater
+- SecureEventReportForm
+- ComplianceVerificationReview
+- StateActionTrigger
+
+Required Functions/Handlers:
+- executeComplianceScan
+- monitorAuditLogs
+- updateGovernanceDirectives
+- submitEventReport
+- reviewComplianceAudits
+- triggerStateActions
+
+Required Buttons:
+- Run Compliance Scan
+- View Audit Logs
+- Update Governance Directives
+- Submit Event Report
+- Review Compliance Audits
+- Trigger State Actions
+
+Required APIs:
+- /v1/compliance/audit/scan
+- /v1/audit/logs
+- /v1/governance/directives/update
+- /v1/events/report/submit
+- /v1/compliance/audits/review
+- /v1/governance/state/actions
+
+Required Semantic Keys (data-cy):
+- compliance-scan-btn
+- audit-logs-btn
+- governance-update-btn
+- event-report-submit-btn
+- compliance-review-btn
+- state-action-trigger-btn

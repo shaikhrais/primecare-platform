@@ -1,0 +1,112 @@
+[
+  {
+    "recommendation_id": 166,
+    "table_name": "SystemLog",
+    "columns": "status, createdAt",
+    "index_name": "idx_systemlog_status_created",
+    "file_injected": "simulated_layer",
+    "status": "added",
+    "api_optimized_id": 10,
+    "screen_optimized_id": null
+  },
+  {
+    "recommendation_id": 167,
+    "table_name": "SystemLog",
+    "columns": "status, createdAt",
+    "index_name": "idx_systemlog_status_created",
+    "file_injected": "simulated_layer",
+    "status": "added",
+    "api_optimized_id": 173,
+    "screen_optimized_id": null
+  },
+  {
+    "recommendation_id": 168,
+    "table_name": "SystemLog",
+    "columns": "status, createdAt",
+    "index_name": "idx_systemlog_status_created",
+    "file_injected": "simulated_layer",
+    "status": "added",
+    "api_optimized_id": 194,
+    "screen_optimized_id": null
+  },
+  {
+    "recommendation_id": 169,
+    "table_name": "SystemLog",
+    "columns": "status, createdAt",
+    "index_name": "idx_systemlog_status_created",
+    "file_injected": "simulated_layer",
+    "status": "added",
+    "api_optimized_id": 195,
+    "screen_optimized_id": null
+  },
+  {
+    "recommendation_id": 170,
+    "table_name": "SystemLog",
+    "columns": "status, createdAt",
+    "index_name": "idx_systemlog_status_created",
+    "file_injected": "simulated_layer",
+    "status": "added",
+    "api_optimized_id": 203,
+    "screen_optimized_id": null
+  },
+  {
+    "recommendation_id": 171,
+    "table_name": "SystemLog",
+    "columns": "status, createdAt",
+    "index_name": "idx_systemlog_status_created",
+    "file_injected": "simulated_layer",
+    "status": "added",
+    "api_optimized_id": 262,
+    "screen_optimized_id": null
+  },
+  {
+    "recommendation_id": 172,
+    "table_name": "SystemLog",
+    "columns": "status, createdAt",
+    "index_name": "idx_systemlog_status_created",
+    "file_injected": "simulated_layer",
+    "status": "added",
+    "api_optimized_id": 274,
+    "screen_optimized_id": null
+  },
+  {
+    "recommendation_id": 173,
+    "table_name": "SystemLog",
+    "columns": "status, createdAt",
+    "index_name": "idx_systemlog_status_created",
+    "file_injected": "simulated_layer",
+    "status": "added",
+    "api_optimized_id": 275,
+    "screen_optimized_id": null
+  },
+  {
+    "recommendation_id": 174,
+    "table_name": "TherapistRoster",
+    "columns": "status, createdAt",
+    "index_name": "idx_therapistroster_status_created",
+    "file_injected": "simulated_layer",
+    "status": "added",
+    "api_optimized_id": 739,
+    "screen_optimized_id": null
+  },
+  {
+    "recommendation_id": 175,
+    "table_name": "User",
+    "columns": "status, createdAt",
+    "index_name": "idx_user_status_created",
+    "file_injected": "01_platform.prisma",
+    "status": "added",
+    "api_optimized_id": 843,
+    "screen_optimized_id": null
+  },
+  {
+    "recommendation_id": 176,
+    "table_name": "User",
+    "columns": "status, createdAt",
+    "index_name": "idx_user_status_created",
+    "file_injected": "01_platform.prisma",
+    "status": "added",
+    "api_optimized_id": 853,
+    "screen_optimized_id": null
+  }
+]

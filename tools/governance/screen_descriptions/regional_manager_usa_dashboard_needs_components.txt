@@ -1,0 +1,33 @@
+Screen Code: regional_manager_usa_dashboard
+Screen Name: RegionalManagerUsaDashboardScreen
+
+Required Components:
+- ActiveOperationsOverview
+- ComplianceAuditStatus
+- SecurityClearanceLevels
+- TelemetryDataChart
+- AuditLogsTable
+- RedFlagsNotification
+- ComplianceScanButton
+- ExportLogsButton
+- HistoricalDataChart
+- UserFriendlyNavigation
+
+Required Functions/Handlers:
+- runComplianceScan
+- exportAuditLogs
+
+Required Buttons:
+- Run Compliance Scan
+- Export Audit Logs
+
+Required APIs:
+- /v1/operations/active
+- /v1/compliance/audit
+- /v1/security/clearance
+- /v1/telemetry/data
+- /v1/audit/logs
+
+Required Semantic Keys (data-cy):
+- dashboard-btn-run-compliance-scan
+- dashboard-btn-export-audit-logs

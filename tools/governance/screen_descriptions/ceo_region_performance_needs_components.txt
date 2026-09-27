@@ -1,0 +1,35 @@
+Screen Code: ceo_region_performance
+Screen Name: Ceo Region Performance
+
+Required Components:
+- PerformanceMetricCard
+- DataTrendChart
+- AlertNotificationPanel
+- ReportGenerator
+- CollaborationTool
+- UserInterface
+
+Required Functions/Handlers:
+- monitorPerformanceMetrics
+- analyzeDataTrends
+- identifyImprovementAreas
+- reviewAlerts
+- generateReports
+- collaborateWithManagers
+
+Required Buttons:
+- Generate Report
+- Set Performance Goals
+- Respond to Alerts
+
+Required APIs:
+- /v1/region/performance/metrics
+- /v1/region/performance/alerts
+- /v1/region/performance/reports
+- /v1/region/performance/goals
+
+Required Semantic Keys (data-cy):
+- ceo-region-performance-metric
+- ceo-region-alert-notification
+- ceo-region-report-generator
+- ceo-region-collaboration-tool

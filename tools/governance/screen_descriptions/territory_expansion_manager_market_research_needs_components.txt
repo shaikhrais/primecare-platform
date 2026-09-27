@@ -1,0 +1,37 @@
+Screen Code: territory_expansion_manager_market_research
+Screen Name: Territory Expansion Manager Market Research
+
+Required Components:
+- MarketResearchOverview
+- KPIWidget
+- DemographicDataVisualization
+- RedFlagAlert
+- CollaborationTool
+- HistoricalDataAccess
+
+Required Functions/Handlers:
+- conductMarketResearch
+- analyzeDemographics
+- evaluateCompetition
+- prepareReports
+- collaborateWithTeams
+- monitorTrends
+
+Required Buttons:
+- Generate Report
+- Analyze Data
+- Collaborate
+- Monitor Trends
+
+Required APIs:
+- /v1/market/research/projects
+- /v1/market/data/demographics
+- /v1/market/competition/evaluation
+- /v1/market/reports
+- /v1/market/trends
+
+Required Semantic Keys (data-cy):
+- marketresearch-btn-generate-report
+- marketresearch-btn-analyze-data
+- marketresearch-btn-collaborate
+- marketresearch-btn-monitor-trends

@@ -1,0 +1,19 @@
+User Tasks:
+1. Access the Medical Library Access Portal.
+2. View a list of external databases and journals.
+3. Refresh the list of databases using the refresh button.
+4. Perform a federated search using the search button.
+5. Tap on a database card to view more details (functionality not implemented).
+
+Red Flags of Operation:
+1. Loading state may cause delays in user experience if the API response is slow.
+2. Error handling may not provide sufficient information for troubleshooting.
+3. Lack of functionality for tapping on database cards could lead to user frustration.
+4. No clear indication of what to do if an error occurs.
+
+Dashboard Needs:
+1. Display loading indicators during data fetching.
+2. Show error messages clearly with potential next steps.
+3. Provide a summary of the number of databases available.
+4. Include user activity tracking to monitor usage patterns.
+5. Allow users to save favorite databases for quick access.

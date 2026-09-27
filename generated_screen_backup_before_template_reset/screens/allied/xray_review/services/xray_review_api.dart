@@ -1,0 +1,10 @@
+// API Client for XrayReviewScreen
+// Endpoint: /v1/xray_review
+
+class XrayReviewApi {
+  // TODO: Add methods linked to button actions
+  Future<Map<String, dynamic>> fetchData() async {
+    // Stub call
+    return const {};
+  }
+}

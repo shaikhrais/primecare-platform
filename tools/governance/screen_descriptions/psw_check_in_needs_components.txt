@@ -1,0 +1,31 @@
+Screen Code: psw_check_in
+Screen Name: Psw Check In
+
+Required Components:
+- CheckInForm
+- UserStatusCard
+- NotificationBanner
+- HelpSupportLink
+- ActivitySummary
+
+Required Functions/Handlers:
+- handleCheckIn
+- fetchUserStatus
+- displayNotifications
+- accessHelpResources
+
+Required Buttons:
+- Check In
+- Help
+- View History
+
+Required APIs:
+- /v1/user/checkin
+- /v1/user/status
+- /v1/user/notifications
+- /v1/user/activity
+
+Required Semantic Keys (data-cy):
+- pswcheckin-btn-checkin
+- pswcheckin-btn-help
+- pswcheckin-btn-history

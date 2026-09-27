@@ -1,0 +1,614 @@
+[
+  {
+    "screen_id": 1,
+    "screen_name": "RmtDashboardScreen",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "rmtdashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 2,
+    "screen_name": "TherapistDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 3,
+    "screen_name": "ClinicalDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 4,
+    "screen_name": "ClinicalDirectorDashboardScreen",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "clinicaldirectordashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 5,
+    "screen_name": "CnsDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 6,
+    "screen_name": "HswDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 7,
+    "screen_name": "LpnDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 8,
+    "screen_name": "NpDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 9,
+    "screen_name": "PediatricDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 10,
+    "screen_name": "PhysicianDashboardScreen",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "physiciandashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 11,
+    "screen_name": "ApiHealthDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 12,
+    "screen_name": "ArchitecturePlanningDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 13,
+    "screen_name": "BusinessDevelopmentDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 14,
+    "screen_name": "CaregiverDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 15,
+    "screen_name": "ChiropractorDashboardScreen",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "chiropractordashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 16,
+    "screen_name": "ClinicDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 17,
+    "screen_name": "CourseArchitectDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 18,
+    "screen_name": "CustomerSupportDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 19,
+    "screen_name": "DynamicScreenDashboardScreen",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "dynamicdashboard-screen",
+      "dynamicdashboard-title",
+      "dynamicdashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 20,
+    "screen_name": "FamilyMemberDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 21,
+    "screen_name": "FileVerificationDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 22,
+    "screen_name": "FranchiseDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 23,
+    "screen_name": "GuestDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 24,
+    "screen_name": "InfrastructureDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 25,
+    "screen_name": "IntakeDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 26,
+    "screen_name": "OfficeDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 27,
+    "screen_name": "PatientDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 28,
+    "screen_name": "PhysiotherapistDashboardScreen",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "physiotherapistdashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 29,
+    "screen_name": "PortalDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 30,
+    "screen_name": "QaDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 31,
+    "screen_name": "RoleCoverageDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 32,
+    "screen_name": "SocialWorkerDashboardScreen",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "socialworkerdashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 33,
+    "screen_name": "SupportDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 34,
+    "screen_name": "SystemDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 35,
+    "screen_name": "SystemVerificationDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 36,
+    "screen_name": "TrainingHubDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 37,
+    "screen_name": "CfoDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 38,
+    "screen_name": "CisoDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 39,
+    "screen_name": "CooDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 40,
+    "screen_name": "CtoDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 41,
+    "screen_name": "CxDirectorDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 42,
+    "screen_name": "FinanceDirectorDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 43,
+    "screen_name": "FinancialDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 44,
+    "screen_name": "HrDirectorDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 45,
+    "screen_name": "LegalDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 46,
+    "screen_name": "OwnerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 47,
+    "screen_name": "ShareholderDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 48,
+    "screen_name": "TrainingDirectorDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 49,
+    "screen_name": "CampaignDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 50,
+    "screen_name": "CommunityOutreachDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 51,
+    "screen_name": "ComplianceDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 52,
+    "screen_name": "ComplianceManagerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 53,
+    "screen_name": "FranchiseSalesManagerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 54,
+    "screen_name": "GeneralManagerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 55,
+    "screen_name": "GovernanceOfficerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 56,
+    "screen_name": "HeadOfBusDevDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 57,
+    "screen_name": "HeadOfMarketingDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 58,
+    "screen_name": "LocalMarketingManagerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 59,
+    "screen_name": "OperationsManagerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 60,
+    "screen_name": "PartnershipManagerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 61,
+    "screen_name": "PremiumConciergeDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 62,
+    "screen_name": "RegionalBdmDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 63,
+    "screen_name": "RegionalManagerUsaDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 64,
+    "screen_name": "ScrumMasterDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 65,
+    "screen_name": "TerritoryExpansionManagerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 66,
+    "screen_name": "TerritorySalesManagerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 67,
+    "screen_name": "VipManagerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 68,
+    "screen_name": "PswDashboardScreen",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "pswdashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 69,
+    "screen_name": "RnDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 70,
+    "screen_name": "RnFieldSupervisorDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 71,
+    "screen_name": "RpnDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 72,
+    "screen_name": "BillingAdminDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 73,
+    "screen_name": "EmployeeDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 74,
+    "screen_name": "HrHiringDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 75,
+    "screen_name": "HrManagerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 76,
+    "screen_name": "IntakeCoordinatorDashboardScreen",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "intakecoordinatordashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 77,
+    "screen_name": "QualityAssuranceDashboardScreen",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "qualityassurancedashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 78,
+    "screen_name": "ReceptionistDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 79,
+    "screen_name": "SchedulerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 80,
+    "screen_name": "SchedulingDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 81,
+    "screen_name": "TrainingCoordinatorDashboardScreen",
+    "cypress_ready": false,
+    "missing_data_cy": [
+      "trainingcoordinatordashboard-content"
+    ],
+    "problems": []
+  },
+  {
+    "screen_id": 82,
+    "screen_name": "TrainingDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 83,
+    "screen_name": "VolunteerCoordinatorDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  },
+  {
+    "screen_id": 84,
+    "screen_name": "VolunteerDashboardScreen",
+    "cypress_ready": true,
+    "missing_data_cy": [],
+    "problems": []
+  }
+]

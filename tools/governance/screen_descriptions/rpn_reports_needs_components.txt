@@ -1,0 +1,58 @@
+Screen Code: rpn_reports
+Screen Name: RpnReportsScreen
+
+Required Components:
+- VitalSignsWidget
+- MedicationRecordsWidget
+- DocumentationStatusWidget
+- IncidentReportsWidget
+- StaffPerformanceWidget
+- PatientSatisfactionWidget
+- ComplianceAuditWidget
+- OperationalMetricsWidget
+- ResourceAvailabilityWidget
+- EducationalResourcesWidget
+
+Required Functions/Handlers:
+- fetchVitalSigns
+- trackMedicationCompliance
+- updateDocumentationStatus
+- submitIncidentReport
+- retrieveStaffPerformance
+- getPatientSatisfactionScores
+- fetchComplianceAuditResults
+- calculateOperationalMetrics
+- checkResourceAvailability
+- accessEducationalResources
+
+Required Buttons:
+- View Reports
+- Update Documentation
+- Report Incident
+- Access Training
+- View Patient Feedback
+- Check Compliance
+
+Required APIs:
+- /v1/patient/vital-signs
+- /v1/medications/records
+- /v1/documentation/status
+- /v1/incidents/report
+- /v1/staff/performance
+- /v1/patient/satisfaction
+- /v1/compliance/audit
+- /v1/operational/metrics
+- /v1/resources/availability
+- /v1/education/resources
+
+Required Semantic Keys (data-cy):
+- rpn-dashboard-vital-signs
+- rpn-dashboard-medication-records
+- rpn-dashboard-documentation-status
+- rpn-dashboard-incident-reports
+- rpn-dashboard-staff-performance
+- rpn-dashboard-patient-satisfaction
+- rpn-dashboard-compliance-audit
+- rpn-dashboard-operational-metrics
+- rpn-dashboard-resource-availability
+- rpn-dashboard-educational-resources

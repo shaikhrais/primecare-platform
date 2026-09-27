@@ -1,0 +1,44 @@
+Screen Code: cfo_tax_and_remittance
+Screen Name: Cfo Tax And Remittance
+
+Required Components:
+- TaxDataReviewWidget
+- ComplianceStatusIndicator
+- TaxReportGenerator
+- RemittancePaymentProcessor
+- DeadlineMonitor
+- CommunicationPanel
+- FinancialRecordsUpdater
+
+Required Functions/Handlers:
+- reviewTaxData
+- ensureCompliance
+- generateTaxReports
+- submitRemittance
+- monitorDeadlines
+- communicateWithAuthorities
+- updateFinancialRecords
+
+Required Buttons:
+- Generate Report
+- Submit Payment
+- Update Records
+- Communicate with Authorities
+
+Required APIs:
+- /v1/tax/data/review
+- /v1/tax/compliance/check
+- /v1/tax/reports/generate
+- /v1/remittance/pay
+- /v1/tax/deadlines/monitor
+- /v1/tax/communication/send
+- /v1/financial/records/update
+
+Required Semantic Keys (data-cy):
+- taxdata-review-widget
+- compliance-status-indicator
+- taxreport-generator-btn
+- remittance-payment-btn
+- deadline-monitor-widget
+- communication-panel-btn
+- financial-records-updater-btn

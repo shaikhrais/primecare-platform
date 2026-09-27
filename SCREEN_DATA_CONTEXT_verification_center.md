@@ -1,0 +1,72 @@
+# SCREEN DATA CONTEXT: verification_center
+
+Below are the database records from `governance.db` used to configure and build the **Guest - VerificationCenterScreen** screen.
+
+---
+
+## 1. Screen Record
+* **ID**: `840`
+* **App ID**: `6`
+* **Role ID**: `13`
+* **Screen Code**: `verification_center`
+* **Screen Name**: `VerificationCenterScreen`
+* **Route Path**: `/verification`
+* **Actual File Path**: `apps/primecare_governance/lib/features/security/screens/verification_center_screen.dart`
+* **Stage/Status**: `template_created`
+
+## 2. App Record
+* **ID**: `6`
+* **App Code**: `ci`
+* **App Name**: `Primecare Clinic`
+
+## 3. Role Record
+* **ID**: `13`
+* **Role Code**: `guest`
+* **Role Name**: `Guest`
+* **Role Type**: `staff`
+
+## 4. Screen Requirement Record
+* **Business Purpose**: `Provides a dedicated management interface within the Primecare Clinic module to enable Guest personnel to oversee, audit, and coordinate operations related to verification center.`
+* **User Story**: `As a Guest, I want to access the Verification Center within the Primecare Clinic application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.`
+* **Sidebar Label**: `Verification Center`
+* **Acceptance Criteria**:
+- The Verification Center route loads successfully within the Primecare Clinic workspace.
+- The interface correctly displays all primary modules and active widgets.
+- Role-based access control restricts unauthorized actions, permitting only Guest access.
+- System telemetry and data tables refresh correctly upon user interaction.
+
+## 5. Required Elements
+* **screen_root** -> `verification_center-screen` (Type: layout, Required: 1)
+* **page_title** -> `verification_center-title` (Type: header, Required: 1)
+* **primary_content** -> `verification_center-content` (Type: layout, Required: 1)
+* **data_cy_logs_btn_${d.appname}** -> `data-cy-logs-btn-${d.appName}` (Type: button, Required: 0)
+* **data_cy_deploy_card_${d.appname}** -> `data-cy-deploy-card-${d.appName}` (Type: custom, Required: 0)
+* **data_cy_logs_close_btn** -> `data-cy-logs-close-btn` (Type: button, Required: 0)
+* **data_cy_live_link_${d.appname}** -> `data-cy-live-link-${d.appName}` (Type: custom, Required: 0)
+* **data_cy_logs_viewer_card** -> `data-cy-logs-viewer-card` (Type: custom, Required: 0)
+* **data_cy_logs_close_text_btn** -> `data-cy-logs-close-text-btn` (Type: button, Required: 0)
+
+## 6. Component Mapping
+* Component ID: `7617` (Required: 1)
+* Component ID: `7618` (Required: 1)
+* Component ID: `7619` (Required: 1)
+* Component ID: `7620` (Required: 1)
+
+## 7. API / Data Mapping
+* API ID: `5238` (Required: 1)
+
+## 8. Test Definition & Steps
+* **Test Code**: `verification_center_runtime`
+* **Test Name**: `Verification Center Runtime Test`
+* **Test Type**: `e2e`
+* **Expected Title**: `Verification Center`
+* **Expected Layout**: `dashboard`
+
+### Test Steps
+1. **login_as_role** (Selector: `None`, Value: `guest`)
+2. **visit** (Selector: `None`, Value: `/verification`)
+3. **should_be_visible** (Selector: `verification_center-screen`, Value: `None`)
+4. **should_be_visible** (Selector: `verification_center-title`, Value: `None`)
+5. **should_be_visible** (Selector: `verification_center-content`, Value: `None`)
+6. **check_no_console_error** (Selector: `None`, Value: `None`)
+7. **screenshot** (Selector: `None`, Value: `None`)

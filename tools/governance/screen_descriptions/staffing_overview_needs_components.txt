@@ -1,0 +1,55 @@
+Screen Code: staffing_overview
+Screen Name: StaffingOverviewScreen
+
+Required Components:
+- KPIOverviewWidget
+- OperationalEfficiencyChart
+- FinancialPerformanceCard
+- ComplianceStatusWidget
+- EmployeeEngagementStats
+- CustomerSatisfactionWidget
+- RiskManagementDashboard
+- OperationalLogsWidget
+- ResourceAllocationChart
+- ProjectStatusTracker
+
+Required Functions/Handlers:
+- fetchKPIData
+- fetchOperationalMetrics
+- fetchFinancialData
+- fetchComplianceData
+- fetchEmployeeStats
+- fetchCustomerFeedback
+- fetchRiskData
+- fetchOperationalLogs
+- fetchResourceData
+- fetchProjectUpdates
+
+Required Buttons:
+- Refresh Data
+- Export Report
+- View Details
+
+Required APIs:
+- /v1/operations/kpis
+- /v1/operations/efficiency
+- /v1/financial/performance
+- /v1/compliance/status
+- /v1/employees/engagement
+- /v1/customers/satisfaction
+- /v1/risk/management
+- /v1/operations/logs
+- /v1/resources/allocation
+- /v1/projects/status
+
+Required Semantic Keys (data-cy):
+- dashboard-kpi-overview
+- dashboard-efficiency-chart
+- dashboard-financial-performance
+- dashboard-compliance-status
+- dashboard-employee-engagement
+- dashboard-customer-satisfaction
+- dashboard-risk-management
+- dashboard-operational-logs
+- dashboard-resource-allocation
+- dashboard-project-status

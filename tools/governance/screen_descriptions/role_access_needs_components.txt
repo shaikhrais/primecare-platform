@@ -1,0 +1,39 @@
+Screen Code: role_access
+Screen Name: Role Access
+
+Required Components:
+- RoleList
+- ScreenSearch
+- AccessAssignment
+- RoutingMatrix
+- AccessOverview
+- AlertsNotifications
+- AccessAnalytics
+
+Required Functions/Handlers:
+- viewRoles
+- searchScreens
+- assignAccess
+- reviewRoutingMatrix
+- checkAccessConflicts
+- fetchAccessAnalytics
+
+Required Buttons:
+- View Roles
+- Search Screens
+- Assign Access
+- Review Routing Matrix
+
+Required APIs:
+- /v1/roles
+- /v1/screens/search
+- /v1/access/assign
+- /v1/access/routing
+- /v1/access/conflicts
+- /v1/access/analytics
+
+Required Semantic Keys (data-cy):
+- roleaccess-btn-viewroles
+- roleaccess-btn-searchscreens
+- roleaccess-btn-assignaccess
+- roleaccess-btn-reviewrouting

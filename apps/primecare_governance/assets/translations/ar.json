@@ -1,0 +1,189 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ",
+    "retry": "إعادة المحاولة",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "back": "رجوع",
+    "next": "التالي",
+    "finish": "إنهاء",
+    "offline_mode": "وضع العمل بدون اتصال نشط",
+    "connected": "متصل",
+    "disconnected": "غير متصل",
+    "refresh": "تحديث",
+    "search": "بحث",
+    "filter": "تصفية",
+    "no_data": "لا توجد بيانات متاحة",
+    "actions": "إجراءات",
+    "settings": "الإعدادات",
+    "profile": "الملف الشخصي",
+    "help": "مساعدة",
+    "logout": "تسجيل الخروج",
+    "language": {
+      "en": "الإنجليزية",
+      "fr": "الفرنسية",
+      "es": "الإسبانية",
+      "ar": "العربية"
+    },
+    "languages": {
+      "en": "الإنجليزية",
+      "fr": "الفرنسية",
+      "es": "الإسبانية",
+      "ar": "العربية"
+    },
+    "language_short": {
+      "en": "EN",
+      "fr": "FR",
+      "es": "ES",
+      "ar": "AR"
+    },
+    "tooltips": {
+      "change_language": "تغيير اللغة"
+    }
+  },
+  "auth": {
+    "title_curator": "مرحباً بكم في PrimeCare",
+    "curator_subtitle": "بوابة دخول المؤسسة",
+    "welcome_back": "مرحباً بعودتك",
+    "login_instructions": "سجل الدخول إلى حسابك",
+    "email": "عنوان البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "forgot_password": "هل نسيت كلمة المرور؟",
+    "sign_in": "تسجيل الدخول",
+    "language_system": "اللغة",
+    "security_notice_short": "وصول آمن",
+    "encryption_active": "تشفير الطرفين نشط",
+    "enter_credentials_to_continue": "يرجى إدخال بيانات الاعتماد الخاصة بك للمتابعة.",
+    "authentication_failed": "فشل المصادقة. يرجى التحقق من بيانات الاعتماد الخاصة بك.",
+    "account_recovery": "استرداد الحساب",
+    "already_have_account": "لديك حساب بالفعل؟",
+    "back_to_login": "العودة لتسجيل الدخول",
+    "create_account": "إنشاء حساب",
+    "enter_institutional_email": "أدخل البريد الإلكتروني للمؤسسة",
+    "first_name": "الاسم الأول",
+    "hydrating_registries": "جاري تهيئة السجلات...",
+    "join_clinical_atelier": "انضم إلى المشغل السريري",
+    "last_name": "اسم العائلة",
+    "login": "تسجيل الدخول",
+    "provision_workspace": "تهيئة مساحة العمل",
+    "recovery_link_sent": "تم إرسال رابط الاسترداد",
+    "recovery_subtitle": "أدخل بريدك الإلكتروني لتلقي رابط الاسترداد.",
+    "register": "تسجيل",
+    "reset_password": "إعادة تعيين كلمة المرور",
+    "role": "الدور",
+    "send_again": "إرسال مرة أخرى",
+    "send_recovery_link": "إرسال رابط الاسترداد",
+    "subtitle": "الوصول إلى مقاييس لوحة المعلومات الخاصة بك، وتتبع الأداء، وإدارة العمليات في الوقت الفعلي.",
+    "zero_trust_platform": "منصة الثقة المعدومة",
+    "email_placeholder": "أدخل بريدك الإلكتروني",
+    "security_notice_long": "هذا النظام مخصص لموظفي PrimeCare وشركائها المصرح لهم فقط. يتم مراقبة جميع عمليات الدخول والأنشطة وتسجيلها وتدقيقها لضمان الامتثال للوائح البيانات الصحية العالمية (HIPAA/GDPR). يُحظر تمامًا أي محاولة دخول غير مصرح بها أو إساءة استخدام لهذه المنصة وسيتم الملاحقة القانونية إلى أقصى حد يسمح به القانون. من خلال الاستمرار، فإنك تقر وتوافق على هذه الشروط."
+  },
+  "dashboards": {
+    "architecture_planning": {
+      "title": "تخطيط الهندسة المعمارية",
+      "subtitle": "الوصول إلى مقاييس لوحة المعلومات الخاصة بك، وتتبع الأداء، وإدارة العمليات في الوقت الفعلي."
+    },
+    "billing_admin": {
+      "title": "إدارة الفواتير",
+      "subtitle": "الوصول إلى مقاييس لوحة المعلومات الخاصة بك، وتتبع الأداء، وإدارة العمليات في الوقت الفعلي."
+    },
+    "ceo": {
+      "title": "مركز القيادة التنفيذية",
+      "subtitle": "الذكاء الاستراتيجي رفيع المستوى وصحة المنصة"
+    },
+    "cfo": {
+      "title": "مركز الذكاء المالي",
+      "subtitle": "المراقبة المالية في الوقت الفعلي، والسيولة، والقياس عن بعد للمراجعة"
+    },
+    "coo": {
+      "title": "مركز قيادة العمليات",
+      "subtitle": "الكفاءة التشغيلية الاستراتيجية، والاستخدام، والقياس عن بعد للخدمات اللوجستية"
+    },
+    "cto": {
+      "title": "مركز حوكمة التكنولوجيا",
+      "subtitle": "سلامة النظام، ومرونة البنية التحتية، والقياس عن بعد للأمن"
+    },
+    "hr_director": {
+      "title": "قيادة رأس المال البشري",
+      "subtitle": "تحسين القوى العاملة، والاحتفاظ بها، والقياس عن بعد للتوظيف"
+    },
+    "common": {
+      "labels": {
+        "chart": "Chart"
+      }
+    }
+  },
+  "aura": {
+    "intelligence": "Aura Intelligence",
+    "search_hint": "ابحث في ذكاء Aura...",
+    "profile": "نظرة عامة على الملف الشخصي",
+    "system_preferences": "تفضيلات النظام",
+    "sign_out": "تسجيل الخروج",
+    "confirm_departure": "تأكيد المغادرة",
+    "exit_message": "هل أنت متأكد أنك تريد إنهاء جلستك الحالية؟",
+    "stay": "البقاء",
+    "exit_session": "إنهاء الجلسة",
+    "auditors_blueprint": "AUDITOR'S BLUEPRINT",
+    "structural_contract": "STRUCTURAL CONTRACT",
+    "verified_components": "VERIFIED COMPONENTS"
+  },
+  "governance": {
+    "title": "Governance Dashboard",
+    "audit_logs": "Audit Logs",
+    "system_monitoring": "System Monitoring",
+    "architectural_health": "Architectural Health",
+    "ai_insights": "AI Insights & Remediation",
+    "discovered_forms": "Discovered Forms",
+    "module_entry": "Module Entry",
+    "module_name": "Module Name",
+    "save_module": "Save Module",
+    "role_entry": "Role Entry",
+    "role_name": "Role Name",
+    "save_role": "Save Role",
+    "sidebar_mapping": {
+      "offices_and_roles": "OFFICES & ROLES",
+      "select_office_role": "Select an office and role to view the sidebar mapping preview.",
+      "sidebar_preview": "Sidebar Preview",
+      "impersonate_role": "Impersonate this Role",
+      "viewing_platform_as": "Now viewing platform as: {}",
+      "status_label": "Status:",
+      "platform_component_status": "Platform Component Status",
+      "screen_details": "Screen Details",
+      "identifier": "Identifier",
+      "route_path": "Route Path",
+      "feature_name": "Feature Name",
+      "story_points": "Story Points",
+      "open_live_screen": "Open Live Screen",
+      "sidebar_nav": "Sidebar Nav",
+      "platform_top_bar": "Platform Top Bar",
+      "main_content": "Main Content",
+      "select_screen_prompt": "Select a screen from the sidebar to view its status",
+      "status": {
+        "implemented": "IMPLEMENTED",
+        "declared": "DECLARED",
+        "not_implemented": "NOT IMPLEMENTED",
+        "stubbed": "STUBBED"
+      }
+    },
+    "dynamic_screen": {
+      "governance_status": "حالة الحوكمة: {}",
+      "development_lifecycle": "دورة حياة التطوير",
+      "screen_specifications": "مواصفات الشاشة",
+      "platform_architecture_status": "حالة معمارية المنصة",
+      "current": "الحالي",
+      "identifier": "المعرف",
+      "feature": "ميزة",
+      "route_path": "مسار التوجيه",
+      "office": "مكتب. مقر. مركز",
+      "security": "أمان",
+      "story_points": "نقاط القصة",
+      "sidebar_navigation": "التنقل الجانبي",
+      "platform_top_bar": "الشريط العلوي",
+      "main_content_area": "منطقة المحتوى الرئيسي",
+      "governance_actions": "إجراءات الحوكمة",
+      "initiate_development": "بدء التطوير",
+      "file_correction_ticket": "تذكرة تصحيح الملف"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+User Tasks:
+1. Monitor attendance of training coordinators.
+2. View attendance reports and statistics.
+3. Update attendance records as needed.
+4. Handle any discrepancies in attendance data.
+5. Communicate with training coordinators regarding attendance issues.
+
+Red Flags of Operation:
+1. Frequent errors loading attendance data.
+2. Delays in updating attendance records.
+3. Inconsistent attendance reporting.
+4. Lack of user feedback or engagement with the attendance system.
+5. High number of discrepancies reported by users.
+
+Dashboard Needs:
+1. Real-time attendance statistics.
+2. Alerts for discrepancies or issues in attendance data.
+3. User feedback section for reporting issues.
+4. Quick access to update attendance records.
+5. Visual representation of attendance trends over time.

@@ -1,0 +1,26 @@
+Screen Code: vendor_risk_assessor
+Screen Name: Vendor Risk Assessor
+
+Required Components:
+- VendorComplianceTable
+- RiskLevelIndicator
+- VendorSummaryStats
+- VendorAlertNotification
+- VendorFilter
+
+Required Functions/Handlers:
+- loadVendorRiskData
+- refreshVendorData
+- analyzeVendorDetails
+- identifyCriticalVendors
+
+Required Buttons:
+- Refresh Data
+
+Required APIs:
+- /v1/vendor/risk/data
+- /v1/vendor/risk/refresh
+
+Required Semantic Keys (data-cy):
+- vendor-risk-assessor-refresh
+- vendor-risk-alert

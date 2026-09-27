@@ -1,0 +1,57 @@
+{
+  "role": {
+    "id": 9,
+    "role_code": "physician",
+    "role_name": "Physician",
+    "role_type": "staff",
+    "active": 1
+  },
+  "screens_count": 3,
+  "screens": [
+    {
+      "id": 9,
+      "app_id": 6,
+      "role_id": 9,
+      "screen_code": "physician_dashboard",
+      "screen_name": "PhysicianDashboardScreen",
+      "route_path": "/clinical/physician-dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/clinical/physician_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 599,
+      "app_id": 1,
+      "role_id": 9,
+      "screen_code": "physician_analytics",
+      "screen_name": "Physician Analytics",
+      "route_path": "/clinical/physician-analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/clinical/physician_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 600,
+      "app_id": 1,
+      "role_id": 9,
+      "screen_code": "physician_workflow",
+      "screen_name": "Physician Compliance Workflow",
+      "route_path": "/clinical/physician-workflow",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/clinical/physician_workflow_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

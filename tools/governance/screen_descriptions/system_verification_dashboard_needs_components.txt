@@ -1,0 +1,29 @@
+Screen Code: system_verification_dashboard
+Screen Name: SystemVerificationDashboardScreen
+
+Required Components:
+- OperationStatusSummary
+- SecurityClearanceCard
+- TelemetryChart
+- ComplianceScanLog
+- AlertsPanel
+- AuditLogSection
+- KPIWidget
+- RefreshButton
+
+Required Functions/Handlers:
+- refreshDashboard
+
+Required Buttons:
+- Refresh
+
+Required APIs:
+- /v1/system/compliance/scans
+- /v1/system/security/clearance
+- /v1/system/telemetry
+- /v1/system/audit/logs
+- /v1/system/alerts
+- /v1/system/kpis
+
+Required Semantic Keys (data-cy):
+- sysver-dashboard-refresh

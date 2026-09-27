@@ -1,0 +1,20 @@
+User Tasks:
+1. Monitor active deals with partners.
+2. Review deal statuses and updates.
+3. Analyze partnership performance metrics.
+4. Communicate with partners regarding deal progress.
+5. Identify potential issues or red flags in partnerships.
+
+Red Flags of Operation:
+1. Delays in deal updates or communication.
+2. Decrease in partnership performance metrics.
+3. Increased number of unresolved issues or complaints.
+4. Lack of engagement from partners.
+5. Significant changes in deal terms without prior notice.
+
+Dashboard Needs:
+1. Overview of active deals with status indicators.
+2. Performance metrics for each partnership.
+3. Alerts for any red flags or issues.
+4. Communication logs with partners.
+5. Historical data for trend analysis.

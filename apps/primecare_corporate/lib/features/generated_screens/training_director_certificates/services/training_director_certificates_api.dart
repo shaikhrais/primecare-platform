@@ -1,0 +1,10 @@
+// API Client for Training Director Certificates
+// Endpoint: /v1/training_director_certificates
+
+class TrainingDirectorCertificatesApi {
+  // TODO: Add methods linked to button actions
+  Future<Map<String, dynamic>> fetchData() async {
+    // Stub call
+    return const {};
+  }
+}

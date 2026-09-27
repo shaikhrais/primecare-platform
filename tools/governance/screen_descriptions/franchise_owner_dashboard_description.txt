@@ -1,0 +1,28 @@
+List of work for the user:
+1. Monitor franchise performance metrics.
+2. Review sales data and trends.
+3. Manage franchisee communications.
+4. Access training and support resources.
+5. Analyze customer feedback and satisfaction.
+6. Track inventory levels and supply chain issues.
+7. Evaluate marketing campaign effectiveness.
+8. Set and review operational goals.
+
+Red flags of operation:
+1. Declining sales trends over consecutive months.
+2. High levels of customer complaints or negative feedback.
+3. Inventory shortages or excess stock.
+4. Low engagement from franchisees in training programs.
+5. Inconsistent marketing performance across franchises.
+6. Delays in communication or support requests from franchisees.
+7. Unresolved operational issues or complaints.
+
+Dashboard needs:
+1. Real-time sales performance graphs.
+2. Customer satisfaction metrics and feedback summaries.
+3. Inventory status indicators.
+4. Alerts for declining performance or red flags.
+5. Communication logs with franchisees.
+6. Access to training materials and resources.
+7. Marketing campaign performance analytics.
+8. Goal tracking and progress indicators.

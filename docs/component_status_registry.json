@@ -1,0 +1,506 @@
+[
+  {
+    "componentName": "Unknown Action",
+    "screenName": "generic_feature_screen",
+    "file": "apps/primecare_v4/lib/components/generic_feature_screen.dart",
+    "line": 49,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "generic_feature_screen",
+    "file": "apps/primecare_v4/lib/components/generic_feature_screen.dart",
+    "line": 79,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "stitch_engine_renderer",
+    "file": "apps/primecare_v4/lib/components/stitch_engine/stitch_engine_renderer.dart",
+    "line": 128,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "stitch_engine_renderer",
+    "file": "apps/primecare_v4/lib/components/stitch_engine/stitch_engine_renderer.dart",
+    "line": 221,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "billing_summary_screen",
+    "file": "apps/primecare_v4/lib/features/billing_summary/presentation/screens/billing_summary_screen.dart",
+    "line": 95,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "psw_dashboard",
+    "file": "apps/primecare_v4/lib/office/clinical/psw_dashboard.dart",
+    "line": 70,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "psw_dashboard",
+    "file": "apps/primecare_v4/lib/office/clinical/psw_dashboard.dart",
+    "line": 89,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "provider_top_bar",
+    "file": "apps/primecare_v4/lib/office/layouts/provider_top_bar.dart",
+    "line": 92,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "provider_top_bar",
+    "file": "apps/primecare_v4/lib/office/layouts/provider_top_bar.dart",
+    "line": 97,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "provider_top_bar",
+    "file": "apps/primecare_v4/lib/office/layouts/provider_top_bar.dart",
+    "line": 109,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "franchise_pipeline",
+    "file": "apps/primecare_v4/lib/offices/business_development/roles/franchise_sales_manager/franchise_pipeline.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "partner_management",
+    "file": "apps/primecare_v4/lib/offices/business_development/roles/partnership_manager/partner_management.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "territory_tracking",
+    "file": "apps/primecare_v4/lib/offices/business_development/roles/regional_manager_ontario/territory_tracking.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "territory_tracking",
+    "file": "apps/primecare_v4/lib/offices/business_development/roles/regional_manager_usa/territory_tracking.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "book_appointment",
+    "file": "apps/primecare_v4/lib/offices/client/roles/client/book_appointment.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "care_logs",
+    "file": "apps/primecare_v4/lib/offices/client/roles/client/care_logs.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "care_team",
+    "file": "apps/primecare_v4/lib/offices/client/roles/client/care_team.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "chat_with_provider",
+    "file": "apps/primecare_v4/lib/offices/client/roles/client/chat_with_provider.dart",
+    "line": 58,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "client_dashboard",
+    "file": "apps/primecare_v4/lib/offices/client/roles/client/client_dashboard.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "payments",
+    "file": "apps/primecare_v4/lib/offices/client/roles/client/payments.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "view_schedule",
+    "file": "apps/primecare_v4/lib/offices/client/roles/client/view_schedule.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "care_updates",
+    "file": "apps/primecare_v4/lib/offices/client/roles/family_member/care_updates.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "linked_accounts",
+    "file": "apps/primecare_v4/lib/offices/client/roles/family_member/linked_accounts.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "chiro_notes",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/chiro/chiro_notes.dart",
+    "line": 136,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "ot_notes",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/occupational_therapist/ot_notes.dart",
+    "line": 136,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "physio_dashboard",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/physio/physio_dashboard.dart",
+    "line": 121,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "physio_notes",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/physio/physio_notes.dart",
+    "line": 136,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "daily_logs",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/psw/daily_logs.dart",
+    "line": 83,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "rmt_notes",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/rmt/rmt_notes.dart",
+    "line": 136,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "treatment_notes",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/rmt/treatment_notes.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "care_plans",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/rn/care_plans.dart",
+    "line": 93,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "care_plans",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/rn/care_plans.dart",
+    "line": 167,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "care_plans",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/rn/care_plans.dart",
+    "line": 172,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "care_plans",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/rpn/care_plans.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "rpn_notes",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/rpn/rpn_notes.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "treatment_notes",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/rpn/treatment_notes.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "counseling_notes",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/social_worker/counseling_notes.dart",
+    "line": 136,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "slp_notes",
+    "file": "apps/primecare_v4/lib/offices/clinic/roles/speech_pathologist/slp_notes.dart",
+    "line": 136,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "ceo_settings",
+    "file": "apps/primecare_v4/lib/offices/corporate/roles/ceo/ceo_settings.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "financial_overview",
+    "file": "apps/primecare_v4/lib/offices/corporate/roles/ceo/financial_overview.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "compliance_tracking",
+    "file": "apps/primecare_v4/lib/offices/corporate/roles/compliance_manager/compliance_tracking.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "operations_overview",
+    "file": "apps/primecare_v4/lib/offices/corporate/roles/coo/operations_overview.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "ops_efficiency",
+    "file": "apps/primecare_v4/lib/offices/corporate/roles/coo/ops_efficiency.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "system_architect",
+    "file": "apps/primecare_v4/lib/offices/corporate/roles/cto/system_architect.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "system_settings",
+    "file": "apps/primecare_v4/lib/offices/corporate/roles/cto/system_settings.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "invoices",
+    "file": "apps/primecare_v4/lib/offices/franchise/roles/billing_admin/invoices.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "invoice_generation",
+    "file": "apps/primecare_v4/lib/offices/franchise/roles/billing_admin/invoice_generation.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "daily_operations",
+    "file": "apps/primecare_v4/lib/offices/franchise/roles/franchise_owner/daily_operations.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "partnership_leads",
+    "file": "apps/primecare_v4/lib/offices/marketing/roles/community_outreach/partnership_leads.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "pipeline_view",
+    "file": "apps/primecare_v4/lib/offices/marketing/roles/territory_sales_manager/pipeline_view.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "document_vault",
+    "file": "apps/primecare_v4/lib/offices/shared_screens/document_vault.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "global_profile",
+    "file": "apps/primecare_v4/lib/offices/shared_screens/global_profile.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "global_settings",
+    "file": "apps/primecare_v4/lib/offices/shared_screens/global_settings.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "messaging_hub",
+    "file": "apps/primecare_v4/lib/offices/shared_screens/messaging_hub.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "notification_center",
+    "file": "apps/primecare_v4/lib/offices/shared_screens/notification_center.dart",
+    "line": 165,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  },
+  {
+    "componentName": "Unknown Action",
+    "screenName": "scrum_master_dashboard",
+    "file": "apps/primecare_v4/lib/offices/system/roles/scrum_master/scrum_master_dashboard.dart",
+    "line": 124,
+    "type": "button",
+    "status": "not_wired",
+    "route": null
+  }
+]

@@ -1,0 +1,22 @@
+List of work the user must do:
+1. Monitor accounts receivable balances.
+2. Review outstanding invoices.
+3. Follow up on overdue payments.
+4. Generate accounts receivable reports.
+5. Analyze cash flow related to receivables.
+6. Communicate with clients regarding payment issues.
+
+Red flags of operation:
+1. High percentage of overdue invoices.
+2. Significant fluctuations in accounts receivable balances.
+3. Increased customer complaints regarding billing.
+4. Delays in payment processing.
+5. Unusually high write-offs or bad debt.
+
+What we need on the dashboard for the user:
+1. Overview of total accounts receivable.
+2. Aging report of receivables (current, 30 days, 60 days, 90 days).
+3. Alerts for overdue invoices.
+4. Payment trends and cash flow forecasts.
+5. Quick access to generate reports.
+6. Client communication history regarding payments.

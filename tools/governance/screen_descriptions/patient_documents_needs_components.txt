@@ -1,0 +1,26 @@
+Screen Code: patient_documents
+Screen Name: PatientDocumentsScreen
+
+Required Components:
+- DocumentList
+- ComplianceScanButton
+- AuditLogViewer
+- TelemetryChart
+- LoadingIndicator
+
+Required Functions/Handlers:
+- runComplianceScan
+- refreshDashboard
+
+Required Buttons:
+- Run Compliance Scan
+- Refresh Data
+
+Required APIs:
+- /v1/patient/documents
+- /v1/compliance/scan
+- /v1/audit/logs
+
+Required Semantic Keys (data-cy):
+- patient-documents-btn-run-scan
+- patient-documents-btn-refresh

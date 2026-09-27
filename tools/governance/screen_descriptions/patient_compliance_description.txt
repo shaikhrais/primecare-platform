@@ -1,0 +1,22 @@
+List of work for the patient:
+1. Review and understand governance directives.
+2. Ensure multi-factor authentication is enforced.
+3. Participate in real-time system audit telemetry.
+4. Submit secure event reports through the ingestion form.
+5. Monitor compliance verification audits.
+6. Regularly check operational audit logs.
+
+Red flags for operation:
+1. Non-compliance with governance directives.
+2. Failure to enforce multi-factor authentication.
+3. Incomplete or missing secure event reports.
+4. Negative results in compliance verification audits.
+5. Unusual entries in operational audit logs.
+
+Dashboard needs:
+1. Compliance status overview.
+2. Recent audit results and statuses.
+3. Log of governance directives and their compliance.
+4. Secure event reporting summary.
+5. Real-time telemetry data.
+6. Alerts for any compliance issues or red flags.

@@ -1,0 +1,62 @@
+Screen Code: psw_incident_report
+Screen Name: PswIncidentReportScreen
+
+Required Components:
+- ClientHealthStatusCard
+- IncidentReportForm
+- ComplianceAuditAlert
+- ActivityMetricsChart
+- TeamCommunicationTool
+- TrainingResourceSection
+- ClientFeedbackSurvey
+- MedicationAlert
+- PerformanceMetricsTable
+- StaffingResourceAllocation
+
+Required Functions/Handlers:
+- reportIncident
+- updateHealthStatus
+- viewComplianceAudit
+- logActivity
+- sendMessage
+- accessTrainingResources
+- submitFeedback
+- scheduleMedication
+- viewPerformanceMetrics
+- allocateResources
+
+Required Buttons:
+- Report Incident
+- Update Health Status
+- View Compliance Audit
+- Log Activity
+- Send Message
+- Access Training Resources
+- Submit Feedback
+- Schedule Medication
+- View Performance Metrics
+- Allocate Resources
+
+Required APIs:
+- /v1/client/health/status
+- /v1/incident/report
+- /v1/compliance/audit
+- /v1/activity/log
+- /v1/communication/message
+- /v1/training/resources
+- /v1/client/feedback
+- /v1/medication/schedule
+- /v1/performance/metrics
+- /v1/resource/allocation
+
+Required Semantic Keys (data-cy):
+- psw-dashboard-btn-report-incident
+- psw-dashboard-btn-update-health-status
+- psw-dashboard-btn-view-compliance-audit
+- psw-dashboard-btn-log-activity
+- psw-dashboard-btn-send-message
+- psw-dashboard-btn-access-training
+- psw-dashboard-btn-submit-feedback
+- psw-dashboard-btn-schedule-medication
+- psw-dashboard-btn-view-performance
+- psw-dashboard-btn-allocate-resources

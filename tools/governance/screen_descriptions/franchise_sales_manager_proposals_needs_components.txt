@@ -1,0 +1,37 @@
+Screen Code: franchise_sales_manager_proposals
+Screen Name: Franchise Sales Manager Proposals
+
+Required Components:
+- ProposalList
+- ProposalStatusIndicator
+- ReviewTimeMetric
+- CommunicationLog
+- FinancialAnalysisSummary
+- ApprovalTrendsReport
+- OverdueAlerts
+
+Required Functions/Handlers:
+- reviewProposal
+- approveProposal
+- rejectProposal
+- logCommunication
+- generateReport
+- trackProposalStatus
+
+Required Buttons:
+- Approve
+- Reject
+- Communicate
+- Generate Report
+
+Required APIs:
+- /v1/franchise/proposals
+- /v1/franchise/communication
+- /v1/franchise/reports
+
+Required Semantic Keys (data-cy):
+- franchise-proposal-list
+- franchise-btn-approve
+- franchise-btn-reject
+- franchise-btn-communicate
+- franchise-btn-generate-report

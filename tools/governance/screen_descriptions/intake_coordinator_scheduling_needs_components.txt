@@ -1,0 +1,39 @@
+Screen Code: intake_coordinator_scheduling
+Screen Name: Intake Coordinator Scheduling
+
+Required Components:
+- AppointmentScheduler
+- RequestManager
+- ClientCommunication
+- ClientInfoUpdater
+- SchedulingReportGenerator
+- DashboardOverview
+- AlertsWidget
+- FeedbackMetrics
+- PerformanceMetrics
+- SchedulingTrendsChart
+
+Required Functions/Handlers:
+- scheduleAppointment
+- manageRequests
+- communicateWithClient
+- updateClientInfo
+- generateSchedulingReport
+
+Required Buttons:
+- Schedule Appointment
+- Update Client Info
+- Generate Report
+- Send Status Update
+
+Required APIs:
+- /v1/appointments/schedule
+- /v1/requests/manage
+- /v1/clients/update
+- /v1/reports/scheduling
+
+Required Semantic Keys (data-cy):
+- intake-scheduler-btn-schedule
+- intake-manager-btn-update
+- intake-communication-btn-send
+- intake-report-btn-generate

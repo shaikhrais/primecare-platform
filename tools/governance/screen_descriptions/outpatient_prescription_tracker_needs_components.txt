@@ -1,0 +1,48 @@
+Screen Code: outpatient_prescription_tracker
+Screen Name: Outpatient Prescription Tracker
+
+Required Components:
+- PrescriptionList
+- PrescriptionDetailView
+- StatusUpdateForm
+- PatientInfoManager
+- ReportGenerator
+- PrescriptionOverview
+- AlertsDashboard
+- AnalyticsChart
+- UserActivityLog
+- QuickAccessPanel
+
+Required Functions/Handlers:
+- trackPrescriptions
+- viewPrescriptionDetails
+- updatePrescriptionStatus
+- managePatientInfo
+- generateReports
+- fetchCurrentPrescriptions
+- triggerAlerts
+- analyzeTrends
+- logUserActivity
+- accessPatientHistory
+
+Required Buttons:
+- Update Status
+- View Details
+- Generate Report
+- Manage Patient Info
+- Refresh
+
+Required APIs:
+- /v1/prescriptions/outpatient
+- /v1/prescriptions/update-status
+- /v1/patients/manage
+- /v1/reports/generate
+- /v1/analytics/prescription-trends
+- /v1/user/activity-logs
+
+Required Semantic Keys (data-cy):
+- outpatient-prescription-btn-update-status
+- outpatient-prescription-btn-view-details
+- outpatient-prescription-btn-generate-report
+- outpatient-prescription-btn-manage-patient
+- outpatient-prescription-btn-refresh

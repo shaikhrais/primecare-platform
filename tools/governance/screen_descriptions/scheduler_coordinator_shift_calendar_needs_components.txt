@@ -1,0 +1,35 @@
+Screen Code: scheduler_coordinator_shift_calendar
+Screen Name: Scheduler Coordinator Shift Calendar
+
+Required Components:
+- ShiftCalendar
+- ShiftManagementPanel
+- ShiftMonitoringDashboard
+- NotificationAlert
+- CommunicationTool
+
+Required Functions/Handlers:
+- loadShiftCalendar
+- manageShifts
+- monitorAssignments
+- updateShift
+- communicateWithStaff
+
+Required Buttons:
+- Update Shift
+- Notify Staff
+- View Availability
+- Resolve Conflict
+
+Required APIs:
+- /v1/shifts/calendar
+- /v1/shifts/manage
+- /v1/shifts/assignments
+- /v1/shifts/update
+- /v1/communication/staff
+
+Required Semantic Keys (data-cy):
+- scheduler-btn-update-shift
+- scheduler-btn-notify-staff
+- scheduler-btn-view-availability
+- scheduler-btn-resolve-conflict

@@ -1,0 +1,7 @@
+# Screen: MKT-911
+**Component Name:** `HeadOfMarketingPerformanceReportsScreen`  
+**Implementation Status:** 🔄 Discovery (Implemented)  
+**Associated Roles:** [Head of Marketing](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-MKT-911-01](tasks/tsk_mkt_911_01.md): Export high-level board reports on overall marketing expenditure vs growth.

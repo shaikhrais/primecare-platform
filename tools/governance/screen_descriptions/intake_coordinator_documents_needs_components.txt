@@ -1,0 +1,62 @@
+Screen Code: intake_coordinator_documents
+Screen Name: IntakeCoordinatorDocumentsScreen
+
+Required Components:
+- VolunteerMetricsCard
+- VolunteerActivityScheduler
+- TrainingCompletionChart
+- CommunicationLog
+- VolunteerHoursTracker
+- FeedbackSatisfactionChart
+- RecognitionEventParticipation
+- ComplianceStatusIndicator
+- PerformanceEvaluationDashboard
+- CollaborationRequestsPanel
+
+Required Functions/Handlers:
+- recruitVolunteer
+- scheduleActivity
+- provideTraining
+- logCommunication
+- trackVolunteerHours
+- submitFeedback
+- organizeEvent
+- evaluatePerformance
+- checkCompliance
+- requestCollaboration
+
+Required Buttons:
+- Recruit Volunteer
+- Schedule Activity
+- Provide Training
+- Log Communication
+- Track Hours
+- Submit Feedback
+- Organize Event
+- Evaluate Performance
+- Check Compliance
+- Request Collaboration
+
+Required APIs:
+- /v1/volunteers/recruit
+- /v1/volunteers/schedule
+- /v1/volunteers/training
+- /v1/volunteers/communication
+- /v1/volunteers/hours
+- /v1/volunteers/feedback
+- /v1/volunteers/events
+- /v1/volunteers/compliance
+- /v1/volunteers/performance
+- /v1/volunteers/collaboration
+
+Required Semantic Keys (data-cy):
+- volunteer-dashboard-btn-recruit
+- volunteer-dashboard-btn-schedule
+- volunteer-dashboard-btn-training
+- volunteer-dashboard-btn-communication
+- volunteer-dashboard-btn-hours
+- volunteer-dashboard-btn-feedback
+- volunteer-dashboard-btn-event
+- volunteer-dashboard-btn-compliance
+- volunteer-dashboard-btn-performance
+- volunteer-dashboard-btn-collaboration

@@ -1,0 +1,38 @@
+User Work List:
+1. Monitor daily metrics such as residents, staff on shift, open shifts, falls, incidents, and hospital transfers.
+2. Track staff attendance and active outbreaks.
+3. Analyze fall rates, pressure ulcers, wandering alerts, missed repositionings, weight loss risks, and dehydration alerts.
+4. Review high-risk residents and ensure appropriate care ratios.
+5. Manage overtime hours, sick calls, agency staff usage, and training completion rates.
+6. Address expiring certifications and staff workload.
+7. Ensure timely ADL charting, incident reports, and care plans.
+8. Investigate privacy breaches and active abuse cases.
+9. Monitor active infections and isolation counts.
+10. Manage PPE inventory and hand hygiene audit scores.
+11. Address active complaints and family calls.
+12. Analyze mood trends, profit margins, payroll ratios, and outstanding payments.
+13. Review revenue by service and therapist, room utilization, and inventory alerts.
+
+Red Flags of Operation:
+1. High number of falls or incidents.
+2. Increased open shifts or low staff attendance.
+3. Elevated fall rates or pressure ulcers.
+4. High counts of missed repositionings or dehydration alerts.
+5. Expiring certifications or high sick calls.
+6. Delays in ADL charting or overdue care plans.
+7. Active complaints or investigations.
+8. Low hand hygiene audit scores or inadequate PPE inventory.
+9. Increased active infections or isolation counts.
+10. Low satisfaction rates or high pending family calls.
+
+Dashboard Needs:
+1. Real-time metrics for all key performance indicators.
+2. Alerts for red flags and critical incidents.
+3. Visualizations for trends in falls, incidents, and staff workload.
+4. Summary of high-risk residents and their care needs.
+5. Reports on staff attendance, overtime, and agency usage.
+6. Notifications for expiring certifications and overdue tasks.
+7. Financial metrics including profit margins and outstanding payments.
+8. Inventory status for PPE and other critical supplies.
+9. Feedback mechanisms for resident satisfaction and complaints.
+10. Historical data for trend analysis and decision-making.

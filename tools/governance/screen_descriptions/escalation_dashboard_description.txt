@@ -1,0 +1,22 @@
+List of work the user must do:
+1. Monitor escalation cases and their statuses.
+2. Review metrics related to escalations.
+3. Identify trends in escalations over time.
+4. Respond to escalations in a timely manner.
+5. Collaborate with team members on unresolved escalations.
+6. Provide feedback on the escalation process for continuous improvement.
+
+Red flags of operation:
+1. Increased number of escalations over a specific period.
+2. Delays in response times to escalations.
+3. High volume of escalations from specific teams or departments.
+4. Recurring issues that lead to escalations.
+5. Lack of follow-up on resolved escalations.
+
+What is needed on the dashboard for the user:
+1. Overview of current escalations with status indicators.
+2. Metrics on response times and resolution times.
+3. Historical data on escalations to identify trends.
+4. Notifications for new escalations and updates on existing ones.
+5. A section for team collaboration and comments on escalations.
+6. A feedback mechanism for users to suggest improvements to the escalation process.

@@ -1,0 +1,27 @@
+Pediatric Specialist Responsibilities:
+1. Conduct regular health assessments and screenings for children.
+2. Diagnose and treat pediatric illnesses and conditions.
+3. Monitor growth and development milestones.
+4. Provide immunizations and preventive care.
+5. Educate parents and caregivers on child health and wellness.
+6. Collaborate with other healthcare professionals for comprehensive care.
+7. Maintain accurate medical records and documentation.
+8. Stay updated on pediatric healthcare advancements and guidelines.
+
+Red Flags for Operations:
+1. Significant delays in patient wait times.
+2. Increased number of missed appointments or cancellations.
+3. High rates of emergency room visits for previously treated conditions.
+4. Unusual spikes in specific illness diagnoses.
+5. Patient complaints regarding care or service quality.
+6. Inconsistent follow-up on treatment plans.
+7. Lack of communication with caregivers or parents.
+
+Dashboard Requirements for Pediatric Specialist:
+1. Real-time patient metrics (e.g., number of active patients, appointment schedules).
+2. Compliance and quality assurance indicators.
+3. Operational logs and alerts for red flags.
+4. Telemetry data on patient outcomes and treatment effectiveness.
+5. Visualizations of growth and development trends.
+6. Access to educational resources for parents and caregivers.
+7. Integration with electronic health records for seamless data management.

@@ -1,0 +1,49 @@
+Screen Code: regional_bdm_workflow
+Screen Name: RegionalBdmWorkflowScreen
+
+Required Components:
+- SalesPerformanceMetricCard
+- SalesTrendChart
+- ClientRelationshipManager
+- MarketAnalysisTool
+- TrainingResourceSection
+- PerformanceAlert
+- MarketingIntegrationPanel
+- CustomerFeedbackWidget
+- SalesTargetTracker
+- TeamCollaborationTool
+
+Required Functions/Handlers:
+- fetchSalesMetrics
+- generateSalesReport
+- updateSalesTargets
+- sendTrainingRequest
+- submitCustomerFeedback
+- alertPerformanceIssues
+
+Required Buttons:
+- View Reports
+- Set Sales Targets
+- Request Training
+- Submit Feedback
+- Analyze Market
+
+Required APIs:
+- /v1/sales/performance
+- /v1/sales/reports
+- /v1/sales/targets
+- /v1/training/request
+- /v1/customer/feedback
+- /v1/market/analysis
+
+Required Semantic Keys (data-cy):
+- regional-bdm-sales-metric
+- regional-bdm-sales-trend
+- regional-bdm-client-manager
+- regional-bdm-market-analysis
+- regional-bdm-training-resources
+- regional-bdm-performance-alert
+- regional-bdm-marketing-integration
+- regional-bdm-customer-feedback
+- regional-bdm-sales-target-tracker
+- regional-bdm-team-collaboration

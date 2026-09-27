@@ -1,0 +1,62 @@
+Screen Code: physician_workflow
+Screen Name: Physician Compliance Workflow
+
+Required Components:
+- PatientStatusCard
+- ComplianceMetricAlert
+- OperationalLog
+- PerformanceIndicator
+- TaskManagementTool
+- ClinicalGuidelinesAccess
+- CommunicationTool
+- TelemetryDataChart
+- RedFlagAlert
+- TaskSummary
+
+Required Functions/Handlers:
+- updatePatientStatus
+- viewComplianceMetrics
+- logOperationalActivity
+- viewPerformanceIndicators
+- manageTasks
+- accessClinicalGuidelines
+- collaborateWithProviders
+- monitorPatientTrends
+- reportRedFlags
+- viewTaskSummary
+
+Required Buttons:
+- Update Patient Status
+- View Compliance Metrics
+- Log Operational Activity
+- View Performance Indicators
+- Manage Tasks
+- Access Clinical Guidelines
+- Collaborate with Providers
+- Monitor Patient Trends
+- Report Red Flags
+- View Task Summary
+
+Required APIs:
+- /v1/patients/status
+- /v1/compliance/metrics
+- /v1/logs/operational
+- /v1/performance/indicators
+- /v1/tasks/manage
+- /v1/guidelines/access
+- /v1/providers/collaborate
+- /v1/patients/telemetry
+- /v1/redflags/report
+- /v1/tasks/summary
+
+Required Semantic Keys (data-cy):
+- physician-dashboard-btn-update-status
+- physician-dashboard-btn-view-compliance
+- physician-dashboard-btn-log-activity
+- physician-dashboard-btn-view-performance
+- physician-dashboard-btn-manage-tasks
+- physician-dashboard-btn-access-guidelines
+- physician-dashboard-btn-collaborate
+- physician-dashboard-btn-monitor-trends
+- physician-dashboard-btn-report-redflags
+- physician-dashboard-btn-view-summary

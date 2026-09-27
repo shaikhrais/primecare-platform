@@ -1,0 +1,28 @@
+Screen Code: shared_stubs
+Screen Name: SharedScreenStubs
+
+Required Components:
+- SharedScreenStubs
+- TelemetryChart
+- AuditLogList
+
+Required Functions/Handlers:
+- renderSharedScreenStubs
+- manageSharedStubsState
+- handleComplianceScan
+- logResults
+- updateDashboard
+- refreshTelemetry
+
+Required Buttons:
+- Trigger Compliance Scan
+- Manual Refresh
+
+Required APIs:
+- /v1/compliance/scan
+- /v1/dashboard/telemetry
+- /v1/audit/logs
+
+Required Semantic Keys (data-cy):
+- sharedstubs-btn-trigger-scan
+- sharedstubs-btn-manual-refresh

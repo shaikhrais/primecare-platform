@@ -1,0 +1,47 @@
+Screen Code: testing_overview
+Screen Name: TestingOverviewScreen
+
+Required Components:
+- TestingStatusOverview
+- DefectTrackingWidget
+- TestCoverageMetrics
+- DefectTrendsChart
+- ComplianceAuditLog
+- TestingEfficiencyIndicators
+- CriticalIssuesAlerts
+- CICDIntegration
+- UserFeedbackWidget
+- DocumentationAccess
+
+Required Functions/Handlers:
+- refreshTestingStatus
+- viewDefects
+- generateReport
+- startRegressionTesting
+- accessDocumentation
+
+Required Buttons:
+- Refresh Status
+- View Defects
+- Generate Report
+- Start Regression Testing
+- Access Documentation
+
+Required APIs:
+- /v1/testing/status
+- /v1/defects
+- /v1/testing/coverage
+- /v1/defect/trends
+- /v1/compliance/audit
+- /v1/testing/performance
+- /v1/alerts
+- /v1/cicd/results
+- /v1/user/feedback
+- /v1/documentation
+
+Required Semantic Keys (data-cy):
+- qa-dashboard-refresh-status
+- qa-dashboard-view-defects
+- qa-dashboard-generate-report
+- qa-dashboard-start-regression
+- qa-dashboard-access-docs

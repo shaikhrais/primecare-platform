@@ -1,0 +1,35 @@
+Screen Code: cfo_dashboard
+Screen Name: CfoDashboardScreen
+
+Required Components:
+- CashBalanceWidget
+- GrowthRateWidget
+- ExpenseBufferWidget
+- TaxLiabilityWidget
+- LedgerSummaryWidget
+- ComplianceScanWidget
+- FinancialMetricsWidget
+- KPIsWidget
+- ActivityLogsWidget
+- AlertsWidget
+
+Required Functions/Handlers:
+- [None specified]
+
+Required Buttons:
+- [None specified]
+
+Required APIs:
+- [None specified]
+
+Required Semantic Keys (data-cy):
+- cfo-dashboard-cash-balance
+- cfo-dashboard-growth-rate
+- cfo-dashboard-expense-buffer
+- cfo-dashboard-tax-liability
+- cfo-dashboard-ledger-summary
+- cfo-dashboard-compliance-scan
+- cfo-dashboard-financial-metrics
+- cfo-dashboard-kpis
+- cfo-dashboard-activity-logs
+- cfo-dashboard-alerts

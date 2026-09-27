@@ -1,0 +1,52 @@
+Screen Code: territory_sales_manager_dashboard
+Screen Name: TerritorySalesManagerDashboardScreen
+
+Required Components:
+- SalesPerformanceMetricCard
+- CustomerSatisfactionChart
+- ComplianceStatusWidget
+- TerritoryCoverageMap
+- TeamPerformanceIndicator
+- MarketTrendsAnalysis
+- TrainingProgressTracker
+- BudgetTrackingWidget
+- RealTimeAlerts
+- HistoricalDataChart
+
+Required Functions/Handlers:
+- generateSalesReport
+- viewTrainingProgress
+- allocateBudget
+- setSalesStrategy
+- notifyTeam
+
+Required Buttons:
+- Generate Report
+- View Training Progress
+- Allocate Budget
+- Set Sales Strategy
+- Notify Team
+
+Required APIs:
+- /v1/sales/performance
+- /v1/customer/satisfaction
+- /v1/compliance/status
+- /v1/territory/coverage
+- /v1/team/performance
+- /v1/market/trends
+- /v1/training/progress
+- /v1/budget/tracking
+- /v1/alerts/real-time
+- /v1/historical/data
+
+Required Semantic Keys (data-cy):
+- dashboard-sales-performance
+- dashboard-customer-satisfaction
+- dashboard-compliance-status
+- dashboard-territory-coverage
+- dashboard-team-performance
+- dashboard-market-trends
+- dashboard-training-progress
+- dashboard-budget-tracking
+- dashboard-real-time-alerts
+- dashboard-historical-data

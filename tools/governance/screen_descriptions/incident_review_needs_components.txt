@@ -1,0 +1,59 @@
+Screen Code: incident_review
+Screen Name: IncidentReviewScreen
+
+Required Components:
+- PatientHealthStatusOverview
+- MedicationAdministrationRecord
+- ComplianceTrackingMetric
+- IncidentErrorLog
+- PatientSatisfactionScore
+- StaffingLevelsAvailability
+- CriticalConditionAlert
+- NursingInterventionPerformanceMetric
+- EducationalResourcesAccess
+- TeamCommunicationTool
+
+Required Functions/Handlers:
+- viewPatientRecords
+- logMedicationAdministration
+- trackCompliance
+- reportIncident
+- viewSatisfactionScores
+- checkStaffingLevels
+- sendAlert
+- accessTrainingResources
+- collaborateWithTeam
+
+Required Buttons:
+- View Patient Records
+- Log Medication Administration
+- Track Compliance
+- Report Incident
+- View Satisfaction Scores
+- Check Staffing Levels
+- Send Alert
+- Access Training Resources
+- Collaborate with Team
+
+Required APIs:
+- /v1/patient/health/status
+- /v1/medications/administer
+- /v1/compliance/track
+- /v1/incidents/report
+- /v1/patient/satisfaction/scores
+- /v1/staffing/levels
+- /v1/alerts/critical
+- /v1/nursing/performance/metrics
+- /v1/education/resources
+- /v1/team/collaboration
+
+Required Semantic Keys (data-cy):
+- incidentreview-btn-view-records
+- incidentreview-btn-log-medication
+- incidentreview-btn-track-compliance
+- incidentreview-btn-report-incident
+- incidentreview-btn-view-satisfaction
+- incidentreview-btn-check-staffing
+- incidentreview-btn-send-alert
+- incidentreview-btn-access-training
+- incidentreview-btn-collaborate

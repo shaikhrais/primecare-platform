@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" dir="LTR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IntakeAnalyticsScreen | Primecare Client</title>
+  <link rel="stylesheet" href="./primecare_theme.css" />
+
+  <style>
+    :root {
+      --pc-color-primary: #0F172A;
+      --pc-color-secondary: #475569;
+      --pc-color-background: #F8FAFC;
+      --pc-color-surface: #FFFFFF;
+      --pc-color-text: #0f172a;
+      --pc-color-muted: #64748b;
+      --pc-spacing-sm: 10px;
+      --pc-spacing-md: 16px;
+      --pc-spacing-lg: 28px;
+      --pc-radius-md: 8px;
+      --pc-font-family: Inter, sans-serif;
+    }
+  </style>
+
+</head>
+<body data-theme="primecare_light_default" data-app="cl" data-role="training_coordinator" data-screen="certification_tracking">
+  <aside class="pc-sidebar" data-testid="app-sidebar">
+  <div class="pc-sidebar-brand">
+    <div class="pc-brand-logo">CL</div>
+    <div>
+      <div class="pc-brand-title">Primecare Client</div>
+      <div class="pc-brand-subtitle">Training Coordinator</div>
+    </div>
+  </div>
+
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">Overview</div>
+    
+    <a href="/staff/training-dashboard" class="pc-sidebar-link " data-testid="sidebar-link-training_dashboard" data-route="/staff/training-dashboard" data-screen="training_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Training Dashboard</span>
+    </a>
+    
+    <a href="/management/screen-progress-dashboard" class="pc-sidebar-link " data-testid="sidebar-link-screen_progress_dashboard" data-route="/management/screen-progress-dashboard" data-screen="screen_progress_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Screen Progress Dashboard</span>
+    </a>
+    
+  </div>
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">General</div>
+    
+    <a href="/staff/course-assignment" class="pc-sidebar-link " data-testid="sidebar-link-course_assignment" data-route="/staff/course-assignment" data-screen="course_assignment">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Course Assignment</span>
+    </a>
+    
+    <a href="/staff/certification-tracking" class="pc-sidebar-link is-active" data-testid="sidebar-link-certification_tracking" data-route="/staff/certification-tracking" data-screen="certification_tracking">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Certification Tracking</span>
+    </a>
+    
+    <a href="/staff/staff-progress" class="pc-sidebar-link " data-testid="sidebar-link-staff_progress" data-route="/staff/staff-progress" data-screen="staff_progress">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Staff Progress</span>
+    </a>
+    
+  </div>
+  
+
+  <div class="pc-sidebar-footer">
+    <span class="pc-shell-status-dot"></span>
+    <span>Shell loaded</span>
+  </div>
+</aside>
+
+  <div class="pc-shell">
+    <header class="pc-topbar" data-testid="app-topbar">
+  <div class="pc-topbar-left">
+    <div class="pc-breadcrumb" data-testid="breadcrumb">Primecare Client / Training Coordinator</div>
+    <div class="pc-topbar-title-row">
+      <h1 class="pc-screen-title" data-testid="screen-title">IntakeAnalyticsScreen</h1>
+      <span class="pc-role-badge" data-testid="role-badge">Training Coordinator</span>
+    </div>
+  </div>
+
+  <div class="pc-topbar-actions">
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in Primecare Client...</div>
+    
+    
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in Primecare Client...</div>
+    
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    <div class="pc-profile-avatar" data-testid="topbar-profile-avatar">TC</div>
+  </div>
+</header>
+
+    <main class="pc-content" data-testid="main-content">
+  <div class="pc-content-shell" data-testid="content-page-shell">
+    <div class="pc-content-header">
+      <div>
+        <div class="pc-content-title">IntakeAnalyticsScreen</div>
+        <div class="pc-content-subtitle">Visual interface layout contract.</div>
+      </div>
+      <span class="pc-content-state-badge" data-testid="content-state">Active</span>
+    </div>
+
+    
+
+    
+    <div class="pc-section-grid" data-testid="screen-section-grid">
+      
+      <section class="pc-section pc-section--header" data-testid="section-certification_tracking_header" data-section-type="header">
+        <div class="pc-section-header">
+          <div>
+            <h2>Header Section</h2>
+            <p>Fallback screen title.</p>
+          </div>
+          <span>header</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="certification_tracking-screen" data-element-type="layout">
+            CertificationTrackingScreen Screen Root
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="certification_tracking-title" data-element-type="header">
+            CertificationTrackingScreen Page Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--summary" data-testid="section-certification_tracking_content_summary" data-section-type="summary">
+        <div class="pc-section-header">
+          <div>
+            <h2>Content Summary Section</h2>
+            <p>Summary cards overview.</p>
+          </div>
+          <span>summary</span>
+        </div>
+        <div class="pc-section-body">
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--content" data-testid="section-certification_tracking_primary_content" data-section-type="content">
+        <div class="pc-section-header">
+          <div>
+            <h2>Primary Content Section</h2>
+            <p>Main details and grids.</p>
+          </div>
+          <span>content</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="certification_tracking-content" data-element-type="layout">
+            CertificationTrackingScreen Primary Content
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="certificationtracking-screen" data-element-type="layout">
+            Certificationtracking Screen
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="certificationtracking-content" data-element-type="layout">
+            Certificationtracking Content
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="certificationtracking-title" data-element-type="header">
+            Certificationtracking Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--action_bar" data-testid="section-certification_tracking_action_bar" data-section-type="action_bar">
+        <div class="pc-section-header">
+          <div>
+            <h2>Action Bar Section</h2>
+            <p>Interaction buttons.</p>
+          </div>
+          <span>action_bar</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--button" data-testid="certificationtracking-btn-4" data-element-type="button">
+            Certificationtracking Btn 4
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="certificationtracking-btn-5" data-element-type="button">
+            Certificationtracking Btn 5
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="certificationtracking-btn-3" data-element-type="button">
+            Certificationtracking Btn 3
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="certificationtracking-btn-1" data-element-type="button">
+            Certificationtracking Btn 1
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="certificationtracking-btn-2" data-element-type="button">
+            Certificationtracking Btn 2
+          </div>
+          
+        </div>
+      </section>
+      
+    </div>
+    
+  </div>
+</main>
+
+  </div>
+</body>
+</html>

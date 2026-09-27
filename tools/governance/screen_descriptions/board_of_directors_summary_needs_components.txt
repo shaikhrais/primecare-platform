@@ -1,0 +1,25 @@
+Screen Code: board_of_directors_summary
+Screen Name: Board Of Directors Summary
+
+Required Components:
+- KPIOverview
+- ExecutiveSummary
+- BoardDeckGenerator
+
+Required Functions/Handlers:
+- refreshExecutiveSummary
+- generateBoardDeck
+
+Required Buttons:
+- Refresh Data
+- Generate PDF
+
+Required APIs:
+- /v1/kpis/overview
+- /v1/executive_summary
+- /v1/board_deck/generate
+
+Required Semantic Keys (data-cy):
+- kpi-overview
+- refresh-data-btn
+- generate-pdf-btn

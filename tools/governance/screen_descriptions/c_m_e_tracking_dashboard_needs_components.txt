@@ -1,0 +1,28 @@
+Screen Code: c_m_e_tracking_dashboard
+Screen Name: C M E Tracking Dashboard
+
+Required Components:
+- CmeCreditsDisplay
+- CmeRenewalDeadline
+- CmeCreditsLog
+- CmeActivitiesList
+- ProgressIndicator
+
+Required Functions/Handlers:
+- refreshDashboard
+- logCmeCredits
+
+Required Buttons:
+- Refresh
+- Log New CME Credits
+
+Required APIs:
+- /v1/cme/credits
+- /v1/cme/activities
+
+Required Semantic Keys (data-cy):
+- cme-dashboard-earned-credits
+- cme-dashboard-required-credits
+- cme-dashboard-renewal-deadline
+- cme-dashboard-refresh-btn
+- cme-dashboard-log-btn

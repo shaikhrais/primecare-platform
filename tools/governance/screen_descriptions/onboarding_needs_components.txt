@@ -1,0 +1,52 @@
+Screen Code: onboarding
+Screen Name: OnboardingScreen
+
+Required Components:
+- RecruitmentMetricsCard
+- EmployeeTurnoverChart
+- ComplianceStatusWidget
+- PerformanceMetricsDashboard
+- TrainingParticipationChart
+- EmployeeEngagementSurvey
+- CompensationBenefitsAnalysis
+- IncidentReportTracker
+- DiversityInclusionStats
+- OperationalEfficiencyMetrics
+
+Required Functions/Handlers:
+- fetchRecruitmentMetrics
+- fetchTurnoverRates
+- checkComplianceStatus
+- evaluateEmployeePerformance
+- trackTrainingParticipation
+- gatherEngagementFeedback
+- analyzeCompensationBenefits
+- logIncidentReport
+- calculateDiversityStats
+- assessOperationalEfficiency
+
+Required Buttons:
+- Generate Report
+- View Details
+- Update Policies
+- Initiate Training
+- Resolve Grievance
+
+Required APIs:
+- /v1/hr/recruitment/metrics
+- /v1/hr/turnover/rates
+- /v1/hr/compliance/status
+- /v1/hr/performance/metrics
+- /v1/hr/training/participation
+- /v1/hr/engagement/feedback
+- /v1/hr/compensation/benefits
+- /v1/hr/incidents/report
+- /v1/hr/diversity/stats
+- /v1/hr/operational/efficiency
+
+Required Semantic Keys (data-cy):
+- hrdashboard-btn-generate-report
+- hrdashboard-btn-view-details
+- hrdashboard-btn-update-policies
+- hrdashboard-btn-initiate-training
+- hrdashboard-btn-resolve-grievance

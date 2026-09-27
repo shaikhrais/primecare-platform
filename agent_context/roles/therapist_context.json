@@ -1,0 +1,57 @@
+{
+  "role": {
+    "id": 5,
+    "role_code": "therapist",
+    "role_name": "Therapist",
+    "role_type": "staff",
+    "active": 1
+  },
+  "screens_count": 3,
+  "screens": [
+    {
+      "id": 2,
+      "app_id": 6,
+      "role_id": 5,
+      "screen_code": "therapist_dashboard",
+      "screen_name": "TherapistDashboardScreen",
+      "route_path": "/offices/clinical/roles/therapist/dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/allied/therapist_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 597,
+      "app_id": 1,
+      "role_id": 5,
+      "screen_code": "therapist_analytics",
+      "screen_name": "Therapist Analytics",
+      "route_path": "/offices/clinical/roles/therapist/analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/allied/therapist_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 598,
+      "app_id": 1,
+      "role_id": 5,
+      "screen_code": "therapist_workflow",
+      "screen_name": "Therapist Compliance Workflow",
+      "route_path": "/offices/clinical/roles/therapist/workflow",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/allied/therapist_workflow_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Review the territory expansion reports.
+2. Analyze data trends and patterns in the reports.
+3. Identify potential areas for expansion based on the reports.
+4. Collaborate with the sales and marketing teams to strategize expansion efforts.
+5. Monitor the performance of territories post-expansion.
+
+Red flags of operation:
+1. Inconsistent data reporting or discrepancies in the reports.
+2. Lack of actionable insights from the data.
+3. Delays in report generation or loading times.
+4. High error rates when accessing or interpreting the reports.
+5. Negative feedback from users regarding the usability of the reports.
+
+What is needed on the user dashboard:
+1. Key performance indicators (KPIs) related to territory performance.
+2. Visualizations of data trends (charts, graphs).
+3. Alerts for any anomalies or red flags in the data.
+4. Quick access to recent reports and historical data.
+5. Collaboration tools for communication with other teams.

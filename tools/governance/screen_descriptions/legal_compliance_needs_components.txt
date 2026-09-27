@@ -1,0 +1,47 @@
+Screen Code: legal_compliance
+Screen Name: LegalComplianceScreen
+
+Required Components:
+- ComplianceStatusOverview
+- LegalAuditResults
+- KPIChart
+- LegalInquiryLog
+- DeadlineAlerts
+- LitigationSummary
+- TrainingCompletionChart
+- LegislationChangeTracker
+- ContractReviewMetrics
+- StakeholderFeedback
+
+Required Functions/Handlers:
+- updateComplianceProgram
+- trainStaffOnCompliance
+- reviewContracts
+- manageLitigation
+- liaiseWithExternalCounsel
+
+Required Buttons:
+- Update Compliance Program
+- Train Staff
+- Review Contracts
+- Manage Litigation
+- Liaise with Counsel
+
+Required APIs:
+- /v1/legal/compliance/status
+- /v1/legal/audits/recent
+- /v1/legal/kpis
+- /v1/legal/inquiries/log
+- /v1/legal/deadlines/alerts
+- /v1/legal/litigation/summary
+- /v1/legal/training/completion
+- /v1/legal/legislation/changes
+- /v1/legal/contracts/review
+- /v1/legal/feedback/stakeholders
+
+Required Semantic Keys (data-cy):
+- legalcompliance-btn-update
+- legalcompliance-btn-train
+- legalcompliance-btn-review
+- legalcompliance-btn-manage
+- legalcompliance-btn-liaise

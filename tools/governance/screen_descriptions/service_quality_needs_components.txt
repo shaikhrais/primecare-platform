@@ -1,0 +1,44 @@
+Screen Code: service_quality
+Screen Name: ServiceQualityScreen
+
+Required Components:
+- PerformanceMetricCard
+- FinancialDashboard
+- ComplianceStatusWidget
+- EmployeeEngagementChart
+- CustomerSatisfactionGauge
+- ProjectTimelineTracker
+- OperationalEfficiencyIndicator
+- ResourceUtilizationChart
+- RiskManagementReport
+- MarketTrendsAnalysis
+
+Required Functions/Handlers:
+- refreshDashboardData
+- exportDashboardReport
+- viewDetails
+- setAlerts
+
+Required Buttons:
+- Refresh Data
+- Export Report
+- View Details
+- Set Alerts
+
+Required APIs:
+- /v1/operations/performance-metrics
+- /v1/financial/budget-status
+- /v1/compliance/audit-results
+- /v1/employee/engagement-stats
+- /v1/customer/satisfaction-scores
+- /v1/projects/timelines
+- /v1/operations/efficiency-indicators
+- /v1/resources/utilization
+- /v1/risk/management-reports
+- /v1/market/trends
+
+Required Semantic Keys (data-cy):
+- c-dashboard-btn-refresh
+- c-dashboard-btn-export
+- c-dashboard-btn-view-details
+- c-dashboard-btn-set-alerts

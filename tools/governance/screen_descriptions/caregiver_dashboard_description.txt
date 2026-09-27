@@ -1,0 +1,25 @@
+List of caregiver tasks:
+1. Record daily care activities.
+2. Acknowledge medication reminders.
+3. Run compliance scans.
+4. Sync security posture.
+5. Update policies.
+6. Export audit logs.
+7. Log operational activities.
+
+Red flags of operation:
+1. High number of API errors.
+2. Network errors during activity logging.
+3. Delays in compliance scan execution.
+4. Incomplete or missing logs.
+5. Low security clearance levels.
+6. Decreased productivity metrics.
+
+Dashboard requirements for caregivers:
+1. Title display.
+2. Loading indicator for ongoing tasks.
+3. Logs of recent activities and system messages.
+4. Metrics for active operations and security clearance.
+5. Telemetry chart for performance tracking.
+6. Buttons for executing key actions (e.g., compliance scan, log activities).
+7. Clear visual indicators for operational health and alerts.

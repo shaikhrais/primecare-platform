@@ -1,0 +1,38 @@
+Screen Code: franchise_sales_manager_discovery_calls
+Screen Name: Franchise Sales Manager Discovery Calls
+
+Required Components:
+- CallOverviewWidget
+- CallMetricsChart
+- ConversionRateCard
+- FollowUpAlertsWidget
+- PerformanceTrendsChart
+- ResourcesAccessWidget
+- CalendarIntegrationWidget
+
+Required Functions/Handlers:
+- scheduleCall
+- documentCallOutcome
+- followUpLead
+- updateLeadStatus
+- collaborateWithSales
+
+Required Buttons:
+- Schedule Call
+- Document Call Outcome
+- Follow Up
+- Update Lead Status
+- Collaborate with Sales Team
+
+Required APIs:
+- /v1/franchise/discovery_calls
+- /v1/franchise/leads
+- /v1/franchise/performance_metrics
+
+Required Semantic Keys (data-cy):
+- franchise-sales-dashboard-call-overview
+- franchise-sales-dashboard-call-metrics
+- franchise-sales-dashboard-conversion-rate
+- franchise-sales-dashboard-follow-up-alerts
+- franchise-sales-dashboard-performance-trends
+- franchise-sales-dashboard-resources

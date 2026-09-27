@@ -1,0 +1,22 @@
+User Work List:
+1. Monitor the loading state of the Visit Notes screen.
+2. Review the title and logs displayed on the screen.
+3. Trigger a compliance scan by clicking the corresponding button.
+4. Manually refresh logs and telemetry data.
+5. Review operational audit logs for any issues or updates.
+6. Analyze key performance indicators and telemetry charts.
+
+Red Flags of Operation:
+1. Frequent loading states indicating potential performance issues.
+2. Errors in logs related to API or network failures.
+3. Low compliance scan success rates.
+4. Inconsistent or missing telemetry data.
+5. High number of exceptions logged in security clearance.
+
+Dashboard Needs:
+1. Real-time loading indicators for ongoing operations.
+2. Clear display of the title and operational logs.
+3. Action buttons for compliance scans and manual refreshes.
+4. Visual representations of key performance indicators (KPIs).
+5. Telemetry charts for monitoring performance over time.
+6. Summary of operational audit logs with easy access to details.

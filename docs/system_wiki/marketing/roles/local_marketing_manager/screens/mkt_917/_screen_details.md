@@ -1,0 +1,7 @@
+# Screen: MKT-917
+**Component Name:** `LocalMarketingManagerReportsScreen`  
+**Implementation Status:** 🔄 Discovery (Implemented)  
+**Associated Roles:** [Local Marketing Manager](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-MKT-917-01](tasks/tsk_mkt_917_01.md): Output lead-to-conversion analytics strictly for the local Franchise Owner.

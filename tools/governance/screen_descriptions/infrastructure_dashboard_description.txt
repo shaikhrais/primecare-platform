@@ -1,0 +1,26 @@
+Infrastructure Auditor Responsibilities:
+1. Conduct compliance scans to ensure adherence to governance policies.
+2. Sync security posture to maintain up-to-date security measures.
+3. Update security policies based on audit findings and best practices.
+4. Export audit logs for reporting and analysis.
+5. Monitor operational metrics and performance indicators.
+6. Review and analyze telemetry data for anomalies.
+7. Document and report any findings or issues.
+
+Red Flags of Operation:
+1. High number of exceptions or failures in compliance scans.
+2. Delays in security posture synchronization.
+3. Inconsistent or outdated security policies.
+4. Anomalies in telemetry data indicating potential security breaches.
+5. Lack of timely updates or exports of audit logs.
+6. Decreased performance in operational metrics.
+7. Unresolved issues from previous audits.
+
+Dashboard Requirements for Infrastructure Auditor:
+1. Real-time compliance scan results and status.
+2. Security posture overview with clearance levels.
+3. Operational metrics such as active operations and productivity trends.
+4. Telemetry charts displaying system performance over time.
+5. Audit log section displaying recent activities and findings.
+6. Notifications for any critical issues or alerts.
+7. Action buttons for executing scans, syncing posture, and updating policies.

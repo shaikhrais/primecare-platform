@@ -1,0 +1,35 @@
+Screen Code: operations_manager_reports
+Screen Name: Operations Manager Reports
+
+Required Components:
+- PerformanceMetricCard
+- ProductivityReportChart
+- TrendAnalysisGraph
+- CollaborationTool
+- ComplianceChecklist
+- AlertNotification
+
+Required Functions/Handlers:
+- fetchPerformanceMetrics
+- generateProductivityReport
+- analyzeDataTrends
+- sendCollaborationInvite
+- checkCompliance
+
+Required Buttons:
+- Generate Report
+- Send Feedback
+- View Historical Data
+- Collaborate
+
+Required APIs:
+- /v1/operations/performance
+- /v1/operations/reports
+- /v1/operations/trends
+- /v1/operations/collaboration
+
+Required Semantic Keys (data-cy):
+- operationsmanager-btn-generate-report
+- operationsmanager-btn-send-feedback
+- operationsmanager-btn-view-historical
+- operationsmanager-btn-collaborate

@@ -1,0 +1,20 @@
+User Work List:
+1. Monitor the loading state of training programs.
+2. Handle errors during data fetching.
+3. Review the displayed training programs once loaded.
+4. Interact with the UI elements (e.g., buttons, icons) for navigation or actions.
+5. Provide feedback on the training programs displayed.
+
+Red Flags of Operation:
+1. Frequent loading states indicating potential performance issues.
+2. Repeated error messages suggesting problems with data fetching or API connectivity.
+3. Lack of user interaction or engagement with the training programs.
+4. Inconsistent data displayed on the screen.
+5. Unresponsive UI elements that hinder user experience.
+
+Dashboard Needs:
+1. Real-time loading indicators for data fetching.
+2. Error logs or alerts for any issues encountered.
+3. User engagement metrics (e.g., time spent on the screen, interactions).
+4. Summary of training programs available (e.g., count, categories).
+5. Feedback mechanism for users to report issues or suggest improvements.

@@ -1,0 +1,28 @@
+Screen Code: hr_hiring_reports
+Screen Name: Hr Hiring Reports
+
+Required Components:
+- HiringMetricsCard
+- HiringTrendsChart
+- RedFlagsAlert
+- ReportGenerationButton
+- UserFeedbackSection
+
+Required Functions/Handlers:
+- generateReport
+- submitFeedback
+- monitorKPIs
+- analyzeTrends
+
+Required Buttons:
+- Generate Report
+- Submit Feedback
+
+Required APIs:
+- /v1/hiring/reports
+- /v1/hiring/trends
+- /v1/hiring/feedback
+
+Required Semantic Keys (data-cy):
+- hiring-reports-btn-generate
+- hiring-reports-btn-feedback

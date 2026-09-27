@@ -1,0 +1,32 @@
+Screen Code: compliance_manager_audits
+Screen Name: Compliance Manager Audits
+
+Required Components:
+- AuditCompletionStatusCard
+- ComplianceIssuesList
+- DeadlineNotificationWidget
+- TeamCommunicationSummary
+- ComplianceReportGenerator
+- ComplianceTrendsChart
+- DocumentationUpdateLink
+
+Required Functions/Handlers:
+- generateComplianceReport
+- updateDocumentation
+- submitAudit
+
+Required Buttons:
+- Generate Report
+- Update Documentation
+- Submit Audit
+
+Required APIs:
+- /v1/compliance/audits/status
+- /v1/compliance/issues/recent
+- /v1/compliance/reports/generate
+- /v1/compliance/communication/team
+
+Required Semantic Keys (data-cy):
+- compliance-dashboard-btn-generate-report
+- compliance-dashboard-btn-update-documentation
+- compliance-dashboard-btn-submit-audit

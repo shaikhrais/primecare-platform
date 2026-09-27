@@ -1,0 +1,44 @@
+Screen Code: general_manager_dashboard
+Screen Name: GeneralManagerDashboardScreen
+
+Required Components:
+- KPIDashboard
+- OperationalMetricsChart
+- ComplianceStatusCard
+- EmployeeEngagementWidget
+- FinancialPerformanceCard
+- OperationalLogsTable
+- AlertsNotification
+- ComplianceScanTool
+- ManualSyncButton
+- TrendsForecastChart
+
+Required Functions/Handlers:
+- syncData
+- viewAuditResults
+- generateComplianceReport
+- addressOperationalIssues
+
+Required Buttons:
+- Sync Now
+- View Audit Results
+- Generate Compliance Report
+- Address Issues
+
+Required APIs:
+- /v1/dashboard/kpi
+- /v1/dashboard/operational-metrics
+- /v1/dashboard/compliance-status
+- /v1/dashboard/employee-performance
+- /v1/dashboard/financial-performance
+- /v1/dashboard/operational-logs
+- /v1/dashboard/alerts
+
+Required Semantic Keys (data-cy):
+- gm-dashboard-kpi
+- gm-dashboard-operational-metrics
+- gm-dashboard-compliance-status
+- gm-dashboard-employee-performance
+- gm-dashboard-financial-performance
+- gm-dashboard-operational-logs
+- gm-dashboard-alerts

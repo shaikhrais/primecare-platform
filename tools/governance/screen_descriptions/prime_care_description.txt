@@ -1,0 +1,23 @@
+User Tasks:
+1. Ensure all screens are rendered within the MasterLayout shell.
+2. Implement the screen UI by overriding the buildScreen method.
+3. Handle layout invariants and ensure compliance with the AppShellBoundary.
+4. Utilize the PrimeCareScreen class for routing and rendering.
+5. Manage user roles and permissions as defined by the requiredRole property.
+6. Provide a builder function for custom screen rendering if needed.
+7. Monitor the resilience policy for error handling and recovery.
+
+Red Flags of Operation:
+1. Direct routing without the MasterLayout shell, which violates layout invariants.
+2. Failure to implement the buildScreen method in governed widgets.
+3. Inconsistent user role management leading to unauthorized access.
+4. Lack of proper error handling as per the resilience policy.
+5. Not utilizing the ResponsiveScreenWrapper, leading to layout issues on different devices.
+
+Dashboard Requirements:
+1. Display user role and permissions.
+2. Show current screen name and route.
+3. Provide a summary of tasks and compliance status.
+4. Include error logs or alerts for any layout violations or operational issues.
+5. Visual indicators for screen rendering status (e.g., loading, error, success).
+6. Quick access buttons for navigating back to the dashboard or other key screens.

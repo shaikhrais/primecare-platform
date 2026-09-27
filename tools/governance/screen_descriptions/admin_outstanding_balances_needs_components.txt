@@ -1,0 +1,34 @@
+Screen Code: admin_outstanding_balances
+Screen Name: Admin Outstanding Balances
+
+Required Components:
+- OutstandingBalanceOverview
+- UserBalanceBreakdown
+- BalanceAlerts
+- ActivityLog
+- ReportGenerationButton
+
+Required Functions/Handlers:
+- monitorOutstandingBalances
+- manageDiscrepancies
+- generateReports
+- communicateWithUsers
+- updateBalanceInfo
+
+Required Buttons:
+- Generate Report
+- Notify User
+- Refresh Data
+
+Required APIs:
+- /v1/balances/outstanding
+- /v1/balances/discrepancies
+- /v1/reports/generate
+- /v1/notifications/send
+
+Required Semantic Keys (data-cy):
+- admin-outstanding-balances-overview
+- admin-balance-breakdown
+- admin-balance-alerts
+- admin-activity-log
+- admin-generate-report

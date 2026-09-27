@@ -1,0 +1,38 @@
+Screen Code: physiotherapist_exercise_plan
+Screen Name: PhysiotherapistExercisePlanScreen
+
+Required Components:
+- PatientOverviewCard
+- ComplianceMetricsChart
+- ProgressTrackingTable
+- AlertsNotification
+- EducationalResourcesPanel
+- ActivityLog
+- DepartmentPerformanceMetrics
+
+Required Functions/Handlers:
+- addExercisePlan
+- monitorPatientProgress
+- updatePatientRecord
+- generateReport
+
+Required Buttons:
+- Add Exercise Plan
+- Monitor Progress
+- Update Patient Record
+- Generate Report
+
+Required APIs:
+- /v1/patients/active
+- /v1/exercise-plans
+- /v1/patient/progress
+- /v1/alerts/red-flags
+- /v1/resources/education
+- /v1/activities/log
+- /v1/department/performance
+
+Required Semantic Keys (data-cy):
+- physio-dashboard-btn-add-exercise
+- physio-dashboard-btn-monitor-progress
+- physio-dashboard-btn-update-record
+- physio-dashboard-btn-generate-report

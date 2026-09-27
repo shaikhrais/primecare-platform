@@ -1,0 +1,24 @@
+Screen Code: billing_overview
+Screen Name: BillingOverviewScreen
+
+Required Components:
+- GovMetricCard
+- GovTelemetryChart
+- AuditLogSection
+- ComplianceNotification
+
+Required Functions/Handlers:
+- triggerComplianceScan
+- refreshTelemetryData
+
+Required Buttons:
+- Execute Scan
+- Refresh Data
+
+Required APIs:
+- /v1/billing/compliance/scans
+- /v1/billing/audit/logs
+
+Required Semantic Keys (data-cy):
+- billing-overview-btn-execute-scan
+- billing-overview-btn-refresh

@@ -1,0 +1,23 @@
+User Work List:
+1. Monitor audit processes.
+2. Review audit results and reports.
+3. Identify areas for improvement based on audit findings.
+4. Ensure compliance with relevant standards and regulations.
+5. Collaborate with team members to address audit issues.
+6. Update audit documentation as necessary.
+
+Red Flags of Operation:
+1. Frequent errors or issues during audits.
+2. Delays in audit report generation.
+3. Lack of clarity in audit findings.
+4. Non-compliance with standards or regulations.
+5. Inconsistent audit processes across different teams.
+6. Low user engagement with audit results.
+
+Dashboard Needs:
+1. Overview of current audit status (in progress, completed, pending).
+2. Key performance indicators (KPIs) related to audit effectiveness.
+3. Alerts for any red flags identified during audits.
+4. Access to detailed audit reports and findings.
+5. User feedback section for continuous improvement.
+6. Historical data trends for audits over time.

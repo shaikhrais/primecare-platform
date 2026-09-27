@@ -1,0 +1,29 @@
+Screen Code: mfa
+Screen Name: Mfa
+
+Required Components:
+- CodeInputField
+- VerificationStatusDisplay
+- ErrorMessageDisplay
+- LoadingIndicator
+- VerificationHistory
+
+Required Functions/Handlers:
+- validateCode
+- submitCodeForVerification
+- displayVerificationResult
+- showErrorMessage
+- indicateLoadingStatus
+
+Required Buttons:
+- Submit Code
+
+Required APIs:
+- /v1/auth/verify-code
+
+Required Semantic Keys (data-cy):
+- mfa-code-input
+- mfa-submit-button
+- mfa-verification-status
+- mfa-error-message
+- mfa-loading-indicator

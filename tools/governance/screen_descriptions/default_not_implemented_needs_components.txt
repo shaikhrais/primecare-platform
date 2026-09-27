@@ -1,0 +1,29 @@
+Screen Code: default_not_implemented
+Screen Name: Default Not Implemented
+
+Required Components:
+- MasterLayout
+- GovernedConsumerWidget
+- GovernedStatelessWidget
+- GovernedConsumerState
+- PrimeCareScreen
+- DefaultNotImplementedView
+- ResponsiveScreenWrapper
+
+Required Functions/Handlers:
+- buildScreen
+- checkAppShellBoundary
+- handleLayoutViolations
+- localizeText
+
+Required Buttons:
+- Return to Dashboard
+
+Required APIs:
+- [None specified]
+
+Required Semantic Keys (data-cy):
+- dashboard-screen-status
+- dashboard-error-messages
+- dashboard-metrics
+- dashboard-user-role-info

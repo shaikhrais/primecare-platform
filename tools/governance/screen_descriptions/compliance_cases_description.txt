@@ -1,0 +1,20 @@
+User Work List:
+1. Monitor compliance cases.
+2. Review case details and status.
+3. Update case information as needed.
+4. Generate compliance reports.
+5. Communicate with relevant stakeholders regarding compliance issues.
+
+Red Flags of Operation:
+1. Delays in case updates or resolutions.
+2. High number of unresolved cases.
+3. Frequent errors or issues reported in the system.
+4. Lack of communication from stakeholders.
+5. Inconsistent data or reporting discrepancies.
+
+Dashboard Requirements:
+1. Overview of active compliance cases.
+2. Status indicators for each case (open, in progress, resolved).
+3. Notifications for overdue cases or actions required.
+4. Summary statistics (total cases, resolved cases, unresolved cases).
+5. Quick access to generate reports or export data.

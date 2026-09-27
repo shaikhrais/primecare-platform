@@ -1,0 +1,35 @@
+List of work Customer Support must do:
+1. Respond to customer inquiries and issues promptly.
+2. Provide technical support and troubleshooting assistance.
+3. Maintain a knowledge base for common issues and solutions.
+4. Track and manage customer interactions and feedback.
+5. Escalate unresolved issues to higher-level support or management.
+6. Conduct follow-ups with customers to ensure satisfaction.
+7. Analyze customer feedback for service improvement.
+8. Collaborate with other departments to resolve complex issues.
+9. Train new support staff on processes and tools.
+10. Monitor service level agreements (SLAs) and performance metrics.
+
+Red flags of operation:
+1. High volume of unresolved tickets.
+2. Increased response times to customer inquiries.
+3. Frequent escalations to higher-level support.
+4. Low customer satisfaction ratings.
+5. High employee turnover in the support team.
+6. Lack of updated knowledge base articles.
+7. Inconsistent communication with customers.
+8. Repeated issues reported by multiple customers.
+9. Failure to meet SLAs.
+10. Lack of training and resources for support staff.
+
+Dashboard needs for Customer Support:
+1. Ticket volume and status overview (open, closed, pending).
+2. Average response and resolution times.
+3. Customer satisfaction scores and feedback trends.
+4. Escalation rates and reasons for escalations.
+5. Performance metrics for individual support agents.
+6. Knowledge base usage statistics.
+7. Common issues reported by customers.
+8. SLA compliance rates.
+9. Training and resource availability for staff.
+10. Integration with other tools for seamless operations.

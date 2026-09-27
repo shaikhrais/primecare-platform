@@ -1,0 +1,38 @@
+Screen Code: epidemiological_surveillance_dashboard
+Screen Name: Epidemiological Surveillance Dashboard
+
+Required Components:
+- RealTimeDataChart
+- OutbreakPatternAnalysis
+- DiseaseIncidenceReport
+- CollaborationTool
+- DataVisualizationGraph
+- AlertNotificationSystem
+- HistoricalDataViewer
+
+Required Functions/Handlers:
+- generateReport
+- setAlert
+- updateData
+- collaborateWithStakeholders
+- exportData
+
+Required Buttons:
+- Generate Report
+- Set Alert
+- Update Data
+- Collaborate
+- Export Data
+
+Required APIs:
+- /v1/epidemiological/data
+- /v1/epidemiological/alerts
+- /v1/epidemiological/reports
+- /v1/epidemiological/collaboration
+
+Required Semantic Keys (data-cy):
+- epidashboard-btn-generate-report
+- epidashboard-btn-set-alert
+- epidashboard-btn-update-data
+- epidashboard-btn-collaborate
+- epidashboard-btn-export-data

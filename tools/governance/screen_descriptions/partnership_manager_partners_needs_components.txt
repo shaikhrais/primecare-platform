@@ -1,0 +1,39 @@
+Screen Code: partnership_manager_partners
+Screen Name: Partnership Manager Partners
+
+Required Components:
+- KPIWidget
+- AlertNotification
+- CommunicationSummary
+- PerformanceVisualization
+- ComplianceStatusCard
+- GoalTrackingTool
+
+Required Functions/Handlers:
+- monitorPerformanceMetrics
+- managePartnerRelationships
+- analyzePartnershipData
+- communicateWithPartners
+- ensureCompliance
+- trackPartnershipGoals
+
+Required Buttons:
+- Review Partner
+- Send Update
+- Analyze Data
+- Track Goals
+
+Required APIs:
+- /v1/partnerships/performance
+- /v1/partnerships/relationships
+- /v1/partnerships/communication
+- /v1/partnerships/compliance
+- /v1/partnerships/goals
+
+Required Semantic Keys (data-cy):
+- partnerships-kpi-widget
+- partnerships-alert-notification
+- partnerships-communication-summary
+- partnerships-performance-visualization
+- partnerships-compliance-status
+- partnerships-goal-tracking

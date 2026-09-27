@@ -1,0 +1,19 @@
+List of work the user must do:
+1. Monitor claims submitted by users.
+2. Review and approve or reject claims based on predefined criteria.
+3. Generate reports on claims status and trends.
+4. Communicate with users regarding their claims.
+5. Ensure compliance with relevant regulations and policies.
+
+Red flags of operation:
+1. High volume of rejected claims may indicate issues with user submissions or unclear guidelines.
+2. Delays in processing claims could signal resource shortages or inefficiencies.
+3. Frequent errors in claims data may suggest a need for better user training or system improvements.
+4. Lack of communication from users regarding their claims can indicate dissatisfaction or confusion.
+
+What is needed on the dashboard of the user:
+1. Overview of claims status (pending, approved, rejected).
+2. Metrics on average processing time for claims.
+3. Alerts for claims that are approaching deadlines.
+4. User feedback section to gather insights on the claims process.
+5. Visualizations of claims trends over time (e.g., monthly submissions, approval rates).

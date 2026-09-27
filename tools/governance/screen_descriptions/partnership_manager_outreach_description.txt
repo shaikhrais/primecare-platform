@@ -1,0 +1,23 @@
+List of work the user must do:
+1. Monitor partnership outreach activities.
+2. Track engagement metrics with potential partners.
+3. Analyze the effectiveness of outreach strategies.
+4. Update partnership status and notes.
+5. Collaborate with team members on outreach efforts.
+6. Review feedback from partners and adjust strategies accordingly.
+
+Red flags of operation:
+1. Low engagement rates with potential partners.
+2. High response time to outreach efforts.
+3. Inconsistent updates on partnership status.
+4. Lack of collaboration or communication among team members.
+5. Negative feedback from partners or stakeholders.
+6. Failure to meet outreach goals or deadlines.
+
+What is needed on the user dashboard:
+1. Overview of current partnerships and their statuses.
+2. Engagement metrics (e.g., response rates, follow-up actions).
+3. Notifications for pending tasks or follow-ups.
+4. Visual representation of outreach effectiveness (charts/graphs).
+5. Collaboration tools for team communication.
+6. Feedback section for partner responses and suggestions.

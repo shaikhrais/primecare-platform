@@ -1,0 +1,33 @@
+List of tasks a physician must perform:
+1. Monitor patient health metrics.
+2. Review patient compliance with treatment plans.
+3. Analyze operational logs for anomalies.
+4. Execute quality verification sweeps.
+5. Maintain communication with healthcare teams.
+6. Update patient records and documentation.
+7. Participate in continuous education and training.
+8. Ensure adherence to regulatory standards.
+
+Red flags for operations:
+1. High number of exceptions flagged in compliance checks.
+2. Delays in patient treatment or follow-up.
+3. Inconsistent patient health metrics.
+4. Network or API errors during data retrieval.
+5. Lack of synchronization in operational logs.
+6. Unusual trends in telemetry data.
+
+Effective work strategies:
+1. Regularly review and update dashboards.
+2. Utilize automated alerts for compliance issues.
+3. Foster collaboration among healthcare teams.
+4. Implement feedback loops for continuous improvement.
+5. Prioritize patient-centered care in decision-making.
+
+Dashboard needs for physicians:
+1. Real-time health metrics display.
+2. Compliance status indicators.
+3. Operational logs and alerts.
+4. Telemetry charts for trend analysis.
+5. Quick access to patient records.
+6. Task execution buttons for operational workflows.
+7. Log history for accountability and review.

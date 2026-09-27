@@ -1,0 +1,18 @@
+User Work List:
+1. Access the Regional Bdm Competitor Notes screen.
+2. Review competitor notes and insights.
+3. Update or add new notes as necessary.
+4. Monitor loading states and handle any errors that arise.
+5. Utilize the information for strategic decision-making.
+
+Red Flags of Operation:
+1. Frequent loading states indicating potential performance issues.
+2. Errors during data loading that could hinder access to important information.
+3. Lack of updates or stale data in competitor notes.
+4. User interface issues that may affect usability.
+
+Dashboard Needs:
+1. Real-time data updates on competitor notes.
+2. Visual indicators for loading states and errors.
+3. Summary statistics on the number of notes reviewed or updated.
+4. Alerts for any critical updates or changes in competitor information.

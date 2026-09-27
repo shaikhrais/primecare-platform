@@ -1,0 +1,19 @@
+User Tasks:
+1. Access the Psw Daily Notes screen.
+2. Review daily notes related to patient care.
+3. Add new notes or update existing ones.
+4. Navigate to other relevant sections of the application if needed.
+
+Red Flags of Operation:
+1. Slow loading times when accessing the screen.
+2. Inability to save or update notes.
+3. Missing or incorrect data displayed on the screen.
+4. Lack of user feedback when actions are performed (e.g., saving notes).
+5. Accessibility issues that prevent users from effectively using the screen.
+
+Dashboard Needs:
+1. Quick access to recent notes.
+2. Notifications for any updates or changes to notes.
+3. Summary of notes categorized by date or patient.
+4. Search functionality to find specific notes quickly.
+5. Performance metrics (e.g., loading times, error rates) to monitor the effectiveness of the screen.

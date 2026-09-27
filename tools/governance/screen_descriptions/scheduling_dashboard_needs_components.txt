@@ -1,0 +1,50 @@
+Screen Code: scheduling_dashboard
+Screen Name: SchedulingDashboardScreen
+
+Required Components:
+- OperationalMetricsCard
+- StaffPerformanceTracker
+- ComplianceStatusIndicator
+- IncidentReportLog
+- InventoryAlert
+- CommunicationTool
+- AuditLogViewer
+- CustomerFeedbackTracker
+- TrainingProgressTracker
+- RedFlagAlert
+
+Required Functions/Handlers:
+- generateReport
+- sendTeamUpdate
+- logIncident
+- requestInventory
+- conductAudit
+- trainStaff
+
+Required Buttons:
+- Generate Report
+- Send Update
+- Log Incident
+- Request Inventory
+- Conduct Audit
+- Train Staff
+
+Required APIs:
+- /v1/operations/metrics
+- /v1/staff/performance
+- /v1/compliance/status
+- /v1/incidents/log
+- /v1/inventory/levels
+- /v1/communication/send
+- /v1/audit/logs
+- /v1/customer/feedback
+- /v1/training/progress
+- /v1/redflags/alerts
+
+Required Semantic Keys (data-cy):
+- scheduling-dashboard-btn-generate-report
+- scheduling-dashboard-btn-send-update
+- scheduling-dashboard-btn-log-incident
+- scheduling-dashboard-btn-request-inventory
+- scheduling-dashboard-btn-conduct-audit
+- scheduling-dashboard-btn-train-staff

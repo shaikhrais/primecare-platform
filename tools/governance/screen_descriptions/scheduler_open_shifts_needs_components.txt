@@ -1,0 +1,48 @@
+Screen Code: scheduler_open_shifts
+Screen Name: SchedulerOpenShiftsScreen
+
+Required Components:
+- PerformanceMetricCard
+- ComplianceAuditLog
+- StaffScheduleOverview
+- IncidentReportList
+- CommunicationTool
+- OperationalTrendChart
+- TrainingResourceAccess
+- AlertNotification
+
+Required Functions/Handlers:
+- fetchPerformanceMetrics
+- conductComplianceAudit
+- updateStaffSchedule
+- resolveIncident
+- sendTeamUpdate
+- accessTrainingResources
+- acknowledgeAlert
+
+Required Buttons:
+- View Performance Metrics
+- Conduct Compliance Audit
+- Update Schedule
+- Resolve Incident
+- Send Team Update
+- Access Training Materials
+- Acknowledge Alert
+
+Required APIs:
+- /v1/operations/performance-metrics
+- /v1/operations/compliance-audit
+- /v1/operations/staff-schedule
+- /v1/operations/incident-report
+- /v1/communications/team-update
+- /v1/training/resources
+- /v1/alerts/red-flags
+
+Required Semantic Keys (data-cy):
+- scheduler-btn-view-performance
+- scheduler-btn-conduct-audit
+- scheduler-btn-update-schedule
+- scheduler-btn-resolve-incident
+- scheduler-btn-send-update
+- scheduler-btn-access-training
+- scheduler-btn-acknowledge-alert

@@ -1,0 +1,21 @@
+User Work List:
+1. Enter email address in the identifier field.
+2. Enter security token in the password field.
+3. Click on the login button to attempt authentication.
+4. Optionally, click on "Forgot Password" to initiate password recovery.
+5. Review any error or success messages displayed after login attempt.
+
+Red Flags of Operation:
+1. User fails to enter required fields (email or password).
+2. User enters an invalid email format.
+3. User enters a password that is too short.
+4. User experiences loading delays or hangs during login.
+5. Error messages are unclear or not user-friendly.
+
+Dashboard Requirements for User:
+1. Display login status (success or failure).
+2. Show error messages clearly if login fails.
+3. Provide a loading indicator during authentication.
+4. Include a link for password recovery.
+5. Show success messages upon successful login.
+6. Provide user feedback on input validation (e.g., invalid email format).

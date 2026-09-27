@@ -1,0 +1,27 @@
+Screen Code: clinical_guideline_library
+Screen Name: Clinical Guideline Library
+
+Required Components:
+- GuidelineList
+- GuidelineDetail
+- SearchBar
+- ErrorReportSection
+- PerformanceMetrics
+
+Required Functions/Handlers:
+- fetchGuidelines
+- refreshGuidelines
+- searchGuidelines
+- viewGuidelineDetails
+
+Required Buttons:
+- Refresh
+- Search
+
+Required APIs:
+- /v1/clinical/guidelines
+- /v1/clinical/guidelines/search
+
+Required Semantic Keys (data-cy):
+- clinical-guideline-library-refresh
+- clinical-guideline-library-search

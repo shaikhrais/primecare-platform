@@ -1,0 +1,51 @@
+Screen Code: finance_director_compliance
+Screen Name: FinanceDirectorComplianceScreen
+
+Required Components:
+- KPIWidget
+- CashFlowChart
+- BudgetPerformanceTracker
+- ComplianceStatusCard
+- ForecastTrendChart
+- RiskAssessmentWidget
+- VarianceAnalysisReport
+- TransactionSummaryWidget
+- ComplianceAlerts
+- FinancialDataVisualization
+
+Required Functions/Handlers:
+- generateReport
+- viewAudits
+- refreshData
+- setFinancialTargets
+- manageBudget
+
+Required Buttons:
+- Generate Report
+- View Audits
+- Refresh Data
+- Set Financial Targets
+- Manage Budget
+
+Required APIs:
+- /v1/finance/kpis
+- /v1/finance/cashflow
+- /v1/finance/budget/performance
+- /v1/finance/compliance/status
+- /v1/finance/forecasts
+- /v1/finance/risk/assessment
+- /v1/finance/variance/report
+- /v1/finance/transactions
+- /v1/finance/compliance/alerts
+
+Required Semantic Keys (data-cy):
+- finance-kpi-widget
+- finance-cashflow-chart
+- finance-budget-tracker
+- finance-compliance-card
+- finance-forecast-chart
+- finance-risk-widget
+- finance-variance-report
+- finance-transaction-summary
+- finance-compliance-alerts
+- finance-data-visualization

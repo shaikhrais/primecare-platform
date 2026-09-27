@@ -1,0 +1,28 @@
+List of work the user must do:
+1. Monitor incoming customer support tickets.
+2. Respond to customer inquiries and issues.
+3. Track the status of each ticket (open, in progress, resolved).
+4. Escalate tickets that require higher-level support.
+5. Analyze ticket trends and customer feedback for improvements.
+6. Update ticket statuses and add notes as necessary.
+7. Collaborate with other departments to resolve complex issues.
+8. Provide feedback on the support process for continuous improvement.
+
+Red flags of operation:
+1. High volume of unresolved tickets indicating potential staffing issues.
+2. Long response times to customer inquiries.
+3. Frequent escalations suggesting inadequate first-level support.
+4. Repeated issues from customers indicating a lack of product knowledge or training.
+5. Negative customer feedback or low satisfaction ratings.
+6. Lack of communication between support staff and other departments.
+7. Inconsistent ticket updates leading to confusion.
+
+What is needed on the user dashboard:
+1. Overview of open, in-progress, and resolved tickets.
+2. Average response time and resolution time metrics.
+3. Alerts for tickets that have been open for too long.
+4. Customer satisfaction ratings and feedback summaries.
+5. Quick access to frequently asked questions or knowledge base articles.
+6. Visual representation of ticket trends over time.
+7. Collaboration tools for communicating with other departments.
+8. Performance metrics for individual support agents.

@@ -1,0 +1,20 @@
+import 'package:flutter/material.dart';
+
+class ServiceMeshTopologyHeaderSection extends StatelessWidget {
+  const ServiceMeshTopologyHeaderSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: const Key('service_mesh_topology_header-section'),
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: const [
+          Text('Header Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          // TODO: Add element slots here from DB
+        ],
+      ),
+    );
+  }
+}

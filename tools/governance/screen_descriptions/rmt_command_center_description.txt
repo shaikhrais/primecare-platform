@@ -1,0 +1,35 @@
+List of tasks Registered Massage Therapists (RMTs) must perform:
+1. Conduct client assessments to determine treatment needs.
+2. Develop and implement personalized treatment plans.
+3. Perform various massage techniques (e.g., Swedish, deep tissue).
+4. Maintain accurate client records and documentation.
+5. Ensure a clean and safe treatment environment.
+6. Stay updated on industry trends and continuing education.
+7. Communicate effectively with clients regarding treatment progress.
+8. Adhere to ethical and professional standards.
+9. Manage appointment scheduling and client follow-ups.
+10. Collaborate with other healthcare professionals as needed.
+
+Red flags in operations for RMTs:
+1. Inconsistent client records or documentation.
+2. Complaints from clients regarding treatment or service.
+3. High cancellation or no-show rates.
+4. Lack of adherence to hygiene and safety protocols.
+5. Failure to obtain informed consent from clients.
+6. Inability to provide evidence of continuing education.
+7. Poor communication with clients or team members.
+8. Non-compliance with regulatory standards or guidelines.
+9. Signs of burnout or decreased job satisfaction among staff.
+10. Inadequate response to client feedback or concerns.
+
+Dashboard requirements for Registered Massage Therapists (RMTs):
+1. Overview of active client appointments and schedules.
+2. Compliance status and audit logs.
+3. Key performance indicators (KPIs) such as client retention rates.
+4. Client feedback and satisfaction scores.
+5. Operational metrics, including treatment outcomes and effectiveness.
+6. Alerts for any compliance issues or red flags.
+7. Access to continuing education resources and requirements.
+8. Summary of treatment plans and client progress.
+9. Communication tools for client follow-ups and reminders.
+10. Visualizations of operational data, such as appointment trends and service usage.

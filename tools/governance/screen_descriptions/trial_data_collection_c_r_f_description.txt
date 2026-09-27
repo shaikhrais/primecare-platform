@@ -1,0 +1,25 @@
+User Work List:
+1. Collect trial data through the CRF interface.
+2. Input patient information and trial specifics.
+3. Review and validate entered data for accuracy.
+4. Submit collected data for processing.
+5. Monitor data submission status and receive feedback.
+6. Access historical data for reference and comparison.
+7. Generate reports based on collected trial data.
+
+Red Flags of Operation:
+1. Frequent data entry errors or inconsistencies.
+2. Delays in data submission or processing feedback.
+3. Incomplete data fields leading to submission failures.
+4. Lack of user engagement or low data collection rates.
+5. System crashes or performance issues during data entry.
+6. Difficulty in accessing historical data or generating reports.
+
+Dashboard Requirements:
+1. Real-time data entry status updates.
+2. Error tracking and reporting for data submissions.
+3. User engagement metrics (e.g., number of submissions).
+4. Historical data access with filtering options.
+5. Performance metrics of the data collection process.
+6. Alerts for incomplete or erroneous data entries.
+7. Summary reports of collected data for quick insights.

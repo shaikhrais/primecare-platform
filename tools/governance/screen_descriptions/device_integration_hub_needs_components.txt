@@ -1,0 +1,46 @@
+Screen Code: device_integration_hub
+Screen Name: Device Integration Hub
+
+Required Components:
+- DeviceStatusOverview
+- AlertsNotification
+- UserActivityLog
+- PerformanceMetricsChart
+- TroubleshootingResources
+- ConfigurationChangeSummary
+- ConnectivityPerformanceTrend
+
+Required Functions/Handlers:
+- monitorDeviceStatus
+- configureDeviceSettings
+- manageUserPermissions
+- troubleshootConnectivityIssues
+- reviewIntegrationLogs
+- updateFirmwareSoftware
+- setupAlerts
+
+Required Buttons:
+- Configure Device Settings
+- Manage User Permissions
+- Troubleshoot Connectivity
+- Review Logs
+- Update Firmware
+- Set Up Alerts
+
+Required APIs:
+- /v1/device/status
+- /v1/device/configure
+- /v1/user/permissions
+- /v1/device/troubleshoot
+- /v1/device/logs
+- /v1/device/update
+- /v1/device/alerts
+
+Required Semantic Keys (data-cy):
+- device-integration-status
+- device-configure-settings
+- user-permissions-manage
+- device-troubleshoot
+- integration-logs-review
+- device-update-firmware
+- device-alerts-setup

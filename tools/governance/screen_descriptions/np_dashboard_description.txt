@@ -1,0 +1,35 @@
+List of tasks Nurse Practitioners (NPs) must perform:
+1. Conduct patient assessments and evaluations.
+2. Diagnose and treat acute and chronic conditions.
+3. Order and interpret diagnostic tests.
+4. Develop and implement treatment plans.
+5. Prescribe medications and therapies.
+6. Provide patient education and counseling.
+7. Collaborate with other healthcare professionals.
+8. Maintain accurate patient records.
+9. Perform minor procedures as needed.
+10. Stay updated with continuing education and training.
+
+Red flags of operation for effective work:
+1. High patient wait times.
+2. Increased number of patient complaints.
+3. Inconsistent documentation practices.
+4. Frequent medication errors.
+5. Lack of follow-up on patient referrals.
+6. Poor communication with other healthcare providers.
+7. Inadequate patient education leading to misunderstandings.
+8. Non-compliance with clinical guidelines or protocols.
+9. High turnover rates among staff.
+10. Insufficient resources or support for patient care.
+
+Dashboard needs for Nurse Practitioners (NPs):
+1. Real-time patient metrics (e.g., number of active patients, patient wait times).
+2. Compliance audit results and alerts.
+3. Logs of recent activities and actions taken.
+4. Performance indicators (e.g., patient satisfaction scores).
+5. Access to patient records and diagnostic results.
+6. Notifications for follow-up appointments and referrals.
+7. Tools for medication management and prescription tracking.
+8. Communication tools for collaboration with other healthcare providers.
+9. Educational resources and updates on clinical guidelines.
+10. Visualizations of operational metrics (e.g., charts, graphs).

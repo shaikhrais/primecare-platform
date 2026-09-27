@@ -1,0 +1,57 @@
+Screen Code: franchise_sales_manager_workflow
+Screen Name: FranchiseSalesManagerWorkflowScreen
+
+Required Components:
+- SalesPerformanceMetricCard
+- CustomerSatisfactionChart
+- EmployeePerformanceTable
+- FinancialOverviewCard
+- InventoryStatusWidget
+- MarketingCampaignROIChart
+- ComplianceChecklist
+- OperationalKPIsDashboard
+- RedFlagsAlert
+- CommunicationLog
+
+Required Functions/Handlers:
+- fetchSalesMetrics
+- fetchCustomerFeedback
+- fetchEmployeeData
+- fetchFinancialOverview
+- fetchInventoryStatus
+- fetchMarketingPerformance
+- fetchComplianceData
+- fetchOperationalKPIs
+- checkRedFlags
+- logCommunication
+
+Required Buttons:
+- View Detailed Reports
+- Update Inventory
+- Manage Marketing Campaigns
+- Conduct Audit
+- Communicate with Franchisor
+
+Required APIs:
+- /v1/franchise/sales/performance
+- /v1/franchise/customer/feedback
+- /v1/franchise/employee/performance
+- /v1/franchise/financial/overview
+- /v1/franchise/inventory/status
+- /v1/franchise/marketing/performance
+- /v1/franchise/compliance/checklist
+- /v1/franchise/operational/kpis
+- /v1/franchise/redflags
+- /v1/franchise/communication/logs
+
+Required Semantic Keys (data-cy):
+- franchise-sales-metrics
+- franchise-customer-feedback
+- franchise-employee-performance
+- franchise-financial-overview
+- franchise-inventory-status
+- franchise-marketing-performance
+- franchise-compliance-checklist
+- franchise-operational-kpis
+- franchise-redflags-alert
+- franchise-communication-log

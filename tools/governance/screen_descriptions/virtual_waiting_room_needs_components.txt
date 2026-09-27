@@ -1,0 +1,35 @@
+Screen Code: virtual_waiting_room
+Screen Name: Virtual Waiting Room
+
+Required Components:
+- PatientFlowMonitor
+- CheckInOutManager
+- WaitingTimeTracker
+- PatientCommunication
+- UsageStatisticsAnalyzer
+
+Required Functions/Handlers:
+- monitorPatientFlow
+- manageCheckIn
+- manageCheckOut
+- trackWaitingTimes
+- communicateWithPatients
+- analyzeUsageStatistics
+
+Required Buttons:
+- Check In
+- Check Out
+- Send Message
+- View Feedback
+
+Required APIs:
+- /v1/patients/checkin
+- /v1/patients/checkout
+- /v1/patients/status
+- /v1/statistics/usage
+
+Required Semantic Keys (data-cy):
+- virtual-waiting-room-btn-checkin
+- virtual-waiting-room-btn-checkout
+- virtual-waiting-room-btn-send-message
+- virtual-waiting-room-btn-view-feedback

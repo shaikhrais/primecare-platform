@@ -1,0 +1,231 @@
+# App Context: PrimeCare UI Client (ui)
+
+- **Description:** None
+- **Screens Count:** 225
+
+## Screens:
+- **RmtAnalyticsScreen** (rmt_analytics) - Route: `/offices/clinical/roles/rmt/analytics`
+- **RmtComplianceScreen** (rmt_compliance) - Route: `/offices/clinical/roles/rmt/compliance`
+- **RmtWorkflowScreen** (rmt_workflow) - Route: `/offices/clinical/roles/rmt/workflow`
+- **ClinicalAnalyticsScreen** (clinical_analytics) - Route: `/offices/clinical/roles/clinical_director/analytics`
+- **ClinicalComplianceScreen** (clinical_compliance) - Route: `/offices/clinical/roles/clinical_director/compliance`
+- **ClinicalWorkflowScreen** (clinical_workflow) - Route: `/offices/clinical/roles/clinical_director/workflow`
+- **HswAdlLoggerScreen** (hsw_adl_logger) - Route: `/clinical/hsw-adl-logger`
+- **HswCarePlansScreen** (hsw_care_plans) - Route: `/clinical/hsw-care-plans`
+- **HswIncidentReportsScreen** (hsw_incident_reports) - Route: `/clinical/hsw-incident-reports`
+- **HswScheduleScreen** (hsw_schedule) - Route: `/clinical/hsw-schedule`
+- **ArchitecturePlanningAnalyticsScreen** (architecture_planning_analytics) - Route: `/common/architecture-planning-analytics`
+- **ArchitecturePlanningComplianceScreen** (architecture_planning_compliance) - Route: `/common/architecture-planning-compliance`
+- **ArchitecturePlanningWorkflowScreen** (architecture_planning_workflow) - Route: `/common/architecture-planning-workflow`
+- **BusinessDevelopmentAnalyticsScreen** (business_development_analytics) - Route: `/common/business-development-analytics`
+- **BusinessDevelopmentComplianceScreen** (business_development_compliance) - Route: `/common/business-development-compliance`
+- **BusinessDevelopmentWorkflowScreen** (business_development_workflow) - Route: `/common/business-development-workflow`
+- **ChiropractorAnalyticsScreen** (chiropractor_analytics) - Route: `/offices/clinical/roles/chiropractor/analytics`
+- **ChiropractorComplianceScreen** (chiropractor_compliance) - Route: `/offices/clinical/roles/chiropractor/compliance`
+- **ChiropractorWorkflowScreen** (chiropractor_workflow) - Route: `/offices/clinical/roles/chiropractor/workflow`
+- **ClinicAnalyticsScreen** (clinic_analytics) - Route: `/offices/clinical/roles/clinical_director/clinic-analytics`
+- **ClinicComplianceScreen** (clinic_compliance) - Route: `/offices/clinical/roles/clinical_director/clinic-compliance`
+- **ClinicWorkflowScreen** (clinic_workflow) - Route: `/offices/clinical/roles/clinical_director/clinic-workflow`
+- **CourseArchitectAnalyticsScreen** (course_architect_analytics) - Route: `/common/course-architect-analytics`
+- **CourseArchitectComplianceScreen** (course_architect_compliance) - Route: `/common/course-architect-compliance`
+- **CourseArchitectWorkflowScreen** (course_architect_workflow) - Route: `/common/course-architect-workflow`
+- **CustomerSupportAnalyticsScreen** (customer_support_analytics) - Route: `/common/customer-support-analytics`
+- **CustomerSupportComplianceScreen** (customer_support_compliance) - Route: `/common/customer-support-compliance`
+- **CustomerSupportWorkflowScreen** (customer_support_workflow) - Route: `/common/customer-support-workflow`
+- **DynamicScreenAnalyticsScreen** (dynamic_analytics) - Route: `/common/dynamic-analytics`
+- **DynamicScreenComplianceScreen** (dynamic_compliance) - Route: `/common/dynamic-compliance`
+- **DynamicScreenWorkflowScreen** (dynamic_workflow) - Route: `/common/dynamic-workflow`
+- **FamilyMemberAnalyticsScreen** (family_member_analytics) - Route: `/common/family-member-analytics`
+- **FamilyMemberComplianceScreen** (family_member_compliance) - Route: `/common/family-member-compliance`
+- **FamilyMemberWorkflowScreen** (family_member_workflow) - Route: `/common/family-member-workflow`
+- **FranchiseAnalyticsScreen** (franchise_analytics) - Route: `/common/franchise-analytics`
+- **FranchiseComplianceScreen** (franchise_compliance) - Route: `/common/franchise-compliance`
+- **FranchiseWorkflowScreen** (franchise_workflow) - Route: `/common/franchise-workflow`
+- **GuestAnalyticsScreen** (guest_analytics) - Route: `/common/guest-analytics`
+- **GuestComplianceScreen** (guest_compliance) - Route: `/common/guest-compliance`
+- **GuestWorkflowScreen** (guest_workflow) - Route: `/common/guest-workflow`
+- **InfrastructureAnalyticsScreen** (infrastructure_analytics) - Route: `/common/infrastructure-analytics`
+- **InfrastructureComplianceScreen** (infrastructure_compliance) - Route: `/common/infrastructure-compliance`
+- **InfrastructureWorkflowScreen** (infrastructure_workflow) - Route: `/common/infrastructure-workflow`
+- **IntakeAnalyticsScreen** (intake_analytics) - Route: `/offices/clinical/roles/intake_coordinator/analytics`
+- **IntakeComplianceScreen** (intake_compliance) - Route: `/offices/clinical/roles/intake_coordinator/compliance`
+- **IntakeWorkflowScreen** (intake_workflow) - Route: `/offices/clinical/roles/intake_coordinator/workflow`
+- **OfficeAnalyticsScreen** (office_analytics) - Route: `/common/office-analytics`
+- **OfficeComplianceScreen** (office_compliance) - Route: `/common/office-compliance`
+- **OfficeWorkflowScreen** (office_workflow) - Route: `/common/office-workflow`
+- **PatientAnalyticsScreen** (patient_analytics) - Route: `/common/patient-analytics`
+- **PatientComplianceScreen** (patient_compliance) - Route: `/common/patient-compliance`
+- **PatientWorkflowScreen** (patient_workflow) - Route: `/common/patient-workflow`
+- **PhysiotherapistAnalyticsScreen** (physiotherapist_analytics) - Route: `/offices/clinical/roles/physiotherapist/analytics`
+- **PhysiotherapistComplianceScreen** (physiotherapist_compliance) - Route: `/offices/clinical/roles/physiotherapist/compliance`
+- **PhysiotherapistWorkflowScreen** (physiotherapist_workflow) - Route: `/offices/clinical/roles/physiotherapist/workflow`
+- **PortalAnalyticsScreen** (portal_analytics) - Route: `/common/portal-analytics`
+- **PortalComplianceScreen** (portal_compliance) - Route: `/common/portal-compliance`
+- **PortalWorkflowScreen** (portal_workflow) - Route: `/common/portal-workflow`
+- **QaAnalyticsScreen** (qa_analytics) - Route: `/common/qa-analytics`
+- **QaComplianceScreen** (qa_compliance) - Route: `/common/qa-compliance`
+- **QaWorkflowScreen** (qa_workflow) - Route: `/common/qa-workflow`
+- **SharedScreenStubs** (shared_stubs) - Route: `/common/shared-stubs`
+- **SocialWorkerAnalyticsScreen** (social_worker_analytics) - Route: `/offices/clinical/roles/social_worker/analytics`
+- **SocialWorkerComplianceScreen** (social_worker_compliance) - Route: `/offices/clinical/roles/social_worker/compliance`
+- **SocialWorkerWorkflowScreen** (social_worker_workflow) - Route: `/offices/clinical/roles/social_worker/workflow`
+- **SupportAnalyticsScreen** (support_analytics) - Route: `/common/support-analytics`
+- **SupportComplianceScreen** (support_compliance) - Route: `/common/support-compliance`
+- **SupportWorkflowScreen** (support_workflow) - Route: `/common/support-workflow`
+- **SystemAnalyticsScreen** (system_analytics) - Route: `/common/system-analytics`
+- **SystemComplianceScreen** (system_compliance) - Route: `/common/system-compliance`
+- **SystemVerificationAnalyticsScreen** (system_verification_analytics) - Route: `/common/system-verification-analytics`
+- **SystemVerificationComplianceScreen** (system_verification_compliance) - Route: `/common/system-verification-compliance`
+- **SystemVerificationWorkflowScreen** (system_verification_workflow) - Route: `/common/system-verification-workflow`
+- **SystemWorkflowScreen** (system_workflow) - Route: `/common/system-workflow`
+- **TrainingHubAnalyticsScreen** (training_hub_analytics) - Route: `/common/training-hub-analytics`
+- **TrainingHubComplianceScreen** (training_hub_compliance) - Route: `/common/training-hub-compliance`
+- **TrainingHubWorkflowScreen** (training_hub_workflow) - Route: `/common/training-hub-workflow`
+- **CfoAnalyticsScreen** (cfo_analytics) - Route: `/executive/cfo-analytics`
+- **CfoComplianceScreen** (cfo_compliance) - Route: `/executive/cfo-compliance`
+- **CfoWorkflowScreen** (cfo_workflow) - Route: `/executive/cfo-workflow`
+- **CisoAnalyticsScreen** (ciso_analytics) - Route: `/executive/ciso-analytics`
+- **CisoComplianceScreen** (ciso_compliance) - Route: `/executive/ciso-compliance`
+- **CisoWorkflowScreen** (ciso_workflow) - Route: `/executive/ciso-workflow`
+- **CooAnalyticsScreen** (coo_analytics) - Route: `/executive/coo-analytics`
+- **CooComplianceScreen** (coo_compliance) - Route: `/offices/corporate/roles/coo/compliance-view`
+- **CooWorkflowScreen** (coo_workflow) - Route: `/executive/coo-workflow`
+- **CtoAnalyticsScreen** (cto_analytics) - Route: `/executive/cto-analytics`
+- **CtoComplianceScreen** (cto_compliance) - Route: `/executive/cto-compliance`
+- **CtoWorkflowScreen** (cto_workflow) - Route: `/executive/cto-workflow`
+- **CxDirectorAnalyticsScreen** (cx_director_analytics) - Route: `/executive/cx-director-analytics`
+- **CxDirectorComplianceScreen** (cx_director_compliance) - Route: `/executive/cx-director-compliance`
+- **CxDirectorWorkflowScreen** (cx_director_workflow) - Route: `/executive/cx-director-workflow`
+- **FinanceDirectorAnalyticsScreen** (finance_director_analytics) - Route: `/executive/finance-director-analytics`
+- **FinanceDirectorComplianceScreen** (finance_director_compliance) - Route: `/executive/finance-director-compliance`
+- **FinanceDirectorWorkflowScreen** (finance_director_workflow) - Route: `/executive/finance-director-workflow`
+- **HrDirectorAnalyticsScreen** (hr_director_analytics) - Route: `/executive/hr-director-analytics`
+- **HrDirectorComplianceScreen** (hr_director_compliance) - Route: `/executive/hr-director-compliance`
+- **HrDirectorWorkflowScreen** (hr_director_workflow) - Route: `/executive/hr-director-workflow`
+- **LegalAnalyticsScreen** (legal_analytics) - Route: `/executive/legal-analytics`
+- **LegalComplianceScreen** (legal_compliance) - Route: `/executive/legal-compliance`
+- **LegalWorkflowScreen** (legal_workflow) - Route: `/executive/legal-workflow`
+- **OwnerAnalyticsScreen** (owner_analytics) - Route: `/executive/owner-analytics`
+- **OwnerComplianceScreen** (owner_compliance) - Route: `/executive/owner-compliance`
+- **OwnerWorkflowScreen** (owner_workflow) - Route: `/executive/owner-workflow`
+- **ShareholderAnalyticsScreen** (shareholder_analytics) - Route: `/executive/shareholder-analytics`
+- **ShareholderComplianceScreen** (shareholder_compliance) - Route: `/executive/shareholder-compliance`
+- **ShareholderWorkflowScreen** (shareholder_workflow) - Route: `/executive/shareholder-workflow`
+- **TrainingDirectorAnalyticsScreen** (training_director_analytics) - Route: `/offices/corporate/roles/training_director/analytics`
+- **TrainingDirectorComplianceScreen** (training_director_compliance) - Route: `/executive/training-director-compliance`
+- **TrainingDirectorWorkflowScreen** (training_director_workflow) - Route: `/executive/training-director-workflow`
+- **CommunityOutreachAnalyticsScreen** (community_outreach_analytics) - Route: `/management/community-outreach-analytics`
+- **CommunityOutreachComplianceScreen** (community_outreach_compliance) - Route: `/management/community-outreach-compliance`
+- **CommunityOutreachWorkflowScreen** (community_outreach_workflow) - Route: `/management/community-outreach-workflow`
+- **ComplianceManagerAnalyticsScreen** (compliance_manager_analytics) - Route: `/management/compliance-manager-analytics`
+- **ComplianceManagerComplianceScreen** (compliance_manager_compliance) - Route: `/management/compliance-manager-compliance`
+- **ComplianceManagerWorkflowScreen** (compliance_manager_workflow) - Route: `/management/compliance-manager-workflow`
+- **FranchiseSalesManagerAnalyticsScreen** (franchise_sales_manager_analytics) - Route: `/management/franchise-sales-manager-analytics`
+- **FranchiseSalesManagerComplianceScreen** (franchise_sales_manager_compliance) - Route: `/management/franchise-sales-manager-compliance`
+- **FranchiseSalesManagerWorkflowScreen** (franchise_sales_manager_workflow) - Route: `/management/franchise-sales-manager-workflow`
+- **GeneralManagerAnalyticsScreen** (general_manager_analytics) - Route: `/management/general-manager-analytics`
+- **GeneralManagerComplianceScreen** (general_manager_compliance) - Route: `/management/general-manager-compliance`
+- **GeneralManagerWorkflowScreen** (general_manager_workflow) - Route: `/management/general-manager-workflow`
+- **GovernanceOfficerAnalyticsScreen** (governance_officer_analytics) - Route: `/management/governance-officer-analytics`
+- **GovernanceOfficerComplianceScreen** (governance_officer_compliance) - Route: `/management/governance-officer-compliance`
+- **GovernanceOfficerWorkflowScreen** (governance_officer_workflow) - Route: `/management/governance-officer-workflow`
+- **HeadOfBusDevAnalyticsScreen** (head_of_bus_dev_analytics) - Route: `/management/head-of-bus-dev-analytics`
+- **HeadOfBusDevComplianceScreen** (head_of_bus_dev_compliance) - Route: `/management/head-of-bus-dev-compliance`
+- **HeadOfBusDevWorkflowScreen** (head_of_bus_dev_workflow) - Route: `/management/head-of-bus-dev-workflow`
+- **HeadOfMarketingAnalyticsScreen** (head_of_marketing_analytics) - Route: `/management/head-of-marketing-analytics`
+- **HeadOfMarketingComplianceScreen** (head_of_marketing_compliance) - Route: `/management/head-of-marketing-compliance`
+- **HeadOfMarketingWorkflowScreen** (head_of_marketing_workflow) - Route: `/management/head-of-marketing-workflow`
+- **LocalMarketingManagerAnalyticsScreen** (local_marketing_manager_analytics) - Route: `/management/local-marketing-manager-analytics`
+- **LocalMarketingManagerComplianceScreen** (local_marketing_manager_compliance) - Route: `/management/local-marketing-manager-compliance`
+- **LocalMarketingManagerWorkflowScreen** (local_marketing_manager_workflow) - Route: `/management/local-marketing-manager-workflow`
+- **OperationsManagerAnalyticsScreen** (operations_manager_analytics) - Route: `/management/operations-manager-analytics`
+- **OperationsManagerComplianceScreen** (operations_manager_compliance) - Route: `/management/operations-manager-compliance`
+- **OperationsManagerWorkflowScreen** (operations_manager_workflow) - Route: `/management/operations-manager-workflow`
+- **PartnershipManagerAnalyticsScreen** (partnership_manager_analytics) - Route: `/management/partnership-manager-analytics`
+- **PartnershipManagerComplianceScreen** (partnership_manager_compliance) - Route: `/management/partnership-manager-compliance`
+- **PartnershipManagerWorkflowScreen** (partnership_manager_workflow) - Route: `/management/partnership-manager-workflow`
+- **RegionalBdmAnalyticsScreen** (regional_bdm_analytics) - Route: `/management/regional-bdm-analytics`
+- **RegionalBdmComplianceScreen** (regional_bdm_compliance) - Route: `/management/regional-bdm-compliance`
+- **RegionalBdmWorkflowScreen** (regional_bdm_workflow) - Route: `/management/regional-bdm-workflow`
+- **RegionalManagerUsaAnalyticsScreen** (regional_manager_usa_analytics) - Route: `/management/regional-manager-usa-analytics`
+- **RegionalManagerUsaComplianceScreen** (regional_manager_usa_compliance) - Route: `/management/regional-manager-usa-compliance`
+- **RegionalManagerUsaWorkflowScreen** (regional_manager_usa_workflow) - Route: `/management/regional-manager-usa-workflow`
+- **ScrumMasterAnalyticsScreen** (scrum_master_analytics) - Route: `/management/scrum-master-analytics`
+- **ScrumMasterComplianceScreen** (scrum_master_compliance) - Route: `/management/scrum-master-compliance`
+- **ScrumMasterWorkflowScreen** (scrum_master_workflow) - Route: `/management/scrum-master-workflow`
+- **TerritoryExpansionManagerAnalyticsScreen** (territory_expansion_manager_analytics) - Route: `/management/territory-expansion-manager-analytics`
+- **TerritoryExpansionManagerComplianceScreen** (territory_expansion_manager_compliance) - Route: `/management/territory-expansion-manager-compliance`
+- **TerritoryExpansionManagerWorkflowScreen** (territory_expansion_manager_workflow) - Route: `/management/territory-expansion-manager-workflow`
+- **TerritorySalesManagerAnalyticsScreen** (territory_sales_manager_analytics) - Route: `/management/territory-sales-manager-analytics`
+- **TerritorySalesManagerComplianceScreen** (territory_sales_manager_compliance) - Route: `/management/territory-sales-manager-compliance`
+- **TerritorySalesManagerWorkflowScreen** (territory_sales_manager_workflow) - Route: `/management/territory-sales-manager-workflow`
+- **Psw Analytics** (psw_analytics) - Route: `/offices/clinical/roles/psw/reports`
+- **My Clients** (psw_clients) - Route: `/offices/clinical/roles/psw/patient-profile`
+- **Psw Compliance** (psw_compliance) - Route: `/offices/clinical/roles/psw/help-support`
+- **Messages** (psw_messages) - Route: `/offices/clinical/roles/psw/messages`
+- **Shift Tracker** (psw_shift_tracker) - Route: `/offices/clinical/roles/psw/schedule`
+- **Task List** (psw_tasks) - Route: `/offices/clinical/roles/psw/visit-checklist`
+- **Visit Notes** (psw_visit_notes) - Route: `/offices/clinical/roles/psw/visit-notes`
+- **Psw Workflow** (psw_workflow) - Route: `/offices/clinical/roles/psw/psw-workflow`
+- **RnAnalyticsScreen** (rn_analytics) - Route: `/offices/clinical/roles/rn/rn-analytics`
+- **RnAssessmentsScreen** (rn_assessments) - Route: `/offices/clinical/roles/rn/rn-assessments`
+- **RnCarePlansScreen** (rn_care_plans) - Route: `/offices/clinical/roles/rn/rn-care-plans`
+- **RnComplianceScreen** (rn_compliance) - Route: `/offices/clinical/roles/rn/rn-compliance`
+- **RnWorkflowScreen** (rn_workflow) - Route: `/offices/clinical/roles/rn/rn-workflow`
+- **RpnAnalyticsScreen** (rpn_analytics) - Route: `/offices/clinical/roles/rpn/rpn-analytics`
+- **RpnComplianceScreen** (rpn_compliance) - Route: `/offices/clinical/roles/rpn/rpn-compliance`
+- **RpnWorkflowScreen** (rpn_workflow) - Route: `/offices/clinical/roles/rpn/rpn-workflow`
+- **BillingAdminAnalyticsScreen** (billing_admin_analytics) - Route: `/staff/billing-admin-analytics`
+- **BillingAdminComplianceScreen** (billing_admin_compliance) - Route: `/staff/billing-admin-compliance`
+- **BillingAdminWorkflowScreen** (billing_admin_workflow) - Route: `/staff/billing-admin-workflow`
+- **CoordinatorDispatchMapScreen** (coordinator_dispatch_map) - Route: `/staff/coordinator-dispatch-map`
+- **CoordinatorHubScreen** (coordinator_hub) - Route: `/staff/coordinator-hub`
+- **CoordinatorSosScreen** (coordinator_sos) - Route: `/staff/coordinator-sos`
+- **CoordinatorWaitlistScreen** (coordinator_waitlist) - Route: `/staff/coordinator-waitlist`
+- **HrHiringAnalyticsScreen** (hr_hiring_analytics) - Route: `/staff/hr-hiring-analytics`
+- **HrHiringComplianceScreen** (hr_hiring_compliance) - Route: `/staff/hr-hiring-compliance`
+- **HrHiringWorkflowScreen** (hr_hiring_workflow) - Route: `/staff/hr-hiring-workflow`
+- **HrManagerAnalyticsScreen** (hr_manager_analytics) - Route: `/staff/hr-manager-analytics`
+- **HrManagerComplianceScreen** (hr_manager_compliance) - Route: `/staff/hr-manager-compliance`
+- **HrManagerWorkflowScreen** (hr_manager_workflow) - Route: `/staff/hr-manager-workflow`
+- **IntakeCoordinatorAnalyticsScreen** (intake_coordinator_analytics) - Route: `/offices/clinical/roles/intake_coordinator/coordinator-analytics`
+- **IntakeCoordinatorComplianceScreen** (intake_coordinator_compliance) - Route: `/offices/clinical/roles/intake_coordinator/coordinator-compliance`
+- **IntakeCoordinatorWorkflowScreen** (intake_coordinator_workflow) - Route: `/offices/clinical/roles/intake_coordinator/coordinator-workflow`
+- **QualityAssuranceAnalyticsScreen** (quality_assurance_analytics) - Route: `/staff/quality-assurance-analytics`
+- **QualityAssuranceComplianceScreen** (quality_assurance_compliance) - Route: `/staff/quality-assurance-compliance`
+- **QualityAssuranceWorkflowScreen** (quality_assurance_workflow) - Route: `/staff/quality-assurance-workflow`
+- **ReceptionistAnalyticsScreen** (receptionist_analytics) - Route: `/staff/receptionist-analytics`
+- **ReceptionistComplianceScreen** (receptionist_compliance) - Route: `/staff/receptionist-compliance`
+- **ReceptionistWorkflowScreen** (receptionist_workflow) - Route: `/staff/receptionist-workflow`
+- **SchedulerAnalyticsScreen** (scheduler_analytics) - Route: `/staff/scheduler-analytics`
+- **SchedulerComplianceScreen** (scheduler_compliance) - Route: `/staff/scheduler-compliance`
+- **SchedulerWorkflowScreen** (scheduler_workflow) - Route: `/staff/scheduler-workflow`
+- **TrainingCoordinatorAnalyticsScreen** (training_coordinator_analytics) - Route: `/staff/training-coordinator-analytics`
+- **TrainingCoordinatorComplianceScreen** (training_coordinator_compliance) - Route: `/staff/training-coordinator-compliance`
+- **TrainingCoordinatorWorkflowScreen** (training_coordinator_workflow) - Route: `/staff/training-coordinator-workflow`
+- **VolunteerCoordinatorAnalyticsScreen** (volunteer_coordinator_analytics) - Route: `/staff/volunteer-coordinator-analytics`
+- **VolunteerCoordinatorComplianceScreen** (volunteer_coordinator_compliance) - Route: `/staff/volunteer-coordinator-compliance`
+- **VolunteerCoordinatorWorkflowScreen** (volunteer_coordinator_workflow) - Route: `/staff/volunteer-coordinator-workflow`
+- **Therapist Analytics** (therapist_analytics) - Route: `/offices/clinical/roles/therapist/analytics`
+- **Therapist Compliance Workflow** (therapist_workflow) - Route: `/offices/clinical/roles/therapist/workflow`
+- **Physician Analytics** (physician_analytics) - Route: `/clinical/physician-analytics`
+- **Physician Compliance Workflow** (physician_workflow) - Route: `/clinical/physician-workflow`
+- **Clinical Nurse Specialist Analytics** (cns_analytics) - Route: `/rn/cns-analytics`
+- **Clinical Nurse Specialist Compliance Workflow** (cns_workflow) - Route: `/rn/cns-workflow`
+- **Pediatric Specialist Analytics** (pediatric_analytics) - Route: `/clinical/pediatric-analytics`
+- **Pediatric Specialist Compliance Workflow** (pediatric_workflow) - Route: `/clinical/pediatric-workflow`
+- **Franchise Sales Manager Analytics** (franchise_sales_analytics) - Route: `/executive/franchise-sales-analytics`
+- **Franchise Sales Manager Compliance Workflow** (franchise_sales_workflow) - Route: `/executive/franchise-sales-workflow`
+- **Premium Concierge Care Coordinator Analytics** (premium_concierge_analytics) - Route: `/premium/premium-concierge-analytics`
+- **Premium Concierge Care Coordinator Compliance Workflow** (premium_concierge_workflow) - Route: `/premium/premium-concierge-workflow`
+- **VIP Client Manager Analytics** (vip_manager_analytics) - Route: `/executive/vip-manager-analytics`
+- **VIP Client Manager Compliance Workflow** (vip_manager_workflow) - Route: `/executive/vip-manager-workflow`
+- **Registered Nurse (RN) Field Supervisor Analytics** (rn_field_supervisor_analytics) - Route: `/rn/rn-field-supervisor-analytics`
+- **Registered Nurse (RN) Field Supervisor Compliance Workflow** (rn_field_supervisor_workflow) - Route: `/rn/rn-field-supervisor-workflow`
+- **Nurse Practitioner (NP) Analytics** (np_analytics) - Route: `/rn/np-analytics`
+- **Nurse Practitioner (NP) Compliance Workflow** (np_workflow) - Route: `/rn/np-workflow`
+- **Licensed Practical Nurse (LPN) Analytics** (lpn_analytics) - Route: `/rpn/lpn-analytics`
+- **Licensed Practical Nurse (LPN) Compliance Workflow** (lpn_workflow) - Route: `/rpn/lpn-workflow`
+- **Employee Analytics** (employee_analytics) - Route: `/staff/employee-analytics`
+- **Employee Compliance Workflow** (employee_workflow) - Route: `/staff/employee-workflow`
+- **AdminScreenHealthScreen** (admin_screen_health) - Route: `/admin/screen-health`

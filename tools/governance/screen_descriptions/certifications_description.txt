@@ -1,0 +1,17 @@
+List of work for the User:
+1. Monitor the loading state of the Certifications screen.
+2. Review the error messages if the data fails to load.
+3. Verify that the content displays correctly when data is available.
+4. Ensure that the UI elements (icon and text) are visually appealing and informative.
+
+Red flags of operation:
+1. Frequent loading states indicating potential performance issues.
+2. Recurring error messages that may suggest backend problems or data fetching issues.
+3. Inconsistent data display or UI layout problems that could confuse users.
+
+What we need on the dashboard for the User:
+1. A loading indicator to show when data is being fetched.
+2. A clear error message display for troubleshooting.
+3. A summary of the current certifications data.
+4. Performance metrics such as loading times and error rates.
+5. User feedback options to report issues or suggest improvements.

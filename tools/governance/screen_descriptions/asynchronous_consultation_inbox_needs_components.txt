@@ -1,0 +1,41 @@
+Screen Code: asynchronous_consultation_inbox
+Screen Name: Asynchronous Consultation Inbox
+
+Required Components:
+- ConsultationList
+- ConsultationStatusTracker
+- NotificationManager
+- ConsultationFilter
+- ConsultationArchive
+
+Required Functions/Handlers:
+- accessConsultationInbox
+- reviewConsultations
+- respondToConsultation
+- trackConsultationStatus
+- manageNotifications
+- filterConsultations
+- archiveConsultation
+- deleteConsultation
+
+Required Buttons:
+- Respond
+- Archive
+- Delete
+- Filter
+- Search
+
+Required APIs:
+- /v1/consultations/inbox
+- /v1/consultations/respond
+- /v1/consultations/status
+- /v1/notifications
+- /v1/consultations/filter
+
+Required Semantic Keys (data-cy):
+- consultation-inbox
+- consultation-respond-btn
+- consultation-archive-btn
+- consultation-delete-btn
+- consultation-filter-btn
+- consultation-search-btn

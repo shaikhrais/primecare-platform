@@ -1,0 +1,28 @@
+Intake Coordinator Responsibilities:
+1. Conduct compliance audits and ensure adherence to governance policies.
+2. Monitor and log operational activities and compliance status.
+3. Manage secure event reporting and ingestion of operational data.
+4. Enforce multi-factor authentication and other security measures.
+5. Update and maintain real-time system audit telemetry.
+6. Facilitate communication and coordination among clinical teams.
+7. Provide training and support for compliance-related processes.
+8. Analyze compliance data and generate reports for stakeholders.
+
+Red Flags of Operation:
+1. Increased frequency of compliance violations or audit failures.
+2. Delays in processing secure event reports or ingestion forms.
+3. Lack of timely updates to governance policies or security measures.
+4. High volume of error logs or system alerts indicating operational issues.
+5. Inconsistent communication among team members regarding compliance status.
+6. Resistance to adopting new compliance protocols or technologies.
+7. Failure to complete scheduled compliance audits on time.
+
+Dashboard Requirements for Intake Coordinator:
+1. Real-time compliance status indicators (e.g., compliant, non-compliant).
+2. Logs of recent compliance audits and their outcomes.
+3. Alerts for any compliance violations or operational issues.
+4. Summary of secure event reports submitted and their statuses.
+5. Metrics on the effectiveness of security measures (e.g., MFA adoption rate).
+6. Historical data trends on compliance performance over time.
+7. Quick access to governance directives and policy updates.
+8. User-friendly interface for logging operational activities and notes.

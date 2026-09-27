@@ -1,0 +1,57 @@
+{
+  "role": {
+    "id": 11,
+    "role_code": "pediatric",
+    "role_name": "Pediatric Specialist",
+    "role_type": "staff",
+    "active": 1
+  },
+  "screens_count": 3,
+  "screens": [
+    {
+      "id": 8,
+      "app_id": 6,
+      "role_id": 11,
+      "screen_code": "pediatric_dashboard",
+      "screen_name": "PediatricDashboardScreen",
+      "route_path": "/clinical/pediatric-dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/clinical/pediatric_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 603,
+      "app_id": 1,
+      "role_id": 11,
+      "screen_code": "pediatric_analytics",
+      "screen_name": "Pediatric Specialist Analytics",
+      "route_path": "/clinical/pediatric-analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/clinical/pediatric_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 604,
+      "app_id": 1,
+      "role_id": 11,
+      "screen_code": "pediatric_workflow",
+      "screen_name": "Pediatric Specialist Compliance Workflow",
+      "route_path": "/clinical/pediatric-workflow",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/clinical/pediatric_workflow_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

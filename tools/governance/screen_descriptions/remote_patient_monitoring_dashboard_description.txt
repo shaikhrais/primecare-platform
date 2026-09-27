@@ -1,0 +1,26 @@
+User Work List:
+1. Monitor patient health metrics (e.g., heart rate, blood pressure).
+2. Review patient alerts and notifications.
+3. Access patient history and trends.
+4. Communicate with patients through messaging or video calls.
+5. Update patient care plans based on data insights.
+6. Schedule follow-up appointments.
+7. Generate reports on patient health outcomes.
+
+Red Flags of Operation:
+1. Inconsistent or missing patient data.
+2. Delayed alerts for critical health changes.
+3. High rates of patient non-compliance with monitoring protocols.
+4. Technical issues with data transmission or dashboard access.
+5. Lack of user engagement with the dashboard features.
+6. Poor response times for patient communications.
+7. Inadequate training for users on dashboard functionalities.
+
+Dashboard Requirements:
+1. Real-time health metrics display.
+2. Alert system for critical patient conditions.
+3. Historical data visualization (graphs/charts).
+4. Messaging interface for patient communication.
+5. Easy access to patient care plans and updates.
+6. Reporting tools for health outcomes and trends.
+7. User activity logs to track engagement and usage patterns.

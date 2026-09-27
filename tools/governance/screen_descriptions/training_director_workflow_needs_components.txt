@@ -1,0 +1,33 @@
+Screen Code: training_director_workflow
+Screen Name: TrainingDirectorWorkflowScreen
+
+Required Components:
+- ComplianceScanStatus
+- OperationalLogViewer
+- TelemetryDataValidator
+- ManualSweepTrigger
+- CommunicationStatus
+
+Required Functions/Handlers:
+- executeComplianceScan
+- monitorOperationalLogs
+- validateTelemetryData
+- triggerManualSweep
+- updateCommunicationStatus
+
+Required Buttons:
+- Trigger Manual Sweep
+- Refresh Logs
+- View Historical Data
+
+Required APIs:
+- /v1/training/compliance/scans
+- /v1/training/logs
+- /v1/training/telemetry
+- /v1/training/manualsweep
+- /v1/training/status
+
+Required Semantic Keys (data-cy):
+- training-dashboard-btn-trigger-sweep
+- training-dashboard-btn-refresh-logs
+- training-dashboard-btn-view-historical

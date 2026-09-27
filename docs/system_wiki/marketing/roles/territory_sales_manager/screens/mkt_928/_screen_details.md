@@ -1,0 +1,7 @@
+# Screen: MKT-928
+**Component Name:** `TerritorySalesManagerConversionsScreen`  
+**Implementation Status:** 🔄 Discovery (Implemented)  
+**Associated Roles:** [Territory Sales Manager](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-MKT-928-01](tasks/tsk_mkt_928_01.md): Track precise conversion ratios from initial outreach to signed care agreements.

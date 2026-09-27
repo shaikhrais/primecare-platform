@@ -1,0 +1,43 @@
+Screen Code: research_protocol_manager
+Screen Name: Research Protocol Manager
+
+Required Components:
+- ProtocolList
+- ProtocolStatusIndicator
+- NotificationBanner
+- ComplianceMetrics
+- CollaborationFeed
+- ProtocolEditor
+- HistoricalDataChart
+
+Required Functions/Handlers:
+- createProtocol
+- editProtocol
+- approveProtocol
+- generateReport
+- monitorCompliance
+- collaborateOnProtocol
+
+Required Buttons:
+- Create Protocol
+- Edit Protocol
+- Approve Protocol
+- Generate Report
+- Monitor Compliance
+- Collaborate
+
+Required APIs:
+- /v1/research/protocols/create
+- /v1/research/protocols/edit
+- /v1/research/protocols/approve
+- /v1/research/protocols/report
+- /v1/research/protocols/compliance
+- /v1/research/protocols/collaborate
+
+Required Semantic Keys (data-cy):
+- researchprotocols-btn-create
+- researchprotocols-btn-edit
+- researchprotocols-btn-approve
+- researchprotocols-btn-generate-report
+- researchprotocols-btn-monitor-compliance
+- researchprotocols-btn-collaborate

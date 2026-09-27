@@ -1,0 +1,20 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../models/territory_expansion_manager_demographics_model.dart';
+
+class TerritoryExpansionManagerDemographicsNotifier extends StateNotifier<TerritoryExpansionManagerDemographicsModel> {
+  TerritoryExpansionManagerDemographicsNotifier() : super(const TerritoryExpansionManagerDemographicsModel(isLoading: true));
+
+  Future<void> loadData() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      // TODO: Call API service
+      state = state.copyWith(isLoading: false, data: const {});
+    } catch (e) {
+      state = state.copyWith(isLoading: false, errorMessage: e.toString());
+    }
+  }
+}
+
+final territory_expansion_manager_demographicsProvider = StateNotifierProvider<TerritoryExpansionManagerDemographicsNotifier, TerritoryExpansionManagerDemographicsModel>((ref) {
+  return TerritoryExpansionManagerDemographicsNotifier()..loadData();
+});

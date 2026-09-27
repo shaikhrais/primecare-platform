@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en" dir="LTR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OfficeDashboardScreen | PrimeCare UI Client</title>
+  <link rel="stylesheet" href="./primecare_theme.css" />
+
+  <style>
+    :root {
+      --pc-color-primary: #0F172A;
+      --pc-color-secondary: #475569;
+      --pc-color-background: #F8FAFC;
+      --pc-color-surface: #FFFFFF;
+      --pc-color-text: #0f172a;
+      --pc-color-muted: #64748b;
+      --pc-spacing-sm: 10px;
+      --pc-spacing-md: 16px;
+      --pc-spacing-lg: 28px;
+      --pc-radius-md: 8px;
+      --pc-font-family: Inter, sans-serif;
+    }
+  </style>
+
+</head>
+<body data-theme="primecare_light_default" data-app="ui" data-role="bus_dev" data-screen="business_development_analytics">
+  <aside class="pc-sidebar" data-testid="app-sidebar">
+  <div class="pc-sidebar-brand">
+    <div class="pc-brand-logo">UI</div>
+    <div>
+      <div class="pc-brand-title">PrimeCare UI Client</div>
+      <div class="pc-brand-subtitle">Head of Business Development</div>
+    </div>
+  </div>
+
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">General</div>
+    
+    <a href="/common/business-development-analytics" class="pc-sidebar-link is-active" data-testid="sidebar-link-business_development_analytics" data-route="/common/business-development-analytics" data-screen="business_development_analytics">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Business Development Analytics</span>
+    </a>
+    
+    <a href="/common/business-development-compliance" class="pc-sidebar-link " data-testid="sidebar-link-business_development_compliance" data-route="/common/business-development-compliance" data-screen="business_development_compliance">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Business Development Compliance</span>
+    </a>
+    
+    <a href="/common/business-development-workflow" class="pc-sidebar-link " data-testid="sidebar-link-business_development_workflow" data-route="/common/business-development-workflow" data-screen="business_development_workflow">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Business Development Workflow</span>
+    </a>
+    
+    <a href="/management/head-of-bus-dev-analytics" class="pc-sidebar-link " data-testid="sidebar-link-head_of_bus_dev_analytics" data-route="/management/head-of-bus-dev-analytics" data-screen="head_of_bus_dev_analytics">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Head Of Bus Dev Analytics</span>
+    </a>
+    
+    <a href="/management/head-of-bus-dev-compliance" class="pc-sidebar-link " data-testid="sidebar-link-head_of_bus_dev_compliance" data-route="/management/head-of-bus-dev-compliance" data-screen="head_of_bus_dev_compliance">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Head Of Bus Dev Compliance</span>
+    </a>
+    
+    <a href="/management/head-of-bus-dev-workflow" class="pc-sidebar-link " data-testid="sidebar-link-head_of_bus_dev_workflow" data-route="/management/head-of-bus-dev-workflow" data-screen="head_of_bus_dev_workflow">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Head Of Bus Dev Workflow</span>
+    </a>
+    
+    <a href="/admin/screen-health" class="pc-sidebar-link " data-testid="sidebar-link-admin_screen_health" data-route="/admin/screen-health" data-screen="admin_screen_health">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Admin Screen Health</span>
+    </a>
+    
+  </div>
+  
+
+  <div class="pc-sidebar-footer">
+    <span class="pc-shell-status-dot"></span>
+    <span>Shell loaded</span>
+  </div>
+</aside>
+
+  <div class="pc-shell">
+    <header class="pc-topbar" data-testid="app-topbar">
+  <div class="pc-topbar-left">
+    <div class="pc-breadcrumb" data-testid="breadcrumb">PrimeCare UI Client / Head of Business Development</div>
+    <div class="pc-topbar-title-row">
+      <h1 class="pc-screen-title" data-testid="screen-title">OfficeDashboardScreen</h1>
+      <span class="pc-role-badge" data-testid="role-badge">Head of Business Development</span>
+    </div>
+  </div>
+
+  <div class="pc-topbar-actions">
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in PrimeCare UI Client...</div>
+    
+    
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in PrimeCare UI Client...</div>
+    
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    <div class="pc-profile-avatar" data-testid="topbar-profile-avatar">HO</div>
+  </div>
+</header>
+
+    <main class="pc-content" data-testid="main-content">
+  <div class="pc-content-shell" data-testid="content-page-shell">
+    <div class="pc-content-header">
+      <div>
+        <div class="pc-content-title">OfficeDashboardScreen</div>
+        <div class="pc-content-subtitle">Visual interface layout contract.</div>
+      </div>
+      <span class="pc-content-state-badge" data-testid="content-state">Active</span>
+    </div>
+
+    
+
+    
+    <div class="pc-section-grid" data-testid="screen-section-grid">
+      
+      <section class="pc-section pc-section--header" data-testid="section-business_development_analytics_header" data-section-type="header">
+        <div class="pc-section-header">
+          <div>
+            <h2>Header Section</h2>
+            <p>Screen header with report title and timeframe.</p>
+          </div>
+          <span>header</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="business_development_analytics-screen" data-element-type="layout">
+            BusinessDevelopmentAnalyticsScreen Screen Root
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="business_development_analytics-title" data-element-type="header">
+            BusinessDevelopmentAnalyticsScreen Page Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--filters" data-testid="section-business_development_analytics_filter_bar" data-section-type="filters">
+        <div class="pc-section-header">
+          <div>
+            <h2>Filter Bar Section</h2>
+            <p>Filters to configure parameters for the report.</p>
+          </div>
+          <span>filters</span>
+        </div>
+        <div class="pc-section-body">
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--metrics" data-testid="section-business_development_analytics_metrics_summary" data-section-type="metrics">
+        <div class="pc-section-header">
+          <div>
+            <h2>Metrics Summary Section</h2>
+            <p>Total counters and summaries for selected parameters.</p>
+          </div>
+          <span>metrics</span>
+        </div>
+        <div class="pc-section-body">
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--chart" data-testid="section-business_development_analytics_chart_area" data-section-type="chart">
+        <div class="pc-section-header">
+          <div>
+            <h2>Chart Area Section</h2>
+            <p>Visual graphs and comparative diagrams.</p>
+          </div>
+          <span>chart</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="business_development_analytics-content" data-element-type="layout">
+            BusinessDevelopmentAnalyticsScreen Primary Content
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="businessdevelopmentanalytics-screen" data-element-type="layout">
+            Businessdevelopmentanalytics Screen
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="businessdevelopmentanalytics-content" data-element-type="layout">
+            Businessdevelopmentanalytics Content
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="businessdevelopmentanalytics-title" data-element-type="header">
+            Businessdevelopmentanalytics Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--action_bar" data-testid="section-business_development_analytics_export_actions" data-section-type="action_bar">
+        <div class="pc-section-header">
+          <div>
+            <h2>Export Actions Section</h2>
+            <p>PDF/CSV download buttons.</p>
+          </div>
+          <span>action_bar</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--button" data-testid="businessdevelopmentanalytics-btn-1" data-element-type="button">
+            Businessdevelopmentanalytics Btn 1
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="businessdevelopmentanalytics-btn-2" data-element-type="button">
+            Businessdevelopmentanalytics Btn 2
+          </div>
+          
+        </div>
+      </section>
+      
+    </div>
+    
+  </div>
+</main>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor training director reports.
+2. Analyze data presented on the dashboard.
+3. Identify trends and patterns in training effectiveness.
+4. Address any issues or discrepancies in training data.
+5. Provide feedback or recommendations based on report findings.
+
+Red flags of operation:
+1. Frequent errors or loading issues when accessing reports.
+2. Inconsistent data or discrepancies in training metrics.
+3. Lack of user engagement with the reports.
+4. Delays in report generation or updates.
+5. Negative feedback from users regarding report usability.
+
+What is needed on the user dashboard:
+1. Summary of key training metrics (e.g., completion rates, participant feedback).
+2. Visual representations of data (charts, graphs).
+3. Alerts for any anomalies or red flags in training data.
+4. Quick access to detailed reports for deeper analysis.
+5. User-friendly navigation to facilitate easy access to different sections of the reports.

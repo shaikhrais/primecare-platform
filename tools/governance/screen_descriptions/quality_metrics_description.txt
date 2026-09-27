@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor quality metrics regularly.
+2. Analyze data trends for quality improvements.
+3. Identify areas needing attention based on metrics.
+4. Collaborate with team members to address quality issues.
+5. Report findings and suggest improvements.
+
+Red flags of operation:
+1. Significant deviations from established quality benchmarks.
+2. Frequent errors or defects reported in products/services.
+3. Delays in addressing quality issues.
+4. Lack of communication among team members regarding quality concerns.
+5. Inconsistent data reporting or metrics tracking.
+
+What we need on the dashboard of the user:
+1. Real-time quality metrics display.
+2. Alerts for any red flags or deviations.
+3. Historical data trends for analysis.
+4. Collaboration tools for team communication.
+5. Reporting features for documenting findings and suggestions.

@@ -1,0 +1,39 @@
+Screen Code: training_coordinator_workflow
+Screen Name: TrainingCoordinatorWorkflowScreen
+
+Required Components:
+- ProgressTracker
+- TrainingSessionCalendar
+- NotificationPanel
+- FeedbackSection
+- PerformanceMetrics
+- ResourceLibrary
+- CommunicationTool
+
+Required Functions/Handlers:
+- submitAssessment
+- provideFeedback
+- trackProgress
+- joinDiscussion
+
+Required Buttons:
+- Submit Assessment
+- Provide Feedback
+- Track Progress
+- Join Discussion
+
+Required APIs:
+- /v1/training/candidates/progress
+- /v1/training/sessions/upcoming
+- /v1/training/notifications
+- /v1/training/feedback
+- /v1/training/performance
+
+Required Semantic Keys (data-cy):
+- training-progress-tracker
+- training-session-calendar
+- training-notification-panel
+- training-feedback-section
+- training-performance-metrics
+- training-resource-library
+- training-communication-tool

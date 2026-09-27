@@ -1,0 +1,52 @@
+Screen Code: scheduler_workflow
+Screen Name: SchedulerWorkflowScreen
+
+Required Components:
+- EmployeeAttendanceWidget
+- PerformanceMetricsChart
+- IncidentReportCard
+- CustomerFeedbackTracker
+- InventoryStatusWidget
+- TeamCommunicationPanel
+- TrainingProgressTracker
+- OperationalAlertsWidget
+- HistoricalPerformanceGraph
+- WorkloadVisualization
+
+Required Functions/Handlers:
+- updateSchedule
+- submitIncidentReport
+- viewFeedback
+- orderSupplies
+- conductMeeting
+- trainEmployee
+- implementImprovement
+
+Required Buttons:
+- Update Schedule
+- Submit Incident Report
+- View Feedback
+- Order Supplies
+- Conduct Meeting
+- Train Employee
+- Implement Improvement
+
+Required APIs:
+- /v1/scheduler/attendance
+- /v1/scheduler/performance
+- /v1/scheduler/incidents
+- /v1/scheduler/feedback
+- /v1/scheduler/inventory
+- /v1/scheduler/communication
+- /v1/scheduler/training
+- /v1/scheduler/alerts
+- /v1/scheduler/performance/history
+
+Required Semantic Keys (data-cy):
+- scheduler-btn-update-schedule
+- scheduler-btn-submit-incident
+- scheduler-btn-view-feedback
+- scheduler-btn-order-supplies
+- scheduler-btn-conduct-meeting
+- scheduler-btn-train-employee
+- scheduler-btn-implement-improvement

@@ -1,0 +1,42 @@
+Screen Code: territory_sales_manager_pipeline
+Screen Name: Territory Sales Manager Pipeline
+
+Required Components:
+- SalesPipelineOverview
+- PerformanceMetricsChart
+- LeadOpportunitiesList
+- TeamCollaborationTool
+- CustomerInformationCard
+- SalesReportGenerator
+- TrainingSessionScheduler
+
+Required Functions/Handlers:
+- monitorSalesPipeline
+- analyzeTerritoryPerformance
+- identifyLeads
+- collaborateOnStrategies
+- updateCustomerInfo
+- generateSalesReport
+- attendTrainingSession
+
+Required Buttons:
+- Update Customer Info
+- Generate Report
+- Attend Training
+- Collaborate
+
+Required APIs:
+- /v1/sales/pipeline
+- /v1/territory/performance
+- /v1/leads/opportunities
+- /v1/customers/update
+- /v1/reports/generate
+- /v1/training/sessions
+
+Required Semantic Keys (data-cy):
+- salespipeline-overview
+- territory-performance-metrics
+- leads-opportunities-list
+- customer-info-card
+- sales-report-generator
+- training-session-scheduler

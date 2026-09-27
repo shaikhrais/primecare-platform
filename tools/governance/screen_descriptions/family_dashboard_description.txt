@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor family activities and updates.
+2. Review family member contributions and tasks.
+3. Access family resources and shared information.
+4. Communicate with family members through the dashboard.
+5. Track family events and schedules.
+
+Red flags of operation:
+1. Slow loading times or unresponsive UI.
+2. Frequent errors when loading features or data.
+3. Inconsistent data updates or synchronization issues.
+4. Lack of user engagement or feedback mechanisms.
+5. Missing essential features that users expect.
+
+What we need on the dashboard for the user:
+1. Overview of family activities and tasks.
+2. Notifications for upcoming events or deadlines.
+3. Quick access to shared resources and documents.
+4. Communication tools for messaging family members.
+5. Visual indicators for task completion and member contributions.

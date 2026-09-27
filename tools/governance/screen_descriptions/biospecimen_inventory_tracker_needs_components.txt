@@ -1,0 +1,39 @@
+Screen Code: biospecimen_inventory_tracker
+Screen Name: Biospecimen Inventory Tracker
+
+Required Components:
+- BiospecimenInventoryCard
+- BiospecimenSearchFilter
+- BiospecimenReportGenerator
+- BiospecimenExpirationAlert
+- BiospecimenCollaborationPanel
+- InventoryTrendChart
+
+Required Functions/Handlers:
+- trackInventoryLevels
+- updateBiospecimenInfo
+- searchBiospecimens
+- generateReports
+- monitorExpirationDates
+- collaborateOnManagement
+
+Required Buttons:
+- Add Biospecimen
+- Edit Biospecimen
+- Delete Biospecimen
+- Generate Report
+- Notify Expiration
+
+Required APIs:
+- /v1/biospecimens/inventory
+- /v1/biospecimens/update
+- /v1/biospecimens/search
+- /v1/biospecimens/reports
+- /v1/biospecimens/expiration
+
+Required Semantic Keys (data-cy):
+- biospecimen-inventory-card
+- biospecimen-search-filter
+- biospecimen-report-generator
+- biospecimen-expiration-alert
+- biospecimen-collaboration-panel

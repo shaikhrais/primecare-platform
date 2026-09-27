@@ -1,0 +1,35 @@
+Screen Code: growth_pipeline
+Screen Name: Growth Pipeline
+
+Required Components:
+- GrowthMetricsCard
+- DataTrendChart
+- CollaborationTool
+- ActivitySummaryWidget
+- AlertsNotification
+
+Required Functions/Handlers:
+- monitorMetrics
+- analyzeDataTrends
+- identifyImprovements
+- collaborateOnStrategies
+- reportOutcomes
+
+Required Buttons:
+- Analyze Trends
+- Identify Improvements
+- Collaborate
+- Report Progress
+
+Required APIs:
+- /v1/growth/pipeline/metrics
+- /v1/growth/pipeline/trends
+- /v1/growth/pipeline/improvements
+- /v1/growth/pipeline/collaboration
+- /v1/growth/pipeline/report
+
+Required Semantic Keys (data-cy):
+- growthpipeline-btn-analyze
+- growthpipeline-btn-identify
+- growthpipeline-btn-collaborate
+- growthpipeline-btn-report

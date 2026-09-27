@@ -1,0 +1,20 @@
+User Work List:
+1. Monitor patient parameters.
+2. Review compliance posture.
+3. Maintain Zero-Trust synchronization.
+4. Access and navigate the schedule interface.
+5. Interact with the dashboard for insights and data.
+
+Red Flags of Operation:
+1. Inconsistent patient parameter readings.
+2. Non-compliance alerts or notifications.
+3. Issues with Zero-Trust synchronization.
+4. Slow response times in the interface.
+5. Lack of user engagement or interaction with the dashboard.
+
+Dashboard Needs:
+1. Real-time patient parameter monitoring.
+2. Compliance status indicators.
+3. Alerts for any operational issues.
+4. User activity tracking and engagement metrics.
+5. Visualizations for data trends and insights.

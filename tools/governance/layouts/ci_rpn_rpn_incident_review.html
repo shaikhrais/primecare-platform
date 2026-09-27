@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" dir="LTR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChiropractorAnalyticsScreen | Primecare Clinic</title>
+  <link rel="stylesheet" href="./primecare_theme.css" />
+
+  <style>
+    :root {
+      --pc-color-primary: #0F172A;
+      --pc-color-secondary: #475569;
+      --pc-color-background: #F8FAFC;
+      --pc-color-surface: #FFFFFF;
+      --pc-color-text: #0f172a;
+      --pc-color-muted: #64748b;
+      --pc-spacing-sm: 10px;
+      --pc-spacing-md: 16px;
+      --pc-spacing-lg: 28px;
+      --pc-radius-md: 8px;
+      --pc-font-family: Inter, sans-serif;
+    }
+  </style>
+
+</head>
+<body data-theme="primecare_light_default" data-app="ci" data-role="rpn" data-screen="rpn_incident_review">
+  <aside class="pc-sidebar" data-testid="app-sidebar">
+  <div class="pc-sidebar-brand">
+    <div class="pc-brand-logo">CI</div>
+    <div>
+      <div class="pc-brand-title">Primecare Clinic</div>
+      <div class="pc-brand-subtitle">Registered Practical Nurse (RPN)</div>
+    </div>
+  </div>
+
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">Overview</div>
+    
+    <a href="/offices/clinical/roles/rpn/dashboard" class="pc-sidebar-link " data-testid="sidebar-link-rpn_dashboard" data-route="/offices/clinical/roles/rpn/dashboard" data-screen="rpn_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Rpn Dashboard</span>
+    </a>
+    
+  </div>
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">General</div>
+    
+    <a href="/offices/clinical/roles/rpn/rpn-command-center" class="pc-sidebar-link " data-testid="sidebar-link-rpn_command_center" data-route="/offices/clinical/roles/rpn/rpn-command-center" data-screen="rpn_command_center">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Rpn Command Center</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/rpn/patient-charting" class="pc-sidebar-link " data-testid="sidebar-link-rpn_patient_charting" data-route="/offices/clinical/roles/rpn/patient-charting" data-screen="rpn_patient_charting">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Rpn Patient Charting</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/rpn/medications" class="pc-sidebar-link " data-testid="sidebar-link-rpn_medications" data-route="/offices/clinical/roles/rpn/medications" data-screen="rpn_medications">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Rpn Medications</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/rpn/vitals" class="pc-sidebar-link " data-testid="sidebar-link-rpn_vitals" data-route="/offices/clinical/roles/rpn/vitals" data-screen="rpn_vitals">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Rpn Vitals</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/rpn/rpn-care-plan-review" class="pc-sidebar-link " data-testid="sidebar-link-rpn_care_plan_review" data-route="/offices/clinical/roles/rpn/rpn-care-plan-review" data-screen="rpn_care_plan_review">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Rpn Care Plan Review</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/rpn/rpn-incident-review" class="pc-sidebar-link is-active" data-testid="sidebar-link-rpn_incident_review" data-route="/offices/clinical/roles/rpn/rpn-incident-review" data-screen="rpn_incident_review">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Rpn Incident Review</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/rpn/rpn-tasks" class="pc-sidebar-link " data-testid="sidebar-link-rpn_tasks" data-route="/offices/clinical/roles/rpn/rpn-tasks" data-screen="rpn_tasks">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Rpn Tasks</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/rpn/rpn-reports" class="pc-sidebar-link " data-testid="sidebar-link-rpn_reports" data-route="/offices/clinical/roles/rpn/rpn-reports" data-screen="rpn_reports">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Rpn Reports</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/rpn/nursing-task" class="pc-sidebar-link " data-testid="sidebar-link-nursing_task" data-route="/offices/clinical/roles/rpn/nursing-task" data-screen="nursing_task">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Nursing Task</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/rpn/vitals-tracking" class="pc-sidebar-link " data-testid="sidebar-link-vitals_tracking" data-route="/offices/clinical/roles/rpn/vitals-tracking" data-screen="vitals_tracking">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Vitals Tracking</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/rpn/medication" class="pc-sidebar-link " data-testid="sidebar-link-medication" data-route="/offices/clinical/roles/rpn/medication" data-screen="medication">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Medication</span>
+    </a>
+    
+    <a href="/offices/clinical/roles/rpn/patient-observation" class="pc-sidebar-link " data-testid="sidebar-link-patient_observation" data-route="/offices/clinical/roles/rpn/patient-observation" data-screen="patient_observation">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Patient Observation</span>
+    </a>
+    
+  </div>
+  
+
+  <div class="pc-sidebar-footer">
+    <span class="pc-shell-status-dot"></span>
+    <span>Shell loaded</span>
+  </div>
+</aside>
+
+  <div class="pc-shell">
+    <header class="pc-topbar" data-testid="app-topbar">
+  <div class="pc-topbar-left">
+    <div class="pc-breadcrumb" data-testid="breadcrumb">Primecare Clinic / Registered Practical Nurse (RPN)</div>
+    <div class="pc-topbar-title-row">
+      <h1 class="pc-screen-title" data-testid="screen-title">ChiropractorAnalyticsScreen</h1>
+      <span class="pc-role-badge" data-testid="role-badge">Registered Practical Nurse (RPN)</span>
+    </div>
+  </div>
+
+  <div class="pc-topbar-actions">
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in Primecare Clinic...</div>
+    
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    <div class="pc-profile-avatar" data-testid="topbar-profile-avatar">RP</div>
+  </div>
+</header>
+
+    <main class="pc-content" data-testid="main-content">
+  <div class="pc-content-shell" data-testid="content-page-shell">
+    <div class="pc-content-header">
+      <div>
+        <div class="pc-content-title">ChiropractorAnalyticsScreen</div>
+        <div class="pc-content-subtitle">Visual interface layout contract.</div>
+      </div>
+      <span class="pc-content-state-badge" data-testid="content-state">Active</span>
+    </div>
+
+    
+
+    
+    <div class="pc-section-grid" data-testid="screen-section-grid">
+      
+      <section class="pc-section pc-section--header" data-testid="section-rpn_incident_review_header" data-section-type="header">
+        <div class="pc-section-header">
+          <div>
+            <h2>Header Section</h2>
+            <p>Screen header with title, subtitle, and layout structure.</p>
+          </div>
+          <span>header</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="rpn_incident_review-screen" data-element-type="layout">
+            RpnIncidentReviewScreen Screen Root
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="rpn_incident_review-title" data-element-type="header">
+            RpnIncidentReviewScreen Page Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--filters" data-testid="section-rpn_incident_review_filter_bar" data-section-type="filters">
+        <div class="pc-section-header">
+          <div>
+            <h2>Filter Bar Section</h2>
+            <p>Advanced search input, status filters, and date picker controls.</p>
+          </div>
+          <span>filters</span>
+        </div>
+        <div class="pc-section-body">
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--table" data-testid="section-rpn_incident_review_data_table" data-section-type="table">
+        <div class="pc-section-header">
+          <div>
+            <h2>Data Table Section</h2>
+            <p>Responsive tabular grid showing records and operation details.</p>
+          </div>
+          <span>table</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="rpn_incident_review-content" data-element-type="layout">
+            RpnIncidentReviewScreen Primary Content
+          </div>
+          
+          <div class="pc-element pc-element--loading" data-testid="rpnincidentreview-loading" data-element-type="loading">
+            Rpnincidentreview Loading
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="rpnincidentreview-screen" data-element-type="layout">
+            Rpnincidentreview Screen
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="rpnincidentreview-content" data-element-type="layout">
+            Rpnincidentreview Content
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="rpnincidentreview-title" data-element-type="header">
+            Rpnincidentreview Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--pagination" data-testid="section-rpn_incident_review_pagination" data-section-type="pagination">
+        <div class="pc-section-header">
+          <div>
+            <h2>Pagination Section</h2>
+            <p>Controls to navigate across paginated list records.</p>
+          </div>
+          <span>pagination</span>
+        </div>
+        <div class="pc-section-body">
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--action_bar" data-testid="section-rpn_incident_review_action_bar" data-section-type="action_bar">
+        <div class="pc-section-header">
+          <div>
+            <h2>Action Bar Section</h2>
+            <p>Row of administrative button triggers (create, export, refresh).</p>
+          </div>
+          <span>action_bar</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--button" data-testid="rpnincidentreview-btn-2" data-element-type="button">
+            Rpnincidentreview Btn 2
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="rpnincidentreview-btn-1" data-element-type="button">
+            Rpnincidentreview Btn 1
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="rpnincidentreview-btn-3" data-element-type="button">
+            Rpnincidentreview Btn 3
+          </div>
+          
+        </div>
+      </section>
+      
+    </div>
+    
+  </div>
+</main>
+
+  </div>
+</body>
+</html>

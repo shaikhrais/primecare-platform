@@ -1,0 +1,26 @@
+List of work for Training Candidates:
+1. Complete onboarding training modules.
+2. Participate in hands-on workshops.
+3. Engage in peer-to-peer learning sessions.
+4. Complete assessments and quizzes.
+5. Provide feedback on training materials.
+6. Attend regular check-ins with mentors.
+7. Track progress on training goals.
+
+Red flags of operation:
+1. Low engagement in training sessions.
+2. Frequent absences or late submissions.
+3. Lack of participation in discussions.
+4. Poor performance in assessments.
+5. Negative feedback on training content.
+6. Inconsistent progress tracking.
+7. Lack of communication with mentors.
+
+Dashboard needs for Training Candidates:
+1. Progress tracking metrics.
+2. Engagement statistics (attendance, participation).
+3. Assessment scores and feedback.
+4. Upcoming training sessions and deadlines.
+5. Feedback collection mechanism.
+6. Communication logs with mentors.
+7. Visual representation of training milestones.

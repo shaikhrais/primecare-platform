@@ -1,0 +1,7 @@
+# Screen: COR-761
+**Component Name:** `StaffTrainingMatrixScreen`  
+**Implementation Status:** 🔄 Discovery (Implemented)  
+**Associated Roles:** [Training Director](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-COR-761-01](tasks/tsk_cor_761_01.md): High-level tracking of mandatory vs optional training pathways per role.

@@ -1,0 +1,23 @@
+List of work for the User:
+1. Monitor local marketing performance metrics.
+2. Analyze reports on marketing campaigns.
+3. Identify trends and areas for improvement.
+4. Collaborate with local teams for strategy adjustments.
+5. Review customer feedback and engagement data.
+6. Prepare presentations for stakeholders.
+
+Red flags of operation:
+1. Significant drop in engagement metrics.
+2. Negative customer feedback trends.
+3. Delays in report generation or data availability.
+4. Inconsistent data across different reports.
+5. Low conversion rates from marketing campaigns.
+6. High churn rates in customer retention.
+
+Dashboard needs for the User:
+1. Real-time performance metrics (e.g., engagement, conversion rates).
+2. Visualizations of campaign effectiveness (e.g., graphs, charts).
+3. Alerts for significant changes in key metrics.
+4. Customer feedback summaries and sentiment analysis.
+5. Comparison tools for different marketing strategies.
+6. Access to historical data for trend analysis.

@@ -1,0 +1,7 @@
+# Screen: SUP-436
+**Component Name:** `AttendanceScreen`  
+**Implementation Status:** 🔄 Discovery  
+**Associated Roles:** [Training Coordinator](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-SUP-436-01](tasks/tsk_sup_436_01.md): Log actual physical/digital attendance for synchronous local training events.

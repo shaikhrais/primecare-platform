@@ -1,0 +1,37 @@
+Screen Code: adverse_event_reporting_portal
+Screen Name: Adverse Event Reporting Portal
+
+Required Components:
+- AdverseEventReportForm
+- AdverseEventReviewList
+- GuidelinesResourceAccess
+- FollowUpSubmissionForm
+- AdverseEventAnalysisReport
+
+Required Functions/Handlers:
+- reportAdverseEvent
+- reviewReportedEvents
+- accessGuidelines
+- submitFollowUp
+- generateAdverseEventReport
+
+Required Buttons:
+- Report Adverse Event
+- Review Reports
+- Access Guidelines
+- Submit Follow-Up
+- Generate Report
+
+Required APIs:
+- /v1/adverse-events/report
+- /v1/adverse-events/review
+- /v1/adverse-events/guidelines
+- /v1/adverse-events/follow-up
+- /v1/adverse-events/report/generate
+
+Required Semantic Keys (data-cy):
+- adverse-event-report-btn
+- adverse-event-review-btn
+- guidelines-access-btn
+- follow-up-submit-btn
+- adverse-event-generate-report-btn

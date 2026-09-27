@@ -1,0 +1,44 @@
+Screen Code: hr_hiring_analytics
+Screen Name: HrHiringAnalyticsScreen
+
+Required Components:
+- PositionStatusCard
+- TimeToFillChart
+- SourceOfHireStatistics
+- CandidatePipelineVisualization
+- DiversityMetricsChart
+- CandidateFeedbackScores
+- RecruitmentBudgetTracker
+- RecruitmentTeamPerformanceMetrics
+- MarketSalaryBenchmarkChart
+- UpcomingEventsList
+
+Required Functions/Handlers:
+- refreshDashboardData
+- exportRecruitmentReport
+- addNewPosition
+- viewCandidateFeedback
+
+Required Buttons:
+- Refresh Data
+- Export Report
+- Add New Position
+- View Candidate Feedback
+
+Required APIs:
+- /v1/recruitment/open_positions
+- /v1/recruitment/time_to_fill
+- /v1/recruitment/source_of_hire
+- /v1/recruitment/candidate_pipeline
+- /v1/recruitment/diversity_metrics
+- /v1/recruitment/candidate_feedback
+- /v1/recruitment/budget_tracking
+- /v1/recruitment/team_performance
+- /v1/recruitment/salary_benchmarks
+- /v1/recruitment/upcoming_events
+
+Required Semantic Keys (data-cy):
+- hr_hiring_analytics-btn-refresh
+- hr_hiring_analytics-btn-export
+- hr_hiring_analytics-btn-add_position
+- hr_hiring_analytics-btn-view_feedback

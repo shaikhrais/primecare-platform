@@ -1,0 +1,24 @@
+name: Deploy API - primecare-scheduling-api
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/scheduling_api/**'
+      - 'packages/database_client/**'
+      - '.github/workflows/deploy-api-scheduling.yml'
+      - '.github/workflows/_deploy-api.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy-api.yml
+    with:
+      service_dir: services/scheduling_api
+      service_name: primecare-scheduling-api
+      image_name: scheduling-api
+    secrets: inherit

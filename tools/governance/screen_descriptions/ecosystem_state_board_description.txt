@@ -1,0 +1,17 @@
+User Tasks:
+1. Monitor the ecosystem state by accessing the Ecosystem State Board.
+2. Refresh the data displayed on the board using the refresh button.
+3. Analyze key metrics such as active agencies, live caregivers, daily revenue run-rate, and system health.
+4. Review the revenue trajectory and regional heatmap visualizations for insights into performance.
+
+Red Flags of Operation:
+1. If the ecosystem state fails to load, it indicates potential issues with the API or data retrieval.
+2. A significant drop in active agencies or live caregivers may signal operational problems.
+3. A declining daily revenue run-rate could indicate financial issues or market challenges.
+4. A system health percentage significantly below 99.99% may suggest technical difficulties or system instability.
+
+Dashboard Requirements:
+1. Display key metrics prominently for quick assessment.
+2. Include a refresh button for real-time data updates.
+3. Provide visual representations (graphs and heatmaps) for better data interpretation.
+4. Ensure error messages are clear and informative to guide users in troubleshooting.

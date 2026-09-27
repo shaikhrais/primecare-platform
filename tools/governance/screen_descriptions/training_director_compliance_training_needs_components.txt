@@ -1,0 +1,37 @@
+Screen Code: training_director_compliance_training
+Screen Name: Training Director Compliance Training
+
+Required Components:
+- TrainingCompletionRateCard
+- TrainingDeadlineList
+- UserFeedbackTrendChart
+- ComplianceAlertsWidget
+- TrainingMaterialsAccess
+- ComplianceReportGenerator
+
+Required Functions/Handlers:
+- generateComplianceReport
+- updateTrainingMaterials
+- reviewUserFeedback
+- addressUserConcerns
+
+Required Buttons:
+- Generate Report
+- Update Training Materials
+- Review Feedback
+- Address Issues
+
+Required APIs:
+- /v1/training/completion-rates
+- /v1/training/deadlines
+- /v1/training/user-feedback
+- /v1/training/compliance-alerts
+- /v1/training/materials
+
+Required Semantic Keys (data-cy):
+- training-completion-rate-card
+- training-deadline-list
+- user-feedback-trend-chart
+- compliance-alerts-widget
+- training-materials-access
+- compliance-report-generator

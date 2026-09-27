@@ -1,0 +1,35 @@
+Training Coordinator Responsibilities:
+1. Develop and implement training programs.
+2. Coordinate training schedules and logistics.
+3. Monitor and evaluate training effectiveness.
+4. Maintain training records and documentation.
+5. Collaborate with subject matter experts to create training content.
+6. Provide support and resources for trainers and trainees.
+7. Ensure compliance with training regulations and standards.
+8. Communicate training opportunities to staff.
+9. Gather feedback from participants for continuous improvement.
+10. Report on training outcomes and metrics.
+
+Red Flags of Operation:
+1. High dropout rates in training programs.
+2. Low participant engagement or feedback scores.
+3. Inconsistent training records or documentation.
+4. Frequent complaints about training quality or relevance.
+5. Delays in training schedule or logistics.
+6. Lack of communication regarding training updates.
+7. Non-compliance with regulatory training requirements.
+8. Insufficient resources or support for trainers.
+9. Failure to meet training objectives or goals.
+10. Negative trends in training effectiveness metrics.
+
+Dashboard Needs for Training Coordinator:
+1. Training program participation metrics.
+2. Feedback and satisfaction scores from training participants.
+3. Compliance status with training regulations.
+4. Training completion rates and dropout statistics.
+5. Upcoming training schedules and logistics.
+6. Resource allocation for training sessions.
+7. Performance metrics of trainers and training content.
+8. Historical data on training effectiveness and improvements.
+9. Alerts for any compliance issues or training gaps.
+10. Visual representation of training trends over time.

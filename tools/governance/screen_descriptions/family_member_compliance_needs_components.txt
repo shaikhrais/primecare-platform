@@ -1,0 +1,34 @@
+Screen Code: family_member_compliance
+Screen Name: FamilyMemberComplianceScreen
+
+Required Components:
+- ComplianceScanStatus
+- LogSummary
+- AlertNotification
+- GovernanceDirectiveToggle
+- ComplianceAuditAccess
+
+Required Functions/Handlers:
+- runComplianceScan
+- maintainLogs
+- updateGovernanceDirectives
+- submitEventReport
+- monitorComplianceAudits
+
+Required Buttons:
+- Update Governance Directives
+- Submit Event Report
+
+Required APIs:
+- /v1/compliance/scans
+- /v1/logs
+- /v1/governance/directives
+- /v1/events/report
+- /v1/compliance/audits
+
+Required Semantic Keys (data-cy):
+- family_member_compliance-scan-status
+- family_member_compliance-log-summary
+- family_member_compliance-alerts
+- family_member_compliance-governance-toggle
+- family_member_compliance-audit-access

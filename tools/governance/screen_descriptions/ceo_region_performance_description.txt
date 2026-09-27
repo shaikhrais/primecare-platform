@@ -1,0 +1,23 @@
+List of work for the user:
+1. Monitor regional performance metrics.
+2. Analyze data trends and patterns.
+3. Identify areas for improvement in regional operations.
+4. Review and respond to any alerts or notifications.
+5. Generate reports based on regional performance data.
+6. Collaborate with regional managers to set performance goals.
+
+Red flags of operation:
+1. Significant deviations from expected performance metrics.
+2. Consistent underperformance in specific regions.
+3. High turnover rates or employee dissatisfaction in regions.
+4. Delays in data reporting or updates.
+5. Frequent errors or issues in data accuracy.
+6. Lack of engagement or communication from regional teams.
+
+Dashboard needs for the user:
+1. Real-time performance metrics display.
+2. Alerts for any red flag indicators.
+3. Visualizations of data trends (graphs, charts).
+4. Quick access to reports and analytics tools.
+5. Collaboration tools for communication with regional managers.
+6. User-friendly interface for easy navigation and data interpretation.

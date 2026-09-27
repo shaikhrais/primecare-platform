@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor compliance cases.
+2. Review compliance reports.
+3. Update compliance status.
+4. Communicate with stakeholders regarding compliance issues.
+5. Ensure adherence to regulatory requirements.
+
+Red flags of operation:
+1. Delays in compliance case resolution.
+2. High number of unresolved compliance cases.
+3. Frequent errors in compliance reporting.
+4. Lack of communication with stakeholders.
+5. Non-compliance with regulatory deadlines.
+
+What is needed on the user dashboard:
+1. Overview of current compliance cases.
+2. Status indicators for each compliance case (open, in progress, resolved).
+3. Notifications for overdue compliance tasks.
+4. Summary of compliance reports and findings.
+5. Quick access to communication tools for stakeholder engagement.

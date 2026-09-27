@@ -1,0 +1,34 @@
+Screen Code: physiotherapist_dashboard
+Screen Name: PhysiotherapistDashboardScreen
+
+Required Components:
+- KPIWidget
+- PatientInteractionLog
+- ComplianceAuditAlert
+- OperationalEfficiencyMetrics
+- AppointmentNotification
+- EducationalResources
+- DataSyncTool
+- ExportReportButton
+
+Required Functions/Handlers:
+- syncPatientData
+- exportAuditLogs
+- fetchEducationalResources
+
+Required Buttons:
+- Sync Data
+- Export Logs
+- View Educational Resources
+
+Required APIs:
+- /v1/patient/interactions
+- /v1/compliance/audit
+- /v1/operational/metrics
+- /v1/appointments/upcoming
+- /v1/research/latest
+
+Required Semantic Keys (data-cy):
+- physio-dashboard-btn-sync
+- physio-dashboard-btn-export
+- physio-dashboard-btn-educational-resources

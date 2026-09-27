@@ -1,0 +1,58 @@
+Screen Code: franchise_analytics
+Screen Name: FranchiseAnalyticsScreen
+
+Required Components:
+- KPIWidget
+- SalesTrendChart
+- FranchiseeSatisfactionWidget
+- ComplianceChecklist
+- MarketingPerformanceWidget
+- TrainingParticipationWidget
+- FinancialSummaryWidget
+- CustomerFeedbackWidget
+- InventoryManagementWidget
+- AlertsWidget
+
+Required Functions/Handlers:
+- fetchKPIData
+- fetchSalesTrends
+- fetchFranchiseeFeedback
+- checkComplianceStatus
+- fetchMarketingMetrics
+- fetchTrainingData
+- fetchFinancialSummary
+- fetchCustomerFeedback
+- fetchInventoryInsights
+- checkOperationalAlerts
+
+Required Buttons:
+- View Details
+- Export Report
+- Send Feedback
+- Update Compliance
+- Launch Marketing Campaign
+- Schedule Training
+
+Required APIs:
+- /v1/franchise/kpi
+- /v1/franchise/sales/trends
+- /v1/franchise/feedback
+- /v1/franchise/compliance
+- /v1/franchise/marketing/performance
+- /v1/franchise/training
+- /v1/franchise/financials
+- /v1/franchise/customer/feedback
+- /v1/franchise/inventory
+- /v1/franchise/alerts
+
+Required Semantic Keys (data-cy):
+- franchise-analytics-kpi
+- franchise-analytics-sales-trend
+- franchise-analytics-satisfaction
+- franchise-analytics-compliance
+- franchise-analytics-marketing
+- franchise-analytics-training
+- franchise-analytics-financials
+- franchise-analytics-feedback
+- franchise-analytics-inventory
+- franchise-analytics-alerts

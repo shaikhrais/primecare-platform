@@ -1,0 +1,34 @@
+Screen Code: local_marketing_manager_leads
+Screen Name: Local Marketing Manager Leads
+
+Required Components:
+- LeadOverviewCard
+- ConversionRateChart
+- CampaignPerformanceIndicator
+- LeadAlertNotification
+- EngagementDropOffChart
+- DetailedReportViewer
+
+Required Functions/Handlers:
+- updateLeadStatus
+- generateLeadReport
+- analyzeLeadPerformance
+- collaborateOnCampaign
+
+Required Buttons:
+- Update Lead
+- Generate Report
+- Analyze Performance
+- Collaborate with Team
+
+Required APIs:
+- /v1/local_marketing/leads
+- /v1/local_marketing/conversion_rates
+- /v1/local_marketing/reports
+- /v1/local_marketing/campaigns
+
+Required Semantic Keys (data-cy):
+- localmarketing-btn-update-lead
+- localmarketing-btn-generate-report
+- localmarketing-btn-analyze-performance
+- localmarketing-btn-collaborate

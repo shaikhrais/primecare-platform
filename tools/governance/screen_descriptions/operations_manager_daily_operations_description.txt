@@ -1,0 +1,23 @@
+List of work the user must do:
+1. Monitor daily operations and performance metrics.
+2. Review and address any operational issues or bottlenecks.
+3. Ensure team members are meeting their daily targets.
+4. Communicate with other departments to align on operational goals.
+5. Analyze data to identify trends and areas for improvement.
+6. Prepare reports for upper management on operational performance.
+
+Red flags of operation:
+1. Consistent delays in project timelines.
+2. High error rates in deliverables.
+3. Low team morale or high turnover rates.
+4. Frequent customer complaints or feedback indicating dissatisfaction.
+5. Inability to meet key performance indicators (KPIs).
+6. Lack of communication or collaboration among team members.
+
+What is needed on the user dashboard:
+1. Real-time performance metrics and KPIs.
+2. Alerts for any operational issues or red flags.
+3. A summary of team member performance and productivity.
+4. Visualizations of trends in operational data.
+5. Quick access to reports and analytics.
+6. Communication tools for team collaboration.

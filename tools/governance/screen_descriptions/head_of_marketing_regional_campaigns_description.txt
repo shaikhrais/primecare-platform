@@ -1,0 +1,20 @@
+User Tasks:
+1. Monitor regional marketing campaigns.
+2. Analyze campaign performance metrics.
+3. Collaborate with regional teams for campaign strategies.
+4. Adjust campaigns based on performance data.
+5. Report on campaign outcomes to upper management.
+
+Red Flags of Operation:
+1. Low engagement rates on campaigns.
+2. High customer acquisition costs.
+3. Inconsistent branding across regions.
+4. Delayed reporting on campaign performance.
+5. Lack of collaboration between regional teams.
+
+Dashboard Needs:
+1. Real-time campaign performance metrics (click-through rates, conversion rates).
+2. Visual representation of engagement trends over time.
+3. Alerts for campaigns underperforming against set KPIs.
+4. Collaboration tools for communication with regional teams.
+5. Summary reports of campaign outcomes and insights for future strategies.

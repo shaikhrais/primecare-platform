@@ -1,0 +1,20 @@
+User Work List:
+1. Monitor patient parameters.
+2. Review compliance posture.
+3. Maintain Zero-Trust synchronization.
+4. Access patient profile information.
+5. Navigate through the patient profile screen.
+
+Red Flags of Operation:
+1. Inconsistent patient data.
+2. Delays in updating patient parameters.
+3. Non-compliance with security protocols.
+4. Lack of user engagement with the interface.
+5. Errors in data retrieval or display.
+
+Dashboard Requirements:
+1. Overview of patient parameters.
+2. Compliance status indicators.
+3. Alerts for non-compliance or data inconsistencies.
+4. User engagement metrics.
+5. Quick access to patient profile details.

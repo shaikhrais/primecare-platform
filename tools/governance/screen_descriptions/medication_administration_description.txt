@@ -1,0 +1,35 @@
+Registered Nurse (RN) Responsibilities:
+1. Administer medications as prescribed.
+2. Monitor patient vital signs and report any abnormalities.
+3. Document medication administration and patient responses.
+4. Educate patients and families about medications and potential side effects.
+5. Collaborate with healthcare team members to ensure patient safety.
+6. Conduct compliance audits and ensure adherence to protocols.
+7. Maintain accurate and up-to-date patient records.
+8. Respond to patient inquiries and provide support.
+9. Participate in quality improvement initiatives.
+10. Stay updated on medication management best practices.
+
+Red Flags in Operations:
+1. Delays in medication administration.
+2. Inconsistent documentation of medication given.
+3. High incidence of medication errors.
+4. Lack of communication among healthcare team members.
+5. Patient complaints regarding medication side effects.
+6. Non-compliance with safety protocols.
+7. Incomplete patient education on medications.
+8. Unresolved discrepancies in patient records.
+9. Increased patient readmissions related to medication issues.
+10. Failure to conduct regular compliance audits.
+
+Dashboard Needs for Registered Nurse (RN):
+1. Real-time medication administration logs.
+2. Alerts for overdue medications or missed doses.
+3. Patient vital signs monitoring dashboard.
+4. Compliance audit results and trends.
+5. Patient education resources and documentation status.
+6. Communication tools for team collaboration.
+7. Incident reporting and tracking system.
+8. Performance metrics related to medication administration.
+9. Access to medication guidelines and protocols.
+10. Summary of patient feedback and complaints related to medications.

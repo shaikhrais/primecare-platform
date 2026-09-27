@@ -1,0 +1,42 @@
+Screen Code: rn_field_supervisor_workflow
+Screen Name: Registered Nurse (RN) Field Supervisor Compliance Workflow
+
+Required Components:
+- ComplianceMetricCard
+- FieldVisitLog
+- PatientCareQualityIndicator
+- TrainingResourceList
+- ComplianceAlert
+- StaffPerformanceSummary
+- RegulatoryUpdateFeed
+- PatientCareOutcomeChart
+- TrendAnalysisGraph
+- CommunicationTool
+
+Required Functions/Handlers:
+- submitComplianceReport
+- requestTraining
+- logFieldVisit
+- viewPatientComplaints
+- generateComplianceReport
+
+Required Buttons:
+- Submit Compliance Report
+- Request Training
+- Log Field Visit
+- View Patient Complaints
+- Generate Compliance Report
+
+Required APIs:
+- /v1/compliance/report
+- /v1/training/request
+- /v1/field/visit/log
+- /v1/patient/complaints
+- /v1/compliance/generateReport
+
+Required Semantic Keys (data-cy):
+- rnfieldsupervisor-btn-submit-compliance
+- rnfieldsupervisor-btn-request-training
+- rnfieldsupervisor-btn-log-field-visit
+- rnfieldsupervisor-btn-view-complaints
+- rnfieldsupervisor-btn-generate-report

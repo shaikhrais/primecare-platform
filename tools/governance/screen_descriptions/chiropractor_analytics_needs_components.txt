@@ -1,0 +1,59 @@
+Screen Code: chiropractor_analytics
+Screen Name: ChiropractorAnalyticsScreen
+
+Required Components:
+- PatientAssessmentCard
+- TreatmentPlanCard
+- SpinalManipulationCard
+- PatientEducationCard
+- ProgressMonitoringCard
+- PatientRecordsCard
+- CollaborationCard
+- ResearchUpdatesCard
+- RedFlagsAlertCard
+- DemographicsDashboard
+- EffectivenessMetricsChart
+- AppointmentScheduler
+- FeedbackScoreCard
+- EHRIntegrationCard
+- PerformanceTrackingCard
+- FollowUpAlertsCard
+
+Required Functions/Handlers:
+- addPatient
+- updateTreatmentPlan
+- recordProgress
+- scheduleAppointment
+- sendReminder
+- viewFeedback
+- accessResources
+- checkRedFlags
+
+Required Buttons:
+- Add Patient
+- Update Treatment Plan
+- Record Progress
+- Schedule Appointment
+- Send Reminder
+- View Feedback
+- Access Resources
+- Check Red Flags
+
+Required APIs:
+- /v1/chiropractor/patients
+- /v1/chiropractor/treatment-plans
+- /v1/chiropractor/progress
+- /v1/chiropractor/appointments
+- /v1/chiropractor/feedback
+- /v1/chiropractor/resources
+- /v1/chiropractor/red-flags
+
+Required Semantic Keys (data-cy):
+- chiropractor-btn-add-patient
+- chiropractor-btn-update-treatment
+- chiropractor-btn-record-progress
+- chiropractor-btn-schedule-appointment
+- chiropractor-btn-send-reminder
+- chiropractor-btn-view-feedback
+- chiropractor-btn-access-resources
+- chiropractor-btn-check-red-flags

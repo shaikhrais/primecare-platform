@@ -1,0 +1,68 @@
+name: Reusable Cloud Run API Deployment
+
+on:
+  workflow_call:
+    inputs:
+      service_dir:
+        required: true
+        type: string
+      service_name:
+        required: true
+        type: string
+      image_name:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: primecare-cloudrun-${{ inputs.service_name }}
+  cancel-in-progress: false
+
+env:
+  GCP_REGION: northamerica-northeast1
+  ARTIFACT_REPOSITORY: primecare
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+      - name: Validate service
+        working-directory: ${{ inputs.service_dir }}
+        run: |
+          dart pub get
+          dart analyze --fatal-infos
+          if [ -d test ]; then dart test; fi
+      - id: google-auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+      - uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+      - name: Publish container
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          gcloud auth configure-docker "${GCP_REGION}-docker.pkg.dev" --quiet
+          registry="${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/${ARTIFACT_REPOSITORY}"
+          docker build -f "${{ inputs.service_dir }}/Dockerfile" -t "${registry}/${{ inputs.image_name }}:${GITHUB_SHA}" .
+          docker push "${registry}/${{ inputs.image_name }}:${GITHUB_SHA}"
+      - name: Deploy service
+        env:
+          PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+        run: |
+          image="${GCP_REGION}-docker.pkg.dev/${PROJECT_ID}/${ARTIFACT_REPOSITORY}/${{ inputs.image_name }}:${GITHUB_SHA}"
+          gcloud run deploy "${{ inputs.service_name }}" --project="${PROJECT_ID}" --region="${GCP_REGION}" \
+            --platform=managed --image="${image}" --port=8080 --allow-unauthenticated \
+            --set-secrets=DATABASE_URL=primecare-database-url:latest
+          url="$(gcloud run services describe "${{ inputs.service_name }}" --project="${PROJECT_ID}" --region="${GCP_REGION}" --format='value(status.url)')"
+          curl --fail --show-error --retry 10 --retry-delay 5 "${url}/health"

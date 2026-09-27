@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor ticket status updates.
+2. Create new tickets for issues or requests.
+3. Respond to user inquiries related to tickets.
+4. Review and manage existing tickets.
+5. Analyze ticket trends and performance metrics.
+
+Red flags of operation:
+1. High number of unresolved tickets.
+2. Delays in ticket response times.
+3. Frequent ticket escalations.
+4. User complaints about ticket resolution.
+5. Inconsistent ticket categorization.
+
+What we need on the dashboard of the user:
+1. Overview of open, closed, and pending tickets.
+2. Average response time for tickets.
+3. Ticket resolution rate.
+4. Alerts for tickets that are overdue.
+5. Visual representation of ticket trends over time.

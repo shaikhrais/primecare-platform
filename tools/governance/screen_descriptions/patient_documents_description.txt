@@ -1,0 +1,22 @@
+List of work for the patient:
+1. Review and manage patient documents.
+2. Run compliance scans to ensure document governance.
+3. Monitor operational audit logs for any issues.
+4. Trigger state actions as needed.
+5. Refresh dashboard telemetry for updated information.
+
+Red flags for operation:
+1. Any errors reported during compliance scans.
+2. Network errors that prevent scans from executing.
+3. Logs indicating exceptions or issues with security clearance.
+4. Low performance metrics in operational audits.
+5. Any discrepancies in document management.
+
+Dashboard needs:
+1. Title and description of the current screen.
+2. Active operations metrics.
+3. Security clearance status.
+4. Real-time telemetry charts.
+5. Operational audit logs with timestamps.
+6. Buttons for executing scans and refreshing data.
+7. Loading indicators for ongoing operations.

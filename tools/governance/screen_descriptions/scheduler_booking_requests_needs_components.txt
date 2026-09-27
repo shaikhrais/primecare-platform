@@ -1,0 +1,53 @@
+Screen Code: scheduler_booking_requests
+Screen Name: SchedulerBookingRequestsScreen
+
+Required Components:
+- PerformanceMetricCard
+- EmployeeScheduleWidget
+- CustomerFeedbackChart
+- IncidentReportTable
+- AuditLogViewer
+- AlertNotificationBanner
+- HistoricalDataTrendGraph
+- CommunicationTool
+- TrainingResourceLink
+- ProjectStatusSummary
+
+Required Functions/Handlers:
+- fetchPerformanceMetrics
+- updateEmployeeSchedule
+- submitCustomerFeedback
+- logIncidentReport
+- triggerAlert
+- fetchHistoricalData
+- sendTeamCommunication
+- accessTrainingResources
+- getProjectStatus
+
+Required Buttons:
+- View Reports
+- Update Schedule
+- Resolve Complaint
+- Log Incident
+- Send Team Update
+- Access Training Resources
+
+Required APIs:
+- /v1/operations/performance
+- /v1/scheduling/employee
+- /v1/customer/feedback
+- /v1/safety/incidents
+- /v1/audit/logs
+- /v1/alerts/redflags
+- /v1/data/historical
+- /v1/communication/team
+- /v1/training/resources
+- /v1/projects/status
+
+Required Semantic Keys (data-cy):
+- scheduler-btn-view-reports
+- scheduler-btn-update-schedule
+- scheduler-btn-resolve-complaint
+- scheduler-btn-log-incident
+- scheduler-btn-send-update
+- scheduler-btn-access-training

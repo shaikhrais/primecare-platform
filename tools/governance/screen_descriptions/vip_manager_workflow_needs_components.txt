@@ -1,0 +1,36 @@
+Screen Code: vip_manager_workflow
+Screen Name: VIP Client Manager Compliance Workflow
+
+Required Components:
+- ComplianceStatusOverview
+- OperationalTelemetryMetrics
+- ComplianceActivityLogs
+- ComplianceAlerts
+- HistoricalDataTrends
+- ActionButtonPanel
+- DataVisualizationCharts
+- UserActivityLogs
+
+Required Functions/Handlers:
+- executeComplianceScan
+- resolveComplianceIssue
+- updateDashboardMetrics
+- fetchHistoricalTrends
+
+Required Buttons:
+- Execute Compliance Scan
+- Resolve Compliance Issue
+- Update Dashboard
+- View Historical Trends
+
+Required APIs:
+- /v1/compliance/scan
+- /v1/compliance/issues
+- /v1/telemetry/logs
+- /v1/compliance/metrics
+
+Required Semantic Keys (data-cy):
+- vipmanager-btn-execute-scan
+- vipmanager-btn-resolve-issue
+- vipmanager-btn-update-dashboard
+- vipmanager-btn-view-trends

@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor the loading state of the Clinical Reference screen.
+2. Handle errors that may occur during data loading.
+3. Review the displayed content once data is successfully loaded.
+4. Ensure the user interface is responsive and user-friendly.
+5. Test the screen for various scenarios (loading, error, success).
+
+Red flags of operation:
+1. Frequent loading states indicating potential performance issues.
+2. Repeated error messages suggesting problems with data retrieval.
+3. Lack of user feedback during loading or error states.
+4. Inconsistent UI behavior across different devices or screen sizes.
+5. Unclear messaging that may confuse users about the screen's functionality.
+
+What is needed on the user dashboard:
+1. Real-time status indicators for data loading and error states.
+2. Performance metrics to track loading times and error rates.
+3. User feedback options to report issues or suggest improvements.
+4. Clear navigation options to access other features or screens.
+5. Summary of recent activities or changes related to clinical references.

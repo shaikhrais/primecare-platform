@@ -1,0 +1,41 @@
+Screen Code: physiotherapist_compliance
+Screen Name: PhysiotherapistComplianceScreen
+
+Required Components:
+- PatientRecordCard
+- ComplianceAuditLog
+- ProgressNotification
+- TreatmentOutcomeTracker
+- EducationalResourceAccess
+- CollaborationTool
+- ComplianceReportingTool
+
+Required Functions/Handlers:
+- saveTreatmentPlan
+- monitorPatientProgress
+- educatePatient
+- collaborateWithProviders
+- generateComplianceReport
+
+Required Buttons:
+- Save Treatment Plan
+- Monitor Progress
+- Educate Patient
+- Collaborate
+- Generate Report
+
+Required APIs:
+- /v1/patients/records
+- /v1/compliance/audit
+- /v1/patients/progress
+- /v1/treatment/outcomes
+- /v1/resources/latest-research
+- /v1/communication/collaborate
+- /v1/reporting/compliance
+
+Required Semantic Keys (data-cy):
+- physio-btn-save-treatment
+- physio-btn-monitor-progress
+- physio-btn-educate-patient
+- physio-btn-collaborate
+- physio-btn-generate-report

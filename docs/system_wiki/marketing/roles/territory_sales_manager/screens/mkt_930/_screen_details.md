@@ -1,0 +1,7 @@
+# Screen: MKT-930
+**Component Name:** `TerritorySalesManagerCompetitorsScreen`  
+**Implementation Status:** 🔄 Discovery (Implemented)  
+**Associated Roles:** [Territory Sales Manager](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-MKT-930-01](tasks/tsk_mkt_930_01.md): Tag and track territory-specific competitor rate changes and marketing campaigns.

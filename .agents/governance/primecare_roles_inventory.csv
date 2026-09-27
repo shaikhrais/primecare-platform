@@ -1,0 +1,61 @@
+﻿S.No.,Role Code,Role Name,Role Level,Status
+1,ceo,Chief Executive Officer (CEO),4,active
+2,cfo,Chief Financial Officer (CFO),4,active
+3,ciso,Chief Information Security Officer (CISO),4,active
+4,coo,Chief Operating Officer (COO),4,active
+5,cto,Chief Technology Officer (CTO),4,active
+6,cx_director,CX Director,4,active
+7,finance_director,Finance Director,4,active
+8,hr_director,HR Director,4,active
+9,legal,Legal Counsel,4,active
+10,owner,Franchise Owner,4,active
+11,shareholder,Shareholder,4,active
+12,training_director,Training Director,4,active
+13,bus_dev,Head of Business Development,3,active
+14,clinical_director,Clinical Director,3,active
+15,cns,Clinical Nurse Specialist,3,active
+16,community_outreach,Community Outreach Lead,3,active
+17,compliance,Compliance Manager,3,active
+18,franchise_sales,Franchise Sales Manager,3,active
+19,gm,General Manager,3,active
+20,governance,Governance Officer,3,active
+21,hr_hiring,Talent Acquisition Manager,3,active
+22,intake,Intake Coordinator,3,active
+23,local_marketing,Local Marketing Manager,3,active
+24,marketing,Head of Marketing,3,active
+25,np,Nurse Practitioner (NP),3,active
+26,ops_manager,Operations Manager,3,active
+27,partnership,Partnership Manager,3,active
+28,pediatric,Pediatric Specialist,3,active
+29,physician,Physician,3,active
+30,premium_concierge,Premium Concierge Care Coordinator,3,active
+31,regional_bdm,Regional BDM,3,active
+32,regional_manager_usa,Regional Manager USA,3,active
+33,rn,Registered Nurse (RN),3,active
+34,rn_field_supervisor,Registered Nurse (RN) Field Supervisor,3,active
+35,scrum_master,Scrum Master,3,active
+36,territory_expansion,Territory Expansion Manager,3,active
+37,territory_sales,Territory Sales Manager,3,active
+38,vip_manager,VIP Client Manager,3,active
+39,volunteer_coordinator,Volunteer Coordinator,3,active
+40,admin,Administrative Assistant,2,active
+41,chiropractor,Chiropractor,2,active
+42,employee,Employee,2,active
+43,hsw,Home Support Worker,2,active
+44,lpn,Licensed Practical Nurse (LPN),2,active
+45,physio,Physiotherapist,2,active
+46,psw,Personal Support Worker (PSW),2,active
+47,rmt,Registered Massage Therapist (RMT),2,active
+48,rpn,Registered Practical Nurse (RPN),2,active
+49,scheduler,Shift Supervisor,2,active
+50,social_worker,Social Worker,2,active
+51,therapist,Therapist,2,active
+52,volunteer,Volunteer,2,active
+53,caregiver,Caregiver,1,active
+54,dynamic,Dynamic Screen Viewer,1,active
+55,guest,Guest,1,active
+56,infrastructure,Infrastructure Auditor,1,active
+57,patient,Patient,1,active
+58,portal,Portal User,1,active
+59,system_verification,System Verification Officer,1,active
+60,training,Training Candidate,1,active

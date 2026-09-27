@@ -1,0 +1,56 @@
+Screen Code: payroll
+Screen Name: PayrollScreen
+
+Required Components:
+- KPIWidget
+- FinancialStatementCard
+- BudgetVsActualChart
+- CashFlowProjectionChart
+- ComplianceStatusIndicator
+- RiskAssessmentOverview
+- OperationalMetricsCard
+- InvestmentPerformanceTracker
+- AuditLogViewer
+- AlertsNotificationPanel
+
+Required Functions/Handlers:
+- fetchKPIData
+- fetchFinancialStatements
+- compareBudgetVsActual
+- generateCashFlowProjections
+- checkComplianceStatus
+- assessRisk
+- trackOperationalMetrics
+- evaluateInvestmentPerformance
+- viewAuditLogs
+- sendAlerts
+
+Required Buttons:
+- Refresh Data
+- Export Report
+- View Details
+- Set Alerts
+
+Required APIs:
+- /v1/financial/kpis
+- /v1/financial/statements
+- /v1/financial/budget-vs-actual
+- /v1/financial/cash-flow-projections
+- /v1/financial/compliance-status
+- /v1/financial/risk-assessment
+- /v1/financial/operational-metrics
+- /v1/financial/investment-performance
+- /v1/financial/audit-logs
+- /v1/financial/alerts
+
+Required Semantic Keys (data-cy):
+- cfo-dashboard-kpi
+- cfo-dashboard-financial-statements
+- cfo-dashboard-budget-vs-actual
+- cfo-dashboard-cash-flow
+- cfo-dashboard-compliance-status
+- cfo-dashboard-risk-assessment
+- cfo-dashboard-operational-metrics
+- cfo-dashboard-investment-performance
+- cfo-dashboard-audit-logs
+- cfo-dashboard-alerts

@@ -1,0 +1,21 @@
+List of work the user must do:
+1. Review the Family Member Profile screen functionality.
+2. Ensure the loading state displays a progress indicator.
+3. Handle error states gracefully and display error messages.
+4. Verify that the content displays correctly when data is loaded.
+5. Test the responsiveness of the UI on different devices.
+6. Check the integration with the backend to ensure data is fetched correctly.
+
+Red flags of operation:
+1. Frequent errors during data loading.
+2. Long loading times that affect user experience.
+3. UI elements not displaying correctly on various screen sizes.
+4. Lack of error handling leading to crashes or unresponsive states.
+5. Inconsistent data presentation or outdated information.
+
+What is needed on the dashboard of the user:
+1. Real-time status of data loading (loading, success, error).
+2. Performance metrics (loading times, error rates).
+3. User engagement statistics (how often the screen is accessed).
+4. Feedback mechanism for users to report issues.
+5. Alerts for any critical errors or performance degradation.

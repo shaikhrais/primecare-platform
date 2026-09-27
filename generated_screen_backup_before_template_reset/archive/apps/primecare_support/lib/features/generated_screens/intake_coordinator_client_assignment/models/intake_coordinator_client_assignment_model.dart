@@ -1,0 +1,23 @@
+class IntakeCoordinatorClientAssignmentModel {
+  final bool isLoading;
+  final String? errorMessage;
+  final Map<String, dynamic> data;
+
+  const IntakeCoordinatorClientAssignmentModel({
+    this.isLoading = false,
+    this.errorMessage,
+    this.data = const {},
+  });
+
+  IntakeCoordinatorClientAssignmentModel copyWith({
+    bool? isLoading,
+    String? errorMessage,
+    Map<String, dynamic>? data,
+  }) {
+    return IntakeCoordinatorClientAssignmentModel(
+      isLoading: isLoading ?? this.isLoading,
+      errorMessage: errorMessage ?? this.errorMessage,
+      data: data ?? this.data,
+    );
+  }
+}

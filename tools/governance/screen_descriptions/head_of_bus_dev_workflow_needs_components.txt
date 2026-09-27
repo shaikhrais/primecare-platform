@@ -1,0 +1,50 @@
+Screen Code: head_of_bus_dev_workflow
+Screen Name: HeadOfBusDevWorkflowScreen
+
+Required Components:
+- KPIChart
+- PipelineStatusWidget
+- ClientEngagementMetrics
+- MarketTrendsInsights
+- TeamPerformanceMetrics
+- DeadlineTracker
+- ClientFeedbackScores
+- BudgetTrackingWidget
+- GrowthTrendsVisualization
+- OperationalAlerts
+
+Required Functions/Handlers:
+- addProposal
+- negotiateContract
+- viewMetrics
+- generateReport
+
+Required Buttons:
+- Add Proposal
+- Negotiate Contract
+- View Metrics
+- Generate Report
+
+Required APIs:
+- /v1/business-development/kpis
+- /v1/business-development/pipeline
+- /v1/business-development/client-engagement
+- /v1/business-development/market-trends
+- /v1/business-development/team-performance
+- /v1/business-development/deadlines
+- /v1/business-development/client-feedback
+- /v1/business-development/budget-tracking
+- /v1/business-development/growth-trends
+- /v1/business-development/alerts
+
+Required Semantic Keys (data-cy):
+- bd-dashboard-kpi-chart
+- bd-dashboard-pipeline-status
+- bd-dashboard-client-engagement
+- bd-dashboard-market-trends
+- bd-dashboard-team-performance
+- bd-dashboard-deadline-tracker
+- bd-dashboard-client-feedback
+- bd-dashboard-budget-tracking
+- bd-dashboard-growth-trends
+- bd-dashboard-operational-alerts

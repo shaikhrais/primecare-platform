@@ -1,0 +1,62 @@
+Screen Code: office_dashboard
+Screen Name: OfficeDashboardScreen
+
+Required Components:
+- TaskManagementSection
+- CalendarView
+- CommunicationLog
+- InventoryTracker
+- PerformanceMetrics
+- DocumentManagementSystem
+- ComplianceChecklist
+- FeedbackSection
+- AuditLog
+- AlertsAndReminders
+
+Required Functions/Handlers:
+- addTask
+- scheduleAppointment
+- logCommunication
+- updateInventory
+- viewPerformanceMetrics
+- accessDocuments
+- checkCompliance
+- submitFeedback
+- viewAuditLog
+- setReminder
+
+Required Buttons:
+- Add Task
+- Schedule Appointment
+- Log Communication
+- Update Inventory
+- View Performance Metrics
+- Access Documents
+- Check Compliance
+- Submit Feedback
+- View Audit Log
+- Set Reminder
+
+Required APIs:
+- /v1/tasks
+- /v1/appointments
+- /v1/communications
+- /v1/inventory
+- /v1/performance
+- /v1/documents
+- /v1/compliance
+- /v1/feedback
+- /v1/audit
+- /v1/reminders
+
+Required Semantic Keys (data-cy):
+- office_dashboard-btn-add-task
+- office_dashboard-btn-schedule-appointment
+- office_dashboard-btn-log-communication
+- office_dashboard-btn-update-inventory
+- office_dashboard-btn-view-performance
+- office_dashboard-btn-access-documents
+- office_dashboard-btn-check-compliance
+- office_dashboard-btn-submit-feedback
+- office_dashboard-btn-view-audit-log
+- office_dashboard-btn-set-reminder

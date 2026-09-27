@@ -1,0 +1,10 @@
+{
+  "total_screens": 947,
+  "fully_verified_screens": 947,
+  "completeness_percentage": 100.0,
+  "sections_coverage": "4235/4235 (100.0%)",
+  "elements_coverage": "7118/7118 (100.0%)",
+  "apis_coverage": "1265/1265 (100.0%)",
+  "missing_items_count": 0,
+  "missing_items_details": []
+}

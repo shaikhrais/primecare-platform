@@ -1,0 +1,54 @@
+Screen Code: chemotherapy_protocol_builder
+Screen Name: Chemotherapy Protocol Builder
+
+Required Components:
+- ProtocolList
+- ProtocolDetailView
+- SearchBar
+- DraftsSection
+- CollaborationPanel
+- MetricsDashboard
+- NotificationCenter
+- UserActivityLog
+- PerformanceChart
+
+Required Functions/Handlers:
+- createProtocol
+- editProtocol
+- deleteProtocol
+- viewProtocolDetails
+- searchProtocols
+- saveDraft
+- publishProtocol
+- collaborateOnProtocol
+- accessHistoricalData
+- generateReports
+
+Required Buttons:
+- Create Protocol
+- Edit Protocol
+- Delete Protocol
+- Save Draft
+- Publish Protocol
+- Search
+- Filter
+- Access Support
+
+Required APIs:
+- /v1/chemotherapy/protocols
+- /v1/chemotherapy/protocols/search
+- /v1/chemotherapy/protocols/drafts
+- /v1/chemotherapy/protocols/publish
+- /v1/chemotherapy/protocols/collaborate
+- /v1/chemotherapy/protocols/history
+- /v1/chemotherapy/protocols/reports
+
+Required Semantic Keys (data-cy):
+- protocol-builder-btn-create
+- protocol-builder-btn-edit
+- protocol-builder-btn-delete
+- protocol-builder-btn-save-draft
+- protocol-builder-btn-publish
+- protocol-builder-btn-search
+- protocol-builder-btn-filter
+- protocol-builder-btn-support

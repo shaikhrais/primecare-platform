@@ -1,0 +1,7 @@
+# Screen: COR-736
+**Component Name:** `CfoProfitabilityScreen`  
+**Implementation Status:** ✅ Implemented  
+**Associated Roles:** [CFO](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-COR-736-01](tasks/tsk_cor_736_01.md): Calculate and analyze margin analysis per territory.

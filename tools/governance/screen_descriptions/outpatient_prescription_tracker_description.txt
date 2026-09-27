@@ -1,0 +1,20 @@
+User Work List:
+1. Track outpatient prescriptions.
+2. View prescription details.
+3. Update prescription status.
+4. Manage patient information related to prescriptions.
+5. Generate reports on prescription usage.
+
+Red Flags of Operation:
+1. Delays in updating prescription status.
+2. Inaccurate patient information.
+3. Missing prescription details.
+4. Low user engagement with the tracker.
+5. High error rates in prescription entries.
+
+Dashboard Requirements:
+1. Overview of current prescriptions and their statuses.
+2. Alerts for overdue prescriptions or updates needed.
+3. Analytics on prescription trends and usage.
+4. User activity logs to monitor engagement.
+5. Quick access to patient information and prescription history.

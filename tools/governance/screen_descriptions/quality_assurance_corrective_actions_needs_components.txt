@@ -1,0 +1,34 @@
+Screen Code: quality_assurance_corrective_actions
+Screen Name: Quality Assurance Corrective Actions
+
+Required Components:
+- CorrectiveActionsOverview
+- EffectivenessMetricsChart
+- AlertsList
+- UserEngagementStats
+- QualityTrendsChart
+
+Required Functions/Handlers:
+- documentFindings
+- collaborateWithTeam
+- monitorEffectiveness
+- reportIssues
+
+Required Buttons:
+- Document Findings
+- Collaborate
+- Monitor Effectiveness
+- Report Issues
+
+Required APIs:
+- /v1/quality/corrective-actions
+- /v1/quality/effectiveness-metrics
+- /v1/quality/alerts
+- /v1/quality/user-engagement
+
+Required Semantic Keys (data-cy):
+- qa-corrective-actions-overview
+- qa-effectiveness-metrics
+- qa-alerts-list
+- qa-user-engagement-stats
+- qa-quality-trends

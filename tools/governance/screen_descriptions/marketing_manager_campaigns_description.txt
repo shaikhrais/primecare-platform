@@ -1,0 +1,20 @@
+User Tasks:
+1. Monitor ongoing marketing campaigns.
+2. Analyze campaign performance metrics.
+3. Adjust campaign strategies based on data insights.
+4. Collaborate with team members for campaign planning.
+5. Report on campaign outcomes to stakeholders.
+
+Red Flags of Operation:
+1. Delays in campaign performance updates.
+2. Inconsistent data reporting across campaigns.
+3. Low engagement rates on marketing materials.
+4. High bounce rates on campaign landing pages.
+5. Lack of collaboration or communication among team members.
+
+Dashboard Needs:
+1. Real-time campaign performance metrics (e.g., clicks, conversions).
+2. Visual representations of data (charts, graphs).
+3. Alerts for underperforming campaigns.
+4. Collaboration tools for team communication.
+5. Historical data comparison for trend analysis.

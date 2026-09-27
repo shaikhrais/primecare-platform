@@ -1,0 +1,24 @@
+name: Deploy API - primecare-provider-api
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/provider_api/**'
+      - 'packages/database_client/**'
+      - '.github/workflows/deploy-api-provider.yml'
+      - '.github/workflows/_deploy-api.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy-api.yml
+    with:
+      service_dir: services/provider_api
+      service_name: primecare-provider-api
+      image_name: provider-api
+    secrets: inherit

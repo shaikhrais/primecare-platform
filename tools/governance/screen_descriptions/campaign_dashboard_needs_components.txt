@@ -1,0 +1,44 @@
+Screen Code: campaign_dashboard
+Screen Name: CampaignDashboardScreen
+
+Required Components:
+- CampaignOverviewCard
+- EngagementAnalyticsChart
+- BudgetTrackingWidget
+- MarketResearchInsightsPanel
+- TeamPerformanceMetricsChart
+- CustomerFeedbackAnalysisWidget
+- KPIOverviewCard
+- AlertsNotificationPanel
+
+Required Functions/Handlers:
+- fetchCampaignData
+- fetchEngagementAnalytics
+- trackBudget
+- fetchMarketResearch
+- fetchTeamPerformance
+- analyzeCustomerFeedback
+- fetchKPIs
+- checkForAlerts
+
+Required Buttons:
+- Refresh Data
+- View Detailed Report
+- Export Metrics
+- Set Alert Preferences
+
+Required APIs:
+- /v1/marketing/campaigns
+- /v1/analytics/engagement
+- /v1/finance/budget
+- /v1/market/research
+- /v1/team/performance
+- /v1/customer/feedback
+- /v1/kpi/overview
+- /v1/alerts/check
+
+Required Semantic Keys (data-cy):
+- campaign-dashboard-refresh
+- campaign-dashboard-view-report
+- campaign-dashboard-export-metrics
+- campaign-dashboard-set-alerts

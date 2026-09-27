@@ -1,0 +1,52 @@
+Screen Code: hr_hiring_workflow
+Screen Name: HrHiringWorkflowScreen
+
+Required Components:
+- PositionStatusCard
+- TimeToFillMetric
+- CandidatePipelineChart
+- SourceOfHireAnalytics
+- DiversityMetricsCard
+- CandidateFeedbackChart
+- BudgetTrackingCard
+- EngagementMetricsCard
+- TurnoverRateHistoryChart
+- AlertsNotification
+
+Required Functions/Handlers:
+- fetchOpenPositions
+- calculateTimeToFill
+- visualizeCandidatePipeline
+- analyzeSourceOfHire
+- trackDiversityMetrics
+- collectCandidateFeedback
+- trackBudget
+- measureEngagement
+- retrieveTurnoverData
+- sendAlerts
+
+Required Buttons:
+- View Details
+- Generate Report
+- Export Data
+- Schedule Interview
+- Update Status
+
+Required APIs:
+- /v1/recruitment/open_positions
+- /v1/recruitment/time_to_fill
+- /v1/recruitment/candidate_pipeline
+- /v1/recruitment/source_of_hire
+- /v1/recruitment/diversity_metrics
+- /v1/recruitment/candidate_feedback
+- /v1/recruitment/budget_tracking
+- /v1/recruitment/engagement_metrics
+- /v1/recruitment/turnover_history
+- /v1/recruitment/alerts
+
+Required Semantic Keys (data-cy):
+- ta-dashboard-btn-view-details
+- ta-dashboard-btn-generate-report
+- ta-dashboard-btn-export-data
+- ta-dashboard-btn-schedule-interview
+- ta-dashboard-btn-update-status

@@ -1,0 +1,23 @@
+List of tasks for Portal User:
+1. Monitor portal session activity.
+2. Sync workflow engine with the latest data.
+3. Execute manual workflow refresh.
+4. Trigger governance actions as needed.
+5. Run workflow scan for compliance and diagnostics.
+6. Review audit and diagnostics logs.
+7. Analyze workflow telemetry statistics.
+
+Red flags of operation:
+1. Workflow scan failures.
+2. Network errors during scans.
+3. Decreased system stability or performance metrics.
+4. Unusual logs indicating potential issues.
+5. High number of active streams compared to expected levels.
+
+Dashboard needs for Portal User:
+1. Title and description of the portal workflow operations.
+2. Real-time logs of portal activities and errors.
+3. Metrics on active data streams and system stability.
+4. Telemetry chart displaying workflow performance over time.
+5. Action buttons for running diagnostics and refreshing data.
+6. Clear indicators for loading states during operations.

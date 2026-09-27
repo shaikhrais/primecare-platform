@@ -1,0 +1,54 @@
+Screen Code: scheduler_calendar
+Screen Name: SchedulerCalendarScreen
+
+Required Components:
+- AttendanceOverviewWidget
+- PerformanceMetricsCard
+- SafetyIncidentTracker
+- ComplianceAuditResults
+- EmployeeFeedbackWidget
+- OperationalLogsViewer
+- AlertsDashboard
+- TrainingProgressTracker
+- CustomerSatisfactionMetrics
+- DataTrendsVisualization
+
+Required Functions/Handlers:
+- fetchAttendanceData
+- generatePerformanceReport
+- trackSafetyIncidents
+- fetchAuditResults
+- submitEmployeeFeedback
+- viewOperationalLogs
+- triggerAlert
+- updateTrainingProgress
+- fetchCustomerSatisfaction
+
+Required Buttons:
+- View Attendance
+- Generate Report
+- Address Issue
+- Conduct Audit
+- Submit Feedback
+- View Training Progress
+- Check Customer Feedback
+
+Required APIs:
+- /v1/scheduler/attendance
+- /v1/scheduler/performance
+- /v1/scheduler/safety/incidents
+- /v1/scheduler/compliance/audits
+- /v1/scheduler/employee/feedback
+- /v1/scheduler/logs
+- /v1/scheduler/alerts
+- /v1/scheduler/training/progress
+- /v1/scheduler/customer/feedback
+
+Required Semantic Keys (data-cy):
+- scheduler-btn-view-attendance
+- scheduler-btn-generate-report
+- scheduler-btn-address-issue
+- scheduler-btn-conduct-audit
+- scheduler-btn-submit-feedback
+- scheduler-btn-view-training-progress
+- scheduler-btn-check-customer-feedback

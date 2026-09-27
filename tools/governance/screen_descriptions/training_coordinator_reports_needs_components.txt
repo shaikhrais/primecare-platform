@@ -1,0 +1,35 @@
+Screen Code: training_coordinator_reports
+Screen Name: Training Coordinator Reports
+
+Required Components:
+- TrainingMetricsChart
+- ReportExportButton
+- DataDiscrepancyAlert
+- UserFeedbackSection
+- FrequentlyUsedReportsList
+
+Required Functions/Handlers:
+- monitorReports
+- analyzeTrainingData
+- generateReport
+- exportReport
+- addressDiscrepancy
+- collaborateWithDepartments
+
+Required Buttons:
+- Generate Report
+- Export Report
+- Address Discrepancy
+- Collaborate
+
+Required APIs:
+- /v1/training/reports
+- /v1/training/data
+- /v1/training/export
+
+Required Semantic Keys (data-cy):
+- training-reports-monitor
+- training-data-analyze
+- training-report-generate
+- training-report-export
+- training-discrepancy-address

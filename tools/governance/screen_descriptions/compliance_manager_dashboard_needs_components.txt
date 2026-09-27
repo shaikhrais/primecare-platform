@@ -1,0 +1,28 @@
+Screen Code: compliance_manager_dashboard
+Screen Name: ComplianceManagerDashboardScreen
+
+Required Components:
+- ComplianceStatusCard
+- ComplianceActivityLog
+- SecurityMetricsChart
+- TelemetryDataChart
+
+Required Functions/Handlers:
+- executeComplianceScan
+- exportAuditLogs
+- refreshTelemetryData
+
+Required Buttons:
+- Execute Compliance Scan
+- Export Logs
+- Refresh Telemetry
+
+Required APIs:
+- /v1/compliance/audit
+- /v1/compliance/logs/export
+- /v1/compliance/status
+
+Required Semantic Keys (data-cy):
+- compliance-dashboard-btn-execute-scan
+- compliance-dashboard-btn-export-logs
+- compliance-dashboard-btn-refresh

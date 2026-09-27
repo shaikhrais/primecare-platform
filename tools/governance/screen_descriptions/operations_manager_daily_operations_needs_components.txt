@@ -1,0 +1,39 @@
+Screen Code: operations_manager_daily_operations
+Screen Name: Operations Manager Daily Operations
+
+Required Components:
+- PerformanceMetricCard
+- OperationalIssuesAlert
+- TeamPerformanceSummary
+- DataTrendVisualization
+- ReportsAccess
+- CollaborationTools
+
+Required Functions/Handlers:
+- monitorPerformance
+- addressOperationalIssues
+- checkTeamTargets
+- alignGoalsWithDepartments
+- analyzeDataTrends
+- prepareManagementReports
+
+Required Buttons:
+- Review Issues
+- Generate Report
+- Send Communication
+
+Required APIs:
+- /v1/operations/performance
+- /v1/operations/issues
+- /v1/operations/teamTargets
+- /v1/operations/goals
+- /v1/operations/dataAnalysis
+- /v1/operations/reports
+
+Required Semantic Keys (data-cy):
+- operations-dashboard-performance
+- operations-dashboard-issues-alert
+- operations-dashboard-team-summary
+- operations-dashboard-data-trends
+- operations-dashboard-reports
+- operations-dashboard-collaboration

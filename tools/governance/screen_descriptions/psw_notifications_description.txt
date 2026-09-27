@@ -1,0 +1,18 @@
+User Tasks:
+1. View password notifications.
+2. Interact with notifications (if applicable).
+3. Monitor any alerts or updates related to passwords.
+
+Red Flags of Operation:
+1. Slow loading times for notifications.
+2. Inconsistent display of notifications.
+3. Lack of user feedback on actions taken (e.g., dismissing a notification).
+4. Errors or crashes when accessing the notifications screen.
+5. Notifications not updating in real-time.
+
+Dashboard Needs:
+1. Summary of recent password notifications.
+2. Alerts for critical notifications.
+3. Performance metrics (loading times, error rates).
+4. User engagement statistics (how often notifications are viewed).
+5. Options for customizing notification settings.

@@ -1,0 +1,18 @@
+List of work the user must do:
+1. Monitor the loading state of the Policies screen.
+2. Handle any errors that occur during data fetching.
+3. Review the displayed policies once the data is loaded.
+4. Interact with the policies if applicable (e.g., view details, edit, delete).
+
+Red flags of operation:
+1. Frequent loading states indicating performance issues or slow data fetching.
+2. Recurring error messages that suggest problems with the data source or API.
+3. Lack of user feedback or interaction options on the Policies screen.
+4. Inconsistent data displayed, which may indicate issues with data integrity.
+
+What is needed on the user dashboard:
+1. Real-time loading indicators for data fetching.
+2. Clear error messages with actionable steps for resolution.
+3. Summary of policies with options to view, edit, or delete.
+4. Performance metrics such as loading times and error rates.
+5. User feedback options to report issues or suggest improvements.

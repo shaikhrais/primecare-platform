@@ -1,0 +1,45 @@
+Screen Code: qa_compliance
+Screen Name: QaComplianceScreen
+
+Required Components:
+- ComplianceStatusIndicator
+- AuditLogTable
+- ComplianceMetricsChart
+- AlertNotification
+- GovernancePolicySummary
+- UserFeedbackTracker
+- HistoricalPerformanceGraph
+- TrainingResourcesAccess
+- IncidentReportingIntegration
+
+Required Functions/Handlers:
+- fetchComplianceStatus
+- logAuditFindings
+- generateComplianceReport
+- alertOnComplianceFailure
+- trackUserFeedback
+- accessTrainingResources
+
+Required Buttons:
+- Generate Compliance Report
+- Log Audit Findings
+- Request Training Session
+- View Compliance Trends
+
+Required APIs:
+- /v1/compliance/status
+- /v1/audits/log
+- /v1/compliance/report
+- /v1/compliance/trends
+- /v1/training/resources
+
+Required Semantic Keys (data-cy):
+- qa-compliance-status-indicator
+- qa-audit-log-table
+- qa-compliance-metrics-chart
+- qa-alert-notification
+- qa-governance-policy-summary
+- qa-user-feedback-tracker
+- qa-historical-performance-graph
+- qa-training-resources-access
+- qa-incident-reporting-integration

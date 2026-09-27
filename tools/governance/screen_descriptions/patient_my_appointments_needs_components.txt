@@ -1,0 +1,33 @@
+Screen Code: patient_my_appointments
+Screen Name: Patient My Appointments
+
+Required Components:
+- AppointmentList
+- ActionButton
+- NotificationSection
+- FeedbackForm
+- ErrorAlert
+
+Required Functions/Handlers:
+- fetchUpcomingAppointments
+- cancelAppointment
+- rescheduleAppointment
+- submitFeedback
+- showNotifications
+
+Required Buttons:
+- Cancel Appointment
+- Reschedule Appointment
+- Submit Feedback
+
+Required APIs:
+- /v1/appointments/upcoming
+- /v1/appointments/cancel
+- /v1/appointments/reschedule
+- /v1/appointments/feedback
+
+Required Semantic Keys (data-cy):
+- appointments-list
+- btn-cancel-appointment
+- btn-reschedule-appointment
+- btn-submit-feedback

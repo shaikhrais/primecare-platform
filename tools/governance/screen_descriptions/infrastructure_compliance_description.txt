@@ -1,0 +1,35 @@
+Infrastructure Auditor Responsibilities:
+1. Conduct regular compliance audits of infrastructure.
+2. Monitor and validate governance invariants.
+3. Ensure adherence to security policies and protocols.
+4. Maintain logs of all compliance activities and audits.
+5. Report on compliance status and any identified issues.
+6. Implement and manage security measures such as MFA.
+7. Provide real-time telemetry for system audits.
+8. Facilitate secure event reporting and ingestion.
+9. Update governance directives as necessary.
+10. Trigger state actions for compliance and governance.
+
+Red Flags of Operation:
+1. Frequent compliance failures or non-compliance reports.
+2. Delays in executing compliance audits.
+3. Inconsistent logging of compliance activities.
+4. Unauthorized access attempts or security breaches.
+5. Lack of adherence to security policies (e.g., MFA not enforced).
+6. High volume of manual interventions required.
+7. Negative trends in compliance audit results over time.
+8. Incomplete or missing telemetry data.
+9. Unresolved issues from previous audits.
+10. Poor response times to compliance-related incidents.
+
+Dashboard Requirements for Infrastructure Auditor:
+1. Real-time compliance status overview.
+2. Recent audit logs and compliance history.
+3. Alerts for compliance failures or security breaches.
+4. Metrics on the number of audits conducted and their outcomes.
+5. Visual representation of compliance trends over time.
+6. Quick access to governance directives and their statuses.
+7. Secure event reporting submissions and their statuses.
+8. Notifications for required actions or policy updates.
+9. Summary of operational audit logs.
+10. User-friendly interface for easy navigation and interaction.

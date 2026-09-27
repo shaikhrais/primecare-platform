@@ -1,0 +1,30 @@
+Screen Code: care_plan
+Screen Name: CarePlanScreen
+
+Required Components:
+- KPIReviewWidget
+- TelemetryLogWidget
+- ComplianceValidationWidget
+- DashboardRefreshButton
+- OperationalAuditScanWidget
+
+Required Functions/Handlers:
+- triggerDashboardRefresh
+- executeComplianceScan
+- executeOperationalAudit
+
+Required Buttons:
+- Refresh Dashboard
+- Execute Compliance Scan
+- Execute Operational Audit
+
+Required APIs:
+- /v1/patient/kpi/review
+- /v1/patient/telemetry/logs
+- /v1/patient/compliance/validate
+- /v1/patient/audit/execute
+
+Required Semantic Keys (data-cy):
+- careplan-btn-refresh
+- careplan-btn-execute-compliance
+- careplan-btn-execute-audit

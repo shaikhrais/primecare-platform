@@ -1,0 +1,22 @@
+List of work the user must do:
+1. Monitor feature adoption metrics.
+2. Analyze user engagement with features.
+3. Identify areas for improvement in feature usage.
+4. Collaborate with the development team for feature enhancements.
+5. Gather user feedback on features.
+6. Report on feature performance to stakeholders.
+
+Red flags of operation:
+1. Low user engagement with key features.
+2. High error rates or bugs reported by users.
+3. Negative feedback or complaints about features.
+4. Significant drop in usage after initial adoption.
+5. Lack of user training or resources leading to confusion.
+
+What is needed on the dashboard for the user:
+1. Feature adoption rates over time.
+2. User engagement metrics (e.g., active users, session duration).
+3. Error tracking and bug reports related to features.
+4. User feedback and satisfaction scores.
+5. Comparison of feature usage against benchmarks or goals.
+6. Alerts for any red flags identified in operations.

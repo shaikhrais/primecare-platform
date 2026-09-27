@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="PrimeCare High-Speed Parallel Suite" parallel="classes" thread-count="4">
+    <listeners>
+        <listener class-name="base.TestNGVerificationListener" />
+    </listeners>
+    <test name="Parallel Layer Verification">
+        <classes>
+            <class name="testNG.PrimeCare.L1RouteTest" />
+            <class name="testNG.PrimeCare.L2ComponentTest" />
+            <class name="testNG.PrimeCare.L3FunctionalTest" />
+            <class name="testNG.PrimeCare.L4BusinessLogicTest" />
+            <class name="testNG.PrimeCare.L5ApiTest" />
+            <class name="testNG.PrimeCare.L6IntegrationTest" />
+            <class name="testNG.PrimeCare.L7DataFlowTest" />
+            <class name="testNG.PrimeCare.L8SecurityTest" />
+            <class name="testNG.PrimeCare.L9WorkflowTest" />
+            <class name="testNG.PrimeCare.L10CertificationTest" />
+        </classes>
+    </test>
+</suite>

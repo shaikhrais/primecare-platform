@@ -1,0 +1,78 @@
+# SCREEN DATA CONTEXT: family_member_dashboard
+
+Below are the database records from `governance.db` used to configure and build the **Patient - FamilyMemberDashboardScreen** screen.
+
+---
+
+## 1. Screen Record
+* **ID**: `18`
+* **App ID**: `5`
+* **Role ID**: `15`
+* **Screen Code**: `family_member_dashboard`
+* **Screen Name**: `FamilyMemberDashboardScreen`
+* **Route Path**: `/common/family-member-dashboard`
+* **Actual File Path**: `packages/primecare_ui/lib/src/screens/common/family_member_dashboard_screen.dart`
+* **Stage/Status**: `template_created`
+
+## 2. App Record
+* **ID**: `5`
+* **App Code**: `cl`
+* **App Name**: `Primecare Client`
+
+## 3. Role Record
+* **ID**: `15`
+* **Role Code**: `patient`
+* **Role Name**: `Patient`
+* **Role Type**: `staff`
+
+## 4. Screen Requirement Record
+* **Business Purpose**: `Provides a dedicated management interface within the Primecare Client module to enable Patient personnel to oversee, audit, and coordinate operations related to familymemberdashboardscreen.`
+* **User Story**: `As a Patient, I want to access the FamilyMemberDashboardScreen within the Primecare Client application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.`
+* **Sidebar Label**: `FamilyMemberDashboardScreen`
+* **Acceptance Criteria**:
+- The FamilyMemberDashboardScreen route loads successfully within the Primecare Client workspace.
+- The interface correctly displays all primary modules and active widgets.
+- Role-based access control restricts unauthorized actions, permitting only Patient access.
+- System telemetry and data tables refresh correctly upon user interaction.
+
+## 5. Required Elements
+* **screen_root** -> `family_member_dashboard-screen` (Type: layout, Required: 1)
+* **page_title** -> `family_member_dashboard-title` (Type: header, Required: 1)
+* **primary_content** -> `family_member_dashboard-content` (Type: layout, Required: 1)
+* **familymemberdashboard_screen** -> `familymemberdashboard-screen` (Type: layout, Required: 0)
+* **familymemberdashboard_btn_2** -> `familymemberdashboard-btn-2` (Type: button, Required: 0)
+* **familymemberdashboard_btn_3** -> `familymemberdashboard-btn-3` (Type: button, Required: 0)
+* **familymemberdashboard_content** -> `familymemberdashboard-content` (Type: layout, Required: 0)
+* **familymemberdashboard_title** -> `familymemberdashboard-title` (Type: header, Required: 0)
+* **familymemberdashboard_btn_1** -> `familymemberdashboard-btn-1` (Type: button, Required: 0)
+
+## 6. Component Mapping
+* Component ID: `26` (Required: 1)
+* Component ID: `560` (Required: 1)
+* Component ID: `1094` (Required: 1)
+* Component ID: `1746` (Required: 1)
+* Component ID: `1747` (Required: 1)
+* Component ID: `1748` (Required: 1)
+* Component ID: `1749` (Required: 1)
+* Component ID: `1750` (Required: 1)
+* Component ID: `1751` (Required: 1)
+* Component ID: `1752` (Required: 1)
+
+## 7. API / Data Mapping
+* API ID: `4269` (Required: 1)
+
+## 8. Test Definition & Steps
+* **Test Code**: `family_member_dashboard_runtime`
+* **Test Name**: `FamilyMemberDashboardScreen Runtime Test`
+* **Test Type**: `e2e`
+* **Expected Title**: `FamilyMemberDashboardScreen`
+* **Expected Layout**: `dashboard`
+
+### Test Steps
+1. **login_as_role** (Selector: `None`, Value: `patient`)
+2. **visit** (Selector: `None`, Value: `/common/family-member-dashboard`)
+3. **should_be_visible** (Selector: `family_member_dashboard-screen`, Value: `None`)
+4. **should_be_visible** (Selector: `family_member_dashboard-title`, Value: `None`)
+5. **should_be_visible** (Selector: `family_member_dashboard-content`, Value: `None`)
+6. **check_no_console_error** (Selector: `None`, Value: `None`)
+7. **screenshot** (Selector: `None`, Value: `None`)

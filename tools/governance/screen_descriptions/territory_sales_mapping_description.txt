@@ -1,0 +1,17 @@
+User Work List:
+1. View interactive map displaying territories.
+2. Refresh territory data using the refresh button.
+3. Analyze top-performing regions based on revenue and quota attainment.
+4. Identify managers associated with each region.
+
+Red Flags of Operation:
+1. Loading state takes too long, indicating potential performance issues.
+2. Frequent errors when fetching territory data, suggesting API reliability concerns.
+3. Inconsistent data presentation, which may confuse users.
+4. Lack of clear visual indicators for underperforming regions.
+
+Dashboard Needs:
+1. Real-time data updates for territories and regions.
+2. Visual representation of performance metrics (e.g., heatmaps).
+3. Alerts for regions under quota or with declining performance.
+4. User-friendly navigation to access detailed reports on territories.

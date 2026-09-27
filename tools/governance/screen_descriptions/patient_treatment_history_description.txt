@@ -1,0 +1,18 @@
+User Work List:
+1. View patient treatment history.
+2. Monitor loading states for data retrieval.
+3. Handle error states if data fails to load.
+4. Interact with the user interface to navigate or perform actions related to patient treatment history.
+
+Red Flags of Operation:
+1. Long loading times indicating potential performance issues.
+2. Frequent error messages suggesting backend or data retrieval problems.
+3. Lack of user feedback during loading states.
+4. Inconsistent data display or missing information.
+
+Dashboard Needs:
+1. Overview of patient treatment history with key metrics.
+2. Loading indicators to show data retrieval status.
+3. Error notifications with actionable insights.
+4. User engagement metrics to track how often the feature is used.
+5. Performance metrics to identify slow loading times or errors.

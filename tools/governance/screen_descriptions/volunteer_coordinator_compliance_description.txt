@@ -1,0 +1,22 @@
+List of work volunteers must do:
+1. Participate in compliance audits.
+2. Report any security incidents or anomalies.
+3. Maintain accurate logs of activities.
+4. Ensure adherence to governance policies.
+5. Engage in training sessions for compliance updates.
+6. Provide feedback on operational processes.
+
+Red flags of operation:
+1. Inconsistent log entries or missing logs.
+2. Delays in reporting incidents.
+3. Non-compliance with governance policies.
+4. Lack of participation in audits or training.
+5. Frequent errors in secure event reporting.
+
+Dashboard needs for volunteers:
+1. Real-time compliance status updates.
+2. Access to recent audit logs and findings.
+3. Notifications for upcoming training sessions.
+4. A summary of governance policies and directives.
+5. A log entry feature for reporting incidents.
+6. A section for feedback on operational processes.

@@ -1,0 +1,31 @@
+Screen Code: training_director_certificates
+Screen Name: Training Director Certificates
+
+Required Components:
+- CertificateStatusCard
+- ErrorLogWidget
+- PerformanceMetricsChart
+- UserFeedbackSection
+- VisualIndicator
+
+Required Functions/Handlers:
+- monitorCertificateStatus
+- validateData
+- reportLoadingError
+- submitUserFeedback
+
+Required Buttons:
+- Refresh
+- Submit Feedback
+
+Required APIs:
+- /v1/certificates/status
+- /v1/certificates/error-log
+- /v1/certificates/performance-metrics
+- /v1/feedback/submit
+
+Required Semantic Keys (data-cy):
+- certificates-status-card
+- error-log-widget
+- performance-metrics-chart
+- user-feedback-section

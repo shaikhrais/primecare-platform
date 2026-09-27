@@ -1,0 +1,62 @@
+Screen Code: rmt_analytics
+Screen Name: RmtAnalyticsScreen
+
+Required Components:
+- ClientAppointmentScheduler
+- ClientProgressTracker
+- PerformanceMetricsCard
+- FinancialOverviewCard
+- ComplianceTracker
+- ClientFeedbackWidget
+- EHRIntegrationModule
+- ContinuingEducationResourceAccess
+- LicenseRenewalAlert
+- ClientCommunicationTool
+
+Required Functions/Handlers:
+- scheduleAppointment
+- trackClientProgress
+- fetchPerformanceMetrics
+- getFinancialOverview
+- checkCompliance
+- submitClientFeedback
+- integrateEHR
+- accessEducationResources
+- setLicenseAlerts
+- sendMessageToClient
+
+Required Buttons:
+- Schedule Appointment
+- Track Progress
+- View Performance Metrics
+- View Financial Overview
+- Check Compliance
+- Submit Feedback
+- Access EHR
+- View Education Resources
+- Set License Alerts
+- Send Message
+
+Required APIs:
+- /v1/appointments/schedule
+- /v1/clients/progress
+- /v1/metrics/performance
+- /v1/financial/overview
+- /v1/compliance/check
+- /v1/feedback/submit
+- /v1/ehr/integrate
+- /v1/education/resources
+- /v1/licenses/alerts
+- /v1/communication/send
+
+Required Semantic Keys (data-cy):
+- rmt-dashboard-btn-schedule-appointment
+- rmt-dashboard-btn-track-progress
+- rmt-dashboard-btn-performance-metrics
+- rmt-dashboard-btn-financial-overview
+- rmt-dashboard-btn-check-compliance
+- rmt-dashboard-btn-submit-feedback
+- rmt-dashboard-btn-access-ehr
+- rmt-dashboard-btn-education-resources
+- rmt-dashboard-btn-set-alerts
+- rmt-dashboard-btn-send-message

@@ -1,0 +1,41 @@
+Screen Code: compliance_reviews
+Screen Name: Compliance Reviews
+
+Required Components:
+- ComplianceOverview
+- ComplianceKPI
+- ComplianceAlerts
+- RecentReports
+- UserActivitySummary
+- TrainingResourcesLink
+- FeedbackMechanism
+
+Required Functions/Handlers:
+- reviewComplianceData
+- monitorComplianceMetrics
+- identifyNonCompliance
+- generateComplianceReports
+- collaborateOnIssues
+- updateDocumentation
+- attendTraining
+
+Required Buttons:
+- Generate Report
+- Update Documentation
+- Collaborate
+- Attend Training
+
+Required APIs:
+- /v1/compliance/data
+- /v1/compliance/metrics
+- /v1/compliance/reports
+- /v1/compliance/issues
+- /v1/compliance/training
+
+Required Semantic Keys (data-cy):
+- compliance-dashboard-overview
+- compliance-kpi-alerts
+- compliance-reports-access
+- compliance-user-activity
+- compliance-training-resources
+- compliance-feedback

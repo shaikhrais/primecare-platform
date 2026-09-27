@@ -1,0 +1,33 @@
+Screen Code: gamification_profile
+Screen Name: Gamification Profile
+
+Required Components:
+- ClinicianProfileCard
+- LeaderboardChart
+- EngagementMetricsChart
+- CMECompletionRateChart
+- AwardPointsForm
+
+Required Functions/Handlers:
+- loadClinicianProfiles
+- awardPointsToClinician
+- fetchLeaderboardData
+- analyzeCMECompletionRates
+- updateClinicianProfile
+
+Required Buttons:
+- Award Points
+- Update Profile
+- Refresh Leaderboard
+
+Required APIs:
+- /v1/clinicians/profiles
+- /v1/clinicians/award-points
+- /v1/leaderboard
+- /v1/cme/completion-rates
+- /v1/clinicians/update
+
+Required Semantic Keys (data-cy):
+- gamification-profile-btn-award-points
+- gamification-profile-btn-update-profile
+- gamification-profile-leaderboard-refresh

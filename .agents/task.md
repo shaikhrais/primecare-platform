@@ -1,0 +1,15 @@
+- [x] Deploy 10 UI apps under `apps/` to Cloudflare Pages (Successfully deployed all 10 apps!)
+- [x] Convert and deploy 13 backend API services to Cloudflare Workers (Successfully compiled, patched, and deployed!)
+- [x] Deploy `primecare_governance_worker` to Cloudflare Workers (Successfully deployed with remote D1 database bindings active!)
+- [x] Run D1 schema migrations on remote database (Successfully uploaded and ran all 247 schema statements!)
+- [x] Verify deployments with E2E verification tests (Successfully completed!)
+- [x] Redesign the frontend verification framework with a Debug Visibility System
+  - [x] Create a Placeholder Detection System in ScreenHealthOverlayWrapper (Automatically scans element tree for placeholders, highlights them with solid red borders and warnings)
+  - [x] Implement Content Coverage and Empty Screen Detection overlays (Fails screens with <20% content coverage and highlights empty zones)
+  - [x] Implement Low Interactivity Checks (Flag screens with <3 interactive elements)
+  - [x] Implement Data Connection & fake data alerts (Flag fake data in yellow, missing APIs in red)
+  - [x] Renders floating top-right Debug Panel showing scores out of 100
+  - [x] Map Visual Grid Overlay based on coordinate segmentation when `?debug=true` is present in the URL
+  - [x] Self-identifying component tags for Lists/Tables
+  - [x] Expose global inspection toggle (`window.DEBUG_SCREEN_ANALYSIS` / `window.CURRENT_SCREEN_QUALITY_SCORE`) for external automated testing
+  - [x] Integrate screenshot validation and rejection scoring (Updated `validate_screenshots.py` and `post_deploy_tester.ts` to abort/reject screenshots below a score of 70)

@@ -1,0 +1,24 @@
+name: Deploy API - primecare-governance-api
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/governance_api/**'
+      - 'packages/database_client/**'
+      - '.github/workflows/deploy-api-governance.yml'
+      - '.github/workflows/_deploy-api.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy-api.yml
+    with:
+      service_dir: services/governance_api
+      service_name: primecare-governance-api
+      image_name: governance-api
+    secrets: inherit

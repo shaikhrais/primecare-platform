@@ -1,0 +1,20 @@
+User Work List:
+1. Review the staff training matrix for completeness.
+2. Identify any missing training modules or certifications.
+3. Monitor staff progress on training completion.
+4. Update training records as staff complete their training.
+5. Provide feedback or report issues regarding the training process.
+
+Red Flags of Operation:
+1. Incomplete training records for staff members.
+2. Low completion rates for mandatory training modules.
+3. Frequent errors or crashes when accessing the training matrix.
+4. Lack of updates or communication regarding training requirements.
+5. High turnover rates that may indicate dissatisfaction with training.
+
+Dashboard Needs:
+1. Overview of staff training completion rates.
+2. Alerts for overdue training modules.
+3. Visual representation of training progress by department.
+4. Access to feedback or comments from staff regarding training.
+5. Quick links to update or modify training records.

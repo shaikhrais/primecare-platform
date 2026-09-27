@@ -1,0 +1,49 @@
+Screen Code: franchise_overview
+Screen Name: FranchiseOverviewScreen
+
+Required Components:
+- KPIWidget
+- EmployeeEngagementChart
+- CustomerSatisfactionGauge
+- OperationalEfficiencyDashboard
+- ComplianceStatusCard
+- MarketTrendsGraph
+- SalesPerformanceChart
+- RiskManagementIndicator
+- StrategicInitiativesProgress
+- DataVisualizationPanel
+
+Required Functions/Handlers:
+- fetchKPIData
+- fetchEmployeeMetrics
+- fetchCustomerFeedback
+- fetchOperationalMetrics
+- fetchComplianceData
+- fetchMarketTrends
+- fetchSalesData
+- fetchRiskIndicators
+- fetchStrategicUpdates
+- updateVisualizations
+
+Required Buttons:
+- Refresh Data
+- View Detailed Report
+- Export Data
+- Set Alerts
+
+Required APIs:
+- /v1/overview/kpis
+- /v1/overview/employee-engagement
+- /v1/overview/customer-satisfaction
+- /v1/overview/operational-efficiency
+- /v1/overview/compliance-status
+- /v1/overview/market-trends
+- /v1/overview/sales-performance
+- /v1/overview/risk-management
+- /v1/overview/strategic-initiatives
+
+Required Semantic Keys (data-cy):
+- franchise-overview-btn-refresh
+- franchise-overview-btn-report
+- franchise-overview-btn-export
+- franchise-overview-btn-alerts

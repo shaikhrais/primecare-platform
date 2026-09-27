@@ -1,0 +1,26 @@
+List of work volunteers must do:
+1. Attend scheduled training sessions.
+2. Participate in community outreach programs.
+3. Assist in organizing events and activities.
+4. Provide support to staff and other volunteers.
+5. Maintain communication with the volunteer coordinator.
+6. Complete necessary paperwork and documentation.
+7. Report any issues or concerns promptly.
+
+Red flags of operation:
+1. Lack of communication from volunteers.
+2. Frequent absenteeism or tardiness.
+3. Negative feedback from community members or staff.
+4. Incomplete or missing documentation.
+5. Disengagement or lack of enthusiasm during activities.
+6. Failure to follow safety protocols.
+7. Conflicts between volunteers or with staff.
+
+Dashboard needs for volunteers:
+1. Volunteer attendance tracking.
+2. Event participation statistics.
+3. Feedback and satisfaction ratings from community members.
+4. Task completion status.
+5. Communication logs between volunteers and coordinators.
+6. Alerts for upcoming training or events.
+7. Recognition and rewards tracking for volunteer contributions.

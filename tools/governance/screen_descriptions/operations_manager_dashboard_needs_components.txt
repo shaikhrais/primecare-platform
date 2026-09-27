@@ -1,0 +1,57 @@
+Screen Code: operations_manager_dashboard
+Screen Name: OperationsManagerDashboardScreen
+
+Required Components:
+- KPIWidget
+- ComplianceAuditStatus
+- OperationalLogs
+- AlertsWidget
+- ResourceAllocationTracker
+- EmployeePerformanceMetrics
+- CustomerFeedbackTracker
+- OperationalTrendsChart
+- InsightsWidget
+- CommunicationTools
+
+Required Functions/Handlers:
+- fetchKPIs
+- fetchComplianceStatus
+- fetchOperationalLogs
+- checkAlerts
+- trackResourceAllocation
+- fetchEmployeeMetrics
+- trackCustomerFeedback
+- generateTrends
+- provideInsights
+- openCommunicationTools
+
+Required Buttons:
+- View Reports
+- Generate Insights
+- Allocate Resources
+- Resolve Issues
+- Audit Compliance
+
+Required APIs:
+- /v1/operations/kpis
+- /v1/operations/compliance
+- /v1/operations/logs
+- /v1/operations/alerts
+- /v1/operations/resources
+- /v1/operations/employees
+- /v1/operations/customers
+- /v1/operations/trends
+- /v1/operations/insights
+- /v1/operations/communication
+
+Required Semantic Keys (data-cy):
+- operations-dashboard-kpi
+- operations-dashboard-compliance
+- operations-dashboard-logs
+- operations-dashboard-alerts
+- operations-dashboard-resources
+- operations-dashboard-employees
+- operations-dashboard-customers
+- operations-dashboard-trends
+- operations-dashboard-insights
+- operations-dashboard-communication

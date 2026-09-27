@@ -1,0 +1,51 @@
+Screen Code: incident_oversight
+Screen Name: IncidentOversightScreen
+
+Required Components:
+- IncidentReportWidget
+- ComplianceScanResultsWidget
+- KPIMetricsChart
+- AuditLogViewer
+- AlertNotificationPanel
+- TrendVisualizationChart
+- TrainingStatusWidget
+- ResourceUtilizationChart
+- PatientFeedbackSummaryWidget
+- CommunicationLogViewer
+
+Required Functions/Handlers:
+- generateIncidentReport
+- viewAuditLogs
+- sendAlertNotification
+- updateTrainingStatus
+- requestAdditionalResources
+
+Required Buttons:
+- Generate Report
+- View Audit Logs
+- Send Alert
+- Update Training Status
+- Request Resources
+
+Required APIs:
+- /v1/incidents/report
+- /v1/compliance/scans
+- /v1/kpi/track
+- /v1/audit/logs
+- /v1/alerts/send
+- /v1/training/status
+- /v1/resources/utilization
+- /v1/patient/feedback
+- /v1/communication/logs
+
+Required Semantic Keys (data-cy):
+- incident-report-widget
+- compliance-scan-results-widget
+- kpi-metrics-chart
+- audit-log-viewer
+- alert-notification-panel
+- trend-visualization-chart
+- training-status-widget
+- resource-utilization-chart
+- patient-feedback-summary-widget
+- communication-log-viewer

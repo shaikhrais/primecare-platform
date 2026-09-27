@@ -1,0 +1,12 @@
+{
+  "app": {
+    "id": 29,
+    "app_code": "cp",
+    "app_name": "Compliance Api",
+    "description": null,
+    "owner_team": null,
+    "active": 1
+  },
+  "screens_count": 0,
+  "screens": []
+}

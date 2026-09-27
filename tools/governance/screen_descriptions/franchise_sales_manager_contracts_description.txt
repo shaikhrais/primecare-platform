@@ -1,0 +1,25 @@
+List of work the user must do:
+1. Review and manage franchise contracts.
+2. Monitor contract statuses and updates.
+3. Communicate with franchisees regarding contract details.
+4. Ensure compliance with franchise agreements.
+5. Analyze contract performance and metrics.
+6. Update contract templates as necessary.
+7. Collaborate with legal and finance teams for contract-related issues.
+
+Red flags of operation:
+1. Delays in contract approvals or renewals.
+2. High number of contract disputes or complaints from franchisees.
+3. Inconsistent contract terms across different franchises.
+4. Lack of communication or feedback from franchisees.
+5. Missing or incomplete documentation related to contracts.
+6. Frequent changes in contract terms without proper notification.
+
+What is needed on the dashboard for the user:
+1. Overview of active contracts and their statuses.
+2. Alerts for contracts nearing expiration or requiring action.
+3. Performance metrics of franchises based on contract compliance.
+4. Communication logs with franchisees regarding contracts.
+5. Quick access to contract templates and legal resources.
+6. Summary of any ongoing disputes or issues related to contracts.
+7. Visual representation of contract timelines and milestones.

@@ -1,0 +1,54 @@
+Screen Code: responsive_preview
+Screen Name: ResponsivePreviewScreen
+
+Required Components:
+- GovMetricCard
+- GovTelemetryChart
+- ComplianceStatusIndicator
+- AuditLogViewer
+- RiskAssessmentChart
+- StakeholderCommunicationLog
+- PerformanceMetricDashboard
+- ComplianceAlerts
+- AuditResultsVisualization
+- TrainingResourceAccess
+
+Required Functions/Handlers:
+- fetchComplianceStatus
+- exportAuditLogs
+- assessRiskMetrics
+- logStakeholderCommunication
+- generatePerformanceReport
+- setComplianceAlert
+- viewAuditResults
+- accessTrainingResources
+
+Required Buttons:
+- View Compliance Status
+- Export Audit Logs
+- Assess Risks
+- Log Communication
+- Generate Performance Report
+- Set Compliance Alert
+- View Audit Results
+- Access Training Resources
+
+Required APIs:
+- /v1/governance/compliance/status
+- /v1/governance/audit/logs
+- /v1/governance/risk/assessment
+- /v1/governance/stakeholder/communication
+- /v1/governance/performance/metrics
+- /v1/governance/compliance/alerts
+- /v1/governance/audit/results
+- /v1/governance/training/resources
+
+Required Semantic Keys (data-cy):
+- gov-dashboard-btn-view-compliance
+- gov-dashboard-btn-export-audit
+- gov-dashboard-btn-assess-risk
+- gov-dashboard-btn-log-communication
+- gov-dashboard-btn-generate-report
+- gov-dashboard-btn-set-alert
+- gov-dashboard-btn-view-results
+- gov-dashboard-btn-access-training

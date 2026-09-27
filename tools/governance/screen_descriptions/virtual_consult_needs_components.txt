@@ -1,0 +1,28 @@
+Screen Code: virtual_consult
+Screen Name: Virtual Consult
+
+Required Components:
+- TelehealthMetricsCard
+- ConsultationStatusIndicator
+- RescheduleForm
+- LoadingIndicator
+- TelehealthMetricsChart
+
+Required Functions/Handlers:
+- monitorLiveConsultations
+- rescheduleConsultation
+- updateConsultationStatus
+- fetchTelehealthMetrics
+
+Required Buttons:
+- Reschedule Consultation
+- Update Status
+
+Required APIs:
+- /v1/telehealth/consultations
+- /v1/telehealth/metrics
+- /v1/telehealth/reschedule
+
+Required Semantic Keys (data-cy):
+- telehealth-btn-reschedule
+- telehealth-btn-update-status

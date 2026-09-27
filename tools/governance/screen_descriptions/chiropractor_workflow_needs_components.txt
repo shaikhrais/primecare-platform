@@ -1,0 +1,47 @@
+Screen Code: chiropractor_workflow
+Screen Name: ChiropractorWorkflowScreen
+
+Required Components:
+- PatientAssessmentCard
+- TreatmentPlanCard
+- ProgressTrackingChart
+- PatientRecordTable
+- CollaborationTool
+- RedFlagAlert
+- AnalyticsDashboard
+
+Required Functions/Handlers:
+- scheduleAppointment
+- modifyTreatmentPlan
+- recordPatientProgress
+- educatePatient
+- collaborateWithProviders
+- checkRedFlags
+- generateAnalytics
+
+Required Buttons:
+- Schedule Appointment
+- Modify Treatment Plan
+- Record Progress
+- Educate Patient
+- Collaborate
+- View Red Flags
+- Generate Analytics
+
+Required APIs:
+- /v1/patient/appointments
+- /v1/patient/progress
+- /v1/treatment/plans
+- /v1/billing/insurance
+- /v1/research/resources
+- /v1/collaboration/messages
+- /v1/alerts/redflags
+
+Required Semantic Keys (data-cy):
+- chiropractor-btn-schedule-appointment
+- chiropractor-btn-modify-treatment
+- chiropractor-btn-record-progress
+- chiropractor-btn-educate-patient
+- chiropractor-btn-collaborate
+- chiropractor-btn-view-red-flags
+- chiropractor-btn-generate-analytics

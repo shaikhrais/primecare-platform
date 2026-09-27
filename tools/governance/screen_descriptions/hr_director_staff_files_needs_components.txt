@@ -1,0 +1,62 @@
+Screen Code: hr_director_staff_files
+Screen Name: HrDirectorStaffFilesScreen
+
+Required Components:
+- TaskList
+- KPIChart
+- ComplianceStatusCard
+- EngagementMetricsWidget
+- TrainingOverview
+- BudgetOverview
+- DiversityMetrics
+- AuditLogViewer
+- AlertNotification
+- TrendVisualization
+- InitiativeStatusSummary
+
+Required Functions/Handlers:
+- fetchHRMetrics
+- updateComplianceStatus
+- getEmployeeFeedback
+- overviewTrainingPrograms
+- fetchBudgetDetails
+- trackDiversityInitiatives
+- logHRActivity
+- triggerAlert
+- visualizeTrends
+- updateInitiativeStatus
+
+Required Buttons:
+- View Reports
+- Manage Policies
+- Initiate Recruitment
+- Resolve Conflict
+- Conduct Evaluation
+- Implement Training
+- Manage Budget
+- View Diversity Initiatives
+
+Required APIs:
+- /v1/hr/metrics
+- /v1/hr/compliance
+- /v1/hr/engagement
+- /v1/hr/training
+- /v1/hr/budget
+- /v1/hr/diversity
+- /v1/hr/audit
+- /v1/hr/alerts
+- /v1/hr/trends
+- /v1/hr/initiatives
+
+Required Semantic Keys (data-cy):
+- hr-dashboard-tasklist
+- hr-dashboard-kpi
+- hr-dashboard-compliance
+- hr-dashboard-engagement
+- hr-dashboard-training
+- hr-dashboard-budget
+- hr-dashboard-diversity
+- hr-dashboard-audit
+- hr-dashboard-alerts
+- hr-dashboard-trends
+- hr-dashboard-initiatives

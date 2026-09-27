@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor leadership reports for insights and performance metrics.
+2. Analyze data presented on the Leadership Reports screen.
+3. Identify trends and areas for improvement based on the reports.
+4. Collaborate with team members to discuss findings from the reports.
+5. Provide feedback or suggestions based on the report data.
+
+Red flags of operation:
+1. Frequent loading errors indicating issues with data retrieval.
+2. Inconsistent or missing data in the reports.
+3. Slow response times when accessing the Leadership Reports screen.
+4. Lack of user engagement or interaction with the reports.
+5. Negative feedback from users regarding the usability of the reports.
+
+What is needed on the dashboard of the user:
+1. Key performance indicators (KPIs) relevant to leadership metrics.
+2. Visual representations of data (charts, graphs) for easier analysis.
+3. Alerts or notifications for significant changes in data trends.
+4. A summary section highlighting critical insights or recommendations.
+5. User-friendly navigation to access different sections of the reports easily.

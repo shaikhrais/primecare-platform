@@ -1,0 +1,29 @@
+Work Shift Supervisor Responsibilities:
+1. Oversee daily operations and ensure compliance with company policies.
+2. Manage staff schedules and ensure adequate coverage.
+3. Monitor performance metrics and address any issues promptly.
+4. Conduct regular team meetings to communicate goals and expectations.
+5. Provide training and support to team members.
+6. Handle customer inquiries and resolve complaints effectively.
+7. Maintain a safe and productive work environment.
+8. Report operational issues to upper management.
+9. Ensure adherence to safety and quality standards.
+
+Red Flags of Operation:
+1. High employee turnover rates.
+2. Frequent customer complaints or negative feedback.
+3. Inconsistent performance metrics or missed targets.
+4. Lack of communication among team members.
+5. Safety incidents or violations.
+6. Unresolved conflicts within the team.
+7. Low employee morale or engagement.
+
+Dashboard Needs for Shift Supervisor:
+1. Real-time performance metrics (e.g., sales, customer satisfaction).
+2. Staff scheduling overview and coverage gaps.
+3. Incident reports and safety compliance status.
+4. Employee attendance and punctuality records.
+5. Customer feedback and complaint tracking.
+6. Task and goal progress indicators.
+7. Alerts for any operational issues or red flags.
+8. Historical data for trend analysis and decision-making.

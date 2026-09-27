@@ -1,0 +1,7 @@
+# Screen: COR-754
+**Component Name:** `ComplianceManagerCredentialTrackingScreen`  
+**Implementation Status:** ✅ Implemented  
+**Associated Roles:** [Compliance Manager](../../_role_metrics.md)
+
+## Supported Tasks
+- [TSK-COR-754-01](tasks/tsk_cor_754_01.md): Global tracking of PSW/Nurse licensing and certifications.

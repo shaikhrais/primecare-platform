@@ -1,0 +1,46 @@
+Screen Code: exercise_prescription
+Screen Name: ExercisePrescriptionScreen
+
+Required Components:
+- PatientOverviewCard
+- ComplianceScanLog
+- KPIChart
+- TelemetryDataDisplay
+- AlertNotification
+- PatientHistorySection
+- ExerciseMetricsChart
+- CommunicationTool
+- EducationalResources
+- NotesLog
+
+Required Functions/Handlers:
+- updatePatientStatus
+- logComplianceScan
+- fetchKPIs
+- sendMessage
+- accessResources
+- addNote
+
+Required Buttons:
+- Update Patient Status
+- Log Compliance Scan
+- View KPIs
+- Send Message
+- Access Resources
+- Add Note
+
+Required APIs:
+- /v1/patients/overview
+- /v1/compliance/scans
+- /v1/patients/kpis
+- /v1/communication/send
+- /v1/resources/access
+- /v1/notes/add
+
+Required Semantic Keys (data-cy):
+- pswdashboard-btn-update-status
+- pswdashboard-btn-log-compliance
+- pswdashboard-btn-view-kpis
+- pswdashboard-btn-send-message
+- pswdashboard-btn-access-resources
+- pswdashboard-btn-add-note

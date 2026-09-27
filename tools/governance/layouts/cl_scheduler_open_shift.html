@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" dir="LTR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit Data | Primecare Client</title>
+  <link rel="stylesheet" href="./primecare_theme.css" />
+
+  <style>
+    :root {
+      --pc-color-primary: #0F172A;
+      --pc-color-secondary: #475569;
+      --pc-color-background: #F8FAFC;
+      --pc-color-surface: #FFFFFF;
+      --pc-color-text: #0f172a;
+      --pc-color-muted: #64748b;
+      --pc-spacing-sm: 10px;
+      --pc-spacing-md: 16px;
+      --pc-spacing-lg: 28px;
+      --pc-radius-md: 8px;
+      --pc-font-family: Inter, sans-serif;
+    }
+  </style>
+
+</head>
+<body data-theme="primecare_light_default" data-app="cl" data-role="scheduler" data-screen="open_shift">
+  <aside class="pc-sidebar" data-testid="app-sidebar">
+  <div class="pc-sidebar-brand">
+    <div class="pc-brand-logo">CL</div>
+    <div>
+      <div class="pc-brand-title">Primecare Client</div>
+      <div class="pc-brand-subtitle">Shift Supervisor</div>
+    </div>
+  </div>
+
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">Overview</div>
+    
+    <a href="/offices/franchise/roles/scheduler/dashboard" class="pc-sidebar-link " data-testid="sidebar-link-scheduler_dashboard" data-route="/offices/franchise/roles/scheduler/dashboard" data-screen="scheduler_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Scheduler Dashboard</span>
+    </a>
+    
+    <a href="/staff/scheduling-dashboard" class="pc-sidebar-link " data-testid="sidebar-link-scheduling_dashboard" data-route="/staff/scheduling-dashboard" data-screen="scheduling_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Scheduling Dashboard</span>
+    </a>
+    
+    <a href="/management/screen-progress-dashboard" class="pc-sidebar-link " data-testid="sidebar-link-screen_progress_dashboard" data-route="/management/screen-progress-dashboard" data-screen="screen_progress_dashboard">
+      <span class="pc-sidebar-icon">dashboard</span>
+      <span class="pc-sidebar-label">Screen Progress Dashboard</span>
+    </a>
+    
+  </div>
+  
+  <div class="pc-sidebar-group">
+    <div class="pc-sidebar-group-title">General</div>
+    
+    <a href="/staff/scheduler-command-center" class="pc-sidebar-link " data-testid="sidebar-link-scheduler_command_center" data-route="/staff/scheduler-command-center" data-screen="scheduler_command_center">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Scheduler Command Center</span>
+    </a>
+    
+    <a href="/staff/scheduler-calendar" class="pc-sidebar-link " data-testid="sidebar-link-scheduler_calendar" data-route="/staff/scheduler-calendar" data-screen="scheduler_calendar">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Scheduler Calendar</span>
+    </a>
+    
+    <a href="/staff/scheduler-booking-requests" class="pc-sidebar-link " data-testid="sidebar-link-scheduler_booking_requests" data-route="/staff/scheduler-booking-requests" data-screen="scheduler_booking_requests">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Scheduler Booking Requests</span>
+    </a>
+    
+    <a href="/staff/scheduler-conflicts" class="pc-sidebar-link " data-testid="sidebar-link-scheduler_conflicts" data-route="/staff/scheduler-conflicts" data-screen="scheduler_conflicts">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Scheduler Conflicts</span>
+    </a>
+    
+    <a href="/staff/scheduler-open-shifts" class="pc-sidebar-link " data-testid="sidebar-link-scheduler_open_shifts" data-route="/staff/scheduler-open-shifts" data-screen="scheduler_open_shifts">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Scheduler Open Shifts</span>
+    </a>
+    
+    <a href="/staff/scheduler-provider-availability" class="pc-sidebar-link " data-testid="sidebar-link-scheduler_provider_availability" data-route="/staff/scheduler-provider-availability" data-screen="scheduler_provider_availability">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Scheduler Provider Availability</span>
+    </a>
+    
+    <a href="/staff/calendar-management" class="pc-sidebar-link " data-testid="sidebar-link-calendar_management" data-route="/staff/calendar-management" data-screen="calendar_management">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Calendar Management</span>
+    </a>
+    
+    <a href="/staff/conflict-resolution" class="pc-sidebar-link " data-testid="sidebar-link-conflict_resolution" data-route="/staff/conflict-resolution" data-screen="conflict_resolution">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Conflict Resolution</span>
+    </a>
+    
+    <a href="/staff/open-shift" class="pc-sidebar-link is-active" data-testid="sidebar-link-open_shift" data-route="/staff/open-shift" data-screen="open_shift">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Open Shift</span>
+    </a>
+    
+    <a href="/staff/scheduling-operations4-k" class="pc-sidebar-link " data-testid="sidebar-link-scheduling_operations4_k" data-route="/staff/scheduling-operations4-k" data-screen="scheduling_operations4_k">
+      <span class="pc-sidebar-icon">list</span>
+      <span class="pc-sidebar-label">Scheduling Operations4 K</span>
+    </a>
+    
+  </div>
+  
+
+  <div class="pc-sidebar-footer">
+    <span class="pc-shell-status-dot"></span>
+    <span>Shell loaded</span>
+  </div>
+</aside>
+
+  <div class="pc-shell">
+    <header class="pc-topbar" data-testid="app-topbar">
+  <div class="pc-topbar-left">
+    <div class="pc-breadcrumb" data-testid="breadcrumb">Primecare Client / Shift Supervisor</div>
+    <div class="pc-topbar-title-row">
+      <h1 class="pc-screen-title" data-testid="screen-title">Submit Data</h1>
+      <span class="pc-role-badge" data-testid="role-badge">Shift Supervisor</span>
+    </div>
+  </div>
+
+  <div class="pc-topbar-actions">
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in Primecare Client...</div>
+    
+    
+    
+    
+    <div class="pc-global-search" data-testid="topbar-global-search" data-feature="global_search">🔎 Search in Primecare Client...</div>
+    
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-notifications" data-action="notifications" data-feature="notifications">
+      notifications Notifications
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-role_badge" data-action="none" data-feature="role_badge">
+      badge Role
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-profile_menu" data-action="profile" data-feature="profile_menu">
+      person Profile
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    
+    
+    <button class="pc-topbar-button" data-testid="topbar-logout" data-action="logout" data-feature="logout">
+      logout Logout
+    </button>
+    
+    
+    <div class="pc-profile-avatar" data-testid="topbar-profile-avatar">SS</div>
+  </div>
+</header>
+
+    <main class="pc-content" data-testid="main-content">
+  <div class="pc-content-shell" data-testid="content-page-shell">
+    <div class="pc-content-header">
+      <div>
+        <div class="pc-content-title">Submit Data</div>
+        <div class="pc-content-subtitle">Visual interface layout contract.</div>
+      </div>
+      <span class="pc-content-state-badge" data-testid="content-state">Active</span>
+    </div>
+
+    
+
+    
+    <div class="pc-section-grid" data-testid="screen-section-grid">
+      
+      <section class="pc-section pc-section--header" data-testid="section-open_shift_header" data-section-type="header">
+        <div class="pc-section-header">
+          <div>
+            <h2>Header Section</h2>
+            <p>Fallback screen title.</p>
+          </div>
+          <span>header</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="open_shift-screen" data-element-type="layout">
+            OpenShiftScreen Screen Root
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="open_shift-title" data-element-type="header">
+            OpenShiftScreen Page Title
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--summary" data-testid="section-open_shift_content_summary" data-section-type="summary">
+        <div class="pc-section-header">
+          <div>
+            <h2>Content Summary Section</h2>
+            <p>Summary cards overview.</p>
+          </div>
+          <span>summary</span>
+        </div>
+        <div class="pc-section-body">
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--content" data-testid="section-open_shift_primary_content" data-section-type="content">
+        <div class="pc-section-header">
+          <div>
+            <h2>Primary Content Section</h2>
+            <p>Main details and grids.</p>
+          </div>
+          <span>content</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--layout" data-testid="open_shift-content" data-element-type="layout">
+            OpenShiftScreen Primary Content
+          </div>
+          
+          <div class="pc-element pc-element--loading" data-testid="openshift-loading" data-element-type="loading">
+            Openshift Loading
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="openshift-content" data-element-type="layout">
+            Openshift Content
+          </div>
+          
+          <div class="pc-element pc-element--header" data-testid="openshift-title" data-element-type="header">
+            Openshift Title
+          </div>
+          
+          <div class="pc-element pc-element--layout" data-testid="openshift-screen" data-element-type="layout">
+            Openshift Screen
+          </div>
+          
+        </div>
+      </section>
+      
+      <section class="pc-section pc-section--action_bar" data-testid="section-open_shift_action_bar" data-section-type="action_bar">
+        <div class="pc-section-header">
+          <div>
+            <h2>Action Bar Section</h2>
+            <p>Interaction buttons.</p>
+          </div>
+          <span>action_bar</span>
+        </div>
+        <div class="pc-section-body">
+          
+          <div class="pc-element pc-element--button" data-testid="openshift-btn-5" data-element-type="button">
+            Openshift Btn 5
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="openshift-btn-4" data-element-type="button">
+            Openshift Btn 4
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="openshift-btn-2" data-element-type="button">
+            Openshift Btn 2
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="openshift-btn-3" data-element-type="button">
+            Openshift Btn 3
+          </div>
+          
+          <div class="pc-element pc-element--button" data-testid="openshift-btn-1" data-element-type="button">
+            Openshift Btn 1
+          </div>
+          
+        </div>
+      </section>
+      
+    </div>
+    
+  </div>
+</main>
+
+  </div>
+</body>
+</html>

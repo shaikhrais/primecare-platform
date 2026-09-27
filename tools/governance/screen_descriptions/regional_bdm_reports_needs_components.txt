@@ -1,0 +1,28 @@
+Screen Code: regional_bdm_reports
+Screen Name: Regional Bdm Reports
+
+Required Components:
+- LoadingIndicator
+- ErrorMessage
+- ReportTable
+- KPIDashboard
+- ExportButton
+
+Required Functions/Handlers:
+- fetchRegionalReports
+- handleLoadingError
+- exportReport
+- refreshData
+
+Required Buttons:
+- Refresh Reports
+- Export Report
+- Share Report
+
+Required APIs:
+- /v1/reports/regional
+
+Required Semantic Keys (data-cy):
+- regional-reports-loading
+- regional-reports-error
+- regional-reports-export

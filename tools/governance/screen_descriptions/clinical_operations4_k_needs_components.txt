@@ -1,0 +1,58 @@
+Screen Code: clinical_operations4_k
+Screen Name: ClinicalOperations4KScreen
+
+Required Components:
+- ComplianceStatusCard
+- PerformanceMetricsChart
+- StaffEngagementWidget
+- PatientSatisfactionGauge
+- OperationalEfficiencyDashboard
+- BudgetTrackingPanel
+- IncidentReportTracker
+- TrainingProgressTracker
+- AlertsNotificationPanel
+- HistoricalDataTrendGraph
+
+Required Functions/Handlers:
+- fetchComplianceStatus
+- fetchPerformanceMetrics
+- fetchStaffEngagement
+- fetchPatientSatisfaction
+- fetchOperationalMetrics
+- trackBudget
+- reportIncident
+- trackTrainingProgress
+- triggerAlert
+- fetchHistoricalData
+
+Required Buttons:
+- View Audit Results
+- Generate Report
+- Address Issue
+- Allocate Resources
+- Provide Training
+- Submit Feedback
+
+Required APIs:
+- /v1/clinical/compliance/status
+- /v1/clinical/performance/metrics
+- /v1/clinical/staff/engagement
+- /v1/clinical/patient/satisfaction
+- /v1/clinical/operations/efficiency
+- /v1/clinical/budget/tracking
+- /v1/clinical/incidents/report
+- /v1/clinical/training/progress
+- /v1/clinical/alerts
+- /v1/clinical/historical/data
+
+Required Semantic Keys (data-cy):
+- clinical-dashboard-compliance-status
+- clinical-dashboard-performance-metrics
+- clinical-dashboard-staff-engagement
+- clinical-dashboard-patient-satisfaction
+- clinical-dashboard-operational-efficiency
+- clinical-dashboard-budget-tracking
+- clinical-dashboard-incident-report
+- clinical-dashboard-training-progress
+- clinical-dashboard-alerts
+- clinical-dashboard-historical-data

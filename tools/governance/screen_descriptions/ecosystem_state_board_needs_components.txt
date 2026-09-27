@@ -1,0 +1,19 @@
+Screen Code: ecosystem_state_board
+Screen Name: Ecosystem State Board
+
+Required Components:
+- EcosystemMetricCard
+- RevenueTrajectoryChart
+- RegionalHeatmap
+
+Required Functions/Handlers:
+- refreshData
+
+Required Buttons:
+- Refresh
+
+Required APIs:
+- /v1/ecosystem/state
+
+Required Semantic Keys (data-cy):
+- ecosystem-state-refresh

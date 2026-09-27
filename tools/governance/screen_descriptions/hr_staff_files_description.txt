@@ -1,0 +1,21 @@
+User Work List:
+1. Manage institutional settings.
+2. Track real-time clinical workflows.
+3. Verify live compliance standing.
+4. Monitor operational status.
+5. Conduct verification audits.
+6. Submit secure operational event logs.
+
+Red Flags of Operation:
+1. Operational status not marked as ACTIVE.
+2. SLA uptime drops below acceptable levels (e.g., below 99.98%).
+3. Verification audits show issues detected.
+4. Significant drops in hourly transaction flow.
+5. Incomplete or missing secure operational event logs.
+
+Dashboard Needs:
+1. Display current operational status.
+2. Show verification audit results.
+3. Provide a telemetry chart for transaction flow.
+4. Include a secure operational event logger with submission capability.
+5. Highlight any compliance issues or alerts.

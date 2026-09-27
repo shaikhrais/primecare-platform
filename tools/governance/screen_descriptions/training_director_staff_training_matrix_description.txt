@@ -1,0 +1,22 @@
+List of work for the user:
+1. Review the training matrix for staff.
+2. Monitor training completion status for each staff member.
+3. Identify training needs based on staff roles.
+4. Schedule training sessions as needed.
+5. Update training records and progress.
+6. Generate reports on training effectiveness.
+
+Red flags of operation:
+1. Low training completion rates among staff.
+2. High number of overdue training sessions.
+3. Lack of engagement in training programs.
+4. Inconsistent training records or updates.
+5. Feedback indicating dissatisfaction with training content or delivery.
+
+What is needed on the user dashboard:
+1. Overview of training completion rates.
+2. Alerts for overdue training sessions.
+3. List of upcoming training sessions.
+4. Individual training progress for each staff member.
+5. Feedback and ratings from training participants.
+6. Quick access to training resources and materials.

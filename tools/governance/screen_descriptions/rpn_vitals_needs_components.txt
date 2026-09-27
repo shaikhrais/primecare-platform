@@ -1,0 +1,58 @@
+Screen Code: rpn_vitals
+Screen Name: RpnVitalsScreen
+
+Required Components:
+- VitalSignMonitor
+- MedicationTracker
+- CarePlanStatus
+- ComplianceAuditLog
+- CriticalAlerts
+- PerformanceMetrics
+- StaffingIndicators
+- EducationalResources
+- TeamCommunicationTools
+- TrendAnalysisChart
+
+Required Functions/Handlers:
+- monitorVitalSigns
+- trackMedicationAdministration
+- updateCarePlan
+- logComplianceAudit
+- triggerCriticalAlert
+- calculatePerformanceMetrics
+- checkStaffingLevels
+- accessEducationalResources
+- collaborateWithTeam
+- analyzeTrends
+
+Required Buttons:
+- Administer Medication
+- Update Care Plan
+- Log Vital Signs
+- Generate Compliance Report
+- Send Alert
+- View Patient History
+
+Required APIs:
+- /v1/patient/vitals
+- /v1/medications/administer
+- /v1/careplan/update
+- /v1/compliance/audit
+- /v1/alerts/critical
+- /v1/performance/metrics
+- /v1/staffing/levels
+- /v1/education/resources
+- /v1/team/collaboration
+- /v1/trends/analyze
+
+Required Semantic Keys (data-cy):
+- rpn-vitals-monitor
+- rpn-medication-track
+- rpn-careplan-update
+- rpn-compliance-log
+- rpn-critical-alert
+- rpn-performance-metrics
+- rpn-staffing-indicators
+- rpn-education-resources
+- rpn-team-communication
+- rpn-trend-analysis

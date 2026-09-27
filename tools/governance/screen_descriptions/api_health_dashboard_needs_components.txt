@@ -1,0 +1,52 @@
+Screen Code: api_health_dashboard
+Screen Name: ApiHealthDashboardScreen
+
+Required Components:
+- GovMetricCard
+- GovTelemetryChart
+- ComplianceStatusIndicator
+- AuditLogViewer
+- KPIWidget
+- RiskAssessmentAlert
+- PerformanceTrendChart
+- NotificationPanel
+- TrainingResourceAccess
+- StakeholderFeedbackWidget
+- IncidentSummaryCard
+- OperationalDashboardIntegration
+
+Required Functions/Handlers:
+- fetchComplianceStatus
+- retrieveAuditLogs
+- calculateKPIs
+- assessRiskMetrics
+- fetchPerformanceTrends
+- sendNotifications
+- accessTrainingResources
+- collectStakeholderFeedback
+- summarizeIncidents
+- integrateOperationalDashboards
+
+Required Buttons:
+- View Audit Logs
+- Generate Report
+- Access Training Resources
+- Notify Stakeholders
+
+Required APIs:
+- /v1/governance/compliance/status
+- /v1/governance/audit/logs
+- /v1/governance/kpis
+- /v1/governance/risk/assessment
+- /v1/governance/performance/trends
+- /v1/governance/notifications
+- /v1/governance/training/resources
+- /v1/governance/feedback
+- /v1/governance/incidents
+- /v1/governance/integration
+
+Required Semantic Keys (data-cy):
+- govdashboard-btn-view-audit-logs
+- govdashboard-btn-generate-report
+- govdashboard-btn-access-training
+- govdashboard-btn-notify-stakeholders

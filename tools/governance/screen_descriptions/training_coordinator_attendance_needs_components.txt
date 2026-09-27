@@ -1,0 +1,30 @@
+Screen Code: training_coordinator_attendance
+Screen Name: Training Coordinator Attendance
+
+Required Components:
+- AttendanceMonitor
+- AttendanceReportChart
+- DiscrepancyAlert
+- UserFeedbackSection
+- AttendanceTrendGraph
+
+Required Functions/Handlers:
+- loadAttendanceData
+- updateAttendanceRecord
+- handleDiscrepancy
+- sendCommunication
+
+Required Buttons:
+- Update Attendance
+- Report Discrepancy
+- View Reports
+
+Required APIs:
+- /v1/training/attendance
+- /v1/training/attendance/update
+- /v1/training/attendance/discrepancy
+
+Required Semantic Keys (data-cy):
+- attendance-monitor
+- attendance-update-btn
+- discrepancy-report-btn

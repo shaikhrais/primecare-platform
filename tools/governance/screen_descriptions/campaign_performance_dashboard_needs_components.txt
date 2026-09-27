@@ -1,0 +1,26 @@
+Screen Code: campaign_performance_dashboard
+Screen Name: Campaign Performance Dashboard
+
+Required Components:
+- CampaignList
+- PerformanceMetrics
+- LoadingIndicator
+- ErrorMessage
+
+Required Functions/Handlers:
+- fetchCampaignData
+- createCampaign
+- handleLoadingState
+- handleError
+
+Required Buttons:
+- Refresh Campaign Data
+- Create New Campaign
+
+Required APIs:
+- /v1/campaigns/active
+- /v1/campaigns/create
+
+Required Semantic Keys (data-cy):
+- campaign-dashboard-refresh
+- campaign-dashboard-create

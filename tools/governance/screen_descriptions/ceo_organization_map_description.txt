@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor the organizational structure of the CEO's team.
+2. Analyze the effectiveness of team members and their roles.
+3. Identify any gaps or overlaps in responsibilities.
+4. Review performance metrics associated with the organization.
+5. Ensure that the data displayed is up-to-date and accurate.
+
+Red flags of operation:
+1. Inconsistent or outdated data displayed on the dashboard.
+2. Slow loading times or failure to load the organizational map.
+3. Errors in data retrieval that prevent users from accessing necessary information.
+4. Lack of clarity in roles and responsibilities leading to confusion.
+5. High turnover rates or dissatisfaction among team members indicated by feedback.
+
+What is needed on the user dashboard:
+1. Real-time updates on organizational changes.
+2. Performance metrics for each team member.
+3. Visual representation of the organizational structure (e.g., charts or graphs).
+4. Alerts for any discrepancies or issues in the data.
+5. User feedback section to gather insights on the effectiveness of the organization.

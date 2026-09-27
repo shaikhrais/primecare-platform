@@ -1,0 +1,30 @@
+Screen Code: territory_expansion_manager_demographics
+Screen Name: Territory Expansion Manager Demographics
+
+Required Components:
+- DemographicDataChart
+- KPIWidget
+- AlertsNotification
+- CollaborationTool
+- UserInterface
+
+Required Functions/Handlers:
+- fetchDemographicData
+- updateDashboard
+- generateReport
+- sendCollaborationInvite
+
+Required Buttons:
+- Update Data
+- Generate Report
+- Share Insights
+
+Required APIs:
+- /v1/demographics/data
+- /v1/demographics/alerts
+- /v1/collaboration/share
+
+Required Semantic Keys (data-cy):
+- dashboard-btn-update-data
+- dashboard-btn-generate-report
+- dashboard-btn-share-insights

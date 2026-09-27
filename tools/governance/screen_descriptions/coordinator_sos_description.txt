@@ -1,0 +1,35 @@
+Work Shift Supervisor Responsibilities:
+1. Monitor staff performance and ensure adherence to protocols.
+2. Oversee daily operations and manage shift schedules.
+3. Address any immediate operational issues or emergencies.
+4. Conduct regular team meetings to communicate updates and expectations.
+5. Ensure compliance with safety and health regulations.
+6. Maintain accurate records of incidents and operational metrics.
+7. Provide training and support to team members.
+8. Facilitate communication between different departments.
+9. Evaluate and report on team performance and operational efficiency.
+10. Implement improvements based on feedback and performance data.
+
+Red Flags of Operation:
+1. Increased frequency of incidents or emergencies.
+2. Staff complaints about workload or safety concerns.
+3. High turnover rates or absenteeism among staff.
+4. Delays in response times to alarms or emergencies.
+5. Incomplete or inaccurate documentation of incidents.
+6. Lack of communication or coordination among team members.
+7. Failure to follow established protocols or procedures.
+8. Negative feedback from clients or families regarding care.
+9. Unresolved issues from previous shifts.
+10. Low staff morale or engagement.
+
+Dashboard Needs for Shift Supervisor:
+1. Real-time overview of active alarms and incidents.
+2. Staff performance metrics and compliance rates.
+3. Incident reporting and resolution tracking.
+4. Communication logs between staff and departments.
+5. Shift schedule and staffing levels.
+6. Alerts for unresolved issues or emergencies.
+7. Training and compliance status of team members.
+8. Feedback and satisfaction ratings from clients and families.
+9. Historical data on incidents for trend analysis.
+10. Tools for quick communication and decision-making during emergencies.

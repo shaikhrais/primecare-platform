@@ -1,0 +1,57 @@
+{
+  "role": {
+    "id": 34,
+    "role_code": "franchise_sales",
+    "role_name": "Franchise Sales Manager",
+    "role_type": "staff",
+    "active": 1
+  },
+  "screens_count": 3,
+  "screens": [
+    {
+      "id": 46,
+      "app_id": 9,
+      "role_id": 34,
+      "screen_code": "franchise_sales_manager_dashboard",
+      "screen_name": "FranchiseSalesManagerDashboardScreen",
+      "route_path": "/offices/business_development/roles/franchise_sales_manager/dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/franchise_sales_manager_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 605,
+      "app_id": 1,
+      "role_id": 34,
+      "screen_code": "franchise_sales_analytics",
+      "screen_name": "Franchise Sales Manager Analytics",
+      "route_path": "/executive/franchise-sales-analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/executive/franchise_sales_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 606,
+      "app_id": 1,
+      "role_id": 34,
+      "screen_code": "franchise_sales_workflow",
+      "screen_name": "Franchise Sales Manager Compliance Workflow",
+      "route_path": "/executive/franchise-sales-workflow",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/executive/franchise_sales_workflow_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

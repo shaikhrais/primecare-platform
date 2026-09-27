@@ -1,0 +1,31 @@
+Screen Code: psw_help_support
+Screen Name: Psw Help Support
+
+Required Components:
+- InfoCard
+- FAQSection
+- FeedbackForm
+- StatusUpdatePanel
+- ContactInfoCard
+
+Required Functions/Handlers:
+- submitFeedback
+- fetchFAQs
+- getSupportStatus
+- contactSupport
+
+Required Buttons:
+- Submit Feedback
+- Access FAQs
+- Contact Support
+
+Required APIs:
+- /v1/support/password/help
+- /v1/support/feedback
+- /v1/support/faqs
+- /v1/support/status
+
+Required Semantic Keys (data-cy):
+- pswhelp-btn-submit-feedback
+- pswhelp-btn-access-faqs
+- pswhelp-btn-contact-support

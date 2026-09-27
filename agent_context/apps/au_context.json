@@ -1,0 +1,12 @@
+{
+  "app": {
+    "id": 3,
+    "app_code": "au",
+    "app_name": "Primecare Auth",
+    "description": null,
+    "owner_team": null,
+    "active": 1
+  },
+  "screens_count": 0,
+  "screens": []
+}

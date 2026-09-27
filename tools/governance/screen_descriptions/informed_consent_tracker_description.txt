@@ -1,0 +1,23 @@
+User Work Tasks:
+1. Review and understand the informed consent process.
+2. Track informed consent status for patients.
+3. Update patient records with consent information.
+4. Generate reports on consent status for compliance.
+5. Communicate with patients regarding their consent choices.
+6. Ensure all consent forms are properly signed and stored.
+
+Red Flags of Operation:
+1. Delays in updating consent status.
+2. Missing or incomplete consent forms.
+3. Inconsistent communication with patients.
+4. Lack of visibility into consent tracking progress.
+5. High error rates in data entry.
+6. Non-compliance with regulatory requirements.
+
+Dashboard Needs:
+1. Overview of consent status for all patients.
+2. Alerts for missing or overdue consent forms.
+3. Metrics on consent completion rates.
+4. Quick access to patient consent history.
+5. Reporting tools for compliance audits.
+6. Communication logs with patients regarding consent.

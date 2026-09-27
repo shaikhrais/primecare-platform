@@ -1,0 +1,72 @@
+{
+  "role": {
+    "id": 28,
+    "role_code": "legal",
+    "role_name": "Legal Counsel",
+    "role_type": "staff",
+    "active": 1
+  },
+  "screens_count": 4,
+  "screens": [
+    {
+      "id": 40,
+      "app_id": 5,
+      "role_id": 28,
+      "screen_code": "legal_dashboard",
+      "screen_name": "LegalDashboardScreen",
+      "route_path": "/offices/corporate/roles/legal/dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/executive/legal_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 174,
+      "app_id": 1,
+      "role_id": 28,
+      "screen_code": "legal_analytics",
+      "screen_name": "LegalAnalyticsScreen",
+      "route_path": "/executive/legal-analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/legal_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 175,
+      "app_id": 1,
+      "role_id": 28,
+      "screen_code": "legal_compliance",
+      "screen_name": "LegalComplianceScreen",
+      "route_path": "/executive/legal-compliance",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/executive/legal_compliance_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 176,
+      "app_id": 1,
+      "role_id": 28,
+      "screen_code": "legal_workflow",
+      "screen_name": "LegalWorkflowScreen",
+      "route_path": "/executive/legal-workflow",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/legal_workflow_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

@@ -1,0 +1,1766 @@
+{
+  "users": [
+    {
+      "id": "u-ceo",
+      "email": "ceo@primecare.com",
+      "roles": "ceo"
+    },
+    {
+      "id": "u-coo",
+      "email": "coo@primecare.com",
+      "roles": "coo"
+    },
+    {
+      "id": "u-cfo",
+      "email": "cfo@primecare.com",
+      "roles": "cfo"
+    },
+    {
+      "id": "u-cto",
+      "email": "cto@primecare.com",
+      "roles": "cto"
+    },
+    {
+      "id": "u-compliance_manager",
+      "email": "compliance_manager@primecare.com",
+      "roles": "compliance_manager"
+    },
+    {
+      "id": "u-training_director",
+      "email": "training_director@primecare.com",
+      "roles": "training_director"
+    },
+    {
+      "id": "u-regional_manager_ontario",
+      "email": "regional_manager_ontario@primecare.com",
+      "roles": "regional_manager_ontario"
+    },
+    {
+      "id": "u-regional_manager_usa",
+      "email": "regional_manager_usa@primecare.com",
+      "roles": "regional_manager_usa"
+    },
+    {
+      "id": "u-franchise_sales_manager",
+      "email": "franchise_sales_manager@primecare.com",
+      "roles": "franchise_sales_manager"
+    },
+    {
+      "id": "u-partnership_manager",
+      "email": "partnership_manager@primecare.com",
+      "roles": "partnership_manager"
+    },
+    {
+      "id": "u-territory_expansion_manager",
+      "email": "territory_expansion_manager@primecare.com",
+      "roles": "territory_expansion_manager"
+    },
+    {
+      "id": "u-general_manager",
+      "email": "general_manager@primecare.com",
+      "roles": "general_manager"
+    },
+    {
+      "id": "u-franchise_owner",
+      "email": "franchise_owner@primecare.com",
+      "roles": "franchise_owner"
+    },
+    {
+      "id": "u-operations_manager",
+      "email": "operations_manager@primecare.com",
+      "roles": "operations_manager"
+    },
+    {
+      "id": "u-scheduler",
+      "email": "scheduler@primecare.com",
+      "roles": "scheduler"
+    },
+    {
+      "id": "u-billing_admin",
+      "email": "billing_admin@primecare.com",
+      "roles": "billing_admin"
+    },
+    {
+      "id": "u-hr_manager",
+      "email": "hr_manager@primecare.com",
+      "roles": "hr_manager"
+    },
+    {
+      "id": "u-rn",
+      "email": "rn@primecare.com",
+      "roles": "rn"
+    },
+    {
+      "id": "u-rpn",
+      "email": "rpn@primecare.com",
+      "roles": "rpn"
+    },
+    {
+      "id": "u-rmt",
+      "email": "rmt@primecare.com",
+      "roles": "rmt"
+    },
+    {
+      "id": "u-psw",
+      "email": "psw@primecare.com",
+      "roles": "psw"
+    },
+    {
+      "id": "u-physiotherapist",
+      "email": "physiotherapist@primecare.com",
+      "roles": "physiotherapist"
+    },
+    {
+      "id": "u-chiropractor",
+      "email": "chiropractor@primecare.com",
+      "roles": "chiropractor"
+    },
+    {
+      "id": "u-occupational_therapist",
+      "email": "occupational_therapist@primecare.com",
+      "roles": "occupational_therapist"
+    },
+    {
+      "id": "u-speech_pathologist",
+      "email": "speech_pathologist@primecare.com",
+      "roles": "speech_pathologist"
+    },
+    {
+      "id": "u-customer_support",
+      "email": "customer_support@primecare.com",
+      "roles": "customer_support"
+    },
+    {
+      "id": "u-intake_coordinator",
+      "email": "intake_coordinator@primecare.com",
+      "roles": "intake_coordinator"
+    },
+    {
+      "id": "u-quality_assurance",
+      "email": "quality_assurance@primecare.com",
+      "roles": "quality_assurance"
+    },
+    {
+      "id": "u-training_coordinator",
+      "email": "training_coordinator@primecare.com",
+      "roles": "training_coordinator"
+    },
+    {
+      "id": "u-local_marketing",
+      "email": "local_marketing@primecare.com",
+      "roles": "local_marketing"
+    },
+    {
+      "id": "u-community_outreach",
+      "email": "community_outreach@primecare.com",
+      "roles": "community_outreach"
+    },
+    {
+      "id": "u-territory_sales",
+      "email": "territory_sales@primecare.com",
+      "roles": "territory_sales"
+    },
+    {
+      "id": "u-client",
+      "email": "client@primecare.com",
+      "roles": "client"
+    },
+    {
+      "id": "u-family_member",
+      "email": "family_member@primecare.com",
+      "roles": "family_member"
+    },
+    {
+      "id": "u-admin",
+      "email": "admin@primecare.com",
+      "roles": "admin"
+    },
+    {
+      "id": "u-receptionist",
+      "email": "receptionist@primecare.com",
+      "roles": "receptionist"
+    },
+    {
+      "id": "u-scrum_master",
+      "email": "scrum_master@primecare.com",
+      "roles": "scrum_master"
+    },
+    {
+      "id": "u-finance_director",
+      "email": "finance_director@primecare.com",
+      "roles": "finance_director"
+    }
+  ],
+  "tenants": [
+    {
+      "id": "tenant-hq",
+      "name": "PrimeCare HQ"
+    },
+    {
+      "id": "tenant-toronto",
+      "name": "PrimeCare Toronto"
+    }
+  ],
+  "visits": [],
+  "metrics": {
+    "ceo": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Global Revenue",
+          "value": "$1,248,500",
+          "status": "success",
+          "trend": 12.4
+        },
+        {
+          "title": "Outstanding AR",
+          "value": "$42,300",
+          "status": "warning",
+          "trend": -2.1
+        },
+        {
+          "title": "Payroll status",
+          "value": "PROCESSED",
+          "status": "positive",
+          "trend": 0
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "CEO Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        },
+        {
+          "title": "Batch Billing Completed",
+          "subtitle": "1,240 invoices generated successfully.",
+          "timestamp": "2h ago",
+          "type": "info"
+        }
+      ],
+      "charts": []
+    },
+    "coo": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Shift Coverage",
+          "value": "99.2%",
+          "status": "success",
+          "trend": 0.5
+        },
+        {
+          "title": "Unfilled Hours",
+          "value": "4.5",
+          "status": "warning",
+          "trend": -12
+        },
+        {
+          "title": "Staff Retention",
+          "value": "94%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "COO Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "cfo": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Global Revenue",
+          "value": "$1,248,500",
+          "status": "success",
+          "trend": 12.4
+        },
+        {
+          "title": "Outstanding AR",
+          "value": "$42,300",
+          "status": "warning",
+          "trend": -2.1
+        },
+        {
+          "title": "Payroll status",
+          "value": "PROCESSED",
+          "status": "positive",
+          "trend": 0
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "CFO Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        },
+        {
+          "title": "Batch Billing Completed",
+          "subtitle": "1,240 invoices generated successfully.",
+          "timestamp": "2h ago",
+          "type": "info"
+        }
+      ],
+      "charts": []
+    },
+    "cto": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "CTO Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "compliance_manager": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "COMPLIANCE MANAGER Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "training_director": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "TRAINING DIRECTOR Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "regional_manager_ontario": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "REGIONAL MANAGER_ONTARIO Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "regional_manager_usa": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "REGIONAL MANAGER_USA Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "franchise_sales_manager": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "New Leads",
+          "value": "84",
+          "status": "success",
+          "trend": 18.2
+        },
+        {
+          "title": "Assigned Territories",
+          "value": "12",
+          "status": "positive",
+          "trend": 1
+        },
+        {
+          "title": "Conversion Rate",
+          "value": "24%",
+          "status": "positive",
+          "trend": 4.5
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "FRANCHISE SALES_MANAGER Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "partnership_manager": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "New Leads",
+          "value": "84",
+          "status": "success",
+          "trend": 18.2
+        },
+        {
+          "title": "Assigned Territories",
+          "value": "12",
+          "status": "positive",
+          "trend": 1
+        },
+        {
+          "title": "Conversion Rate",
+          "value": "24%",
+          "status": "positive",
+          "trend": 4.5
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "PARTNERSHIP MANAGER Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "territory_expansion_manager": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "New Leads",
+          "value": "84",
+          "status": "success",
+          "trend": 18.2
+        },
+        {
+          "title": "Assigned Territories",
+          "value": "12",
+          "status": "positive",
+          "trend": 1
+        },
+        {
+          "title": "Conversion Rate",
+          "value": "24%",
+          "status": "positive",
+          "trend": 4.5
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "TERRITORY EXPANSION_MANAGER Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "general_manager": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Shift Coverage",
+          "value": "99.2%",
+          "status": "success",
+          "trend": 0.5
+        },
+        {
+          "title": "Unfilled Hours",
+          "value": "4.5",
+          "status": "warning",
+          "trend": -12
+        },
+        {
+          "title": "Staff Retention",
+          "value": "94%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "GENERAL MANAGER Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "franchise_owner": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Global Revenue",
+          "value": "$1,248,500",
+          "status": "success",
+          "trend": 12.4
+        },
+        {
+          "title": "Outstanding AR",
+          "value": "$42,300",
+          "status": "warning",
+          "trend": -2.1
+        },
+        {
+          "title": "Payroll status",
+          "value": "PROCESSED",
+          "status": "positive",
+          "trend": 0
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "FRANCHISE OWNER Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        },
+        {
+          "title": "Batch Billing Completed",
+          "subtitle": "1,240 invoices generated successfully.",
+          "timestamp": "2h ago",
+          "type": "info"
+        }
+      ],
+      "charts": []
+    },
+    "operations_manager": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Shift Coverage",
+          "value": "99.2%",
+          "status": "success",
+          "trend": 0.5
+        },
+        {
+          "title": "Unfilled Hours",
+          "value": "4.5",
+          "status": "warning",
+          "trend": -12
+        },
+        {
+          "title": "Staff Retention",
+          "value": "94%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "OPERATIONS MANAGER Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "scheduler": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Shift Coverage",
+          "value": "99.2%",
+          "status": "success",
+          "trend": 0.5
+        },
+        {
+          "title": "Unfilled Hours",
+          "value": "4.5",
+          "status": "warning",
+          "trend": -12
+        },
+        {
+          "title": "Staff Retention",
+          "value": "94%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "SCHEDULER Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "billing_admin": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Global Revenue",
+          "value": "$1,248,500",
+          "status": "success",
+          "trend": 12.4
+        },
+        {
+          "title": "Outstanding AR",
+          "value": "$42,300",
+          "status": "warning",
+          "trend": -2.1
+        },
+        {
+          "title": "Payroll status",
+          "value": "PROCESSED",
+          "status": "positive",
+          "trend": 0
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "BILLING ADMIN Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        },
+        {
+          "title": "Batch Billing Completed",
+          "subtitle": "1,240 invoices generated successfully.",
+          "timestamp": "2h ago",
+          "type": "info"
+        }
+      ],
+      "charts": []
+    },
+    "hr_manager": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "HR MANAGER Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "rn": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Active Visits",
+          "value": "3",
+          "status": "positive",
+          "trend": 0
+        },
+        {
+          "title": "Patient Satisfaction",
+          "value": "4.8/5",
+          "status": "success",
+          "trend": 0.1
+        },
+        {
+          "title": "Documentation Sync",
+          "value": "COMPLETED",
+          "status": "success",
+          "trend": 0
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "RN Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        },
+        {
+          "title": "Vitals Uploaded",
+          "subtitle": "Patient #8293 clinical notes synchronized.",
+          "timestamp": "15m ago",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "rpn": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Active Visits",
+          "value": "2",
+          "status": "positive",
+          "trend": 0
+        },
+        {
+          "title": "Patient Satisfaction",
+          "value": "4.8/5",
+          "status": "success",
+          "trend": 0.1
+        },
+        {
+          "title": "Documentation Sync",
+          "value": "COMPLETED",
+          "status": "success",
+          "trend": 0
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "RPN Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        },
+        {
+          "title": "Vitals Uploaded",
+          "subtitle": "Patient #8293 clinical notes synchronized.",
+          "timestamp": "15m ago",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "rmt": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Active Visits",
+          "value": "8",
+          "status": "positive",
+          "trend": 0
+        },
+        {
+          "title": "Patient Satisfaction",
+          "value": "4.8/5",
+          "status": "success",
+          "trend": 0.1
+        },
+        {
+          "title": "Documentation Sync",
+          "value": "COMPLETED",
+          "status": "success",
+          "trend": 0
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "RMT Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        },
+        {
+          "title": "Vitals Uploaded",
+          "subtitle": "Patient #8293 clinical notes synchronized.",
+          "timestamp": "15m ago",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "psw": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Active Visits",
+          "value": "8",
+          "status": "positive",
+          "trend": 0
+        },
+        {
+          "title": "Patient Satisfaction",
+          "value": "4.8/5",
+          "status": "success",
+          "trend": 0.1
+        },
+        {
+          "title": "Documentation Sync",
+          "value": "COMPLETED",
+          "status": "success",
+          "trend": 0
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "PSW Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        },
+        {
+          "title": "Vitals Uploaded",
+          "subtitle": "Patient #8293 clinical notes synchronized.",
+          "timestamp": "15m ago",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "physiotherapist": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Active Visits",
+          "value": "5",
+          "status": "positive",
+          "trend": 0
+        },
+        {
+          "title": "Patient Satisfaction",
+          "value": "4.8/5",
+          "status": "success",
+          "trend": 0.1
+        },
+        {
+          "title": "Documentation Sync",
+          "value": "COMPLETED",
+          "status": "success",
+          "trend": 0
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "PHYSIOTHERAPIST Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        },
+        {
+          "title": "Vitals Uploaded",
+          "subtitle": "Patient #8293 clinical notes synchronized.",
+          "timestamp": "15m ago",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "chiropractor": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Active Visits",
+          "value": "4",
+          "status": "positive",
+          "trend": 0
+        },
+        {
+          "title": "Patient Satisfaction",
+          "value": "4.8/5",
+          "status": "success",
+          "trend": 0.1
+        },
+        {
+          "title": "Documentation Sync",
+          "value": "COMPLETED",
+          "status": "success",
+          "trend": 0
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "CHIROPRACTOR Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        },
+        {
+          "title": "Vitals Uploaded",
+          "subtitle": "Patient #8293 clinical notes synchronized.",
+          "timestamp": "15m ago",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "occupational_therapist": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Active Visits",
+          "value": "5",
+          "status": "positive",
+          "trend": 0
+        },
+        {
+          "title": "Patient Satisfaction",
+          "value": "4.8/5",
+          "status": "success",
+          "trend": 0.1
+        },
+        {
+          "title": "Documentation Sync",
+          "value": "COMPLETED",
+          "status": "success",
+          "trend": 0
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "OCCUPATIONAL THERAPIST Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        },
+        {
+          "title": "Vitals Uploaded",
+          "subtitle": "Patient #8293 clinical notes synchronized.",
+          "timestamp": "15m ago",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "speech_pathologist": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Active Visits",
+          "value": "6",
+          "status": "positive",
+          "trend": 0
+        },
+        {
+          "title": "Patient Satisfaction",
+          "value": "4.8/5",
+          "status": "success",
+          "trend": 0.1
+        },
+        {
+          "title": "Documentation Sync",
+          "value": "COMPLETED",
+          "status": "success",
+          "trend": 0
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "SPEECH PATHOLOGIST Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        },
+        {
+          "title": "Vitals Uploaded",
+          "subtitle": "Patient #8293 clinical notes synchronized.",
+          "timestamp": "15m ago",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "customer_support": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Open Tickets",
+          "value": "14",
+          "status": "warning",
+          "trend": -5
+        },
+        {
+          "title": "Avg Response Time",
+          "value": "12m",
+          "status": "success",
+          "trend": 2.1
+        },
+        {
+          "title": "NPS Score",
+          "value": "72",
+          "status": "positive",
+          "trend": 1.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "CUSTOMER SUPPORT Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "intake_coordinator": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Open Tickets",
+          "value": "14",
+          "status": "warning",
+          "trend": -5
+        },
+        {
+          "title": "Avg Response Time",
+          "value": "12m",
+          "status": "success",
+          "trend": 2.1
+        },
+        {
+          "title": "NPS Score",
+          "value": "72",
+          "status": "positive",
+          "trend": 1.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "INTAKE COORDINATOR Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "quality_assurance": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Open Tickets",
+          "value": "14",
+          "status": "warning",
+          "trend": -5
+        },
+        {
+          "title": "Avg Response Time",
+          "value": "12m",
+          "status": "success",
+          "trend": 2.1
+        },
+        {
+          "title": "NPS Score",
+          "value": "72",
+          "status": "positive",
+          "trend": 1.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "QUALITY ASSURANCE Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "training_coordinator": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "TRAINING COORDINATOR Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "local_marketing": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "New Leads",
+          "value": "84",
+          "status": "success",
+          "trend": 18.2
+        },
+        {
+          "title": "Assigned Territories",
+          "value": "12",
+          "status": "positive",
+          "trend": 1
+        },
+        {
+          "title": "Conversion Rate",
+          "value": "24%",
+          "status": "positive",
+          "trend": 4.5
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "LOCAL MARKETING Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "community_outreach": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "COMMUNITY OUTREACH Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "territory_sales": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "New Leads",
+          "value": "84",
+          "status": "success",
+          "trend": 18.2
+        },
+        {
+          "title": "Assigned Territories",
+          "value": "12",
+          "status": "positive",
+          "trend": 1
+        },
+        {
+          "title": "Conversion Rate",
+          "value": "24%",
+          "status": "positive",
+          "trend": 4.5
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "TERRITORY SALES Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "client": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "CLIENT Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "family_member": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "FAMILY MEMBER Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "admin": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "ADMIN Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "receptionist": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "RECEPTIONIST Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "scrum_master": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "SCRUM MASTER Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        }
+      ],
+      "charts": []
+    },
+    "finance_director": {
+      "kpis": [
+        {
+          "title": "System Status",
+          "value": "OPERATIONAL",
+          "status": "success",
+          "trend": 0
+        },
+        {
+          "title": "Data Integrity",
+          "value": "98.5%",
+          "status": "positive",
+          "trend": 0.2
+        },
+        {
+          "title": "Global Revenue",
+          "value": "$1,248,500",
+          "status": "success",
+          "trend": 12.4
+        },
+        {
+          "title": "Outstanding AR",
+          "value": "$42,300",
+          "status": "warning",
+          "trend": -2.1
+        },
+        {
+          "title": "Payroll status",
+          "value": "PROCESSED",
+          "status": "positive",
+          "trend": 0
+        }
+      ],
+      "recentActivity": [
+        {
+          "title": "FINANCE DIRECTOR Node Active",
+          "subtitle": "Zero-Empty-Table verified.",
+          "timestamp": "Just now",
+          "type": "success"
+        },
+        {
+          "title": "Batch Billing Completed",
+          "subtitle": "1,240 invoices generated successfully.",
+          "timestamp": "2h ago",
+          "type": "info"
+        }
+      ],
+      "charts": []
+    }
+  },
+  "institutional_nodes": {
+    "clinicNode": [
+      {
+        "id": "c-0",
+        "name": "Fort Alyssachester Clinic",
+        "patientCount": 33
+      },
+      {
+        "id": "c-1",
+        "name": "Julietfort Clinic",
+        "patientCount": 70
+      },
+      {
+        "id": "c-2",
+        "name": "Westonside Clinic",
+        "patientCount": 65
+      },
+      {
+        "id": "c-3",
+        "name": "Cerritos Clinic",
+        "patientCount": 67
+      },
+      {
+        "id": "c-4",
+        "name": "Hintzview Clinic",
+        "patientCount": 49
+      }
+    ],
+    "pswProfile": [
+      {
+        "id": "p-0",
+        "fullName": "Cyrus Rodriguez",
+        "status": "Active"
+      },
+      {
+        "id": "p-1",
+        "fullName": "Darius Legros",
+        "status": "Active"
+      },
+      {
+        "id": "p-2",
+        "fullName": "Mrs. Sonja Lubowitz",
+        "status": "Active"
+      },
+      {
+        "id": "p-3",
+        "fullName": "Jay Aufderhar",
+        "status": "Active"
+      },
+      {
+        "id": "p-4",
+        "fullName": "Ariel Reichert",
+        "status": "Active"
+      },
+      {
+        "id": "p-5",
+        "fullName": "Johnny Hamill",
+        "status": "Active"
+      },
+      {
+        "id": "p-6",
+        "fullName": "Yvonne Jast",
+        "status": "Active"
+      },
+      {
+        "id": "p-7",
+        "fullName": "Crystal Hahn IV",
+        "status": "Active"
+      },
+      {
+        "id": "p-8",
+        "fullName": "Darrin Walter",
+        "status": "Active"
+      },
+      {
+        "id": "p-9",
+        "fullName": "Jared Gibson",
+        "status": "Active"
+      }
+    ]
+  }
+}

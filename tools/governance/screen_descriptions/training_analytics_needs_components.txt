@@ -1,0 +1,34 @@
+Screen Code: training_analytics
+Screen Name: Training Analytics
+
+Required Components:
+- TrainingAnalyticsChart
+- EngagementMetricsCard
+- TrendAnalysisWidget
+- ReportGenerator
+- FeedbackCollectionForm
+
+Required Functions/Handlers:
+- loadTrainingData
+- analyzeEngagementMetrics
+- identifyTrends
+- generateReports
+- collectFeedback
+
+Required Buttons:
+- Generate Report
+- Export Data
+- Submit Feedback
+
+Required APIs:
+- /v1/training/analytics
+- /v1/training/engagement
+- /v1/training/reports
+- /v1/training/feedback
+
+Required Semantic Keys (data-cy):
+- training-analytics-chart
+- engagement-metrics-card
+- trend-analysis-widget
+- report-generator
+- feedback-collection-form

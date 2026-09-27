@@ -1,0 +1,37 @@
+Screen Code: screen_status
+Screen Name: Screen Status
+
+Required Components:
+- DeploymentSelector
+- ScreenSearchField
+- ScreenList
+- ScreenDetails
+- StatusMonitor
+- ErrorMessageDisplay
+- LoadingIndicator
+
+Required Functions/Handlers:
+- selectDeployment
+- searchScreens
+- viewScreenDetails
+- monitorStatus
+- handleError
+
+Required Buttons:
+- Select Deployment
+- Search
+- View Details
+
+Required APIs:
+- /v1/deployments
+- /v1/screens
+- /v1/screens/details
+
+Required Semantic Keys (data-cy):
+- deployment-selector
+- screen-search-field
+- screen-list
+- screen-details
+- status-monitor
+- error-message-display
+- loading-indicator

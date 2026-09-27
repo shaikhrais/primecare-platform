@@ -1,0 +1,62 @@
+Screen Code: scheduler_conflicts
+Screen Name: SchedulerConflictsScreen
+
+Required Components:
+- EmployeeScheduleOverview
+- PerformanceMetricsChart
+- CustomerFeedbackTracker
+- SafetyIncidentReport
+- TeamCommunicationTool
+- TrainingProgressTracker
+- OperationalEfficiencyMetrics
+- ConflictAlertSystem
+- EmployeeEngagementIndicator
+- HistoricalDataAnalyzer
+
+Required Functions/Handlers:
+- resolveSchedulingConflict
+- viewPerformanceMetrics
+- submitCustomerFeedback
+- reportSafetyIncident
+- sendTeamAnnouncement
+- trackTrainingProgress
+- viewOperationalEfficiency
+- alertStaffingShortage
+- viewEmployeeEngagement
+- analyzeHistoricalData
+
+Required Buttons:
+- Resolve Conflict
+- View Performance
+- Submit Feedback
+- Report Incident
+- Send Announcement
+- Track Training
+- View Efficiency Metrics
+- Alert Staffing Shortage
+- View Engagement Metrics
+- Analyze Trends
+
+Required APIs:
+- /v1/scheduler/overview
+- /v1/performance/metrics
+- /v1/customer/feedback
+- /v1/safety/report
+- /v1/communication/send
+- /v1/training/progress
+- /v1/efficiency/metrics
+- /v1/scheduling/alert
+- /v1/engagement/metrics
+- /v1/data/historical
+
+Required Semantic Keys (data-cy):
+- scheduler-btn-resolve-conflict
+- scheduler-btn-view-performance
+- scheduler-btn-submit-feedback
+- scheduler-btn-report-incident
+- scheduler-btn-send-announcement
+- scheduler-btn-track-training
+- scheduler-btn-view-efficiency
+- scheduler-btn-alert-shortage
+- scheduler-btn-view-engagement
+- scheduler-btn-analyze-trends

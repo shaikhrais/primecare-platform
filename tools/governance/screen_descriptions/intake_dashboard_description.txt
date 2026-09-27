@@ -1,0 +1,35 @@
+Intake Coordinator Responsibilities:
+1. Manage incoming requests for services.
+2. Assess and prioritize requests based on urgency and need.
+3. Coordinate with clinical staff to schedule appointments.
+4. Maintain accurate records of all intake activities.
+5. Communicate with clients to gather necessary information.
+6. Ensure compliance with regulatory requirements.
+7. Monitor and report on intake metrics and performance.
+8. Facilitate communication between departments.
+9. Provide support and guidance to clients during the intake process.
+10. Conduct follow-ups to ensure client satisfaction.
+
+Red Flags of Operation:
+1. Increased number of missed appointments.
+2. Delays in processing intake requests.
+3. High volume of client complaints.
+4. Inconsistent documentation practices.
+5. Frequent errors in client information.
+6. Low staff engagement or high turnover rates.
+7. Lack of compliance with policies and procedures.
+8. Poor communication between departments.
+9. Inability to meet service demand.
+10. Unresolved issues from previous intakes.
+
+Dashboard Requirements for Intake Coordinator:
+1. Overview of active intake requests.
+2. Metrics on appointment scheduling and cancellations.
+3. Compliance status indicators.
+4. Client satisfaction ratings.
+5. Logs of recent activities and communications.
+6. Alerts for overdue follow-ups or actions.
+7. Performance metrics against established KPIs.
+8. Visual representation of workload distribution.
+9. Access to historical data for trend analysis.
+10. Quick action buttons for common tasks (e.g., schedule, follow-up).

@@ -1,0 +1,27 @@
+Screen Code: event_and_webinar_manager
+Screen Name: Event And Webinar Manager
+
+Required Components:
+- EventList
+- EventDetailCard
+- NotificationBanner
+- EventStatusIndicator
+
+Required Functions/Handlers:
+- fetchEventData
+- refreshEventList
+- scheduleNewEvent
+- monitorEventDetails
+
+Required Buttons:
+- Refresh List
+- Schedule Event
+
+Required APIs:
+- /v1/events/upcoming
+- /v1/events/past
+- /v1/events/schedule
+
+Required Semantic Keys (data-cy):
+- eventmanager-btn-refresh
+- eventmanager-btn-schedule

@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor and manage invoices.
+2. Review invoice details and statuses.
+3. Handle any discrepancies or errors in invoices.
+4. Generate reports on billing activities.
+5. Communicate with clients regarding billing issues.
+
+Red flags of operation:
+1. Frequent errors in invoice generation.
+2. Delays in invoice processing.
+3. High volume of customer complaints regarding billing.
+4. Inconsistent data in reports.
+5. Lack of visibility into invoice statuses.
+
+What is needed on the dashboard for the user:
+1. Overview of total invoices generated.
+2. Status summary (paid, unpaid, overdue).
+3. Alerts for discrepancies or errors.
+4. Quick access to recent invoices.
+5. Performance metrics (e.g., average processing time, number of errors).

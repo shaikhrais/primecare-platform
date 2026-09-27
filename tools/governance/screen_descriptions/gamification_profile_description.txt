@@ -1,0 +1,20 @@
+User Work List:
+1. View clinician profiles and their gamification stats.
+2. Award points to clinicians based on various reasons.
+3. Monitor leaderboard and track engagement metrics.
+4. Analyze completion rates of CME modules.
+5. Manage and update clinician profiles as needed.
+
+Red Flags of Operation:
+1. Inability to load clinician profiles due to API errors.
+2. Lack of user feedback when points are awarded or if an error occurs.
+3. Unclear or missing information on the dashboard regarding clinician performance.
+4. Difficulty in selecting clinicians to award points, leading to potential errors.
+5. Inconsistent or outdated data displayed on the leaderboard.
+
+Dashboard Requirements:
+1. Display a summary of clinician profiles with points, completed modules, and trophy types.
+2. Show a leaderboard ranking based on points.
+3. Include metrics for overall CME modules completed and engagement rates.
+4. Provide a form for awarding points with clear options and feedback.
+5. Visual representation of engagement trends over time.

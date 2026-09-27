@@ -1,0 +1,72 @@
+{
+  "role": {
+    "id": 47,
+    "role_code": "territory_sales",
+    "role_name": "Territory Sales Manager",
+    "role_type": "staff",
+    "active": 1
+  },
+  "screens_count": 4,
+  "screens": [
+    {
+      "id": 59,
+      "app_id": 5,
+      "role_id": 47,
+      "screen_code": "territory_sales_manager_dashboard",
+      "screen_name": "TerritorySalesManagerDashboardScreen",
+      "route_path": "/offices/marketing/roles/territory_sales_manager/dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/territory_sales_manager_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 228,
+      "app_id": 1,
+      "role_id": 47,
+      "screen_code": "territory_sales_manager_analytics",
+      "screen_name": "TerritorySalesManagerAnalyticsScreen",
+      "route_path": "/management/territory-sales-manager-analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/territory_sales_manager_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 229,
+      "app_id": 1,
+      "role_id": 47,
+      "screen_code": "territory_sales_manager_compliance",
+      "screen_name": "TerritorySalesManagerComplianceScreen",
+      "route_path": "/management/territory-sales-manager-compliance",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/territory_sales_manager_compliance_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 230,
+      "app_id": 1,
+      "role_id": 47,
+      "screen_code": "territory_sales_manager_workflow",
+      "screen_name": "TerritorySalesManagerWorkflowScreen",
+      "route_path": "/management/territory-sales-manager-workflow",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/territory_sales_manager_workflow_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

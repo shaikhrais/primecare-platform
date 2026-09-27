@@ -1,0 +1,52 @@
+Screen Code: rn_workflow
+Screen Name: RnWorkflowScreen
+
+Required Components:
+- PatientList
+- MedicationRecords
+- CarePlanEditor
+- GoalTrackingTool
+- CommunicationLog
+- PerformanceMetrics
+- EducationResources
+- ClinicalGuidelines
+- IncidentReporting
+- AppointmentScheduler
+
+Required Functions/Handlers:
+- updateCarePlan
+- administerMedication
+- logCommunication
+- reportIncident
+- scheduleAppointment
+
+Required Buttons:
+- Update Care Plan
+- Administer Medication
+- Log Communication
+- Report Incident
+- Schedule Appointment
+
+Required APIs:
+- /v1/patients/list
+- /v1/medications/records
+- /v1/careplans/update
+- /v1/goals/tracking
+- /v1/communications/log
+- /v1/performance/metrics
+- /v1/education/resources
+- /v1/guidelines/access
+- /v1/incidents/report
+- /v1/appointments/schedule
+
+Required Semantic Keys (data-cy):
+- rn-dashboard-patient-list
+- rn-dashboard-medication-records
+- rn-dashboard-care-plan-editor
+- rn-dashboard-goal-tracking
+- rn-dashboard-communication-log
+- rn-dashboard-performance-metrics
+- rn-dashboard-education-resources
+- rn-dashboard-clinical-guidelines
+- rn-dashboard-incident-reporting
+- rn-dashboard-appointment-scheduler

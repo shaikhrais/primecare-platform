@@ -1,0 +1,41 @@
+Screen Code: coordinator_hub
+Screen Name: CoordinatorHubScreen
+
+Required Components:
+- ActiveCaregiversList
+- OpenShiftsList
+- AlertsSummary
+- PerformanceMetricsChart
+- NotificationsPanel
+- CaregiverAssignmentsMap
+- HistoricalDataGraph
+- QuickAccessButtons
+- MessagingTool
+- ReportingTool
+
+Required Functions/Handlers:
+- assignShift
+- resolveAlert
+- generatePerformanceReport
+- sendMessage
+
+Required Buttons:
+- Assign Shift
+- Resolve Alert
+- View Performance Report
+- Send Message
+
+Required APIs:
+- /v1/caregivers/active
+- /v1/shifts/open
+- /v1/alerts/summary
+- /v1/performance/metrics
+- /v1/notifications/unresolved
+- /v1/assignments/map
+- /v1/data/historical
+
+Required Semantic Keys (data-cy):
+- coordinatorhub-btn-assign-shift
+- coordinatorhub-btn-resolve-alert
+- coordinatorhub-btn-view-performance
+- coordinatorhub-btn-send-message

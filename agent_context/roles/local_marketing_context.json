@@ -1,0 +1,72 @@
+{
+  "role": {
+    "id": 39,
+    "role_code": "local_marketing",
+    "role_name": "Local Marketing Manager",
+    "role_type": "staff",
+    "active": 1
+  },
+  "screens_count": 4,
+  "screens": [
+    {
+      "id": 51,
+      "app_id": 11,
+      "role_id": 39,
+      "screen_code": "local_marketing_manager_dashboard",
+      "screen_name": "LocalMarketingManagerDashboardScreen",
+      "route_path": "/offices/marketing/roles/local_marketing_manager/dashboard",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/local_marketing_manager_dashboard_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 207,
+      "app_id": 1,
+      "role_id": 39,
+      "screen_code": "local_marketing_manager_analytics",
+      "screen_name": "LocalMarketingManagerAnalyticsScreen",
+      "route_path": "/management/local-marketing-manager-analytics",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/local_marketing_manager_analytics_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 208,
+      "app_id": 1,
+      "role_id": 39,
+      "screen_code": "local_marketing_manager_compliance",
+      "screen_name": "LocalMarketingManagerComplianceScreen",
+      "route_path": "/management/local-marketing-manager-compliance",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/local_marketing_manager_compliance_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    },
+    {
+      "id": 209,
+      "app_id": 1,
+      "role_id": 39,
+      "screen_code": "local_marketing_manager_workflow",
+      "screen_name": "LocalMarketingManagerWorkflowScreen",
+      "route_path": "/management/local-marketing-manager-workflow",
+      "actual_file_path": "packages/primecare_ui/lib/src/screens/management/local_marketing_manager_workflow_screen.dart",
+      "stage": "wired",
+      "active": 1,
+      "runtime_verified": 1,
+      "cypress_verified": 1,
+      "production_ready": 1,
+      "completeness_score": 100
+    }
+  ]
+}

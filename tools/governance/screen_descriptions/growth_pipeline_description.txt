@@ -1,0 +1,20 @@
+List of work the user must do:
+1. Monitor the growth pipeline metrics.
+2. Analyze data trends and patterns.
+3. Identify potential areas for improvement.
+4. Collaborate with team members on growth strategies.
+5. Report on progress and outcomes.
+
+Red flags of operation:
+1. Significant delays in data loading or processing.
+2. Frequent errors or crashes when accessing features.
+3. Inconsistent or missing data in reports.
+4. Lack of user engagement with the growth pipeline tools.
+5. Negative feedback from team members regarding usability.
+
+What is needed on the user dashboard:
+1. Real-time metrics and KPIs related to growth.
+2. Visualizations of data trends (charts, graphs).
+3. Alerts for any anomalies or red flags.
+4. Quick access to collaboration tools and resources.
+5. Summary of recent activities and outcomes.

@@ -1,0 +1,48 @@
+Screen Code: cfo_compliance
+Screen Name: CfoComplianceScreen
+
+Required Components:
+- KPIOverviewWidget
+- FinancialHealthMetricsWidget
+- BudgetVsActualWidget
+- CashFlowProjectionsWidget
+- ComplianceStatusIndicatorWidget
+- RiskManagementDashboardWidget
+- AuditTrailWidget
+- InvestmentPerformanceMetricsWidget
+- RevenueExpenseTrendsWidget
+- StakeholderEngagementMetricsWidget
+
+Required Functions/Handlers:
+- refreshDashboardData
+- exportReport
+- viewAuditTrail
+
+Required Buttons:
+- Refresh Data
+- Export Report
+- View Audit Trail
+
+Required APIs:
+- /v1/financial/kpis
+- /v1/financial/health
+- /v1/financial/budget
+- /v1/financial/cashflow
+- /v1/financial/compliance
+- /v1/financial/risk
+- /v1/financial/audit
+- /v1/financial/investment
+- /v1/financial/revenue-expense
+- /v1/financial/stakeholder-engagement
+
+Required Semantic Keys (data-cy):
+- cfo-dashboard-kpi-overview
+- cfo-dashboard-financial-health
+- cfo-dashboard-budget-actual
+- cfo-dashboard-cashflow
+- cfo-dashboard-compliance-status
+- cfo-dashboard-risk-management
+- cfo-dashboard-audit-trail
+- cfo-dashboard-investment-performance
+- cfo-dashboard-revenue-expense
+- cfo-dashboard-stakeholder-engagement

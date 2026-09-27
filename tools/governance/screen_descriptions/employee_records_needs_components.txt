@@ -1,0 +1,48 @@
+Screen Code: employee_records
+Screen Name: EmployeeRecordsScreen
+
+Required Components:
+- EmployeeTurnoverCard
+- EmployeeEngagementChart
+- ComplianceStatusWidget
+- RecruitmentMetricsTable
+- PerformanceManagementCard
+- TrainingParticipationChart
+- DiversityMetricsWidget
+- EmployeeSatisfactionCard
+- CompensationAnalysisTable
+- HRActivityLog
+
+Required Functions/Handlers:
+- fetchEmployeeTurnoverData
+- fetchEngagementSurveyResults
+- checkComplianceStatus
+- getRecruitmentMetrics
+- evaluatePerformanceManagement
+- getTrainingParticipationRates
+- fetchDiversityMetrics
+- getEmployeeSatisfactionScores
+- analyzeCompensationBenefits
+- logHRActivity
+
+Required Buttons:
+- Generate Report
+- View Details
+- Export Data
+
+Required APIs:
+- /v1/hr/turnover
+- /v1/hr/engagement
+- /v1/hr/compliance
+- /v1/hr/recruitment
+- /v1/hr/performance
+- /v1/hr/training
+- /v1/hr/diversity
+- /v1/hr/satisfaction
+- /v1/hr/compensation
+- /v1/hr/activity-log
+
+Required Semantic Keys (data-cy):
+- hr-dashboard-btn-generate-report
+- hr-dashboard-btn-view-details
+- hr-dashboard-btn-export-data

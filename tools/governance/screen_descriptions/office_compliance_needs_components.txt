@@ -1,0 +1,62 @@
+Screen Code: office_compliance
+Screen Name: OfficeComplianceScreen
+
+Required Components:
+- TaskManagementOverview
+- CommunicationLog
+- CalendarView
+- DocumentManagementSystem
+- ComplianceChecklist
+- PerformanceMetrics
+- InventoryTracker
+- FeedbackMechanism
+- TrainingResources
+- AuditTrail
+
+Required Functions/Handlers:
+- addTask
+- logCommunication
+- scheduleMeeting
+- uploadDocument
+- checkCompliance
+- viewMetrics
+- manageInventory
+- submitFeedback
+- accessTraining
+- viewAuditTrail
+
+Required Buttons:
+- Add Task
+- Log Communication
+- Schedule Meeting
+- Upload Document
+- Check Compliance
+- View Metrics
+- Manage Inventory
+- Submit Feedback
+- Access Training
+- View Audit Trail
+
+Required APIs:
+- /v1/office/tasks
+- /v1/office/communications
+- /v1/office/meetings
+- /v1/office/documents
+- /v1/office/compliance
+- /v1/office/metrics
+- /v1/office/inventory
+- /v1/office/feedback
+- /v1/office/training
+- /v1/office/audit
+
+Required Semantic Keys (data-cy):
+- officecompliance-btn-addtask
+- officecompliance-btn-logcommunication
+- officecompliance-btn-schedulemeeting
+- officecompliance-btn-uploaddocument
+- officecompliance-btn-checkcompliance
+- officecompliance-btn-viewmetrics
+- officecompliance-btn-manageinventory
+- officecompliance-btn-submitfeedback
+- officecompliance-btn-accesstraining
+- officecompliance-btn-viewaudittrail

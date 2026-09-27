@@ -1,0 +1,35 @@
+List of tasks a Scrum Master must do:
+1. Facilitate daily stand-ups and ensure they are effective.
+2. Remove impediments that hinder the team's progress.
+3. Coach the team on Agile principles and practices.
+4. Ensure the team adheres to Scrum ceremonies (sprint planning, reviews, retrospectives).
+5. Foster a collaborative team environment.
+6. Protect the team from external interruptions.
+7. Help the Product Owner manage the product backlog.
+8. Track and report team progress and metrics.
+9. Conduct regular retrospectives to improve team processes.
+10. Support continuous improvement initiatives.
+
+Red flags of operation indicating ineffective work:
+1. Frequent missed deadlines or sprint goals.
+2. Low team morale or high turnover.
+3. Lack of communication or collaboration within the team.
+4. Repeatedly unresolved impediments.
+5. Poor quality of deliverables or high defect rates.
+6. Resistance to change or Agile practices.
+7. Inconsistent attendance at Scrum ceremonies.
+8. Lack of engagement from team members.
+9. Over-reliance on the Scrum Master for decision-making.
+10. Confusion about roles and responsibilities within the team.
+
+Dashboard needs for a Scrum Master:
+1. Sprint progress metrics (burn-down charts, velocity).
+2. Impediment tracking and resolution status.
+3. Team member engagement levels.
+4. Quality metrics (defect rates, code quality).
+5. Backlog health (items ready for the next sprint).
+6. Attendance and participation in Scrum ceremonies.
+7. Feedback from retrospectives and action items.
+8. Overall team performance trends over time.
+9. Compliance with Agile principles and practices.
+10. Visual representation of team dynamics and collaboration levels.

@@ -1,0 +1,24 @@
+name: Deploy Web - primecare-corporate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/primecare_corporate/**'
+      - 'packages/flutter_core/**'
+      - 'packages/primecare_ui/**'
+      - '.github/workflows/deploy-web-corporate.yml'
+      - '.github/workflows/_deploy-web.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy-web.yml
+    with:
+      app: primecare_corporate
+      project: primecare-corporate
+    secrets: inherit

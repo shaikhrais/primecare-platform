@@ -1,0 +1,34 @@
+Screen Code: shareholder_workflow
+Screen Name: ShareholderWorkflowScreen
+
+Required Components:
+- ComplianceMetricCard
+- OperationalLogViewer
+- WorkflowStatusIndicator
+- TelemetryChart
+- AnomalyAlert
+
+Required Functions/Handlers:
+- monitorComplianceMetrics
+- reviewLogs
+- executeWorkflowScan
+- triggerGovernanceAction
+- communicateWithStakeholders
+
+Required Buttons:
+- Trigger Governance Action
+- Refresh Logs
+
+Required APIs:
+- /v1/workflow/metrics
+- /v1/logs/review
+- /v1/workflow/execute
+- /v1/governance/trigger
+- /v1/stakeholders/communication
+
+Required Semantic Keys (data-cy):
+- shareholder-dashboard-compliance-metric
+- shareholder-dashboard-log-viewer
+- shareholder-dashboard-workflow-status
+- shareholder-dashboard-telemetry-chart
+- shareholder-dashboard-anomaly-alert

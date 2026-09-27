@@ -1,0 +1,319 @@
+{
+  "dashboards": {
+    "architecture_planning": {
+      "title": "Architecture Planning",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "billing_admin": {
+      "title": "Gestión del Ciclo de Ingresos",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "ceo": {
+      "title": "Centro de Mando Ejecutivo",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "corporate_governance": {
+      "title": "Corporate Governance",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "cfo": {
+      "title": "Hub de Inteligencia Financiera",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "client": {
+      "title": "Portal de Atención al Cliente",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "clinic": {
+      "title": "Panel de Unidad Clínica",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "clinical_director": {
+      "title": "Hub de Gobernanza Clínica",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "community_outreach": {
+      "title": "Community Outreach",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "compliance_manager": {
+      "title": "Hub de Gestión de Cumplimiento",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "coo": {
+      "title": "Centro de Mando de Operaciones",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "course_architect": {
+      "title": "Course Architect",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "cto": {
+      "title": "Hub de Gobernanza Tecnológica",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "customer_support": {
+      "title": "Hub de Inteligencia de Soporte",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "cx_director": {
+      "title": "Cx Director",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "dynamic_screen": {
+      "title": "Dynamic Screen",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "family": {
+      "title": "Portal de Conexión Familiar",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "family_member": {
+      "title": "Family Member",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "finance_director": {
+      "title": "Hub de Operaciones Fiscales",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "franchise_owner": {
+      "title": "Franchise Owner",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "franchise_sales_manager": {
+      "title": "Franchise Sales Manager",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "general_manager": {
+      "title": "General Manager",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "guest": {
+      "title": "Guest",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "head_of_bus_dev": {
+      "title": "Head Of Bus Dev",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "head_of_marketing": {
+      "title": "Head Of Marketing",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "hr_director": {
+      "title": "Mando de Capital Humano",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "hr_manager": {
+      "title": "Hr Manager",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "hr_hiring": {
+      "title": "Hr Hiring",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "intake_coordinator": {
+      "title": "Intake Coordinator",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "intake": {
+      "title": "Intake",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "local_marketing_manager": {
+      "title": "Local Marketing Manager",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "operations_manager": {
+      "title": "Hub de Operaciones Regionales",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "owner": {
+      "title": "Owner",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "partnership_manager": {
+      "title": "Partnership Manager",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "patient": {
+      "title": "Hub de Bienestar del Paciente",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "psw": {
+      "title": "Portal de Cuidadores",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "qa": {
+      "title": "Qa",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "quality_assurance": {
+      "title": "Hub de Garantía de Calidad",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "receptionist": {
+      "title": "Receptionist",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "regional_bdm": {
+      "title": "Regional Bdm",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "regional_manager_ontario": {
+      "title": "Regional Manager Ontario",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "regional_manager_usa": {
+      "title": "Regional Manager Usa",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "rmt": {
+      "title": "Rmt",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "rn": {
+      "title": "Mando de Enfermería",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "scheduler": {
+      "title": "Logística y Programación",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "scrum_master": {
+      "title": "Scrum Master",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "support": {
+      "title": "Support",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "system_verification": {
+      "title": "System Verification",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "territory_expansion_manager": {
+      "title": "Territory Expansion Manager",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "territory_sales_manager": {
+      "title": "Territory Sales Manager",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "training_coordinator": {
+      "title": "Training Coordinator",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "training_director_certificate": {
+      "title": "Training Director Certificate",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "training_director": {
+      "title": "Gobernanza de Educación",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "training_hub": {
+      "title": "Training Hub",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "volunteer_coordinator": {
+      "title": "Volunteer Coordinator",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "infection_control": {
+      "title": "Mando de Control de Infecciones",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    },
+    "shareholder_intelligence": {
+      "title": "Shareholder Intelligence",
+      "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real."
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "retry": "Reintentar",
+    "save": "Guardar cambios",
+    "cancel": "Cancelar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "language": {
+      "en": "Inglés",
+      "fr": "Francés",
+      "es": "Español"
+    },
+    "languages": {
+      "en": "Inglés",
+      "fr": "Francés",
+      "es": "Español"
+    },
+    "language_short": {
+      "en": "IN",
+      "fr": "FR",
+      "es": "ES"
+    },
+    "finish": "Finalizar",
+    "offline_mode": "Modo fuera de línea activo",
+    "connected": "Conectado",
+    "disconnected": "Desconectado",
+    "refresh": "Actualizar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "no_data": "No hay datos disponibles",
+    "actions": "Acciones",
+    "settings": "Configuración",
+    "profile": "Perfil",
+    "help": "Ayuda",
+    "logout": "Cerrar sesión",
+    "tooltips": {
+      "change_language": "Cambiar idioma"
+    }
+  },
+  "auth": {
+    "title_curator": "Bienvenido a PrimeCare",
+    "curator_subtitle": "Portal de Acceso Empresarial",
+    "welcome_back": "Bienvenido de nuevo",
+    "login_instructions": "Inicie sesión en su cuenta",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "forgot_password": "¿Olvidó su contraseña?",
+    "sign_in": "Iniciar sesión",
+    "language_system": "Idioma",
+    "security_notice_short": "Acceso Seguro",
+    "encryption_active": "Cifrado de extremo a extremo activo",
+    "enter_credentials_to_continue": "Por favor, ingrese sus credenciales para continuar.",
+    "authentication_failed": "Error de autenticación. Por favor, verifique sus credenciales.",
+    "account_recovery": "Recuperación de cuenta",
+    "already_have_account": "¿Ya tiene una cuenta?",
+    "back_to_login": "Volver al inicio de sesión",
+    "create_account": "Crear cuenta",
+    "enter_institutional_email": "Ingrese correo institucional",
+    "first_name": "Nombre",
+    "hydrating_registries": "Hidratando registros",
+    "join_clinical_atelier": "Unirse al Atelier Clínico",
+    "last_name": "Apellido",
+    "login": "Iniciar sesión",
+    "provision_workspace": "Provisionar espacio de trabajo",
+    "recovery_link_sent": "Enlace de recuperación enviado",
+    "recovery_subtitle": "Subtítulo de recuperación",
+    "register": "Registrarse",
+    "reset_password": "Restablecer contraseña",
+    "role": "Rol",
+    "send_again": "Enviar de nuevo",
+    "send_recovery_link": "Enviar enlace de recuperación",
+    "subtitle": "Acceda a las métricas de su panel, realice un seguimiento del rendimiento y gestione las operaciones en tiempo real.",
+    "zero_trust_platform": "Plataforma Zero Trust",
+    "email_placeholder": "Ingrese su correo",
+    "security_notice_long": "AVISO DE SEGURIDAD: Su conexión está cifrada. Verifique que se encuentra en el portal oficial de PrimeCare Enterprise antes de ingresar sus credenciales."
+  },
+  "aura": {
+    "search_hint": "Buscar en inteligencia Aura...",
+    "profile": "Resumen de perfil",
+    "system_preferences": "Preferencias del sistema",
+    "sign_out": "Cerrar sesión",
+    "confirm_departure": "Confirmar salida",
+    "exit_message": "¿Está seguro de que desea finalizar su sesión actual?",
+    "stay": "Permanecer",
+    "exit_session": "Salir de la sesión"
+  }
+}

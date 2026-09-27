@@ -1,0 +1,40 @@
+Screen Code: pediatric_workflow
+Screen Name: Pediatric Specialist Compliance Workflow
+
+Required Components:
+- PatientAppointmentStatusWidget
+- ImmunizationTrackingWidget
+- GrowthDevelopmentMetricsWidget
+- PatientFeedbackWidget
+- AlertsWidget
+- ActivityLogsWidget
+- PerformanceMetricsWidget
+
+Required Functions/Handlers:
+- updateAppointmentStatus
+- trackImmunization
+- logPatientFeedback
+- checkAlerts
+- generatePerformanceReport
+
+Required Buttons:
+- Schedule Appointment
+- Record Immunization
+- Submit Feedback
+- View Alerts
+- Generate Report
+
+Required APIs:
+- /v1/pediatric/appointments/status
+- /v1/pediatric/immunizations/tracking
+- /v1/pediatric/growth/development
+- /v1/pediatric/feedback
+- /v1/pediatric/alerts
+- /v1/pediatric/performance
+
+Required Semantic Keys (data-cy):
+- pediatric-dashboard-btn-schedule
+- pediatric-dashboard-btn-record-immunization
+- pediatric-dashboard-btn-submit-feedback
+- pediatric-dashboard-btn-view-alerts
+- pediatric-dashboard-btn-generate-report

@@ -1,0 +1,20 @@
+User Work List:
+1. Monitor leads assigned to territory sales managers.
+2. Review lead status and progress.
+3. Update lead information as necessary.
+4. Communicate with team members regarding lead management.
+5. Analyze lead performance metrics.
+
+Red Flags of Operation:
+1. Delays in lead updates or status changes.
+2. High number of leads with no activity.
+3. Frequent errors or issues loading data.
+4. Lack of communication among team members.
+5. Inconsistent lead performance metrics.
+
+Dashboard Needs:
+1. Overview of total leads and their statuses.
+2. Performance metrics for each territory sales manager.
+3. Alerts for leads that require immediate attention.
+4. Communication tools for team collaboration.
+5. Visual representation of lead progress over time.

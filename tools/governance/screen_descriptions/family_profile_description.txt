@@ -1,0 +1,16 @@
+List of work the user must do:
+1. Access the Family Profile screen to view family-related information.
+2. Monitor the loading state while data is being fetched.
+3. Handle any errors that may occur during data loading.
+4. Review the displayed content once the data is successfully loaded.
+
+Red flags of operation:
+1. Long loading times that may indicate performance issues.
+2. Frequent errors during data loading, suggesting potential backend or API problems.
+3. Lack of user feedback when actions are being processed, leading to confusion.
+
+What we need on the dashboard of the user:
+1. A summary of the family profile data, including key metrics or statistics.
+2. Notifications for any errors or issues encountered during data loading.
+3. Loading indicators to inform users that data is being fetched.
+4. A section for user feedback or suggestions to improve the Family Profile feature.

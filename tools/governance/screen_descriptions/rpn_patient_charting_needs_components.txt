@@ -1,0 +1,56 @@
+Screen Code: rpn_patient_charting
+Screen Name: RpnPatientChartingScreen
+
+Required Components:
+- PatientHealthStatusOverview
+- MedicationAdministrationRecords
+- ComplianceAuditResults
+- OperationalAuditLogs
+- KeyPerformanceIndicators
+- CriticalConditionAlerts
+- CommunicationLogs
+- TrainingStatus
+- PatientSatisfactionMetrics
+- ResourceAvailability
+
+Required Functions/Handlers:
+- updatePatientChart
+- administerMedication
+- initiateCarePlan
+- documentProgress
+- reportIncident
+- viewAuditLogs
+- requestTraining
+- triggerEmergencyResponse
+
+Required Buttons:
+- Update Patient Chart
+- Administer Medication
+- Initiate Care Plan
+- Document Progress
+- Report Incident
+- View Audit Logs
+- Request Training
+- Emergency Response
+
+Required APIs:
+- /v1/patient/chart/update
+- /v1/medications/administer
+- /v1/care/plans/initiate
+- /v1/progress/document
+- /v1/incidents/report
+- /v1/audits/view
+- /v1/training/request
+- /v1/emergency/response
+
+Required Semantic Keys (data-cy):
+- rpn-dashboard-patient-health
+- rpn-dashboard-medication-records
+- rpn-dashboard-compliance-audit
+- rpn-dashboard-operational-logs
+- rpn-dashboard-kpi
+- rpn-dashboard-critical-alerts
+- rpn-dashboard-communication-logs
+- rpn-dashboard-training-status
+- rpn-dashboard-patient-satisfaction
+- rpn-dashboard-resource-availability

@@ -1,0 +1,26 @@
+Screen Code: surgical_video_archive
+Screen Name: Surgical Video Archive
+
+Required Components:
+- VideoList
+- VideoPlayer
+- UploadForm
+- ErrorLog
+- UserActivityMetrics
+
+Required Functions/Handlers:
+- fetchVideoData
+- refreshVideoList
+- uploadVideo
+
+Required Buttons:
+- Refresh List
+- Upload Video
+
+Required APIs:
+- /v1/videos
+- /v1/videos/upload
+
+Required Semantic Keys (data-cy):
+- surgical-video-archive-refresh
+- surgical-video-archive-upload
