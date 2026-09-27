@@ -8,6 +8,7 @@ on:
       - 'packages/flutter_core/**'
       - 'packages/primecare_ui/**'
       - '.github/workflows/deploy-web-franchise.yml'
+      - '.github/workflows/_deploy-web.yml'
   workflow_dispatch:
 
 permissions:
