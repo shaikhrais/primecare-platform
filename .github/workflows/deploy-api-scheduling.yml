@@ -7,6 +7,7 @@ on:
       - 'services/scheduling_api/**'
       - 'packages/database_client/**'
       - '.github/workflows/deploy-api-scheduling.yml'
+      - '.github/workflows/_deploy-api.yml'
   workflow_dispatch:
 
 permissions:
