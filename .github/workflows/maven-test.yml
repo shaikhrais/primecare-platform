@@ -24,7 +24,7 @@ concurrency:
 
 jobs:
   test:
-    name: Mapped Screen Verification
+    name: Complete POM Coverage Verification
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
@@ -45,13 +45,13 @@ jobs:
           cache: maven
           cache-dependency-path: testingFramework1.0/pom.xml
 
-      - name: Run mapped headless verification tests
+      - name: Validate all active-screen POM mappings
         working-directory: testingFramework1.0
         env:
           CI: 'true'
         run: |
           mvn --batch-mode --no-transfer-progress test \
-            -Dtest=AllScreensVerificationTest \
+            -Dtest=PageObjectCoverageTest \
             -Ddb.url="jdbc:sqlite:../.agents/governance/governance.db" \
             -Dsurefire.printSummary=true \
             -Dsurefire.useFile=true
@@ -61,7 +61,7 @@ jobs:
         shell: bash
         run: |
           {
-            echo "# PrimeCare mapped-screen verification"
+            echo "# PrimeCare complete POM coverage"
             echo
             if compgen -G "testingFramework1.0/target-maven/surefire-reports/*.txt" > /dev/null; then
               grep -h "Tests run:" testingFramework1.0/target-maven/surefire-reports/*.txt || true

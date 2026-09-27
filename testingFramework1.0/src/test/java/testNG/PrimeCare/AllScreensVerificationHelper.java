@@ -69,9 +69,9 @@ public class AllScreensVerificationHelper {
     public void scanPageObjects() {
         System.out.println("  [CALL] AllScreensVerificationHelper.scanPageObjects()");
         System.out.println("====== SCANNING PAGE OBJECTS ======");
-        File dir = new File("src/test/java/pageobjects/primecare/ui");
+        File dir = new File("src/test/java/PageObjects/primecare/ui");
         if (!dir.exists()) {
-            dir = new File("testingFramework1.0/src/test/java/pageobjects/primecare/ui");
+            dir = new File("testingFramework1.0/src/test/java/PageObjects/primecare/ui");
         }
         if (!dir.exists()) {
             dir = new File("H:/My Drive/eclipse-workspace/testingFramework1.0/src/test/java/pageobjects/primecare/ui");

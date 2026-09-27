@@ -60,7 +60,8 @@ public class AllScreensVerificationTest extends baseUserCredentials {
      */
     @Test(dataProvider = "activeScreens")
     public void verifyScreenLayoutAndDOM(AllScreensVerificationHelper.ScreenTestData screen) {
-        verifyNavigationProtocol(screen.screenId, screen.screenName, screen.route);
+        // The Page Object is responsible for the single navigation check.
+        // Avoid navigating twice for every screen.
         helper.executeVerification(screen, driver, null, null);
     }
 
