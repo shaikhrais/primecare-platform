@@ -1,0 +1,53 @@
+name: Reconcile Screen Governance
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/reconcile_governance_screens.py'
+      - '.github/workflows/reconcile-screen-governance.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reconcile-screen-governance
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconcile source evidence into governance database
+        run: |
+          python scripts/reconcile_governance_screens.py --write --report governance-screen-audit.json
+          python scripts/reconcile_governance_screens.py --check
+
+      - name: Commit reconciled database
+        shell: bash
+        run: |
+          if git diff --quiet -- .agents/governance/governance.db; then
+            echo "Governance database is already synchronized."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .agents/governance/governance.db
+          git commit -m "Reconcile governed screen metadata [skip ci]"
+          git push
+
+      - name: Upload evidence report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: governance-screen-audit
+          path: governance-screen-audit.json
+          if-no-files-found: warn
+          retention-days: 14
