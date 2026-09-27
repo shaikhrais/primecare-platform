@@ -1,0 +1,19 @@
+name: Deploy API - primecare-client-api
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/client_api/**'
+      - 'packages/database_client/**'
+      - '.github/workflows/deploy-api-client.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy-api.yml
+    with:
+      service_dir: services/client_api
+      service_name: primecare-client-api
+      image_name: client-api
+    secrets: inherit
