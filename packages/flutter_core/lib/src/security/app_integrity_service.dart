@@ -1,7 +1,6 @@
 // Governance - Category: service | Purpose: Defines the integrity status of the application environment.
 import 'package:flutter/foundation.dart';
 import 'package:safe_device/safe_device.dart';
-import 'package:root_checker_plus/root_checker_plus.dart';
 import 'dart:io';
 import '../utils/prime_logger.dart';
 import 'security_sentinel_service.dart';
@@ -43,7 +42,10 @@ class AppIntegrityService {
 
       if (!kIsWeb) {
         if (Platform.isAndroid) {
-          isRooted = await RootCheckerPlus.isRootChecker() ?? false;
+          // safe_device detects both Android root and iOS jailbreak state.
+          // Using one native detector avoids duplicate Swift package targets
+          // when resolving the iOS dependency graph.
+          isRooted = await SafeDevice.isJailBroken;
         } else if (Platform.isIOS) {
           isJailbroken = await SafeDevice.isJailBroken;
         }
