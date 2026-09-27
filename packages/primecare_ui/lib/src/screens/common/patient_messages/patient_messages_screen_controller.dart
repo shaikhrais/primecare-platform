@@ -29,9 +29,10 @@ class PatientMessagesScreenController extends StateNotifier<PatientMessagesScree
     try {
       final response = await ref.read(apiClientProvider).get('/common/patient-messages');
       if (response.isSuccess) {
+        final responseData = response.data;
         state = state.copyWith(
           isLoading: false,
-          data: response.data is Map ? Map<String, dynamic>.from(response.data) : {},
+          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
         );
       } else {
         state = state.copyWith(

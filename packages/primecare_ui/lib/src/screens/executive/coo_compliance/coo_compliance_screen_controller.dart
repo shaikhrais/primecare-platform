@@ -29,9 +29,10 @@ class CooComplianceScreenController extends StateNotifier<CooComplianceScreenSta
     try {
       final response = await ref.read(apiClientProvider).get('/offices/corporate/roles/coo/compliance-view');
       if (response.isSuccess) {
+        final responseData = response.data;
         state = state.copyWith(
           isLoading: false,
-          data: response.data is Map ? Map<String, dynamic>.from(response.data) : {},
+          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
         );
       } else {
         state = state.copyWith(

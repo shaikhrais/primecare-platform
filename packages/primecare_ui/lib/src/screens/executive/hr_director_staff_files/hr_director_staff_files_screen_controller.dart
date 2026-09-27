@@ -29,9 +29,10 @@ class HrDirectorStaffFilesScreenController extends StateNotifier<HrDirectorStaff
     try {
       final response = await ref.read(apiClientProvider).get('/executive/hr-director-staff-files');
       if (response.isSuccess) {
+        final responseData = response.data;
         state = state.copyWith(
           isLoading: false,
-          data: response.data is Map ? Map<String, dynamic>.from(response.data) : {},
+          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
         );
       } else {
         state = state.copyWith(

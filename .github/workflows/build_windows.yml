@@ -7,7 +7,9 @@ on:
 
 jobs:
   build_windows:
-    runs-on: windows-latest
+    # local_auth_windows still depends on the pre-VS-2026 coroutine toolchain.
+    # Pin the compatible runner until the plugin migrates to C++20 coroutines.
+    runs-on: windows-2022
     
     strategy:
       matrix:

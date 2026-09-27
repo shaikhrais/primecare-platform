@@ -37,7 +37,8 @@ import 'package:flutter_core/flutter_core.dart';
 final premiumFeature${i}Provider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   final api = ref.read(apiClientProvider);
   final response = await api.get('${endpointPath}');
-  return response.data is Map ? Map<String, dynamic>.from(response.data) : {};
+  final responseData = response.data;
+  return responseData is Map ? Map<String, dynamic>.from(responseData) : {};
 });
 
 class PremiumFeature${i} extends GovernedConsumerWidget {
