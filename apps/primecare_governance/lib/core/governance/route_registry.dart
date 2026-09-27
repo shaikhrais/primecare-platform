@@ -113,29 +113,31 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           final title = screen?.title ?? 'Platform Governance';
           final screenId = screen?.id ?? 'UNKNOWN';
 
-          return MasterLayout(
-            title: title,
-            shellType: AppShellType.admin,
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(title),
+              actions: [
+                const LanguageSelector(),
+                const SizedBox(width: 8),
+                Builder(
+                  builder: (context) => IconButton(
+                    key: const Key('route_registry_iconbutton_button_1'),
+                    onPressed: () => Scaffold.of(context).openEndDrawer(),
+                    icon: const Icon(LucideIcons.search),
+                  ),
+                ),
+                const CircleAvatar(
+                  radius: 16,
+                  backgroundImage: NetworkImage(
+                    'https://api.dicebear.com/7.x/avataaars/png?seed=Admin',
+                  ),
+                ),
+                const SizedBox(width: 16),
+              ],
+            ),
             drawer: const AppDrawer(),
             endDrawer: AuraNexusConsoleDrawer(activeScreenId: screenId),
-            actions: [
-              const LanguageSelector(),
-              const SizedBox(width: 8),
-              Builder(
-                builder: (context) => IconButton(key: const Key('route_registry_iconbutton_button_1'), 
-                  onPressed: () => Scaffold.of(context).openEndDrawer(),
-                  icon: const Icon(LucideIcons.search),
-                ),
-              ),
-              const CircleAvatar(
-                radius: 16,
-                backgroundImage: NetworkImage(
-                  'https://api.dicebear.com/7.x/avataaars/png?seed=Admin',
-                ),
-              ),
-              const SizedBox(width: 16),
-            ],
-            child: child,
+            body: child,
           );
         },
         routes: [
