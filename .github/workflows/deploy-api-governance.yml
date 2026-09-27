@@ -7,6 +7,7 @@ on:
       - 'services/governance_api/**'
       - 'packages/database_client/**'
       - '.github/workflows/deploy-api-governance.yml'
+      - '.github/workflows/_deploy-api.yml'
   workflow_dispatch:
 
 permissions:
