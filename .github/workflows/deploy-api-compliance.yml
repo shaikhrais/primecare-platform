@@ -1,0 +1,19 @@
+name: Deploy API - primecare-compliance-api
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/compliance_api/**'
+      - 'packages/database_client/**'
+      - '.github/workflows/deploy-api-compliance.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy-api.yml
+    with:
+      service_dir: services/compliance_api
+      service_name: primecare-compliance-api
+      image_name: compliance-api
+    secrets: inherit
