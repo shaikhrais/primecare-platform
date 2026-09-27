@@ -1,7 +1,0 @@
-# Screen: SUP-426
-**Component Name:** `ScorecardsScreen`  
-**Implementation Status:** 🔄 Discovery (Pending Migration)  
-**Associated Roles:** [Quality Assurance](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-SUP-426-01](tasks/tsk_sup_426_01.md): Generate aggregate quality scorecards for each franchise or region.

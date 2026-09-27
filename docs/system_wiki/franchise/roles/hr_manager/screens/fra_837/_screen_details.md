@@ -1,7 +1,0 @@
-# Screen: FRA-837
-**Component Name:** `HrHiringInterviewsScreen`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [HR Manager](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-FRA-837-01](tasks/tsk_fra_837_01.md): Schedule and evaluate screening and clinical interviews.

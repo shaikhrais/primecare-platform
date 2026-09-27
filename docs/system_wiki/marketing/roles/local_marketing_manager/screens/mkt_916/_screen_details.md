@@ -1,7 +1,0 @@
-# Screen: MKT-916
-**Component Name:** `LocalMarketingManagerBudgetScreen`  
-**Implementation Status:** 🔄 Discovery (Implemented)  
-**Associated Roles:** [Local Marketing Manager](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-MKT-916-01](tasks/tsk_mkt_916_01.md): Track marketing spend strictly within the designated franchise operating budget.

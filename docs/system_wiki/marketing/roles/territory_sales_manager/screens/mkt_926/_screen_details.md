@@ -1,7 +1,0 @@
-# Screen: MKT-926
-**Component Name:** `TerritorySalesManagerPipelineScreen`  
-**Implementation Status:** 🔄 Discovery (Implemented)  
-**Associated Roles:** [Territory Sales Manager](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-MKT-926-01](tasks/tsk_mkt_926_01.md): Visualize and advance individual sales opportunities through the CRM funnel.

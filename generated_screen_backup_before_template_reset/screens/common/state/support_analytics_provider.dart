@@ -1,7 +1,0 @@
-// Governance - Category: state | Purpose: Riverpod state notifier for SupportAnalyticsScreen
-// TODO: Implement state providers, loading triggers, and action mutations.
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-class SupportAnalyticsNotifier extends StateNotifier<AsyncValue<void>> {
-  SupportAnalyticsNotifier() : super(const AsyncValue.data(null));
-}

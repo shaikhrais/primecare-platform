@@ -1,7 +1,0 @@
-// Governance - Category: state | Purpose: Riverpod state notifier for PaymentTrackingScreen
-// TODO: Implement state providers, loading triggers, and action mutations.
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-class PaymentTrackingNotifier extends StateNotifier<AsyncValue<void>> {
-  PaymentTrackingNotifier() : super(const AsyncValue.data(null));
-}

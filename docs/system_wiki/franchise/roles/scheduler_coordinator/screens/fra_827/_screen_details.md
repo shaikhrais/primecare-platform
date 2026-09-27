@@ -1,7 +1,0 @@
-# Screen: FRA-827
-**Component Name:** `SchedulerCoordinatorAssignmentsScreen`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [Scheduler Coordinator](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-FRA-827-01](tasks/tsk_fra_827_01.md): Finalize mapping of a specific clinical staff member to a patient ticket.

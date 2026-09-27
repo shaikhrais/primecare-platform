@@ -1,7 +1,0 @@
-# Screen: COR-756
-**Component Name:** `ComplianceManagerRiskRegisterScreen`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [Compliance Manager](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-COR-756-01](tasks/tsk_cor_756_01.md): Maintain and assess the institutional corporate risk register.

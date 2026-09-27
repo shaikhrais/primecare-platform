@@ -1,7 +1,0 @@
-# Screen: FRA-822
-**Component Name:** `SchedulerCoordinatorAppointmentCalendarScreen`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [Scheduler Coordinator](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-FRA-822-01](tasks/tsk_fra_822_01.md): Visual calendar interface for mapping clinical capacities per day/week.

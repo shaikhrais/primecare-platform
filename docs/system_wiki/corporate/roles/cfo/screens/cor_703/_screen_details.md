@@ -1,7 +1,0 @@
-# Screen: COR-703
-**Component Name:** `CfoDashboard`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [CFO](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-COR-703-01](tasks/tsk_cor_703_01.md): View high-level capital liquidity indicators and runway.

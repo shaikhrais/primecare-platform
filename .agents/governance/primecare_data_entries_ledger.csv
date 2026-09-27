@@ -1,4 +1,0 @@
-﻿S.No.,Entry ID,User ID,User Role,Form/Entry Type,Record Reference,Status,Form Payload (JSON),Created At,Updated At
-1,1,user_psw_john,psw,visit_note,REC-VN-98213,submitted,"{""client_id"": ""CL-8871"", ""client_name"": ""Mildred Adams"", ""visit_date"": ""2026-05-21"", ""care_provided"": [""bathing"", ""meal_prep"", ""mobility_assistance""], ""notes"": ""Client was in good spirits.""}",2026-05-22 15:02:56,2026-05-22 15:02:56
-2,2,user_chiro_dr_sarah,chiropractor,client_intake,REC-IN-55412,approved,"{""client_name"": ""Robert Henderson"", ""dob"": ""1964-11-12"", ""primary_complaint"": ""Lower back stiffness"", ""session_type"": ""Chiro Initial Assessment""}",2026-05-22 15:02:56,2026-05-22 15:02:56
-3,3,user_patient_robert,chiropractor,booking,REC-BK-33921,draft,"{""service_id"": ""SRV-CHIRO"", ""requested_date"": ""2026-05-25T10:00:00"", ""notes"": ""Prefer morning slot.""}",2026-05-22 15:02:56,2026-05-22 15:02:56

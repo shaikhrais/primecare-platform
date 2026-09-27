@@ -1,7 +1,0 @@
-# Screen: FRA-838
-**Component Name:** `HrHiringOffersScreen`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [HR Manager](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-FRA-838-01](tasks/tsk_fra_838_01.md): Generate and dispatch standardized digital employment offers.

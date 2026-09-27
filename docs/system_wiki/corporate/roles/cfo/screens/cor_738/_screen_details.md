@@ -1,7 +1,0 @@
-# Screen: COR-738
-**Component Name:** `CfoReportsScreen`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [CFO](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-COR-738-01](tasks/tsk_cor_738_01.md): Generate and export compliant double-entry financial ledgers.

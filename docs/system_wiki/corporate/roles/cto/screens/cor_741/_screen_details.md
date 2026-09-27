@@ -1,7 +1,0 @@
-# Screen: COR-741
-**Component Name:** `CtoFeatureAdoptionScreen`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [CTO](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-COR-741-01](tasks/tsk_cor_741_01.md): View UX telemetry and adoption metrics for newly shipped features.

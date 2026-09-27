@@ -1,7 +1,0 @@
-# Screen: SUP-437
-**Component Name:** `MaterialsScreen`  
-**Implementation Status:** 🔄 Discovery  
-**Associated Roles:** [Training Coordinator](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-SUP-437-01](tasks/tsk_sup_437_01.md): Distribute local adjunct study guides or updated clinical protocols to cohorts.

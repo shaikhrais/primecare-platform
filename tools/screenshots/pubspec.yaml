@@ -1,8 +1,0 @@
-name: regenerate_screenshots
-environment:
-  sdk: ^3.11.3
-
-dependencies:
-  flutter_core:
-    path: ../../packages/flutter_core
-

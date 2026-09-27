@@ -1,7 +1,0 @@
-# Screen: BDV-612
-**Component Name:** `RegionalBdmPartnersScreen`  
-**Implementation Status:** 🔄 Discovery (Implemented)  
-**Associated Roles:** [Regional BDM](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-BDV-612-01](tasks/tsk_bdv_612_01.md): Manage high-tier relationships with regional hospitals and government networks.

@@ -1,7 +1,0 @@
-# Screen: BDV-609
-**Component Name:** `RegionalBdmTerritoryGrowthScreen`  
-**Implementation Status:** 🔄 Discovery (Implemented)  
-**Associated Roles:** [Regional BDM](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-BDV-609-01](tasks/tsk_bdv_609_01.md): Surface raw demographic data to identify untapped regional expansion zones.

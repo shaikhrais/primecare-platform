@@ -1,7 +1,0 @@
-# Screen: COR-759
-**Component Name:** `ComplianceManagerReportsScreen`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [Compliance Manager](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-COR-759-01](tasks/tsk_cor_759_01.md): Export detailed regulatory compliance metrics for board review.

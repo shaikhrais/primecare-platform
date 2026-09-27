@@ -1,7 +1,0 @@
-# Screen: FRA-824
-**Component Name:** `SchedulerCoordinatorProviderAvailabilityScreen`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [Scheduler Coordinator](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-FRA-824-01](tasks/tsk_fra_824_01.md): Analyze Nurse and PSW blackout dates, vacation requests, and max capacities.

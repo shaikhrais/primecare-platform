@@ -1,7 +1,0 @@
-# Screen: BDV-607
-**Component Name:** `RegionalBdmLeadsScreen`  
-**Implementation Status:** 🔄 Discovery (Implemented)  
-**Associated Roles:** [Regional BDM](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-BDV-607-01](tasks/tsk_bdv_607_01.md): Oversee high-level master franchise/regional partnership queries.

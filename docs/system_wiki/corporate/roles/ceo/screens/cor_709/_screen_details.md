@@ -1,7 +1,0 @@
-# Screen: COR-709
-**Component Name:** `CeoRegionPerformanceScreen`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [CEO](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-COR-709-01](tasks/tsk_cor_709_01.md): Compare regional yields and revenue trajectory.

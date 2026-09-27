@@ -1,7 +1,0 @@
-# Screen: COR-740
-**Component Name:** `CtoPlatformUsageScreen`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [CTO](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-COR-740-01](tasks/tsk_cor_740_01.md): Track MAU (Monthly Active Users) and concurrent active sessions globally.

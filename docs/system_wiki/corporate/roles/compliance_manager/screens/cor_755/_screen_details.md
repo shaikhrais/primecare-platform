@@ -1,7 +1,0 @@
-# Screen: COR-755
-**Component Name:** `ComplianceManagerDocumentExpiryScreen`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [Compliance Manager](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-COR-755-01](tasks/tsk_cor_755_01.md): Action queue for expiring corporate and staff documentation.

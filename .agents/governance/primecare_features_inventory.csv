@@ -1,6 +1,0 @@
-﻿S.No.,Feature ID,Feature Name,App ID,Description,Status,Last Scanned,Compliance Status
-1,auth,Authentication & Authorization,ui,"MFA, biometrics, secure login, and multi-role gateway validation.",verified,Never,compliant
-2,compliance_governance,Compliance Framework,ui,Zero-trust registry-first code verification and layout checking.,verified,Never,compliant
-3,shift_scheduling,Shift & Visit Scheduling,ui,"Dynamic roster, location optimization, and field staff allocations.",verified,Never,compliant
-4,ledger_accounting,Double-Entry Financials,wo,"Balanced journal ledger records, tax remittance, and financial auditing.",verified,Never,compliant
-5,audit_logging,Operational Audit Timeline,wo,"Live log capture, compliance audits, and system configuration logging.",verified,Never,compliant

@@ -1,7 +1,0 @@
-// Governance - Category: state | Purpose: Riverpod state notifier for Compliance Manager Reports
-// TODO: Implement state providers, loading triggers, and action mutations.
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-class ComplianceManagerReportsNotifier extends StateNotifier<AsyncValue<void>> {
-  ComplianceManagerReportsNotifier() : super(const AsyncValue.data(null));
-}

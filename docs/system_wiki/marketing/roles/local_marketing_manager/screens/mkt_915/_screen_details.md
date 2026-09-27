@@ -1,7 +1,0 @@
-# Screen: MKT-915
-**Component Name:** `LocalMarketingManagerEventsScreen`  
-**Implementation Status:** 🔄 Discovery (Implemented)  
-**Associated Roles:** [Local Marketing Manager](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-MKT-915-01](tasks/tsk_mkt_915_01.md): Coordinate local webinars, community open houses, and job far attendance.

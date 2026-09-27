@@ -1,7 +1,0 @@
-// Governance - Category: state | Purpose: Riverpod state notifier for TerritorySalesManagerDashboardScreen
-// TODO: Implement state providers, loading triggers, and action mutations.
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-class TerritorySalesManagerDashboardNotifier extends StateNotifier<AsyncValue<void>> {
-  TerritorySalesManagerDashboardNotifier() : super(const AsyncValue.data(null));
-}

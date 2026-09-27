@@ -1,7 +1,0 @@
-// Governance - Category: state | Purpose: Riverpod state notifier for InfrastructureDashboardScreen
-// TODO: Implement state providers, loading triggers, and action mutations.
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-class InfrastructureDashboardNotifier extends StateNotifier<AsyncValue<void>> {
-  InfrastructureDashboardNotifier() : super(const AsyncValue.data(null));
-}

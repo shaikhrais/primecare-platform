@@ -1,4 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart';
+import '../psw_dashboard_controller.dart';
 
 class PswDashboardSummarySection extends ConsumerWidget {
   const PswDashboardSummarySection({super.key});

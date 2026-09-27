@@ -1,7 +1,0 @@
-# Screen: MKT-909
-**Component Name:** `HeadOfMarketingRegionalCampaignsScreen`  
-**Implementation Status:** 🔄 Discovery (Implemented)  
-**Associated Roles:** [Head of Marketing](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-MKT-909-01](tasks/tsk_mkt_909_01.md): Track and approve localized marketing initiatives submitted by franchises.

@@ -1,7 +1,0 @@
-# Screen: FRA-815
-**Component Name:** `OperationsManagerScheduleScreen`  
-**Implementation Status:** ✅ Implemented  
-**Associated Roles:** [Operations Manager](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-FRA-815-01](tasks/tsk_fra_815_01.md): Override or force-publish the global branch clinical schedule.

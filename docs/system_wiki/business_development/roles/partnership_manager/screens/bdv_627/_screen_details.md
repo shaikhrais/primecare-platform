@@ -1,7 +1,0 @@
-# Screen: BDV-627
-**Component Name:** `PartnershipManagerProposalsScreen`  
-**Implementation Status:** 🔄 Discovery (Implemented)  
-**Associated Roles:** [Partnership Manager](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-BDV-627-01](tasks/tsk_bdv_627_01.md): Generate and track formal B2B proposals and standardized affiliate agreements.

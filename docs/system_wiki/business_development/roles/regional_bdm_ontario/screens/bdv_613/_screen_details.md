@@ -1,7 +1,0 @@
-# Screen: BDV-613
-**Component Name:** `RegionalBdmCompetitorNotesScreen`  
-**Implementation Status:** 🔄 Discovery (Implemented)  
-**Associated Roles:** [Regional BDM](../../_role_metrics.md)
-
-## Supported Tasks
-- [TSK-BDV-613-01](tasks/tsk_bdv_613_01.md): Document and react to local competitive threats (e.g., rival agency expansions).
