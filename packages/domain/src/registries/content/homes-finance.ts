@@ -1,0 +1,76 @@
+// Governance - Category: service | Purpose: Core implementation file for the Homes Finance platform logic.
+export const homesFinanceContent = {
+    ACCOUNTING_HOME: {
+        TITLE: 'Accounting Intelligence',
+        SUBTITLE: 'Real-time GAAP reporting for PrimeCare Platform.',
+        LOADING: 'ORCHESTRATING FINANCIAL ENGINE...',
+        REFRESH: 'Refresh Engine',
+        GENERATE_AUDIT: 'Generate Audit',
+        WIDGETS: {
+            TRADING: 'Trading Account',
+            PROFIT_LOSS: 'Profit & Loss',
+            BALANCE_SHEET: 'Balance Sheet',
+            GP: 'Gross Profit',
+            NI: 'Net Income',
+            SURPLUS: 'Surplus this period',
+            DEFICIT: 'Deficit this period',
+            MARGIN: 'Gross Margin',
+            TOTAL_REVENUE: 'Total Revenue',
+            DIRECT_COSTS: 'Direct Costs',
+            OPEX: 'Operating Expenses',
+            ASSETS: 'Assets',
+            LIABILITIES: 'Liabilities',
+            EQUITY: 'Equity',
+            NET_WORTH: 'Net Worth',
+            TOTAL_ASSETS: 'Total Assets',
+        },
+        BREAKDOWN: {
+            TITLE: 'Expenditure Intelligence',
+            OPEX_TITLE: 'Operating Expenses Breakdown',
+            BURN_LABEL: 'TOTAL INDIRECT BURN',
+            REVENUE_PCT: 'Revenue Percentage',
+        },
+        COMPLIANCE: {
+            TITLE: 'AI Compliance Guard',
+            HASH: 'Hash Integrity Verified',
+            HASH_DESC: 'All ledger blocks cryptographically valid.',
+            TRIAL: 'Trial Balance Check',
+            TRIAL_DESC: 'Debits and Credits perfectly balanced.',
+            FORENSIC: 'Forensic Audit Trail',
+            FORENSIC_DESC: 'Point-in-time state tracking active.',
+            STATUS_LABEL: 'CONTINUOUS COMPLIANCE STATUS',
+            STATUS_OK: 'OPERATIONAL',
+        }
+    },
+    REGIONAL_STATS: {
+        TITLE: 'Regional Oversight',
+        SUBTITLE: 'Cross-branch clinical and operational intelligence.',
+        STATS: {
+            ACTIVE_BRANCHES: 'Active Branches',
+            TOTAL_PATIENTS: 'Regional Patients',
+            LABEL_AVG_SCORE: 'Compliance Average',
+            CHURN: 'Patient Churn Rate',
+            COMPLIANCE_SCORE: 'Avg Compliance Score',
+            UTILIZATION: 'Staff Utilization',
+            REVENUE: 'Regional Revenue',
+            REVENUE_GROWTH: 'Revenue Growth',
+        },
+        BENTO: {
+            CLINICAL: 'Clinical Excellence Index',
+            PERFORMANCE: 'Operational Performance Hub',
+            FINANCIAL: 'Fiscal Regional Pulse',
+            GROWTH: 'Market Penetration',
+            RISK: 'Compliance Heatmap',
+        },
+        ACTIONS: {
+            REFRESH: 'Refresh Satellite Data',
+            EXPORT: 'Export Regional Report',
+            EXPORT_PL: 'Regional P&L Export',
+        },
+        CHARTS: {
+            LOAD: 'Load Distribution',
+            GROWTH: 'Growth Vector',
+            RISK: 'Risk Concentration',
+        }
+    },
+} as const;

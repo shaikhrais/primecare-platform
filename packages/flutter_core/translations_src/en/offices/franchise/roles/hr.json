@@ -1,0 +1,10 @@
+{
+  "franchise": {
+    "hr": {
+      "dashboard": {
+        "title": "Hr Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "corporate": {
+    "training_coordinator_dashboard": {
+      "title": "Training Coordinator Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+      "training_coordinator_dashboard_screen": {
+        "title": "Training Coordinator Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "training_coordinator_kpi_section": {
+          "title": "Training Coordinator Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    }
+  }
+}

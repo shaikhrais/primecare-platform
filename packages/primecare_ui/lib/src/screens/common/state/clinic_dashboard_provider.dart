@@ -1,0 +1,8 @@
+import 'package:flutter_riverpod/legacy.dart';
+// Governance - Category: state | Purpose: Riverpod state notifier for ClinicDashboardScreen
+// TODO: Implement state providers, loading triggers, and action mutations.
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class ClinicDashboardNotifier extends StateNotifier<AsyncValue<void>> {
+  ClinicDashboardNotifier() : super(const AsyncValue.data(null));
+}

@@ -1,0 +1,10 @@
+{
+  "corporate": {
+    "cfo": {
+      "dashboard": {
+        "title": "Cfo Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  }
+}

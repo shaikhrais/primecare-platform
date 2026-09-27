@@ -1,0 +1,35 @@
+model BusinessDevelopmentMetric {
+  id        String   @id @default(uuid())
+  tenantId  String
+  officeId  String
+  dealValue Float
+  leads     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId, officeId])
+}
+
+model ClinicMetric {
+  id           String   @id @default(uuid())
+  tenantId     String
+  officeId     String
+  patientCount Int
+  waitTimes    Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId, officeId])
+}
+
+model SupportTicket {
+  id         String   @id @default(uuid())
+  tenantId   String
+  officeId   String
+  status     String
+  resolution String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([tenantId, officeId])
+}

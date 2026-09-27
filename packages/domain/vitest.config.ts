@@ -1,0 +1,13 @@
+// Governance - Category: test | Purpose: Core implementation file for the Vitest.Config platform logic.
+import { defineConfig } from 'vitest/config';
+import path from 'path';
+
+export default defineConfig({
+  resolve: {
+    alias: {
+      '@primecare/database': path.resolve(__dirname, '../database/generated/client/index.js'),
+    },
+  },
+  test: {},
+});
+

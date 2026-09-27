@@ -1,0 +1,128 @@
+{
+  "client": {
+    "familyMember": {
+      "dashboard": {
+        "title": "Familymember Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "patient": {
+      "dashboard": {
+        "title": "Patient Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    },
+    "book_appointment_view": {
+      "title": "Book Appointment View",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "care_team_view": {
+      "title": "Care Team View",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "care_updates_view": {
+      "title": "Care Updates View",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_book_appointment_screen": {
+      "title": "Client Book Appointment Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_care_team_screen": {
+      "title": "Client Care Team Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_my_appointments_screen": {
+      "title": "Client My Appointments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_payments_screen": {
+      "title": "Client Payments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_profile_screen": {
+      "title": "Client Profile Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_treatment_history_screen": {
+      "title": "Client Treatment History Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "emergency_contacts_screen": {
+      "title": "Emergency Contacts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_billing_screen": {
+      "title": "Family Billing Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_member_billing_screen": {
+      "title": "Family Member Billing Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_member_care_updates_screen": {
+      "title": "Family Member Care Updates Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_member_dashboard": {
+      "title": "Family Member Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_member_emergency_contacts_screen": {
+      "title": "Family Member Emergency Contacts Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_member_loved_one_schedule_screen": {
+      "title": "Family Member Loved One Schedule Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_member_profile_screen": {
+      "title": "Family Member Profile Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "family_profile_screen": {
+      "title": "Family Profile Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "loved_one_schedule_screen": {
+      "title": "Loved One Schedule Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "my_appointments_screen": {
+      "title": "My Appointments Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "patient_dashboard": {
+      "title": "Patient Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "treatment_history_screen": {
+      "title": "Treatment History Screen",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+    },
+    "client_dashboard": {
+      "client_dashboard_screen": {
+        "title": "Client Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "client_kpi_section": {
+          "title": "Client Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    },
+    "family_dashboard": {
+      "family_dashboard_screen": {
+        "title": "Family Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "family_kpi_section": {
+          "title": "Family Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    }
+  }
+}

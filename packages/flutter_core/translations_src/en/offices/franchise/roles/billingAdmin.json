@@ -1,0 +1,10 @@
+{
+  "franchise": {
+    "billingAdmin": {
+      "dashboard": {
+        "title": "Billingadmin Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  }
+}

@@ -1,0 +1,3869 @@
+{
+    "common": {
+        "languages": "Español",
+        "language": "Español",
+        "aura": {
+            "execute_action": "Ejecutar acción",
+            "search_placeholder": "Buscar comandos o preguntar a Aura...",
+            "disclaimer": "Aura AI puede proporcionar información inexacta. Verifique los datos críticos.",
+            "title": "Inteligencia Aura",
+            "subtitle": "Su copiloto de IA empresarial",
+            "suggestions_label": "Sugerido para ti"
+        },
+        "tooltips": {
+            "change_language": "Cambiar idioma"
+        }
+    },
+    "auth": {
+        "title_curator": "Curador de PrimeCare",
+        "curator_subtitle": "Registro de operaciones de salud empresarial",
+        "welcome_back": "Bienvenido de nuevo",
+        "login_instructions": "Ingrese sus credenciales institucionales para acceder a su espacio de trabajo.",
+        "email": "Correo electrónico",
+        "email_placeholder": "nombre@institucion.com",
+        "password": "Contraseña",
+        "forgot_password": "¿Olvidó su contraseña?",
+        "sign_in": "Iniciar sesión",
+        "register": "Registrarse",
+        "create_account": "Crear cuenta",
+        "already_have_account": "¿Ya tienes una cuenta?",
+        "back_to_login": "Volver al inicio de sesión",
+        "authentication_failed": "Error de autenticación. Por favor, compruebe sus credenciales.",
+        "enter_credentials_to_continue": "Por favor, introduzca su correo electrónico y contraseña para continuar.",
+        "security_notice_long": "Este sistema está restringido al personal y socios autorizados de PrimeCare. Todos los accesos y actividades son monitoreados, registrados y auditados para garantizar el cumplimiento de las regulaciones mundiales de datos de salud (HIPAA/GDPR). Los intentos de acceso no autorizados o el uso indebido de esta plataforma están estrictamente prohibidos y serán procesados con todo el rigor de la ley. Al continuar, usted reconoce y acepta estos términos.",
+        "security_notice_short": "Solo acceso autorizado",
+        "zero_trust_platform": "Plataforma Zero Trust",
+        "encryption_active": "Cifrado de extremo a extremo activo",
+        "provision_workspace": "Aprovisionando espacio de trabajo...",
+        "hydrating_registries": "Hidratando registros de plataforma...",
+        "account_recovery": "Recuperación de cuenta",
+        "recovery_subtitle": "Ingrese su correo electrónico para recibir un enlace de recuperación.",
+        "send_recovery_link": "Enviar enlace de recuperación",
+        "recovery_link_sent": "Se ha enviado el enlace de recuperación a su correo electrónico.",
+        "reset_password": "Restablecer contraseña",
+        "reset_password_page": {
+            "title": "Crear nueva contraseña",
+            "new_password": "Nueva contraseña",
+            "confirm_password": "Confirmar nueva contraseña",
+            "update_password": "Actualizar contraseña"
+        },
+        "mfa": {
+            "title": "Autenticación de múltiples factores",
+            "subtitle": "Ingrese el código de verificación enviado a su dispositivo."
+        },
+        "first_name": "Nombre",
+        "last_name": "Apellido",
+        "role": "Rol de plataforma",
+        "language_system": "Sistema de idiomas",
+        "join_clinical_atelier": "Unirse al Taller Clínico",
+        "send_again": "Enviar de nuevo",
+        "cancel": "Cancelar"
+    },
+    "aura": {
+        "adjust_budget": "Ajustar presupuesto",
+        "marketing_roi_surge": "Aumento del ROI de marketing",
+        "critical_insights": "Información crítica",
+        "system_preferences": "Preferencias del sistema",
+        "operational_summary": "Resumen operativo",
+        "intelligence": "Inteligencia",
+        "stay": "Quedarse",
+        "view_retention_plan": "Ver plan de retención",
+        "exit_message": "¿Está seguro de que desea salir de la sesión?",
+        "marketing_roi_desc": "El ROI ha aumentado un 24% este trimestre.",
+        "sign_out": "Cerrar sesión",
+        "executive_overview": "Resumen ejecutivo",
+        "see_report": "Ver informe",
+        "staff_retention_desc": "La retención de personal está en un máximo histórico del 98%.",
+        "confirm_departure": "Confirmar salida",
+        "daily_briefing": "Informe diario",
+        "profile": "Perfil de usuario",
+        "supply_chain_sync": "Sincronización de la cadena de suministro",
+        "exit_session": "Salir de la sesión",
+        "staff_retention_alert": "Alerta de retención de personal",
+        "search_hint": "Escriba '/' para comandos",
+        "supply_chain_desc": "Todos los nodos están sincronizados."
+    },
+    "navigation": {
+        "footer": {
+            "language": "Idioma"
+        }
+    },
+    "governance": {
+        "unauthorized_access": "Acceso no autorizado",
+        "access_denied": "Acceso Denegado",
+        "unauthorized_route_message": "404 / Ruta no autorizada o no implementada",
+        "role_label": "Rol: {}",
+        "screen_not_implemented": "La pantalla está registrada pero aún no está implementada.",
+        "route_label": "Ruta: {}",
+        "dashboard": {
+            "title": "Gobernanza de la Arquitectura",
+            "subtitle": "Auditoría arquitectónica en vivo de {} pantallas de la plataforma",
+            "auto_remediate": "Auto-Remediar",
+            "export_pdf": "Informe PDF Profesional",
+            "export_html": "Exportar HTML (Profesional)",
+            "export_markdown": "Exportar Markdown",
+            "export_json": "Exportar JSON",
+            "export_csv": "Exportar CSV",
+            "export": "Exportar",
+            "rescan": "Reescanear",
+            "loading_tip": "Cargando consejo clínico...",
+            "error_tip": "No se pudo cargar el consejo clínico."
+        },
+        "monitoring": {
+            "title": "Monitoreo de Gobernanza",
+            "recent_activity": "Actividad de Implementación Reciente"
+        },
+        "kitchen_sink": {
+            "title": "Fregadero PrimeCare",
+            "subtitle": "Componentes de Telemetría, Programador y Tablero Kanban de Alta Fidelidad",
+            "scheduler": "Programador de Producción",
+            "workflow_board": "Tablero de Flujo de Gobernanza",
+            "error": "Error: {}",
+            "no_appointments": "No hay citas activas",
+            "break": "Descanso",
+            "upcoming": "PRÓXIMAMENTE",
+            "in_progress": "EN CURSO",
+            "completed": "COMPLETADO",
+            "unassigned": "No asignado",
+            "no_items": "No hay elementos activos"
+        },
+        "screen_under_construction": "Pantalla en construcción"
+    },
+    "security": {
+        "environment_audit": "Auditoría del Entorno",
+        "posture_status": "Estado de Postura",
+        "trusted_device": "Dispositivo de Confianza",
+        "mfa_active": "MFA Activo",
+        "bank_grade_secured": "Seguridad de Grado Bancario",
+        "elevated_risk": "Riesgo Elevado",
+        "secure_environment": "Entorno Seguro",
+        "hardware_keystore": "Almacén de Claves de Hardware",
+        "biometric_ready": "Biometría Lista",
+        "integrity_verified": "Integridad Verificada",
+        "root_check": "Verificación de Root por Hardware",
+        "keystore_check": "Verificación de Almacén Seguro",
+        "biometric_status": "Estado Biométrico",
+        "upgrade_security": "Mejorar Seguridad",
+        "lock_session": "Bloquear Sesión",
+        "verifying": "Verificando Integridad...",
+        "trust_upgrade_required": "Mejora de Seguridad Requerida",
+        "trust_upgrade_desc": "Su dispositivo no es de total confianza. Por favor, realice la MFA para habilitar el acceso de grado bancario."
+    },
+    "select_language_welcome": "HOLA Y LE DAMOS LA BIENVENIDA",
+    "select_language_title": "Configuremos su espacio de trabajo",
+    "select_language_subtitle": "Elija su idioma preferido para comenzar a personalizar su experiencia.",
+    "select_language_continue": "Continuar",
+    "language_en_title": "English (EN)",
+    "language_en_subtitle": "Idioma predeterminado del portal seguro",
+    "language_fr_title": "Français (FR)",
+    "language_fr_subtitle": "Ajustement de la session en français",
+    "language_es_title": "Español (ES)",
+    "language_es_subtitle": "Alineación de sesión en español",
+    "system_language_detected": "Idioma del sistema detectado: {}",
+    "auth_success_identity_portal": "Portal de identidad",
+    "auth_success_session_verified": "Su sesión está verificada de forma segura",
+    "auth_success_active_session": "Sesión activa",
+    "auth_success_logged_in_as": "Conectado como",
+    "auth_success_assigned_role": "Rol de plataforma asignado",
+    "auth_success_session_token": "Token de sesión:",
+    "auth_success_sign_out": "Cerrar sesión de la cuenta",
+    "auth_success_parity_title": "Paridad arquitectónica: 100%",
+    "auth_success_parity_subtitle": "Todos los registros de plataforma sincronizados y verificados.",
+    "auth_consent_authorize_title": "Autorizar aplicación",
+    "auth_consent_security_required": "Consentimiento de seguridad requerido",
+    "auth_consent_permission_request": "SOLICITUD DE PERMISO",
+    "auth_consent_explanation": "La aplicación en la siguiente dirección desea iniciar sesión usando su identidad PrimeCare:",
+    "auth_consent_authorizing_account": "CUENTA DE AUTORIZACIÓN",
+    "auth_consent_redirecting": "Redirigiendo...",
+    "auth_consent_approve": "Aprobar y continuar",
+    "auth_consent_cancel": "Cancelar y cerrar sesión",
+    "auth_success_default_user": "Usuario de PrimeCare",
+    "login_authorized_access": "Le damos la bienvenida a PrimeCare",
+    "login_enter_credentials": "Nos alegra tenerle aquí. Inicie sesión para acceder a su espacio de trabajo seguro.",
+    "login_identifier_label": "NOMBRE DE USUARIO",
+    "login_security_token_label": "CONTRASEÑA",
+    "login_forgot_password": "Recuperar Token de Seguridad",
+    "login_button": "LOGIN",
+    "login_access_demo": "Simular Sesión (Modo Demostración)",
+    "login_role_simulation_center": "CENTRO DE SIMULACIÓN DE ROLES",
+    "login_stability_trust": "ESTABILIDAD Y CONFIANZA",
+    "login_soc2_compliant": "CONFORMIDAD SOC2 · ISO 27001",
+    "login_governed_secure": "GOBERNADO Y SEGURO",
+    "login_secure_deployment_node": "NODO DE DESPLIEGUE SEGURO: NA-EAST-1",
+    "login_all_systems_operational": "TODOS LOS SISTEMAS OPERATIVOS",
+    "login_slogan_0": "INFRAESTRUCTURA DE GOBERNANZA REFORZADA",
+    "login_slogan_1": "APLICACIÓN DE AUDITORÍA CERO ERRORES",
+    "login_slogan_2": "ATENCIÓN DE PRECISIÓN. SEGURIDAD ABSOLUTA.",
+    "login_slogan_3": "INTEGRIDAD ARQUITECTÓNICA VERIFICADA",
+    "login_slogan_4": "GESTIÓN DE SESIONES ZERO-TRUST",
+    "login_slogan_5": "MONITOREO DE CUMPLIMIENTO EN TIEMPO REAL",
+    "login_slogan_6": "CAPA 4 DE SEGURIDAD EMPRESARIAL",
+    "login_slogan_7": "PROTECCIÓN DE IDENTIDAD DESCENTRALIZADA",
+    "login_slogan_8": "VALIDACIÓN DE PARIDAD CONTINUA",
+    "login_slogan_9": "REGISTRO DE GOBERNANZA REFORZADO",
+    "np_dashboard": {
+        "title": "Nurse Practitioner Panel",
+        "header_title": "NP Clinical Workspace",
+        "summary_title": "Metrics Summary",
+        "btn_save": "Save Visit Log",
+        "btn_export": "Export Report",
+        "btn_refresh": "Sync Clinic Data",
+        "active_cases": "Active Clinical Cases",
+        "pending_prescriptions": "Pending Prescriptions",
+        "avg_triage_time": "Avg Triage Duration"
+    },
+    "rmt_dashboard": {
+        "title": "RMT Clinical Panel",
+        "header_title": "RMT Therapeutic Workspace",
+        "summary_title": "Appointments Summary",
+        "btn_new_session": "New SOAP Entry",
+        "btn_complete": "Complete Session",
+        "btn_refresh": "Sync Appointments",
+        "active_patients": "Active Massage Cases Today",
+        "pending_notes": "Pending SOAP Documents"
+    },
+    "cns_dashboard": {
+        "title": "CNS Clinical Panel",
+        "header_title": "CNS Specialist Workspace",
+        "summary_title": "Consultations Summary",
+        "btn_new_protocol": "New Clinical Protocol",
+        "btn_audit": "Audit Practice",
+        "btn_refresh": "Sync Cases",
+        "active_consults": "Active Consultations",
+        "pending_approvals": "Pending Protocols"
+    },
+    "hsw_dashboard": {
+        "title": "HSW Clinical Panel",
+        "header_title": "Home Support Workspace",
+        "summary_title": "Visits Summary",
+        "btn_log_visit": "Log Patient Visit",
+        "btn_checkin": "Safety Check-in",
+        "btn_refresh": "Sync Care Plan",
+        "active_visits": "Scheduled Visits Today",
+        "completed_logs": "Completed Visit Logs"
+    },
+    "lpn_dashboard": {
+        "title": "LPN Clinical Panel",
+        "header_title": "LPN Clinical Workspace",
+        "summary_title": "Treatments Summary",
+        "btn_log_visit": "Record Medication",
+        "btn_vitals": "Log Vitals",
+        "btn_refresh": "Sync Medication Sheet",
+        "active_patients": "Active Patients Today",
+        "completed_treatments": "Completed Treatments"
+    },
+    "pediatric_dashboard": {
+        "title": "Pediatric Clinical Panel",
+        "header_title": "Especialista pediátrico Workspace",
+        "summary_title": "Pediatric Cases Summary",
+        "btn_growth": "Record Growth Chart",
+        "btn_vaccine": "Log Vaccination",
+        "btn_refresh": "Sync Pediatric Cases",
+        "active_patients": "Active Pediatric Cases",
+        "completed_immunizations": "Immunizations Logged"
+    },
+    "physician_dashboard": {
+        "title": "Médico Clinical Panel",
+        "header_title": "Médico Clinical Workspace",
+        "summary_title": "Clinical Status Summary",
+        "btn_admission": "Admit Patient",
+        "btn_labs": "Request Lab Order",
+        "btn_refresh": "Sync Cases",
+        "active_patients": "Active Admitted Patients",
+        "pending_labs": "Pending Labs & Diagnostics"
+    },
+    "architecture_planning_dashboard": {
+        "title": "Architecture Panel",
+        "header_title": "Architecture & Technology Workspace",
+        "summary_title": "Systems Summary",
+        "btn_new_blueprint": "New Tech Blueprint",
+        "btn_audit_db": "Audit DB Schema",
+        "btn_refresh": "Sync Roadmaps",
+        "active_designs": "Active System Designs",
+        "pending_reviews": "Pending Architectural Reviews"
+    },
+    "business_development_dashboard": {
+        "title": "Business Development Panel Centro",
+        "header_title": "Business Development Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "caregiver_dashboard": {
+        "title": "Caregiver Panel Centro",
+        "header_title": "Caregiver Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractor_dashboard": {
+        "title": "Chiropractor Panel Centro",
+        "header_title": "Chiropractor Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinic_dashboard": {
+        "title": "Clinic Panel Centro",
+        "header_title": "Clinic Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "course_architect_dashboard": {
+        "title": "Course Architect Panel Centro",
+        "header_title": "Course Architect Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "dynamic_screen_dashboard": {
+        "title": "Dynamic Screen Panel Centro",
+        "header_title": "Dynamic Screen Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "family_member_dashboard": {
+        "title": "Family Member Panel Centro",
+        "header_title": "Family Member Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_dashboard": {
+        "title": "Franchise Panel Centro",
+        "header_title": "Franchise Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "infrastructure_dashboard": {
+        "title": "Infrastructure Panel Centro",
+        "header_title": "Infrastructure Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_dashboard": {
+        "title": "Intake Panel Centro",
+        "header_title": "Intake Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "office_dashboard": {
+        "title": "Office Panel Centro",
+        "header_title": "Office Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "patient_dashboard": {
+        "title": "Patient Panel Centro",
+        "header_title": "Patient Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physiotherapist_dashboard": {
+        "title": "Physiotherapist Panel Centro",
+        "header_title": "Physiotherapist Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "portal_dashboard": {
+        "title": "Portal Panel Centro",
+        "header_title": "Portal Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "qa_dashboard": {
+        "title": "Qa Panel Centro",
+        "header_title": "Qa Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "social_worker_dashboard": {
+        "title": "Social Worker Panel Centro",
+        "header_title": "Social Worker Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "support_dashboard": {
+        "title": "Support Panel Centro",
+        "header_title": "Support Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "system_verification_dashboard": {
+        "title": "System Verification Panel Centro",
+        "header_title": "System Verification Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_hub_dashboard": {
+        "title": "Training Centro Panel Centro",
+        "header_title": "Training Centro Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "ciso_dashboard": {
+        "title": "Ciso Panel Centro",
+        "header_title": "Ciso Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cx_director_dashboard": {
+        "title": "Cx Director Panel Centro",
+        "header_title": "Cx Director Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "finance_director_dashboard": {
+        "title": "Finance Director Panel Centro",
+        "header_title": "Finance Director Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_director_dashboard": {
+        "title": "Hr Director Panel Centro",
+        "header_title": "Hr Director Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "legal_dashboard": {
+        "title": "Legal Panel Centro",
+        "header_title": "Legal Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "owner_dashboard": {
+        "title": "Owner Panel Centro",
+        "header_title": "Owner Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_director_dashboard": {
+        "title": "Training Director Panel Centro",
+        "header_title": "Training Director Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "community_outreach_dashboard": {
+        "title": "Community Outreach Panel Centro",
+        "header_title": "Community Outreach Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "compliance_manager_dashboard": {
+        "title": "Cumplimiento Manager Panel Centro",
+        "header_title": "Cumplimiento Manager Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_sales_manager_dashboard": {
+        "title": "Ventas de franquicia Manager Panel Centro",
+        "header_title": "Ventas de franquicia Manager Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "general_manager_dashboard": {
+        "title": "General Manager Panel Centro",
+        "header_title": "General Manager Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "governance_officer_dashboard": {
+        "title": "Gobernanza Officer Panel Centro",
+        "header_title": "Gobernanza Officer Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "local_marketing_manager_dashboard": {
+        "title": "Local Marketing Manager Panel Centro",
+        "header_title": "Local Marketing Manager Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "partnership_manager_dashboard": {
+        "title": "Partnership Manager Panel Centro",
+        "header_title": "Partnership Manager Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "premium_concierge_dashboard": {
+        "title": "Conserje Premium Panel Centro",
+        "header_title": "Conserje Premium Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "regional_bdm_dashboard": {
+        "title": "Regional Bdm Panel Centro",
+        "header_title": "Regional Bdm Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "regional_manager_usa_dashboard": {
+        "title": "Regional Manager Usa Panel Centro",
+        "header_title": "Regional Manager Usa Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "territory_expansion_manager_dashboard": {
+        "title": "Territory Expansion Manager Panel Centro",
+        "header_title": "Territory Expansion Manager Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "territory_sales_manager_dashboard": {
+        "title": "Territory Sales Manager Panel Centro",
+        "header_title": "Territory Sales Manager Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "vip_manager_dashboard": {
+        "title": "Vip Manager Panel Centro",
+        "header_title": "Vip Manager Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_dashboard": {
+        "title": "Rn Panel Centro",
+        "header_title": "Rn Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_field_supervisor_dashboard": {
+        "title": "Rn Supervisor de campo Panel Centro",
+        "header_title": "Rn Supervisor de campo Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rpn_dashboard": {
+        "title": "Rpn Panel Centro",
+        "header_title": "Rpn Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "employee_dashboard": {
+        "title": "Empleado Panel Centro",
+        "header_title": "Empleado Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_manager_dashboard": {
+        "title": "Hr Manager Panel Centro",
+        "header_title": "Hr Manager Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_coordinator_dashboard": {
+        "title": "Intake Coordinator Panel Centro",
+        "header_title": "Intake Coordinator Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "quality_assurance_dashboard": {
+        "title": "Quality Assurance Panel Centro",
+        "header_title": "Quality Assurance Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_coordinator_dashboard": {
+        "title": "Training Coordinator Panel Centro",
+        "header_title": "Training Coordinator Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "volunteer_coordinator_dashboard": {
+        "title": "Volunteer Coordinator Panel Centro",
+        "header_title": "Volunteer Coordinator Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "volunteer_dashboard": {
+        "title": "Volunteer Panel Centro",
+        "header_title": "Volunteer Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rmt_analytics": {
+        "title": "Rmt Análisis Centro",
+        "header_title": "Rmt Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rmt_compliance": {
+        "title": "Rmt Cumplimiento Centro",
+        "header_title": "Rmt Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rmt_workflow": {
+        "title": "Rmt Flujo de trabajo Centro",
+        "header_title": "Rmt Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinical_analytics": {
+        "title": "Clinical Análisis Centro",
+        "header_title": "Clinical Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinical_compliance": {
+        "title": "Clinical Cumplimiento Centro",
+        "header_title": "Clinical Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinical_workflow": {
+        "title": "Clinical Flujo de trabajo Centro",
+        "header_title": "Clinical Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hsw_adl_logger": {
+        "title": "Hsw Adl Logger Centro",
+        "header_title": "Hsw Adl Logger Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hsw_care_plans": {
+        "title": "Hsw Care Plans Centro",
+        "header_title": "Hsw Care Plans Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hsw_incident_reports": {
+        "title": "Hsw Incident Reports Centro",
+        "header_title": "Hsw Incident Reports Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hsw_schedule": {
+        "title": "Hsw Schedule Centro",
+        "header_title": "Hsw Schedule Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "architecture_planning_analytics": {
+        "title": "Architecture Planning Análisis Centro",
+        "header_title": "Architecture Planning Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "architecture_planning_compliance": {
+        "title": "Architecture Planning Cumplimiento Centro",
+        "header_title": "Architecture Planning Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "architecture_planning_workflow": {
+        "title": "Architecture Planning Flujo de trabajo Centro",
+        "header_title": "Architecture Planning Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "business_development_analytics": {
+        "title": "Business Development Análisis Centro",
+        "header_title": "Business Development Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "business_development_compliance": {
+        "title": "Business Development Cumplimiento Centro",
+        "header_title": "Business Development Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "business_development_workflow": {
+        "title": "Business Development Flujo de trabajo Centro",
+        "header_title": "Business Development Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractor_analytics": {
+        "title": "Chiropractor Análisis Centro",
+        "header_title": "Chiropractor Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractor_compliance": {
+        "title": "Chiropractor Cumplimiento Centro",
+        "header_title": "Chiropractor Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractor_workflow": {
+        "title": "Chiropractor Flujo de trabajo Centro",
+        "header_title": "Chiropractor Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinic_analytics": {
+        "title": "Clinic Análisis Centro",
+        "header_title": "Clinic Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinic_compliance": {
+        "title": "Clinic Cumplimiento Centro",
+        "header_title": "Clinic Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinic_workflow": {
+        "title": "Clinic Flujo de trabajo Centro",
+        "header_title": "Clinic Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "course_architect_analytics": {
+        "title": "Course Architect Análisis Centro",
+        "header_title": "Course Architect Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "course_architect_compliance": {
+        "title": "Course Architect Cumplimiento Centro",
+        "header_title": "Course Architect Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "course_architect_workflow": {
+        "title": "Course Architect Flujo de trabajo Centro",
+        "header_title": "Course Architect Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "customer_support_analytics": {
+        "title": "Customer Support Análisis Centro",
+        "header_title": "Customer Support Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "customer_support_compliance": {
+        "title": "Customer Support Cumplimiento Centro",
+        "header_title": "Customer Support Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "customer_support_workflow": {
+        "title": "Customer Support Flujo de trabajo Centro",
+        "header_title": "Customer Support Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "dynamic_workflow": {
+        "title": "Dynamic Flujo de trabajo Centro",
+        "header_title": "Dynamic Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "family_member_analytics": {
+        "title": "Family Member Análisis Centro",
+        "header_title": "Family Member Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "family_member_compliance": {
+        "title": "Family Member Cumplimiento Centro",
+        "header_title": "Family Member Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "family_member_workflow": {
+        "title": "Family Member Flujo de trabajo Centro",
+        "header_title": "Family Member Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_analytics": {
+        "title": "Franchise Análisis Centro",
+        "header_title": "Franchise Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_compliance": {
+        "title": "Franchise Cumplimiento Centro",
+        "header_title": "Franchise Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_workflow": {
+        "title": "Franchise Flujo de trabajo Centro",
+        "header_title": "Franchise Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "guest_analytics": {
+        "title": "Guest Análisis Centro",
+        "header_title": "Guest Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "guest_compliance": {
+        "title": "Guest Cumplimiento Centro",
+        "header_title": "Guest Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "guest_workflow": {
+        "title": "Guest Flujo de trabajo Centro",
+        "header_title": "Guest Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "infrastructure_analytics": {
+        "title": "Infrastructure Análisis Centro",
+        "header_title": "Infrastructure Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "infrastructure_compliance": {
+        "title": "Infrastructure Cumplimiento Centro",
+        "header_title": "Infrastructure Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "infrastructure_workflow": {
+        "title": "Infrastructure Flujo de trabajo Centro",
+        "header_title": "Infrastructure Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_analytics": {
+        "title": "Intake Análisis Centro",
+        "header_title": "Intake Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_compliance": {
+        "title": "Intake Cumplimiento Centro",
+        "header_title": "Intake Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_workflow": {
+        "title": "Intake Flujo de trabajo Centro",
+        "header_title": "Intake Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "office_analytics": {
+        "title": "Office Análisis Centro",
+        "header_title": "Office Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "office_compliance": {
+        "title": "Office Cumplimiento Centro",
+        "header_title": "Office Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "office_workflow": {
+        "title": "Office Flujo de trabajo Centro",
+        "header_title": "Office Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "patient_analytics": {
+        "title": "Patient Análisis Centro",
+        "header_title": "Patient Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "patient_compliance": {
+        "title": "Patient Cumplimiento Centro",
+        "header_title": "Patient Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "patient_workflow": {
+        "title": "Patient Flujo de trabajo Centro",
+        "header_title": "Patient Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physiotherapist_analytics": {
+        "title": "Physiotherapist Análisis Centro",
+        "header_title": "Physiotherapist Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physiotherapist_compliance": {
+        "title": "Physiotherapist Cumplimiento Centro",
+        "header_title": "Physiotherapist Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physiotherapist_workflow": {
+        "title": "Physiotherapist Flujo de trabajo Centro",
+        "header_title": "Physiotherapist Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "portal_analytics": {
+        "title": "Portal Análisis Centro",
+        "header_title": "Portal Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "portal_compliance": {
+        "title": "Portal Cumplimiento Centro",
+        "header_title": "Portal Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "portal_workflow": {
+        "title": "Portal Flujo de trabajo Centro",
+        "header_title": "Portal Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "qa_analytics": {
+        "title": "Qa Análisis Centro",
+        "header_title": "Qa Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "qa_compliance": {
+        "title": "Qa Cumplimiento Centro",
+        "header_title": "Qa Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "qa_workflow": {
+        "title": "Qa Flujo de trabajo Centro",
+        "header_title": "Qa Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "social_worker_analytics": {
+        "title": "Social Worker Análisis Centro",
+        "header_title": "Social Worker Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "social_worker_compliance": {
+        "title": "Social Worker Cumplimiento Centro",
+        "header_title": "Social Worker Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "social_worker_workflow": {
+        "title": "Social Worker Flujo de trabajo Centro",
+        "header_title": "Social Worker Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "support_analytics": {
+        "title": "Support Análisis Centro",
+        "header_title": "Support Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "support_compliance": {
+        "title": "Support Cumplimiento Centro",
+        "header_title": "Support Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "support_workflow": {
+        "title": "Support Flujo de trabajo Centro",
+        "header_title": "Support Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "system_analytics": {
+        "title": "System Análisis Centro",
+        "header_title": "System Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "system_compliance": {
+        "title": "System Cumplimiento Centro",
+        "header_title": "System Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "system_verification_analytics": {
+        "title": "System Verification Análisis Centro",
+        "header_title": "System Verification Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "system_verification_compliance": {
+        "title": "System Verification Cumplimiento Centro",
+        "header_title": "System Verification Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "system_verification_workflow": {
+        "title": "System Verification Flujo de trabajo Centro",
+        "header_title": "System Verification Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "system_workflow": {
+        "title": "System Flujo de trabajo Centro",
+        "header_title": "System Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_hub_analytics": {
+        "title": "Training Centro Análisis Centro",
+        "header_title": "Training Centro Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_hub_compliance": {
+        "title": "Training Centro Cumplimiento Centro",
+        "header_title": "Training Centro Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_hub_workflow": {
+        "title": "Training Centro Flujo de trabajo Centro",
+        "header_title": "Training Centro Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cfo_analytics": {
+        "title": "Cfo Análisis Centro",
+        "header_title": "Cfo Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cfo_compliance": {
+        "title": "Cfo Cumplimiento Centro",
+        "header_title": "Cfo Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cfo_workflow": {
+        "title": "Cfo Flujo de trabajo Centro",
+        "header_title": "Cfo Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "ciso_analytics": {
+        "title": "Ciso Análisis Centro",
+        "header_title": "Ciso Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "ciso_compliance": {
+        "title": "Ciso Cumplimiento Centro",
+        "header_title": "Ciso Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "ciso_workflow": {
+        "title": "Ciso Flujo de trabajo Centro",
+        "header_title": "Ciso Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "coo_analytics": {
+        "title": "Coo Análisis Centro",
+        "header_title": "Coo Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "coo_compliance": {
+        "title": "Coo Cumplimiento Centro",
+        "header_title": "Coo Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "coo_workflow": {
+        "title": "Coo Flujo de trabajo Centro",
+        "header_title": "Coo Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cto_analytics": {
+        "title": "Cto Análisis Centro",
+        "header_title": "Cto Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cto_compliance": {
+        "title": "Cto Cumplimiento Centro",
+        "header_title": "Cto Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cto_workflow": {
+        "title": "Cto Flujo de trabajo Centro",
+        "header_title": "Cto Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cx_director_analytics": {
+        "title": "Cx Director Análisis Centro",
+        "header_title": "Cx Director Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cx_director_compliance": {
+        "title": "Cx Director Cumplimiento Centro",
+        "header_title": "Cx Director Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cx_director_workflow": {
+        "title": "Cx Director Flujo de trabajo Centro",
+        "header_title": "Cx Director Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "finance_director_analytics": {
+        "title": "Finance Director Análisis Centro",
+        "header_title": "Finance Director Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "finance_director_compliance": {
+        "title": "Finance Director Cumplimiento Centro",
+        "header_title": "Finance Director Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "finance_director_workflow": {
+        "title": "Finance Director Flujo de trabajo Centro",
+        "header_title": "Finance Director Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_director_analytics": {
+        "title": "Hr Director Análisis Centro",
+        "header_title": "Hr Director Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_director_compliance": {
+        "title": "Hr Director Cumplimiento Centro",
+        "header_title": "Hr Director Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_director_workflow": {
+        "title": "Hr Director Flujo de trabajo Centro",
+        "header_title": "Hr Director Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "legal_analytics": {
+        "title": "Legal Análisis Centro",
+        "header_title": "Legal Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "legal_compliance": {
+        "title": "Legal Cumplimiento Centro",
+        "header_title": "Legal Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "legal_workflow": {
+        "title": "Legal Flujo de trabajo Centro",
+        "header_title": "Legal Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "owner_analytics": {
+        "title": "Owner Análisis Centro",
+        "header_title": "Owner Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "owner_compliance": {
+        "title": "Owner Cumplimiento Centro",
+        "header_title": "Owner Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "owner_workflow": {
+        "title": "Owner Flujo de trabajo Centro",
+        "header_title": "Owner Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "shareholder_analytics": {
+        "title": "Shareholder Análisis Centro",
+        "header_title": "Shareholder Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "shareholder_compliance": {
+        "title": "Shareholder Cumplimiento Centro",
+        "header_title": "Shareholder Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "shareholder_workflow": {
+        "title": "Shareholder Flujo de trabajo Centro",
+        "header_title": "Shareholder Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_director_analytics": {
+        "title": "Training Director Análisis Centro",
+        "header_title": "Training Director Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_director_compliance": {
+        "title": "Training Director Cumplimiento Centro",
+        "header_title": "Training Director Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_director_workflow": {
+        "title": "Training Director Flujo de trabajo Centro",
+        "header_title": "Training Director Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "community_outreach_analytics": {
+        "title": "Community Outreach Análisis Centro",
+        "header_title": "Community Outreach Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "community_outreach_compliance": {
+        "title": "Community Outreach Cumplimiento Centro",
+        "header_title": "Community Outreach Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "community_outreach_workflow": {
+        "title": "Community Outreach Flujo de trabajo Centro",
+        "header_title": "Community Outreach Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "compliance_manager_analytics": {
+        "title": "Cumplimiento Manager Análisis Centro",
+        "header_title": "Cumplimiento Manager Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "compliance_manager_compliance": {
+        "title": "Cumplimiento Manager Cumplimiento Centro",
+        "header_title": "Cumplimiento Manager Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "compliance_manager_workflow": {
+        "title": "Cumplimiento Manager Flujo de trabajo Centro",
+        "header_title": "Cumplimiento Manager Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_sales_manager_analytics": {
+        "title": "Ventas de franquicia Manager Análisis Centro",
+        "header_title": "Ventas de franquicia Manager Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_sales_manager_compliance": {
+        "title": "Ventas de franquicia Manager Cumplimiento Centro",
+        "header_title": "Ventas de franquicia Manager Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_sales_manager_workflow": {
+        "title": "Ventas de franquicia Manager Flujo de trabajo Centro",
+        "header_title": "Ventas de franquicia Manager Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "general_manager_analytics": {
+        "title": "General Manager Análisis Centro",
+        "header_title": "General Manager Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "general_manager_compliance": {
+        "title": "General Manager Cumplimiento Centro",
+        "header_title": "General Manager Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "general_manager_workflow": {
+        "title": "General Manager Flujo de trabajo Centro",
+        "header_title": "General Manager Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "governance_officer_analytics": {
+        "title": "Gobernanza Officer Análisis Centro",
+        "header_title": "Gobernanza Officer Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "governance_officer_compliance": {
+        "title": "Gobernanza Officer Cumplimiento Centro",
+        "header_title": "Gobernanza Officer Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "governance_officer_workflow": {
+        "title": "Gobernanza Officer Flujo de trabajo Centro",
+        "header_title": "Gobernanza Officer Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "head_of_bus_dev_analytics": {
+        "title": "Head Of Bus Dev Análisis Centro",
+        "header_title": "Head Of Bus Dev Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "head_of_bus_dev_compliance": {
+        "title": "Head Of Bus Dev Cumplimiento Centro",
+        "header_title": "Head Of Bus Dev Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "head_of_bus_dev_workflow": {
+        "title": "Head Of Bus Dev Flujo de trabajo Centro",
+        "header_title": "Head Of Bus Dev Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "head_of_marketing_analytics": {
+        "title": "Head Of Marketing Análisis Centro",
+        "header_title": "Head Of Marketing Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "head_of_marketing_compliance": {
+        "title": "Head Of Marketing Cumplimiento Centro",
+        "header_title": "Head Of Marketing Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "head_of_marketing_workflow": {
+        "title": "Head Of Marketing Flujo de trabajo Centro",
+        "header_title": "Head Of Marketing Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "local_marketing_manager_analytics": {
+        "title": "Local Marketing Manager Análisis Centro",
+        "header_title": "Local Marketing Manager Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "local_marketing_manager_compliance": {
+        "title": "Local Marketing Manager Cumplimiento Centro",
+        "header_title": "Local Marketing Manager Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "local_marketing_manager_workflow": {
+        "title": "Local Marketing Manager Flujo de trabajo Centro",
+        "header_title": "Local Marketing Manager Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "operations_manager_analytics": {
+        "title": "Operaciones Manager Análisis Centro",
+        "header_title": "Operaciones Manager Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "operations_manager_compliance": {
+        "title": "Operaciones Manager Cumplimiento Centro",
+        "header_title": "Operaciones Manager Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "operations_manager_workflow": {
+        "title": "Operaciones Manager Flujo de trabajo Centro",
+        "header_title": "Operaciones Manager Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "partnership_manager_analytics": {
+        "title": "Partnership Manager Análisis Centro",
+        "header_title": "Partnership Manager Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "partnership_manager_compliance": {
+        "title": "Partnership Manager Cumplimiento Centro",
+        "header_title": "Partnership Manager Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "partnership_manager_workflow": {
+        "title": "Partnership Manager Flujo de trabajo Centro",
+        "header_title": "Partnership Manager Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "regional_bdm_analytics": {
+        "title": "Regional Bdm Análisis Centro",
+        "header_title": "Regional Bdm Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "regional_bdm_compliance": {
+        "title": "Regional Bdm Cumplimiento Centro",
+        "header_title": "Regional Bdm Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "regional_bdm_workflow": {
+        "title": "Regional Bdm Flujo de trabajo Centro",
+        "header_title": "Regional Bdm Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "regional_manager_usa_analytics": {
+        "title": "Regional Manager Usa Análisis Centro",
+        "header_title": "Regional Manager Usa Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "regional_manager_usa_compliance": {
+        "title": "Regional Manager Usa Cumplimiento Centro",
+        "header_title": "Regional Manager Usa Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "regional_manager_usa_workflow": {
+        "title": "Regional Manager Usa Flujo de trabajo Centro",
+        "header_title": "Regional Manager Usa Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scrum_master_analytics": {
+        "title": "Scrum Master Análisis Centro",
+        "header_title": "Scrum Master Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scrum_master_compliance": {
+        "title": "Scrum Master Cumplimiento Centro",
+        "header_title": "Scrum Master Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scrum_master_workflow": {
+        "title": "Scrum Master Flujo de trabajo Centro",
+        "header_title": "Scrum Master Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "territory_expansion_manager_analytics": {
+        "title": "Territory Expansion Manager Análisis Centro",
+        "header_title": "Territory Expansion Manager Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "territory_expansion_manager_compliance": {
+        "title": "Territory Expansion Manager Cumplimiento Centro",
+        "header_title": "Territory Expansion Manager Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "territory_expansion_manager_workflow": {
+        "title": "Territory Expansion Manager Flujo de trabajo Centro",
+        "header_title": "Territory Expansion Manager Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "territory_sales_manager_analytics": {
+        "title": "Territory Sales Manager Análisis Centro",
+        "header_title": "Territory Sales Manager Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "territory_sales_manager_compliance": {
+        "title": "Territory Sales Manager Cumplimiento Centro",
+        "header_title": "Territory Sales Manager Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "territory_sales_manager_workflow": {
+        "title": "Territory Sales Manager Flujo de trabajo Centro",
+        "header_title": "Territory Sales Manager Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_analytics": {
+        "title": "Psw Análisis Centro",
+        "header_title": "Psw Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_clients": {
+        "title": "Psw Clients Centro",
+        "header_title": "Psw Clients Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_compliance": {
+        "title": "Psw Cumplimiento Centro",
+        "header_title": "Psw Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_messages": {
+        "title": "Psw Messages Centro",
+        "header_title": "Psw Messages Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_shift_tracker": {
+        "title": "Psw Shift Tracker Centro",
+        "header_title": "Psw Shift Tracker Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_tasks": {
+        "title": "Psw Tasks Centro",
+        "header_title": "Psw Tasks Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_visit_notes": {
+        "title": "Psw Visit Notes Centro",
+        "header_title": "Psw Visit Notes Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_workflow": {
+        "title": "Psw Flujo de trabajo Centro",
+        "header_title": "Psw Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_analytics": {
+        "title": "Rn Análisis Centro",
+        "header_title": "Rn Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_assessments": {
+        "title": "Rn Assessments Centro",
+        "header_title": "Rn Assessments Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_care_plans": {
+        "title": "Rn Care Plans Centro",
+        "header_title": "Rn Care Plans Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_compliance": {
+        "title": "Rn Cumplimiento Centro",
+        "header_title": "Rn Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_workflow": {
+        "title": "Rn Flujo de trabajo Centro",
+        "header_title": "Rn Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rpn_analytics": {
+        "title": "Rpn Análisis Centro",
+        "header_title": "Rpn Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rpn_compliance": {
+        "title": "Rpn Cumplimiento Centro",
+        "header_title": "Rpn Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rpn_workflow": {
+        "title": "Rpn Flujo de trabajo Centro",
+        "header_title": "Rpn Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "billing_admin_analytics": {
+        "title": "Billing Admin Análisis Centro",
+        "header_title": "Billing Admin Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "billing_admin_compliance": {
+        "title": "Billing Admin Cumplimiento Centro",
+        "header_title": "Billing Admin Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "billing_admin_workflow": {
+        "title": "Billing Admin Flujo de trabajo Centro",
+        "header_title": "Billing Admin Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "coordinator_dispatch_map": {
+        "title": "Coordinator Dispatch Map Centro",
+        "header_title": "Coordinator Dispatch Map Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "coordinator_hub": {
+        "title": "Coordinator Centro Centro",
+        "header_title": "Coordinator Centro Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "coordinator_sos": {
+        "title": "Coordinator Sos Centro",
+        "header_title": "Coordinator Sos Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "coordinator_waitlist": {
+        "title": "Coordinator Waitlist Centro",
+        "header_title": "Coordinator Waitlist Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_hiring_analytics": {
+        "title": "Hr Hiring Análisis Centro",
+        "header_title": "Hr Hiring Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_hiring_compliance": {
+        "title": "Hr Hiring Cumplimiento Centro",
+        "header_title": "Hr Hiring Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_hiring_workflow": {
+        "title": "Hr Hiring Flujo de trabajo Centro",
+        "header_title": "Hr Hiring Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_manager_analytics": {
+        "title": "Hr Manager Análisis Centro",
+        "header_title": "Hr Manager Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_manager_compliance": {
+        "title": "Hr Manager Cumplimiento Centro",
+        "header_title": "Hr Manager Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_manager_workflow": {
+        "title": "Hr Manager Flujo de trabajo Centro",
+        "header_title": "Hr Manager Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_coordinator_analytics": {
+        "title": "Intake Coordinator Análisis Centro",
+        "header_title": "Intake Coordinator Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_coordinator_compliance": {
+        "title": "Intake Coordinator Cumplimiento Centro",
+        "header_title": "Intake Coordinator Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_coordinator_workflow": {
+        "title": "Intake Coordinator Flujo de trabajo Centro",
+        "header_title": "Intake Coordinator Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "quality_assurance_analytics": {
+        "title": "Quality Assurance Análisis Centro",
+        "header_title": "Quality Assurance Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "quality_assurance_compliance": {
+        "title": "Quality Assurance Cumplimiento Centro",
+        "header_title": "Quality Assurance Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "quality_assurance_workflow": {
+        "title": "Quality Assurance Flujo de trabajo Centro",
+        "header_title": "Quality Assurance Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "receptionist_analytics": {
+        "title": "Receptionist Análisis Centro",
+        "header_title": "Receptionist Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "receptionist_compliance": {
+        "title": "Receptionist Cumplimiento Centro",
+        "header_title": "Receptionist Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "receptionist_workflow": {
+        "title": "Receptionist Flujo de trabajo Centro",
+        "header_title": "Receptionist Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scheduler_analytics": {
+        "title": "Scheduler Análisis Centro",
+        "header_title": "Scheduler Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scheduler_compliance": {
+        "title": "Scheduler Cumplimiento Centro",
+        "header_title": "Scheduler Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scheduler_workflow": {
+        "title": "Scheduler Flujo de trabajo Centro",
+        "header_title": "Scheduler Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_coordinator_analytics": {
+        "title": "Training Coordinator Análisis Centro",
+        "header_title": "Training Coordinator Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_coordinator_compliance": {
+        "title": "Training Coordinator Cumplimiento Centro",
+        "header_title": "Training Coordinator Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_coordinator_workflow": {
+        "title": "Training Coordinator Flujo de trabajo Centro",
+        "header_title": "Training Coordinator Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "volunteer_coordinator_analytics": {
+        "title": "Volunteer Coordinator Análisis Centro",
+        "header_title": "Volunteer Coordinator Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "volunteer_coordinator_compliance": {
+        "title": "Volunteer Coordinator Cumplimiento Centro",
+        "header_title": "Volunteer Coordinator Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "volunteer_coordinator_workflow": {
+        "title": "Volunteer Coordinator Flujo de trabajo Centro",
+        "header_title": "Volunteer Coordinator Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "caregiver_tasks": {
+        "title": "Caregiver Tasks Centro",
+        "header_title": "Caregiver Tasks Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "caregiver_client_profile": {
+        "title": "Caregiver Client Profile Centro",
+        "header_title": "Caregiver Client Profile Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "caregiver_visit_notes": {
+        "title": "Caregiver Visit Notes Centro",
+        "header_title": "Caregiver Visit Notes Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "caregiver_schedule": {
+        "title": "Caregiver Schedule Centro",
+        "header_title": "Caregiver Schedule Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "caregiver_incident_report": {
+        "title": "Caregiver Incident Report Centro",
+        "header_title": "Caregiver Incident Report Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cfo_revenue": {
+        "title": "Cfo Revenue Centro",
+        "header_title": "Cfo Revenue Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cfo_expenses": {
+        "title": "Cfo Expenses Centro",
+        "header_title": "Cfo Expenses Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cfo_payroll": {
+        "title": "Cfo Payroll Centro",
+        "header_title": "Cfo Payroll Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cfo_invoices": {
+        "title": "Cfo Invoices Centro",
+        "header_title": "Cfo Invoices Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cfo_tax": {
+        "title": "Cfo Tax Centro",
+        "header_title": "Cfo Tax Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cfo_profitability": {
+        "title": "Cfo Profitability Centro",
+        "header_title": "Cfo Profitability Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cfo_cashflow": {
+        "title": "Cfo Cashflow Centro",
+        "header_title": "Cfo Cashflow Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractor_command_center": {
+        "title": "Chiropractor Centro de comando Centro",
+        "header_title": "Chiropractor Centro de comando Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractor_appointments": {
+        "title": "Chiropractor Appointments Centro",
+        "header_title": "Chiropractor Appointments Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractor_client_intake": {
+        "title": "Chiropractor Client Intake Centro",
+        "header_title": "Chiropractor Client Intake Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractor_assessment": {
+        "title": "Chiropractor Assessment Centro",
+        "header_title": "Chiropractor Assessment Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractor_treatment_notes": {
+        "title": "Chiropractor Treatment Notes Centro",
+        "header_title": "Chiropractor Treatment Notes Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractor_exercise_plan": {
+        "title": "Chiropractor Exercise Plan Centro",
+        "header_title": "Chiropractor Exercise Plan Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractor_billing_link": {
+        "title": "Chiropractor Billing Link Centro",
+        "header_title": "Chiropractor Billing Link Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractor_reports": {
+        "title": "Chiropractor Reports Centro",
+        "header_title": "Chiropractor Reports Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinical_director_staff_quality": {
+        "title": "Clinical Director Staff Quality Centro",
+        "header_title": "Clinical Director Staff Quality Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinical_director_incident_review": {
+        "title": "Clinical Director Incident Review Centro",
+        "header_title": "Clinical Director Incident Review Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinical_director_compliance": {
+        "title": "Clinical Director Cumplimiento Centro",
+        "header_title": "Clinical Director Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinical_director_reports": {
+        "title": "Clinical Director Reports Centro",
+        "header_title": "Clinical Director Reports Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinical_director_approvals": {
+        "title": "Clinical Director Approvals Centro",
+        "header_title": "Clinical Director Approvals Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinical_director_performance": {
+        "title": "Clinical Director Performance Centro",
+        "header_title": "Clinical Director Performance Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "coo_command_center": {
+        "title": "Coo Centro de comando Centro",
+        "header_title": "Coo Centro de comando Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "coo_operations_overview": {
+        "title": "Coo Operaciones Overview Centro",
+        "header_title": "Coo Operaciones Overview Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "coo_staffing": {
+        "title": "Coo Staffing Centro",
+        "header_title": "Coo Staffing Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "coo_scheduling_health": {
+        "title": "Coo Programación Health Centro",
+        "header_title": "Coo Programación Health Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "coo_workflow_issues": {
+        "title": "Coo Flujo de trabajo Issues Centro",
+        "header_title": "Coo Flujo de trabajo Issues Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "coo_branch_comparison": {
+        "title": "Coo Branch Comparison Centro",
+        "header_title": "Coo Branch Comparison Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_director_hiring_pipeline": {
+        "title": "Hr Director Hiring Pipeline Centro",
+        "header_title": "Hr Director Hiring Pipeline Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_director_staff_files": {
+        "title": "Hr Director Staff Files Centro",
+        "header_title": "Hr Director Staff Files Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_director_training": {
+        "title": "Hr Director Training Centro",
+        "header_title": "Hr Director Training Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_director_credential_expiry": {
+        "title": "Hr Director Credential Expiry Centro",
+        "header_title": "Hr Director Credential Expiry Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_director_onboarding": {
+        "title": "Hr Director Onboarding Centro",
+        "header_title": "Hr Director Onboarding Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_hiring_applicants": {
+        "title": "Hr Hiring Applicants Centro",
+        "header_title": "Hr Hiring Applicants Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_hiring_interviews": {
+        "title": "Hr Hiring Interviews Centro",
+        "header_title": "Hr Hiring Interviews Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_hiring_offers": {
+        "title": "Hr Hiring Offers Centro",
+        "header_title": "Hr Hiring Offers Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_hiring_onboarding": {
+        "title": "Hr Hiring Onboarding Centro",
+        "header_title": "Hr Hiring Onboarding Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hr_hiring_credentials": {
+        "title": "Hr Hiring Credentials Centro",
+        "header_title": "Hr Hiring Credentials Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_owner_command_center": {
+        "title": "Franchise Owner Centro de comando Centro",
+        "header_title": "Franchise Owner Centro de comando Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_owner_branch_overview": {
+        "title": "Franchise Owner Branch Overview Centro",
+        "header_title": "Franchise Owner Branch Overview Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_owner_staff": {
+        "title": "Franchise Owner Staff Centro",
+        "header_title": "Franchise Owner Staff Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_owner_clients": {
+        "title": "Franchise Owner Clients Centro",
+        "header_title": "Franchise Owner Clients Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_owner_appointments": {
+        "title": "Franchise Owner Appointments Centro",
+        "header_title": "Franchise Owner Appointments Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_owner_finance_snapshot": {
+        "title": "Franchise Owner Finance Snapshot Centro",
+        "header_title": "Franchise Owner Finance Snapshot Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_owner_compliance": {
+        "title": "Franchise Owner Cumplimiento Centro",
+        "header_title": "Franchise Owner Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_owner_reports": {
+        "title": "Franchise Owner Reports Centro",
+        "header_title": "Franchise Owner Reports Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "patient_command_center": {
+        "title": "Patient Centro de comando Centro",
+        "header_title": "Patient Centro de comando Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "patient_appointments": {
+        "title": "Patient Appointments Centro",
+        "header_title": "Patient Appointments Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "patient_care_plan": {
+        "title": "Patient Care Plan Centro",
+        "header_title": "Patient Care Plan Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "patient_messages": {
+        "title": "Patient Messages Centro",
+        "header_title": "Patient Messages Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "patient_documents": {
+        "title": "Patient Documents Centro",
+        "header_title": "Patient Documents Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "patient_billing": {
+        "title": "Patient Billing Centro",
+        "header_title": "Patient Billing Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "patient_profile": {
+        "title": "Patient Profile Centro",
+        "header_title": "Patient Profile Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physiotherapist_command_center": {
+        "title": "Physiotherapist Centro de comando Centro",
+        "header_title": "Physiotherapist Centro de comando Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physiotherapist_appointments": {
+        "title": "Physiotherapist Appointments Centro",
+        "header_title": "Physiotherapist Appointments Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physiotherapist_client_intake": {
+        "title": "Physiotherapist Client Intake Centro",
+        "header_title": "Physiotherapist Client Intake Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physiotherapist_assessment": {
+        "title": "Physiotherapist Assessment Centro",
+        "header_title": "Physiotherapist Assessment Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physiotherapist_treatment_notes": {
+        "title": "Physiotherapist Treatment Notes Centro",
+        "header_title": "Physiotherapist Treatment Notes Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physiotherapist_exercise_plan": {
+        "title": "Physiotherapist Exercise Plan Centro",
+        "header_title": "Physiotherapist Exercise Plan Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physiotherapist_billing_link": {
+        "title": "Physiotherapist Billing Link Centro",
+        "header_title": "Physiotherapist Billing Link Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physiotherapist_reports": {
+        "title": "Physiotherapist Reports Centro",
+        "header_title": "Physiotherapist Reports Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_command_center": {
+        "title": "Psw Centro de comando Centro",
+        "header_title": "Psw Centro de comando Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_my_shifts": {
+        "title": "Psw My Shifts Centro",
+        "header_title": "Psw My Shifts Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_client_profile": {
+        "title": "Psw Client Profile Centro",
+        "header_title": "Psw Client Profile Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_vitals_log": {
+        "title": "Psw Vitals Log Centro",
+        "header_title": "Psw Vitals Log Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_incident_report": {
+        "title": "Psw Incident Report Centro",
+        "header_title": "Psw Incident Report Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_care_plan": {
+        "title": "Psw Care Plan Centro",
+        "header_title": "Psw Care Plan Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "psw_documents": {
+        "title": "Psw Documents Centro",
+        "header_title": "Psw Documents Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rmt_command_center": {
+        "title": "Rmt Centro de comando Centro",
+        "header_title": "Rmt Centro de comando Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rmt_appointments": {
+        "title": "Rmt Appointments Centro",
+        "header_title": "Rmt Appointments Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rmt_client_intake": {
+        "title": "Rmt Client Intake Centro",
+        "header_title": "Rmt Client Intake Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rmt_assessment": {
+        "title": "Rmt Assessment Centro",
+        "header_title": "Rmt Assessment Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rmt_treatment_notes": {
+        "title": "Rmt Treatment Notes Centro",
+        "header_title": "Rmt Treatment Notes Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rmt_exercise_plan": {
+        "title": "Rmt Exercise Plan Centro",
+        "header_title": "Rmt Exercise Plan Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rmt_billing_link": {
+        "title": "Rmt Billing Link Centro",
+        "header_title": "Rmt Billing Link Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rmt_reports": {
+        "title": "Rmt Reports Centro",
+        "header_title": "Rmt Reports Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_command_center": {
+        "title": "Rn Centro de comando Centro",
+        "header_title": "Rn Centro de comando Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_patient_charting": {
+        "title": "Rn Patient Charting Centro",
+        "header_title": "Rn Patient Charting Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_medications": {
+        "title": "Rn Medications Centro",
+        "header_title": "Rn Medications Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_vitals": {
+        "title": "Rn Vitals Centro",
+        "header_title": "Rn Vitals Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_care_plan_review": {
+        "title": "Rn Care Plan Review Centro",
+        "header_title": "Rn Care Plan Review Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_incident_review": {
+        "title": "Rn Incident Review Centro",
+        "header_title": "Rn Incident Review Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_tasks": {
+        "title": "Rn Tasks Centro",
+        "header_title": "Rn Tasks Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_reports": {
+        "title": "Rn Reports Centro",
+        "header_title": "Rn Reports Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rpn_command_center": {
+        "title": "Rpn Centro de comando Centro",
+        "header_title": "Rpn Centro de comando Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rpn_patient_charting": {
+        "title": "Rpn Patient Charting Centro",
+        "header_title": "Rpn Patient Charting Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rpn_medications": {
+        "title": "Rpn Medications Centro",
+        "header_title": "Rpn Medications Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rpn_vitals": {
+        "title": "Rpn Vitals Centro",
+        "header_title": "Rpn Vitals Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rpn_care_plan_review": {
+        "title": "Rpn Care Plan Review Centro",
+        "header_title": "Rpn Care Plan Review Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rpn_incident_review": {
+        "title": "Rpn Incident Review Centro",
+        "header_title": "Rpn Incident Review Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rpn_tasks": {
+        "title": "Rpn Tasks Centro",
+        "header_title": "Rpn Tasks Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rpn_reports": {
+        "title": "Rpn Reports Centro",
+        "header_title": "Rpn Reports Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scheduler_command_center": {
+        "title": "Scheduler Centro de comando Centro",
+        "header_title": "Scheduler Centro de comando Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scheduler_calendar": {
+        "title": "Scheduler Calendar Centro",
+        "header_title": "Scheduler Calendar Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scheduler_booking_requests": {
+        "title": "Scheduler Booking Requests Centro",
+        "header_title": "Scheduler Booking Requests Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scheduler_conflicts": {
+        "title": "Scheduler Conflicts Centro",
+        "header_title": "Scheduler Conflicts Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scheduler_open_shifts": {
+        "title": "Scheduler Open Shifts Centro",
+        "header_title": "Scheduler Open Shifts Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scheduler_provider_availability": {
+        "title": "Scheduler Provider Availability Centro",
+        "header_title": "Scheduler Provider Availability Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_coordinator_referrals": {
+        "title": "Intake Coordinator Referrals Centro",
+        "header_title": "Intake Coordinator Referrals Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_coordinator_new_client_intake": {
+        "title": "Intake Coordinator New Client Intake Centro",
+        "header_title": "Intake Coordinator New Client Intake Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_coordinator_assessment_queue": {
+        "title": "Intake Coordinator Assessment Queue Centro",
+        "header_title": "Intake Coordinator Assessment Queue Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_coordinator_booking": {
+        "title": "Intake Coordinator Booking Centro",
+        "header_title": "Intake Coordinator Booking Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_coordinator_documents": {
+        "title": "Intake Coordinator Documents Centro",
+        "header_title": "Intake Coordinator Documents Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "intake_coordinator_follow_up": {
+        "title": "Intake Coordinator Follow Up Centro",
+        "header_title": "Intake Coordinator Follow Up Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "executive_command_center": {
+        "title": "Executive Centro de comando Centro",
+        "header_title": "Executive Centro de comando Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "enterprise_health": {
+        "title": "Enterprise Health Centro",
+        "header_title": "Enterprise Health Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "revenue_analytics": {
+        "title": "Revenue Análisis Centro",
+        "header_title": "Revenue Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "risk_management": {
+        "title": "Risk Management Centro",
+        "header_title": "Risk Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_overview": {
+        "title": "Franchise Overview Centro",
+        "header_title": "Franchise Overview Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "operations_command_center": {
+        "title": "Operaciones Centro de comando Centro",
+        "header_title": "Operaciones Centro de comando Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "staffing_overview": {
+        "title": "Staffing Overview Centro",
+        "header_title": "Staffing Overview Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "workflow_issue": {
+        "title": "Flujo de trabajo Issue Centro",
+        "header_title": "Flujo de trabajo Issue Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "service_quality": {
+        "title": "Service Quality Centro",
+        "header_title": "Service Quality Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "branch_performance": {
+        "title": "Branch Performance Centro",
+        "header_title": "Branch Performance Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "financial_dashboard": {
+        "title": "Financiero Panel Centro",
+        "header_title": "Financiero Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "revenue": {
+        "title": "Revenue Centro",
+        "header_title": "Revenue Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "expense_management": {
+        "title": "Expense Management Centro",
+        "header_title": "Expense Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "payroll": {
+        "title": "Payroll Centro",
+        "header_title": "Payroll Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "tax_compliance": {
+        "title": "Tax Cumplimiento Centro",
+        "header_title": "Tax Cumplimiento Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "system_health": {
+        "title": "System Health Centro",
+        "header_title": "System Health Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "api_monitoring": {
+        "title": "Api Monitoring Centro",
+        "header_title": "Api Monitoring Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "deployment_center": {
+        "title": "Deployment Center Centro",
+        "header_title": "Deployment Center Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "security_audit": {
+        "title": "Security Audit Centro",
+        "header_title": "Security Audit Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "release_management": {
+        "title": "Release Management Centro",
+        "header_title": "Release Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "compliance_dashboard": {
+        "title": "Cumplimiento Panel Centro",
+        "header_title": "Cumplimiento Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "audit_review": {
+        "title": "Audit Review Centro",
+        "header_title": "Audit Review Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "incident_management": {
+        "title": "Incident Management Centro",
+        "header_title": "Incident Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "policy_management": {
+        "title": "Policy Management Centro",
+        "header_title": "Policy Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "corrective_action": {
+        "title": "Corrective Action Centro",
+        "header_title": "Corrective Action Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "hiring_pipeline": {
+        "title": "Hiring Pipeline Centro",
+        "header_title": "Hiring Pipeline Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "employee_records": {
+        "title": "Empleado Records Centro",
+        "header_title": "Empleado Records Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "credential_expiry": {
+        "title": "Credential Expiry Centro",
+        "header_title": "Credential Expiry Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_management": {
+        "title": "Training Management Centro",
+        "header_title": "Training Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "onboarding": {
+        "title": "Onboarding Centro",
+        "header_title": "Onboarding Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_lead": {
+        "title": "Franchise Lead Centro",
+        "header_title": "Franchise Lead Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "partnership_management": {
+        "title": "Partnership Management Centro",
+        "header_title": "Partnership Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "growth_analytics": {
+        "title": "Growth Análisis Centro",
+        "header_title": "Growth Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "outreach_campaign": {
+        "title": "Outreach Campaign Centro",
+        "header_title": "Outreach Campaign Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "campaign_dashboard": {
+        "title": "Campaign Panel Centro",
+        "header_title": "Campaign Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "lead_analytics": {
+        "title": "Lead Análisis Centro",
+        "header_title": "Lead Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "social_media": {
+        "title": "Social Media Centro",
+        "header_title": "Social Media Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "brand_management": {
+        "title": "Brand Management Centro",
+        "header_title": "Brand Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_command_center": {
+        "title": "Franchise Centro de comando Centro",
+        "header_title": "Franchise Centro de comando Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "revenue_snapshot": {
+        "title": "Revenue Snapshot Centro",
+        "header_title": "Revenue Snapshot Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "staff_management": {
+        "title": "Staff Management Centro",
+        "header_title": "Staff Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "appointment_overview": {
+        "title": "Appointment Overview Centro",
+        "header_title": "Appointment Overview Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "compliance_overview": {
+        "title": "Cumplimiento Overview Centro",
+        "header_title": "Cumplimiento Overview Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "daily_operations": {
+        "title": "Daily Operaciones Centro",
+        "header_title": "Daily Operaciones Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "attendance": {
+        "title": "Attendance Centro",
+        "header_title": "Attendance Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scheduling_health": {
+        "title": "Programación Health Centro",
+        "header_title": "Programación Health Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "service_issue": {
+        "title": "Service Issue Centro",
+        "header_title": "Service Issue Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scheduling_dashboard": {
+        "title": "Programación Panel Centro",
+        "header_title": "Programación Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "calendar_management": {
+        "title": "Calendar Management Centro",
+        "header_title": "Calendar Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "conflict_resolution": {
+        "title": "Conflict Resolution Centro",
+        "header_title": "Conflict Resolution Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "open_shift": {
+        "title": "Open Shift Centro",
+        "header_title": "Open Shift Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "invoice_management": {
+        "title": "Invoice Management Centro",
+        "header_title": "Invoice Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "claims_processing": {
+        "title": "Claims Processing Centro",
+        "header_title": "Claims Processing Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "payment_tracking": {
+        "title": "Payment Tracking Centro",
+        "header_title": "Payment Tracking Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "refund_management": {
+        "title": "Refund Management Centro",
+        "header_title": "Refund Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "applicant_tracking": {
+        "title": "Applicant Tracking Centro",
+        "header_title": "Applicant Tracking Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "interview_scheduling": {
+        "title": "Interview Programación Centro",
+        "header_title": "Interview Programación Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "offer_management": {
+        "title": "Offer Management Centro",
+        "header_title": "Offer Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "onboarding_checklist": {
+        "title": "Onboarding Checklist Centro",
+        "header_title": "Onboarding Checklist Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "medication_administration": {
+        "title": "Medication Administration Centro",
+        "header_title": "Medication Administration Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "care_plan_review": {
+        "title": "Care Plan Review Centro",
+        "header_title": "Care Plan Review Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "incident_review": {
+        "title": "Incident Review Centro",
+        "header_title": "Incident Review Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "shift_report": {
+        "title": "Shift Report Centro",
+        "header_title": "Shift Report Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "nursing_task": {
+        "title": "Nursing Task Centro",
+        "header_title": "Nursing Task Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "vitals_tracking": {
+        "title": "Vitals Tracking Centro",
+        "header_title": "Vitals Tracking Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "medication": {
+        "title": "Medication Centro",
+        "header_title": "Medication Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "patient_observation": {
+        "title": "Patient Observation Centro",
+        "header_title": "Patient Observation Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "shift_tasks": {
+        "title": "Shift Tasks Centro",
+        "header_title": "Shift Tasks Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "vitals_entry": {
+        "title": "Vitals Entry Centro",
+        "header_title": "Vitals Entry Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "treatment_plan": {
+        "title": "Treatment Plan Centro",
+        "header_title": "Treatment Plan Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "exercise_prescription": {
+        "title": "Exercise Prescription Centro",
+        "header_title": "Exercise Prescription Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "progress_tracking": {
+        "title": "Progress Tracking Centro",
+        "header_title": "Progress Tracking Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "massage_assessment": {
+        "title": "Massage Assessment Centro",
+        "header_title": "Massage Assessment Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "home_care_plan": {
+        "title": "Home Care Plan Centro",
+        "header_title": "Home Care Plan Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "client_progress": {
+        "title": "Client Progress Centro",
+        "header_title": "Client Progress Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractic_assessment": {
+        "title": "Chiropractic Assessment Centro",
+        "header_title": "Chiropractic Assessment Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "adjustment_notes": {
+        "title": "Adjustment Notes Centro",
+        "header_title": "Adjustment Notes Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "xray_review": {
+        "title": "Xray Review Centro",
+        "header_title": "Xray Review Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "chiropractic_progress_tracking": {
+        "title": "Chiropractic Progress Tracking Centro",
+        "header_title": "Chiropractic Progress Tracking Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "referral_management": {
+        "title": "Referral Management Centro",
+        "header_title": "Referral Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "client_intake": {
+        "title": "Client Intake Centro",
+        "header_title": "Client Intake Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "booking": {
+        "title": "Booking Centro",
+        "header_title": "Booking Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "followup": {
+        "title": "Followup Centro",
+        "header_title": "Followup Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinical_quality": {
+        "title": "Clinical Quality Centro",
+        "header_title": "Clinical Quality Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "staff_performance": {
+        "title": "Staff Performance Centro",
+        "header_title": "Staff Performance Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "compliance_review": {
+        "title": "Cumplimiento Review Centro",
+        "header_title": "Cumplimiento Review Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "incident_oversight": {
+        "title": "Incident Oversight Centro",
+        "header_title": "Incident Oversight Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "ticket_management": {
+        "title": "Ticket Management Centro",
+        "header_title": "Ticket Management Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "client_issue": {
+        "title": "Client Issue Centro",
+        "header_title": "Client Issue Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "communication": {
+        "title": "Communication Centro",
+        "header_title": "Communication Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "resolution_tracking": {
+        "title": "Resolution Tracking Centro",
+        "header_title": "Resolution Tracking Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "training_dashboard": {
+        "title": "Training Panel Centro",
+        "header_title": "Training Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "course_assignment": {
+        "title": "Course Assignment Centro",
+        "header_title": "Course Assignment Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "certification_tracking": {
+        "title": "Certification Tracking Centro",
+        "header_title": "Certification Tracking Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "staff_progress": {
+        "title": "Staff Progress Centro",
+        "header_title": "Staff Progress Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "quality_audit": {
+        "title": "Quality Audit Centro",
+        "header_title": "Quality Audit Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "failed_workflow": {
+        "title": "Failed Flujo de trabajo Centro",
+        "header_title": "Failed Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "testing_overview": {
+        "title": "Testing Overview Centro",
+        "header_title": "Testing Overview Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "defect_tracking": {
+        "title": "Defect Tracking Centro",
+        "header_title": "Defect Tracking Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "appointment": {
+        "title": "Appointment Centro",
+        "header_title": "Appointment Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "care_plan": {
+        "title": "Care Plan Centro",
+        "header_title": "Care Plan Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "billing": {
+        "title": "Billing Centro",
+        "header_title": "Billing Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "documents": {
+        "title": "Documents Centro",
+        "header_title": "Documents Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "family_overview": {
+        "title": "Family Overview Centro",
+        "header_title": "Family Overview Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "care_updates": {
+        "title": "Care Updates Centro",
+        "header_title": "Care Updates Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "billing_overview": {
+        "title": "Billing Overview Centro",
+        "header_title": "Billing Overview Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "emergency_contacts": {
+        "title": "Emergency Contacts Centro",
+        "header_title": "Emergency Contacts Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "schedule": {
+        "title": "Schedule Centro",
+        "header_title": "Schedule Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "messaging": {
+        "title": "Messaging Centro",
+        "header_title": "Messaging Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "governance_control_room": {
+        "title": "Gobernanza Control Room Centro",
+        "header_title": "Gobernanza Control Room Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "runtime_verification": {
+        "title": "Runtime Verification Centro",
+        "header_title": "Runtime Verification Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "drift_findings": {
+        "title": "Drift Findings Centro",
+        "header_title": "Drift Findings Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "pending_task_queue": {
+        "title": "Pending Task Queue Centro",
+        "header_title": "Pending Task Queue Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "agent_dispatch": {
+        "title": "Agent Dispatch Centro",
+        "header_title": "Agent Dispatch Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "audit": {
+        "title": "Audit Centro",
+        "header_title": "Audit Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "api_health_dashboard": {
+        "title": "Api Health Panel Centro",
+        "header_title": "Api Health Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "release_operations": {
+        "title": "Release Operaciones Centro",
+        "header_title": "Release Operaciones Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "file_verification_dashboard": {
+        "title": "File Verification Panel Centro",
+        "header_title": "File Verification Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "role_coverage_dashboard": {
+        "title": "Role Coverage Panel Centro",
+        "header_title": "Role Coverage Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "responsive_preview": {
+        "title": "Vista previa adaptable Centro",
+        "header_title": "Vista previa adaptable Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "workflow_execution": {
+        "title": "Flujo de trabajo Execution Centro",
+        "header_title": "Flujo de trabajo Execution Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "enterprise_command_center4_k": {
+        "title": "Enterprise Centro de comando4 K Centro",
+        "header_title": "Enterprise Centro de comando4 K Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_command_center4_k": {
+        "title": "Franchise Centro de comando4 K Centro",
+        "header_title": "Franchise Centro de comando4 K Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "clinical_operations4_k": {
+        "title": "Clinical Operaciones4 K Centro",
+        "header_title": "Clinical Operaciones4 K Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "governance_operations4_k": {
+        "title": "Gobernanza Operaciones4 K Centro",
+        "header_title": "Gobernanza Operaciones4 K Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "scheduling_operations4_k": {
+        "title": "Programación Operaciones4 K Centro",
+        "header_title": "Programación Operaciones4 K Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "financial_operations4_k": {
+        "title": "Financiero Operaciones4 K Centro",
+        "header_title": "Financiero Operaciones4 K Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "therapist_analytics": {
+        "title": "Terapeuta Análisis Centro",
+        "header_title": "Terapeuta Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "therapist_workflow": {
+        "title": "Terapeuta Flujo de trabajo Centro",
+        "header_title": "Terapeuta Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physician_analytics": {
+        "title": "Médico Análisis Centro",
+        "header_title": "Médico Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "physician_workflow": {
+        "title": "Médico Flujo de trabajo Centro",
+        "header_title": "Médico Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cns_analytics": {
+        "title": "Cns Análisis Centro",
+        "header_title": "Cns Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "cns_workflow": {
+        "title": "Cns Flujo de trabajo Centro",
+        "header_title": "Cns Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "pediatric_analytics": {
+        "title": "Pediatric Análisis Centro",
+        "header_title": "Pediatric Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "pediatric_workflow": {
+        "title": "Pediatric Flujo de trabajo Centro",
+        "header_title": "Pediatric Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_sales_analytics": {
+        "title": "Ventas de franquicia Análisis Centro",
+        "header_title": "Ventas de franquicia Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "franchise_sales_workflow": {
+        "title": "Ventas de franquicia Flujo de trabajo Centro",
+        "header_title": "Ventas de franquicia Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "premium_concierge_analytics": {
+        "title": "Conserje Premium Análisis Centro",
+        "header_title": "Conserje Premium Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "premium_concierge_workflow": {
+        "title": "Conserje Premium Flujo de trabajo Centro",
+        "header_title": "Conserje Premium Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "vip_manager_analytics": {
+        "title": "Vip Manager Análisis Centro",
+        "header_title": "Vip Manager Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "vip_manager_workflow": {
+        "title": "Vip Manager Flujo de trabajo Centro",
+        "header_title": "Vip Manager Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_field_supervisor_analytics": {
+        "title": "Rn Supervisor de campo Análisis Centro",
+        "header_title": "Rn Supervisor de campo Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "rn_field_supervisor_workflow": {
+        "title": "Rn Supervisor de campo Flujo de trabajo Centro",
+        "header_title": "Rn Supervisor de campo Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "np_analytics": {
+        "title": "Np Análisis Centro",
+        "header_title": "Np Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "np_workflow": {
+        "title": "Np Flujo de trabajo Centro",
+        "header_title": "Np Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "lpn_analytics": {
+        "title": "LPN Análisis Centro",
+        "header_title": "LPN Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "lpn_workflow": {
+        "title": "LPN Flujo de trabajo Centro",
+        "header_title": "LPN Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "employee_analytics": {
+        "title": "Empleado Análisis Centro",
+        "header_title": "Empleado Análisis Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "employee_workflow": {
+        "title": "Empleado Flujo de trabajo Centro",
+        "header_title": "Empleado Flujo de trabajo Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "prime_care": {
+        "title": "Cuidado Prime Centro",
+        "header_title": "Cuidado Prime Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "default_not_implemented": {
+        "title": "Predeterminado no implementado Centro",
+        "header_title": "Predeterminado no implementado Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "sso_redirect": {
+        "title": "Redirección de SSO Centro",
+        "header_title": "Redirección de SSO Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "governed": {
+        "title": "Gobernado Centro",
+        "header_title": "Gobernado Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "screen_audit": {
+        "title": "Auditoría de pantalla Centro",
+        "header_title": "Auditoría de pantalla Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "dynamic_dashboard": {
+        "title": "Dynamic Panel Centro",
+        "header_title": "Dynamic Panel Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    },
+    "admin_screen_health": {
+        "title": "Admin Screen Health Centro",
+        "header_title": "Admin Screen Health Espacio de Portal",
+        "summary_title": "Detalles del resumen de métricas",
+        "btn_action": "Enviar Cambios",
+        "btn_refresh": "Sincronizar Panel de Datos"
+    }
+}

@@ -1,0 +1,19 @@
+// Premium Features Extensibility Schema
+
+model PremiumFeatureStatus {
+  id             String    @id @default(cuid())
+  tenantId       String
+  screenId       String
+  activationDate DateTime  @default(now())
+  expirationDate DateTime?
+  usageCount     Int       @default(0)
+  isActive       Boolean   @default(true)
+  metadata       Json?
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, screenId])
+  @@index([tenantId])
+  @@index([screenId])
+  @@map("premium_feature_status")
+}

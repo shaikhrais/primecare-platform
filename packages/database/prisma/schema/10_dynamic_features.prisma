@@ -1,0 +1,33 @@
+// ==========================================
+// DYNAMIC FEATURES (Stitch Generated EAV Model)
+// ==========================================
+
+model DynamicFeatureRecord {
+  id         String   @id @default(uuid())
+  featureId  String   @map("feature_id")
+  tenantId   String   @map("tenant_id")
+  patientId  String?  @map("patient_id")
+  entityType String   @map("entity_type")
+  payload    Json
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([featureId, tenantId])
+  @@index([patientId])
+  @@map("dynamic_feature_records")
+}
+
+model ScreenConfiguration {
+  id              String   @id @default(uuid())
+  screenId        String   @unique @map("screen_id")
+  uiComponentType String?  @map("ui_component_type")
+  layoutType      String?  @map("layout_type")
+  cssStyles       Json?    @map("css_styles")
+  metadata        Json?    @map("metadata")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("screen_configurations")
+}

@@ -1,0 +1,18 @@
+{
+  "corporate": {
+    "support_dashboard": {
+      "title": "Support Dashboard",
+      "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time.",
+      "support_dashboard_screen": {
+        "title": "Support Dashboard Screen",
+        "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+      },
+      "sections": {
+        "support_kpi_section": {
+          "title": "Support Kpi Section",
+          "subtitle": "Access your dashboard metrics, track performance, and manage operations in real-time."
+        }
+      }
+    }
+  }
+}

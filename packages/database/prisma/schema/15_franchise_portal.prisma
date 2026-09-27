@@ -1,0 +1,60 @@
+model FranchiseKpi {
+  id           String   @id @default(cuid())
+  tenantId     String
+  officeId     String // Links to the specific franchise office
+  metricName   String
+  metricValue  Float
+  metricTarget Float?
+  unit         String? // e.g., 'CAD', '%', 'Count'
+  recordedAt   DateTime @default(now())
+  roleFocus    String? // e.g., 'FranchiseOwner', 'OperationsManager', 'Scheduler'
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([tenantId, officeId, metricName, recordedAt])
+}
+
+model FranchiseReport {
+  id          String   @id @default(cuid())
+  tenantId    String
+  officeId    String
+  title       String
+  description String?
+  reportType  String // e.g., 'Financial', 'Operational', 'Compliance', 'Scheduling'
+  fileUrl     String?
+  generatedBy String? // User ID
+  generatedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([tenantId, officeId, reportType])
+}
+
+model FranchiseAlert {
+  id          String    @id @default(cuid())
+  tenantId    String
+  officeId    String
+  title       String
+  severity    String // 'Low', 'Medium', 'High', 'Critical'
+  description String?
+  isResolved  Boolean   @default(false)
+  resolvedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([tenantId, officeId, isResolved, severity])
+}
+
+model FranchiseStaffNode {
+  id          String   @id @default(cuid())
+  tenantId    String
+  officeId    String
+  name        String
+  title       String
+  department  String?
+  reportsToId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([tenantId, officeId, department])
+}

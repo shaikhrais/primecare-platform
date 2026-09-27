@@ -1,0 +1,247 @@
+// ==========================================
+// ARCHITECTURE GOVERNANCE MODULE
+// ==========================================
+
+model ArchitecturalLayer {
+  id          String  @id @default(uuid())
+  name        String  @unique // e.g., 'Strategic', 'Infrastructure', 'Topographical'
+  description String?
+  orderIndex  Int     @default(0)
+
+  componentPurposes ComponentPurpose[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("architectural_layers")
+}
+
+model ComponentPurpose {
+  id              String  @id @default(uuid())
+  layerId         String  @map("layer_id")
+  screenId        String? @map("screen_id")
+  functionalityId String? @map("functionality_id")
+  targetFile      String? @map("target_file")
+
+  description     String  @db.Text
+  implementedWell Boolean @default(true) @map("implemented_well")
+  anomaliesDetail String? @map("anomalies_detail") @db.Text
+
+  // Foreign Key Relationships
+  layer         ArchitecturalLayer   @relation(fields: [layerId], references: [id])
+  screen        PlatformScreen?      @relation(fields: [screenId], references: [id], onDelete: Cascade)
+  functionality ScreenFunctionality? @relation(fields: [functionalityId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([layerId])
+  @@index([screenId])
+  @@index([functionalityId])
+  @@map("component_purposes")
+}
+
+// ==========================================
+// ENTERPRISE REGISTRY MODULE (BACKSTAGE ENTITY MODEL)
+// ==========================================
+
+model SystemDomain {
+  id          String  @id @default(uuid())
+  name        String  @unique // e.g., 'Clinical Core', 'Financial Subsystem'
+  description String? @db.Text
+  owner       String? // Reference to owning team
+
+  systems SoftwareSystem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("system_domains")
+}
+
+model SoftwareSystem {
+  id          String  @id @default(uuid())
+  domainId    String  @map("domain_id")
+  name        String // e.g., 'Verification Service', 'Flutter Web Admin'
+  description String? @db.Text
+  url         String? // The deployed URL
+
+  domain     SystemDomain   @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  components SysComponent[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([domainId])
+  @@map("software_systems")
+}
+
+model SysComponent {
+  id          String  @id @default(uuid())
+  systemId    String  @map("system_id")
+  name        String // e.g., 'Edge Telemetry API', 'Architectural Dashboard'
+  type        String // 'service', 'website', 'library'
+  language    String? // 'typescript', 'dart'
+  description String? @db.Text
+  status      String  @default("implemented") // 'implemented', 'unimplemented', 'deprecated'
+  repoPath    String? @map("repo_path") // e.g., 'apps/verification-service'
+
+  system       SoftwareSystem @relation(fields: [systemId], references: [id], onDelete: Cascade)
+  providedApis ApiContract[]  @relation("provided")
+  consumedApis ApiContract[]  @relation("consumed")
+  resources    DataResource[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([systemId])
+  @@map("sys_components")
+}
+
+model ApiContract {
+  id          String  @id @default(uuid())
+  name        String // e.g., 'GET /v1/verifications/purpose-report'
+  type        String // 'openapi', 'graphql', 'grpc'
+  description String? @db.Text
+
+  providerId String  @map("provider_id")
+  consumerId String? @map("consumer_id") // Optional, for explicitly tracking consumers
+
+  provider SysComponent  @relation("provided", fields: [providerId], references: [id], onDelete: Cascade)
+  consumer SysComponent? @relation("consumed", fields: [consumerId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([providerId])
+  @@index([consumerId])
+  @@map("api_contracts")
+}
+
+model UIIntent {
+  id                  String  @id @default(uuid())
+  enumName            String // e.g., 'patientIntakeForm'
+  intentId            String  @unique // e.g., 'patient-intake-form'
+  status              String // 'IMPLEMENTED', 'PLACEHOLDER', 'UNMAPPED'
+  implementationClass String? // e.g., 'PatientIntakeForm'
+
+  // Metadata for governance
+  description String? @db.Text
+  domain      String? // e.g., 'Clinical', 'Financial'
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("ui_intents")
+}
+
+model DataResource {
+  id          String  @id @default(uuid())
+  componentId String  @map("component_id")
+  name        String // e.g., 'Primary PostgreSQL DB', 'Cloudflare KV'
+  type        String // 'postgres', 'redis', 's3'
+  description String? @db.Text
+
+  component SysComponent @relation(fields: [componentId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([componentId])
+  @@map("data_resources")
+}
+
+// ==========================================
+// PLATFORM VITALITY & HISTORY
+// ==========================================
+
+model PlatformHealthHistory {
+  id        String   @id @default(uuid())
+  timestamp DateTime @default(now())
+
+  totalFiles    Int   @map("total_files")
+  totalLoc      Int   @map("total_loc")
+  maturityRatio Float @map("maturity_ratio") // Hardened / Total Identified
+  debtCount     Int   @map("debt_count")
+  velocityRate  Int   @map("velocity_rate")
+
+  @@map("platform_health_history")
+}
+
+// ==========================================
+// AI AGENT GOVERNANCE & BLUEPRINTS
+// ==========================================
+
+model AgentScreenBlueprint {
+  id          String  @id @default(uuid())
+  screenRoute String  @unique // e.g., '/psw/live-visit'
+  description String? @db.Text
+  reasoning   String? @db.Text // AI Agent's reasoning for this layout
+
+  requiredComponents BlueprintComponent[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("agent_screen_blueprints")
+}
+
+model BlueprintComponent {
+  id          String @id @default(uuid())
+  blueprintId String @map("blueprint_id")
+  label       String // e.g., 'Aura HUD'
+  intent      String // e.g., 'clinical_summary'
+  importance  String @default("high") // high, critical, optional
+
+  blueprint AgentScreenBlueprint @relation(fields: [blueprintId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("blueprint_components")
+}
+
+// ==========================================
+// PLATFORM DEPLOYMENTS & VERIFICATION REGISTRY
+// ==========================================
+
+model PlatformDeployment {
+  id              String   @id @default(uuid())
+  appName         String   @map("app_name") // e.g., 'primecare_auth', 'primecare_clinic'
+  platform        String   @map("platform") // 'web', 'android_apk', 'windows', 'linux', 'ios', 'macos'
+  status          String   @default("pending") // 'pending', 'success', 'failed'
+  version         String?  @map("version") // e.g., '1.0.0'
+  commitHash      String?  @map("commit_hash")
+  buildUrl        String?  @map("build_url") // Cloudflare Pages URL or artifact path
+  details         String?  @db.Text // Build console traces or error summaries
+  verified        Boolean  @default(false) // Whether automated E2E post-deploy validation passed
+  verificationLog String?  @map("verification_log") @db.Text // Crawling, button click and component audit traces
+
+  screenDetails   PlatformScreenDetail[]
+
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("platform_deployments")
+}
+
+model PlatformScreenDetail {
+  id           String   @id @default(uuid())
+  deploymentId String   @map("deployment_id")
+  screenName   String   @map("screen_name") // e.g., 'CisoDashboardScreen'
+  language     String   @default("dart") // 'dart', 'typescript', etc.
+  labels       Json?    // Array of parsed button/component labels
+  textElements Json?    @map("text_elements") // Array of general text/content strings
+  components   Json?    // Array of nested components/widgets found
+  rawMetrics   Json?    @map("raw_metrics") // Count metrics, riverpod state metadata
+
+  deployment   PlatformDeployment @relation(fields: [deploymentId], references: [id], onDelete: Cascade)
+
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([deploymentId])
+  @@map("platform_screen_details")
+}
+
+

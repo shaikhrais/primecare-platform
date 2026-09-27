@@ -1,0 +1,135 @@
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/flutter_core.dart' as core;
+
+// --- MVC State Model ---
+class PswDashboardScreenState {
+  final bool isLoading;
+  final String? error;
+  final String title;
+  final List<String> logs;
+  final bool hasData;
+  final bool isShiftActive;
+  final List<core.PswClient> clients;
+  final List<core.PswTask> tasks;
+  final String shiftDurationRemaining;
+  final double shiftProgress;
+
+  const PswDashboardScreenState({
+    required this.isLoading,
+    this.error,
+    required this.title,
+    required this.logs,
+    required this.hasData,
+    required this.isShiftActive,
+    required this.clients,
+    required this.tasks,
+    required this.shiftDurationRemaining,
+    required this.shiftProgress,
+  });
+
+  PswDashboardScreenState copyWith({
+    bool? isLoading,
+    String? error,
+    String? title,
+    List<String>? logs,
+    bool? hasData,
+    bool? isShiftActive,
+    List<core.PswClient>? clients,
+    List<core.PswTask>? tasks,
+    String? shiftDurationRemaining,
+    double? shiftProgress,
+  }) {
+    return PswDashboardScreenState(
+      isLoading: isLoading ?? this.isLoading,
+      error: error ?? this.error,
+      title: title ?? this.title,
+      logs: logs ?? this.logs,
+      hasData: hasData ?? this.hasData,
+      isShiftActive: isShiftActive ?? this.isShiftActive,
+      clients: clients ?? this.clients,
+      tasks: tasks ?? this.tasks,
+      shiftDurationRemaining: shiftDurationRemaining ?? this.shiftDurationRemaining,
+      shiftProgress: shiftProgress ?? this.shiftProgress,
+    );
+  }
+}
+
+// --- Controller (Notifier) ---
+class PswDashboardScreenController extends StateNotifier<PswDashboardScreenState> {
+  final Ref ref;
+
+  PswDashboardScreenController(this.ref)
+      : super(
+          PswDashboardScreenState(
+            isLoading: false,
+            title: 'PSW Dashboard'.tr(),
+            logs: const [
+              'Workspace initialized.',
+              'Security clearance sync complete.',
+            ],
+            hasData: true,
+            isShiftActive: false,
+            clients: const [],
+            tasks: const [],
+            shiftDurationRemaining: '8h 00m',
+            shiftProgress: 0.0,
+          ),
+        ) {
+    _init();
+  }
+
+  Future<void> _init() async {
+    await refreshData();
+  }
+
+  void addLog(String entry) {
+    state = state.copyWith(logs: [...state.logs, entry]);
+  }
+
+  void toggleShift() {
+    final nextState = !state.isShiftActive;
+    state = state.copyWith(isShiftActive: nextState);
+    addLog(nextState ? 'Clocked IN to shift successfully.' : 'Clocked OUT of shift successfully.');
+  }
+
+  void reportIncident(String details) {
+    addLog('Incident reported: $details');
+  }
+
+  void logVitals(String systolic, String diastolic, String pulse) {
+    addLog('Vitals recorded: BP $systolic/$diastolic, Pulse $pulse');
+  }
+
+  Future<void> refreshData() async {
+    state = state.copyWith(isLoading: true, error: null);
+    try {
+      ref.invalidate(core.pswDashboardProvider);
+      final res = await ref.read(core.pswDashboardProvider.future);
+      res.fold(
+        (data) {
+          state = state.copyWith(
+            isLoading: false,
+            hasData: true,
+            clients: data.clients,
+            tasks: data.tasks,
+            shiftDurationRemaining: data.shiftDurationRemaining,
+            shiftProgress: data.shiftProgress,
+          );
+          addLog('Dynamically fetched ${data.clients.length} active client visits.');
+        },
+        (err) {
+          state = state.copyWith(isLoading: false, error: err.toString(), hasData: false);
+        },
+      );
+    } catch (e) {
+      state = state.copyWith(isLoading: false, error: e.toString(), hasData: false);
+    }
+  }
+}
+
+// --- Provider ---
+final pswDashboardScreenProvider =
+    StateNotifierProvider<PswDashboardScreenController, PswDashboardScreenState>((ref) {
+  return PswDashboardScreenController(ref);
+});

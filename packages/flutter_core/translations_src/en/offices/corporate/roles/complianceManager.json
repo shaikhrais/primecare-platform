@@ -1,0 +1,10 @@
+{
+  "corporate": {
+    "complianceManager": {
+      "dashboard": {
+        "title": "Compliance Manager Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  }
+}

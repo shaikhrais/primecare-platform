@@ -1,0 +1,21 @@
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../models/coo_scheduling_health_model.dart';
+
+class CooSchedulingHealthNotifier extends StateNotifier<CooSchedulingHealthModel> {
+  CooSchedulingHealthNotifier() : super(const CooSchedulingHealthModel(isLoading: true));
+
+  Future<void> loadData() async {
+    state = state.copyWith(isLoading: true);
+    try {
+      // TODO: Call API service
+      state = state.copyWith(isLoading: false, data: const {});
+    } catch (e) {
+      state = state.copyWith(isLoading: false, errorMessage: e.toString());
+    }
+  }
+}
+
+final coo_scheduling_healthProvider = StateNotifierProvider<CooSchedulingHealthNotifier, CooSchedulingHealthModel>((ref) {
+  return CooSchedulingHealthNotifier()..loadData();
+});

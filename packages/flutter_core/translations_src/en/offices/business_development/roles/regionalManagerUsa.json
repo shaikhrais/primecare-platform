@@ -1,0 +1,10 @@
+{
+  "business_development": {
+    "regionalManagerUsa": {
+      "dashboard": {
+        "title": "Regional Managerusa Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  }
+}

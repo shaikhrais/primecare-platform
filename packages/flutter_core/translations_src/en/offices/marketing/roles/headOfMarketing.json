@@ -1,0 +1,10 @@
+{
+  "marketing": {
+    "headOfMarketing": {
+      "dashboard": {
+        "title": "Headofmarketing Dashboard",
+        "subtitle": "Real-time overview fetched natively via API."
+      }
+    }
+  }
+}
