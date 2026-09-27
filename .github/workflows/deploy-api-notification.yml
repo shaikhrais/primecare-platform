@@ -1,0 +1,19 @@
+name: Deploy API - primecare-notification-api
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/notification_api/**'
+      - 'packages/database_client/**'
+      - '.github/workflows/deploy-api-notification.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/_deploy-api.yml
+    with:
+      service_dir: services/notification_api
+      service_name: primecare-notification-api
+      image_name: notification-api
+    secrets: inherit
