@@ -1,0 +1,36 @@
+name: Deploy Database Migrations
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/database/migrations/**'
+      - '.github/workflows/deploy-database-migrations.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: primecare-database-migrations
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify database configuration
+        run: test -n "${DATABASE_URL}"
+      - name: Apply migrations in filename order
+        shell: bash
+        run: |
+          for migration in packages/database/migrations/*.sql; do
+            echo "Applying ${migration}"
+            psql "${DATABASE_URL}" -v ON_ERROR_STOP=1 -f "${migration}"
+          done
+      - name: Verify database connection
+        run: psql "${DATABASE_URL}" -v ON_ERROR_STOP=1 -c 'SELECT current_database(), now();'
