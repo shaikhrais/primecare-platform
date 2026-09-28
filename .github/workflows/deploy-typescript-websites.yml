@@ -1,0 +1,94 @@
+name: Deploy TypeScript Websites to Cloudflare Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: Type DEPLOY to authorize production deployment
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: primecare-cloudflare-typescript-websites
+  cancel-in-progress: false
+
+env:
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  API_GATEWAY_URL: https://primecare-api-gateway.itpro-mohammed.workers.dev
+
+jobs:
+  verify_gateway:
+    runs-on: ubuntu-latest
+    outputs:
+      gateway: ${{ steps.gateway.outputs.url }}
+    steps:
+      - name: Validate authorization and secrets
+        run: |
+          set -euo pipefail
+          test "${{ inputs.confirm }}" = DEPLOY
+          test -n "${CLOUDFLARE_API_TOKEN}"
+          test -n "${CLOUDFLARE_ACCOUNT_ID}"
+      - id: gateway
+        run: |
+          set -euo pipefail
+          body="$(curl --fail --show-error --silent --retry 10 --retry-all-errors --retry-delay 5 "${API_GATEWAY_URL}/health?deployment=${GITHUB_SHA}")"
+          grep -q 'cloudflare-worker-typescript' <<<"${body}"
+          echo "url=${API_GATEWAY_URL}" >> "${GITHUB_OUTPUT}"
+
+  build:
+    needs: verify_gateway
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build all database-governed TypeScript websites
+        env:
+          API_GATEWAY_URL: ${{ needs.verify_gateway.outputs.gateway }}
+        run: |
+          set -euo pipefail
+          npm install --no-save --ignore-scripts esbuild@0.27.2 typescript
+          node scripts/build-typescript-websites.mjs
+          for project in $(jq -r 'keys[]' websites/typescript/projects.json); do
+            test -s "websites/typescript/dist/${project}/index.html"
+            test -s "websites/typescript/dist/${project}/portal.json"
+            test -s "websites/typescript/dist/${project}/assets/app.js"
+          done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: primecare-typescript-websites
+          path: websites/typescript/dist
+          retention-days: 14
+
+  deploy:
+    needs: [verify_gateway, build]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        project: [primecare-business-development, primecare-client, primecare-clinic, primecare-corporate, primecare-franchise, primecare-marketing, primecare-support, primecare-governance, primecare-enterprise-blueprint, primecare-auth]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: primecare-typescript-websites
+          path: websites/typescript/dist
+      - name: Deploy ${{ matrix.project }}
+        run: npx --yes wrangler@4.68.1 pages deploy "websites/typescript/dist/${{ matrix.project }}" --project-name="${{ matrix.project }}" --branch=main --commit-hash="${GITHUB_SHA}"
+      - name: Verify ${{ matrix.project }}
+        run: |
+          set -euo pipefail
+          url="https://${{ matrix.project }}.pages.dev/?enable-semantics=true&deployment=${GITHUB_SHA}"
+          for attempt in {1..18}; do
+            if body="$(curl --fail --show-error --silent --location "${url}")" && grep -q 'id="app"' <<<"${body}"; then
+              curl --fail --show-error --silent "https://${{ matrix.project }}.pages.dev/portal.json?deployment=${GITHUB_SHA}" | grep -q 'apiGateway'
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1
