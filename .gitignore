@@ -128,3 +128,5 @@ artifacts/builds/
 !tools/migrate_*
 .cloudflare-generated/
 .cloudflare-workers/
+websites/typescript/generated/
+websites/typescript/dist/
