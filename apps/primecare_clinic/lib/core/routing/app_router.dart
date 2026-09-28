@@ -32,6 +32,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     activeRole: activeRole,
     initialLocation: dashboardRoute,
     refreshListenable: authListenable,
+    guestErrorBuilder: (context, state) => const AppShellBoundary(
+      child: LoginView(),
+    ),
     redirect: (context, state) {
       final authState = ref.read(authProvider);
       
@@ -60,6 +63,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
       if (publicRoutes.contains(requestedRoute)) {
         if (authState.isAuthenticated && (requestedRoute == '/login' || requestedRoute == '/auth/callback' || requestedRoute == '/')) {
+          final target = validateClinicReturnUrl(state.uri.queryParameters['returnUrl']);
+          if (target != null && RouteGuard.verify(
+            requestedRoute: Uri.parse(target).path,
+            isLoggedIn: true,
+            userRole: authState.role,
+          ).isAllowed) {
+            return target;
+          }
           return dashboardRoute;
         }
         return null;
@@ -86,13 +97,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     publicRoutes: [
       GoRoute(
         path: CommonRoutes.ssoRedirect,
-        builder: (context, state) {
-          final originalTarget = state.uri.queryParameters['returnUrl'] ??
-              state.uri.queryParameters['target'] ??
-              '/dashboard';
-          final safeTarget = validateClinicReturnUrl(originalTarget) ?? '/dashboard';
-          return AppShellBoundary(child: ClinicLoginBridge(returnUrl: safeTarget));
-        },
+        redirect: (context, state) => Uri(
+          path: CommonRoutes.login,
+          queryParameters: {
+            if (validateClinicReturnUrl(state.uri.queryParameters['returnUrl'] ??
+                state.uri.queryParameters['target']) case final String target)
+              'returnUrl': target,
+          },
+        ).toString(),
       ),
       GoRoute(
         path: CommonRoutes.language,
@@ -102,10 +114,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: CommonRoutes.login,
-        builder: (context, state) => AppShellBoundary(
-          child: ClinicLoginBridge(
-            returnUrl: state.uri.queryParameters['returnUrl'],
-          ),
+        builder: (context, state) => const AppShellBoundary(
+          child: LoginView(),
         ),
       ),
       GoRoute(
