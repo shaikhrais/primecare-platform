@@ -5,7 +5,7 @@ import 'auth_experience.dart';
 class LanguageSelectionView extends GovernedScreen {
   const LanguageSelectionView({super.key});
   @override
-  String get featureId => 'auth.language';
+  String get featureId => 'auth.language_selection';
   @override
   String get requiredRole => 'Public';
   @override
