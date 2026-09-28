@@ -24,8 +24,8 @@ String? validateClinicReturnUrl(String? rawValue) {
     return '/dashboard';
   }
 
-  final decoded = Uri.decodeComponent(rawValue);
-  final uri = Uri.tryParse(decoded);
+  // GoRouter queryParameters are already decoded. Never decode a second time.
+  final uri = Uri.tryParse(rawValue);
 
   if (uri == null) {
     return null;
