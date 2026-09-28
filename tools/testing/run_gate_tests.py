@@ -139,7 +139,7 @@ def main():
     started_at = datetime.utcnow().isoformat()
     
     env = os.environ.copy()
-    env["CYPRESS_BASE_URL"] = "https://primecare-auth.pages.dev"
+    env["CYPRESS_BASE_URL"] = os.environ["CYPRESS_BASE_URL"]
     result = subprocess.run(
         ["npx", "cypress", "run", "--spec", "cypress/e2e/generated/db-screen-tests.cy.ts"],
         cwd=PROJECT_ROOT,

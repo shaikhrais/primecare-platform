@@ -112,8 +112,8 @@ async function main() {
     });
   });
 
-  // Open the Identity Portal login page
-  const loginUrl = "https://primecare-auth.pages.dev/login?redirect_uri=https%3A%2F%2Fprimecare-clinic.pages.dev%2Fauth%2Fcallback&enable-semantics=true";
+  // Open the clinic-local shared login page
+  const loginUrl = "https://primecare-clinic.pages.dev/login?enable-semantics=true";
   console.log(`Navigating to login page: ${loginUrl}`);
   await page.goto(loginUrl);
 

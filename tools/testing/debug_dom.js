@@ -3,7 +3,7 @@ const { chromium } = require('playwright');
 async function main() {
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
-  await page.goto("https://primecare-auth.pages.dev/login?redirect_uri=https%3A%2F%2Fprimecare-clinic.pages.dev%2Fauth%2Fcallback&enable-semantics=true");
+  await page.goto("https://primecare-clinic.pages.dev/login?enable-semantics=true");
   await page.waitForTimeout(10000);
 
   const info = await page.evaluate(() => {
