@@ -1,0 +1,35 @@
+name: Apply approved authority governance
+on:
+  push:
+    branches: [main]
+    paths:
+      - scripts/propose-authority-governance.py
+      - .github/workflows/apply-authority-governance.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: authority-governance-migration
+  cancel-in-progress: false
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply reviewed reporting hierarchy and record approval
+        run: python scripts/propose-authority-governance.py --apply --approve
+      - name: Commit governance database only
+        run: |
+          set -euo pipefail
+          git add .agents/governance/governance.db
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Record approved administrative reporting hierarchy'
+          git push origin HEAD:main
