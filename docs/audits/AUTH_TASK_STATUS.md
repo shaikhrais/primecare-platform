@@ -19,7 +19,7 @@ pending; ⬜ pending; ⛔ external prerequisite. No indicator below means produc
 | Deployment and public API journeys | ✅ Production verified | Deployment 36463534382 and 17-check smoke 36465061031 passed; QA fixtures removed |
 | Auth pages | ⬜ Deferred | API verification first |
 
-Current local suite: 50 passing tests including schema validation, auth handlers, client transport,
+Current local suite: 53 passing tests including schema validation, auth handlers, client transport,
 bootstrap, management and password change. Self-modification checks reject case-based bypasses
 while preserving opaque text IDs. PostgreSQL UUID and text-ID matrix run 36462832340 passed.
 Account-management and password-change PostgreSQL run 36458402955 completed
@@ -32,3 +32,16 @@ edge/IP abuse controls. Expired counter cleanup requires an operational retentio
 job before production use; no raw email or token is stored in the counter table.
 
 See AUTH_PRODUCTION_EVIDENCE.md for deployment URLs, scope and remaining limitations.
+
+## Fresh auth repair — 2026-09-28
+
+PR #5 fixes a login/password-change race by revalidating the checked password hash
+and active status while holding a user row share lock through session insertion.
+Login and current-password validation also reject inputs above bcrypt's 72-byte
+limit, consistent with existing registration and new-password validation.
+
+Three new regression tests failed against the previous implementation and pass
+after the fix. All 53 local tests and Worker type checks pass. PostgreSQL tests
+now interleave real password changes and deactivation immediately before session
+insertion in both UUID/text fixtures; CI verification is pending. These repairs
+are not deployed. No new routes, permissions, roles or schema are introduced.
