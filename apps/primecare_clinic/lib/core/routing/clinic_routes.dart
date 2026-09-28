@@ -1474,6 +1474,14 @@ class ClinicPswModule extends PlatformModule {
 }
 
 class ClinicApplication extends PlatformApplication {
+  // Signed-out users use only the explicit public routes. Do not expand the
+  // dynamic screen-registry fallback before the central session is verified.
+  @override
+  List<PlatformModule> getAuthorizedModules(PlatformRole role) {
+    if (role == PlatformRole.guest) return [];
+    return super.getAuthorizedModules(role);
+  }
+
   @override
   String get appId => 'primecare_clinic';
 
