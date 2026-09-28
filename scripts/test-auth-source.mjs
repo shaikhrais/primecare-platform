@@ -75,3 +75,28 @@ test('deployment generator attaches governed binding only to auth Worker',()=>{
   for(const name of ['gateway','client'])assert.equal(JSON.parse(readFileSync(join(dir,name+'.jsonc'),'utf8')).ratelimits,undefined);
  } finally {rmSync(dir,{recursive:true,force:true})}
 });
+
+test('Flutter login preflight permits every header emitted by the existing client',async()=>{
+ const names=['authorization','content-type','x-device-id','x-tenant-id','x-requested-with',
+  'x-device-fingerprint','x-request-id','x-correlation-id','x-request-signature','x-app-version'];
+ for(const target of [service,gateway]){
+  const response=await target.fetch(request('/v1/auth/login',{
+   origin:'https://primecare-auth.pages.dev',
+   'access-control-request-method':'POST',
+   'access-control-request-headers':names.join(','),
+  },'OPTIONS'),{SERVICE_NAME:'auth'});
+  assert.equal(response.status,204);
+  assert.equal(response.headers.get('access-control-allow-origin'),'https://primecare-auth.pages.dev');
+  const allowed=response.headers.get('access-control-allow-headers').toLowerCase().split(',');
+  for(const name of names)assert.ok(allowed.includes(name),'Missing Flutter header: '+name);
+ }
+});
+test('Flutter preflight from an untrusted origin remains rejected',async()=>{
+ for(const target of [service,gateway]){
+  const response=await target.fetch(request('/v1/auth/login',{
+   origin:'https://untrusted.example','access-control-request-method':'POST',
+   'access-control-request-headers':'authorization,x-requested-with',
+  },'OPTIONS'),{SERVICE_NAME:'auth'});
+  assert.equal(response.status,403);assert.equal(response.headers.get('access-control-allow-origin'),null);
+ }
+});
