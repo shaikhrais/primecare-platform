@@ -20,6 +20,14 @@ test('cross-tenant or missing target causes no mutation',async()=>{
  const db=fixture(false);assert.equal((await manageAccount(db,actor,input)).status,404);
  assert.equal(db.calls.length,1);assert.deepEqual(db.calls[0].values,[input.id,actor.tenant_id]);
 });
+test('UUID casing cannot bypass self-modification protection',async()=>{
+ const id='aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
+ assert.equal(validateAccountUpdate({...input,id:id.toUpperCase()}).id,id);
+ assert.equal(validateAccountUpdate({...input,id:'-'.repeat(36)}),null);
+ const db=fixture();
+ assert.equal((await manageAccount(db,{...actor,id},{...input,id:id.toUpperCase()})).status,403);
+ assert.equal(db.calls.length,0);
+});
 test('updates tenant-scoped target, revokes sessions and appends audit',async()=>{
  const db=fixture();assert.equal((await manageAccount(db,actor,input)).status,200);
  assert.equal(db.calls.find(c=>c.sql.startsWith('UPDATE')).values[3],actor.tenant_id);

@@ -5,16 +5,16 @@ export function validateAccountUpdate(value: unknown): {id:string;role:string;st
   if(!value || typeof value!=='object' || Array.isArray(value)) return null;
   const data=value as Record<string,unknown>;
   if(Object.keys(data).some(k=>!['id','role','status'].includes(k))) return null;
-  if(typeof data.id!=='string' || !/^[a-f0-9-]{36}$/i.test(data.id) ||
+  if(typeof data.id!=='string' || !/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(data.id) ||
     typeof data.role!=='string' || !policy.ceo.includes(data.role) ||
     (data.status!=='active' && data.status!=='inactive')) return null;
-  return {id:data.id,role:data.role,status:data.status};
+  return {id:data.id.toLowerCase(),role:data.role,status:data.status};
 }
 
 /** Only the already-approved CEO authority is allowed to manage accounts. */
 export async function manageAccount(db:Client, actor:{id:string;roles:string;tenant_id:string},
   input:{id:string;role:string;status:string}):Promise<{status:number;body:unknown}> {
-  if(actor.roles!=='ceo' || !actor.tenant_id || input.id===actor.id)
+  if(actor.roles!=='ceo' || !actor.tenant_id || input.id.toLowerCase()===actor.id.toLowerCase())
     return {status:403,body:{error:'Forbidden'}};
   const target=await db.query('SELECT id,roles,status FROM users WHERE id=$1 AND tenant_id=$2 FOR UPDATE',[input.id,actor.tenant_id]);
   if(!target.rows.length) return {status:404,body:{error:'Account not found'}};
