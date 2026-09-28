@@ -25,6 +25,7 @@ class GovernanceRouter {
     required String initialLocation,
     Listenable? refreshListenable,
     GoRouterRedirect? redirect,
+    GoRouterWidgetBuilder? guestErrorBuilder,
     List<GoRoute> publicRoutes = const [],
   }) {
     // 0. Register all screens of the application in GovernanceRegistry for domain integrity tracking
@@ -93,6 +94,9 @@ class GovernanceRouter {
       ],
       errorBuilder: (context, state) {
         if (activeRole == PlatformRole.guest) {
+          if (guestErrorBuilder != null) {
+            return guestErrorBuilder(context, state);
+          }
           final ssoPortal = RouteGuard.ssoPortalUrl ?? 'https://primecare-auth.pages.dev';
           final requestedRoute = state.uri.path;
           
