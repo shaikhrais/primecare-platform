@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/staff_training_matrix_model.dart';
 
 class StaffTrainingMatrixNotifier extends StateNotifier<StaffTrainingMatrixModel> {
@@ -8,7 +8,7 @@ class StaffTrainingMatrixNotifier extends StateNotifier<StaffTrainingMatrixModel
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

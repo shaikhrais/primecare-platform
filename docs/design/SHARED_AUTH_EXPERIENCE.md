@@ -49,3 +49,22 @@ September 28 audit: clinic and the preview render shared auth locally.
 The other seven live origins still serve the older portal because their Flutter
 analysis gates fail. Package reuse is implemented in source; deployment completion
 and unavailable backend features must not be marked ready.
+
+## Standalone application removal
+
+The user approved removal of apps/primecare_auth and its website. Its 85 auth
+design/language tests now live in packages/primecare_ui/test and use clinic
+translations. CI analyzes, route-tests and builds all eight product apps.
+Deployment matrices and legacy scripts no longer deploy a standalone auth app.
+The auth backend remains deployed; shared screens and auth_route_registry remain.
+The governance migration retires only the standalone app identity.
+
+Generated Riverpod providers use the Riverpod 3 compatibility import. Client
+integration fixtures follow their moved sources and current synchronous Notifier
+contract. Governance database imports point to the actual connection directory.
+The unimplemented remote D1 client fails explicitly rather than referencing a
+nonexistent executor or embedding server credentials in a browser. Governance
+database-backed features remain unavailable until a server transport exists.
+
+Verification and live rollout are pending CI; removal does not implement recovery,
+MFA or consent APIs and does not establish a successful real-account login.

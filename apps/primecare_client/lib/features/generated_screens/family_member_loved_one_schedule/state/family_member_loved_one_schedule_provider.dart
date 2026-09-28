@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/family_member_loved_one_schedule_model.dart';
 
 class FamilyMemberLovedOneScheduleNotifier extends StateNotifier<FamilyMemberLovedOneScheduleModel> {
@@ -8,7 +8,7 @@ class FamilyMemberLovedOneScheduleNotifier extends StateNotifier<FamilyMemberLov
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

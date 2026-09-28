@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/leadership_reports_model.dart';
 
 class LeadershipReportsNotifier extends StateNotifier<LeadershipReportsModel> {
@@ -8,7 +8,7 @@ class LeadershipReportsNotifier extends StateNotifier<LeadershipReportsModel> {
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

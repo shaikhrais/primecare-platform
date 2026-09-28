@@ -37,7 +37,7 @@ foreach ($app in $apps) {
             
             # Build the APK with live API data source
             $startTime = Get-Date
-            flutter build apk --debug --dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api --dart-define=SSO_PORTAL_URL=https://primecare-auth.pages.dev
+            flutter build apk --debug --dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api
             $endTime = Get-Date
             
             $duration = $endTime - $startTime

@@ -19,7 +19,6 @@ const apiWorkers = [
 ];
 
 const uiPages = [
-    'primecare-auth',
     'primecare-business-development',
     'primecare-client',
     'primecare-clinic',

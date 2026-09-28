@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/compliance_manager_document_expiry_model.dart';
 
 class ComplianceManagerDocumentExpiryNotifier extends StateNotifier<ComplianceManagerDocumentExpiryModel> {
@@ -8,7 +8,7 @@ class ComplianceManagerDocumentExpiryNotifier extends StateNotifier<ComplianceMa
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

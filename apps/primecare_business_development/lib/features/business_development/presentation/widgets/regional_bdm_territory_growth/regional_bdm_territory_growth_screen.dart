@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'sections/regional_bdm_territory_growth_header_section.dart';
 import 'sections/regional_bdm_territory_growth_content_summary_section.dart';

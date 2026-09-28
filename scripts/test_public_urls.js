@@ -2,7 +2,6 @@
 import fs from "fs";
 
 const BASE_URLS = [
-  "https://primecare-auth.pages.dev",
   "https://primecare-governance.pages.dev",
   "https://primecare-corporate.pages.dev",
   "https://primecare-franchise.pages.dev",

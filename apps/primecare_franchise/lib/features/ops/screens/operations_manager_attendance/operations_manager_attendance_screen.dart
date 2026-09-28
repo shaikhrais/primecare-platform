@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'sections/operations_manager_attendance_header_section.dart';
 import 'sections/operations_manager_attendance_content_summary_section.dart';

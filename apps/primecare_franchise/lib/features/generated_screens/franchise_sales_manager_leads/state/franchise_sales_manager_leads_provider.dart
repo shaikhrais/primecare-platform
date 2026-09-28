@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/franchise_sales_manager_leads_model.dart';
 
 class FranchiseSalesManagerLeadsNotifier extends StateNotifier<FranchiseSalesManagerLeadsModel> {
@@ -8,7 +8,7 @@ class FranchiseSalesManagerLeadsNotifier extends StateNotifier<FranchiseSalesMan
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

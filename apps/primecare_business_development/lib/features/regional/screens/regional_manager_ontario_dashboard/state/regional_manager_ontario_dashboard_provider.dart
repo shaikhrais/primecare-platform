@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/regional_manager_ontario_dashboard_model.dart';
 
 class RegionalManagerOntarioDashboardNotifier extends StateNotifier<RegionalManagerOntarioDashboardModel> {
@@ -8,7 +8,7 @@ class RegionalManagerOntarioDashboardNotifier extends StateNotifier<RegionalMana
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

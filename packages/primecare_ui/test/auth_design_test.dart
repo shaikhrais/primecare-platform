@@ -21,7 +21,7 @@ class TestTranslations extends AssetLoader {
 
 Widget localized(Widget child, {GoRouter? router, String language = 'en'}) => EasyLocalization(
   supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
-  path: 'assets/translations', assetLoader: const TestTranslations(), fallbackLocale: const Locale('en'),
+  path: '../../apps/primecare_clinic/assets/translations', assetLoader: const TestTranslations(), fallbackLocale: const Locale('en'),
   startLocale: Locale(language),
   useFallbackTranslations: true,
   child: Builder(builder: (context) => router == null
@@ -89,9 +89,9 @@ void main() {
   });
 
   test('all auth design resources have French and Spanish values', () {
-    final en = jsonDecode(File('assets/translations/en.json').readAsStringSync()) as Map<String, dynamic>;
+    final en = jsonDecode(File('../../apps/primecare_clinic/assets/translations/en.json').readAsStringSync()) as Map<String, dynamic>;
     for (final locale in ['fr', 'es']) {
-      final translated = jsonDecode(File('assets/translations/$locale.json').readAsStringSync()) as Map<String, dynamic>;
+      final translated = jsonDecode(File('../../apps/primecare_clinic/assets/translations/$locale.json').readAsStringSync()) as Map<String, dynamic>;
       for (final key in en.keys.where((key) => key.startsWith('auth_design_'))) {
         expect(translated[key], isA<String>(), reason: '$locale: $key');
         expect((translated[key] as String).trim(), isNotEmpty);

@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/cto_api_monitoring_model.dart';
 
 class CtoApiMonitoringNotifier extends StateNotifier<CtoApiMonitoringModel> {
@@ -8,7 +8,7 @@ class CtoApiMonitoringNotifier extends StateNotifier<CtoApiMonitoringModel> {
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

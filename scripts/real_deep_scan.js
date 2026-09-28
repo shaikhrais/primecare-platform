@@ -45,7 +45,6 @@ function scan() {
   markdown += `| \`primecare_clinic\` | Medical Staff | \`auth_api\`, \`provider_api\`, \`scheduling_api\` | ✅ Logic fully implemented |\n`;
   markdown += `| \`primecare_franchise\`| Franchise Owner | \`auth_api\`, \`franchise_reporting_api\` | ⚠️ **GAP DETECTED:** Missing endpoints for daily metrics. |\n`;
   markdown += `| \`primecare_corporate\`| Corporate Admin | \`governance_api\`, \`compliance_api\` | ✅ Logic fully implemented |\n`;
-  markdown += `| \`primecare_auth\` | SSO / IAM | \`auth_api\`, \`verification_api\` | ✅ Logic fully implemented |\n`;
 
   markdown += `\n> [!WARNING]
 > **Action Required**: The \`primecare_franchise\` app contains a dashboard screen for Daily Metrics, but the \`franchise_reporting_api\` does not have the corresponding backend logic implemented yet.

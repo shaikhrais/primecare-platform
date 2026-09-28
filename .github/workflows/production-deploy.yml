@@ -277,7 +277,6 @@ jobs:
           - { app: primecare_support, project: primecare-support }
           - { app: primecare_governance, project: primecare-governance }
           - { app: primecare_enterprise_blueprint, project: primecare-enterprise-blueprint }
-          - { app: primecare_auth, project: primecare-auth }
     env:
       RELEASE_SHA: ${{ needs.preflight.outputs.sha }}
       API_GATEWAY_URL: ${{ needs.deploy_backend.outputs.gateway_url }}
@@ -297,7 +296,7 @@ jobs:
         run: |
           set -euo pipefail
           flutter pub get
-          flutter build web --release --no-tree-shake-icons             --dart-define=API_BASE_URL="${API_GATEWAY_URL}"             --dart-define=SSO_PORTAL_URL=https://primecare-auth.pages.dev             --dart-define=APP_BASE_URL=https://${{ matrix.project }}.pages.dev
+          flutter build web --release --no-tree-shake-icons             --dart-define=API_BASE_URL="${API_GATEWAY_URL}"                          --dart-define=APP_BASE_URL=https://${{ matrix.project }}.pages.dev
           test -s build/web/index.html
           printf '/* /index.html 200\n' > build/web/_redirects
       - name: Deploy website

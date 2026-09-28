@@ -10,7 +10,7 @@ on:
       - 'packages/flutter_core/lib/src/security/security_interceptor.dart'
       - 'packages/flutter_core/lib/auth_service.dart'
       - 'packages/flutter_core/lib/src/network/api_client.dart'
-      - 'apps/primecare_auth/lib/**'
+      - 'packages/primecare_ui/test/auth*_test.dart'
       - 'packages/primecare_ui/lib/src/features/auth/**'
       - 'apps/*/lib/**'
       - 'apps/*/test/auth*_test.dart'
@@ -114,11 +114,11 @@ jobs:
         with:
           flutter-version: '3.41.5'
           channel: stable
-      - name: Analyze Flutter auth app
-        working-directory: apps/primecare_auth
+      - name: Analyze shared Flutter auth package
+        working-directory: packages/primecare_ui
         run: |
           flutter pub get
-          flutter analyze --no-fatal-infos lib
+          flutter analyze --no-fatal-infos lib/src/features/auth/auth_experience.dart lib/src/features/auth/shared_auth_router.dart test/auth_design_test.dart
           flutter test test/auth_design_test.dart
 
       - name: Verify Flutter auth transport failures
@@ -139,15 +139,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        app: [business_development, marketing, corporate, client, support, franchise, governance]
+        app: [clinic, business_development, marketing, corporate, client, support, franchise, governance]
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.41.5'
           channel: stable
-      - name: Verify shared auth routes in each app
+      - name: Analyze, test and build each product with embedded auth
         working-directory: apps/primecare_${{ matrix.app }}
         run: |
           flutter pub get
+          flutter analyze --no-fatal-infos
           flutter test test/auth_routing_test.dart
+          flutter build web --release --no-tree-shake-icons --dart-define=API_BASE_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev

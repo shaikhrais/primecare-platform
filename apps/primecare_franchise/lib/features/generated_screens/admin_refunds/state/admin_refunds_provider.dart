@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/admin_refunds_model.dart';
 
 class AdminRefundsNotifier extends StateNotifier<AdminRefundsModel> {
@@ -8,7 +8,7 @@ class AdminRefundsNotifier extends StateNotifier<AdminRefundsModel> {
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

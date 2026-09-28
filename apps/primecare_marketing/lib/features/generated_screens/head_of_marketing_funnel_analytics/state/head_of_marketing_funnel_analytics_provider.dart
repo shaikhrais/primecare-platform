@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/head_of_marketing_funnel_analytics_model.dart';
 
 class HeadOfMarketingFunnelAnalyticsNotifier extends StateNotifier<HeadOfMarketingFunnelAnalyticsModel> {
@@ -8,7 +8,7 @@ class HeadOfMarketingFunnelAnalyticsNotifier extends StateNotifier<HeadOfMarketi
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

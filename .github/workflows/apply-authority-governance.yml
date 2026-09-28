@@ -7,6 +7,7 @@ on:
       - scripts/apply-auth-account-policy.py
       - scripts/apply-auth-security-policy.py
       - scripts/apply-shared-auth-routes.py
+      - scripts/retire-auth-app.py
       - scripts/apply-auth-design.py
       - design/auth-experience.json
       - .github/workflows/apply-authority-governance.yml
@@ -37,6 +38,8 @@ jobs:
         run: python scripts/apply-shared-auth-routes.py
       - name: Register shared auth design and generate presentation assets
         run: python scripts/apply-auth-design.py
+      - name: Retire standalone auth application
+        run: python scripts/retire-auth-app.py
       - name: Commit governance database and generated assets
         run: |
           set -euo pipefail

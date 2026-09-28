@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/local_marketing_manager_events_model.dart';
 
 class LocalMarketingManagerEventsNotifier extends StateNotifier<LocalMarketingManagerEventsModel> {
@@ -8,7 +8,7 @@ class LocalMarketingManagerEventsNotifier extends StateNotifier<LocalMarketingMa
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

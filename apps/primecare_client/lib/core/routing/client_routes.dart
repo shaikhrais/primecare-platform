@@ -1,19 +1,5 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
-import 'package:primecare_ui/primecare_ui.dart'
-    hide
-        PatientDashboardScreen,
-        FamilyDashboardScreen,
-        PatientBookAppointmentScreen,
-        PatientMyAppointmentsScreen,
-        PatientCareTeamScreen,
-        PatientTreatmentHistoryScreen,
-        PatientPaymentsScreen,
-        PatientProfileScreen,
-        FamilyLovedOneScheduleScreen,
-        FamilyCareUpdatesScreen,
-        FamilyBillingScreen,
-        FamilyEmergencyContactsScreen,
-        FamilyProfileScreen;
+import 'package:primecare_ui/primecare_ui.dart' hide PatientDashboardScreen, PatientProfileScreen;
 import 'package:flutter_core/theme/theme_config_generated.dart';
 
 import '../../features/patient/screens/patient_dashboard_screen.dart';

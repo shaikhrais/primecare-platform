@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'sections/territory_expansion_manager_open_territories_header_section.dart';
 import 'sections/territory_expansion_manager_open_territories_content_summary_section.dart';

@@ -60,8 +60,8 @@ test('direct Worker and both gateway aliases enforce before database access',asy
  const direct=await service.fetch(request('/login',address),env);
  assert.equal(direct.status,429);
  for(const path of ['/v1/auth/login','/api/auth/login']) {
-  const response=await gateway.fetch(request(path,{...address,origin:'https://primecare-auth.pages.dev'}),{AUTH:{fetch:r=>service.fetch(r,env)}});
-  assert.equal(response.status,429);assert.equal(response.headers.get('access-control-allow-origin'),'https://primecare-auth.pages.dev');
+  const response=await gateway.fetch(request(path,{...address,origin:'https://primecare-clinic.pages.dev'}),{AUTH:{fetch:r=>service.fetch(r,env)}});
+  assert.equal(response.status,429);assert.equal(response.headers.get('access-control-allow-origin'),'https://primecare-clinic.pages.dev');
  }
  assert.equal(new Set(keys).size,1);assert.equal(keys.length,3);
 });
@@ -81,12 +81,12 @@ test('Flutter login preflight permits every header emitted by the existing clien
   'x-device-fingerprint','x-request-id','x-correlation-id','x-request-signature','x-app-version'];
  for(const target of [service,gateway]){
   const response=await target.fetch(request('/v1/auth/login',{
-   origin:'https://primecare-auth.pages.dev',
+   origin:'https://primecare-clinic.pages.dev',
    'access-control-request-method':'POST',
    'access-control-request-headers':names.join(','),
   },'OPTIONS'),{SERVICE_NAME:'auth'});
   assert.equal(response.status,204);
-  assert.equal(response.headers.get('access-control-allow-origin'),'https://primecare-auth.pages.dev');
+  assert.equal(response.headers.get('access-control-allow-origin'),'https://primecare-clinic.pages.dev');
   const allowed=response.headers.get('access-control-allow-headers').toLowerCase().split(',');
   for(const name of names)assert.ok(allowed.includes(name),'Missing Flutter header: '+name);
  }

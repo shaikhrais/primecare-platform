@@ -9,7 +9,6 @@ const APPS_DIR = path.join(__dirname, '..', 'apps');
 const FLUTTER_CORE_I18N = path.join(__dirname, '..', 'packages', 'flutter_core', 'assets', 'translations');
 
 const uiPages = [
-    { name: 'primecare_auth', sub: 'primecare-auth' },
     { name: 'primecare_governance', sub: 'primecare-governance' },
     { name: 'primecare_corporate', sub: 'primecare-corporate' },
     { name: 'primecare_franchise', sub: 'primecare-franchise' },

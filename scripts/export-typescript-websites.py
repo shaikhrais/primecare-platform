@@ -11,7 +11,6 @@ PORTALS = {
   'primecare-support': ('su', 12, 'PrimeCare Support'),
   'primecare-governance': ('go', 10, 'PrimeCare Governance'),
   'primecare-enterprise-blueprint': ('ui', 1, 'PrimeCare Enterprise Blueprint'),
-  'primecare-auth': ('au', 3, 'PrimeCare Authentication'),
 }
 
 def rows(cursor, query, args=()): return [dict(row) for row in cursor.execute(query, args)]
@@ -38,11 +37,11 @@ def export(db_path, output, gateway, auth):
     for workflow in workflow_list:
       workflow['steps'] = rows(cursor, "select ws.step_order `order`,ws.step_name name,ws.screen_id screenId,s.route_path route,coalesce(ws.expected_result,'') expected,ws.status from workflow_steps ws left join screens s on s.id=ws.screen_id where ws.workflow_id=? and ws.status='active' order by ws.step_order", (workflow['id'],))
       workflow.pop('id', None)
-    manifest = {'project':project,'appCode':app_code,'name':name,'apiGateway':gateway,'authPortal':auth,'roles':role_list,'screens':screen_list,'capabilities':capabilities,'workflows':workflow_list,'theme':theme,'resources':resources,'generatedAt':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+    manifest = {'project':project,'appCode':app_code,'name':name,'apiGateway':gateway,'authPortal':'/login','roles':role_list,'screens':screen_list,'capabilities':capabilities,'workflows':workflow_list,'theme':theme,'resources':resources,'generatedAt':datetime.datetime.now(datetime.timezone.utc).isoformat()}
     target = output / project; target.mkdir(parents=True, exist_ok=True)
     (target / 'portal.json').write_text(json.dumps(manifest, separators=(',',':')), encoding='utf-8')
   connection.close()
 
 if __name__ == '__main__':
-  parser=argparse.ArgumentParser(); parser.add_argument('--db',default='.agents/governance/governance.db'); parser.add_argument('--output',default='websites/typescript/generated'); parser.add_argument('--gateway',required=True); parser.add_argument('--auth',default='https://primecare-auth.pages.dev')
+  parser=argparse.ArgumentParser(); parser.add_argument('--db',default='.agents/governance/governance.db'); parser.add_argument('--output',default='websites/typescript/generated'); parser.add_argument('--gateway',required=True); parser.add_argument('--auth',default='/login')
   args=parser.parse_args(); export(args.db,pathlib.Path(args.output),args.gateway,args.auth)
