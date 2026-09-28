@@ -26,5 +26,14 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
             db.execute('UPDATE api_endpoints SET rate_limit_key=? WHERE route_path=? AND UPPER(http_method)=?',
                        ('auth.' + operation, route, 'POST'))
     policy={row[0]:{'maxAttempts':row[1],'windowSeconds':row[2]} for row in db.execute('SELECT operation,max_attempts,window_seconds FROM auth_security_policy ORDER BY operation')}
+    with db:
+        db.execute('''CREATE TABLE IF NOT EXISTS auth_source_policy (
+          operation TEXT PRIMARY KEY, max_attempts INTEGER NOT NULL CHECK(max_attempts>0),
+          window_seconds INTEGER NOT NULL CHECK(window_seconds IN (10,60)),
+          namespace_id TEXT NOT NULL)''')
+        db.execute('INSERT OR IGNORE INTO auth_source_policy VALUES(?,?,?,?)',
+                   ('login',120,60,'2026092801'))
+    source={row[0]:{'maxAttempts':row[1],'windowSeconds':row[2],'namespaceId':row[3]} for row in db.execute('SELECT operation,max_attempts,window_seconds,namespace_id FROM auth_source_policy ORDER BY operation')}
+(ROOT/'cloudflare/workers/src/auth-source-policy.json').write_text(json.dumps(source,indent=2)+'\n')
 (ROOT/'cloudflare/workers/src/auth-security-policy.json').write_text(json.dumps(policy,indent=2)+'\n')
 print('Generated governance-backed authentication security configuration.')
