@@ -23,7 +23,7 @@ const outfile = join(directory, 'auth.cjs');
 await build({entryPoints:['cloudflare/workers/src/auth.ts'],bundle:true,platform:'node',format:'cjs',outfile,
   plugins:[{name:'session-race-fixture',setup(builder){
     builder.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'session-race-fixture'}));
-    builder.onLoad({filter:/.*/,namespace:'session-race-fixture'},()=>({loader:'js',contents:`
+    builder.onLoad({filter:/.*/,namespace:'session-race-fixture'},()=>({loader:'js',resolveDir:process.cwd(),contents:`
       import pg from ${JSON.stringify(createRequire(import.meta.url).resolve('pg'))};
       export class Client extends pg.Client {
         async query(sql,values) {
