@@ -11,6 +11,11 @@ def apply(db):
     roles = dict(db.execute('SELECT role_code,id FROM roles WHERE active=1'))
     assert HR_TARGETS <= roles.keys() and {'ceo','hr_director'} <= roles.keys()
     with db:
+        db.execute('''CREATE TABLE IF NOT EXISTS auth_setup_policy (
+          policy_code TEXT PRIMARY KEY, role_code TEXT NOT NULL,
+          entry_point TEXT NOT NULL, scope TEXT NOT NULL, overwrite_existing INTEGER NOT NULL CHECK(overwrite_existing=0))''')
+        db.execute('INSERT OR IGNORE INTO auth_setup_policy VALUES(?,?,?,?,0)',
+          ('first_ceo','ceo','protected_workflow','existing_active_tenant_without_ceo'))
         db.execute('''CREATE TABLE IF NOT EXISTS auth_account_creation_policy (
           actor_role_id INTEGER NOT NULL REFERENCES roles(id),
           target_role_id INTEGER NOT NULL REFERENCES roles(id),

@@ -1,0 +1,36 @@
+name: Bootstrap first CEO
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: Type CREATE_FIRST_CEO for the configured tenant
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: primecare-ceo-bootstrap
+  cancel-in-progress: false
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated dependencies
+        run: |
+          mkdir -p "$RUNNER_TEMP/bootstrap-dependencies"
+          npm install --prefix "$RUNNER_TEMP/bootstrap-dependencies" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2
+          ln -s "$RUNNER_TEMP/bootstrap-dependencies/node_modules" node_modules
+      - name: Create first CEO without overwriting accounts
+        env:
+          CONFIRM_BOOTSTRAP: ${{ inputs.confirm }}
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          BOOTSTRAP_CEO_EMAIL: ${{ secrets.BOOTSTRAP_CEO_EMAIL }}
+          BOOTSTRAP_CEO_PASSWORD: ${{ secrets.BOOTSTRAP_CEO_PASSWORD }}
+          BOOTSTRAP_TENANT_ID: ${{ secrets.BOOTSTRAP_TENANT_ID }}
+        run: node scripts/bootstrap-first-ceo.mjs
