@@ -106,6 +106,10 @@ class SecurityInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
+    if (err.response?.statusCode != 401) {
+      super.onError(err, handler);
+      return;
+    }
     final path = err.requestOptions.uri.normalizePath().path;
     final session = _ref.read(authProvider);
     final sentToken = err.requestOptions.headers['Authorization'];
