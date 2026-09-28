@@ -61,6 +61,7 @@ void main() {
     await tester.pumpWidget(localized(Scaffold(body: PrimeAuthTextField(
       id: 'password-test', label: 'Password', password: true, onChanged: (_) {},
     ))));
+    await tester.pumpAndSettle();
     expect(tester.widget<EditableText>(find.byType(EditableText)).obscureText, isTrue);
     await tester.tap(find.byType(IconButton));
     await tester.pump();
