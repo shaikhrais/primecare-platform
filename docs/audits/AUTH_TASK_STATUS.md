@@ -10,8 +10,8 @@ pending; ⬜ pending; ⛔ external prerequisite. No indicator below means produc
 | First CEO setup | ✅ Unit-tested | Protected workflow code; production setup not executed |
 | Login throttling | ✅ Isolated PostgreSQL | Run 36457853287 passed, including concurrent attempts and counter expiry |
 | Other endpoint throttling / abuse controls | ⬜ Pending | Login counter is not a platform-wide abuse control |
-| CEO account role/status management | 🔄 Implemented, local tests pass | POST /v1/admin/users; same tenant, no self-modification, session revocation and audit; PostgreSQL CI pending |
-| Password change | 🔄 Implemented, local tests pass | POST /v1/user/change-password; current password required, new hash, all sessions revoked; PostgreSQL CI pending |
+| CEO account role/status management | ✅ Isolated PostgreSQL | Run 36458402955 passed; UUID-case regression additionally passes locally |
+| Password change | ✅ Isolated PostgreSQL | Run 36458402955 passed; old password/session rejection and new password login verified |
 | Password recovery and delivery | ⬜ Pending | Requires approved delivery configuration and single-use token flow |
 | Auth OpenAPI | 🔄 Seven governed operations exported | Approved GET/POST session lookup compatibility implemented; production contract verification pending |
 | Production schema checks and migrations | ⛔ Not run | Validate tenant/user types; apply audit and rate-limit migrations before deploying code |
@@ -22,8 +22,8 @@ pending; ⬜ pending; ⛔ external prerequisite. No indicator below means produc
 Current local suite: 45 passing tests including auth handlers, client transport,
 bootstrap, management and password change. UUID normalization and a regression test
 prevent case changes from bypassing the CEO self-modification prohibition.
-Account-management and password-change PostgreSQL run 36458402955 was queued at
-the latest check; it has not been counted as passing.
+Account-management and password-change PostgreSQL run 36458402955 completed
+successfully. Latest GET/POST compatibility changes await their own CI result.
 
 The per-email login throttle deliberately counts both valid and invalid attempts.
 This can temporarily throttle a targeted account. It is not a substitute for
