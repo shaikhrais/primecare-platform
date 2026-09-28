@@ -1,7 +1,7 @@
 // Authorized production smoke test: unique synthetic tenant, no real user data.
 import {Client} from 'pg';
 import bcrypt from 'bcryptjs';
-import {randomUUID,randomBytes} from 'node:crypto';
+import {randomUUID,randomBytes,createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 
 const gateway=new URL(process.env.GATEWAY_URL||'');
@@ -76,6 +76,8 @@ try {
    await db.query('DELETE FROM auth_management_audit WHERE tenant_id=$1',[tenantId]);
    await db.query('DELETE FROM users WHERE tenant_id=$1',[tenantId]);
    await db.query('DELETE FROM tenants WHERE id=$1',[tenantId]);
+   for(const fixtureEmail of [email,targetEmail])
+    await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update('login:'+fixtureEmail).digest('hex')]);
    await db.query('COMMIT');console.log('Temporary QA tenant and accounts removed.');
   } catch {await db.query('ROLLBACK').catch(()=>{});console.error('QA cleanup failed; operator review required.');process.exitCode=1;}
  }
