@@ -25,6 +25,7 @@ const email = `fixture-${randomUUID()}@example.invalid`;
 const password = randomUUID();
 const env = {DB_URL:connectionString,SERVICE_NAME:'auth'};
 let userId;
+let createdId;
 let passed = 0;
 const call = (path, method='GET', body, token) => auth(new Request('https://auth.test'+path, {
   method, headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{})},
@@ -32,7 +33,9 @@ const call = (path, method='GET', body, token) => auth(new Request('https://auth
 }), env, path, {});
 try {
   await db.query(await readFile('services/auth_api/dev_schema.sql','utf8'));
+  await db.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS tenant_id UUID');
   await db.query(await readFile('packages/database/migrations/20260926_auth_sessions.sql','utf8'));
+  await db.query(await readFile('packages/database/migrations/20260928_auth_account_audit.sql','utf8'));
   userId = (await db.query('INSERT INTO users(email,roles,password_hash,status) VALUES($1,$2,$3,$4) RETURNING id',
     [email,'fixture-role',await bcrypt.hash(password,12),'active'])).rows[0].id;
   const login = await call('/login','POST',{email,password});
@@ -51,9 +54,26 @@ try {
   await db.query("UPDATE users SET status='inactive' WHERE id=$1",[userId]);
   assert.equal((await call('/me','GET',undefined,third.token)).status,401);
   assert.equal((await call('/login','POST',{email,password})).status,401); passed++;
+  const tenantId=randomUUID();
+  await db.query("UPDATE users SET status='active',roles='ceo',tenant_id=$1 WHERE id=$2",[tenantId,userId]);
+  const admin=await (await call('/login','POST',{email,password})).json();
+  const account={email:`new-${randomUUID()}@example.invalid`,password:randomUUID(),role:'rmt'};
+  const registered=await call('/register','POST',account,admin.token);
+  assert.equal(registered.status,201);createdId=(await registered.json()).user.id;passed++;
+  const persisted=(await db.query('SELECT tenant_id,roles,password_hash FROM users WHERE id=$1',[createdId])).rows[0];
+  assert.equal(persisted.tenant_id,tenantId);assert.equal(persisted.roles,'rmt');
+  assert.ok(await bcrypt.compare(account.password,persisted.password_hash));passed++;
+  assert.equal((await db.query('SELECT id FROM auth_account_audit WHERE actor_user_id=$1 AND target_user_id=$2',[userId,createdId])).rowCount,1);passed++;
+  assert.equal((await call('/register','POST',account,admin.token)).status,409);passed++;
+  const staff=await (await call('/login','POST',{email:account.email,password:account.password})).json();
+  assert.equal((await call('/register','POST',{...account,email:'forbidden@example.invalid'},staff.token)).status,403);passed++;
+  const cross=new Request('https://auth.test/register',{method:'POST',headers:{authorization:'Bearer '+admin.token,'content-type':'application/json','x-tenant-id':randomUUID()},body:JSON.stringify({...account,email:'cross@example.invalid'})});
+  assert.equal((await auth(cross,env,'/register',{})).status,403);passed++;
   console.log(JSON.stringify({passed, database:'isolated PostgreSQL', productionVerified:false}));
 } finally {
   // Remove only the uniquely identified synthetic fixture; sessions cascade.
+  if(userId) await db.query('DELETE FROM auth_account_audit WHERE actor_user_id=$1',[userId]);
+  if(createdId) await db.query('DELETE FROM users WHERE id=$1',[createdId]);
   if(userId) await db.query('DELETE FROM users WHERE id=$1 AND email=$2',[userId,email]);
   await db.end();
 }

@@ -8,19 +8,22 @@ const fixtureHash = await bcrypt.hash('fixture-password', 4);
 let sessions, user, queries, failWrite, failRead, ambiguous;
 beforeEach(() => {
   sessions = new Map(); queries = []; failWrite = false; failRead = false; ambiguous = false;
-  user = { id: 'fixture-user', roles: 'fixture-role', status: 'active', password_hash: fixtureHash };
+  user = { id: 'fixture-user', roles: 'fixture-role', tenant_id:'fixture-tenant', status: 'active', password_hash: fixtureHash };
 });
 globalThis.__authQuery = async (sql, values) => {
   queries.push({sql, values});
   if (failRead) throw new Error('fixture-private-database-details');
+  if (['BEGIN','COMMIT','ROLLBACK'].includes(sql) || sql.startsWith('SELECT pg_advisory') || sql.startsWith('INSERT INTO auth_account_audit')) return {rows:[]};
+  if (sql.startsWith('SELECT id FROM users')) return {rows:[]};
+  if (sql.startsWith('INSERT INTO users')) return {rows:[{id:'created-fixture',email:values[0],tenant_id:values[1],roles:values[2],status:'active'}]};
   if (sql.startsWith('SELECT id, roles')) return {rows: user ? (ambiguous ? [user, {...user,id:'other-user'}] : [user]) : []};
   if (sql.startsWith('INSERT INTO auth_sessions')) {
     if (failWrite) throw new Error('fixture-write-failure');
     sessions.set(values[0], {userId: values[1], expired:false}); return {rows:[]};
   }
   if (sql.startsWith('SELECT u.id')) {
-    assert.match(sql, /s.expires_at > NOW\(\)/);
-    assert.match(sql, /LOWER\(u.status\) = 'active'/);
+    assert.match(sql, /s.expires_at\s*>\s*NOW\(\)/);
+    assert.match(sql, /LOWER\(u.status\)\s*=\s*'active'/);
     const session = sessions.get(values[0]);
     return {rows: session && !session.expired && user?.status === 'active' ? [user] : []};
   }
@@ -133,4 +136,32 @@ test('email normalization uses a bound SQL parameter',async()=>{
   await auth(request('/login','POST',{email:'  Fixture@Example.Invalid ',password:'fixture-password'}),env,'/login',{});
   assert.equal(queries[0].values[0],'fixture@example.invalid');
   assert.ok(!queries[0].sql.includes('fixture@example.invalid'));
+});
+const newAccount={email:'new@example.invalid',password:'new-fixture-password',role:'rmt'};
+test('public registration denied before database access',async()=>{
+  assert.equal((await auth(request('/register','POST',newAccount),env,'/register',{})).status,401);
+  assert.equal(queries.length,0);
+});
+test('CEO can create account only in backend-resolved tenant',async()=>{
+  user.roles='ceo';const {token}=await (await login()).json();
+  const response=await auth(request('/register','POST',newAccount,token),env,'/register',{});
+  assert.equal(response.status,201);const data=await response.json();
+  assert.equal(data.user.tenant_id,user.tenant_id);assert.equal(data.user.password_hash,undefined);
+  assert.ok(queries.some(q=>q.sql.startsWith('INSERT INTO auth_account_audit')));
+});
+test('HR can create RMT but cannot create CEO or HR Director',async()=>{
+  user.roles='hr_director';const {token}=await (await login()).json();
+  assert.equal((await auth(request('/register','POST',newAccount,token),env,'/register',{})).status,201);
+  for(const role of ['ceo','hr_director','governance','owner','shareholder'])
+    assert.equal((await auth(request('/register','POST',{...newAccount,role},token),env,'/register',{})).status,403);
+});
+test('ordinary roles cannot create accounts',async()=>{
+  const {token}=await (await login()).json();
+  assert.equal((await auth(request('/register','POST',newAccount,token),env,'/register',{})).status,403);
+});
+test('tenant override rejected in header and body',async()=>{
+  user.roles='ceo';const {token}=await (await login()).json();
+  const req=request('/register','POST',newAccount,token);req.headers.set('x-tenant-id','other-tenant');
+  assert.equal((await auth(req,env,'/register',{})).status,403);
+  assert.equal((await auth(request('/register','POST',{...newAccount,tenant_id:'other'},token),env,'/register',{})).status,400);
 });

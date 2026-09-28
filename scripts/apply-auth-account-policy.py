@@ -1,0 +1,44 @@
+"""Approved 2026-09-28: tenant-scoped CEO/HR account creation; default deny."""
+import json
+import sqlite3
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+HR_TARGETS = set('chiropractor physio rmt social_worker therapist intake rn physician cns pediatric caregiver community_outreach franchise_sales gm local_marketing ops_manager partnership regional_bdm regional_manager_usa scrum_master hr_hiring territory_expansion territory_sales volunteer_coordinator premium_concierge vip_manager psw hsw rn_field_supervisor np rpn lpn employee volunteer admin scheduler customer_support qa_specialist'.split())
+
+
+def apply(db):
+    roles = dict(db.execute('SELECT role_code,id FROM roles WHERE active=1'))
+    assert HR_TARGETS <= roles.keys() and {'ceo','hr_director'} <= roles.keys()
+    with db:
+        db.execute('''CREATE TABLE IF NOT EXISTS auth_account_creation_policy (
+          actor_role_id INTEGER NOT NULL REFERENCES roles(id),
+          target_role_id INTEGER NOT NULL REFERENCES roles(id),
+          scope TEXT NOT NULL CHECK(scope='same_tenant'),
+          approval_source TEXT NOT NULL,
+          PRIMARY KEY(actor_role_id,target_role_id))''')
+        for actor, targets in [('ceo',set(roles)),('hr_director',HR_TARGETS)]:
+            for target in sorted(targets):
+                db.execute('INSERT OR IGNORE INTO auth_account_creation_policy VALUES(?,?,?,?)',
+                           (roles[actor], roles[target], 'same_tenant', 'User approved policy 2026-09-28 13:12 America/Toronto'))
+        schema = {'type':'object','additionalProperties':False,'required':['email','password','role'],
+                  'properties':{'email':{'type':'string','format':'email','maxLength':254},
+                                'password':{'type':'string','minLength':12,'description':'Maximum 72 UTF-8 bytes; never returned.'},
+                                'role':{'type':'string','enum':sorted(roles)}}}
+        db.execute('''UPDATE api_endpoints SET request_schema=?,permission_key=?,implementation_status=?
+          WHERE route_path='/v1/auth/register' AND http_method='POST' ''',
+          (json.dumps(schema), 'auth_account_creation_policy', 'in_progress'))
+    rows = db.execute('''SELECT a.role_code,t.role_code FROM auth_account_creation_policy p
+      JOIN roles a ON a.id=p.actor_role_id JOIN roles t ON t.id=p.target_role_id ORDER BY a.role_code,t.role_code''').fetchall()
+    policy = {}
+    for actor,target in rows: policy.setdefault(actor,[]).append(target)
+    return policy
+
+
+if __name__ == '__main__':
+    with sqlite3.connect(ROOT / '.agents/governance/governance.db') as db:
+        db.execute('PRAGMA foreign_keys=ON')
+        policy = apply(db)
+    output = ROOT / 'cloudflare/workers/src/account-policy.json'
+    output.write_text(json.dumps(policy,indent=2)+'\n')
+    print('Generated approved account creation policy; default deny; same tenant only.')
