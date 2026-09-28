@@ -10,7 +10,7 @@ pending; ⬜ pending; ⛔ external prerequisite. No indicator below means produc
 | First CEO setup | ✅ Unit-tested | Protected workflow code; production setup not executed |
 | Login throttling | ✅ Isolated PostgreSQL | Run 36457853287 passed, including concurrent attempts and counter expiry |
 | Authenticated mutation throttling | ✅ Unit and PostgreSQL CI; deployed | Password change 5/minute; account creation and management 10/minute each; counters persist across rollback and sessions; PR #8, CI 36477112955, deployment 36477431047 |
-| Source/IP abuse controls | ⬜ Pending | Account-level counters are not platform-wide or source/IP protection |
+| Source/IP login protection | ✅ Deployed; normal production journeys verified | Governance-backed 120 attempts/60 seconds per source per Cloudflare location, before database access; native counters are approximate; CI 36483277129, deployment 36485650599 |
 | CEO account role/status management | ✅ CI and production deactivation | Production deactivation and target session revocation passed; role allowlists/self-protection covered in CI |
 | Password change | ✅ Production smoke | Old password/session rejected; new password login passed in run 36465061031 |
 | Password recovery and delivery | ⛔ Requirements and delivery missing | See AUTH_RECOVERY_GOVERNANCE_GAP.md; registered routes have no approved schemas or permission keys |
@@ -18,9 +18,9 @@ pending; ⬜ pending; ⛔ external prerequisite. No indicator below means produc
 | Production schema checks and migrations | ✅ Applied | Run 36463366031; additive auth tables preserve existing text IDs; deployment preflight passed |
 | Production first CEO | ⛔ Setup values required | Existing tenant ID and CEO credentials in protected GitHub secrets; no permanent CEO created by smoke tests |
 | Deployment and public API journeys | ✅ Production verified | Deployment 36463534382 and 17-check smoke 36465061031 passed; QA fixtures removed |
-| Auth pages | ⬜ Deferred | API verification first |
+| Auth web release | 🔄 Published; login page rendered | Release 36485554743 includes API_GATEWAY_URL; browser login form and language selection verified; authenticated UI journey and recovery still pending |
 
-Current local suite: 60 passing tests including schema validation, auth handlers, client transport,
+Current local Worker suite: 71 passing tests including schema validation, auth handlers, client transport,
 bootstrap, management and password change. Self-modification checks reject case-based bypasses
 while preserving opaque text IDs. PostgreSQL UUID and text-ID matrix run 36462832340 passed.
 Account-management and password-change PostgreSQL run 36458402955 completed
@@ -56,7 +56,7 @@ GitHub lists Cloudflare account/token, production database, BOOTSTRAP_CEO_EMAIL
 and BOOTSTRAP_CEO_PASSWORD secrets, with no environment secrets. Permanent CEO
 setup still needs BOOTSTRAP_TENANT_ID; the email and password secrets are present. Recovery still needs approved sender,
 provider configuration and governed contracts; no recovery email is sent by this release.
-Source/IP abuse limits and auth pages remain unfinished. The GitHub AI security scan
+Source/IP login protection and the auth website are now deployed (see latest release below); broader abuse controls and authenticated UI verification remain unfinished. The GitHub AI security scan
 failed with an unsupported-model service error, so it is not a completed security review.
 
 ## Authenticated mutation limits — 2026-09-28
@@ -98,3 +98,18 @@ Run 36479471041 passed Flutter analysis, all 139 client tests (125 transport and
 14 session regressions), Dart service/gateway checks and PostgreSQL login/logout.
 These fixes are merged source changes; a published Flutter release and end-to-end
 UI verification remain pending. Backend deployment evidence above is unchanged.
+
+## Gateway, source protection and auth web release — 2026-09-28
+
+- PR #11 (4ac1c8e44b8c41eb427e6da6d605642866668f5e) closes Flutter error-handling gaps for canonical /v1/user/change-password, /v1/admin/users and /api/auth aliases. Run 36482631053 passed all 263 Flutter tests and analysis/Dart/PostgreSQL checks.
+- PR #12 (51c874316f86b95a196c2d866750b283297537c9) adds governance-backed source login protection. Both UUID/text jobs in 36483277129 passed all 69 Worker tests, type checks and PostgreSQL lifecycle tests. Governance migration 36484211228 succeeded. Deployment 36484553670 and production smoke 36484904880 passed. See AUTH_SOURCE_LIMIT.md for scope and shared-network/locality limitations.
+- PR #13 (a83017f1979d7ecaa53c4ffded54d6f8abe44083) fixes two Riverpod 3 compatibility errors blocking the auth web build. Auth CI 36484502191 passed full app lib analysis and 263 client tests. State shells retain TODO markers; they are not completed features.
+- API_GATEWAY_URL is configured as https://primecare-api-gateway.itpro-mohammed.workers.dev. Auth web release 36485554743 succeeded and its build log confirms this value. https://primecare-auth.pages.dev/login?enable-semantics=true renders the login form; language selection was exercised. No permanent user login was attempted.
+- PR #14 (9c470faebc00ce7c70c63b17002b1d2fb1ecc20b) permits the existing Flutter security headers in gateway and Worker CORS preflight while retaining origin restrictions. Both PostgreSQL jobs in 36485365910 passed the 71-test Worker suite and type checks. Final deployment 36485650599 succeeded; final live run 36485971747 passed all 17 auth checks and removed temporary QA fixtures.
+
+Remaining release gaps: permanent CEO tenant ID, password recovery contracts/provider/sender,
+full authenticated UI journey and unfinished UI flows. The existing page still displays
+sign-up/recovery controls and compliance/operational claims; their presence is not proof of
+public registration, email recovery, certification or monitoring. These need UI follow-up.
+The hourly cleanup's first scheduled apply run remains unverified; only its preview is recorded.
+Native packaging runs were cancelled to prioritize auth checks; native releases are not claimed.
