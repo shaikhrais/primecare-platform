@@ -1,3 +1,4 @@
+import {sourceLoginLimit} from './auth-source-limit';
 import { auth, json, parseBody, withDb, type Env } from './auth';
 
 const allowedOrigins = [
@@ -74,6 +75,12 @@ export default {
       }
       if (path === '/') return json({ status: 'ok', service: env.SERVICE_NAME }, 200, headers);
       if (env.SERVICE_NAME === 'auth') {
+        const sourceLimit = await sourceLoginLimit(request,env);
+        if (sourceLimit) {
+          const responseHeaders = new Headers(sourceLimit.headers);
+          new Headers(headers).forEach((value,key)=>responseHeaders.set(key,value));
+          return new Response(sourceLimit.body,{status:sourceLimit.status,headers:responseHeaders});
+        }
         const response = await auth(request, env, path, headers);
         if (response) return response;
       }

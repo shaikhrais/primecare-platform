@@ -1,3 +1,4 @@
+import type {SourceLimitEnv} from './auth-source-limit';
 import { Client } from 'pg';
 import bcrypt from 'bcryptjs';
 import accountPolicy from './account-policy.json';
@@ -5,7 +6,7 @@ import {loginRateLimit,authRateLimit,type AuthOperation} from './auth-rate-limit
 import {manageAccount,validateAccountUpdate} from './account-management';
 import {changePassword,validatePasswordChange} from './password-change';
 
-export interface Env { DB_URL: string; SERVICE_NAME: string }
+export interface Env extends SourceLimitEnv { DB_URL: string; SERVICE_NAME: string }
 type Json = Record<string, unknown>;
 
 export function json(body: unknown, status = 200, headers: HeadersInit = {}): Response {

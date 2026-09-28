@@ -18,6 +18,7 @@ def build():
     password = {'type': 'string', 'minLength': 12, 'maxLength': 72,
                 'writeOnly': True, 'description': 'Maximum 72 UTF-8 bytes; minimum 12 JavaScript string code units.'}
     limits = json.loads((ROOT / 'cloudflare/workers/src/auth-security-policy.json').read_text())
+    source_limit = json.loads((ROOT / 'cloudflare/workers/src/auth-source-policy.json').read_text())['login']
     policy = json.loads((ROOT / 'cloudflare/workers/src/account-policy.json').read_text())
     user = obj({'id': text, 'email': text, 'tenant_id': text, 'roles': text, 'status': text})
     token = {'type': 'string', 'pattern': '^[A-Za-z0-9_-]{43}$'}
@@ -78,6 +79,8 @@ def build():
                 limit = limits[name]
                 subject = 'normalized email' if name == 'login' else 'authenticated user across sessions'
                 description += f" Limit: {limit['maxAttempts']} attempts per {limit['windowSeconds']} seconds per {subject}. Failed and denied valid-input attempts count; Retry-After is returned on 429."
+            if name == 'login':
+                description += f" A separate approximate source-IP limit allows {source_limit['maxAttempts']} attempts per {source_limit['windowSeconds']} seconds per Cloudflare location before body parsing or database access. Applies to direct Worker and gateway requests, including malformed attempts. Shared networks share this budget. Missing trusted source identity or limiter availability returns 503."
             operation = {'operationId': name, 'summary': summary, 'description': description,
                          'x-governance-id': rows[0][0], 'security': security, 'responses': responses}
             if request:

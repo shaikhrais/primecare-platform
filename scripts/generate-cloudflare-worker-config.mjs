@@ -1,4 +1,6 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
+
+const sourcePolicy = JSON.parse(readFileSync(new URL('../cloudflare/workers/src/auth-source-policy.json',import.meta.url),'utf8')).login;
 
 const services = ['auth', 'client', 'provider', 'visit', 'notes', 'billing', 'scheduling',
   'notification', 'verification', 'compliance', 'governance', 'franchise-reporting'];
@@ -12,6 +14,8 @@ for (const service of services) {
     compatibility_date: '2026-09-27',
     compatibility_flags: ['nodejs_compat'],
     workers_dev: true,
+    ...(service === 'auth' ? {ratelimits:[{name:'AUTH_SOURCE_LIMIT',namespace_id:sourcePolicy.namespaceId,
+      simple:{limit:sourcePolicy.maxAttempts,period:sourcePolicy.windowSeconds}}]} : {}),
     observability: { enabled: true },
     vars: { SERVICE_NAME: service },
   }, null, 2)}\n`);
