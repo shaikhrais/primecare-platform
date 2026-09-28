@@ -12,8 +12,34 @@ const routes: Record<string, keyof Env> = {
   compliance: 'COMPLIANCE', governance: 'GOVERNANCE', 'franchise-reporting': 'FRANCHISE_REPORTING',
 };
 
+function corsHeaders(request: Request): Headers {
+  const origin = request.headers.get('Origin');
+  const allowed = origin && /^https:\/\/(?:[a-z0-9-]+\.)?primecare-[a-z0-9-]+\.pages\.dev$/.test(origin);
+  const headers = new Headers({
+    'Access-Control-Allow-Methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
+    'Access-Control-Allow-Headers': 'Authorization,Content-Type,X-Device-Id,X-Tenant-Id',
+    'Access-Control-Max-Age': '86400',
+    Vary: 'Origin',
+  });
+  if (allowed) headers.set('Access-Control-Allow-Origin', origin);
+  return headers;
+}
+
+function withGatewayHeaders(request: Request, response: Response): Response {
+  const headers = new Headers(response.headers);
+  corsHeaders(request).forEach((value, key) => headers.set(key, value));
+  headers.set('x-primecare-gateway', 'cloudflare-worker-typescript');
+  headers.set('cache-control', 'no-store');
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
+    if (request.method === 'OPTIONS') {
+      const origin = request.headers.get('Origin');
+      const headers = corsHeaders(request);
+      return new Response(null, { status: origin && headers.has('Access-Control-Allow-Origin') ? 204 : 403, headers });
+    }
     const url = new URL(request.url);
     if (url.pathname === '/health') {
       const unique = Object.entries(routes).filter(([name]) => !['providers', 'visits', 'notifications'].includes(name));
@@ -23,19 +49,16 @@ export default {
       }));
       const services = Object.fromEntries(checks);
       const healthy = Object.values(services).every(Boolean);
-      return Response.json(
+      return withGatewayHeaders(request, Response.json(
         { status: healthy ? 'healthy' : 'degraded', runtime: 'cloudflare-worker-typescript', services },
-        { status: healthy ? 200 : 503, headers: { 'cache-control': 'no-store', 'x-primecare-gateway': 'cloudflare-worker-typescript' } },
-      );
+        { status: healthy ? 200 : 503 },
+      ));
     }
     const match = url.pathname.match(/^\/(?:v1|api)\/([^/]+)(\/.*)?$/);
-    if (!match || !routes[match[1]]) return Response.json({ error: 'Route not found' }, { status: 404 });
+    if (!match || !routes[match[1]]) return withGatewayHeaders(request, Response.json({ error: 'Route not found' }, { status: 404 }));
     url.hostname = 'service';
     url.pathname = match[2] || '/';
     const response = await env[routes[match[1]]].fetch(new Request(url, request));
-    const headers = new Headers(response.headers);
-    headers.set('x-primecare-gateway', 'cloudflare-worker-typescript');
-    headers.set('cache-control', 'no-store');
-    return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+    return withGatewayHeaders(request, response);
   },
 } satisfies ExportedHandler<Env>;
