@@ -1,7 +1,7 @@
 import { Client } from 'pg';
 import bcrypt from 'bcryptjs';
 import accountPolicy from './account-policy.json';
-import {loginRateLimit} from './auth-rate-limit';
+import {loginRateLimit,authRateLimit,type AuthOperation} from './auth-rate-limit';
 import {manageAccount,validateAccountUpdate} from './account-management';
 import {changePassword,validatePasswordChange} from './password-change';
 
@@ -64,6 +64,16 @@ export async function auth(request: Request, env: Env, path: string, headers: He
   }
 }
 
+/** Authenticate before creating a counter. Mutations revalidate under their
+ * existing locks, so this preflight never replaces authorization or revocation. */
+async function mutationLimit(db:Client,token:string,operation:AuthOperation,headers:HeadersInit):Promise<Response|null> {
+  const actor=(await db.query("SELECT u.id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1",[await sha256(token)])).rows[0];
+  if(!actor)return json({error:'Invalid session'},401,headers);
+  const retryAfter=await authRateLimit(db,await sha256(operation+':'+String(actor.id)),operation);
+  return retryAfter===null?null:json({error:'Too many authentication attempts'},429,
+    {...headers,'retry-after':String(retryAfter)});
+}
+
 async function handleAuth(request: Request, env: Env, path: string, headers: HeadersInit): Promise<Response | null> {
   if(path==='/change-password' && request.method==='POST') {
     const token=request.headers.has('authorization')?tokenFrom(request):null;
@@ -72,6 +82,8 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     try{input=validatePasswordChange(await parseBody(request));}catch{return json({error:'Invalid request'},400,headers);}
     if(!input)return json({error:'Invalid password fields'},400,headers);
     return withDb(env,async db=>{
+      const limited=await mutationLimit(db,token,'changePassword',headers);
+      if(limited)return limited;
       await db.query('BEGIN');
       try{
         const user=(await db.query("SELECT u.id,u.password_hash FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' FOR UPDATE OF u,s",[await sha256(token)])).rows[0];
@@ -89,6 +101,8 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     try{input=validateAccountUpdate(await parseBody(request));}catch{return json({error:'Invalid request'},400,headers);}
     if(!input) return json({error:'Invalid account fields'},400,headers);
     return withDb(env,async db=>{
+      const limited=await mutationLimit(db,token,'manageAccount',headers);
+      if(limited)return limited;
       await db.query('BEGIN');
       try{
         const actor=(await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' FOR SHARE OF u,s",[await sha256(token)])).rows[0];
@@ -116,6 +130,8 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
       return json({error:'Invalid account fields'},400,headers);
     }
     return withDb(env, async db => {
+      const limited=await mutationLimit(db,token,'createAccount',headers);
+      if(limited)return limited;
       await db.query('BEGIN');
       try {
         const result = await db.query(
