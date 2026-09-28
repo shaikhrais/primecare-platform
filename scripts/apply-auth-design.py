@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Register approved auth presentation and generate localizable design assets."""
-import json, sqlite3
+import json, sqlite3, re
 from pathlib import Path
 root = Path(__file__).resolve().parents[1]
 spec = json.loads((root / 'design/auth-experience.json').read_text())
@@ -39,9 +39,12 @@ with db:
     dimensions = list(db.execute("""SELECT dart_token_name, token_value FROM theme_design_tokens
         WHERE theme_id=? AND token_code LIKE 'auth.%' ORDER BY dart_token_name""", (theme_id,)))
 for path in (root / 'apps').glob('*/assets/translations/en.json'):
-    data = json.loads(path.read_text())
+    original = path.read_text()
+    match = re.search(r'\n( +)"', original)
+    indent = len(match.group(1)) if match else 2
+    data = json.loads(original)
     data.update(resources)
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=indent) + '\n')
 target = root / 'packages/primecare_ui/lib/src/features/auth/auth_design_tokens.dart'
 target.parent.mkdir(parents=True, exist_ok=True)
 target.write_text('// Generated from governance.db by apply-auth-design.py.\n'
