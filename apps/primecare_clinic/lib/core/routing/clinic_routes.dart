@@ -2,7 +2,6 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/theme/theme_config_generated.dart';
 import '../../features/shared/screens/clinic_incident_report_screen.dart';
 import '../../features/shared/screens/clinic_history_logs_screen.dart';
-import '../../features/generated_screens/psw_dashboard_screen.dart';
 
 class ClinicTenant extends PlatformTenant {
   @override

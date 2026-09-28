@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/psw_notifications_model.dart';
 
 class PswNotificationsNotifier extends StateNotifier<PswNotificationsModel> {

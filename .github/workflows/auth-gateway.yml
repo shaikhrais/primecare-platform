@@ -11,7 +11,7 @@ on:
       - 'packages/flutter_core/lib/auth_service.dart'
       - 'packages/flutter_core/lib/src/network/api_client.dart'
       - 'apps/primecare_auth/lib/**'
-      - 'apps/primecare_clinic/lib/core/routing/**'
+      - 'apps/primecare_clinic/lib/**'
       - 'apps/primecare_clinic/test/auth*_test.dart'
       - 'packages/flutter_core/lib/routes/clinic_login_bridge.dart'
       - 'packages/flutter_core/lib/routes/governance_router.dart'
@@ -129,5 +129,5 @@ jobs:
         working-directory: apps/primecare_clinic
         run: |
           flutter pub get
-          flutter analyze --no-fatal-infos lib/core/routing/app_router.dart test/auth_routing_test.dart
+          flutter analyze --no-fatal-infos lib test/auth_routing_test.dart
           flutter test test/auth_routing_test.dart

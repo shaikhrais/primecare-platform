@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/infection_control_dashboard_model.dart';
 
 class InfectionControlDashboardNotifier extends StateNotifier<InfectionControlDashboardModel> {

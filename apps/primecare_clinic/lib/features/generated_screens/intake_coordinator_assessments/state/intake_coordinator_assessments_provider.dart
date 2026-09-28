@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/intake_coordinator_assessments_model.dart';
 
 class IntakeCoordinatorAssessmentsNotifier extends StateNotifier<IntakeCoordinatorAssessmentsModel> {

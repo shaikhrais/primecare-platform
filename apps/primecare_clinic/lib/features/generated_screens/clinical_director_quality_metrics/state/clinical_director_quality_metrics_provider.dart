@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/clinical_director_quality_metrics_model.dart';
 
 class ClinicalDirectorQualityMetricsNotifier extends StateNotifier<ClinicalDirectorQualityMetricsModel> {
