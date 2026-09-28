@@ -113,7 +113,7 @@ jobs:
         working-directory: apps/primecare_auth
         run: |
           flutter pub get
-          flutter analyze --no-fatal-infos --no-fatal-warnings lib
+          flutter analyze --no-fatal-infos lib
 
       - name: Verify Flutter auth transport failures
         working-directory: packages/flutter_core
