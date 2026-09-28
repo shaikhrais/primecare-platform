@@ -56,8 +56,9 @@ class LoginController extends Notifier<LoginState> {
 
   /// Executes the login sequence using current state.
   Future<void> login() async {
+    if (state.isLoading) return;
     final email = state.email.trim();
-    final password = state.password.trim();
+    final password = state.password;
 
     if (email.isEmpty || password.isEmpty) {
       state = state.copyWith(errorMessage: 'Please enter both credentials.');
