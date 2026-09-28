@@ -23,6 +23,21 @@ export function schemaProblems(rows) {
  return problems;
 }
 
+export function safeFailureReason(error) {
+ const reasons={
+  '28P01':'database authentication rejected', '28000':'database authorization rejected',
+  '42501':'database permission denied', '3D000':'configured database does not exist',
+  '42601':'schema inspection SQL syntax error', '42883':'schema inspection function/operator unavailable',
+  '42703':'schema inspection column unavailable', '42P01':'schema inspection relation unavailable',
+  'ETIMEDOUT':'database connection timed out', 'ECONNREFUSED':'database connection refused',
+  'ENOTFOUND':'database hostname could not be resolved', 'ECONNRESET':'database connection reset',
+  'SELF_SIGNED_CERT_IN_CHAIN':'database TLS certificate chain rejected',
+  'DEPTH_ZERO_SELF_SIGNED_CERT':'database TLS certificate rejected',
+  'UNABLE_TO_VERIFY_LEAF_SIGNATURE':'database TLS certificate could not be verified',
+ };
+ return reasons[error?.code]??'database preflight unavailable (unclassified error)';
+}
+
 export async function checkAuthSchema(connectionString) {
  if(!connectionString) throw new Error('Database configuration missing');
  const db=new Client({connectionString,connectionTimeoutMillis:10000,statement_timeout:10000});
@@ -52,5 +67,5 @@ if(process.argv[1] && import.meta.url===pathToFileURL(process.argv[1]).href) {
   const problems=await checkAuthSchema(process.env.PRODUCTION_DATABASE_URL);
   if(problems.length){console.error('Auth schema preflight failed:\n'+problems.join('\n'));process.exitCode=1;}
   else console.log('Auth schema metadata preflight passed; no account data read or changed. This does not prove production login.');
- } catch {console.error('Auth schema preflight unavailable; check database configuration/connectivity. No credentials logged.');process.exitCode=1;}
+ } catch(error) {console.error('Auth schema preflight failed: '+safeFailureReason(error)+'. No credentials logged.');process.exitCode=1;}
 }
