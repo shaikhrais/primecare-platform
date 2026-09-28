@@ -3,7 +3,14 @@ import configuration from './auth-security-policy.json';
 
 /** Atomic PostgreSQL counter shared across Worker instances; raw emails are never stored. */
 export async function loginRateLimit(db: Client, subjectHash: string): Promise<number | null> {
-  const {maxAttempts,windowSeconds}=configuration.login;
+  return authRateLimit(db,subjectHash,'login');
+}
+
+export type AuthOperation = keyof typeof configuration;
+
+/** Call before BEGIN so a rejected/rolled-back mutation still consumes an attempt. */
+export async function authRateLimit(db: Client, subjectHash: string, operation: AuthOperation): Promise<number | null> {
+  const {maxAttempts,windowSeconds}=configuration[operation];
   const result=await db.query(`INSERT INTO auth_rate_limits(subject_hash,attempts,reset_at)
     VALUES($1,1,NOW()+($2 * INTERVAL '1 second'))
     ON CONFLICT(subject_hash) DO UPDATE SET
