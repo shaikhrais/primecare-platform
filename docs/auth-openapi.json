@@ -11,7 +11,7 @@
       "post": {
         "operationId": "login",
         "summary": "Authenticate an active account",
-        "description": "Normalizes email. Rejects ambiguous duplicate accounts. Ten attempts per normalized email per 60 seconds, including successful attempts. Stores only a token hash; session expires after 12 hours. Sets Secure HttpOnly SameSite=Lax session cookie.",
+        "description": "Normalizes email. Rejects ambiguous duplicate accounts. Ten attempts per normalized email per 60 seconds, including successful attempts. Stores only a token hash; session expires after 12 hours. Sets Secure HttpOnly SameSite=Lax session cookie. Limit: 10 attempts per 60 seconds per normalized email. Failed and denied valid-input attempts count; Retry-After is returned on 429.",
         "x-governance-id": 2,
         "security": [],
         "responses": {
@@ -107,7 +107,7 @@
             }
           },
           "429": {
-            "description": "Login attempts exhausted",
+            "description": "Authentication attempts exhausted",
             "headers": {
               "Cache-Control": {
                 "schema": {
@@ -473,7 +473,7 @@
       "post": {
         "operationId": "createAccount",
         "summary": "Create an authorized same-tenant account",
-        "description": "No public registration. CEO and HR allowlists come from account-policy.json generated from governance. Tenant is resolved from the actor, never accepted from the body. Creates bcrypt hash and account audit in one transaction. Duplicate email returns 409. Cookie-only requests are rejected.",
+        "description": "No public registration. CEO and HR allowlists come from account-policy.json generated from governance. Tenant is resolved from the actor, never accepted from the body. Creates bcrypt hash and account audit in one transaction. Duplicate email returns 409. Cookie-only requests are rejected. Limit: 10 attempts per 60 seconds per authenticated user across sessions. Failed and denied valid-input attempts count; Retry-After is returned on 429.",
         "x-governance-id": 1,
         "security": [
           {
@@ -636,6 +636,38 @@
               }
             }
           },
+          "429": {
+            "description": "Authentication attempts exhausted",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds until next attempt"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
           "503": {
             "description": "Service unavailable; details withheld",
             "headers": {
@@ -768,7 +800,7 @@
       "post": {
         "operationId": "manageAccount",
         "summary": "Update account role and status",
-        "description": "CEO only, same tenant, no self-modification. Both role and status are required. Revokes every target session and writes previous/new state to audit in the same transaction. Missing and cross-tenant targets both return 404. Cookie-only requests are rejected.",
+        "description": "CEO only, same tenant, no self-modification. Both role and status are required. Revokes every target session and writes previous/new state to audit in the same transaction. Missing and cross-tenant targets both return 404. Cookie-only requests are rejected. Limit: 10 attempts per 60 seconds per authenticated user across sessions. Failed and denied valid-input attempts count; Retry-After is returned on 429.",
         "x-governance-id": 11,
         "security": [
           {
@@ -931,6 +963,38 @@
               }
             }
           },
+          "429": {
+            "description": "Authentication attempts exhausted",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds until next attempt"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
           "503": {
             "description": "Service unavailable; details withheld",
             "headers": {
@@ -1061,7 +1125,7 @@
       "post": {
         "operationId": "changePassword",
         "summary": "Change your password",
-        "description": "Requires current password and active bearer session. New password must differ. Writes bcrypt hash, revokes all sessions and appends audit atomically, then clears cookie. Login again after success. This is not password recovery.",
+        "description": "Requires current password and active bearer session. New password must differ. Writes bcrypt hash, revokes all sessions and appends audit atomically, then clears cookie. Login again after success. This is not password recovery. Limit: 5 attempts per 60 seconds per authenticated user across sessions. Failed and denied valid-input attempts count; Retry-After is returned on 429.",
         "x-governance-id": 277,
         "security": [
           {
@@ -1132,6 +1196,38 @@
                 "schema": {
                   "const": "no-store"
                 }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Authentication attempts exhausted",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds until next attempt"
               }
             },
             "content": {
