@@ -12,18 +12,19 @@ pending; ⬜ pending; ⛔ external prerequisite. No indicator below means produc
 | Other endpoint throttling / abuse controls | ⬜ Pending | Login counter is not a platform-wide abuse control |
 | CEO account role/status management | ✅ Isolated PostgreSQL | Run 36458402955 passed; UUID-case regression additionally passes locally |
 | Password change | ✅ Isolated PostgreSQL | Run 36458402955 passed; old password/session rejection and new password login verified |
-| Password recovery and delivery | ⬜ Pending | Requires approved delivery configuration and single-use token flow |
+| Password recovery and delivery | ⛔ Requirements and delivery missing | See AUTH_RECOVERY_GOVERNANCE_GAP.md; registered routes have no approved schemas or permission keys |
 | Auth OpenAPI | 🔄 Seven governed operations exported | Approved GET/POST session lookup compatibility implemented; production contract verification pending |
 | Production schema checks and migrations | ⛔ Not run | Validate tenant/user types; apply audit and rate-limit migrations before deploying code |
 | Production first CEO | ⛔ Setup values required | Existing tenant UUID and CEO credentials in protected GitHub secrets |
 | Deployment and public URL journeys | ⬜ Pending | Do not claim production authentication until tested |
 | Auth pages | ⬜ Deferred | API verification first |
 
-Current local suite: 48 passing tests including schema validation, auth handlers, client transport,
+Current local suite: 49 passing tests including schema validation, auth handlers, client transport,
 bootstrap, management and password change. UUID normalization and a regression test
 prevent case changes from bypassing the CEO self-modification prohibition.
 Account-management and password-change PostgreSQL run 36458402955 completed
-successfully. Latest GET/POST compatibility changes await their own CI result.
+successfully. Run 36460028606 also passed the GET/POST compatibility unit tests,
+type checks and real PostgreSQL schema preflight/lifecycle integration.
 
 The per-email login throttle deliberately counts both valid and invalid attempts.
 This can temporarily throttle a targeted account. It is not a substitute for
