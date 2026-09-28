@@ -13,7 +13,7 @@ const tenantId=randomUUID(),actorId=randomUUID(),suffix=randomUUID();
 const email=`auth-smoke-${suffix}@example.invalid`;
 const targetEmail=`auth-target-${suffix}@example.invalid`;
 const password=randomBytes(24).toString('base64url');
-let targetId,fixtureCreated=false,passed=0;
+let targetId,fixtureCreated=false,passed=0,phase='connect';
 const check=(value,message)=>{assert.ok(value,message);passed++;console.log('PASS '+message);};
 async function call(path,method='GET',body,token,extra={}) {
  const response=await fetch(new URL(path,gateway),{method,redirect:'error',
@@ -24,8 +24,10 @@ async function call(path,method='GET',body,token,extra={}) {
 try {
  await db.connect();
  await db.query('BEGIN');
- try {
+  try {
+  phase='create QA tenant';
   await db.query("INSERT INTO tenants(id,name,slug,status,updated_at) VALUES($1,'Temporary authentication QA tenant',$2,'active',NOW())",[tenantId,'auth-smoke-'+suffix]);
+  phase='create QA actor';
   await db.query("INSERT INTO users(id,email,tenant_id,roles,password_hash,status,updated_at) VALUES($1,$2,$3,'ceo',$4,'active',NOW())",[actorId,email,tenantId,await bcrypt.hash(password,12)]);
   await db.query('COMMIT');fixtureCreated=true;
  } catch(error){await db.query('ROLLBACK');throw error;}
@@ -58,8 +60,11 @@ try {
  check((await call('/v1/auth/logout','POST',{},relogin.data.token)).status===200,'logout succeeds');
  check((await call('/v1/auth/me','GET',undefined,relogin.data.token)).status===401,'logged-out session rejected');
  console.log(`Production auth smoke passed ${passed} checks.`);
-} catch {
+} catch(error) {
  console.error(`Production auth smoke failed after ${passed} checks. No credentials or response bodies logged.`);
+ const codes={'23502':'required field missing','23503':'foreign key mismatch','23505':'unique constraint conflict','42703':'column missing','42P01':'table missing','42501':'permission denied','28P01':'database authentication rejected'};
+ console.error('Phase: '+phase+'; reason: '+(codes[error?.code]??'request or assertion failed'));
+ for(const key of ['table','column']) if(typeof error?.[key]==='string' && /^[a-z_]{1,64}$/.test(error[key])) console.error('Schema '+key+': '+error[key]);
  process.exitCode=1;
 } finally {
  if(fixtureCreated) {
