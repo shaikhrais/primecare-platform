@@ -3,6 +3,14 @@ name: Build Android Distributions
 on:
   push:
     branches: [ "main" ]
+    paths-ignore:
+      - 'docs/**'
+      - 'cloudflare/**'
+      - 'websites/typescript/**'
+      - 'scripts/test-auth-*.mjs'
+      - 'scripts/check-auth-schema.mjs'
+      - 'scripts/export-auth-openapi.py'
+      - '.github/workflows/auth-worker-tests.yml'
   workflow_dispatch:
 
 jobs:
