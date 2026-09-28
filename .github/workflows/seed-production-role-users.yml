@@ -1,0 +1,62 @@
+name: Seed Production QA Role Users
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: Type CREATE_QA_ROLE_USERS to authorize the production database upsert
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: primecare-production-role-user-seed
+  cancel-in-progress: false
+
+jobs:
+  seed:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+    env:
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      TEST_DEFAULT_PASSWORD: ${{ secrets.TEST_DEFAULT_PASSWORD }}
+    steps:
+      - name: Validate authorization and secrets
+        run: |
+          set -euo pipefail
+          test "${{ inputs.confirm }}" = "CREATE_QA_ROLE_USERS"
+          test -n "${PRODUCTION_DATABASE_URL}" || { echo '::error::Missing PRODUCTION_DATABASE_URL'; exit 1; }
+          test -n "${TEST_DEFAULT_PASSWORD}" || { echo '::error::Missing TEST_DEFAULT_PASSWORD'; exit 1; }
+
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install seeding dependencies
+        run: npm install --no-save --ignore-scripts pg@8.16.3 bcryptjs@3.0.2
+
+      - name: Test seed validation
+        run: node scripts/test-seed-production-role-users.mjs
+
+      - name: Export active governed roles
+        run: |
+          python3 - <<'PY'
+          import json, sqlite3
+          connection = sqlite3.connect('.agents/governance/governance.db')
+          connection.row_factory = sqlite3.Row
+          roles = [dict(row) for row in connection.execute(
+              "SELECT id, role_code, test_email FROM roles WHERE active = 1 ORDER BY id"
+          )]
+          if not roles:
+              raise SystemExit('No active governed roles found')
+          with open('active-role-users.json', 'w', encoding='utf-8') as output:
+              json.dump(roles, output)
+          print(f'Exported {len(roles)} active governed roles')
+          PY
+
+      - name: Create QA tenant and role users
+        run: node scripts/seed-production-role-users.mjs active-role-users.json
