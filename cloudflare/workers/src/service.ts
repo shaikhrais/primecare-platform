@@ -11,7 +11,7 @@ function cors(origin: string | null): HeadersInit {
   return {
     'access-control-allow-origin': origin ?? '*',
     'access-control-allow-methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
-    'access-control-allow-headers': 'Authorization,Content-Type,X-Device-Id,X-Tenant-Id',
+    'access-control-allow-headers': 'Authorization,Content-Type,X-Device-Id,X-Tenant-Id,X-Requested-With,X-Device-Fingerprint,X-Request-Id,X-Correlation-Id,X-Request-Signature,X-App-Version',
     vary: 'Origin',
   };
 }
