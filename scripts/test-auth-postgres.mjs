@@ -34,8 +34,11 @@ const call = (path, method='GET', body, token) => auth(new Request('https://auth
   ...(body===undefined?{}:{body:JSON.stringify(body)}),
 }), env, path, {});
 try {
-  await db.query(await readFile('services/auth_api/dev_schema.sql','utf8'));
-  await db.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS tenant_id UUID');
+  const textIds=process.env.AUTH_TEST_ID_TYPE==='text';
+  if(textIds) await db.query("CREATE TABLE IF NOT EXISTS users(id TEXT PRIMARY KEY,email TEXT UNIQUE NOT NULL,roles TEXT NOT NULL,password_hash TEXT,status TEXT NOT NULL DEFAULT 'active')");
+  else await db.query(await readFile('services/auth_api/dev_schema.sql','utf8'));
+  await db.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS tenant_id '+(textIds?'TEXT':'UUID'));
+  await db.query(await readFile('packages/database/migrations/20260925_auth_identity_compatibility.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260926_auth_sessions.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_account_audit.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_rate_limits.sql','utf8'));
@@ -43,8 +46,8 @@ try {
   await db.query(await readFile('packages/database/migrations/20260928_auth_password_audit.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_bootstrap_audit.sql','utf8'));
   assert.deepEqual(await checkAuthSchema(connectionString),[]); passed++;
-  userId = (await db.query('INSERT INTO users(email,roles,password_hash,status) VALUES($1,$2,$3,$4) RETURNING id',
-    [email,'fixture-role',await bcrypt.hash(password,12),'active'])).rows[0].id;
+  userId = (await db.query('INSERT INTO users(email,roles,password_hash,status,id) VALUES($1,$2,$3,$4,$5) RETURNING id',
+    [email,'fixture-role',await bcrypt.hash(password,12),'active',textIds?'fixture_'+randomUUID():randomUUID()])).rows[0].id;
   const login = await call('/login','POST',{email,password});
   assert.equal(login.status,200); const {token}=await login.json(); passed++;
   const stored = await db.query('SELECT token_hash FROM auth_sessions WHERE user_id=$1',[userId]);

@@ -967,7 +967,7 @@
                 "properties": {
                   "id": {
                     "type": "string",
-                    "format": "uuid"
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                   },
                   "role": {
                     "type": "string",

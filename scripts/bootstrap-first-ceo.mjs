@@ -1,6 +1,7 @@
 import { Client } from 'pg';
 import bcrypt from 'bcryptjs';
 import { pathToFileURL } from 'node:url';
+import {randomUUID} from 'node:crypto';
 
 export function validateBootstrap(input) {
   const email = String(input.email || '').trim().toLowerCase();
@@ -8,8 +9,8 @@ export function validateBootstrap(input) {
   const password = String(input.password || '');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254)
     throw new Error('Invalid bootstrap email');
-  if (!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(tenant))
-    throw new Error('An existing tenant UUID is required');
+  if (!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(tenant))
+    throw new Error('An existing tenant identifier is required');
   if (password.length < 12 || Buffer.byteLength(password,'utf8') > 72)
     throw new Error('Bootstrap password requires 12 characters minimum and 72 UTF-8 bytes maximum');
   return {email,tenant,password};
@@ -28,7 +29,7 @@ export async function bootstrap(db, input) {
     await db.query('SELECT pg_advisory_xact_lock(hashtext($1))',[email]);
     const duplicate=await db.query('SELECT id FROM users WHERE LOWER(email)=$1 LIMIT 1',[email]);
     if(duplicate.rows.length) throw new Error('Existing account cannot be promoted or overwritten by bootstrap');
-    const result=await db.query("INSERT INTO users(email,tenant_id,roles,password_hash,status) VALUES($1,$2,'ceo',$3,'active') RETURNING id",[email,tenant,hash]);
+    const result=await db.query("INSERT INTO users(email,tenant_id,roles,password_hash,status,id) VALUES($1,$2,'ceo',$3,'active',$4) RETURNING id",[email,tenant,hash,randomUUID()]);
     const id=result.rows[0].id;
     await db.query("INSERT INTO auth_bootstrap_audit(user_id,tenant_id,source) VALUES($1,$2,'protected_workflow')",[id,tenant]);
     await db.query('COMMIT');

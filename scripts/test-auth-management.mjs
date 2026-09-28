@@ -22,7 +22,7 @@ test('cross-tenant or missing target causes no mutation',async()=>{
 });
 test('UUID casing cannot bypass self-modification protection',async()=>{
  const id='aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
- assert.equal(validateAccountUpdate({...input,id:id.toUpperCase()}).id,id);
+ assert.equal(validateAccountUpdate({...input,id:id.toUpperCase()}).id,id.toUpperCase());
  assert.equal(validateAccountUpdate({...input,id:'-'.repeat(36)}),null);
  const db=fixture();
  assert.equal((await manageAccount(db,{...actor,id},{...input,id:id.toUpperCase()})).status,403);

@@ -39,7 +39,7 @@ def build():
          [{'bearerSession': []}], [400, 401, 403, 409, 503],
          'No public registration. CEO and HR allowlists come from account-policy.json generated from governance. Tenant is resolved from the actor, never accepted from the body. Creates bcrypt hash and account audit in one transaction. Duplicate email returns 409. Cookie-only requests are rejected.'),
         ('/v1/admin/users', 'post', 'manageAccount', 'Update account role and status',
-         obj({'id': {'type': 'string', 'format': 'uuid'}, 'role': {'type': 'string', 'enum': policy['ceo']},
+         obj({'id': {'type': 'string', 'pattern': '^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$'}, 'role': {'type': 'string', 'enum': policy['ceo']},
               'status': {'enum': ['active', 'inactive']}}), obj({'user': user}), 200,
          [{'bearerSession': []}], [400, 401, 403, 404, 503],
          'CEO only, same tenant, no self-modification. Both role and status are required. Revokes every target session and writes previous/new state to audit in the same transaction. Missing and cross-tenant targets both return 404. Cookie-only requests are rejected.'),

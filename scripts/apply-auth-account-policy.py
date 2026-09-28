@@ -36,7 +36,7 @@ def apply(db):
           'properties':{'currentPassword':{'type':'string','minLength':1},'newPassword':{'type':'string','minLength':12,'description':'Maximum 72 UTF-8 bytes'}}}
         db.execute("UPDATE api_endpoints SET request_schema=?,permission_key='authenticated_self_with_current_password',implementation_status='in_progress' WHERE route_path='/v1/user/change-password' AND http_method='POST'",(json.dumps(password_schema),))
         update_schema={'type':'object','additionalProperties':False,'required':['id','role','status'],
-          'properties':{'id':{'type':'string','format':'uuid'},'role':{'type':'string','enum':sorted(roles)},
+          'properties':{'id':{'type':'string','pattern':'^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$'},'role':{'type':'string','enum':sorted(roles)},
                         'status':{'enum':['active','inactive']}}}
         db.execute("UPDATE api_endpoints SET request_schema=?,permission_key='auth_account_management_policy',implementation_status='in_progress' WHERE route_path='/v1/admin/users' AND http_method='POST'",(json.dumps(update_schema),))
         db.execute('''CREATE TABLE IF NOT EXISTS auth_account_creation_policy (

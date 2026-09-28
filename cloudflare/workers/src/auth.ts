@@ -135,8 +135,8 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
         const duplicate = await db.query('SELECT id FROM users WHERE LOWER(email)=$1 LIMIT 1',[email]);
         if (duplicate.rows.length) { await db.query('ROLLBACK'); return json({error:'Account cannot be created'},409,headers); }
         const created = await db.query(
-          "INSERT INTO users(email,tenant_id,roles,password_hash,status) VALUES($1,$2,$3,$4,'active') RETURNING id,email,tenant_id,roles,status",
-          [email,actor.tenant_id,role,await bcrypt.hash(password,12)]);
+          "INSERT INTO users(email,tenant_id,roles,password_hash,status,id) VALUES($1,$2,$3,$4,'active',$5) RETURNING id,email,tenant_id,roles,status",
+          [email,actor.tenant_id,role,await bcrypt.hash(password,12),crypto.randomUUID()]);
         await db.query("INSERT INTO auth_account_audit(actor_user_id,target_user_id,tenant_id,action) VALUES($1,$2,$3,'account_created')",
           [actor.id,created.rows[0].id,actor.tenant_id]);
         await db.query('COMMIT');

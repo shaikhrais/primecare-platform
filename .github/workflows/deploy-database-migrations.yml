@@ -1,11 +1,6 @@
 name: Deploy Database Migrations
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'packages/database/migrations/**'
-      - '.github/workflows/deploy-database-migrations.yml'
   workflow_dispatch:
 
 permissions:

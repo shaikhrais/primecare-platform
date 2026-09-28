@@ -16,7 +16,7 @@ function fixture(mode){
 }
 test('validates inputs without accepting short or overlong bcrypt passwords',()=>{
  assert.equal(validateBootstrap(input).email,input.email);
- for(const change of [{tenant:'bad'},{email:'bad'},{password:'short'},{password:'a'.repeat(73)}])
+ for(const change of [{tenant:''},{tenant:'invalid tenant'},{email:'bad'},{password:'short'},{password:'a'.repeat(73)}])
    assert.throws(()=>validateBootstrap({...input,...change}));
 });
 test('creates first CEO and audit in same transaction without returning credentials',async()=>{

@@ -15,7 +15,9 @@ export const requirements = {
 export function schemaProblems(rows) {
  const columns=new Map(rows.map(r=>[`${r.table_name}.${r.column_name}`,r.udt_name]));
  const problems=[];
- for(const [table,fields] of Object.entries(requirements)) for(const [column,type] of Object.entries(fields)) {
+ for(const [table,fields] of Object.entries(requirements)) for(const [column,declaredType] of Object.entries(fields)) {
+  const base=columns.get(column==='tenant_id'?'users.tenant_id':'users.id');
+  const type=declaredType==='uuid' && ['text','varchar'].includes(base)?'text':declaredType;
   const actual=columns.get(`${table}.${column}`);
   if(actual!==type && !(type==='text' && actual==='varchar'))
    problems.push(`${table}.${column}: expected ${type}, found ${actual??'missing'}`);
