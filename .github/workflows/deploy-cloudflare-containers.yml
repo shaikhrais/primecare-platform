@@ -60,35 +60,40 @@ jobs:
       - name: Deploy every API Worker and container
         run: |
           set -euo pipefail
+          : > worker-urls.txt
           services=(auth client provider visit notes billing scheduling notification verification compliance governance franchise-reporting)
           for service in "${services[@]}"; do
             config=".cloudflare-generated/${service}.jsonc"
             printf '%s' "${PRODUCTION_DATABASE_URL}" | npx wrangler secret put DATABASE_URL --config "${config}"
-            npx wrangler deploy --config "${config}" --containers-rollout=immediate
-          done
-
-      - name: Wait for and verify all public API URLs
-        env:
-          SUBDOMAIN: ${{ steps.domain.outputs.subdomain }}
-        run: |
-          set -euo pipefail
-          : > worker-urls.txt
-          services=(auth client provider visit notes billing scheduling notification verification compliance governance franchise-reporting)
-          for service in "${services[@]}"; do
-            url="https://primecare-${service}-api.${SUBDOMAIN}.workers.dev"
-            curl --fail --show-error --retry 20 --retry-all-errors --retry-delay 10 "${url}/health"
+            output="$(npx wrangler deploy --config "${config}" --containers-rollout=immediate 2>&1 | tee /dev/stderr)"
+            url="$(grep -Eo 'https://[^[:space:]]+\\.workers\\.dev' <<<"${output}" | tail -1)"
+            test -n "${url}" || { echo "::error::Wrangler did not return a public URL for ${service}"; exit 1; }
             printf '%s=%s\n' "${service}" "${url}" | tee -a worker-urls.txt
           done
 
-      - name: Deploy service-bound API gateway Worker
-        run: npx wrangler deploy --config .cloudflare-generated/gateway.jsonc
+      - name: Wait for and verify all public API URLs
+        run: |
+          set -euo pipefail
+          while IFS='=' read -r service url; do
+            curl --fail --show-error --retry 20 --retry-all-errors --retry-delay 10 "${url}/health"
+          done < worker-urls.txt
+
+      - id: gateway
+        name: Deploy service-bound API gateway Worker
+        run: |
+          set -euo pipefail
+          output="$(npx wrangler deploy --config .cloudflare-generated/gateway.jsonc 2>&1 | tee /dev/stderr)"
+          gateway="$(grep -Eo 'https://[^[:space:]]+\\.workers\\.dev' <<<"${output}" | tail -1)"
+          test -n "${gateway}" || { echo "::error::Wrangler did not return the gateway URL"; exit 1; }
+          echo "url=${gateway}" >> "${GITHUB_OUTPUT}"
+          printf '%s=%s\n' gateway "${gateway}" >> worker-urls.txt
 
       - name: Verify gateway and publish URLs
         env:
-          SUBDOMAIN: ${{ steps.domain.outputs.subdomain }}
+          GATEWAY_URL: ${{ steps.gateway.outputs.url }}
         run: |
           set -euo pipefail
-          gateway="https://primecare-api-gateway.${SUBDOMAIN}.workers.dev"
+          gateway="${GATEWAY_URL}"
           curl --fail --show-error --retry 20 --retry-all-errors --retry-delay 10 "${gateway}/health"
           for route in auth client provider visit notes billing scheduling notification verification compliance governance franchise-reporting; do
             curl --fail --show-error --retry 5 --retry-all-errors "${gateway}/v1/${route}/health"
