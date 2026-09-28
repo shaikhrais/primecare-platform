@@ -55,10 +55,11 @@ jobs:
           services=(auth client provider visit notes billing scheduling notification verification compliance governance franchise-reporting)
           for service in "${services[@]}"; do
             config=".cloudflare-workers/${service}.jsonc"
-            printf '%s' "${PRODUCTION_DATABASE_URL}" | npx wrangler secret put DB_URL --config "${config}"
             output="$(npx wrangler deploy --config "${config}" 2>&1 | tee /dev/stderr)"
             url="$(grep -Eo 'https://[^[:space:]]+\.workers\.dev' <<<"${output}" | tail -1)"
             test -n "${url}" || { echo "::error::No public URL returned for ${service}"; exit 1; }
+            # A Worker must exist before its encrypted secrets can be attached.
+            printf '%s' "${PRODUCTION_DATABASE_URL}" | npx wrangler secret put DB_URL --config "${config}"
             printf '%s=%s\n' "${service}" "${url}" | tee -a worker-urls.txt
           done
 
