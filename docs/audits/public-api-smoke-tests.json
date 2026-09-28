@@ -1,0 +1,126 @@
+{
+  "mode": "production smoke; no credentials or business writes",
+  "total": 17,
+  "passed": 0,
+  "results": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/auth/health",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/client/health",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/provider/health",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/visit/health",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/notes/health",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/billing/health",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/scheduling/health",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/notification/health",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/verification/health",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/compliance/health",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/governance/health",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/franchise-reporting/health",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/auth/me",
+      "expected": 401,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "POST",
+      "path": "/v1/auth/login",
+      "expected": 400,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/openapi.json",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    },
+    {
+      "method": "GET",
+      "path": "/docs",
+      "expected": 200,
+      "status": 403,
+      "passed": false
+    }
+  ]
+}

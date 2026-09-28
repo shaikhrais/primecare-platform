@@ -1,3 +1,5 @@
+import { login } from './auth-client';
+
 type ElementSpec = { key: string; type: string; label: string; testId: string; required: boolean };
 type SectionSpec = { code: string; name: string; type: string; purpose: string; testId: string; elements: ElementSpec[] };
 type ScreenSpec = { id: number; code: string; name: string; route: string; roleId: number | null; roleName: string; stage: string; implementation: string; api: string; sections: SectionSpec[] };
@@ -60,13 +62,8 @@ function renderAuth(manifest: PortalManifest): void {
     status.value = 'Signing in…';
     const fields = new FormData(form);
     try {
-      const response = await fetch(`${manifest.apiGateway}/v1/auth/api/auth/login`, {
-        method: 'POST', headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email: fields.get('email'), password: fields.get('password') }),
-      });
-      const payload = await response.json() as { error?: string; token?: string };
-      if (!response.ok) throw new Error(payload.error || `HTTP ${response.status}`);
-      if (payload.token) sessionStorage.setItem('primecare_session', payload.token);
+      const token = await login(manifest.apiGateway, String(fields.get('email') || ''), String(fields.get('password') || ''));
+      sessionStorage.setItem('primecare_session', token);
       status.value = 'Sign in successful';
     } catch (error) { status.value = error instanceof Error ? error.message : 'Sign in failed'; }
   });
