@@ -16,6 +16,18 @@ def apply(db):
           entry_point TEXT NOT NULL, scope TEXT NOT NULL, overwrite_existing INTEGER NOT NULL CHECK(overwrite_existing=0))''')
         db.execute('INSERT OR IGNORE INTO auth_setup_policy VALUES(?,?,?,?,0)',
           ('first_ceo','ceo','protected_workflow','existing_active_tenant_without_ceo'))
+        db.execute('''CREATE TABLE IF NOT EXISTS auth_account_management_policy (
+          actor_role_code TEXT PRIMARY KEY, scope TEXT NOT NULL,
+          permitted_fields TEXT NOT NULL, self_modification INTEGER NOT NULL CHECK(self_modification=0))''')
+        db.execute('INSERT OR IGNORE INTO auth_account_management_policy VALUES(?,?,?,0)',
+                   ('ceo','same_tenant','roles,status'))
+        password_schema={'type':'object','additionalProperties':False,'required':['currentPassword','newPassword'],
+          'properties':{'currentPassword':{'type':'string','minLength':1},'newPassword':{'type':'string','minLength':12,'description':'Maximum 72 UTF-8 bytes'}}}
+        db.execute("UPDATE api_endpoints SET request_schema=?,permission_key='authenticated_self_with_current_password',implementation_status='in_progress' WHERE route_path='/v1/user/change-password' AND http_method='POST'",(json.dumps(password_schema),))
+        update_schema={'type':'object','additionalProperties':False,'required':['id','role','status'],
+          'properties':{'id':{'type':'string','format':'uuid'},'role':{'type':'string','enum':sorted(roles)},
+                        'status':{'enum':['active','inactive']}}}
+        db.execute("UPDATE api_endpoints SET request_schema=?,permission_key='auth_account_management_policy',implementation_status='in_progress' WHERE route_path='/v1/admin/users' AND http_method='POST'",(json.dumps(update_schema),))
         db.execute('''CREATE TABLE IF NOT EXISTS auth_account_creation_policy (
           actor_role_id INTEGER NOT NULL REFERENCES roles(id),
           target_role_id INTEGER NOT NULL REFERENCES roles(id),

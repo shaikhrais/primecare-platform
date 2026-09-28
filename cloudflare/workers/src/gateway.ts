@@ -41,6 +41,14 @@ export default {
       return new Response(null, { status: origin && headers.has('Access-Control-Allow-Origin') ? 204 : 403, headers });
     }
     const url = new URL(request.url);
+    if(url.pathname==='/v1/user/change-password' && request.method==='POST') {
+      url.hostname='service';url.pathname='/change-password';
+      return withGatewayHeaders(request,await env.AUTH.fetch(new Request(url,request)));
+    }
+    if(url.pathname==='/v1/admin/users' && request.method==='POST') {
+      url.hostname='service';url.pathname='/admin/users';
+      return withGatewayHeaders(request,await env.AUTH.fetch(new Request(url,request)));
+    }
     if (url.pathname === '/health') {
       const unique = Object.entries(routes).filter(([name]) => !['providers', 'visits', 'notifications'].includes(name));
       const checks = await Promise.all(unique.map(async ([name, binding]) => {

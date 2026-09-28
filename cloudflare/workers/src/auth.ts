@@ -2,6 +2,8 @@ import { Client } from 'pg';
 import bcrypt from 'bcryptjs';
 import accountPolicy from './account-policy.json';
 import {loginRateLimit} from './auth-rate-limit';
+import {manageAccount,validateAccountUpdate} from './account-management';
+import {changePassword,validatePasswordChange} from './password-change';
 
 export interface Env { DB_URL: string; SERVICE_NAME: string }
 type Json = Record<string, unknown>;
@@ -63,6 +65,42 @@ export async function auth(request: Request, env: Env, path: string, headers: He
 }
 
 async function handleAuth(request: Request, env: Env, path: string, headers: HeadersInit): Promise<Response | null> {
+  if(path==='/change-password' && request.method==='POST') {
+    const token=request.headers.has('authorization')?tokenFrom(request):null;
+    if(!token)return json({error:'No session'},401,headers);
+    let input;
+    try{input=validatePasswordChange(await parseBody(request));}catch{return json({error:'Invalid request'},400,headers);}
+    if(!input)return json({error:'Invalid password fields'},400,headers);
+    return withDb(env,async db=>{
+      await db.query('BEGIN');
+      try{
+        const user=(await db.query("SELECT u.id,u.password_hash FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' FOR UPDATE OF u,s",[await sha256(token)])).rows[0];
+        if(!user){await db.query('ROLLBACK');return json({error:'Invalid session'},401,headers);}
+        const result=await changePassword(db,user,input);
+        await db.query(result.status===200?'COMMIT':'ROLLBACK');
+        return json(result.body,result.status,result.status===200?{...headers,'set-cookie':'session_token=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0'}:headers);
+      }catch(error){await db.query('ROLLBACK');throw error;}
+    });
+  }
+  if(path==='/admin/users' && request.method==='POST') {
+    const token=request.headers.has('authorization')?tokenFrom(request):null;
+    if(!token) return json({error:'No session'},401,headers);
+    let input;
+    try{input=validateAccountUpdate(await parseBody(request));}catch{return json({error:'Invalid request'},400,headers);}
+    if(!input) return json({error:'Invalid account fields'},400,headers);
+    return withDb(env,async db=>{
+      await db.query('BEGIN');
+      try{
+        const actor=(await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' FOR SHARE OF u,s",[await sha256(token)])).rows[0];
+        if(!actor){await db.query('ROLLBACK');return json({error:'Invalid session'},401,headers);}
+        const tenant=request.headers.get('x-tenant-id');
+        if(tenant && tenant!==String(actor.tenant_id)){await db.query('ROLLBACK');return json({error:'Forbidden'},403,headers);}
+        const result=await manageAccount(db,actor,input);
+        await db.query(result.status===200?'COMMIT':'ROLLBACK');
+        return json(result.body,result.status,headers);
+      }catch(error){await db.query('ROLLBACK');throw error;}
+    });
+  }
   if (request.method === 'POST' && path === '/register') {
     // Creation accepts explicit bearer credentials, never ambient cookies.
     const token = request.headers.has('authorization') ? tokenFrom(request) : null;

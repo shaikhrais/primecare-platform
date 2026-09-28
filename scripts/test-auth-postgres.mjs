@@ -38,6 +38,8 @@ try {
   await db.query(await readFile('packages/database/migrations/20260926_auth_sessions.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_account_audit.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_rate_limits.sql','utf8'));
+  await db.query(await readFile('packages/database/migrations/20260928_auth_management_audit.sql','utf8'));
+  await db.query(await readFile('packages/database/migrations/20260928_auth_password_audit.sql','utf8'));
   userId = (await db.query('INSERT INTO users(email,roles,password_hash,status) VALUES($1,$2,$3,$4) RETURNING id',
     [email,'fixture-role',await bcrypt.hash(password,12),'active'])).rows[0].id;
   const login = await call('/login','POST',{email,password});
@@ -71,16 +73,26 @@ try {
   assert.equal((await call('/register','POST',{...account,email:'forbidden@example.invalid'},staff.token)).status,403);passed++;
   const cross=new Request('https://auth.test/register',{method:'POST',headers:{authorization:'Bearer '+admin.token,'content-type':'application/json','x-tenant-id':randomUUID()},body:JSON.stringify({...account,email:'cross@example.invalid'})});
   assert.equal((await auth(cross,env,'/register',{})).status,403);passed++;
+  assert.equal((await call('/admin/users','POST',{id:createdId,role:'rmt',status:'inactive'},admin.token)).status,200);
+  assert.equal((await call('/me','GET',undefined,staff.token)).status,401);passed++;
+  assert.equal((await db.query('SELECT id FROM auth_management_audit WHERE target_user_id=$1',[createdId])).rowCount,1);passed++;
   const concurrent=await Promise.all(Array.from({length:12},()=>call('/login','POST',{email:rateEmail,password:'not-a-real-password'})));
   assert.equal(concurrent.filter(r=>r.status===401).length,10);
   assert.equal(concurrent.filter(r=>r.status===429).length,2);passed++;
   const rateHash=createHash('sha256').update('login:'+rateEmail).digest('hex');
   await db.query("UPDATE auth_rate_limits SET reset_at=NOW()-INTERVAL '1 second' WHERE subject_hash=$1",[rateHash]);
   assert.equal((await call('/login','POST',{email:rateEmail,password:'not-a-real-password'})).status,401);passed++;
+  const changedPassword=randomUUID();
+  assert.equal((await call('/change-password','POST',{currentPassword:password,newPassword:changedPassword},admin.token)).status,200);passed++;
+  assert.equal((await call('/me','GET',undefined,admin.token)).status,401);
+  assert.equal((await call('/login','POST',{email,password})).status,401);
+  assert.equal((await call('/login','POST',{email,password:changedPassword})).status,200);passed++;
   console.log(JSON.stringify({passed, database:'isolated PostgreSQL', productionVerified:false}));
 } finally {
   // Remove only the uniquely identified synthetic fixture; sessions cascade.
   if(userId) await db.query('DELETE FROM auth_account_audit WHERE actor_user_id=$1',[userId]);
+  if(userId) await db.query('DELETE FROM auth_management_audit WHERE actor_user_id=$1',[userId]);
+  if(userId) await db.query('DELETE FROM auth_password_audit WHERE user_id=$1',[userId]);
   if(createdId) await db.query('DELETE FROM users WHERE id=$1',[createdId]);
   if(userId) await db.query('DELETE FROM users WHERE id=$1 AND email=$2',[userId,email]);
   await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update('login:'+rateEmail).digest('hex')]);
