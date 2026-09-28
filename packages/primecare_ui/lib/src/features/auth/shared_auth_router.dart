@@ -2,6 +2,7 @@
 import 'package:flutter_core/flutter_core.dart';
 import 'package:go_router/go_router.dart';
 import 'login_view.dart';
+import 'auth_experience.dart';
 import 'language_selection_view.dart';
 import 'forgot_password_view.dart';
 import 'reset_password_view.dart';
@@ -102,8 +103,7 @@ class SharedAuthRoutes {
 
   static List<GoRoute> routes() => [
         GoRoute(path: CommonRoutes.authError,
-          builder: (context, state) => AppShellBoundary(child: AuthErrorView(
-            returnUrl: state.uri.queryParameters['returnUrl']))),
+          builder: (context, state) => const AppShellBoundary(child: PrimeAuthExperience(page: AuthPage.error))),
         GoRoute(
           path: CommonRoutes.login,
           builder: (context, state) => const AppShellBoundary(

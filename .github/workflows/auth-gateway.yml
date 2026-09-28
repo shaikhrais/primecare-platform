@@ -119,6 +119,7 @@ jobs:
         run: |
           flutter pub get
           flutter analyze --no-fatal-infos lib
+          flutter test test/auth_design_test.dart
 
       - name: Verify Flutter auth transport failures
         working-directory: packages/flutter_core
