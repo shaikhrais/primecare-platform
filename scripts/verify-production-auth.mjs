@@ -1,0 +1,83 @@
+// Authorized production smoke test: unique synthetic tenant, no real user data.
+import {Client} from 'pg';
+import bcrypt from 'bcryptjs';
+import {randomUUID,randomBytes} from 'node:crypto';
+import assert from 'node:assert/strict';
+
+const gateway=new URL(process.env.GATEWAY_URL||'');
+if(gateway.origin!=='https://primecare-api-gateway.itpro-mohammed.workers.dev')
+ throw new Error('Unexpected production gateway');
+if(process.env.CONFIRM_AUTH_SMOKE!=='VERIFY_AUTH') throw new Error('Auth smoke confirmation required');
+const db=new Client({connectionString:process.env.PRODUCTION_DATABASE_URL,connectionTimeoutMillis:10000});
+const tenantId=randomUUID(),actorId=randomUUID(),suffix=randomUUID();
+const email=`auth-smoke-${suffix}@example.invalid`;
+const targetEmail=`auth-target-${suffix}@example.invalid`;
+const password=randomBytes(24).toString('base64url');
+let targetId,fixtureCreated=false,passed=0;
+const check=(value,message)=>{assert.ok(value,message);passed++;console.log('PASS '+message);};
+async function call(path,method='GET',body,token,extra={}) {
+ const response=await fetch(new URL(path,gateway),{method,redirect:'error',
+  headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{}),...extra},
+  ...(body===undefined?{}:{body:JSON.stringify(body)}),signal:AbortSignal.timeout(15000)});
+ const data=await response.json();return {status:response.status,data};
+}
+try {
+ await db.connect();
+ await db.query('BEGIN');
+ try {
+  await db.query("INSERT INTO tenants(id,name,slug,status,updated_at) VALUES($1,'Temporary authentication QA tenant',$2,'active',NOW())",[tenantId,'auth-smoke-'+suffix]);
+  await db.query("INSERT INTO users(id,email,tenant_id,roles,password_hash,status,updated_at) VALUES($1,$2,$3,'ceo',$4,'active',NOW())",[actorId,email,tenantId,await bcrypt.hash(password,12)]);
+  await db.query('COMMIT');fixtureCreated=true;
+ } catch(error){await db.query('ROLLBACK');throw error;}
+ check((await call('/v1/auth/login','POST',{email,password:'incorrect-fixture-password'})).status===401,'invalid login rejected');
+ const login=await call('/v1/auth/login','POST',{email,password});
+ check(login.status===200&&login.data.role==='ceo'&&login.data.userId===actorId,'login resolves fixture CEO');
+ const token=login.data.token;
+ for(const method of ['GET','POST']) {
+  const me=await call('/v1/auth/me',method,undefined,token);
+  check(me.status===200&&me.data.userId===actorId&&me.data.roles==='ceo',method+' session identity');
+ }
+ check((await call('/v1/auth/register','POST',{email:targetEmail,password,role:'rmt'},token,{'x-tenant-id':randomUUID()})).status===403,'cross-tenant account creation rejected');
+ const create=await call('/v1/auth/register','POST',{email:targetEmail,password,role:'rmt'},token);
+ check(create.status===201&&create.data.user.tenant_id===tenantId,'authorized account creation');
+ targetId=create.data.user.id;
+ const stored=(await db.query('SELECT roles,tenant_id FROM users WHERE id=$1',[targetId])).rows[0];
+ check(stored?.roles==='rmt'&&stored?.tenant_id===tenantId,'created account persisted in fixture tenant');
+ const targetLogin=await call('/v1/auth/login','POST',{email:targetEmail,password});
+ check(targetLogin.status===200&&targetLogin.data.role==='rmt','created account can authenticate');
+ check((await call('/v1/auth/register','POST',{email:'denied-'+suffix+'@example.invalid',password,role:'ceo'},targetLogin.data.token)).status===403,'ordinary role cannot create CEO');
+ const deactivate=await call('/v1/admin/users','POST',{id:targetId,role:'rmt',status:'inactive'},token);
+ check(deactivate.status===200,'CEO can deactivate fixture account');
+ check((await call('/v1/auth/me','GET',undefined,targetLogin.data.token)).status===401,'deactivation revokes target session');
+ const newPassword=randomBytes(24).toString('base64url');
+ check((await call('/v1/user/change-password','POST',{currentPassword:password,newPassword},token)).status===200,'password change succeeds');
+ check((await call('/v1/auth/me','GET',undefined,token)).status===401,'password change revokes old session');
+ check((await call('/v1/auth/login','POST',{email,password})).status===401,'old password rejected');
+ const relogin=await call('/v1/auth/login','POST',{email,password:newPassword});
+ check(relogin.status===200,'new password authenticates');
+ check((await call('/v1/auth/logout','POST',{},relogin.data.token)).status===200,'logout succeeds');
+ check((await call('/v1/auth/me','GET',undefined,relogin.data.token)).status===401,'logged-out session rejected');
+ console.log(`Production auth smoke passed ${passed} checks.`);
+} catch {
+ console.error(`Production auth smoke failed after ${passed} checks. No credentials or response bodies logged.`);
+ process.exitCode=1;
+} finally {
+ if(fixtureCreated) {
+  try {
+   await db.query('BEGIN');
+   // Recover IDs even if the create response was lost; scope every cleanup to this tenant.
+   const users=await db.query('SELECT id FROM users WHERE tenant_id=$1',[tenantId]);
+   const ids=users.rows.map(row=>row.id);
+   for(const id of ids) {
+    await db.query('DELETE FROM auth_sessions WHERE user_id=$1',[id]);
+    await db.query('DELETE FROM auth_password_audit WHERE user_id=$1',[id]);
+   }
+   await db.query('DELETE FROM auth_account_audit WHERE tenant_id=$1',[tenantId]);
+   await db.query('DELETE FROM auth_management_audit WHERE tenant_id=$1',[tenantId]);
+   await db.query('DELETE FROM users WHERE tenant_id=$1',[tenantId]);
+   await db.query('DELETE FROM tenants WHERE id=$1',[tenantId]);
+   await db.query('COMMIT');console.log('Temporary QA tenant and accounts removed.');
+  } catch {await db.query('ROLLBACK').catch(()=>{});console.error('QA cleanup failed; operator review required.');process.exitCode=1;}
+ }
+ await db.end().catch(()=>{});
+}
