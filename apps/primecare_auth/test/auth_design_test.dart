@@ -10,10 +10,15 @@ class GuestAuth extends AuthNotifier {
   AuthState build() => AuthState(isInitialized: true);
 }
 
-Widget localized(Widget child) => EasyLocalization(
+Widget localized(Widget child, {GoRouter? router}) => EasyLocalization(
   supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
   path: 'assets/translations', fallbackLocale: const Locale('en'),
-  startLocale: const Locale('en'), child: child,
+  startLocale: const Locale('en'),
+  child: Builder(builder: (context) => router == null
+    ? MaterialApp(locale: context.locale, supportedLocales: context.supportedLocales,
+        localizationsDelegates: context.localizationDelegates, home: child)
+    : MaterialApp.router(locale: context.locale, supportedLocales: context.supportedLocales,
+        localizationsDelegates: context.localizationDelegates, routerConfig: router)),
 );
 
 void main() {
@@ -31,7 +36,7 @@ void main() {
         addTearDown(tester.view.resetDevicePixelRatio);
         await tester.pumpWidget(ProviderScope(overrides: [
           authProvider.overrideWith(GuestAuth.new),
-        ], child: localized(MaterialApp(home: MediaQuery(data: MediaQueryData(size: size, textScaler: TextScaler.linear(size.width == 320 ? 2 : 1)), child: PrimeAuthExperience(page: page))))));
+        ], child: localized(MediaQuery(data: MediaQueryData(size: size, textScaler: TextScaler.linear(size.width == 320 ? 2 : 1)), child: PrimeAuthExperience(page: page)))));
         await tester.pumpAndSettle();
         expect(tester.takeException(), isNull);
         expect(find.byType(PrimeAuthExperience), findsOneWidget);
@@ -58,7 +63,7 @@ void main() {
       GoRoute(path: '/forgot-password', builder: (_, __) => const Scaffold(body: Text('Recovery destination'))),
     ]);
     addTearDown(router.dispose);
-    await tester.pumpWidget(ProviderScope(overrides: [authProvider.overrideWith(GuestAuth.new)], child: localized(MaterialApp.router(routerConfig: router))));
+    await tester.pumpWidget(ProviderScope(overrides: [authProvider.overrideWith(GuestAuth.new)], child: localized(const SizedBox.shrink(), router: router)));
     await tester.pumpAndSettle();
     final link = find.text('Forgot password?');
     await tester.ensureVisible(link);
