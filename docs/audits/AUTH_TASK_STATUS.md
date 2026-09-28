@@ -81,3 +81,20 @@ Auth Gateway Verification run 36478586863 passed Flutter analysis, the 125-case
 transport suite, Dart service/gateway checks and PostgreSQL login/logout smoke.
 This is a Flutter source fix on main, not evidence of a published Flutter release.
 No new auth route, permission, or password recovery implementation is introduced.
+
+## Flutter session ownership — 2026-09-28
+
+PR #10 merged as a954ccfe47705d1c150a8fe73153b8ab759d7d7e. Account creation now
+sends only the governed email/password/role fields and keeps the provisioning
+actor signed in. The legacy Dart method signature remains compatible; first/last
+name arguments are not sent because the account-creation contract excludes them.
+
+The security interceptor no longer recursively logs out on a logout 401, treats
+login/current-password credential errors separately, and ignores stale-token
+responses when deciding whether to log out the current session. Logout leaves
+routing initialization complete and clears persisted session data.
+
+Run 36479471041 passed Flutter analysis, all 139 client tests (125 transport and
+14 session regressions), Dart service/gateway checks and PostgreSQL login/logout.
+These fixes are merged source changes; a published Flutter release and end-to-end
+UI verification remain pending. Backend deployment evidence above is unchanged.
