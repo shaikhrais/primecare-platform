@@ -134,6 +134,20 @@ try {
   };
   assert.equal((await call('/login','POST',{email,password:racePassword})).status,401);
   assert.equal((await db.query('SELECT token_hash FROM auth_sessions WHERE user_id=$1',[userId])).rowCount,0);passed++;
+  // Restore the isolated fixture and prove rejected transactions cannot erase
+  // throttling, including attempts made through different sessions.
+  await db.query("UPDATE users SET status='active' WHERE id=$1",[userId]);
+  const mutationHash=createHash('sha256').update('changePassword:'+userId).digest('hex');
+  await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[mutationHash]);
+  const a=(await (await call('/login','POST',{email,password:racePassword})).json()).token;
+  const b=(await (await call('/login','POST',{email,password:racePassword})).json()).token;
+  const attempts=await Promise.all(Array.from({length:7},(_,i)=>call('/change-password','POST',{
+    currentPassword:'incorrect-fixture-password',newPassword:randomUUID(),
+  },i%2?a:b)));
+  assert.equal(attempts.filter(r=>r.status===401).length,5);
+  assert.equal(attempts.filter(r=>r.status===429).length,2);passed++;
+  await db.query("UPDATE auth_rate_limits SET reset_at=NOW()-INTERVAL '1 second' WHERE subject_hash=$1",[mutationHash]);
+  assert.equal((await call('/change-password','POST',{currentPassword:'incorrect',newPassword:randomUUID()},a)).status,401);passed++;
   console.log(JSON.stringify({passed, database:'isolated PostgreSQL', productionVerified:false}));
 } finally {
   globalThis.__authBeforeInsert=null;
@@ -144,6 +158,8 @@ try {
   if(userId) await db.query('DELETE FROM auth_password_audit WHERE user_id=$1',[userId]);
   if(createdId) await db.query('DELETE FROM users WHERE id=$1',[createdId]);
   if(userId) await db.query('DELETE FROM users WHERE id=$1 AND email=$2',[userId,email]);
+  for(const id of [userId,createdId].filter(Boolean)) for(const operation of ['changePassword','createAccount','manageAccount'])
+    await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update(operation+':'+id).digest('hex')]);
   await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update('login:'+rateEmail).digest('hex')]);
   await db.end();
 }
