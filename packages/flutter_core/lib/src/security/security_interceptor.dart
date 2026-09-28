@@ -110,14 +110,18 @@ class SecurityInterceptor extends Interceptor {
       super.onError(err, handler);
       return;
     }
-    final path = err.requestOptions.uri.normalizePath().path;
+    var path = err.requestOptions.uri.normalizePath().path;
+    if (path.startsWith('/api/auth/')) {
+      path = path.replaceFirst('/api/auth/', '/v1/auth/');
+    }
     final session = _ref.read(authProvider);
     final sentToken = err.requestOptions.headers['Authorization'];
     // A failed logout must not recursively call logout. Credential checks can
     // return 401 without invalidating an existing session. A delayed response
     // from an older token must not sign out a newer session.
     final credentialCheck = path == '/v1/auth/login' ||
-        path == '/v1/auth/change-password';
+        path == '/v1/auth/change-password' ||
+        path == '/v1/user/change-password';
     if (err.response?.statusCode == 401 &&
         path != '/v1/auth/logout' &&
         !credentialCheck &&

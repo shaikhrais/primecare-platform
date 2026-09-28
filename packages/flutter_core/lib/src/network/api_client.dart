@@ -380,7 +380,9 @@ class ApiClient {
   // Parse the URI so absolute URLs and query strings receive the same policy.
   static bool _isAuthPath(String path) {
     final route = Uri.tryParse(path)?.normalizePath().path ?? path;
-    return route == '/v1/auth' || route.startsWith('/v1/auth/');
+    return route == '/v1/auth' || route.startsWith('/v1/auth/') ||
+        route == '/api/auth' || route.startsWith('/api/auth/') ||
+        route == '/v1/user/change-password' || route == '/v1/admin/users';
   }
 
   static ApiResponse _authFailure(Object error) {

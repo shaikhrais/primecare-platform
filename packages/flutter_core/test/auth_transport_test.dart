@@ -18,6 +18,9 @@ void main() {
     for (final path in [
       '/v1/auth/forgot-password',
       '/v1/auth/me?probe=1',
+      '/v1/user/change-password',
+      'https://api.example.test/v1/admin/users?probe=1',
+      '/api/auth/login',
       'https://api.example.test/v1/auth/admin/users',
     ]) {
       for (final status in <int?>[400, 401, 403, 409, 429, 500, 503, null]) {
