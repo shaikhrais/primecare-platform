@@ -6,6 +6,7 @@ on:
       - 'services/auth_api/**'
       - 'services/api_gateway/**'
       - 'packages/database_client/**'
+      - 'packages/flutter_core/test/auth_transport_test.dart'
       - 'packages/flutter_core/lib/auth_service.dart'
       - 'packages/flutter_core/lib/src/network/api_client.dart'
       - 'apps/primecare_auth/lib/**'
@@ -112,3 +113,9 @@ jobs:
         run: |
           flutter pub get
           flutter analyze lib/main.dart lib/success_profile/sections/success_profile_action_bar_section.dart
+
+      - name: Verify Flutter auth transport failures
+        working-directory: packages/flutter_core
+        run: |
+          flutter pub get
+          flutter test test/auth_transport_test.dart
