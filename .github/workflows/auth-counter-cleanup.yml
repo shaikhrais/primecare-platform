@@ -1,0 +1,40 @@
+name: Clean expired authentication counters
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: Delete expired counters (false previews only)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: auth-counter-cleanup-production
+  cancel-in-progress: false
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated PostgreSQL dependency
+        run: |
+          mkdir -p "$RUNNER_TEMP/auth-cleanup-dependencies"
+          npm install --prefix "$RUNNER_TEMP/auth-cleanup-dependencies" --ignore-scripts pg@8.16.3
+          ln -s "$RUNNER_TEMP/auth-cleanup-dependencies/node_modules" node_modules
+      - name: Clean expired counters or preview
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          APPLY_CLEANUP: ${{ github.event_name == 'schedule' || inputs.apply }}
+        run: |
+          if [ "$APPLY_CLEANUP" = "true" ]; then
+            node scripts/cleanup-auth-rate-limits.mjs --apply
+          else
+            node scripts/cleanup-auth-rate-limits.mjs
+          fi
