@@ -20,7 +20,7 @@ pending; ⬜ pending; ⛔ external prerequisite. No indicator below means produc
 | Deployment and public API journeys | ✅ Production verified | Deployment 36463534382 and 17-check smoke 36465061031 passed; QA fixtures removed |
 | Auth web release | 🔄 Published; login page rendered | Release 36485554743 includes API_GATEWAY_URL; browser login form and language selection verified; authenticated UI journey and recovery still pending |
 
-Current local Worker suite: 71 passing tests including schema validation, auth handlers, client transport,
+Current Worker CI suite: 71 passing tests including schema validation, auth handlers, client transport,
 bootstrap, management and password change. Self-modification checks reject case-based bypasses
 while preserving opaque text IDs. PostgreSQL UUID and text-ID matrix run 36462832340 passed.
 Account-management and password-change PostgreSQL run 36458402955 completed
