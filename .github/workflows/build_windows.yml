@@ -14,6 +14,7 @@ on:
       - 'scripts/check-auth-schema.mjs'
       - 'scripts/export-auth-openapi.py'
       - '.github/workflows/auth-worker-tests.yml'
+      - '.github/workflows/auth-counter-cleanup.yml'
   workflow_dispatch:
 
 jobs:
