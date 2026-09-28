@@ -102,11 +102,11 @@ jobs:
           }
           verify_gateway /health
           cors_origin='https://primecare-clinic.pages.dev'
+          export CORS_ORIGIN="${cors_origin}"
           cors_ready=false
           for attempt in {1..18}; do
-            cors_header="$(curl --fail --show-error --silent --dump-header - --output /dev/null \
-              -H "Origin: ${cors_origin}" "${GATEWAY_URL}/health?cors-check=${GITHUB_SHA}-${attempt}" \
-              | tr -d '\r' | awk -F': *' 'tolower($1)=="access-control-allow-origin" {print $2}' | tail -1)"
+            export CORS_CHECK_URL="${GATEWAY_URL}/health?cors-check=${GITHUB_SHA}-${attempt}"
+            cors_header="$(node -e 'fetch(process.env.CORS_CHECK_URL, {headers: {Origin: process.env.CORS_ORIGIN}}).then((response) => process.stdout.write(response.headers.get("access-control-allow-origin") || "")).catch(() => process.exit(1))')"
             if test "${cors_header}" = "${cors_origin}"; then cors_ready=true; break; fi
             echo "Waiting for gateway CORS propagation (attempt ${attempt}/18)"
             sleep 5
