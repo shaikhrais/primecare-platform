@@ -360,8 +360,8 @@ class ApiClient {
     );
   }
 
-  ApiClient(this._ref)
-    : _dio = Dio(
+  ApiClient(this._ref, {Dio? transport})
+    : _dio = transport ?? Dio(
         BaseOptions(
           baseUrl: ApiConfig.baseUrl,
           connectTimeout: const Duration(seconds: 10),
@@ -376,6 +376,22 @@ class ApiClient {
     _dio.interceptors.add(SecurityInterceptor(_ref));
   }
 
+  // Authentication must never use cached or synthetic success responses.
+  // Parse the URI so absolute URLs and query strings receive the same policy.
+  static bool _isAuthPath(String path) {
+    final route = Uri.tryParse(path)?.normalizePath().path ?? path;
+    return route == '/v1/auth' || route.startsWith('/v1/auth/');
+  }
+
+  static ApiResponse _authFailure(Object error) {
+    final response = error is DioException ? error.response : null;
+    return ApiResponse(
+      data: response?.data ?? <String, dynamic>{},
+      statusCode: response?.statusCode ?? 503,
+      error: 'Authentication request failed.',
+    );
+  }
+
   /// Performs a GET request.
   Future<ApiResponse> get(
     String path, {
@@ -387,7 +403,7 @@ class ApiClient {
         queryParameters: queryParameters,
       );
       
-      if (!path.startsWith('/v1/auth/') && response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
+      if (!_isAuthPath(path) && response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
         try {
           final cacheService = _ref.read(localCacheServiceProvider);
           await cacheService.cacheResponse(path, response.data ?? {});
@@ -401,6 +417,7 @@ class ApiClient {
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      if (_isAuthPath(path)) return _authFailure(e);
       if (e is DioException && e.response != null) {
         final status = e.response!.statusCode;
         if (status == 401 || status == 403) {
@@ -412,7 +429,7 @@ class ApiClient {
         }
       }
       try {
-        if (!path.startsWith('/v1/auth/')) {
+        if (!_isAuthPath(path)) {
         final cacheService = _ref.read(localCacheServiceProvider);
         final cachedData = cacheService.getCachedResponse(path);
         if (cachedData != null) {
@@ -446,6 +463,7 @@ class ApiClient {
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      if (_isAuthPath(path)) return _authFailure(e);
       if (e is DioException && e.response != null) {
         final status = e.response!.statusCode;
         if (status == 401 || status == 403) {
@@ -475,6 +493,7 @@ class ApiClient {
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      if (_isAuthPath(path)) return _authFailure(e);
       if (e is DioException && e.response != null) {
         final status = e.response!.statusCode;
         if (status == 401 || status == 403) {
@@ -504,6 +523,7 @@ class ApiClient {
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      if (_isAuthPath(path)) return _authFailure(e);
       if (e is DioException && e.response != null) {
         final status = e.response!.statusCode;
         if (status == 401 || status == 403) {
@@ -533,6 +553,7 @@ class ApiClient {
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      if (_isAuthPath(path)) return _authFailure(e);
       if (e is DioException && e.response != null) {
         final status = e.response!.statusCode;
         if (status == 401 || status == 403) {
