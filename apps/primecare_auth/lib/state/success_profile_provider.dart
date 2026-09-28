@@ -2,6 +2,7 @@
 // TODO: Implement state providers, loading triggers, and action mutations.
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SuccessProfileNotifier extends StateNotifier<AsyncValue<void>> {
-  SuccessProfileNotifier() : super(const AsyncValue.data(null));
+class SuccessProfileNotifier extends Notifier<AsyncValue<void>> {
+  @override
+  AsyncValue<void> build() => const AsyncValue.data(null);
 }
