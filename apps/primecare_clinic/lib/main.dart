@@ -1,4 +1,4 @@
-// Governance - Category: service | Purpose: Initialize Deep Link listener for Native SSO
+// Governance - Category: service | Purpose: Initialize the clinic app with shared authentication
 import 'package:primecare_ui/primecare_ui.dart';
 import 'core/routing/clinic_routes.dart';
 import 'core/routing/app_router.dart';
@@ -28,9 +28,6 @@ class PrimeCareClinicApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Initialize Deep Link listener for Native SSO
-    ref.read(deepLinkServiceProvider);
-
     final tenant = ClinicTenant();
     final primeTheme = tenant.primeThemeData;
 

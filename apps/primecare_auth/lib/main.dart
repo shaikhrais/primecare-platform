@@ -18,12 +18,9 @@ PRIME:NEXT_ACTION=Remediate placeholder elements with real visual widgets
 // PRIME:SCREEN=success_profile
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:web/web.dart' as web;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/semantics.dart';
 
-import 'success_profile/success_profile_screen.dart';
-import 'consent/consent_screen.dart';
 
 class AuthTenant extends PlatformTenant {
   @override
@@ -98,106 +95,26 @@ class PrimeCareAuthApp extends ConsumerWidget {
 
 
 
-// Memory-safe guard to ensure force_login is only evaluated once per page mount
-bool _hasForcedLogout = false;
-
+// This app previews the same auth screens embedded by the product apps.
 final authRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
-    initialLocation: '/login',
+    initialLocation: CommonRoutes.login,
     refreshListenable: authListenable,
     redirect: (context, state) {
-      final authState = ref.read(authProvider);
-      if (!authState.isInitialized) {
-        return null;
-      }
-      final isAtLogin = state.uri.path == '/login';
-      final isAtLanguage = state.uri.path == '/language';
-      // Redirection: Check if a language has ever been persistently selected
-      final prefs = ref.read(sharedPreferencesProvider);
-      final hasSelectedLanguage = prefs?.getBool('auth_language_selected') ?? false;
-
-      if (!hasSelectedLanguage && !isAtLanguage) {
-        final query = state.uri.query;
-        return '/language${query.isNotEmpty ? '?$query' : ''}';
-      }
-
-      final forceLogin = state.uri.queryParameters['force_login'] == 'true';
-      if (forceLogin && !_hasForcedLogout) {
-        _hasForcedLogout = true;
-        if (authState.isAuthenticated) {
-          Future.microtask(() {
-            ref.read(authProvider.notifier).logout();
-          });
-        }
-        if (kIsWeb) {
-          try {
-            final uri = Uri.parse(web.window.location.href);
-            final params = Map<String, String>.from(uri.queryParameters)..remove('force_login');
-            final newUri = uri.replace(queryParameters: params.isEmpty ? null : params);
-            web.window.history.replaceState(null, '', newUri.toString());
-          } catch (_) {}
-        }
-        final query = state.uri.query;
-        return '/login${query.isNotEmpty ? '?$query' : ''}';
-      }
-
-      if (!forceLogin) {
-        _hasForcedLogout = false;
-      }
-
-      // If authenticated and trying to log in (or just logged in)
-      if (authState.isAuthenticated) {
-
-        // If not redirecting, show App Hub success route
-        if (state.uri.path == '/success') {
-          return null;
-        }
+      final session = ref.read(authProvider);
+      if (!session.isInitialized) return null;
+      final path = state.uri.path;
+      if (session.isAuthenticated && (path == '/' || path == CommonRoutes.login)) {
         return '/success';
       }
-
-      if (!authState.isAuthenticated && !isAtLogin && !isAtLanguage) {
-        final query = state.uri.query;
-        return '/login${query.isNotEmpty ? '?$query' : ''}';
+      if (!session.isAuthenticated && !SharedAuthRoutes.publicPaths.contains(path)) {
+        return CommonRoutes.login;
       }
-
       return null;
     },
     routes: [
-      GoRoute(
-        path: '/language',
-        builder: (context, state) => const LanguageSelectionView(),
-      ),
-      GoRoute(
-        path: '/login',
-        builder: (context, state) => const LoginViewWrapper(),
-      ),
-      GoRoute(
-        path: '/success',
-        builder: (context, state) => const SuccessProfileScreen(),
-      ),
-      GoRoute(
-        path: '/consent',
-        builder: (context, state) {
-          final redirectUri = state.uri.queryParameters['redirect_uri'] ?? '';
-          return ConsentScreen(redirectUri: redirectUri);
-        },
-      ),
+      ...SharedAuthRoutes.routes(),
+      ...SharedAuthRoutes.protectedRoutes(),
     ],
   );
 });
-
-class LoginViewWrapper extends ConsumerWidget {
-  const LoginViewWrapper({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen<AuthState>(authProvider, (previous, next) {
-      if (next.isAuthenticated && !(previous?.isAuthenticated ?? false)) {
-        context.go('/success');
-      }
-    });
-
-    return const LoginView();
-  }
-}
-

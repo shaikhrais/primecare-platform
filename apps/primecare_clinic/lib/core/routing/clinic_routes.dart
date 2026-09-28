@@ -2,7 +2,6 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/theme/theme_config_generated.dart';
 import '../../features/shared/screens/clinic_incident_report_screen.dart';
 import '../../features/shared/screens/clinic_history_logs_screen.dart';
-import '../../features/generated_screens/psw_dashboard_screen.dart';
 
 class ClinicTenant extends PlatformTenant {
   @override
@@ -1475,6 +1474,14 @@ class ClinicPswModule extends PlatformModule {
 }
 
 class ClinicApplication extends PlatformApplication {
+  // Signed-out users use only the explicit public routes. Do not expand the
+  // dynamic screen-registry fallback before the central session is verified.
+  @override
+  List<PlatformModule> getAuthorizedModules(PlatformRole role) {
+    if (role == PlatformRole.guest) return [];
+    return super.getAuthorizedModules(role);
+  }
+
   @override
   String get appId => 'primecare_clinic';
 

@@ -21,33 +21,6 @@ class PswVisitNotesScreen extends GovernedConsumerWidget {
         'triggerStateAction',
       ];
 
-  @override
-  String 
-
-  @override
-  List<String> get requiredComponents => const [
-        'ClientOverviewCard',
-        'AppointmentAlertWidget',
-        'ActivityLogTable',
-        'ComplianceStatusIndicator',
-        'ClientFeedbackMetric',
-        'PSWPerformanceIndicator',
-        'TrainingResourceAccess',
-        'CommunicationTool',
-      ];
-
-  @override
-  List<String> get requiredFunctions => const [
-        'fetchClientOverview',
-        'setAppointmentAlert',
-        'logDailyActivity',
-        'checkComplianceStatus',
-        'getClientFeedback',
-        'fetchPerformanceMetrics',
-        'accessTrainingResources',
-        'sendMessageToTeam',
-      ];
-
   const PswVisitNotesScreen({super.key});
 
   @override

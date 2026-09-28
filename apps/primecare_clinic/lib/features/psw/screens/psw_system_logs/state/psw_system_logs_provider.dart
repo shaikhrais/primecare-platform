@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/psw_system_logs_model.dart';
 
 class PswSystemLogsNotifier extends StateNotifier<PswSystemLogsModel> {

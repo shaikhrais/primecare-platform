@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/nurse_dashboard_model.dart';
 
 class NurseDashboardNotifier extends StateNotifier<NurseDashboardModel> {

@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/psw_task_list_model.dart';
 
 class PswTaskListNotifier extends StateNotifier<PswTaskListModel> {

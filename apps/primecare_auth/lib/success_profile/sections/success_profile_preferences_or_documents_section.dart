@@ -1,11 +1,1 @@
-import 'package:flutter/material.dart';
-import 'package:primecare_ui/primecare_ui.dart';
-
-class SuccessProfilePreferencesOrDocumentsSection extends StatelessWidget {
-  const SuccessProfilePreferencesOrDocumentsSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const SystemIntegrityManifest();
-  }
-}
+export 'package:primecare_ui/src/features/auth/shared_account/success_profile/sections/success_profile_preferences_or_documents_section.dart';

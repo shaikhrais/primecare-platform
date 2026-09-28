@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/psw_observation_vitals_log_model.dart';
 
 class PswObservationVitalsLogNotifier extends StateNotifier<PswObservationVitalsLogModel> {

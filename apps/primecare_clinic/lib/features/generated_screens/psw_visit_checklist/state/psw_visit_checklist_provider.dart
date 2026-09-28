@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/psw_visit_checklist_model.dart';
 
 class PswVisitChecklistNotifier extends StateNotifier<PswVisitChecklistModel> {

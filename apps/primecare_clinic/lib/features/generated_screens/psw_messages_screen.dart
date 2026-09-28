@@ -21,32 +21,6 @@ class PswMessagesScreen extends GovernedConsumerWidget {
         'triggerStateAction',
       ];
 
-  @override
-  String 
-
-  @override
-  List<String> get requiredComponents => const [
-        'ClientOverviewCard',
-        'HealthStatusAlert',
-        'ActivityLog',
-        'MedicationComplianceChart',
-        'IncidentReportForm',
-        'CommunicationLog',
-        'TrainingStatusCard',
-        'ClientFeedbackWidget',
-        'PerformanceMetricsChart',
-        'TrainingAlert',
-      ];
-
-  @override
-  List<String> get requiredFunctions => const [
-        'updateHealthStatus',
-        'logActivity',
-        'reportIncident',
-        'viewTrainingStatus',
-        'submitFeedback',
-      ];
-
   const PswMessagesScreen({super.key});
 
   @override

@@ -49,17 +49,12 @@ class MfaController extends Notifier<MfaState> {
     }
     state = state.copyWith(isLoading: true, clearError: true);
 
-    // Simulate API call
-    await Future<void>.delayed(const Duration(seconds: 1));
-
-    if (state.code == '123456') {
-      state = state.copyWith(isLoading: false, isVerified: true);
-    } else {
-      state = state.copyWith(
-        isLoading: false,
-        errorMessage: 'Invalid authentication code.',
-      );
-    }
+    // Fail closed until the central service provides a verified recovery/challenge contract.
+    state = state.copyWith(
+      isLoading: false,
+      isVerified: false,
+      errorMessage: 'auth_flow_unavailable'.tr(),
+    );
   }
 }
 

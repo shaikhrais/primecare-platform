@@ -10,9 +10,6 @@ import '../registry/widgets/governance_master_layout.dart';
 import 'groups/common_routes.dart';
 import 'auth_callback_view.dart';
 
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'sso_redirect_view.dart';
-import 'route_guard.dart';
 
 /// A factory class to construct strict "Zero-Trust" routing configurations.
 class GovernanceRouter {
@@ -25,6 +22,7 @@ class GovernanceRouter {
     required String initialLocation,
     Listenable? refreshListenable,
     GoRouterRedirect? redirect,
+    GoRouterWidgetBuilder? guestErrorBuilder,
     List<GoRoute> publicRoutes = const [],
   }) {
     // 0. Register all screens of the application in GovernanceRegistry for domain integrity tracking
@@ -35,7 +33,9 @@ class GovernanceRouter {
     }
 
     // 1. Determine authorized modules
-    final authorizedModules = application.getAuthorizedModules(activeRole);
+    final authorizedModules = activeRole == PlatformRole.guest
+        ? <PlatformModule>[]
+        : application.getAuthorizedModules(activeRole);
 
     // 2. Extract authorized screens
     final authorizedRoutes = <GoRoute>[];
@@ -93,20 +93,10 @@ class GovernanceRouter {
       ],
       errorBuilder: (context, state) {
         if (activeRole == PlatformRole.guest) {
-          final ssoPortal = RouteGuard.ssoPortalUrl ?? 'https://primecare-auth.pages.dev';
-          final requestedRoute = state.uri.path;
-          
-          final String redirectUri = kIsWeb
-              ? Uri.parse(Uri.base.origin).resolve(requestedRoute).toString()
-              : 'primecare://auth/callback?route=${Uri.encodeComponent(requestedRoute)}';
-              
-          final fullRedirectUrl = '$ssoPortal/login?redirect_uri=${Uri.encodeComponent(redirectUri)}&force_login=true';
-          
-          return GovernanceMasterLayout(
-            application: application,
-            activeRole: activeRole,
-            child: SsoRedirectView(redirectUrl: fullRedirectUrl),
-          );
+          if (guestErrorBuilder != null) {
+            return guestErrorBuilder(context, state);
+          }
+
         }
 
         return GovernanceMasterLayout(
