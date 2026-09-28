@@ -126,4 +126,4 @@ artifacts/builds/
 !scripts/migrate_*
 !tools/generate_*
 !tools/migrate_*
-
+.cloudflare-generated/
