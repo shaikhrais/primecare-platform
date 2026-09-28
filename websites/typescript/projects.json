@@ -1,0 +1,12 @@
+{
+  "primecare-business-development": "bd",
+  "primecare-client": "cl",
+  "primecare-clinic": "ci",
+  "primecare-corporate": "co",
+  "primecare-franchise": "fr",
+  "primecare-marketing": "ma",
+  "primecare-support": "su",
+  "primecare-governance": "go",
+  "primecare-enterprise-blueprint": "ui",
+  "primecare-auth": "au"
+}
