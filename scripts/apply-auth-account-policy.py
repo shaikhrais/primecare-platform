@@ -11,6 +11,17 @@ def apply(db):
     roles = dict(db.execute('SELECT role_code,id FROM roles WHERE active=1'))
     assert HR_TARGETS <= roles.keys() and {'ceo','hr_director'} <= roles.keys()
     with db:
+        # User approved GET compatibility plus registered POST on 2026-09-28.
+        source = db.execute("SELECT app_id FROM api_endpoints WHERE id=779 AND route_path='/v1/auth/me' AND http_method='POST'").fetchone()
+        assert source, 'Expected governed POST session lookup'
+        db.execute("""INSERT OR IGNORE INTO api_endpoints
+          (app_id,endpoint_code,route_path,http_method,auth_required,implementation_status)
+          VALUES(?,'API_V1_AUTH_ME_GET','/v1/auth/me','GET',1,'in_progress')""", source)
+        session_schema = {'type':'object','additionalProperties':False,'required':['userId','roles','status'],
+          'properties':{'userId':{'type':'string'},'roles':{'type':'string'},'status':{'const':'authenticated'}}}
+        db.execute("""UPDATE api_endpoints SET auth_required=1,permission_key='authenticated_self_session',
+          response_schema=?,implementation_status='in_progress'
+          WHERE route_path='/v1/auth/me' AND http_method IN ('GET','POST')""", (json.dumps(session_schema),))
         db.execute('''CREATE TABLE IF NOT EXISTS auth_setup_policy (
           policy_code TEXT PRIMARY KEY, role_code TEXT NOT NULL,
           entry_point TEXT NOT NULL, scope TEXT NOT NULL, overwrite_existing INTEGER NOT NULL CHECK(overwrite_existing=0))''')

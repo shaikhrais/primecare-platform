@@ -1,0 +1,1227 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare implemented authentication API",
+    "version": "1.0.0",
+    "description": "Implementation contract, not production certification. Relative URLs refer to the API gateway. Recovery is not implemented. No automatic retries for mutations."
+  },
+  "x-production-verified": false,
+  "paths": {
+    "/v1/auth/login": {
+      "post": {
+        "operationId": "login",
+        "summary": "Authenticate an active account",
+        "description": "Normalizes email. Rejects ambiguous duplicate accounts. Ten attempts per normalized email per 60 seconds, including successful attempts. Stores only a token hash; session expires after 12 hours. Sets Secure HttpOnly SameSite=Lax session cookie.",
+        "x-governance-id": 2,
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string"
+                    },
+                    "token": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z0-9_-]{43}$"
+                    },
+                    "status": {
+                      "const": "authenticated"
+                    }
+                  },
+                  "required": [
+                    "userId",
+                    "role",
+                    "token",
+                    "status"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed or invalid input",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/invalid session or credentials",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Login attempts exhausted",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Seconds until next attempt"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service unavailable; details withheld",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "maxLength": 254
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 1,
+                    "writeOnly": true
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/me": {
+      "get": {
+        "operationId": "currentSession",
+        "summary": "Resolve the active session",
+        "description": "Reads the current active user and unexpired session from PostgreSQL. Explicit invalid Authorization never falls back to a cookie. Returns roles as the existing string field.",
+        "x-governance-id": 16402,
+        "security": [
+          {
+            "bearerSession": []
+          },
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string"
+                    },
+                    "roles": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "const": "authenticated"
+                    }
+                  },
+                  "required": [
+                    "userId",
+                    "roles",
+                    "status"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/invalid session or credentials",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service unavailable; details withheld",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "currentSessionPost",
+        "summary": "Resolve the active session",
+        "description": "Reads the current active user and unexpired session from PostgreSQL. Explicit invalid Authorization never falls back to a cookie. Returns roles as the existing string field.",
+        "x-governance-id": 779,
+        "security": [
+          {
+            "bearerSession": []
+          },
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string"
+                    },
+                    "roles": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "const": "authenticated"
+                    }
+                  },
+                  "required": [
+                    "userId",
+                    "roles",
+                    "status"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/invalid session or credentials",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service unavailable; details withheld",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/logout": {
+      "post": {
+        "operationId": "logout",
+        "summary": "Revoke the presented session",
+        "description": "Idempotent without credentials. Deletes the presented token hash and clears the cookie. Does not revoke other sessions.",
+        "x-governance-id": 5,
+        "security": [
+          {},
+          {
+            "bearerSession": []
+          },
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "signed_out"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service unavailable; details withheld",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/register": {
+      "post": {
+        "operationId": "createAccount",
+        "summary": "Create an authorized same-tenant account",
+        "description": "No public registration. CEO and HR allowlists come from account-policy.json generated from governance. Tenant is resolved from the actor, never accepted from the body. Creates bcrypt hash and account audit in one transaction. Duplicate email returns 409. Cookie-only requests are rejected.",
+        "x-governance-id": 1,
+        "security": [
+          {
+            "bearerSession": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful operation",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "tenant_id": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "email",
+                        "tenant_id",
+                        "roles",
+                        "status"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "user"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed or invalid input",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/invalid session or credentials",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or tenant denied",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Account cannot be created",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service unavailable; details withheld",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "maxLength": 254
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 12,
+                    "maxLength": 72,
+                    "writeOnly": true,
+                    "description": "Maximum 72 UTF-8 bytes; minimum 12 JavaScript string code units."
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "admin",
+                      "bus_dev",
+                      "caregiver",
+                      "ceo",
+                      "cfo",
+                      "chiropractor",
+                      "ciso",
+                      "clinical_director",
+                      "cns",
+                      "community_outreach",
+                      "compliance",
+                      "coo",
+                      "cto",
+                      "customer_support",
+                      "cx_director",
+                      "dynamic",
+                      "employee",
+                      "family",
+                      "finance_director",
+                      "franchise_sales",
+                      "gm",
+                      "governance",
+                      "guest",
+                      "hr_director",
+                      "hr_hiring",
+                      "hsw",
+                      "infrastructure",
+                      "intake",
+                      "legal",
+                      "local_marketing",
+                      "lpn",
+                      "marketing",
+                      "np",
+                      "ops_manager",
+                      "owner",
+                      "partnership",
+                      "patient",
+                      "pediatric",
+                      "physician",
+                      "physio",
+                      "portal",
+                      "premium_concierge",
+                      "psw",
+                      "qa_specialist",
+                      "regional_bdm",
+                      "regional_manager_usa",
+                      "rmt",
+                      "rn",
+                      "rn_field_supervisor",
+                      "rpn",
+                      "scheduler",
+                      "scrum_master",
+                      "shareholder",
+                      "social_worker",
+                      "system_verification",
+                      "territory_expansion",
+                      "territory_sales",
+                      "therapist",
+                      "training",
+                      "training_coordinator",
+                      "training_director",
+                      "vip_manager",
+                      "volunteer",
+                      "volunteer_coordinator"
+                    ]
+                  }
+                },
+                "required": [
+                  "email",
+                  "password",
+                  "role"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/admin/users": {
+      "post": {
+        "operationId": "manageAccount",
+        "summary": "Update account role and status",
+        "description": "CEO only, same tenant, no self-modification. Both role and status are required. Revokes every target session and writes previous/new state to audit in the same transaction. Missing and cross-tenant targets both return 404. Cookie-only requests are rejected.",
+        "x-governance-id": 11,
+        "security": [
+          {
+            "bearerSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "tenant_id": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "email",
+                        "tenant_id",
+                        "roles",
+                        "status"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "user"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed or invalid input",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/invalid session or credentials",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Role or tenant denied",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Account unavailable in actor tenant",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service unavailable; details withheld",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "admin",
+                      "bus_dev",
+                      "caregiver",
+                      "ceo",
+                      "cfo",
+                      "chiropractor",
+                      "ciso",
+                      "clinical_director",
+                      "cns",
+                      "community_outreach",
+                      "compliance",
+                      "coo",
+                      "cto",
+                      "customer_support",
+                      "cx_director",
+                      "dynamic",
+                      "employee",
+                      "family",
+                      "finance_director",
+                      "franchise_sales",
+                      "gm",
+                      "governance",
+                      "guest",
+                      "hr_director",
+                      "hr_hiring",
+                      "hsw",
+                      "infrastructure",
+                      "intake",
+                      "legal",
+                      "local_marketing",
+                      "lpn",
+                      "marketing",
+                      "np",
+                      "ops_manager",
+                      "owner",
+                      "partnership",
+                      "patient",
+                      "pediatric",
+                      "physician",
+                      "physio",
+                      "portal",
+                      "premium_concierge",
+                      "psw",
+                      "qa_specialist",
+                      "regional_bdm",
+                      "regional_manager_usa",
+                      "rmt",
+                      "rn",
+                      "rn_field_supervisor",
+                      "rpn",
+                      "scheduler",
+                      "scrum_master",
+                      "shareholder",
+                      "social_worker",
+                      "system_verification",
+                      "territory_expansion",
+                      "territory_sales",
+                      "therapist",
+                      "training",
+                      "training_coordinator",
+                      "training_director",
+                      "vip_manager",
+                      "volunteer",
+                      "volunteer_coordinator"
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "active",
+                      "inactive"
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "role",
+                  "status"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/user/change-password": {
+      "post": {
+        "operationId": "changePassword",
+        "summary": "Change your password",
+        "description": "Requires current password and active bearer session. New password must differ. Writes bcrypt hash, revokes all sessions and appends audit atomically, then clears cookie. Login again after success. This is not password recovery.",
+        "x-governance-id": 277,
+        "security": [
+          {
+            "bearerSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "const": "password_changed"
+                    },
+                    "reauthenticationRequired": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "reauthenticationRequired"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed or invalid input",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing/invalid session or credentials",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service unavailable; details withheld",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "currentPassword": {
+                    "type": "string",
+                    "minLength": 1,
+                    "writeOnly": true
+                  },
+                  "newPassword": {
+                    "type": "string",
+                    "minLength": 12,
+                    "maxLength": 72,
+                    "writeOnly": true,
+                    "description": "Maximum 72 UTF-8 bytes; minimum 12 JavaScript string code units."
+                  }
+                },
+                "required": [
+                  "currentPassword",
+                  "newPassword"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerSession": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Opaque session token, not JWT."
+      },
+      "cookieSession": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "session_token"
+      }
+    }
+  }
+}

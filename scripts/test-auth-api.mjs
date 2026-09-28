@@ -44,6 +44,24 @@ function request(path, method='GET', body, token) {
     ...(token?{authorization:'Bearer '+token}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
 }
 const login=()=>auth(request('/login','POST',{email:'fixture@example.invalid',password:'fixture-password'}),env,'/login',{});
+for (const method of ['GET','POST']) {
+ test(method+' session lookup validates identity, expiry, revocation and active status',async()=>{
+  assert.equal((await auth(request('/me',method),env,'/me',{})).status,401);
+  const {token}=await (await login()).json();
+  const lookup=()=>auth(request('/me',method,undefined,token),env,'/me',{});
+  const response=await lookup();
+  assert.equal(response.status,200);
+  assert.equal(response.headers.get('cache-control'),'no-store');
+  assert.deepEqual(await response.json(),{userId:user.id,roles:user.roles,status:'authenticated'});
+  const record=[...sessions.values()][0];record.expired=true;
+  assert.equal((await lookup()).status,401);record.expired=false;
+  user.status='inactive';assert.equal((await lookup()).status,401);user.status='active';
+  sessions.clear();assert.equal((await lookup()).status,401);
+ });
+}
+test('session lookup does not accept unsupported methods',async()=>{
+ assert.equal(await auth(request('/me','PUT'),env,'/me',{}),null);
+});
 test('login stores a token hash and exposes only approved existing response fields',async()=>{
   const response=await login(); assert.equal(response.status,200);
   const data=await response.json();

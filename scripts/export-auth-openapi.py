@@ -54,6 +54,8 @@ def build():
             'x-production-verified': False, 'paths': {}, 'components': {'securitySchemes': {
                 'bearerSession': {'type': 'http', 'scheme': 'bearer', 'description': 'Opaque session token, not JWT.'},
                 'cookieSession': {'type': 'apiKey', 'in': 'cookie', 'name': 'session_token'}}}}
+    session = operations[1]
+    operations.insert(2, (session[0], 'post', 'currentSessionPost', *session[3:]))
     with sqlite3.connect(f'file:{ROOT / ".agents/governance/governance.db"}?mode=ro', uri=True) as db:
         for path, method, name, summary, request, response, success, security, errors, description in operations:
             rows = db.execute('SELECT id FROM api_endpoints WHERE route_path=? AND UPPER(http_method)=?', (path, method.upper())).fetchall()
@@ -75,11 +77,11 @@ def build():
                          'x-governance-id': rows[0][0], 'security': security, 'responses': responses}
             if request:
                 operation['requestBody'] = {'required': True, 'content': {'application/json': {'schema': request}}}
-            spec['paths'][path] = {method: operation}
+            spec['paths'].setdefault(path, {})[method] = operation
     return spec
 
 
 if __name__ == '__main__':
     target = ROOT / 'docs/auth-openapi.json'
     target.write_text(json.dumps(build(), indent=2) + '\n')
-    print(f'Exported six governed auth operations to {target.relative_to(ROOT)}')
+    print(f'Exported seven governed auth operations to {target.relative_to(ROOT)}')

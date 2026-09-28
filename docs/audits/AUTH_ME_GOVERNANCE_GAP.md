@@ -1,6 +1,8 @@
 # Session lookup method mismatch
 
-Status: blocked pending requirements validation. No governance records changed.
+Status: user approved both methods on 2026-09-28. Implemented shared GET/POST
+validation and an idempotent governance migration. Local export now succeeds for
+seven operations. Production verification is still pending.
 
 Evidence checked on 2026-09-28:
 

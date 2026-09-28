@@ -178,7 +178,8 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     });
   }
 
-  if (request.method === 'GET' && path === '/me') {
+  // Registered POST and approved GET compatibility share all validation.
+  if (['GET', 'POST'].includes(request.method) && path === '/me') {
     const token = tokenFrom(request);
     if (!token) return json({ error: 'No session' }, 401, headers);
     return withDb(env, async (db) => {
