@@ -26,10 +26,10 @@ try {
  await db.query('BEGIN');
   try {
   phase='create QA tenant';
-  await db.query("INSERT INTO tenants(id,name,slug,status,updated_at) VALUES($1,'Temporary authentication QA tenant',$2,'active',NOW())",[tenantId,'auth-smoke-'+suffix]);
+  await db.query("INSERT INTO tenants(id,name,slug,status,updated_at,allowed_vpn_ranges,cors_allowed_origins,cors_allowed_methods,cors_allowed_headers) VALUES($1,'Temporary authentication QA tenant',$2,'active',NOW(),'','[]'::jsonb,'[]'::jsonb,'[]'::jsonb)",[tenantId,'auth-smoke-'+suffix]);
   phase='create QA actor';
   await db.query("INSERT INTO users(id,email,tenant_id,roles,password_hash,status,updated_at) VALUES($1,$2,$3,'ceo',$4,'active',NOW())",[actorId,email,tenantId,await bcrypt.hash(password,12)]);
-  await db.query('COMMIT');fixtureCreated=true;
+  await db.query('COMMIT');fixtureCreated=true;phase='public API checks';
  } catch(error){await db.query('ROLLBACK');throw error;}
  check((await call('/v1/auth/login','POST',{email,password:'incorrect-fixture-password'})).status===401,'invalid login rejected');
  const login=await call('/v1/auth/login','POST',{email,password});
