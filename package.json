@@ -11,6 +11,7 @@
     "archive/services/client-service"
   ],
   "scripts": {
+    "web:build:typescript": "node scripts/build-typescript-websites.mjs",
     "dev:web": "npm run dev --workspace=prime-care-web-marketing",
     "api:spec": "node scripts/export-openapi.mjs",
     "api:types": "openapi-typescript packages/contracts/openapi.json -o packages/contracts/generated/api.d.ts",
