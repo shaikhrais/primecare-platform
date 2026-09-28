@@ -8,6 +8,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createRequire } from 'node:module';
 import { randomUUID, createHash } from 'node:crypto';
+import {checkAuthSchema} from './check-auth-schema.mjs';
 
 const connectionString = process.env.AUTH_TEST_DATABASE_URL;
 if (!connectionString) throw new Error('AUTH_TEST_DATABASE_URL is required; never use production credentials.');
@@ -40,6 +41,8 @@ try {
   await db.query(await readFile('packages/database/migrations/20260928_auth_rate_limits.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_management_audit.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_password_audit.sql','utf8'));
+  await db.query(await readFile('packages/database/migrations/20260928_auth_bootstrap_audit.sql','utf8'));
+  assert.deepEqual(await checkAuthSchema(connectionString),[]); passed++;
   userId = (await db.query('INSERT INTO users(email,roles,password_hash,status) VALUES($1,$2,$3,$4) RETURNING id',
     [email,'fixture-role',await bcrypt.hash(password,12),'active'])).rows[0].id;
   const login = await call('/login','POST',{email,password});

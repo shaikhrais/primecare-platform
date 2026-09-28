@@ -16,8 +16,13 @@ production schema compatibility. The bootstrap workflow does not apply migration
 or create a tenant automatically. Deployment and production credential entry have
 not occurred as part of these changes.
 
-Still incomplete: account modification/deactivation API, password change/recovery,
-rate limiting, email delivery/verification, tenant membership lifecycle, production
+Account modification/deactivation, password change and login rate limiting now have
+passing isolated PostgreSQL CI evidence (run 36458402955). The deployment workflow
+now includes a read-only required-column/type and basic table-privilege preflight.
+This gate does not validate all constraints, indexes, row-level policies or production journeys.
+
+Still incomplete: password recovery, broader abuse controls,
+email delivery/verification, tenant membership lifecycle, production
 schema verification and migration, protected first-CEO execution, Cloudflare
 deployment, and authenticated public-URL verification. The auth pages remain deferred.
 

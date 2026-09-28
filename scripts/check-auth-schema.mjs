@@ -1,0 +1,56 @@
+import {Client} from 'pg';
+import {pathToFileURL} from 'node:url';
+
+// Schema metadata only: never select account records or serialize driver errors.
+export const requirements = {
+ users:{id:'uuid',email:'text',tenant_id:'uuid',roles:'text',status:'text',password_hash:'text'},
+ auth_sessions:{token_hash:'text',user_id:'uuid',expires_at:'timestamptz'},
+ auth_account_audit:{actor_user_id:'uuid',target_user_id:'uuid',tenant_id:'uuid',action:'text'},
+ auth_bootstrap_audit:{user_id:'uuid',tenant_id:'uuid',source:'text'},
+ auth_management_audit:{actor_user_id:'uuid',target_user_id:'uuid',tenant_id:'uuid',previous_state:'jsonb',new_state:'jsonb'},
+ auth_password_audit:{user_id:'uuid',action:'text'},
+ auth_rate_limits:{subject_hash:'text',attempts:'int4',reset_at:'timestamptz'},
+};
+
+export function schemaProblems(rows) {
+ const columns=new Map(rows.map(r=>[`${r.table_name}.${r.column_name}`,r.udt_name]));
+ const problems=[];
+ for(const [table,fields] of Object.entries(requirements)) for(const [column,type] of Object.entries(fields)) {
+  const actual=columns.get(`${table}.${column}`);
+  if(actual!==type && !(type==='text' && actual==='varchar'))
+   problems.push(`${table}.${column}: expected ${type}, found ${actual??'missing'}`);
+ }
+ return problems;
+}
+
+export async function checkAuthSchema(connectionString) {
+ if(!connectionString) throw new Error('Database configuration missing');
+ const db=new Client({connectionString,connectionTimeoutMillis:10000,statement_timeout:10000});
+ try {
+  await db.connect();
+  await db.query('BEGIN READ ONLY');
+  const result=await db.query(`SELECT c.relname AS table_name,a.attname AS column_name,t.typname AS udt_name
+   FROM pg_class c JOIN pg_attribute a ON a.attrelid=c.oid
+   JOIN pg_type t ON t.oid=a.atttypid
+   WHERE c.oid=ANY(SELECT to_regclass(x) FROM unnest($1::text[]) x)
+   AND a.attnum>0 AND NOT a.attisdropped`,[Object.keys(requirements)]);
+  const problems=schemaProblems(result.rows);
+  if(!problems.length) {
+   const rights=await db.query(`SELECT x AS table_name,
+    has_table_privilege(current_user,to_regclass(x),'SELECT') AS readable,
+    has_table_privilege(current_user,to_regclass(x),'INSERT') AS insertable
+    FROM unnest($1::text[]) x`,[Object.keys(requirements)]);
+   for(const row of rights.rows) if(!row.readable||!row.insertable) problems.push(`${row.table_name}: missing SELECT or INSERT privilege`);
+  }
+  await db.query('ROLLBACK');
+  return problems;
+ } finally {await db.end();}
+}
+
+if(process.argv[1] && import.meta.url===pathToFileURL(process.argv[1]).href) {
+ try {
+  const problems=await checkAuthSchema(process.env.PRODUCTION_DATABASE_URL);
+  if(problems.length){console.error('Auth schema preflight failed:\n'+problems.join('\n'));process.exitCode=1;}
+  else console.log('Auth schema metadata preflight passed; no account data read or changed. This does not prove production login.');
+ } catch {console.error('Auth schema preflight unavailable; check database configuration/connectivity. No credentials logged.');process.exitCode=1;}
+}

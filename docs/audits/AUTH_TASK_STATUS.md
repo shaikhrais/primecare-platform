@@ -19,7 +19,7 @@ pending; ⬜ pending; ⛔ external prerequisite. No indicator below means produc
 | Deployment and public URL journeys | ⬜ Pending | Do not claim production authentication until tested |
 | Auth pages | ⬜ Deferred | API verification first |
 
-Current local suite: 45 passing tests including auth handlers, client transport,
+Current local suite: 48 passing tests including schema validation, auth handlers, client transport,
 bootstrap, management and password change. UUID normalization and a regression test
 prevent case changes from bypassing the CEO self-modification prohibition.
 Account-management and password-change PostgreSQL run 36458402955 completed
