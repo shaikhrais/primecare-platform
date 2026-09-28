@@ -30,7 +30,15 @@ def export(db_path, output, gateway, auth):
         section['elements'] = rows(cursor, "select element_key key,element_type type,coalesce(label,element_key) label,test_id testId,required from screen_section_elements where section_id=? and screen_id=? and required=1 order by element_order", (section['id'], screen['id']))
         section.pop('id', None)
       screen['sections'] = sections
-    manifest = {'project':project,'appCode':app_code,'name':name,'apiGateway':gateway,'authPortal':auth,'roles':role_list,'screens':screen_list,'theme':theme,'resources':resources,'generatedAt':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+    role_ids = [role['id'] for role in role_list]
+    capabilities = {}
+    for role_id in role_ids:
+      capabilities[str(role_id)] = rows(cursor, "select f.feature_code code,f.feature_name name,coalesce(f.description,'') description,p.can_view 'view',p.can_create 'create',p.can_edit 'edit',p.can_delete 'delete',p.can_export 'export' from role_feature_permissions p join features f on f.id=p.feature_id where p.role_id=? and f.active=1 order by f.feature_name", (role_id,))
+    workflow_list = rows(cursor, "select w.id,w.workflow_code code,w.workflow_name name,w.role_id roleId from workflow_definitions w where w.app_id=? and w.status='active' order by w.role_id,w.workflow_name", (app_id,))
+    for workflow in workflow_list:
+      workflow['steps'] = rows(cursor, "select ws.step_order `order`,ws.step_name name,ws.screen_id screenId,s.route_path route,coalesce(ws.expected_result,'') expected,ws.status from workflow_steps ws left join screens s on s.id=ws.screen_id where ws.workflow_id=? and ws.status='active' order by ws.step_order", (workflow['id'],))
+      workflow.pop('id', None)
+    manifest = {'project':project,'appCode':app_code,'name':name,'apiGateway':gateway,'authPortal':auth,'roles':role_list,'screens':screen_list,'capabilities':capabilities,'workflows':workflow_list,'theme':theme,'resources':resources,'generatedAt':datetime.datetime.now(datetime.timezone.utc).isoformat()}
     target = output / project; target.mkdir(parents=True, exist_ok=True)
     (target / 'portal.json').write_text(json.dumps(manifest, separators=(',',':')), encoding='utf-8')
   connection.close()

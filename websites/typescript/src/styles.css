@@ -21,6 +21,16 @@ h1 { font-size: var(--font-size-heading); }
 .eyebrow { color: var(--color-text-muted); font-size: var(--font-size-caption); text-transform: uppercase; font-weight: var(--font-weight-bold); }
 .badge, .element-type { border-radius: var(--radius-pill); background: var(--color-surface-soft); padding: var(--spacing-xs) var(--spacing-sm); color: var(--color-secondary); font-size: var(--font-size-caption); }
 .section { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--spacing-lg); margin-bottom: var(--spacing-lg); box-shadow: var(--shadow-card); }
+.task-center { margin-bottom: var(--spacing-xl); }
+.capability-grid, .workflow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--spacing-md); margin-bottom: var(--spacing-lg); }
+.capability, .workflow { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--spacing-md); box-shadow: var(--shadow-card); }
+.capability p { color: var(--color-text-muted); margin: var(--spacing-sm) 0; }
+.capability span, .task-step small { color: var(--color-secondary); font-size: var(--font-size-caption); }
+.workflow ol { display: grid; gap: var(--spacing-sm); padding-left: var(--spacing-lg); }
+.task-step { padding-left: var(--spacing-xs); }
+.task-step input { width: auto; margin-right: var(--spacing-sm); }
+.task-step small { display: block; margin-left: var(--spacing-lg); }
+.task-step.complete a, .task-step.complete span { text-decoration: line-through; color: var(--color-text-muted); }
 .element-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--spacing-md); }
 .element { display: grid; gap: var(--spacing-sm); background: var(--color-surface-soft); border-radius: var(--radius-md); padding: var(--spacing-md); }
 .auth-shell { min-height: 100vh; display: grid; place-items: center; }
