@@ -585,10 +585,11 @@ class PrimeButton extends StatelessWidget {
           const SizedBox(width: 8),
         ],
         if (!isLoading)
-          Text(
+          Flexible(child: Text(
             label,
+            textAlign: TextAlign.center,
             style: theme.typography.labelBold.copyWith(color: actualTextColor),
-          ),
+          )),
       ],
     );
 

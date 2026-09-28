@@ -157,7 +157,7 @@ class _BrandMark extends StatelessWidget {
         decoration: BoxDecoration(color: theme.colors.primary, borderRadius: BorderRadius.circular(theme.radiusSm)),
         child: Icon(Icons.add_rounded, color: theme.colors.onPrimary)),
       SizedBox(width: theme.spacing.md),
-      Text(_copy('brand'), style: theme.typography.h2.copyWith(color: color)),
+      Flexible(child: Text(_copy('brand'), style: theme.typography.h2.copyWith(color: color))),
     ]);
   }
 }

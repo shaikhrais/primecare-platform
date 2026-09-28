@@ -22,7 +22,7 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     await EasyLocalization.ensureInitialized();
   });
-  for (final size in [const Size(360, 800), const Size(1440, 1000)]) {
+  for (final size in [const Size(360, 800), const Size(1440, 1000), const Size(320, 900)]) {
     for (final page in AuthPage.values) {
       testWidgets('${page.name} fits ${size.width}', (tester) async {
         tester.view.physicalSize = size;
@@ -31,7 +31,7 @@ void main() {
         addTearDown(tester.view.resetDevicePixelRatio);
         await tester.pumpWidget(ProviderScope(overrides: [
           authProvider.overrideWith(GuestAuth.new),
-        ], child: localized(MaterialApp(home: PrimeAuthExperience(page: page)))));
+        ], child: localized(MaterialApp(home: MediaQuery(data: MediaQueryData(size: size, textScaler: TextScaler.linear(size.width == 320 ? 2 : 1)), child: PrimeAuthExperience(page: page))))));
         await tester.pumpAndSettle();
         expect(tester.takeException(), isNull);
         expect(find.byType(PrimeAuthExperience), findsOneWidget);
