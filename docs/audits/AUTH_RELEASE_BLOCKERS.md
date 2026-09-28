@@ -1,5 +1,14 @@
 # Auth release evidence and remaining work
 
+CURRENT STATUS: core auth APIs deployed and passed 17 production checks in run
+36465061031 on 2026-09-28. Temporary QA accounts were removed. See
+AUTH_TASK_STATUS.md and AUTH_PRODUCTION_EVIDENCE.md for current evidence.
+Recovery/delivery requirements, broader abuse controls, retention and permanent
+first-CEO setup remain unfinished. Auth pages remain deferred.
+
+The paragraphs below are the historical pre-deployment assessment, retained for
+traceability. Their statements that deployment has not occurred are superseded.
+
 Verified GitHub run 36456902193 passed unit tests, type checking and real PostgreSQL
 registration/session integration tests. It is evidence for an isolated fixture
 database only. No production login or registration claim is made.
