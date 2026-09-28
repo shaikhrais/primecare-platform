@@ -85,9 +85,24 @@ jobs:
           GATEWAY_URL: ${{ steps.gateway.outputs.url }}
         run: |
           set -euo pipefail
-          curl --fail --show-error --retry 10 --retry-all-errors --retry-delay 5 "${GATEWAY_URL}/health"
+          verify_gateway() {
+            local path="$1"
+            local attempt
+            for attempt in {1..18}; do
+              if curl --fail --show-error --silent \
+                -H 'cache-control: no-cache' \
+                "${GATEWAY_URL}${path}?deployment=${GITHUB_SHA}-${GITHUB_RUN_ATTEMPT}"; then
+                return 0
+              fi
+              echo "Waiting for gateway propagation: ${path} (attempt ${attempt}/18)"
+              sleep 5
+            done
+            echo "::error::Gateway route did not become healthy: ${path}"
+            return 1
+          }
+          verify_gateway /health
           for route in auth client provider visit notes billing scheduling notification verification compliance governance franchise-reporting; do
-            curl --fail --show-error "${GATEWAY_URL}/v1/${route}/health"
+            verify_gateway "/v1/${route}/health"
           done
           {
             echo '## TypeScript Cloudflare Worker deployment'
