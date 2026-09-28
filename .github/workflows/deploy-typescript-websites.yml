@@ -85,10 +85,13 @@ jobs:
           set -euo pipefail
           url="https://${{ matrix.project }}.pages.dev/?enable-semantics=true&deployment=${GITHUB_SHA}"
           for attempt in {1..18}; do
-            if body="$(curl --fail --show-error --silent --location "${url}")" && grep -q 'id="app"' <<<"${body}"; then
-              curl --fail --show-error --silent "https://${{ matrix.project }}.pages.dev/portal.json?deployment=${GITHUB_SHA}" | grep -q 'apiGateway'
+            if body="$(curl --fail --show-error --silent --location "${url}")" \
+              && manifest="$(curl --fail --show-error --silent "https://${{ matrix.project }}.pages.dev/portal.json?deployment=${GITHUB_SHA}")" \
+              && grep -q 'id="app"' <<<"${body}" \
+              && grep -q 'apiGateway' <<<"${manifest}"; then
               exit 0
             fi
+            echo "Waiting for Pages production propagation: ${{ matrix.project }} (attempt ${attempt}/18)"
             sleep 5
           done
           exit 1
