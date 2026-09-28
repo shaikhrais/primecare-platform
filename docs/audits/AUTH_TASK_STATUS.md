@@ -113,3 +113,9 @@ sign-up/recovery controls and compliance/operational claims; their presence is n
 public registration, email recovery, certification or monitoring. These need UI follow-up.
 The hourly cleanup's first scheduled apply run remains unverified; only its preview is recorded.
 Native packaging runs were cancelled to prioritize auth checks; native releases are not claimed.
+
+## Shared auth architecture — 2026-09-28
+
+PR #15 merged shared local auth screens and routing into all nine production app entry points. Each product app owns /login and the other auth entry routes; central AuthNotifier/ApiClient manages credentials and sessions. No redirect to a separate auth website is required. See SHARED_APP_AUTH.md for scope and validation.
+
+Auth Gateway Verification run 36490077115 passed 280 Flutter tests, Dart checks and PostgreSQL login/logout. Sign-up remains administrator-provisioned. Recovery delivery/reset redemption, MFA challenges and consent persistence remain unavailable; simulated success and consent token forwarding have been removed. Full web rollout and signed-in browser journeys remain unverified. Existing non-auth Dart build failures in other apps are a release risk, not a passing auth check.
