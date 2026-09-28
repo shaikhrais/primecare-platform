@@ -5,9 +5,9 @@ import bcrypt from 'bcryptjs';
 
 // Test fixtures only: no network, production credentials, or PostgreSQL writes.
 const fixtureHash = await bcrypt.hash('fixture-password', 4);
-let sessions, user, queries, failWrite, failRead, ambiguous, rateAttempts;
+let sessions, user, queries, failWrite, failRead, ambiguous, rateAttempts, changedBeforeInsert;
 beforeEach(() => {
-  sessions = new Map(); queries = []; failWrite = false; failRead = false; ambiguous = false; rateAttempts=0;
+  sessions = new Map(); queries = []; failWrite = false; failRead = false; ambiguous = false; rateAttempts=0; changedBeforeInsert=false;
   user = { id: 'fixture-user', roles: 'fixture-role', tenant_id:'fixture-tenant', status: 'active', password_hash: fixtureHash };
 });
 globalThis.__authQuery = async (sql, values) => {
@@ -20,7 +20,8 @@ globalThis.__authQuery = async (sql, values) => {
   if (sql.startsWith('SELECT id, roles')) return {rows: user ? (ambiguous ? [user, {...user,id:'other-user'}] : [user]) : []};
   if (sql.startsWith('INSERT INTO auth_sessions')) {
     if (failWrite) throw new Error('fixture-write-failure');
-    sessions.set(values[0], {userId: values[1], expired:false}); return {rows:[]};
+    if (changedBeforeInsert && sql.includes('FOR SHARE OF u')) return {rows:[]};
+    sessions.set(values[0], {userId: values[1], expired:false}); return {rows:[{token_hash:values[0]}]};
   }
   if (sql.startsWith('SELECT u.id')) {
     assert.match(sql, /s.expires_at\s*>\s*NOW\(\)/);
@@ -44,6 +45,23 @@ function request(path, method='GET', body, token) {
     ...(token?{authorization:'Bearer '+token}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
 }
 const login=()=>auth(request('/login','POST',{email:'fixture@example.invalid',password:'fixture-password'}),env,'/login',{});
+test('login cannot issue a session when credentials change before insertion',async()=>{
+  changedBeforeInsert=true;
+  const response=await login();
+  assert.equal(response.status,401);
+  assert.deepEqual(await response.json(),{error:'Invalid credentials'});
+  assert.equal(response.headers.get('set-cookie'),null);
+  assert.equal(sessions.size,0);
+});
+test('login rejects bcrypt suffix aliases exceeding 72 UTF-8 bytes',async()=>{
+  for(const password of ['a'.repeat(72),'é'.repeat(36)]) {
+    user.password_hash=await bcrypt.hash(password,4);
+    const response=await auth(request('/login','POST',{email:'fixture@example.invalid',password:password+'x'}),env,'/login',{});
+    assert.equal(response.status,401);
+    assert.equal(response.headers.get('set-cookie'),null);
+  }
+  assert.equal(sessions.size,0);
+});
 for (const method of ['GET','POST']) {
  test(method+' session lookup validates identity, expiry, revocation and active status',async()=>{
   assert.equal((await auth(request('/me',method),env,'/me',{})).status,401);
