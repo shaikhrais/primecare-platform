@@ -24,6 +24,13 @@ export function schemaProblems(rows) {
 }
 
 export function safeFailureReason(error) {
+ // Classify known driver/proxy failures without printing the source message.
+ const message=typeof error?.message==='string'?error.message:'';
+ if(/unsupported startup parameter/i.test(message)) return 'database proxy rejected a startup parameter';
+ if(/invalid.*url/i.test(message)) return 'invalid database URL configuration';
+ if(/password must be a string/i.test(message)) return 'database password missing from configuration';
+ if(/timeout|timed out/i.test(message)) return 'database operation timed out';
+ if(/connection terminated/i.test(message)) return 'database connection terminated';
  const reasons={
   '28P01':'database authentication rejected', '28000':'database authorization rejected',
   '42501':'database permission denied', '3D000':'configured database does not exist',
@@ -40,7 +47,8 @@ export function safeFailureReason(error) {
 
 export async function checkAuthSchema(connectionString) {
  if(!connectionString) throw new Error('Database configuration missing');
- const db=new Client({connectionString,connectionTimeoutMillis:10000,statement_timeout:10000});
+ // Client-side timeout avoids startup parameters rejected by pooled proxies.
+ const db=new Client({connectionString,connectionTimeoutMillis:10000,query_timeout:10000});
  try {
   await db.connect();
   await db.query('BEGIN READ ONLY');
