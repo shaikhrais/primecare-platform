@@ -1,5 +1,17 @@
 {
+  "changePassword": {
+    "maxAttempts": 5,
+    "windowSeconds": 60
+  },
+  "createAccount": {
+    "maxAttempts": 10,
+    "windowSeconds": 60
+  },
   "login": {
+    "maxAttempts": 10,
+    "windowSeconds": 60
+  },
+  "manageAccount": {
     "maxAttempts": 10,
     "windowSeconds": 60
   }
