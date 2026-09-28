@@ -6,6 +6,7 @@ export function validatePasswordChange(value:unknown):{currentPassword:string;ne
  const data=value as Record<string,unknown>;
  if(Object.keys(data).some(k=>!['currentPassword','newPassword'].includes(k)) ||
    typeof data.currentPassword!=='string' || !data.currentPassword ||
+   new TextEncoder().encode(data.currentPassword).length>72 ||
    typeof data.newPassword!=='string' || data.newPassword.length<12 ||
    new TextEncoder().encode(data.newPassword).length>72 || data.currentPassword===data.newPassword)return null;
  return {currentPassword:data.currentPassword,newPassword:data.newPassword};

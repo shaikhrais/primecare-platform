@@ -18,7 +18,24 @@ if (!['localhost', '127.0.0.1'].includes(url.hostname) || url.pathname !== '/aut
 }
 const directory = await mkdtemp(join(tmpdir(), 'primecare-auth-test-'));
 const outfile = join(directory, 'auth.cjs');
-await build({entryPoints:['cloudflare/workers/src/auth.ts'],bundle:true,platform:'node',format:'cjs',outfile});
+// A one-shot test hook schedules a real password/status update between credential
+// verification and session insertion. Every SQL query still runs in PostgreSQL.
+await build({entryPoints:['cloudflare/workers/src/auth.ts'],bundle:true,platform:'node',format:'cjs',outfile,
+  plugins:[{name:'session-race-fixture',setup(builder){
+    builder.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'session-race-fixture'}));
+    builder.onLoad({filter:/.*/,namespace:'session-race-fixture'},()=>({loader:'js',resolveDir:process.cwd(),contents:`
+      import pg from ${JSON.stringify(createRequire(import.meta.url).resolve('pg'))};
+      export class Client extends pg.Client {
+        async query(sql,values) {
+          if(sql.startsWith('INSERT INTO auth_sessions') && globalThis.__authBeforeInsert) {
+            const hook=globalThis.__authBeforeInsert;
+            globalThis.__authBeforeInsert=null;
+            await hook();
+          }
+          return super.query(sql,values);
+        }
+      }`}));
+  }}]});
 const {auth} = createRequire(import.meta.url)(outfile);
 const db = new Client({connectionString});
 await db.connect();
@@ -93,9 +110,34 @@ try {
   assert.equal((await call('/change-password','POST',{currentPassword:password,newPassword:changedPassword},admin.token)).status,200);passed++;
   assert.equal((await call('/me','GET',undefined,admin.token)).status,401);
   assert.equal((await call('/login','POST',{email,password})).status,401);
-  assert.equal((await call('/login','POST',{email,password:changedPassword})).status,200);passed++;
+  const latestLogin=await call('/login','POST',{email,password:changedPassword});
+  assert.equal(latestLogin.status,200);passed++;
+  const latestToken=(await latestLogin.json()).token;
+  const loginHash=createHash('sha256').update('login:'+email).digest('hex');
+  await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[loginHash]);
+  const racePassword=randomUUID();
+  globalThis.__authBeforeInsert=async()=>{
+    assert.equal((await call('/change-password','POST',{
+      currentPassword:changedPassword,newPassword:racePassword,
+    },latestToken)).status,200);
+  };
+  const staleLogin=await call('/login','POST',{email,password:changedPassword});
+  assert.equal(staleLogin.status,401);
+  assert.equal(staleLogin.headers.get('set-cookie'),null);
+  assert.equal((await db.query('SELECT token_hash FROM auth_sessions WHERE user_id=$1',[userId])).rowCount,0);passed++;
+  assert.equal((await call('/login','POST',{email,password:racePassword})).status,200);passed++;
+  globalThis.__authBeforeInsert=async()=>{
+    await db.query('BEGIN');
+    await db.query("UPDATE users SET status='inactive' WHERE id=$1",[userId]);
+    await db.query('DELETE FROM auth_sessions WHERE user_id=$1',[userId]);
+    await db.query('COMMIT');
+  };
+  assert.equal((await call('/login','POST',{email,password:racePassword})).status,401);
+  assert.equal((await db.query('SELECT token_hash FROM auth_sessions WHERE user_id=$1',[userId])).rowCount,0);passed++;
   console.log(JSON.stringify({passed, database:'isolated PostgreSQL', productionVerified:false}));
 } finally {
+  globalThis.__authBeforeInsert=null;
+  await db.query('ROLLBACK');
   // Remove only the uniquely identified synthetic fixture; sessions cascade.
   if(userId) await db.query('DELETE FROM auth_account_audit WHERE actor_user_id=$1',[userId]);
   if(userId) await db.query('DELETE FROM auth_management_audit WHERE actor_user_id=$1',[userId]);

@@ -14,6 +14,11 @@ test('wrong current password never mutates',async()=>{
  const db={query:()=>{throw new Error('Unexpected mutation')}};
  assert.equal((await changePassword(db,user,{...input,currentPassword:'wrong'})).status,401);
 });
+test('current password rejects bcrypt suffix aliases in ASCII and Unicode',()=>{
+ for(const currentPassword of ['a'.repeat(72)+'x','é'.repeat(36)+'x']) {
+  assert.equal(validatePasswordChange({...input,currentPassword}),null);
+ }
+});
 test('changes hash, revokes all sessions and appends audit without logging secrets',async()=>{
  const calls=[];const db={query:async(sql,values)=>{calls.push({sql,values});return {rows:[]};}};
  const result=await changePassword(db,user,input);
