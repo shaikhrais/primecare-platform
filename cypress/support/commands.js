@@ -150,7 +150,7 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
     const user = users.find((u) => u.role_code === roleCode);
     if (!user) throw new Error(`No test user for role ${roleCode}`);
 
-    const authUrl = "https://primecare-auth.pages.dev/login";
+    const authUrl = "/login";
 
     const mockToken = "mock-jwt-token-" + user.role_code;
     const mockUserId = "test-user-id-" + user.role_code;
@@ -219,9 +219,10 @@ Cypress.Commands.add("loginAsRole", (roleCode) => {
       }
     }).as("meMock2");
 
-    // Visit the live auth login page with redirect_uri to match real-world SSO flow
+    // Visit the selected product app; authentication never changes origin.
     const cacheBuster = `cb=${Date.now()}`;
-    const url = `${authUrl}?redirect_uri=${encodeURIComponent(user.redirect_url)}&enable-semantics=true&${cacheBuster}`;
+    const returnPath = new URL(user.redirect_url, Cypress.config("baseUrl")).pathname;
+    const url = `${authUrl}?returnUrl=${encodeURIComponent(returnPath)}&${cacheBuster}&enable-semantics=true`;
 
     cy.visit(url, {
       onBeforeLoad(win) {

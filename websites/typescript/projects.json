@@ -7,6 +7,5 @@
   "primecare-marketing": "ma",
   "primecare-support": "su",
   "primecare-governance": "go",
-  "primecare-enterprise-blueprint": "ui",
-  "primecare-auth": "au"
+  "primecare-enterprise-blueprint": "ui"
 }

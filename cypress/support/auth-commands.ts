@@ -49,7 +49,7 @@ Cypress.Commands.add("login", (email, password) => {
   cy.intercept("POST", "**/login", mockLoginResponse).as("loginMock");
   cy.intercept("POST", "**/auth/login", mockLoginResponse).as("authLoginMock");
 
-  cy.visitWithSemantics("https://primecare-auth.pages.dev/login");
+  cy.visitWithSemantics("/login");
   
   cy.getCy("login-email").then(($el) => {
     const input = $el.is("input") || $el.is("textarea") ? $el : $el.find("input, textarea");

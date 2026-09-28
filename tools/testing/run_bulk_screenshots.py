@@ -26,7 +26,7 @@ def main():
     # 2. Run Cypress bulk screenshot generator spec
     print("Running Cypress bulk screenshot generator...")
     env = os.environ.copy()
-    env["CYPRESS_BASE_URL"] = "https://primecare-auth.pages.dev"
+    env["CYPRESS_BASE_URL"] = os.environ["CYPRESS_BASE_URL"]
     
     # Run Cypress
     subprocess.run(

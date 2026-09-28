@@ -79,7 +79,7 @@ def main():
             print(f"      App: {app_code} | Role: {role_code}")
             
             env = os.environ.copy()
-            env["CYPRESS_BASE_URL"] = "https://primecare-auth.pages.dev"
+            env["CYPRESS_BASE_URL"] = os.environ["CYPRESS_BASE_URL"]
             
             # We limit Cypress run times to keep things reasonably responsive
             subprocess.run(
