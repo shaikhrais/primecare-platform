@@ -11,7 +11,7 @@
       "post": {
         "operationId": "login",
         "summary": "Authenticate an active account",
-        "description": "Normalizes email. Rejects ambiguous duplicate accounts. Ten attempts per normalized email per 60 seconds, including successful attempts. Stores only a token hash; session expires after 12 hours. Sets Secure HttpOnly SameSite=Lax session cookie. Limit: 10 attempts per 60 seconds per normalized email. Failed and denied valid-input attempts count; Retry-After is returned on 429.",
+        "description": "Normalizes email. Rejects ambiguous duplicate accounts. Ten attempts per normalized email per 60 seconds, including successful attempts. Stores only a token hash; session expires after 12 hours. Sets Secure HttpOnly SameSite=Lax session cookie. Limit: 10 attempts per 60 seconds per normalized email. Failed and denied valid-input attempts count; Retry-After is returned on 429. A separate approximate source-IP limit allows 120 attempts per 60 seconds per Cloudflare location before body parsing or database access. Applies to direct Worker and gateway requests, including malformed attempts. Shared networks share this budget. Missing trusted source identity or limiter availability returns 503.",
         "x-governance-id": 2,
         "security": [],
         "responses": {
