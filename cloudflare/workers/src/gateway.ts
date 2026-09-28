@@ -23,7 +23,10 @@ export default {
       }));
       const services = Object.fromEntries(checks);
       const healthy = Object.values(services).every(Boolean);
-      return Response.json({ status: healthy ? 'healthy' : 'degraded', services }, { status: healthy ? 200 : 503 });
+      return Response.json(
+        { status: healthy ? 'healthy' : 'degraded', runtime: 'cloudflare-worker-typescript', services },
+        { status: healthy ? 200 : 503, headers: { 'cache-control': 'no-store', 'x-primecare-gateway': 'cloudflare-worker-typescript' } },
+      );
     }
     const match = url.pathname.match(/^\/(?:v1|api)\/([^/]+)(\/.*)?$/);
     if (!match || !routes[match[1]]) return Response.json({ error: 'Route not found' }, { status: 404 });
@@ -32,6 +35,7 @@ export default {
     const response = await env[routes[match[1]]].fetch(new Request(url, request));
     const headers = new Headers(response.headers);
     headers.set('x-primecare-gateway', 'cloudflare-worker-typescript');
+    headers.set('cache-control', 'no-store');
     return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
   },
 } satisfies ExportedHandler<Env>;
