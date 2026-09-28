@@ -7,13 +7,16 @@ import bcrypt from 'bcryptjs';
 const fixtureHash = await bcrypt.hash('fixture-password', 4);
 let sessions, user, queries, failWrite, failRead, ambiguous, rateAttempts, changedBeforeInsert;
 beforeEach(() => {
-  sessions = new Map(); queries = []; failWrite = false; failRead = false; ambiguous = false; rateAttempts=0; changedBeforeInsert=false;
+  sessions = new Map(); queries = []; failWrite = false; failRead = false; ambiguous = false; rateAttempts=new Map(); changedBeforeInsert=false;
   user = { id: 'fixture-user', roles: 'fixture-role', tenant_id:'fixture-tenant', status: 'active', password_hash: fixtureHash };
 });
 globalThis.__authQuery = async (sql, values) => {
   queries.push({sql, values});
   if (failRead) throw new Error('fixture-private-database-details');
-  if(sql.startsWith('INSERT INTO auth_rate_limits')) return {rows:[{attempts:++rateAttempts,retry_after:60}]};
+  if(sql.startsWith('INSERT INTO auth_rate_limits')) {
+    const attempts=(rateAttempts.get(values[0])??0)+1;
+    rateAttempts.set(values[0],attempts);return {rows:[{attempts,retry_after:60}]};
+  }
   if (['BEGIN','COMMIT','ROLLBACK'].includes(sql) || sql.startsWith('SELECT pg_advisory') || sql.startsWith('INSERT INTO auth_account_audit')) return {rows:[]};
   if (sql.startsWith('SELECT id FROM users')) return {rows:[]};
   if (sql.startsWith('INSERT INTO users')) return {rows:[{id:'created-fixture',email:values[0],tenant_id:values[1],roles:values[2],status:'active'}]};
@@ -45,6 +48,34 @@ function request(path, method='GET', body, token) {
     ...(token?{authorization:'Bearer '+token}:{})},...(body===undefined?{}:{body:JSON.stringify(body)})});
 }
 const login=()=>auth(request('/login','POST',{email:'fixture@example.invalid',password:'fixture-password'}),env,'/login',{});
+test('wrong current-password attempts survive rollback and throttle across sessions',async()=>{
+ const first=(await (await login()).json()).token;
+ const second=(await (await login()).json()).token;
+ const input={currentPassword:'wrong-password',newPassword:'new-fixture-password'};
+ for(let i=0;i<5;i++) assert.equal((await auth(request('/change-password','POST',input,i%2?first:second),env,'/change-password',{})).status,401);
+ const before=queries.filter(q=>q.sql==='BEGIN').length;
+ const blocked=await auth(request('/change-password','POST',input,second),env,'/change-password',{});
+ assert.equal(blocked.status,429);assert.equal(blocked.headers.get('retry-after'),'60');
+ assert.equal(blocked.headers.get('cache-control'),'no-store');
+ assert.equal(queries.filter(q=>q.sql==='BEGIN').length,before);
+ assert.equal(queries.filter(q=>q.sql==='ROLLBACK').length,5);
+});
+test('invalid sessions do not allocate mutation counters',async()=>{
+ const response=await auth(request('/change-password','POST',{currentPassword:'wrong',newPassword:'new-fixture-password'},'A'.repeat(43)),env,'/change-password',{});
+ assert.equal(response.status,401);assert.equal(rateAttempts.size,0);
+});
+test('forbidden account creation and management use independent user counters',async()=>{
+ const {token}=await (await login()).json();
+ for(const [path,input] of [
+  ['/register',{email:'new@example.invalid',password:'new-fixture-password',role:'rmt'}],
+  ['/admin/users',{id:'other-user',role:'rmt',status:'inactive'}],
+ ]) {
+  for(let i=0;i<10;i++) assert.equal((await auth(request(path,'POST',input,token),env,path,{})).status,403);
+  assert.equal((await auth(request(path,'POST',input,token),env,path,{})).status,429);
+ }
+ assert.equal((await auth(request('/me','GET',undefined,token),env,'/me',{})).status,200);
+ assert.equal((await auth(request('/logout','POST',{},token),env,'/logout',{})).status,200);
+});
 test('login cannot issue a session when credentials change before insertion',async()=>{
   changedBeforeInsert=true;
   const response=await login();

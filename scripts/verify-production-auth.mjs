@@ -74,6 +74,8 @@ try {
    const users=await db.query('SELECT id FROM users WHERE tenant_id=$1',[tenantId]);
    const ids=users.rows.map(row=>row.id);
    for(const id of ids) {
+    for(const operation of ['changePassword','createAccount','manageAccount'])
+     await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update(operation+':'+id).digest('hex')]);
     await db.query('DELETE FROM auth_sessions WHERE user_id=$1',[id]);
     await db.query('DELETE FROM auth_password_audit WHERE user_id=$1',[id]);
    }

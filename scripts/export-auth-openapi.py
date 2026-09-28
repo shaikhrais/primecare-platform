@@ -17,6 +17,7 @@ def build():
     text = {'type': 'string'}
     password = {'type': 'string', 'minLength': 12, 'maxLength': 72,
                 'writeOnly': True, 'description': 'Maximum 72 UTF-8 bytes; minimum 12 JavaScript string code units.'}
+    limits = json.loads((ROOT / 'cloudflare/workers/src/auth-security-policy.json').read_text())
     policy = json.loads((ROOT / 'cloudflare/workers/src/account-policy.json').read_text())
     user = obj({'id': text, 'email': text, 'tenant_id': text, 'roles': text, 'status': text})
     token = {'type': 'string', 'pattern': '^[A-Za-z0-9_-]{43}$'}
@@ -36,17 +37,17 @@ def build():
         ('/v1/auth/register', 'post', 'createAccount', 'Create an authorized same-tenant account',
          obj({'email': {'type': 'string', 'format': 'email', 'maxLength': 254}, 'password': password,
               'role': {'type': 'string', 'enum': policy['ceo']}}), obj({'user': user}), 201,
-         [{'bearerSession': []}], [400, 401, 403, 409, 503],
+         [{'bearerSession': []}], [400, 401, 403, 409, 429, 503],
          'No public registration. CEO and HR allowlists come from account-policy.json generated from governance. Tenant is resolved from the actor, never accepted from the body. Creates bcrypt hash and account audit in one transaction. Duplicate email returns 409. Cookie-only requests are rejected.'),
         ('/v1/admin/users', 'post', 'manageAccount', 'Update account role and status',
          obj({'id': {'type': 'string', 'pattern': '^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$'}, 'role': {'type': 'string', 'enum': policy['ceo']},
               'status': {'enum': ['active', 'inactive']}}), obj({'user': user}), 200,
-         [{'bearerSession': []}], [400, 401, 403, 404, 503],
+         [{'bearerSession': []}], [400, 401, 403, 404, 429, 503],
          'CEO only, same tenant, no self-modification. Both role and status are required. Revokes every target session and writes previous/new state to audit in the same transaction. Missing and cross-tenant targets both return 404. Cookie-only requests are rejected.'),
         ('/v1/user/change-password', 'post', 'changePassword', 'Change your password',
          obj({'currentPassword': {'type': 'string', 'minLength': 1, 'writeOnly': True}, 'newPassword': password}),
          obj({'status': {'const': 'password_changed'}, 'reauthenticationRequired': {'const': True}}), 200,
-         [{'bearerSession': []}], [400, 401, 503],
+         [{'bearerSession': []}], [400, 401, 429, 503],
          'Requires current password and active bearer session. New password must differ. Writes bcrypt hash, revokes all sessions and appends audit atomically, then clears cookie. Login again after success. This is not password recovery.'),
     ]
     spec = {'openapi': '3.1.0', 'info': {'title': 'PrimeCare implemented authentication API', 'version': '1.0.0',
@@ -69,10 +70,14 @@ def build():
                 responses[str(code)] = reply(obj({'error': text}), {
                     400: 'Malformed or invalid input', 401: 'Missing/invalid session or credentials',
                     403: 'Role or tenant denied', 404: 'Account unavailable in actor tenant',
-                    409: 'Account cannot be created', 429: 'Login attempts exhausted',
+                    409: 'Account cannot be created', 429: 'Authentication attempts exhausted',
                     503: 'Service unavailable; details withheld'}[code])
             if 429 in errors:
                 responses['429']['headers']['Retry-After'] = {'schema': {'type': 'string'}, 'description': 'Seconds until next attempt'}
+            if name in limits:
+                limit = limits[name]
+                subject = 'normalized email' if name == 'login' else 'authenticated user across sessions'
+                description += f" Limit: {limit['maxAttempts']} attempts per {limit['windowSeconds']} seconds per {subject}. Failed and denied valid-input attempts count; Retry-After is returned on 429."
             operation = {'operationId': name, 'summary': summary, 'description': description,
                          'x-governance-id': rows[0][0], 'security': security, 'responses': responses}
             if request:
