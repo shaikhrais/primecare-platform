@@ -64,6 +64,7 @@ class PrimeCareAppRunner {
             path: 'assets/translations',
             fallbackLocale: const Locale('en'),
             useOnlyLangCode: true,
+            useFallbackTranslations: true,
             child: ProviderScope(
               overrides: [
                 sharedPreferencesProvider.overrideWithValue(sharedPreferences),
@@ -80,74 +81,34 @@ class PrimeCareAppRunner {
   }
 }
 
-/// A global wrapper that watches [languageProvider] and automatically triggers a smooth
-/// fade-out and fade-in transition when the locale changes, avoiding sudden visual jumps/flashes.
+/// Synchronizes the persisted preference with the rendered locale, including
+/// startup and selections made while a previous locale is still loading.
 class LocaleRebuildWrapper extends ConsumerStatefulWidget {
   final Widget child;
   const LocaleRebuildWrapper({super.key, required this.child});
-
   @override
   ConsumerState<LocaleRebuildWrapper> createState() => _LocaleRebuildWrapperState();
 }
 
-class _LocaleRebuildWrapperState extends ConsumerState<LocaleRebuildWrapper>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _fadeController;
-  late Animation<double> _fadeAnimation;
-  String? _activeLangCode;
-  bool _isTransitioning = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _fadeController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 250),
-    );
-    _fadeAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(
-      CurvedAnimation(parent: _fadeController, curve: Curves.easeInOut),
-    );
-  }
-
-  @override
-  void dispose() {
-    _fadeController.dispose();
-    super.dispose();
-  }
+class _LocaleRebuildWrapperState extends ConsumerState<LocaleRebuildWrapper> {
+  bool _syncing = false;
 
   @override
   Widget build(BuildContext context) {
-    final targetLangCode = ref.watch(languageProvider);
-    _activeLangCode ??= targetLangCode;
-
-    if (targetLangCode != _activeLangCode && !_isTransitioning) {
-      _isTransitioning = true;
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _triggerTransition(targetLangCode);
-      });
+    final target = ref.watch(languageProvider);
+    if (!_syncing && context.locale.languageCode != target) {
+      _syncing = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) => _syncLocale());
     }
-
-    return FadeTransition(
-      opacity: _fadeAnimation,
-      child: widget.child,
-    );
+    return widget.child;
   }
 
-  Future<void> _triggerTransition(String newLangCode) async {
-    // 1. Fade out the entire app
-    await _fadeController.forward();
-
-    // 2. Perform global locale switch
-    if (mounted) {
-      await context.setLocale(Locale(newLangCode));
-      setState(() {
-        _activeLangCode = newLangCode;
-      });
+  Future<void> _syncLocale() async {
+    try {
+      if (!mounted) return;
+      await context.setLocale(Locale(ref.read(languageProvider)));
+    } finally {
+      if (mounted) setState(() => _syncing = false);
     }
-
-    // 3. Fade the app back in
-    await _fadeController.reverse();
-
-    _isTransitioning = false;
   }
 }
