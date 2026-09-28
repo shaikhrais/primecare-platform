@@ -11,8 +11,9 @@ on:
       - 'packages/flutter_core/lib/auth_service.dart'
       - 'packages/flutter_core/lib/src/network/api_client.dart'
       - 'apps/primecare_auth/lib/**'
-      - 'apps/primecare_clinic/lib/**'
-      - 'apps/primecare_clinic/test/auth*_test.dart'
+      - 'packages/primecare_ui/lib/src/features/auth/**'
+      - 'apps/*/lib/**'
+      - 'apps/*/test/auth*_test.dart'
       - 'packages/flutter_core/lib/routes/clinic_login_bridge.dart'
       - 'packages/flutter_core/lib/routes/governance_router.dart'
       - 'compose.auth.yml'
@@ -130,4 +131,22 @@ jobs:
         run: |
           flutter pub get
           flutter analyze --no-fatal-infos lib test/auth_routing_test.dart
+          flutter test test/auth_routing_test.dart
+
+  shared-app-auth:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [business_development, marketing, corporate, client, support, franchise, governance]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+      - name: Verify shared auth routes in each app
+        working-directory: apps/primecare_${{ matrix.app }}
+        run: |
+          flutter pub get
           flutter test test/auth_routing_test.dart

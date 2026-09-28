@@ -1,10 +1,1 @@
-import 'package:flutter/material.dart';
-
-class ConsentActionBarSection extends StatelessWidget {
-  const ConsentActionBarSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox.shrink();
-  }
-}
+export 'package:primecare_ui/src/features/auth/shared_account/consent/sections/consent_action_bar_section.dart';

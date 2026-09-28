@@ -29,8 +29,6 @@ class PrimeCareSupportApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     AppErrorBoundary.drainToTelemetry(ref.read(executionGateProvider));
 
-    // Initialize Deep Link listener for Native SSO
-    ref.read(deepLinkServiceProvider);
 
     final router = ref.watch(appRouterProvider);
     const primeTheme = PrimeThemeData();

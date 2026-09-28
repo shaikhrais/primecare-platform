@@ -30,12 +30,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: '/login',
     refreshListenable: authListenable,
     redirect: (context, state) {
-      final isAuth = ref.read(authProvider).isAuthenticated;
+      final session = ref.read(authProvider);
+      if (!session.isInitialized) return null;
+      final isAuth = session.isAuthenticated;
       final isLoggingIn = state.matchedLocation == '/login' || 
                           state.matchedLocation == '/' ||
                           state.matchedLocation == '/auth/callback';
       
-      if (!isAuth && !isLoggingIn) return '/login';
+      if (!isAuth && !isLoggingIn &&
+          !SharedAuthRoutes.publicPaths.contains(state.uri.path)) return '/login';
       if (isAuth && isLoggingIn) {
         final role = ref.read(authProvider).role ?? '';
         final targetRoute = AuthNotifier.getDashboardRouteForRole(role);
@@ -85,22 +88,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           queryParameters: state.uri.queryParameters,
         ),
       ),
-      GoRoute(
-        path: ScreenRegistry.screens['LOGIN']?.routePath ?? '/login',
-        builder: (context, state) => const LoginScreen(),
-      ),
-      GoRoute(
-        path: ScreenRegistry.screens['FORGOT_PASSWORD']?.routePath ?? '/forgot-password',
-        builder: (context, state) => const ForgotPasswordScreen(),
-      ),
-      GoRoute(
-        path: ScreenRegistry.screens['MFA']?.routePath ?? '/mfa',
-        builder: (context, state) => const MfaScreen(),
-      ),
-      GoRoute(
-        path: ScreenRegistry.screens['RESET_PASSWORD']?.routePath ?? '/reset-password',
-        builder: (context, state) => const ResetPasswordScreen(),
-      ),
+      ...SharedAuthRoutes.routes(),
+      ...SharedAuthRoutes.protectedRoutes(),
       ShellRoute(
         builder: (context, state, child) {
           final matchedLocation = state.matchedLocation;
@@ -169,7 +158,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
           // Dynamic Registry-Driven Routes
           ...ScreenRegistry.screens.values
-              .where((screen) => !['LOGIN', 'FORGOT_PASSWORD', 'MFA', 'RESET_PASSWORD'].contains(screen.id))
+              .where((screen) => screen.routePath.isNotEmpty && !['LOGIN', 'FORGOT_PASSWORD', 'MFA', 'RESET_PASSWORD'].contains(screen.id))
               .map((screen) {
             return GoRoute(
               path: screen.routePath,

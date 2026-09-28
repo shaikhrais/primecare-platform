@@ -4523,4 +4523,6 @@
     "login_slogan_7": "DECENTRALIZED IDENTITY PROTECTION",
     "login_slogan_8": "CONTINUOUS PARITY VALIDATION",
     "login_slogan_9": "GOVERNANCE REGISTRY HARDENED"
+,
+  "auth_flow_unavailable": "This authentication feature is not available yet. Please contact your administrator."
 }

@@ -11,6 +11,19 @@ class GuestAuth extends AuthNotifier {
 }
 
 void main() {
+  test('MFA and reset cannot report simulated success', () async {
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+    final mfa = container.read(mfaControllerProvider.notifier);
+    mfa.onCodeChanged('123456');
+    await mfa.verify();
+    expect(container.read(mfaControllerProvider).isVerified, isFalse);
+    final reset = container.read(resetPasswordControllerProvider.notifier);
+    reset.onNewPasswordChanged('Example-password-123');
+    reset.onConfirmPasswordChanged('Example-password-123');
+    await reset.submit();
+    expect(container.read(resetPasswordControllerProvider).isSuccess, isFalse);
+  });
   testWidgets('clinic login renders shared form without SSO bridge', (tester) async {
     final container = ProviderContainer(overrides: [
       authProvider.overrideWith(GuestAuth.new),
@@ -18,6 +31,8 @@ void main() {
     addTearDown(container.dispose);
     final router = container.read(appRouterProvider);
     addTearDown(router.dispose);
+    final paths = router.configuration.routes.whereType<GoRoute>().map((route) => route.path);
+    expect(paths, containsAll(SharedAuthRoutes.publicPaths));
     final route = router.configuration.routes.whereType<GoRoute>()
         .singleWhere((route) => route.path == CommonRoutes.login);
     late BuildContext context;

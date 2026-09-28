@@ -59,10 +59,12 @@ class ResetPasswordController extends Notifier<ResetPasswordState> {
     }
     state = state.copyWith(isLoading: true, clearError: true);
 
-    // Simulate API call
-    await Future<void>.delayed(const Duration(seconds: 1));
-
-    state = state.copyWith(isLoading: false, isSuccess: true);
+    // Fail closed until the central service provides a verified recovery/challenge contract.
+    state = state.copyWith(
+      isLoading: false,
+      isSuccess: false,
+      errorMessage: 'auth_flow_unavailable'.tr(),
+    );
   }
 }
 

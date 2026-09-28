@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 // Governance - Category: view | Purpose: An enterprise-grade, governed login screen. Follows 'No-Logic UI' policy by delegating all authentication logic to [L...
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -238,7 +239,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
                   child: Cy(
                     id: 'login-forgot-password',
                     child: TextButton(key: const Key('login_view_textbutton_button_1'), 
-                      onPressed: () => _showForgotPasswordDialog(context, controller),
+                      onPressed: () => context.go(CommonRoutes.forgotPassword),
                       child: Text(
                         'login_forgot_password'.tr(),
                         style: theme.typography.labelMedium.copyWith(
@@ -277,75 +278,7 @@ class _LoginCardState extends ConsumerState<_LoginCard> {
     );
   }
 
-  void _showForgotPasswordDialog(BuildContext context, LoginController controller) {
-    final theme = context.theme;
-    String email = widget.state.email;
-    
-    showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: theme.colors.surface,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        title: Text(
-          'auth.account_recovery'.tr(),
-          style: theme.typography.h3,
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'auth.recovery_subtitle'.tr(),
-              style: theme.typography.bodyMedium,
-            ),
-            const SizedBox(height: 24),
-            Cy(
-              id: 'forgot-password-email',
-              child: _InputField(
-                label: 'login_identifier_label'.tr(),
-                placeholder: 'admin@primecare.com',
-                icon: Icons.email_outlined,
-                initialValue: email,
-                onChanged: (v) => email = v,
-              ),
-            ),
-          ],
-        ),
-        actionsPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        actions: [
-          Cy(
-            id: 'forgot-password-cancel',
-            child: TextButton(key: const Key('login_view_textbutton_button_2'), 
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text(
-                'auth.cancel'.tr().toUpperCase(),
-                style: theme.typography.labelMedium.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: theme.colors.onSurfaceVariant,
-                ),
-              ),
-            ),
-          ),
-          Cy(
-            id: 'forgot-password-submit',
-            child: ElevatedButton(key: const Key('login_view_elevatedbutton_button_1'), 
-              onPressed: () async {
-                 Navigator.of(context).pop();
-                 await controller.forgotPassword(email);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: theme.colors.primary,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                elevation: 0,
-              ),
-              child: Text('auth.send_recovery_link'.tr().toUpperCase(), style: const TextStyle(fontWeight: FontWeight.bold)),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+
 }
 
 class _InputField extends StatelessWidget {
@@ -585,7 +518,7 @@ class _ActionButtons extends StatelessWidget {
               id: 'login-signup-link',
               child: TextButton(
                 key: const Key('login_view_textbutton_signup'),
-                onPressed: () => _showSignUpDialog(context),
+                onPressed: () => context.go(CommonRoutes.signup),
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.zero,
                   minimumSize: Size.zero,
@@ -607,58 +540,7 @@ class _ActionButtons extends StatelessWidget {
     );
   }
 
-  void _showSignUpDialog(BuildContext context) {
-    final theme = context.theme;
-    showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: theme.colors.surface,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        title: Row(
-          children: [
-            Icon(Icons.admin_panel_settings_rounded, color: theme.colors.primary, size: 28),
-            const SizedBox(width: 12),
-            Text(
-              'Access Request',
-              style: theme.typography.h3,
-            ),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'PrimeCare is a regulated, secure healthcare platform enforcing Zero-Trust access controls.',
-              style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              'Public registration is restricted. To provision a new workspace or register as a provider, coordinator, or client, please contact your regional administrator or care team coordinator.',
-              style: theme.typography.bodyMedium.copyWith(
-                color: theme.colors.onSurfaceVariant,
-              ),
-            ),
-          ],
-        ),
-        actionsPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        actions: [
-          ElevatedButton(
-            key: const Key('login_view_elevatedbutton_signup_ok'), 
-            onPressed: () => Navigator.of(context).pop(),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: theme.colors.primary,
-              foregroundColor: Colors.white,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              elevation: 0,
-            ),
-            child: const Text('UNDERSTOOD', style: TextStyle(fontWeight: FontWeight.bold)),
-          ),
-        ],
-      ),
-    );
-  }
+
 }
 
 class _LoginFooter extends StatelessWidget {

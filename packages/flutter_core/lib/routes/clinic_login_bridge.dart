@@ -16,10 +16,11 @@ PRIME:NEXT_ACTION=
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_core/flutter_core.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 import 'package:go_router/go_router.dart';
 
-String? validateClinicReturnUrl(String? rawValue) {
+String? validateClinicReturnUrl(String? rawValue) => validateAppReturnUrl(rawValue);
+
+String? validateAppReturnUrl(String? rawValue) {
   if (rawValue == null || rawValue.trim().isEmpty) {
     return '/dashboard';
   }
@@ -67,7 +68,7 @@ class ClinicLoginBridge extends GovernedConsumerStatefulWidget {
 class _ClinicLoginBridgeState extends GovernedConsumerState<ClinicLoginBridge> {
   @override
   String get screenDescription =>
-      'Zero-Trust clinic login bridge that validates the return location and redirects unauthenticated users once to the central SSO portal.';
+      'Zero-Trust clinic login bridge that validates the return location and routes unauthenticated users to the app-local shared login.';
 
   @override
   List<String> get requiredComponents => const ['ClinicLoginBridgeComponent'];
@@ -106,29 +107,10 @@ class _ClinicLoginBridgeState extends GovernedConsumerState<ClinicLoginBridge> {
       _redirectStarted = true;
     });
 
-    final stateToken = DateTime.now().millisecondsSinceEpoch.toString();
-
-    final ssoPortal = RouteGuard.ssoPortalUrl ?? 'https://primecare-auth.pages.dev';
-    
-    final currentOrigin = Uri.base.origin;
-    final callbackUrl = currentOrigin.contains("localhost") || currentOrigin.contains("pages.dev")
-        ? "$currentOrigin/auth/callback"
-        : "https://primecare-clinic.pages.dev/auth/callback";
-
-    final authUri = Uri.parse('$ssoPortal/login').replace(
-      queryParameters: {
-        'clientId': 'primecare-clinic',
-        'callbackUrl': callbackUrl,
-        'returnUrl': safeReturnUrl,
-        'state': stateToken,
-      },
-    );
-
-    launchUrlString(
-      authUri.toString(),
-      mode: LaunchMode.platformDefault,
-      webOnlyWindowName: '_self',
-    );
+    context.go(Uri(
+      path: CommonRoutes.login,
+      queryParameters: {'returnUrl': safeReturnUrl},
+    ).toString());
   }
 
   @override
