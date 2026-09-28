@@ -14,6 +14,7 @@ with connection:
         ('mfa', '/mfa', 'challenge_contract_pending'),
         ('consent', '/consent', 'authenticated_consent_contract_pending'),
         ('success', '/success', 'authenticated_session_summary'),
+        ('auth_error', '/auth/error', 'shared_authentication_error'),
         ('language', '/language', 'shared_locale'),
         ('sso_redirect', '/sso-redirect', 'legacy_local_login'),
     ]:
@@ -22,4 +23,9 @@ with connection:
             ON CONFLICT(route_code) DO UPDATE SET
             route_path=excluded.route_path, flow_type=excluded.flow_type''',
             (code, path, flow))
+    # These existing UI flows have no working backend contract yet.
+    connection.execute("""UPDATE screens SET production_ready=0,
+        runtime_verified=0, cypress_verified=0, api_tag='api_missing',
+        implementation_tag='partial', test_tag='test_pending'
+        WHERE screen_code IN ('reset_password', 'mfa', 'consent')""")
 connection.close()

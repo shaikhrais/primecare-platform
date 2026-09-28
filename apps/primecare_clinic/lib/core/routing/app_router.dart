@@ -22,9 +22,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     additionalPublicRoutes: [
       GoRoute(path: CommonRoutes.globalSettings,
         builder: (context, state) => const AppShellBoundary(child: GlobalSettingsScreen())),
-      GoRoute(path: CommonRoutes.authError,
-        builder: (context, state) => AppShellBoundary(
-          child: AuthErrorView(returnUrl: state.uri.queryParameters['returnUrl']))),
     ],
   );
 });

@@ -90,7 +90,7 @@ class SharedAuthRouter {
 class SharedAuthRoutes {
   static const publicPaths = <String>{
     '/login', '/signup', '/forgot-password', '/reset-password', '/mfa',
-    '/language', '/sso-redirect',
+    '/language', '/sso-redirect', '/auth/error',
   };
 
   static List<GoRoute> protectedRoutes() => [
@@ -101,6 +101,9 @@ class SharedAuthRoutes {
   ];
 
   static List<GoRoute> routes() => [
+        GoRoute(path: CommonRoutes.authError,
+          builder: (context, state) => AppShellBoundary(child: AuthErrorView(
+            returnUrl: state.uri.queryParameters['returnUrl']))),
         GoRoute(
           path: CommonRoutes.login,
           builder: (context, state) => const AppShellBoundary(
