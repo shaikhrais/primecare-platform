@@ -7,7 +7,7 @@ import { mkdtemp, readFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createRequire } from 'node:module';
-import { randomUUID } from 'node:crypto';
+import { randomUUID, createHash } from 'node:crypto';
 
 const connectionString = process.env.AUTH_TEST_DATABASE_URL;
 if (!connectionString) throw new Error('AUTH_TEST_DATABASE_URL is required; never use production credentials.');
@@ -23,6 +23,7 @@ const db = new Client({connectionString});
 await db.connect();
 const email = `fixture-${randomUUID()}@example.invalid`;
 const password = randomUUID();
+const rateEmail=`rate-${randomUUID()}@example.invalid`;
 const env = {DB_URL:connectionString,SERVICE_NAME:'auth'};
 let userId;
 let createdId;
@@ -36,6 +37,7 @@ try {
   await db.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS tenant_id UUID');
   await db.query(await readFile('packages/database/migrations/20260926_auth_sessions.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_account_audit.sql','utf8'));
+  await db.query(await readFile('packages/database/migrations/20260928_auth_rate_limits.sql','utf8'));
   userId = (await db.query('INSERT INTO users(email,roles,password_hash,status) VALUES($1,$2,$3,$4) RETURNING id',
     [email,'fixture-role',await bcrypt.hash(password,12),'active'])).rows[0].id;
   const login = await call('/login','POST',{email,password});
@@ -69,11 +71,18 @@ try {
   assert.equal((await call('/register','POST',{...account,email:'forbidden@example.invalid'},staff.token)).status,403);passed++;
   const cross=new Request('https://auth.test/register',{method:'POST',headers:{authorization:'Bearer '+admin.token,'content-type':'application/json','x-tenant-id':randomUUID()},body:JSON.stringify({...account,email:'cross@example.invalid'})});
   assert.equal((await auth(cross,env,'/register',{})).status,403);passed++;
+  const concurrent=await Promise.all(Array.from({length:12},()=>call('/login','POST',{email:rateEmail,password:'not-a-real-password'})));
+  assert.equal(concurrent.filter(r=>r.status===401).length,10);
+  assert.equal(concurrent.filter(r=>r.status===429).length,2);passed++;
+  const rateHash=createHash('sha256').update('login:'+rateEmail).digest('hex');
+  await db.query("UPDATE auth_rate_limits SET reset_at=NOW()-INTERVAL '1 second' WHERE subject_hash=$1",[rateHash]);
+  assert.equal((await call('/login','POST',{email:rateEmail,password:'not-a-real-password'})).status,401);passed++;
   console.log(JSON.stringify({passed, database:'isolated PostgreSQL', productionVerified:false}));
 } finally {
   // Remove only the uniquely identified synthetic fixture; sessions cascade.
   if(userId) await db.query('DELETE FROM auth_account_audit WHERE actor_user_id=$1',[userId]);
   if(createdId) await db.query('DELETE FROM users WHERE id=$1',[createdId]);
   if(userId) await db.query('DELETE FROM users WHERE id=$1 AND email=$2',[userId,email]);
+  await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update('login:'+rateEmail).digest('hex')]);
   await db.end();
 }

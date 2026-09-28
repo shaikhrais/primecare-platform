@@ -5,14 +5,15 @@ import bcrypt from 'bcryptjs';
 
 // Test fixtures only: no network, production credentials, or PostgreSQL writes.
 const fixtureHash = await bcrypt.hash('fixture-password', 4);
-let sessions, user, queries, failWrite, failRead, ambiguous;
+let sessions, user, queries, failWrite, failRead, ambiguous, rateAttempts;
 beforeEach(() => {
-  sessions = new Map(); queries = []; failWrite = false; failRead = false; ambiguous = false;
+  sessions = new Map(); queries = []; failWrite = false; failRead = false; ambiguous = false; rateAttempts=0;
   user = { id: 'fixture-user', roles: 'fixture-role', tenant_id:'fixture-tenant', status: 'active', password_hash: fixtureHash };
 });
 globalThis.__authQuery = async (sql, values) => {
   queries.push({sql, values});
   if (failRead) throw new Error('fixture-private-database-details');
+  if(sql.startsWith('INSERT INTO auth_rate_limits')) return {rows:[{attempts:++rateAttempts,retry_after:60}]};
   if (['BEGIN','COMMIT','ROLLBACK'].includes(sql) || sql.startsWith('SELECT pg_advisory') || sql.startsWith('INSERT INTO auth_account_audit')) return {rows:[]};
   if (sql.startsWith('SELECT id FROM users')) return {rows:[]};
   if (sql.startsWith('INSERT INTO users')) return {rows:[{id:'created-fixture',email:values[0],tenant_id:values[1],roles:values[2],status:'active'}]};
@@ -134,8 +135,9 @@ test('database errors remain generic and non-cacheable',async()=>{
 });
 test('email normalization uses a bound SQL parameter',async()=>{
   await auth(request('/login','POST',{email:'  Fixture@Example.Invalid ',password:'fixture-password'}),env,'/login',{});
-  assert.equal(queries[0].values[0],'fixture@example.invalid');
-  assert.ok(!queries[0].sql.includes('fixture@example.invalid'));
+  const lookup=queries.find(q=>q.sql.startsWith('SELECT id, roles'));
+  assert.equal(lookup.values[0],'fixture@example.invalid');
+  assert.ok(!lookup.sql.includes('fixture@example.invalid'));
 });
 const newAccount={email:'new@example.invalid',password:'new-fixture-password',role:'rmt'};
 test('public registration denied before database access',async()=>{
@@ -164,4 +166,12 @@ test('tenant override rejected in header and body',async()=>{
   const req=request('/register','POST',newAccount,token);req.headers.set('x-tenant-id','other-tenant');
   assert.equal((await auth(req,env,'/register',{})).status,403);
   assert.equal((await auth(request('/register','POST',{...newAccount,tenant_id:'other'},token),env,'/register',{})).status,400);
+});
+test('login throttles at the configured limit and stores only hashed subject',async()=>{
+  for(let i=0;i<10;i++) assert.equal((await login()).status,200);
+  const response=await login(); assert.equal(response.status,429);
+  assert.equal(response.headers.get('retry-after'),'60');
+  assert.equal(response.headers.get('cache-control'),'no-store');
+  for(const q of queries.filter(q=>q.sql.startsWith('INSERT INTO auth_rate_limits')))
+    assert.match(q.values[0],/^[a-f0-9]{64}$/);
 });

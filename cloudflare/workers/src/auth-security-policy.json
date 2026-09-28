@@ -1,0 +1,6 @@
+{
+  "login": {
+    "maxAttempts": 10,
+    "windowSeconds": 60
+  }
+}

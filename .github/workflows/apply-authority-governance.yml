@@ -5,6 +5,7 @@ on:
     paths:
       - scripts/propose-authority-governance.py
       - scripts/apply-auth-account-policy.py
+      - scripts/apply-auth-security-policy.py
       - .github/workflows/apply-authority-governance.yml
   workflow_dispatch:
 permissions:
@@ -27,10 +28,12 @@ jobs:
         run: python scripts/propose-authority-governance.py --apply --approve
       - name: Apply approved account-creation policy
         run: python scripts/apply-auth-account-policy.py
+      - name: Record authentication security settings
+        run: python scripts/apply-auth-security-policy.py
       - name: Commit governance database only
         run: |
           set -euo pipefail
-          git add .agents/governance/governance.db cloudflare/workers/src/account-policy.json
+          git add .agents/governance/governance.db cloudflare/workers/src/account-policy.json cloudflare/workers/src/auth-security-policy.json
           if git diff --cached --quiet; then exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

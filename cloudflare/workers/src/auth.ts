@@ -1,6 +1,7 @@
 import { Client } from 'pg';
 import bcrypt from 'bcryptjs';
 import accountPolicy from './account-policy.json';
+import {loginRateLimit} from './auth-rate-limit';
 
 export interface Env { DB_URL: string; SERVICE_NAME: string }
 type Json = Record<string, unknown>;
@@ -117,6 +118,9 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     if (!email || email.length > 254 || !password) return json({ error: 'Email and password are required' }, 400, headers);
 
     return withDb(env, async (db) => {
+      const retryAfter = await loginRateLimit(db, await sha256('login:' + email));
+      if (retryAfter !== null) return json({error:'Too many login attempts'},429,
+        {...headers,'retry-after':String(retryAfter)});
       const result = await db.query(
         'SELECT id, roles, password_hash, status FROM users WHERE LOWER(email) = $1 LIMIT 2', [email]);
       const user = result.rows[0];
