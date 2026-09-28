@@ -106,7 +106,24 @@ class SecurityInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    if (err.response?.statusCode == 401) {
+    if (err.response?.statusCode != 401) {
+      super.onError(err, handler);
+      return;
+    }
+    final path = err.requestOptions.uri.normalizePath().path;
+    final session = _ref.read(authProvider);
+    final sentToken = err.requestOptions.headers['Authorization'];
+    // A failed logout must not recursively call logout. Credential checks can
+    // return 401 without invalidating an existing session. A delayed response
+    // from an older token must not sign out a newer session.
+    final credentialCheck = path == '/v1/auth/login' ||
+        path == '/v1/auth/change-password';
+    if (err.response?.statusCode == 401 &&
+        path != '/v1/auth/logout' &&
+        !credentialCheck &&
+        session.token != null &&
+        session.token!.isNotEmpty &&
+        sentToken == 'Bearer ${session.token}') {
       PrimeLogger.warning(
         'Security Interceptor: Unauthorized access detected. Revoking session.',
       );

@@ -6,7 +6,8 @@ on:
       - 'services/auth_api/**'
       - 'services/api_gateway/**'
       - 'packages/database_client/**'
-      - 'packages/flutter_core/test/auth_transport_test.dart'
+      - 'packages/flutter_core/test/auth*_test.dart'
+      - 'packages/flutter_core/lib/src/security/security_interceptor.dart'
       - 'packages/flutter_core/lib/auth_service.dart'
       - 'packages/flutter_core/lib/src/network/api_client.dart'
       - 'apps/primecare_auth/lib/**'
@@ -118,4 +119,4 @@ jobs:
         working-directory: packages/flutter_core
         run: |
           flutter pub get
-          flutter test test/auth_transport_test.dart
+          flutter test test/auth_transport_test.dart test/auth_session_test.dart

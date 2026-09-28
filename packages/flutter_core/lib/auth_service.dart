@@ -413,15 +413,14 @@ class AuthNotifier extends Notifier<AuthState> {
           body: {
             'email': email,
             'password': password,
-            'firstName': firstName,
-            'lastName': lastName,
             'role': role,
           },
         );
 
         if (response.statusCode == 200 || response.statusCode == 201) {
-          // Automatically login the user after successful registration
-          return await login(email, password);
+          // This is privileged account provisioning. Keep the creating user's
+          // session; registration does not authenticate the new account.
+          return true;
         } else {
           return false;
         }
@@ -524,7 +523,7 @@ class AuthNotifier extends Notifier<AuthState> {
       },
     );
 
-    state = AuthState();
+    state = AuthState(isInitialized: true);
     authListenable.value = false;
     ref
         .read<ExecutionGateService>(executionGateProvider)
