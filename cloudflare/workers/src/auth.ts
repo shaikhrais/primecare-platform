@@ -154,6 +154,8 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
     const password = typeof body.password === 'string' ? body.password : '';
     if (!email || email.length > 254 || !password) return json({ error: 'Email and password are required' }, 400, headers);
+    // bcrypt ignores bytes beyond 72; never accept a suffix alias of a password.
+    if (new TextEncoder().encode(password).length > 72) return json({error:'Invalid credentials'},401,headers);
 
     return withDb(env, async (db) => {
       const retryAfter = await loginRateLimit(db, await sha256('login:' + email));
@@ -167,9 +169,16 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
         return json({ error: 'Invalid credentials' }, 401, headers);
       }
       const token = newToken();
-      await db.query(
-        "INSERT INTO auth_sessions (token_hash, user_id, expires_at) VALUES ($1, $2, NOW() + INTERVAL '12 hours')",
-        [await sha256(token), user.id]);
+      // Revalidate the checked credential while locking the user until the insert
+      // commits. Password/status updates either win first (no session is issued),
+      // or wait for this insert and then revoke it in their existing transaction.
+      const session = await db.query(
+        `INSERT INTO auth_sessions (token_hash, user_id, expires_at)
+         SELECT $1, u.id, NOW() + INTERVAL '12 hours' FROM users u
+         WHERE u.id=$2 AND u.password_hash=$3 AND LOWER(u.status)='active'
+         FOR SHARE OF u RETURNING token_hash`,
+        [await sha256(token), user.id, user.password_hash]);
+      if (session.rows.length !== 1) return json({error:'Invalid credentials'},401,headers);
       return json({ userId: String(user.id), role: String(user.roles), token, status: 'authenticated' }, 200, {
         ...headers,
         'set-cookie': `session_token=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=43200`,
