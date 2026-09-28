@@ -102,10 +102,16 @@ jobs:
           }
           verify_gateway /health
           cors_origin='https://primecare-clinic.pages.dev'
-          cors_header="$(curl --fail --show-error --silent --dump-header - --output /dev/null \
-            -H "Origin: ${cors_origin}" "${GATEWAY_URL}/health?cors-check=${GITHUB_SHA}" \
-            | tr -d '\r' | awk -F': ' 'tolower($1)=="access-control-allow-origin" {print $2}')"
-          test "${cors_header}" = "${cors_origin}" || { echo '::error::Gateway browser CORS verification failed'; exit 1; }
+          cors_ready=false
+          for attempt in {1..18}; do
+            cors_header="$(curl --fail --show-error --silent --dump-header - --output /dev/null \
+              -H "Origin: ${cors_origin}" "${GATEWAY_URL}/health?cors-check=${GITHUB_SHA}-${attempt}" \
+              | tr -d '\r' | awk -F': *' 'tolower($1)=="access-control-allow-origin" {print $2}' | tail -1)"
+            if test "${cors_header}" = "${cors_origin}"; then cors_ready=true; break; fi
+            echo "Waiting for gateway CORS propagation (attempt ${attempt}/18)"
+            sleep 5
+          done
+          test "${cors_ready}" = true || { echo '::error::Gateway browser CORS verification failed'; exit 1; }
           for route in auth client provider visit notes billing scheduling notification verification compliance governance franchise-reporting; do
             verify_gateway "/v1/${route}/health"
           done
