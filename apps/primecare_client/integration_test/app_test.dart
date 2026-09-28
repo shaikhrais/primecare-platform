@@ -5,34 +5,22 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:integration_test/integration_test.dart';
 
 // Import all screens
-import '../lib/client_book_appointment_screen.dart';
-import '../lib/client_book_appointment_screen_controller.dart';
-import '../lib/client_care_team_screen.dart';
-import '../lib/client_care_team_screen_controller.dart';
-import '../lib/client_dashboard_screen.dart';
-import '../lib/client_dashboard_screen_controller.dart';
-import '../lib/client_my_appointments_screen.dart';
-import '../lib/client_my_appointments_screen_controller.dart';
-import '../lib/client_payments_screen.dart';
-import '../lib/client_payments_screen_controller.dart';
-import '../lib/client_profile_screen.dart';
-import '../lib/client_profile_screen_controller.dart';
-import '../lib/client_treatment_history_screen.dart';
-import '../lib/client_treatment_history_screen_controller.dart';
-import '../lib/family_member_billing_screen.dart';
-import '../lib/family_member_billing_screen_controller.dart';
-import '../lib/family_member_care_updates_screen.dart';
-import '../lib/family_member_care_updates_screen_controller.dart';
-import '../lib/family_member_dashboard_screen.dart';
-import '../lib/family_member_dashboard_screen_controller.dart';
-import '../lib/family_member_emergency_contacts_screen.dart';
-import '../lib/family_member_emergency_contacts_screen_controller.dart';
-import '../lib/family_member_loved_one_schedule_screen.dart';
-import '../lib/family_member_loved_one_schedule_screen_controller.dart';
-import '../lib/family_member_profile_screen.dart';
-import '../lib/family_member_profile_screen_controller.dart';
-import '../lib/unknown_dashboard_screen.dart';
-import '../lib/unknown_dashboard_screen_controller.dart';
+import '../lib/features/generated_screens/client_book_appointment_screen.dart';
+import '../lib/features/generated_screens/client_care_team_screen.dart';
+import '../lib/features/generated_screens/client_dashboard_screen.dart';
+import '../lib/features/generated_screens/client_my_appointments_screen.dart';
+import '../lib/features/generated_screens/client_payments_screen.dart';
+import '../lib/features/generated_screens/client_profile_screen.dart';
+import '../lib/features/generated_screens/client_treatment_history_screen.dart';
+import '../lib/features/generated_screens/family_member_billing_screen.dart';
+import '../lib/features/generated_screens/family_member_care_updates_screen.dart';
+import '../lib/features/generated_screens/family_member_dashboard_screen.dart';
+import '../lib/features/generated_screens/family_member_dashboard_screen_controller.dart';
+import '../lib/features/generated_screens/family_member_emergency_contacts_screen.dart';
+import '../lib/features/generated_screens/family_member_loved_one_schedule_screen.dart';
+import '../lib/features/generated_screens/family_member_profile_screen.dart';
+import '../lib/features/generated_screens/unknown_dashboard_screen.dart';
+import '../lib/features/generated_screens/unknown_dashboard_screen_controller.dart';
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +33,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            ClientBookAppointmentScreenControllerProvider.overrideWith(() => MockClientBookAppointmentScreenController()),
+            clientBookAppointmentProvider.overrideWith((ref) => MockClientBookAppointmentScreenController(ref)),
           ],
           child: const MaterialApp(
             home: ClientBookAppointmentScreen(),
@@ -72,7 +60,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            ClientCareTeamScreenControllerProvider.overrideWith(() => MockClientCareTeamScreenController()),
+            clientCareTeamProvider.overrideWith((ref) => MockClientCareTeamScreenController(ref)),
           ],
           child: const MaterialApp(
             home: ClientCareTeamScreen(),
@@ -99,7 +87,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            ClientDashboardScreenControllerProvider.overrideWith(() => MockClientDashboardScreenController()),
+            clientDashboardProvider.overrideWith((ref) => MockClientDashboardScreenController(ref)),
           ],
           child: const MaterialApp(
             home: ClientDashboardScreen(),
@@ -126,7 +114,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            ClientMyAppointmentsScreenControllerProvider.overrideWith(() => MockClientMyAppointmentsScreenController()),
+            clientMyAppointmentsProvider.overrideWith((ref) => MockClientMyAppointmentsScreenController(ref)),
           ],
           child: const MaterialApp(
             home: ClientMyAppointmentsScreen(),
@@ -153,7 +141,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            ClientPaymentsScreenControllerProvider.overrideWith(() => MockClientPaymentsScreenController()),
+            clientPaymentsProvider.overrideWith((ref) => MockClientPaymentsScreenController(ref)),
           ],
           child: const MaterialApp(
             home: ClientPaymentsScreen(),
@@ -180,7 +168,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            ClientProfileScreenControllerProvider.overrideWith(() => MockClientProfileScreenController()),
+            clientProfileProvider.overrideWith((ref) => MockClientProfileScreenController(ref)),
           ],
           child: const MaterialApp(
             home: ClientProfileScreen(),
@@ -207,7 +195,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            ClientTreatmentHistoryScreenControllerProvider.overrideWith(() => MockClientTreatmentHistoryScreenController()),
+            clientTreatmentHistoryProvider.overrideWith((ref) => MockClientTreatmentHistoryScreenController(ref)),
           ],
           child: const MaterialApp(
             home: ClientTreatmentHistoryScreen(),
@@ -234,7 +222,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            FamilyMemberBillingScreenControllerProvider.overrideWith(() => MockFamilyMemberBillingScreenController()),
+            familyMemberBillingProvider.overrideWith((ref) => MockFamilyMemberBillingScreenController(ref)),
           ],
           child: const MaterialApp(
             home: FamilyMemberBillingScreen(),
@@ -261,7 +249,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            FamilyMemberCareUpdatesScreenControllerProvider.overrideWith(() => MockFamilyMemberCareUpdatesScreenController()),
+            familyMemberCareUpdatesProvider.overrideWith((ref) => MockFamilyMemberCareUpdatesScreenController(ref)),
           ],
           child: const MaterialApp(
             home: FamilyMemberCareUpdatesScreen(),
@@ -288,7 +276,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            FamilyMemberDashboardScreenControllerProvider.overrideWith(() => MockFamilyMemberDashboardScreenController()),
+            familyMemberDashboardScreenControllerProvider.overrideWith(() => MockFamilyMemberDashboardScreenController()),
           ],
           child: const MaterialApp(
             home: FamilyMemberDashboardScreen(),
@@ -315,7 +303,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            FamilyMemberEmergencyContactsScreenControllerProvider.overrideWith(() => MockFamilyMemberEmergencyContactsScreenController()),
+            familyMemberEmergencyContactsProvider.overrideWith((ref) => MockFamilyMemberEmergencyContactsScreenController(ref)),
           ],
           child: const MaterialApp(
             home: FamilyMemberEmergencyContactsScreen(),
@@ -342,7 +330,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            FamilyMemberLovedOneScheduleScreenControllerProvider.overrideWith(() => MockFamilyMemberLovedOneScheduleScreenController()),
+            familyMemberLovedOneScheduleProvider.overrideWith((ref) => MockFamilyMemberLovedOneScheduleScreenController(ref)),
           ],
           child: const MaterialApp(
             home: FamilyMemberLovedOneScheduleScreen(),
@@ -369,7 +357,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            FamilyMemberProfileScreenControllerProvider.overrideWith(() => MockFamilyMemberProfileScreenController()),
+            familyMemberProfileProvider.overrideWith((ref) => MockFamilyMemberProfileScreenController(ref)),
           ],
           child: const MaterialApp(
             home: FamilyMemberProfileScreen(),
@@ -396,7 +384,7 @@ void main() {
         ProviderScope(
           overrides: [
             // Mocking the API response to bypass Dio networking in tests
-            UnknownDashboardScreenControllerProvider.overrideWith(() => MockUnknownDashboardScreenController()),
+            unknownDashboardScreenControllerProvider.overrideWith(() => MockUnknownDashboardScreenController()),
           ],
           child: const MaterialApp(
             home: UnknownDashboardScreen(),
@@ -421,155 +409,131 @@ void main() {
 }
 
 class MockClientBookAppointmentScreenController extends ClientBookAppointmentScreenController {
+  MockClientBookAppointmentScreenController(super.ref);
+
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
-      'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+  Future<void> refreshData() async {
+    state = state.copyWith(isLoading: false, hasData: true, error: null);
   }
 }
 
 class MockClientCareTeamScreenController extends ClientCareTeamScreenController {
+  MockClientCareTeamScreenController(super.ref);
+
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
-      'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+  Future<void> refreshData() async {
+    state = state.copyWith(isLoading: false, hasData: true, error: null);
   }
 }
 
 class MockClientDashboardScreenController extends ClientDashboardScreenController {
+  MockClientDashboardScreenController(super.ref);
+
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
-      'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+  Future<void> refreshData() async {
+    state = state.copyWith(isLoading: false, hasData: true, error: null);
   }
 }
 
 class MockClientMyAppointmentsScreenController extends ClientMyAppointmentsScreenController {
+  MockClientMyAppointmentsScreenController(super.ref);
+
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
-      'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+  Future<void> refreshData() async {
+    state = state.copyWith(isLoading: false, hasData: true, error: null);
   }
 }
 
 class MockClientPaymentsScreenController extends ClientPaymentsScreenController {
+  MockClientPaymentsScreenController(super.ref);
+
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
-      'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+  Future<void> refreshData() async {
+    state = state.copyWith(isLoading: false, hasData: true, error: null);
   }
 }
 
 class MockClientProfileScreenController extends ClientProfileScreenController {
+  MockClientProfileScreenController(super.ref);
+
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
-      'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+  Future<void> refreshData() async {
+    state = state.copyWith(isLoading: false, hasData: true, error: null);
   }
 }
 
 class MockClientTreatmentHistoryScreenController extends ClientTreatmentHistoryScreenController {
+  MockClientTreatmentHistoryScreenController(super.ref);
+
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
-      'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+  Future<void> refreshData() async {
+    state = state.copyWith(isLoading: false, hasData: true, error: null);
   }
 }
 
 class MockFamilyMemberBillingScreenController extends FamilyMemberBillingScreenController {
+  MockFamilyMemberBillingScreenController(super.ref);
+
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
-      'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+  Future<void> refreshData() async {
+    state = state.copyWith(isLoading: false, hasData: true, error: null);
   }
 }
 
 class MockFamilyMemberCareUpdatesScreenController extends FamilyMemberCareUpdatesScreenController {
+  MockFamilyMemberCareUpdatesScreenController(super.ref);
+
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
-      'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+  Future<void> refreshData() async {
+    state = state.copyWith(isLoading: false, hasData: true, error: null);
   }
 }
 
 class MockFamilyMemberDashboardScreenController extends FamilyMemberDashboardScreenController {
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
+  AsyncValue<Map<String, dynamic>> build() {
+    return const AsyncValue.data(<String, dynamic>{
       'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+      'items': <dynamic>[],
+      'kpis': <dynamic>[],
+    });
   }
 }
 
 class MockFamilyMemberEmergencyContactsScreenController extends FamilyMemberEmergencyContactsScreenController {
+  MockFamilyMemberEmergencyContactsScreenController(super.ref);
+
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
-      'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+  Future<void> refreshData() async {
+    state = state.copyWith(isLoading: false, hasData: true, error: null);
   }
 }
 
 class MockFamilyMemberLovedOneScheduleScreenController extends FamilyMemberLovedOneScheduleScreenController {
+  MockFamilyMemberLovedOneScheduleScreenController(super.ref);
+
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
-      'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+  Future<void> refreshData() async {
+    state = state.copyWith(isLoading: false, hasData: true, error: null);
   }
 }
 
 class MockFamilyMemberProfileScreenController extends FamilyMemberProfileScreenController {
+  MockFamilyMemberProfileScreenController(super.ref);
+
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
-      'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+  Future<void> refreshData() async {
+    state = state.copyWith(isLoading: false, hasData: true, error: null);
   }
 }
 
 class MockUnknownDashboardScreenController extends UnknownDashboardScreenController {
   @override
-  FutureOr<Map<String, dynamic>> build() async {
-    return {
+  AsyncValue<Map<String, dynamic>> build() {
+    return const AsyncValue.data(<String, dynamic>{
       'status': 'success',
-      'items': [],
-      'kpis': [],
-    };
+      'items': <dynamic>[],
+      'kpis': <dynamic>[],
+    });
   }
 }

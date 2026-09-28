@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/partnership_manager_outreach_model.dart';
 
 class PartnershipManagerOutreachNotifier extends StateNotifier<PartnershipManagerOutreachModel> {
@@ -8,7 +8,7 @@ class PartnershipManagerOutreachNotifier extends StateNotifier<PartnershipManage
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

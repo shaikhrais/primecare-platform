@@ -35,7 +35,6 @@ DateTime getLatestModifiedTime(String appPath) {
 
 void main(List<String> args) async {
   final apps = [
-    'primecare_auth',
     'primecare_governance',
     'primecare_client',
     'primecare_clinic',
@@ -99,7 +98,6 @@ void main(List<String> args) async {
     }
 
     final appUrls = {
-      'primecare_auth': 'https://primecare-auth.pages.dev',
       'primecare_governance': 'https://primecare-governance.pages.dev',
       'primecare_corporate': 'https://primecare-corporate.pages.dev',
       'primecare_franchise': 'https://primecare-franchise.pages.dev',
@@ -111,7 +109,6 @@ void main(List<String> args) async {
       'primecare_enterprise_blueprint': 'https://primecare-enterprise-blueprint.pages.dev',
     };
 
-    final ssoUrl = appUrls['primecare_auth']!;
     final appUrl = appUrls[app]!;
 
     // 2. Build web
@@ -125,7 +122,6 @@ void main(List<String> args) async {
           'web',
           '--release',
           '--dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api',
-          '--dart-define=SSO_PORTAL_URL=$ssoUrl',
           '--dart-define=APP_BASE_URL=$appUrl',
         ],
         workingDirectory: appPath,

@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/regional_bdm_tasks_model.dart';
 
 class RegionalBdmTasksNotifier extends StateNotifier<RegionalBdmTasksModel> {
@@ -8,7 +8,7 @@ class RegionalBdmTasksNotifier extends StateNotifier<RegionalBdmTasksModel> {
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

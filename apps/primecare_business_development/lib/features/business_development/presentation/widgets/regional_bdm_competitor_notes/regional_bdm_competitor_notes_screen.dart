@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'sections/regional_bdm_competitor_notes_header_section.dart';
 import 'sections/regional_bdm_competitor_notes_client_context_section.dart';

@@ -7,5 +7,5 @@ void main() {
     isLoggedIn: true,
     userRole: 'chiropractor',
   );
-  print("Result: isAllowed=${result.isAllowed}, redirectRoute=${result.redirectRoute}, externalRedirectUrl=${result.externalRedirectUrl}");
+  print("Result: isAllowed=${result.isAllowed}, redirectRoute=${result.redirectRoute}");
 }

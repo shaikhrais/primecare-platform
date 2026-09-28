@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/training_director_trainer_assignments_model.dart';
 
 class TrainingDirectorTrainerAssignmentsNotifier extends StateNotifier<TrainingDirectorTrainerAssignmentsModel> {
@@ -8,7 +8,7 @@ class TrainingDirectorTrainerAssignmentsNotifier extends StateNotifier<TrainingD
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

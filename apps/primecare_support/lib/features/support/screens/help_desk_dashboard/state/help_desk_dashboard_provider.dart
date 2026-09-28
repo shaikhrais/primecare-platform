@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/help_desk_dashboard_model.dart';
 
 class HelpDeskDashboardNotifier extends StateNotifier<HelpDeskDashboardModel> {
@@ -8,7 +8,7 @@ class HelpDeskDashboardNotifier extends StateNotifier<HelpDeskDashboardModel> {
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

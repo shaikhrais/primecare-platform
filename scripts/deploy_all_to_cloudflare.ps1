@@ -19,7 +19,6 @@ if (Test-Path ".env") {
 }
 
 $allApps = @(
-    "primecare_auth",                # 1
     "primecare_governance",          # 2
     "primecare_corporate",           # 3
     "primecare_franchise",           # 4
@@ -129,7 +128,6 @@ foreach ($app in $apps) {
     }
 
     $appUrls = @{
-        "primecare_auth" = "https://primecare-auth.pages.dev"
         "primecare_governance" = "https://primecare-governance.pages.dev"
         "primecare_corporate" = "https://primecare-corporate.pages.dev"
         "primecare_franchise" = "https://primecare-franchise.pages.dev"
@@ -140,16 +138,10 @@ foreach ($app in $apps) {
         "primecare_support" = "https://primecare-support.pages.dev"
         "primecare_enterprise_blueprint" = "https://primecare-enterprise-blueprint.pages.dev"
     }
-    $ssoUrl = $appUrls[$app]
-    if ($app -eq "primecare_auth") {
-        $ssoUrl = $appUrls["primecare_auth"]
-    } else {
-        $ssoUrl = $appUrls["primecare_auth"]
-    }
     $appUrl = $appUrls[$app]
 
     Write-Host '⚡ Step 2: Compiling to Web (Release)...' -ForegroundColor Yellow
-    flutter build web --release --no-wasm-dry-run --dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api --dart-define=SSO_PORTAL_URL=$ssoUrl --dart-define=APP_BASE_URL=$appUrl
+    flutter build web --release --no-wasm-dry-run --dart-define=API_BASE_URL=https://primecare-worker-api-gateway.itpro-mohammed.workers.dev/api --dart-define=APP_BASE_URL=$appUrl
     if ($LASTEXITCODE -ne 0) {
         Write-Host '❌ Compilation failed!' -ForegroundColor Red
         $results += [PSCustomObject]@{

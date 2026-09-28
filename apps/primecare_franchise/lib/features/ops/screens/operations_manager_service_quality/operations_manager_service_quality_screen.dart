@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'sections/operations_manager_service_quality_header_section.dart';
 import 'sections/operations_manager_service_quality_content_summary_section.dart';

@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/compliance_manager_reports_model.dart';
 
 class ComplianceManagerReportsNotifier extends StateNotifier<ComplianceManagerReportsModel> {
@@ -8,7 +8,7 @@ class ComplianceManagerReportsNotifier extends StateNotifier<ComplianceManagerRe
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'sections/clinical_reference_header_section.dart';
 import 'sections/clinical_reference_content_summary_section.dart';

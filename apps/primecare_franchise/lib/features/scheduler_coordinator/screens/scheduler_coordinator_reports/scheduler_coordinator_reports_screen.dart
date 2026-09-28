@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'sections/scheduler_coordinator_reports_header_section.dart';
 import 'sections/scheduler_coordinator_reports_calendar_controls_section.dart';

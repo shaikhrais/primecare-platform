@@ -1,8 +1,6 @@
 // Governance - Category: service | Purpose: 1. Initialize Security Governance Watchdog (Bank-Grade) 2. Perform Environment Integrity Audit 3. Initialize and regi...
-import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart' hide languageProvider;
 import 'core/governance/route_registry.dart';
-import 'core/i18n/language_provider.dart';
 
 import 'core/routing/governance_application.dart';
 import 'core/governance/registries/index.dart';

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'sections/coo_issue_escalations_header_section.dart';
 import 'sections/coo_issue_escalations_content_summary_section.dart';

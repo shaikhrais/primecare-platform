@@ -4,7 +4,6 @@ import crypto from "crypto";
 
 const TEST_MODE = process.env.TEST_MODE === "true" || true;
 const BASE_URLS = [
-  "https://primecare-auth.pages.dev",
   "https://primecare-governance.pages.dev",
   "https://primecare-corporate.pages.dev",
   "https://primecare-franchise.pages.dev",

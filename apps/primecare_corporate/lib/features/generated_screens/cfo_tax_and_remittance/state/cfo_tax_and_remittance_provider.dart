@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/cfo_tax_and_remittance_model.dart';
 
 class CfoTaxAndRemittanceNotifier extends StateNotifier<CfoTaxAndRemittanceModel> {
@@ -8,7 +8,7 @@ class CfoTaxAndRemittanceNotifier extends StateNotifier<CfoTaxAndRemittanceModel
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

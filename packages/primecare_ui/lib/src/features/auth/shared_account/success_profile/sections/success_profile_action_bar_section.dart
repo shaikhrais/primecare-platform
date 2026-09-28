@@ -51,7 +51,7 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
       return 'https://primecare-governance.pages.dev';
     }
     
-    return 'https://primecare-auth.pages.dev';
+    return '/login';
   }
 
   bool _hasAccessToPortal(String role, String portalUrl) {

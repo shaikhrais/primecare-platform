@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/audit_sandbox_model.dart';
 
 class AuditSandboxNotifier extends StateNotifier<AuditSandboxModel> {
@@ -8,7 +8,7 @@ class AuditSandboxNotifier extends StateNotifier<AuditSandboxModel> {
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

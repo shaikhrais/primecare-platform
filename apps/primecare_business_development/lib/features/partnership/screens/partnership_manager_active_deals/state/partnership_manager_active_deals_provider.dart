@@ -1,4 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '../models/partnership_manager_active_deals_model.dart';
 
 class PartnershipManagerActiveDealsNotifier extends StateNotifier<PartnershipManagerActiveDealsModel> {
@@ -8,7 +8,7 @@ class PartnershipManagerActiveDealsNotifier extends StateNotifier<PartnershipMan
     state = state.copyWith(isLoading: true);
     try {
       // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const {});
+      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
     } catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }

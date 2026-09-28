@@ -4,7 +4,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 const appsToVerify = [
-    { name: 'primecare_auth', url: 'https://primecare-auth.pages.dev/login', dbAppId: 3 },
     { name: 'primecare_governance', url: 'https://primecare-governance.pages.dev/login', dbAppId: 10 },
     { name: 'primecare_corporate', url: 'https://primecare-corporate.pages.dev/login', dbAppId: 7 },
     { name: 'primecare_franchise', url: 'https://primecare-franchise.pages.dev/login', dbAppId: 9 },
