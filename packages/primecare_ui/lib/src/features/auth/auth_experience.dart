@@ -4,7 +4,7 @@ import 'auth_design_tokens.dart';
 
 enum AuthPage { login, signup, forgot, reset, mfa, language, consent, success, error }
 
-String _copy(String key) => 'auth_design_$key'.tr();
+String _copy(BuildContext context, String key) => 'auth_design_$key'.tr(context: context);
 
 /// Shared, responsive presentation. Controllers own authentication decisions.
 class PrimeAuthExperience extends ConsumerWidget {
@@ -25,27 +25,27 @@ class PrimeAuthExperience extends ConsumerWidget {
     final form = ConstrainedBox(
       constraints: const BoxConstraints(maxWidth: AuthDesignTokens.formWidth),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Semantics(header: true, child: Text(_copy('${page.name}_title'), style: theme.typography.h1)),
+        Semantics(header: true, child: Text(_copy(context, '${page.name}_title'), style: theme.typography.h1)),
         SizedBox(height: gap.sm),
-        Text(_copy('${page.name}_body'), style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurfaceVariant)),
+        Text(_copy(context, '${page.name}_body'), style: theme.typography.bodyLarge.copyWith(color: theme.colors.onSurfaceVariant)),
         SizedBox(height: gap.xl),
         ..._content(context, ref),
         SizedBox(height: gap.lg),
         if (page != AuthPage.login && page != AuthPage.success && page != AuthPage.consent)
-          TextButton.icon(onPressed: () => _go(context, '/login'), icon: const Icon(Icons.arrow_back_rounded), label: Text(_copy('back'))),
+          TextButton.icon(onPressed: () => _go(context, '/login'), icon: const Icon(Icons.arrow_back_rounded), label: Text(_copy(context, 'back'))),
         if (page == AuthPage.login)
-          TextButton(onPressed: () => _go(context, '/signup'), child: Text(_copy('signup'))),
+          TextButton(onPressed: () => _go(context, '/signup'), child: Text(_copy(context, 'signup'))),
         SizedBox(height: gap.lg),
         Divider(color: theme.colors.divider),
         Wrap(alignment: WrapAlignment.center, spacing: gap.sm, children: [
           if (page != AuthPage.language)
-            TextButton.icon(onPressed: () => _go(context, '/language'), icon: const Icon(Icons.language_rounded), label: Text(_copy('language'))),
+            TextButton.icon(onPressed: () => _go(context, '/language'), icon: const Icon(Icons.language_rounded), label: Text(_copy(context, 'language'))),
         ]),
         ExpansionTile(
           tilePadding: EdgeInsets.zero,
-          title: Text(_copy('help'), style: theme.typography.bodyMedium),
+          title: Text(_copy(context, 'help'), style: theme.typography.bodyMedium),
           leading: Icon(Icons.help_outline_rounded, color: theme.colors.onSurfaceVariant),
-          children: [Padding(padding: EdgeInsets.only(bottom: gap.md), child: Text(_copy('help_body'), style: theme.typography.bodyMedium))],
+          children: [Padding(padding: EdgeInsets.only(bottom: gap.md), child: Text(_copy(context, 'help_body'), style: theme.typography.bodyMedium))],
         ),
       ]),
     );
@@ -71,7 +71,7 @@ class PrimeAuthExperience extends ConsumerWidget {
                     : Padding(padding: EdgeInsets.all(gap.lg), child: form),
               ),
               SizedBox(height: gap.lg),
-              Text(_copy('footer'), textAlign: TextAlign.center, style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+              Text(_copy(context, 'footer'), textAlign: TextAlign.center, style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
             ]),
           )),
         );
@@ -87,20 +87,20 @@ class PrimeAuthExperience extends ConsumerWidget {
         final state = ref.watch(loginControllerProvider);
         final controller = ref.read(loginControllerProvider.notifier);
         return [AutofillGroup(child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          PrimeAuthTextField(id: 'login-email', label: _copy('email'), hint: _copy('email_hint'), initialValue: state.email, onChanged: controller.onEmailChanged, enabled: !state.isLoading, autofillHints: const [AutofillHints.username, AutofillHints.email], keyboardType: TextInputType.emailAddress),
+          PrimeAuthTextField(id: 'login-email', label: _copy(context, 'email'), hint: _copy(context, 'email_hint'), initialValue: state.email, onChanged: controller.onEmailChanged, enabled: !state.isLoading, autofillHints: const [AutofillHints.username, AutofillHints.email], keyboardType: TextInputType.emailAddress),
           gap,
-          PrimeAuthTextField(id: 'login-password', label: _copy('password'), initialValue: state.password, onChanged: controller.onPasswordChanged, enabled: !state.isLoading, password: true, autofillHints: const [AutofillHints.password], onSubmitted: state.isLoading ? null : (_) => controller.login()),
-          Align(alignment: AlignmentDirectional.centerEnd, child: TextButton(onPressed: state.isLoading ? null : () => _go(context, '/forgot-password'), child: Text(_copy('forgot')))),
+          PrimeAuthTextField(id: 'login-password', label: _copy(context, 'password'), initialValue: state.password, onChanged: controller.onPasswordChanged, enabled: !state.isLoading, password: true, autofillHints: const [AutofillHints.password], onSubmitted: state.isLoading ? null : (_) => controller.login()),
+          Align(alignment: AlignmentDirectional.centerEnd, child: TextButton(onPressed: state.isLoading ? null : () => _go(context, '/forgot-password'), child: Text(_copy(context, 'forgot')))),
           if (state.errorMessage != null) ...[_Notice(message: state.errorMessage!, error: true), gap],
-          PrimeButton(label: _copy(state.isLoading ? 'loading' : 'login'), onPressed: controller.login, isLoading: state.isLoading, isFullWidth: true, dataCy: 'login-submit'),
+          PrimeButton(label: _copy(context, state.isLoading ? 'loading' : 'login'), onPressed: controller.login, isLoading: state.isLoading, isFullWidth: true, dataCy: 'login-submit'),
         ]))];
       case AuthPage.signup:
         return [
-          Text(_copy('signup_info'), style: theme.typography.bodyLarge), gap,
+          Text(_copy(context, 'signup_info'), style: theme.typography.bodyLarge), gap,
           for (final key in ['signup_step_one', 'signup_step_two', 'signup_step_three'])
-            Padding(padding: EdgeInsets.only(bottom: theme.spacing.md), child: Row(children: [Icon(Icons.check_circle_outline_rounded, color: theme.colors.primary), SizedBox(width: theme.spacing.md), Expanded(child: Text(_copy(key), style: theme.typography.bodyMedium))])),
-          gap, Text(_copy('signup_note'), style: theme.typography.bodyMedium),
-          gap, PrimeButton(label: _copy('login'), onPressed: () => _go(context, '/login'), isFullWidth: true),
+            Padding(padding: EdgeInsets.only(bottom: theme.spacing.md), child: Row(children: [Icon(Icons.check_circle_outline_rounded, color: theme.colors.primary), SizedBox(width: theme.spacing.md), Expanded(child: Text(_copy(context, key), style: theme.typography.bodyMedium))])),
+          gap, Text(_copy(context, 'signup_note'), style: theme.typography.bodyMedium),
+          gap, PrimeButton(label: _copy(context, 'login'), onPressed: () => _go(context, '/login'), isFullWidth: true),
         ];
       case AuthPage.forgot:
       case AuthPage.reset:
@@ -109,10 +109,10 @@ class PrimeAuthExperience extends ConsumerWidget {
         // These backend capabilities are not enabled. Do not collect unusable
         // passwords/codes, fabricate success, or imply a recovery email was sent.
         return [
-          _Notice(message: '${_copy('unavailable_title')}\n${_copy('unavailable_body')}'),
+          _Notice(message: '${_copy(context, 'unavailable_title')}\n${_copy(context, 'unavailable_body')}'),
           gap,
           if (page == AuthPage.consent)
-            PrimeButton(label: _copy('session'), onPressed: () => _go(context, '/success'), isFullWidth: true),
+            PrimeButton(label: _copy(context, 'session'), onPressed: () => _go(context, '/success'), isFullWidth: true),
         ];
       case AuthPage.language:
         final language = ref.watch(languageProvider);
@@ -121,26 +121,25 @@ class PrimeAuthExperience extends ConsumerWidget {
             style: OutlinedButton.styleFrom(padding: EdgeInsets.all(theme.spacing.md), alignment: AlignmentDirectional.centerStart),
             onPressed: () async {
               await ref.read(languageProvider.notifier).setLanguage(entry.key);
-              if (context.mounted) await context.setLocale(Locale(entry.key));
             },
-            child: Row(children: [Expanded(child: Text(_copy(entry.value))), if (language == entry.key) const Icon(Icons.check_circle_rounded)]),
+            child: Row(children: [Expanded(child: Text(_copy(context, entry.value))), if (language == entry.key) const Icon(Icons.check_circle_rounded)]),
           ))];
       case AuthPage.success:
         final auth = ref.watch(authProvider);
         return [
           Icon(Icons.check_circle_outline_rounded, size: AuthDesignTokens.markSize, color: theme.colors.primary), gap,
-          Text(_copy('account'), style: theme.typography.labelBold),
+          Text(_copy(context, 'account'), style: theme.typography.labelBold),
           Text(auth.userName ?? '', style: theme.typography.bodyLarge), gap,
-          Text(_copy('role'), style: theme.typography.labelBold),
+          Text(_copy(context, 'role'), style: theme.typography.labelBold),
           Text(auth.role ?? '', style: theme.typography.bodyLarge), gap,
-          PrimeButton(label: _copy('signout'), onPressed: () async {
+          PrimeButton(label: _copy(context, 'signout'), onPressed: () async {
             await ref.read(authProvider.notifier).logout();
             if (context.mounted) _go(context, '/login');
           }, isFullWidth: true),
-          TextButton(onPressed: () => _go(context, '/consent'), child: Text(_copy('consent'))),
+          TextButton(onPressed: () => _go(context, '/consent'), child: Text(_copy(context, 'consent'))),
         ];
       case AuthPage.error:
-        return [PrimeButton(label: _copy('retry'), onPressed: () => _go(context, '/login'), isFullWidth: true)];
+        return [PrimeButton(label: _copy(context, 'retry'), onPressed: () => _go(context, '/login'), isFullWidth: true)];
     }
   }
 }
@@ -157,7 +156,7 @@ class _BrandMark extends StatelessWidget {
         decoration: BoxDecoration(color: theme.colors.primary, borderRadius: BorderRadius.circular(theme.radiusSm)),
         child: Icon(Icons.add_rounded, color: theme.colors.onPrimary)),
       SizedBox(width: theme.spacing.md),
-      Flexible(child: Text(_copy('brand'), style: theme.typography.h2.copyWith(color: color))),
+      Flexible(child: Text(_copy(context, 'brand'), style: theme.typography.h2.copyWith(color: color))),
     ]);
   }
 }
@@ -177,11 +176,11 @@ class _BrandPanel extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const _BrandMark(inverse: true),
         SizedBox(height: theme.spacing.xxxl),
-        Text(_copy('eyebrow'), style: theme.typography.labelBold.copyWith(color: theme.colors.onPrimary)),
+        Text(_copy(context, 'eyebrow'), style: theme.typography.labelBold.copyWith(color: theme.colors.onPrimary)),
         SizedBox(height: theme.spacing.lg),
-        Text(_copy('brand_title'), style: theme.typography.h1.copyWith(color: theme.colors.onPrimary)),
+        Text(_copy(context, 'brand_title'), style: theme.typography.h1.copyWith(color: theme.colors.onPrimary)),
         SizedBox(height: theme.spacing.lg),
-        Text(_copy('brand_body'), style: theme.typography.bodyLarge.copyWith(color: theme.colors.onPrimary)),
+        Text(_copy(context, 'brand_body'), style: theme.typography.bodyLarge.copyWith(color: theme.colors.onPrimary)),
         SizedBox(height: theme.spacing.xxl),
         ExcludeSemantics(child: Center(child: Container(
           width: AuthDesignTokens.artSize, height: AuthDesignTokens.artSize,
@@ -191,7 +190,7 @@ class _BrandPanel extends StatelessWidget {
             child: Icon(Icons.favorite_outline_rounded, size: AuthDesignTokens.markSize, color: theme.colors.onPrimary)),
         ))),
         SizedBox(height: theme.spacing.xxl),
-        Text(_copy('brand_note'), style: theme.typography.bodySmall.copyWith(color: theme.colors.onPrimary)),
+        Text(_copy(context, 'brand_note'), style: theme.typography.bodySmall.copyWith(color: theme.colors.onPrimary)),
       ]),
     );
   }
@@ -248,7 +247,7 @@ class _PrimeAuthTextFieldState extends State<PrimeAuthTextField> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(theme.radiusDefault), borderSide: BorderSide(color: theme.colors.border)),
         focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(theme.radiusDefault), borderSide: BorderSide(color: theme.colors.primary, width: AuthDesignTokens.focusWidth)),
         suffixIcon: widget.password ? IconButton(
-          tooltip: _copy(revealed ? 'hide_password' : 'show_password'),
+          tooltip: _copy(context, revealed ? 'hide_password' : 'show_password'),
           onPressed: widget.enabled ? () => setState(() => revealed = !revealed) : null,
           icon: Icon(revealed ? Icons.visibility_off_outlined : Icons.visibility_outlined),
         ) : null,
