@@ -1,0 +1,7 @@
+{
+  "login": {
+    "maxAttempts": 120,
+    "windowSeconds": 60,
+    "namespaceId": "2026092801"
+  }
+}
