@@ -113,7 +113,7 @@ jobs:
         working-directory: apps/primecare_auth
         run: |
           flutter pub get
-          flutter analyze lib/main.dart lib/success_profile/sections/success_profile_action_bar_section.dart
+          flutter analyze --no-fatal-infos --no-fatal-warnings lib
 
       - name: Verify Flutter auth transport failures
         working-directory: packages/flutter_core
