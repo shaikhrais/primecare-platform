@@ -68,3 +68,16 @@ attempts across sessions and rollback-resistant counters. Governance migration
 run 36477795900 passed all 17 checks and removed its temporary QA tenant/accounts.
 These smoke checks cover existing journeys; the new throttle thresholds and
 concurrency behavior are verified in isolated PostgreSQL CI.
+
+## Flutter auth transport — 2026-09-28
+
+PR #9 merged as a3ba133ed72c4705186612446d3e3ca69e1ceeb7. Auth errors no longer
+fall through to cached/mock HTTP 200 responses. Server error statuses and payloads
+are preserved; connection failures return a generic 503. Covers all five client
+methods, absolute auth URLs and query strings. The production security interceptor
+remains installed; the transport tests replace it only within test fixtures.
+
+Auth Gateway Verification run 36478586863 passed Flutter analysis, the 125-case
+transport suite, Dart service/gateway checks and PostgreSQL login/logout smoke.
+This is a Flutter source fix on main, not evidence of a published Flutter release.
+No new auth route, permission, or password recovery implementation is introduced.
