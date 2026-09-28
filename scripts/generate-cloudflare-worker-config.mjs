@@ -1,0 +1,29 @@
+import { mkdirSync, writeFileSync } from 'node:fs';
+
+const services = ['auth', 'client', 'provider', 'visit', 'notes', 'billing', 'scheduling',
+  'notification', 'verification', 'compliance', 'governance', 'franchise-reporting'];
+const output = process.argv[2] || '.cloudflare-workers';
+mkdirSync(output, { recursive: true });
+
+for (const service of services) {
+  writeFileSync(`${output}/${service}.jsonc`, `${JSON.stringify({
+    name: `primecare-${service}-api`,
+    main: '../cloudflare/workers/src/service.ts',
+    compatibility_date: '2026-09-27',
+    compatibility_flags: ['nodejs_compat'],
+    workers_dev: true,
+    observability: { enabled: true },
+    vars: { SERVICE_NAME: service },
+  }, null, 2)}\n`);
+}
+
+writeFileSync(`${output}/gateway.jsonc`, `${JSON.stringify({
+  name: 'primecare-api-gateway',
+  main: '../cloudflare/workers/src/gateway.ts',
+  compatibility_date: '2026-09-27',
+  workers_dev: true,
+  observability: { enabled: true },
+  services: services.map((service) => ({
+    binding: service.replaceAll('-', '_').toUpperCase(), service: `primecare-${service}-api`,
+  })),
+}, null, 2)}\n`);

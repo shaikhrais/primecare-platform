@@ -1,4 +1,4 @@
-name: Deploy All APIs to Cloudflare Workers
+name: Deploy TypeScript APIs to Cloudflare Workers
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: primecare-cloudflare-api-production
+  group: primecare-cloudflare-typescript-production
   cancel-in-progress: false
 
 env:
@@ -22,12 +22,11 @@ env:
 
 jobs:
   deploy:
-    name: Deploy API containers and gateway
     runs-on: ubuntu-latest
     environment: production
-    timeout-minutes: 180
+    timeout-minutes: 60
     steps:
-      - name: Require confirmation and secrets
+      - name: Validate authorization and secrets
         run: |
           set -euo pipefail
           test "${{ inputs.confirm }}" = "DEPLOY"
@@ -36,62 +35,63 @@ jobs:
           done
 
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Install deployment tools
-        run: npm install --no-save --ignore-scripts wrangler@4.68.1 @cloudflare/containers
+      - name: Install Worker deployment dependencies
+        run: npm install --no-save --ignore-scripts wrangler@4.68.1 pg@8.16.3 @types/pg bcryptjs@3.0.2 typescript
 
-      - name: Generate deterministic Worker configurations
-        run: node scripts/generate-cloudflare-container-config.mjs
+      - name: Type-check Workers
+        run: npx tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
 
-      - name: Deploy every API Worker and container
+      - name: Generate independent Worker configurations
+        run: node scripts/generate-cloudflare-worker-config.mjs
+
+      - name: Deploy and capture every API URL
         run: |
           set -euo pipefail
           : > worker-urls.txt
           services=(auth client provider visit notes billing scheduling notification verification compliance governance franchise-reporting)
           for service in "${services[@]}"; do
-            config=".cloudflare-generated/${service}.jsonc"
-            printf '%s' "${PRODUCTION_DATABASE_URL}" | npx wrangler secret put DATABASE_URL --config "${config}"
-            output="$(npx wrangler deploy --config "${config}" --containers-rollout=immediate 2>&1 | tee /dev/stderr)"
-            url="$(grep -Eo 'https://[^[:space:]]+\\.workers\\.dev' <<<"${output}" | tail -1)"
-            test -n "${url}" || { echo "::error::Wrangler did not return a public URL for ${service}"; exit 1; }
+            config=".cloudflare-workers/${service}.jsonc"
+            printf '%s' "${PRODUCTION_DATABASE_URL}" | npx wrangler secret put DB_URL --config "${config}"
+            output="$(npx wrangler deploy --config "${config}" 2>&1 | tee /dev/stderr)"
+            url="$(grep -Eo 'https://[^[:space:]]+\.workers\.dev' <<<"${output}" | tail -1)"
+            test -n "${url}" || { echo "::error::No public URL returned for ${service}"; exit 1; }
             printf '%s=%s\n' "${service}" "${url}" | tee -a worker-urls.txt
           done
 
-      - name: Wait for and verify all public API URLs
+      - name: Verify independent APIs
         run: |
           set -euo pipefail
           while IFS='=' read -r service url; do
-            curl --fail --show-error --retry 20 --retry-all-errors --retry-delay 10 "${url}/health"
+            curl --fail --show-error --retry 10 --retry-all-errors --retry-delay 5 "${url}/health"
           done < worker-urls.txt
 
       - id: gateway
-        name: Deploy service-bound API gateway Worker
+        name: Deploy service-bound gateway
         run: |
           set -euo pipefail
-          output="$(npx wrangler deploy --config .cloudflare-generated/gateway.jsonc 2>&1 | tee /dev/stderr)"
-          gateway="$(grep -Eo 'https://[^[:space:]]+\\.workers\\.dev' <<<"${output}" | tail -1)"
-          test -n "${gateway}" || { echo "::error::Wrangler did not return the gateway URL"; exit 1; }
+          output="$(npx wrangler deploy --config .cloudflare-workers/gateway.jsonc 2>&1 | tee /dev/stderr)"
+          gateway="$(grep -Eo 'https://[^[:space:]]+\.workers\.dev' <<<"${output}" | tail -1)"
+          test -n "${gateway}" || { echo '::error::No public gateway URL returned'; exit 1; }
           echo "url=${gateway}" >> "${GITHUB_OUTPUT}"
           printf '%s=%s\n' gateway "${gateway}" >> worker-urls.txt
 
-      - name: Verify gateway and publish URLs
+      - name: Verify gateway routes
         env:
           GATEWAY_URL: ${{ steps.gateway.outputs.url }}
         run: |
           set -euo pipefail
-          gateway="${GATEWAY_URL}"
-          curl --fail --show-error --retry 20 --retry-all-errors --retry-delay 10 "${gateway}/health"
+          curl --fail --show-error --retry 10 --retry-all-errors --retry-delay 5 "${GATEWAY_URL}/health"
           for route in auth client provider visit notes billing scheduling notification verification compliance governance franchise-reporting; do
-            curl --fail --show-error --retry 5 --retry-all-errors "${gateway}/v1/${route}/health"
+            curl --fail --show-error "${GATEWAY_URL}/v1/${route}/health"
           done
           {
-            echo '## Cloudflare API deployment'
+            echo '## TypeScript Cloudflare Worker deployment'
             echo
-            echo "Gateway: ${gateway}"
+            echo "Gateway: ${GATEWAY_URL}"
             echo
             echo '```text'
             cat worker-urls.txt

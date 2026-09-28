@@ -127,3 +127,4 @@ artifacts/builds/
 !tools/generate_*
 !tools/migrate_*
 .cloudflare-generated/
+.cloudflare-workers/
