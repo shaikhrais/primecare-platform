@@ -52,6 +52,15 @@ export async function auth(request: Request, env: Env, path: string, headers: He
   const safeHeaders = new Headers(headers);
   safeHeaders.set('cache-control', 'no-store');
   headers = Object.fromEntries(safeHeaders.entries());
+  try {
+    return await handleAuth(request, env, path, headers);
+  } catch {
+    // Never serialize database errors, connection strings, hashes or request data.
+    return json({ error: 'Authentication service unavailable' }, 503, headers);
+  }
+}
+
+async function handleAuth(request: Request, env: Env, path: string, headers: HeadersInit): Promise<Response | null> {
   if (request.method === 'POST' && path === '/login') {
     let body: Json;
     try { body = await parseBody(request); } catch { return json({ error: 'Invalid request' }, 400, headers); }
@@ -61,9 +70,9 @@ export async function auth(request: Request, env: Env, path: string, headers: He
 
     return withDb(env, async (db) => {
       const result = await db.query(
-        'SELECT id, roles, password_hash, status FROM users WHERE LOWER(email) = $1 LIMIT 1', [email]);
+        'SELECT id, roles, password_hash, status FROM users WHERE LOWER(email) = $1 LIMIT 2', [email]);
       const user = result.rows[0];
-      if (!user || String(user.status).toLowerCase() !== 'active' ||
+      if (result.rows.length !== 1 || !user || String(user.status).toLowerCase() !== 'active' ||
           typeof user.password_hash !== 'string' || !await bcrypt.compare(password, user.password_hash)) {
         return json({ error: 'Invalid credentials' }, 401, headers);
       }

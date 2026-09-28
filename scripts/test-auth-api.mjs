@@ -5,14 +5,15 @@ import bcrypt from 'bcryptjs';
 
 // Test fixtures only: no network, production credentials, or PostgreSQL writes.
 const fixtureHash = await bcrypt.hash('fixture-password', 4);
-let sessions, user, queries, failWrite;
+let sessions, user, queries, failWrite, failRead, ambiguous;
 beforeEach(() => {
-  sessions = new Map(); queries = []; failWrite = false;
+  sessions = new Map(); queries = []; failWrite = false; failRead = false; ambiguous = false;
   user = { id: 'fixture-user', roles: 'fixture-role', status: 'active', password_hash: fixtureHash };
 });
 globalThis.__authQuery = async (sql, values) => {
   queries.push({sql, values});
-  if (sql.startsWith('SELECT id, roles')) return {rows: user ? [user] : []};
+  if (failRead) throw new Error('fixture-private-database-details');
+  if (sql.startsWith('SELECT id, roles')) return {rows: user ? (ambiguous ? [user, {...user,id:'other-user'}] : [user]) : []};
   if (sql.startsWith('INSERT INTO auth_sessions')) {
     if (failWrite) throw new Error('fixture-write-failure');
     sessions.set(values[0], {userId: values[1], expired:false}); return {rows:[]};
@@ -78,7 +79,9 @@ test('missing session does not query database',async()=>{
   assert.equal(queries.length,0);
 });
 test('failed session insert never returns successful authentication',async()=>{
-  failWrite=true; await assert.rejects(login(),/fixture-write-failure/); assert.equal(sessions.size,0);
+  failWrite=true; const response=await login(); assert.equal(response.status,503);
+  assert.deepEqual(await response.json(),{error:'Authentication service unavailable'});
+  assert.equal(response.headers.get('cache-control'),'no-store'); assert.equal(sessions.size,0);
 });
 test('malformed JSON is rejected',async()=>{
   const response=await auth(new Request('https://auth.test/login',{method:'POST',body:'{' }),env,'/login',{});
@@ -114,4 +117,20 @@ test('deactivated account cannot reuse an existing session',async()=>{
 });
 test('inactive account is denied even with the correct password',async()=>{
   user.status='inactive'; assert.equal((await login()).status,401); assert.equal(sessions.size,0);
+});
+test('duplicate normalized emails fail closed without creating a session',async()=>{
+  ambiguous=true; const response=await login();
+  assert.equal(response.status,401); assert.deepEqual(await response.json(),{error:'Invalid credentials'});
+  assert.equal(sessions.size,0);
+});
+test('database errors remain generic and non-cacheable',async()=>{
+  failRead=true; const response=await login();
+  assert.equal(response.status,503);
+  assert.equal(response.headers.get('cache-control'),'no-store');
+  assert.equal(JSON.stringify(await response.json()).includes('fixture-private'),false);
+});
+test('email normalization uses a bound SQL parameter',async()=>{
+  await auth(request('/login','POST',{email:'  Fixture@Example.Invalid ',password:'fixture-password'}),env,'/login',{});
+  assert.equal(queries[0].values[0],'fixture@example.invalid');
+  assert.ok(!queries[0].sql.includes('fixture@example.invalid'));
 });
