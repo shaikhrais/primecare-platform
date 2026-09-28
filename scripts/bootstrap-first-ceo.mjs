@@ -29,7 +29,7 @@ export async function bootstrap(db, input) {
     await db.query('SELECT pg_advisory_xact_lock(hashtext($1))',[email]);
     const duplicate=await db.query('SELECT id FROM users WHERE LOWER(email)=$1 LIMIT 1',[email]);
     if(duplicate.rows.length) throw new Error('Existing account cannot be promoted or overwritten by bootstrap');
-    const result=await db.query("INSERT INTO users(email,tenant_id,roles,password_hash,status,id) VALUES($1,$2,'ceo',$3,'active',$4) RETURNING id",[email,tenant,hash,randomUUID()]);
+    const result=await db.query("INSERT INTO users(email,tenant_id,roles,password_hash,status,id,updated_at) VALUES($1,$2,'ceo',$3,'active',$4,NOW()) RETURNING id",[email,tenant,hash,randomUUID()]);
     const id=result.rows[0].id;
     await db.query("INSERT INTO auth_bootstrap_audit(user_id,tenant_id,source) VALUES($1,$2,'protected_workflow')",[id,tenant]);
     await db.query('COMMIT');

@@ -20,7 +20,7 @@ export async function manageAccount(db:Client, actor:{id:string;roles:string;ten
   if(!target.rows.length) return {status:404,body:{error:'Account not found'}};
   if(String(target.rows[0].id).toLowerCase()===actor.id.toLowerCase())
     return {status:403,body:{error:'Forbidden'}};
-  const result=await db.query('UPDATE users SET roles=$1,status=$2 WHERE id=$3 AND tenant_id=$4 RETURNING id,email,roles,status,tenant_id',
+  const result=await db.query('UPDATE users SET roles=$1,status=$2,updated_at=NOW() WHERE id=$3 AND tenant_id=$4 RETURNING id,email,roles,status,tenant_id',
     [input.role,input.status,input.id,actor.tenant_id]);
   await db.query('DELETE FROM auth_sessions WHERE user_id=$1',[input.id]);
   await db.query('INSERT INTO auth_management_audit(actor_user_id,target_user_id,tenant_id,previous_state,new_state) VALUES($1,$2,$3,$4,$5)',

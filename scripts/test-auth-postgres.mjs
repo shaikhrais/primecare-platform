@@ -38,6 +38,7 @@ try {
   if(textIds) await db.query("CREATE TABLE IF NOT EXISTS users(id TEXT PRIMARY KEY,email TEXT UNIQUE NOT NULL,roles TEXT NOT NULL,password_hash TEXT,status TEXT NOT NULL DEFAULT 'active')");
   else await db.query(await readFile('services/auth_api/dev_schema.sql','utf8'));
   await db.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS tenant_id '+(textIds?'TEXT':'UUID'));
+  await db.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP NOT NULL DEFAULT NOW()');
   await db.query(await readFile('packages/database/migrations/20260925_auth_identity_compatibility.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260926_auth_sessions.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_account_audit.sql','utf8'));

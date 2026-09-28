@@ -3,7 +3,7 @@ import {pathToFileURL} from 'node:url';
 
 // Schema metadata only: never select account records or serialize driver errors.
 export const requirements = {
- users:{id:'uuid',email:'text',tenant_id:'uuid',roles:'text',status:'text',password_hash:'text'},
+ users:{id:'uuid',email:'text',tenant_id:'uuid',roles:'text',status:'text',password_hash:'text',updated_at:'timestamp'},
  auth_sessions:{token_hash:'text',user_id:'uuid',expires_at:'timestamptz'},
  auth_account_audit:{actor_user_id:'uuid',target_user_id:'uuid',tenant_id:'uuid',action:'text'},
  auth_bootstrap_audit:{user_id:'uuid',tenant_id:'uuid',source:'text'},
@@ -19,7 +19,7 @@ export function schemaProblems(rows) {
   const base=columns.get(column==='tenant_id'?'users.tenant_id':'users.id');
   const type=declaredType==='uuid' && ['text','varchar'].includes(base)?'text':declaredType;
   const actual=columns.get(`${table}.${column}`);
-  if(actual!==type && !(type==='text' && actual==='varchar'))
+  if(actual!==type && !(type==='text' && actual==='varchar') && !(type==='timestamp' && actual==='timestamptz'))
    problems.push(`${table}.${column}: expected ${type}, found ${actual??'missing'}`);
  }
  return problems;
