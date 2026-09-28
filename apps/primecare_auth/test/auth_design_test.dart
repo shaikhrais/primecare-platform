@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,9 +12,16 @@ class GuestAuth extends AuthNotifier {
   AuthState build() => AuthState(isInitialized: true);
 }
 
+class TestTranslations extends AssetLoader {
+  const TestTranslations();
+  @override
+  Future<Map<String, dynamic>> load(String path, Locale locale) async =>
+      jsonDecode(File('$path/en.json').readAsStringSync()) as Map<String, dynamic>;
+}
+
 Widget localized(Widget child, {GoRouter? router}) => EasyLocalization(
   supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
-  path: 'assets/translations', fallbackLocale: const Locale('en'),
+  path: 'assets/translations', assetLoader: const TestTranslations(), fallbackLocale: const Locale('en'),
   startLocale: const Locale('en'),
   child: Builder(builder: (context) => router == null
     ? MaterialApp(locale: context.locale, supportedLocales: context.supportedLocales,
