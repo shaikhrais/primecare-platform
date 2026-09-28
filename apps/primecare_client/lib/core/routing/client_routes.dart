@@ -143,7 +143,6 @@ class ClientApplication extends PlatformApplication {
   String get appId => 'primecare_client';
   @override
   String get name => 'PrimeCare Client Portal';
-  @override
   String get homeRoute => ClientRoutes.patientDashboard;
   @override
   PlatformTenant get tenant => ClientTenant();

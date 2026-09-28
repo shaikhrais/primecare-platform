@@ -114,6 +114,7 @@ jobs:
         with:
           flutter-version: '3.41.5'
           channel: stable
+          cache: true
       - name: Analyze shared Flutter auth package
         working-directory: packages/primecare_ui
         run: |
@@ -125,7 +126,7 @@ jobs:
         working-directory: packages/flutter_core
         run: |
           flutter pub get
-          flutter test test/auth_transport_test.dart test/auth_session_test.dart
+          flutter test test/auth_transport_test.dart test/auth_session_test.dart test/auth_route_guard_test.dart
 
       - name: Verify embedded clinic login routing
         working-directory: apps/primecare_clinic
@@ -146,6 +147,7 @@ jobs:
         with:
           flutter-version: '3.41.5'
           channel: stable
+          cache: true
       - name: Analyze, test and build each product with embedded auth
         working-directory: apps/primecare_${{ matrix.app }}
         run: |
