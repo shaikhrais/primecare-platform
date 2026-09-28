@@ -13,7 +13,7 @@ pending; ⬜ pending; ⛔ external prerequisite. No indicator below means produc
 | CEO account role/status management | 🔄 Implemented, local tests pass | POST /v1/admin/users; same tenant, no self-modification, session revocation and audit; PostgreSQL CI pending |
 | Password change | 🔄 Implemented, local tests pass | POST /v1/user/change-password; current password required, new hash, all sessions revoked; PostgreSQL CI pending |
 | Password recovery and delivery | ⬜ Pending | Requires approved delivery configuration and single-use token flow |
-| Complete reviewed auth OpenAPI | ⬜ Pending | Existing broad export remains draft |
+| Complete reviewed auth OpenAPI | ⛔ Governance mismatch | Exporter found GET /v1/auth/me implemented but only POST registered as endpoint 779; see AUTH_ME_GOVERNANCE_GAP.md |
 | Production schema checks and migrations | ⛔ Not run | Validate tenant/user types; apply audit and rate-limit migrations before deploying code |
 | Production first CEO | ⛔ Setup values required | Existing tenant UUID and CEO credentials in protected GitHub secrets |
 | Deployment and public URL journeys | ⬜ Pending | Do not claim production authentication until tested |
