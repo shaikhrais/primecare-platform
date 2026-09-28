@@ -43,7 +43,6 @@ jobs:
           flutter analyze --no-fatal-infos
           flutter build web --release --no-tree-shake-icons \
             --dart-define=API_BASE_URL="${{ vars.API_GATEWAY_URL }}" \
-            --dart-define=SSO_PORTAL_URL=https://primecare-auth.pages.dev \
             --dart-define=APP_BASE_URL="https://${{ inputs.project }}.pages.dev"
       - name: Deploy website with rate-limit retries
         env:

@@ -1,6 +1,6 @@
 # Shared authentication presentation
 
-The nine production apps render the same PrimeAuthExperience inside their own auth routes. Login remains connected to the central LoginController/AuthNotifier; the presentation does not select roles, grant access, or forward tokens.
+The eight product apps and the optional auth preview render the same PrimeAuthExperience inside their own auth routes. Login remains connected to the central LoginController/AuthNotifier; the presentation does not select roles, grant access, or forward tokens.
 
 The desktop layout pairs a navy brand panel with a restrained form card. Mobile uses a compact brand mark, a single scrolling column and wrapping navigation. Inputs support password-manager autofill, keyboard actions, visible focus and explicit password visibility. Login errors use a live semantic region. There are no invented certification or uptime claims.
 
@@ -25,3 +25,27 @@ PR #17 (5d8c5147aa60a31afffdbbc98d74f6ca6431eb81) fixes raw auth_design_* keys a
 Selection flows through languageProvider -> auth_preferred_language in SharedPreferences -> LocaleRebuildWrapper -> EasyLocalization -> locale JSON resources. Per-key English fallback is enabled. Local browser preference persistence is verified; cross-device/profile synchronization is not claimed.
 
 Auth Gateway Verification 36496155222 passed 365 Flutter tests, including 85 layout/language checks and an actual language-selection/restart regression. Clinic deployment 36496649290 and auth deployment 36496649240 succeeded. Browser checks confirmed French and Spanish text, persistence after reload, and return to English on both origins. A French login screenshot was visually inspected. Other app source resources are updated, but their production rollout is not claimed here.
+
+## Package ownership and deployment
+
+Authentication is a shared capability, not a separate product application.
+The eight product applications are clinic, corporate, business development,
+franchise, marketing, client, support and governance.
+
+- `packages/primecare_ui` owns auth presentation and shared route registration.
+- `packages/flutter_core` owns auth/session state, API access and route guards.
+- Each product app composes those packages into its own router. Its `/login`,
+  signup guidance, recovery, reset, MFA and language routes remain on its origin.
+- The API gateway/auth backend remains necessary for credential and session
+  verification. Sharing pages does not replace the backend.
+- `apps/primecare_auth` is retained only as an optional preview and test harness.
+  Product apps do not depend on that application or its website. Its deployment
+  is manual; the production build no longer supplies `SSO_PORTAL_URL`.
+- Existing shared-package change triggers rebuild product apps independently.
+  A failed product build cannot be repaired by deploying the auth preview.
+- The enterprise blueprint remains a demo, not a product auth implementation.
+
+September 28 audit: clinic and the preview render shared auth locally.
+The other seven live origins still serve the older portal because their Flutter
+analysis gates fail. Package reuse is implemented in source; deployment completion
+and unavailable backend features must not be marked ready.

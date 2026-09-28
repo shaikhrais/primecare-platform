@@ -1,14 +1,7 @@
-name: Deploy Web - primecare-auth
+# Optional preview harness for the shared package; not a production auth dependency.
+name: Preview Shared Auth (manual)
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'apps/primecare_auth/**'
-      - 'packages/flutter_core/**'
-      - 'packages/primecare_ui/**'
-      - '.github/workflows/deploy-web-auth.yml'
-      - '.github/workflows/_deploy-web.yml'
   workflow_dispatch:
 
 permissions:
