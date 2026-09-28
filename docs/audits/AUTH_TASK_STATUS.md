@@ -9,7 +9,8 @@ pending; ⬜ pending; ⛔ external prerequisite. No indicator below means produc
 | CEO/HR registration policy | ✅ CEO production / HR isolated CI | Production creation, read-back and forbidden-role/tenant checks passed; HR allowlist covered in isolated tests |
 | First CEO setup | ✅ Unit-tested | Protected workflow code; production setup not executed |
 | Login throttling | ✅ Isolated PostgreSQL | Run 36457853287 passed, including concurrent attempts and counter expiry |
-| Other endpoint throttling / abuse controls | ⬜ Pending | Login counter is not a platform-wide abuse control |
+| Authenticated mutation throttling | ✅ Unit and PostgreSQL CI; deployed | Password change 5/minute; account creation and management 10/minute each; counters persist across rollback and sessions; PR #8, CI 36477112955, deployment 36477431047 |
+| Source/IP abuse controls | ⬜ Pending | Account-level counters are not platform-wide or source/IP protection |
 | CEO account role/status management | ✅ CI and production deactivation | Production deactivation and target session revocation passed; role allowlists/self-protection covered in CI |
 | Password change | ✅ Production smoke | Old password/session rejected; new password login passed in run 36465061031 |
 | Password recovery and delivery | ⛔ Requirements and delivery missing | See AUTH_RECOVERY_GOVERNANCE_GAP.md; registered routes have no approved schemas or permission keys |
@@ -19,7 +20,7 @@ pending; ⬜ pending; ⛔ external prerequisite. No indicator below means produc
 | Deployment and public API journeys | ✅ Production verified | Deployment 36463534382 and 17-check smoke 36465061031 passed; QA fixtures removed |
 | Auth pages | ⬜ Deferred | API verification first |
 
-Current local suite: 57 passing tests including schema validation, auth handlers, client transport,
+Current local suite: 60 passing tests including schema validation, auth handlers, client transport,
 bootstrap, management and password change. Self-modification checks reject case-based bypasses
 while preserving opaque text IDs. PostgreSQL UUID and text-ID matrix run 36462832340 passed.
 Account-management and password-change PostgreSQL run 36458402955 completed
@@ -51,9 +52,19 @@ its temporary fixtures. Cleanup CI run 36474305871 passed both identity matrices
 
 ## Configuration checked 2026-09-28
 
-GitHub lists Cloudflare account/token and production database secrets only, with no
-environment secrets. Permanent CEO setup still needs BOOTSTRAP_TENANT_ID,
-BOOTSTRAP_CEO_EMAIL and BOOTSTRAP_CEO_PASSWORD. Recovery still needs approved sender,
+GitHub lists Cloudflare account/token, production database, BOOTSTRAP_CEO_EMAIL
+and BOOTSTRAP_CEO_PASSWORD secrets, with no environment secrets. Permanent CEO
+setup still needs BOOTSTRAP_TENANT_ID; the email and password secrets are present. Recovery still needs approved sender,
 provider configuration and governed contracts; no recovery email is sent by this release.
 Source/IP abuse limits and auth pages remain unfinished. The GitHub AI security scan
 failed with an unsupported-model service error, so it is not a completed security review.
+
+## Authenticated mutation limits — 2026-09-28
+
+PR #8 merged as b6ee56718780f5106849f7a4e1b9f06093500716. All 60 unit tests
+and PostgreSQL UUID/text jobs in run 36477112955 passed, including concurrent
+attempts across sessions and rollback-resistant counters. Governance migration
+36477328579 succeeded. Deployment 36477431047 succeeded; post-deployment live
+run 36477795900 passed all 17 checks and removed its temporary QA tenant/accounts.
+These smoke checks cover existing journeys; the new throttle thresholds and
+concurrency behavior are verified in isolated PostgreSQL CI.
