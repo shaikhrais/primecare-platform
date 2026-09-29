@@ -1,7 +1,6 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:flutter_core/routes/auth_callback_view.dart';
 import '../ui/dynamic_screen_view.dart';
 import '../ui/language_selector.dart';
 import '../ui/app_drawer.dart';
@@ -28,10 +27,23 @@ import '../../features/executive/screens/proposals_screen.dart';
 final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/login',
+    // Unknown deep links must not enter the global error/restart loop.
+    onException: (context, state, router) {
+      router.go(ref.read(authProvider).isAuthenticated
+          ? CommonRoutes.authError
+          : CommonRoutes.login);
+    },
     refreshListenable: authListenable,
     redirect: (context, state) {
       final session = ref.read(authProvider);
-      if (!session.isInitialized) return null;
+      if (!session.isInitialized) {
+        return SharedAuthRoutes.publicPaths.contains(state.uri.path)
+            ? null
+            : CommonRoutes.login;
+      }
+      if (!session.isAuthenticated && state.uri.path == CommonRoutes.authCallback) {
+        return CommonRoutes.login;
+      }
       final isAuth = session.isAuthenticated;
       final isLoggingIn = state.matchedLocation == '/login' || 
                           state.matchedLocation == '/' ||
@@ -84,9 +96,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: CommonRoutes.authCallback,
-        builder: (context, state) => AuthCallbackView(
-          queryParameters: state.uri.queryParameters,
-        ),
+        redirect: (context, state) => CommonRoutes.login,
       ),
       ...SharedAuthRoutes.routes(),
       ...SharedAuthRoutes.protectedRoutes(),

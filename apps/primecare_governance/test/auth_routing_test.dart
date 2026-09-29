@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
@@ -10,7 +13,54 @@ class GuestAuth extends AuthNotifier {
   AuthState build() => AuthState(isInitialized: true);
 }
 
+class StartupAuth extends AuthNotifier {
+  @override
+  AuthState build() => AuthState(isInitialized: false);
+}
+
+class AuthTranslations extends AssetLoader {
+  const AuthTranslations();
+  @override
+  Future<Map<String, dynamic>> load(String path, Locale locale) async =>
+      jsonDecode(File('$path/${locale.languageCode}.json').readAsStringSync()) as Map<String, dynamic>;
+}
+
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  setUpAll(() async {
+    SharedPreferences.setMockInitialValues({});
+    await EasyLocalization.ensureInitialized();
+  });
+  for (final initialized in [false, true]) {
+    for (final path in ['/dashboard', '/missing-deep-link', '/auth/callback', '/consent']) {
+      testWidgets('guest deep link $path reaches local login; initialized=$initialized', (tester) async {
+        final container = ProviderContainer(overrides: [
+          authProvider.overrideWith(initialized ? GuestAuth.new : StartupAuth.new),
+        ]);
+        addTearDown(container.dispose);
+        final router = container.read(appRouterProvider);
+        addTearDown(router.dispose);
+        router.go('$path?enable-semantics=true');
+        await tester.pumpWidget(UncontrolledProviderScope(container: container,
+          child: EasyLocalization(supportedLocales: const [Locale('en')],
+            path: 'assets/translations', startLocale: const Locale('en'),
+            assetLoader: const AuthTranslations(),
+            child: Builder(builder: (context) => MaterialApp.router(
+              locale: context.locale, supportedLocales: context.supportedLocales,
+              localizationsDelegates: context.localizationDelegates,
+              routerConfig: router,
+            )),
+          ),
+        ));
+        await tester.pumpAndSettle();
+        expect(router.routeInformationProvider.value.uri.path, '/login');
+        expect(find.byType(LoginView), findsOneWidget);
+        expect(tester.takeException(), isNull);
+        await tester.pumpWidget(const SizedBox.shrink());
+      });
+    }
+  }
+
   testWidgets('governance login renders shared form without SSO bridge', (tester) async {
     final container = ProviderContainer(overrides: [
       authProvider.overrideWith(GuestAuth.new),
