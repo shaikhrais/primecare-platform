@@ -2,12 +2,11 @@ name: Verify CEO workspace
 on:
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 25
-    environment: production
     steps:
       - uses: actions/checkout@v4
       - name: Reconcile CEO ownership and translations
@@ -30,25 +29,3 @@ jobs:
           flutter analyze --no-fatal-infos
           flutter test test/auth_routing_test.dart
           flutter build web --release --no-tree-shake-icons --dart-define=API_BASE_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Install isolated API check dependencies
-        run: |
-          npm install --prefix "$RUNNER_TEMP/ceo-api-deps" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2
-          ln -s "$RUNNER_TEMP/ceo-api-deps/node_modules" node_modules
-      - name: Verify CEO account-management permissions with temporary fixtures
-        env:
-          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
-          GATEWAY_URL: https://primecare-api-gateway.itpro-mohammed.workers.dev
-          CONFIRM_AUTH_SMOKE: VERIFY_AUTH
-        run: node scripts/verify-production-auth.mjs
-      - name: Persist corrected governance and translations
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .agents/governance/governance.db apps/*/assets/translations/*.json
-          if ! git diff --cached --quiet; then
-            git commit -m "governance: correct CEO ownership and workspace translations [skip ci]"
-            git push origin HEAD:main
-          fi
