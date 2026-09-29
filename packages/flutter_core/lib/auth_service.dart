@@ -370,6 +370,10 @@ class AuthNotifier extends Notifier<AuthState> {
             await prefs.setString('auth_tenant_id', tenantId);
             await prefs.setString('auth_username', userName);
             await prefs.setString('auth_user_id', userId);
+            // A newer operation may start while the platform writes are in
+            // flight. It will run after this queue entry, so remove the stale
+            // credentials before allowing the next entry to proceed.
+            if (!_isCurrent(revision)) await _clearSession(prefs);
           });
           if (!_isCurrent(revision)) {
             await apiClient.revokeSession(token);
