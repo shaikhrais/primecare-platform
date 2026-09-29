@@ -1,24 +1,27 @@
-# Full database rebuild preflight
+# PrimeCare database rebuild — completed
 
-Requested: rebuild the entire PrimeCare PostgreSQL database.
+Production rebuild completed on 2026-09-29 at 04:04 UTC (2026-09-29 00:04 America/Toronto).
 
-Status: preparation only. No production tables or records have been deleted.
+## Result
+- Active public schema rebuilt from the verified governed baseline: **229 tables, 2,068 columns**.
+- Current Prisma schema validated; all existing authentication migrations applied.
+- Governance registry reconciled with the tested PostgreSQL schema before production execution.
+- One organization initialized: PrimeCare Admin HQ, tenant ID `tenant-hq`.
+- CEO account created for `itpro.mohammed@gmail.com` with the existing `BOOTSTRAP_CEO_PASSWORD` secret.
+- No universal fake-data seed was run; other business tables start empty.
+- Existing schema and data preserved inside the same database as `primecare_backup_1790654667724`. No production data was exported to an artifact.
+- The active schema no longer uses old accounts, sessions, or business records.
 
-## Verified
-- Prisma 5.22.0 validates packages/database/prisma/schema.
-- The schema contains 223 models.
-- Prisma migrate diff from an empty database generates a 4,838-line SQL baseline.
-- The legacy infra/migrations/001_initial_schema.sql is not a compatible baseline for current authentication: it uses users.role rather than users.roles and lacks the current tenant relationship.
-- The universal seed creates fake business records and a shared password hash. It must not be used for the clean production initialization.
-- The inspected governance.db db_schema_tables registry contains 102 records, with no users, tenants, or auth_sessions registration.
-- Existing authentication migrations assume users already exists; they cannot rebuild the entire database alone.
+## Verification
+- Clean PostgreSQL rebuild: https://github.com/shaikhrais/primecare-platform/actions/runs/36519391693
+- Governance reconciliation: https://github.com/shaikhrais/primecare-platform/actions/runs/36519564485
+- Transactional rebuild, preservation of original data, and rollback on injected validation failure: https://github.com/shaikhrais/primecare-platform/actions/runs/36519723151
+- Production execution and live CEO login/session/logout/revocation: https://github.com/shaikhrais/primecare-platform/actions/runs/36519924569
 
-## Required execution sequence
-1. Reconcile the current Prisma schema and authentication migrations with the governed database registry.
-2. Test the generated baseline plus authentication migrations against disposable PostgreSQL.
-3. Take and verify a restorable production backup; choose an explicitly authorized storage destination before exporting production records.
-4. Apply the validated rebuild during a maintenance window.
-5. Initialize the real organization and first CEO using the existing bootstrap password secret and itpro.mohammed@gmail.com. Do not run fake-data seeds.
-6. Verify schema, login, session restoration, role authorization, and logout before restoring service.
+Production target hostname, database name, and account fingerprint were verified before execution. Schema swap, table creation, auth migrations, CEO creation, and database verification ran in one transaction. Failure before commit rolls back that transaction.
 
-The requested destructive rebuild is authorized, but production execution is blocked by the schema-governance mismatch and the absence of a verified backup/restore path. The repository AGENTS.md requires database definitions and validation before implementation.
+## Recovery
+Retain the backup schema until application acceptance is complete. Restoration requires a maintenance window: archive the replacement public schema under a new name, rename the backup schema to public within a transaction, and verify before commit. Do not drop either schema before validating recovery.
+
+## Limits
+This result proves the clean database rebuild and live CEO authentication. It does not complete password recovery, MFA, consent, or non-authentication business workflows. Those require their separately documented configuration and governed contracts.
