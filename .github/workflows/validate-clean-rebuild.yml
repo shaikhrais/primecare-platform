@@ -1,0 +1,77 @@
+name: Validate clean database rebuild
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: rebuild
+          POSTGRES_PASSWORD: disposable-rebuild-test
+          POSTGRES_DB: rebuild
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U rebuild"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://rebuild:disposable-rebuild-test@localhost:5432/rebuild
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generate and apply complete baseline
+        run: |
+          mkdir -p rebuild-evidence
+          npx --yes prisma@5.22.0 validate --schema packages/database/prisma/schema
+          npx --yes prisma@5.22.0 migrate diff --from-empty --to-schema-datamodel packages/database/prisma/schema --script --output rebuild-evidence/baseline.sql
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f rebuild-evidence/baseline.sql
+          for migration in packages/database/migrations/*.sql; do
+            psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f "$migration"
+          done
+      - name: Install isolated auth dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/rebuild-deps" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2
+          ln -s "$RUNNER_TEMP/rebuild-deps/node_modules" node_modules
+      - name: Verify first CEO and export schema metadata
+        run: |
+          cat > rebuild-check.mjs <<'JS'
+          import {Client} from 'pg';
+          import {bootstrap} from './scripts/bootstrap-first-ceo.mjs';
+          import {checkAuthSchema} from './scripts/check-auth-schema.mjs';
+          import bcrypt from 'bcryptjs';
+          import assert from 'node:assert/strict';
+          import {writeFileSync} from 'node:fs';
+          const db=new Client({connectionString:process.env.DATABASE_URL});
+          await db.connect();
+          try {
+            await db.query("INSERT INTO tenants(id,name,slug,updated_at,allowed_vpn_ranges,cors_allowed_origins,cors_allowed_methods,cors_allowed_headers) VALUES ('rebuild-test','Rebuild test','rebuild-test',NOW(),'','[]','[]','[]')");
+            const input={tenant:'rebuild-test',email:'ceo@example.test',password:'Disposable-rebuild-test-123!'};
+            assert.equal((await bootstrap(db,input)).created,true);
+            await assert.rejects(bootstrap(db,input));
+            const user=await db.query("SELECT password_hash,roles,status FROM users WHERE email=$1",[input.email]);
+            assert.equal(user.rows.length,1);
+            assert.equal(user.rows[0].roles,'ceo');
+            assert.equal(user.rows[0].status,'active');
+            assert.equal(await bcrypt.compare(input.password,user.rows[0].password_hash),true);
+            assert.deepEqual(await checkAuthSchema(process.env.DATABASE_URL),[]);
+            const metadata=await db.query(`SELECT c.table_name,c.column_name,c.udt_name,c.is_nullable,c.column_default,
+              EXISTS(SELECT 1 FROM information_schema.key_column_usage k JOIN information_schema.table_constraints t USING(constraint_catalog,constraint_schema,constraint_name) WHERE t.constraint_type='PRIMARY KEY' AND k.table_schema=c.table_schema AND k.table_name=c.table_name AND k.column_name=c.column_name) AS is_primary
+              FROM information_schema.columns c WHERE c.table_schema='public' ORDER BY c.table_name,c.ordinal_position`);
+            writeFileSync('rebuild-evidence/schema.json',JSON.stringify(metadata.rows,null,2));
+            writeFileSync('rebuild-evidence/result.json',JSON.stringify({baseline:true,migrations:true,ceoCreation:true,duplicateCeoRejected:true,passwordVerified:true,authSchema:true,tables:new Set(metadata.rows.map(r=>r.table_name)).size},null,2));
+            console.log('Clean rebuild, auth schema and first CEO checks passed.');
+          } finally {await db.end();}
+          JS
+          node rebuild-check.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: clean-rebuild-evidence
+          path: rebuild-evidence/
+          retention-days: 7
