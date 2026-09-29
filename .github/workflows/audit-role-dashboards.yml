@@ -1,0 +1,27 @@
+name: Audit all role dashboards
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install browser test dependencies
+        run: python -m pip install selenium==4.28.1
+      - name: Audit governed roles
+        run: python scripts/audit-role-dashboards.py
+      - name: Verify QA login sessions and dashboards
+        env:
+          TEST_DEFAULT_PASSWORD: ${{ secrets.TEST_DEFAULT_PASSWORD }}
+        run: python scripts/check-role-dashboard-browser.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: role-dashboard-audit
+          path: |
+            role-dashboard-runtime.json
+            docs/audits/role-dashboards/REPORT.md
+          retention-days: 7
