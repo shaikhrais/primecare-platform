@@ -1,0 +1,71 @@
+name: Rebuild PrimeCare database
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: Type REBUILD_PRIMECARE_DATABASE
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: primecare-database-migrations
+  cancel-in-progress: false
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Export verified governed baseline
+        run: python scripts/export-rebuild-baseline.py .agents/governance/governance.db /tmp/rebuild-manifest.json
+      - name: Install isolated dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/rebuild-deps" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2
+          ln -s "$RUNNER_TEMP/rebuild-deps/node_modules" node_modules
+      - name: Verify exact database target
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          node --input-type=module <<'JS'
+          import {createHash} from 'node:crypto';
+          const u=new URL(process.env.PRODUCTION_DATABASE_URL);
+          if(u.hostname!=='pooled.db.prisma.io'||u.pathname!=='/postgres'||createHash('sha256').update(decodeURIComponent(u.username)).digest('hex')!=='fa653f233cde9743852a247ae37626cc6bdee70227b84387115a3c857b563823')throw new Error('Configured database does not match the user-specified target');
+          console.log('Database target verified without exposing credentials.');
+          JS
+      - name: Archive original schema and rebuild transactionally
+        env:
+          CONFIRM_REBUILD: ${{ inputs.confirm }}
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          BOOTSTRAP_CEO_PASSWORD: ${{ secrets.BOOTSTRAP_CEO_PASSWORD }}
+        run: |
+          node scripts/rebuild-production-database.mjs /tmp/rebuild-manifest.json > /tmp/rebuild-result.json
+          cat /tmp/rebuild-result.json
+      - name: Verify live CEO login and logout
+        env:
+          BOOTSTRAP_CEO_PASSWORD: ${{ secrets.BOOTSTRAP_CEO_PASSWORD }}
+        run: |
+          node --input-type=module <<'JS'
+          import assert from 'node:assert/strict';
+          const base='https://primecare-api-gateway.itpro-mohammed.workers.dev';
+          let token;
+          async function call(path,method,body){
+            const r=await fetch(base+path,{method,redirect:'error',headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{})},...(body?{body:JSON.stringify(body)}:{}),signal:AbortSignal.timeout(15000)});
+            return {status:r.status,data:await r.json()};
+          }
+          try {
+            const login=await call('/v1/auth/login','POST',{email:'itpro.mohammed@gmail.com',password:process.env.BOOTSTRAP_CEO_PASSWORD});
+            assert.equal(login.status,200); assert.equal(login.data.role,'ceo'); assert.ok(login.data.token);
+            token=login.data.token;
+            const me=await call('/v1/auth/me','GET');
+            assert.equal(me.status,200); assert.equal(me.data.roles,'ceo');
+            assert.equal((await call('/v1/auth/logout','POST',{})).status,200);
+            assert.equal((await call('/v1/auth/me','GET')).status,401);
+            console.log('Real CEO login, session identity, logout and revocation passed.');
+          } catch {console.error('Live CEO authentication verification failed; retained backup is available.');process.exitCode=1;}
+          finally {if(token)await call('/v1/auth/logout','POST',{}).catch(()=>{});}
+          JS
