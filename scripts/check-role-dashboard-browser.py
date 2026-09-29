@@ -61,10 +61,16 @@ def check(role):
    except Exception:result['api_logout']='not_verified'
  return result
 results=[]
-with ThreadPoolExecutor(max_workers=1) as pool:
- futures=[pool.submit(check,roles[0])]  # One diagnostic request; no repeated blocked requests.
- for future in as_completed(futures):
-  result=future.result();results.append(result)
-  Path('role-dashboard-runtime.json').write_text(json.dumps(sorted(results,key=lambda r:r['role']),indent=2))
-  print(f"{len(results)}/{len(roles)} {result['role']}: {result['api_login']} / {result['browser_login']} / {result['dashboard']}",flush=True)
-print('Role smoke checks completed. Full business workflows remain unverified.')
+blocked=False
+for role in roles:
+ if blocked:
+  result={'role':role['role_code'],'email':role['test_email'],'api_login':'not_verified','browser_login':'not_verified','dashboard':'not_verified','fully_functional':'not_verified','failed_phase':'prior_access_denial','static_findings':role['static_findings']}
+ else:
+  result=check(role)
+  blocked=result.get('api_login_status') in (403,429)
+ results.append(result)
+ Path('role-dashboard-runtime.json').write_text(json.dumps(results,indent=2))
+ print(f"{len(results)}/{len(roles)} {result['role']}: {result['api_login']} / {result['browser_login']} / {result['dashboard']}",flush=True)
+if any(r['browser_login']!='passed_session_identity_visible' for r in results):
+ raise SystemExit('Audit incomplete: see role-dashboard-runtime.json. Full functionality is not verified.')
+print('Login smoke checks completed. Full business workflows remain unverified.')

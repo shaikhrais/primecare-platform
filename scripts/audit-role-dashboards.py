@@ -29,12 +29,12 @@ for role in roles:
   evidence.append(item);findings+=item['findings']
  # The active corporate route may use a local wrapper rather than the registry file.
  role['screens']=evidence;role['static_findings']=sorted(set(findings))
- role['runtime_status']='not_run_missing_test_password'
+ role['runtime_status']='reported_separately'
  role['fully_functional']='not_verified' if not findings else 'blocked_by_static_findings'
 summary={'roles':len(roles),'roles_with_static_findings':sum(bool(r['static_findings']) for r in roles),'runtime_verified':0,'findings':dict(Counter(f for r in roles for f in r['static_findings']))}
 out=root/'docs/audits/role-dashboards';out.mkdir(parents=True,exist_ok=True)
 (out/'inventory.json').write_text(json.dumps({'summary':summary,'roles':roles},indent=2)+'\n')
-lines=['# Role dashboard audit','', 'This is a static source/governance audit, not proof of live functionality. Login and browser checks have not run because TEST_DEFAULT_PASSWORD is absent. No user passwords were read.','',f"Active roles: {len(roles)}. Roles with concrete static findings: {summary['roles_with_static_findings']}.",'','| Role | App | Findings |','|---|---|---|']
+lines=['# Role dashboard audit','', 'This is a static source/governance audit, not proof of live functionality. Authenticated login and browser results are reported separately in RUNTIME_REPORT.md. No user passwords were read.','',f"Active roles: {len(roles)}. Roles with concrete static findings: {summary['roles_with_static_findings']}.",'','| Role | App | Findings |','|---|---|---|']
 for r in roles:lines.append('| '+r['role_code']+' | '+str(r['primary_app_code'])+' | '+('; '.join(r['static_findings']) or 'Needs runtime verification')+' |')
 (out/'REPORT.md').write_text('\n'.join(lines)+'\n')
 print(json.dumps(summary,indent=2))

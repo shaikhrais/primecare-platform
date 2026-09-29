@@ -1,6 +1,6 @@
 # Role dashboard audit
 
-This is a static source/governance audit, not proof of live functionality. Login and browser checks have not run because TEST_DEFAULT_PASSWORD is absent. No user passwords were read.
+This is a static source/governance audit, not proof of live functionality. Authenticated login and browser results are reported separately in RUNTIME_REPORT.md. No user passwords were read.
 
 Active roles: 64. Roles with concrete static findings: 64.
 

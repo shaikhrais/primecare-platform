@@ -1,0 +1,875 @@
+[
+  {
+    "role": "admin",
+    "email": "qa.admin@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "bus_dev",
+    "email": "qa.bus_dev@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "caregiver",
+    "email": "qa.caregiver@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "ceo",
+    "email": "qa.ceo@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "cfo",
+    "email": "qa.cfo@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "chiropractor",
+    "email": "qa.chiropractor@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "ciso",
+    "email": "qa.ciso@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "clinical_director",
+    "email": "qa.clinical_director@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "screen_role_mismatch",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "cns",
+    "email": "qa.cns@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "community_outreach",
+    "email": "qa.community_outreach@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "compliance",
+    "email": "qa.compliance@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "coo",
+    "email": "qa.coo@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "cto",
+    "email": "qa.cto@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "customer_support",
+    "email": "qa.customer_support@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "cx_director",
+    "email": "qa.cx_director@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "dynamic",
+    "email": "qa.dynamic@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "employee",
+    "email": "qa.employee@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "family",
+    "email": "qa.family@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "finance_director",
+    "email": "qa.finance_director@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "franchise_sales",
+    "email": "qa.franchise_sales@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "gm",
+    "email": "qa.gm@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "governance",
+    "email": "qa.governance@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "guest",
+    "email": "qa.guest@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "hr_director",
+    "email": "qa.hr_director@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "hr_hiring",
+    "email": "qa.hr_hiring@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "hsw",
+    "email": "qa.hsw@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "infrastructure",
+    "email": "qa.infrastructure@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "intake",
+    "email": "qa.intake@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "legal",
+    "email": "qa.legal@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "local_marketing",
+    "email": "qa.local_marketing@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "lpn",
+    "email": "qa.lpn@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "marketing",
+    "email": "qa.marketing@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "np",
+    "email": "qa.np@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "ops_manager",
+    "email": "qa.ops_manager@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "owner",
+    "email": "qa.owner@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "partnership",
+    "email": "qa.partnership@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "patient",
+    "email": "qa.patient@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "pediatric",
+    "email": "qa.pediatric@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "physician",
+    "email": "qa.physician@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "physio",
+    "email": "qa.physio@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "portal",
+    "email": "qa.portal@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "premium_concierge",
+    "email": "qa.premium_concierge@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "psw",
+    "email": "qa.psw@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "qa_specialist",
+    "email": "qa.qa_specialist@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "regional_bdm",
+    "email": "qa.regional_bdm@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "regional_manager_usa",
+    "email": "qa.regional_manager_usa@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "rmt",
+    "email": "qa.rmt@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "rn",
+    "email": "qa.rn@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "rn_field_supervisor",
+    "email": "qa.rn_field_supervisor@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "rpn",
+    "email": "qa.rpn@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "scheduler",
+    "email": "qa.scheduler@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "scrum_master",
+    "email": "qa.scrum_master@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "shareholder",
+    "email": "qa.shareholder@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "social_worker",
+    "email": "qa.social_worker@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "system_verification",
+    "email": "qa.system_verification@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "territory_expansion",
+    "email": "qa.territory_expansion@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "territory_sales",
+    "email": "qa.territory_sales@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "therapist",
+    "email": "qa.therapist@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "training",
+    "email": "qa.training@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "training_coordinator",
+    "email": "qa.training_coordinator@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "training_director",
+    "email": "qa.training_director@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "vip_manager",
+    "email": "qa.vip_manager@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "volunteer",
+    "email": "qa.volunteer@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "empty_action",
+      "incomplete_api_contract",
+      "not_marked_production_ready",
+      "simulated_success"
+    ],
+    "api_login_status": 403
+  },
+  {
+    "role": "volunteer_coordinator",
+    "email": "qa.volunteer_coordinator@test.primecare.local",
+    "api_login": "not_verified",
+    "browser_login": "not_verified",
+    "dashboard": "not_verified",
+    "fully_functional": "not_verified",
+    "static_findings": [
+      "post_login_route_not_in_screen_registry"
+    ],
+    "api_login_status": 403
+  }
+]

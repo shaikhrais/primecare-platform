@@ -37,7 +37,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -64,7 +64,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -97,7 +97,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -124,7 +124,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -155,7 +155,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -187,7 +187,7 @@
         "screen_role_mismatch",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -216,7 +216,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -245,7 +245,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -274,7 +274,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -303,7 +303,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -334,7 +334,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -365,7 +365,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -396,7 +396,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -423,7 +423,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -452,7 +452,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -481,7 +481,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -510,7 +510,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -524,7 +524,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -553,7 +553,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -582,7 +582,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -596,7 +596,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -610,7 +610,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -624,7 +624,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -653,7 +653,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -667,7 +667,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -681,7 +681,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -695,7 +695,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -709,7 +709,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -738,7 +738,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -752,7 +752,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -781,7 +781,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -795,7 +795,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -809,7 +809,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -823,7 +823,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -837,7 +837,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -866,7 +866,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -895,7 +895,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -909,7 +909,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -923,7 +923,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -937,7 +937,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -951,7 +951,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -965,7 +965,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -979,7 +979,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1008,7 +1008,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1022,7 +1022,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1036,7 +1036,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1050,7 +1050,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1064,7 +1064,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1095,7 +1095,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1126,7 +1126,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1155,7 +1155,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1185,7 +1185,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1218,7 +1218,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1247,7 +1247,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1276,7 +1276,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1305,7 +1305,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1334,7 +1334,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1365,7 +1365,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1392,7 +1392,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1406,7 +1406,7 @@
       "static_findings": [
         "post_login_route_not_in_screen_registry"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1435,7 +1435,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1463,7 +1463,7 @@
         "incomplete_api_contract",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1492,7 +1492,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     },
     {
@@ -1521,7 +1521,7 @@
         "not_marked_production_ready",
         "simulated_success"
       ],
-      "runtime_status": "not_run_missing_test_password",
+      "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
     }
   ]
