@@ -78,6 +78,8 @@ jobs:
       - name: Register tested schema in governance
         run: |
           python scripts/reconcile-rebuild-governance.py . rebuild-evidence
+          python scripts/export-rebuild-baseline.py .agents/governance/governance.db rebuild-evidence/manifest.json
+          node test-rebuild-transaction.mjs
           mkdir -p docs/verification/database-rebuild
           cp rebuild-evidence/result.json docs/verification/database-rebuild/result.json
           git config user.name "github-actions[bot]"
