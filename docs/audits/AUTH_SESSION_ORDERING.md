@@ -48,3 +48,25 @@ Verified against the repository registry and GitHub secret names on this date:
 The .agents/AGENTS.md database-first rules require governed definitions before
 implementing new routes, permission rules or screens. These gaps are not completed
 by the shared-page rollout or by this session-ordering repair.
+
+## Release verification
+
+All eight product deployment runs succeeded for commit 58c6ae8:
+
+| App | Successful run |
+|---|---|
+| Clinic | 36514772509 |
+| Corporate | 36514772472 |
+| Business Development | 36514772469 |
+| Franchise | 36514772397 |
+| Marketing | 36514772387 |
+| Client | 36514772495 |
+| Support | 36514772545 |
+| Governance | 36514772336 |
+
+The live login email/password fields rendered in all eight product portals after
+deployment, using release=58c6ae8 and enable-semantics=true. Clinic /success
+redirected a signed-out visitor to its local /login page. Enterprise Blueprint's
+automatically triggered deployment also succeeded (36514772517), but it is outside
+the eight-product browser verification. These guest checks do not establish a
+real-account authenticated journey or complete recovery/MFA/consent support.
