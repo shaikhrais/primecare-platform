@@ -29,11 +29,11 @@ jobs:
            await db.query('BEGIN READ ONLY');
            await db.query("SET LOCAL statement_timeout='10s'");
            const schema=await db.query("SELECT table_schema,table_name,column_name,data_type,is_nullable FROM information_schema.columns WHERE table_schema NOT IN ('pg_catalog','information_schema') ORDER BY table_schema,table_name,ordinal_position");
- const tables=await db.query("SELECT schemaname,relname,n_live_tup AS estimated_rows FROM pg_stat_user_tables ORDER BY schemaname,relname");
- const constraints=await db.query("SELECT table_schema,table_name,constraint_type,COUNT(*)::int AS count FROM information_schema.table_constraints WHERE table_schema NOT IN ('pg_catalog','information_schema') GROUP BY 1,2,3 ORDER BY 1,2,3");
- const tenants=await db.query("SELECT t.id,t.name,t.status,COUNT(u.id)::int AS users,COUNT(u.id) FILTER (WHERE u.roles='ceo')::int AS ceos FROM tenants t LEFT JOIN users u ON u.tenant_id=t.id GROUP BY t.id,t.name,t.status ORDER BY t.id LIMIT 100");
- const roles=await db.query("SELECT roles,status,COUNT(*)::int AS count FROM users GROUP BY roles,status ORDER BY roles,status");
- const account=await db.query("SELECT tenant_id FROM users WHERE LOWER(email)=LOWER($1)",[process.env.LOOKUP_EMAIL]);
+           const tables=await db.query("SELECT schemaname,relname,n_live_tup AS estimated_rows FROM pg_stat_user_tables ORDER BY schemaname,relname");
+           const constraints=await db.query("SELECT table_schema,table_name,constraint_type,COUNT(*)::int AS count FROM information_schema.table_constraints WHERE table_schema NOT IN ('pg_catalog','information_schema') GROUP BY 1,2,3 ORDER BY 1,2,3");
+           const tenants=await db.query("SELECT t.id,t.name,t.status,COUNT(u.id)::int AS users,COUNT(u.id) FILTER (WHERE u.roles='ceo')::int AS ceos FROM tenants t LEFT JOIN users u ON u.tenant_id=t.id GROUP BY t.id,t.name,t.status ORDER BY t.id LIMIT 100");
+           const roles=await db.query("SELECT roles,status,COUNT(*)::int AS count FROM users GROUP BY roles,status ORDER BY roles,status");
+           const account=await db.query("SELECT tenant_id FROM users WHERE LOWER(email)=LOWER($1)",[process.env.LOOKUP_EMAIL]);
           
            await db.query('ROLLBACK');
            const key=randomBytes(32),iv=randomBytes(12),cipher=createCipheriv('aes-256-gcm',key,iv);
