@@ -1,0 +1,971 @@
+{
+  "checked_at_utc": "2026-09-29T00:57:51.777Z",
+  "scope": "Eight product web apps: embedded auth routes, locale persistence and guest navigation. Not a production credential or business-workflow certification.",
+  "standalone_app_removed": true,
+  "standalone_website": {
+    "removed": true,
+    "workflow_run": 36504613528,
+    "deleted_historical_deployments": 146,
+    "api_verification_status": 404
+  },
+  "ci": {
+    "all_eight_product_builds_and_auth_checks": 36503227376,
+    "governance_strengthened_regression_run": 36504503811,
+    "governance_strengthened_regression_job": 109202758467,
+    "governance_tests_passed": 11
+  },
+  "deployments": {
+    "clinic": 36500823790,
+    "business_development": 36500823801,
+    "governance": 36504804525,
+    "marketing": 36500823913,
+    "corporate": 36500823951,
+    "client": 36500823952,
+    "support": 36500823964,
+    "franchise": 36500824162
+  },
+  "pending": [],
+  "limitations": [
+    "Recovery delivery and reset-token redemption are unavailable.",
+    "MFA challenge verification and consent persistence are unavailable.",
+    "Signup requires administrator provisioning.",
+    "Production real-account sign-in and signed-in role workflows were not tested.",
+    "Governance remote database transport is not configured."
+  ],
+  "routes": [
+    {
+      "app": "clinic",
+      "route": "/login",
+      "url": "https://primecare-clinic.pages.dev/login?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "clinic",
+      "route": "/signup",
+      "url": "https://primecare-clinic.pages.dev/signup?enable-semantics=true",
+      "heading": "- heading \"Let’s get you connected\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "clinic",
+      "route": "/forgot-password",
+      "url": "https://primecare-clinic.pages.dev/forgot-password?enable-semantics=true",
+      "heading": "- heading \"Forgot your password?\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "clinic",
+      "route": "/reset-password",
+      "url": "https://primecare-clinic.pages.dev/reset-password?enable-semantics=true",
+      "heading": "- heading \"Choose a new password\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "clinic",
+      "route": "/mfa",
+      "url": "https://primecare-clinic.pages.dev/mfa?enable-semantics=true",
+      "heading": "- heading \"Verify it’s you\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "clinic",
+      "route": "/language",
+      "url": "https://primecare-clinic.pages.dev/language?enable-semantics=true",
+      "heading": "- heading \"Make yourself at home\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "clinic",
+      "route": "/auth/error",
+      "url": "https://primecare-clinic.pages.dev/auth/error?enable-semantics=true",
+      "heading": "- heading \"Let’s try that again\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "clinic",
+      "route": "/consent",
+      "url": "https://primecare-clinic.pages.dev/login?returnUrl=/consent?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "clinic",
+      "route": "/success",
+      "url": "https://primecare-clinic.pages.dev/login?returnUrl=/success?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "clinic",
+      "route": "/dashboard",
+      "url": "https://primecare-clinic.pages.dev/login?returnUrl=/dashboard?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "clinic",
+      "route": "/sso-redirect",
+      "url": "https://primecare-clinic.pages.dev/login?returnUrl=/dashboard",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "clinic",
+      "route": "/auth/callback",
+      "url": "https://primecare-clinic.pages.dev/login",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "business-development",
+      "route": "/login",
+      "url": "https://primecare-business-development.pages.dev/login?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "business-development",
+      "route": "/signup",
+      "url": "https://primecare-business-development.pages.dev/signup?enable-semantics=true",
+      "heading": "- heading \"Let’s get you connected\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "business-development",
+      "route": "/forgot-password",
+      "url": "https://primecare-business-development.pages.dev/forgot-password?enable-semantics=true",
+      "heading": "- heading \"Forgot your password?\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "business-development",
+      "route": "/reset-password",
+      "url": "https://primecare-business-development.pages.dev/reset-password?enable-semantics=true",
+      "heading": "- heading \"Choose a new password\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "business-development",
+      "route": "/mfa",
+      "url": "https://primecare-business-development.pages.dev/mfa?enable-semantics=true",
+      "heading": "- heading \"Verify it’s you\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "business-development",
+      "route": "/language",
+      "url": "https://primecare-business-development.pages.dev/language?enable-semantics=true",
+      "heading": "- heading \"Make yourself at home\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "business-development",
+      "route": "/auth/error",
+      "url": "https://primecare-business-development.pages.dev/auth/error?enable-semantics=true",
+      "heading": "- heading \"Let’s try that again\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "business-development",
+      "route": "/consent",
+      "url": "https://primecare-business-development.pages.dev/login?returnUrl=/consent?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "business-development",
+      "route": "/success",
+      "url": "https://primecare-business-development.pages.dev/login?returnUrl=/success?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "business-development",
+      "route": "/dashboard",
+      "url": "https://primecare-business-development.pages.dev/login?returnUrl=/dashboard?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "business-development",
+      "route": "/sso-redirect",
+      "url": "https://primecare-business-development.pages.dev/login?returnUrl=/dashboard",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "business-development",
+      "route": "/auth/callback",
+      "url": "https://primecare-business-development.pages.dev/login",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "client",
+      "route": "/login",
+      "url": "https://primecare-client.pages.dev/login?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "client",
+      "route": "/signup",
+      "url": "https://primecare-client.pages.dev/signup?enable-semantics=true",
+      "heading": "- heading \"Let’s get you connected\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "client",
+      "route": "/forgot-password",
+      "url": "https://primecare-client.pages.dev/forgot-password?enable-semantics=true",
+      "heading": "- heading \"Forgot your password?\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "client",
+      "route": "/reset-password",
+      "url": "https://primecare-client.pages.dev/reset-password?enable-semantics=true",
+      "heading": "- heading \"Choose a new password\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "client",
+      "route": "/mfa",
+      "url": "https://primecare-client.pages.dev/mfa?enable-semantics=true",
+      "heading": "- heading \"Verify it’s you\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "client",
+      "route": "/language",
+      "url": "https://primecare-client.pages.dev/language?enable-semantics=true",
+      "heading": "- heading \"Make yourself at home\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "client",
+      "route": "/auth/error",
+      "url": "https://primecare-client.pages.dev/auth/error?enable-semantics=true",
+      "heading": "- heading \"Let’s try that again\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "client",
+      "route": "/consent",
+      "url": "https://primecare-client.pages.dev/login?returnUrl=/consent?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "client",
+      "route": "/success",
+      "url": "https://primecare-client.pages.dev/login?returnUrl=/success?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "client",
+      "route": "/dashboard",
+      "url": "https://primecare-client.pages.dev/login?returnUrl=/dashboard?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "client",
+      "route": "/sso-redirect",
+      "url": "https://primecare-client.pages.dev/login?returnUrl=/dashboard",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "client",
+      "route": "/auth/callback",
+      "url": "https://primecare-client.pages.dev/login",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "marketing",
+      "route": "/login",
+      "url": "https://primecare-marketing.pages.dev/login?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "support",
+      "route": "/login",
+      "url": "https://primecare-support.pages.dev/login?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "support",
+      "route": "/signup",
+      "url": "https://primecare-support.pages.dev/signup?enable-semantics=true",
+      "heading": "- heading \"Let’s get you connected\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "marketing",
+      "route": "/signup",
+      "url": "https://primecare-marketing.pages.dev/signup?enable-semantics=true",
+      "heading": "- heading \"Let’s get you connected\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "support",
+      "route": "/forgot-password",
+      "url": "https://primecare-support.pages.dev/forgot-password?enable-semantics=true",
+      "heading": "- heading \"Forgot your password?\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "marketing",
+      "route": "/forgot-password",
+      "url": "https://primecare-marketing.pages.dev/forgot-password?enable-semantics=true",
+      "heading": "- heading \"Forgot your password?\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "marketing",
+      "route": "/reset-password",
+      "url": "https://primecare-marketing.pages.dev/reset-password?enable-semantics=true",
+      "heading": "- heading \"Choose a new password\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "support",
+      "route": "/reset-password",
+      "url": "https://primecare-support.pages.dev/reset-password?enable-semantics=true",
+      "heading": "- heading \"Choose a new password\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "support",
+      "route": "/mfa",
+      "url": "https://primecare-support.pages.dev/mfa?enable-semantics=true",
+      "heading": "- heading \"Verify it’s you\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "marketing",
+      "route": "/mfa",
+      "url": "https://primecare-marketing.pages.dev/mfa?enable-semantics=true",
+      "heading": "- heading \"Verify it’s you\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "support",
+      "route": "/language",
+      "url": "https://primecare-support.pages.dev/language?enable-semantics=true",
+      "heading": "- heading \"Make yourself at home\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "marketing",
+      "route": "/language",
+      "url": "https://primecare-marketing.pages.dev/language?enable-semantics=true",
+      "heading": "- heading \"Make yourself at home\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "support",
+      "route": "/auth/error",
+      "url": "https://primecare-support.pages.dev/auth/error?enable-semantics=true",
+      "heading": "- heading \"Let’s try that again\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "marketing",
+      "route": "/auth/error",
+      "url": "https://primecare-marketing.pages.dev/auth/error?enable-semantics=true",
+      "heading": "- heading \"Let’s try that again\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "marketing",
+      "route": "/consent",
+      "url": "https://primecare-marketing.pages.dev/login?returnUrl=/consent?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "support",
+      "route": "/consent",
+      "url": "https://primecare-support.pages.dev/login?returnUrl=/consent?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "marketing",
+      "route": "/success",
+      "url": "https://primecare-marketing.pages.dev/login?returnUrl=/success?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "support",
+      "route": "/success",
+      "url": "https://primecare-support.pages.dev/login?returnUrl=/success?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "marketing",
+      "route": "/dashboard",
+      "url": "https://primecare-marketing.pages.dev/login?returnUrl=/dashboard?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "support",
+      "route": "/dashboard",
+      "url": "https://primecare-support.pages.dev/login?returnUrl=/dashboard?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "support",
+      "route": "/sso-redirect",
+      "url": "https://primecare-support.pages.dev/login?returnUrl=/dashboard",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "marketing",
+      "route": "/sso-redirect",
+      "url": "https://primecare-marketing.pages.dev/login?returnUrl=/dashboard",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "marketing",
+      "route": "/auth/callback",
+      "url": "https://primecare-marketing.pages.dev/login",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "support",
+      "route": "/auth/callback",
+      "url": "https://primecare-support.pages.dev/login",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "franchise",
+      "route": "/login",
+      "url": "https://primecare-franchise.pages.dev/login?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "franchise",
+      "route": "/signup",
+      "url": "https://primecare-franchise.pages.dev/signup?enable-semantics=true",
+      "heading": "- heading \"Let’s get you connected\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "franchise",
+      "route": "/forgot-password",
+      "url": "https://primecare-franchise.pages.dev/forgot-password?enable-semantics=true",
+      "heading": "- heading \"Forgot your password?\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "franchise",
+      "route": "/reset-password",
+      "url": "https://primecare-franchise.pages.dev/reset-password?enable-semantics=true",
+      "heading": "- heading \"Choose a new password\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "franchise",
+      "route": "/mfa",
+      "url": "https://primecare-franchise.pages.dev/mfa?enable-semantics=true",
+      "heading": "- heading \"Verify it’s you\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "franchise",
+      "route": "/language",
+      "url": "https://primecare-franchise.pages.dev/language?enable-semantics=true",
+      "heading": "- heading \"Make yourself at home\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "franchise",
+      "route": "/auth/error",
+      "url": "https://primecare-franchise.pages.dev/auth/error?enable-semantics=true",
+      "heading": "- heading \"Let’s try that again\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "franchise",
+      "route": "/consent",
+      "url": "https://primecare-franchise.pages.dev/login?returnUrl=/consent?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "franchise",
+      "route": "/success",
+      "url": "https://primecare-franchise.pages.dev/login?returnUrl=/success?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "franchise",
+      "route": "/dashboard",
+      "url": "https://primecare-franchise.pages.dev/login?returnUrl=/dashboard?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "franchise",
+      "route": "/sso-redirect",
+      "url": "https://primecare-franchise.pages.dev/login?returnUrl=/dashboard",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "franchise",
+      "route": "/auth/callback",
+      "url": "https://primecare-franchise.pages.dev/login",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "corporate",
+      "route": "/login",
+      "url": "https://primecare-corporate.pages.dev/login?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "corporate",
+      "route": "/signup",
+      "url": "https://primecare-corporate.pages.dev/signup?enable-semantics=true",
+      "heading": "- heading \"Let’s get you connected\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "corporate",
+      "route": "/forgot-password",
+      "url": "https://primecare-corporate.pages.dev/forgot-password?enable-semantics=true",
+      "heading": "- heading \"Forgot your password?\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "corporate",
+      "route": "/reset-password",
+      "url": "https://primecare-corporate.pages.dev/reset-password?enable-semantics=true",
+      "heading": "- heading \"Choose a new password\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "corporate",
+      "route": "/mfa",
+      "url": "https://primecare-corporate.pages.dev/mfa?enable-semantics=true",
+      "heading": "- heading \"Verify it’s you\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "corporate",
+      "route": "/language",
+      "url": "https://primecare-corporate.pages.dev/language?enable-semantics=true",
+      "heading": "- heading \"Make yourself at home\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "corporate",
+      "route": "/auth/error",
+      "url": "https://primecare-corporate.pages.dev/auth/error?enable-semantics=true",
+      "heading": "- heading \"Let’s try that again\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "corporate",
+      "route": "/consent",
+      "url": "https://primecare-corporate.pages.dev/login?returnUrl=/consent?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "corporate",
+      "route": "/success",
+      "url": "https://primecare-corporate.pages.dev/login?returnUrl=/success?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "corporate",
+      "route": "/dashboard",
+      "url": "https://primecare-corporate.pages.dev/login?returnUrl=/dashboard?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "corporate",
+      "route": "/sso-redirect",
+      "url": "https://primecare-corporate.pages.dev/login?returnUrl=/dashboard",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "corporate",
+      "route": "/auth/callback",
+      "url": "https://primecare-corporate.pages.dev/login",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "governance",
+      "route": "/login",
+      "url": "https://primecare-governance.pages.dev/login?enable-semantics=true",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "governance",
+      "route": "/signup",
+      "url": "https://primecare-governance.pages.dev/signup?enable-semantics=true",
+      "heading": "- heading \"Let’s get you connected\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "governance",
+      "route": "/forgot-password",
+      "url": "https://primecare-governance.pages.dev/forgot-password?enable-semantics=true",
+      "heading": "- heading \"Forgot your password?\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "governance",
+      "route": "/reset-password",
+      "url": "https://primecare-governance.pages.dev/reset-password?enable-semantics=true",
+      "heading": "- heading \"Choose a new password\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "governance",
+      "route": "/mfa",
+      "url": "https://primecare-governance.pages.dev/mfa?enable-semantics=true",
+      "heading": "- heading \"Verify it’s you\" [level=2]",
+      "unavailable": true
+    },
+    {
+      "app": "governance",
+      "route": "/language",
+      "url": "https://primecare-governance.pages.dev/language?enable-semantics=true",
+      "heading": "- heading \"Make yourself at home\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "governance",
+      "route": "/auth/error",
+      "url": "https://primecare-governance.pages.dev/auth/error?enable-semantics=true",
+      "heading": "- heading \"Let’s try that again\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "governance",
+      "route": "/consent",
+      "url": "https://primecare-governance.pages.dev/login",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "governance",
+      "route": "/success",
+      "url": "https://primecare-governance.pages.dev/login",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "governance",
+      "route": "/sso-redirect",
+      "url": "https://primecare-governance.pages.dev/login?returnUrl=/dashboard",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "governance",
+      "route": "/auth/callback",
+      "url": "https://primecare-governance.pages.dev/login",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false
+    },
+    {
+      "app": "governance",
+      "route": "/dashboard",
+      "requestedUrl": "https://primecare-governance.pages.dev/dashboard?release=58b6a77&enable-semantics=true",
+      "url": "https://primecare-governance.pages.dev/login",
+      "heading": "- heading \"Welcome back\" [level=2]",
+      "unavailable": false,
+      "cacheNote": "Cache-busting query and immutable deployment pass; previously visited exact URL continued serving stale response in existing browser session."
+    }
+  ],
+  "locales": [
+    {
+      "app": "clinic",
+      "language": "fr",
+      "reload": true
+    },
+    {
+      "app": "clinic",
+      "language": "es",
+      "reload": true
+    },
+    {
+      "app": "business-development",
+      "language": "fr",
+      "reload": true
+    },
+    {
+      "app": "business-development",
+      "language": "es",
+      "reload": true
+    },
+    {
+      "app": "client",
+      "language": "fr",
+      "reload": true
+    },
+    {
+      "app": "client",
+      "language": "es",
+      "reload": true
+    },
+    {
+      "app": "marketing",
+      "language": "fr",
+      "reload": true
+    },
+    {
+      "app": "support",
+      "language": "fr",
+      "reload": true
+    },
+    {
+      "app": "marketing",
+      "language": "es",
+      "reload": true
+    },
+    {
+      "app": "support",
+      "language": "es",
+      "reload": true
+    },
+    {
+      "app": "franchise",
+      "language": "fr",
+      "reload": true
+    },
+    {
+      "app": "franchise",
+      "language": "es",
+      "reload": true
+    },
+    {
+      "app": "corporate",
+      "language": "fr",
+      "reload": true
+    },
+    {
+      "app": "corporate",
+      "language": "es",
+      "reload": true
+    },
+    {
+      "app": "governance",
+      "language": "fr",
+      "reload": true
+    },
+    {
+      "app": "governance",
+      "language": "es",
+      "reload": true
+    }
+  ],
+  "links": [
+    {
+      "app": "clinic",
+      "link": "forgot",
+      "url": "https://primecare-clinic.pages.dev/forgot-password?returnUrl=/dashboard"
+    },
+    {
+      "app": "business-development",
+      "link": "forgot",
+      "url": "https://primecare-business-development.pages.dev/forgot-password?returnUrl=/dashboard"
+    },
+    {
+      "app": "marketing",
+      "link": "forgot",
+      "url": "https://primecare-marketing.pages.dev/forgot-password?returnUrl=/dashboard"
+    },
+    {
+      "app": "support",
+      "link": "forgot",
+      "url": "https://primecare-support.pages.dev/forgot-password?returnUrl=/dashboard"
+    },
+    {
+      "app": "client",
+      "link": "forgot",
+      "url": "https://primecare-client.pages.dev/forgot-password?returnUrl=/dashboard"
+    },
+    {
+      "app": "client",
+      "link": "back",
+      "url": "https://primecare-client.pages.dev/login?returnUrl=/dashboard"
+    },
+    {
+      "app": "clinic",
+      "link": "back",
+      "url": "https://primecare-clinic.pages.dev/login?returnUrl=/dashboard"
+    },
+    {
+      "app": "marketing",
+      "link": "back",
+      "url": "https://primecare-marketing.pages.dev/login?returnUrl=/dashboard"
+    },
+    {
+      "app": "business-development",
+      "link": "back",
+      "url": "https://primecare-business-development.pages.dev/login?returnUrl=/dashboard"
+    },
+    {
+      "app": "support",
+      "link": "back",
+      "url": "https://primecare-support.pages.dev/login?returnUrl=/dashboard"
+    },
+    {
+      "app": "client",
+      "link": "signup",
+      "url": "https://primecare-client.pages.dev/signup?returnUrl=/dashboard"
+    },
+    {
+      "app": "clinic",
+      "link": "signup",
+      "url": "https://primecare-clinic.pages.dev/signup?returnUrl=/dashboard"
+    },
+    {
+      "app": "marketing",
+      "link": "signup",
+      "url": "https://primecare-marketing.pages.dev/signup?returnUrl=/dashboard"
+    },
+    {
+      "app": "business-development",
+      "link": "signup",
+      "url": "https://primecare-business-development.pages.dev/signup?returnUrl=/dashboard"
+    },
+    {
+      "app": "support",
+      "link": "signup",
+      "url": "https://primecare-support.pages.dev/signup?returnUrl=/dashboard"
+    },
+    {
+      "app": "franchise",
+      "link": "forgot",
+      "url": "https://primecare-franchise.pages.dev/forgot-password?returnUrl=/dashboard"
+    },
+    {
+      "app": "franchise",
+      "link": "back",
+      "url": "https://primecare-franchise.pages.dev/login?returnUrl=/dashboard"
+    },
+    {
+      "app": "franchise",
+      "link": "signup",
+      "url": "https://primecare-franchise.pages.dev/signup?returnUrl=/dashboard"
+    },
+    {
+      "app": "corporate",
+      "link": "forgot",
+      "url": "https://primecare-corporate.pages.dev/forgot-password?returnUrl=/dashboard"
+    },
+    {
+      "app": "corporate",
+      "link": "back",
+      "url": "https://primecare-corporate.pages.dev/login?returnUrl=/dashboard"
+    },
+    {
+      "app": "corporate",
+      "link": "signup",
+      "url": "https://primecare-corporate.pages.dev/signup?returnUrl=/dashboard"
+    },
+    {
+      "app": "governance",
+      "link": "forgot",
+      "url": "https://primecare-governance.pages.dev/forgot-password?returnUrl=/dashboard"
+    },
+    {
+      "app": "governance",
+      "link": "back",
+      "url": "https://primecare-governance.pages.dev/login?returnUrl=/dashboard"
+    },
+    {
+      "app": "governance",
+      "link": "signup",
+      "url": "https://primecare-governance.pages.dev/signup?returnUrl=/dashboard"
+    }
+  ],
+  "post_retirement_logins": [
+    {
+      "app": "clinic",
+      "url": "https://primecare-clinic.pages.dev/login?enable-semantics=true",
+      "loginVisible": true
+    },
+    {
+      "app": "support",
+      "url": "https://primecare-support.pages.dev/login?enable-semantics=true",
+      "loginVisible": true
+    },
+    {
+      "app": "corporate",
+      "url": "https://primecare-corporate.pages.dev/login?enable-semantics=true",
+      "loginVisible": true
+    },
+    {
+      "app": "business-development",
+      "url": "https://primecare-business-development.pages.dev/login?enable-semantics=true",
+      "loginVisible": true
+    },
+    {
+      "app": "franchise",
+      "url": "https://primecare-franchise.pages.dev/login?enable-semantics=true",
+      "loginVisible": true
+    },
+    {
+      "app": "marketing",
+      "url": "https://primecare-marketing.pages.dev/login?enable-semantics=true",
+      "loginVisible": true
+    },
+    {
+      "app": "client",
+      "url": "https://primecare-client.pages.dev/login?enable-semantics=true",
+      "loginVisible": true
+    },
+    {
+      "app": "governance",
+      "url": "https://primecare-governance.pages.dev/login?enable-semantics=true",
+      "loginVisible": true
+    }
+  ],
+  "cache_caveat": "The old exact Governance /dashboard test URL remained cached in the existing browser session. The current production URL with a release query and immutable deployment both redirect to local login. Hard refresh existing tabs.",
+  "governance_deployment": {
+    "run": 36504804525,
+    "conclusion": "success",
+    "commit": "58b6a779e4a78d775a07c36c59a325821b7d5207",
+    "immutable_url": "https://3d97417c.primecare-governance.pages.dev"
+  },
+  "verification": {
+    "routes_passed": 96,
+    "route_failures": 0,
+    "locale_reload_checks_passed": 16,
+    "local_navigation_checks_passed": 24,
+    "post_retirement_login_pages_passed": 8
+  }
+}

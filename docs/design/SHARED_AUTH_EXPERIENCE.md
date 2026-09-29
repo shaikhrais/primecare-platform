@@ -1,6 +1,6 @@
 # Shared authentication presentation
 
-The eight product apps and the optional auth preview render the same PrimeAuthExperience inside their own auth routes. Login remains connected to the central LoginController/AuthNotifier; the presentation does not select roles, grant access, or forward tokens.
+The eight product apps render the same PrimeAuthExperience inside their own auth routes. Login remains connected to the central LoginController/AuthNotifier; the presentation does not select roles, grant access, or forward tokens.
 
 The desktop layout pairs a navy brand panel with a restrained form card. Mobile uses a compact brand mark, a single scrolling column and wrapping navigation. Inputs support password-manager autofill, keyboard actions, visible focus and explicit password visibility. Login errors use a live semantic region. There are no invented certification or uptime claims.
 
@@ -38,17 +38,16 @@ franchise, marketing, client, support and governance.
   signup guidance, recovery, reset, MFA and language routes remain on its origin.
 - The API gateway/auth backend remains necessary for credential and session
   verification. Sharing pages does not replace the backend.
-- `apps/primecare_auth` is retained only as an optional preview and test harness.
-  Product apps do not depend on that application or its website. Its deployment
-  is manual; the production build no longer supplies `SSO_PORTAL_URL`.
+- `apps/primecare_auth` has been removed. Shared design/language tests live in
+  `packages/primecare_ui/test`; products never depend on a separate auth website.
+  Production builds no longer supply `SSO_PORTAL_URL`.
 - Existing shared-package change triggers rebuild product apps independently.
   A failed product build cannot be repaired by deploying the auth preview.
 - The enterprise blueprint remains a demo, not a product auth implementation.
 
-September 28 audit: clinic and the preview render shared auth locally.
-The other seven live origins still serve the older portal because their Flutter
-analysis gates fail. Package reuse is implemented in source; deployment completion
-and unavailable backend features must not be marked ready.
+Earlier September 28 audit (before PR #19): seven live origins still served the
+older portal because their Flutter analysis gates failed. PR #19 repaired those
+build blockers and deployed embedded auth to all eight product origins.
 
 ## Standalone application removal
 
@@ -66,5 +65,46 @@ The unimplemented remote D1 client fails explicitly rather than referencing a
 nonexistent executor or embedding server credentials in a browser. Governance
 database-backed features remain unavailable until a server transport exists.
 
-Verification and live rollout are pending CI; removal does not implement recovery,
-MFA or consent APIs and does not establish a successful real-account login.
+PR #19 verification run 36500399735 passed shared design/language tests (85),
+core auth tests (266), clinic tests (3), all eight product analysis/route-test/web
+build jobs, and PostgreSQL login/logout runtime smoke. All eight production web
+deployments succeeded. Live verification subsequently found a Governance deep-link
+issue; PR #21 adds route exception handling and eight guest navigation regressions.
+The remaining /dashboard problem was a legacy web/dashboard.html report served
+before the SPA. PR #23 removes that public asset and strengthens tests with the
+production registry and platform initial deep links. Its Governance CI job passes
+all 11 tests and the release web build (run 36504503811, job 109202758467).
+
+Removal does not implement recovery, MFA or consent APIs and does not establish
+a successful production real-account login or signed-in business workflows.
+
+
+## Website retirement — September 29, 2026 UTC
+
+Manual workflow 36504613528 completed successfully at 00:51 UTC. It removed
+146 historical deployments and the primecare-auth Pages project, then verified
+the project API returned 404. The old /login URL no longer serves the auth UI.
+The script is constrained to the exact primecare-auth Pages project and does not
+address auth API Workers or product projects. Three scoped Node tests run before
+retirement. PRs #22 and #24 handle the Cloudflare deployment-history limit and
+pagination.
+
+## Final live verification
+
+Governance deployment 36504804525 (58b6a779e4a78d775a07c36c59a325821b7d5207)
+succeeded. The eight production apps passed 96 guest auth-route checks, 16
+French/Spanish reload-persistence checks, and 24 local navigation-link checks.
+All eight login pages also rendered after deletion of the old auth website.
+Detailed results are in `docs/verification/EMBEDDED_AUTH_2026-09-29.json`.
+
+Cache caveat: the previously visited exact Governance /dashboard test URL still
+served a stale response in the existing browser session. The current production
+URL with a release query and the immutable deployment both reached local login.
+Existing tabs should be hard-refreshed. This is not a claim that every cached
+client has already refreshed.
+
+Scope remains web auth presentation and guest routing. Real production credential
+sign-in, signed-in business workflows, recovery delivery/token redemption, MFA
+verification and consent persistence are not certified by these checks. The
+GitHub AI review for PR #21 failed because its requested model was unsupported;
+it was not a reported code finding. The relevant analysis, tests and builds passed.
