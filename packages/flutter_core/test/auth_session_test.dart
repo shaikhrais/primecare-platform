@@ -44,7 +44,7 @@ class DeferredApi extends Fake implements ApiClient {
   Completer<ApiResponse>? pendingLogout;
 
   @override
-  Future<ApiResponse> get(String path) {
+  Future<ApiResponse> get(String path, {Map<String, dynamic>? queryParameters}) {
     if (!identityStarted.isCompleted) identityStarted.complete();
     return identity.future;
   }
