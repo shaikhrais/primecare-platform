@@ -25,10 +25,10 @@ export async function retireAuthWebsite(env = process.env, request = fetch) {
     // Collect before deleting so pagination cannot skip entries as the list shrinks.
     const ids = new Set();
     for (let page = 1; ; page++) {
-      const listed = await request(`${url}/deployments?per_page=100&page=${page}`, { headers });
+      const listed = await request(`${url}/deployments?per_page=25&page=${page}`, { headers });
       const data = await listed.json();
       if (!listed.ok || !data.success || !Array.isArray(data.result)) {
-        throw new Error(`Deployment listing failed: HTTP ${listed.status}`);
+        throw new Error(`Deployment listing failed: HTTP ${listed.status}; codes ${(data.errors || []).map(e => e.code).join(',')}`);
       }
       for (const deployment of data.result) {
         if (typeof deployment.id !== 'string' || !/^[a-zA-Z0-9-]+$/.test(deployment.id)) {
@@ -37,7 +37,7 @@ export async function retireAuthWebsite(env = process.env, request = fetch) {
         if (deployment.id !== body.result.canonical_deployment?.id) ids.add(deployment.id);
       }
       const totalPages = data.result_info?.total_pages;
-      if (totalPages ? page >= totalPages : data.result.length < 100) break;
+      if (totalPages ? page >= totalPages : data.result.length < 25) break;
       if (page >= 1000) throw new Error('Deployment pagination limit reached');
     }
     console.log(`Removing ${ids.size} historical deployments from primecare-auth only.`);
