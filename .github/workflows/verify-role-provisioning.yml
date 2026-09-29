@@ -1,0 +1,46 @@
+name: Verify all-role provisioning
+on:
+  workflow_dispatch:
+  workflow_call:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: role_test
+          POSTGRES_PASSWORD: disposable-role-test
+          POSTGRES_DB: role_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U role_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      AUTH_TEST_DATABASE_URL: postgresql://role_test:disposable-role-test@localhost:5432/role_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/role-deps" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2
+          ln -s "$RUNNER_TEMP/role-deps/node_modules" node_modules
+      - name: Build disposable database from governed baseline
+        run: |
+          python scripts/export-rebuild-baseline.py .agents/governance/governance.db /tmp/role-manifest.json
+          python - <<'PY'
+          import json
+          m=json.load(open('/tmp/role-manifest.json'))
+          open('/tmp/role-schema.sql','w').write(m['sql'])
+          PY
+          psql "$AUTH_TEST_DATABASE_URL" -v ON_ERROR_STOP=1 -f /tmp/role-schema.sql
+      - name: Verify complete role inventory and safe provisioning
+        run: |
+          python scripts/audit-role-dashboards.py
+          node scripts/test-seed-production-role-users.mjs
+          node scripts/test-role-provisioning-postgres.mjs

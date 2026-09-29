@@ -1,0 +1,1528 @@
+{
+  "summary": {
+    "roles": 64,
+    "roles_with_static_findings": 64,
+    "runtime_verified": 0,
+    "findings": {
+      "empty_action": 40,
+      "incomplete_api_contract": 40,
+      "simulated_success": 40,
+      "not_marked_production_ready": 24,
+      "screen_role_mismatch": 1,
+      "post_login_route_not_in_screen_registry": 24
+    }
+  },
+  "roles": [
+    {
+      "id": 1,
+      "role_code": "chiropractor",
+      "test_email": "qa.chiropractor@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/offices/clinical/roles/chiropractor/dashboard",
+      "screens": [
+        {
+          "screen": "chiropractor_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 2,
+      "role_code": "physio",
+      "test_email": "qa.physio@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/offices/clinical/roles/physiotherapist/dashboard",
+      "screens": [
+        {
+          "screen": "physiotherapist_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/physiotherapist_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 3,
+      "role_code": "rmt",
+      "test_email": "qa.rmt@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/offices/clinical/roles/rmt/dashboard",
+      "screens": [
+        {
+          "screen": "rmt_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract"
+          ],
+          "api_count": 7
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 4,
+      "role_code": "social_worker",
+      "test_email": "qa.social_worker@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/offices/clinical/roles/social_worker/dashboard",
+      "screens": [
+        {
+          "screen": "social_worker_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/social_worker_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 5,
+      "role_code": "therapist",
+      "test_email": "qa.therapist@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/offices/clinical/roles/therapist/dashboard",
+      "screens": [
+        {
+          "screen": "therapist_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/therapist_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 6,
+      "role_code": "clinical_director",
+      "test_email": "qa.clinical_director@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/offices/clinical/roles/clinical_director/dashboard",
+      "screens": [
+        {
+          "screen": "clinical_director_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_director_dashboard.dart",
+          "findings": [
+            "screen_role_mismatch",
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 2
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "screen_role_mismatch",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 7,
+      "role_code": "intake",
+      "test_email": "qa.intake@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/offices/clinical/roles/intake_coordinator/dashboard",
+      "screens": [
+        {
+          "screen": "intake_coordinator_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/intake_coordinator_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 8,
+      "role_code": "rn",
+      "test_email": "qa.rn@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/offices/clinical/roles/rn/dashboard",
+      "screens": [
+        {
+          "screen": "rn_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 9,
+      "role_code": "physician",
+      "test_email": "qa.physician@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/clinical/physician-dashboard",
+      "screens": [
+        {
+          "screen": "physician_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/physician_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 10,
+      "role_code": "cns",
+      "test_email": "qa.cns@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/clinical/cns-dashboard",
+      "screens": [
+        {
+          "screen": "cns_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/cns_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 11,
+      "role_code": "pediatric",
+      "test_email": "qa.pediatric@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/clinical/pediatric-dashboard",
+      "screens": [
+        {
+          "screen": "pediatric_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/pediatric_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 12,
+      "role_code": "caregiver",
+      "test_email": "qa.caregiver@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/offices/clinical/roles/caregiver/dashboard",
+      "screens": [
+        {
+          "screen": "caregiver_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/caregiver_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 13,
+      "role_code": "guest",
+      "test_email": "qa.guest@test.primecare.local",
+      "primary_app_code": "client",
+      "primary_app_url": "https://primecare-client.pages.dev",
+      "post_login_route": "/common/dynamic-dashboard",
+      "screens": [
+        {
+          "screen": "dynamic_screen_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/dynamic_screen_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 14,
+      "role_code": "portal",
+      "test_email": "qa.portal@test.primecare.local",
+      "primary_app_code": "client",
+      "primary_app_url": "https://primecare-client.pages.dev",
+      "post_login_route": "/common/portal-dashboard",
+      "screens": [
+        {
+          "screen": "portal_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/portal_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 15,
+      "role_code": "patient",
+      "test_email": "qa.patient@test.primecare.local",
+      "primary_app_code": "client",
+      "primary_app_url": "https://primecare-client.pages.dev",
+      "post_login_route": "/common/family-member-dashboard",
+      "screens": [
+        {
+          "screen": "family_member_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/family_member_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 16,
+      "role_code": "dynamic",
+      "test_email": "qa.dynamic@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/common/customer-support-dashboard",
+      "screens": [
+        {
+          "screen": "customer_support_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/customer_support_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 17,
+      "role_code": "infrastructure",
+      "test_email": "qa.infrastructure@test.primecare.local",
+      "primary_app_code": "governance",
+      "primary_app_url": "https://primecare-governance.pages.dev",
+      "post_login_route": "/common/infrastructure-dashboard",
+      "screens": [
+        {
+          "screen": "infrastructure_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/infrastructure_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 18,
+      "role_code": "system_verification",
+      "test_email": "qa.system_verification@test.primecare.local",
+      "primary_app_code": "governance",
+      "primary_app_url": "https://primecare-governance.pages.dev",
+      "post_login_route": "/common/qa-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 19,
+      "role_code": "training",
+      "test_email": "qa.training@test.primecare.local",
+      "primary_app_code": "governance",
+      "primary_app_url": "https://primecare-governance.pages.dev",
+      "post_login_route": "/common/training-hub-dashboard",
+      "screens": [
+        {
+          "screen": "training_hub_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/training_hub_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 20,
+      "role_code": "ceo",
+      "test_email": "qa.ceo@test.primecare.local",
+      "primary_app_code": "corporate",
+      "primary_app_url": "https://primecare-corporate.pages.dev",
+      "post_login_route": "/executive/executive-command-center",
+      "screens": [
+        {
+          "screen": "executive_command_center",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/executive_command_center.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 21,
+      "role_code": "cfo",
+      "test_email": "qa.cfo@test.primecare.local",
+      "primary_app_code": "corporate",
+      "primary_app_url": "https://primecare-corporate.pages.dev",
+      "post_login_route": "/executive/cfo-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 22,
+      "role_code": "ciso",
+      "test_email": "qa.ciso@test.primecare.local",
+      "primary_app_code": "corporate",
+      "primary_app_url": "https://primecare-corporate.pages.dev",
+      "post_login_route": "/executive/ciso-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 23,
+      "role_code": "coo",
+      "test_email": "qa.coo@test.primecare.local",
+      "primary_app_code": "corporate",
+      "primary_app_url": "https://primecare-corporate.pages.dev",
+      "post_login_route": "/executive/coo-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 24,
+      "role_code": "cto",
+      "test_email": "qa.cto@test.primecare.local",
+      "primary_app_code": "corporate",
+      "primary_app_url": "https://primecare-corporate.pages.dev",
+      "post_login_route": "/common/architecture-planning-dashboard",
+      "screens": [
+        {
+          "screen": "architecture_planning_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/architecture_planning_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 25,
+      "role_code": "cx_director",
+      "test_email": "qa.cx_director@test.primecare.local",
+      "primary_app_code": "corporate",
+      "primary_app_url": "https://primecare-corporate.pages.dev",
+      "post_login_route": "/executive/cx-director-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 26,
+      "role_code": "finance_director",
+      "test_email": "qa.finance_director@test.primecare.local",
+      "primary_app_code": "corporate",
+      "primary_app_url": "https://primecare-corporate.pages.dev",
+      "post_login_route": "/executive/finance-director-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 27,
+      "role_code": "hr_director",
+      "test_email": "qa.hr_director@test.primecare.local",
+      "primary_app_code": "corporate",
+      "primary_app_url": "https://primecare-corporate.pages.dev",
+      "post_login_route": "/executive/hr-director-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 28,
+      "role_code": "legal",
+      "test_email": "qa.legal@test.primecare.local",
+      "primary_app_code": "corporate",
+      "primary_app_url": "https://primecare-corporate.pages.dev",
+      "post_login_route": "/executive/legal-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 29,
+      "role_code": "owner",
+      "test_email": "qa.owner@test.primecare.local",
+      "primary_app_code": "franchise",
+      "primary_app_url": "https://primecare-franchise.pages.dev",
+      "post_login_route": "/common/franchise-dashboard",
+      "screens": [
+        {
+          "screen": "franchise_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/franchise_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 30,
+      "role_code": "shareholder",
+      "test_email": "qa.shareholder@test.primecare.local",
+      "primary_app_code": "corporate",
+      "primary_app_url": "https://primecare-corporate.pages.dev",
+      "post_login_route": "/executive/shareholder-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 31,
+      "role_code": "training_director",
+      "test_email": "qa.training_director@test.primecare.local",
+      "primary_app_code": "corporate",
+      "primary_app_url": "https://primecare-corporate.pages.dev",
+      "post_login_route": "/common/course-architect-dashboard",
+      "screens": [
+        {
+          "screen": "course_architect_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/course_architect_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 32,
+      "role_code": "community_outreach",
+      "test_email": "qa.community_outreach@test.primecare.local",
+      "primary_app_code": "marketing",
+      "primary_app_url": "https://primecare-marketing.pages.dev",
+      "post_login_route": "/management/community-outreach-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 33,
+      "role_code": "compliance",
+      "test_email": "qa.compliance@test.primecare.local",
+      "primary_app_code": "governance",
+      "primary_app_url": "https://primecare-governance.pages.dev",
+      "post_login_route": "/management/compliance-manager-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 34,
+      "role_code": "franchise_sales",
+      "test_email": "qa.franchise_sales@test.primecare.local",
+      "primary_app_code": "franchise",
+      "primary_app_url": "https://primecare-franchise.pages.dev",
+      "post_login_route": "/management/franchise-sales-manager-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 35,
+      "role_code": "gm",
+      "test_email": "qa.gm@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/management/general-manager-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 36,
+      "role_code": "governance",
+      "test_email": "qa.governance@test.primecare.local",
+      "primary_app_code": "governance",
+      "primary_app_url": "https://primecare-governance.pages.dev",
+      "post_login_route": "/common/system-dashboard",
+      "screens": [
+        {
+          "screen": "system_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/system_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 37,
+      "role_code": "bus_dev",
+      "test_email": "qa.bus_dev@test.primecare.local",
+      "primary_app_code": "business_development",
+      "primary_app_url": "https://primecare-business-development.pages.dev",
+      "post_login_route": "/common/business-development-dashboard",
+      "screens": [
+        {
+          "screen": "business_development_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/business_development_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 38,
+      "role_code": "marketing",
+      "test_email": "qa.marketing@test.primecare.local",
+      "primary_app_code": "marketing",
+      "primary_app_url": "https://primecare-marketing.pages.dev",
+      "post_login_route": "/management/head-of-marketing-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 39,
+      "role_code": "local_marketing",
+      "test_email": "qa.local_marketing@test.primecare.local",
+      "primary_app_code": "marketing",
+      "primary_app_url": "https://primecare-marketing.pages.dev",
+      "post_login_route": "/management/local-marketing-manager-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 40,
+      "role_code": "ops_manager",
+      "test_email": "qa.ops_manager@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/management/operations-manager-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 41,
+      "role_code": "partnership",
+      "test_email": "qa.partnership@test.primecare.local",
+      "primary_app_code": "business_development",
+      "primary_app_url": "https://primecare-business-development.pages.dev",
+      "post_login_route": "/management/partnership-manager-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 42,
+      "role_code": "regional_bdm",
+      "test_email": "qa.regional_bdm@test.primecare.local",
+      "primary_app_code": "business_development",
+      "primary_app_url": "https://primecare-business-development.pages.dev",
+      "post_login_route": "/management/regional-bdm-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 43,
+      "role_code": "regional_manager_usa",
+      "test_email": "qa.regional_manager_usa@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/management/regional-manager-usa-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 44,
+      "role_code": "scrum_master",
+      "test_email": "qa.scrum_master@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/management/scrum-master-dashboard",
+      "screens": [
+        {
+          "screen": "scrum_master_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/scrum_master_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 45,
+      "role_code": "hr_hiring",
+      "test_email": "qa.hr_hiring@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/staff/hr-hiring-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 46,
+      "role_code": "territory_expansion",
+      "test_email": "qa.territory_expansion@test.primecare.local",
+      "primary_app_code": "business_development",
+      "primary_app_url": "https://primecare-business-development.pages.dev",
+      "post_login_route": "/management/territory-expansion-manager-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 47,
+      "role_code": "territory_sales",
+      "test_email": "qa.territory_sales@test.primecare.local",
+      "primary_app_code": "business_development",
+      "primary_app_url": "https://primecare-business-development.pages.dev",
+      "post_login_route": "/management/territory-sales-manager-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 48,
+      "role_code": "volunteer_coordinator",
+      "test_email": "qa.volunteer_coordinator@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/staff/volunteer-coordinator-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 49,
+      "role_code": "premium_concierge",
+      "test_email": "qa.premium_concierge@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/management/premium-concierge-dashboard",
+      "screens": [
+        {
+          "screen": "premium_concierge_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/premium_concierge_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 50,
+      "role_code": "vip_manager",
+      "test_email": "qa.vip_manager@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/management/vip-manager-dashboard",
+      "screens": [
+        {
+          "screen": "vip_manager_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/vip_manager_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 51,
+      "role_code": "psw",
+      "test_email": "qa.psw@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/offices/clinical/roles/psw/dashboard",
+      "screens": [
+        {
+          "screen": "psw_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/psw_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 52,
+      "role_code": "hsw",
+      "test_email": "qa.hsw@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/clinical/hsw-dashboard",
+      "screens": [
+        {
+          "screen": "hsw_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/hsw_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract"
+          ],
+          "api_count": 4
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 53,
+      "role_code": "rn_field_supervisor",
+      "test_email": "qa.rn_field_supervisor@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/rn/rn-field-supervisor-dashboard",
+      "screens": [
+        {
+          "screen": "rn_field_supervisor_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_field_supervisor_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 5
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 54,
+      "role_code": "np",
+      "test_email": "qa.np@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/clinical/np-dashboard",
+      "screens": [
+        {
+          "screen": "np_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/np_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 55,
+      "role_code": "rpn",
+      "test_email": "qa.rpn@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/offices/clinical/roles/rpn/dashboard",
+      "screens": [
+        {
+          "screen": "rpn_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/rpn_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 56,
+      "role_code": "lpn",
+      "test_email": "qa.lpn@test.primecare.local",
+      "primary_app_code": "clinic",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/clinical/lpn-dashboard",
+      "screens": [
+        {
+          "screen": "lpn_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/lpn_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 57,
+      "role_code": "employee",
+      "test_email": "qa.employee@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/staff/employee-dashboard",
+      "screens": [
+        {
+          "screen": "employee_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/employee_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 58,
+      "role_code": "volunteer",
+      "test_email": "qa.volunteer@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/staff/volunteer-dashboard",
+      "screens": [
+        {
+          "screen": "volunteer_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/volunteer_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 3
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 59,
+      "role_code": "admin",
+      "test_email": "qa.admin@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/common/office-dashboard",
+      "screens": [
+        {
+          "screen": "office_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/office_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 60,
+      "role_code": "scheduler",
+      "test_email": "qa.scheduler@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/staff/scheduler-dashboard",
+      "screens": [],
+      "static_findings": [
+        "post_login_route_not_in_screen_registry"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 61,
+      "role_code": "customer_support",
+      "test_email": "qa.customer_support@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-support.pages.dev",
+      "post_login_route": "/common/customer-support-analytics",
+      "screens": [
+        {
+          "screen": "customer_support_analytics",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/customer_support_analytics.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 62,
+      "role_code": "training_coordinator",
+      "test_email": "qa.training_coordinator@test.primecare.local",
+      "primary_app_code": "governance",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/staff/training-dashboard",
+      "screens": [
+        {
+          "screen": "training_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/training_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract"
+          ],
+          "api_count": 2
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 63,
+      "role_code": "qa_specialist",
+      "test_email": "qa.qa_specialist@test.primecare.local",
+      "primary_app_code": "support",
+      "primary_app_url": "https://primecare-clinic.pages.dev",
+      "post_login_route": "/common/qa-analytics",
+      "screens": [
+        {
+          "screen": "qa_analytics",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/qa_analytics.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 64,
+      "role_code": "family",
+      "test_email": "qa.family@test.primecare.local",
+      "primary_app_code": "client",
+      "primary_app_url": "https://primecare-client.pages.dev",
+      "post_login_route": "/common/family-member-analytics",
+      "screens": [
+        {
+          "screen": "family_member_analytics",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/family_member_analytics.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
+      ],
+      "runtime_status": "not_run_missing_test_password",
+      "fully_functional": "blocked_by_static_findings"
+    }
+  ]
+}
