@@ -7,6 +7,7 @@ import 'package:flutter_core/flutter_core.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_governance/core/governance/route_registry.dart';
+import 'package:primecare_governance/core/governance/registries/index.dart';
 
 class GuestAuth extends AuthNotifier {
   @override
@@ -28,19 +29,24 @@ class AuthTranslations extends AssetLoader {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() async {
+    Registry.registerAll();
     SharedPreferences.setMockInitialValues({});
     await EasyLocalization.ensureInitialized();
+  });
+  test('static dashboard report cannot bypass app authentication', () {
+    expect(File('web/dashboard.html').existsSync(), isFalse);
   });
   for (final initialized in [false, true]) {
     for (final path in ['/dashboard', '/missing-deep-link', '/auth/callback', '/consent']) {
       testWidgets('guest deep link $path reaches local login; initialized=$initialized', (tester) async {
+        tester.binding.platformDispatcher.defaultRouteNameTestValue = '$path?enable-semantics=true';
+        addTearDown(tester.binding.platformDispatcher.clearDefaultRouteNameTestValue);
         final container = ProviderContainer(overrides: [
           authProvider.overrideWith(initialized ? GuestAuth.new : StartupAuth.new),
         ]);
         addTearDown(container.dispose);
         final router = container.read(appRouterProvider);
         addTearDown(router.dispose);
-        router.go('$path?enable-semantics=true');
         await tester.pumpWidget(UncontrolledProviderScope(container: container,
           child: EasyLocalization(supportedLocales: const [Locale('en')],
             path: 'assets/translations', startLocale: const Locale('en'),
