@@ -2,7 +2,7 @@ name: Validate clean database rebuild
 on:
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -75,3 +75,15 @@ jobs:
           name: clean-rebuild-evidence
           path: rebuild-evidence/
           retention-days: 7
+      - name: Register tested schema in governance
+        run: |
+          python scripts/reconcile-rebuild-governance.py . rebuild-evidence
+          mkdir -p docs/verification/database-rebuild
+          cp rebuild-evidence/result.json docs/verification/database-rebuild/result.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .agents/governance/governance.db docs/verification/database-rebuild/result.json
+          if ! git diff --cached --quiet; then
+            git commit -m "governance: register validated clean rebuild schema [skip ci]"
+            git push origin HEAD:main
+          fi
