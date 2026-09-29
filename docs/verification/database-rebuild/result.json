@@ -1,0 +1,9 @@
+{
+  "baseline": true,
+  "migrations": true,
+  "ceoCreation": true,
+  "duplicateCeoRejected": true,
+  "passwordVerified": true,
+  "authSchema": true,
+  "tables": 229
+}
