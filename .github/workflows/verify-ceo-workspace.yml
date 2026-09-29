@@ -1,6 +1,12 @@
 name: Verify CEO workspace
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - scripts/implement_screens_from_db.py
+      - scripts/repair-role-landing-routes.py
+      - scripts/test_dashboard_generator.py
+      - .agents/governance/governance.db
 permissions:
   contents: read
 jobs:
@@ -9,8 +15,12 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+      - name: Verify generation safety
+        run: python scripts/test_dashboard_generator.py
       - name: Reconcile CEO ownership and translations
-        run: python scripts/repair-ceo-workspace.py
+        run: |
+          python scripts/repair-ceo-workspace.py
+          python scripts/repair-role-landing-routes.py
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.41.5'

@@ -8,6 +8,8 @@ on:
       - scripts/apply-auth-security-policy.py
       - scripts/apply-shared-auth-routes.py
       - scripts/retire-auth-app.py
+      - scripts/repair-ceo-workspace.py
+      - scripts/repair-role-landing-routes.py
       - scripts/apply-auth-design.py
       - design/auth-experience.json
       - .github/workflows/apply-authority-governance.yml
@@ -40,10 +42,16 @@ jobs:
         run: python scripts/apply-auth-design.py
       - name: Retire standalone auth application
         run: python scripts/retire-auth-app.py
+      - name: Reconcile existing role landing paths and CEO resources
+        run: |
+          python scripts/repair-ceo-workspace.py
+          python scripts/repair-role-landing-routes.py
+          python scripts/audit-role-dashboards.py
       - name: Commit governance database and generated assets
         run: |
           set -euo pipefail
           git add .agents/governance/governance.db cloudflare/workers/src/account-policy.json cloudflare/workers/src/auth-security-policy.json cloudflare/workers/src/auth-source-policy.json
+          git add docs/audits/role-dashboards/REPORT.md docs/audits/role-dashboards/inventory.json
           git add packages/primecare_ui/lib/src/features/auth/auth_design_tokens.dart apps/*/assets/translations/*.json
           if git diff --cached --quiet; then exit 0; fi
           git config user.name 'github-actions[bot]'

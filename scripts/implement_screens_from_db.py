@@ -33,6 +33,10 @@ def get_role_theme_colors(role_code, app_code):
         return {'primary': '0xFF0284C7', 'bg': '0xFFF0F9FF', 'card': '0xFFFFFFFF', 'accent': '0xFF0EA5E9', 'text': '0xFF0C4A6E'}
 
 def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_name, app_code, role_code, route_path, purpose, user_story, criteria, sections, elements, apis):
+    if not sections or not elements or not apis:
+        raise ValueError(f'{screen_code}: governed sections, elements, and APIs are required')
+    if any(a.get('method', '').upper() != 'GET' for a in apis):
+        raise ValueError(f'{screen_code}: template supports read-only GET contracts only')
     class_name = snake_to_pascal(screen_code) if '_' in screen_code else screen_name
     if not class_name.endswith('Screen'):
         class_name += 'Screen'
@@ -125,7 +129,7 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
-                    onPressed: () {{}},
+                    onPressed: null, // No governed action handler is implemented.
                     child: const Text('Execute Action', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
@@ -160,14 +164,10 @@ final {provider_name} = FutureProvider.autoDispose<Map<String, dynamic>>((ref) a
   try {{
 {apis_code_lines}
     final response = await api.get('{primary_api_path}');
-    return response.data is Map ? Map<String, dynamic>.from(response.data as Map) : {{}};
+    if (response.data is! Map) throw const FormatException('Expected an object response');
+    return Map<String, dynamic>.from(response.data as Map);
   }} catch (_) {{
-    return {{
-      'status': 'success',
-      'screen_code': '{screen_code}',
-      'role_code': '{role_code}',
-      'timestamp': DateTime.now().toIso8601String(),
-    }};
+    rethrow; // Preserve transport failures; never synthesize successful data.
   }}
 }});
 
@@ -243,7 +243,7 @@ class {class_name} extends GovernedConsumerWidget {{
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                         decoration: BoxDecoration(color: const Color(0xFF10B981).withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
-                        child: const Text('100% READY', style: TextStyle(color: Color(0xFF10B981), fontSize: 10, fontWeight: FontWeight.bold)),
+                        child: const Text('NOT VERIFIED', style: TextStyle(color: Color(0xFF10B981), fontSize: 10, fontWeight: FontWeight.bold)),
                       ),
                     ],
                   ),
@@ -280,7 +280,7 @@ class {class_name} extends GovernedConsumerWidget {{
                   const SizedBox(height: 4),
                   const Text('• Cypress Selector: data-cy="screen-{kebab_code}"', style: TextStyle(color: Color(0xFF34D399), fontSize: 12, fontFamily: 'monospace')),
                   const SizedBox(height: 4),
-                  const Text('• Accessibility WCAG 2.2 AA: PASSED (Keyboard Nav & ARIA Labeled)', style: TextStyle(color: Color(0xFF60A5FA), fontSize: 12)),
+                  const Text('• Accessibility: NOT VERIFIED', style: TextStyle(color: Color(0xFF60A5FA), fontSize: 12)),
                 ],
               ),
             ),
@@ -326,7 +326,7 @@ def implement_creative_screens_from_db():
         ORDER BY s.screen_code
     """)
     screens = [dict(r) for r in cursor.fetchall()]
-    print(f"[DB Generator] Generating 100% complete screen code with ALL mapped APIs for {len(screens)} screens...")
+    print(f"[DB Generator] Generating unverified presentation templates for {len(screens)} screens...")
 
     implemented_count = 0
     for s in screens:
@@ -335,6 +335,12 @@ def implement_creative_screens_from_db():
         screen_name = s['screen_name'] or f"Screen{sid}"
         file_name = f"{camel_to_snake(screen_code)}.dart"
         target_path = os.path.join(out_dir, file_name)
+
+        # Hand-written implementations must never be overwritten by templates.
+        if os.path.exists(target_path):
+            with open(target_path, encoding='utf-8') as existing:
+                if not existing.read().startswith('// Generated directly from SQLite Database'):
+                    continue
 
         # Fetch sections
         cursor.execute("SELECT id as section_id, section_name, section_type, purpose FROM screen_sections WHERE screen_id = ? ORDER BY section_order", (sid,))
@@ -356,6 +362,10 @@ def implement_creative_screens_from_db():
         app_code = s['app_code'] or 'general'
         role_code = s['role_code'] or 'all'
         route_path = s['route_path'] or '/'
+
+        if not sections or not elements or not apis or any(a['method'].upper() != 'GET' for a in apis):
+            print(f'[DB Generator] Skipped {screen_code}: incomplete or unsupported contract')
+            continue
 
         dart_code = generate_custom_screen_widget(
             sid=sid,
@@ -380,14 +390,15 @@ def implement_creative_screens_from_db():
         cursor.execute("""
             UPDATE screens
             SET actual_file_path = ?,
-                implementation_tag = 'implemented',
-                content_tag = 'verified_content',
-                api_tag = 'api_connected',
-                test_tag = 'test_passed',
-                review_tag = 'reviewed',
-                completeness_score = 100,
-                production_ready = 1,
-                runtime_verified = 1
+                implementation_tag = 'partial',
+                content_tag = 'partial',
+                api_tag = 'api_missing',
+                test_tag = 'not_tested',
+                review_tag = 'pending',
+                completeness_score = 0,
+                production_ready = 0,
+                runtime_verified = 0,
+                cypress_verified = 0
             WHERE id = ?
         """, (f"packages/primecare_ui/lib/src/features/generated_screens/{file_name}", sid))
 
@@ -396,7 +407,7 @@ def implement_creative_screens_from_db():
     conn.commit()
     conn.close()
 
-    print(f"[DB Generator] Successfully generated custom screen implementations for ALL {implemented_count} screens!")
+    print(f"[DB Generator] Generated unverified templates for {implemented_count} screens!")
 
     handler = ReportHandler(db_path=db_path)
     handler.generate_report()
