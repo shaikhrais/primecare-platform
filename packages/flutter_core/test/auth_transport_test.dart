@@ -6,6 +6,22 @@ import 'package:flutter_core/src/network/api_client.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
+  test('session revocation sends the captured bearer token', () async {
+    final transport = Dio(BaseOptions(baseUrl: 'https://api.example.test'));
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+    addTearDown(() => transport.close(force: true));
+    final client = container.read(Provider((ref) => ApiClient(ref, transport: transport)));
+    transport.interceptors.clear();
+    transport.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
+      expect(options.path, '/v1/auth/logout');
+      expect(options.headers['Authorization'], 'Bearer captured-old-token');
+      handler.resolve(Response(requestOptions: options, statusCode: 200,
+          data: <String, dynamic>{'status': 'signed_out'}));
+    }));
+    expect((await client.revokeSession('captured-old-token')).isSuccess, isTrue);
+  });
+
   final calls = <String, Future<ApiResponse> Function(ApiClient, String)>{
     'GET': (client, path) => client.get(path),
     'POST': (client, path) => client.post(path, body: {'email': 'qa@example.test'}),

@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_core/src/utils/auth_storage.dart';
+
 class AuthState {
   final bool isAuthenticated;
   final bool isInitialized;
@@ -54,9 +54,31 @@ class AuthState {
 final authListenable = ValueNotifier<bool>(false);
 
 class AuthNotifier extends Notifier<AuthState> {
+  int _sessionRevision = 0;
+  Future<void> _persistence = Future<void>.value();
+
+  bool _isCurrent(int revision) => ref.mounted && revision == _sessionRevision;
+
+  // Serialize storage mutations so a superseded write cannot outlive logout or
+  // overwrite the next login. Failed storage must not poison the queue.
+  Future<void> _persist(Future<void> Function(SharedPreferences) operation) {
+    final work = _persistence.then((_) async {
+      await operation(await SharedPreferences.getInstance());
+    });
+    _persistence = work.then<void>((_) {}, onError: (Object _, StackTrace __) {});
+    return work;
+  }
+
+  Future<void> _clearSession(SharedPreferences prefs) async {
+    for (final key in const ['auth_token', 'auth_role', 'auth_tenant_id',
+        'auth_username', 'auth_user_id']) {
+      await prefs.remove(key);
+    }
+  }
+
   @override
   AuthState build() {
-    _loadStoredAuth();
+    _loadStoredAuth(++_sessionRevision);
     return AuthState(isInitialized: false);
   }
 
@@ -251,53 +273,48 @@ class AuthNotifier extends Notifier<AuthState> {
     return CommonRoutes.clinicalDashboard; // Fallback security
   }
 
-  Future<void> _loadStoredAuth() async {
+  Future<void> _loadStoredAuth(int revision) async {
     try {
       final prefs = await SharedPreferences.getInstance();
+      if (!_isCurrent(revision)) return;
+      final language = prefs.getString('auth_preferred_language') ?? 'en';
       final token = prefs.getString('auth_token');
       if (token == null || token.isEmpty) {
-        state = AuthState(isInitialized: true);
+        state = AuthState(isInitialized: true, preferredLanguage: language);
         authListenable.value = false;
         return;
       }
-
-      // The token is provisional until the server confirms it is active.
-      state = AuthState(
-        isInitialized: false,
-        token: token,
-        role: prefs.getString('auth_role'),
-      );
-      final response = await ref.read(apiClientProvider)
-          .get(ApiConfig.endpoints['me']!);
-      if (!response.isSuccess || response.data is! Map<String, dynamic>) {
-        await prefs.remove('auth_token');
-        await prefs.remove('auth_role');
-        state = AuthState(isInitialized: true);
-        authListenable.value = false;
-        return;
-      }
-      final data = response.data as Map<String, dynamic>;
-      final role = data['roles']?.toString();
-      final userId = data['userId']?.toString();
-      if (role == null || role.isEmpty || userId == null || userId.isEmpty) {
-        await prefs.remove('auth_token');
-        state = AuthState(isInitialized: true);
+      // Local role/identity values are not authority until the server confirms.
+      state = AuthState(token: token, preferredLanguage: language);
+      final response = await ref.read(apiClientProvider).get(ApiConfig.endpoints['me']!);
+      if (!_isCurrent(revision)) return;
+      final data = response.data;
+      final role = data is Map<String, dynamic> ? data['roles'] : null;
+      final userId = data is Map<String, dynamic> ? data['userId'] : null;
+      if (!response.isSuccess || role is! String || role.isEmpty ||
+          userId is! String || userId.isEmpty) {
+        await _persist((prefs) async {
+          if (_isCurrent(revision)) await _clearSession(prefs);
+        });
+        if (!_isCurrent(revision)) return;
+        state = AuthState(isInitialized: true, preferredLanguage: language);
         authListenable.value = false;
         return;
       }
       state = AuthState(
-        isAuthenticated: true,
-        isInitialized: true,
-        token: token,
-        role: role,
-        userId: userId,
+        isAuthenticated: true, isInitialized: true, token: token,
+        role: role, userId: userId,
         userName: prefs.getString('auth_username'),
-        tenantId: prefs.getString('auth_tenant_id'),
-        preferredLanguage: prefs.getString('auth_preferred_language') ?? 'en',
+        preferredLanguage: state.preferredLanguage ?? language,
       );
       authListenable.value = true;
     } catch (_) {
-      state = AuthState(isInitialized: true);
+      if (!_isCurrent(revision)) return;
+      await _persist((prefs) async {
+        if (_isCurrent(revision)) await _clearSession(prefs);
+      });
+      if (!_isCurrent(revision)) return;
+      state = AuthState(isInitialized: true, preferredLanguage: state.preferredLanguage);
       authListenable.value = false;
     }
   }
@@ -307,13 +324,14 @@ class AuthNotifier extends Notifier<AuthState> {
     required String role,
     required String userId,
   }) async {
-    // Legacy callback URLs cannot establish a session. A URL may be copied or
-    // logged, and client-provided role and user ID are never authority.
-    state = AuthState(isInitialized: true);
-    authListenable.value = false;
+    // Untrusted callback parameters neither establish nor destroy a session.
   }
 
   Future<bool> login(String email, String password) async {
+    final revision = ++_sessionRevision;
+    if (!state.isInitialized) {
+      state = AuthState(isInitialized: true, preferredLanguage: state.preferredLanguage);
+    }
     final result = await Result.guardFuture<bool>(
       () async {
         final apiClient = ref.read(apiClientProvider);
@@ -322,6 +340,14 @@ class AuthNotifier extends Notifier<AuthState> {
           body: {'email': email, 'password': password},
         );
 
+        if (!_isCurrent(revision)) {
+          final data = response.data;
+          if (response.statusCode == 200 && data is Map<String, dynamic> &&
+              data['token'] is String && (data['token'] as String).isNotEmpty) {
+            await apiClient.revokeSession(data['token'] as String);
+          }
+          return false;
+        }
         if (response.statusCode == 200) {
           final Map<String, dynamic> data =
               response.data as Map<String, dynamic>;
@@ -337,23 +363,27 @@ class AuthNotifier extends Notifier<AuthState> {
           final tenantId = data['tenantId']?.toString() ?? '';
           final preferredLanguage = state.preferredLanguage ?? 'en';
 
-          final prefs = await SharedPreferences.getInstance();
-
-          await prefs.setString('auth_token', token);
-          await prefs.setString('auth_role', role);
-          await prefs.setString('auth_tenant_id', tenantId);
-          await prefs.setString('auth_username', userName);
-          await prefs.setString('auth_user_id', userId);
-          await prefs.setString('auth_preferred_language', preferredLanguage);
-
-          state = state.copyWith(
-            isAuthenticated: true,
-            token: token,
-            role: role,
-            tenantId: tenantId,
-            userName: userName,
-            userId: userId,
-            preferredLanguage: preferredLanguage,
+          await _persist((prefs) async {
+            if (!_isCurrent(revision)) return;
+            await prefs.setString('auth_token', token);
+            await prefs.setString('auth_role', role);
+            await prefs.setString('auth_tenant_id', tenantId);
+            await prefs.setString('auth_username', userName);
+            await prefs.setString('auth_user_id', userId);
+            // A newer operation may start while the platform writes are in
+            // flight. It will run after this queue entry, so remove the stale
+            // credentials before allowing the next entry to proceed.
+            if (!_isCurrent(revision)) await _clearSession(prefs);
+          });
+          if (!_isCurrent(revision)) {
+            await apiClient.revokeSession(token);
+            return false;
+          }
+          state = AuthState(
+            isAuthenticated: true, isInitialized: true,
+            token: token, role: role, tenantId: tenantId,
+            userName: userName, userId: userId,
+            preferredLanguage: state.preferredLanguage ?? preferredLanguage,
           );
           authListenable.value = true;
           ref
@@ -487,50 +517,22 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   Future<void> logout() async {
-    await Result.guardFuture<void>(
-      () async {
-        try {
-          if (state.token != null) {
-            await ref.read(apiClientProvider).post('/v1/auth/logout');
-          }
-        } catch (_) {
-          // Local state is cleared even if the network is unavailable.
-        }
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.remove('auth_token');
-        await prefs.remove('auth_role');
-        await prefs.remove('auth_tenant_id');
-        await prefs.remove('auth_username');
-        await prefs.remove('auth_user_id');
-        await prefs.remove('auth_preferred_language');
-
-        ref
-            .read<ExecutionGateService>(executionGateProvider)
-            .passGate(
-              ExecutionGateCategory.auth,
-              'User session persistence cleared successfully.',
-            );
-      },
-      onError: (e, st) {
-        ref
-            .read<ExecutionGateService>(executionGateProvider)
-            .failGate(
-              ExecutionGateCategory.auth,
-              'Persistence failure during logout.',
-              error: e,
-              stackTrace: st,
-            );
-      },
-    );
-
-    state = AuthState(isInitialized: true);
+    ++_sessionRevision;
+    final token = state.token;
+    final api = ref.read(apiClientProvider);
+    final language = state.preferredLanguage;
+    // Remove local authority immediately. A stalled network must not leave a
+    // logged-out user on protected screens. Revocation uses the captured token.
+    state = AuthState(isInitialized: true, preferredLanguage: language);
     authListenable.value = false;
-    ref
-        .read<ExecutionGateService>(executionGateProvider)
-        .passGate(
-          ExecutionGateCategory.auth,
-          'Auth state reset sequence completed.',
-        );
+    final cleared = _persist(_clearSession);
+    try {
+      if (token != null && token.isNotEmpty) await api.revokeSession(token);
+    } catch (_) {
+      // Offline revocation cannot restore local authentication.
+    } finally {
+      await cleared;
+    }
   }
 
   Future<void> updatePreferredLanguage(String lang) async {

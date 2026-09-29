@@ -457,6 +457,19 @@ class ApiClient {
   }
 
   /// Performs a POST request.
+  /// Revoke exactly the captured session, even if another login has since won.
+  Future<ApiResponse> revokeSession(String token) async {
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/v1/auth/logout',
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+      return ApiResponse(data: response.data, statusCode: response.statusCode ?? 200);
+    } catch (error) {
+      return _authFailure(error);
+    }
+  }
+
   Future<ApiResponse> post(String path, {dynamic body}) async {
     try {
       final response = await _dio.post<Map<String, dynamic>>(path, data: body);
