@@ -4620,5 +4620,8 @@
     "auth_design_french": "Français",
     "auth_design_spanish": "Español",
     "auth_design_unavailable_action": "Contactez votre administrateur",
-    "auth_design_signed_out": "Retour à la connexion"
+    "auth_design_signed_out": "Retour à la connexion",
+    "ceo_workspace_title": "Espace du PDG",
+    "ceo_workspace_pending": "Les données du tableau de bord ne sont pas encore disponibles.",
+    "ceo_workspace_account": "Mon compte"
 }

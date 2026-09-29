@@ -185,5 +185,8 @@
       "initiate_development": "بدء التطوير",
       "file_correction_ticket": "تذكرة تصحيح الملف"
     }
-  }
+  },
+  "ceo_workspace_title": "مساحة الرئيس التنفيذي",
+  "ceo_workspace_pending": "بيانات لوحة الأعمال غير متاحة بعد.",
+  "ceo_workspace_account": "حسابي"
 }

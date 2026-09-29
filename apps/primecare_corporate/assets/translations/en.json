@@ -4585,5 +4585,8 @@
     "auth_design_french": "Français",
     "auth_design_spanish": "Español",
     "auth_design_unavailable_action": "Contact your administrator",
-    "auth_design_signed_out": "Return to sign in"
+    "auth_design_signed_out": "Return to sign in",
+    "ceo_workspace_title": "CEO workspace",
+    "ceo_workspace_pending": "Business dashboard data is not available yet.",
+    "ceo_workspace_account": "My account"
 }

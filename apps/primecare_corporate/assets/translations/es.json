@@ -4620,5 +4620,8 @@
     "auth_design_french": "Français",
     "auth_design_spanish": "Español",
     "auth_design_unavailable_action": "Contacte con su administrador",
-    "auth_design_signed_out": "Volver al inicio de sesión"
+    "auth_design_signed_out": "Volver al inicio de sesión",
+    "ceo_workspace_title": "Espacio del director ejecutivo",
+    "ceo_workspace_pending": "Los datos del panel de gestión aún no están disponibles.",
+    "ceo_workspace_account": "Mi cuenta"
 }

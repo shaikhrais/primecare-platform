@@ -4,12 +4,11 @@
     "roles_with_static_findings": 64,
     "runtime_verified": 0,
     "findings": {
-      "empty_action": 40,
-      "incomplete_api_contract": 40,
-      "simulated_success": 40,
-      "not_marked_production_ready": 24,
-      "screen_role_mismatch": 1,
-      "post_login_route_not_in_screen_registry": 24
+      "empty_action": 63,
+      "incomplete_api_contract": 64,
+      "simulated_success": 63,
+      "not_marked_production_ready": 45,
+      "screen_role_mismatch": 1
     }
   },
   "roles": [
@@ -519,10 +518,23 @@
       "test_email": "qa.system_verification@test.primecare.local",
       "primary_app_code": "governance",
       "primary_app_url": "https://primecare-governance.pages.dev",
-      "post_login_route": "/common/qa-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/support/roles/quality_assurance/dashboard",
+      "screens": [
+        {
+          "screen": "qa_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/qa_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -562,11 +574,36 @@
       "test_email": "qa.ceo@test.primecare.local",
       "primary_app_code": "corporate",
       "primary_app_url": "https://primecare-corporate.pages.dev",
-      "post_login_route": "/executive/executive-command-center",
+      "post_login_route": "/offices/corporate/roles/ceo/dashboard",
       "screens": [
         {
-          "screen": "executive_command_center",
-          "path": "packages/primecare_ui/lib/src/features/generated_screens/executive_command_center.dart",
+          "screen": "ceo_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/ceo_dashboard.dart",
+          "findings": [
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
+      "static_findings": [
+        "incomplete_api_contract",
+        "not_marked_production_ready"
+      ],
+      "runtime_status": "reported_separately",
+      "fully_functional": "blocked_by_static_findings"
+    },
+    {
+      "id": 21,
+      "role_code": "cfo",
+      "test_email": "qa.cfo@test.primecare.local",
+      "primary_app_code": "corporate",
+      "primary_app_url": "https://primecare-corporate.pages.dev",
+      "post_login_route": "/offices/corporate/roles/cfo/dashboard",
+      "screens": [
+        {
+          "screen": "cfo_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/cfo_dashboard.dart",
           "findings": [
             "simulated_success",
             "empty_action",
@@ -586,29 +623,30 @@
       "fully_functional": "blocked_by_static_findings"
     },
     {
-      "id": 21,
-      "role_code": "cfo",
-      "test_email": "qa.cfo@test.primecare.local",
-      "primary_app_code": "corporate",
-      "primary_app_url": "https://primecare-corporate.pages.dev",
-      "post_login_route": "/executive/cfo-dashboard",
-      "screens": [],
-      "static_findings": [
-        "post_login_route_not_in_screen_registry"
-      ],
-      "runtime_status": "reported_separately",
-      "fully_functional": "blocked_by_static_findings"
-    },
-    {
       "id": 22,
       "role_code": "ciso",
       "test_email": "qa.ciso@test.primecare.local",
       "primary_app_code": "corporate",
       "primary_app_url": "https://primecare-corporate.pages.dev",
-      "post_login_route": "/executive/ciso-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/corporate/roles/ciso/dashboard",
+      "screens": [
+        {
+          "screen": "ciso_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/ciso_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract"
+          ],
+          "api_count": 3
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -619,10 +657,26 @@
       "test_email": "qa.coo@test.primecare.local",
       "primary_app_code": "corporate",
       "primary_app_url": "https://primecare-corporate.pages.dev",
-      "post_login_route": "/executive/coo-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/corporate/roles/coo/dashboard",
+      "screens": [
+        {
+          "screen": "coo_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/coo_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 2
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -662,10 +716,25 @@
       "test_email": "qa.cx_director@test.primecare.local",
       "primary_app_code": "corporate",
       "primary_app_url": "https://primecare-corporate.pages.dev",
-      "post_login_route": "/executive/cx-director-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/corporate/roles/cx_director/dashboard",
+      "screens": [
+        {
+          "screen": "cx_director_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/cx_director_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -676,10 +745,25 @@
       "test_email": "qa.finance_director@test.primecare.local",
       "primary_app_code": "corporate",
       "primary_app_url": "https://primecare-corporate.pages.dev",
-      "post_login_route": "/executive/finance-director-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/corporate/roles/finance_director/dashboard",
+      "screens": [
+        {
+          "screen": "finance_director_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/finance_director_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -690,10 +774,25 @@
       "test_email": "qa.hr_director@test.primecare.local",
       "primary_app_code": "corporate",
       "primary_app_url": "https://primecare-corporate.pages.dev",
-      "post_login_route": "/executive/hr-director-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/corporate/roles/hr_director/dashboard",
+      "screens": [
+        {
+          "screen": "hr_director_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/hr_director_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -704,10 +803,23 @@
       "test_email": "qa.legal@test.primecare.local",
       "primary_app_code": "corporate",
       "primary_app_url": "https://primecare-corporate.pages.dev",
-      "post_login_route": "/executive/legal-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/corporate/roles/legal/dashboard",
+      "screens": [
+        {
+          "screen": "legal_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/legal_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -747,10 +859,25 @@
       "test_email": "qa.shareholder@test.primecare.local",
       "primary_app_code": "corporate",
       "primary_app_url": "https://primecare-corporate.pages.dev",
-      "post_login_route": "/executive/shareholder-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/corporate/roles/shareholder/dashboard",
+      "screens": [
+        {
+          "screen": "shareholder_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/shareholder_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -790,10 +917,25 @@
       "test_email": "qa.community_outreach@test.primecare.local",
       "primary_app_code": "marketing",
       "primary_app_url": "https://primecare-marketing.pages.dev",
-      "post_login_route": "/management/community-outreach-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/marketing/roles/community_outreach/dashboard",
+      "screens": [
+        {
+          "screen": "community_outreach_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/community_outreach_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -804,10 +946,25 @@
       "test_email": "qa.compliance@test.primecare.local",
       "primary_app_code": "governance",
       "primary_app_url": "https://primecare-governance.pages.dev",
-      "post_login_route": "/management/compliance-manager-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/corporate/roles/compliance_manager/dashboard",
+      "screens": [
+        {
+          "screen": "compliance_manager_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/compliance_manager_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -818,10 +975,25 @@
       "test_email": "qa.franchise_sales@test.primecare.local",
       "primary_app_code": "franchise",
       "primary_app_url": "https://primecare-franchise.pages.dev",
-      "post_login_route": "/management/franchise-sales-manager-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/business_development/roles/franchise_sales_manager/dashboard",
+      "screens": [
+        {
+          "screen": "franchise_sales_manager_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/franchise_sales_manager_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -832,10 +1004,25 @@
       "test_email": "qa.gm@test.primecare.local",
       "primary_app_code": "support",
       "primary_app_url": "https://primecare-support.pages.dev",
-      "post_login_route": "/management/general-manager-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/business_development/roles/general_manager/dashboard",
+      "screens": [
+        {
+          "screen": "general_manager_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/general_manager_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -904,10 +1091,25 @@
       "test_email": "qa.marketing@test.primecare.local",
       "primary_app_code": "marketing",
       "primary_app_url": "https://primecare-marketing.pages.dev",
-      "post_login_route": "/management/head-of-marketing-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/corporate/roles/head_of_marketing/dashboard",
+      "screens": [
+        {
+          "screen": "head_of_marketing_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/head_of_marketing_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -918,10 +1120,25 @@
       "test_email": "qa.local_marketing@test.primecare.local",
       "primary_app_code": "marketing",
       "primary_app_url": "https://primecare-marketing.pages.dev",
-      "post_login_route": "/management/local-marketing-manager-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/marketing/roles/local_marketing_manager/dashboard",
+      "screens": [
+        {
+          "screen": "local_marketing_manager_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/local_marketing_manager_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -932,10 +1149,25 @@
       "test_email": "qa.ops_manager@test.primecare.local",
       "primary_app_code": "support",
       "primary_app_url": "https://primecare-support.pages.dev",
-      "post_login_route": "/management/operations-manager-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/franchise/roles/operations_manager/dashboard",
+      "screens": [
+        {
+          "screen": "operations_manager_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/operations_manager_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -946,10 +1178,25 @@
       "test_email": "qa.partnership@test.primecare.local",
       "primary_app_code": "business_development",
       "primary_app_url": "https://primecare-business-development.pages.dev",
-      "post_login_route": "/management/partnership-manager-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/business_development/roles/partnership_manager/dashboard",
+      "screens": [
+        {
+          "screen": "partnership_manager_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/partnership_manager_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -960,10 +1207,25 @@
       "test_email": "qa.regional_bdm@test.primecare.local",
       "primary_app_code": "business_development",
       "primary_app_url": "https://primecare-business-development.pages.dev",
-      "post_login_route": "/management/regional-bdm-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/business_development/roles/regional_bdm/dashboard",
+      "screens": [
+        {
+          "screen": "regional_bdm_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/regional_bdm_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -974,10 +1236,25 @@
       "test_email": "qa.regional_manager_usa@test.primecare.local",
       "primary_app_code": "support",
       "primary_app_url": "https://primecare-support.pages.dev",
-      "post_login_route": "/management/regional-manager-usa-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/business_development/roles/regional_manager_usa/dashboard",
+      "screens": [
+        {
+          "screen": "regional_manager_usa_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/regional_manager_usa_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -1017,10 +1294,27 @@
       "test_email": "qa.hr_hiring@test.primecare.local",
       "primary_app_code": "support",
       "primary_app_url": "https://primecare-support.pages.dev",
-      "post_login_route": "/staff/hr-hiring-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/corporate/roles/hr_hiring/dashboard",
+      "screens": [
+        {
+          "screen": "hr_hiring_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/hr_hiring_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 3
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -1031,10 +1325,25 @@
       "test_email": "qa.territory_expansion@test.primecare.local",
       "primary_app_code": "business_development",
       "primary_app_url": "https://primecare-business-development.pages.dev",
-      "post_login_route": "/management/territory-expansion-manager-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/business_development/roles/territory_expansion_manager/dashboard",
+      "screens": [
+        {
+          "screen": "territory_expansion_manager_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/territory_expansion_manager_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -1045,10 +1354,25 @@
       "test_email": "qa.territory_sales@test.primecare.local",
       "primary_app_code": "business_development",
       "primary_app_url": "https://primecare-business-development.pages.dev",
-      "post_login_route": "/management/territory-sales-manager-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/marketing/roles/territory_sales_manager/dashboard",
+      "screens": [
+        {
+          "screen": "territory_sales_manager_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/territory_sales_manager_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -1059,10 +1383,25 @@
       "test_email": "qa.volunteer_coordinator@test.primecare.local",
       "primary_app_code": "support",
       "primary_app_url": "https://primecare-support.pages.dev",
-      "post_login_route": "/staff/volunteer-coordinator-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/corporate/roles/volunteer_coordinator/dashboard",
+      "screens": [
+        {
+          "screen": "volunteer_coordinator_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/volunteer_coordinator_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
@@ -1401,10 +1740,25 @@
       "test_email": "qa.scheduler@test.primecare.local",
       "primary_app_code": "support",
       "primary_app_url": "https://primecare-support.pages.dev",
-      "post_login_route": "/staff/scheduler-dashboard",
-      "screens": [],
+      "post_login_route": "/offices/franchise/roles/scheduler/dashboard",
+      "screens": [
+        {
+          "screen": "scheduler_dashboard",
+          "path": "packages/primecare_ui/lib/src/features/generated_screens/scheduler_dashboard.dart",
+          "findings": [
+            "simulated_success",
+            "empty_action",
+            "incomplete_api_contract",
+            "not_marked_production_ready"
+          ],
+          "api_count": 1
+        }
+      ],
       "static_findings": [
-        "post_login_route_not_in_screen_registry"
+        "empty_action",
+        "incomplete_api_contract",
+        "not_marked_production_ready",
+        "simulated_success"
       ],
       "runtime_status": "reported_separately",
       "fully_functional": "blocked_by_static_findings"
