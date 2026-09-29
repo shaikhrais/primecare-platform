@@ -18,7 +18,11 @@ def api(path,method='GET',payload=None,token=None):
  req=Request(base+path,data=json.dumps(payload).encode() if payload is not None else None,headers=headers,method=method)
  try:
   with urlopen(req,timeout=20) as r:return r.status,json.load(r)
- except HTTPError as e:return e.code,{}
+ except HTTPError as e:
+  body=e.read(32768).decode('utf-8',errors='replace').lower()
+  diagnostic={'status':e.code,'content_type':e.headers.get('Content-Type',''),'gateway_header':e.headers.get('x-primecare-gateway',''),'cf_mitigated':e.headers.get('cf-mitigated',''),'cloudflare_1010':'1010' in body,'cloudflare_1020':'1020' in body,'human_challenge':any(x in body for x in ['verify you are human','just a moment','checking your browser']),'bot_screening':any(x in body for x in ['bot detection','automated traffic','browser signature']),'proxy_denial':any(x in body for x in ['proxy','egress','policy denied'])}
+  print('HTTP_DIAGNOSTIC '+json.dumps(diagnostic),flush=True)
+  return e.code,{}
 def check(role):
  result={'role':role['role_code'],'email':role['test_email'],'api_login':'not_verified','browser_login':'not_verified','dashboard':'not_verified','fully_functional':'not_verified','static_findings':role['static_findings']}
  token=None;driver=None;phase='api_login'
@@ -57,8 +61,8 @@ def check(role):
    except Exception:result['api_logout']='not_verified'
  return result
 results=[]
-with ThreadPoolExecutor(max_workers=3) as pool:
- futures=[pool.submit(check,r) for r in roles]
+with ThreadPoolExecutor(max_workers=1) as pool:
+ futures=[pool.submit(check,roles[0])]  # One diagnostic request; no repeated blocked requests.
  for future in as_completed(futures):
   result=future.result();results.append(result)
   Path('role-dashboard-runtime.json').write_text(json.dumps(sorted(results,key=lambda r:r['role']),indent=2))
