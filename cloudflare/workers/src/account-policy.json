@@ -63,7 +63,8 @@
     "training_director",
     "vip_manager",
     "volunteer",
-    "volunteer_coordinator"
+    "volunteer_coordinator",
+    "maintenance"
   ],
   "hr_director": [
     "admin",

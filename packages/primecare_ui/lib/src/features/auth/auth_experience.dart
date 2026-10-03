@@ -135,6 +135,7 @@ class PrimeAuthExperience extends ConsumerWidget {
           Text(auth.userName ?? '', style: theme.typography.bodyLarge), gap,
           Text(_copy(context, 'role'), style: theme.typography.labelBold),
           Text(auth.role ?? '', style: theme.typography.bodyLarge), gap,
+          if (['ceo', 'maintenance'].contains(auth.role)) TextButton(onPressed: () => _go(context, '/maintenance/configuration'), child: const Text('IT maintenance configuration')),
           PrimeButton(label: _copy(context, 'signout'), onPressed: () async {
             await ref.read(authProvider.notifier).logout();
             if (context.mounted) _go(context, '/login');

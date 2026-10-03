@@ -64,6 +64,7 @@ try {
   await db.query(await readFile('packages/database/migrations/20260928_auth_password_audit.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_bootstrap_audit.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20261003_auth_password_resets.sql','utf8'));
+  await db.query(await readFile('packages/database/migrations/20261003_maintenance_configuration.sql','utf8'));
   assert.deepEqual(await checkAuthSchema(connectionString),[]); passed++;
   userId = (await db.query('INSERT INTO users(email,roles,password_hash,status,id) VALUES($1,$2,$3,$4,$5) RETURNING id',
     [email,'fixture-role',await bcrypt.hash(password,12),'active',textIds?'fixture_'+randomUUID():randomUUID()])).rows[0].id;
@@ -165,6 +166,23 @@ try {
   assert.equal((await call('/login','POST',{email,password:racePassword})).status,401);
   assert.equal((await call('/login','POST',{email,password:resetPasswordValue})).status,200);passed++;
   assert.equal((await db.query('SELECT token_hash FROM auth_password_resets WHERE user_id=$1',[userId])).rowCount,0);passed++;
+  // Live authorization, tenant binding, encrypted persistence and stale-save behavior.
+  const maintenanceToken=(await (await call('/login','POST',{email,password:resetPasswordValue})).json()).token;
+  assert.ok(maintenanceToken);
+  env.CONFIG_ENCRYPTION_KEY='a'.repeat(64);
+  await db.query("UPDATE users SET roles='rmt' WHERE id=$1",[userId]);
+  assert.equal((await call('/maintenance/configuration','GET',undefined,maintenanceToken)).status,403);passed++;
+  await db.query("UPDATE users SET roles='maintenance' WHERE id=$1",[userId]);
+  assert.equal((await call('/maintenance/configuration','GET',undefined,maintenanceToken)).status,200);passed++;
+  const settings={sender:'it@example.com',apiKey:'re_test_fixture_key',revision:0,templates:{}};
+  assert.equal((await call('/maintenance/configuration','POST',settings,maintenanceToken)).status,200);passed++;
+  assert.equal((await call('/maintenance/configuration','POST',settings,maintenanceToken)).status,409);passed++;
+  const visible=await (await call('/maintenance/configuration','GET',undefined,maintenanceToken)).json();
+  assert.equal(visible.keyConfigured,true);assert.equal(visible.revision,1);assert.ok(!JSON.stringify(visible).includes(settings.apiKey));passed++;
+  const stored=(await db.query('SELECT api_key_ciphertext FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)])).rows[0];
+  assert.ok(stored.api_key_ciphertext);assert.ok(!stored.api_key_ciphertext.includes(settings.apiKey));passed++;
+  await db.query('DELETE FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)]);
+  await db.query('DELETE FROM tenant_configuration_audit WHERE tenant_id=$1',[String(tenantId)]);
   console.log(JSON.stringify({passed, database:'isolated PostgreSQL', productionVerified:false}));
 } finally {
   globalThis.__authBeforeInsert=null;

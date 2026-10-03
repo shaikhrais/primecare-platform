@@ -83,6 +83,7 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   static String getDashboardRouteForRole(String role) {
+    if (role == 'maintenance') return '/maintenance/configuration';
     if (role.isEmpty) return CommonRoutes.clinicalDashboard;
 
     // Check if there is a dashboard screen explicitly registered for this role!

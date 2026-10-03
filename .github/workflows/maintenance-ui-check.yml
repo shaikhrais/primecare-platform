@@ -1,0 +1,33 @@
+name: Maintenance UI compile check
+on:
+  pull_request:
+    paths:
+      - 'packages/primecare_ui/lib/src/features/maintenance/**'
+      - 'packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart'
+      - 'websites/typescript/src/**'
+      - '.github/workflows/maintenance-ui-check.yml'
+permissions:
+  contents: read
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Compile website client
+        run: |
+          mkdir -p "$RUNNER_TEMP/web-deps"
+          npm install --prefix "$RUNNER_TEMP/web-deps" --ignore-scripts typescript@5.9.3
+          "$RUNNER_TEMP/web-deps/node_modules/.bin/tsc" --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/main.ts
+      - name: Compile shared maintenance page in Clinic app
+        working-directory: apps/primecare_clinic
+        run: |
+          flutter pub get
+          flutter build web --release --no-tree-shake-icons --dart-define=API_BASE_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev

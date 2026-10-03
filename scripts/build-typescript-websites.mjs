@@ -1,3 +1,4 @@
+execFileSync('python3',['scripts/register-maintenance-governance.py']);
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { join } from 'node:path';

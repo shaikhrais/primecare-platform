@@ -18,11 +18,12 @@ class RouteGuard {
   /// Maps a user role to a list of allowed route prefixes.
   /// This acts as our centralized permissions map.
       static final Map<String, List<String>> _defaultRolePermissions = {
+    'maintenance': ['/maintenance/configuration'],
     'admin': ['/offices/franchise', '/common', '/offices/support', '/dynamic', '/roles', '/offices/governance', '/clinic', '/offices/clinical'],
     'billing_admin': ['/offices/franchise', '/common'],
     'bus_dev': ['/common', '/offices/business_development', '/offices', '/offices/corporate'],
     'caregiver': ['/offices/clinical', '/clinic', '/common', '/dynamic', '/offices'],
-    'ceo': ['/offices/corporate', '/common', '/executive', '/offices'],
+    'ceo': ['/maintenance/configuration', '/offices/corporate', '/common', '/executive', '/offices'],
     'cfo': ['/offices/corporate', '/common', '/executive', '/offices'],
     'chiro': ['/offices/clinical', '/clinic', '/common', '/dynamic'],
     'chiropractor': ['/offices/clinical', '/clinic', '/common', '/dynamic', '/offices'],
