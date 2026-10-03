@@ -89,6 +89,7 @@ function renderPortal(manifest: PortalManifest): void {
     || manifest.screens.find((screen) => !selectedRole || screen.roleId === selectedRole)
     || manifest.screens[0];
   const draw = () => {
+    if(location.pathname==='/maintenance/configuration'){void renderMaintenance(root,manifest.apiGateway);return;}
     const allowed = manifest.screens.filter((screen) => !selectedRole || screen.roleId === selectedRole);
     const screen = routeScreen();
     const navigation = allowed.map((item) => `<a href="${escapeHtml(withSemantics(item.route))}" data-route="${escapeHtml(item.route)}" data-cy="sidebar-item-${escapeHtml(item.code)}">${escapeHtml(item.name)}</a>`).join('');
