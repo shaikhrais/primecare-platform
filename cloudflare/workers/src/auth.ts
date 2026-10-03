@@ -1,3 +1,5 @@
+import {recoverPassword,resetPassword,validateRecovery} from './password-recovery';
+import type {MailEnv} from './email';
 import type {SourceLimitEnv} from './auth-source-limit';
 import { Client } from 'pg';
 import bcrypt from 'bcryptjs';
@@ -6,7 +8,7 @@ import {loginRateLimit,authRateLimit,type AuthOperation} from './auth-rate-limit
 import {manageAccount,validateAccountUpdate} from './account-management';
 import {changePassword,validatePasswordChange} from './password-change';
 
-export interface Env extends SourceLimitEnv { DB_URL: string; SERVICE_NAME: string }
+export interface Env extends SourceLimitEnv, MailEnv { DB_URL: string; SERVICE_NAME: string }
 type Json = Record<string, unknown>;
 
 export function json(body: unknown, status = 200, headers: HeadersInit = {}): Response {
@@ -76,6 +78,15 @@ async function mutationLimit(db:Client,token:string,operation:AuthOperation,head
 }
 
 async function handleAuth(request: Request, env: Env, path: string, headers: HeadersInit): Promise<Response | null> {
+  if(request.method==='POST' && ['/forgot-password','/reset-password'].includes(path)) {
+    let input;
+    try {input=validateRecovery(await parseBody(request),path==='/reset-password');} catch {return json({error:'Invalid recovery request'},400,headers);}
+    if(!input)return json({error:'Enter a valid email, a 12-character reset code, and a password of at least 12 characters (maximum 72 bytes).'},400,headers);
+    return withDb(env,async db=>{
+      const result=path==='/forgot-password'?await recoverPassword(db,env,input.email):await resetPassword(db,input);
+      return json(result.body,result.status,headers);
+    });
+  }
   if(path==='/change-password' && request.method==='POST') {
     const token=request.headers.has('authorization')?tokenFrom(request):null;
     if(!token)return json({error:'No session'},401,headers);

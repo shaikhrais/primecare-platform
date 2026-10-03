@@ -4,6 +4,7 @@ import {pathToFileURL} from 'node:url';
 // Schema metadata only: never select account records or serialize driver errors.
 export const requirements = {
  users:{id:'uuid',email:'text',tenant_id:'uuid',roles:'text',status:'text',password_hash:'text',updated_at:'timestamp'},
+ auth_password_resets:{token_hash:'text',user_id:'uuid',expires_at:'timestamptz'},
  auth_sessions:{token_hash:'text',user_id:'uuid',expires_at:'timestamptz'},
  auth_account_audit:{actor_user_id:'uuid',target_user_id:'uuid',tenant_id:'uuid',action:'text'},
  auth_bootstrap_audit:{user_id:'uuid',tenant_id:'uuid',source:'text'},

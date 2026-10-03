@@ -63,6 +63,7 @@ try {
   await db.query(await readFile('packages/database/migrations/20260928_auth_management_audit.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_password_audit.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_bootstrap_audit.sql','utf8'));
+  await db.query(await readFile('packages/database/migrations/20261003_auth_password_resets.sql','utf8'));
   assert.deepEqual(await checkAuthSchema(connectionString),[]); passed++;
   userId = (await db.query('INSERT INTO users(email,roles,password_hash,status,id) VALUES($1,$2,$3,$4,$5) RETURNING id',
     [email,'fixture-role',await bcrypt.hash(password,12),'active',textIds?'fixture_'+randomUUID():randomUUID()])).rows[0].id;

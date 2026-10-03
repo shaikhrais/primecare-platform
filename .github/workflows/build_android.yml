@@ -54,12 +54,12 @@ jobs:
         run: |
           cd apps/${{ matrix.app }}
           flutter pub get
-          flutter build appbundle --release
+          flutter build appbundle --release --dart-define=API_BASE_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev
 
       - name: Build Android APK
         run: |
           cd apps/${{ matrix.app }}
-          flutter build apk --release
+          flutter build apk --release --dart-define=API_BASE_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev
 
       - name: Upload AAB Artifact
         uses: actions/upload-artifact@v4

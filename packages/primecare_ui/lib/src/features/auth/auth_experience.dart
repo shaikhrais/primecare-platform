@@ -1,6 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'auth_design_tokens.dart';
+import 'password_recovery_form.dart';
 
 enum AuthPage { login, signup, forgot, reset, mfa, language, consent, success, error }
 
@@ -103,7 +104,9 @@ class PrimeAuthExperience extends ConsumerWidget {
           gap, PrimeButton(label: _copy(context, 'login'), onPressed: () => _go(context, '/login'), isFullWidth: true),
         ];
       case AuthPage.forgot:
+        return [const PasswordRecoveryForm(reset: false)];
       case AuthPage.reset:
+        return [const PasswordRecoveryForm(reset: true)];
       case AuthPage.mfa:
       case AuthPage.consent:
         // These backend capabilities are not enabled. Do not collect unusable

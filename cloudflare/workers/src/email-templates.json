@@ -1,0 +1,10 @@
+{
+  "password_reset": {"subject":"Reset your PrimeCare password","title":"Password reset","body":"Use this one-time code in the PrimeCare app: {{code}}. It expires in 15 minutes. If you did not request this, ignore this email.","required":["code"]},
+  "welcome": {"subject":"Welcome to PrimeCare","title":"Welcome","body":"Hello {{name}}, your PrimeCare account is ready. Sign in using your organization's approved app.","required":["name"]},
+  "account_invitation": {"subject":"Your PrimeCare invitation","title":"Account invitation","body":"Hello {{name}}, contact {{support}} to complete your account setup. Never send your password by email.","required":["name","support"]},
+  "appointment_confirmation": {"subject":"PrimeCare appointment confirmation","title":"Appointment confirmed","body":"Your appointment is scheduled for {{date}} at {{location}}. Contact {{support}} if you need help.","required":["date","location","support"]},
+  "appointment_reminder": {"subject":"PrimeCare appointment reminder","title":"Appointment reminder","body":"Your appointment is on {{date}} at {{location}}.","required":["date","location"]},
+  "appointment_cancellation": {"subject":"PrimeCare appointment cancelled","title":"Appointment cancelled","body":"Your appointment on {{date}} has been cancelled. Contact {{support}} to reschedule.","required":["date","support"]},
+  "payment_receipt": {"subject":"PrimeCare payment receipt","title":"Payment received","body":"Payment of {{amount}} was received. Receipt reference: {{reference}}.","required":["amount","reference"]},
+  "security_notice": {"subject":"PrimeCare security notice","title":"Account security","body":"{{message}} If you did not make this change, contact {{support}}.","required":["message","support"]}
+}
