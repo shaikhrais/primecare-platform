@@ -3,6 +3,8 @@ import {pathToFileURL} from 'node:url';
 
 // Schema metadata only: never select account records or serialize driver errors.
 export const requirements = {
+ tenant_mail_configuration:{tenant_id:'text',sender:'text',api_key_ciphertext:'text',templates:'jsonb',revision:'int4',updated_at:'timestamptz'},
+ tenant_configuration_audit:{tenant_id:'text',actor_user_id:'text',action:'text',created_at:'timestamptz'},
  users:{id:'uuid',email:'text',tenant_id:'uuid',roles:'text',status:'text',password_hash:'text',updated_at:'timestamp'},
  auth_password_resets:{token_hash:'text',user_id:'uuid',expires_at:'timestamptz'},
  auth_sessions:{token_hash:'text',user_id:'uuid',expires_at:'timestamptz'},

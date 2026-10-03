@@ -2,6 +2,7 @@
 import 'package:flutter_core/flutter_core.dart';
 import 'package:go_router/go_router.dart';
 import 'login_view.dart';
+import '../maintenance/maintenance_configuration_screen.dart';
 import 'auth_experience.dart';
 import 'language_selection_view.dart';
 import 'forgot_password_view.dart';
@@ -19,7 +20,7 @@ class SharedAuthRouter {
     List<GoRoute> additionalPublicRoutes = const [],
   }) {
     final auth = ref.watch(authProvider);
-    final dashboard = !auth.isAuthenticated
+    final dashboard = auth.isAuthenticated && auth.role == 'maintenance' ? '/maintenance/configuration' : !auth.isAuthenticated
         ? CommonRoutes.login
         : application.getDefinition(activeRole)?.dashboardRoute ??
             AuthNotifier.getDashboardRouteForRole(auth.role ?? '');
@@ -38,6 +39,10 @@ class SharedAuthRouter {
         final landing = path == '/' ||
             path == CommonRoutes.login ||
             path == CommonRoutes.authCallback;
+        if (path == '/maintenance/configuration') {
+          if (!session.isAuthenticated) return '/login?returnUrl=/maintenance/configuration';
+          return ['ceo', 'maintenance'].contains(session.role) ? null : '/success';
+        }
         if (session.isAuthenticated && landing) {
           final target = validateAppReturnUrl(
             state.uri.queryParameters['returnUrl'],
@@ -80,6 +85,7 @@ class SharedAuthRouter {
             : result.redirectRoute ?? CommonRoutes.globalSettings;
       },
       publicRoutes: [
+        GoRoute(path: '/maintenance/configuration', builder: (context, state) => const AppShellBoundary(child: MaintenanceConfigurationScreen())),
         ...SharedAuthRoutes.routes(),
         ...SharedAuthRoutes.protectedRoutes(),
         ...additionalPublicRoutes,

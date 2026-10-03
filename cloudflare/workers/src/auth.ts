@@ -1,5 +1,5 @@
 import {recoverPassword,resetPassword,validateRecovery} from './password-recovery';
-import type {MailEnv} from './email';
+import {maintenance,maintenanceRoles,configuredMail,type MaintenanceEnv} from './maintenance';
 import type {SourceLimitEnv} from './auth-source-limit';
 import { Client } from 'pg';
 import bcrypt from 'bcryptjs';
@@ -8,7 +8,7 @@ import {loginRateLimit,authRateLimit,type AuthOperation} from './auth-rate-limit
 import {manageAccount,validateAccountUpdate} from './account-management';
 import {changePassword,validatePasswordChange} from './password-change';
 
-export interface Env extends SourceLimitEnv, MailEnv { DB_URL: string; SERVICE_NAME: string }
+export interface Env extends SourceLimitEnv, MaintenanceEnv { DB_URL: string; SERVICE_NAME: string }
 type Json = Record<string, unknown>;
 
 export function json(body: unknown, status = 200, headers: HeadersInit = {}): Response {
@@ -78,12 +78,37 @@ async function mutationLimit(db:Client,token:string,operation:AuthOperation,head
 }
 
 async function handleAuth(request: Request, env: Env, path: string, headers: HeadersInit): Promise<Response | null> {
+  if(['/maintenance/configuration','/maintenance/configuration/test-email'].includes(path)) {
+    if(!((path==='/maintenance/configuration' && ['GET','POST'].includes(request.method)) || (path.endsWith('/test-email') && request.method==='POST')))return json({error:'Method not allowed'},405,headers);
+    const token=request.headers.has('authorization')?tokenFrom(request):null;
+    if(!token)return json({error:'No session'},401,headers);
+    let body:Json={};
+    try {if(request.method==='POST'){if(Number(request.headers.get('content-length'))>50000)return json({error:'Request too large'},413,headers);const raw=await request.text();if(raw.length>50000)return json({error:'Request too large'},413,headers);body=JSON.parse(raw);if(!body || typeof body!=='object' || Array.isArray(body))throw new Error();}}
+    catch {return json({error:'Invalid request'},400,headers);}
+    return withDb(env,async db=>{
+      await db.query('BEGIN');
+      try {
+        const actor=(await db.query("SELECT u.id,u.email,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' FOR SHARE OF u,s",[await sha256(token)])).rows[0];
+        if(!actor){await db.query('ROLLBACK');return json({error:'Invalid session'},401,headers);}
+        if(!actor.tenant_id || !maintenanceRoles.includes(String(actor.roles)) || (request.headers.has('x-tenant-id') && request.headers.get('x-tenant-id')!==String(actor.tenant_id))){await db.query('ROLLBACK');return json({error:'Forbidden'},403,headers);}
+        await db.query('SELECT pg_advisory_xact_lock(hashtext($1))',['maintenance:'+String(actor.tenant_id)]);
+        if(request.method==='POST') {const retry=await authRateLimit(db,await sha256('maintenance:'+String(actor.id)),'maintenance');if(retry!==null){await db.query('COMMIT');return json({error:'Too many configuration requests'},429,headers);}}
+        const result=await maintenance(db,env,actor,request.method,path,body);
+        await db.query('COMMIT');return json(result.body,result.status,headers);
+      }catch(error){await db.query('ROLLBACK');throw error;}
+    });
+  }
   if(request.method==='POST' && ['/forgot-password','/reset-password'].includes(path)) {
     let input;
     try {input=validateRecovery(await parseBody(request),path==='/reset-password');} catch {return json({error:'Invalid recovery request'},400,headers);}
     if(!input)return json({error:'Enter a valid email, a 12-character reset code, and a password of at least 12 characters (maximum 72 bytes).'},400,headers);
     return withDb(env,async db=>{
-      const result=path==='/forgot-password'?await recoverPassword(db,env,input.email):await resetPassword(db,input);
+      let mail:MaintenanceEnv=env;
+      if(path==='/forgot-password') {
+        const accounts=(await db.query("SELECT tenant_id FROM users WHERE LOWER(email)=$1 AND LOWER(status)='active' LIMIT 2",[input.email])).rows;
+        if(accounts.length===1 && accounts[0].tenant_id)mail=await configuredMail(db,env,String(accounts[0].tenant_id));
+      }
+      const result=path==='/forgot-password'?await recoverPassword(db,mail,input.email):await resetPassword(db,input);
       return json(result.body,result.status,headers);
     });
   }

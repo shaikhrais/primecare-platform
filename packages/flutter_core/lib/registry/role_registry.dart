@@ -56,6 +56,11 @@ class RoleMetadata {
 /// Reconciles platform role taxonomy with routing infrastructure to eliminate drift.
 class RoleRegistry {
   static final Map<PlatformRole, RoleMetadata> _registry = {
+    PlatformRole.maintenance: const RoleMetadata(
+      role: PlatformRole.maintenance, category: 'Infrastructure', accessLevel: 'write',
+      defaultDashboardId: 'MAINTENANCE_CONFIGURATION', defaultComplianceId: 'MAINTENANCE_CONFIGURATION',
+      defaultPortal: 'primecare_support', allowedDashboardIds: ['MAINTENANCE_CONFIGURATION'],
+    ),
     // === Corporate Leadership (17 Roles) ===
     PlatformRole.ceo: const RoleMetadata(
       role: PlatformRole.ceo,

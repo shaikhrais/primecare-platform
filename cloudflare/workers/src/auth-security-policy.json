@@ -22,5 +22,9 @@
   "resetPassword": {
     "maxAttempts": 5,
     "windowSeconds": 900
+  },
+  "maintenance": {
+    "maxAttempts": 10,
+    "windowSeconds": 900
   }
 }

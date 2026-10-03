@@ -1,4 +1,5 @@
 import { login } from './auth-client';
+import {renderMaintenance} from './maintenance';
 
 type ElementSpec = { key: string; type: string; label: string; testId: string; required: boolean };
 type SectionSpec = { code: string; name: string; type: string; purpose: string; testId: string; elements: ElementSpec[] };
@@ -13,8 +14,9 @@ type PortalManifest = {
   theme: Record<string, string>; resources: Record<string, string>; generatedAt: string;
 };
 
-const root = document.querySelector<HTMLElement>('#app');
-if (!root) throw new Error('Missing application root');
+const selectedRoot = document.querySelector<HTMLElement>('#app');
+if (!selectedRoot) throw new Error('Missing application root');
+const root: HTMLElement = selectedRoot;
 
 const escapeHtml = (value: unknown) => String(value ?? '').replace(/[&<>'"]/g, (character) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;',
@@ -65,6 +67,10 @@ function renderAuth(manifest: PortalManifest): void {
       const token = await login(manifest.apiGateway, String(fields.get('email') || ''), String(fields.get('password') || ''));
       sessionStorage.setItem('primecare_session', token);
       status.value = 'Sign in successful';
+      const identityResponse=await fetch(`${manifest.apiGateway}/v1/auth/me`,{headers:{authorization:'Bearer '+token},cache:'no-store'});
+      const identity=await identityResponse.json() as {roles?:string};
+      const returnUrl=new URLSearchParams(location.search).get('returnUrl');
+      location.assign(identityResponse.ok && (identity.roles==='maintenance' || (identity.roles==='ceo' && returnUrl==='/maintenance/configuration'))?'/maintenance/configuration':'/');
     } catch (error) { status.value = error instanceof Error ? error.message : 'Sign in failed'; }
   });
 }
@@ -106,7 +112,7 @@ function renderPortal(manifest: PortalManifest): void {
       <p>${escapeHtml(manifest.name)}</p><label class="role-label">Role<select data-cy="role-selector">${roles}</select></label>
       <nav aria-label="Portal screens">${navigation || '<p class="empty">No governed screens for this role.</p>'}</nav></aside>
       <div class="workspace"><header class="topbar" data-cy="app-topbar"><button class="menu" aria-label="Toggle navigation" data-cy="sidebar-toggle">☰</button>
-      <span id="api-health" data-cy="api-status">Checking API…</span><a href="${escapeHtml(manifest.authPortal)}?enable-semantics=true">Account</a></header>
+      <a href="/maintenance/configuration">IT maintenance</a><span id="api-health" data-cy="api-status">Checking API…</span><a href="${escapeHtml(manifest.authPortal)}?enable-semantics=true">Account</a></header>
       <main data-cy="screen-${escapeHtml(screen?.code || 'empty')}"><section class="task-center" data-cy="role-task-center"><div class="screen-header"><div><p class="eyebrow">Role orientation</p><h1>What you can do</h1></div><span class="badge">${workflows.length} workflows · ${capabilities.length} capabilities</span></div>
       <div class="capability-grid">${capabilityMarkup || '<p class="empty">No feature permissions are registered for this role.</p>'}</div>
       <div class="workflow-grid">${workflowMarkup || '<p class="empty">No ordered workflow is registered for this role.</p>'}</div></section>
@@ -133,5 +139,5 @@ function renderPortal(manifest: PortalManifest): void {
   addEventListener('popstate', draw); draw();
 }
 
-loadManifest().then((manifest) => { applyTheme(manifest.theme); manifest.appCode === 'au' ? renderAuth(manifest) : renderPortal(manifest); })
+loadManifest().then((manifest) => { applyTheme(manifest.theme); location.pathname==='/maintenance/configuration'?void renderMaintenance(root,manifest.apiGateway):location.pathname==='/login' || manifest.appCode === 'au' ? renderAuth(manifest) : renderPortal(manifest); })
   .catch((error) => { root.innerHTML = `<main class="fatal" data-cy="error-state"><h1>Unable to start PrimeCare</h1><p>${escapeHtml(error)}</p></main>`; });

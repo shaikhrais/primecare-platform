@@ -514,6 +514,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                   ),
                                 ),
                                 onSelected: (value) {
+                                  if (value == 'maintenance') context.go('/maintenance/configuration');
                                   if (value == 'logout') {
                                     ref.read(authProvider.notifier).logout();
                                   }
@@ -535,6 +536,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                       ],
                                     ),
                                   ),
+                                  if (['ceo', 'maintenance'].contains(ref.watch(authProvider).role))
+                                    const PopupMenuItem<String>(value: 'maintenance', child: Text('IT maintenance')),
                                   const PopupMenuDivider(),
                                   PopupMenuItem<String>(
                                     value: 'logout',

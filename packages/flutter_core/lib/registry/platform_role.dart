@@ -23,6 +23,7 @@ enum PlatformRole {
   legal,
   ciso,
   itAdmin,
+  maintenance,
 
   // Business Development
   regionalManagerOntario,

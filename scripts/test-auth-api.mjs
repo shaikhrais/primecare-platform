@@ -242,3 +242,12 @@ test('login throttles at the configured limit and stores only hashed subject',as
   for(const q of queries.filter(q=>q.sql.startsWith('INSERT INTO auth_rate_limits')))
     assert.match(q.values[0],/^[a-f0-9]{64}$/);
 });
+test('maintenance rejects missing sessions, ordinary roles and forged tenant headers',async()=>{
+ assert.equal((await auth(request('/maintenance/configuration'),env,'/maintenance/configuration',{})).status,401);
+ const {token}=await (await login()).json();
+ assert.equal((await auth(request('/maintenance/configuration','GET',undefined,token),env,'/maintenance/configuration',{})).status,403);
+ user.roles='maintenance';
+ const forged=new Request('https://auth.test/maintenance/configuration',{headers:{authorization:'Bearer '+token,'x-tenant-id':'other-tenant'}});
+ assert.equal((await auth(forged,env,'/maintenance/configuration',{})).status,403);
+ assert.ok(!queries.some(q=>q.sql.includes('tenant_mail_configuration')));
+});
