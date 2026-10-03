@@ -19,5 +19,6 @@ export async function changePassword(db:Client,user:{id:string;password_hash:str
  await db.query('UPDATE users SET password_hash=$1,updated_at=NOW() WHERE id=$2',[await bcrypt.hash(input.newPassword,12),user.id]);
  await db.query('DELETE FROM auth_sessions WHERE user_id=$1',[user.id]);
  await db.query("INSERT INTO auth_password_audit(user_id,action) VALUES($1,'password_changed')",[user.id]);
+ await db.query('DELETE FROM auth_password_resets WHERE user_id=$1',[user.id]);
  return {status:200,body:{status:'password_changed',reauthenticationRequired:true}};
 }

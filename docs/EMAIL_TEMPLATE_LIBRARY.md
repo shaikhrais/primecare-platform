@@ -16,9 +16,9 @@ patient diagnoses, treatment details, passwords or payment-card information.
 Verify your sending domain in Resend. Add GitHub Actions repository secrets
 `RESEND_API_KEY` (send permission only) and `EMAIL_FROM` (a verified sender, e.g.
 `PrimeCare <no-reply@your-verified-domain>`). Never paste the key into chat or commit it.
-Run **Deploy password recovery** on main. The workflow validates both inputs,
-applies only the additive recovery migration and deploys the auth Worker. Existing
-authentication remains unchanged if configuration validation fails.
+Run **Deploy password recovery** on main. The workflow applies only the additive recovery migration and deploys the auth Worker.
+When mail secrets are absent, it preserves any existing Worker secrets and warns;
+recovery returns 503 if delivery is unconfigured. Add both secrets and rerun to enable email.
 
 ## API and app
 
