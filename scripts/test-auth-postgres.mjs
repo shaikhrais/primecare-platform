@@ -179,8 +179,8 @@ try {
   assert.equal((await call('/maintenance/configuration','POST',settings,maintenanceToken)).status,409);passed++;
   const visible=await (await call('/maintenance/configuration','GET',undefined,maintenanceToken)).json();
   assert.equal(visible.keyConfigured,true);assert.equal(visible.revision,1);assert.ok(!JSON.stringify(visible).includes(settings.apiKey));passed++;
-  const stored=(await db.query('SELECT api_key_ciphertext FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)])).rows[0];
-  assert.ok(stored.api_key_ciphertext);assert.ok(!stored.api_key_ciphertext.includes(settings.apiKey));passed++;
+  const storedConfiguration=(await db.query('SELECT api_key_ciphertext FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)])).rows[0];
+  assert.ok(storedConfiguration.api_key_ciphertext);assert.ok(!storedConfiguration.api_key_ciphertext.includes(settings.apiKey));passed++;
   await db.query('DELETE FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)]);
   await db.query('DELETE FROM tenant_configuration_audit WHERE tenant_id=$1',[String(tenantId)]);
   console.log(JSON.stringify({passed, database:'isolated PostgreSQL', productionVerified:false}));
