@@ -63,6 +63,7 @@ try {
   await db.query(await readFile('packages/database/migrations/20260928_auth_management_audit.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_password_audit.sql','utf8'));
   await db.query(await readFile('packages/database/migrations/20260928_auth_bootstrap_audit.sql','utf8'));
+  await db.query(await readFile('packages/database/migrations/20261003_auth_password_resets.sql','utf8'));
   assert.deepEqual(await checkAuthSchema(connectionString),[]); passed++;
   userId = (await db.query('INSERT INTO users(email,roles,password_hash,status,id) VALUES($1,$2,$3,$4,$5) RETURNING id',
     [email,'fixture-role',await bcrypt.hash(password,12),'active',textIds?'fixture_'+randomUUID():randomUUID()])).rows[0].id;
@@ -148,6 +149,22 @@ try {
   assert.equal(attempts.filter(r=>r.status===429).length,2);passed++;
   await db.query("UPDATE auth_rate_limits SET reset_at=NOW()-INTERVAL '1 second' WHERE subject_hash=$1",[mutationHash]);
   assert.equal((await call('/change-password','POST',{currentPassword:'incorrect',newPassword:randomUUID()},a)).status,401);passed++;
+  // Recovery verifies actual SQL expiry, concurrent consumption and session revocation.
+  const code='A1B2C3D4E5F6';
+  const resetHash=createHash('sha256').update(email+':'+code).digest('hex');
+  const resetPasswordValue=randomUUID();
+  await db.query("INSERT INTO auth_password_resets(token_hash,user_id,expires_at) VALUES($1,$2,NOW()-INTERVAL '1 second')",[resetHash,userId]);
+  assert.equal((await call('/reset-password','POST',{email,code,newPassword:resetPasswordValue})).status,400);passed++;
+  await db.query("UPDATE auth_password_resets SET expires_at=NOW()+INTERVAL '15 minutes' WHERE token_hash=$1",[resetHash]);
+  const resets=await Promise.all([1,2].map(()=>call('/reset-password','POST',{email,code,newPassword:resetPasswordValue})));
+  assert.equal(resets.filter(r=>r.status===200).length,1);
+  assert.equal(resets.filter(r=>r.status===400).length,1);passed++;
+  assert.equal((await call('/me','GET',undefined,a)).status,401);
+  assert.equal((await call('/reset-password','POST',{email,code,newPassword:randomUUID()})).status,400);passed++;
+  await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[loginHash]);
+  assert.equal((await call('/login','POST',{email,password:racePassword})).status,401);
+  assert.equal((await call('/login','POST',{email,password:resetPasswordValue})).status,200);passed++;
+  assert.equal((await db.query('SELECT token_hash FROM auth_password_resets WHERE user_id=$1',[userId])).rowCount,0);passed++;
   console.log(JSON.stringify({passed, database:'isolated PostgreSQL', productionVerified:false}));
 } finally {
   globalThis.__authBeforeInsert=null;

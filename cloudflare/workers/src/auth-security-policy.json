@@ -14,5 +14,13 @@
   "manageAccount": {
     "maxAttempts": 10,
     "windowSeconds": 60
+  },
+  "forgotPassword": {
+    "maxAttempts": 3,
+    "windowSeconds": 900
+  },
+  "resetPassword": {
+    "maxAttempts": 5,
+    "windowSeconds": 900
   }
 }

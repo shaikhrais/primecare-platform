@@ -607,13 +607,14 @@ class ApiConfig {
     const configured = String.fromEnvironment('API_BASE_URL');
     if (configured.isNotEmpty) return configured;
     if (kIsWeb) return ''; // Same-origin reverse proxy at /v1/auth/*.
-    return 'http://localhost:8700';
+    return 'https://primecare-api-gateway.itpro-mohammed.workers.dev';
   }
 
   static const Map<String, String> endpoints = {
     'login': '/v1/auth/login',
     'register': '/v1/auth/register',
     'forgotPassword': '/v1/auth/forgot-password',
+    'resetPassword': '/v1/auth/reset-password',
     'me': '/v1/auth/me',
     'dashboard-metrics': '/v1/governance/dashboard',
     'providerDashboard': '/v1/provider/dashboard',

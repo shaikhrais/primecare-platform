@@ -10,7 +10,7 @@ export interface SourceLimitEnv {
  * Same-account Workers are trusted infrastructure and must preserve this header.
  */
 export async function sourceLoginLimit(request: Request, env: SourceLimitEnv): Promise<Response | null> {
-  if (request.method !== 'POST' || new URL(request.url).pathname !== '/login') return null;
+  if (request.method !== 'POST' || !['/login','/forgot-password','/reset-password'].includes(new URL(request.url).pathname)) return null;
   const headers = {'cache-control':'no-store','retry-after':String(policy.login.windowSeconds)};
   const ip = request.headers.get('cf-connecting-ip');
   if (!ip || !isIP(ip) || !env.AUTH_SOURCE_LIMIT) {
