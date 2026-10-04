@@ -66,8 +66,8 @@ export async function workspace(request:Request,env:Env,path:string,headers:Head
         if(code) {const status=pageAccess(String(actor.roles),code);if(status!==200)return json({error:status===404?'Page not found':'Forbidden'},status,safeHeaders);}
         const screens=visiblePages(String(actor.roles));
         const inventory=(catalogPermissions[String(actor.roles)]?.inventory ? registry.screens : screens).map(
-          ({id,code,name,route,appCode,role,renderer,lifecycle,productionReady,blockers})=>
-          ({id,code,name,route,appCode,role,renderer,lifecycle,productionReady,blockers}));
+          ({id,code,name,route,appCode,role,renderer,lifecycle,productionReady,blockers,requirements,contracts,pendingActions})=>
+          ({id,code,name,route,appCode,role,renderer,lifecycle,productionReady,blockers,requirements,contracts,pendingActions}));
         const data=await overview(db,actor);
         return json({identity:{userId:String(actor.id),role:String(actor.roles)},
           landing:(registry.landings as Record<string,string>)[String(actor.roles)],screens,

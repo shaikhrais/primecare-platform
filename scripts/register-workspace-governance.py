@@ -4,6 +4,7 @@ Created pages are partial until domain workflow, browser and accessibility
 evidence exists. This script never turns template evidence into readiness.
 """
 import csv, json, re, sqlite3
+from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -96,9 +97,29 @@ with sqlite3.connect(DB) as db:
             section.pop('id');sections.append(section)
         grants=[dict(g) for g in db.execute('SELECT r.role_code role,p.can_view view,p.can_create \"create\",p.can_edit edit,p.can_delete \"delete\",p.can_export export FROM role_screen_permissions p JOIN roles r ON r.id=p.role_id WHERE p.screen_id=? AND p.can_view=1 AND r.active=1',(s['id'],))]
         name=re.sub(r'(?<=[a-z])(?=[A-Z])',' ',s['screen_name'] or s['screen_code']).removesuffix(' Screen')
+        requirement=db.execute('SELECT business_purpose,user_story,acceptance_criteria FROM screen_requirements WHERE screen_id=?',(s['id'],)).fetchone()
+        requirements=dict(requirement) if requirement else {}
+        contracts=[dict(a) for a in db.execute('''SELECT DISTINCT a.endpoint_code code,a.http_method method,
+          a.route_path route,a.implementation_status implementation,a.permission_key permission,
+          a.health_status health,a.last_tested_at lastTested,
+          CASE WHEN a.request_schema IS NOT NULL AND a.response_schema IS NOT NULL THEN 1 ELSE 0 END schemas
+          FROM api_endpoints a WHERE a.id IN
+          (SELECT api_id FROM screen_api_links WHERE screen_id=? UNION SELECT api_id FROM screen_api_map WHERE screen_id=?)
+          ORDER BY a.route_path,a.http_method''',(s['id'],s['id']))]
+        pending_actions=[dict(e) for e in db.execute('''SELECT element_key key,label,action_tag status,api_usage apiUsage
+          FROM screen_section_elements WHERE screen_id=? AND required=1 AND action_required=1
+          AND COALESCE(action_tag,'') NOT IN ('implemented','functional','action_implemented') ORDER BY element_order''',(s['id'],))]
+        if not protected_auth:
+            if not requirements.get('acceptance_criteria'): blockers.append('Acceptance criteria are missing')
+            domain_contracts=[a for a in contracts if a['route']!=endpoint]
+            if not domain_contracts: blockers.append('No domain API is linked to this page')
+            elif any(not a['permission'] or not a['schemas'] for a in domain_contracts): blockers.append('Domain API authorization or schemas are incomplete')
+            if pending_actions: blockers.append(f'{len(pending_actions)} required business actions are pending')
+            db.execute('UPDATE screen_runtime_views SET blockers_json=? WHERE screen_id=?',(json.dumps(blockers),s['id']))
         screens.append({'id':s['id'],'code':s['screen_code'],'name':name,'route':s['route_path'],
           'appCode':s['app_code'],'role':s['role_code'],'renderer':renderer,'lifecycle':'created',
-          'productionReady':False,'blockers':blockers,'sections':sections,'grants':grants})
+          'productionReady':False,'blockers':blockers,'sections':sections,'grants':grants,
+          'requirements':requirements,'contracts':contracts,'pendingActions':pending_actions})
     permissions={r['role_code']:{'inventory':bool(r['can_view_inventory']),'organization':bool(r['can_view_organization'])} for r in db.execute('SELECT r.role_code,p.* FROM runtime_catalog_permissions p JOIN roles r ON r.id=p.role_id')}
     registry={'version':1,'endpoint':endpoint,'screens':screens,'permissions':permissions,
       'landings':{code:r['post_login_route'] for code,r in roles.items() if r['post_login_route']},
@@ -116,7 +137,13 @@ with sqlite3.connect(DB) as db:
         'workspace.new_password':'New password','workspace.change_password':'Change password',
         'workspace.clients':'Clients','workspace.providers':'Providers','workspace.visits':'Visits',
         'workspace.invoices':'Invoices','workspace.schedules':'Schedules','workspace.unconnected':'Data source unavailable',
-        'workspace.request_failed':'Request failed'}}
+        'workspace.request_failed':'Request failed','workspace.requirements':'Page requirements',
+        'workspace.acceptance':'Acceptance criteria','workspace.contracts':'API connections',
+        'workspace.pending_actions':'Pending actions','workspace.details':'View delivery details',
+        'workspace.no_requirements':'No requirements are registered for this page.',
+        'workspace.no_contracts':'No API contracts are registered for this page.',
+        'workspace.no_pending_actions':'No pending actions are registered.',
+        'workspace.previous':'Previous page','workspace.next':'Next page'}}
     target=ROOT/'cloudflare/workers/src/workspace-registry.json'
     target.write_text(json.dumps(registry,separators=(',',':'))+'\n')
     for key,text in registry['resources'].items():
@@ -140,9 +167,23 @@ with sqlite3.connect(DB) as db:
     out=ROOT/'packages/primecare_ui/lib/src/features/workspace/workspace_routes_generated.dart';out.parent.mkdir(parents=True,exist_ok=True);out.write_text(dart)
     report=ROOT/'docs/audits/page-readiness';report.mkdir(parents=True,exist_ok=True)
     with (report/'inventory.csv').open('w',newline='') as f:
-        writer=csv.writer(f);writer.writerow(['Screen','Name','App','Role','Route','Page status','Production ready','Pending work'])
-        for s in screens:writer.writerow([s['code'],s['name'],s['appCode'],s['role'],s['route'],s['lifecycle'],'No','; '.join(s['blockers']) or 'Existing account flow requires separate evidence'])
+        writer=csv.writer(f);writer.writerow(['Screen','Name','App','Role','Route','Page status','Production ready','Pending work','Required pending actions','Registered APIs','Acceptance criteria'])
+        for s in screens:writer.writerow([s['code'],s['name'],s['appCode'],s['role'],s['route'],s['lifecycle'],'No','; '.join(s['blockers']) or 'Existing account flow requires separate evidence',
+          '; '.join(a['label'] or a['key'] for a in s['pendingActions']),
+          '; '.join(a['method']+' '+a['route'] for a in s['contracts']),s['requirements'].get('acceptance_criteria','')])
     (report/'README.md').write_text(f'# Page readiness\n\n{len(screens)} active screens are registered. Pages are created, with permission-controlled routes and an authenticated workspace API. Creation does not prove each business workflow is implemented.\n\nThe inventory records domain bindings and browser/accessibility verification still required. Previous blanket implemented/API-connected tags have been replaced with partial/workspace-connected status. No production-ready or test-passed flags are fabricated.\n')
+    lines=['# Outstanding page implementation','',
+      'Generated from governance.db. Created means an authorized shared page exists; it does not establish completion of its domain workflow.',
+      '', '| App | Screens | Dashboards | Pending business actions |', '|---|---:|---:|---:|']
+    for app in sorted({s['appCode'] for s in screens}):
+        group=[s for s in screens if s['appCode']==app]
+        lines.append(f"| {app} | {len(group)} | {sum(s['renderer']=='dashboard' for s in group)} | {sum(len(s['pendingActions']) for s in group)} |")
+    lines.extend(['','## Registered blockers',''])
+    for blocker,count in Counter(b for s in screens for b in s['blockers'] if not re.match(r'^\d+ required',b)).most_common():
+        lines.append(f'- {count} pages: {blocker}.')
+    lines.extend(['','The CSV inventory contains every page, its exact route, linked API methods, acceptance criteria and named pending actions.',
+      'Live tenant workflows, authenticated browser tests, translations and accessibility remain release requirements.'])
+    (report/'OUTSTANDING.md').write_text('\n'.join(lines)+'\n')
     for path in [ROOT/'packages/flutter_core/assets/translations/en.json', *ROOT.glob('apps/*/assets/translations/en.json')]:
         if path.is_file():
             translations=json.loads(path.read_text());translations['workspace']={k.split('.',1)[1]:v for k,v in registry['resources'].items()}
