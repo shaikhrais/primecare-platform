@@ -17,7 +17,8 @@ for (const service of services) {
     ...(service === 'auth' ? {ratelimits:[{name:'AUTH_SOURCE_LIMIT',namespace_id:sourcePolicy.namespaceId,
       simple:{limit:sourcePolicy.maxAttempts,period:sourcePolicy.windowSeconds}}]} : {}),
     observability: { enabled: true },
-    vars: { SERVICE_NAME: service },
+    vars: { SERVICE_NAME: service, ...(service === 'auth' ? {EMAIL_FROM:'noreply@15minutes-email.com',EMAIL_ALLOWED_SENDER:'noreply@15minutes-email.com'} : {}) },
+    ...(service === 'auth' ? {send_email:[{name:'EMAIL',allowed_sender_addresses:['noreply@15minutes-email.com']}]} : {}),
   }, null, 2)}\n`);
 }
 

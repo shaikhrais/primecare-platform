@@ -13,20 +13,18 @@ A maintenance account cannot assign roles or access clinical data through this A
 
 ## Values managed on this page
 
-- Verified sender email (a sending domain verified in Resend).
-- Sending-only Resend API key: write-only, AES-GCM encrypted on the server, bound
-  to the organization. Blank input preserves the current key. Keys are never
-  returned in configuration responses or stored in the app's preferences.
-- Subject, title and plain-text body for all eight shared email templates.
-  Required placeholders are validated and HTML is escaped by the shared renderer.
-- Runtime setup status, pending work and the latest twenty maintenance actions.
-- A test message to the signed-in IT member's account; arbitrary recipients are
-  rejected. Provider acceptance is reported separately from inbox delivery.
+- Cloudflare sender email: `noreply@15minutes-email.com` for this deployment.
+- Subject, title and plain-text body for eight shared templates. Required
+  placeholders are validated; HTML is escaped by the shared renderer.
+- Runtime binding status, pending work and the latest twenty maintenance actions.
+- A test message to the signed-in IT account; arbitrary recipients are rejected.
+  Cloudflare acceptance is reported separately from inbox delivery.
 
-Changes are saved per organization and consumed by password recovery immediately;
-no APK rebuild is needed for sender/key/template changes. Version checks reject
-stale edits. The backend checks the current live session, role, organization and
-active status on every read/write. Only explicit bearer tokens are accepted.
+Native delivery uses the auth Worker's `EMAIL` binding. No Resend account, API
+key or external email provider is used. Saved legacy encrypted provider credentials
+are preserved for rollback but are never read or decrypted for native sending.
+Sender and template changes take effect immediately without rebuilding the app.
+The backend enforces live session, organization and role checks on every operation.
 
 ## Deployment administrator responsibilities
 
@@ -41,20 +39,30 @@ never their values. Changing the Android gateway URL requires a workflow change
 and rebuilt APK. These privileged infrastructure values are not editable by a
 maintenance user.
 
-## Pending go-live tasks shown in the app
+## Pending go-live tasks
 
-1. IT verifies its domain with Resend, gets a sending-only provider key and saves
-   sender/key in the maintenance page.
-2. IT sends the test message and checks inbox/spam. Saving configuration alone
-   does not mark delivery verified.
-3. IT tests the complete Forgot Password flow on Android: receive code, reset,
-   reject old password, sign in with new password, reject replay.
-4. Developers wire welcome/invitation/appointment/payment events to the shared
-   mail adapter. Only password recovery is currently integrated.
-5. Review access periodically; CEO deactivates departing IT accounts through
-   account management. Audit rows contain action/actor/time, never credentials.
+1. In Cloudflare: Compute > Email Service > Email Sending > Onboard Domain,
+   choose `15minutes-email.com`, and complete the domain checks. Cloudflare adds
+   the required SPF, DKIM and bounce DNS records. Existing mail records should
+   be reviewed before changing them.
+2. General recipient delivery requires Workers Paid. Verified destination
+   addresses can receive free test emails. Never upgrade billing automatically.
+3. Run **Deploy native Cloudflare email and recovery** on the tested main release.
+   The generated auth config sets the `EMAIL` send binding, restricts it to
+   `noreply@15minutes-email.com`, and supplies the sender as a non-secret variable.
+   Deployment does not by itself verify the sending domain or inbox delivery.
+4. Send a maintenance test email and check inbox/spam.
+5. Test Forgot Password: receive code, reset, reject the old password, sign in
+   with the new password, and reject a replayed code.
+6. Connect remaining welcome/invitation/appointment/payment events to the shared
+   renderer. Only password recovery and the maintenance test are integrated.
 
-The original Worker-level RESEND_API_KEY and EMAIL_FROM remain a fallback for
-organizations without saved settings. Organizations with a saved sender use
-their own encrypted key, or the existing server key if no organization key was
-saved. Maintenance UI does not prove provider domain verification or inbox delivery.
+No public arbitrary-recipient email endpoint is exposed. Password recovery keeps
+its existing account and rate-limit checks. Failed sends delete the unused reset
+hash. Native sending does not retry ambiguous responses or claim provider-level
+idempotency; the adapter returns Cloudflare's message ID only after acceptance.
+
+Official documentation:
+- https://developers.cloudflare.com/email-service/get-started/send-emails/
+- https://developers.cloudflare.com/email-service/api/send-emails/workers-api/
+- https://developers.cloudflare.com/email-service/platform/pricing/

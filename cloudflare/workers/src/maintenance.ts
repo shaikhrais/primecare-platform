@@ -1,14 +1,13 @@
 import type {Client} from 'pg';
 import templates from './email-templates.json';
-import {sendEmail,type MailEnv} from './email';
+import {sendEmail,mailReady,emailSender,type MailEnv} from './email';
 export interface MaintenanceEnv extends MailEnv {CONFIG_ENCRYPTION_KEY?:string}
 export const maintenanceRoles=['ceo','maintenance'];
 type Template=typeof templates.password_reset;
 export function validateSettings(v:Record<string,unknown>) {
- if(Object.keys(v).some(k=>!['sender','apiKey','templates','revision'].includes(k)) || !Number.isSafeInteger(v.revision) || Number(v.revision)<0)return null;
+ if(Object.keys(v).some(k=>!['sender','templates','revision'].includes(k)) || !Number.isSafeInteger(v.revision) || Number(v.revision)<0)return null;
  const sender=typeof v.sender==='string'?v.sender.trim():'';
  if(sender.length>254 || /[\r\n]/.test(sender) || !/^[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+$/.test(sender))return null;
- if(v.apiKey!==undefined && (typeof v.apiKey!=='string' || !/^re_[A-Za-z0-9_-]{10,200}$/.test(v.apiKey)))return null;
  if(!v.templates || typeof v.templates!=='object' || Array.isArray(v.templates))return null;
  const overrides:Record<string,Template>={};
  for(const [id,value] of Object.entries(v.templates)) {
@@ -23,7 +22,7 @@ export function validateSettings(v:Record<string,unknown>) {
   if(combined.replace(/\{\{[a-zA-Z]+\}\}/g,'').includes('{{'))return null;
   overrides[id]={subject:fields.subject as string,title:fields.title as string,body:fields.body as string,required:base.required};
  }
- return {sender,apiKey:v.apiKey as string|undefined,templates:overrides,revision:Number(v.revision)};
+ return {sender,templates:overrides,revision:Number(v.revision)};
 }
 async function encryptionKey(env:MaintenanceEnv) {
  if(!/^[a-f0-9]{64}$/i.test(env.CONFIG_ENCRYPTION_KEY??''))throw new Error('Configuration encryption unavailable');
@@ -43,7 +42,7 @@ export async function decryptCredential(env:MaintenanceEnv,value:string,tenant:s
 export async function configuredMail(db:Client,env:MaintenanceEnv,tenant:string):Promise<MailEnv> {
  const row=(await db.query('SELECT sender,api_key_ciphertext,templates FROM tenant_mail_configuration WHERE tenant_id=$1',[tenant])).rows[0];
  if(!row)return env;
- return {EMAIL_FROM:row.sender,RESEND_API_KEY:row.api_key_ciphertext?await decryptCredential(env,row.api_key_ciphertext,tenant):env.RESEND_API_KEY,EMAIL_TEMPLATES:row.templates};
+ return {...env,EMAIL_FROM:row.sender,EMAIL_TEMPLATES:row.templates};
 }
 /** Called only after live session authorization and tenant binding, under transaction locks. */
 export async function maintenance(db:Client,env:MaintenanceEnv,actor:{id:string;tenant_id:string;roles:string;email:string},method:string,path:string,body:Record<string,unknown>) {
@@ -51,12 +50,12 @@ export async function maintenance(db:Client,env:MaintenanceEnv,actor:{id:string;
  const tenant=String(actor.tenant_id);
  if(method==='GET') {
   const row=(await db.query('SELECT sender,api_key_ciphertext,templates,revision,updated_at FROM tenant_mail_configuration WHERE tenant_id=$1',[tenant])).rows[0];
-  const encrypted=!!row?.api_key_ciphertext;
+
   const encryptionReady=/^[a-f0-9]{64}$/i.test(env.CONFIG_ENCRYPTION_KEY??'');
-  return {status:200,body:{sender:row?.sender??env.EMAIL_FROM??'',keyConfigured:encrypted||!!env.RESEND_API_KEY,encryptionReady,revision:row?.revision??0,updatedAt:row?.updated_at??null,templates:{...templates,...row?.templates},emailReady:!!(row?.sender??env.EMAIL_FROM)&&(encrypted?encryptionReady:!!env.RESEND_API_KEY),deliveryVerified:false,pending:[
-   ...(!encryptionReady?['Deployment administrator: run the maintenance deployment to provision the encryption key.']:[]),
-   ...(!(encrypted||env.RESEND_API_KEY)?['IT: create a sending-only Resend API key, then enter it below.']:[]),
-   ...(!(row?.sender??env.EMAIL_FROM)?['IT: verify your sending domain in Resend and save its sender email below.']:[]),
+  return {status:200,body:{sender:row?.sender??env.EMAIL_FROM??'',provider:'cloudflare',keyConfigured:false,bindingConfigured:!!env.EMAIL,settingsReady:true,encryptionReady,revision:row?.revision??0,updatedAt:row?.updated_at??null,templates:{...templates,...row?.templates},emailReady:mailReady({...env,EMAIL_FROM:row?.sender??env.EMAIL_FROM}),deliveryVerified:false,pending:[
+   ...(!env.EMAIL?['Deployment administrator: deploy the native Cloudflare EMAIL binding.']:[]),
+   'IT: onboard the sender domain under Cloudflare Email Service > Email Sending. General recipient delivery requires Workers Paid; free sending is limited to verified destination addresses.',
+   ...(!mailReady({...env,EMAIL_FROM:row?.sender??env.EMAIL_FROM})?['IT: save the configured Cloudflare sender email.']:[]),
    'IT: send a test email to your own account and check inbox/spam; a provider acceptance is not proof of delivery.',
    'IT: test Forgot Password on Android, including a complete reset and sign-in.',
    'Developers: connect the remaining email templates to their appointment, invitation and payment events.'
@@ -65,7 +64,7 @@ export async function maintenance(db:Client,env:MaintenanceEnv,actor:{id:string;
  if(path.endsWith('/test-email')) {
   if(Object.keys(body).length)return {status:400,body:{error:'Test email always goes to your signed-in account'}};
   try {const mail=await configuredMail(db,env,tenant);await sendEmail(mail,actor.email,'security_notice',{message:'PrimeCare maintenance email test.',support:'your IT team'},'maintenance-test-'+crypto.randomUUID());}
-  catch {return {status:503,body:{error:'Email provider did not accept the test. Check sender verification and provider key.'}};}
+  catch {return {status:503,body:{error:'Email provider did not accept the test. Check Cloudflare sender verification, recipient eligibility and EMAIL binding.'}};}
   await db.query("INSERT INTO tenant_configuration_audit(tenant_id,actor_user_id,action) VALUES($1,$2,'test_email_accepted')",[tenant,actor.id]);
   return {status:200,body:{message:'Provider accepted the test. Check your inbox/spam to confirm delivery.'}};
  }
@@ -73,8 +72,9 @@ export async function maintenance(db:Client,env:MaintenanceEnv,actor:{id:string;
  if(!input)return {status:400,body:{error:'Invalid settings. Use a sender email and retain all required template placeholders.'}};
  const existing=(await db.query('SELECT revision,api_key_ciphertext FROM tenant_mail_configuration WHERE tenant_id=$1 FOR UPDATE',[tenant])).rows[0];
  if((existing?.revision??0)!==input.revision)return {status:409,body:{error:'Settings changed. Reload before saving.'}};
- if(!/^[a-f0-9]{64}$/i.test(env.CONFIG_ENCRYPTION_KEY??''))return {status:503,body:{error:'Ask the deployment administrator to enable configuration encryption first.'}};
- const ciphertext=input.apiKey?await encryptCredential(env,input.apiKey,tenant):existing?.api_key_ciphertext??null;
+ if(env.EMAIL_ALLOWED_SENDER && emailSender(input.sender)?.email.toLowerCase()!==env.EMAIL_ALLOWED_SENDER.toLowerCase())return {status:400,body:{error:'Use the sender address configured for the Cloudflare Worker.'}};
+ // Retain legacy encrypted credentials for rollback; native delivery never reads them.
+ const ciphertext=existing?.api_key_ciphertext??null;
  await db.query('INSERT INTO tenant_mail_configuration(tenant_id,sender,api_key_ciphertext,templates,revision,updated_at) VALUES($1,$2,$3,$4,1,NOW()) ON CONFLICT(tenant_id) DO UPDATE SET sender=$2,api_key_ciphertext=$3,templates=$4,revision=tenant_mail_configuration.revision+1,updated_at=NOW()',[tenant,input.sender,ciphertext,JSON.stringify(input.templates)]);
  await db.query("INSERT INTO tenant_configuration_audit(tenant_id,actor_user_id,action) VALUES($1,$2,'email_configuration_changed')",[tenant,actor.id]);
  return {status:200,body:{message:'Settings saved. Send a test email to check delivery.'}};

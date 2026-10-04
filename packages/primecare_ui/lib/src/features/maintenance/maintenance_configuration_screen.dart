@@ -10,7 +10,6 @@ class MaintenanceConfigurationScreen extends ConsumerStatefulWidget {
 class _MaintenanceConfigurationState extends ConsumerState<MaintenanceConfigurationScreen> {
   static const endpoint = '/v1/auth/maintenance/configuration';
   final _sender = TextEditingController();
-  final _key = TextEditingController();
   final _accountEmail = TextEditingController();
   final _accountPassword = TextEditingController();
   final Map<String, Map<String, TextEditingController>> _templates = {};
@@ -21,7 +20,7 @@ class _MaintenanceConfigurationState extends ConsumerState<MaintenanceConfigurat
   void initState() { super.initState(); Future.microtask(_load); }
   @override
   void dispose() {
-    for (final c in [_sender, _key, _accountEmail, _accountPassword, ..._templates.values.expand((v) => v.values)]) { c.dispose(); }
+    for (final c in [_sender, _accountEmail, _accountPassword, ..._templates.values.expand((v) => v.values)]) { c.dispose(); }
     super.dispose();
   }
   bool get _allowed {
@@ -56,7 +55,7 @@ class _MaintenanceConfigurationState extends ConsumerState<MaintenanceConfigurat
       if (!mounted) return;
       setState(() { _message = r.statusCode == 200 || r.statusCode == 201 ? (r.data is Map && r.data['message'] is String ? r.data['message'] as String : 'Maintenance account created. Share access through your approved IT process.') : _error(r.data); });
       if (r.statusCode == 200 || r.statusCode == 201) {
-        _key.clear(); _accountPassword.clear(); reload = path == endpoint || path.endsWith('/test-email');
+        _accountPassword.clear(); reload = path == endpoint || path.endsWith('/test-email');
       }
     } catch (_) { if (mounted) setState(() { _message = 'Unable to save. Check your connection and try again.'; }); }
     finally { if (mounted) setState(() { _busy = false; }); }
@@ -89,15 +88,12 @@ class _MaintenanceConfigurationState extends ConsumerState<MaintenanceConfigurat
               for (final task in data['pending'] as List) Padding(padding: const EdgeInsets.only(bottom: 10), child: Text('• $task')),
             ]),
             _section('Email delivery', [
-              Text(data['keyConfigured'] == true ? 'Provider key: configured (hidden)' : 'Provider key: pending'),
+              const Text('Provider: Cloudflare Email Service. No provider API key is required.'),
               const SizedBox(height: 12),
               _field('Verified sender email', _sender),
-              _field('Resend key — leave blank to keep the existing key', _key, secret: true),
-              const Text('Use a sending-only key for your verified domain. The key is encrypted on the server and is never returned to this page.'),
               const SizedBox(height: 16),
-              FilledButton(onPressed: _busy || data['encryptionReady'] != true ? null : () => _post(endpoint, {
+              FilledButton(onPressed: _busy || data['settingsReady'] != true ? null : () => _post(endpoint, {
                 'sender': _sender.text.trim(), 'revision': data['revision'],
-                if (_key.text.isNotEmpty) 'apiKey': _key.text,
                 'templates': {for (final entry in _templates.entries) entry.key: {for (final field in entry.value.entries) field.key: field.value.text}},
               }), child: const Text('Save email settings and templates')),
               TextButton(onPressed: _busy ? null : () => _post('$endpoint/test-email', {}), child: const Text('Send test email to my signed-in account')),

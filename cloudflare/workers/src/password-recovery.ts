@@ -1,6 +1,6 @@
 import type {Client} from 'pg';
 import bcrypt from 'bcryptjs';
-import {sendEmail,type MailEnv} from './email';
+import {sendEmail,mailReady,type MailEnv} from './email';
 import {authRateLimit} from './auth-rate-limit';
 export const recoveryMessage='If an active account matches, recovery instructions will be emailed. Check your inbox and spam folder.';
 export async function recoveryHash(value:string) {
@@ -18,7 +18,7 @@ export function validateRecovery(value:Record<string,unknown>,reset=false) {
  return {email,code,newPassword};
 }
 export async function recoverPassword(db:Client,env:MailEnv,email:string) {
- if(!env.RESEND_API_KEY || !env.EMAIL_FROM)return {status:503,body:{error:'Password recovery email is temporarily unavailable. Contact your IT team.'}};
+ if(!mailReady(env))return {status:503,body:{error:'Password recovery email is temporarily unavailable. Contact your IT team.'}};
  const retry=await authRateLimit(db,await recoveryHash('forgot:'+email),'forgotPassword');
  if(retry!==null)return {status:429,body:{error:'Too many recovery requests. Please try again later.'}};
  const user=(await db.query("SELECT id,email FROM users WHERE LOWER(email)=$1 AND LOWER(status)='active' LIMIT 2",[email])).rows;

@@ -16,15 +16,13 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
         shell: python
         run: |
           import os, json, urllib.request, urllib.error
           domain = "15minutes-email.com"
           token = os.environ.get("CLOUDFLARE_API_TOKEN", "")
           account = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "")
-          report = {"domain": domain, "configured_secrets": {k: bool(os.environ.get(k)) for k in ["CLOUDFLARE_API_TOKEN", "CLOUDFLARE_ACCOUNT_ID", "RESEND_API_KEY", "EMAIL_FROM"]}}
+          report = {"domain": domain, "configured_secrets": {k: bool(os.environ.get(k)) for k in ["CLOUDFLARE_API_TOKEN", "CLOUDFLARE_ACCOUNT_ID"]}}
           def get(base, path, key):
               request = urllib.request.Request(base + path, headers={"Authorization": "Bearer " + key, "Content-Type": "application/json"})
               try:
@@ -51,6 +49,9 @@ jobs:
                   item["email_routing_query_success"] = routing.get("success", False)
                   item["email_routing_http_status"] = routing.get("http_status")
                   item["email_routing_enabled"] = routing.get("result", {}).get("enabled") if isinstance(routing.get("result"), dict) else None
+                  sending = get(base, "/zones/" + zid + "/email/sending/subdomains", token)
+                  item["email_sending_query_success"] = sending.get("success", False)
+                  item["email_sending_http_status"] = sending.get("http_status")
                   report["zones"].append(item)
               if account:
                   settings = get(base, "/accounts/" + account + "/workers/scripts/primecare-auth-api/settings", token)
@@ -59,11 +60,7 @@ jobs:
                   result = settings.get("result", {})
                   bindings = result.get("bindings", []) if isinstance(result, dict) else []
                   report["auth_worker_binding_names"] = sorted(b.get("name", "") for b in bindings)
-          resend = os.environ.get("RESEND_API_KEY")
-          if resend:
-              response = get("https://api.resend.com", "/domains", resend)
-              report["resend_http_status"] = response.get("http_status")
-              report["resend_domain"] = [{k: d.get(k) for k in ["id", "name", "status", "region"]} for d in response.get("data", []) if d.get("name") == domain]
+                  report["native_email_binding_present"] = any(b.get("name") == "EMAIL" for b in bindings)
           print(json.dumps(report, indent=2))
           with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as summary:
               summary.write("## Email domain configuration\n\n```json\n" + json.dumps(report, indent=2) + "\n```\n")
