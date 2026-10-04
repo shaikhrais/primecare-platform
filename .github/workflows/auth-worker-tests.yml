@@ -2,9 +2,9 @@ name: Auth Worker unit and PostgreSQL tests
 on:
   push:
     branches: [main]
-    paths: ['cloudflare/workers/**', 'scripts/test-auth-*.mjs', 'scripts/test-governance-*.mjs', 'scripts/test-account-*.mjs', 'scripts/verify-api-batches.mjs', 'scripts/record-api-batch-evidence.py', 'scripts/register-governance-api-batch.py', 'scripts/register-account-list-api.py', 'scripts/register-workspace-governance.py', 'scripts/cleanup-auth-rate-limits.mjs', 'scripts/generate-cloudflare-worker-config.mjs', '.github/workflows/auth-worker-tests.yml']
+    paths: ['cloudflare/workers/**', 'scripts/test-auth-*.mjs', 'scripts/test-governance-*.mjs', 'scripts/test-account-*.mjs', 'scripts/verify-api-batches.mjs', 'scripts/record-api-batch-evidence.py', 'scripts/register-governance-api-batch.py', 'scripts/register-account-list-api.py', 'scripts/register-account-admin-batch.py', 'scripts/register-workspace-governance.py', 'scripts/cleanup-auth-rate-limits.mjs', 'scripts/generate-cloudflare-worker-config.mjs', '.github/workflows/auth-worker-tests.yml']
   pull_request:
-    paths: ['cloudflare/workers/**', 'scripts/test-auth-*.mjs', 'scripts/test-governance-*.mjs', 'scripts/test-account-*.mjs', 'scripts/verify-api-batches.mjs', 'scripts/record-api-batch-evidence.py', 'scripts/register-governance-api-batch.py', 'scripts/register-account-list-api.py', 'scripts/register-workspace-governance.py', 'scripts/cleanup-auth-rate-limits.mjs', 'scripts/generate-cloudflare-worker-config.mjs', '.github/workflows/auth-worker-tests.yml']
+    paths: ['cloudflare/workers/**', 'scripts/test-auth-*.mjs', 'scripts/test-governance-*.mjs', 'scripts/test-account-*.mjs', 'scripts/verify-api-batches.mjs', 'scripts/record-api-batch-evidence.py', 'scripts/register-governance-api-batch.py', 'scripts/register-account-list-api.py', 'scripts/register-account-admin-batch.py', 'scripts/register-workspace-governance.py', 'scripts/cleanup-auth-rate-limits.mjs', 'scripts/generate-cloudflare-worker-config.mjs', '.github/workflows/auth-worker-tests.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -52,3 +52,4 @@ jobs:
           node scripts/test-auth-postgres.mjs
           node scripts/test-auth-cleanup-postgres.mjs
           node scripts/test-governance-postgres.mjs
+          node scripts/test-account-admin-postgres.mjs

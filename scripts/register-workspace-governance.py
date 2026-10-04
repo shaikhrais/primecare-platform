@@ -14,6 +14,7 @@ PORTALS = {'corporate': 'co', 'clinic': 'ci', 'clinical': 'ci', 'client': 'cl',
            'support': 'su', 'franchise': 'fr', 'marketing': 'ma',
            'business-development': 'bd', 'governance': 'go'}
 runpy.run_path(str(ROOT/'scripts/register-account-list-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-account-admin-batch.py'))
 runpy.run_path(str(ROOT/'scripts/register-governance-api-batch.py'))
 with sqlite3.connect(DB) as db:
     db.row_factory = sqlite3.Row
