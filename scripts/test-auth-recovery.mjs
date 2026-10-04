@@ -59,7 +59,7 @@ test('native transport uses only the binding, validates senders and masks provid
   globalThis.fetch=()=>assert.fail('external email service contacted');
   const mail={EMAIL_FROM:'PrimeCare <noreply@15minutes-email.com>',EMAIL_ALLOWED_SENDER:'noreply@15minutes-email.com',EMAIL:{send:async(value)=>{message=value;return {messageId:'native-id'};}}};
   assert.equal(await sendEmail(mail,'user@example.com','security_notice',{message:'test',support:'IT'},'test-key'),'native-id');
-  assert.deepEqual(message.from,{email:'noreply@15minutes-email.com',name:'PrimeCare'});
+  assert.equal(message.from,'noreply@15minutes-email.com');
   assert.equal(mailReady({...mail,EMAIL_FROM:'spoof@other-domain.com'}),false);
   assert.equal(mailReady({...mail,EMAIL_FROM:'x\r\nBcc: victim@example.com'}),false);
   assert.equal(mailReady({RESEND_API_KEY:'legacy-key',EMAIL_FROM:mail.EMAIL_FROM}),false);

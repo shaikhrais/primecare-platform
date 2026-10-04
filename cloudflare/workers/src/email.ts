@@ -1,6 +1,6 @@
 import templates from './email-templates.json';
 export interface NativeEmailBinding {
- send(message:{from:{email:string;name?:string};to:string;subject:string;text:string;html:string}):Promise<{messageId:string}>;
+ send(message:{from:string;to:string;subject:string;text:string;html:string}):Promise<{messageId:string}>;
 }
 export interface MailEnv { EMAIL?:NativeEmailBinding; EMAIL_FROM?:string; EMAIL_ALLOWED_SENDER?:string; EMAIL_TEMPLATES?:Partial<typeof templates> }
 /** Parse configured sender without allowing header injection. */
@@ -33,7 +33,7 @@ export async function sendEmail(env:MailEnv,to:string,id:EmailTemplate,values:Re
  if(!mailReady(env) || !emailSender(to))throw new Error('Email delivery unavailable');
  const message=renderEmail(id,values,env.EMAIL_TEMPLATES);
  try {
-  const result=await env.EMAIL!.send({from:emailSender(env.EMAIL_FROM)!,to,...message});
+  const result=await env.EMAIL!.send({from:emailSender(env.EMAIL_FROM)!.email,to,...message});
   if(!result?.messageId)throw new Error('Email delivery unavailable');
   return result.messageId;
  } catch {throw new Error('Email delivery unavailable');}
