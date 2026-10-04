@@ -1,0 +1,90 @@
+name: Configure native Cloudflare email domain
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/configure-native-email.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: primecare-native-email-setup
+  cancel-in-progress: false
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - name: Enable owned sender domain and test native delivery
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        shell: python
+        run: |
+          import os, json, urllib.request, urllib.error
+          domain = "15minutes-email.com"
+          recipient = "itpro.mohammed@gmail.com"
+          token = os.environ.get("CLOUDFLARE_API_TOKEN", "")
+          account = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "")
+          report = {"domain": domain, "billing_changed": False}
+          def call(path, body=None, authenticated=True):
+              base = "https://api.cloudflare.com/client/v4" if authenticated else "https://primecare-api-gateway.itpro-mohammed.workers.dev"
+              headers = {"Content-Type": "application/json"}
+              if authenticated:
+                  headers["Authorization"] = "Bearer " + token
+              request = urllib.request.Request(base + path, headers=headers, data=json.dumps(body).encode() if body is not None else None)
+              try:
+                  with urllib.request.urlopen(request, timeout=25) as response:
+                      return response.status, json.load(response)
+              except urllib.error.HTTPError as error:
+                  try:
+                      data = json.load(error)
+                  except Exception:
+                      data = {}
+                  return error.code, data
+              except Exception as error:
+                  return 0, {"error": type(error).__name__}
+          def errors(data):
+              return [{"code": e.get("code"), "message": str(e.get("message", ""))[:300]} for e in data.get("errors", [])]
+          if not token or not account:
+              report["blocked"] = "Missing Cloudflare deployment credentials"
+          else:
+              status, zones = call("/zones?name=" + domain)
+              matching = [z for z in zones.get("result", []) if z.get("name") == domain and z.get("account", {}).get("id") == account]
+              if status != 200 or len(matching) != 1:
+                  report["blocked"] = "Owned domain lookup failed"
+                  report["zone_http_status"] = status
+              else:
+                  path = "/zones/" + matching[0]["id"] + "/email/sending/subdomains"
+                  status, listed = call(path)
+                  report["sending_list_http_status"] = status
+                  sending = [d for d in listed.get("result", []) if d.get("name") == domain]
+                  report["existing_domain"] = [{k: d.get(k) for k in ["name", "enabled", "dkim_selector", "return_path_domain"]} for d in sending]
+                  if status == 200 and not any(d.get("enabled") for d in sending):
+                      status, created = call(path, {"name": domain})
+                      report["onboarding_http_status"] = status
+                      report["onboarding_success"] = created.get("success", False)
+                      report["onboarding_errors"] = errors(created)
+                      result = created.get("result") or {}
+                      report["onboarded_domain"] = {k: result.get(k) for k in ["name", "enabled", "dkim_selector", "return_path_domain"]}
+                      enabled = status in [200, 201] and created.get("success") and result.get("enabled")
+                  else:
+                      enabled = status == 200 and any(d.get("enabled") for d in sending)
+                  if enabled:
+                      status, sent = call("/accounts/" + account + "/email/sending/send", {"from": {"email": "noreply@" + domain, "name": "PrimeCare"}, "to": recipient, "subject": "PrimeCare Cloudflare email test", "text": "This is your requested PrimeCare email test, sent directly through Cloudflare. This message does not change your password."})
+                      report["native_test_http_status"] = status
+                      report["native_test_success"] = sent.get("success", False)
+                      report["native_test_errors"] = errors(sent)
+                      result = sent.get("result") or {}
+                      report["native_test_message_id"] = result.get("message_id") or result.get("messageId") if isinstance(result, dict) else None
+                      if status in [200, 201] and sent.get("success"):
+                          status, recovered = call("/v1/auth/forgot-password", {"email": recipient}, authenticated=False)
+                          report["password_recovery_http_status"] = status
+                          report["password_recovery_message"] = recovered.get("message") or recovered.get("error")
+                  else:
+                      report["blocked"] = "Cloudflare sending domain is not enabled. Review the onboarding response; no subscription upgrade was attempted."
+          print(json.dumps(report, indent=2))
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as summary:
+              summary.write("## Native email setup and verification\n\n```json\n" + json.dumps(report, indent=2) + "\n```\n")
+          if report.get("password_recovery_http_status") != 200:
+              raise SystemExit("Native email delivery or password recovery remains blocked; review the report.")
