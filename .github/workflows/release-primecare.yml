@@ -1,5 +1,5 @@
 name: PrimeCare production release
-# Governed dashboard release with PostgreSQL, Chromium and WCAG checks.
+# Governed dashboard release with verified accessible metric labels.
 on:
   push:
     branches: [main]
@@ -33,7 +33,7 @@ jobs:
             let cancelled = 0;
             for (const run of runs) {
               if (run.id === context.runId || !['queued','in_progress','waiting','pending','requested'].includes(run.status)) continue;
-              if (!(run.name.startsWith('Build ') || run.name.startsWith('Deploy Web - '))) continue;
+              if (!(run.name.startsWith('Build ') || run.name.startsWith('Deploy Web - ') || ['PrimeCare Monorepo CI/CD','PrimeCare Unified Dart CI'].includes(run.name))) continue;
               if (run.path === '.github/workflows/release-primecare.yml') continue;
               try {
                 await github.rest.actions.cancelWorkflowRun({owner: context.repo.owner, repo: context.repo.repo, run_id: run.id});

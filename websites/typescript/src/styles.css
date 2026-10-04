@@ -4,7 +4,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--color-info)
 .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--spacing-md); }
 .metric { display: grid; gap: var(--spacing-sm); padding: var(--spacing-lg); background: var(--color-surface-soft); border-radius: var(--radius-lg); }
 .metric strong { font-size: var(--font-size-heading); overflow-wrap: anywhere; }
-.metric span { color: var(--color-text-muted); }
+.metric span { color: var(--color-text); }
 .role-bars { display: grid; gap: var(--spacing-md); margin-bottom: var(--spacing-lg); }
 .role-bars > div > div { display: flex; justify-content: space-between; }
 .role-bars meter { width: 100%; height: var(--spacing-lg); }
