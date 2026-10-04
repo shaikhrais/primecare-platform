@@ -45,14 +45,17 @@ jobs:
                   zid = zone["id"]
                   dns = get(base, "/zones/" + zid + "/dns_records?per_page=100", token)
                   item["dns_query_success"] = dns.get("success", False)
+                  item["dns_http_status"] = dns.get("http_status")
                   item["email_dns"] = [{"type": r.get("type"), "name": r.get("name"), "content": r.get("content"), "priority": r.get("priority")} for r in dns.get("result", []) if r.get("type") in ["MX", "TXT"] and (r.get("type") == "MX" or any(s in r.get("content", "") for s in ["v=spf1", "v=DKIM1", "v=DMARC1"]) or "_domainkey" in r.get("name", ""))]
                   routing = get(base, "/zones/" + zid + "/email/routing", token)
                   item["email_routing_query_success"] = routing.get("success", False)
+                  item["email_routing_http_status"] = routing.get("http_status")
                   item["email_routing_enabled"] = routing.get("result", {}).get("enabled") if isinstance(routing.get("result"), dict) else None
                   report["zones"].append(item)
               if account:
-                  settings = get(base, "/accounts/" + account + "/workers/scripts/primecare-api-auth/settings", token)
+                  settings = get(base, "/accounts/" + account + "/workers/scripts/primecare-auth-api/settings", token)
                   report["auth_worker_settings_success"] = settings.get("success", False)
+                  report["auth_worker_http_status"] = settings.get("http_status")
                   result = settings.get("result", {})
                   bindings = result.get("bindings", []) if isinstance(result, dict) else []
                   report["auth_worker_binding_names"] = sorted(b.get("name", "") for b in bindings)
