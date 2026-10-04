@@ -2,7 +2,7 @@ import registry from './workspace-registry.json';
 import {json, withDb, tokenFrom, sha256, type Env} from './auth';
 import type {Client} from 'pg';
 
-type Actor = {id:string;roles:string;tenant_id:string};
+export type Actor = {id:string;roles:string;tenant_id:string};
 export function visiblePages(role:string) {
   return registry.screens.filter(s=>s.renderer!=='account' && s.grants.some(g=>g.role===role && g.view===1));
 }
@@ -12,7 +12,7 @@ export function pageAccess(role:string,code:string) {
 }
 const catalogPermissions = registry.permissions as Record<string,{inventory:boolean;organization:boolean}>;
 
-async function overview(db:Client,actor:Actor) {
+export async function overview(db:Client,actor:Actor) {
   const organization=catalogPermissions[actor.roles]?.organization===true;
   const accounts=organization ? (await db.query(
     "SELECT roles AS role,COUNT(*)::int AS count FROM users WHERE tenant_id::text=$1 AND LOWER(status)='active' GROUP BY roles ORDER BY roles",[String(actor.tenant_id)])).rows : [{role:actor.roles,count:1}];
@@ -66,8 +66,8 @@ export async function workspace(request:Request,env:Env,path:string,headers:Head
         if(code) {const status=pageAccess(String(actor.roles),code);if(status!==200)return json({error:status===404?'Page not found':'Forbidden'},status,safeHeaders);}
         const screens=visiblePages(String(actor.roles));
         const inventory=(catalogPermissions[String(actor.roles)]?.inventory ? registry.screens : screens).map(
-          ({id,code,name,route,appCode,role,renderer,lifecycle,productionReady,blockers})=>
-          ({id,code,name,route,appCode,role,renderer,lifecycle,productionReady,blockers}));
+          ({id,code,name,route,appCode,role,renderer,lifecycle,productionReady,blockers,requirements,contracts,pendingActions})=>
+          ({id,code,name,route,appCode,role,renderer,lifecycle,productionReady,blockers,requirements,contracts,pendingActions}));
         const data=await overview(db,actor);
         return json({identity:{userId:String(actor.id),role:String(actor.roles)},
           landing:(registry.landings as Record<string,string>)[String(actor.roles)],screens,

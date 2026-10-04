@@ -1,0 +1,251 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Account API Batch 2",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/admin/users": {
+      "get": {
+        "operationId": "listTenantAccounts",
+        "summary": "List tenant accounts for the authorized CEO",
+        "description": "Explicit bearer session; active CEO and matching tenant required. Passwords, tokens and configuration secrets are excluded. Search is literal. canModify is false for the actor. No new role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "admin",
+                "bus_dev",
+                "caregiver",
+                "ceo",
+                "cfo",
+                "chiropractor",
+                "ciso",
+                "clinical_director",
+                "cns",
+                "community_outreach",
+                "compliance",
+                "coo",
+                "cto",
+                "customer_support",
+                "cx_director",
+                "dynamic",
+                "employee",
+                "family",
+                "finance_director",
+                "franchise_sales",
+                "gm",
+                "governance",
+                "guest",
+                "hr_director",
+                "hr_hiring",
+                "hsw",
+                "infrastructure",
+                "intake",
+                "legal",
+                "local_marketing",
+                "lpn",
+                "marketing",
+                "np",
+                "ops_manager",
+                "owner",
+                "partnership",
+                "patient",
+                "pediatric",
+                "physician",
+                "physio",
+                "portal",
+                "premium_concierge",
+                "psw",
+                "qa_specialist",
+                "regional_bdm",
+                "regional_manager_usa",
+                "rmt",
+                "rn",
+                "rn_field_supervisor",
+                "rpn",
+                "scheduler",
+                "scrum_master",
+                "shareholder",
+                "social_worker",
+                "system_verification",
+                "territory_expansion",
+                "territory_sales",
+                "therapist",
+                "training",
+                "training_coordinator",
+                "training_director",
+                "vip_manager",
+                "volunteer",
+                "volunteer_coordinator",
+                "maintenance"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "active",
+                "inactive"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant account list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "users",
+                    "assignableRoles",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "email",
+                          "roles",
+                          "status",
+                          "canModify"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "roles": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "canModify": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    },
+                    "assignableRoles": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query"
+          },
+          "401": {
+            "description": "Missing or expired session"
+          },
+          "403": {
+            "description": "Permission or tenant mismatch"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Source unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

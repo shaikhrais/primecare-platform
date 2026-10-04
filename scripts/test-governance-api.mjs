@@ -1,0 +1,102 @@
+import {build} from 'esbuild';
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile,mkdtemp} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {createRequire} from 'node:module';
+const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8'));
+const catalog=JSON.parse(await readFile('cloudflare/workers/src/governance-api-registry.json','utf8'));
+const dir=await mkdtemp(join(tmpdir(),'governance-batch-'));
+const plugin={name:'fixture',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export class Client {async connect(){} async end(){} async query(sql,values){return globalThis.__batchQuery(sql,values)}}',loader:'js'}));}};
+await build({entryPoints:['cloudflare/workers/src/governance-api.ts'],bundle:true,platform:'node',format:'cjs',outfile:join(dir,'batch.cjs'),plugins:[plugin]});
+const {governanceApi,parseGovernanceQuery}=createRequire(import.meta.url)(join(dir,'batch.cjs'));
+const token='a'.repeat(43),env={SERVICE_NAME:'governance',DB_URL:'fixture'};
+const call=(path,query='',role='ceo',headers={},method='GET',override={})=>{
+ fixture(role);
+ return governanceApi(new Request('https://fixture'+path+query,{method,headers:{authorization:'Bearer '+token,...headers}}),{...env,...override},path,{});
+};
+let queries=[];
+function fixture(role='ceo',tenant='tenant-a') {
+ queries=[];
+ globalThis.__batchQuery=async(sql,values)=>{
+  queries.push({sql,values});
+  if(sql.includes('WHERE s.token_hash=$1'))return {rows:role?[{id:'actor',roles:role,tenant_id:tenant}]:[]};
+  if(sql.includes('SELECT roles AS role')){assert.deepEqual(values,['tenant-a']);return {rows:[{role:'ceo',count:1},{role:'rmt',count:2}]};}
+  if(sql.includes('COUNT(*)::int AS count FROM auth_sessions'))return {rows:[{count:2}]};
+  if(sql.includes('FROM auth_account_audit')){assert.deepEqual(values,['tenant-a']);return {rows:[]};}
+  if(sql.includes('FROM pg_attribute'))return {rows:[]};
+  if(!sql.startsWith('BEGIN')&&sql!=='ROLLBACK')assert.fail('Unexpected query '+sql);
+  return {rows:[]};
+ };
+}
+test('seven registered APIs return bounded responses and precise evidence types',async()=>{
+ assert.equal(catalog.bindings.length,7);
+ for(const {path} of catalog.bindings) {
+  const response=await call(path,'?limit=3');assert.equal(response.status,200,path);
+  assert.equal(response.headers.get('cache-control'),'no-store');
+  const body=await response.json();assert.ok(Array.isArray(body.data));assert.ok(body.data.length<=3);
+  assert.equal(body.pagination.limit,3);assert.ok(Number.isInteger(body.pagination.total));
+  assert.ok(body.source.catalogVersion);assert.ok(!JSON.stringify(body).includes('test_password'));
+  assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>/^INSERT|^UPDATE|^DELETE/.test(q.sql)));
+ }
+});
+test('every endpoint denies unauthenticated, invalid token and mutation requests',async()=>{
+ for(const {path} of catalog.bindings) {
+  assert.equal((await call(path,'','ceo',{authorization:''})).status,401);
+  assert.equal((await call(path,'','ceo',{authorization:'Bearer malformed'})).status,401);
+  assert.equal((await call(path,'','ceo',{},'POST')).status,405);
+ }
+});
+test('expired sessions, absent tenant, mismatch and unauthorized roles fail closed',async()=>{
+ for(const {path} of catalog.bindings) {
+  assert.equal((await call(path,'',null)).status,401);
+  assert.equal((await call(path,'','ceo',{'x-tenant-id':'tenant-b'})).status,403);
+  assert.equal((await call(path,'','rmt')).status,403);
+ }
+ fixture('ceo',null);assert.equal((await governanceApi(new Request('https://fixture/page-progress',{headers:{authorization:'Bearer '+token}}),env,'/page-progress',{})).status,403);
+});
+test('authority is taken from existing permissions; reporting hierarchy adds no grants',async()=>{
+ for(const binding of catalog.bindings.filter(b=>b.gate==='inventory'))assert.equal((await call(binding.path,'','governance')).status,200);
+ assert.equal((await call('/organization-map','','governance')).status,403);
+ const body=await (await call('/organization-map','?limit=100')).json();
+ assert.ok(body.data.every(r=>r.inheritsPermissions===false));
+ assert.equal(body.data.find(r=>r.role==='rmt').activeAccounts,2);
+ assert.equal(body.data.find(r=>r.role==='ceo').supervisor,null);
+ assert.equal(body.source.evidenceType,'approved_reporting_and_live_tenant_counts');
+});
+test('query parsing rejects duplicate, unknown, unbounded and malformed values',async()=>{
+ for(const query of ['?limit=101','?limit=-1','?limit=0','?limit=1.5','?offset=100001','?offset=-1','?offset=1e3','?limit=1&limit=2','?unexpected=x','?search='+('a'.repeat(201)),'?search=%00']) {
+  assert.equal(parseGovernanceQuery(new URL('https://fixture/'+query)),null,query);
+  assert.equal((await call('/screen-health',query)).status,400,query);
+ }
+});
+test('filtering and pagination preserve exact totals and deterministic boundaries',async()=>{
+ const first=await (await call('/screen-health','?app=co&role=ceo&limit=2')).json();
+ const second=await (await call('/screen-health','?app=co&role=ceo&limit=2&offset=2')).json();
+ assert.ok(first.pagination.total>2);assert.equal(first.pagination.total,second.pagination.total);
+ assert.ok(first.data.every(r=>r.app==='co'&&r.role==='ceo'));
+ assert.ok(first.data.every(a=>second.data.every(b=>b.screen!==a.screen)));
+ const empty=await (await call('/screen-health','?search=nonexistent-gibberish')).json();assert.equal(empty.pagination.total,0);assert.equal(empty.pagination.hasMore,false);
+ const search=await (await call('/screen-health','?search=ceo_dashboard')).json();assert.ok(search.data.some(r=>r.screen==='ceo_dashboard'));
+});
+test('progress and pending tasks derive exact registered records rather than synthetic success',async()=>{
+ const progress=await (await call('/page-progress','?limit=100')).json();
+ assert.equal(progress.data.reduce((sum,r)=>sum+r.total,0),registry.screens.length);
+ assert.equal(progress.data.reduce((sum,r)=>sum+r.productionReady,0),0);
+ const tasks=await (await call('/pending-tasks','?limit=100')).json();
+ assert.ok(tasks.pagination.total>registry.screens.length);assert.ok(tasks.data.every(r=>r.status==='pending'||r.status==='action_pending'));
+ const contracts=await (await call('/api-contracts','?limit=100')).json();
+ assert.equal(contracts.source.evidenceType,'registered_governance');
+ assert.ok(contracts.data.some(c=>c.route==='/v1/governance/page-progress'));
+ assert.ok(contracts.data.every(c=>'lastRecordedTest' in c&&'recordedHealth' in c&&!('healthy' in c)));
+});
+test('rate limits, database errors and unrelated services cannot expose private data',async()=>{
+ const limited=await call('/page-progress','','ceo',{},'GET',{WORKSPACE_SOURCE_LIMIT:{limit:async()=>({success:false})}});
+ assert.equal(limited.status,429);assert.equal(limited.headers.get('retry-after'),'60');assert.equal(queries.length,0);
+ fixture();globalThis.__batchQuery=async()=>{throw new Error('private database password');};
+ const r=await governanceApi(new Request('https://fixture/page-progress',{headers:{authorization:'Bearer '+token}}),env,'/page-progress',{});
+ assert.equal(r.status,503);assert.ok(!(await r.text()).includes('private'));
+ assert.equal(await call('/page-progress','','ceo',{},'GET',{SERVICE_NAME:'client'}),null);
+ assert.equal(await call('/does-not-exist'),null);
+});

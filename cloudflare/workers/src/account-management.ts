@@ -1,6 +1,27 @@
 import type {Client} from 'pg';
 import policy from './account-policy.json';
 
+/** Read authorized account fields only, with literal search and bounded paging. */
+export async function listAccounts(db:Client,actor:{id:string;roles:string;tenant_id:string},url:URL):Promise<{status:number;body:unknown}> {
+  if(actor.roles!=='ceo'||!actor.tenant_id)return {status:403,body:{error:'Forbidden'}};
+  const params=url.searchParams,keys=['limit','offset','search','role','status'];
+  if([...params.keys()].some(k=>!keys.includes(k)||params.getAll(k).length!==1))return {status:400,body:{error:'Invalid query'}};
+  const limit=params.get('limit')??'25',offset=params.get('offset')??'0',search=params.get('search')??'',role=params.get('role')??'',status=params.get('status')??'';
+  if(!/^[1-9]\d{0,2}$/.test(limit)||Number(limit)>100||!/^\d{1,6}$/.test(offset)||Number(offset)>100000||
+    search.length>200||/[\u0000-\u001f]/.test(search)||role&&!policy.ceo.includes(role)||status&&!['active','inactive'].includes(status))
+    return {status:400,body:{error:'Invalid query'}};
+  // Placeholder parameters carry every user-controlled value. '%' and '_'
+  // are escaped so searches cannot silently broaden to the whole tenant.
+  const pattern='%'+search.replace(/[\\%_]/g,'\\$&')+'%';
+  const filter="tenant_id::text=$1 AND ($2='' OR roles=$2) AND ($3='' OR LOWER(status)=$3) AND ($4='' OR email ILIKE $5 ESCAPE E'\\\\')";
+  const values=[String(actor.tenant_id),role,status,search,pattern];
+  const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM users WHERE '+filter,values)).rows[0].count);
+  const users=(await db.query('SELECT id,email,roles,status,updated_at FROM users WHERE '+filter+' ORDER BY LOWER(email),id LIMIT $6 OFFSET $7',
+    [...values,Number(limit),Number(offset)])).rows;
+  return {status:200,body:{users:users.map(u=>({...u,canModify:String(u.id).toLowerCase()!==actor.id.toLowerCase()})),
+    assignableRoles:policy.ceo,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(offset)+Number(limit)<total}}};
+}
+
 export function validateAccountUpdate(value: unknown): {id:string;role:string;status:string} | null {
   if(!value || typeof value!=='object' || Array.isArray(value)) return null;
   const data=value as Record<string,unknown>;

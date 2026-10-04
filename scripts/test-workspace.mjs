@@ -70,3 +70,14 @@ test('database errors are unavailable, never a successful fallback',async()=>{
  globalThis.__workspaceQuery=async()=>{throw new Error('private database password');};
  const r=await call();assert.equal(r.status,503);assert.ok(!(await r.text()).includes('private'));
 });
+
+test('authorized inventory includes reproducible page requirements and exact pending action details',async()=>{
+ fixture();const data=await (await call()).json();
+ const page=data.inventory.find(p=>p.code==='ceo_dashboard');
+ assert.ok(page.requirements.acceptance_criteria);
+ assert.ok(page.contracts.some(a=>a.route==='/v1/governance/workspace'));
+ assert.ok(Array.isArray(page.pendingActions));
+ fixture('rmt');const staff=await (await call()).json();
+ assert.ok(staff.inventory.every(p=>staff.screens.some(s=>s.code===p.code)));
+ assert.ok(!staff.inventory.some(p=>p.code==='ceo_dashboard'));
+});
