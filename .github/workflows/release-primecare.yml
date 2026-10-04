@@ -1,5 +1,5 @@
 name: PrimeCare production release
-# Governed dashboard and page release: database, browser and accessibility gates.
+# Governed dashboard release with PostgreSQL, Chromium and WCAG checks.
 on:
   push:
     branches: [main]

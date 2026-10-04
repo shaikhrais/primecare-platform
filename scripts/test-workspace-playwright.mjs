@@ -14,7 +14,8 @@ const server=createServer(async(req,res)=>{
 await new Promise(r=>server.listen(4173,'127.0.0.1',r));const browser=await chromium.launch();
 const output='artifacts/workspace-browser';await mkdir(output,{recursive:true});
 try {
- const page=await browser.newPage({viewport:{width:1440,height:1100}});
+ const context=await browser.newContext({viewport:{width:1440,height:1100}});
+ const page=await context.newPage();
  await page.addInitScript(()=>sessionStorage.setItem('primecare_session','browser-fixture'));
  const screens=registry.screens.filter(s=>s.renderer!=='account'&&s.grants.some(g=>g.role==='ceo'&&g.view));
  await page.route('**/v1/governance/workspace',async route=>{
