@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs';
 import accountPolicy from './account-policy.json';
 import {loginRateLimit,authRateLimit,type AuthOperation} from './auth-rate-limit';
 import {manageAccount,validateAccountUpdate,listAccounts} from './account-management';
+import {parseAccountAdminRequest,accountAdministration} from './account-admin';
 import {changePassword,validatePasswordChange} from './password-change';
 
 export interface Env extends SourceLimitEnv, MaintenanceEnv {
@@ -81,6 +82,30 @@ async function mutationLimit(db:Client,token:string,operation:AuthOperation,head
 }
 
 async function handleAuth(request: Request, env: Env, path: string, headers: HeadersInit): Promise<Response | null> {
+  const adminRequest=parseAccountAdminRequest(request,path);
+  if(adminRequest) {
+    if('error' in adminRequest)return json({error:adminRequest.error},adminRequest.status,{...headers,...(adminRequest.allow?{allow:adminRequest.allow}:{})});
+    const token=request.headers.has('authorization')?tokenFrom(request):null;
+    if(!token)return json({error:'No session'},401,headers);
+    if(env.WORKSPACE_SOURCE_LIMIT) {
+      const key=await sha256('account-admin:'+(request.headers.get('cf-connecting-ip')??'unknown'));
+      if(!(await env.WORKSPACE_SOURCE_LIMIT.limit({key})).success)return json({error:'Too many requests'},429,{...headers,'retry-after':'60'});
+    }
+    const mutating=adminRequest.input.operation==='sessions_revoke';
+    return withDb(env,async db=>{
+      if(mutating){const limited=await mutationLimit(db,token,'manageAccount',headers);if(limited)return limited;}
+      await db.query(mutating?'BEGIN':'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
+      let finished=false;
+      try {
+        const actor=(await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active'"+(mutating?' FOR SHARE OF u,s':' LIMIT 1'),[await sha256(token)])).rows[0];
+        if(!actor)return json({error:'Invalid session'},401,headers);
+        if(!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id)))return json({error:'Forbidden'},403,headers);
+        const result=await accountAdministration(db,actor,adminRequest.input);
+        if(mutating&&result.status===200){await db.query('COMMIT');finished=true;}
+        return json(result.body,result.status,headers);
+      }finally {if(!finished)await db.query('ROLLBACK');}
+    });
+  }
   if(['/maintenance/configuration','/maintenance/configuration/test-email'].includes(path)) {
     if(!((path==='/maintenance/configuration' && ['GET','POST'].includes(request.method)) || (path.endsWith('/test-email') && request.method==='POST')))return json({error:'Method not allowed'},405,headers);
     const token=request.headers.has('authorization')?tokenFrom(request):null;
