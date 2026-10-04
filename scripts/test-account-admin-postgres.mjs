@@ -21,6 +21,13 @@ try {
  for(let i=0;i<3;i++)await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,$3,$4,'fixture-unused-hash','active')",[ids[i],`admin-${ids[i]}@example.invalid`,i===1?'rmt':'ceo',i===2?tenants[1]:tenants[0]]);
  for(let i=0;i<3;i++)await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '1 hour')",[hash(tokens[i]),ids[i]]);
  await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()-INTERVAL '1 hour')",[hash('h'.repeat(43)),ids[1]]);
+ const detail=await (await call('/admin/users/'+ids[1])).json();assert.equal(detail.user.id,ids[1]);assert.equal(detail.user.canModify,true);assert.deepEqual(Object.keys(detail.user).sort(),['id','email','roles','status','updated_at','canModify'].sort());checks++;
+ const self=await (await call('/admin/users/'+ids[0])).json();assert.equal(self.user.canModify,false);checks++;
+ assert.equal((await call('/admin/users/'+ids[2])).status,404);assert.equal((await call('/admin/users/'+ids[0],'GET','',tokens[1])).status,403);checks++;
+ await db.query("INSERT INTO auth_account_audit(actor_user_id,target_user_id,tenant_id,action) VALUES($1,$2,$3,'account_created'),($4,$4,$5,'account_created')",[ids[0],ids[1],tenants[0],ids[2],tenants[1]]);
+ const creation=await (await call('/admin/users/creation-audit','GET','?userId='+ids[1]+'&limit=1')).json();assert.equal(creation.pagination.total,1);assert.equal(creation.events[0].targetUserId,ids[1]);assert.equal(creation.events[0].action,'account_created');checks++;
+ const crossCreation=await (await call('/admin/users/creation-audit','GET','?userId='+ids[2])).json();assert.equal(crossCreation.pagination.total,0);checks++;
+ const emptyPage=await (await call('/admin/users/creation-audit','GET','?offset=1')).json();assert.equal(emptyPage.events.length,0);assert.equal(emptyPage.pagination.total,1);checks++;
  const active=await (await call(sessions)).json();assert.equal(active.pagination.total,1);assert.equal(active.sessions.length,1);assert.ok(!JSON.stringify(active).includes('token_hash'));checks++;
  const all=await (await call(sessions,'GET','?includeExpired=true')).json();assert.equal(all.pagination.total,2);checks++;
  assert.equal((await call('/admin/users/'+ids[2]+'/sessions')).status,404);assert.equal((await call('/admin/users/'+ids[2]+'/sessions','DELETE')).status,404);checks++;
@@ -44,6 +51,7 @@ try {
 }finally {
  if(triggerInstalled)await db.query('DROP TRIGGER IF EXISTS test_admin_audit_failure ON auth_management_audit');
  await db.query('DROP FUNCTION IF EXISTS test_admin_audit_failure()');
+ await db.query('DELETE FROM auth_account_audit WHERE target_user_id::text=ANY($1)',[ids]);
  await db.query('DELETE FROM auth_management_audit WHERE target_user_id::text=ANY($1)',[ids]);
  await db.query('DELETE FROM auth_sessions WHERE user_id::text=ANY($1)',[ids]);
  await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=ANY($1)',[ids.map(id=>hash('manageAccount:'+id))]);

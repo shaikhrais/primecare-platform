@@ -7,6 +7,8 @@ function fixture(role='ceo',found=true){actor=role?{id:'actor',roles:role,tenant
   queries.push({sql,values});
   if(sql.includes('WHERE s.token_hash=$1'))return {rows:actor?[actor]:[]};
   if(sql.startsWith('INSERT INTO auth_rate_limits'))return {rows:[{attempts:++rateAttempts,retry_after:60}]};
+  if(sql.startsWith('SELECT id,email,roles,status,updated_at')){assert.deepEqual(values,['target','tenant-a']);return {rows:target?[{id:'target',email:'target@example.invalid',roles:'rmt',status:'active',updated_at:null,password_hash:'should-not-leak',tenant_id:'should-not-leak'}]:[]};}
+  if(sql.startsWith('SELECT id,actor_user_id')&&sql.includes('FROM auth_account_audit'))return {rows:[{id:'creation',actorUserId:'actor',targetUserId:'target',created_at:'2026-01-01T00:00:00Z',secret:'should-not-leak'}]};
   if(sql.startsWith('SELECT id FROM users')){assert.deepEqual(values,['target','tenant-a']);return {rows:target?[target]:[]};}
   if(sql.startsWith('WITH revoked AS'))return {rows:[{count:2}]};
   if(sql.startsWith('INSERT INTO auth_management_audit')){if(failAudit)throw Error('private-audit-secret');return {rows:[]};}
@@ -71,4 +73,34 @@ test('gateway forwards session and audit methods, credentials and query paramete
   let forwarded;const r=await gateway.fetch(new Request('https://gateway'+path+'?limit=2',{method,headers:{authorization:'Bearer '+token}}),{AUTH:{fetch:async(req)=>{forwarded=req;return Response.json({ok:true});}}});
   assert.equal(r.status,200);assert.equal(new URL(forwarded.url).pathname,path.slice(3));assert.equal(new URL(forwarded.url).search,'?limit=2');assert.equal(forwarded.method,method);assert.equal(forwarded.headers.get('authorization'),'Bearer '+token);
  }
+});
+
+test('account detail projects approved fields only and binds the target and tenant',async()=>{
+ fixture();const r=await call('/admin/users/target');assert.equal(r.status,200);const body=await r.json();
+ assert.deepEqual(body.user,{id:'target',email:'target@example.invalid',roles:'rmt',status:'active',updated_at:null,canModify:true});assert.ok(body.assignableRoles.includes('rmt'));assert.ok(!JSON.stringify(body).includes('should-not-leak'));
+ assert.equal(queries.at(-1).sql,'ROLLBACK');assert.equal(r.headers.get('cache-control'),'no-store');
+ fixture();actor.id='TARGET';assert.equal((await (await call('/admin/users/target')).json()).user.canModify,false);
+});
+test('account detail rejects unauthorized actors and absent tenant targets',async()=>{
+ fixture('rmt');assert.equal((await call('/admin/users/target')).status,403);
+ fixture(null);assert.equal((await call('/admin/users/target')).status,401);
+ fixture('ceo',false);assert.equal((await call('/admin/users/target')).status,404);
+ fixture();assert.equal((await call('/admin/users/target','GET','',{'x-tenant-id':'foreign'})).status,403);
+ fixture();assert.equal((await auth(new Request('https://fixture/admin/users/target',{headers:{cookie:'session_token='+token}}),env,'/admin/users/target',{})).status,401);
+});
+test('creation history is bounded, tenant scoped and exposes only persisted creation events',async()=>{
+ fixture();const r=await call('/admin/users/creation-audit','GET','?userId=target&limit=1&offset=1');assert.equal(r.status,200);const body=await r.json();
+ assert.deepEqual(body.events[0],{id:'creation',actorUserId:'actor',targetUserId:'target',created_at:'2026-01-01T00:00:00Z',action:'account_created'});
+ const q=queries.find(q=>q.sql.includes('FROM auth_account_audit')&&!q.sql.startsWith('SELECT COUNT'));assert.deepEqual(q.values,['tenant-a','target',1,1]);assert.ok(q.sql.includes("action='account_created'"));assert.ok(q.sql.includes('ORDER BY created_at DESC,id DESC'));assert.equal(body.pagination.total,2);
+});
+test('detail and creation history reject methods and invalid queries before accessing the database',async()=>{
+ for(const [path,method,query] of [['/admin/users/target','POST',''],['/admin/users/creation-audit','DELETE',''],['/admin/users/%2F','GET',''],['/admin/users/target','GET','?limit=1'],['/admin/users/creation-audit','GET','?userId='],['/admin/users/audit','GET','?userId='],['/admin/users/creation-audit','GET','?limit=2&limit=3']]){
+  fixture();const r=await call(path,method,query);assert.equal(r.status,method==='GET'?400:405);assert.equal(queries.length,0);if(method!=='GET')assert.equal(r.headers.get('allow'),'GET');
+ }
+});
+test('gateway forwards new account read routes and source limits apply before database reads',async()=>{
+ for(const path of ['/v1/admin/users/target','/v1/admin/users/creation-audit']){
+  let forwarded;const r=await gateway.fetch(new Request('https://gateway'+path+'?userId=target'),{AUTH:{fetch:async req=>{forwarded=req;return Response.json({ok:true});}}});assert.equal(r.status,200);assert.equal(new URL(forwarded.url).pathname,path.slice(3));assert.equal(new URL(forwarded.url).search,'?userId=target');
+ }
+ fixture();const limited=await auth(new Request('https://fixture/admin/users/target',{headers:{authorization:'Bearer '+token}}),{...env,WORKSPACE_SOURCE_LIMIT:{limit:async()=>({success:false})}},'/admin/users/target',{});assert.equal(limited.status,429);assert.equal(queries.length,0);
 });

@@ -1,23 +1,25 @@
 import type {Client} from 'pg';
 import policy from './account-policy.json';
 type Actor={id:string;roles:string;tenant_id:string};
-type Operation='sessions_read'|'sessions_revoke'|'audit_read';
+type Operation='sessions_read'|'sessions_revoke'|'audit_read'|'account_read'|'creation_audit_read';
 export type AdminInput={operation:Operation;userId:string;limit:number;offset:number;includeExpired:boolean};
 type Parsed={input:AdminInput}|{status:number;error:string;allow?:string}|null;
 const identifier=(id:string)=>/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(id);
 
 /** Exact route/method/query validation; no body or tenant override is accepted. */
 export function parseAccountAdminRequest(request:Request,path:string):Parsed {
-  const sessions=/^\/admin\/users\/([^/]+)\/sessions$/.exec(path),audit=path==='/admin/users/audit';
-  if(!sessions&&!audit)return null;
-  const allow=audit?'GET':'GET, DELETE';
-  if(!(audit?request.method==='GET':['GET','DELETE'].includes(request.method)))return {status:405,error:'Method not allowed',allow};
-  const operation:Operation=audit?'audit_read':request.method==='DELETE'?'sessions_revoke':'sessions_read';
+  const sessions=/^\/admin\/users\/([^/]+)\/sessions$/.exec(path),audit=path==='/admin/users/audit',creationAudit=path==='/admin/users/creation-audit';
+  const detail=!audit&&!creationAudit&&!sessions?/^\/admin\/users\/([^/]+)$/.exec(path):null;
+  if(!sessions&&!audit&&!creationAudit&&!detail)return null;
+  const readOnly=audit||creationAudit||!!detail;
+  const allow=readOnly?'GET':'GET, DELETE';
+  if(!(readOnly?request.method==='GET':['GET','DELETE'].includes(request.method)))return {status:405,error:'Method not allowed',allow};
+  const operation:Operation=audit?'audit_read':creationAudit?'creation_audit_read':detail?'account_read':request.method==='DELETE'?'sessions_revoke':'sessions_read';
   const params=new URL(request.url).searchParams;
-  const keys=operation==='sessions_revoke'?[]:audit?['limit','offset','userId']:['limit','offset','includeExpired'];
+  const keys=operation==='sessions_revoke'||detail?[]:audit||creationAudit?['limit','offset','userId']:['limit','offset','includeExpired'];
   if([...params.keys()].some(k=>!keys.includes(k)||params.getAll(k).length!==1)||request.body!==null)return {status:400,error:'Invalid query or body'};
-  const userId=sessions?.[1]??params.get('userId')??'';
-  if((sessions||userId)&&!identifier(userId))return {status:400,error:'Invalid user identifier'};
+  const userId=sessions?.[1]??detail?.[1]??params.get('userId')??'';
+  if((sessions||detail||params.has('userId'))&&!identifier(userId))return {status:400,error:'Invalid user identifier'};
   const limit=params.get('limit')??'25',offset=params.get('offset')??'0',expired=params.get('includeExpired')??'false';
   if(!/^[1-9]\d{0,2}$/.test(limit)||Number(limit)>100||!/^\d{1,6}$/.test(offset)||Number(offset)>100000||!['true','false'].includes(expired))return {status:400,error:'Invalid query'};
   return {input:{operation,userId,limit:Number(limit),offset:Number(offset),includeExpired:expired==='true'}};
@@ -34,6 +36,21 @@ const safeState=(raw:unknown)=>{
  * deletes sessions and appends audit together; any failed audit must roll back. */
 export async function accountAdministration(db:Client,actor:Actor,input:AdminInput):Promise<{status:number;body:unknown}> {
   if(actor.roles!=='ceo'||!actor.tenant_id)return {status:403,body:{error:'Forbidden'}};
+  if(input.operation==='account_read') {
+    const user=(await db.query('SELECT id,email,roles,status,updated_at FROM users WHERE id::text=$1 AND tenant_id::text=$2',[input.userId,String(actor.tenant_id)])).rows[0];
+    if(!user)return {status:404,body:{error:'Account not found'}};
+    // Explicit projection also protects against unexpected fields from adapters.
+    return {status:200,body:{user:{id:String(user.id),email:user.email,roles:user.roles,status:user.status,updated_at:user.updated_at,
+      canModify:String(user.id).toLowerCase()!==String(actor.id).toLowerCase()},assignableRoles:policy.ceo}};
+  }
+  if(input.operation==='creation_audit_read') {
+    const values=[String(actor.tenant_id),input.userId];
+    const filter="tenant_id::text=$1 AND action='account_created' AND ($2='' OR target_user_id::text=$2)";
+    const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM auth_account_audit WHERE '+filter,values)).rows[0].count);
+    const events=(await db.query(`SELECT id,actor_user_id::text AS "actorUserId",target_user_id::text AS "targetUserId",created_at
+      FROM auth_account_audit WHERE ${filter} ORDER BY created_at DESC,id DESC LIMIT $3 OFFSET $4`,[...values,input.limit,input.offset])).rows;
+    return {status:200,body:{events:events.map(e=>({id:String(e.id),actorUserId:String(e.actorUserId),targetUserId:String(e.targetUserId),created_at:e.created_at,action:'account_created'})),pagination:pagination(input,total)}};
+  }
   if(input.operation==='audit_read') {
     const values=[String(actor.tenant_id),input.userId];
     const filter="tenant_id::text=$1 AND ($2='' OR target_user_id::text=$2)";
