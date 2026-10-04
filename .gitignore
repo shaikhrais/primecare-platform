@@ -130,3 +130,7 @@ artifacts/builds/
 .cloudflare-workers/
 websites/typescript/generated/
 websites/typescript/dist/
+
+# Reproducible architecture tooling and large generated viewers
+.architecture-tools/
+docs/architecture/generated/
