@@ -382,7 +382,8 @@ class ApiClient {
     final route = Uri.tryParse(path)?.normalizePath().path ?? path;
     return route == '/v1/auth' || route.startsWith('/v1/auth/') ||
         route == '/api/auth' || route.startsWith('/api/auth/') ||
-        route == '/v1/user/change-password' || route == '/v1/admin/users';
+        route == '/v1/user/change-password' || route == '/v1/admin/users' ||
+        route == '/v1/governance/workspace';
   }
 
   static ApiResponse _authFailure(Object error) {

@@ -130,3 +130,6 @@ artifacts/builds/
 .cloudflare-workers/
 websites/typescript/generated/
 websites/typescript/dist/
+
+# Generated from the governed database before Worker compilation.
+cloudflare/workers/src/workspace-registry.json

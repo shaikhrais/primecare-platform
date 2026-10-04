@@ -1,4 +1,5 @@
 name: PrimeCare production release
+# Governed dashboard and page release: test before deployment.
 on:
   push:
     branches: [main]
@@ -44,7 +45,7 @@ jobs:
             }
             await core.summary.addHeading('Release preparation').addRaw('Cancelled ' + cancelled + ' superseded standalone runs. This release builds Windows apps and deploys websites from one source version.').write();
   apis:
-    needs: prepare
+    needs: governance
     uses: ./.github/workflows/deploy-cloudflare-workers.yml
     with:
       confirm: DEPLOY
@@ -59,3 +60,96 @@ jobs:
     needs: apis
     uses: ./.github/workflows/build_windows.yml
     secrets: inherit
+  governance:
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Persist verified governance database changes
+        run: |
+          python3 scripts/register-maintenance-governance.py
+          python3 scripts/register-workspace-governance.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .agents/governance/governance.db
+          if ! git diff --cached --quiet; then
+            git commit -m "Register created workspace pages and correct role governance [skip ci]"
+            git push origin HEAD:main
+          fi
+  verify:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        identity: [uuid, text]
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: auth_test
+          POSTGRES_USER: auth_test
+          POSTGRES_PASSWORD: disposable-ci-fixture
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U auth_test -d auth_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated verification dependencies
+        run: |
+          mkdir -p "$RUNNER_TEMP/workspace-dependencies"
+          npm install --prefix "$RUNNER_TEMP/workspace-dependencies" --ignore-scripts esbuild@0.27.2 pg@8.16.3 bcryptjs@3.0.2 typescript@5.9.3 @types/pg@8.15.5 @cloudflare/workers-types@4.20260403.1 jsdom@26.1.0 playwright@1.55.0 @axe-core/playwright@4.10.2
+          ln -s "$RUNNER_TEMP/workspace-dependencies/node_modules" node_modules
+      - name: Verify governance, API authorization and dashboard navigation
+        run: |
+          python3 scripts/register-maintenance-governance.py
+          python3 scripts/register-workspace-governance.py
+          node --test scripts/test-workspace.mjs scripts/test-workspace-browser.mjs scripts/test-auth-maintenance.mjs scripts/test-auth-recovery.mjs scripts/test-auth-api.mjs scripts/test-auth-client.mjs scripts/test-auth-bootstrap.mjs scripts/test-auth-management.mjs scripts/test-auth-password.mjs scripts/test-auth-schema.mjs scripts/test-auth-cleanup.mjs scripts/test-auth-source.mjs
+          node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
+          node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/main.ts
+      - name: Real PostgreSQL workspace and session lifecycle
+        env:
+          AUTH_TEST_ID_TYPE: ${{ matrix.identity }}
+          AUTH_TEST_DATABASE_URL: postgres://auth_test:disposable-ci-fixture@127.0.0.1:5432/auth_test
+        run: |
+          node scripts/test-auth-postgres.mjs
+          node scripts/test-workspace-postgres.mjs
+      - name: Real Chromium navigation and accessibility checks
+        if: matrix.identity == 'uuid'
+        run: |
+          node scripts/build-typescript-websites.mjs
+          node_modules/.bin/playwright install --with-deps chromium
+          node scripts/test-workspace-playwright.mjs
+      - uses: actions/upload-artifact@v4
+        if: always() && matrix.identity == 'uuid'
+        with:
+          name: workspace-browser-evidence
+          path: artifacts/workspace-browser/
+          if-no-files-found: ignore
+  smoke:
+    needs: websites
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated production smoke dependencies
+        run: |
+          mkdir -p "$RUNNER_TEMP/workspace-smoke"
+          npm install --prefix "$RUNNER_TEMP/workspace-smoke" --ignore-scripts pg@8.16.3 bcryptjs@3.0.2
+          ln -s "$RUNNER_TEMP/workspace-smoke/node_modules" node_modules
+      - name: Verify login and dashboard through the public gateway using a temporary QA tenant
+        env:
+          CONFIRM_AUTH_SMOKE: VERIFY_AUTH
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GATEWAY_URL: https://primecare-api-gateway.itpro-mohammed.workers.dev
+        run: node scripts/verify-production-auth.mjs

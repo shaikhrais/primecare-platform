@@ -47,6 +47,12 @@ try {
  check(stored?.roles==='rmt'&&stored?.tenant_id===tenantId,'created account persisted in fixture tenant');
  const targetLogin=await call('/v1/auth/login','POST',{email:targetEmail,password});
  check(targetLogin.status===200&&targetLogin.data.role==='rmt','created account can authenticate');
+ const workspace=await call('/v1/governance/workspace?screen=ceo_dashboard','GET',undefined,token);
+ check(workspace.status===200&&workspace.data.identity?.role==='ceo','CEO dashboard loads through the production gateway');
+ check(workspace.data.overview?.activeAccounts===2,'dashboard account totals are scoped to the isolated QA tenant');
+ check(workspace.data.screens?.some(s=>s.code==='ceo_dashboard'),'CEO dashboard is present in governed navigation');
+ check((await call('/v1/governance/workspace?screen=ceo_dashboard','GET',undefined,targetLogin.data.token)).status===403,'staff cannot read the CEO page');
+ check((await call('/v1/governance/workspace','GET',undefined,token,{'x-tenant-id':randomUUID()})).status===403,'workspace rejects a cross-tenant header');
  check((await call('/v1/auth/register','POST',{email:'denied-'+suffix+'@example.invalid',password,role:'ceo'},targetLogin.data.token)).status===403,'ordinary role cannot create CEO');
  const deactivate=await call('/v1/admin/users','POST',{id:targetId,role:'rmt',status:'inactive'},token);
  check(deactivate.status===200,'CEO can deactivate fixture account');

@@ -8,14 +8,17 @@ import {loginRateLimit,authRateLimit,type AuthOperation} from './auth-rate-limit
 import {manageAccount,validateAccountUpdate} from './account-management';
 import {changePassword,validatePasswordChange} from './password-change';
 
-export interface Env extends SourceLimitEnv, MaintenanceEnv { DB_URL: string; SERVICE_NAME: string }
+export interface Env extends SourceLimitEnv, MaintenanceEnv {
+  DB_URL: string; SERVICE_NAME: string;
+  WORKSPACE_SOURCE_LIMIT?: {limit(options:{key:string}):Promise<{success:boolean}>};
+}
 type Json = Record<string, unknown>;
 
 export function json(body: unknown, status = 200, headers: HeadersInit = {}): Response {
   return Response.json(body, { status, headers });
 }
 
-function tokenFrom(request: Request): string | null {
+export function tokenFrom(request: Request): string | null {
   const authorization = request.headers.get('authorization');
   // An explicit but invalid Authorization header must not fall back to cookies.
   if (authorization !== null) {
@@ -28,7 +31,7 @@ function tokenFrom(request: Request): string | null {
   return /^[A-Za-z0-9_-]{43}$/.test(token) ? token : null;
 }
 
-async function sha256(value: string): Promise<string> {
+export async function sha256(value: string): Promise<string> {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
   return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, '0')).join('');
 }

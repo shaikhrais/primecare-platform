@@ -1,4 +1,5 @@
 import {sourceLoginLimit} from './auth-source-limit';
+import {workspace} from './workspace';
 import { auth, json, parseBody, withDb, type Env } from './auth';
 
 const allowedOrigins = [
@@ -84,14 +85,16 @@ export default {
         const response = await auth(request, env, path, headers);
         if (response) return response;
       }
+      const pageResponse = await workspace(request,env,path,headers);
+      if(pageResponse)return pageResponse;
       const response = await domainRoute(request, env, path, headers);
       if (response) return response;
 
       if (/^\/api\/[a-z0-9-]+-screen$/.test(path) && request.method === 'GET')
-        return json({ status: 'success', message: 'Data retrieved successfully', data: [] }, 200, headers);
+        return json({error:'Business data binding is not implemented',status:'not_implemented'},501,headers);
       const action = path.match(/^\/api\/([a-z0-9-]+-screen)\/action$/);
       if (action && request.method === 'POST')
-        return json({ status: 'action_completed', message: `Successfully processed action for ${action[1]}` }, 200, headers);
+        return json({error:'Business action is not implemented',status:'not_implemented'},501,headers);
       return json({ error: 'Route not found', service: env.SERVICE_NAME }, 404, headers);
     } catch (error) {
       console.error(error);

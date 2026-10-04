@@ -3,6 +3,8 @@ import 'package:flutter_core/flutter_core.dart';
 import 'package:go_router/go_router.dart';
 import 'login_view.dart';
 import '../maintenance/maintenance_configuration_screen.dart';
+import '../workspace/governed_workspace_screen.dart';
+import '../workspace/workspace_routes_generated.dart';
 import 'auth_experience.dart';
 import 'language_selection_view.dart';
 import 'forgot_password_view.dart';
@@ -20,15 +22,18 @@ class SharedAuthRouter {
     List<GoRoute> additionalPublicRoutes = const [],
   }) {
     final auth = ref.watch(authProvider);
+    final workspaceRoutes = governedWorkspaceRoleRoutes[auth.role] ?? const <String>[];
     final dashboard = auth.isAuthenticated && auth.role == 'maintenance' ? '/maintenance/configuration' : !auth.isAuthenticated
         ? CommonRoutes.login
-        : application.getDefinition(activeRole)?.dashboardRoute ??
+        : governedWorkspaceLandings[auth.role] ?? application.getDefinition(activeRole)?.dashboardRoute ??
             AuthNotifier.getDashboardRouteForRole(auth.role ?? '');
     return GovernanceRouter.buildZeroTrustRouter(
       application: application,
       activeRole: activeRole,
       initialLocation: dashboard,
       refreshListenable: authListenable,
+      additionalGovernedRoutes: workspaceRoutes,
+      governedScreenBuilder: (context, state) => GovernedWorkspaceScreen(route: state.uri.path),
       guestErrorBuilder: (context, state) => const AppShellBoundary(
         child: LoginView(),
       ),
@@ -80,7 +85,7 @@ class SharedAuthRouter {
           isLoggedIn: true,
           userRole: session.role,
         );
-        return result.isAllowed
+        return result.isAllowed || workspaceRoutes.contains(path)
             ? null
             : result.redirectRoute ?? CommonRoutes.globalSettings;
       },
