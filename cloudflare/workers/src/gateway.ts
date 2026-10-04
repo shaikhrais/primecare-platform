@@ -45,7 +45,7 @@ export default {
       url.hostname='service';url.pathname='/change-password';
       return withGatewayHeaders(request,await env.AUTH.fetch(new Request(url,request)));
     }
-    if(/^\/v1\/admin\/users(?:\/audit|\/[^/]+\/sessions)?$/.test(url.pathname)) {
+    if(/^\/v1\/admin\/users(?:\/(?:audit|creation-audit)|\/[^/]+(?:\/sessions)?)?$/.test(url.pathname)) {
       url.hostname='service';url.pathname=url.pathname.slice(3);
       return withGatewayHeaders(request,await env.AUTH.fetch(new Request(url,request)));
     }
