@@ -1,6 +1,12 @@
 name: Deploy TypeScript Websites to Cloudflare Pages
 
 on:
+  workflow_call:
+    inputs:
+      confirm:
+        description: Production deployment authorization
+        required: true
+        type: string
   workflow_dispatch:
     inputs:
       confirm:
@@ -52,7 +58,9 @@ jobs:
           API_GATEWAY_URL: ${{ needs.verify_gateway.outputs.gateway }}
         run: |
           set -euo pipefail
-          npm install --no-save --ignore-scripts esbuild@0.27.2 typescript
+          mkdir -p "$RUNNER_TEMP/website-dependencies"
+          npm install --prefix "$RUNNER_TEMP/website-dependencies" --ignore-scripts esbuild@0.27.2 typescript@5.9.3
+          ln -s "$RUNNER_TEMP/website-dependencies/node_modules" node_modules
           node scripts/build-typescript-websites.mjs
           for project in $(jq -r 'keys[]' websites/typescript/projects.json); do
             test -s "websites/typescript/dist/${project}/index.html"

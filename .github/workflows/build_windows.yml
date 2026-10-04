@@ -1,6 +1,7 @@
 name: Build Windows Distributions
 
 on:
+  workflow_call:
   push:
     branches: [ "main" ]
     paths-ignore:
@@ -57,7 +58,7 @@ jobs:
         run: |
           cd apps/${{ matrix.app }}
           flutter pub get
-          flutter build windows --release
+          flutter build windows --release --dart-define=API_BASE_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev
 
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
