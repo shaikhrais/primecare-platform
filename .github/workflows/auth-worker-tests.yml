@@ -2,9 +2,9 @@ name: Auth Worker unit and PostgreSQL tests
 on:
   push:
     branches: [main]
-    paths: ['cloudflare/workers/**', 'scripts/test-auth-*.mjs', 'scripts/cleanup-auth-rate-limits.mjs', 'scripts/generate-cloudflare-worker-config.mjs', '.github/workflows/auth-worker-tests.yml']
+    paths: ['cloudflare/workers/**', 'scripts/test-auth-*.mjs', 'scripts/test-governance-*.mjs', 'scripts/test-account-*.mjs', 'scripts/verify-api-batches.mjs', 'scripts/record-api-batch-evidence.py', 'scripts/register-governance-api-batch.py', 'scripts/register-account-list-api.py', 'scripts/register-workspace-governance.py', 'scripts/cleanup-auth-rate-limits.mjs', 'scripts/generate-cloudflare-worker-config.mjs', '.github/workflows/auth-worker-tests.yml']
   pull_request:
-    paths: ['cloudflare/workers/**', 'scripts/test-auth-*.mjs', 'scripts/cleanup-auth-rate-limits.mjs', 'scripts/generate-cloudflare-worker-config.mjs', '.github/workflows/auth-worker-tests.yml']
+    paths: ['cloudflare/workers/**', 'scripts/test-auth-*.mjs', 'scripts/test-governance-*.mjs', 'scripts/test-account-*.mjs', 'scripts/verify-api-batches.mjs', 'scripts/record-api-batch-evidence.py', 'scripts/register-governance-api-batch.py', 'scripts/register-account-list-api.py', 'scripts/register-workspace-governance.py', 'scripts/cleanup-auth-rate-limits.mjs', 'scripts/generate-cloudflare-worker-config.mjs', '.github/workflows/auth-worker-tests.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -41,7 +41,7 @@ jobs:
           python3 scripts/register-maintenance-governance.py
           python3 scripts/register-workspace-governance.py
       - name: Unit tests
-        run: node --test scripts/test-auth-maintenance.mjs scripts/test-auth-recovery.mjs scripts/test-auth-api.mjs scripts/test-auth-client.mjs scripts/test-auth-bootstrap.mjs scripts/test-auth-management.mjs scripts/test-auth-password.mjs scripts/test-auth-schema.mjs scripts/test-auth-cleanup.mjs scripts/test-auth-source.mjs
+        run: node scripts/verify-api-batches.mjs
       - name: Type check Workers
         run: node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
       - name: Real PostgreSQL session lifecycle
@@ -51,3 +51,4 @@ jobs:
         run: |
           node scripts/test-auth-postgres.mjs
           node scripts/test-auth-cleanup-postgres.mjs
+          node scripts/test-governance-postgres.mjs

@@ -5,7 +5,7 @@ import { Client } from 'pg';
 import bcrypt from 'bcryptjs';
 import accountPolicy from './account-policy.json';
 import {loginRateLimit,authRateLimit,type AuthOperation} from './auth-rate-limit';
-import {manageAccount,validateAccountUpdate} from './account-management';
+import {manageAccount,validateAccountUpdate,listAccounts} from './account-management';
 import {changePassword,validatePasswordChange} from './password-change';
 
 export interface Env extends SourceLimitEnv, MaintenanceEnv {
@@ -133,6 +133,30 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
         return json(result.body,result.status,result.status===200?{...headers,'set-cookie':'session_token=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0'}:headers);
       }catch(error){await db.query('ROLLBACK');throw error;}
     });
+  }
+  if(path==='/admin/users' && !['GET','POST'].includes(request.method)) {
+    const safe=new Headers(headers);safe.set('cache-control','no-store');safe.set('allow','GET, POST');
+    return json({error:'Method not allowed'},405,safe);
+  }
+  if(path==='/admin/users' && request.method==='GET') {
+    const safe=new Headers(headers);safe.set('cache-control','no-store');
+    const token=request.headers.has('authorization')?tokenFrom(request):null;
+    if(!token)return json({error:'No session'},401,safe);
+    try {
+      if(env.WORKSPACE_SOURCE_LIMIT) {
+        const key=await sha256('account-list:'+(request.headers.get('cf-connecting-ip')??'unknown'));
+        if(!(await env.WORKSPACE_SOURCE_LIMIT.limit({key})).success){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
+      }
+      return await withDb(env,async db=>{
+        await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
+        try {
+          const actor=(await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1",[await sha256(token)])).rows[0];
+          if(!actor)return json({error:'Invalid session'},401,safe);
+          if(!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id)))return json({error:'Forbidden'},403,safe);
+          const result=await listAccounts(db,actor,new URL(request.url));return json(result.body,result.status,safe);
+        }finally {await db.query('ROLLBACK');}
+      });
+    }catch{return json({error:'Account list unavailable'},503,safe);}
   }
   if(path==='/admin/users' && request.method==='POST') {
     const token=request.headers.has('authorization')?tokenFrom(request):null;

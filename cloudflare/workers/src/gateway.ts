@@ -45,7 +45,7 @@ export default {
       url.hostname='service';url.pathname='/change-password';
       return withGatewayHeaders(request,await env.AUTH.fetch(new Request(url,request)));
     }
-    if(url.pathname==='/v1/admin/users' && request.method==='POST') {
+    if(url.pathname==='/v1/admin/users') {
       url.hostname='service';url.pathname='/admin/users';
       return withGatewayHeaders(request,await env.AUTH.fetch(new Request(url,request)));
     }

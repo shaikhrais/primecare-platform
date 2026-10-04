@@ -1,5 +1,6 @@
 import {sourceLoginLimit} from './auth-source-limit';
 import {workspace} from './workspace';
+import {governanceApi} from './governance-api';
 import { auth, json, parseBody, withDb, type Env } from './auth';
 
 const allowedOrigins = [
@@ -85,6 +86,8 @@ export default {
         const response = await auth(request, env, path, headers);
         if (response) return response;
       }
+      const batchResponse = await governanceApi(request,env,path,headers);
+      if(batchResponse)return batchResponse;
       const pageResponse = await workspace(request,env,path,headers);
       if(pageResponse)return pageResponse;
       const response = await domainRoute(request, env, path, headers);
