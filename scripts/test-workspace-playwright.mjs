@@ -29,7 +29,8 @@ try {
  for(const screen of screens){await page.locator(`[data-cy="sidebar-item-${screen.code}"]`).first().click();await page.locator(`[data-cy="screen-${screen.code}"]`).waitFor();}
  await page.locator('[data-cy="sidebar-item-ceo_dashboard"]').first().click();
  await page.locator('[data-cy="workspace-search"]').fill('ceo');
- assert.ok((await page.locator('[data-cy="inventory-count"]').textContent()).startsWith(registry.screens.filter(s=>s.role==='ceo').length+' '));
+ const matches=registry.screens.filter(s=>`${s.name} ${s.role} ${s.appCode} ${s.route}`.toLowerCase().includes('ceo'));
+ assert.ok((await page.locator('[data-cy="inventory-count"]').textContent()).startsWith(matches.length+' '));
  await page.locator('[data-cy="workspace-search"]').fill('');
  await page.locator('[data-cy="workspace-search"]').focus();
  assert.equal(await page.evaluate(()=>document.activeElement?.getAttribute('data-cy')),'workspace-search');

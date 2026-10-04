@@ -1,5 +1,5 @@
 name: PrimeCare production release
-# Governed dashboard and page release: test before deployment.
+# Governed dashboard and page release: database, browser and accessibility gates.
 on:
   push:
     branches: [main]
