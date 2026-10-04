@@ -71,12 +71,12 @@ jobs:
                   else:
                       enabled = status == 200 and any(d.get("enabled") for d in sending)
                   if enabled:
-                      status, sent = call("/accounts/" + account + "/email/sending/send", {"from": {"email": "noreply@" + domain, "name": "PrimeCare"}, "to": recipient, "subject": "PrimeCare Cloudflare email test", "text": "This is your requested PrimeCare email test, sent directly through Cloudflare. This message does not change your password."})
+                      status, sent = call("/accounts/" + account + "/email/sending/send", {"from": "noreply@" + domain, "to": recipient, "subject": "PrimeCare Cloudflare email test", "text": "This is your requested PrimeCare email test, sent directly through Cloudflare. This message does not change your password."})
                       report["native_test_http_status"] = status
                       report["native_test_success"] = sent.get("success", False)
                       report["native_test_errors"] = errors(sent)
                       result = sent.get("result") or {}
-                      report["native_test_message_id"] = result.get("message_id") or result.get("messageId") if isinstance(result, dict) else None
+                      report["native_test_delivery"] = {k: result.get(k, []) for k in ["delivered", "queued", "permanent_bounces"]} if isinstance(result, dict) else {}
                       if status in [200, 201] and sent.get("success"):
                           status, recovered = call("/v1/auth/forgot-password", {"email": recipient}, authenticated=False)
                           report["password_recovery_http_status"] = status
