@@ -11,7 +11,7 @@
     </listeners>
     <test name="PrimeCare L5 API Tests">
         <classes>
-            <class name="primecare.testing.framework.factory.PrimeCareLayerTestFactory" />
+            <class name="primecare.testing.framework.PrimeCareLayerTestFactory" />
         </classes>
     </test>
 </suite>

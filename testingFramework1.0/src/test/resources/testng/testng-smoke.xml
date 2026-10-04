@@ -4,7 +4,7 @@
     <listeners>
         <listener class-name="base.TestNGVerificationListener" />
     </listeners>
-    <test name="Smoke Test - Core Authentication & Clinic Dashboards">
+    <test name="Smoke Test - Core Authentication &amp; Clinic Dashboards">
         <classes>
             <class name="testNG.PrimeCare.PrimeCareTest" />
             <class name="testNG.PrimeCare.PswDashboardTest" />

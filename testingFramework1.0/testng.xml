@@ -10,7 +10,7 @@
         <listener class-name="base.TestNGVerificationListener"/>
     </listeners>
 
-    <test name="Master Screen & Role User Journey Verification">
+    <test name="Master Screen &amp; Role User Journey Verification">
 
         <classes>
             <class name="testNG.PrimeCare.MasterScreenTestRunner"/>
