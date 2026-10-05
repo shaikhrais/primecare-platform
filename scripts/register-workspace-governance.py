@@ -3,7 +3,7 @@
 Created pages are partial until domain workflow, browser and accessibility
 evidence exists. This script never turns template evidence into readiness.
 """
-import csv, json, re, sqlite3
+import csv, hashlib, json, re, sqlite3
 import runpy
 from collections import Counter
 from pathlib import Path
@@ -156,6 +156,10 @@ with sqlite3.connect(DB) as db:
         'workspace.previous':'Previous page','workspace.next':'Next page'}}
     target=ROOT/'cloudflare/workers/src/workspace-registry.json'
     target.write_text(json.dumps(registry,separators=(',',':'))+'\n')
+    catalog_path=ROOT/'cloudflare/workers/src/governance-api-registry.json'
+    catalog=json.loads(catalog_path.read_text())
+    catalog['version']=hashlib.sha256(json.dumps({'bindings':catalog['bindings'],'roles':catalog['roles'],'hierarchy':catalog['hierarchy'],'workspace':registry},sort_keys=True).encode()).hexdigest()[:16]
+    catalog_path.write_text(json.dumps(catalog,separators=(',',':'))+'\n')
     for key,text in registry['resources'].items():
         db.execute('INSERT OR IGNORE INTO language_resources(resource_key,resource_group,description,context,active) VALUES(?,\'workspace\',?,\'Authenticated governed workspace\',1)',(key,text))
         resource=db.execute('SELECT resource_id FROM language_resources WHERE resource_key=?',(key,)).fetchone()[0]
@@ -173,6 +177,10 @@ with sqlite3.connect(DB) as db:
             landings[code]=(configured or next((s for s in allowed if s['renderer']=='dashboard'),allowed[0]))['route']
     registry['landings']=landings
     target.write_text(json.dumps(registry,separators=(',',':'))+'\n')
+    catalog_path=ROOT/'cloudflare/workers/src/governance-api-registry.json'
+    catalog=json.loads(catalog_path.read_text())
+    catalog['version']=hashlib.sha256(json.dumps({'bindings':catalog['bindings'],'roles':catalog['roles'],'hierarchy':catalog['hierarchy'],'workspace':registry},sort_keys=True).encode()).hexdigest()[:16]
+    catalog_path.write_text(json.dumps(catalog,separators=(',',':'))+'\n')
     dart+='const governedWorkspaceLandings = <String, String>'+json.dumps(landings,indent=2)+';\n'
     out=ROOT/'packages/primecare_ui/lib/src/features/workspace/workspace_routes_generated.dart';out.parent.mkdir(parents=True,exist_ok=True);out.write_text(dart)
     report=ROOT/'docs/audits/page-readiness';report.mkdir(parents=True,exist_ok=True)

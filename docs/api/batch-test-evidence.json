@@ -16,7 +16,7 @@
     "cloudflare/workers/src/email-templates.json": "fac27367d39bf30caebacb76c4cc4919e181e47348aa75cc40780124c9a79446",
     "cloudflare/workers/src/email.ts": "3fbc322d8ee953eb1c13f2a31f0fc1cb9a33aaaacdfe338a5f207b593c017357",
     "cloudflare/workers/src/gateway.ts": "525a84bb8cd90d72d1c9033d40657b9abe4fca0a98102373cb5e530a0a3b3b6d",
-    "cloudflare/workers/src/governance-api-registry.json": "b96fca93d11386eb24d7c24863f4244f4fc82c9f738d2c72fb783156362071db",
+    "cloudflare/workers/src/governance-api-registry.json": "b7fc8734dc235bec7bb11431ae4bf4d4b59605a68f1079946cfb423b362e52c7",
     "cloudflare/workers/src/governance-api.ts": "6cd8a9807c7806c57aa4f8e466c7a4051c1598bfed5ebea48fb53d1e18f731af",
     "cloudflare/workers/src/maintenance.ts": "a04507f2a7e77ca96a5d25a5c661398f270f5f885bdc0a1c12cb50ea77a7d1db",
     "cloudflare/workers/src/password-change.ts": "cb4b1270d57ef0d65bd80a9a73210135e5dc39debf4a385b0688bb2710fd196b",
