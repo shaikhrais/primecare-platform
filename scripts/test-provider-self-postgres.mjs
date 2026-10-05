@@ -25,6 +25,14 @@ try{
  const docDetail=await (await call('/documents/'+docs[0])).json();assert.equal(docDetail.document.doc_type,'license');checks++;
  for(const id of docs.slice(1))assert.equal((await call('/documents/'+id)).status,404);checks++;
  const docPage=await (await call('/documents','?offset=1')).json();assert.equal(docPage.documents.length,0);assert.equal(docPage.pagination.total,1);checks++;
+
+ const batch15=await (await call('/documents/summary')).json();assert.equal(batch15.pagination.total,1);assert.equal(batch15.groups[0].count,1);checks++;
+ const batch15Page=await (await call('/documents/summary','?offset=1')).json();assert.equal(batch15Page.groups.length,0);assert.equal(batch15Page.pagination.total,1);checks++;
+ // Null is a distinct stored-status group; other owners/tenants remain excluded.
+ await db.query('UPDATE provider_documents SET status=NULL WHERE provider_id=$1',[profiles[0]]);
+ const batch15Null=await (await call('/documents/summary')).json();assert.deepEqual(batch15Null.groups,[{status:null,count:1}]);checks++;
+ await db.query('DELETE FROM provider_documents WHERE provider_id=$1',[profiles[0]]);
+ const batch15Empty=await (await call('/documents/summary')).json();assert.deepEqual(batch15Empty.groups,[]);assert.equal(batch15Empty.pagination.total,0);assert.equal(batch15Empty.pagination.hasMore,false);checks++;
  const own=await (await call()).json();assert.equal(own.profile.id,profiles[0]);assert.ok(!('trust_score' in own.profile));checks++;
  const list=await (await call('/availability')).json();assert.equal(list.pagination.total,1);assert.equal(list.availability[0].start_time,'09:00');checks++;
  const other=await (await call('/availability','',tokens[1])).json();assert.equal(other.pagination.total,1);assert.notEqual(other.availability[0].id,list.availability[0].id);checks++;
