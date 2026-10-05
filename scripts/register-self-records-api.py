@@ -14,6 +14,7 @@ definitions.extend([
  {'path':'/me/survey-submissions','table':'survey_responses','collection':'submissions','item':'submission','fields':['id','survey_id','created_at'],'listBatch':43,'summaryBatch':44,'summaryField':'survey_id','tenantThroughUser':True},
  {'path':'/me/group-memberships','table':'staff_group_members','collection':'memberships','item':'membership','fields':['id','group_id','role','created_at'],'listBatch':45,'tenantThroughUser':True}
 ])
+definitions.append({'path':'/me/password-history','table':'auth_password_audit','collection':'events','item':'event','fields':['id','action','created_at'],'listBatch':50,'tenantThroughUser':True})
 paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0}}
 pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}}
 paths={};registry=[]
@@ -30,7 +31,7 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
   for field in fields:
    kind,nullable=columns[field];typ='boolean' if kind in ['bool','boolean'] else 'integer' if kind in ['int4','int8','bigint','integer'] else 'string'
    properties[field]={'type':[typ,'null'] if nullable else typ}
-   if 'timestamp' in kind:properties[field]['format']='date-time'
+   if 'timestamp' in kind or kind=='timestamptz':properties[field]['format']='date-time'
   record['types']={k:v['type'] for k,v in properties.items()};record['dateFields']=[k for k,v in properties.items() if v.get('format')=='date-time'];registry.append(record)
   projected={'type':'object','additionalProperties':False,'required':fields,'properties':properties}
   for mode in (['singleton'] if record.get('singleton') else ['list','detail']+(['summary'] if record.get('summaryField') else [])):
@@ -58,9 +59,13 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  (ROOT/'docs/api/self-device-wellness-batches-31-35.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Personal Device and Wellness Records','version':'1.0.0'},'paths':new_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
  reputation_paths={p:v for p,v in paths.items() if p=='/v1/auth/me/reputation'}
  (ROOT/'docs/api/self-reputation-batch-40.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Personal Reputation Profile','version':'1.0.0'},'paths':reputation_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
- personal_roots=['/v1/auth'+r['path'] for r in registry if r['listBatch']>=41]
+ personal_roots=['/v1/auth'+r['path'] for r in registry if 41<=r['listBatch']<=45]
  personal_paths={p:v for p,v in paths.items() if any(p==root or p.startswith(root+'/') for root in personal_roots)}
  (ROOT/'docs/api/personal-metadata-batches-41-45.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Personal Identity, Submission and Membership Metadata','version':'1.0.0'},'paths':personal_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
- paths={p:v for p,v in paths.items() if p not in new_paths and p not in reputation_paths and p not in personal_paths}
+ password_paths={p:v for p,v in paths.items() if p.startswith('/v1/auth/me/password-history')}
+ for operation in password_paths.values():
+  operation['get']['description']='Read recorded password-change audit events for the active bearer actor only. Every query derives the current tenant through the owning User. Events expose id, action and creation time; no password/hash, token, IP or session identifiers. Absence of events does not prove a password was never changed; older operations may lack audit records. Read only, no grants. Lists support bounded pagination; detail accepts no query.'
+ (ROOT/'docs/api/self-password-history-batch-50.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Personal Password-Change History','version':'1.0.0'},'paths':password_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
+ paths={p:v for p,v in paths.items() if p not in new_paths and p not in reputation_paths and p not in personal_paths and p not in password_paths}
  (ROOT/'docs/api/self-records-batches-26-30.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Personal Account Records','version':'1.0.0'},'paths':paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
-print('Registered personal record APIs through batch 45; no role grants.')
+print('Registered personal record APIs through batch 50; no role grants.')

@@ -288,5 +288,26 @@
     "dateFields": [
       "created_at"
     ]
+  },
+  {
+    "path": "/me/password-history",
+    "table": "auth_password_audit",
+    "collection": "events",
+    "item": "event",
+    "fields": [
+      "id",
+      "action",
+      "created_at"
+    ],
+    "listBatch": 50,
+    "tenantThroughUser": true,
+    "types": {
+      "id": "string",
+      "action": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
   }
 ]
