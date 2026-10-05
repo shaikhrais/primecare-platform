@@ -216,5 +216,77 @@
       "created_at",
       "updated_at"
     ]
+  },
+  {
+    "path": "/me/health-ids",
+    "table": "health_ids",
+    "collection": "healthIds",
+    "item": "healthId",
+    "fields": [
+      "id",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 41,
+    "summaryBatch": 42,
+    "summaryField": "status",
+    "tenantThroughUser": true,
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/survey-submissions",
+    "table": "survey_responses",
+    "collection": "submissions",
+    "item": "submission",
+    "fields": [
+      "id",
+      "survey_id",
+      "created_at"
+    ],
+    "listBatch": 43,
+    "summaryBatch": 44,
+    "summaryField": "survey_id",
+    "tenantThroughUser": true,
+    "types": {
+      "id": "string",
+      "survey_id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/group-memberships",
+    "table": "staff_group_members",
+    "collection": "memberships",
+    "item": "membership",
+    "fields": [
+      "id",
+      "group_id",
+      "role",
+      "created_at"
+    ],
+    "listBatch": 45,
+    "tenantThroughUser": true,
+    "types": {
+      "id": "string",
+      "group_id": "string",
+      "role": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
   }
 ]

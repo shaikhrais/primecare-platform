@@ -23,7 +23,7 @@ export async function selfRecords(request:Request,env:Env,path:string,headers:He
         if(!actor)return json({error:'Invalid session'},401,safe);
         if(!actor.tenant_id||request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id))return json({error:'Forbidden'},403,safe);
         const values=[String(actor.id),String(actor.tenant_id)],prefix=record.tenantThroughUser?'r.':'';
-        // UserDevice has no tenant_id: derive it from the owning user relation,
+        // Records without tenant_id derive scope from the owning user relation,
         // and bind that relationship again in every record query.
         const scope=record.tenantThroughUser?' FROM '+record.table+' r JOIN users owner ON owner.id::text=r.user_id::text WHERE r.user_id::text=$1 AND owner.tenant_id::text=$2':' FROM '+record.table+' WHERE user_id::text=$1 AND tenant_id::text=$2';
         const fields=record.fields.map(field=>prefix+field).join(',');
@@ -36,7 +36,7 @@ export async function selfRecords(request:Request,env:Env,path:string,headers:He
         const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{if(!valid(field,row[field]))throw Error('Invalid account record');return [field,row[field]];}));
         if(summary){
           const field=record.summaryField!,groupField=prefix+field;
-          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+field+scope+' GROUP BY '+field+') groups',values)).rows[0].count);
+          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+groupField+scope+' GROUP BY '+groupField+') groups',values)).rows[0].count);
           const rows=(await db.query('SELECT '+groupField+',COUNT(*)::int AS count'+scope+' GROUP BY '+groupField+' ORDER BY '+groupField+' NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
           if(!Number.isSafeInteger(total)||total<0)throw Error('Invalid account summary count');
           const groups=rows.map(row=>{if(!valid(field,row[field])||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid account summary');return {[field]:row[field],count:row.count};});
