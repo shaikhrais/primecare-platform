@@ -188,5 +188,33 @@
       "created_at",
       "updated_at"
     ]
+  },
+  {
+    "path": "/me/reputation",
+    "table": "user_reputations",
+    "item": "profile",
+    "fields": [
+      "id",
+      "points",
+      "elite_status",
+      "crises_resolved",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 40,
+    "singleton": true,
+    "tenantThroughUser": true,
+    "types": {
+      "id": "string",
+      "points": "integer",
+      "elite_status": "boolean",
+      "crises_resolved": "integer",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
   }
 ]
