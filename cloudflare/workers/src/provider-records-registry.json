@@ -1,0 +1,98 @@
+[
+  {
+    "path": "/conversation-threads",
+    "table": "messages_threads",
+    "collection": "threads",
+    "item": "thread",
+    "fields": [
+      "id",
+      "thread_type",
+      "created_at"
+    ],
+    "listBatch": 51,
+    "summaryBatch": 52,
+    "summaryField": "thread_type",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "thread_type": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/timesheets",
+    "table": "timesheets",
+    "collection": "timesheets",
+    "item": "timesheet",
+    "fields": [
+      "id",
+      "week_id",
+      "status",
+      "total_minutes",
+      "submitted_at",
+      "reviewed_at",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 53,
+    "summaryBatch": 54,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "week_id": "string",
+      "status": [
+        "string",
+        "null"
+      ],
+      "total_minutes": [
+        "integer",
+        "null"
+      ],
+      "submitted_at": [
+        "string",
+        "null"
+      ],
+      "reviewed_at": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "submitted_at",
+      "reviewed_at",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/availability-overrides",
+    "table": "provider_availability_overrides",
+    "collection": "overrides",
+    "item": "override",
+    "fields": [
+      "id",
+      "date",
+      "start_time",
+      "end_time",
+      "is_available"
+    ],
+    "listBatch": 55,
+    "orderField": "date",
+    "types": {
+      "id": "string",
+      "date": "string",
+      "start_time": "string",
+      "end_time": "string",
+      "is_available": "boolean"
+    },
+    "dateFields": [
+      "date"
+    ]
+  }
+]

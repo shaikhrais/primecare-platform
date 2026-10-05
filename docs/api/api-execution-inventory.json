@@ -1,10 +1,10 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1251,
+    "totalDeclared": 1259,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 93,
+      "unit_fixtures_recorded": 101,
       "verification_pending": 1148
     },
     "contractGaps": {
@@ -22918,6 +22918,52 @@
       "productionVerified": false
     },
     {
+      "id": 16532,
+      "api": "GET /v1/provider/availability-overrides",
+      "method": "GET",
+      "route": "/v1/provider/availability-overrides",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 55,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16533,
+      "api": "GET /v1/provider/availability-overrides/{recordId}",
+      "method": "GET",
+      "route": "/v1/provider/availability-overrides/{recordId}",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 55,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16458,
       "api": "GET /v1/provider/availability/summary",
       "method": "GET",
@@ -22982,6 +23028,75 @@
       "screens": [],
       "apps": [],
       "roles": [],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16526,
+      "api": "GET /v1/provider/conversation-threads",
+      "method": "GET",
+      "route": "/v1/provider/conversation-threads",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 51,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16528,
+      "api": "GET /v1/provider/conversation-threads/summary",
+      "method": "GET",
+      "route": "/v1/provider/conversation-threads/summary",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 52,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16527,
+      "api": "GET /v1/provider/conversation-threads/{recordId}",
+      "method": "GET",
+      "route": "/v1/provider/conversation-threads/{recordId}",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 51,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -23107,6 +23222,75 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 8,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16529,
+      "api": "GET /v1/provider/timesheets",
+      "method": "GET",
+      "route": "/v1/provider/timesheets",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 53,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16531,
+      "api": "GET /v1/provider/timesheets/summary",
+      "method": "GET",
+      "route": "/v1/provider/timesheets/summary",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 54,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16530,
+      "api": "GET /v1/provider/timesheets/{recordId}",
+      "method": "GET",
+      "route": "/v1/provider/timesheets/{recordId}",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 53,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [

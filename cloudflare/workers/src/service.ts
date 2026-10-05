@@ -1,6 +1,7 @@
 import {clientBookingLifecycle} from './client-booking-lifecycle';
 import {legacyDomain} from './legacy-domain';
 import {providerSelf} from './provider-self';
+import {providerRecords} from './provider-records';
 import {clientSelf} from './client-self';
 import {sourceLoginLimit} from './auth-source-limit';
 import {workspace} from './workspace';
@@ -52,6 +53,8 @@ export default {
       }
       const lifecycleResponse=await clientBookingLifecycle(request,env,path,headers);
       if(lifecycleResponse)return lifecycleResponse;
+      const providerRecordResponse=await providerRecords(request,env,path,headers);
+      if(providerRecordResponse)return providerRecordResponse;
       const providerResponse=await providerSelf(request,env,path,headers);
       if(providerResponse)return providerResponse;
       const clientResponse=await clientSelf(request,env,path,headers);
