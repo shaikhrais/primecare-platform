@@ -38,6 +38,7 @@ runpy.run_path(str(ROOT/'scripts/register-account-detail-batch.py'))
 runpy.run_path(str(ROOT/'scripts/register-governance-api-batch.py'))
 runpy.run_path(str(ROOT/'scripts/register-api-execution-status.py'))
 runpy.run_path(str(ROOT/'scripts/register-contract-gap-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-governed-read-aliases.py'))
 runpy.run_path(str(ROOT/'scripts/generate-api-execution-inventory.py'))
 with sqlite3.connect(DB) as db:
     db.row_factory = sqlite3.Row

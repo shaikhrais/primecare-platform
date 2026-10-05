@@ -1,0 +1,37 @@
+[
+  {
+    "batch": 106,
+    "path": "/v1/premium/appnotification",
+    "service": "auth",
+    "targetPath": "/me/notifications",
+    "canonical": "/v1/auth/me/notifications"
+  },
+  {
+    "batch": 107,
+    "path": "/v1/premium/stafftask",
+    "service": "auth",
+    "targetPath": "/me/assigned-task-records",
+    "canonical": "/v1/auth/me/assigned-task-records"
+  },
+  {
+    "batch": 108,
+    "path": "/v1/premium/booking",
+    "service": "client",
+    "targetPath": "/bookings",
+    "canonical": "/v1/client/bookings"
+  },
+  {
+    "batch": 109,
+    "path": "/v1/premium/bookingrequest",
+    "service": "client",
+    "targetPath": "/booking-requests",
+    "canonical": "/v1/client/booking-requests"
+  },
+  {
+    "batch": 110,
+    "path": "/v1/premium/providerdocument",
+    "service": "provider",
+    "targetPath": "/documents",
+    "canonical": "/v1/provider/documents"
+  }
+]

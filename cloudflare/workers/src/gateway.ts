@@ -1,3 +1,4 @@
+import governedReadAliases from './governed-read-aliases.json';
 interface Service { fetch(request: Request): Promise<Response> }
 interface Env {
   AUTH: Service; CLIENT: Service; PROVIDER: Service; VISIT: Service;
@@ -42,6 +43,13 @@ export default {
       return new Response(null, { status: origin && headers.has('Access-Control-Allow-Origin') ? 204 : 403, headers });
     }
     const url = new URL(request.url);
+    const alias=governedReadAliases.find(item=>item.path===url.pathname);
+    if(alias) {
+      // Exact read aliases only: never forward writes to the canonical lifecycle handler.
+      if(request.method!=='GET')return withGatewayHeaders(request,new Response(JSON.stringify({error:'Method not allowed'}),{status:405,headers:{'content-type':'application/json','allow':'GET'}}));
+      url.hostname='service';url.pathname=alias.targetPath;
+      return withGatewayHeaders(request,await env[routes[alias.service]].fetch(new Request(url,request)));
+    }
     if(url.pathname==='/v1/user/sessions'){
       url.hostname='service';url.pathname='/user/sessions';
       return withGatewayHeaders(request,await env.AUTH.fetch(new Request(url,request)));
