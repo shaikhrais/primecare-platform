@@ -86,16 +86,17 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           const fields=record.fields.join(','),filter='client_id::text=$1 AND tenant_id::text=$2';
           const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{
             const types=(record.types as Record<string,string|string[]>)[field],allowed=Array.isArray(types)?types:[types],value=row[field];
-            const valid=value===null?allowed.includes('null'):allowed.includes('integer')?typeof value==='number'&&Number.isInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&(typeof value==='string'||value instanceof Date&&Number.isFinite(value.getTime()));
+            const valid=value===null?allowed.includes('null'):allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&(typeof value==='string'||value instanceof Date&&Number.isFinite(value.getTime()));
             if(!valid)throw Error('Invalid record data');
             return [field,field==='id'?String(value):value];
           }));
           if(recordSummary){
-            const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM '+record.table+' WHERE '+filter+' GROUP BY status) groups',values)).rows[0].count);
-            const rows=(await db.query('SELECT status,COUNT(*)::int AS count FROM '+record.table+' WHERE '+filter+' GROUP BY status ORDER BY status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+            const field=record.summaryField;
+            const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+field+' FROM '+record.table+' WHERE '+filter+' GROUP BY '+field+') groups',values)).rows[0].count);
+            const rows=(await db.query('SELECT '+field+',COUNT(*)::int AS count FROM '+record.table+' WHERE '+filter+' GROUP BY '+field+' ORDER BY '+field+' NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
             const groups=rows.map(row=>{
-              if(row.status!==null&&typeof row.status!=='string'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid summary data');
-              return {status:row.status,count:row.count};
+              if(row[field]!==null&&typeof row[field]!=='string'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid summary data');
+              return {[field]:row[field],count:row.count};
             });
             if(!Number.isSafeInteger(total)||total<0)throw Error('Invalid summary count');
             return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);

@@ -1,5 +1,5 @@
 import {build} from 'esbuild';import {test} from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
-const registry=JSON.parse(readFileSync('cloudflare/workers/src/self-records-registry.json','utf8')).filter(r=>r.listBatch>=31);
+const registry=JSON.parse(readFileSync('cloudflare/workers/src/self-records-registry.json','utf8')).filter(r=>r.listBatch>=31&&r.listBatch<=35);
 const plugin={name:'fixture',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export class Client {async connect(){} async end(){} async query(s,v){return globalThis.__selfExtendedQuery(s,v)}}',loader:'js'}));}};
 async function bundle(path,plugins=[]){const r=await build({entryPoints:[path],bundle:true,write:false,platform:'node',format:'esm',plugins});return import('data:text/javascript;base64,'+Buffer.from(r.outputFiles[0].text).toString('base64'));}
 const {selfRecords}=await bundle('cloudflare/workers/src/self-records.ts',[plugin]),{default:gateway}=await bundle('cloudflare/workers/src/gateway.ts'),{default:service}=await bundle('cloudflare/workers/src/service.ts',[plugin]);

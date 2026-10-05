@@ -1,5 +1,8 @@
 [
   {
+    "batch": 21,
+    "summaryBatch": 22,
+    "summaryField": "status",
     "path": "/consents",
     "table": "consent_forms",
     "collection": "consents",
@@ -32,6 +35,9 @@
     }
   },
   {
+    "batch": 21,
+    "summaryBatch": 22,
+    "summaryField": "status",
     "path": "/service-authorizations",
     "table": "service_authorizations",
     "collection": "authorizations",
@@ -65,6 +71,9 @@
     }
   },
   {
+    "batch": 21,
+    "summaryBatch": 22,
+    "summaryField": "status",
     "path": "/waitlist",
     "table": "waitlist_entries",
     "collection": "entries",
@@ -86,6 +95,53 @@
         "string",
         "null"
       ],
+      "created_at": "string"
+    }
+  },
+  {
+    "batch": 36,
+    "summaryBatch": 37,
+    "summaryField": "status",
+    "path": "/feedback",
+    "table": "feedbacks",
+    "collection": "feedback",
+    "item": "feedback",
+    "fields": [
+      "id",
+      "rating",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "types": {
+      "id": "string",
+      "rating": "integer",
+      "status": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    }
+  },
+  {
+    "batch": 38,
+    "summaryBatch": 39,
+    "summaryField": "triage_status",
+    "path": "/care-feedback",
+    "table": "care_feedbacks",
+    "collection": "feedback",
+    "item": "feedback",
+    "fields": [
+      "id",
+      "rating",
+      "triage_status",
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "rating": "integer",
+      "triage_status": "string",
       "created_at": "string"
     }
   }

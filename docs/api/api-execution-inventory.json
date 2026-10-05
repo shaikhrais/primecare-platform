@@ -1,10 +1,10 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1228,
+    "totalDeclared": 1235,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 70,
+      "unit_fixtures_recorded": 77,
       "verification_pending": 1148
     },
     "contractGaps": {
@@ -6931,6 +6931,29 @@
       "productionVerified": false
     },
     {
+      "id": 16506,
+      "api": "GET /v1/auth/me/reputation",
+      "method": "GET",
+      "route": "/v1/auth/me/reputation",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 40,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16489,
       "api": "GET /v1/auth/me/rewards",
       "method": "GET",
@@ -8519,6 +8542,75 @@
       "productionVerified": false
     },
     {
+      "id": 16502,
+      "api": "GET /v1/client/care-feedback",
+      "method": "GET",
+      "route": "/v1/client/care-feedback",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 38,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16505,
+      "api": "GET /v1/client/care-feedback/summary",
+      "method": "GET",
+      "route": "/v1/client/care-feedback/summary",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 39,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16503,
+      "api": "GET /v1/client/care-feedback/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/care-feedback/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 38,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16434,
       "api": "GET /v1/client/consents",
       "method": "GET",
@@ -8720,6 +8812,29 @@
       "productionVerified": false
     },
     {
+      "id": 16500,
+      "api": "GET /v1/client/feedback",
+      "method": "GET",
+      "route": "/v1/client/feedback",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 36,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 251,
       "api": "POST /v1/client/feedback",
       "method": "POST",
@@ -8764,6 +8879,29 @@
       "productionVerified": false
     },
     {
+      "id": 16504,
+      "api": "GET /v1/client/feedback/summary",
+      "method": "GET",
+      "route": "/v1/client/feedback/summary",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 37,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 252,
       "api": "POST /v1/client/feedback/surveys",
       "method": "POST",
@@ -8782,6 +8920,29 @@
       "screens": [],
       "apps": [],
       "roles": [],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16501,
+      "api": "GET /v1/client/feedback/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/feedback/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 36,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
