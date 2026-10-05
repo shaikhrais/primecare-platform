@@ -107,10 +107,15 @@ with sqlite3.connect(DB) as db:
         contracts=[dict(a) for a in db.execute('''SELECT DISTINCT a.endpoint_code code,a.http_method method,
           a.route_path route,a.implementation_status implementation,a.permission_key permission,
           a.health_status health,a.last_tested_at lastTested,
+          a.request_schema requestSchema,a.response_schema responseSchema,
           CASE WHEN a.request_schema IS NOT NULL AND a.response_schema IS NOT NULL THEN 1 ELSE 0 END schemas
           FROM api_endpoints a WHERE a.id IN
           (SELECT api_id FROM screen_api_links WHERE screen_id=? UNION SELECT api_id FROM screen_api_map WHERE screen_id=?)
           ORDER BY a.route_path,a.http_method''',(s['id'],s['id']))]
+        for contract in contracts:
+            for field in ('requestSchema','responseSchema'):
+                try: contract[field]=json.loads(contract[field]) if contract[field] else None
+                except (ValueError,TypeError): contract[field]=None
         pending_actions=[dict(e) for e in db.execute('''SELECT element_key key,label,action_tag status,api_usage apiUsage
           FROM screen_section_elements WHERE screen_id=? AND required=1 AND action_required=1
           AND COALESCE(action_tag,'') NOT IN ('implemented','functional','action_implemented') ORDER BY element_order''',(s['id'],))]

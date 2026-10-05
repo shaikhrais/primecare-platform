@@ -7,6 +7,7 @@ import hashlib,json,sqlite3
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 ENDPOINTS=[
+ ('page-blueprints','admin_screen_health','inventory','Read governed page build specifications, registered schemas and unresolved bindings.'),
  ('page-progress','screen_progress_dashboard','inventory','Group registered page completion by application.'),
  ('screen-health','admin_screen_health','inventory','List concrete screen binding and verification blockers.'),
  ('role-coverage','role_coverage_dashboard','inventory','List active roles, granted page counts and landing coverage.'),
@@ -18,7 +19,7 @@ ENDPOINTS=[
 query_schema={'type':'object','additionalProperties':False,'properties':{
  'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},
  'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0},
- 'search':{'type':'string','maxLength':200},'app':{'type':'string','maxLength':40},'role':{'type':'string','maxLength':80}}}
+ 'search':{'type':'string','maxLength':200},'app':{'type':'string','maxLength':40},'role':{'type':'string','maxLength':80},'screen':{'type':'string','maxLength':200}}}
 response_schema={'type':'object','required':['data','pagination','source'],'properties':{
  'data':{'type':'array','items':{'type':'object'}},
  'pagination':{'type':'object','required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}},
@@ -38,6 +39,7 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
   permission={'inventory':'runtime_catalog_permissions.can_view_inventory','organization':'runtime_catalog_permissions.can_view_organization','screen':'role_screen_permissions.can_view'}[gate]
   db.execute('''INSERT INTO governance_api_batches VALUES(?,?,1,?,'implemented','pending')
     ON CONFLICT(route) DO UPDATE SET screen_id=excluded.screen_id,permission=excluded.permission,implementation_status='implemented',test_status='pending' ''',(route,screen['id'],permission))
+  if name=='page-blueprints':db.execute('UPDATE governance_api_batches SET batch=5 WHERE route=?',(route,))
   code_api='GOVERNANCE_BATCH1_'+name.replace('-','_').upper()
   db.execute('''INSERT INTO api_endpoints(app_id,endpoint_code,route_path,http_method,service_name,auth_required,implementation_status,permission_key,request_schema,response_schema,rate_limit_key,uses_pagination)
     SELECT ?,?,?,'GET','governance',1,'implemented',?,?,?,'workspace.source',1
@@ -65,4 +67,4 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
    'responses':{'200':{'description':'Paginated result','content':{'application/json':{'schema':response_schema}}},**{str(n):{'description':d} for n,d in [(400,'Invalid query'),(401,'Missing or expired session'),(403,'Permission or tenant mismatch'),(405,'Read-only endpoint'),(429,'Rate limit'),(503,'Source unavailable')]}}}}
  spec={'openapi':'3.1.0','info':{'title':'PrimeCare Governance Batch 1','version':'1.0.0'},'paths':paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}}
  target=ROOT/'docs/api/governance-batch-1.openapi.json';target.parent.mkdir(parents=True,exist_ok=True);target.write_text(json.dumps(spec,indent=2)+'\n')
-print('Registered 7 read-only governance APIs; no UI files changed.')
+print('Registered 8 read-only governance APIs; no UI files changed.')

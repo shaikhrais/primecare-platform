@@ -30,8 +30,8 @@ function fixture(role='ceo',tenant='tenant-a') {
   return {rows:[]};
  };
 }
-test('seven registered APIs return bounded responses and precise evidence types',async()=>{
- assert.equal(catalog.bindings.length,7);
+test('eight registered APIs return bounded responses and precise evidence types',async()=>{
+ assert.equal(catalog.bindings.length,8);
  for(const {path} of catalog.bindings) {
   const response=await call(path,'?limit=3');assert.equal(response.status,200,path);
   assert.equal(response.headers.get('cache-control'),'no-store');
@@ -99,4 +99,15 @@ test('rate limits, database errors and unrelated services cannot expose private 
  assert.equal(r.status,503);assert.ok(!(await r.text()).includes('private'));
  assert.equal(await call('/page-progress','','ceo',{},'GET',{SERVICE_NAME:'client'}),null);
  assert.equal(await call('/does-not-exist'),null);
+});
+
+test('page blueprints expose registered layout, requirements, grants and complete schemas with exact screen filtering',async()=>{
+ const expected=registry.screens.find(p=>p.code==='ceo_dashboard');
+ const r=await call('/page-blueprints','?screen=ceo_dashboard&limit=100');assert.equal(r.status,200);const body=await r.json();
+ assert.ok(body.data.length);assert.ok(body.data.every(p=>p.screen==='ceo_dashboard'));
+ const page=body.data.find(p=>p.route===expected.route);assert.deepEqual(page.sections,expected.sections);assert.deepEqual(page.requirements,expected.requirements);assert.deepEqual(page.permissions,expected.grants);assert.deepEqual(page.apis,expected.contracts);
+ assert.equal(page.elementBindingsVerified,false);assert.equal(page.bindingEvidence,'registered_only');assert.equal(page.productionReady,false);assert.equal(page.buildSteps.length,6);assert.equal(body.source.evidenceType,'registered_governance');
+ assert.ok(page.apis.every(a=>'requestSchema' in a&&'responseSchema' in a));
+ const missing=await (await call('/page-blueprints','?screen=does-not-exist')).json();assert.equal(missing.pagination.total,0);
+ assert.equal((await call('/page-blueprints','?screen=a&screen=b')).status,400);
 });
