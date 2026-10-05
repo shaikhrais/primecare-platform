@@ -17,6 +17,7 @@ for (const service of services) {
     ...(service === 'auth' ? {ratelimits:[{name:'AUTH_SOURCE_LIMIT',namespace_id:sourcePolicy.namespaceId,
       simple:{limit:sourcePolicy.maxAttempts,period:sourcePolicy.windowSeconds}},
       {name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100402',simple:{limit:120,period:60}}]} : {}),
+    ...(service === 'client' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100403',simple:{limit:120,period:60}}]} : {}),
     ...(service === 'governance' ? {ratelimits:[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100401',
       simple:{limit:120,period:60}}]} : {}),
     observability: { enabled: true },

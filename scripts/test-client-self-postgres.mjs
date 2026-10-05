@@ -1,0 +1,23 @@
+import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
+const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
+const dir=await mkdtemp(join(tmpdir(),'client-self-pg-'));await build({entryPoints:['cloudflare/workers/src/client-self.ts'],outfile:join(dir,'client.cjs'),bundle:true,platform:'node',format:'cjs'});const {clientSelf}=createRequire(import.meta.url)(join(dir,'client.cjs'));const db=new Client({connectionString:url.href});await db.connect();
+const ids=[randomUUID(),randomUUID(),randomUUID()],tenants=[randomUUID(),randomUUID()],profiles=[randomUUID(),randomUUID(),randomUUID()],tokens=['m'.repeat(43),'n'.repeat(43),'o'.repeat(43)];const hash=s=>createHash('sha256').update(s).digest('hex');let checks=0,createdProfiles=false,createdInvoices=false;
+const call=(path='/home/profile',query='',token=tokens[0],headers={})=>clientSelf(new Request('https://fixture'+path+query,{headers:{authorization:'Bearer '+token,...headers}}),{DB_URL:url.href,SERVICE_NAME:'client'},path,{});
+try{
+ // Disposable domain fixtures use the registered column names and text domain
+ // identities; the auth actor/session identity still follows the CI matrix.
+ await db.query('CREATE TABLE client_profiles(id TEXT PRIMARY KEY,user_id TEXT UNIQUE NOT NULL,tenant_id TEXT NOT NULL,full_name TEXT NOT NULL,city TEXT,province TEXT,postal_code TEXT,updated_at TIMESTAMP NOT NULL DEFAULT NOW(),dob TIMESTAMP)');createdProfiles=true;
+ await db.query('CREATE TABLE invoices(id TEXT PRIMARY KEY,client_id TEXT NOT NULL,tenant_id TEXT NOT NULL,status TEXT NOT NULL,currency TEXT NOT NULL,subtotal NUMERIC NOT NULL,tax NUMERIC NOT NULL,total NUMERIC NOT NULL,created_at TIMESTAMP NOT NULL DEFAULT NOW(),updated_at TIMESTAMP NOT NULL DEFAULT NOW(),stripe_invoice_id TEXT)');createdInvoices=true;
+ for(let i=0;i<3;i++){await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,'patient',$3,'unused','active')",[ids[i],ids[i]+'@example.invalid',tenants[i===2?1:0]]);await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '1 hour')",[hash(tokens[i]),ids[i]]);await db.query('INSERT INTO client_profiles(id,user_id,tenant_id,full_name,dob) VALUES($1,$2,$3,$4,NOW())',[profiles[i],ids[i],tenants[i===2?1:0],'Client '+i]);}
+ for(let i=0;i<3;i++)await db.query("INSERT INTO invoices(id,client_id,tenant_id,status,currency,subtotal,tax,total,stripe_invoice_id) VALUES($1,$2,$3,'pending','CAD',100.10,13.01,113.11,'private-processor-id')",[randomUUID(),profiles[i],tenants[i===2?1:0]]);
+ // Deliberately malformed invoice: same client but a foreign tenant.
+ await db.query("INSERT INTO invoices(id,client_id,tenant_id,status,currency,subtotal,tax,total) VALUES($1,$2,$3,'pending','CAD',1,0,1)",[randomUUID(),profiles[0],tenants[1]]);
+ const own=await (await call()).json();assert.equal(own.profile.id,profiles[0]);assert.ok(!('dob' in own.profile));checks++;
+ const list=await (await call('/invoices')).json();assert.equal(list.pagination.total,1);assert.equal(list.invoices[0].total,'113.11');assert.ok(!JSON.stringify(list).includes('private-processor'));checks++;
+ const other=await (await call('/invoices','',tokens[1])).json();assert.equal(other.pagination.total,1);assert.notEqual(other.invoices[0].id,list.invoices[0].id);checks++;
+ const empty=await (await call('/invoices','?offset=1')).json();assert.equal(empty.invoices.length,0);assert.equal(empty.pagination.total,1);checks++;
+ assert.equal((await call('/home/profile','',tokens[0],{'x-tenant-id':tenants[1]})).status,403);checks++;
+ await db.query('UPDATE client_profiles SET tenant_id=$1 WHERE id=$2',[tenants[1],profiles[0]]);assert.equal((await call()).status,404);checks++;
+ await db.query("UPDATE users SET status='inactive' WHERE id=$1",[ids[1]]);assert.equal((await call('/invoices','',tokens[1])).status,401);checks++;
+ console.log(`Client self passed ${checks} PostgreSQL checks (${process.env.AUTH_TEST_ID_TYPE} auth identities).`);
+}finally{if(createdInvoices)await db.query('DROP TABLE invoices');if(createdProfiles)await db.query('DROP TABLE client_profiles');await db.query('DELETE FROM auth_sessions WHERE user_id::text=ANY($1)',[ids]);await db.query('DELETE FROM users WHERE id::text=ANY($1)',[ids]);await db.end();}
