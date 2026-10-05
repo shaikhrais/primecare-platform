@@ -1,6 +1,6 @@
 {
   "scope": "local_unit_fixtures",
-  "passed": 132,
+  "passed": 138,
   "failed": 0,
   "productionVerified": false,
   "postgresVerified": false,
@@ -13,18 +13,20 @@
     "cloudflare/workers/src/auth-source-limit.ts": "1fc2aacc25c1b45c22759c8d785abcee757eac9855d5b2900828e6a78ac8538e",
     "cloudflare/workers/src/auth-source-policy.json": "ff9c585523736fcddc3e42cae945676479c3da8f6835cab489fe3d14c3c128d1",
     "cloudflare/workers/src/auth.ts": "767ab25c8fc4e78e5e156a2310217408ee48d0dea91d04a74d03997ede6149b8",
+    "cloudflare/workers/src/client-self.ts": "557e3edd3dc67c3086d555c402ce49d841b6ad2fb3692b8a003498efaf2c7f11",
     "cloudflare/workers/src/email-templates.json": "fac27367d39bf30caebacb76c4cc4919e181e47348aa75cc40780124c9a79446",
     "cloudflare/workers/src/email.ts": "3fbc322d8ee953eb1c13f2a31f0fc1cb9a33aaaacdfe338a5f207b593c017357",
     "cloudflare/workers/src/gateway.ts": "05453e946908516b7eba7de07179cd311431e70cf3efbbb7a9581d5c2ec2101a",
-    "cloudflare/workers/src/governance-api-registry.json": "b7fc8734dc235bec7bb11431ae4bf4d4b59605a68f1079946cfb423b362e52c7",
+    "cloudflare/workers/src/governance-api-registry.json": "15fef938fb4e131abeb6cd4fb06b0fa707f869e0e6c90764dfa4cb837904ea3b",
     "cloudflare/workers/src/governance-api.ts": "6cd8a9807c7806c57aa4f8e466c7a4051c1598bfed5ebea48fb53d1e18f731af",
     "cloudflare/workers/src/maintenance.ts": "a04507f2a7e77ca96a5d25a5c661398f270f5f885bdc0a1c12cb50ea77a7d1db",
     "cloudflare/workers/src/password-change.ts": "cb4b1270d57ef0d65bd80a9a73210135e5dc39debf4a385b0688bb2710fd196b",
     "cloudflare/workers/src/password-recovery.ts": "25287c18307b06aff912ee5adf17d9717c5576c9ef12206846c1efc1ebfb7ed1",
     "cloudflare/workers/src/self-sessions.ts": "e014aeee2c71e4a8575cc1eb474842c510f2279f79ed318ea9b9f6a6a37c0f5d",
-    "cloudflare/workers/src/service.ts": "b68a8ecc22f7a4e34d5ef4167b7a3bb7e800d0b7a26bbb82b13299a43ca725b5",
-    "cloudflare/workers/src/workspace-registry.json": "f2007cc3dbd47c4bb69eed2711254457420bba6e13609383985d172d7a0b5c39",
+    "cloudflare/workers/src/service.ts": "abf010bb2f88836fcb25c8c44622417d413e83a095e253e24866b7431c7df7a5",
+    "cloudflare/workers/src/workspace-registry.json": "0cd60b045d577e9f8133133f8964214043888c68986ce8b0eb12952ecff5f0e0",
     "cloudflare/workers/src/workspace.ts": "5724063690ec21f45221dd606a69bfd8da909f1980e873041ee82cac854bc701",
+    "scripts/test-client-self-api.mjs": "feb8386d4cfe62a739ccc6799f4b5bf1161d28b3532779217fe8ea0d50c3bcf5",
     "scripts/test-self-sessions-api.mjs": "151dcdc729b103db7f3ae84cefb163fd978711d8afa1b1a90e08a3ebc1d0b19e",
     "scripts/test-account-admin-api.mjs": "445b09392730aa1fbdd449d668e5e4f2becd9b6bb4b360f42000f6a8e8ecffd4",
     "scripts/test-governance-api.mjs": "5b25793066a7e849a22ff8801bb8368b9ab22699a5e8dc5e23b617afa3bd3e36",
@@ -39,6 +41,6 @@
     "scripts/test-auth-password.mjs": "910b6eddcba4aa4fa4beaa6cc7a630c895b1d34c7f182edbe75679d35297ec19",
     "scripts/test-auth-schema.mjs": "8ad52ffcf4e7187b6a873339377f71f0cc95dd4435c44804107a36b5d568e3b5",
     "scripts/test-auth-cleanup.mjs": "ad00afb6df675a25f59839ddbdf497c80464c22cdecf4d0cd5ddd144eb03be6b",
-    "scripts/test-auth-source.mjs": "9e1bdf1063cda32a52430fa683d07e728cf7e2e9e253621e148de03784573a98"
+    "scripts/test-auth-source.mjs": "4cb14b8087af51c9e8a440e9f6dcb5ff87ead2575449141fdfcb87d3a57d0e4a"
   }
 }

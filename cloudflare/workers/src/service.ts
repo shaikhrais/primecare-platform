@@ -1,3 +1,4 @@
+import {clientSelf} from './client-self';
 import {sourceLoginLimit} from './auth-source-limit';
 import {workspace} from './workspace';
 import {governanceApi} from './governance-api';
@@ -86,6 +87,8 @@ export default {
         const response = await auth(request, env, path, headers);
         if (response) return response;
       }
+      const clientResponse=await clientSelf(request,env,path,headers);
+      if(clientResponse)return clientResponse;
       const batchResponse = await governanceApi(request,env,path,headers);
       if(batchResponse)return batchResponse;
       const pageResponse = await workspace(request,env,path,headers);
