@@ -1,10 +1,10 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1209,
+    "totalDeclared": 1213,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 51,
+      "unit_fixtures_recorded": 55,
       "verification_pending": 1148
     },
     "contractGaps": {
@@ -7947,6 +7947,29 @@
       "productionVerified": false
     },
     {
+      "id": 16478,
+      "api": "GET /v1/client/booking-requests/summary",
+      "method": "GET",
+      "route": "/v1/client/booking-requests/summary",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 23,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16472,
       "api": "GET /v1/client/booking-requests/{requestId}",
       "method": "GET",
@@ -8561,6 +8584,75 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 12,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16479,
+      "api": "GET /v1/client/invoices/{invoiceId}/payments",
+      "method": "GET",
+      "route": "/v1/client/invoices/{invoiceId}/payments",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 24,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16481,
+      "api": "GET /v1/client/invoices/{invoiceId}/payments/summary",
+      "method": "GET",
+      "route": "/v1/client/invoices/{invoiceId}/payments/summary",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 25,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16480,
+      "api": "GET /v1/client/invoices/{invoiceId}/payments/{paymentId}",
+      "method": "GET",
+      "route": "/v1/client/invoices/{invoiceId}/payments/{paymentId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 24,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
