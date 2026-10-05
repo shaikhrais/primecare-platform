@@ -1,11 +1,11 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1200,
+    "totalDeclared": 1206,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 33,
-      "verification_pending": 1157
+      "unit_fixtures_recorded": 48,
+      "verification_pending": 1148
     },
     "contractGaps": {
       "permission": 1142,
@@ -5533,9 +5533,9 @@
       "route": "/v1/admin/users",
       "service": "auth",
       "declaredImplementation": "implemented",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 2,
+      "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
         "admin_user_management",
@@ -8151,6 +8151,52 @@
       "productionVerified": false
     },
     {
+      "id": 16467,
+      "api": "GET /v1/client/consents",
+      "method": "GET",
+      "route": "/v1/client/consents",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 21,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16468,
+      "api": "GET /v1/client/consents/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/consents/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 21,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 243,
       "api": "POST /v1/client/engagement/feed",
       "method": "POST",
@@ -8573,6 +8619,52 @@
       "productionVerified": false
     },
     {
+      "id": 16469,
+      "api": "GET /v1/client/service-authorizations",
+      "method": "GET",
+      "route": "/v1/client/service-authorizations",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 21,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16470,
+      "api": "GET /v1/client/service-authorizations/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/service-authorizations/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 21,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 240,
       "api": "POST /v1/client/services",
       "method": "POST",
@@ -8759,6 +8851,52 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 11,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16471,
+      "api": "GET /v1/client/waitlist",
+      "method": "GET",
+      "route": "/v1/client/waitlist",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 21,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16472,
+      "api": "GET /v1/client/waitlist/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/waitlist/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 21,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
@@ -11429,9 +11567,9 @@
       "route": "/v1/governance/api-contracts",
       "service": "governance",
       "declaredImplementation": "implemented",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 1,
+      "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
         "api_health_dashboard"
@@ -11446,7 +11584,7 @@
       "productionVerified": false
     },
     {
-      "id": 16468,
+      "id": 16473,
       "api": "GET /v1/governance/api-execution-status",
       "method": "GET",
       "route": "/v1/governance/api-execution-status",
@@ -11541,9 +11679,9 @@
       "route": "/v1/governance/organization-map",
       "service": "governance",
       "declaredImplementation": "implemented",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 1,
+      "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
         "ceo_organization_map"
@@ -11564,9 +11702,9 @@
       "route": "/v1/governance/overview",
       "service": "governance",
       "declaredImplementation": "implemented",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 1,
+      "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
         "ceo_dashboard"
@@ -11587,9 +11725,9 @@
       "route": "/v1/governance/page-blueprints",
       "service": "governance",
       "declaredImplementation": "implemented",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 5,
+      "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
         "admin_screen_health"
@@ -11610,9 +11748,9 @@
       "route": "/v1/governance/page-progress",
       "service": "governance",
       "declaredImplementation": "implemented",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 1,
+      "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
         "screen_progress_dashboard"
@@ -11633,9 +11771,9 @@
       "route": "/v1/governance/pending-tasks",
       "service": "governance",
       "declaredImplementation": "implemented",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 1,
+      "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
         "pending_task_queue"
@@ -11656,9 +11794,9 @@
       "route": "/v1/governance/role-coverage",
       "service": "governance",
       "declaredImplementation": "implemented",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 1,
+      "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
         "role_coverage_dashboard"
@@ -11679,9 +11817,9 @@
       "route": "/v1/governance/screen-health",
       "service": "governance",
       "declaredImplementation": "implemented",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 1,
+      "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
         "admin_screen_health"

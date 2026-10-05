@@ -8,7 +8,7 @@ def schema_present(value):
  except (TypeError,ValueError):return False
 with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  db.row_factory=sqlite3.Row
- batches={r['route']:dict(r) for r in db.execute('SELECT * FROM governance_api_batches')}
+ batches={(r['route'] if r['route'].split(' ',1)[0] in ['GET','POST','PUT','PATCH','DELETE'] else 'GET '+r['route']):dict(r) for r in db.execute('SELECT * FROM governance_api_batches')}
  rows=[]
  for a in db.execute('SELECT id,http_method,route_path,service_name,implementation_status,permission_key,request_schema,response_schema FROM api_endpoints ORDER BY route_path,http_method,id').fetchall():
   key=a['http_method']+' '+a['route_path'];b=batches.get(key)

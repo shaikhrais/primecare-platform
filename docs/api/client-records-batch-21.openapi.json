@@ -1,0 +1,781 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Owned Client Records",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/client/consents": {
+      "get": {
+        "operationId": "client_own_consent_forms_list",
+        "summary": "Read owned consent forms list",
+        "description": "Active explicit bearer session, unique owned client profile and matching tenant required. SQL restricts client_id and tenant_id; detail binds the exact record ID. Registered metadata fields only: no notes, authorization codes, signature data, storage keys or witness details. Stored consent status is not a legal validity judgment; authorization hours do not imply available/billable care; waitlist status does not imply an appointment. No new grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected owned metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "consents",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "consents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "form_type",
+                          "status",
+                          "signed_at",
+                          "expires_at",
+                          "template_version",
+                          "created_at",
+                          "updated_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "form_type": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "signed_at": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "expires_at": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "template_version": {
+                            "type": "integer"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Profile or record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/client/consents/{recordId}": {
+      "get": {
+        "operationId": "client_own_consent_forms_detail",
+        "summary": "Read owned consent forms record",
+        "description": "Active explicit bearer session, unique owned client profile and matching tenant required. SQL restricts client_id and tenant_id; detail binds the exact record ID. Registered metadata fields only: no notes, authorization codes, signature data, storage keys or witness details. Stored consent status is not a legal validity judgment; authorization hours do not imply available/billable care; waitlist status does not imply an appointment. No new grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected owned metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "consent"
+                  ],
+                  "properties": {
+                    "consent": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "form_type",
+                        "status",
+                        "signed_at",
+                        "expires_at",
+                        "template_version",
+                        "created_at",
+                        "updated_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "form_type": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "signed_at": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "format": "date-time"
+                        },
+                        "expires_at": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "format": "date-time"
+                        },
+                        "template_version": {
+                          "type": "integer"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Profile or record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/client/service-authorizations": {
+      "get": {
+        "operationId": "client_own_service_authorizations_list",
+        "summary": "Read owned service authorizations list",
+        "description": "Active explicit bearer session, unique owned client profile and matching tenant required. SQL restricts client_id and tenant_id; detail binds the exact record ID. Registered metadata fields only: no notes, authorization codes, signature data, storage keys or witness details. Stored consent status is not a legal validity judgment; authorization hours do not imply available/billable care; waitlist status does not imply an appointment. No new grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected owned metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "authorizations",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "authorizations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "service_id",
+                          "funding_source",
+                          "authorized_hours",
+                          "used_hours",
+                          "start_date",
+                          "end_date",
+                          "status",
+                          "created_at",
+                          "updated_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "service_id": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "funding_source": {
+                            "type": "string"
+                          },
+                          "authorized_hours": {
+                            "type": "number"
+                          },
+                          "used_hours": {
+                            "type": "number"
+                          },
+                          "start_date": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "end_date": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Profile or record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/client/service-authorizations/{recordId}": {
+      "get": {
+        "operationId": "client_own_service_authorizations_detail",
+        "summary": "Read owned service authorizations record",
+        "description": "Active explicit bearer session, unique owned client profile and matching tenant required. SQL restricts client_id and tenant_id; detail binds the exact record ID. Registered metadata fields only: no notes, authorization codes, signature data, storage keys or witness details. Stored consent status is not a legal validity judgment; authorization hours do not imply available/billable care; waitlist status does not imply an appointment. No new grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected owned metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "authorization"
+                  ],
+                  "properties": {
+                    "authorization": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "service_id",
+                        "funding_source",
+                        "authorized_hours",
+                        "used_hours",
+                        "start_date",
+                        "end_date",
+                        "status",
+                        "created_at",
+                        "updated_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "service_id": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "funding_source": {
+                          "type": "string"
+                        },
+                        "authorized_hours": {
+                          "type": "number"
+                        },
+                        "used_hours": {
+                          "type": "number"
+                        },
+                        "start_date": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "end_date": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Profile or record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/client/waitlist": {
+      "get": {
+        "operationId": "client_own_waitlist_entries_list",
+        "summary": "Read owned waitlist entries list",
+        "description": "Active explicit bearer session, unique owned client profile and matching tenant required. SQL restricts client_id and tenant_id; detail binds the exact record ID. Registered metadata fields only: no notes, authorization codes, signature data, storage keys or witness details. Stored consent status is not a legal validity judgment; authorization hours do not imply available/billable care; waitlist status does not imply an appointment. No new grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected owned metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "entries",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "entries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "service_id",
+                          "priority",
+                          "status",
+                          "requested_start_at",
+                          "created_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "service_id": {
+                            "type": "string"
+                          },
+                          "priority": {
+                            "type": "integer"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "requested_start_at": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Profile or record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/client/waitlist/{recordId}": {
+      "get": {
+        "operationId": "client_own_waitlist_entries_detail",
+        "summary": "Read owned waitlist entries record",
+        "description": "Active explicit bearer session, unique owned client profile and matching tenant required. SQL restricts client_id and tenant_id; detail binds the exact record ID. Registered metadata fields only: no notes, authorization codes, signature data, storage keys or witness details. Stored consent status is not a legal validity judgment; authorization hours do not imply available/billable care; waitlist status does not imply an appointment. No new grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected owned metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "entry"
+                  ],
+                  "properties": {
+                    "entry": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "service_id",
+                        "priority",
+                        "status",
+                        "requested_start_at",
+                        "created_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "service_id": {
+                          "type": "string"
+                        },
+                        "priority": {
+                          "type": "integer"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "requested_start_at": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Profile or record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
