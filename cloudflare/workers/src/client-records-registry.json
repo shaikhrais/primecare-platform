@@ -144,5 +144,45 @@
       "triage_status": "string",
       "created_at": "string"
     }
+  },
+  {
+    "batch": 46,
+    "summaryBatch": 47,
+    "summaryField": "thread_type",
+    "path": "/conversation-threads",
+    "table": "messages_threads",
+    "collection": "threads",
+    "item": "thread",
+    "fields": [
+      "id",
+      "thread_type",
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "thread_type": "string",
+      "created_at": "string"
+    }
+  },
+  {
+    "batch": 48,
+    "summaryBatch": 49,
+    "summaryField": "relationship",
+    "path": "/family-links",
+    "table": "family_members",
+    "collection": "links",
+    "item": "link",
+    "fields": [
+      "id",
+      "relationship",
+      "created_at",
+      "updated_at"
+    ],
+    "types": {
+      "id": "string",
+      "relationship": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    }
   }
 ]
