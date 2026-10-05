@@ -1,0 +1,88 @@
+[
+  {
+    "path": "/me/notifications",
+    "table": "app_notifications",
+    "collection": "notifications",
+    "item": "notification",
+    "fields": [
+      "id",
+      "title",
+      "message",
+      "type",
+      "is_read",
+      "created_at"
+    ],
+    "listBatch": 26,
+    "summaryBatch": 27,
+    "summaryField": "is_read",
+    "types": {
+      "id": "string",
+      "title": "string",
+      "message": "string",
+      "type": "string",
+      "is_read": "boolean",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/activities",
+    "table": "daily_activities",
+    "collection": "activities",
+    "item": "activity",
+    "fields": [
+      "id",
+      "role",
+      "title",
+      "description",
+      "status",
+      "due_date",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 28,
+    "summaryBatch": 29,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "role": "string",
+      "title": "string",
+      "description": "string",
+      "status": "string",
+      "due_date": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "due_date",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/rewards",
+    "table": "gamification_profiles",
+    "item": "profile",
+    "fields": [
+      "id",
+      "care_coins",
+      "current_tier",
+      "lifetime_points",
+      "updated_at"
+    ],
+    "listBatch": 30,
+    "singleton": true,
+    "types": {
+      "id": "string",
+      "care_coins": "integer",
+      "current_tier": "string",
+      "lifetime_points": "integer",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "updated_at"
+    ]
+  }
+]
