@@ -1,10 +1,10 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1267,
+    "totalDeclared": 1274,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 109,
+      "unit_fixtures_recorded": 116,
       "verification_pending": 1148
     },
     "contractGaps": {
@@ -23192,6 +23192,29 @@
       "productionVerified": false
     },
     {
+      "id": 16547,
+      "api": "GET /v1/provider/fleet-status",
+      "method": "GET",
+      "route": "/v1/provider/fleet-status",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 63,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 787,
       "api": "POST /v1/provider/metrics",
       "method": "POST",
@@ -23475,6 +23498,144 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 53,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16544,
+      "api": "GET /v1/provider/visit-check-events",
+      "method": "GET",
+      "route": "/v1/provider/visit-check-events",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 61,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16546,
+      "api": "GET /v1/provider/visit-check-events/summary",
+      "method": "GET",
+      "route": "/v1/provider/visit-check-events/summary",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 62,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16545,
+      "api": "GET /v1/provider/visit-check-events/{recordId}",
+      "method": "GET",
+      "route": "/v1/provider/visit-check-events/{recordId}",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 61,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16548,
+      "api": "GET /v1/provider/visit-matches",
+      "method": "GET",
+      "route": "/v1/provider/visit-matches",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 64,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16550,
+      "api": "GET /v1/provider/visit-matches/summary",
+      "method": "GET",
+      "route": "/v1/provider/visit-matches/summary",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 65,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16549,
+      "api": "GET /v1/provider/visit-matches/{recordId}",
+      "method": "GET",
+      "route": "/v1/provider/visit-matches/{recordId}",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 64,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [

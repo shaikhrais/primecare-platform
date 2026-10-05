@@ -1,6 +1,6 @@
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import generatedRegistry from './provider-records-registry.json';
-type RecordDefinition={path:string;table:string;item:string;collection?:string;fields:string[];types:Record<string,string|string[]>;dateFields:string[];singleton?:boolean;summaryField?:string;orderField:string};
+type RecordDefinition={path:string;table:string;item:string;collection?:string;fields:string[];types:Record<string,string|string[]>;dateFields:string[];singleton?:boolean;summaryField?:string;orderField:string;tenantThroughProvider?:boolean};
 const registry:RecordDefinition[]=generatedRegistry;
 /** Provider profile ownership is derived exclusively from the active session.
  * SQL identifiers come from the generated governance projection, never input. */
@@ -25,8 +25,9 @@ export async function providerRecords(request:Request,env:Env,path:string,header
         const profiles=(await db.query('SELECT id FROM provider_profiles WHERE user_id::text=$1 AND tenant_id::text=$2 LIMIT 2',[String(actor.id),String(actor.tenant_id)])).rows;
         if(!profiles.length)return json({error:'Provider profile not found'},404,safe);
         if(profiles.length!==1)return json({error:'Provider data unavailable'},503,safe);
-        const values=[String(profiles[0].id),String(actor.tenant_id)],scope=' FROM '+record.table+' WHERE provider_id::text=$1 AND tenant_id::text=$2';
-        const fields=record.fields.join(',');
+        const values=[String(profiles[0].id),String(actor.tenant_id),...(record.tenantThroughProvider?[String(actor.id)]:[])],prefix=record.tenantThroughProvider?'r.':'';
+        const scope=record.tenantThroughProvider?' FROM '+record.table+' r JOIN provider_profiles owner ON owner.id::text=r.provider_id::text WHERE r.provider_id::text=$1 AND owner.tenant_id::text=$2 AND owner.user_id::text=$3':' FROM '+record.table+' WHERE provider_id::text=$1 AND tenant_id::text=$2';
+        const fields=record.fields.map(field=>prefix+field).join(',');
         const valid=(field:string,value:unknown)=>{
           const type=record.types[field],allowed=Array.isArray(type)?type:[type];
           if(value===null)return allowed.includes('null');
@@ -35,9 +36,9 @@ export async function providerRecords(request:Request,env:Env,path:string,header
         };
         const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{if(!valid(field,row[field]))throw Error('Invalid provider record');return [field,row[field]];}));
         if(summary){
-          const field=record.summaryField!,groupField=field;
+          const field=record.summaryField!,groupField=prefix+field;
           const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+groupField+scope+' GROUP BY '+groupField+') groups',values)).rows[0].count);
-          const rows=(await db.query('SELECT '+groupField+',COUNT(*)::int AS count'+scope+' GROUP BY '+groupField+' ORDER BY '+groupField+' NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+          const rows=(await db.query('SELECT '+groupField+',COUNT(*)::int AS count'+scope+' GROUP BY '+groupField+' ORDER BY '+groupField+' NULLS LAST LIMIT $'+(values.length+1)+' OFFSET $'+(values.length+2),[...values,Number(limit),Number(offset)])).rows;
           if(!Number.isSafeInteger(total)||total<0)throw Error('Invalid provider summary count');
           const groups=rows.map(row=>{if(!valid(field,row[field])||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid provider summary');return {[field]:row[field],count:row.count};});
           return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
@@ -48,10 +49,10 @@ export async function providerRecords(request:Request,env:Env,path:string,header
           if(rows.length!==1)return json({error:'Provider data unavailable'},503,safe);
           return json({[record.item]:project(rows[0])},200,safe);
         }
-        if(detail){const row=(await db.query('SELECT '+fields+scope+' AND '+'id::text=$3',[...values,suffix])).rows[0];return row?json({[record.item]:project(row)},200,safe):json({error:'Record not found'},404,safe);}
+        if(detail){const row=(await db.query('SELECT '+fields+scope+' AND '+prefix+'id::text=$'+(values.length+1),[...values,suffix])).rows[0];return row?json({[record.item]:project(row)},200,safe):json({error:'Record not found'},404,safe);}
         const total=Number((await db.query('SELECT COUNT(*)::int AS count'+scope,values)).rows[0].count);
         if(!Number.isSafeInteger(total)||total<0)throw Error('Invalid provider record count');
-        const rows=(await db.query('SELECT '+fields+scope+' ORDER BY '+record.orderField+' DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+        const rows=(await db.query('SELECT '+fields+scope+' ORDER BY '+prefix+record.orderField+' DESC,'+prefix+'id DESC LIMIT $'+(values.length+1)+' OFFSET $'+(values.length+2),[...values,Number(limit),Number(offset)])).rows;
         return json({[record.collection!]:rows.map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
       }finally{await db.query('ROLLBACK');}
     });

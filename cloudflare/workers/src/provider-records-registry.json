@@ -194,5 +194,92 @@
       "created_at",
       "updated_at"
     ]
+  },
+  {
+    "path": "/visit-check-events",
+    "table": "visit_check_events",
+    "collection": "events",
+    "item": "event",
+    "fields": [
+      "id",
+      "event_type",
+      "result",
+      "device_time_iso",
+      "server_time",
+      "created_at"
+    ],
+    "listBatch": 61,
+    "summaryBatch": 62,
+    "summaryField": "result",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "event_type": "string",
+      "result": "string",
+      "device_time_iso": [
+        "string",
+        "null"
+      ],
+      "server_time": [
+        "string",
+        "null"
+      ],
+      "created_at": "string"
+    },
+    "dateFields": [
+      "device_time_iso",
+      "server_time",
+      "created_at"
+    ]
+  },
+  {
+    "path": "/fleet-status",
+    "table": "fleet_status",
+    "item": "fleet",
+    "fields": [
+      "id",
+      "status",
+      "battery_level",
+      "last_heartbeat_at"
+    ],
+    "listBatch": 63,
+    "singleton": true,
+    "tenantThroughProvider": true,
+    "orderField": "last_heartbeat_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "battery_level": [
+        "integer",
+        "null"
+      ],
+      "last_heartbeat_at": "string"
+    },
+    "dateFields": [
+      "last_heartbeat_at"
+    ]
+  },
+  {
+    "path": "/visit-matches",
+    "table": "visit_matches",
+    "collection": "matches",
+    "item": "match",
+    "fields": [
+      "id",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 64,
+    "summaryBatch": 65,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
   }
 ]
