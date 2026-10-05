@@ -19,6 +19,9 @@ try{
  const bookingDetail=await (await call('/bookings/'+bookings[0])).json();assert.equal(bookingDetail.booking.id,bookings[0]);checks++;
  assert.equal((await call('/bookings/'+bookings[1])).status,404);assert.equal((await call('/bookings/'+bookings[2])).status,404);checks++;
  const bookingPage=await (await call('/bookings','?offset=1')).json();assert.equal(bookingPage.bookings.length,0);assert.equal(bookingPage.pagination.total,1);checks++;
+ const bookingSummary=await (await call('/bookings/summary')).json();assert.equal(bookingSummary.pagination.total,1);assert.equal(bookingSummary.groups[0].count,1);assert.equal(bookingSummary.groups[0].status,'pending');checks++;
+ const bookingSummaryPage=await (await call('/bookings/summary','?offset=1')).json();assert.equal(bookingSummaryPage.groups.length,0);assert.equal(bookingSummaryPage.pagination.total,1);checks++;
+
  await db.query('CREATE TABLE visits(id TEXT PRIMARY KEY,client_id TEXT NOT NULL,tenant_id TEXT NOT NULL,service_id TEXT NOT NULL,requested_start_at TIMESTAMP NOT NULL,duration_minutes INTEGER NOT NULL,status TEXT,priority TEXT,updated_at TIMESTAMP NOT NULL DEFAULT NOW(),management_notes TEXT)');createdVisits=true;
  const visits=[randomUUID(),randomUUID(),randomUUID()];
  for(let i=0;i<3;i++)await db.query("INSERT INTO visits(id,client_id,tenant_id,service_id,requested_start_at,duration_minutes,status,priority,management_notes) VALUES($1,$2,$3,'service',NOW(),60,'requested','normal','private-notes')",[visits[i],profiles[i===2?0:i],tenants[i===2?1:0]]);
