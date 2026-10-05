@@ -111,7 +111,7 @@ jobs:
         run: |
           python3 scripts/register-maintenance-governance.py
           python3 scripts/register-workspace-governance.py
-          node --test scripts/test-account-admin-api.mjs scripts/test-governance-api.mjs scripts/test-account-list-api.mjs scripts/test-workspace.mjs scripts/test-workspace-browser.mjs scripts/test-auth-maintenance.mjs scripts/test-auth-recovery.mjs scripts/test-auth-api.mjs scripts/test-auth-client.mjs scripts/test-auth-bootstrap.mjs scripts/test-auth-management.mjs scripts/test-auth-password.mjs scripts/test-auth-schema.mjs scripts/test-auth-cleanup.mjs scripts/test-auth-source.mjs
+          node --test scripts/test-self-sessions-api.mjs scripts/test-account-admin-api.mjs scripts/test-governance-api.mjs scripts/test-account-list-api.mjs scripts/test-workspace.mjs scripts/test-workspace-browser.mjs scripts/test-auth-maintenance.mjs scripts/test-auth-recovery.mjs scripts/test-auth-api.mjs scripts/test-auth-client.mjs scripts/test-auth-bootstrap.mjs scripts/test-auth-management.mjs scripts/test-auth-password.mjs scripts/test-auth-schema.mjs scripts/test-auth-cleanup.mjs scripts/test-auth-source.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/main.ts
       - name: Real PostgreSQL workspace and session lifecycle
@@ -123,6 +123,7 @@ jobs:
           node scripts/test-workspace-postgres.mjs
           node scripts/test-governance-postgres.mjs
           node scripts/test-account-admin-postgres.mjs
+          node scripts/test-self-sessions-postgres.mjs
       - name: Real Chromium navigation and accessibility checks
         if: matrix.identity == 'uuid'
         run: |

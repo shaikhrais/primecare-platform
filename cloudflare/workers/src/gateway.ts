@@ -41,6 +41,10 @@ export default {
       return new Response(null, { status: origin && headers.has('Access-Control-Allow-Origin') ? 204 : 403, headers });
     }
     const url = new URL(request.url);
+    if(url.pathname==='/v1/user/sessions'){
+      url.hostname='service';url.pathname='/user/sessions';
+      return withGatewayHeaders(request,await env.AUTH.fetch(new Request(url,request)));
+    }
     if(url.pathname==='/v1/user/change-password' && request.method==='POST') {
       url.hostname='service';url.pathname='/change-password';
       return withGatewayHeaders(request,await env.AUTH.fetch(new Request(url,request)));

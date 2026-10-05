@@ -2,7 +2,7 @@
 import {execFileSync} from 'node:child_process';
 import {readFileSync,writeFileSync,mkdirSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-const suites=['test-account-admin-api.mjs','test-governance-api.mjs','test-account-list-api.mjs','test-workspace.mjs','test-auth-maintenance.mjs','test-auth-recovery.mjs','test-auth-api.mjs','test-auth-client.mjs','test-auth-bootstrap.mjs','test-auth-management.mjs','test-auth-password.mjs','test-auth-schema.mjs','test-auth-cleanup.mjs','test-auth-source.mjs'];
+const suites=['test-self-sessions-api.mjs','test-account-admin-api.mjs','test-governance-api.mjs','test-account-list-api.mjs','test-workspace.mjs','test-auth-maintenance.mjs','test-auth-recovery.mjs','test-auth-api.mjs','test-auth-client.mjs','test-auth-bootstrap.mjs','test-auth-management.mjs','test-auth-password.mjs','test-auth-schema.mjs','test-auth-cleanup.mjs','test-auth-source.mjs'];
 const output=execFileSync(process.execPath,['--test',...suites.map(f=>'scripts/'+f)],{encoding:'utf8'});
 const count=Number(/(?:#|ℹ) tests (\d+)/.exec(output)?.[1]);
 const fail=Number(/(?:#|ℹ) fail (\d+)/.exec(output)?.[1]);

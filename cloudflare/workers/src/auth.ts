@@ -1,3 +1,4 @@
+import {selfSessions} from './self-sessions';
 import {recoverPassword,resetPassword,validateRecovery} from './password-recovery';
 import {maintenance,maintenanceRoles,configuredMail,type MaintenanceEnv} from './maintenance';
 import type {SourceLimitEnv} from './auth-source-limit';
@@ -82,6 +83,8 @@ async function mutationLimit(db:Client,token:string,operation:AuthOperation,head
 }
 
 async function handleAuth(request: Request, env: Env, path: string, headers: HeadersInit): Promise<Response | null> {
+  const personal=await selfSessions(request,env,path,headers);
+  if(personal)return personal;
   const adminRequest=parseAccountAdminRequest(request,path);
   if(adminRequest) {
     if('error' in adminRequest)return json({error:adminRequest.error},adminRequest.status,{...headers,...(adminRequest.allow?{allow:adminRequest.allow}:{})});
