@@ -1,6 +1,6 @@
 {
   "scope": "local_unit_fixtures",
-  "passed": 138,
+  "passed": 144,
   "failed": 0,
   "productionVerified": false,
   "postgresVerified": false,
@@ -17,15 +17,17 @@
     "cloudflare/workers/src/email-templates.json": "fac27367d39bf30caebacb76c4cc4919e181e47348aa75cc40780124c9a79446",
     "cloudflare/workers/src/email.ts": "3fbc322d8ee953eb1c13f2a31f0fc1cb9a33aaaacdfe338a5f207b593c017357",
     "cloudflare/workers/src/gateway.ts": "05453e946908516b7eba7de07179cd311431e70cf3efbbb7a9581d5c2ec2101a",
-    "cloudflare/workers/src/governance-api-registry.json": "15fef938fb4e131abeb6cd4fb06b0fa707f869e0e6c90764dfa4cb837904ea3b",
+    "cloudflare/workers/src/governance-api-registry.json": "f99fcb84c20c3f6ffeedb6e8dfd224ed3e0092770af88b05e180389697ae8e59",
     "cloudflare/workers/src/governance-api.ts": "6cd8a9807c7806c57aa4f8e466c7a4051c1598bfed5ebea48fb53d1e18f731af",
     "cloudflare/workers/src/maintenance.ts": "a04507f2a7e77ca96a5d25a5c661398f270f5f885bdc0a1c12cb50ea77a7d1db",
     "cloudflare/workers/src/password-change.ts": "cb4b1270d57ef0d65bd80a9a73210135e5dc39debf4a385b0688bb2710fd196b",
     "cloudflare/workers/src/password-recovery.ts": "25287c18307b06aff912ee5adf17d9717c5576c9ef12206846c1efc1ebfb7ed1",
+    "cloudflare/workers/src/provider-self.ts": "52410611d2bc28cca5cb2f63e053f7add9b6d46fffeb25811b832cf7e68b3d49",
     "cloudflare/workers/src/self-sessions.ts": "e014aeee2c71e4a8575cc1eb474842c510f2279f79ed318ea9b9f6a6a37c0f5d",
-    "cloudflare/workers/src/service.ts": "abf010bb2f88836fcb25c8c44622417d413e83a095e253e24866b7431c7df7a5",
-    "cloudflare/workers/src/workspace-registry.json": "0cd60b045d577e9f8133133f8964214043888c68986ce8b0eb12952ecff5f0e0",
+    "cloudflare/workers/src/service.ts": "42c66429a5e90bb2913adf7abb1eec042607deb4589db117b1da4f1897aa23d8",
+    "cloudflare/workers/src/workspace-registry.json": "c5bd7d4b678f73116cd4918c5cb5abf70a62975b71ca6baa41172dc0cdc35194",
     "cloudflare/workers/src/workspace.ts": "5724063690ec21f45221dd606a69bfd8da909f1980e873041ee82cac854bc701",
+    "scripts/test-provider-self-api.mjs": "b9c17edb4de4837bdacc7fae8c8eecabe54161719f3cba7e825a4d33ec37d32d",
     "scripts/test-client-self-api.mjs": "feb8386d4cfe62a739ccc6799f4b5bf1161d28b3532779217fe8ea0d50c3bcf5",
     "scripts/test-self-sessions-api.mjs": "151dcdc729b103db7f3ae84cefb163fd978711d8afa1b1a90e08a3ebc1d0b19e",
     "scripts/test-account-admin-api.mjs": "445b09392730aa1fbdd449d668e5e4f2becd9b6bb4b360f42000f6a8e8ecffd4",
@@ -41,6 +43,6 @@
     "scripts/test-auth-password.mjs": "910b6eddcba4aa4fa4beaa6cc7a630c895b1d34c7f182edbe75679d35297ec19",
     "scripts/test-auth-schema.mjs": "8ad52ffcf4e7187b6a873339377f71f0cc95dd4435c44804107a36b5d568e3b5",
     "scripts/test-auth-cleanup.mjs": "ad00afb6df675a25f59839ddbdf497c80464c22cdecf4d0cd5ddd144eb03be6b",
-    "scripts/test-auth-source.mjs": "4cb14b8087af51c9e8a440e9f6dcb5ff87ead2575449141fdfcb87d3a57d0e4a"
+    "scripts/test-auth-source.mjs": "f6611aa8cb20bec4bce5e488469e1da94c81afb2a486968a7c5856377ffe5ab7"
   }
 }

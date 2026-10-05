@@ -77,6 +77,8 @@ test('deployment generator attaches governed binding only to auth Worker',()=>{
   ]);
   const governance=JSON.parse(readFileSync(join(dir,'governance.jsonc'),'utf8'));
   assert.notEqual(governance.ratelimits[0].namespace_id,auth.ratelimits[1].namespace_id);
+  const provider=JSON.parse(readFileSync(join(dir,'provider.jsonc'),'utf8'));
+  assert.deepEqual(provider.ratelimits,[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100404',simple:{limit:120,period:60}}]);
   const client=JSON.parse(readFileSync(join(dir,'client.jsonc'),'utf8'));
   assert.deepEqual(client.ratelimits,[{name:'WORKSPACE_SOURCE_LIMIT',namespace_id:'2026100403',simple:{limit:120,period:60}}]);
   for(const name of ['gateway'])assert.equal(JSON.parse(readFileSync(join(dir,name+'.jsonc'),'utf8')).ratelimits,undefined);
