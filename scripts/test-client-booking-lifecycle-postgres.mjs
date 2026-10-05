@@ -39,7 +39,7 @@ try{
  try{const before=(await db.query('SELECT COUNT(*)::int AS count FROM booking_requests')).rows[0].count;assert.equal((await call('/booking-requests','missing-audit')).status,503);assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM booking_requests')).rows[0].count,before);checks++;}finally{await db.query('ALTER TABLE booking_request_audit_hidden RENAME TO booking_request_audit');}
  // A retry after profile reassignment must not expose the old request response.
  await db.query('UPDATE client_profiles SET id=$1 WHERE id=$2',[randomUUID(),profiles[0]]);assert.equal((await call()).status,404);checks++;
- await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 second' WHERE user_id=$1",[ids[1]]);assert.equal((await call('/booking-requests','expired',input,tokens[1])).status,401);checks++;
+ await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 second' WHERE user_id=$1",[ids[1]]);assert.equal((await call('/booking-requests','expired-session',input,tokens[1])).status,401);checks++;
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[ids[2]]);assert.equal((await call('/booking-requests','inactive',input,tokens[2])).status,401);checks++;
  console.log(`Booking request lifecycle passed ${checks} PostgreSQL checks (${process.env.AUTH_TEST_ID_TYPE} auth identities).`);
 }finally{if(createdAudit)await db.query('DROP TABLE booking_request_audit');if(createdRequests)await db.query('DROP TABLE booking_requests');if(createdProfiles)await db.query('DROP TABLE client_profiles');await db.query('DELETE FROM auth_sessions WHERE user_id::text=ANY($1)',[ids]);await db.query('DELETE FROM users WHERE id::text=ANY($1)',[ids]);await db.end();}
