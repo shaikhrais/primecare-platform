@@ -1,7 +1,7 @@
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
 const dir=await mkdtemp(join(tmpdir(),'client-self-pg-'));await build({entryPoints:['cloudflare/workers/src/client-self.ts'],outfile:join(dir,'client.cjs'),bundle:true,platform:'node',format:'cjs'});const {clientSelf}=createRequire(import.meta.url)(join(dir,'client.cjs'));const db=new Client({connectionString:url.href});await db.connect();
-const ids=[randomUUID(),randomUUID(),randomUUID()],tenants=[randomUUID(),randomUUID()],profiles=[randomUUID(),randomUUID(),randomUUID()],tokens=['m'.repeat(43),'n'.repeat(43),'o'.repeat(43)];const hash=s=>createHash('sha256').update(s).digest('hex');let checks=0,createdProfiles=false,createdInvoices=false;
+const ids=[randomUUID(),randomUUID(),randomUUID()],tenants=[randomUUID(),randomUUID()],profiles=[randomUUID(),randomUUID(),randomUUID()],tokens=['m'.repeat(43),'n'.repeat(43),'o'.repeat(43)];const hash=s=>createHash('sha256').update(s).digest('hex');let checks=0,createdProfiles=false,createdInvoices=false,createdBookings=false;
 const call=(path='/home/profile',query='',token=tokens[0],headers={})=>clientSelf(new Request('https://fixture'+path+query,{headers:{authorization:'Bearer '+token,...headers}}),{DB_URL:url.href,SERVICE_NAME:'client'},path,{});
 try{
  // Disposable domain fixtures use the registered column names and text domain
@@ -12,6 +12,13 @@ try{
  for(let i=0;i<3;i++)await db.query("INSERT INTO invoices(id,client_id,tenant_id,status,currency,subtotal,tax,total,stripe_invoice_id) VALUES($1,$2,$3,'pending','CAD',100.10,13.01,113.11,'private-processor-id')",[randomUUID(),profiles[i],tenants[i===2?1:0]]);
  // Deliberately malformed invoice: same client but a foreign tenant.
  await db.query("INSERT INTO invoices(id,client_id,tenant_id,status,currency,subtotal,tax,total) VALUES($1,$2,$3,'pending','CAD',1,0,1)",[randomUUID(),profiles[0],tenants[1]]);
+ await db.query('CREATE TABLE bookings(id TEXT PRIMARY KEY,client_id TEXT NOT NULL,tenant_id TEXT NOT NULL,start_at TIMESTAMP NOT NULL,end_at TIMESTAMP NOT NULL,service_type TEXT NOT NULL,priority TEXT NOT NULL,status TEXT NOT NULL,recurrence_rule TEXT,notes TEXT)');createdBookings=true;
+ const bookings=[randomUUID(),randomUUID(),randomUUID()];
+ for(let i=0;i<3;i++)await db.query("INSERT INTO bookings(id,client_id,tenant_id,start_at,end_at,service_type,priority,status,notes) VALUES($1,$2,$3,NOW(),NOW()+INTERVAL '1 hour','massage','normal','pending','private-note')",[bookings[i],profiles[i===2?0:i],tenants[i===2?1:0]]);
+ const bookingList=await (await call('/bookings','?limit=1')).json();assert.equal(bookingList.pagination.total,1);assert.equal(bookingList.bookings[0].id,bookings[0]);assert.ok(!JSON.stringify(bookingList).includes('private-note'));checks++;
+ const bookingDetail=await (await call('/bookings/'+bookings[0])).json();assert.equal(bookingDetail.booking.id,bookings[0]);checks++;
+ assert.equal((await call('/bookings/'+bookings[1])).status,404);assert.equal((await call('/bookings/'+bookings[2])).status,404);checks++;
+ const bookingPage=await (await call('/bookings','?offset=1')).json();assert.equal(bookingPage.bookings.length,0);assert.equal(bookingPage.pagination.total,1);checks++;
  const own=await (await call()).json();assert.equal(own.profile.id,profiles[0]);assert.ok(!('dob' in own.profile));checks++;
  const list=await (await call('/invoices')).json();assert.equal(list.pagination.total,1);assert.equal(list.invoices[0].total,'113.11');assert.ok(!JSON.stringify(list).includes('private-processor'));checks++;
  const other=await (await call('/invoices','',tokens[1])).json();assert.equal(other.pagination.total,1);assert.notEqual(other.invoices[0].id,list.invoices[0].id);checks++;
@@ -20,4 +27,4 @@ try{
  await db.query('UPDATE client_profiles SET tenant_id=$1 WHERE id=$2',[tenants[1],profiles[0]]);assert.equal((await call()).status,404);checks++;
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[ids[1]]);assert.equal((await call('/invoices','',tokens[1])).status,401);checks++;
  console.log(`Client self passed ${checks} PostgreSQL checks (${process.env.AUTH_TEST_ID_TYPE} auth identities).`);
-}finally{if(createdInvoices)await db.query('DROP TABLE invoices');if(createdProfiles)await db.query('DROP TABLE client_profiles');await db.query('DELETE FROM auth_sessions WHERE user_id::text=ANY($1)',[ids]);await db.query('DELETE FROM users WHERE id::text=ANY($1)',[ids]);await db.end();}
+}finally{if(createdBookings)await db.query('DROP TABLE bookings');if(createdInvoices)await db.query('DROP TABLE invoices');if(createdProfiles)await db.query('DROP TABLE client_profiles');await db.query('DELETE FROM auth_sessions WHERE user_id::text=ANY($1)',[ids]);await db.query('DELETE FROM users WHERE id::text=ANY($1)',[ids]);await db.end();}
