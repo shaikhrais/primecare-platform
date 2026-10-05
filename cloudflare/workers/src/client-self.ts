@@ -5,13 +5,14 @@ import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 export async function clientSelf(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null> {
   const invoiceSummary=path==='/invoices/summary';
   const invoiceMatch=!invoiceSummary?/^\/invoices\/([^/]+)$/.exec(path):null;
-  const visitMatch=/^\/visits\/([^/]+)$/.exec(path);
+  const visitSummary=path==='/visits/summary';
+  const visitMatch=!visitSummary?/^\/visits\/([^/]+)$/.exec(path):null;
   const statusSummary=path==='/bookings/summary';
   const bookingMatch=!statusSummary?/^\/bookings\/([^/]+)$/.exec(path):null;
-  if(env.SERVICE_NAME!=='client'||!bookingMatch&&!visitMatch&&!invoiceMatch&&!invoiceSummary&&!statusSummary&&!['/home/profile','/invoices','/bookings','/visits'].includes(path))return null;
+  if(env.SERVICE_NAME!=='client'||!bookingMatch&&!visitMatch&&!invoiceMatch&&!invoiceSummary&&!statusSummary&&!visitSummary&&!['/home/profile','/invoices','/bookings','/visits'].includes(path))return null;
   const safe=new Headers(headers);safe.set('cache-control','no-store');
   if(request.method!=='GET'){safe.set('allow','GET');return json({error:'Method not allowed'},405,safe);}
-  const params=new URL(request.url).searchParams,keys=(statusSummary||invoiceSummary||['/invoices','/bookings','/visits'].includes(path))?['limit','offset']:[];
+  const params=new URL(request.url).searchParams,keys=(visitSummary||statusSummary||invoiceSummary||['/invoices','/bookings','/visits'].includes(path))?['limit','offset']:[];
   const limit=params.get('limit')??'25',offset=params.get('offset')??'0';
   if(request.body!==null||[...params.keys()].some(k=>!keys.includes(k)||params.getAll(k).length!==1)||!/^[1-9]\d{0,2}$/.test(limit)||Number(limit)>100||!/^\d{1,6}$/.test(offset)||Number(offset)>100000)return json({error:'Invalid query or body'},400,safe);
   if(bookingMatch&&!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(bookingMatch[1]))return json({error:'Invalid booking identifier'},400,safe);
@@ -32,6 +33,12 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
         const p=profiles[0];
         if(path==='/home/profile')return json({profile:{id:String(p.id),full_name:p.full_name,city:p.city,province:p.province,postal_code:p.postal_code,updated_at:p.updated_at}},200,safe);
         const values=[String(p.id),String(actor.tenant_id)];
+        if(visitSummary){
+          const filter='client_id::text=$1 AND tenant_id::text=$2';
+          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM visits WHERE '+filter+' GROUP BY status) groups',values)).rows[0].count);
+          const rows=(await db.query('SELECT status,COUNT(*)::int AS count FROM visits WHERE '+filter+' GROUP BY status ORDER BY status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+          return json({groups:rows.map(g=>({status:g.status,count:g.count})),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        }
         if(path==='/visits'||visitMatch){
           const fields='id,service_id,requested_start_at,duration_minutes,status,priority,updated_at';
           const project=(v:Record<string,unknown>)=>({id:String(v.id),service_id:String(v.service_id),requested_start_at:v.requested_start_at,duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:v.updated_at});

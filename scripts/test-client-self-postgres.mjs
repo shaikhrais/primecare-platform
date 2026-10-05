@@ -29,6 +29,14 @@ try{
  const visitDetail=await (await call('/visits/'+visits[0])).json();assert.equal(visitDetail.visit.duration_minutes,60);checks++;
  for(const id of visits.slice(1))assert.equal((await call('/visits/'+id)).status,404);checks++;
  const visitPage=await (await call('/visits','?offset=1')).json();assert.equal(visitPage.visits.length,0);assert.equal(visitPage.pagination.total,1);checks++;
+
+ const batch15=await (await call('/visits/summary')).json();assert.equal(batch15.pagination.total,1);assert.equal(batch15.groups[0].count,1);checks++;
+ const batch15Page=await (await call('/visits/summary','?offset=1')).json();assert.equal(batch15Page.groups.length,0);assert.equal(batch15Page.pagination.total,1);checks++;
+ // Null is a distinct stored-status group; other owners/tenants remain excluded.
+ await db.query('UPDATE visits SET status=NULL WHERE client_id=$1',[profiles[0]]);
+ const batch15Null=await (await call('/visits/summary')).json();assert.deepEqual(batch15Null.groups,[{status:null,count:1}]);checks++;
+ await db.query('DELETE FROM visits WHERE client_id=$1',[profiles[0]]);
+ const batch15Empty=await (await call('/visits/summary')).json();assert.deepEqual(batch15Empty.groups,[]);assert.equal(batch15Empty.pagination.total,0);assert.equal(batch15Empty.pagination.hasMore,false);checks++;
  const own=await (await call()).json();assert.equal(own.profile.id,profiles[0]);assert.ok(!('dob' in own.profile));checks++;
  const list=await (await call('/invoices')).json();assert.equal(list.pagination.total,1);assert.equal(list.invoices[0].total,'113.11');assert.ok(!JSON.stringify(list).includes('private-processor'));checks++;
  const detail=await (await call('/invoices/'+list.invoices[0].id)).json();assert.equal(detail.invoice.total,'113.11');assert.ok(!JSON.stringify(detail).includes('private-processor'));checks++;

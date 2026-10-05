@@ -14,6 +14,7 @@ PORTALS = {'corporate': 'co', 'clinic': 'ci', 'clinical': 'ci', 'client': 'cl',
            'support': 'su', 'franchise': 'fr', 'marketing': 'ma',
            'business-development': 'bd', 'governance': 'go'}
 runpy.run_path(str(ROOT/'scripts/register-owner-summaries-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-visit-document-summaries-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-provider-documents-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-client-invoices-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-client-visits-api.py'))

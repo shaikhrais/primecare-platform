@@ -3,13 +3,14 @@ import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 /** Ownership comes from the registered provider_profiles.user_id relationship,
  * never from caller-supplied profile identifiers or presentation grants. */
 export async function providerSelf(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null> {
-  const documentMatch=/^\/documents\/([^/]+)$/.exec(path);
+  const documentSummary=path==='/documents/summary';
+  const documentMatch=!documentSummary?/^\/documents\/([^/]+)$/.exec(path):null;
   const statusSummary=path==='/visits/summary';
   const visitMatch=!statusSummary?/^\/visits\/([^/]+)$/.exec(path):null;
-  if(env.SERVICE_NAME!=='provider'||!visitMatch&&!documentMatch&&!statusSummary&&!['/profile','/availability','/visits','/documents'].includes(path))return null;
+  if(env.SERVICE_NAME!=='provider'||!visitMatch&&!documentMatch&&!statusSummary&&!documentSummary&&!['/profile','/availability','/visits','/documents'].includes(path))return null;
   const safe=new Headers(headers);safe.set('cache-control','no-store');
   if(request.method!=='GET'){safe.set('allow','GET');return json({error:'Method not allowed'},405,safe);}
-  const params=new URL(request.url).searchParams,keys=(statusSummary||['/availability','/visits','/documents'].includes(path))?['limit','offset']:[];
+  const params=new URL(request.url).searchParams,keys=(documentSummary||statusSummary||['/availability','/visits','/documents'].includes(path))?['limit','offset']:[];
   const limit=params.get('limit')??'25',offset=params.get('offset')??'0';
   if(request.body!==null||[...params.keys()].some(k=>!keys.includes(k)||params.getAll(k).length!==1)||!/^[1-9]\d{0,2}$/.test(limit)||Number(limit)>100||!/^\d{1,6}$/.test(offset)||Number(offset)>100000)return json({error:'Invalid query or body'},400,safe);
   if(visitMatch&&!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(visitMatch[1]))return json({error:'Invalid visit identifier'},400,safe);
@@ -29,11 +30,16 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
         const p=profiles[0];
         if(path==='/profile')return json({profile:{id:String(p.id),full_name:p.full_name,bio:p.bio,languages:p.languages,service_areas:p.service_areas,provider_type:p.provider_type,is_approved:p.is_approved,skills:p.skills}},200,safe);
         const values=[String(p.id),String(actor.tenant_id)];
-        if(path==='/documents'||documentMatch){
+        if(path==='/documents'||documentMatch||documentSummary){
           // ProviderDocument has no tenant_id: tenant/owner scope comes from
           // its registered provider relation, checked again in the document SQL.
           const scope=' FROM provider_documents d JOIN provider_profiles p ON p.id=d.provider_id WHERE p.id::text=$1 AND p.tenant_id::text=$2 AND p.user_id::text=$3';
           const documentValues=[...values,String(actor.id)];
+          if(documentSummary){
+            const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT d.status'+scope+' GROUP BY d.status) groups',documentValues)).rows[0].count);
+            const rows=(await db.query('SELECT d.status,COUNT(*)::int AS count'+scope+' GROUP BY d.status ORDER BY d.status NULLS LAST LIMIT $4 OFFSET $5',[...documentValues,Number(limit),Number(offset)])).rows;
+            return json({groups:rows.map(g=>({status:g.status,count:g.count})),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          }
           const fields='d.id,d.doc_type,d.status,d.expiry_date,d.verified_at,d.created_at,d.updated_at';
           const project=(d:Record<string,unknown>)=>({id:String(d.id),doc_type:d.doc_type,status:d.status,expiry_date:d.expiry_date,verified_at:d.verified_at,created_at:d.created_at,updated_at:d.updated_at});
           if(documentMatch){
