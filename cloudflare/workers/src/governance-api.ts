@@ -26,6 +26,9 @@ const pageRows=()=>registry.screens.map(p=>({screen:p.code,name:p.name,app:p.app
 /** Registered evidence only. No test timestamps or healthy flags are invented. */
 export function governanceRows(path:string):RecordRow[] {
   if(path==='/api-execution-status')return execution.data;
+  const gaps:Record<string,string>={'/api-missing-permissions':'permission','/api-missing-request-schemas':'requestSchema','/api-missing-response-schemas':'responseSchema','/api-unlinked-screens':'screenLink'};
+  if(gaps[path])return execution.data.filter(row=>row.missingContractFields.includes(gaps[path]));
+  if(path==='/api-verification-summary')return verificationSummary(execution.data);
   const pages=pageRows();
   if(path==='/page-blueprints')return registry.screens.map(p=>({
     screen:p.code,name:p.name,app:p.appCode,role:p.role,route:p.route,
@@ -71,10 +74,24 @@ export function governanceRows(path:string):RecordRow[] {
   }
   return [];
 }
-function paginate(rows:RecordRow[],query:Query,evidenceType:string) {
-  const filtered=rows.filter(row=>(!query.screen||row.screen===query.screen||(row.screens as string[]|undefined)?.includes(query.screen))&&(!query.app||row.app===query.app||(row.apps as string[]|undefined)?.includes(query.app))&&
+/** Use the same operation scope for lists and counts. Aggregate only after filtering. */
+export function filterGovernanceRows(rows:RecordRow[],query:Query):RecordRow[] {
+  return rows.filter(row=>(!query.screen||row.screen===query.screen||(row.screens as string[]|undefined)?.includes(query.screen))&&(!query.app||row.app===query.app||(row.apps as string[]|undefined)?.includes(query.app))&&
     (!query.role||row.role===query.role||(row.roles as string[]|undefined)?.includes(query.role))&&
     (!query.search||JSON.stringify(row).toLowerCase().includes(query.search.toLowerCase())));
+}
+export function verificationSummary(rows:RecordRow[]):RecordRow[] {
+  const states=['blocked','unit_fixtures_recorded','verification_pending'];
+  return states.flatMap(verificationState=>{
+    const group=rows.filter(row=>row.verificationState===verificationState);
+    if(!group.length)return [];
+    return [{verificationState,operations:group.length,
+      contractGaps:Object.fromEntries(['permission','requestSchema','responseSchema','screenLink'].map(field=>[field,group.filter(row=>(row.missingContractFields as string[]).includes(field)).length])),
+      postgresVerified:false,productionVerified:false}];
+  });
+}
+function paginate(rows:RecordRow[],query:Query,evidenceType:string) {
+  const filtered=filterGovernanceRows(rows,query);
   return {data:filtered.slice(query.offset,query.offset+query.limit),
     pagination:{limit:query.limit,offset:query.offset,total:filtered.length,hasMore:query.offset+query.limit<filtered.length},
     source:{catalogVersion:catalog.version,evidenceType}};
@@ -112,6 +129,11 @@ export async function governanceApi(request:Request,env:Env,path:string,headers:
           const counts=(await db.query("SELECT roles AS role,COUNT(*)::int AS count FROM users WHERE tenant_id::text=$1 AND LOWER(status)='active' GROUP BY roles ORDER BY roles",[String(actor.tenant_id)])).rows;
           const rows=catalog.hierarchy.map(r=>({...r,activeAccounts:Number(counts.find(c=>c.role===r.role)?.count??0),inheritsPermissions:false}));
           return json(paginate(rows,query,'approved_reporting_and_live_tenant_counts'),200,safe);
+        }
+        if(path==='/api-verification-summary') {
+          const groups=verificationSummary(filterGovernanceRows(execution.data,query));
+          // Scope filters apply to operation records, not the aggregated group labels.
+          return json(paginate(groups,{...query,search:'',app:'',role:'',screen:''},'registered_governance'),200,safe);
         }
         return json(paginate(governanceRows(path),query,'registered_governance'),200,safe);
       }finally {await db.query('ROLLBACK');}

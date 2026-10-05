@@ -2,12 +2,12 @@
 
 Recorded declarations and local unit-fixture status only. Unrecorded means inspect implementation, not proof of absent code. PostgreSQL/production evidence is not inferred from CI or registry labels.
 
-Declared operations: 1330
+Declared operations: 1335
 
 | Recorded verification state | Operations |
 | --- | --- |
 | blocked | 10 |
-| unit_fixtures_recorded | 172 |
+| unit_fixtures_recorded | 177 |
 | verification_pending | 1148 |
 
 | Missing contract field | Operations |

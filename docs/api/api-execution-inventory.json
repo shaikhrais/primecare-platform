@@ -1,10 +1,10 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1330,
+    "totalDeclared": 1335,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 172,
+      "unit_fixtures_recorded": 177,
       "verification_pending": 1148
     },
     "contractGaps": {
@@ -13869,6 +13869,121 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 20,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "api_health_dashboard"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "governance"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16599,
+      "api": "GET /v1/governance/api-missing-permissions",
+      "method": "GET",
+      "route": "/v1/governance/api-missing-permissions",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 102,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "api_health_dashboard"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "governance"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16600,
+      "api": "GET /v1/governance/api-missing-request-schemas",
+      "method": "GET",
+      "route": "/v1/governance/api-missing-request-schemas",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 103,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "api_health_dashboard"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "governance"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16601,
+      "api": "GET /v1/governance/api-missing-response-schemas",
+      "method": "GET",
+      "route": "/v1/governance/api-missing-response-schemas",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 104,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "api_health_dashboard"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "governance"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16602,
+      "api": "GET /v1/governance/api-unlinked-screens",
+      "method": "GET",
+      "route": "/v1/governance/api-unlinked-screens",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 105,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "api_health_dashboard"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "governance"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16598,
+      "api": "GET /v1/governance/api-verification-summary",
+      "method": "GET",
+      "route": "/v1/governance/api-verification-summary",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 101,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [

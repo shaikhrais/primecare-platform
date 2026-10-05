@@ -30,8 +30,8 @@ function fixture(role='ceo',tenant='tenant-a') {
   return {rows:[]};
  };
 }
-test('nine registered APIs return bounded responses and precise evidence types',async()=>{
- assert.equal(catalog.bindings.length,9);
+test('fourteen registered APIs return bounded responses and precise evidence types',async()=>{
+ assert.equal(catalog.bindings.length,14);
  for(const {path} of catalog.bindings) {
   const response=await call(path,'?limit=3');assert.equal(response.status,200,path);
   assert.equal(response.headers.get('cache-control'),'no-store');
