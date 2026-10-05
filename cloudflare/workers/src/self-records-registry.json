@@ -601,6 +601,8 @@
     "listBatch": 81,
     "ownerField": "reporter_user_id",
     "orderField": "created_at",
+    "summaryBatch": 94,
+    "summaryField": "status",
     "types": {
       "id": "string",
       "status": [
@@ -651,6 +653,8 @@
     "listBatch": 83,
     "ownerField": "rn_id",
     "orderField": "created_at",
+    "summaryBatch": 95,
+    "summaryField": "status",
     "types": {
       "id": "string",
       "status": "string",
@@ -700,6 +704,135 @@
     },
     "dateFields": [
       "performed_at"
+    ]
+  },
+  {
+    "path": "/me/authored-care-plan-records",
+    "table": "care_plans",
+    "collection": "plans",
+    "item": "plan",
+    "fields": [
+      "id",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 86,
+    "ownerField": "author_id",
+    "orderField": "created_at",
+    "summaryBatch": 91,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/authored-review-records",
+    "table": "performance_reviews",
+    "collection": "reviews",
+    "item": "review",
+    "fields": [
+      "id",
+      "status",
+      "period_start",
+      "period_end",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 87,
+    "ownerField": "reviewer_id",
+    "orderField": "created_at",
+    "summaryBatch": 92,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "period_start": "string",
+      "period_end": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "period_start",
+      "period_end",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/reviewed-timesheet-records",
+    "table": "timesheets",
+    "collection": "timesheets",
+    "item": "timesheet",
+    "fields": [
+      "id",
+      "status",
+      "reviewed_at",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 88,
+    "ownerField": "reviewed_by",
+    "orderField": "created_at",
+    "summaryBatch": 93,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "status": [
+        "string",
+        "null"
+      ],
+      "reviewed_at": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "reviewed_at",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/telehealth-records",
+    "table": "telehealth_sessions",
+    "collection": "sessions",
+    "item": "session",
+    "fields": [
+      "id",
+      "status",
+      "start_time",
+      "end_time",
+      "created_at"
+    ],
+    "listBatch": 89,
+    "summaryBatch": 90,
+    "summaryField": "status",
+    "ownerField": "provider_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "start_time": "string",
+      "end_time": [
+        "string",
+        "null"
+      ],
+      "created_at": "string"
+    },
+    "dateFields": [
+      "start_time",
+      "end_time",
+      "created_at"
     ]
   }
 ]

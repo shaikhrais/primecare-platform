@@ -1,10 +1,10 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1311,
+    "totalDeclared": 1325,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 153,
+      "unit_fixtures_recorded": 167,
       "verification_pending": 1148
     },
     "contractGaps": {
@@ -17,7 +17,7 @@
   },
   "data": [
     {
-      "id": 16459,
+      "id": 16522,
       "api": "GET /api/clients",
       "method": "GET",
       "route": "/api/clients",
@@ -40,7 +40,7 @@
       "productionVerified": false
     },
     {
-      "id": 16460,
+      "id": 16523,
       "api": "POST /api/clients",
       "method": "POST",
       "route": "/api/clients",
@@ -63,7 +63,7 @@
       "productionVerified": false
     },
     {
-      "id": 16467,
+      "id": 16530,
       "api": "GET /api/compliance/audits",
       "method": "GET",
       "route": "/api/compliance/audits",
@@ -86,7 +86,7 @@
       "productionVerified": false
     },
     {
-      "id": 16468,
+      "id": 16531,
       "api": "POST /api/compliance/findings",
       "method": "POST",
       "route": "/api/compliance/findings",
@@ -109,7 +109,7 @@
       "productionVerified": false
     },
     {
-      "id": 16465,
+      "id": 16528,
       "api": "GET /api/invoices",
       "method": "GET",
       "route": "/api/invoices",
@@ -132,7 +132,7 @@
       "productionVerified": false
     },
     {
-      "id": 16461,
+      "id": 16524,
       "api": "GET /api/providers",
       "method": "GET",
       "route": "/api/providers",
@@ -155,7 +155,7 @@
       "productionVerified": false
     },
     {
-      "id": 16462,
+      "id": 16525,
       "api": "GET /api/providers/{providerId}",
       "method": "GET",
       "route": "/api/providers/{providerId}",
@@ -178,7 +178,7 @@
       "productionVerified": false
     },
     {
-      "id": 16466,
+      "id": 16529,
       "api": "GET /api/schedules",
       "method": "GET",
       "route": "/api/schedules",
@@ -201,7 +201,7 @@
       "productionVerified": false
     },
     {
-      "id": 16463,
+      "id": 16526,
       "api": "GET /api/visits",
       "method": "GET",
       "route": "/api/visits",
@@ -224,7 +224,7 @@
       "productionVerified": false
     },
     {
-      "id": 16464,
+      "id": 16527,
       "api": "POST /api/visits",
       "method": "POST",
       "route": "/api/visits",
@@ -6678,7 +6678,7 @@
       "productionVerified": false
     },
     {
-      "id": 16486,
+      "id": 16437,
       "api": "GET /v1/auth/me/activities",
       "method": "GET",
       "route": "/v1/auth/me/activities",
@@ -6701,7 +6701,7 @@
       "productionVerified": false
     },
     {
-      "id": 16488,
+      "id": 16439,
       "api": "GET /v1/auth/me/activities/summary",
       "method": "GET",
       "route": "/v1/auth/me/activities/summary",
@@ -6724,7 +6724,7 @@
       "productionVerified": false
     },
     {
-      "id": 16487,
+      "id": 16438,
       "api": "GET /v1/auth/me/activities/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/activities/{recordId}",
@@ -6747,7 +6747,7 @@
       "productionVerified": false
     },
     {
-      "id": 16558,
+      "id": 16466,
       "api": "GET /v1/auth/me/adl-log-records",
       "method": "GET",
       "route": "/v1/auth/me/adl-log-records",
@@ -6770,7 +6770,7 @@
       "productionVerified": false
     },
     {
-      "id": 16559,
+      "id": 16467,
       "api": "GET /v1/auth/me/adl-log-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/adl-log-records/{recordId}",
@@ -6793,7 +6793,7 @@
       "productionVerified": false
     },
     {
-      "id": 16584,
+      "id": 16489,
       "api": "GET /v1/auth/me/assessment-records",
       "method": "GET",
       "route": "/v1/auth/me/assessment-records",
@@ -6816,7 +6816,7 @@
       "productionVerified": false
     },
     {
-      "id": 16585,
+      "id": 16490,
       "api": "GET /v1/auth/me/assessment-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/assessment-records/{recordId}",
@@ -6839,7 +6839,7 @@
       "productionVerified": false
     },
     {
-      "id": 16576,
+      "id": 16482,
       "api": "GET /v1/auth/me/assigned-task-records",
       "method": "GET",
       "route": "/v1/auth/me/assigned-task-records",
@@ -6862,7 +6862,7 @@
       "productionVerified": false
     },
     {
-      "id": 16578,
+      "id": 16484,
       "api": "GET /v1/auth/me/assigned-task-records/summary",
       "method": "GET",
       "route": "/v1/auth/me/assigned-task-records/summary",
@@ -6885,7 +6885,7 @@
       "productionVerified": false
     },
     {
-      "id": 16577,
+      "id": 16483,
       "api": "GET /v1/auth/me/assigned-task-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/assigned-task-records/{recordId}",
@@ -6908,7 +6908,7 @@
       "productionVerified": false
     },
     {
-      "id": 16579,
+      "id": 16485,
       "api": "GET /v1/auth/me/audit-signoff-records",
       "method": "GET",
       "route": "/v1/auth/me/audit-signoff-records",
@@ -6931,7 +6931,7 @@
       "productionVerified": false
     },
     {
-      "id": 16580,
+      "id": 16486,
       "api": "GET /v1/auth/me/audit-signoff-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/audit-signoff-records/{recordId}",
@@ -6954,7 +6954,145 @@
       "productionVerified": false
     },
     {
-      "id": 16563,
+      "id": 16497,
+      "api": "GET /v1/auth/me/authored-care-plan-records",
+      "method": "GET",
+      "route": "/v1/auth/me/authored-care-plan-records",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 86,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16591,
+      "api": "GET /v1/auth/me/authored-care-plan-records/summary",
+      "method": "GET",
+      "route": "/v1/auth/me/authored-care-plan-records/summary",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 91,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16498,
+      "api": "GET /v1/auth/me/authored-care-plan-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/authored-care-plan-records/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 86,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16499,
+      "api": "GET /v1/auth/me/authored-review-records",
+      "method": "GET",
+      "route": "/v1/auth/me/authored-review-records",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 87,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16592,
+      "api": "GET /v1/auth/me/authored-review-records/summary",
+      "method": "GET",
+      "route": "/v1/auth/me/authored-review-records/summary",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 92,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16500,
+      "api": "GET /v1/auth/me/authored-review-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/authored-review-records/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 87,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16470,
       "api": "GET /v1/auth/me/behavior-note-records",
       "method": "GET",
       "route": "/v1/auth/me/behavior-note-records",
@@ -6977,7 +7115,7 @@
       "productionVerified": false
     },
     {
-      "id": 16564,
+      "id": 16471,
       "api": "GET /v1/auth/me/behavior-note-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/behavior-note-records/{recordId}",
@@ -7000,7 +7138,7 @@
       "productionVerified": false
     },
     {
-      "id": 16574,
+      "id": 16480,
       "api": "GET /v1/auth/me/care-plan-follow-up-records",
       "method": "GET",
       "route": "/v1/auth/me/care-plan-follow-up-records",
@@ -7023,7 +7161,7 @@
       "productionVerified": false
     },
     {
-      "id": 16575,
+      "id": 16481,
       "api": "GET /v1/auth/me/care-plan-follow-up-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/care-plan-follow-up-records/{recordId}",
@@ -7046,7 +7184,7 @@
       "productionVerified": false
     },
     {
-      "id": 16555,
+      "id": 16463,
       "api": "GET /v1/auth/me/daily-entry-records",
       "method": "GET",
       "route": "/v1/auth/me/daily-entry-records",
@@ -7069,7 +7207,7 @@
       "productionVerified": false
     },
     {
-      "id": 16557,
+      "id": 16465,
       "api": "GET /v1/auth/me/daily-entry-records/summary",
       "method": "GET",
       "route": "/v1/auth/me/daily-entry-records/summary",
@@ -7092,7 +7230,7 @@
       "productionVerified": false
     },
     {
-      "id": 16556,
+      "id": 16464,
       "api": "GET /v1/auth/me/daily-entry-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/daily-entry-records/{recordId}",
@@ -7115,7 +7253,7 @@
       "productionVerified": false
     },
     {
-      "id": 16494,
+      "id": 16444,
       "api": "GET /v1/auth/me/device-events",
       "method": "GET",
       "route": "/v1/auth/me/device-events",
@@ -7138,7 +7276,7 @@
       "productionVerified": false
     },
     {
-      "id": 16496,
+      "id": 16446,
       "api": "GET /v1/auth/me/device-events/summary",
       "method": "GET",
       "route": "/v1/auth/me/device-events/summary",
@@ -7161,7 +7299,7 @@
       "productionVerified": false
     },
     {
-      "id": 16495,
+      "id": 16445,
       "api": "GET /v1/auth/me/device-events/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/device-events/{recordId}",
@@ -7184,7 +7322,7 @@
       "productionVerified": false
     },
     {
-      "id": 16497,
+      "id": 16447,
       "api": "GET /v1/auth/me/devices",
       "method": "GET",
       "route": "/v1/auth/me/devices",
@@ -7207,7 +7345,7 @@
       "productionVerified": false
     },
     {
-      "id": 16498,
+      "id": 16448,
       "api": "GET /v1/auth/me/devices/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/devices/{recordId}",
@@ -7230,7 +7368,7 @@
       "productionVerified": false
     },
     {
-      "id": 16514,
+      "id": 16456,
       "api": "GET /v1/auth/me/group-memberships",
       "method": "GET",
       "route": "/v1/auth/me/group-memberships",
@@ -7253,7 +7391,7 @@
       "productionVerified": false
     },
     {
-      "id": 16515,
+      "id": 16457,
       "api": "GET /v1/auth/me/group-memberships/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/group-memberships/{recordId}",
@@ -7276,7 +7414,7 @@
       "productionVerified": false
     },
     {
-      "id": 16508,
+      "id": 16450,
       "api": "GET /v1/auth/me/health-ids",
       "method": "GET",
       "route": "/v1/auth/me/health-ids",
@@ -7299,7 +7437,7 @@
       "productionVerified": false
     },
     {
-      "id": 16510,
+      "id": 16452,
       "api": "GET /v1/auth/me/health-ids/summary",
       "method": "GET",
       "route": "/v1/auth/me/health-ids/summary",
@@ -7322,7 +7460,7 @@
       "productionVerified": false
     },
     {
-      "id": 16509,
+      "id": 16451,
       "api": "GET /v1/auth/me/health-ids/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/health-ids/{recordId}",
@@ -7345,7 +7483,7 @@
       "productionVerified": false
     },
     {
-      "id": 16569,
+      "id": 16476,
       "api": "GET /v1/auth/me/infection-control-records",
       "method": "GET",
       "route": "/v1/auth/me/infection-control-records",
@@ -7368,7 +7506,7 @@
       "productionVerified": false
     },
     {
-      "id": 16570,
+      "id": 16477,
       "api": "GET /v1/auth/me/infection-control-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/infection-control-records/{recordId}",
@@ -7391,7 +7529,7 @@
       "productionVerified": false
     },
     {
-      "id": 16586,
+      "id": 16491,
       "api": "GET /v1/auth/me/medication-reconciliation-records",
       "method": "GET",
       "route": "/v1/auth/me/medication-reconciliation-records",
@@ -7414,7 +7552,30 @@
       "productionVerified": false
     },
     {
-      "id": 16587,
+      "id": 16590,
+      "api": "GET /v1/auth/me/medication-reconciliation-records/summary",
+      "method": "GET",
+      "route": "/v1/auth/me/medication-reconciliation-records/summary",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 95,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16492,
       "api": "GET /v1/auth/me/medication-reconciliation-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/medication-reconciliation-records/{recordId}",
@@ -7437,7 +7598,7 @@
       "productionVerified": false
     },
     {
-      "id": 16567,
+      "id": 16474,
       "api": "GET /v1/auth/me/mobility-records",
       "method": "GET",
       "route": "/v1/auth/me/mobility-records",
@@ -7460,7 +7621,7 @@
       "productionVerified": false
     },
     {
-      "id": 16568,
+      "id": 16475,
       "api": "GET /v1/auth/me/mobility-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/mobility-records/{recordId}",
@@ -7483,7 +7644,7 @@
       "productionVerified": false
     },
     {
-      "id": 16572,
+      "id": 16478,
       "api": "GET /v1/auth/me/narrative-note-records",
       "method": "GET",
       "route": "/v1/auth/me/narrative-note-records",
@@ -7506,7 +7667,7 @@
       "productionVerified": false
     },
     {
-      "id": 16573,
+      "id": 16479,
       "api": "GET /v1/auth/me/narrative-note-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/narrative-note-records/{recordId}",
@@ -7529,7 +7690,7 @@
       "productionVerified": false
     },
     {
-      "id": 16483,
+      "id": 16434,
       "api": "GET /v1/auth/me/notifications",
       "method": "GET",
       "route": "/v1/auth/me/notifications",
@@ -7552,7 +7713,7 @@
       "productionVerified": false
     },
     {
-      "id": 16485,
+      "id": 16436,
       "api": "GET /v1/auth/me/notifications/summary",
       "method": "GET",
       "route": "/v1/auth/me/notifications/summary",
@@ -7575,7 +7736,7 @@
       "productionVerified": false
     },
     {
-      "id": 16484,
+      "id": 16435,
       "api": "GET /v1/auth/me/notifications/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/notifications/{recordId}",
@@ -7598,7 +7759,7 @@
       "productionVerified": false
     },
     {
-      "id": 16565,
+      "id": 16472,
       "api": "GET /v1/auth/me/nutrition-records",
       "method": "GET",
       "route": "/v1/auth/me/nutrition-records",
@@ -7621,7 +7782,7 @@
       "productionVerified": false
     },
     {
-      "id": 16566,
+      "id": 16473,
       "api": "GET /v1/auth/me/nutrition-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/nutrition-records/{recordId}",
@@ -7644,7 +7805,7 @@
       "productionVerified": false
     },
     {
-      "id": 16523,
+      "id": 16458,
       "api": "GET /v1/auth/me/password-history",
       "method": "GET",
       "route": "/v1/auth/me/password-history",
@@ -7667,7 +7828,7 @@
       "productionVerified": false
     },
     {
-      "id": 16524,
+      "id": 16459,
       "api": "GET /v1/auth/me/password-history/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/password-history/{recordId}",
@@ -7690,7 +7851,7 @@
       "productionVerified": false
     },
     {
-      "id": 16582,
+      "id": 16487,
       "api": "GET /v1/auth/me/reported-incident-records",
       "method": "GET",
       "route": "/v1/auth/me/reported-incident-records",
@@ -7713,7 +7874,30 @@
       "productionVerified": false
     },
     {
-      "id": 16583,
+      "id": 16589,
+      "api": "GET /v1/auth/me/reported-incident-records/summary",
+      "method": "GET",
+      "route": "/v1/auth/me/reported-incident-records/summary",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 94,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16488,
       "api": "GET /v1/auth/me/reported-incident-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/reported-incident-records/{recordId}",
@@ -7736,7 +7920,7 @@
       "productionVerified": false
     },
     {
-      "id": 16506,
+      "id": 16449,
       "api": "GET /v1/auth/me/reputation",
       "method": "GET",
       "route": "/v1/auth/me/reputation",
@@ -7759,7 +7943,76 @@
       "productionVerified": false
     },
     {
-      "id": 16489,
+      "id": 16501,
+      "api": "GET /v1/auth/me/reviewed-timesheet-records",
+      "method": "GET",
+      "route": "/v1/auth/me/reviewed-timesheet-records",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 88,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16593,
+      "api": "GET /v1/auth/me/reviewed-timesheet-records/summary",
+      "method": "GET",
+      "route": "/v1/auth/me/reviewed-timesheet-records/summary",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 93,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16502,
+      "api": "GET /v1/auth/me/reviewed-timesheet-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/reviewed-timesheet-records/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 88,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16440,
       "api": "GET /v1/auth/me/rewards",
       "method": "GET",
       "route": "/v1/auth/me/rewards",
@@ -7782,7 +8035,7 @@
       "productionVerified": false
     },
     {
-      "id": 16552,
+      "id": 16460,
       "api": "GET /v1/auth/me/shift-logs",
       "method": "GET",
       "route": "/v1/auth/me/shift-logs",
@@ -7805,7 +8058,7 @@
       "productionVerified": false
     },
     {
-      "id": 16554,
+      "id": 16462,
       "api": "GET /v1/auth/me/shift-logs/summary",
       "method": "GET",
       "route": "/v1/auth/me/shift-logs/summary",
@@ -7828,7 +8081,7 @@
       "productionVerified": false
     },
     {
-      "id": 16553,
+      "id": 16461,
       "api": "GET /v1/auth/me/shift-logs/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/shift-logs/{recordId}",
@@ -7851,7 +8104,7 @@
       "productionVerified": false
     },
     {
-      "id": 16588,
+      "id": 16493,
       "api": "GET /v1/auth/me/supervision-records",
       "method": "GET",
       "route": "/v1/auth/me/supervision-records",
@@ -7874,7 +8127,7 @@
       "productionVerified": false
     },
     {
-      "id": 16589,
+      "id": 16494,
       "api": "GET /v1/auth/me/supervision-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/supervision-records/{recordId}",
@@ -7897,7 +8150,7 @@
       "productionVerified": false
     },
     {
-      "id": 16511,
+      "id": 16453,
       "api": "GET /v1/auth/me/survey-submissions",
       "method": "GET",
       "route": "/v1/auth/me/survey-submissions",
@@ -7920,7 +8173,7 @@
       "productionVerified": false
     },
     {
-      "id": 16513,
+      "id": 16455,
       "api": "GET /v1/auth/me/survey-submissions/summary",
       "method": "GET",
       "route": "/v1/auth/me/survey-submissions/summary",
@@ -7943,7 +8196,7 @@
       "productionVerified": false
     },
     {
-      "id": 16512,
+      "id": 16454,
       "api": "GET /v1/auth/me/survey-submissions/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/survey-submissions/{recordId}",
@@ -7966,7 +8219,7 @@
       "productionVerified": false
     },
     {
-      "id": 16590,
+      "id": 16495,
       "api": "GET /v1/auth/me/technical-audit-records",
       "method": "GET",
       "route": "/v1/auth/me/technical-audit-records",
@@ -7989,7 +8242,7 @@
       "productionVerified": false
     },
     {
-      "id": 16591,
+      "id": 16496,
       "api": "GET /v1/auth/me/technical-audit-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/technical-audit-records/{recordId}",
@@ -8012,7 +8265,76 @@
       "productionVerified": false
     },
     {
-      "id": 16561,
+      "id": 16503,
+      "api": "GET /v1/auth/me/telehealth-records",
+      "method": "GET",
+      "route": "/v1/auth/me/telehealth-records",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 89,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16505,
+      "api": "GET /v1/auth/me/telehealth-records/summary",
+      "method": "GET",
+      "route": "/v1/auth/me/telehealth-records/summary",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 90,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16504,
+      "api": "GET /v1/auth/me/telehealth-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/telehealth-records/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 89,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16468,
       "api": "GET /v1/auth/me/vital-sign-records",
       "method": "GET",
       "route": "/v1/auth/me/vital-sign-records",
@@ -8035,7 +8357,7 @@
       "productionVerified": false
     },
     {
-      "id": 16562,
+      "id": 16469,
       "api": "GET /v1/auth/me/vital-sign-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/vital-sign-records/{recordId}",
@@ -8058,7 +8380,7 @@
       "productionVerified": false
     },
     {
-      "id": 16491,
+      "id": 16441,
       "api": "GET /v1/auth/me/wellness-pulses",
       "method": "GET",
       "route": "/v1/auth/me/wellness-pulses",
@@ -8081,7 +8403,7 @@
       "productionVerified": false
     },
     {
-      "id": 16493,
+      "id": 16443,
       "api": "GET /v1/auth/me/wellness-pulses/summary",
       "method": "GET",
       "route": "/v1/auth/me/wellness-pulses/summary",
@@ -8104,7 +8426,7 @@
       "productionVerified": false
     },
     {
-      "id": 16492,
+      "id": 16442,
       "api": "GET /v1/auth/me/wellness-pulses/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/wellness-pulses/{recordId}",
@@ -9350,7 +9672,7 @@
       "productionVerified": false
     },
     {
-      "id": 16471,
+      "id": 16534,
       "api": "GET /v1/client/booking-requests",
       "method": "GET",
       "route": "/v1/client/booking-requests",
@@ -9373,7 +9695,7 @@
       "productionVerified": false
     },
     {
-      "id": 16473,
+      "id": 16536,
       "api": "POST /v1/client/booking-requests",
       "method": "POST",
       "route": "/v1/client/booking-requests",
@@ -9396,7 +9718,7 @@
       "productionVerified": false
     },
     {
-      "id": 16478,
+      "id": 16560,
       "api": "GET /v1/client/booking-requests/summary",
       "method": "GET",
       "route": "/v1/client/booking-requests/summary",
@@ -9419,7 +9741,7 @@
       "productionVerified": false
     },
     {
-      "id": 16472,
+      "id": 16535,
       "api": "GET /v1/client/booking-requests/{requestId}",
       "method": "GET",
       "route": "/v1/client/booking-requests/{requestId}",
@@ -9442,7 +9764,7 @@
       "productionVerified": false
     },
     {
-      "id": 16475,
+      "id": 16538,
       "api": "GET /v1/client/booking-requests/{requestId}/audit",
       "method": "GET",
       "route": "/v1/client/booking-requests/{requestId}/audit",
@@ -9465,7 +9787,7 @@
       "productionVerified": false
     },
     {
-      "id": 16474,
+      "id": 16537,
       "api": "POST /v1/client/booking-requests/{requestId}/cancel",
       "method": "POST",
       "route": "/v1/client/booking-requests/{requestId}/cancel",
@@ -9488,7 +9810,7 @@
       "productionVerified": false
     },
     {
-      "id": 16469,
+      "id": 16532,
       "api": "GET /v1/client/bookings",
       "method": "GET",
       "route": "/v1/client/bookings",
@@ -9577,7 +9899,7 @@
       "productionVerified": false
     },
     {
-      "id": 16443,
+      "id": 16506,
       "api": "GET /v1/client/bookings/summary",
       "method": "GET",
       "route": "/v1/client/bookings/summary",
@@ -9600,7 +9922,7 @@
       "productionVerified": false
     },
     {
-      "id": 16470,
+      "id": 16533,
       "api": "GET /v1/client/bookings/{bookingId}",
       "method": "GET",
       "route": "/v1/client/bookings/{bookingId}",
@@ -9623,7 +9945,7 @@
       "productionVerified": false
     },
     {
-      "id": 16502,
+      "id": 16547,
       "api": "GET /v1/client/care-feedback",
       "method": "GET",
       "route": "/v1/client/care-feedback",
@@ -9646,7 +9968,7 @@
       "productionVerified": false
     },
     {
-      "id": 16505,
+      "id": 16557,
       "api": "GET /v1/client/care-feedback/summary",
       "method": "GET",
       "route": "/v1/client/care-feedback/summary",
@@ -9669,7 +9991,7 @@
       "productionVerified": false
     },
     {
-      "id": 16503,
+      "id": 16548,
       "api": "GET /v1/client/care-feedback/{recordId}",
       "method": "GET",
       "route": "/v1/client/care-feedback/{recordId}",
@@ -9692,7 +10014,7 @@
       "productionVerified": false
     },
     {
-      "id": 16434,
+      "id": 16539,
       "api": "GET /v1/client/consents",
       "method": "GET",
       "route": "/v1/client/consents",
@@ -9715,7 +10037,7 @@
       "productionVerified": false
     },
     {
-      "id": 16440,
+      "id": 16553,
       "api": "GET /v1/client/consents/summary",
       "method": "GET",
       "route": "/v1/client/consents/summary",
@@ -9738,7 +10060,7 @@
       "productionVerified": false
     },
     {
-      "id": 16435,
+      "id": 16540,
       "api": "GET /v1/client/consents/{recordId}",
       "method": "GET",
       "route": "/v1/client/consents/{recordId}",
@@ -9761,7 +10083,7 @@
       "productionVerified": false
     },
     {
-      "id": 16517,
+      "id": 16549,
       "api": "GET /v1/client/conversation-threads",
       "method": "GET",
       "route": "/v1/client/conversation-threads",
@@ -9784,7 +10106,7 @@
       "productionVerified": false
     },
     {
-      "id": 16521,
+      "id": 16558,
       "api": "GET /v1/client/conversation-threads/summary",
       "method": "GET",
       "route": "/v1/client/conversation-threads/summary",
@@ -9807,7 +10129,7 @@
       "productionVerified": false
     },
     {
-      "id": 16518,
+      "id": 16550,
       "api": "GET /v1/client/conversation-threads/{recordId}",
       "method": "GET",
       "route": "/v1/client/conversation-threads/{recordId}",
@@ -9874,7 +10196,7 @@
       "productionVerified": false
     },
     {
-      "id": 16519,
+      "id": 16551,
       "api": "GET /v1/client/family-links",
       "method": "GET",
       "route": "/v1/client/family-links",
@@ -9897,7 +10219,7 @@
       "productionVerified": false
     },
     {
-      "id": 16522,
+      "id": 16559,
       "api": "GET /v1/client/family-links/summary",
       "method": "GET",
       "route": "/v1/client/family-links/summary",
@@ -9920,7 +10242,7 @@
       "productionVerified": false
     },
     {
-      "id": 16520,
+      "id": 16552,
       "api": "GET /v1/client/family-links/{recordId}",
       "method": "GET",
       "route": "/v1/client/family-links/{recordId}",
@@ -10031,7 +10353,7 @@
       "productionVerified": false
     },
     {
-      "id": 16500,
+      "id": 16545,
       "api": "GET /v1/client/feedback",
       "method": "GET",
       "route": "/v1/client/feedback",
@@ -10098,7 +10420,7 @@
       "productionVerified": false
     },
     {
-      "id": 16504,
+      "id": 16556,
       "api": "GET /v1/client/feedback/summary",
       "method": "GET",
       "route": "/v1/client/feedback/summary",
@@ -10143,7 +10465,7 @@
       "productionVerified": false
     },
     {
-      "id": 16501,
+      "id": 16546,
       "api": "GET /v1/client/feedback/{recordId}",
       "method": "GET",
       "route": "/v1/client/feedback/{recordId}",
@@ -10278,7 +10600,7 @@
       "productionVerified": false
     },
     {
-      "id": 16450,
+      "id": 16513,
       "api": "GET /v1/client/invoices/summary",
       "method": "GET",
       "route": "/v1/client/invoices/summary",
@@ -10301,7 +10623,7 @@
       "productionVerified": false
     },
     {
-      "id": 16449,
+      "id": 16512,
       "api": "GET /v1/client/invoices/{invoiceId}",
       "method": "GET",
       "route": "/v1/client/invoices/{invoiceId}",
@@ -10324,7 +10646,7 @@
       "productionVerified": false
     },
     {
-      "id": 16479,
+      "id": 16561,
       "api": "GET /v1/client/invoices/{invoiceId}/payments",
       "method": "GET",
       "route": "/v1/client/invoices/{invoiceId}/payments",
@@ -10347,7 +10669,7 @@
       "productionVerified": false
     },
     {
-      "id": 16481,
+      "id": 16563,
       "api": "GET /v1/client/invoices/{invoiceId}/payments/summary",
       "method": "GET",
       "route": "/v1/client/invoices/{invoiceId}/payments/summary",
@@ -10370,7 +10692,7 @@
       "productionVerified": false
     },
     {
-      "id": 16480,
+      "id": 16562,
       "api": "GET /v1/client/invoices/{invoiceId}/payments/{paymentId}",
       "method": "GET",
       "route": "/v1/client/invoices/{invoiceId}/payments/{paymentId}",
@@ -10459,7 +10781,7 @@
       "productionVerified": false
     },
     {
-      "id": 16436,
+      "id": 16541,
       "api": "GET /v1/client/service-authorizations",
       "method": "GET",
       "route": "/v1/client/service-authorizations",
@@ -10482,7 +10804,7 @@
       "productionVerified": false
     },
     {
-      "id": 16441,
+      "id": 16554,
       "api": "GET /v1/client/service-authorizations/summary",
       "method": "GET",
       "route": "/v1/client/service-authorizations/summary",
@@ -10505,7 +10827,7 @@
       "productionVerified": false
     },
     {
-      "id": 16437,
+      "id": 16542,
       "api": "GET /v1/client/service-authorizations/{recordId}",
       "method": "GET",
       "route": "/v1/client/service-authorizations/{recordId}",
@@ -10660,7 +10982,7 @@
       "productionVerified": false
     },
     {
-      "id": 16451,
+      "id": 16514,
       "api": "GET /v1/client/visits",
       "method": "GET",
       "route": "/v1/client/visits",
@@ -10683,7 +11005,7 @@
       "productionVerified": false
     },
     {
-      "id": 16445,
+      "id": 16508,
       "api": "GET /v1/client/visits/summary",
       "method": "GET",
       "route": "/v1/client/visits/summary",
@@ -10706,7 +11028,7 @@
       "productionVerified": false
     },
     {
-      "id": 16452,
+      "id": 16515,
       "api": "GET /v1/client/visits/{visitId}",
       "method": "GET",
       "route": "/v1/client/visits/{visitId}",
@@ -10729,7 +11051,7 @@
       "productionVerified": false
     },
     {
-      "id": 16438,
+      "id": 16543,
       "api": "GET /v1/client/waitlist",
       "method": "GET",
       "route": "/v1/client/waitlist",
@@ -10752,7 +11074,7 @@
       "productionVerified": false
     },
     {
-      "id": 16442,
+      "id": 16555,
       "api": "GET /v1/client/waitlist/summary",
       "method": "GET",
       "route": "/v1/client/waitlist/summary",
@@ -10775,7 +11097,7 @@
       "productionVerified": false
     },
     {
-      "id": 16439,
+      "id": 16544,
       "api": "GET /v1/client/waitlist/{recordId}",
       "method": "GET",
       "route": "/v1/client/waitlist/{recordId}",
@@ -13470,7 +13792,7 @@
       "productionVerified": false
     },
     {
-      "id": 16476,
+      "id": 16587,
       "api": "GET /v1/governance/api-execution-status",
       "method": "GET",
       "route": "/v1/governance/api-execution-status",
@@ -23746,7 +24068,7 @@
       "productionVerified": false
     },
     {
-      "id": 16456,
+      "id": 16519,
       "api": "GET /v1/provider/availability",
       "method": "GET",
       "route": "/v1/provider/availability",
@@ -23769,7 +24091,7 @@
       "productionVerified": false
     },
     {
-      "id": 16532,
+      "id": 16570,
       "api": "GET /v1/provider/availability-overrides",
       "method": "GET",
       "route": "/v1/provider/availability-overrides",
@@ -23792,7 +24114,7 @@
       "productionVerified": false
     },
     {
-      "id": 16533,
+      "id": 16571,
       "api": "GET /v1/provider/availability-overrides/{recordId}",
       "method": "GET",
       "route": "/v1/provider/availability-overrides/{recordId}",
@@ -23815,7 +24137,7 @@
       "productionVerified": false
     },
     {
-      "id": 16458,
+      "id": 16521,
       "api": "GET /v1/provider/availability/summary",
       "method": "GET",
       "route": "/v1/provider/availability/summary",
@@ -23838,7 +24160,7 @@
       "productionVerified": false
     },
     {
-      "id": 16457,
+      "id": 16520,
       "api": "GET /v1/provider/availability/{availabilityId}",
       "method": "GET",
       "route": "/v1/provider/availability/{availabilityId}",
@@ -23883,7 +24205,7 @@
       "productionVerified": false
     },
     {
-      "id": 16526,
+      "id": 16564,
       "api": "GET /v1/provider/conversation-threads",
       "method": "GET",
       "route": "/v1/provider/conversation-threads",
@@ -23906,7 +24228,7 @@
       "productionVerified": false
     },
     {
-      "id": 16528,
+      "id": 16566,
       "api": "GET /v1/provider/conversation-threads/summary",
       "method": "GET",
       "route": "/v1/provider/conversation-threads/summary",
@@ -23929,7 +24251,7 @@
       "productionVerified": false
     },
     {
-      "id": 16527,
+      "id": 16565,
       "api": "GET /v1/provider/conversation-threads/{recordId}",
       "method": "GET",
       "route": "/v1/provider/conversation-threads/{recordId}",
@@ -23974,7 +24296,7 @@
       "productionVerified": false
     },
     {
-      "id": 16447,
+      "id": 16510,
       "api": "GET /v1/provider/documents",
       "method": "GET",
       "route": "/v1/provider/documents",
@@ -23997,7 +24319,7 @@
       "productionVerified": false
     },
     {
-      "id": 16446,
+      "id": 16509,
       "api": "GET /v1/provider/documents/summary",
       "method": "GET",
       "route": "/v1/provider/documents/summary",
@@ -24020,7 +24342,7 @@
       "productionVerified": false
     },
     {
-      "id": 16448,
+      "id": 16511,
       "api": "GET /v1/provider/documents/{documentId}",
       "method": "GET",
       "route": "/v1/provider/documents/{documentId}",
@@ -24043,7 +24365,7 @@
       "productionVerified": false
     },
     {
-      "id": 16547,
+      "id": 16583,
       "api": "GET /v1/provider/fleet-status",
       "method": "GET",
       "route": "/v1/provider/fleet-status",
@@ -24088,7 +24410,7 @@
       "productionVerified": false
     },
     {
-      "id": 16535,
+      "id": 16572,
       "api": "GET /v1/provider/mileage-logs",
       "method": "GET",
       "route": "/v1/provider/mileage-logs",
@@ -24111,7 +24433,7 @@
       "productionVerified": false
     },
     {
-      "id": 16537,
+      "id": 16574,
       "api": "GET /v1/provider/mileage-logs/summary",
       "method": "GET",
       "route": "/v1/provider/mileage-logs/summary",
@@ -24134,7 +24456,7 @@
       "productionVerified": false
     },
     {
-      "id": 16536,
+      "id": 16573,
       "api": "GET /v1/provider/mileage-logs/{recordId}",
       "method": "GET",
       "route": "/v1/provider/mileage-logs/{recordId}",
@@ -24157,7 +24479,7 @@
       "productionVerified": false
     },
     {
-      "id": 16538,
+      "id": 16575,
       "api": "GET /v1/provider/payouts",
       "method": "GET",
       "route": "/v1/provider/payouts",
@@ -24180,7 +24502,7 @@
       "productionVerified": false
     },
     {
-      "id": 16540,
+      "id": 16577,
       "api": "GET /v1/provider/payouts/summary",
       "method": "GET",
       "route": "/v1/provider/payouts/summary",
@@ -24203,7 +24525,7 @@
       "productionVerified": false
     },
     {
-      "id": 16539,
+      "id": 16576,
       "api": "GET /v1/provider/payouts/{recordId}",
       "method": "GET",
       "route": "/v1/provider/payouts/{recordId}",
@@ -24226,7 +24548,7 @@
       "productionVerified": false
     },
     {
-      "id": 16541,
+      "id": 16578,
       "api": "GET /v1/provider/performance-reviews",
       "method": "GET",
       "route": "/v1/provider/performance-reviews",
@@ -24249,7 +24571,7 @@
       "productionVerified": false
     },
     {
-      "id": 16542,
+      "id": 16579,
       "api": "GET /v1/provider/performance-reviews/{recordId}",
       "method": "GET",
       "route": "/v1/provider/performance-reviews/{recordId}",
@@ -24272,7 +24594,7 @@
       "productionVerified": false
     },
     {
-      "id": 16455,
+      "id": 16518,
       "api": "GET /v1/provider/profile",
       "method": "GET",
       "route": "/v1/provider/profile",
@@ -24295,7 +24617,7 @@
       "productionVerified": false
     },
     {
-      "id": 16529,
+      "id": 16567,
       "api": "GET /v1/provider/timesheets",
       "method": "GET",
       "route": "/v1/provider/timesheets",
@@ -24318,7 +24640,7 @@
       "productionVerified": false
     },
     {
-      "id": 16531,
+      "id": 16569,
       "api": "GET /v1/provider/timesheets/summary",
       "method": "GET",
       "route": "/v1/provider/timesheets/summary",
@@ -24341,7 +24663,7 @@
       "productionVerified": false
     },
     {
-      "id": 16530,
+      "id": 16568,
       "api": "GET /v1/provider/timesheets/{recordId}",
       "method": "GET",
       "route": "/v1/provider/timesheets/{recordId}",
@@ -24364,7 +24686,7 @@
       "productionVerified": false
     },
     {
-      "id": 16544,
+      "id": 16580,
       "api": "GET /v1/provider/visit-check-events",
       "method": "GET",
       "route": "/v1/provider/visit-check-events",
@@ -24387,7 +24709,7 @@
       "productionVerified": false
     },
     {
-      "id": 16546,
+      "id": 16582,
       "api": "GET /v1/provider/visit-check-events/summary",
       "method": "GET",
       "route": "/v1/provider/visit-check-events/summary",
@@ -24410,7 +24732,7 @@
       "productionVerified": false
     },
     {
-      "id": 16545,
+      "id": 16581,
       "api": "GET /v1/provider/visit-check-events/{recordId}",
       "method": "GET",
       "route": "/v1/provider/visit-check-events/{recordId}",
@@ -24433,7 +24755,7 @@
       "productionVerified": false
     },
     {
-      "id": 16548,
+      "id": 16584,
       "api": "GET /v1/provider/visit-matches",
       "method": "GET",
       "route": "/v1/provider/visit-matches",
@@ -24456,7 +24778,7 @@
       "productionVerified": false
     },
     {
-      "id": 16550,
+      "id": 16586,
       "api": "GET /v1/provider/visit-matches/summary",
       "method": "GET",
       "route": "/v1/provider/visit-matches/summary",
@@ -24479,7 +24801,7 @@
       "productionVerified": false
     },
     {
-      "id": 16549,
+      "id": 16585,
       "api": "GET /v1/provider/visit-matches/{recordId}",
       "method": "GET",
       "route": "/v1/provider/visit-matches/{recordId}",
@@ -24502,7 +24824,7 @@
       "productionVerified": false
     },
     {
-      "id": 16453,
+      "id": 16516,
       "api": "GET /v1/provider/visits",
       "method": "GET",
       "route": "/v1/provider/visits",
@@ -24525,7 +24847,7 @@
       "productionVerified": false
     },
     {
-      "id": 16444,
+      "id": 16507,
       "api": "GET /v1/provider/visits/summary",
       "method": "GET",
       "route": "/v1/provider/visits/summary",
@@ -24548,7 +24870,7 @@
       "productionVerified": false
     },
     {
-      "id": 16454,
+      "id": 16517,
       "api": "GET /v1/provider/visits/{visitId}",
       "method": "GET",
       "route": "/v1/provider/visits/{visitId}",
