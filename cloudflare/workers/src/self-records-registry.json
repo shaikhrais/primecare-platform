@@ -84,5 +84,109 @@
     "dateFields": [
       "updated_at"
     ]
+  },
+  {
+    "path": "/me/wellness-pulses",
+    "table": "wellness_pulses",
+    "collection": "pulses",
+    "item": "pulse",
+    "fields": [
+      "id",
+      "score",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 31,
+    "summaryBatch": 32,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "score": [
+        "integer",
+        "null"
+      ],
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/device-events",
+    "table": "iot_events",
+    "collection": "events",
+    "item": "event",
+    "fields": [
+      "id",
+      "device_type",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 33,
+    "summaryBatch": 34,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "device_type": "string",
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/devices",
+    "table": "user_devices",
+    "collection": "devices",
+    "item": "device",
+    "fields": [
+      "id",
+      "device_name",
+      "device_type",
+      "is_authorized",
+      "is_temporary",
+      "authorized_at",
+      "expires_at",
+      "last_active_at",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 35,
+    "tenantThroughUser": true,
+    "types": {
+      "id": "string",
+      "device_name": [
+        "string",
+        "null"
+      ],
+      "device_type": [
+        "string",
+        "null"
+      ],
+      "is_authorized": "boolean",
+      "is_temporary": "boolean",
+      "authorized_at": [
+        "string",
+        "null"
+      ],
+      "expires_at": [
+        "string",
+        "null"
+      ],
+      "last_active_at": "string",
+      "status": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "authorized_at",
+      "expires_at",
+      "last_active_at",
+      "created_at",
+      "updated_at"
+    ]
   }
 ]
