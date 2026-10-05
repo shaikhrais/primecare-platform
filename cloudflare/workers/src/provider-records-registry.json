@@ -84,6 +84,8 @@
     ],
     "listBatch": 55,
     "orderField": "date",
+    "summaryBatch": 99,
+    "summaryField": "is_available",
     "types": {
       "id": "string",
       "date": "string",
@@ -175,6 +177,8 @@
     ],
     "listBatch": 60,
     "orderField": "created_at",
+    "summaryBatch": 98,
+    "summaryField": "status",
     "types": {
       "id": "string",
       "period_start": "string",
