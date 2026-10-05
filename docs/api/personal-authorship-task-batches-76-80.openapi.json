@@ -1,0 +1,1068 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Personal Authorship, Assigned Tasks and Signoff Metadata",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/auth/me/narrative-note-records": {
+      "get": {
+        "operationId": "auth_own_narrative_progress_notes_list",
+        "summary": "Read own narrative progress notes list",
+        "description": "Read only own authored/assigned metadata under active explicit bearer and matching non-null tenant. Registered provider_id, assignee_id and rn_id relationships refer to actor User ID, not ProviderProfile. Every SQL query binds actor User and tenant. Narrative/follow-up contents, patient/client/visit IDs, task titles/descriptions/group IDs and clinical audit comments are excluded. Assigned tasks require direct assignee ownership; group-only, unassigned and other-user tasks are excluded. Status/priority/signing timestamps are stored values, not completion/compliance or privilege claims. Lists sort by registered timestamp then id; summary total counts status groups. No mutations, new grants, arbitrary user/role/tenant filters or access to clinical records.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "records",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "recorded_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "recorded_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "records": [
+                    {
+                      "id": "record-id",
+                      "recorded_at": "2026-01-01T12:00:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/auth/me/narrative-note-records/{recordId}": {
+      "get": {
+        "operationId": "auth_own_narrative_progress_notes_detail",
+        "summary": "Read own narrative progress notes detail",
+        "description": "Read only own authored/assigned metadata under active explicit bearer and matching non-null tenant. Registered provider_id, assignee_id and rn_id relationships refer to actor User ID, not ProviderProfile. Every SQL query binds actor User and tenant. Narrative/follow-up contents, patient/client/visit IDs, task titles/descriptions/group IDs and clinical audit comments are excluded. Assigned tasks require direct assignee ownership; group-only, unassigned and other-user tasks are excluded. Status/priority/signing timestamps are stored values, not completion/compliance or privilege claims. Lists sort by registered timestamp then id; summary total counts status groups. No mutations, new grants, arbitrary user/role/tenant filters or access to clinical records.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "record"
+                  ],
+                  "properties": {
+                    "record": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "recorded_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "recorded_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "record": {
+                    "id": "record-id",
+                    "recorded_at": "2026-01-01T12:00:00Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/auth/me/care-plan-follow-up-records": {
+      "get": {
+        "operationId": "auth_own_care_plan_follow_ups_list",
+        "summary": "Read own care plan follow ups list",
+        "description": "Read only own authored/assigned metadata under active explicit bearer and matching non-null tenant. Registered provider_id, assignee_id and rn_id relationships refer to actor User ID, not ProviderProfile. Every SQL query binds actor User and tenant. Narrative/follow-up contents, patient/client/visit IDs, task titles/descriptions/group IDs and clinical audit comments are excluded. Assigned tasks require direct assignee ownership; group-only, unassigned and other-user tasks are excluded. Status/priority/signing timestamps are stored values, not completion/compliance or privilege claims. Lists sort by registered timestamp then id; summary total counts status groups. No mutations, new grants, arbitrary user/role/tenant filters or access to clinical records.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "records",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "recorded_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "recorded_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "records": [
+                    {
+                      "id": "record-id",
+                      "recorded_at": "2026-01-01T12:00:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/auth/me/care-plan-follow-up-records/{recordId}": {
+      "get": {
+        "operationId": "auth_own_care_plan_follow_ups_detail",
+        "summary": "Read own care plan follow ups detail",
+        "description": "Read only own authored/assigned metadata under active explicit bearer and matching non-null tenant. Registered provider_id, assignee_id and rn_id relationships refer to actor User ID, not ProviderProfile. Every SQL query binds actor User and tenant. Narrative/follow-up contents, patient/client/visit IDs, task titles/descriptions/group IDs and clinical audit comments are excluded. Assigned tasks require direct assignee ownership; group-only, unassigned and other-user tasks are excluded. Status/priority/signing timestamps are stored values, not completion/compliance or privilege claims. Lists sort by registered timestamp then id; summary total counts status groups. No mutations, new grants, arbitrary user/role/tenant filters or access to clinical records.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "record"
+                  ],
+                  "properties": {
+                    "record": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "recorded_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "recorded_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "record": {
+                    "id": "record-id",
+                    "recorded_at": "2026-01-01T12:00:00Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/auth/me/assigned-task-records": {
+      "get": {
+        "operationId": "auth_own_staff_tasks_list",
+        "summary": "Read own staff tasks list",
+        "description": "Read only own authored/assigned metadata under active explicit bearer and matching non-null tenant. Registered provider_id, assignee_id and rn_id relationships refer to actor User ID, not ProviderProfile. Every SQL query binds actor User and tenant. Narrative/follow-up contents, patient/client/visit IDs, task titles/descriptions/group IDs and clinical audit comments are excluded. Assigned tasks require direct assignee ownership; group-only, unassigned and other-user tasks are excluded. Status/priority/signing timestamps are stored values, not completion/compliance or privilege claims. Lists sort by registered timestamp then id; summary total counts status groups. No mutations, new grants, arbitrary user/role/tenant filters or access to clinical records.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "tasks",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "tasks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "status",
+                          "priority",
+                          "due_date",
+                          "created_at",
+                          "updated_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "priority": {
+                            "type": "string"
+                          },
+                          "due_date": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "tasks": [
+                    {
+                      "id": "record-id",
+                      "status": "stored",
+                      "priority": "stored",
+                      "due_date": "2026-01-01T12:00:00Z",
+                      "created_at": "2026-01-01T12:00:00Z",
+                      "updated_at": "2026-01-01T12:00:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/auth/me/assigned-task-records/{recordId}": {
+      "get": {
+        "operationId": "auth_own_staff_tasks_detail",
+        "summary": "Read own staff tasks detail",
+        "description": "Read only own authored/assigned metadata under active explicit bearer and matching non-null tenant. Registered provider_id, assignee_id and rn_id relationships refer to actor User ID, not ProviderProfile. Every SQL query binds actor User and tenant. Narrative/follow-up contents, patient/client/visit IDs, task titles/descriptions/group IDs and clinical audit comments are excluded. Assigned tasks require direct assignee ownership; group-only, unassigned and other-user tasks are excluded. Status/priority/signing timestamps are stored values, not completion/compliance or privilege claims. Lists sort by registered timestamp then id; summary total counts status groups. No mutations, new grants, arbitrary user/role/tenant filters or access to clinical records.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "task"
+                  ],
+                  "properties": {
+                    "task": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "status",
+                        "priority",
+                        "due_date",
+                        "created_at",
+                        "updated_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "priority": {
+                          "type": "string"
+                        },
+                        "due_date": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "task": {
+                    "id": "record-id",
+                    "status": "stored",
+                    "priority": "stored",
+                    "due_date": "2026-01-01T12:00:00Z",
+                    "created_at": "2026-01-01T12:00:00Z",
+                    "updated_at": "2026-01-01T12:00:00Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/auth/me/assigned-task-records/summary": {
+      "get": {
+        "operationId": "auth_own_staff_tasks_summary",
+        "summary": "Read own staff tasks summary",
+        "description": "Read only own authored/assigned metadata under active explicit bearer and matching non-null tenant. Registered provider_id, assignee_id and rn_id relationships refer to actor User ID, not ProviderProfile. Every SQL query binds actor User and tenant. Narrative/follow-up contents, patient/client/visit IDs, task titles/descriptions/group IDs and clinical audit comments are excluded. Assigned tasks require direct assignee ownership; group-only, unassigned and other-user tasks are excluded. Status/priority/signing timestamps are stored values, not completion/compliance or privilege claims. Lists sort by registered timestamp then id; summary total counts status groups. No mutations, new grants, arbitrary user/role/tenant filters or access to clinical records.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "groups",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "status",
+                          "count"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          },
+                          "count": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "groups": [
+                    {
+                      "status": "stored",
+                      "count": 1
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/auth/me/audit-signoff-records": {
+      "get": {
+        "operationId": "auth_own_daily_audit_signoffs_list",
+        "summary": "Read own daily audit signoffs list",
+        "description": "Read only own authored/assigned metadata under active explicit bearer and matching non-null tenant. Registered provider_id, assignee_id and rn_id relationships refer to actor User ID, not ProviderProfile. Every SQL query binds actor User and tenant. Narrative/follow-up contents, patient/client/visit IDs, task titles/descriptions/group IDs and clinical audit comments are excluded. Assigned tasks require direct assignee ownership; group-only, unassigned and other-user tasks are excluded. Status/priority/signing timestamps are stored values, not completion/compliance or privilege claims. Lists sort by registered timestamp then id; summary total counts status groups. No mutations, new grants, arbitrary user/role/tenant filters or access to clinical records.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "signoffs",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "signoffs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "status",
+                          "signed_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "signed_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "signoffs": [
+                    {
+                      "id": "record-id",
+                      "status": "stored",
+                      "signed_at": "2026-01-01T12:00:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/auth/me/audit-signoff-records/{recordId}": {
+      "get": {
+        "operationId": "auth_own_daily_audit_signoffs_detail",
+        "summary": "Read own daily audit signoffs detail",
+        "description": "Read only own authored/assigned metadata under active explicit bearer and matching non-null tenant. Registered provider_id, assignee_id and rn_id relationships refer to actor User ID, not ProviderProfile. Every SQL query binds actor User and tenant. Narrative/follow-up contents, patient/client/visit IDs, task titles/descriptions/group IDs and clinical audit comments are excluded. Assigned tasks require direct assignee ownership; group-only, unassigned and other-user tasks are excluded. Status/priority/signing timestamps are stored values, not completion/compliance or privilege claims. Lists sort by registered timestamp then id; summary total counts status groups. No mutations, new grants, arbitrary user/role/tenant filters or access to clinical records.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "signoff"
+                  ],
+                  "properties": {
+                    "signoff": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "status",
+                        "signed_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "signed_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "signoff": {
+                    "id": "record-id",
+                    "status": "stored",
+                    "signed_at": "2026-01-01T12:00:00Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
