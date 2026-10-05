@@ -17,6 +17,9 @@ definitions.extend([
  {'path':'/fleet-status','table':'fleet_status','item':'fleet','fields':['id','status','battery_level','last_heartbeat_at'],'listBatch':63,'singleton':True,'tenantThroughProvider':True,'orderField':'last_heartbeat_at'},
  {'path':'/visit-matches','table':'visit_matches','collection':'matches','item':'match','fields':['id','status','created_at'],'listBatch':64,'summaryBatch':65,'summaryField':'status','orderField':'created_at'}
 ])
+for definition in definitions:
+ if definition['table']=='performance_reviews':definition.update(summaryBatch=98,summaryField='status')
+ if definition['table']=='provider_availability_overrides':definition.update(summaryBatch=99,summaryField='is_available')
 paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0}}
 pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}}
 paths={};registry=[]
@@ -60,6 +63,12 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
    if record['listBatch']>=61:
     paths[route]['get']['description']='Active explicit bearer, matching non-null tenant and exactly one actor-owned provider profile required. Tenant-scoped event/match queries bind provider_id and tenant_id; fleet records lack tenant_id and join the current owning provider profile, binding profile ID, tenant and actor user ID on every query. Events expose stored type/result/timestamps, not proof of attendance. Fleet exposes stored status/battery/heartbeat, not guaranteed current availability or verified location. Matches expose metadata only; status does not grant assignment or patient access. GPS, visit IDs, raw telemetry, overrides/rejection reasons, match scores and client identifiers are excluded. Reads do not change state. Summaries count stored groups. No grants or writes.'
  (ROOT/'cloudflare/workers/src/provider-records-registry.json').write_text(json.dumps(registry,indent=2)+'\n')
+ summary_routes={'/v1/provider'+r['path']+'/summary' for r in registry if 98<=r.get('summaryBatch',0)<=99}
+ summary_paths={p:v for p,v in paths.items() if p in summary_routes}
+ for operation in summary_paths.values():
+  operation['get']['description']='Count stored statuses or availability flags under a unique actor-owned ProviderProfile and matching non-null tenant. Every record query binds provider_id to that profile ID and tenant_id to actor tenant; reviewer User ownership is distinct and does not grant these reads. Return registered stored status or boolean is_available and count only. Pagination total counts groups; boolean false sorts before true. Review contents, reviewer IDs, ratings, goals, availability dates/times and other providers are excluded. Status counts do not establish performance outcomes; availability flags do not establish bookability or override visit schedules. Active explicit bearer, no-store read-only repeatable-read snapshots, bounded paging and source limits apply. No grants or mutations.'
+ (ROOT/'docs/api/provider-review-availability-batches-98-99.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Own Provider Review and Availability Summaries','version':'1.0.0'},'paths':summary_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
+ paths={p:v for p,v in paths.items() if p not in summary_paths}
  new_roots=['/v1/provider'+r['path'] for r in registry if 56<=r['listBatch']<=60]
  new_paths={p:v for p,v in paths.items() if any(p==root or p.startswith(root+'/') for root in new_roots)}
  (ROOT/'docs/api/provider-metadata-batches-56-60.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Own Mileage, Payout and Review Metadata','version':'1.0.0'},'paths':new_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
@@ -68,4 +77,4 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  (ROOT/'docs/api/provider-event-fleet-match-batches-61-65.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Own Visit Events, Fleet Status and Match Metadata','version':'1.0.0'},'paths':event_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
  paths={p:v for p,v in paths.items() if p not in new_paths and p not in event_paths}
  (ROOT/'docs/api/provider-metadata-batches-51-55.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Provider-Owned Operational Metadata','version':'1.0.0'},'paths':paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
-print('Registered provider metadata batches 51–65; no role grants.')
+print('Registered provider metadata batches 51–65 and 98–99; no role grants.')

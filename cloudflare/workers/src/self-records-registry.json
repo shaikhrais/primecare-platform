@@ -578,6 +578,8 @@
     "listBatch": 80,
     "ownerField": "rn_id",
     "orderField": "signed_at",
+    "summaryBatch": 97,
+    "summaryField": "status",
     "types": {
       "id": "string",
       "status": "string",
@@ -697,6 +699,8 @@
     "listBatch": 85,
     "ownerField": "performed_by_id",
     "orderField": "performed_at",
+    "summaryBatch": 96,
+    "summaryField": "status",
     "types": {
       "id": "string",
       "status": "string",
@@ -832,6 +836,22 @@
     "dateFields": [
       "start_time",
       "end_time",
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/bootstrap-record",
+    "table": "auth_bootstrap_audit",
+    "item": "bootstrap",
+    "fields": [
+      "created_at"
+    ],
+    "listBatch": 100,
+    "singleton": true,
+    "types": {
+      "created_at": "string"
+    },
+    "dateFields": [
       "created_at"
     ]
   }
