@@ -28,6 +28,13 @@ try{
  const visitPage=await (await call('/visits','?offset=1')).json();assert.equal(visitPage.visits.length,0);assert.equal(visitPage.pagination.total,1);checks++;
  const own=await (await call()).json();assert.equal(own.profile.id,profiles[0]);assert.ok(!('dob' in own.profile));checks++;
  const list=await (await call('/invoices')).json();assert.equal(list.pagination.total,1);assert.equal(list.invoices[0].total,'113.11');assert.ok(!JSON.stringify(list).includes('private-processor'));checks++;
+ const detail=await (await call('/invoices/'+list.invoices[0].id)).json();assert.equal(detail.invoice.total,'113.11');assert.ok(!JSON.stringify(detail).includes('private-processor'));checks++;
+ const foreignInvoice=(await db.query('SELECT id FROM invoices WHERE client_id=$1',[profiles[1]])).rows[0].id;assert.equal((await call('/invoices/'+foreignInvoice)).status,404);checks++;
+ for(const [currency,status,amount] of [['CAD','pending','0.10'],['USD','paid','2.00']])await db.query('INSERT INTO invoices(id,client_id,tenant_id,status,currency,subtotal,tax,total) VALUES($1,$2,$3,$4,$5,$6,0,$6)',[randomUUID(),profiles[0],tenants[0],status,currency,amount]);
+ const summary=await (await call('/invoices/summary')).json();assert.equal(summary.pagination.total,2);assert.equal(summary.groups.find(g=>g.currency==='CAD').total,'113.21');assert.equal(summary.groups.find(g=>g.currency==='USD').total,'2.00');assert.equal(summary.groups.find(g=>g.currency==='CAD').invoiceCount,2);checks++;
+ const summaryPage=await (await call('/invoices/summary','?limit=1&offset=1')).json();assert.equal(summaryPage.groups.length,1);assert.equal(summaryPage.pagination.total,2);checks++;
+ // Restore the original list fixture so its paging checks retain their scope.
+ await db.query("DELETE FROM invoices WHERE client_id=$1 AND (currency='USD' OR total=0.10)",[profiles[0]]);
  const other=await (await call('/invoices','',tokens[1])).json();assert.equal(other.pagination.total,1);assert.notEqual(other.invoices[0].id,list.invoices[0].id);checks++;
  const empty=await (await call('/invoices','?offset=1')).json();assert.equal(empty.invoices.length,0);assert.equal(empty.pagination.total,1);checks++;
  assert.equal((await call('/home/profile','',tokens[0],{'x-tenant-id':tenants[1]})).status,403);checks++;
