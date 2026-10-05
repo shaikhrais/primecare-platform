@@ -1,0 +1,92 @@
+[
+  {
+    "path": "/consents",
+    "table": "consent_forms",
+    "collection": "consents",
+    "item": "consent",
+    "fields": [
+      "id",
+      "form_type",
+      "status",
+      "signed_at",
+      "expires_at",
+      "template_version",
+      "created_at",
+      "updated_at"
+    ],
+    "types": {
+      "id": "string",
+      "form_type": "string",
+      "status": "string",
+      "signed_at": [
+        "string",
+        "null"
+      ],
+      "expires_at": [
+        "string",
+        "null"
+      ],
+      "template_version": "integer",
+      "created_at": "string",
+      "updated_at": "string"
+    }
+  },
+  {
+    "path": "/service-authorizations",
+    "table": "service_authorizations",
+    "collection": "authorizations",
+    "item": "authorization",
+    "fields": [
+      "id",
+      "service_id",
+      "funding_source",
+      "authorized_hours",
+      "used_hours",
+      "start_date",
+      "end_date",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "types": {
+      "id": "string",
+      "service_id": [
+        "string",
+        "null"
+      ],
+      "funding_source": "string",
+      "authorized_hours": "number",
+      "used_hours": "number",
+      "start_date": "string",
+      "end_date": "string",
+      "status": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    }
+  },
+  {
+    "path": "/waitlist",
+    "table": "waitlist_entries",
+    "collection": "entries",
+    "item": "entry",
+    "fields": [
+      "id",
+      "service_id",
+      "priority",
+      "status",
+      "requested_start_at",
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "service_id": "string",
+      "priority": "integer",
+      "status": "string",
+      "requested_start_at": [
+        "string",
+        "null"
+      ],
+      "created_at": "string"
+    }
+  }
+]

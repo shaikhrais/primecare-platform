@@ -2,7 +2,7 @@
 import {execFileSync} from 'node:child_process';
 import {readFileSync,writeFileSync,mkdirSync,readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-const suites=['test-client-booking-lifecycle-api.mjs','test-legacy-domain-api.mjs','test-provider-self-api.mjs','test-client-self-api.mjs','test-self-sessions-api.mjs','test-account-admin-api.mjs','test-governance-api.mjs','test-account-list-api.mjs','test-workspace.mjs','test-auth-maintenance.mjs','test-auth-recovery.mjs','test-auth-api.mjs','test-auth-client.mjs','test-auth-bootstrap.mjs','test-auth-management.mjs','test-auth-password.mjs','test-auth-schema.mjs','test-auth-cleanup.mjs','test-auth-source.mjs'];
+const suites=['test-client-records-api.mjs','test-client-booking-lifecycle-api.mjs','test-legacy-domain-api.mjs','test-provider-self-api.mjs','test-client-self-api.mjs','test-self-sessions-api.mjs','test-account-admin-api.mjs','test-governance-api.mjs','test-account-list-api.mjs','test-workspace.mjs','test-auth-maintenance.mjs','test-auth-recovery.mjs','test-auth-api.mjs','test-auth-client.mjs','test-auth-bootstrap.mjs','test-auth-management.mjs','test-auth-password.mjs','test-auth-schema.mjs','test-auth-cleanup.mjs','test-auth-source.mjs'];
 let output=execFileSync(process.execPath,['--test',...suites.map(f=>'scripts/'+f)],{encoding:'utf8'});
 let count=Number(/(?:#|ℹ) tests (\d+)/.exec(output)?.[1]);
 let fail=Number(/(?:#|ℹ) fail (\d+)/.exec(output)?.[1]);
