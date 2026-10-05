@@ -4,11 +4,12 @@ import {json,withDb,tokenFrom,sha256,type Env} from './auth';
  * never from caller-supplied profile identifiers or presentation grants. */
 export async function providerSelf(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null> {
   const documentMatch=/^\/documents\/([^/]+)$/.exec(path);
-  const visitMatch=/^\/visits\/([^/]+)$/.exec(path);
-  if(env.SERVICE_NAME!=='provider'||!visitMatch&&!documentMatch&&!['/profile','/availability','/visits','/documents'].includes(path))return null;
+  const statusSummary=path==='/visits/summary';
+  const visitMatch=!statusSummary?/^\/visits\/([^/]+)$/.exec(path):null;
+  if(env.SERVICE_NAME!=='provider'||!visitMatch&&!documentMatch&&!statusSummary&&!['/profile','/availability','/visits','/documents'].includes(path))return null;
   const safe=new Headers(headers);safe.set('cache-control','no-store');
   if(request.method!=='GET'){safe.set('allow','GET');return json({error:'Method not allowed'},405,safe);}
-  const params=new URL(request.url).searchParams,keys=['/availability','/visits','/documents'].includes(path)?['limit','offset']:[];
+  const params=new URL(request.url).searchParams,keys=(statusSummary||['/availability','/visits','/documents'].includes(path))?['limit','offset']:[];
   const limit=params.get('limit')??'25',offset=params.get('offset')??'0';
   if(request.body!==null||[...params.keys()].some(k=>!keys.includes(k)||params.getAll(k).length!==1)||!/^[1-9]\d{0,2}$/.test(limit)||Number(limit)>100||!/^\d{1,6}$/.test(offset)||Number(offset)>100000)return json({error:'Invalid query or body'},400,safe);
   if(visitMatch&&!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(visitMatch[1]))return json({error:'Invalid visit identifier'},400,safe);
@@ -42,6 +43,12 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
           const total=Number((await db.query('SELECT COUNT(*)::int AS count'+scope,documentValues)).rows[0].count);
           const rows=(await db.query('SELECT '+fields+scope+' ORDER BY d.created_at DESC,d.id DESC LIMIT $4 OFFSET $5',[...documentValues,Number(limit),Number(offset)])).rows;
           return json({documents:rows.map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        }
+        if(statusSummary){
+          const filter='assigned_provider_id::text=$1 AND tenant_id::text=$2';
+          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM visits WHERE '+filter+' GROUP BY status) groups',values)).rows[0].count);
+          const rows=(await db.query('SELECT status,COUNT(*)::int AS count,SUM(duration_minutes)::text AS "durationMinutes" FROM visits WHERE '+filter+' GROUP BY status ORDER BY status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+          return json({groups:rows.map(g=>({status:g.status,count:g.count,durationMinutes:g.durationMinutes})),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(path==='/visits'||visitMatch){
           const fields='id,service_id,requested_start_at,duration_minutes,status,priority,updated_at';

@@ -15,6 +15,9 @@ try{
  const visitDetail=await (await call('/visits/'+visits[0])).json();assert.equal(visitDetail.visit.duration_minutes,60);checks++;
  for(const id of visits.slice(1))assert.equal((await call('/visits/'+id)).status,404);checks++;
  const visitPage=await (await call('/visits','?offset=1')).json();assert.equal(visitPage.visits.length,0);assert.equal(visitPage.pagination.total,1);checks++;
+ const visitSummary=await (await call('/visits/summary')).json();assert.equal(visitSummary.pagination.total,1);assert.equal(visitSummary.groups[0].count,1);assert.equal(visitSummary.groups[0].durationMinutes,'60');checks++;
+ const visitSummaryPage=await (await call('/visits/summary','?offset=1')).json();assert.equal(visitSummaryPage.groups.length,0);assert.equal(visitSummaryPage.pagination.total,1);checks++;
+
  await db.query('CREATE TABLE provider_documents(id TEXT PRIMARY KEY,provider_id TEXT NOT NULL,doc_type TEXT NOT NULL,status TEXT,expiry_date TIMESTAMP,verified_at TIMESTAMP,created_at TIMESTAMP NOT NULL DEFAULT NOW(),updated_at TIMESTAMP NOT NULL DEFAULT NOW(),file_key TEXT,verified_by TEXT)');createdDocuments=true;
  const docs=[randomUUID(),randomUUID(),randomUUID()];
  for(let i=0;i<3;i++)await db.query("INSERT INTO provider_documents(id,provider_id,doc_type,status,file_key,verified_by) VALUES($1,$2,'license','pending','private-key','private-verifier')",[docs[i],profiles[i]]);
