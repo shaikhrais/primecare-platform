@@ -4,18 +4,20 @@ import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import {overview,visiblePages,type Actor} from './workspace';
 
 type RecordRow=Record<string,unknown>;
-type Query={limit:number;offset:number;search:string;app:string;role:string};
+type Query={limit:number;offset:number;search:string;app:string;role:string;screen:string};
 const permissions=registry.permissions as Record<string,{inventory:boolean;organization:boolean}>;
 
 /** Strict bounded query parser; duplicate/unknown fields cannot bypass limits. */
 export function parseGovernanceQuery(url:URL):Query|null {
-  const allowed=['limit','offset','search','app','role'];
+  const allowed=['limit','offset','search','app','role','screen'];
   if([...url.searchParams.keys()].some(k=>!allowed.includes(k)||url.searchParams.getAll(k).length!==1))return null;
   const limit=url.searchParams.get('limit')??'25',offset=url.searchParams.get('offset')??'0';
   if(!/^[1-9]\d{0,2}$/.test(limit)||Number(limit)>100||!/^\d{1,6}$/.test(offset)||Number(offset)>100000)return null;
+  const screen=url.searchParams.get('screen')??'';
+  if(screen.length>200||/[\u0000-\u001f]/.test(screen))return null;
   const search=url.searchParams.get('search')??'',app=url.searchParams.get('app')??'',role=url.searchParams.get('role')??'';
   if(search.length>200||app.length>40||role.length>80||/[\u0000-\u001f]/.test(search+app+role))return null;
-  return {limit:Number(limit),offset:Number(offset),search,app,role};
+  return {limit:Number(limit),offset:Number(offset),search,app,role,screen};
 }
 const pageRows=()=>registry.screens.map(p=>({screen:p.code,name:p.name,app:p.appCode,role:p.role,route:p.route,
   lifecycle:p.lifecycle,productionReady:p.productionReady,blockers:p.blockers,pendingActions:p.pendingActions}));
@@ -23,6 +25,19 @@ const pageRows=()=>registry.screens.map(p=>({screen:p.code,name:p.name,app:p.app
 /** Registered evidence only. No test timestamps or healthy flags are invented. */
 export function governanceRows(path:string):RecordRow[] {
   const pages=pageRows();
+  if(path==='/page-blueprints')return registry.screens.map(p=>({
+    screen:p.code,name:p.name,app:p.appCode,role:p.role,route:p.route,
+    requirements:p.requirements,sections:p.sections,permissions:p.grants,apis:p.contracts,
+    pendingActions:p.pendingActions,blockers:p.blockers,productionReady:p.productionReady,
+    buildSteps:[
+      {step:'requirements',instruction:'Use registered business purpose, user story and acceptance criteria; resolve missing requirements first.'},
+      {step:'layout',instruction:'Render registered sections and elements in catalog order using approved shared components and test identifiers.'},
+      {step:'permissions',instruction:'Use registered screen grants for presentation; enforce endpoint permissions and tenant isolation in the backend. Screen access alone does not authorize an API.'},
+      {step:'bindings',instruction:'Use registered element apiUsage and linked API schemas. Missing or ambiguous element-to-endpoint mappings require governance registration; do not infer a mapping.'},
+      {step:'validation',instruction:'Validate inputs and responses against registered schemas; handle loading, empty, permission, validation and backend error states.'},
+      {step:'verification',instruction:'Complete pending actions and blockers, API tests, authenticated browser and accessibility checks before marking the page ready.'}
+    ],bindingEvidence:'registered_only',elementBindingsVerified:false
+  }));
   if(path==='/screen-health')return pages;
   if(path==='/page-progress')return [...new Set(pages.map(p=>p.app))].sort().map(app=>{
     const group=pages.filter(p=>p.app===app);
@@ -55,7 +70,7 @@ export function governanceRows(path:string):RecordRow[] {
   return [];
 }
 function paginate(rows:RecordRow[],query:Query,evidenceType:string) {
-  const filtered=rows.filter(row=>(!query.app||row.app===query.app||(row.apps as string[]|undefined)?.includes(query.app))&&
+  const filtered=rows.filter(row=>(!query.screen||row.screen===query.screen)&&(!query.app||row.app===query.app||(row.apps as string[]|undefined)?.includes(query.app))&&
     (!query.role||row.role===query.role||(row.roles as string[]|undefined)?.includes(query.role))&&
     (!query.search||JSON.stringify(row).toLowerCase().includes(query.search.toLowerCase())));
   return {data:filtered.slice(query.offset,query.offset+query.limit),
@@ -73,7 +88,7 @@ export async function governanceApi(request:Request,env:Env,path:string,headers:
   if(request.method!=='GET'){safe.set('allow','GET');return json({error:'Method not allowed'},405,safe);}
   const token=request.headers.has('authorization')?tokenFrom(request):null;
   if(!token)return json({error:'No session'},401,safe);
-  const query=parseGovernanceQuery(new URL(request.url));if(!query)return json({error:'Invalid query'},400,safe);
+  const query=parseGovernanceQuery(new URL(request.url));if(!query||request.body!==null)return json({error:'Invalid query'},400,safe);
   try {
     if(env.WORKSPACE_SOURCE_LIMIT) {
       const key=await sha256('governance-api:'+(request.headers.get('cf-connecting-ip')??'unknown'));
