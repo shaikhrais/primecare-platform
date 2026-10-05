@@ -1,3 +1,4 @@
+import {selfRecords} from './self-records';
 import {selfSessions} from './self-sessions';
 import {recoverPassword,resetPassword,validateRecovery} from './password-recovery';
 import {maintenance,maintenanceRoles,configuredMail,type MaintenanceEnv} from './maintenance';
@@ -83,6 +84,8 @@ async function mutationLimit(db:Client,token:string,operation:AuthOperation,head
 }
 
 async function handleAuth(request: Request, env: Env, path: string, headers: HeadersInit): Promise<Response | null> {
+  const records=await selfRecords(request,env,path,headers);
+  if(records)return records;
   const personal=await selfSessions(request,env,path,headers);
   if(personal)return personal;
   const adminRequest=parseAccountAdminRequest(request,path);
