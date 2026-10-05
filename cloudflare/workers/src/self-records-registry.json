@@ -489,5 +489,102 @@
     "dateFields": [
       "recorded_at"
     ]
+  },
+  {
+    "path": "/me/narrative-note-records",
+    "table": "narrative_progress_notes",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 76,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/me/care-plan-follow-up-records",
+    "table": "care_plan_follow_ups",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 77,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/me/assigned-task-records",
+    "table": "staff_tasks",
+    "collection": "tasks",
+    "item": "task",
+    "fields": [
+      "id",
+      "status",
+      "priority",
+      "due_date",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 78,
+    "summaryBatch": 79,
+    "summaryField": "status",
+    "ownerField": "assignee_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "priority": "string",
+      "due_date": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "due_date",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/audit-signoff-records",
+    "table": "daily_audit_signoffs",
+    "collection": "signoffs",
+    "item": "signoff",
+    "fields": [
+      "id",
+      "status",
+      "signed_at"
+    ],
+    "listBatch": 80,
+    "ownerField": "rn_id",
+    "orderField": "signed_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "signed_at": "string"
+    },
+    "dateFields": [
+      "signed_at"
+    ]
   }
 ]

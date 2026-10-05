@@ -27,6 +27,12 @@ definitions.extend([
  {'path': '/me/mobility-records', 'table': 'mobility_logs', 'collection': 'records', 'item': 'record', 'fields': ['id', 'recorded_at'], 'listBatch': 74, 'ownerField': 'provider_id', 'orderField': 'recorded_at'},
  {'path': '/me/infection-control-records', 'table': 'infection_control_checklists', 'collection': 'records', 'item': 'record', 'fields': ['id', 'recorded_at'], 'listBatch': 75, 'ownerField': 'provider_id', 'orderField': 'recorded_at'}
 ])
+definitions.extend([
+ {'path': '/me/narrative-note-records', 'table': 'narrative_progress_notes', 'collection': 'records', 'item': 'record', 'fields': ['id', 'recorded_at'], 'listBatch': 76, 'ownerField': 'provider_id', 'orderField': 'recorded_at'},
+ {'path': '/me/care-plan-follow-up-records', 'table': 'care_plan_follow_ups', 'collection': 'records', 'item': 'record', 'fields': ['id', 'recorded_at'], 'listBatch': 77, 'ownerField': 'provider_id', 'orderField': 'recorded_at'},
+ {'path': '/me/assigned-task-records', 'table': 'staff_tasks', 'collection': 'tasks', 'item': 'task', 'fields': ['id', 'status', 'priority', 'due_date', 'created_at', 'updated_at'], 'listBatch': 78, 'summaryBatch': 79, 'summaryField': 'status', 'ownerField': 'assignee_id', 'orderField': 'created_at'},
+ {'path': '/me/audit-signoff-records', 'table': 'daily_audit_signoffs', 'collection': 'signoffs', 'item': 'signoff', 'fields': ['id', 'status', 'signed_at'], 'listBatch': 80, 'ownerField': 'rn_id', 'orderField': 'signed_at'}
+])
 paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0}}
 pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}}
 paths={};registry=[]
@@ -88,6 +94,11 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  for operation in care_paths.values():
   operation['get']['description']='Read own authored record metadata only: id and recorded_at. Active explicit bearer and matching non-null tenant required; every query binds provider_id to the actor User ID (not ProviderProfile) and tenant_id to the actor tenant. Clinical readings, patient/client IDs, behavioral notes, nutrition, mobility and infection-control findings are excluded. Metadata access does not grant patient-record access, clinical writes or evidence of completed care. Bounded paging, newest recorded_at then id; missing owned detail returns 404. No arbitrary owner, tenant or role filters; no mutations or new grants.'
  (ROOT/'docs/api/personal-care-metadata-batches-71-75.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Personal Authored Care-Record Metadata','version':'1.0.0'},'paths':care_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
- paths={p:v for p,v in paths.items() if p not in new_paths and p not in reputation_paths and p not in personal_paths and p not in password_paths and p not in staff_paths and p not in care_paths}
+ author_roots=['/v1/auth'+r['path'] for r in registry if 76<=r['listBatch']<=80]
+ author_paths={p:v for p,v in paths.items() if any(p==root or p.startswith(root+'/') for root in author_roots)}
+ for operation in author_paths.values():
+  operation['get']['description']='Read only own authored/assigned metadata under active explicit bearer and matching non-null tenant. Registered provider_id, assignee_id and rn_id relationships refer to actor User ID, not ProviderProfile. Every SQL query binds actor User and tenant. Narrative/follow-up contents, patient/client/visit IDs, task titles/descriptions/group IDs and clinical audit comments are excluded. Assigned tasks require direct assignee ownership; group-only, unassigned and other-user tasks are excluded. Status/priority/signing timestamps are stored values, not completion/compliance or privilege claims. Lists sort by registered timestamp then id; summary total counts status groups. No mutations, new grants, arbitrary user/role/tenant filters or access to clinical records.'
+ (ROOT/'docs/api/personal-authorship-task-batches-76-80.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Personal Authorship, Assigned Tasks and Signoff Metadata','version':'1.0.0'},'paths':author_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
+ paths={p:v for p,v in paths.items() if p not in new_paths and p not in reputation_paths and p not in personal_paths and p not in password_paths and p not in staff_paths and p not in care_paths and p not in author_paths}
  (ROOT/'docs/api/self-records-batches-26-30.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Personal Account Records','version':'1.0.0'},'paths':paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
-print('Registered personal record APIs through batch 75; no role grants.')
+print('Registered personal record APIs through batch 80; no role grants.')
