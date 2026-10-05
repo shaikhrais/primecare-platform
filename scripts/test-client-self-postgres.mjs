@@ -1,7 +1,7 @@
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
 const dir=await mkdtemp(join(tmpdir(),'client-self-pg-'));await build({entryPoints:['cloudflare/workers/src/client-self.ts'],outfile:join(dir,'client.cjs'),bundle:true,platform:'node',format:'cjs'});const {clientSelf}=createRequire(import.meta.url)(join(dir,'client.cjs'));const db=new Client({connectionString:url.href});await db.connect();
-const ids=[randomUUID(),randomUUID(),randomUUID()],tenants=[randomUUID(),randomUUID()],profiles=[randomUUID(),randomUUID(),randomUUID()],tokens=['m'.repeat(43),'n'.repeat(43),'o'.repeat(43)];const hash=s=>createHash('sha256').update(s).digest('hex');let checks=0,createdProfiles=false,createdInvoices=false,createdBookings=false,createdVisits=false;
+const ids=[randomUUID(),randomUUID(),randomUUID()],tenants=[randomUUID(),randomUUID()],profiles=[randomUUID(),randomUUID(),randomUUID()],tokens=['m'.repeat(43),'n'.repeat(43),'o'.repeat(43)];const hash=s=>createHash('sha256').update(s).digest('hex');let checks=0,createdProfiles=false,createdInvoices=false,createdBookings=false,createdVisits=false,createdRequests=false;
 const call=(path='/home/profile',query='',token=tokens[0],headers={})=>clientSelf(new Request('https://fixture'+path+query,{headers:{authorization:'Bearer '+token,...headers}}),{DB_URL:url.href,SERVICE_NAME:'client'},path,{});
 try{
  // Disposable domain fixtures use the registered column names and text domain
@@ -37,6 +37,16 @@ try{
  const batch15Null=await (await call('/visits/summary')).json();assert.deepEqual(batch15Null.groups,[{status:null,count:1}]);checks++;
  await db.query('DELETE FROM visits WHERE client_id=$1',[profiles[0]]);
  const batch15Empty=await (await call('/visits/summary')).json();assert.deepEqual(batch15Empty.groups,[]);assert.equal(batch15Empty.pagination.total,0);assert.equal(batch15Empty.pagination.hasMore,false);checks++;
+
+ await db.query('CREATE TABLE booking_requests(id TEXT PRIMARY KEY,client_id TEXT NOT NULL,tenant_id TEXT NOT NULL,service_type TEXT NOT NULL,preferred_date TIMESTAMP NOT NULL,preferred_time TEXT,status TEXT NOT NULL,created_at TIMESTAMP NOT NULL DEFAULT NOW(),updated_at TIMESTAMP NOT NULL DEFAULT NOW(),notes TEXT)');createdRequests=true;
+ const requests=[randomUUID(),randomUUID(),randomUUID()];
+ for(let i=0;i<3;i++)await db.query("INSERT INTO booking_requests(id,client_id,tenant_id,service_type,preferred_date,status,notes) VALUES($1,$2,$3,'massage',NOW(),'pending','private-request-note')",[requests[i],profiles[i===2?0:i],tenants[i===2?1:0]]);
+ const requestList=await (await call('/booking-requests','?limit=1')).json();assert.equal(requestList.pagination.total,1);assert.equal(requestList.requests[0].id,requests[0]);assert.ok(!JSON.stringify(requestList).includes('private'));checks++;
+ const requestDetail=await (await call('/booking-requests/'+requests[0])).json();assert.equal(requestDetail.request.preferred_time,null);assert.equal(requestDetail.request.id,requests[0]);checks++;
+ for(const id of requests.slice(1))assert.equal((await call('/booking-requests/'+id)).status,404);checks++;
+ const requestPage=await (await call('/booking-requests','?offset=1')).json();assert.deepEqual(requestPage.requests,[]);assert.equal(requestPage.pagination.total,1);checks++;
+ await db.query('DELETE FROM booking_requests WHERE id=$1',[requests[0]]);
+ const noRequests=await (await call('/booking-requests')).json();assert.deepEqual(noRequests.requests,[]);assert.equal(noRequests.pagination.total,0);checks++;
  const own=await (await call()).json();assert.equal(own.profile.id,profiles[0]);assert.ok(!('dob' in own.profile));checks++;
  const list=await (await call('/invoices')).json();assert.equal(list.pagination.total,1);assert.equal(list.invoices[0].total,'113.11');assert.ok(!JSON.stringify(list).includes('private-processor'));checks++;
  const detail=await (await call('/invoices/'+list.invoices[0].id)).json();assert.equal(detail.invoice.total,'113.11');assert.ok(!JSON.stringify(detail).includes('private-processor'));checks++;
@@ -52,4 +62,4 @@ try{
  await db.query('UPDATE client_profiles SET tenant_id=$1 WHERE id=$2',[tenants[1],profiles[0]]);assert.equal((await call()).status,404);checks++;
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[ids[1]]);assert.equal((await call('/invoices','',tokens[1])).status,401);checks++;
  console.log(`Client self passed ${checks} PostgreSQL checks (${process.env.AUTH_TEST_ID_TYPE} auth identities).`);
-}finally{if(createdVisits)await db.query('DROP TABLE visits');if(createdBookings)await db.query('DROP TABLE bookings');if(createdInvoices)await db.query('DROP TABLE invoices');if(createdProfiles)await db.query('DROP TABLE client_profiles');await db.query('DELETE FROM auth_sessions WHERE user_id::text=ANY($1)',[ids]);await db.query('DELETE FROM users WHERE id::text=ANY($1)',[ids]);await db.end();}
+}finally{if(createdRequests)await db.query('DROP TABLE booking_requests');if(createdVisits)await db.query('DROP TABLE visits');if(createdBookings)await db.query('DROP TABLE bookings');if(createdInvoices)await db.query('DROP TABLE invoices');if(createdProfiles)await db.query('DROP TABLE client_profiles');await db.query('DELETE FROM auth_sessions WHERE user_id::text=ANY($1)',[ids]);await db.query('DELETE FROM users WHERE id::text=ANY($1)',[ids]);await db.end();}
