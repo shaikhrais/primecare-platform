@@ -24,12 +24,15 @@ runpy.run_path(str(ROOT/'scripts/register-provider-availability-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-legacy-domain-security.py'))
 runpy.run_path(str(ROOT/'scripts/register-client-bookings-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-client-booking-requests-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-client-booking-lifecycle-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-client-self-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-self-sessions-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-account-list-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-account-admin-batch.py'))
 runpy.run_path(str(ROOT/'scripts/register-account-detail-batch.py'))
 runpy.run_path(str(ROOT/'scripts/register-governance-api-batch.py'))
+runpy.run_path(str(ROOT/'scripts/register-api-execution-status.py'))
+runpy.run_path(str(ROOT/'scripts/generate-api-execution-inventory.py'))
 with sqlite3.connect(DB) as db:
     db.row_factory = sqlite3.Row
     db.execute('''CREATE TABLE IF NOT EXISTS screen_runtime_views (

@@ -1,0 +1,35 @@
+"""Batch 19: owned submission, cancellation and audit history."""
+import json,sqlite3
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0}}
+booking={'type':'object','additionalProperties':False,'required':['id','service_type','preferred_date','preferred_time','status','created_at','updated_at'],'properties':{'id':{'type':'string'},'service_type':{'type':'string'},'preferred_date':{'type':'string','format':'date-time','pattern':r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$'},'preferred_time':{'type':['string','null']},'status':{'type':'string'},**{k:{'type':'string','format':'date-time'} for k in ['created_at','updated_at']}}}
+create={'service_type':{'type':'string','minLength':1,'maxLength':100},'preferred_date':{'type':'string','format':'date-time','pattern':r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$'},'preferred_time':{'type':['string','null'],'pattern':'^([01][0-9]|2[0-3]):[0-5][0-9]$'},'notes':{'type':['string','null'],'maxLength':2000}}
+event={'type':'object','additionalProperties':False,'properties':{'id':{'type':'string'},'action':{'enum':['created','cancelled']},'previous_status':{'type':['string','null']},'new_status':{'type':'string'},'created_at':{'type':'string','format':'date-time'}},'required':['id','action','previous_status','new_status','created_at']}
+pagination={'type':'object','required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}}
+ops=[('POST','/v1/client/booking-requests',create,{'type':'object','required':['request'],'properties':{'request':booking}},'Submit own booking request'),('POST','/v1/client/booking-requests/{requestId}/cancel',{}, {'type':'object','required':['request'],'properties':{'request':booking}},'Cancel own pending booking request'),('GET','/v1/client/booking-requests/{requestId}/audit',paging,{'type':'object','required':['events','pagination'],'properties':{'events':{'type':'array','items':event},'pagination':pagination}},'Read own booking request history')]
+
+paths={}
+with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
+ db.execute('''CREATE TABLE IF NOT EXISTS governance_api_batches(route TEXT PRIMARY KEY,screen_id INTEGER NOT NULL REFERENCES screens(id),batch INTEGER NOT NULL,permission TEXT NOT NULL,implementation_status TEXT NOT NULL,test_status TEXT NOT NULL)''')
+ sid=db.execute("SELECT id FROM screens WHERE screen_code='client_profile'").fetchone()[0]
+ app=db.execute('SELECT app_id FROM screens WHERE id=?',(sid,)).fetchone()[0]
+ db.execute("INSERT INTO db_schema_tables(app_id,table_name,table_type,status) SELECT ?,'booking_request_audit','table','active' WHERE NOT EXISTS(SELECT 1 FROM db_schema_tables WHERE table_name='booking_request_audit')",(app,))
+ tid=db.execute("SELECT id FROM db_schema_tables WHERE table_name='booking_request_audit'").fetchone()[0]
+ for name,kind,nullable,primary in [('id','bigint',0,1),('request_id','text',0,0),('actor_user_id','text',0,0),('tenant_id','text',0,0),('action','text',0,0),('previous_status','text',1,0),('new_status','text',0,0),('idempotency_key','text',0,0),('request_hash','text',0,0),('response_json','jsonb',0,0),('created_at','timestamp with time zone',0,0)]:
+  db.execute('INSERT INTO db_schema_columns(table_id,column_name,data_type,is_nullable,is_primary) SELECT ?,?,?,?,? WHERE NOT EXISTS(SELECT 1 FROM db_schema_columns WHERE table_id=? AND column_name=?)',(tid,name,kind,nullable,primary,tid,name))
+
+ for method,path,query,response,title in ops:
+  code='CLIENT_BOOKING_REQUEST_'+('AUDIT' if method=='GET' else 'CANCEL' if path.endswith('/cancel') else 'CREATE')
+  req={'type':'object','additionalProperties':False,'properties':query}
+  if path.endswith('booking-requests'):req['required']=['service_type','preferred_date']
+  db.execute('''INSERT INTO api_endpoints(app_id,endpoint_code,route_path,http_method,service_name,auth_required,implementation_status,permission_key,request_schema,response_schema,rate_limit_key,uses_pagination)
+   SELECT ?,?,?,?,'client',1,'implemented','authenticated_client_profile_owner',?,?,'workspace.source',? WHERE NOT EXISTS(SELECT 1 FROM api_endpoints WHERE route_path=? AND http_method=?)''',(app,code,path,method,json.dumps(req),json.dumps(response),int(method=='GET'),path,method))
+  aid=db.execute("SELECT id FROM api_endpoints WHERE route_path=? AND http_method=?",(path,method)).fetchone()[0]
+  db.execute('INSERT OR IGNORE INTO screen_api_links(screen_id,api_id,purpose) VALUES(?,?,?)',(sid,aid,'Authenticated owner only via client_profiles.user_id and tenant_id; screen grants never bypass ownership'))
+  db.execute("INSERT OR REPLACE INTO governance_api_batches VALUES(?,?,19,'authenticated_client_profile_owner','implemented','pending')",(method+' '+path,sid))
+  paths.setdefault(path,{})[method.lower()]={'operationId':code.lower(),'summary':title,'description':'Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Mutations lock the active actor and owned profile, use an actor/tenant idempotency key and write audit atomically. Cancellation is restricted to pending requests. Audit joins the owned request. Additive booking_request_audit migration required. Missing profile returns 404; conflicting tenant header returns 403. Notes are excluded. No clinical details or payment processor identifiers are returned. No new role grants.',
+   'security':[{'bearerAuth':[]}],'parameters':([{'in':'query','name':k,'schema':v} for k,v in query.items()] if method=='GET' else [{'in':'header','name':'Idempotency-Key','required':True,'schema':{'type':'string','pattern':'^[A-Za-z0-9_-]{8,100}$'}}])+([{'in':'path','name':'requestId','required':True,'schema':{'type':'string','pattern':'^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$'}}] if '{requestId}' in path else []),
+   **({'requestBody':{'required':True,'content':{'application/json':{'schema':req}}}} if method=='POST' and not path.endswith('/cancel') else {}),'responses':{('201' if method=='POST' and not path.endswith('/cancel') else '200'):{'description':'Owner data','content':{'application/json':{'schema':response}}},**{str(n):{'description':d} for n,d in [(400,'Invalid query/body'),(401,'Invalid session'),(403,'Tenant mismatch'),(404,'Own client profile or booking absent'),(409,'Idempotency or state conflict'),(405,'Unsupported method'),(429,'Source limit'),(503,'Database unavailable or schema dependency missing')]}}}
+ target=ROOT/'docs/api/client-booking-lifecycle-batch-19.openapi.json';target.write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Client Booking Request Lifecycle Batch 19','version':'1.0.0'},'paths':paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
+print('Registered client owner-bound reads; no new role grants.')
