@@ -601,6 +601,8 @@
     "listBatch": 81,
     "ownerField": "reporter_user_id",
     "orderField": "created_at",
+    "summaryBatch": 94,
+    "summaryField": "status",
     "types": {
       "id": "string",
       "status": [
@@ -651,6 +653,8 @@
     "listBatch": 83,
     "ownerField": "rn_id",
     "orderField": "created_at",
+    "summaryBatch": 95,
+    "summaryField": "status",
     "types": {
       "id": "string",
       "status": "string",
@@ -716,6 +720,8 @@
     "listBatch": 86,
     "ownerField": "author_id",
     "orderField": "created_at",
+    "summaryBatch": 91,
+    "summaryField": "status",
     "types": {
       "id": "string",
       "status": "string",
@@ -743,6 +749,8 @@
     "listBatch": 87,
     "ownerField": "reviewer_id",
     "orderField": "created_at",
+    "summaryBatch": 92,
+    "summaryField": "status",
     "types": {
       "id": "string",
       "status": "string",
@@ -773,6 +781,8 @@
     "listBatch": 88,
     "ownerField": "reviewed_by",
     "orderField": "created_at",
+    "summaryBatch": 93,
+    "summaryField": "status",
     "types": {
       "id": "string",
       "status": [
