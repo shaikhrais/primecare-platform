@@ -389,5 +389,105 @@
     "dateFields": [
       "created_at"
     ]
+  },
+  {
+    "path": "/me/vital-sign-records",
+    "table": "psw_vital_signs",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 71,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/me/behavior-note-records",
+    "table": "behavior_notes",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 72,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/me/nutrition-records",
+    "table": "nutrition_records",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 73,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/me/mobility-records",
+    "table": "mobility_logs",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 74,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/me/infection-control-records",
+    "table": "infection_control_checklists",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 75,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
   }
 ]

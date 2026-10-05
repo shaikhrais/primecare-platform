@@ -20,6 +20,13 @@ definitions.extend([
  {'path':'/me/daily-entry-records','table':'daily_entries','collection':'entries','item':'entry','fields':['id','status','created_at','updated_at'],'listBatch':68,'summaryBatch':69,'summaryField':'status','ownerField':'staff_id','orderField':'created_at'},
  {'path':'/me/adl-log-records','table':'adl_care_logs','collection':'logs','item':'log','fields':['id','created_at'],'listBatch':70,'ownerField':'provider_id','orderField':'created_at'}
 ])
+definitions.extend([
+ {'path': '/me/vital-sign-records', 'table': 'psw_vital_signs', 'collection': 'records', 'item': 'record', 'fields': ['id', 'recorded_at'], 'listBatch': 71, 'ownerField': 'provider_id', 'orderField': 'recorded_at'},
+ {'path': '/me/behavior-note-records', 'table': 'behavior_notes', 'collection': 'records', 'item': 'record', 'fields': ['id', 'recorded_at'], 'listBatch': 72, 'ownerField': 'provider_id', 'orderField': 'recorded_at'},
+ {'path': '/me/nutrition-records', 'table': 'nutrition_records', 'collection': 'records', 'item': 'record', 'fields': ['id', 'recorded_at'], 'listBatch': 73, 'ownerField': 'provider_id', 'orderField': 'recorded_at'},
+ {'path': '/me/mobility-records', 'table': 'mobility_logs', 'collection': 'records', 'item': 'record', 'fields': ['id', 'recorded_at'], 'listBatch': 74, 'ownerField': 'provider_id', 'orderField': 'recorded_at'},
+ {'path': '/me/infection-control-records', 'table': 'infection_control_checklists', 'collection': 'records', 'item': 'record', 'fields': ['id', 'recorded_at'], 'listBatch': 75, 'ownerField': 'provider_id', 'orderField': 'recorded_at'}
+])
 paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0}}
 pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}}
 paths={};registry=[]
@@ -71,11 +78,16 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  for operation in password_paths.values():
   operation['get']['description']='Read recorded password-change audit events for the active bearer actor only. Every query derives the current tenant through the owning User. Events expose id, action and creation time; no password/hash, token, IP or session identifiers. Absence of events does not prove a password was never changed; older operations may lack audit records. Read only, no grants. Lists support bounded pagination; detail accepts no query.'
  (ROOT/'docs/api/self-password-history-batch-50.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Personal Password-Change History','version':'1.0.0'},'paths':password_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
- staff_roots=['/v1/auth'+r['path'] for r in registry if r['listBatch']>=66]
+ staff_roots=['/v1/auth'+r['path'] for r in registry if 66<=r['listBatch']<=70]
  staff_paths={p:v for p,v in paths.items() if any(p==root or p.startswith(root+'/') for root in staff_roots)}
  for operation in staff_paths.values():
   operation['get']['description']='Active explicit bearer and matching non-null tenant required. Every query binds the actor User ID and tenant: provider_shift_logs.provider_id and adl_care_logs.provider_id refer to User; daily_entries.staff_id refers to User. Clinical contents, patient/client/visit IDs, GPS and signatures are excluded. Stored shift/status labels do not confirm completed care, attendance, payroll or clinical correctness. Direct authorship grants metadata access only, without patient-record access or clinical writes. Lists use bounded paging and registered timestamp order; summaries count stored groups. No new grants or mutations.'
  (ROOT/'docs/api/personal-work-log-batches-66-70.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Personal Work-Log Metadata','version':'1.0.0'},'paths':staff_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
- paths={p:v for p,v in paths.items() if p not in new_paths and p not in reputation_paths and p not in personal_paths and p not in password_paths and p not in staff_paths}
+ care_roots=['/v1/auth'+r['path'] for r in registry if 71<=r['listBatch']<=75]
+ care_paths={p:v for p,v in paths.items() if any(p==root or p.startswith(root+'/') for root in care_roots)}
+ for operation in care_paths.values():
+  operation['get']['description']='Read own authored record metadata only: id and recorded_at. Active explicit bearer and matching non-null tenant required; every query binds provider_id to the actor User ID (not ProviderProfile) and tenant_id to the actor tenant. Clinical readings, patient/client IDs, behavioral notes, nutrition, mobility and infection-control findings are excluded. Metadata access does not grant patient-record access, clinical writes or evidence of completed care. Bounded paging, newest recorded_at then id; missing owned detail returns 404. No arbitrary owner, tenant or role filters; no mutations or new grants.'
+ (ROOT/'docs/api/personal-care-metadata-batches-71-75.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Personal Authored Care-Record Metadata','version':'1.0.0'},'paths':care_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
+ paths={p:v for p,v in paths.items() if p not in new_paths and p not in reputation_paths and p not in personal_paths and p not in password_paths and p not in staff_paths and p not in care_paths}
  (ROOT/'docs/api/self-records-batches-26-30.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Personal Account Records','version':'1.0.0'},'paths':paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
-print('Registered personal record APIs through batch 70; no role grants.')
+print('Registered personal record APIs through batch 75; no role grants.')
