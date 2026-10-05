@@ -586,5 +586,120 @@
     "dateFields": [
       "signed_at"
     ]
+  },
+  {
+    "path": "/me/reported-incident-records",
+    "table": "incidents",
+    "collection": "incidents",
+    "item": "incident",
+    "fields": [
+      "id",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 81,
+    "ownerField": "reporter_user_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "status": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/assessment-records",
+    "table": "clinical_assessments",
+    "collection": "assessments",
+    "item": "assessment",
+    "fields": [
+      "id",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 82,
+    "ownerField": "rn_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/medication-reconciliation-records",
+    "table": "medication_reconciliations",
+    "collection": "reconciliations",
+    "item": "reconciliation",
+    "fields": [
+      "id",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 83,
+    "ownerField": "rn_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/supervision-records",
+    "table": "supervision_logs",
+    "collection": "logs",
+    "item": "log",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 84,
+    "ownerField": "rn_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/technical-audit-records",
+    "table": "technical_audits",
+    "collection": "audits",
+    "item": "audit",
+    "fields": [
+      "id",
+      "status",
+      "performed_at"
+    ],
+    "listBatch": 85,
+    "ownerField": "performed_by_id",
+    "orderField": "performed_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "performed_at": "string"
+    },
+    "dateFields": [
+      "performed_at"
+    ]
   }
 ]

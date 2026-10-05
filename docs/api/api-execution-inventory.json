@@ -1,10 +1,10 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1301,
+    "totalDeclared": 1311,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 143,
+      "unit_fixtures_recorded": 153,
       "verification_pending": 1148
     },
     "contractGaps": {
@@ -6793,6 +6793,52 @@
       "productionVerified": false
     },
     {
+      "id": 16584,
+      "api": "GET /v1/auth/me/assessment-records",
+      "method": "GET",
+      "route": "/v1/auth/me/assessment-records",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 82,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16585,
+      "api": "GET /v1/auth/me/assessment-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/assessment-records/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 82,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16576,
       "api": "GET /v1/auth/me/assigned-task-records",
       "method": "GET",
@@ -7345,6 +7391,52 @@
       "productionVerified": false
     },
     {
+      "id": 16586,
+      "api": "GET /v1/auth/me/medication-reconciliation-records",
+      "method": "GET",
+      "route": "/v1/auth/me/medication-reconciliation-records",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 83,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16587,
+      "api": "GET /v1/auth/me/medication-reconciliation-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/medication-reconciliation-records/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 83,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16567,
       "api": "GET /v1/auth/me/mobility-records",
       "method": "GET",
@@ -7598,6 +7690,52 @@
       "productionVerified": false
     },
     {
+      "id": 16582,
+      "api": "GET /v1/auth/me/reported-incident-records",
+      "method": "GET",
+      "route": "/v1/auth/me/reported-incident-records",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 81,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16583,
+      "api": "GET /v1/auth/me/reported-incident-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/reported-incident-records/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 81,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16506,
       "api": "GET /v1/auth/me/reputation",
       "method": "GET",
@@ -7713,6 +7851,52 @@
       "productionVerified": false
     },
     {
+      "id": 16588,
+      "api": "GET /v1/auth/me/supervision-records",
+      "method": "GET",
+      "route": "/v1/auth/me/supervision-records",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 84,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16589,
+      "api": "GET /v1/auth/me/supervision-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/supervision-records/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 84,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16511,
       "api": "GET /v1/auth/me/survey-submissions",
       "method": "GET",
@@ -7767,6 +7951,52 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 43,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16590,
+      "api": "GET /v1/auth/me/technical-audit-records",
+      "method": "GET",
+      "route": "/v1/auth/me/technical-audit-records",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 85,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16591,
+      "api": "GET /v1/auth/me/technical-audit-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/technical-audit-records/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 85,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
