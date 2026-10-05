@@ -1,0 +1,422 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Owned Record Status Summaries",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/client/consents/summary": {
+      "get": {
+        "operationId": "client_own_consent_forms_status_summary",
+        "summary": "Count own consent forms by stored status",
+        "description": "Active explicit bearer session, unique owned client profile and matching tenant required. Counts use only client_id and tenant_id scoped rows and stored statuses, including null. Pagination total counts status groups, not records. No consent validity, authorization eligibility/remaining hours or appointment inference. Read only; no new role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "groups",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "status",
+                          "count"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "count": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "groups": [
+                    {
+                      "status": "pending",
+                      "count": 2
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/client/service-authorizations/summary": {
+      "get": {
+        "operationId": "client_own_service_authorizations_status_summary",
+        "summary": "Count own service authorizations by stored status",
+        "description": "Active explicit bearer session, unique owned client profile and matching tenant required. Counts use only client_id and tenant_id scoped rows and stored statuses, including null. Pagination total counts status groups, not records. No consent validity, authorization eligibility/remaining hours or appointment inference. Read only; no new role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "groups",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "status",
+                          "count"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "count": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "groups": [
+                    {
+                      "status": "pending",
+                      "count": 2
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/client/waitlist/summary": {
+      "get": {
+        "operationId": "client_own_waitlist_entries_status_summary",
+        "summary": "Count own waitlist entries by stored status",
+        "description": "Active explicit bearer session, unique owned client profile and matching tenant required. Counts use only client_id and tenant_id scoped rows and stored statuses, including null. Pagination total counts status groups, not records. No consent validity, authorization eligibility/remaining hours or appointment inference. Read only; no new role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "groups",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "status",
+                          "count"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "count": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "groups": [
+                    {
+                      "status": "pending",
+                      "count": 2
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
