@@ -37,6 +37,15 @@ try{
  const list=await (await call('/availability')).json();assert.equal(list.pagination.total,1);assert.equal(list.availability[0].start_time,'09:00');checks++;
  const other=await (await call('/availability','',tokens[1])).json();assert.equal(other.pagination.total,1);assert.notEqual(other.availability[0].id,list.availability[0].id);checks++;
  const empty=await (await call('/availability','?offset=1')).json();assert.equal(empty.availability.length,0);assert.equal(empty.pagination.total,1);checks++;
+
+ const availabilityDetail=await (await call('/availability/'+list.availability[0].id)).json();assert.equal(availabilityDetail.availability.id,list.availability[0].id);checks++;
+ const unavailable=(await db.query('SELECT id FROM provider_availability WHERE provider_id=$1 OR tenant_id=$2',[profiles[1],tenants[1]])).rows;
+ for(const item of unavailable)assert.equal((await call('/availability/'+item.id)).status,404);checks++;
+ for(const day of [1,3])await db.query("INSERT INTO provider_availability(id,provider_id,tenant_id,day_of_week,start_time,end_time) VALUES($1,$2,$3,$4,'18:00','20:00')",[randomUUID(),profiles[0],tenants[0],day]);
+ const availabilitySummary=await (await call('/availability/summary')).json();assert.deepEqual(availabilitySummary.groups,[{day_of_week:1,count:2},{day_of_week:3,count:1}]);assert.equal(availabilitySummary.pagination.total,2);checks++;
+ const availabilitySummaryPage=await (await call('/availability/summary','?limit=1&offset=1')).json();assert.deepEqual(availabilitySummaryPage.groups,[{day_of_week:3,count:1}]);assert.equal(availabilitySummaryPage.pagination.total,2);assert.equal(availabilitySummaryPage.pagination.hasMore,false);checks++;
+ await db.query('DELETE FROM provider_availability WHERE provider_id=$1 AND tenant_id=$2',[profiles[0],tenants[0]]);
+ const noAvailability=await (await call('/availability/summary')).json();assert.deepEqual(noAvailability.groups,[]);assert.equal(noAvailability.pagination.total,0);checks++;
  assert.equal((await call('/profile','',tokens[0],{'x-tenant-id':tenants[1]})).status,403);checks++;
  await db.query('UPDATE provider_profiles SET tenant_id=$1 WHERE id=$2',[tenants[1],profiles[0]]);assert.equal((await call()).status,404);checks++;
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[ids[1]]);assert.equal((await call('/availability','',tokens[1])).status,401);checks++;

@@ -7,14 +7,17 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
   const documentMatch=!documentSummary?/^\/documents\/([^/]+)$/.exec(path):null;
   const statusSummary=path==='/visits/summary';
   const visitMatch=!statusSummary?/^\/visits\/([^/]+)$/.exec(path):null;
-  if(env.SERVICE_NAME!=='provider'||!visitMatch&&!documentMatch&&!statusSummary&&!documentSummary&&!['/profile','/availability','/visits','/documents'].includes(path))return null;
+  const availabilitySummary=path==='/availability/summary';
+  const availabilityMatch=!availabilitySummary?/^\/availability\/([^/]+)$/.exec(path):null;
+  if(env.SERVICE_NAME!=='provider'||!visitMatch&&!documentMatch&&!availabilityMatch&&!availabilitySummary&&!statusSummary&&!documentSummary&&!['/profile','/availability','/visits','/documents'].includes(path))return null;
   const safe=new Headers(headers);safe.set('cache-control','no-store');
   if(request.method!=='GET'){safe.set('allow','GET');return json({error:'Method not allowed'},405,safe);}
-  const params=new URL(request.url).searchParams,keys=(documentSummary||statusSummary||['/availability','/visits','/documents'].includes(path))?['limit','offset']:[];
+  const params=new URL(request.url).searchParams,keys=(availabilitySummary||documentSummary||statusSummary||['/availability','/visits','/documents'].includes(path))?['limit','offset']:[];
   const limit=params.get('limit')??'25',offset=params.get('offset')??'0';
   if(request.body!==null||[...params.keys()].some(k=>!keys.includes(k)||params.getAll(k).length!==1)||!/^[1-9]\d{0,2}$/.test(limit)||Number(limit)>100||!/^\d{1,6}$/.test(offset)||Number(offset)>100000)return json({error:'Invalid query or body'},400,safe);
   if(visitMatch&&!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(visitMatch[1]))return json({error:'Invalid visit identifier'},400,safe);
   if(documentMatch&&!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(documentMatch[1]))return json({error:'Invalid document identifier'},400,safe);
+  if(availabilityMatch&&!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(availabilityMatch[1]))return json({error:'Invalid availability identifier'},400,safe);
   const token=request.headers.has('authorization')?tokenFrom(request):null;if(!token)return json({error:'No session'},401,safe);
   try{
     if(env.WORKSPACE_SOURCE_LIMIT&&!(await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('provider-self:'+(request.headers.get('cf-connecting-ip')??'unknown'))})).success){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
@@ -69,9 +72,20 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
           return json({visits:rows.map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         const filter='provider_id::text=$1 AND tenant_id::text=$2';
+        const availabilityFields='id,day_of_week,start_time,end_time';
+        const projectAvailability=(i:Record<string,unknown>)=>({id:String(i.id),day_of_week:i.day_of_week,start_time:i.start_time,end_time:i.end_time});
+        if(availabilityMatch){
+          const item=(await db.query('SELECT '+availabilityFields+' FROM provider_availability WHERE '+filter+' AND id::text=$3',[...values,availabilityMatch[1]])).rows[0];
+          return item?json({availability:projectAvailability(item)},200,safe):json({error:'Availability not found'},404,safe);
+        }
+        if(availabilitySummary){
+          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT day_of_week FROM provider_availability WHERE '+filter+' GROUP BY day_of_week) groups',values)).rows[0].count);
+          const rows=(await db.query('SELECT day_of_week,COUNT(*)::int AS count FROM provider_availability WHERE '+filter+' GROUP BY day_of_week ORDER BY day_of_week LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+          return json({groups:rows.map(g=>({day_of_week:g.day_of_week,count:g.count})),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        }
         const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM provider_availability WHERE '+filter,values)).rows[0].count);
         const rows=(await db.query('SELECT id,day_of_week,start_time,end_time FROM provider_availability WHERE '+filter+' ORDER BY day_of_week,start_time,id LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-        return json({availability:rows.map(i=>({id:String(i.id),day_of_week:i.day_of_week,start_time:i.start_time,end_time:i.end_time})),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        return json({availability:rows.map(projectAvailability),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
       }finally{await db.query('ROLLBACK');}
     });
   }catch{return json({error:'Provider data unavailable'},503,safe);}
