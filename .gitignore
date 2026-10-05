@@ -134,3 +134,5 @@ websites/typescript/dist/
 # Generated from the governed database before Worker compilation.
 cloudflare/workers/src/workspace-registry.json
 cloudflare/workers/src/governance-api-registry.json
+
+cloudflare/workers/src/api-execution-inventory.json

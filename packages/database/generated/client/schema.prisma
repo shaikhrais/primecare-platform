@@ -1150,6 +1150,24 @@ model BookingRequest {
   @@map("booking_requests")
 }
 
+model BookingRequestAudit {
+  id             BigInt   @id @default(autoincrement())
+  requestId      String   @map("request_id")
+  actorUserId    String   @map("actor_user_id")
+  tenantId       String   @map("tenant_id")
+  action         String
+  previousStatus String?  @map("previous_status")
+  newStatus      String   @map("new_status")
+  idempotencyKey String   @map("idempotency_key")
+  requestHash    String   @map("request_hash")
+  response       Json     @map("response_json")
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@unique([actorUserId, tenantId, idempotencyKey])
+  @@index([tenantId, actorUserId, requestId, createdAt, id])
+  @@map("booking_request_audit")
+}
+
 model FleetStatus {
   id              String          @id @default(uuid())
   providerId      String          @unique @map("provider_id")

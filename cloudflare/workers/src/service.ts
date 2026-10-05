@@ -1,3 +1,4 @@
+import {clientBookingLifecycle} from './client-booking-lifecycle';
 import {legacyDomain} from './legacy-domain';
 import {providerSelf} from './provider-self';
 import {clientSelf} from './client-self';
@@ -16,7 +17,8 @@ function cors(origin: string | null): HeadersInit {
   return {
     'access-control-allow-origin': origin ?? '*',
     'access-control-allow-methods': 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
-    'access-control-allow-headers': 'Authorization,Content-Type,X-Device-Id,X-Tenant-Id,X-Requested-With,X-Device-Fingerprint,X-Request-Id,X-Correlation-Id,X-Request-Signature,X-App-Version',
+    'access-control-allow-headers': 'Authorization,Content-Type,Idempotency-Key,X-Device-Id,X-Tenant-Id,X-Requested-With,X-Device-Fingerprint,X-Request-Id,X-Correlation-Id,X-Request-Signature,X-App-Version',
+    'access-control-expose-headers': 'Idempotency-Replayed',
     vary: 'Origin',
   };
 }
@@ -48,6 +50,8 @@ export default {
         const response = await auth(request, env, path, headers);
         if (response) return response;
       }
+      const lifecycleResponse=await clientBookingLifecycle(request,env,path,headers);
+      if(lifecycleResponse)return lifecycleResponse;
       const providerResponse=await providerSelf(request,env,path,headers);
       if(providerResponse)return providerResponse;
       const clientResponse=await clientSelf(request,env,path,headers);

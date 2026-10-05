@@ -30,8 +30,8 @@ function fixture(role='ceo',tenant='tenant-a') {
   return {rows:[]};
  };
 }
-test('eight registered APIs return bounded responses and precise evidence types',async()=>{
- assert.equal(catalog.bindings.length,8);
+test('nine registered APIs return bounded responses and precise evidence types',async()=>{
+ assert.equal(catalog.bindings.length,9);
  for(const {path} of catalog.bindings) {
   const response=await call(path,'?limit=3');assert.equal(response.status,200,path);
   assert.equal(response.headers.get('cache-control'),'no-store');
@@ -111,3 +111,7 @@ test('page blueprints expose registered layout, requirements, grants and complet
  const missing=await (await call('/page-blueprints','?screen=does-not-exist')).json();assert.equal(missing.pagination.total,0);
  assert.equal((await call('/page-blueprints','?screen=a&screen=b')).status,400);
 });
+
+test('API execution inventory distinguishes declarations, blocks and recorded fixture scope',async()=>{const b=await (await call('/api-execution-status','?limit=100')).json();assert.ok(b.pagination.total>1000);for(const row of b.data){assert.ok(['blocked','unit_fixtures_recorded','verification_pending'].includes(row.verificationState));assert.equal(row.productionVerified,false);assert.equal(row.postgresVerified,false);assert.ok(Array.isArray(row.missingContractFields));assert.ok(Array.isArray(row.screens));}const blocked=await (await call('/api-execution-status','?search=legacy_domain_disabled&limit=100')).json();assert.equal(blocked.pagination.total,0);});
+test('execution inventory filters linked screens, apps and roles with bounded paging',async()=>{for(const query of ['?screen=client_profile&limit=100','?app=cl&limit=1','?role=ceo&limit=1']){const b=await (await call('/api-execution-status',query)).json();assert.ok(b.pagination.total>0);const [key,value]=query.slice(1).split('&')[0].split('=');for(const row of b.data)assert.ok(row[key==='screen'?'screens':key==='app'?'apps':'roles'].includes(value));}assert.equal((await call('/api-execution-status','?screen=client_profile&screen=psw_profile')).status,400);});
+test('execution inventory requires existing inventory authority and tenant matching',async()=>{assert.equal((await call('/api-execution-status','','patient')).status,403);assert.equal((await call('/api-execution-status','','ceo',{'x-tenant-id':'other'})).status,403);assert.equal((await call('/api-execution-status','','ceo',{},'POST')).status,405);});

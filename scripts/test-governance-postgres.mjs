@@ -20,7 +20,7 @@ const accounts=(query='',token=tokens[0])=>auth(new Request('https://fixture/adm
 try {
  for(let i=0;i<3;i++)await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,$3,$4,'fixture-unused-hash','active')",[ids[i],i===1?`literal_%${ids[i]}@example.invalid`:`batch-${ids[i]}@example.invalid`,i===1?'rmt':'ceo',i===2?otherTenant:tenant]);
  for(let i=0;i<2;i++)await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '1 hour')",[hash(tokens[i]),ids[i]]);
- for(const path of ['/page-progress','/screen-health','/role-coverage','/pending-tasks','/api-contracts','/organization-map','/overview']) {
+ for(const path of ['/page-progress','/screen-health','/role-coverage','/pending-tasks','/api-contracts','/api-execution-status','/organization-map','/overview']) {
   const r=await call(path,'?limit=2');assert.equal(r.status,200,path);const data=await r.json();assert.ok(data.data.length<=2);checks++;
  }
  const org=await (await call('/organization-map','?limit=100')).json();assert.equal(org.data.find(r=>r.role==='ceo').activeAccounts,1);assert.equal(org.data.find(r=>r.role==='rmt').activeAccounts,1);checks++;

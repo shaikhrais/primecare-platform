@@ -1,4 +1,5 @@
 import catalog from './governance-api-registry.json';
+import execution from './api-execution-inventory.json';
 import registry from './workspace-registry.json';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import {overview,visiblePages,type Actor} from './workspace';
@@ -24,6 +25,7 @@ const pageRows=()=>registry.screens.map(p=>({screen:p.code,name:p.name,app:p.app
 
 /** Registered evidence only. No test timestamps or healthy flags are invented. */
 export function governanceRows(path:string):RecordRow[] {
+  if(path==='/api-execution-status')return execution.data;
   const pages=pageRows();
   if(path==='/page-blueprints')return registry.screens.map(p=>({
     screen:p.code,name:p.name,app:p.appCode,role:p.role,route:p.route,
@@ -70,7 +72,7 @@ export function governanceRows(path:string):RecordRow[] {
   return [];
 }
 function paginate(rows:RecordRow[],query:Query,evidenceType:string) {
-  const filtered=rows.filter(row=>(!query.screen||row.screen===query.screen)&&(!query.app||row.app===query.app||(row.apps as string[]|undefined)?.includes(query.app))&&
+  const filtered=rows.filter(row=>(!query.screen||row.screen===query.screen||(row.screens as string[]|undefined)?.includes(query.screen))&&(!query.app||row.app===query.app||(row.apps as string[]|undefined)?.includes(query.app))&&
     (!query.role||row.role===query.role||(row.roles as string[]|undefined)?.includes(query.role))&&
     (!query.search||JSON.stringify(row).toLowerCase().includes(query.search.toLowerCase())));
   return {data:filtered.slice(query.offset,query.offset+query.limit),
