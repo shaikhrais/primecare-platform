@@ -1,10 +1,10 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1235,
+    "totalDeclared": 1243,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 77,
+      "unit_fixtures_recorded": 85,
       "verification_pending": 1148
     },
     "contractGaps": {
@@ -6862,6 +6862,121 @@
       "productionVerified": false
     },
     {
+      "id": 16514,
+      "api": "GET /v1/auth/me/group-memberships",
+      "method": "GET",
+      "route": "/v1/auth/me/group-memberships",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 45,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16515,
+      "api": "GET /v1/auth/me/group-memberships/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/group-memberships/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 45,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16508,
+      "api": "GET /v1/auth/me/health-ids",
+      "method": "GET",
+      "route": "/v1/auth/me/health-ids",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 41,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16510,
+      "api": "GET /v1/auth/me/health-ids/summary",
+      "method": "GET",
+      "route": "/v1/auth/me/health-ids/summary",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 42,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16509,
+      "api": "GET /v1/auth/me/health-ids/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/health-ids/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 41,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16483,
       "api": "GET /v1/auth/me/notifications",
       "method": "GET",
@@ -6962,6 +7077,75 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 30,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16511,
+      "api": "GET /v1/auth/me/survey-submissions",
+      "method": "GET",
+      "route": "/v1/auth/me/survey-submissions",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 43,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16513,
+      "api": "GET /v1/auth/me/survey-submissions/summary",
+      "method": "GET",
+      "route": "/v1/auth/me/survey-submissions/summary",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 44,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16512,
+      "api": "GET /v1/auth/me/survey-submissions/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/survey-submissions/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 43,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [

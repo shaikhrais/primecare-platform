@@ -1,14 +1,14 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "PrimeCare Personal Account Records",
+    "title": "PrimeCare Personal Identity, Submission and Membership Metadata",
     "version": "1.0.0"
   },
   "paths": {
-    "/v1/auth/me/notifications": {
+    "/v1/auth/me/health-ids": {
       "get": {
-        "operationId": "auth_own_app_notifications_list",
-        "summary": "Read own app notifications list",
+        "operationId": "auth_own_health_ids_list",
+        "summary": "Read own health ids list",
         "description": "Active explicit bearer session and matching non-null tenant required. SQL binds user_id from the actor and the matching tenant. Tenant-scoped records exclude null tenants; device records join the owning user to derive tenant scope. Wellness scores/statuses are stored observations, not diagnoses; wellness notes/provider IDs and raw device telemetry/fingerprints/IPs are excluded. Device flags do not authorize sessions or establish trust. Reputation follows the current owning User tenant; points, elite status and crisis counters are stored values, not verified outcomes, entitlement or competence; reward multipliers are excluded. No arbitrary user/tenant/role filters or new grants. Notifications expose stored text and read flag, not navigation links; GET does not mark read. Activities expose assignments and stored status, not workflow completion or permissions. Rewards expose recorded points/coins/tier only, not monetary value, redemption eligibility or entitlement. Health IDs expose stored status only, excluding DID/public keys and identity-verification claims. Survey submissions expose metadata only, excluding answers and survey definitions; grouped survey IDs are opaque references. Group memberships expose stored group ID/role only, without group contents or permission grants. Records without tenant columns follow the current owning User tenant, not a historical tenant. Summary total counts groups, not records.",
         "security": [
           {
@@ -45,408 +45,18 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "notifications",
+                    "healthIds",
                     "pagination"
                   ],
                   "properties": {
-                    "notifications": {
+                    "healthIds": {
                       "type": "array",
                       "items": {
                         "type": "object",
                         "additionalProperties": false,
                         "required": [
                           "id",
-                          "title",
-                          "message",
-                          "type",
-                          "is_read",
-                          "created_at"
-                        ],
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "title": {
-                            "type": "string"
-                          },
-                          "message": {
-                            "type": "string"
-                          },
-                          "type": {
-                            "type": "string"
-                          },
-                          "is_read": {
-                            "type": "boolean"
-                          },
-                          "created_at": {
-                            "type": "string",
-                            "format": "date-time"
-                          }
-                        }
-                      }
-                    },
-                    "pagination": {
-                      "type": "object",
-                      "additionalProperties": false,
-                      "required": [
-                        "limit",
-                        "offset",
-                        "total",
-                        "hasMore"
-                      ],
-                      "properties": {
-                        "limit": {
-                          "type": "integer"
-                        },
-                        "offset": {
-                          "type": "integer"
-                        },
-                        "total": {
-                          "type": "integer"
-                        },
-                        "hasMore": {
-                          "type": "boolean"
-                        }
-                      }
-                    }
-                  }
-                },
-                "example": {
-                  "notifications": [
-                    {
-                      "id": "record-id",
-                      "title": "stored",
-                      "message": "stored",
-                      "type": "stored",
-                      "is_read": false,
-                      "created_at": "2026-01-01T12:00:00Z"
-                    }
-                  ],
-                  "pagination": {
-                    "limit": 25,
-                    "offset": 0,
-                    "total": 1,
-                    "hasMore": false
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid ID/query/body"
-          },
-          "401": {
-            "description": "No active bearer session"
-          },
-          "403": {
-            "description": "Tenant mismatch or missing actor tenant"
-          },
-          "404": {
-            "description": "Owned record/profile absent"
-          },
-          "405": {
-            "description": "Read only"
-          },
-          "429": {
-            "description": "Source limit"
-          },
-          "503": {
-            "description": "Data unavailable or ambiguous profile"
-          }
-        }
-      }
-    },
-    "/v1/auth/me/notifications/{recordId}": {
-      "get": {
-        "operationId": "auth_own_app_notifications_detail",
-        "summary": "Read own app notifications detail",
-        "description": "Active explicit bearer session and matching non-null tenant required. SQL binds user_id from the actor and the matching tenant. Tenant-scoped records exclude null tenants; device records join the owning user to derive tenant scope. Wellness scores/statuses are stored observations, not diagnoses; wellness notes/provider IDs and raw device telemetry/fingerprints/IPs are excluded. Device flags do not authorize sessions or establish trust. Reputation follows the current owning User tenant; points, elite status and crisis counters are stored values, not verified outcomes, entitlement or competence; reward multipliers are excluded. No arbitrary user/tenant/role filters or new grants. Notifications expose stored text and read flag, not navigation links; GET does not mark read. Activities expose assignments and stored status, not workflow completion or permissions. Rewards expose recorded points/coins/tier only, not monetary value, redemption eligibility or entitlement. Health IDs expose stored status only, excluding DID/public keys and identity-verification claims. Survey submissions expose metadata only, excluding answers and survey definitions; grouped survey IDs are opaque references. Group memberships expose stored group ID/role only, without group contents or permission grants. Records without tenant columns follow the current owning User tenant, not a historical tenant. Summary total counts groups, not records.",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "recordId",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Projected own records or status groups",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "notification"
-                  ],
-                  "properties": {
-                    "notification": {
-                      "type": "object",
-                      "additionalProperties": false,
-                      "required": [
-                        "id",
-                        "title",
-                        "message",
-                        "type",
-                        "is_read",
-                        "created_at"
-                      ],
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "title": {
-                          "type": "string"
-                        },
-                        "message": {
-                          "type": "string"
-                        },
-                        "type": {
-                          "type": "string"
-                        },
-                        "is_read": {
-                          "type": "boolean"
-                        },
-                        "created_at": {
-                          "type": "string",
-                          "format": "date-time"
-                        }
-                      }
-                    }
-                  }
-                },
-                "example": {
-                  "notification": {
-                    "id": "record-id",
-                    "title": "stored",
-                    "message": "stored",
-                    "type": "stored",
-                    "is_read": false,
-                    "created_at": "2026-01-01T12:00:00Z"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid ID/query/body"
-          },
-          "401": {
-            "description": "No active bearer session"
-          },
-          "403": {
-            "description": "Tenant mismatch or missing actor tenant"
-          },
-          "404": {
-            "description": "Owned record/profile absent"
-          },
-          "405": {
-            "description": "Read only"
-          },
-          "429": {
-            "description": "Source limit"
-          },
-          "503": {
-            "description": "Data unavailable or ambiguous profile"
-          }
-        }
-      }
-    },
-    "/v1/auth/me/notifications/summary": {
-      "get": {
-        "operationId": "auth_own_app_notifications_summary",
-        "summary": "Read own app notifications summary",
-        "description": "Active explicit bearer session and matching non-null tenant required. SQL binds user_id from the actor and the matching tenant. Tenant-scoped records exclude null tenants; device records join the owning user to derive tenant scope. Wellness scores/statuses are stored observations, not diagnoses; wellness notes/provider IDs and raw device telemetry/fingerprints/IPs are excluded. Device flags do not authorize sessions or establish trust. Reputation follows the current owning User tenant; points, elite status and crisis counters are stored values, not verified outcomes, entitlement or competence; reward multipliers are excluded. No arbitrary user/tenant/role filters or new grants. Notifications expose stored text and read flag, not navigation links; GET does not mark read. Activities expose assignments and stored status, not workflow completion or permissions. Rewards expose recorded points/coins/tier only, not monetary value, redemption eligibility or entitlement. Health IDs expose stored status only, excluding DID/public keys and identity-verification claims. Survey submissions expose metadata only, excluding answers and survey definitions; grouped survey IDs are opaque references. Group memberships expose stored group ID/role only, without group contents or permission grants. Records without tenant columns follow the current owning User tenant, not a historical tenant. Summary total counts groups, not records.",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "limit",
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100,
-              "default": 25
-            }
-          },
-          {
-            "in": "query",
-            "name": "offset",
-            "schema": {
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 100000,
-              "default": 0
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Projected own records or status groups",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "groups",
-                    "pagination"
-                  ],
-                  "properties": {
-                    "groups": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "additionalProperties": false,
-                        "required": [
-                          "is_read",
-                          "count"
-                        ],
-                        "properties": {
-                          "is_read": {
-                            "type": "boolean"
-                          },
-                          "count": {
-                            "type": "integer",
-                            "minimum": 0
-                          }
-                        }
-                      }
-                    },
-                    "pagination": {
-                      "type": "object",
-                      "additionalProperties": false,
-                      "required": [
-                        "limit",
-                        "offset",
-                        "total",
-                        "hasMore"
-                      ],
-                      "properties": {
-                        "limit": {
-                          "type": "integer"
-                        },
-                        "offset": {
-                          "type": "integer"
-                        },
-                        "total": {
-                          "type": "integer"
-                        },
-                        "hasMore": {
-                          "type": "boolean"
-                        }
-                      }
-                    }
-                  }
-                },
-                "example": {
-                  "groups": [
-                    {
-                      "is_read": false,
-                      "count": 1
-                    }
-                  ],
-                  "pagination": {
-                    "limit": 25,
-                    "offset": 0,
-                    "total": 1,
-                    "hasMore": false
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid ID/query/body"
-          },
-          "401": {
-            "description": "No active bearer session"
-          },
-          "403": {
-            "description": "Tenant mismatch or missing actor tenant"
-          },
-          "404": {
-            "description": "Owned record/profile absent"
-          },
-          "405": {
-            "description": "Read only"
-          },
-          "429": {
-            "description": "Source limit"
-          },
-          "503": {
-            "description": "Data unavailable or ambiguous profile"
-          }
-        }
-      }
-    },
-    "/v1/auth/me/activities": {
-      "get": {
-        "operationId": "auth_own_daily_activities_list",
-        "summary": "Read own daily activities list",
-        "description": "Active explicit bearer session and matching non-null tenant required. SQL binds user_id from the actor and the matching tenant. Tenant-scoped records exclude null tenants; device records join the owning user to derive tenant scope. Wellness scores/statuses are stored observations, not diagnoses; wellness notes/provider IDs and raw device telemetry/fingerprints/IPs are excluded. Device flags do not authorize sessions or establish trust. Reputation follows the current owning User tenant; points, elite status and crisis counters are stored values, not verified outcomes, entitlement or competence; reward multipliers are excluded. No arbitrary user/tenant/role filters or new grants. Notifications expose stored text and read flag, not navigation links; GET does not mark read. Activities expose assignments and stored status, not workflow completion or permissions. Rewards expose recorded points/coins/tier only, not monetary value, redemption eligibility or entitlement. Health IDs expose stored status only, excluding DID/public keys and identity-verification claims. Survey submissions expose metadata only, excluding answers and survey definitions; grouped survey IDs are opaque references. Group memberships expose stored group ID/role only, without group contents or permission grants. Records without tenant columns follow the current owning User tenant, not a historical tenant. Summary total counts groups, not records.",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "query",
-            "name": "limit",
-            "schema": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100,
-              "default": 25
-            }
-          },
-          {
-            "in": "query",
-            "name": "offset",
-            "schema": {
-              "type": "integer",
-              "minimum": 0,
-              "maximum": 100000,
-              "default": 0
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Projected own records or status groups",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "required": [
-                    "activities",
-                    "pagination"
-                  ],
-                  "properties": {
-                    "activities": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "additionalProperties": false,
-                        "required": [
-                          "id",
-                          "role",
-                          "title",
-                          "description",
                           "status",
-                          "due_date",
                           "created_at",
                           "updated_at"
                         ],
@@ -454,21 +64,8 @@
                           "id": {
                             "type": "string"
                           },
-                          "role": {
-                            "type": "string"
-                          },
-                          "title": {
-                            "type": "string"
-                          },
-                          "description": {
-                            "type": "string"
-                          },
                           "status": {
                             "type": "string"
-                          },
-                          "due_date": {
-                            "type": "string",
-                            "format": "date-time"
                           },
                           "created_at": {
                             "type": "string",
@@ -508,14 +105,10 @@
                   }
                 },
                 "example": {
-                  "activities": [
+                  "healthIds": [
                     {
                       "id": "record-id",
-                      "role": "stored",
-                      "title": "stored",
-                      "description": "stored",
                       "status": "stored",
-                      "due_date": "2026-01-01T12:00:00Z",
                       "created_at": "2026-01-01T12:00:00Z",
                       "updated_at": "2026-01-01T12:00:00Z"
                     }
@@ -554,10 +147,10 @@
         }
       }
     },
-    "/v1/auth/me/activities/{recordId}": {
+    "/v1/auth/me/health-ids/{recordId}": {
       "get": {
-        "operationId": "auth_own_daily_activities_detail",
-        "summary": "Read own daily activities detail",
+        "operationId": "auth_own_health_ids_detail",
+        "summary": "Read own health ids detail",
         "description": "Active explicit bearer session and matching non-null tenant required. SQL binds user_id from the actor and the matching tenant. Tenant-scoped records exclude null tenants; device records join the owning user to derive tenant scope. Wellness scores/statuses are stored observations, not diagnoses; wellness notes/provider IDs and raw device telemetry/fingerprints/IPs are excluded. Device flags do not authorize sessions or establish trust. Reputation follows the current owning User tenant; points, elite status and crisis counters are stored values, not verified outcomes, entitlement or competence; reward multipliers are excluded. No arbitrary user/tenant/role filters or new grants. Notifications expose stored text and read flag, not navigation links; GET does not mark read. Activities expose assignments and stored status, not workflow completion or permissions. Rewards expose recorded points/coins/tier only, not monetary value, redemption eligibility or entitlement. Health IDs expose stored status only, excluding DID/public keys and identity-verification claims. Survey submissions expose metadata only, excluding answers and survey definitions; grouped survey IDs are opaque references. Group memberships expose stored group ID/role only, without group contents or permission grants. Records without tenant columns follow the current owning User tenant, not a historical tenant. Summary total counts groups, not records.",
         "security": [
           {
@@ -583,19 +176,15 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "activity"
+                    "healthId"
                   ],
                   "properties": {
-                    "activity": {
+                    "healthId": {
                       "type": "object",
                       "additionalProperties": false,
                       "required": [
                         "id",
-                        "role",
-                        "title",
-                        "description",
                         "status",
-                        "due_date",
                         "created_at",
                         "updated_at"
                       ],
@@ -603,21 +192,8 @@
                         "id": {
                           "type": "string"
                         },
-                        "role": {
-                          "type": "string"
-                        },
-                        "title": {
-                          "type": "string"
-                        },
-                        "description": {
-                          "type": "string"
-                        },
                         "status": {
                           "type": "string"
-                        },
-                        "due_date": {
-                          "type": "string",
-                          "format": "date-time"
                         },
                         "created_at": {
                           "type": "string",
@@ -632,13 +208,9 @@
                   }
                 },
                 "example": {
-                  "activity": {
+                  "healthId": {
                     "id": "record-id",
-                    "role": "stored",
-                    "title": "stored",
-                    "description": "stored",
                     "status": "stored",
-                    "due_date": "2026-01-01T12:00:00Z",
                     "created_at": "2026-01-01T12:00:00Z",
                     "updated_at": "2026-01-01T12:00:00Z"
                   }
@@ -670,10 +242,10 @@
         }
       }
     },
-    "/v1/auth/me/activities/summary": {
+    "/v1/auth/me/health-ids/summary": {
       "get": {
-        "operationId": "auth_own_daily_activities_summary",
-        "summary": "Read own daily activities summary",
+        "operationId": "auth_own_health_ids_summary",
+        "summary": "Read own health ids summary",
         "description": "Active explicit bearer session and matching non-null tenant required. SQL binds user_id from the actor and the matching tenant. Tenant-scoped records exclude null tenants; device records join the owning user to derive tenant scope. Wellness scores/statuses are stored observations, not diagnoses; wellness notes/provider IDs and raw device telemetry/fingerprints/IPs are excluded. Device flags do not authorize sessions or establish trust. Reputation follows the current owning User tenant; points, elite status and crisis counters are stored values, not verified outcomes, entitlement or competence; reward multipliers are excluded. No arbitrary user/tenant/role filters or new grants. Notifications expose stored text and read flag, not navigation links; GET does not mark read. Activities expose assignments and stored status, not workflow completion or permissions. Rewards expose recorded points/coins/tier only, not monetary value, redemption eligibility or entitlement. Health IDs expose stored status only, excluding DID/public keys and identity-verification claims. Survey submissions expose metadata only, excluding answers and survey definitions; grouped survey IDs are opaque references. Group memberships expose stored group ID/role only, without group contents or permission grants. Records without tenant columns follow the current owning User tenant, not a historical tenant. Summary total counts groups, not records.",
         "security": [
           {
@@ -801,17 +373,38 @@
         }
       }
     },
-    "/v1/auth/me/rewards": {
+    "/v1/auth/me/survey-submissions": {
       "get": {
-        "operationId": "auth_own_gamification_profiles_singleton",
-        "summary": "Read own gamification profiles singleton",
+        "operationId": "auth_own_survey_responses_list",
+        "summary": "Read own survey responses list",
         "description": "Active explicit bearer session and matching non-null tenant required. SQL binds user_id from the actor and the matching tenant. Tenant-scoped records exclude null tenants; device records join the owning user to derive tenant scope. Wellness scores/statuses are stored observations, not diagnoses; wellness notes/provider IDs and raw device telemetry/fingerprints/IPs are excluded. Device flags do not authorize sessions or establish trust. Reputation follows the current owning User tenant; points, elite status and crisis counters are stored values, not verified outcomes, entitlement or competence; reward multipliers are excluded. No arbitrary user/tenant/role filters or new grants. Notifications expose stored text and read flag, not navigation links; GET does not mark read. Activities expose assignments and stored status, not workflow completion or permissions. Rewards expose recorded points/coins/tier only, not monetary value, redemption eligibility or entitlement. Health IDs expose stored status only, excluding DID/public keys and identity-verification claims. Survey submissions expose metadata only, excluding answers and survey definitions; grouped survey IDs are opaque references. Group memberships expose stored group ID/role only, without group contents or permission grants. Records without tenant columns follow the current owning User tenant, not a historical tenant. Summary total counts groups, not records.",
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Projected own records or status groups",
@@ -820,33 +413,150 @@
                 "schema": {
                   "type": "object",
                   "required": [
-                    "profile"
+                    "submissions",
+                    "pagination"
                   ],
                   "properties": {
-                    "profile": {
+                    "submissions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "survey_id",
+                          "created_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "survey_id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "submissions": [
+                    {
+                      "id": "record-id",
+                      "survey_id": "stored",
+                      "created_at": "2026-01-01T12:00:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/auth/me/survey-submissions/{recordId}": {
+      "get": {
+        "operationId": "auth_own_survey_responses_detail",
+        "summary": "Read own survey responses detail",
+        "description": "Active explicit bearer session and matching non-null tenant required. SQL binds user_id from the actor and the matching tenant. Tenant-scoped records exclude null tenants; device records join the owning user to derive tenant scope. Wellness scores/statuses are stored observations, not diagnoses; wellness notes/provider IDs and raw device telemetry/fingerprints/IPs are excluded. Device flags do not authorize sessions or establish trust. Reputation follows the current owning User tenant; points, elite status and crisis counters are stored values, not verified outcomes, entitlement or competence; reward multipliers are excluded. No arbitrary user/tenant/role filters or new grants. Notifications expose stored text and read flag, not navigation links; GET does not mark read. Activities expose assignments and stored status, not workflow completion or permissions. Rewards expose recorded points/coins/tier only, not monetary value, redemption eligibility or entitlement. Health IDs expose stored status only, excluding DID/public keys and identity-verification claims. Survey submissions expose metadata only, excluding answers and survey definitions; grouped survey IDs are opaque references. Group memberships expose stored group ID/role only, without group contents or permission grants. Records without tenant columns follow the current owning User tenant, not a historical tenant. Summary total counts groups, not records.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "submission"
+                  ],
+                  "properties": {
+                    "submission": {
                       "type": "object",
                       "additionalProperties": false,
                       "required": [
                         "id",
-                        "care_coins",
-                        "current_tier",
-                        "lifetime_points",
-                        "updated_at"
+                        "survey_id",
+                        "created_at"
                       ],
                       "properties": {
                         "id": {
                           "type": "string"
                         },
-                        "care_coins": {
-                          "type": "integer"
-                        },
-                        "current_tier": {
+                        "survey_id": {
                           "type": "string"
                         },
-                        "lifetime_points": {
-                          "type": "integer"
-                        },
-                        "updated_at": {
+                        "created_at": {
                           "type": "string",
                           "format": "date-time"
                         }
@@ -855,12 +565,376 @@
                   }
                 },
                 "example": {
-                  "profile": {
+                  "submission": {
                     "id": "record-id",
-                    "care_coins": 10,
-                    "current_tier": "stored",
-                    "lifetime_points": 10,
-                    "updated_at": "2026-01-01T12:00:00Z"
+                    "survey_id": "stored",
+                    "created_at": "2026-01-01T12:00:00Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/auth/me/survey-submissions/summary": {
+      "get": {
+        "operationId": "auth_own_survey_responses_summary",
+        "summary": "Read own survey responses summary",
+        "description": "Active explicit bearer session and matching non-null tenant required. SQL binds user_id from the actor and the matching tenant. Tenant-scoped records exclude null tenants; device records join the owning user to derive tenant scope. Wellness scores/statuses are stored observations, not diagnoses; wellness notes/provider IDs and raw device telemetry/fingerprints/IPs are excluded. Device flags do not authorize sessions or establish trust. Reputation follows the current owning User tenant; points, elite status and crisis counters are stored values, not verified outcomes, entitlement or competence; reward multipliers are excluded. No arbitrary user/tenant/role filters or new grants. Notifications expose stored text and read flag, not navigation links; GET does not mark read. Activities expose assignments and stored status, not workflow completion or permissions. Rewards expose recorded points/coins/tier only, not monetary value, redemption eligibility or entitlement. Health IDs expose stored status only, excluding DID/public keys and identity-verification claims. Survey submissions expose metadata only, excluding answers and survey definitions; grouped survey IDs are opaque references. Group memberships expose stored group ID/role only, without group contents or permission grants. Records without tenant columns follow the current owning User tenant, not a historical tenant. Summary total counts groups, not records.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "groups",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "survey_id",
+                          "count"
+                        ],
+                        "properties": {
+                          "survey_id": {
+                            "type": "string"
+                          },
+                          "count": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "groups": [
+                    {
+                      "survey_id": "stored",
+                      "count": 1
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/auth/me/group-memberships": {
+      "get": {
+        "operationId": "auth_own_staff_group_members_list",
+        "summary": "Read own staff group members list",
+        "description": "Active explicit bearer session and matching non-null tenant required. SQL binds user_id from the actor and the matching tenant. Tenant-scoped records exclude null tenants; device records join the owning user to derive tenant scope. Wellness scores/statuses are stored observations, not diagnoses; wellness notes/provider IDs and raw device telemetry/fingerprints/IPs are excluded. Device flags do not authorize sessions or establish trust. Reputation follows the current owning User tenant; points, elite status and crisis counters are stored values, not verified outcomes, entitlement or competence; reward multipliers are excluded. No arbitrary user/tenant/role filters or new grants. Notifications expose stored text and read flag, not navigation links; GET does not mark read. Activities expose assignments and stored status, not workflow completion or permissions. Rewards expose recorded points/coins/tier only, not monetary value, redemption eligibility or entitlement. Health IDs expose stored status only, excluding DID/public keys and identity-verification claims. Survey submissions expose metadata only, excluding answers and survey definitions; grouped survey IDs are opaque references. Group memberships expose stored group ID/role only, without group contents or permission grants. Records without tenant columns follow the current owning User tenant, not a historical tenant. Summary total counts groups, not records.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "memberships",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "memberships": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "group_id",
+                          "role",
+                          "created_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "group_id": {
+                            "type": "string"
+                          },
+                          "role": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "memberships": [
+                    {
+                      "id": "record-id",
+                      "group_id": "stored",
+                      "role": "stored",
+                      "created_at": "2026-01-01T12:00:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/auth/me/group-memberships/{recordId}": {
+      "get": {
+        "operationId": "auth_own_staff_group_members_detail",
+        "summary": "Read own staff group members detail",
+        "description": "Active explicit bearer session and matching non-null tenant required. SQL binds user_id from the actor and the matching tenant. Tenant-scoped records exclude null tenants; device records join the owning user to derive tenant scope. Wellness scores/statuses are stored observations, not diagnoses; wellness notes/provider IDs and raw device telemetry/fingerprints/IPs are excluded. Device flags do not authorize sessions or establish trust. Reputation follows the current owning User tenant; points, elite status and crisis counters are stored values, not verified outcomes, entitlement or competence; reward multipliers are excluded. No arbitrary user/tenant/role filters or new grants. Notifications expose stored text and read flag, not navigation links; GET does not mark read. Activities expose assignments and stored status, not workflow completion or permissions. Rewards expose recorded points/coins/tier only, not monetary value, redemption eligibility or entitlement. Health IDs expose stored status only, excluding DID/public keys and identity-verification claims. Survey submissions expose metadata only, excluding answers and survey definitions; grouped survey IDs are opaque references. Group memberships expose stored group ID/role only, without group contents or permission grants. Records without tenant columns follow the current owning User tenant, not a historical tenant. Summary total counts groups, not records.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "membership"
+                  ],
+                  "properties": {
+                    "membership": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "group_id",
+                        "role",
+                        "created_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "group_id": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "membership": {
+                    "id": "record-id",
+                    "group_id": "stored",
+                    "role": "stored",
+                    "created_at": "2026-01-01T12:00:00Z"
                   }
                 }
               }
