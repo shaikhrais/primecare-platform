@@ -4,8 +4,9 @@ import recordRegistry from './client-records-registry.json';
 /** Ownership comes from the registered client_profiles.user_id relationship,
  * never from caller-supplied profile identifiers or presentation grants. */
 export async function clientSelf(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null> {
-  const record=recordRegistry.find(r=>path===r.path||path.startsWith(r.path+'/')&&!path.slice(r.path.length+1).includes('/'));
-  const recordId=record&&path!==record.path?path.slice(record.path.length+1):null;
+  const recordSummary=recordRegistry.find(r=>path===r.path+'/summary');
+  const record=recordSummary??recordRegistry.find(r=>path===r.path||path.startsWith(r.path+'/')&&!path.slice(r.path.length+1).includes('/'));
+  const recordId=record&&!recordSummary&&path!==record.path?path.slice(record.path.length+1):null;
   const invoiceSummary=path==='/invoices/summary';
   const invoiceMatch=!invoiceSummary?/^\/invoices\/([^/]+)$/.exec(path):null;
   const visitSummary=path==='/visits/summary';
@@ -49,6 +50,16 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
             if(!valid)throw Error('Invalid record data');
             return [field,field==='id'?String(value):value];
           }));
+          if(recordSummary){
+            const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM '+record.table+' WHERE '+filter+' GROUP BY status) groups',values)).rows[0].count);
+            const rows=(await db.query('SELECT status,COUNT(*)::int AS count FROM '+record.table+' WHERE '+filter+' GROUP BY status ORDER BY status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+            const groups=rows.map(row=>{
+              if(row.status!==null&&typeof row.status!=='string'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid summary data');
+              return {status:row.status,count:row.count};
+            });
+            if(!Number.isSafeInteger(total)||total<0)throw Error('Invalid summary count');
+            return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          }
           if(recordId!==null){
             const row=(await db.query('SELECT '+fields+' FROM '+record.table+' WHERE '+filter+' AND id::text=$3',[...values,recordId])).rows[0];
             return row?json({[record.item]:project(row)},200,safe):json({error:'Record not found'},404,safe);

@@ -20,7 +20,13 @@ try{
   for(const id of records.slice(1))assert.equal((await call(record.path+'/'+id)).status,404);checks++;
   const page=await (await call(record.path,'?offset=1')).json();assert.deepEqual(page[record.collection],[]);assert.equal(page.pagination.total,1);checks++;
   const other=await (await call(record.path,'',tokens[1])).json();assert.equal(other[record.collection][0].id,records[1]);checks++;
-  await db.query('DELETE FROM '+record.table+' WHERE id=$1',[records[0]]);const empty=await (await call(record.path)).json();assert.deepEqual(empty[record.collection],[]);assert.equal(empty.pagination.total,0);checks++;
+  const extra=[randomUUID(),randomUUID()];
+  for(let i=0;i<extra.length;i++)await db.query('INSERT INTO '+record.table+' SELECT '+record.fields.map(f=>f==='id'?'$1':f==='status'?'$2':f).concat(['client_id','tenant_id','notes','signature_data_url','document_key','auth_code']).join(',')+' FROM '+record.table+' WHERE id=$3',[extra[i],i===0?'value':'pending',records[0]]);
+  const summaryResponse=await call(record.path+'/summary');assert.equal(summaryResponse.status,200);const summary=await summaryResponse.json();assert.deepEqual(summary.groups,[{status:'pending',count:1},{status:'value',count:2}]);assert.equal(summary.pagination.total,2);checks++;
+  const summaryPage=await (await call(record.path+'/summary','?limit=1&offset=1')).json();assert.deepEqual(summaryPage.groups,[{status:'value',count:2}]);assert.equal(summaryPage.pagination.hasMore,false);checks++;
+  const otherSummary=await (await call(record.path+'/summary','',tokens[1])).json();assert.deepEqual(otherSummary.groups,[{status:'value',count:1}]);checks++;
+  await db.query('DELETE FROM '+record.table+' WHERE id=ANY($1)',[extra]);
+  await db.query('DELETE FROM '+record.table+' WHERE id=$1',[records[0]]);const empty=await (await call(record.path)).json();assert.deepEqual(empty[record.collection],[]);assert.equal(empty.pagination.total,0);checks++;const emptySummary=await (await call(record.path+'/summary')).json();assert.deepEqual(emptySummary.groups,[]);assert.equal(emptySummary.pagination.total,0);checks++;
  }
  console.log(`Owned client records passed ${checks} PostgreSQL checks (${process.env.AUTH_TEST_ID_TYPE} auth identities).`);
 }finally{for(const table of created.reverse())await db.query('DROP TABLE '+table);if(createdProfiles)await db.query('DROP TABLE client_profiles');await db.query('DELETE FROM auth_sessions WHERE user_id::text=ANY($1)',[ids]);await db.query('DELETE FROM users WHERE id::text=ANY($1)',[ids]);await db.end();}
