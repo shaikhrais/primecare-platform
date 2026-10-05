@@ -309,5 +309,85 @@
     "dateFields": [
       "created_at"
     ]
+  },
+  {
+    "path": "/me/shift-logs",
+    "table": "provider_shift_logs",
+    "collection": "logs",
+    "item": "log",
+    "fields": [
+      "id",
+      "date",
+      "start_time",
+      "end_time",
+      "shiftStatus"
+    ],
+    "listBatch": 66,
+    "summaryBatch": 67,
+    "summaryField": "shiftStatus",
+    "ownerField": "provider_id",
+    "orderField": "date",
+    "types": {
+      "id": "string",
+      "date": "string",
+      "start_time": "string",
+      "end_time": [
+        "string",
+        "null"
+      ],
+      "shiftStatus": "string"
+    },
+    "dateFields": [
+      "date",
+      "start_time",
+      "end_time"
+    ]
+  },
+  {
+    "path": "/me/daily-entry-records",
+    "table": "daily_entries",
+    "collection": "entries",
+    "item": "entry",
+    "fields": [
+      "id",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 68,
+    "summaryBatch": 69,
+    "summaryField": "status",
+    "ownerField": "staff_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/adl-log-records",
+    "table": "adl_care_logs",
+    "collection": "logs",
+    "item": "log",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 70,
+    "ownerField": "provider_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
   }
 ]

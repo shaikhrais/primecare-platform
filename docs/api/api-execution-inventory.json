@@ -1,10 +1,10 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1274,
+    "totalDeclared": 1282,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 116,
+      "unit_fixtures_recorded": 124,
       "verification_pending": 1148
     },
     "contractGaps": {
@@ -6747,6 +6747,121 @@
       "productionVerified": false
     },
     {
+      "id": 16558,
+      "api": "GET /v1/auth/me/adl-log-records",
+      "method": "GET",
+      "route": "/v1/auth/me/adl-log-records",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 70,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16559,
+      "api": "GET /v1/auth/me/adl-log-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/adl-log-records/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 70,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16555,
+      "api": "GET /v1/auth/me/daily-entry-records",
+      "method": "GET",
+      "route": "/v1/auth/me/daily-entry-records",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 68,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16557,
+      "api": "GET /v1/auth/me/daily-entry-records/summary",
+      "method": "GET",
+      "route": "/v1/auth/me/daily-entry-records/summary",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 69,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16556,
+      "api": "GET /v1/auth/me/daily-entry-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/daily-entry-records/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 68,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16494,
       "api": "GET /v1/auth/me/device-events",
       "method": "GET",
@@ -7123,6 +7238,75 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 30,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16552,
+      "api": "GET /v1/auth/me/shift-logs",
+      "method": "GET",
+      "route": "/v1/auth/me/shift-logs",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 66,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16554,
+      "api": "GET /v1/auth/me/shift-logs/summary",
+      "method": "GET",
+      "route": "/v1/auth/me/shift-logs/summary",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 67,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16553,
+      "api": "GET /v1/auth/me/shift-logs/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/shift-logs/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 66,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
