@@ -94,5 +94,105 @@
     "dateFields": [
       "date"
     ]
+  },
+  {
+    "path": "/mileage-logs",
+    "table": "mileage_logs",
+    "collection": "logs",
+    "item": "log",
+    "fields": [
+      "id",
+      "date",
+      "distance_km",
+      "travel_minutes",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 56,
+    "summaryBatch": 57,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "date": "string",
+      "distance_km": "number",
+      "travel_minutes": [
+        "integer",
+        "null"
+      ],
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "date",
+      "created_at"
+    ]
+  },
+  {
+    "path": "/payouts",
+    "table": "payouts",
+    "collection": "payouts",
+    "item": "payout",
+    "fields": [
+      "id",
+      "currency",
+      "status",
+      "processed_at",
+      "created_at"
+    ],
+    "listBatch": 58,
+    "summaryBatch": 59,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "currency": "string",
+      "status": "string",
+      "processed_at": [
+        "string",
+        "null"
+      ],
+      "created_at": "string"
+    },
+    "dateFields": [
+      "processed_at",
+      "created_at"
+    ]
+  },
+  {
+    "path": "/performance-reviews",
+    "table": "performance_reviews",
+    "collection": "reviews",
+    "item": "review",
+    "fields": [
+      "id",
+      "period_start",
+      "period_end",
+      "status",
+      "acknowledged_at",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 60,
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "period_start": "string",
+      "period_end": "string",
+      "status": "string",
+      "acknowledged_at": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "period_start",
+      "period_end",
+      "acknowledged_at",
+      "created_at",
+      "updated_at"
+    ]
   }
 ]

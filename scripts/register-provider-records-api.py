@@ -1,4 +1,4 @@
-"""Batches 51–55: provider-owned operational metadata; no grants or writes."""
+"""Batches 51–60: provider-owned operational metadata; no grants or writes."""
 import json,re,sqlite3
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -7,6 +7,11 @@ definitions=[
  {'path':'/timesheets','table':'timesheets','collection':'timesheets','item':'timesheet','fields':['id','week_id','status','total_minutes','submitted_at','reviewed_at','created_at','updated_at'],'listBatch':53,'summaryBatch':54,'summaryField':'status','orderField':'created_at'},
  {'path':'/availability-overrides','table':'provider_availability_overrides','collection':'overrides','item':'override','fields':['id','date','start_time','end_time','is_available'],'listBatch':55,'orderField':'date'}
 ]
+definitions.extend([
+ {'path':'/mileage-logs','table':'mileage_logs','collection':'logs','item':'log','fields':['id','date','distance_km','travel_minutes','status','created_at'],'listBatch':56,'summaryBatch':57,'summaryField':'status','orderField':'created_at'},
+ {'path':'/payouts','table':'payouts','collection':'payouts','item':'payout','fields':['id','currency','status','processed_at','created_at'],'listBatch':58,'summaryBatch':59,'summaryField':'status','orderField':'created_at'},
+ {'path':'/performance-reviews','table':'performance_reviews','collection':'reviews','item':'review','fields':['id','period_start','period_end','status','acknowledged_at','created_at','updated_at'],'listBatch':60,'orderField':'created_at'}
+])
 paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0}}
 pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}}
 paths={};registry=[]
@@ -18,7 +23,7 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
   if not all(name in columns and re.fullmatch(r'[a-z_]+',name) for name in [*fields,'provider_id','tenant_id',record['orderField']]):raise RuntimeError('Missing registered projection/ownership: '+table)
   properties={}
   for field in fields:
-   kind,nullable=columns[field];typ='boolean' if kind in ['bool','boolean'] else 'integer' if kind in ['int4','int8','bigint','integer'] else 'string'
+   kind,nullable=columns[field];typ='boolean' if kind in ['bool','boolean'] else 'integer' if kind in ['int4','int8','bigint','integer'] else 'number' if kind in ['float8','double precision'] else 'string'
    properties[field]={'type':[typ,'null'] if nullable else typ}
    if 'timestamp' in kind or kind=='timestamptz':properties[field]['format']='date-time'
   record['types']={k:v['type'] for k,v in properties.items()};record['dateFields']=[k for k,v in properties.items() if v.get('format')=='date-time'];registry.append(record)
@@ -38,10 +43,16 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
    db.execute("INSERT OR REPLACE INTO governance_api_batches VALUES(?,?,?,'authenticated_provider_profile_owner','implemented','pending')",('GET '+route,sid,batch))
    params=[{'in':'query','name':k,'schema':v} for k,v in (paging if paged else {}).items()]
    if mode=='detail':params.append({'in':'path','name':'recordId','required':True,'schema':{'type':'string','pattern':'^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$'}})
-   sample={field:('2026-01-01T12:00:00Z' if field in record['dateFields'] else None if isinstance(properties[field]['type'],list) else False if properties[field]['type']=='boolean' else 10 if properties[field]['type']=='integer' else 'record-id' if field=='id' else 'stored') for field in fields}
+   sample={field:('2026-01-01T12:00:00Z' if field in record['dateFields'] else None if isinstance(properties[field]['type'],list) else False if properties[field]['type']=='boolean' else 12.5 if properties[field]['type']=='number' else 10 if properties[field]['type']=='integer' else 'record-id' if field=='id' else 'stored') for field in fields}
    page_example={'limit':25,'offset':0,'total':1,'hasMore':False}
    example={'groups':[{record['summaryField']:sample[record['summaryField']],'count':1}],'pagination':page_example} if mode=='summary' else {record['collection']:[sample],'pagination':page_example} if mode=='list' else {record['item']:sample}
    paths[route]={'get':{'operationId':code.lower(),'summary':'Read own '+table.replace('_',' ')+' '+mode,'description':'Active explicit bearer and matching non-null tenant required. The actor must own exactly one provider profile; every record query binds provider_id and tenant_id. No caller-selected user/profile/role filters. Thread metadata excludes client IDs and message contents and grants no message access. Timesheets expose stored counters/statuses only, without reviewer IDs, rates, amounts or inferred payroll eligibility; null total_minutes is preserved. Availability overrides are stored observations, not guaranteed bookability or approval. Reads do not change status or availability. Summary totals count groups, not records; no new role grants.','security':[{'bearerAuth':[]}],'parameters':params,'responses':{'200':{'description':'Projected own records or status groups','content':{'application/json':{'schema':response,'example':example}}},**{str(n):{'description':d} for n,d in [(400,'Invalid ID/query/body'),(401,'No active bearer session'),(403,'Tenant mismatch or missing actor tenant'),(404,'Owned record/profile absent'),(405,'Read only'),(429,'Source limit'),(503,'Data unavailable or ambiguous profile')]}}}}
+   if record['listBatch']>=56:
+    paths[route]['get']['description']='Active explicit bearer, matching non-null tenant and unique actor-owned provider profile required; every query binds provider_id and tenant_id. Mileage exposes recorded distance/time/status without addresses, visit IDs, reimbursement rates or amounts. Payouts expose metadata only, excluding amounts and notes; stored currency/status does not confirm payment receipt. Performance reviews expose period/status/acknowledgement metadata only, excluding ratings, reviewer IDs, goals and review text. Acknowledgement does not imply agreement. Stored values do not establish eligibility, approval or competence. Read only, no role grants; summary totals count groups, not records.'
  (ROOT/'cloudflare/workers/src/provider-records-registry.json').write_text(json.dumps(registry,indent=2)+'\n')
+ new_roots=['/v1/provider'+r['path'] for r in registry if r['listBatch']>=56]
+ new_paths={p:v for p,v in paths.items() if any(p==root or p.startswith(root+'/') for root in new_roots)}
+ (ROOT/'docs/api/provider-metadata-batches-56-60.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Own Mileage, Payout and Review Metadata','version':'1.0.0'},'paths':new_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
+ paths={p:v for p,v in paths.items() if p not in new_paths}
  (ROOT/'docs/api/provider-metadata-batches-51-55.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Provider-Owned Operational Metadata','version':'1.0.0'},'paths':paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
-print('Registered provider metadata batches 51–55; no role grants.')
+print('Registered provider metadata batches 51–60; no role grants.')
