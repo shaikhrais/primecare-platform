@@ -14,7 +14,7 @@ let output=runFixtures(suites);
 let count=Number(/(?:#|ℹ) tests (\d+)/.exec(output)?.[1]);
 let fail=Number(/(?:#|ℹ) fail (\d+)/.exec(output)?.[1]);
 if(!count||fail!==0)throw Error('Cannot establish passing fixture evidence');
-const sources=[...readdirSync('cloudflare/workers/src').filter(f=>/\.(ts|json)$/.test(f)).sort().map(f=>'cloudflare/workers/src/'+f),...suites.map(f=>'scripts/'+f),'scripts/read-alias-fixtures.mjs','scripts/singleton-read-alias-fixtures.mjs','scripts/governed-read-alias-definitions.json','scripts/register-client-records-api.py','scripts/register-client-record-summaries-api.py'];
+const sources=[...readdirSync('cloudflare/workers/src').filter(f=>/\.(ts|json)$/.test(f)).sort().map(f=>'cloudflare/workers/src/'+f),...suites.map(f=>'scripts/'+f),'scripts/read-alias-fixtures.mjs','scripts/singleton-read-alias-fixtures.mjs','scripts/governed-read-alias-definitions.json','scripts/register-client-records-api.py','scripts/register-client-record-summaries-api.py','scripts/register-client-operational-projections-api.py'];
 const hashes=Object.fromEntries(sources.map(p=>[p,createHash('sha256').update(readFileSync(p)).digest('hex')]));
 const evidence={scope:'local_unit_fixtures',passed:count,failed:fail,productionVerified:false,postgresVerified:false,sourceHashes:hashes};
 mkdirSync('docs/api',{recursive:true});writeFileSync('docs/api/batch-test-evidence.json',JSON.stringify(evidence,null,2)+'\n');

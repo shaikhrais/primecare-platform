@@ -42,7 +42,15 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
         if(!profiles.length)return json({error:'Client profile not found'},404,safe);
         if(profiles.length!==1)return json({error:'Client data unavailable'},503,safe);
         const p=profiles[0];
-        if(path==='/home/profile')return json({profile:{id:String(p.id),full_name:p.full_name,city:p.city,province:p.province,postal_code:p.postal_code,updated_at:p.updated_at}},200,safe);
+        const requiredString=(value:unknown)=>typeof value==='string';
+        const nullableString=(value:unknown)=>value===null||typeof value==='string';
+        const dateTime=(value:unknown)=>(typeof value==='string'||value instanceof Date)&&Number.isFinite(new Date(value as string).getTime());
+        const count=(rows:Record<string,unknown>[],label:string)=>{const value=rows[0]?.count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid '+label+' count');return value;};
+        const statusGroup=(row:Record<string,unknown>,label:string)=>{if(!nullableString(row.status)||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid '+label+' summary');return {status:row.status,count:row.count};};
+        if(path==='/home/profile'){
+          if(!requiredString(p.id)||!requiredString(p.full_name)||![p.city,p.province,p.postal_code].every(nullableString)||!dateTime(p.updated_at))throw Error('Invalid client profile data');
+          return json({profile:{id:p.id,full_name:p.full_name,city:p.city,province:p.province,postal_code:p.postal_code,updated_at:p.updated_at}},200,safe);
+        }
         const values=[String(p.id),String(actor.tenant_id)];
         if(paymentMatch){
           const paymentValues=[...values,paymentMatch[1]];
@@ -113,54 +121,62 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
         }
         if(path==='/booking-requests'||requestMatch){
           const fields='id,service_type,preferred_date,preferred_time,status,created_at,updated_at';
-          const project=(r:Record<string,unknown>)=>({id:String(r.id),service_type:r.service_type,preferred_date:r.preferred_date,preferred_time:r.preferred_time,status:r.status,created_at:r.created_at,updated_at:r.updated_at});
+          const project=(r:Record<string,unknown>)=>{
+            if(![r.id,r.service_type,r.status].every(requiredString)||!nullableString(r.preferred_time)||![r.preferred_date,r.created_at,r.updated_at].every(dateTime))throw Error('Invalid booking request data');
+            return {id:r.id,service_type:r.service_type,preferred_date:r.preferred_date,preferred_time:r.preferred_time,status:r.status,created_at:r.created_at,updated_at:r.updated_at};
+          };
           const filter='client_id::text=$1 AND tenant_id::text=$2';
           if(requestMatch){
             const row=(await db.query('SELECT '+fields+' FROM booking_requests WHERE '+filter+' AND id::text=$3',[...values,requestMatch[1]])).rows[0];
             return row?json({request:project(row)},200,safe):json({error:'Booking request not found'},404,safe);
           }
-          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM booking_requests WHERE '+filter,values)).rows[0].count);
+          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM booking_requests WHERE '+filter,values)).rows,'booking request');
           const rows=(await db.query('SELECT '+fields+' FROM booking_requests WHERE '+filter+' ORDER BY created_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
           return json({requests:rows.map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(visitSummary){
           const filter='client_id::text=$1 AND tenant_id::text=$2';
-          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM visits WHERE '+filter+' GROUP BY status) groups',values)).rows[0].count);
+          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM visits WHERE '+filter+' GROUP BY status) groups',values)).rows,'visit summary');
           const rows=(await db.query('SELECT status,COUNT(*)::int AS count FROM visits WHERE '+filter+' GROUP BY status ORDER BY status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          return json({groups:rows.map(g=>({status:g.status,count:g.count})),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({groups:rows.map(g=>statusGroup(g,'visit')),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(path==='/visits'||visitMatch){
           const fields='id,service_id,requested_start_at,duration_minutes,status,priority,updated_at';
-          const project=(v:Record<string,unknown>)=>({id:String(v.id),service_id:String(v.service_id),requested_start_at:v.requested_start_at,duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:v.updated_at});
+          const project=(v:Record<string,unknown>)=>{
+            if(![v.id,v.service_id].every(requiredString)||![v.requested_start_at,v.updated_at].every(dateTime)||typeof v.duration_minutes!=='number'||!Number.isSafeInteger(v.duration_minutes)||!nullableString(v.status)||!nullableString(v.priority))throw Error('Invalid visit data');
+            return {id:v.id,service_id:v.service_id,requested_start_at:v.requested_start_at,duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:v.updated_at};
+          };
           const filter='client_id::text=$1 AND tenant_id::text=$2';
           if(visitMatch){
             const visit=(await db.query('SELECT '+fields+' FROM visits WHERE '+filter+' AND id::text=$3',[...values,visitMatch[1]])).rows[0];
             return visit?json({visit:project(visit)},200,safe):json({error:'Visit not found'},404,safe);
           }
-          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM visits WHERE '+filter,values)).rows[0].count);
+          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM visits WHERE '+filter,values)).rows,'visit');
           const rows=(await db.query('SELECT '+fields+' FROM visits WHERE '+filter+' ORDER BY requested_start_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
           return json({visits:rows.map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(statusSummary){
           const filter='client_id::text=$1 AND tenant_id::text=$2';
-          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM bookings WHERE '+filter+' GROUP BY status) groups',values)).rows[0].count);
+          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM bookings WHERE '+filter+' GROUP BY status) groups',values)).rows,'booking summary');
           const rows=(await db.query('SELECT status,COUNT(*)::int AS count FROM bookings WHERE '+filter+' GROUP BY status ORDER BY status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          return json({groups:rows.map(g=>({status:g.status,count:g.count})),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({groups:rows.map(g=>statusGroup(g,'booking')),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(path==='/bookings'||bookingMatch){
           const fields='id,start_at,end_at,service_type,priority,status,recurrence_rule';
-          const project=(b:Record<string,unknown>)=>({id:String(b.id),start_at:b.start_at,end_at:b.end_at,service_type:b.service_type,priority:b.priority,status:b.status,recurrence_rule:b.recurrence_rule});
+          const project=(b:Record<string,unknown>)=>{
+            if(![b.id,b.service_type,b.priority,b.status].every(requiredString)||![b.start_at,b.end_at].every(dateTime)||!nullableString(b.recurrence_rule))throw Error('Invalid booking data');
+            return {id:b.id,start_at:b.start_at,end_at:b.end_at,service_type:b.service_type,priority:b.priority,status:b.status,recurrence_rule:b.recurrence_rule};
+          };
           const filter='client_id::text=$1 AND tenant_id::text=$2';
           if(bookingMatch){
             const booking=(await db.query('SELECT '+fields+' FROM bookings WHERE '+filter+' AND id::text=$3',[...values,bookingMatch[1]])).rows[0];
             return booking?json({booking:project(booking)},200,safe):json({error:'Booking not found'},404,safe);
           }
-          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM bookings WHERE '+filter,values)).rows[0].count);
+          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM bookings WHERE '+filter,values)).rows,'booking');
           const rows=(await db.query('SELECT '+fields+' FROM bookings WHERE '+filter+' ORDER BY start_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
           return json({bookings:rows.map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         const invoiceFields='id,status,currency,subtotal::text AS subtotal,tax::text AS tax,total::text AS total,created_at,updated_at';
-        const nullableString=(value:unknown)=>value===null||typeof value==='string';
         const decimal=(value:unknown)=>value===null||typeof value==='string'&&/^-?\d+(?:\.\d+)?$/.test(value);
         const invoiceCount=(rows:Record<string,unknown>[])=>{const value=rows[0]?.count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid invoice count');return value;};
         const invoiceProject=(i:Record<string,unknown>)=>{
