@@ -5,9 +5,9 @@ import bcrypt from 'bcryptjs';
 
 // Test fixtures only: no network, production credentials, or PostgreSQL writes.
 const fixtureHash = await bcrypt.hash('fixture-password', 4);
-let sessions, user, queries, failWrite, failRead, ambiguous, rateAttempts, changedBeforeInsert;
+let sessions, user, queries, failWrite, failRead, ambiguous, rateAttempts, changedBeforeInsert, createdOverride, creationRows;
 beforeEach(() => {
-  sessions = new Map(); queries = []; failWrite = false; failRead = false; ambiguous = false; rateAttempts=new Map(); changedBeforeInsert=false;
+  sessions = new Map(); queries = []; failWrite = false; failRead = false; ambiguous = false; rateAttempts=new Map(); changedBeforeInsert=false;createdOverride={};creationRows=1;
   user = { id: 'fixture-user', roles: 'fixture-role', tenant_id:'fixture-tenant', status: 'active', password_hash: fixtureHash };
 });
 globalThis.__authQuery = async (sql, values) => {
@@ -19,7 +19,7 @@ globalThis.__authQuery = async (sql, values) => {
   }
   if (['BEGIN','COMMIT','ROLLBACK'].includes(sql) || sql.startsWith('SELECT pg_advisory') || sql.startsWith('INSERT INTO auth_account_audit')) return {rows:[]};
   if (sql.startsWith('SELECT id FROM users')) return {rows:[]};
-  if (sql.startsWith('INSERT INTO users')) return {rows:[{id:'created-fixture',email:values[0],tenant_id:values[1],roles:values[2],status:'active'}]};
+  if (sql.startsWith('INSERT INTO users')) return {rows:creationRows?[{id:values[4],email:values[0],tenant_id:values[1],roles:values[2],status:'active',...createdOverride}]:[]};
   if (sql.startsWith('SELECT id, roles')) return {rows: user ? (ambiguous ? [user, {...user,id:'other-user'}] : [user]) : []};
   if (sql.startsWith('INSERT INTO auth_sessions')) {
     if (failWrite) throw new Error('fixture-write-failure');
@@ -322,3 +322,23 @@ for(const path of ['/login','/forgot-password','/reset-password','/change-passwo
   }
  });
 }
+
+test('login rejects malformed identity before session insert or cookie issuance',async()=>{
+ for(const change of [{id:null},{id:{}},{roles:null},{roles:{}},{roles:''},{roles:'x'.repeat(201)}]) {
+  user={id:'fixture-user',roles:'fixture-role',tenant_id:'fixture-tenant',status:'active',password_hash:fixtureHash,...change};queries=[];
+  const r=await login();assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.ok(!queries.some(q=>q.sql.startsWith('INSERT INTO auth_sessions')));assert.deepEqual(await r.json(),{error:'Authentication service unavailable'});
+ }
+});
+test('login never coerces an object status into an active account',async()=>{user.status={toString:()=> 'active'};const r=await login();assert.equal(r.status,401);assert.equal(sessions.size,0);});
+test('GET and POST session identity reject malformed claims without exposing them',async()=>{
+ const token=(await (await login()).json()).token;
+ for(const method of ['GET','POST'])for(const change of [{id:null},{id:{}},{roles:null},{roles:{}},{roles:''},{roles:'x'.repeat(201)}]) {
+  user={id:'fixture-user',roles:'fixture-role',tenant_id:'fixture-tenant',status:'active',password_hash:fixtureHash,...change};
+  const r=await auth(request('/me',method,undefined,token),env,'/me',{});assert.equal(r.status,503);assert.equal(r.headers.get('cache-control'),'no-store');assert.deepEqual(await r.json(),{error:'Authentication service unavailable'});
+ }
+});
+test('account creation projects only approved returned fields',async()=>{user.roles='ceo';createdOverride={password_hash:'never-return-this',secret:'never-return-this'};const token=(await (await login()).json()).token;const r=await auth(request('/register','POST',{email:'new@example.invalid',password:'fixture-new-password',role:'rmt'},token),env,'/register',{});assert.equal(r.status,201);const data=await r.json();assert.deepEqual(Object.keys(data.user).sort(),['id','email','roles','status','tenant_id'].sort());assert.ok(!JSON.stringify(data).includes('never-return-this'));});
+test('account creation rolls back malformed results before audit or success',async()=>{for(const change of [{id:'other-user'},{email:'other@example.invalid'},{roles:'ceo'},{status:'inactive'},{tenant_id:'other-tenant'},{email:null}]){user.roles='ceo';const token=(await (await login()).json()).token;createdOverride=change;queries=[];const r=await auth(request('/register','POST',{email:'new@example.invalid',password:'fixture-new-password',role:'rmt'},token),env,'/register',{});assert.equal(r.status,503);assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql.startsWith('INSERT INTO auth_account_audit')||q.sql==='COMMIT'));}});
+test('account creation rejects missing returned rows before audit',async()=>{user.roles='ceo';const token=(await (await login()).json()).token;creationRows=0;queries=[];const r=await auth(request('/register','POST',{email:'new@example.invalid',password:'fixture-new-password',role:'rmt'},token),env,'/register',{});assert.equal(r.status,503);assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql.startsWith('INSERT INTO auth_account_audit')));});
+
+test('ambiguous session identity never returns the first adapter row',async()=>{const token=(await (await login()).json()).token;const original=globalThis.__authQuery;globalThis.__authQuery=async(sql,values)=>{const r=await original(sql,values);if(sql.startsWith('SELECT u.id'))r.rows=[...r.rows,...r.rows];return r;};const r=await auth(request('/me','GET',undefined,token),env,'/me',{});assert.equal(r.status,503);assert.deepEqual(await r.json(),{error:'Authentication service unavailable'});});

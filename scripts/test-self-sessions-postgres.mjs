@@ -8,6 +8,10 @@ try{
  for(let i=0;i<2;i++)await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,'rmt',$3,'unused','active')",[ids[i],ids[i]+'@example.invalid',tenant]);
  for(let i=0;i<4;i++)await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+($3 * INTERVAL '1 hour'))",[hash(tokens[i]),ids[i===3?1:0],i===2?-1:1]);
  const list=await (await call()).json();assert.equal(list.pagination.total,2);assert.equal(typeof list.pagination.total,'number');assert.equal(list.sessions.filter(s=>s.current).length,1);assert.ok(!JSON.stringify(list).includes('token_hash'));checks++;
+ const originalDate=(await db.query('SELECT created_at FROM auth_sessions WHERE token_hash=$1',[hash(tokens[1])])).rows[0].created_at;
+ await db.query("UPDATE auth_sessions SET created_at='infinity' WHERE token_hash=$1",[hash(tokens[1])]);
+ try {const invalid=await call();assert.equal(invalid.status,503);assert.equal(invalid.headers.get('cache-control'),'no-store');checks++;}
+ finally {await db.query('UPDATE auth_sessions SET created_at=$2 WHERE token_hash=$1',[hash(tokens[1]),originalDate]);}
  await db.query(`CREATE FUNCTION test_self_audit_failure() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF NEW.actor_user_id::text='${ids[0]}' AND NEW.new_state->>'initiatedBy'='self' THEN RAISE EXCEPTION 'fixture failure'; END IF; RETURN NEW; END $$`);await db.query('CREATE TRIGGER test_self_audit_failure BEFORE INSERT ON auth_management_audit FOR EACH ROW EXECUTE FUNCTION test_self_audit_failure()');trigger=true;
  assert.equal((await call('DELETE')).status,503);assert.equal(Number((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[ids[0]])).rows[0].count),3);checks++;
  await db.query('DROP TRIGGER test_self_audit_failure ON auth_management_audit');trigger=false;

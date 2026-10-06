@@ -126,6 +126,18 @@ try {
   const latestToken=(await latestLogin.json()).token;
   const loginHash=createHash('sha256').update('login:'+email).digest('hex');
   await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[loginHash]);
+  const previousRole=(await db.query('SELECT roles FROM users WHERE id=$1',[userId])).rows[0].roles;
+  const priorSessionCount=(await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[userId])).rows[0].count;
+  await db.query("UPDATE users SET roles='' WHERE id=$1",[userId]);
+  try {
+    const malformedLogin=await call('/login','POST',{email,password:changedPassword});
+    assert.equal(malformedLogin.status,503);assert.equal(malformedLogin.headers.get('set-cookie'),null);
+    assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[userId])).rows[0].count,priorSessionCount);passed++;
+    for(const method of ['GET','POST']){const malformedIdentity=await call('/me',method,undefined,latestToken);assert.equal(malformedIdentity.status,503);assert.equal(malformedIdentity.headers.get('cache-control'),'no-store');passed++;}
+  }finally {
+    await db.query('UPDATE users SET roles=$2 WHERE id=$1',[userId,previousRole]);
+    await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[loginHash]);
+  }
   const racePassword=randomUUID();
   globalThis.__authBeforeInsert=async()=>{
     assert.equal((await call('/change-password','POST',{

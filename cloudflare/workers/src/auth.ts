@@ -1,3 +1,4 @@
+import {authIdentity,mutatedAccount} from './auth-projection';
 import {selfRecords} from './self-records';
 import {selfSessions} from './self-sessions';
 import {recoverPassword,resetPassword,validateRecovery} from './password-recovery';
@@ -275,13 +276,16 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
         await db.query('SELECT pg_advisory_xact_lock(hashtext($1))',[email]);
         const duplicate = await db.query('SELECT id FROM users WHERE LOWER(email)=$1 LIMIT 1',[email]);
         if (duplicate.rows.length) { await db.query('ROLLBACK'); return json({error:'Account cannot be created'},409,headers); }
+        const createdId = crypto.randomUUID();
         const created = await db.query(
           "INSERT INTO users(email,tenant_id,roles,password_hash,status,id,updated_at) VALUES($1,$2,$3,$4,'active',$5,NOW()) RETURNING id,email,tenant_id,roles,status",
-          [email,actor.tenant_id,role,await bcrypt.hash(password,12),crypto.randomUUID()]);
+          [email,actor.tenant_id,role,await bcrypt.hash(password,12),createdId]);
+        if(created.rows.length!==1)throw Error('Invalid account creation result');
+        const createdUser = mutatedAccount(created.rows[0],{id:createdId,email,role,status:'active',tenantId:actor.tenant_id});
         await db.query("INSERT INTO auth_account_audit(actor_user_id,target_user_id,tenant_id,action) VALUES($1,$2,$3,'account_created')",
-          [actor.id,created.rows[0].id,actor.tenant_id]);
+          [actor.id,createdUser.id,actor.tenant_id]);
         await db.query('COMMIT');
-        return json({user:created.rows[0]},201,headers);
+        return json({user:createdUser},201,headers);
       } catch(error) {
         await db.query('ROLLBACK');
         if ((error as {code?:string}).code === '23505') return json({error:'Account cannot be created'},409,headers);
@@ -305,10 +309,11 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
       const result = await db.query(
         'SELECT id, roles, password_hash, status FROM users WHERE LOWER(email) = $1 LIMIT 2', [email]);
       const user = result.rows[0];
-      if (result.rows.length !== 1 || !user || String(user.status).toLowerCase() !== 'active' ||
+      if (result.rows.length !== 1 || !user || (typeof user.status !== 'string' || user.status.toLowerCase() !== 'active') ||
           typeof user.password_hash !== 'string' || !await bcrypt.compare(password, user.password_hash)) {
         return json({ error: 'Invalid credentials' }, 401, headers);
       }
+      const identity = authIdentity(user);
       const token = newToken();
       // Revalidate the checked credential while locking the user until the insert
       // commits. Password/status updates either win first (no session is issued),
@@ -320,7 +325,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
          FOR SHARE OF u RETURNING token_hash`,
         [await sha256(token), user.id, user.password_hash]);
       if (session.rows.length !== 1) return json({error:'Invalid credentials'},401,headers);
-      return json({ userId: String(user.id), role: String(user.roles), token, status: 'authenticated' }, 200, {
+      return json({ userId: identity.userId, role: identity.roles, token, status: 'authenticated' }, 200, {
         ...headers,
         'set-cookie': `session_token=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=43200`,
         'cache-control': 'no-store',
@@ -337,8 +342,9 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
         "SELECT u.id, u.roles FROM auth_sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = $1 AND s.expires_at > NOW() AND LOWER(u.status) = 'active' LIMIT 1",
         [await sha256(token)]);
       const user = result.rows[0];
+      if(result.rows.length>1)throw Error('Ambiguous session identity');
       return user
-        ? json({ userId: String(user.id), roles: String(user.roles), status: 'authenticated' }, 200, { ...headers, 'cache-control': 'no-store' })
+        ? json({ ...authIdentity(user), status: 'authenticated' }, 200, { ...headers, 'cache-control': 'no-store' })
         : json({ error: 'Invalid session' }, 401, headers);
     });
   }
