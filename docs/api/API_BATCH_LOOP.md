@@ -89,3 +89,20 @@ Malformed claims and projected session/mutation rows return sanitized no-store 5
 Supplemental OpenAPI records runtime validation without promoting pending governance authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants or deployments. Exact-head PostgreSQL/security CI passed before merge.
 
 Local validation: 1,731 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Unchanged-head UUID/text PostgreSQL and security CI passed in run 37546139108 at b6baa0f67de79696bfc99042cd9b28c2b6ae88eb. PR #107 merged as 369ff0fe6443171453c6d57c87149890001b6e6d. Latest completed batch is 263; next batch is 264. No deployment or production database changes.
+
+
+## Iteration 9 — batches 264–268, authentication rate result validation, in review
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 264 | Login | Validate the returned atomic counter before credential lookup and session issuance. |
+| 265 | Forgot/reset password | Validate counters before recovery delivery, code consumption and credential reset. |
+| 266 | Own password change | Validate the authenticated actor counter before beginning the password transaction. |
+| 267 | Account management | Validate the actor counter before management, revocation and audit. |
+| 268 | Account creation | Validate the actor counter before account insertion and creation audit. |
+
+The shared PostgreSQL limiter requires exactly one result row, positive integer attempts within the saturated budget plus one, and positive integer retry seconds within the configured window. Values are never coerced. Invalid results return sanitized no-store 503. Atomic increments, inclusive budgets, expiry resets, hashed subject keys and existing authorization remain unchanged. The same shared validation protects maintenance counters. Twenty-eight new grouped unit tests cover all seven configured operations, malformed values, row cardinality, boundary values and six public route stop-before-work checks. PostgreSQL adds six persisted future-reset rejection checks through the gateway, with unchanged account/session/audit/reset snapshots and consumed-counter assertions.
+
+Supplemental OpenAPI documents runtime validation without promoting pending authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes or grants added. No deployment or production database changes.
+
+Local validation: 1,759 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.

@@ -1,6 +1,6 @@
 {
   "scope": "local_unit_fixtures",
-  "passed": 1731,
+  "passed": 1759,
   "failed": 0,
   "productionVerified": false,
   "postgresVerified": false,
@@ -11,7 +11,7 @@
     "cloudflare/workers/src/account-read-projection.ts": "71543209e2ab1e680735950357ed8c6292118c6c19b14258870ce6d5b2ba4c0a",
     "cloudflare/workers/src/api-execution-inventory.json": "8ba394a94a2786b0ca0c64bb9b159809ef716af9f1965ae3a476189eba322b63",
     "cloudflare/workers/src/auth-projection.ts": "98732e41e281a122704dfd177f39ba0758b62834e5bbd8f6f2039fbf1c7e624f",
-    "cloudflare/workers/src/auth-rate-limit.ts": "e36b0764774e3c8f3e1f88a9d15a7368ee2c42fca642eee319f086e47cc49286",
+    "cloudflare/workers/src/auth-rate-limit.ts": "5478ffb0c4f53ceb0d083329938df2669f6568a1d4252c489c882bcea002232c",
     "cloudflare/workers/src/auth-security-policy.json": "929c89cacb68845acf5843569313bb4a1b3a42c07cc0943d7964f54cbee611d5",
     "cloudflare/workers/src/auth-source-limit.ts": "1fc2aacc25c1b45c22759c8d785abcee757eac9855d5b2900828e6a78ac8538e",
     "cloudflare/workers/src/auth-source-policy.json": "ff9c585523736fcddc3e42cae945676479c3da8f6835cab489fe3d14c3c128d1",
@@ -80,7 +80,7 @@
     "scripts/test-workspace.mjs": "4827b87c4406e40793631e189cb1d41bb8b74a41be3541b3b9160b46f897973a",
     "scripts/test-auth-maintenance.mjs": "d4f6880374154fc098dcae3bc74db3f5d175465992b55fa49d60ea40c68e713f",
     "scripts/test-auth-recovery.mjs": "5aada8aea2f500b87e961467836e85d23930227c6753ccb36756bc61a0c3b0cc",
-    "scripts/test-auth-api.mjs": "0913434a37d20fed83f93adea940d70fbe5f28b0114c9c14619da8d40b0ada6d",
+    "scripts/test-auth-api.mjs": "e75d9c407900a6b9ef80c9b73ea46d730abef4479b482205d679f108cddabf4e",
     "scripts/test-auth-client.mjs": "8d837401bfb71f642dd6922fd3763358357bd45c1fe621d1284518cff3b8f058",
     "scripts/test-auth-bootstrap.mjs": "6d42c33e4e1c77bd2d965dbbf04910c9aee382d98df3182d890b975127f3d3ee",
     "scripts/test-auth-management.mjs": "305689edc4d396e1a2540eac339ea5e2bd6ff0ba102af67359298b96bd44c9ff",
@@ -88,6 +88,7 @@
     "scripts/test-auth-schema.mjs": "8ad52ffcf4e7187b6a873339377f71f0cc95dd4435c44804107a36b5d568e3b5",
     "scripts/test-auth-cleanup.mjs": "ad00afb6df675a25f59839ddbdf497c80464c22cdecf4d0cd5ddd144eb03be6b",
     "scripts/test-auth-source.mjs": "f6611aa8cb20bec4bce5e488469e1da94c81afb2a486968a7c5856377ffe5ab7",
+    "scripts/test-auth-rate-limit.mjs": "a81a8d23f3f42f72b4646a73603ed0f512cafdfa6888e311efd8b31e0d29fc97",
     "scripts/read-alias-fixtures.mjs": "0308bc3df0aacea06cc95c9881729950931a7c9c5d1d4c0b049c3faf0413490f",
     "scripts/singleton-read-alias-fixtures.mjs": "347746e21ebb0d30aab1060111eb51dd8576ed76fdced87501a4637476da8551",
     "scripts/governed-read-alias-definitions.json": "e3be043c827985877d924cd401efc79d4c45f0e16a95ab67e20221d5162b02c5",
@@ -122,6 +123,7 @@
     "scripts/test-account-read-authority-guard.py": "9d9fb51c8850247a1c5eb9b292c970bd9c7e7de8d9130262037904a0ecb10743",
     "docs/api/account-read-validation-batches-249-253.openapi.json": "ce33d624b69bc6a64d521649b1e98eef156eaded243aecd5ba2a2485b8a9457d",
     "docs/api/auth-body-bounds-batches-254-258.openapi.json": "8225665b51b97af29f6fd0fdb3993074b622ddbd8eae908f34f6eb733c0b891b",
-    "docs/api/auth-result-validation-batches-259-263.openapi.json": "62a2d9edec7593b5d0f49482bd939bb159e604731e11c2cbae12a1729d76b47b"
+    "docs/api/auth-result-validation-batches-259-263.openapi.json": "62a2d9edec7593b5d0f49482bd939bb159e604731e11c2cbae12a1729d76b47b",
+    "docs/api/auth-rate-validation-batches-264-268.openapi.json": "752b96cef4f8d90ea73a95fd84b933f629b2589ce6abeb4d0fc2f7d9e25a1b1f"
   }
 }

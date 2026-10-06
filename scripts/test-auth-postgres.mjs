@@ -126,6 +126,46 @@ try {
   const latestToken=(await latestLogin.json()).token;
   const loginHash=createHash('sha256').update('login:'+email).digest('hex');
   await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[loginHash]);
+  // A persisted future reset must not become an unbounded Retry-After value
+  // or permit protected work. Exercise the public gateway with real int4 rows.
+  const snapshot=async()=>({
+    users:(await db.query('SELECT id,email,roles,status,password_hash,updated_at FROM users ORDER BY id')).rows,
+    sessions:(await db.query('SELECT token_hash,user_id,expires_at FROM auth_sessions ORDER BY token_hash')).rows,
+    counts:(await db.query(`SELECT
+      (SELECT COUNT(*)::int FROM auth_account_audit) AS creation,
+      (SELECT COUNT(*)::int FROM auth_management_audit) AS management,
+      (SELECT COUNT(*)::int FROM auth_password_audit) AS password,
+      (SELECT COUNT(*)::int FROM auth_password_resets) AS resets`)).rows,
+  });
+  env.EMAIL_FROM='PrimeCare <test@example.com>';
+  env.EMAIL={send:async()=>assert.fail('malformed rate result must not send email')};
+  try {
+    for(const [path,body,subject] of [
+      ['/login',{email,password:changedPassword},'login:'+email],
+      ['/forgot-password',{email},'forgot:'+email],
+      ['/reset-password',{email,code:'ABC123ABC123',newPassword:randomUUID()},'reset:'+email],
+      ['/change-password',{currentPassword:changedPassword,newPassword:randomUUID()},'changePassword:'+userId],
+      ['/admin/users',{id:createdId,role:'rmt',status:'active'},'manageAccount:'+userId],
+      ['/register',{email:`rate-invalid-${randomUUID()}@example.invalid`,password:randomUUID(),role:'rmt'},'createAccount:'+userId],
+    ]) {
+      const hash=createHash('sha256').update(subject).digest('hex');
+      await db.query(`INSERT INTO auth_rate_limits(subject_hash,attempts,reset_at)
+        VALUES($1,1,NOW()+INTERVAL '1 day') ON CONFLICT(subject_hash)
+        DO UPDATE SET attempts=1,reset_at=EXCLUDED.reset_at`,[hash]);
+      try {
+        const before=await snapshot();
+        const rejected=await call(path,'POST',body,latestToken);
+        assert.equal(rejected.status,503);
+        assert.equal(rejected.headers.get('cache-control'),'no-store');
+        assert.equal(rejected.headers.get('set-cookie'),null);
+        assert.equal(rejected.headers.get('retry-after'),null);
+        assert.deepEqual(await rejected.json(),{error:'Authentication service unavailable'});
+        assert.deepEqual(await snapshot(),before);
+        assert.equal((await db.query('SELECT attempts FROM auth_rate_limits WHERE subject_hash=$1',[hash])).rows[0].attempts,2);
+        passed++;
+      }finally {await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[hash]);}
+    }
+  }finally {delete env.EMAIL;delete env.EMAIL_FROM;}
   const previousRole=(await db.query('SELECT roles FROM users WHERE id=$1',[userId])).rows[0].roles;
   const priorSessionCount=(await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[userId])).rows[0].count;
   await db.query("UPDATE users SET roles='' WHERE id=$1",[userId]);
