@@ -26,7 +26,7 @@ export async function selfRecords(request:Request,env:Env,path:string,headers:He
         const values=[String(actor.id),String(actor.tenant_id)],prefix=record.tenantThroughUser?'r.':'';
         // Records without tenant_id derive scope from the owning user relation,
         // and bind that relationship again in every record query.
-        const scope=record.tenantThroughUser?' FROM '+record.table+' r JOIN users owner ON owner.id::text=r.user_id::text WHERE r.user_id::text=$1 AND owner.tenant_id::text=$2':' FROM '+record.table+' WHERE '+(record.ownerField??'user_id')+'::text=$1 AND tenant_id::text=$2';
+        const scope=record.tenantThroughUser?' FROM '+record.table+' r JOIN users owner ON owner.id::text=r.'+(record.ownerField??'user_id')+'::text WHERE r.'+(record.ownerField??'user_id')+'::text=$1 AND owner.tenant_id::text=$2':' FROM '+record.table+' WHERE '+(record.ownerField??'user_id')+'::text=$1 AND tenant_id::text=$2';
         const identifier=(field:string)=>/[A-Z]/.test(field)?'"'+field+'"':field;
         const fields=record.fields.map(field=>prefix+identifier(field)).join(',');
         const valid=(field:string,value:unknown)=>{

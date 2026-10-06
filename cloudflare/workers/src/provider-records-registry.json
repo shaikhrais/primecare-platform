@@ -365,5 +365,41 @@
     "dateFields": [
       "created_at"
     ]
+  },
+  {
+    "path": "/training-assignment-records",
+    "table": "training_assignments",
+    "collection": "assignments",
+    "item": "assignment",
+    "fields": [
+      "id",
+      "status",
+      "assigned_at",
+      "due_date",
+      "completed_at"
+    ],
+    "listBatch": 217,
+    "summaryBatch": 218,
+    "summaryField": "status",
+    "tenantThroughProvider": true,
+    "orderField": "assigned_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "assigned_at": "string",
+      "due_date": [
+        "string",
+        "null"
+      ],
+      "completed_at": [
+        "string",
+        "null"
+      ]
+    },
+    "dateFields": [
+      "assigned_at",
+      "due_date",
+      "completed_at"
+    ]
   }
 ]

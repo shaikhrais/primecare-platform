@@ -439,5 +439,19 @@
     "service": "provider",
     "targetPath": "/timesheet-items",
     "canonical": "/v1/provider/timesheet-items"
+  },
+  {
+    "batch": 219,
+    "path": "/v1/premium/trainingassignment",
+    "service": "provider",
+    "targetPath": "/training-assignment-records",
+    "canonical": "/v1/provider/training-assignment-records"
+  },
+  {
+    "batch": 221,
+    "path": "/v1/premium/message",
+    "service": "auth",
+    "targetPath": "/me/authored-message-records",
+    "canonical": "/v1/auth/me/authored-message-records"
   }
 ]
