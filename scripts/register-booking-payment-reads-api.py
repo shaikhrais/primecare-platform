@@ -3,7 +3,7 @@ import json,sqlite3
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0}}
-pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}}
+pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer','minimum':0},'hasMore':{'type':'boolean'}}}
 group={'type':'object','additionalProperties':False,'required':['status','count'],'properties':{'status':{'type':['string','null']},'count':{'type':'integer','minimum':0}}}
 payment={'type':'object','additionalProperties':False,'required':['id','amount','status','created_at','updated_at'],'properties':{'id':{'type':'string'},'amount':{'type':['string','null'],'description':'Exact recorded decimal; no currency or settlement inference.'},'status':{'type':['string','null']},'created_at':{'type':'string','format':'date-time'},'updated_at':{'type':'string','format':'date-time'}}}
 summary={'type':'object','additionalProperties':False,'required':['groups','pagination'],'properties':{'groups':{'type':'array','items':group},'pagination':pagination}}
