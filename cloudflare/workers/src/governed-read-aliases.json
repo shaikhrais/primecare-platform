@@ -404,5 +404,26 @@
     "service": "provider",
     "targetPath": "/authored-checklist-records",
     "canonical": "/v1/provider/authored-checklist-records"
+  },
+  {
+    "batch": 166,
+    "path": "/v1/premium/patientalert",
+    "service": "client",
+    "targetPath": "/alert-records",
+    "canonical": "/v1/client/alert-records"
+  },
+  {
+    "batch": 167,
+    "path": "/v1/premium/claim",
+    "service": "client",
+    "targetPath": "/insurance-claim-records",
+    "canonical": "/v1/client/insurance-claim-records"
+  },
+  {
+    "batch": 168,
+    "path": "/v1/premium/prescription",
+    "service": "client",
+    "targetPath": "/prescription-records",
+    "canonical": "/v1/client/prescription-records"
   }
 ]

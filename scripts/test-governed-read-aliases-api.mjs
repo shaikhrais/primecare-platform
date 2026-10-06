@@ -1,7 +1,7 @@
 import {aliasFixture} from './read-alias-fixtures.mjs';
 import {build} from 'esbuild';import {test} from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
 const aliases=JSON.parse(readFileSync('cloudflare/workers/src/governed-read-aliases.json','utf8')).filter(a=>a.batch<=152||a.batch>=158);
-assert.deepEqual(aliases.map(a=>a.batch),[...Array.from({length:47},(_,i)=>106+i),158,159,160,161,162,163]);
+assert.deepEqual(aliases.map(a=>a.batch),[...Array.from({length:47},(_,i)=>106+i),158,159,160,161,162,163,166,167,168]);
 const specs=JSON.parse(readFileSync('docs/api/governed-read-aliases.openapi.json','utf8'));
 const plugin={name:'fixture',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export class Client {async connect(){} async end(){} async query(s,v){return globalThis.__readAliasQuery(s,v)}}',loader:'js'}));}};
 async function bundle(path,plugins=[]){const r=await build({entryPoints:[path],bundle:true,write:false,platform:'node',format:'esm',plugins});return import('data:text/javascript;base64,'+Buffer.from(r.outputFiles[0].text).toString('base64'));}
@@ -14,7 +14,7 @@ function fixture(alias){actor={id:'actor',tenant_id:'tenant'};profiles=[{id:'pro
  if(tenantMode==='provider'){assert.ok(sql.includes(alias.batch===110?'JOIN provider_profiles p ON p.id=d.provider_id WHERE p.id::text=$1 AND p.tenant_id::text=$2 AND p.user_id::text=$3':'JOIN provider_profiles owner ON owner.id::text=r.provider_id::text WHERE r.provider_id::text=$1 AND owner.tenant_id::text=$2 AND owner.user_id::text=$3'));assert.deepEqual(values.slice(0,3),['profile','tenant','actor']);}
  else if(tenantMode==='user'){assert.ok(sql.includes('JOIN users owner ON owner.id::text=r.user_id::text WHERE r.user_id::text=$1 AND owner.tenant_id::text=$2'));assert.deepEqual(values.slice(0,2),['actor','tenant']);}
  else{assert.ok(sql.includes(ownerField+'::text=$1 AND tenant_id::text=$2'));assert.deepEqual(values.slice(0,2),[alias.service==='auth'?'actor':'profile','tenant']);}
- return {rows:sql.startsWith('SELECT COUNT')?[{count:recordRows.length}]:recordRows};
+ return {rows:sql.startsWith('SELECT COUNT')?[{count:recordRows.length}]:alias.batch>=166&&sql.includes('GROUP BY')?recordRows.map(row=>({status:row.status,count:1})):recordRows};
 };}
 function env(alias,extra={}){return {[alias.service.toUpperCase()]:{fetch:async request=>{forwarded.push(request);return service.fetch(request,{SERVICE_NAME:alias.service,DB_URL:'fixture',...extra});}}};}
 const call=(alias,query='',headers={},method='GET',extra={})=>gateway.fetch(new Request('https://gateway'+alias.path+query,{method,headers:{authorization:'Bearer '+token,...headers}}),env(alias,extra));
@@ -43,3 +43,7 @@ const nullInvoice={id:'record',status:null,currency:null,subtotal:null,tax:null,
 test('batch 164 invoice list and detail preserve all nullable stored fields',async()=>{for(const suffix of ['', '/record']){fixture(invoiceAlias);recordRows=[{...nullInvoice,private_payload:'excluded'}];const response=await canonicalCall(invoiceAlias,suffix);assert.equal(response.status,200);const body=await response.json();assert.deepEqual(suffix?body.invoice:body.invoices[0],nullInvoice);}});
 test('batch 165 invoice summary preserves null currency/status/decimal sum groups',async()=>{fixture(invoiceAlias);recordRows=[{currency:null,status:null,invoiceCount:1,subtotal:null,tax:null,total:null}];const response=await canonicalCall(invoiceAlias,'/summary');assert.equal(response.status,200);const body=await response.json();assert.deepEqual(body.groups,recordRows);assert.equal(body.pagination.total,1);});
 test('batches 164–165 OpenAPI matches nullable invoice storage without relaxing IDs',()=>{for(const [file,path,key,array] of [['client-self-batch-7.openapi.json','/v1/client/invoices','invoices',true],['client-invoices-batch-12.openapi.json','/v1/client/invoices/{invoiceId}','invoice',false],['client-invoices-batch-12.openapi.json','/v1/client/invoices/summary','groups',true],['governed-read-aliases.openapi.json','/v1/premium/invoice','invoices',true]]){const operation=JSON.parse(readFileSync('docs/api/'+file,'utf8')).paths[path].get,schema=operation.responses['200'].content['application/json'].schema.properties[key],row=array?schema.items:schema;for(const field of ['status','currency','subtotal','tax','total'])assert.deepEqual(row.properties[field].type,['string','null']);if(row.properties.id)assert.equal(row.properties.id.type,'string');assert.equal(row.additionalProperties,false);}});
+
+for(const alias of aliases.filter(a=>a.batch>=166)){
+ test(alias.canonical+' patient-linked stored status counts bind ClientProfile and tenant',async()=>{fixture(alias);recordRows=[{status:'stored'}];const response=await canonicalCall(alias,'/summary','?limit=1');assert.equal(response.status,200);const body=await response.json();assert.deepEqual(body.groups,[{status:'stored',count:1}]);assert.equal(body.pagination.total,1);assert.ok(queries.some(q=>q.sql.includes('patient_id::text=$1 AND tenant_id::text=$2')&&q.sql.includes('GROUP BY status')));});
+}

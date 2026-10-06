@@ -8,16 +8,17 @@ The user authorized maximum useful API batches without routine questions, with c
 - Batches 121–152 merged in [PR #71](https://github.com/shaikhrais/primecare-platform/pull/71): 32 existing GET repairs, 1,136 local fixtures and passing UUID/text PostgreSQL CI.
 - Batches 153–157 merged in [PR #72](https://github.com/shaikhrais/primecare-platform/pull/72): five singleton repairs, 1,172 local fixtures and passing UUID/text PostgreSQL CI.
 - Batches 158–163 merged in [PR #73](https://github.com/shaikhrais/primecare-platform/pull/73): six canonical list/detail metadata APIs, six existing compatibility repairs, 1,236 local fixtures and passing UUID/text PostgreSQL CI.
-- Batches 164–165 correct nullable invoice list/detail/summary contracts and their stored canonical schemas. Local validation: 1,239 fixtures passed. This checkpoint precedes PR publication; inspect its PR and exact-head CI before calling it merged.
+- Batches 164–165 merged in [PR #74](https://github.com/shaikhrais/primecare-platform/pull/74): nullable invoice contract/schema repairs, 1,239 local fixtures and passing UUID/text PostgreSQL CI after correcting a fixture grouping assumption.
+- Batches 166–171 implemented own patient-linked alert/claim/prescription list/detail and status-count APIs, three existing compatibility repairs and timestamp validation for generated client records. Local validation: 1,275 fixtures, Workers typecheck and governance checks passed. This checkpoint precedes PR publication; inspect its PR and exact-head CI before calling it merged.
 - Current complete compatibility contracts: `docs/api/governed-read-aliases.openapi.json`; audited definitions: `scripts/governed-read-alias-definitions.json`.
-- Total operation declarations are now 1,347: the original 1,335 plus 12 canonical list/detail operations for batches 158–163. Local fixture states and missing-contract counts are generated inventory metadata, not production verification.
+- Total operation declarations are now 1,356: the original 1,335 plus 12 canonical list/detail operations for 158–163 and nine patient-linked list/detail/summary operations for 166–171. Local fixture states and missing-contract counts are generated inventory metadata, not production verification.
 
 ## Next useful work
 
 1. Verify and finish any outstanding codex API PR before starting a new branch from latest main.
-2. Finish nullable invoice contract CI if pending. Then prioritize remaining explicit owner relationships or substantive contract/handler fixes rather than duplicating already-covered metadata routes.
+2. Finish patient metadata CI if pending. Then prioritize remaining explicit owner relationships or substantive contract/handler fixes rather than duplicating already-covered metadata routes.
 3. Provider-authored visit note/checklist, assignment and handover metadata are covered by 160–163. Audit/system actor metadata are covered by 158–159. Inspect remaining registered User/ProviderProfile/ClientProfile relations; bind every relationship and exclude unnecessary payloads. Do not assume foreign-key names or historical visit authority.
-4. PatientAlert, Claim and Prescription use patient_id relations to ClientProfile; do not mistake Claim.provider_id for ProviderProfile (it points to InsuranceProvider). New client metadata paths would need a trusted generated ownerField=patient_id, matching tenant predicates, minimal projections and dedicated canonical/summary tests.
+4. PatientAlert, Claim and Prescription metadata are covered by 166–171 through trusted generated ownerField=patient_id. Claim.provider_id points to InsuranceProvider, not ProviderProfile. CarePlan has an explicit client_id relationship and could support separately named client-owned metadata; its existing premium alias is authored User metadata and should not be silently repurposed. ClinicalRecord client_id lacks an explicit Prisma ClientProfile relation; inspect registered authority before inferring it.
 5. Improve registration validation and consumer-visible contract guidance while keeping actual runtime behavior and stored schemas aligned.
 6. Inspect remaining declared writes separately; define real validation, authorization and workflow/audit semantics before implementing them. Do not equate a generated Prisma declaration or existing screen association with business authority.
 
