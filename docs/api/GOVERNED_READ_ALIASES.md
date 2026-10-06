@@ -1,6 +1,6 @@
-# Governed compatibility reads — batches 106–152
+# Governed compatibility reads — batches 106–157
 
-Forty-seven previously ungoverned GET declarations now route through existing ownership-scoped handlers. The collection names retain their old URLs; responses use canonical metadata shapes rather than unrestricted ORM collections.
+Fifty-two previously ungoverned GET declarations now route through existing ownership-scoped handlers. The collection names retain their old URLs; responses use canonical metadata shapes rather than unrestricted ORM collections.
 
 | Batch | Existing GET route | Canonical owned metadata route |
 | --- | --- | --- |
@@ -53,13 +53,18 @@ Forty-seven previously ungoverned GET declarations now route through existing ow
 | 151 | `/v1/premium/invoice` | `/v1/client/invoices` |
 | 152 | `/v1/premium/visit` | `/v1/client/visits` |
 
+| 153 | `/v1/premium/gamificationprofile` | `/v1/auth/me/rewards` |
+| 154 | `/v1/premium/userreputation` | `/v1/auth/me/reputation` |
+| 155 | `/v1/premium/fleetstatus` | `/v1/provider/fleet-status` |
+| 156 | `/v1/premium/clientprofile` | `/v1/client/home/profile` |
+| 157 | `/v1/premium/providerprofile` | `/v1/provider/profile` |
 The gateway matches exact collection paths and forwards GET with the original bearer, tenant header and query. It rejects other methods before forwarding, including booking creation requests. Nested/detail/summary paths and other premium collections remain unhandled. CORS preflight uses existing gateway policy.
 
 Canonical handlers require active explicit bearer and a matching non-null actor tenant. Notifications bind actor user_id; assigned tasks bind actor assignee_id, excluding group-only assignments. Bookings and requests require a unique actor-owned client profile and client/tenant-bound queries. Documents require a unique actor-owned provider profile and join that profile in every document query to enforce profile tenant and owning User.
 
 The canonical bounded paging, response projections, no-store headers, read-only repeatable-read transactions, source limits and sanitized errors remain active. These routes confer no new grants. Notifications retain their own stored title/message text; tasks expose stored status/priority/times only, bookings/requests expose owned metadata, and documents exclude file/storage keys. Metadata access does not establish approved bookings, completed care, patient-record access or document verification.
 
-Registration copies the canonical permission and schemas into the 47 existing declarations and reuses canonical screen links. It does not create extra operation declarations or infer new page readiness. The OpenAPI specification records exact GET contracts. Legacy consumers expecting generic ORM response shapes must adopt these canonical metadata shapes.
+Registration copies the canonical permission and schemas into the 52 existing declarations and reuses canonical screen links. It does not create extra operation declarations or infer new page readiness. The OpenAPI specification records exact GET contracts. Legacy consumers expecting generic ORM response shapes must adopt these canonical metadata shapes.
 
 Fixtures test exact routing, bearer/query forwarding, owner/tenant SQL predicates, unsupported writes, nested paths, profile ambiguity, paging, source limits and sanitized errors. Disposable PostgreSQL gateway tests verify UUID/text sessions, own/foreign users and tenants, document profile-tenant revocation, projections and inactive/expired sessions. Production verification remains a separate release gate.
 
@@ -68,3 +73,5 @@ Batches 111–115 bind activities, wellness pulses and device events to actor us
 Batches 116–120 bind the actor User to rn_id for signoffs and reconciliations, reporter_user_id for incidents, reviewer_id for authored reviews, and performed_by_id for technical audits, alongside tenant_id in every query. Responses include only the canonical IDs, stored statuses and timestamps; they exclude clinical contents, incident descriptions, medications, review ratings and audit findings. These reads do not grant clinical access or prove approval, resolved incidents, completed reconciliation or successful audits.
 
 Batches 121–152 cover the remaining supported collection aliases. Records without tenant_id (devices, health IDs, survey responses and memberships) bind their owning User and its current tenant in every query. Other account records use the canonical registered owner field plus tenant_id. Client and provider collections require exactly one actor-owned profile. The generic timesheet alias returns provider-owned timesheet metadata, while the generic message-thread alias returns client-owned thread metadata; authored/reviewed alternatives remain explicitly named canonical APIs. Invoice decimal values remain exact strings. Clinical record aliases expose timestamps/status metadata only, never clinical measurements or notes. See `governed-read-aliases.openapi.json` for the current complete contracts.
+
+Batches 153–157 are singletons: own reward/reputation/fleet metadata or own client/provider profile. All query parameters, including limit/offset, are rejected. Missing owned records return 404 and ambiguous records or profiles return 503. Fleet follows the current owning ProviderProfile/User and reputation follows the current owning User tenant in each query. Stored points, elite status, approval flags, fleet status and profile claims are not entitlement, competence, device trust or current bookability.

@@ -374,5 +374,45 @@
     "targetPath": "/visits",
     "canonical": "/v1/client/visits",
     "spec": "client-visits-batch-11.openapi.json"
+  },
+  {
+    "batch": 153,
+    "name": "gamificationprofile",
+    "service": "auth",
+    "targetPath": "/me/rewards",
+    "canonical": "/v1/auth/me/rewards",
+    "spec": "self-records-batches-26-30.openapi.json"
+  },
+  {
+    "batch": 154,
+    "name": "userreputation",
+    "service": "auth",
+    "targetPath": "/me/reputation",
+    "canonical": "/v1/auth/me/reputation",
+    "spec": "self-reputation-batch-40.openapi.json"
+  },
+  {
+    "batch": 155,
+    "name": "fleetstatus",
+    "service": "provider",
+    "targetPath": "/fleet-status",
+    "canonical": "/v1/provider/fleet-status",
+    "spec": "provider-event-fleet-match-batches-61-65.openapi.json"
+  },
+  {
+    "batch": 156,
+    "name": "clientprofile",
+    "service": "client",
+    "targetPath": "/home/profile",
+    "canonical": "/v1/client/home/profile",
+    "spec": "client-self-batch-7.openapi.json"
+  },
+  {
+    "batch": 157,
+    "name": "providerprofile",
+    "service": "provider",
+    "targetPath": "/profile",
+    "canonical": "/v1/provider/profile",
+    "spec": "provider-self-batch-8.openapi.json"
   }
 ]
