@@ -36,7 +36,16 @@ await build({entryPoints:['cloudflare/workers/src/auth.ts'],bundle:true,platform
         }
       }`}));
   }}]});
-const {auth} = createRequire(import.meta.url)(outfile);
+const {auth:directAuth} = createRequire(import.meta.url)(outfile);
+const gatewayFile=join(directory,'gateway.cjs');
+await build({entryPoints:['cloudflare/workers/src/gateway.ts'],bundle:true,platform:'node',format:'cjs',outfile:gatewayFile});
+const {default:gateway}=createRequire(import.meta.url)(gatewayFile);
+// Exercise public routing and the actual PostgreSQL handler together.
+const auth=(request,env,path)=>{
+ const url=new URL(request.url);
+ url.pathname=path==='/change-password'?'/v1/user/change-password':path.startsWith('/admin/')?'/v1'+path:'/v1/auth'+path;
+ return gateway.fetch(new Request(url,request),{AUTH:{fetch:r=>directAuth(r,env,new URL(r.url).pathname,{})}});
+};
 const db = new Client({connectionString});
 await db.connect();
 const email = `fixture-${randomUUID()}@example.invalid`;

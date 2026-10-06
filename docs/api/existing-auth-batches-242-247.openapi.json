@@ -1,0 +1,804 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Existing authentication contracts, batches 242\u2013247",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/admin/users": {
+      "post": {
+        "operationId": "existingAuthBatch242",
+        "description": "Manage another account in the active CEO tenant; revoke target sessions and audit the change.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful existing handler response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "user"
+                  ],
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "email",
+                        "tenant_id",
+                        "roles",
+                        "status"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "tenant_id": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid session or current credentials"
+          },
+          "403": {
+            "description": "Existing authority or tenant policy rejects request"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Source unavailable"
+          },
+          "404": {
+            "description": "Target absent in the actor tenant"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "role",
+                  "status"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "admin",
+                      "bus_dev",
+                      "caregiver",
+                      "ceo",
+                      "cfo",
+                      "chiropractor",
+                      "ciso",
+                      "clinical_director",
+                      "cns",
+                      "community_outreach",
+                      "compliance",
+                      "coo",
+                      "cto",
+                      "customer_support",
+                      "cx_director",
+                      "dynamic",
+                      "employee",
+                      "family",
+                      "finance_director",
+                      "franchise_sales",
+                      "gm",
+                      "governance",
+                      "guest",
+                      "hr_director",
+                      "hr_hiring",
+                      "hsw",
+                      "infrastructure",
+                      "intake",
+                      "legal",
+                      "local_marketing",
+                      "lpn",
+                      "marketing",
+                      "np",
+                      "ops_manager",
+                      "owner",
+                      "partnership",
+                      "patient",
+                      "pediatric",
+                      "physician",
+                      "physio",
+                      "portal",
+                      "premium_concierge",
+                      "psw",
+                      "qa_specialist",
+                      "regional_bdm",
+                      "regional_manager_usa",
+                      "rmt",
+                      "rn",
+                      "rn_field_supervisor",
+                      "rpn",
+                      "scheduler",
+                      "scrum_master",
+                      "shareholder",
+                      "social_worker",
+                      "system_verification",
+                      "territory_expansion",
+                      "territory_sales",
+                      "therapist",
+                      "training",
+                      "training_coordinator",
+                      "training_director",
+                      "vip_manager",
+                      "volunteer",
+                      "volunteer_coordinator",
+                      "maintenance"
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "active",
+                      "inactive"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "listTenantAccounts",
+        "summary": "List tenant accounts for the authorized CEO",
+        "description": "Explicit bearer session; active CEO and matching tenant required. Passwords, tokens and configuration secrets are excluded. Search is literal. canModify is false for the actor. No new role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "admin",
+                "bus_dev",
+                "caregiver",
+                "ceo",
+                "cfo",
+                "chiropractor",
+                "ciso",
+                "clinical_director",
+                "cns",
+                "community_outreach",
+                "compliance",
+                "coo",
+                "cto",
+                "customer_support",
+                "cx_director",
+                "dynamic",
+                "employee",
+                "family",
+                "finance_director",
+                "franchise_sales",
+                "gm",
+                "governance",
+                "guest",
+                "hr_director",
+                "hr_hiring",
+                "hsw",
+                "infrastructure",
+                "intake",
+                "legal",
+                "local_marketing",
+                "lpn",
+                "marketing",
+                "np",
+                "ops_manager",
+                "owner",
+                "partnership",
+                "patient",
+                "pediatric",
+                "physician",
+                "physio",
+                "portal",
+                "premium_concierge",
+                "psw",
+                "qa_specialist",
+                "regional_bdm",
+                "regional_manager_usa",
+                "rmt",
+                "rn",
+                "rn_field_supervisor",
+                "rpn",
+                "scheduler",
+                "scrum_master",
+                "shareholder",
+                "social_worker",
+                "system_verification",
+                "territory_expansion",
+                "territory_sales",
+                "therapist",
+                "training",
+                "training_coordinator",
+                "training_director",
+                "vip_manager",
+                "volunteer",
+                "volunteer_coordinator",
+                "maintenance"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "active",
+                "inactive"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tenant account list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "users",
+                    "assignableRoles",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "email",
+                          "roles",
+                          "status",
+                          "canModify"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "roles": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "updated_at": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "canModify": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    },
+                    "assignableRoles": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query"
+          },
+          "401": {
+            "description": "Missing or expired session"
+          },
+          "403": {
+            "description": "Permission or tenant mismatch"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Source unavailable"
+          }
+        }
+      }
+    },
+    "/v1/auth/me": {
+      "get": {
+        "operationId": "existingAuthBatch243",
+        "description": "Read current session identity using bearer or session cookie.",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "sessionCookie": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful existing handler response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "userId",
+                    "roles",
+                    "status"
+                  ],
+                  "properties": {
+                    "userId": {
+                      "type": "string"
+                    },
+                    "roles": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "const": "authenticated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid session or current credentials"
+          },
+          "403": {
+            "description": "Existing authority or tenant policy rejects request"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Source unavailable"
+          }
+        }
+      },
+      "post": {
+        "operationId": "existingAuthBatch244",
+        "description": "Read current session identity; this compatibility POST performs no mutation.",
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "sessionCookie": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful existing handler response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "userId",
+                    "roles",
+                    "status"
+                  ],
+                  "properties": {
+                    "userId": {
+                      "type": "string"
+                    },
+                    "roles": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "const": "authenticated"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid session or current credentials"
+          },
+          "403": {
+            "description": "Existing authority or tenant policy rejects request"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Source unavailable"
+          }
+        },
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "description": "Body and query are ignored. Identity is determined solely from valid session credentials."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/register": {
+      "post": {
+        "operationId": "existingAuthBatch245",
+        "description": "Create a tenant account under the existing CEO or HR role assignment policy. Explicit bearer required.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful existing handler response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "user"
+                  ],
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "email",
+                        "tenant_id",
+                        "roles",
+                        "status"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "tenant_id": {
+                          "type": "string"
+                        },
+                        "roles": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid session or current credentials"
+          },
+          "403": {
+            "description": "Existing authority or tenant policy rejects request"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Source unavailable"
+          },
+          "409": {
+            "description": "Account cannot be created"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "email",
+                  "password",
+                  "role"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Trimmed and lowercased before email validation; normalized value is at most 254 UTF-16 code units."
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "At least 12 JavaScript UTF-16 code units and at most 72 UTF-8 bytes; validated by the handler."
+                  },
+                  "role": {
+                    "type": "string",
+                    "enum": [
+                      "admin",
+                      "bus_dev",
+                      "caregiver",
+                      "ceo",
+                      "cfo",
+                      "chiropractor",
+                      "ciso",
+                      "clinical_director",
+                      "cns",
+                      "community_outreach",
+                      "compliance",
+                      "coo",
+                      "cto",
+                      "customer_support",
+                      "cx_director",
+                      "dynamic",
+                      "employee",
+                      "family",
+                      "finance_director",
+                      "franchise_sales",
+                      "gm",
+                      "governance",
+                      "guest",
+                      "hr_director",
+                      "hr_hiring",
+                      "hsw",
+                      "infrastructure",
+                      "intake",
+                      "legal",
+                      "local_marketing",
+                      "lpn",
+                      "maintenance",
+                      "marketing",
+                      "np",
+                      "ops_manager",
+                      "owner",
+                      "partnership",
+                      "patient",
+                      "pediatric",
+                      "physician",
+                      "physio",
+                      "portal",
+                      "premium_concierge",
+                      "psw",
+                      "qa_specialist",
+                      "regional_bdm",
+                      "regional_manager_usa",
+                      "rmt",
+                      "rn",
+                      "rn_field_supervisor",
+                      "rpn",
+                      "scheduler",
+                      "scrum_master",
+                      "shareholder",
+                      "social_worker",
+                      "system_verification",
+                      "territory_expansion",
+                      "territory_sales",
+                      "therapist",
+                      "training",
+                      "training_coordinator",
+                      "training_director",
+                      "vip_manager",
+                      "volunteer",
+                      "volunteer_coordinator"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/user/change-password": {
+      "post": {
+        "operationId": "existingAuthBatch246",
+        "description": "Change own password after current-password verification; revoke all sessions and password resets.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful existing handler response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "status",
+                    "reauthenticationRequired"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "password_changed"
+                    },
+                    "reauthenticationRequired": {
+                      "const": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "401": {
+            "description": "Invalid session or current credentials"
+          },
+          "403": {
+            "description": "Existing authority or tenant policy rejects request"
+          },
+          "429": {
+            "description": "Rate limit"
+          },
+          "503": {
+            "description": "Source unavailable"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "currentPassword",
+                  "newPassword"
+                ],
+                "properties": {
+                  "currentPassword": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "At most 72 UTF-8 bytes; must match the current password."
+                  },
+                  "newPassword": {
+                    "type": "string",
+                    "description": "At least 12 JavaScript UTF-16 code units and at most 72 UTF-8 bytes; validated by the handler."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "sessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "session_token"
+      }
+    }
+  }
+}

@@ -7,15 +7,15 @@ Declared operations: 1416
 | Recorded verification state | Operations |
 | --- | --- |
 | blocked | 10 |
-| unit_fixtures_recorded | 331 |
-| verification_pending | 1075 |
+| unit_fixtures_recorded | 337 |
+| verification_pending | 1069 |
 
 | Missing contract field | Operations |
 | --- | --- |
-| permission | 1070 |
-| requestSchema | 1072 |
-| responseSchema | 1073 |
-| screenLink | 1030 |
+| permission | 1069 |
+| requestSchema | 1069 |
+| responseSchema | 1069 |
+| screenLink | 1024 |
 
 The JSON inventory includes every registered API, linked screens, apps, roles and missing fields. Use `/v1/governance/api-execution-status` with existing inventory authority to query this snapshot. `search`, `app`, `role` and `screen` filters plus bounded paging are supported.
 

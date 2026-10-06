@@ -4,14 +4,14 @@
     "totalDeclared": 1416,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 331,
-      "verification_pending": 1075
+      "unit_fixtures_recorded": 337,
+      "verification_pending": 1069
     },
     "contractGaps": {
-      "permission": 1070,
-      "requestSchema": 1072,
-      "responseSchema": 1073,
-      "screenLink": 1030
+      "permission": 1069,
+      "requestSchema": 1069,
+      "responseSchema": 1069,
+      "screenLink": 1024
     },
     "note": "Recorded declarations and local unit-fixture status only. Unrecorded means inspect implementation, not proof of absent code. PostgreSQL/production evidence is not inferred from CI or registry labels."
   },
@@ -5509,20 +5509,21 @@
       "api": "GET /v1/admin/users",
       "method": "GET",
       "route": "/v1/admin/users",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 247,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "ceo_dashboard"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "co"
+      ],
+      "roles": [
+        "ceo"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -5534,7 +5535,7 @@
       "service": "auth",
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
-      "batch": 203,
+      "batch": 247,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
@@ -5558,18 +5559,21 @@
       "api": "POST /v1/admin/users",
       "method": "POST",
       "route": "/v1/admin/users",
-      "service": "PRISMA",
-      "declaredImplementation": "in_progress",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "responseSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 242,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "ceo_dashboard"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "co"
+      ],
+      "roles": [
+        "ceo"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -6642,18 +6646,21 @@
       "api": "GET /v1/auth/me",
       "method": "GET",
       "route": "/v1/auth/me",
-      "service": null,
-      "declaredImplementation": "in_progress",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "requestSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 243,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -6662,18 +6669,21 @@
       "api": "POST /v1/auth/me",
       "method": "POST",
       "route": "/v1/auth/me",
-      "service": "PRISMA",
-      "declaredImplementation": "in_progress",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "requestSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 244,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -8908,18 +8918,21 @@
       "api": "POST /v1/auth/register",
       "method": "POST",
       "route": "/v1/auth/register",
-      "service": "PRISMA",
-      "declaredImplementation": "in_progress",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "responseSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 245,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "ceo_dashboard"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "co"
+      ],
+      "roles": [
+        "ceo"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -32263,18 +32276,21 @@
       "api": "POST /v1/user/change-password",
       "method": "POST",
       "route": "/v1/user/change-password",
-      "service": "PRISMA",
-      "declaredImplementation": "in_progress",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "responseSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 246,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },

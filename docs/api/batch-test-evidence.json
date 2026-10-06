@@ -1,6 +1,6 @@
 {
   "scope": "local_unit_fixtures",
-  "passed": 1653,
+  "passed": 1677,
   "failed": 0,
   "productionVerified": false,
   "postgresVerified": false,
@@ -8,7 +8,7 @@
     "cloudflare/workers/src/account-admin.ts": "23cc336eccc549971460394acc60eebadd9ebf72437cbeadcbda8eaf6035bd76",
     "cloudflare/workers/src/account-management.ts": "cae4810ce573c6b3d06b1b9d358eb72f4448f69b458a030ce2f4366f10598e17",
     "cloudflare/workers/src/account-policy.json": "74d51cb199e3ac6522acd0723561d7af93327bb80114ad8de96b5ddebdc432ce",
-    "cloudflare/workers/src/api-execution-inventory.json": "3901265e80b963c53fc2f417be08103ccd89b0cc97ec70563c3e1d441013fd3b",
+    "cloudflare/workers/src/api-execution-inventory.json": "cba9e5502913a7f17ab0875d6a5deee0bfdf9d09c4bacf34a111ffe8c223e5fc",
     "cloudflare/workers/src/auth-rate-limit.ts": "e36b0764774e3c8f3e1f88a9d15a7368ee2c42fca642eee319f086e47cc49286",
     "cloudflare/workers/src/auth-security-policy.json": "929c89cacb68845acf5843569313bb4a1b3a42c07cc0943d7964f54cbee611d5",
     "cloudflare/workers/src/auth-source-limit.ts": "1fc2aacc25c1b45c22759c8d785abcee757eac9855d5b2900828e6a78ac8538e",
@@ -20,7 +20,7 @@
     "cloudflare/workers/src/email-templates.json": "fac27367d39bf30caebacb76c4cc4919e181e47348aa75cc40780124c9a79446",
     "cloudflare/workers/src/email.ts": "3fbc322d8ee953eb1c13f2a31f0fc1cb9a33aaaacdfe338a5f207b593c017357",
     "cloudflare/workers/src/gateway.ts": "7405befbc6d8e6d6b90812a9a0149ea7adb7b278e824fa605e404a0f96cc5317",
-    "cloudflare/workers/src/governance-api-registry.json": "9ecb01c2c3a0b470c1214d7b0bed6dac7b9b24fa4ad01298419b24d73cb1f09a",
+    "cloudflare/workers/src/governance-api-registry.json": "d8b025d8fba9cb5120691a24a626a03cfe97e4d81b9b7ff9a49e76a6ab0df8d7",
     "cloudflare/workers/src/governance-api.ts": "c63d90909388067f4a2eef6d61931e57d0af69c86bb58139c4b661609aad8ee6",
     "cloudflare/workers/src/governed-read-aliases.json": "e1779921d40058db203523b045b94d65ce1098bf968482a81904f35ab9e00a43",
     "cloudflare/workers/src/legacy-domain-registry.json": "ebb5891fa57650c61b749b4817a1f8bfc5b1722ba425488dfc460216e1de7336",
@@ -38,6 +38,7 @@
     "cloudflare/workers/src/service.ts": "7c6b5dbfde7fcb84ce8f211a4577a5819d45ecdf1e205db838a00f898484383f",
     "cloudflare/workers/src/workspace-registry.json": "9cd5c51087d05b9a0c9441b8ef624a9ce622ae31a355f9cfb523064da323799b",
     "cloudflare/workers/src/workspace.ts": "79c11e3f57a2bad7bd591af176556b01e8cee91c43cdc4e04ca22228e33be3a4",
+    "scripts/test-existing-auth-contracts-api.mjs": "ed511c0767de59e206ede055ebf546a4a9b432dd10af90805968b77d4d7f8cf4",
     "scripts/test-owned-patient-observations-api.mjs": "8003df477b802866cb5ffbdb4d27a0cc83c23f4b8ef226b10c470eccf1bdfdf8",
     "scripts/test-owned-commerce-authoring-api.mjs": "f95ae935868dd48e12badfa6817acb3f48d95319c57c560fef1fd8cf8ecf8ba2",
     "scripts/test-client-family-notifications-api.mjs": "8649c557786f21a00fd4d52e67e90f902ed80649fb7285530eb6e45f638b2997",
@@ -111,6 +112,9 @@
     "scripts/register-api-service-status.py": "46a46b0da30ac2b502523f1b6be9dac438a8efb79eaa427d28af7fad5b8f4977",
     "scripts/register-owned-commerce-authoring-api.py": "e51824b5815ba761a1f48a410ab2ed33ca7f39fdae68e0c88a90dfa4559fee6a",
     "scripts/register-governed-read-aliases.py": "9532b13a9ceb5edccd50ffcc77be9454c871340d1f3a143dda3fec1c98b1787f",
-    "scripts/test-read-alias-authority-guard.py": "51c198df89ec3483af570c7c154c4dfbe50833cbd4c624daf57601a2a7adefd0"
+    "scripts/test-read-alias-authority-guard.py": "51c198df89ec3483af570c7c154c4dfbe50833cbd4c624daf57601a2a7adefd0",
+    "scripts/register-existing-auth-contracts.py": "51cfd34bac7c29bead74d69c31478b840573fd01f721b104cd70bef247dbb380",
+    "scripts/test-existing-auth-authority-guard.py": "6c1e080224d18d6b5c58562581b8259c219e120a526261e18ac0d005c605ceda",
+    "docs/api/existing-auth-batches-242-247.openapi.json": "63a5d964536a00a394be9db4518b96010cf9611aab82e74ce0f54b4e7e46ad29"
   }
 }
