@@ -37,6 +37,7 @@ runpy.run_path(str(ROOT/'scripts/register-client-operational-projections-api.py'
 runpy.run_path(str(ROOT/'scripts/register-client-count-validation-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-provider-operational-projections-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-generated-record-count-validation-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-owned-commerce-authoring-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-self-sessions-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-owner-session-count-validation-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-account-list-api.py'))

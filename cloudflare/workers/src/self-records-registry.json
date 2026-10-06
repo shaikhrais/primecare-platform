@@ -915,5 +915,60 @@
     "dateFields": [
       "created_at"
     ]
+  },
+  {
+    "path": "/me/authored-post-records",
+    "table": "blog_posts",
+    "ownerField": "author_user_id",
+    "tenantThroughUser": true,
+    "collection": "posts",
+    "item": "post",
+    "fields": [
+      "id",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 225,
+    "summaryBatch": 226,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "status": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/ledger-event-records",
+    "table": "transaction_ledger",
+    "ownerField": "actor_user_id",
+    "collection": "events",
+    "item": "event",
+    "fields": [
+      "id",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 227,
+    "summaryBatch": 228,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
   }
 ]
