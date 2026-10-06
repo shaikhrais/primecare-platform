@@ -86,7 +86,7 @@ test('progress and pending tasks derive exact registered records rather than syn
  assert.equal(progress.data.reduce((sum,r)=>sum+r.productionReady,0),0);
  const tasks=await (await call('/pending-tasks','?limit=100')).json();
  assert.ok(tasks.pagination.total>registry.screens.length);assert.ok(tasks.data.every(r=>r.status==='pending'||r.status==='action_pending'));
- const contracts=await (await call('/api-contracts','?limit=100')).json();
+ const contracts=await (await call('/api-contracts','?search=%2Fv1%2Fgovernance%2Fpage-progress&limit=100')).json();
  assert.equal(contracts.source.evidenceType,'registered_governance');
  assert.ok(contracts.data.some(c=>c.route==='/v1/governance/page-progress'));
  assert.ok(contracts.data.every(c=>'lastRecordedTest' in c&&'recordedHealth' in c&&!('healthy' in c)));

@@ -1,5 +1,6 @@
 [
   {
+    "orderField": "created_at",
     "ownerField": "client_id",
     "batch": 21,
     "summaryBatch": 22,
@@ -42,6 +43,7 @@
     }
   },
   {
+    "orderField": "created_at",
     "ownerField": "client_id",
     "batch": 21,
     "summaryBatch": 22,
@@ -85,6 +87,7 @@
     }
   },
   {
+    "orderField": "created_at",
     "ownerField": "client_id",
     "batch": 21,
     "summaryBatch": 22,
@@ -118,6 +121,7 @@
     }
   },
   {
+    "orderField": "created_at",
     "ownerField": "client_id",
     "batch": 36,
     "summaryBatch": 37,
@@ -149,6 +153,7 @@
     }
   },
   {
+    "orderField": "created_at",
     "ownerField": "client_id",
     "batch": 38,
     "summaryBatch": 39,
@@ -174,6 +179,7 @@
     }
   },
   {
+    "orderField": "created_at",
     "ownerField": "client_id",
     "batch": 46,
     "summaryBatch": 47,
@@ -197,6 +203,7 @@
     }
   },
   {
+    "orderField": "created_at",
     "ownerField": "client_id",
     "batch": 48,
     "summaryBatch": 49,
@@ -223,6 +230,7 @@
     }
   },
   {
+    "orderField": "created_at",
     "ownerField": "patient_id",
     "batch": 166,
     "summaryBatch": 169,
@@ -250,6 +258,7 @@
     }
   },
   {
+    "orderField": "created_at",
     "ownerField": "patient_id",
     "batch": 167,
     "summaryBatch": 170,
@@ -276,6 +285,7 @@
     }
   },
   {
+    "orderField": "created_at",
     "ownerField": "patient_id",
     "batch": 168,
     "summaryBatch": 171,
@@ -299,6 +309,7 @@
     }
   },
   {
+    "orderField": "created_at",
     "ownerField": "client_id",
     "batch": 172,
     "summaryBatch": 175,
@@ -331,6 +342,7 @@
     }
   },
   {
+    "orderField": "created_at",
     "ownerField": "client_id",
     "batch": 173,
     "summaryBatch": 176,
@@ -354,6 +366,7 @@
     }
   },
   {
+    "orderField": "created_at",
     "ownerField": "client_id",
     "batch": 174,
     "summaryBatch": 177,
@@ -374,6 +387,212 @@
       "id": "string",
       "status": "string",
       "created_at": "string"
+    }
+  },
+  {
+    "orderField": "start_time",
+    "ownerField": "client_id",
+    "batch": 179,
+    "summaryBatch": 188,
+    "summaryField": "shiftStatus",
+    "path": "/shift-log-records",
+    "table": "provider_shift_logs",
+    "collection": "shifts",
+    "item": "shift",
+    "fields": [
+      "id",
+      "shiftStatus",
+      "start_time",
+      "end_time"
+    ],
+    "dateFields": [
+      "start_time",
+      "end_time"
+    ],
+    "types": {
+      "id": "string",
+      "shiftStatus": "string",
+      "start_time": "string",
+      "end_time": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 180,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/adl-records",
+    "table": "adl_care_logs",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 181,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/vital-observation-records",
+    "table": "psw_vital_signs",
+    "collection": "observations",
+    "item": "observation",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 182,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/behavior-observation-records",
+    "table": "behavior_notes",
+    "collection": "observations",
+    "item": "observation",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 183,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/nutrition-observation-records",
+    "table": "nutrition_records",
+    "collection": "observations",
+    "item": "observation",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 184,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/mobility-observation-records",
+    "table": "mobility_logs",
+    "collection": "observations",
+    "item": "observation",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 185,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/infection-checklist-records",
+    "table": "infection_control_checklists",
+    "collection": "checklists",
+    "item": "checklist",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 186,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/progress-note-records",
+    "table": "narrative_progress_notes",
+    "collection": "notes",
+    "item": "note",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    }
+  },
+  {
+    "orderField": "recorded_at",
+    "ownerField": "client_id",
+    "batch": 187,
+    "summaryBatch": 0,
+    "summaryField": "status",
+    "path": "/care-follow-up-records",
+    "table": "care_plan_follow_ups",
+    "collection": "followUps",
+    "item": "followUp",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "dateFields": [
+      "recorded_at"
+    ],
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
     }
   }
 ]
