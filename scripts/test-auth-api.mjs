@@ -5,18 +5,21 @@ import bcrypt from 'bcryptjs';
 
 // Test fixtures only: no network, production credentials, or PostgreSQL writes.
 const fixtureHash = await bcrypt.hash('fixture-password', 4);
-let sessions, user, queries, failWrite, failRead, ambiguous, rateAttempts, changedBeforeInsert, createdOverride, creationRows;
+let sessions, user, queries, failWrite, failRead, ambiguous, rateAttempts, changedBeforeInsert, createdOverride, creationRows, rateResult;
 beforeEach(() => {
   sessions = new Map(); queries = []; failWrite = false; failRead = false; ambiguous = false; rateAttempts=new Map(); changedBeforeInsert=false;createdOverride={};creationRows=1;
+  rateResult=undefined;
   user = { id: 'fixture-user', roles: 'fixture-role', tenant_id:'fixture-tenant', status: 'active', password_hash: fixtureHash };
 });
 globalThis.__authQuery = async (sql, values) => {
   queries.push({sql, values});
   if (failRead) throw new Error('fixture-private-database-details');
   if(sql.startsWith('INSERT INTO auth_rate_limits')) {
+    if(rateResult!==undefined)return rateResult;
     const attempts=(rateAttempts.get(values[0])??0)+1;
     rateAttempts.set(values[0],attempts);return {rows:[{attempts,retry_after:60}]};
   }
+  if(sql.startsWith('SELECT tenant_id FROM users'))return {rows:[]};
   if (['BEGIN','COMMIT','ROLLBACK'].includes(sql) || sql.startsWith('SELECT pg_advisory') || sql.startsWith('INSERT INTO auth_account_audit')) return {rows:[]};
   if (sql.startsWith('SELECT id FROM users')) return {rows:[]};
   if (sql.startsWith('INSERT INTO users')) return {rows:creationRows?[{id:values[4],email:values[0],tenant_id:values[1],roles:values[2],status:'active',...createdOverride}]:[]};
@@ -342,3 +345,38 @@ test('account creation rolls back malformed results before audit or success',asy
 test('account creation rejects missing returned rows before audit',async()=>{user.roles='ceo';const token=(await (await login()).json()).token;creationRows=0;queries=[];const r=await auth(request('/register','POST',{email:'new@example.invalid',password:'fixture-new-password',role:'rmt'},token),env,'/register',{});assert.equal(r.status,503);assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql.startsWith('INSERT INTO auth_account_audit')));});
 
 test('ambiguous session identity never returns the first adapter row',async()=>{const token=(await (await login()).json()).token;const original=globalThis.__authQuery;globalThis.__authQuery=async(sql,values)=>{const r=await original(sql,values);if(sql.startsWith('SELECT u.id'))r.rows=[...r.rows,...r.rows];return r;};const r=await auth(request('/me','GET',undefined,token),env,'/me',{});assert.equal(r.status,503);assert.deepEqual(await r.json(),{error:'Authentication service unavailable'});});
+
+// Each public handler must stop at the malformed limiter response, before any
+// transaction, credential write, session issuance, audit or email delivery.
+for(const [path,input,authenticated] of [
+ ['/login',{email:'fixture@example.invalid',password:'fixture-password'},false],
+ ['/forgot-password',{email:'fixture@example.invalid'},false],
+ ['/reset-password',{email:'fixture@example.invalid',code:'ABC123ABC123',newPassword:'new-fixture-password'},false],
+ ['/change-password',{currentPassword:'fixture-password',newPassword:'new-fixture-password'},true],
+ ['/admin/users',{id:'other-user',role:'rmt',status:'inactive'},true],
+ ['/register',{email:'new@example.invalid',password:'new-fixture-password',role:'rmt'},true],
+]) {
+ test(path+' fails closed before protected work on invalid rate results',async()=>{
+  user.roles='ceo';
+  const token=authenticated?(await (await login()).json()).token:undefined;
+  const sessionCount=sessions.size;
+  const mailEnv={...env,EMAIL_FROM:'PrimeCare <test@example.com>',EMAIL:{send:async()=>assert.fail('must not send')}};
+  for(const invalid of [
+   {rows:[]},{rows:[{attempts:1,retry_after:60},{attempts:1,retry_after:60}]},
+   {rows:[{attempts:'1',retry_after:60}]},{rows:[{attempts:0,retry_after:60}]},
+   {rows:[{attempts:1,retry_after:0}]},{rows:[{attempts:1,retry_after:86400}]},
+   {rows:[{attempts:1,retry_after:'60'}]},
+  ]) {
+   queries=[];rateResult=invalid;
+   const response=await auth(request(path,'POST',input,token),mailEnv,path,{});
+   assert.equal(response.status,503);
+   assert.deepEqual(await response.json(),{error:'Authentication service unavailable'});
+   assert.equal(response.headers.get('cache-control'),'no-store');
+   assert.equal(response.headers.get('set-cookie'),null);
+   assert.equal(response.headers.get('retry-after'),null);
+   assert.ok(queries.at(-1).sql.startsWith('INSERT INTO auth_rate_limits'));
+   assert.ok(!queries.some(q=>q.sql==='BEGIN'));
+   assert.equal(sessions.size,sessionCount);
+  }
+ });
+}
