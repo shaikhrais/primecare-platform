@@ -46,6 +46,21 @@ try {
  assert.equal((await call('/me','GET','',tokens[1])).status,401);assert.equal((await call('/me','GET','',tokens[2])).status,200);checks++;
  const audit=await (await call('/admin/users/audit','GET','?userId='+ids[1]+'&limit=100')).json();assert.ok(audit.events.some(e=>e.action==='sessions_revoked'&&e.previous.sessionCount===2&&e.current.sessionCount===0));checks++;
  const again=await (await call(sessions,'DELETE')).json();assert.equal(again.revokedSessions,0);checks++;
+ // PostgreSQL supports infinity timestamps; they cannot satisfy JSON date-time contracts.
+ for(const [table,column,key,path] of [
+  ['users','updated_at','id','/admin/users'],
+  ['users','updated_at','id','/admin/users/'+ids[1]],
+  ['auth_sessions','created_at','user_id',sessions],
+  ['auth_management_audit','created_at','target_user_id','/admin/users/audit'],
+  ['auth_account_audit','created_at','target_user_id','/admin/users/creation-audit']
+ ]) {
+  if(table==='auth_sessions')await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '1 hour')",[hash('h'.repeat(43)),ids[1]]);
+  const original=(await db.query(`SELECT ${column} FROM ${table} WHERE ${key}::text=$1`,[ids[1]])).rows;
+  assert.ok(original.length>0);
+  await db.query(`UPDATE ${table} SET ${column}='infinity' WHERE ${key}::text=$1`,[ids[1]]);
+  try {const invalid=await call(path);assert.equal(invalid.status,503);assert.equal(invalid.headers.get('cache-control'),'no-store');assert.ok(!(await invalid.text()).includes('Invalid account'));checks++;}
+  finally {await db.query(`UPDATE ${table} SET ${column}=$2 WHERE ${key}::text=$1`,[ids[1],original[0][column]]);}
+ }
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[ids[0]]);assert.equal((await call('/admin/users/audit')).status,401);checks++;
  console.log(`Account administration passed ${checks} real PostgreSQL checks (${process.env.AUTH_TEST_ID_TYPE||'uuid'} identities).`);
 }finally {

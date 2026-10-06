@@ -1,14 +1,15 @@
 {
   "scope": "local_unit_fixtures",
-  "passed": 1687,
+  "passed": 1695,
   "failed": 0,
   "productionVerified": false,
   "postgresVerified": false,
   "sourceHashes": {
-    "cloudflare/workers/src/account-admin.ts": "23cc336eccc549971460394acc60eebadd9ebf72437cbeadcbda8eaf6035bd76",
-    "cloudflare/workers/src/account-management.ts": "cae4810ce573c6b3d06b1b9d358eb72f4448f69b458a030ce2f4366f10598e17",
+    "cloudflare/workers/src/account-admin.ts": "67f0c1b79e76cc78e3c583e356309d264acccefe52ade86a90f22726e77b1242",
+    "cloudflare/workers/src/account-management.ts": "f4b89cc3d2d7c671391edf4f3fb18d6cc1af4aa91312f329837c7a24586e3d7b",
     "cloudflare/workers/src/account-policy.json": "74d51cb199e3ac6522acd0723561d7af93327bb80114ad8de96b5ddebdc432ce",
-    "cloudflare/workers/src/api-execution-inventory.json": "cba9e5502913a7f17ab0875d6a5deee0bfdf9d09c4bacf34a111ffe8c223e5fc",
+    "cloudflare/workers/src/account-read-projection.ts": "71543209e2ab1e680735950357ed8c6292118c6c19b14258870ce6d5b2ba4c0a",
+    "cloudflare/workers/src/api-execution-inventory.json": "8ba394a94a2786b0ca0c64bb9b159809ef716af9f1965ae3a476189eba322b63",
     "cloudflare/workers/src/auth-rate-limit.ts": "e36b0764774e3c8f3e1f88a9d15a7368ee2c42fca642eee319f086e47cc49286",
     "cloudflare/workers/src/auth-security-policy.json": "929c89cacb68845acf5843569313bb4a1b3a42c07cc0943d7964f54cbee611d5",
     "cloudflare/workers/src/auth-source-limit.ts": "1fc2aacc25c1b45c22759c8d785abcee757eac9855d5b2900828e6a78ac8538e",
@@ -72,9 +73,9 @@
     "scripts/test-provider-self-api.mjs": "0d6394f2ac3e50c82abd9187f3d91ebdc12bc5109e8711dce3f29b06dbcd8bf4",
     "scripts/test-client-self-api.mjs": "cf4d18e3302f3374c57d088bdb43f4c18a18eecf91c1ee0ba32a7cfae30f857a",
     "scripts/test-self-sessions-api.mjs": "b7c294a168e41fb6e1af63bde17cfe8fc8a63e46560e75fe7a3b13855bb30a5f",
-    "scripts/test-account-admin-api.mjs": "6a23ad997bd23eb6cc89ee6ee3e36c55afb3cde85ffdc5fca3da07592d391a10",
+    "scripts/test-account-admin-api.mjs": "5e8e522d9a6b4e43bb68a6541b5432e64710f5872250c7111df6bc3db462003c",
     "scripts/test-governance-api.mjs": "9392ed729887c6ae1eb5a1412e884663ef0e1865851d80a2b210151149f1bae6",
-    "scripts/test-account-list-api.mjs": "92176a7cb72fc7a9c06d674ce242ecea38be500807c620fd836befbd326ca54e",
+    "scripts/test-account-list-api.mjs": "42a007a7350f2d01405e3230fb11542b55cf79273a08e3b036e71502589780fb",
     "scripts/test-workspace.mjs": "4827b87c4406e40793631e189cb1d41bb8b74a41be3541b3b9160b46f897973a",
     "scripts/test-auth-maintenance.mjs": "d4f6880374154fc098dcae3bc74db3f5d175465992b55fa49d60ea40c68e713f",
     "scripts/test-auth-recovery.mjs": "5aada8aea2f500b87e961467836e85d23930227c6753ccb36756bc61a0c3b0cc",
@@ -115,6 +116,9 @@
     "scripts/test-read-alias-authority-guard.py": "51c198df89ec3483af570c7c154c4dfbe50833cbd4c624daf57601a2a7adefd0",
     "scripts/register-existing-auth-contracts.py": "51cfd34bac7c29bead74d69c31478b840573fd01f721b104cd70bef247dbb380",
     "scripts/test-existing-auth-authority-guard.py": "6c1e080224d18d6b5c58562581b8259c219e120a526261e18ac0d005c605ceda",
-    "docs/api/existing-auth-batches-242-247.openapi.json": "63a5d964536a00a394be9db4518b96010cf9611aab82e74ce0f54b4e7e46ad29"
+    "docs/api/existing-auth-batches-242-247.openapi.json": "63a5d964536a00a394be9db4518b96010cf9611aab82e74ce0f54b4e7e46ad29",
+    "scripts/register-account-read-validation-api.py": "117b4117ef9523669a56e74ecee0512def0798dc8d8fb158b983261c24ee8717",
+    "scripts/test-account-read-authority-guard.py": "9d9fb51c8850247a1c5eb9b292c970bd9c7e7de8d9130262037904a0ecb10743",
+    "docs/api/account-read-validation-batches-249-253.openapi.json": "ce33d624b69bc6a64d521649b1e98eef156eaded243aecd5ba2a2485b8a9457d"
   }
 }
