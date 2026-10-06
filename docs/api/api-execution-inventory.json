@@ -1,10 +1,10 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1365,
+    "totalDeclared": 1384,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 268,
+      "unit_fixtures_recorded": 287,
       "verification_pending": 1087
     },
     "contractGaps": {
@@ -9767,6 +9767,52 @@
       "productionVerified": false
     },
     {
+      "id": 16636,
+      "api": "GET /v1/client/adl-records",
+      "method": "GET",
+      "route": "/v1/client/adl-records",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 180,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16637,
+      "api": "GET /v1/client/adl-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/adl-records/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 180,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16481,
       "api": "GET /v1/client/alert-records",
       "method": "GET",
@@ -9890,6 +9936,52 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 173,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16640,
+      "api": "GET /v1/client/behavior-observation-records",
+      "method": "GET",
+      "route": "/v1/client/behavior-observation-records",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 182,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16641,
+      "api": "GET /v1/client/behavior-observation-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/behavior-observation-records/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 182,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
@@ -10298,6 +10390,52 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 38,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16650,
+      "api": "GET /v1/client/care-follow-up-records",
+      "method": "GET",
+      "route": "/v1/client/care-follow-up-records",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 187,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16651,
+      "api": "GET /v1/client/care-follow-up-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/care-follow-up-records/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 187,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
@@ -10923,6 +11061,52 @@
       "productionVerified": false
     },
     {
+      "id": 16646,
+      "api": "GET /v1/client/infection-checklist-records",
+      "method": "GET",
+      "route": "/v1/client/infection-checklist-records",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 185,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16647,
+      "api": "GET /v1/client/infection-checklist-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/infection-checklist-records/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 185,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16483,
       "api": "GET /v1/client/insurance-claim-records",
       "method": "GET",
@@ -11221,6 +11405,98 @@
       "productionVerified": false
     },
     {
+      "id": 16644,
+      "api": "GET /v1/client/mobility-observation-records",
+      "method": "GET",
+      "route": "/v1/client/mobility-observation-records",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 184,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16645,
+      "api": "GET /v1/client/mobility-observation-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/mobility-observation-records/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 184,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16642,
+      "api": "GET /v1/client/nutrition-observation-records",
+      "method": "GET",
+      "route": "/v1/client/nutrition-observation-records",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 183,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16643,
+      "api": "GET /v1/client/nutrition-observation-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/nutrition-observation-records/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 183,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16485,
       "api": "GET /v1/client/prescription-records",
       "method": "GET",
@@ -11308,6 +11584,52 @@
       "screens": [],
       "apps": [],
       "roles": [],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16648,
+      "api": "GET /v1/client/progress-note-records",
+      "method": "GET",
+      "route": "/v1/client/progress-note-records",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 186,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16649,
+      "api": "GET /v1/client/progress-note-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/progress-note-records/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 186,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -11469,6 +11791,75 @@
       "productionVerified": false
     },
     {
+      "id": 16634,
+      "api": "GET /v1/client/shift-log-records",
+      "method": "GET",
+      "route": "/v1/client/shift-log-records",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 179,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16652,
+      "api": "GET /v1/client/shift-log-records/summary",
+      "method": "GET",
+      "route": "/v1/client/shift-log-records/summary",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 188,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16635,
+      "api": "GET /v1/client/shift-log-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/shift-log-records/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 179,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 242,
       "api": "POST /v1/client/support/feedback",
       "method": "POST",
@@ -11611,6 +12002,52 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 11,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16638,
+      "api": "GET /v1/client/vital-observation-records",
+      "method": "GET",
+      "route": "/v1/client/vital-observation-records",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 181,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16639,
+      "api": "GET /v1/client/vital-observation-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/vital-observation-records/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 181,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
