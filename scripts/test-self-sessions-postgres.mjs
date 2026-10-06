@@ -7,13 +7,13 @@ const call=(method='GET',token=tokens[0])=>auth(new Request('https://fixture/use
 try{
  for(let i=0;i<2;i++)await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,'rmt',$3,'unused','active')",[ids[i],ids[i]+'@example.invalid',tenant]);
  for(let i=0;i<4;i++)await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+($3 * INTERVAL '1 hour'))",[hash(tokens[i]),ids[i===3?1:0],i===2?-1:1]);
- const list=await (await call()).json();assert.equal(list.pagination.total,2);assert.equal(list.sessions.filter(s=>s.current).length,1);assert.ok(!JSON.stringify(list).includes('token_hash'));checks++;
+ const list=await (await call()).json();assert.equal(list.pagination.total,2);assert.equal(typeof list.pagination.total,'number');assert.equal(list.sessions.filter(s=>s.current).length,1);assert.ok(!JSON.stringify(list).includes('token_hash'));checks++;
  await db.query(`CREATE FUNCTION test_self_audit_failure() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF NEW.actor_user_id::text='${ids[0]}' AND NEW.new_state->>'initiatedBy'='self' THEN RAISE EXCEPTION 'fixture failure'; END IF; RETURN NEW; END $$`);await db.query('CREATE TRIGGER test_self_audit_failure BEFORE INSERT ON auth_management_audit FOR EACH ROW EXECUTE FUNCTION test_self_audit_failure()');trigger=true;
  assert.equal((await call('DELETE')).status,503);assert.equal(Number((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[ids[0]])).rows[0].count),3);checks++;
  await db.query('DROP TRIGGER test_self_audit_failure ON auth_management_audit');trigger=false;
- const revoked=await call('DELETE');assert.equal(revoked.status,200);assert.equal((await revoked.json()).revokedSessions,3);checks++;
+ const revoked=await call('DELETE');assert.equal(revoked.status,200);const revokedBody=await revoked.json();assert.equal(revokedBody.revokedSessions,3);assert.equal(typeof revokedBody.revokedSessions,'number');checks++;
  for(const token of tokens.slice(0,3))assert.equal((await call('GET',token)).status,401);assert.equal((await call('GET',tokens[3])).status,200);checks++;
  const audit=(await db.query('SELECT previous_state,new_state FROM auth_management_audit WHERE actor_user_id=$1 AND target_user_id=$1',[ids[0]])).rows;assert.equal(audit.length,1);assert.equal(audit[0].previous_state.sessionCount,3);assert.equal(audit[0].new_state.initiatedBy,'self');checks++;
  assert.equal((await call('DELETE')).status,401);checks++;
- console.log(`Self sessions passed ${checks} PostgreSQL checks (${process.env.AUTH_TEST_ID_TYPE}).`);
+ console.log(`Self sessions batches 6 and 202 passed ${checks} PostgreSQL checks (${process.env.AUTH_TEST_ID_TYPE}).`);
 }finally{if(trigger)await db.query('DROP TRIGGER IF EXISTS test_self_audit_failure ON auth_management_audit');await db.query('DROP FUNCTION IF EXISTS test_self_audit_failure()');await db.query('DELETE FROM auth_management_audit WHERE actor_user_id::text=ANY($1)',[ids]);await db.query('DELETE FROM auth_sessions WHERE user_id::text=ANY($1)',[ids]);await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=ANY($1)',[ids.map(id=>hash('manageAccount:'+id))]);await db.query('DELETE FROM users WHERE id::text=ANY($1)',[ids]);await db.end();}
