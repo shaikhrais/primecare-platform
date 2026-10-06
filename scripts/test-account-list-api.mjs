@@ -1,14 +1,14 @@
 import {build} from 'esbuild';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-const queries=[];let actor,count;
+const queries=[];let actor,count,rowOverride;
 const fixture=(role='ceo',tenant='tenant-a')=>{
- queries.length=0;count=3;actor=role?{id:'actor',roles:role,tenant_id:tenant}:null;
+ queries.length=0;count=3;rowOverride={};actor=role?{id:'actor',roles:role,tenant_id:tenant}:null;
  globalThis.__listQuery=async(sql,values)=>{
   queries.push({sql,values});
   if(sql.includes('WHERE s.token_hash=$1'))return {rows:actor?[actor]:[]};
   if(sql.startsWith('SELECT COUNT')){assert.equal(values[0],'tenant-a');assert.ok(sql.includes('tenant_id::text=$1'));return {rows:[{count}]};}
-  if(sql.startsWith('SELECT id,email')){assert.equal(values[0],'tenant-a');assert.ok(!sql.includes('password'));return {rows:[{id:'actor',email:'actor@example.invalid',roles:'ceo',status:'active',updated_at:null},{id:'target',email:'target@example.invalid',roles:'rmt',status:'active',updated_at:null}]};}
+  if(sql.startsWith('SELECT id,email')){assert.equal(values[0],'tenant-a');assert.ok(!sql.includes('password'));return {rows:[{id:'actor',email:'actor@example.invalid',roles:'ceo',status:'active',updated_at:null,...rowOverride},{id:'target',email:'target@example.invalid',roles:'rmt',status:'active',updated_at:null}]};}
   assert.ok(sql.startsWith('BEGIN')||sql==='ROLLBACK',sql);return {rows:[]};
  };
 };
@@ -69,3 +69,6 @@ test('unsupported account methods return a method contract without accessing the
 });
 
 test("account list rejects malformed counts and rolls back",async()=>{for(const bad of ["3",null,true,-1,1.5,Infinity,Number.MAX_SAFE_INTEGER+1]){fixture();count=bad;const r=await call();assert.equal(r.status,503);assert.equal(queries.at(-1).sql,"ROLLBACK");assert.ok(!(await r.text()).includes("Invalid account count"));}});
+
+test('account list drops unexpected adapter fields',async()=>{fixture();rowOverride={password_hash:'private-adapter-value',tenant_id:'private-adapter-value'};const r=await call();assert.equal(r.status,200);const data=await r.json();assert.deepEqual(Object.keys(data.users[0]).sort(),['id','email','roles','status','updated_at','canModify'].sort());assert.ok(!JSON.stringify(data).includes('private-adapter-value'));});
+test('account list rejects corrupt projected fields without coercion',async()=>{for(const row of [{id:null},{id:{}},{email:{}},{roles:null},{status:42},{updated_at:undefined},{updated_at:'invalid'},{updated_at:new Date(NaN)},{updated_at:'2026-02-30T00:00:00Z'}]){fixture();rowOverride=row;const r=await call();assert.equal(r.status,503);assert.equal(r.headers.get('cache-control'),'no-store');assert.equal(queries.at(-1).sql,'ROLLBACK');assert.deepEqual(await r.json(),{error:'Account list unavailable'});}});

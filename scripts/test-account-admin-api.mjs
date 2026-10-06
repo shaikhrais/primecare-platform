@@ -1,20 +1,20 @@
 import {build} from 'esbuild';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-let actor,target,queries,failAudit,rateAttempts,count;
-function fixture(role='ceo',found=true){actor=role?{id:'actor',roles:role,tenant_id:'tenant-a'}:null;target=found?{id:'target'}:null;queries=[];failAudit=false;rateAttempts=0;count=2;
+let actor,target,queries,failAudit,rateAttempts,count,rowOverride;
+function fixture(role='ceo',found=true){actor=role?{id:'actor',roles:role,tenant_id:'tenant-a'}:null;target=found?{id:'target'}:null;queries=[];failAudit=false;rateAttempts=0;count=2;rowOverride={};
  globalThis.__adminQuery=async(sql,values)=>{
   queries.push({sql,values});
   if(sql.includes('WHERE s.token_hash=$1'))return {rows:actor?[actor]:[]};
   if(sql.startsWith('INSERT INTO auth_rate_limits'))return {rows:[{attempts:++rateAttempts,retry_after:60}]};
-  if(sql.startsWith('SELECT id,email,roles,status,updated_at')){assert.deepEqual(values,['target','tenant-a']);return {rows:target?[{id:'target',email:'target@example.invalid',roles:'rmt',status:'active',updated_at:null,password_hash:'should-not-leak',tenant_id:'should-not-leak'}]:[]};}
-  if(sql.startsWith('SELECT id,actor_user_id')&&sql.includes('FROM auth_account_audit'))return {rows:[{id:'creation',actorUserId:'actor',targetUserId:'target',created_at:'2026-01-01T00:00:00Z',secret:'should-not-leak'}]};
+  if(sql.startsWith('SELECT id,email,roles,status,updated_at')){assert.deepEqual(values,['target','tenant-a']);return {rows:target?[{id:'target',email:'target@example.invalid',roles:'rmt',status:'active',updated_at:null,password_hash:'should-not-leak',tenant_id:'should-not-leak',...rowOverride}]:[]};}
+  if(sql.startsWith('SELECT id,actor_user_id')&&sql.includes('FROM auth_account_audit'))return {rows:[{id:'creation',actorUserId:'actor',targetUserId:'target',created_at:'2026-01-01T00:00:00Z',secret:'should-not-leak',...rowOverride}]};
   if(sql.startsWith('SELECT id FROM users')){assert.deepEqual(values,['target','tenant-a']);return {rows:target?[target]:[]};}
   if(sql.startsWith('WITH revoked AS'))return {rows:[{count}]};
   if(sql.startsWith('INSERT INTO auth_management_audit')){if(failAudit)throw Error('private-audit-secret');return {rows:[]};}
   if(sql.startsWith('SELECT COUNT'))return {rows:[{count}]};
-  if(sql.startsWith('SELECT created_at'))return {rows:[{created_at:'2026-01-01T00:00:00Z',expires_at:'2026-01-02T00:00:00Z',token_hash:'should-not-leak'}]};
-  if(sql.startsWith('SELECT id,actor_user_id'))return {rows:[{id:'audit',actorUserId:'actor',targetUserId:'target',created_at:'2026-01-01T00:00:00Z',action:'sessions_revoked',previous:{role:'rmt',sessionCount:2,password:'should-not-leak'},current:{role:{private:'should-not-leak'},status:'inactive',sessionCount:0,key:'should-not-leak'},unexpected:'should-not-leak'}]};
+  if(sql.startsWith('SELECT created_at'))return {rows:[{created_at:'2026-01-01T00:00:00Z',expires_at:'2026-01-02T00:00:00Z',token_hash:'should-not-leak',...rowOverride}]};
+  if(sql.startsWith('SELECT id,actor_user_id'))return {rows:[{id:'audit',actorUserId:'actor',targetUserId:'target',created_at:'2026-01-01T00:00:00Z',action:'sessions_revoked',previous:{role:'rmt',sessionCount:2,password:'should-not-leak'},current:{role:{private:'should-not-leak'},status:'inactive',sessionCount:0,key:'should-not-leak'},unexpected:'should-not-leak',...rowOverride}]};
   assert.ok(sql.startsWith('BEGIN')||['COMMIT','ROLLBACK'].includes(sql),sql);return {rows:[]};
  };
 }
@@ -106,3 +106,14 @@ test('gateway forwards new account read routes and source limits apply before da
 });
 
 test("account administration rejects malformed counts without commit or audit",async()=>{for(const [path,method] of [["/admin/users/target/sessions","GET"],["/admin/users/target/sessions","DELETE"],["/admin/users/audit","GET"],["/admin/users/creation-audit","GET"]])for(const bad of ["2",null,true,-1,1.5,Infinity,Number.MAX_SAFE_INTEGER+1]){fixture();count=bad;const r=await call(path,method);assert.equal(r.status,503);assert.equal(queries.at(-1).sql,"ROLLBACK");assert.ok(!queries.some(q=>q.sql==="COMMIT"||q.sql.startsWith("INSERT INTO auth_management_audit")));assert.ok(!(await r.text()).includes("Invalid account count"));}});
+
+for(const [name,path,invalid] of [
+ ['account detail','/admin/users/target',[{id:null},{id:{}},{email:{}},{roles:{}},{status:42},{updated_at:undefined},{updated_at:'invalid'}]],
+ ['session dates','/admin/users/target/sessions',[{created_at:null},{created_at:42},{expires_at:'invalid'},{expires_at:new Date(NaN)},{created_at:'2026-02-30T00:00:00Z'}]],
+ ['management audit','/admin/users/audit',[{id:null},{actorUserId:{}},{targetUserId:42},{created_at:null},{created_at:'invalid'},{action:'unexpected'}]],
+ ['creation audit','/admin/users/creation-audit',[{id:null},{actorUserId:{}},{targetUserId:42},{created_at:null},{created_at:'invalid'}]]
+]) {
+ test(name+' rejects corrupt projected rows with sanitized rollback',async()=>{for(const row of invalid){fixture();rowOverride=row;const r=await call(path);assert.equal(r.status,503,JSON.stringify(row));assert.equal(queries.at(-1).sql,'ROLLBACK');assert.equal(r.headers.get('cache-control'),'no-store');assert.deepEqual(await r.json(),{error:'Authentication service unavailable'});}});
+}
+test('account detail retains registered nullable role and status fields',async()=>{fixture();rowOverride={roles:null,status:null};const r=await call('/admin/users/target');assert.equal(r.status,200);const data=await r.json();assert.equal(data.user.roles,null);assert.equal(data.user.status,null);});
+test('PostgreSQL Date instances serialize to contract timestamps for all admin reads',async()=>{for(const path of ['/admin/users/target','/admin/users/target/sessions','/admin/users/audit','/admin/users/creation-audit']){fixture();const date=new Date('2026-01-01T00:00:00Z');rowOverride={updated_at:date,created_at:date,expires_at:date};const r=await call(path);assert.equal(r.status,200);assert.ok((await r.text()).includes(date.toISOString()));}});

@@ -1,3 +1,4 @@
+import {accountUser} from './account-read-projection';
 import type {Client} from 'pg';
 import policy from './account-policy.json';
 const exactCount=(value:unknown)=>{if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid account count');return value;};
@@ -19,7 +20,7 @@ export async function listAccounts(db:Client,actor:{id:string;roles:string;tenan
   const total=exactCount((await db.query('SELECT COUNT(*)::int AS count FROM users WHERE '+filter,values)).rows[0].count);
   const users=(await db.query('SELECT id,email,roles,status,updated_at FROM users WHERE '+filter+' ORDER BY LOWER(email),id LIMIT $6 OFFSET $7',
     [...values,Number(limit),Number(offset)])).rows;
-  return {status:200,body:{users:users.map(u=>({...u,canModify:String(u.id).toLowerCase()!==actor.id.toLowerCase()})),
+  return {status:200,body:{users:users.map(u=>accountUser(u,actor.id)),
     assignableRoles:policy.ceo,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(offset)+Number(limit)<total}}};
 }
 
