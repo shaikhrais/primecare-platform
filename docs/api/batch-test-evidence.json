@@ -109,6 +109,8 @@
     "scripts/register-account-count-validation-api.py": "f48de29c41543cf1c59dd1b9f325d47e4f1e36b97b360a2302619c9ecd502eb1",
     "scripts/register-workspace-count-validation-api.py": "405b55af49245f1dbadd88723843aefb9ac37b62bbcca4ee3b3520f1d729fb3d",
     "scripts/register-api-service-status.py": "46a46b0da30ac2b502523f1b6be9dac438a8efb79eaa427d28af7fad5b8f4977",
-    "scripts/register-owned-commerce-authoring-api.py": "e51824b5815ba761a1f48a410ab2ed33ca7f39fdae68e0c88a90dfa4559fee6a"
+    "scripts/register-owned-commerce-authoring-api.py": "e51824b5815ba761a1f48a410ab2ed33ca7f39fdae68e0c88a90dfa4559fee6a",
+    "scripts/register-governed-read-aliases.py": "9532b13a9ceb5edccd50ffcc77be9454c871340d1f3a143dda3fec1c98b1787f",
+    "scripts/test-read-alias-authority-guard.py": "51c198df89ec3483af570c7c154c4dfbe50833cbd4c624daf57601a2a7adefd0"
   }
 }
