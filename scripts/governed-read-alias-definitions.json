@@ -486,5 +486,21 @@
     "targetPath": "/prescription-records",
     "canonical": "/v1/client/prescription-records",
     "spec": "own-patient-metadata-batches-166-168.openapi.json"
+  },
+  {
+    "batch": 212,
+    "name": "payment",
+    "service": "client",
+    "targetPath": "/payments",
+    "canonical": "/v1/client/payments",
+    "spec": "client-payment-history-batches-209-211.openapi.json"
+  },
+  {
+    "batch": 216,
+    "name": "timesheetitem",
+    "service": "provider",
+    "targetPath": "/timesheet-items",
+    "canonical": "/v1/provider/timesheet-items",
+    "spec": "provider-timesheet-items-batches-213-215.openapi.json"
   }
 ]
