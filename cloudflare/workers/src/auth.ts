@@ -83,6 +83,37 @@ async function mutationLimit(db:Client,token:string,operation:AuthOperation,head
     {...headers,'retry-after':String(retryAfter)});
 }
 
+/** Bound maintenance payloads by wire bytes, including chunked requests. */
+async function maintenanceBody(request: Request): Promise<Json | null> {
+  const limit = 50_000;
+  const declared = request.headers.get('content-length');
+  if (declared !== null && /^\d+$/.test(declared) && Number(declared) > limit) return null;
+  const reader = request.body?.getReader();
+  if (!reader) throw new Error('Invalid JSON object');
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  try {
+    while (true) {
+      const {done, value} = await reader.read();
+      if (done) break;
+      size += value.byteLength;
+      if (size > limit) {
+        await reader.cancel().catch(() => {});
+        return null;
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  const bytes = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+  const body = JSON.parse(new TextDecoder().decode(bytes));
+  if (!body || typeof body !== 'object' || Array.isArray(body)) throw new Error('Invalid JSON object');
+  return body as Json;
+}
+
 async function handleAuth(request: Request, env: Env, path: string, headers: HeadersInit): Promise<Response | null> {
   const records=await selfRecords(request,env,path,headers);
   if(records)return records;
@@ -117,7 +148,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     const token=request.headers.has('authorization')?tokenFrom(request):null;
     if(!token)return json({error:'No session'},401,headers);
     let body:Json={};
-    try {if(request.method==='POST'){if(Number(request.headers.get('content-length'))>50000)return json({error:'Request too large'},413,headers);const raw=await request.text();if(raw.length>50000)return json({error:'Request too large'},413,headers);body=JSON.parse(raw);if(!body || typeof body!=='object' || Array.isArray(body))throw new Error();}}
+    try {if(request.method==='POST'){const parsed=await maintenanceBody(request);if(parsed===null)return json({error:'Request too large'},413,headers);body=parsed;}}
     catch {return json({error:'Invalid request'},400,headers);}
     return withDb(env,async db=>{
       await db.query('BEGIN');

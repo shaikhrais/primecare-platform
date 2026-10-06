@@ -251,3 +251,45 @@ test('maintenance rejects missing sessions, ordinary roles and forged tenant hea
  assert.equal((await auth(forged,env,'/maintenance/configuration',{})).status,403);
  assert.ok(!queries.some(q=>q.sql.includes('tenant_mail_configuration')));
 });
+
+for (const path of ['/maintenance/configuration','/maintenance/configuration/test-email']) {
+ test(path+' rejects oversized UTF-8 before database access',async()=>{
+  const raw=JSON.stringify({value:'é'.repeat(25_000)});
+  assert.ok(raw.length<50_000);
+  const response=await auth(new Request('https://auth.test'+path,{method:'POST',headers:{authorization:'Bearer '+'A'.repeat(43)},body:raw}),env,path,{});
+  assert.equal(response.status,413);assert.equal(response.headers.get('cache-control'),'no-store');assert.equal(queries.length,0);
+ });
+ test(path+' bounds chunked bodies and cancels before later chunks',async()=>{
+  let pulls=0,cancelled=false;
+  const stream=new ReadableStream({pull(controller){pulls++;controller.enqueue(new Uint8Array(25_001));},cancel(){cancelled=true;}},{highWaterMark:0});
+  const response=await auth(new Request('https://auth.test'+path,{method:'POST',headers:{authorization:'Bearer '+'A'.repeat(43),'content-length':'1'},body:stream,duplex:'half'}),env,path,{});
+  assert.equal(response.status,413);assert.equal(pulls,2);assert.equal(cancelled,true);assert.equal(queries.length,0);
+ });
+ test(path+' accepts exact byte boundary for JSON parsing and rejects one byte more',async()=>{
+  for(const size of [50_000,50_001]) {
+   queries=[];
+   const raw='{"value":"'+'a'.repeat(size-12)+'"}';
+   assert.equal(Buffer.byteLength(raw),size);
+   const response=await auth(new Request('https://auth.test'+path,{method:'POST',headers:{authorization:'Bearer '+'A'.repeat(43)},body:raw}),env,path,{});
+   assert.equal(response.status,size===50_000?401:413);
+   assert.equal(queries.length>0,size===50_000);
+  }
+ });
+ test(path+' decodes UTF-8 split between chunks and rejects malformed JSON',async()=>{
+  const bytes=new TextEncoder().encode('{"value":"é"}');let offset=0;
+  const stream=new ReadableStream({pull(controller){if(offset===bytes.length){controller.close();return;}controller.enqueue(bytes.slice(offset,++offset));}},{highWaterMark:0});
+  const response=await auth(new Request('https://auth.test'+path,{method:'POST',headers:{authorization:'Bearer '+'A'.repeat(43)},body:stream,duplex:'half'}),env,path,{});
+  assert.equal(response.status,401);assert.ok(queries.length>0);
+  for(const raw of ['{','[]','null']) {
+   queries=[];
+   const invalid=await auth(new Request('https://auth.test'+path,{method:'POST',headers:{authorization:'Bearer '+'A'.repeat(43)},body:raw}),env,path,{});
+   assert.equal(invalid.status,400);assert.equal(queries.length,0);
+  }
+ });
+ test(path+' rejects declared oversize without reading body',async()=>{
+  let pulls=0;
+  const stream=new ReadableStream({pull(){pulls++;}},{highWaterMark:0});
+  const response=await auth(new Request('https://auth.test'+path,{method:'POST',headers:{authorization:'Bearer '+'A'.repeat(43),'content-length':'50001'},body:stream,duplex:'half'}),env,path,{});
+  assert.equal(response.status,413);assert.equal(pulls,0);assert.equal(queries.length,0);
+ });
+}
