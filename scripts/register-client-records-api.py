@@ -18,12 +18,15 @@ event_definitions=[
  ('/progress-note-records','narrative_progress_notes','notes','note',['id','recorded_at'],'recorded_at'),
  ('/care-follow-up-records','care_plan_follow_ups','followUps','followUp',['id','recorded_at'],'recorded_at')]
 definitions.extend(r[:5] for r in event_definitions)
+definitions.append(('/family-notification-records','family_notifications','notifications','notification',['id','type','is_read','created_at']))
 order_fields={r[1]:r[5] for r in event_definitions}
 event_batches={r[1]:179+i for i,r in enumerate(event_definitions)}
 owner_fields={'patient_alerts':'patient_id','claims':'patient_id','prescriptions':'patient_id'}
 batches={'care_plans':172,'clinical_assessments':173,'medication_reconciliations':174,'patient_alerts':166,'claims':167,'prescriptions':168,'feedbacks':36,'care_feedbacks':38,'messages_threads':46,'family_members':48}
 batches.update(event_batches)
+batches.update(family_notifications=222)
 summary_batches={'care_plans':175,'clinical_assessments':176,'medication_reconciliations':177,'patient_alerts':169,'claims':170,'prescriptions':171,'feedbacks':37,'care_feedbacks':39,'messages_threads':47,'family_members':49}
+summary_batches.update(family_notifications=223)
 summary_batches.update({r[1]:188 if r[1]=='provider_shift_logs' else 0 for r in event_definitions})
 paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0}}
 pagination={'type':'object','required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}}
@@ -39,10 +42,10 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
   relationships={name:(foreign,target,key) for name,foreign,target,key in db.execute('SELECT c.column_name,c.is_foreign,c.foreign_table_name,c.foreign_column_name FROM db_schema_columns c JOIN db_schema_tables t ON t.id=c.table_id WHERE t.table_name=?',(table,))}
   if relationships.get(owner_field)!=(1,'client_profiles','id') or relationships.get('tenant_id')!=(1,'tenants','id'):raise RuntimeError('Unregistered client/tenant relationship: '+table)
   if order_field not in fields or 'timestamp' not in columns[order_field][0] or columns[order_field][1]:raise RuntimeError('Stable non-null timestamp ordering required: '+table)
-  batch=batches.get(table,21);summary_field={'provider_shift_logs':'shiftStatus','clinical_assessments':'type','care_feedbacks':'triage_status','messages_threads':'thread_type','family_members':'relationship'}.get(table,'status')
+  batch=batches.get(table,21);summary_field={'provider_shift_logs':'shiftStatus','clinical_assessments':'type','family_notifications':'type','care_feedbacks':'triage_status','messages_threads':'thread_type','family_members':'relationship'}.get(table,'status')
   properties={}
   for field in fields:
-   kind,nullable=columns[field];typ='integer' if kind in ['int4','int8','bigint','integer'] else 'number' if kind in ['float8','numeric','decimal'] else 'string'
+   kind,nullable=columns[field];typ='boolean' if kind in ['bool','boolean'] else 'integer' if kind in ['int4','int8','bigint','integer'] else 'number' if kind in ['float8','numeric','decimal'] else 'string'
    properties[field]={'type':[typ,'null'] if nullable else typ}
    if 'timestamp' in kind:properties[field]['format']='date-time'
   record={'type':'object','additionalProperties':False,'required':fields,'properties':properties}
@@ -86,6 +89,10 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  new_roots=['/v1/client'+r['path'] for r in records if 36<=r['batch']<=38]
  new_paths={p:v for p,v in paths.items() if any(p==root or p.startswith(root+'/') for root in new_roots)}
  (ROOT/'docs/api/client-feedback-batches-36-38.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Owned Feedback Reads Batches 36 and 38','version':'1.0.0'},'paths':new_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
+ notification_paths={p:v for p,v in paths.items() if p.startswith('/v1/client/family-notification-records')}
+ for operation in notification_paths.values():operation['get']['description']='Read only family-notification metadata directly linked to the active actor-owned ClientProfile and tenant. Every record query binds client_id and tenant_id; exactly one owned profile is required. Project only ID, stored notification type, boolean read flag and creation timestamp. Message text is excluded. These client-owned reads grant no family proxy, linked-family-user or conversation access. Stored read flags do not prove delivery or acknowledgement. Bounded stable paging, exact owned detail, read-only snapshots, no-store and source limits; no mutations or grants.'
+ (ROOT/'docs/api/client-family-notifications-batch-222.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Own Client Family Notification Metadata','version':'1.0.0'},'paths':notification_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
+ paths={p:v for p,v in paths.items() if p not in notification_paths}
  owner_roots=['/v1/client'+r['path'] for r in records if r['batch']>=46]
  owner_paths={p:v for p,v in paths.items() if any(p==root or p.startswith(root+'/') for root in owner_roots)}
  (ROOT/'docs/api/client-thread-family-batches-46-48.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Owned Conversation and Family-Link Metadata','version':'1.0.0'},'paths':owner_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')

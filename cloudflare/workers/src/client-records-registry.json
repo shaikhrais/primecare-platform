@@ -594,5 +594,31 @@
       "id": "string",
       "recorded_at": "string"
     }
+  },
+  {
+    "orderField": "created_at",
+    "ownerField": "client_id",
+    "batch": 222,
+    "summaryBatch": 223,
+    "summaryField": "type",
+    "path": "/family-notification-records",
+    "table": "family_notifications",
+    "collection": "notifications",
+    "item": "notification",
+    "fields": [
+      "id",
+      "type",
+      "is_read",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "type": "string",
+      "is_read": "boolean",
+      "created_at": "string"
+    }
   }
 ]

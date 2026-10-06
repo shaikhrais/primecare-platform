@@ -453,5 +453,12 @@
     "service": "auth",
     "targetPath": "/me/authored-message-records",
     "canonical": "/v1/auth/me/authored-message-records"
+  },
+  {
+    "batch": 224,
+    "path": "/v1/premium/familynotification",
+    "service": "client",
+    "targetPath": "/family-notification-records",
+    "canonical": "/v1/client/family-notification-records"
   }
 ]
