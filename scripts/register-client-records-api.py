@@ -6,9 +6,10 @@ definitions=[('/consents','consent_forms','consents','consent',['id','form_type'
 definitions.extend([('/feedback','feedbacks','feedback','feedback',['id','rating','status','created_at','updated_at']),('/care-feedback','care_feedbacks','feedback','feedback',['id','rating','triage_status','created_at'])])
 definitions.extend([('/conversation-threads','messages_threads','threads','thread',['id','thread_type','created_at']),('/family-links','family_members','links','link',['id','relationship','created_at','updated_at'])])
 definitions.extend([('/alert-records','patient_alerts','alerts','alert',['id','type','severity','status','created_at']),('/insurance-claim-records','claims','claims','claim',['id','status','service_date','created_at']),('/prescription-records','prescriptions','prescriptions','prescription',['id','status','created_at'])])
+definitions.extend([('/care-plan-records','care_plans','plans','plan',['id','status','review_date','created_at','updated_at']),('/assessment-records','clinical_assessments','assessments','assessment',['id','type','created_at']),('/medication-reconciliation-records','medication_reconciliations','reconciliations','reconciliation',['id','status','created_at'])])
 owner_fields={'patient_alerts':'patient_id','claims':'patient_id','prescriptions':'patient_id'}
-batches={'patient_alerts':166,'claims':167,'prescriptions':168,'feedbacks':36,'care_feedbacks':38,'messages_threads':46,'family_members':48}
-summary_batches={'patient_alerts':169,'claims':170,'prescriptions':171,'feedbacks':37,'care_feedbacks':39,'messages_threads':47,'family_members':49}
+batches={'care_plans':172,'clinical_assessments':173,'medication_reconciliations':174,'patient_alerts':166,'claims':167,'prescriptions':168,'feedbacks':36,'care_feedbacks':38,'messages_threads':46,'family_members':48}
+summary_batches={'care_plans':175,'clinical_assessments':176,'medication_reconciliations':177,'patient_alerts':169,'claims':170,'prescriptions':171,'feedbacks':37,'care_feedbacks':39,'messages_threads':47,'family_members':49}
 paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0}}
 pagination={'type':'object','required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}}
 paths={};records=[]
@@ -18,7 +19,7 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
   owner_field=owner_fields.get(table,'client_id')
   columns={name:(kind,nullable) for name,kind,nullable in db.execute('SELECT c.column_name,c.data_type,c.is_nullable FROM db_schema_columns c JOIN db_schema_tables t ON t.id=c.table_id WHERE t.table_name=?',(table,))}
   if not all(name in columns and re.fullmatch(r'[a-z_]+',name) for name in [*fields,owner_field,'tenant_id','created_at']):raise RuntimeError('Missing registered ownership/projection columns: '+table)
-  batch=batches.get(table,21);summary_field={'care_feedbacks':'triage_status','messages_threads':'thread_type','family_members':'relationship'}.get(table,'status')
+  batch=batches.get(table,21);summary_field={'clinical_assessments':'type','care_feedbacks':'triage_status','messages_threads':'thread_type','family_members':'relationship'}.get(table,'status')
   properties={}
   for field in fields:
    kind,nullable=columns[field];typ='integer' if kind in ['int4','int8','bigint','integer'] else 'number' if kind in ['float8','numeric','decimal'] else 'string'
@@ -41,6 +42,11 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
     sample={f:('2026-01-01T12:00:00Z' if properties[f].get('format')=='date-time' else 'record-id' if f=='id' else 'stored') for f in fields}
     example={item:sample} if detail else {collection:[sample],'pagination':{'limit':25,'offset':0,'total':1,'hasMore':False}}
     paths[route]['get']['responses']['200']['content']['application/json']['example']=example
+ care_roots=['/v1/client'+r['path'] for r in records if 172<=r['batch']<=174]
+ care_paths={p:v for p,v in paths.items() if any(p==root or p.startswith(root+'/') for root in care_roots)}
+ for operation in care_paths.values():operation['get']['description']='Read only own care-plan, clinical-assessment or medication-reconciliation metadata. Active explicit bearer, matching non-null tenant and exactly one actor-owned ClientProfile required. Every data query binds the explicit client_id relationship to that profile and tenant_id to the actor tenant. Return only registered IDs, stored status/type labels and timestamps. Exclude diagnoses, goals, interventions, scores, recommendations, reconciliation data, discrepancies, author/RN identifiers and clinical contents. Stored labels and review dates are not clinical instructions, evidence of safety, access to contents or authority to act. Bounded stable paging, exact owned detail, no-store read-only repeatable-read snapshots and source limits. Existing authored User compatibility routes retain their original scope. No delegated access, writes or role grants.'
+ (ROOT/'docs/api/own-client-care-metadata-batches-172-174.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Own Client Care Metadata','version':'1.0.0'},'paths':care_paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
+ paths={p:v for p,v in paths.items() if p not in care_paths}
  patient_roots=['/v1/client'+r['path'] for r in records if 166<=r['batch']<=168]
  patient_paths={p:v for p,v in paths.items() if any(p==root or p.startswith(root+'/') for root in patient_roots)}
  for operation in patient_paths.values():operation['get']['description']='Read only own patient-linked alert, insurance-claim or prescription metadata. Active explicit bearer, matching non-null tenant and exactly one actor-owned ClientProfile required. Every data query binds patient_id to that ClientProfile and tenant_id to the actor tenant. Claim provider_id refers to InsuranceProvider and grants no care-provider access. Expose registered IDs, stored statuses, alert type/severity and timestamps only. Exclude alert messages, medications, dosage/frequency/instructions, prescriber/provider identifiers, claim amounts/denials and private clinical contents. Stored statuses are not diagnoses, instructions, coverage approval, payment settlement or permission to act. Bounded lists and exact owned detail, no-store read-only repeatable-read snapshots and source limits. No delegated family access, writes or role grants.'
