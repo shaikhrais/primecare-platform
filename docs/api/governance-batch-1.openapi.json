@@ -166,7 +166,7 @@
       "get": {
         "operationId": "governance_page_progress",
         "summary": "Group registered page completion by application.",
-        "description": "Active bearer session and tenant required. Existing inventory authority required. Catalog evidence is recorded evidence, never a live probe.",
+        "description": "Active bearer session and tenant required. Existing inventory authority required. Catalog evidence is recorded evidence, never a live probe. Screen, app, role and search filters apply to source screen records before grouping by application; pagination counts application groups.",
         "security": [
           {
             "bearerAuth": []
@@ -480,7 +480,7 @@
       "get": {
         "operationId": "governance_role_coverage",
         "summary": "List active roles, granted page counts and landing coverage.",
-        "description": "Active bearer session and tenant required. Existing inventory authority required. Catalog evidence is recorded evidence, never a live probe.",
+        "description": "Active bearer session and tenant required. Existing inventory authority required. Catalog evidence is recorded evidence, never a live probe. App and screen filters scope granted pages before role counts; role and search select role summaries. Roles with zero matching grants remain present; landingAuthorized refers to the scoped pages.",
         "security": [
           {
             "bearerAuth": []

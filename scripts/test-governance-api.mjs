@@ -30,7 +30,7 @@ function fixture(role='ceo',tenant='tenant-a') {
   return {rows:[]};
  };
 }
-test('fourteen registered APIs return bounded responses and precise evidence types',async()=>{
+test('registered APIs return bounded responses and precise evidence types',async()=>{
  assert.equal(catalog.bindings.length,15);
  for(const {path} of catalog.bindings) {
   const response=await call(path,'?limit=3');assert.equal(response.status,200,path);
@@ -120,3 +120,29 @@ test('organization map rejects corrupt and duplicate role counts',async()=>{for(
 
 test('service status preserves all declarations without assigning Prisma labels to a service',async()=>{const inventory=JSON.parse(await readFile('cloudflare/workers/src/api-execution-inventory.json','utf8'));const rows=serviceVerificationSummary(inventory.data);assert.equal(rows.length,13);assert.equal(rows.filter(r=>r.gatewayBound).length,12);assert.equal(rows.reduce((sum,r)=>sum+r.declaredOperations,0),inventory.data.length);assert.ok(rows.find(r=>r.service==='unassigned').unmappedServiceLabels.includes('PRISMA'));assert.ok(rows.every(r=>r.productionVerified===false&&r.postgresVerified===false));const r=await call('/api-service-status','?limit=100');assert.equal(r.status,200);assert.deepEqual((await r.json()).data,rows);});
 test('service status filters operation rows before aggregation and pages group rows',async()=>{const r=await call('/api-service-status','?search=no-such-operation-unique&limit=100');const body=await r.json();assert.equal(body.pagination.total,13);assert.ok(body.data.every(r=>r.declaredOperations===0));const page=await (await call('/api-service-status','?offset=12&limit=1')).json();assert.equal(page.data[0].service,'unassigned');assert.equal(page.pagination.hasMore,false);});
+
+
+test('page progress filters source screens before aggregating application groups',async()=>{
+ for(const query of ['?role=ceo&limit=100','?screen=ceo_dashboard&limit=100','?app=co&role=ceo&limit=100','?search=ceo_dashboard&limit=100']) {
+  const source=await (await call('/screen-health',query)).json();
+  const progress=await (await call('/page-progress',query)).json();
+  assert.ok(source.data.length>0,query);
+  assert.equal(progress.data.reduce((sum,row)=>sum+row.total,0),source.pagination.total,query);
+  for(const row of progress.data){const screens=source.data.filter(screen=>screen.app===row.app);assert.equal(row.total,screens.length);assert.equal(row.pagesWithBlockers,screens.filter(screen=>screen.blockers.length).length);}
+ }
+ const missing=await (await call('/page-progress','?screen=missing-screen-unique')).json();assert.deepEqual(missing.data,[]);assert.equal(missing.pagination.total,0);
+ const full=await (await call('/page-progress','?role=ceo&limit=100')).json();
+ const page=await (await call('/page-progress','?role=ceo&limit=1&offset=1')).json();assert.deepEqual(page.data,full.data.slice(1,2));assert.equal(page.pagination.total,full.pagination.total);assert.equal(page.pagination.hasMore,2<full.pagination.total);
+});
+
+
+test('role coverage scopes granted pages before counting and retains zero-coverage roles',async()=>{
+ for(const scope of ['?app=co&role=ceo&limit=100','?screen=ceo_dashboard&role=ceo&limit=100','?app=co&screen=ceo_dashboard&role=ceo&limit=100']) {
+  const response=await call('/role-coverage',scope);assert.equal(response.status,200);const body=await response.json();assert.equal(body.pagination.total,1);
+  const query=new URL('https://fixture/'+scope).searchParams;
+  const expected=registry.screens.filter(page=>page.grants.some(grant=>grant.role==='ceo'&&grant.view)&&(!query.get('app')||page.appCode===query.get('app'))&&(!query.get('screen')||page.code===query.get('screen')));
+  assert.ok(expected.length>0);assert.equal(body.data[0].authorizedPages,expected.length);assert.equal(body.data[0].landingAuthorized,expected.some(page=>page.route===body.data[0].landing));
+ }
+ const empty=await (await call('/role-coverage','?app=no-such-app&role=ceo')).json();assert.equal(empty.pagination.total,1);assert.equal(empty.data[0].authorizedPages,0);assert.equal(empty.data[0].landingAuthorized,false);
+ const all=await (await call('/role-coverage','?screen=ceo_dashboard&limit=100')).json();assert.equal(all.pagination.total,catalog.roles.length);assert.ok(all.data.some(row=>row.authorizedPages===0));
+});
