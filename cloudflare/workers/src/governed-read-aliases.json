@@ -68,5 +68,40 @@
     "service": "provider",
     "targetPath": "/availability-overrides",
     "canonical": "/v1/provider/availability-overrides"
+  },
+  {
+    "batch": 116,
+    "path": "/v1/premium/dailyauditsignoff",
+    "service": "auth",
+    "targetPath": "/me/audit-signoff-records",
+    "canonical": "/v1/auth/me/audit-signoff-records"
+  },
+  {
+    "batch": 117,
+    "path": "/v1/premium/incident",
+    "service": "auth",
+    "targetPath": "/me/reported-incident-records",
+    "canonical": "/v1/auth/me/reported-incident-records"
+  },
+  {
+    "batch": 118,
+    "path": "/v1/premium/medicationrecon",
+    "service": "auth",
+    "targetPath": "/me/medication-reconciliation-records",
+    "canonical": "/v1/auth/me/medication-reconciliation-records"
+  },
+  {
+    "batch": 119,
+    "path": "/v1/premium/performancereview",
+    "service": "auth",
+    "targetPath": "/me/authored-review-records",
+    "canonical": "/v1/auth/me/authored-review-records"
+  },
+  {
+    "batch": 120,
+    "path": "/v1/premium/technicalaudit",
+    "service": "auth",
+    "targetPath": "/me/technical-audit-records",
+    "canonical": "/v1/auth/me/technical-audit-records"
   }
 ]

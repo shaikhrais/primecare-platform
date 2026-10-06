@@ -1,7 +1,8 @@
+const extraOwners={116:['daily_audit_signoffs','rn_id'],117:['incidents','reporter_user_id'],118:['medication_reconciliations','rn_id'],119:['performance_reviews','reviewer_id'],120:['technical_audits','performed_by_id']};
 // Exact gateway aliases tested through the real owned handlers against disposable PostgreSQL.
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {readFile,mkdtemp,rm} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
-const aliases=JSON.parse(await readFile('cloudflare/workers/src/governed-read-aliases.json','utf8')),spec=JSON.parse(await readFile('docs/api/governed-read-aliases-batches-106-115.openapi.json','utf8'));
+const aliases=JSON.parse(await readFile('cloudflare/workers/src/governed-read-aliases.json','utf8')),spec=JSON.parse(await readFile('docs/api/governed-read-aliases-batches-106-120.openapi.json','utf8'));
 const dir=await mkdtemp(join(tmpdir(),'read-alias-pg-'));await build({entryPoints:['cloudflare/workers/src/gateway.ts','cloudflare/workers/src/service.ts'],outdir:dir,bundle:true,platform:'node',format:'cjs'});const require=createRequire(import.meta.url),{default:gateway}=require(join(dir,'gateway.js')),{default:service}=require(join(dir,'service.js'));
 const db=new Client({connectionString:url.href});await db.connect();const users=Array.from({length:3},()=>randomUUID()),profiles=Array.from({length:3},()=>randomUUID()),tenants=[randomUUID(),randomUUID()],tokens=['p'.repeat(43),'q'.repeat(43),'r'.repeat(43)],created=[];let checks=0;
 const hash=value=>createHash('sha256').update(value).digest('hex');
@@ -14,8 +15,8 @@ try{
  for(const alias of aliases){
   const properties=spec.paths[alias.path].get.responses['200'].content['application/json'].schema.properties;
   const collection=Object.keys(properties).find(key=>key!=='pagination'),record=properties[collection].items,fields=Object.keys(record.properties);
-  const table=alias.batch===106?'app_notifications':alias.batch===107?'staff_tasks':alias.batch===108?'bookings':alias.batch===109?'booking_requests':alias.batch===110?'provider_documents':alias.batch===111?'daily_activities':alias.batch===112?'wellness_pulses':alias.batch===113?'iot_events':alias.batch===114?'provider_availability':'provider_availability_overrides';
-  const owner=alias.batch===106?'user_id':alias.batch===107?'assignee_id':alias.service==='provider'?'provider_id':alias.service==='auth'?'user_id':'client_id';
+  const table=extraOwners[alias.batch]?.[0] ?? (alias.batch===106?'app_notifications':alias.batch===107?'staff_tasks':alias.batch===108?'bookings':alias.batch===109?'booking_requests':alias.batch===110?'provider_documents':alias.batch===111?'daily_activities':alias.batch===112?'wellness_pulses':alias.batch===113?'iot_events':alias.batch===114?'provider_availability':'provider_availability_overrides');
+  const owner=extraOwners[alias.batch]?.[1] ?? (alias.batch===106?'user_id':alias.batch===107?'assignee_id':alias.service==='provider'?'provider_id':alias.service==='auth'?'user_id':'client_id');
   const quote=field=>'"'+field+'"';
   const columns=fields.map(field=>{const definition=record.properties[field],type=Array.isArray(definition.type)?definition.type[0]:definition.type;return quote(field)+' '+(definition.format==='date-time'?'TIMESTAMP':type==='boolean'?'BOOLEAN':type==='integer'?'INTEGER':'TEXT');});
   await db.query('CREATE TABLE '+table+'('+columns.join(',')+','+owner+' TEXT'+(alias.batch===110?'':',tenant_id TEXT')+',private_contents TEXT)');created.push(table);
@@ -33,5 +34,5 @@ try{
  await db.query('UPDATE provider_profiles SET tenant_id=$1 WHERE id=$2',[tenants[1],profiles[0]]);assert.equal((await call(aliases[4])).status,404);checks++;
  await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 second' WHERE user_id=$1",[users[0]]);for(const alias of aliases)assert.equal((await call(alias)).status,401);checks++;
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[users[1]]);for(const alias of aliases)assert.equal((await call(alias,'',tokens[1])).status,401);checks++;
- console.log(`Governed read alias batches 106–115 passed ${checks} PostgreSQL gateway checks (${process.env.AUTH_TEST_ID_TYPE} auth identities).`);
+ console.log(`Governed read alias batches 106–120 passed ${checks} PostgreSQL gateway checks (${process.env.AUTH_TEST_ID_TYPE} auth identities).`);
 }finally{for(const table of created.reverse())await db.query('DROP TABLE '+table);await db.query('DELETE FROM auth_sessions WHERE user_id::text=ANY($1)',[users]);await db.query('DELETE FROM users WHERE id::text=ANY($1)',[users]);await db.end();await rm(dir,{recursive:true,force:true});}
