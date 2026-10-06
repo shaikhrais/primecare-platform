@@ -55,3 +55,20 @@ Ten new focused regressions cover both routes: UTF-8 oversize, stream cancellati
 All five operations retain existing CEO, active-bearer and tenant restrictions. Invalid projected rows return sanitized no-store 503 and roll back. Tests cover unexpected fields, invalid types, calendar dates, PostgreSQL Date instances, and registered nullable values. The PostgreSQL suite adds five real infinity-timestamp rejection checks per identity type. Contract registration preflights the entire family, including both account-list declarations, before the first write; drift regression covers all five routes and the legacy list. This improves existing verified reads; declarations remain 1,416 with 337 local-fixture records, 1,069 pending and 10 blocked. Unchanged-head PostgreSQL and security CI passed before merge.
 
 Local validation: 1,695 API fixtures, eight Python authority regression tests, Worker TypeScript and governance guardian passed. Unchanged-head UUID/text PostgreSQL and security CI passed in run 37542800970 at 71e317df27a14c8045859518c4b0b478eb00f468. PR #105 merged as 9d302e1db0a79c4a93bb7e24b6d235ad7a92567e. Latest completed batch is 253; next batch is 254. No deployment or production database changes.
+
+
+## Iteration 7 — batches 254–258, authentication body bounds, in review
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 254 | Login | Stream JSON within a 50,000-byte limit before credential hashing and PostgreSQL. |
+| 255 | Forgot/reset password | Bound both recovery handlers before rate counters, bcrypt, database and email work. |
+| 256 | Own password change | Keep the explicit bearer requirement first, then enforce the byte limit. |
+| 257 | Account management | Keep the bearer requirement and existing CEO tenant policy; reject oversize before database access. |
+| 258 | Account creation | Keep the bearer requirement and role-assignment policy; reject oversize before database access. |
+
+The existing maintenance parser is now the shared authentication parser. Declared oversize rejects before reading; chunked and understated-length requests are measured by actual bytes and cancelled at the limit. Valid JSON still must be an object. Oversize returns no-store 413; malformed JSON retains its prior 400 behavior. Twenty-four new route regressions cover UTF-8, streamed bodies, misleading headers, early header rejection, malformed input and anonymous mutation denial. Existing 50,000-byte maintenance boundaries and split UTF-8 regressions continue to exercise the shared parser.
+
+This hardening adds no routes, grants or business writes and does not promote the pending public-auth governance declarations. Inventory remains 1,416 declarations, 337 with local fixture evidence, 1,069 pending and 10 blocked. The supplemental OpenAPI documents actual runtime bounds without changing pending declaration authority. Exact-head PostgreSQL and security CI must pass before merge.
+
+Local validation: 1,719 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. The PostgreSQL suite adds six oversized-route checks plus an unchanged-counter assertion per identity. Remote exact-head CI and merge remain pending.
