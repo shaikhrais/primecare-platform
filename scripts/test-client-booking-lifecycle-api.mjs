@@ -3,7 +3,7 @@ const plugin={name:'fixture',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg
 async function bundle(path){const r=await build({entryPoints:[path],bundle:true,write:false,platform:'node',format:'esm',plugins:[plugin]});return import('data:text/javascript;base64,'+Buffer.from(r.outputFiles[0].text).toString('base64'));}
 const {clientBookingLifecycle}=await bundle('cloudflare/workers/src/client-booking-lifecycle.ts');const {default:gateway}=await bundle('cloudflare/workers/src/gateway.ts');
 let queries,actor,profiles,owned,prior,auditFail,sessionValid,count;
-const row={id:'request',service_type:'massage',preferred_date:'2026-10-06T12:00:00.000Z',preferred_time:null,status:'pending',created_at:'now',updated_at:'now',notes:'private-note',client_id:'private'};
+const row={id:'request',service_type:'massage',preferred_date:'2026-10-06T12:00:00.000Z',preferred_time:null,status:'pending',created_at:'2026-10-06T12:00:00.000Z',updated_at:'2026-10-06T12:00:00.000Z',notes:'private-note',client_id:'private'};
 function fixture(){queries=[];actor={id:'user',tenant_id:'tenant'};profiles=[{id:'profile'}];owned={...row};prior=null;auditFail=false;sessionValid=true;count=1;globalThis.__lifecycleQuery=async(sql,values)=>{
  queries.push({sql,values});
  if(sql.startsWith('SELECT u.id'))return {rows:actor?[actor]:[]};
@@ -16,7 +16,7 @@ function fixture(){queries=[];actor={id:'user',tenant_id:'tenant'};profiles=[{id
  if(sql.startsWith('UPDATE booking_requests')){assert.deepEqual(values,['profile','tenant','request']);return {rows:[{...row,status:'cancelled'}]};}
  if(sql.startsWith('INSERT INTO booking_request_audit')){assert.equal(values[1],'user');assert.equal(values[2],'tenant');assert.ok(!values[8].includes('private'));if(auditFail)throw Error('private database error');return {rows:[]};}
  if(sql.startsWith('SELECT COUNT'))return {rows:[{count}]};
- if(sql.startsWith('SELECT id::text'))return {rows:[{id:'1',action:'created',previous_status:null,new_status:'pending',created_at:'now',idempotency_key:'private',request_hash:'private'}]};
+ if(sql.startsWith('SELECT id::text'))return {rows:[{id:'1',action:'created',previous_status:null,new_status:'pending',created_at:'2026-10-06T12:00:00.000Z',idempotency_key:'private',request_hash:'private'}]};
  assert.ok(sql==='BEGIN'||sql.startsWith('BEGIN ISOLATION')||sql==='COMMIT'||sql==='ROLLBACK'||sql.startsWith('SELECT pg_advisory'),sql);return {rows:[]};
  };}
 const token='a'.repeat(43),env={SERVICE_NAME:'client',DB_URL:'fixture'},input={service_type:'massage',preferred_date:'2026-10-06T12:00:00Z'};
@@ -36,3 +36,28 @@ test('history requires owned request and projects only lifecycle metadata',async
 test('history rejects coercible pagination totals with a sanitized rollback',async()=>{fixture();count='1';const r=await call('/booking-requests/request/audit',undefined,'GET');assert.equal(r.status,503);assert.deepEqual(await r.json(),{error:'Booking request service unavailable'});assert.equal(queries.at(-1).sql,'ROLLBACK');});
 test('wrong methods return Allow and unrelated routes remain delegated',async()=>{fixture();const r=await call('/booking-requests/request/cancel',undefined,'DELETE');assert.equal(r.status,405);assert.equal(r.headers.get('allow'),'POST');assert.equal(queries.length,0);assert.equal(await call('/booking-requests/request',undefined,'GET'),null);});
 test('gateway preserves idempotency headers, body and CORS for submission',async()=>{let forwarded;const response=await gateway.fetch(new Request('https://gateway/v1/client/booking-requests',{method:'POST',headers:{authorization:'Bearer '+token,'idempotency-key':'request-key','content-type':'application/json'},body:JSON.stringify(input)}),{CLIENT:{fetch:async r=>{forwarded=r;return Response.json({ok:true},{status:201});}}});assert.equal(response.status,201);assert.equal(forwarded.headers.get('idempotency-key'),'request-key');assert.deepEqual(await forwarded.json(),input);const preflight=await gateway.fetch(new Request('https://gateway/v1/client/booking-requests',{method:'OPTIONS',headers:{origin:'https://primecare-client.pages.dev'}}),{});assert.ok(preflight.headers.get('access-control-allow-headers').includes('Idempotency-Key'));});
+
+
+const corruptResult=(prefix,change)=>{const base=globalThis.__lifecycleQuery;globalThis.__lifecycleQuery=async(sql,values)=>{const result=await base(sql,values);if(sql.startsWith(prefix))change(result);return result;};};
+test('mutation result corruption prevents audit insertion and commit',async()=>{
+ for(const path of ['/booking-requests','/booking-requests/request/cancel'])for(const [field,value] of [['id',null],['id','foreign'],['service_type',null],['service_type',''],['preferred_time','25:00'],['preferred_date','2026-02-30T12:00:00Z'],['created_at','now'],['updated_at',null],['status','approved']]){
+  fixture();corruptResult(path==='/booking-requests'?'INSERT INTO booking_requests':'UPDATE booking_requests',result=>{result.rows[0][field]=value;});const response=await call(path);assert.equal(response.status,503,field);assert.deepEqual(await response.json(),{error:'Booking request service unavailable'});assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql==='COMMIT'||q.sql.startsWith('INSERT INTO booking_request_audit')));
+ }
+ for(const rows of [[],[row,row]]){fixture();corruptResult('INSERT INTO booking_requests',result=>{result.rows=rows;});assert.equal((await call()).status,503);assert.equal(queries.at(-1).sql,'ROLLBACK');}
+});
+test('stored retries validate identity, lifecycle state and timestamps and strip extra fields',async()=>{
+ fixture();await call();const values=queries.find(q=>q.sql.startsWith('INSERT INTO booking_request_audit')).values;const saved=JSON.parse(values[8]);
+ for(const value of [null,[],{},{request:{...saved.request,id:'foreign'}},{request:{...saved.request,status:'cancelled'}},{request:{...saved.request,created_at:'now'}},{request:{...saved.request,preferred_time:'25:00'}}]){
+  fixture();prior={request_id:values[0],request_hash:values[7],response_json:value};const response=await call();assert.equal(response.status,503);assert.equal(response.headers.get('idempotency-replayed'),null);assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql.startsWith('INSERT')));
+ }
+ fixture();prior={request_id:values[0],request_hash:values[7],response_json:{request:{...saved.request,notes:'private-secret'},secret:'private-secret'}};const response=await call();assert.equal(response.status,201);assert.deepEqual(await response.json(),saved);
+});
+test('audit history rejects invalid event types, transitions and timestamps',async()=>{
+ for(const [field,value] of [['id',1],['id','0'],['action','approved'],['previous_status','approved'],['new_status','cancelled'],['created_at','2026-02-30T12:00:00Z']]){fixture();corruptResult('SELECT id::text',result=>{result.rows[0][field]=value;});const response=await call('/booking-requests/request/audit',undefined,'GET');assert.equal(response.status,503,field);assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!(await response.text()).includes('private'));}
+});
+
+
+test('failed replay rollback removes the success replay marker',async()=>{
+ fixture();await call();const values=queries.find(q=>q.sql.startsWith('INSERT INTO booking_request_audit')).values;fixture();prior={request_id:values[0],request_hash:values[7],response_json:JSON.parse(values[8])};const base=globalThis.__lifecycleQuery;globalThis.__lifecycleQuery=async(sql,values)=>{if(sql==='ROLLBACK')throw Error('private-rollback-error');return base(sql,values);};
+ const response=await call();assert.equal(response.status,503);assert.equal(response.headers.get('idempotency-replayed'),null);assert.deepEqual(await response.json(),{error:'Booking request service unavailable'});
+});

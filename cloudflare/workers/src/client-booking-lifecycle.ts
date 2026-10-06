@@ -2,7 +2,23 @@ import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 
 const idPattern=/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/;
 const fields='id,service_type,preferred_date,preferred_time,status,created_at,updated_at';
-const project=(r:Record<string,unknown>)=>({id:String(r.id),service_type:r.service_type,preferred_date:r.preferred_date,preferred_time:r.preferred_time,status:r.status,created_at:r.created_at,updated_at:r.updated_at});
+const timestamp=(value:unknown):string=>{
+  if(value instanceof Date){if(!Number.isFinite(value.getTime()))throw Error('Invalid booking timestamp');return value.toISOString();}
+  if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(value)||!Number.isFinite(Date.parse(value)))throw Error('Invalid booking timestamp');
+  const iso=new Date(value).toISOString();if(iso.slice(0,19)!==value.slice(0,19))throw Error('Invalid booking timestamp');return iso;
+};
+const project=(r:Record<string,unknown>,expectedId:string,expectedStatus:'pending'|'cancelled')=>{
+  if(!r||typeof r!=='object'||Array.isArray(r)||typeof r.id!=='string'||!idPattern.test(r.id)||r.id!==expectedId||
+    typeof r.service_type!=='string'||!r.service_type.trim()||r.service_type.length>100||/[\u0000-\u001f]/.test(r.service_type)||
+    r.preferred_time!==null&&(typeof r.preferred_time!=='string'||!/^([01]\d|2[0-3]):[0-5]\d$/.test(r.preferred_time))||r.status!==expectedStatus)throw Error('Invalid booking projection');
+  return {id:r.id,service_type:r.service_type,preferred_date:timestamp(r.preferred_date),preferred_time:r.preferred_time,status:r.status,created_at:timestamp(r.created_at),updated_at:timestamp(r.updated_at)};
+};
+const projectEvent=(r:Record<string,unknown>)=>{
+  if(typeof r.id!=='string'||! /^[1-9]\d*$/.test(r.id)||
+    !(r.action==='created'&&r.previous_status===null&&r.new_status==='pending'||r.action==='cancelled'&&r.previous_status==='pending'&&r.new_status==='cancelled'))throw Error('Invalid booking audit event');
+  return {id:r.id,action:r.action,previous_status:r.previous_status,new_status:r.new_status,created_at:timestamp(r.created_at)};
+};
+const oneRow=(rows:Record<string,unknown>[])=>{if(rows.length!==1)throw Error('Invalid booking result cardinality');return rows[0];};
 const exactCount=(value:unknown)=>{if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid booking audit count');return value;};
 
 async function createInput(request:Request):Promise<Record<string,unknown>>{
@@ -57,23 +73,31 @@ export async function clientBookingLifecycle(request:Request,env:Env,path:string
           const values=[match![1],String(actor.id),String(actor.tenant_id)],where='request_id=$1 AND actor_user_id=$2 AND tenant_id=$3';
           const total=exactCount((await db.query('SELECT COUNT(*)::int AS count FROM booking_request_audit WHERE '+where,values)).rows[0].count);
           const rows=(await db.query('SELECT id::text AS id,action,previous_status,new_status,created_at FROM booking_request_audit WHERE '+where+' ORDER BY created_at DESC,id DESC LIMIT $4 OFFSET $5',[...values,Number(limit),Number(offset)])).rows;
-          return json({events:rows.map(r=>({id:r.id,action:r.action,previous_status:r.previous_status,new_status:r.new_status,created_at:r.created_at})),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({events:rows.map(projectEvent),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         await db.query('SELECT pg_advisory_xact_lock(hashtext($1))',[JSON.stringify([String(actor.id),String(actor.tenant_id),key])]);
         const previous=(await db.query('SELECT request_id,request_hash,response_json FROM booking_request_audit WHERE actor_user_id=$1 AND tenant_id=$2 AND idempotency_key=$3',[String(actor.id),String(actor.tenant_id),key])).rows[0];
-        if(previous){if(!(await db.query('SELECT id FROM booking_requests WHERE '+filter,[...scope,previous.request_id])).rows.length)return json({error:'Booking request not found'},404,safe);if(previous.request_hash!==fingerprint)return json({error:'Idempotency key already used for another request'},409,safe);safe.set('idempotency-replayed','true');return json(previous.response_json,create?201:200,safe);}
+        if(previous){
+          if(!(await db.query('SELECT id FROM booking_requests WHERE '+filter,[...scope,previous.request_id])).rows.length)return json({error:'Booking request not found'},404,safe);
+          if(previous.request_hash!==fingerprint)return json({error:'Idempotency key already used for another request'},409,safe);
+          const stored=previous.response_json;
+          if(!stored||typeof stored!=='object'||Array.isArray(stored))throw Error('Invalid booking replay');
+          const response={request:project(stored.request,previous.request_id,create?'pending':'cancelled')};
+          safe.set('idempotency-replayed','true');return json(response,create?201:200,safe);
+        }
         let row:Record<string,unknown>,previousStatus:string|null=null;
+        const requestId=create?crypto.randomUUID():match![1];
         if(create){
-          row=(await db.query('INSERT INTO booking_requests(id,client_id,tenant_id,service_type,preferred_date,preferred_time,notes,status,created_at,updated_at) VALUES($1,$2,$3,$4,$5,$6,$7,\'pending\',NOW(),NOW()) RETURNING '+fields,[crypto.randomUUID(),...scope,input.service_type,input.preferred_date,input.preferred_time,input.notes])).rows[0];
+          row=oneRow((await db.query('INSERT INTO booking_requests(id,client_id,tenant_id,service_type,preferred_date,preferred_time,notes,status,created_at,updated_at) VALUES($1,$2,$3,$4,$5,$6,$7,\'pending\',NOW(),NOW()) RETURNING '+fields,[requestId,...scope,input.service_type,input.preferred_date,input.preferred_time,input.notes])).rows);
         }else{
           const owned=(await db.query('SELECT '+fields+' FROM booking_requests WHERE '+filter+' FOR UPDATE',[...scope,match![1]])).rows[0];
           if(!owned)return json({error:'Booking request not found'},404,safe);if(owned.status!=='pending')return json({error:'Only pending requests can be cancelled'},409,safe);
-          previousStatus='pending';row=(await db.query("UPDATE booking_requests SET status='cancelled',updated_at=NOW() WHERE "+filter+" AND status='pending' RETURNING "+fields,[...scope,match![1]])).rows[0];
+          previousStatus='pending';row=oneRow((await db.query("UPDATE booking_requests SET status='cancelled',updated_at=NOW() WHERE "+filter+" AND status='pending' RETURNING "+fields,[...scope,match![1]])).rows);
         }
-        const response={request:project(row)};
+        const response={request:project(row,requestId,create?'pending':'cancelled')};
         await db.query('INSERT INTO booking_request_audit(request_id,actor_user_id,tenant_id,action,previous_status,new_status,idempotency_key,request_hash,response_json) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[String(row.id),String(actor.id),String(actor.tenant_id),create?'created':'cancelled',previousStatus,create?'pending':'cancelled',key,fingerprint,JSON.stringify(response)]);
         await db.query('COMMIT');committed=true;return json(response,create?201:200,safe);
       }finally{if(!committed)await db.query('ROLLBACK');}
     });
-  }catch{return json({error:'Booking request service unavailable'},503,safe);}
+  }catch{safe.delete('idempotency-replayed');return json({error:'Booking request service unavailable'},503,safe);}
 }

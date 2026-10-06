@@ -29,7 +29,24 @@ try{
  const historyPage=await (await call('/booking-requests/'+id+'/audit?limit=1&offset=1')).json();assert.equal(historyPage.events.length,1);assert.equal(historyPage.pagination.total,2);checks++;
  // Idempotency stores the original response even after a later cancellation.
  const submitReplay=await call();assert.equal(submitReplay.status,201);assert.equal((await submitReplay.json()).request.status,'pending');checks++;
+ // Stored retries must match their audited request and action; private extras are projected away.
+ const stored=(await db.query('SELECT response_json FROM booking_request_audit WHERE actor_user_id=$1 AND idempotency_key=$2',[ids[0],'create-key'])).rows[0].response_json;
+ await db.query('UPDATE booking_request_audit SET response_json=$1 WHERE actor_user_id=$2 AND idempotency_key=$3',[JSON.stringify({request:{...stored.request,notes:'private-replay-secret'},secret:'private-replay-secret'}),ids[0],'create-key']);
+ const safeReplay=await call();assert.equal(safeReplay.status,201);assert.deepEqual(await safeReplay.json(),stored);checks++;
+ for(const altered of [{request:{...stored.request,id:foreign}},{request:{...stored.request,status:'cancelled'}},{request:{...stored.request,created_at:'invalid'}}]){
+  await db.query('UPDATE booking_request_audit SET response_json=$1 WHERE actor_user_id=$2 AND idempotency_key=$3',[JSON.stringify(altered),ids[0],'create-key']);
+  const invalidReplay=await call();assert.equal(invalidReplay.status,503);assert.deepEqual(await invalidReplay.json(),{error:'Booking request service unavailable'});assert.equal(invalidReplay.headers.get('idempotency-replayed'),null);checks++;
+ }
+ await db.query('UPDATE booking_request_audit SET response_json=$1 WHERE actor_user_id=$2 AND idempotency_key=$3',[JSON.stringify(stored),ids[0],'create-key']);
  const rollbackId=(await (await call('/booking-requests','rollback-create')).json()).request.id;
+ // A malformed RETURNING projection must roll back the status change before any audit is written.
+ await db.query("CREATE FUNCTION pg_temp.corrupt_booking_projection() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN NEW.service_type := ''; RETURN NEW; END $$");
+ await db.query("CREATE TRIGGER corrupt_booking_projection BEFORE UPDATE ON booking_requests FOR EACH ROW WHEN (NEW.status='cancelled') EXECUTE FUNCTION pg_temp.corrupt_booking_projection()");
+ try{
+  assert.equal((await call('/booking-requests/'+rollbackId+'/cancel','projection-cancel')).status,503);
+  const unchanged=(await db.query('SELECT status,service_type FROM booking_requests WHERE id=$1',[rollbackId])).rows[0];assert.equal(unchanged.status,'pending');assert.equal(unchanged.service_type,'massage');
+  assert.equal((await db.query("SELECT COUNT(*)::int AS count FROM booking_request_audit WHERE request_id=$1 AND action='cancelled'",[rollbackId])).rows[0].count,0);checks++;
+ }finally{await db.query('DROP TRIGGER corrupt_booking_projection ON booking_requests');}
  await db.query("ALTER TABLE booking_request_audit ADD CONSTRAINT reject_cancel_fixture CHECK (request_id <> '"+rollbackId+"' OR action <> 'cancelled')");
  assert.equal((await call('/booking-requests/'+rollbackId+'/cancel','rollback-cancel')).status,503);
  assert.equal((await db.query('SELECT status FROM booking_requests WHERE id=$1',[rollbackId])).rows[0].status,'pending');assert.equal((await db.query("SELECT COUNT(*)::int AS count FROM booking_request_audit WHERE request_id=$1 AND action='cancelled'",[rollbackId])).rows[0].count,0);checks++;
