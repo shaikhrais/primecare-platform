@@ -54,10 +54,9 @@ export async function withDb<T>(env: Env, operation: (client: Client) => Promise
   }
 }
 
-export async function parseBody(request: Request): Promise<Json> {
-  const body = await request.json();
-  if (!body || typeof body !== 'object' || Array.isArray(body)) throw new Error('Invalid JSON object');
-  return body as Json;
+class RequestTooLarge extends Error {}
+function bodyFailure(error: unknown, message: string, headers: HeadersInit): Response {
+  return error instanceof RequestTooLarge ? json({error:'Request too large'},413,headers) : json({error:message},400,headers);
 }
 
 export async function auth(request: Request, env: Env, path: string, headers: HeadersInit): Promise<Response | null> {
@@ -83,11 +82,11 @@ async function mutationLimit(db:Client,token:string,operation:AuthOperation,head
     {...headers,'retry-after':String(retryAfter)});
 }
 
-/** Bound maintenance payloads by wire bytes, including chunked requests. */
-async function maintenanceBody(request: Request): Promise<Json | null> {
+/** Bound parsed authentication JSON by wire bytes, including chunked requests. */
+export async function parseBody(request: Request): Promise<Json> {
   const limit = 50_000;
   const declared = request.headers.get('content-length');
-  if (declared !== null && /^\d+$/.test(declared) && Number(declared) > limit) return null;
+  if (declared !== null && /^\d+$/.test(declared) && Number(declared) > limit) throw new RequestTooLarge();
   const reader = request.body?.getReader();
   if (!reader) throw new Error('Invalid JSON object');
   const chunks: Uint8Array[] = [];
@@ -99,7 +98,7 @@ async function maintenanceBody(request: Request): Promise<Json | null> {
       size += value.byteLength;
       if (size > limit) {
         await reader.cancel().catch(() => {});
-        return null;
+        throw new RequestTooLarge();
       }
       chunks.push(value);
     }
@@ -148,8 +147,8 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     const token=request.headers.has('authorization')?tokenFrom(request):null;
     if(!token)return json({error:'No session'},401,headers);
     let body:Json={};
-    try {if(request.method==='POST'){const parsed=await maintenanceBody(request);if(parsed===null)return json({error:'Request too large'},413,headers);body=parsed;}}
-    catch {return json({error:'Invalid request'},400,headers);}
+    try {if(request.method==='POST'){body=await parseBody(request);}}
+    catch(error) {return bodyFailure(error,'Invalid request',headers);}
     return withDb(env,async db=>{
       await db.query('BEGIN');
       try {
@@ -165,7 +164,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
   }
   if(request.method==='POST' && ['/forgot-password','/reset-password'].includes(path)) {
     let input;
-    try {input=validateRecovery(await parseBody(request),path==='/reset-password');} catch {return json({error:'Invalid recovery request'},400,headers);}
+    try {input=validateRecovery(await parseBody(request),path==='/reset-password');} catch(error) {return bodyFailure(error,'Invalid recovery request',headers);}
     if(!input)return json({error:'Enter a valid email, a 12-character reset code, and a password of at least 12 characters (maximum 72 bytes).'},400,headers);
     return withDb(env,async db=>{
       let mail:MaintenanceEnv=env;
@@ -181,7 +180,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     const token=request.headers.has('authorization')?tokenFrom(request):null;
     if(!token)return json({error:'No session'},401,headers);
     let input;
-    try{input=validatePasswordChange(await parseBody(request));}catch{return json({error:'Invalid request'},400,headers);}
+    try{input=validatePasswordChange(await parseBody(request));}catch(error){return bodyFailure(error,'Invalid request',headers);}
     if(!input)return json({error:'Invalid password fields'},400,headers);
     return withDb(env,async db=>{
       const limited=await mutationLimit(db,token,'changePassword',headers);
@@ -224,7 +223,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     const token=request.headers.has('authorization')?tokenFrom(request):null;
     if(!token) return json({error:'No session'},401,headers);
     let input;
-    try{input=validateAccountUpdate(await parseBody(request));}catch{return json({error:'Invalid request'},400,headers);}
+    try{input=validateAccountUpdate(await parseBody(request));}catch(error){return bodyFailure(error,'Invalid request',headers);}
     if(!input) return json({error:'Invalid account fields'},400,headers);
     return withDb(env,async db=>{
       const limited=await mutationLimit(db,token,'manageAccount',headers);
@@ -246,7 +245,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     const token = request.headers.has('authorization') ? tokenFrom(request) : null;
     if (!token) return json({error:'No session'},401,headers);
     let body: Json;
-    try { body = await parseBody(request); } catch { return json({error:'Invalid request'},400,headers); }
+    try { body = await parseBody(request); } catch(error) { return bodyFailure(error,'Invalid request',headers); }
     const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
     const password = typeof body.password === 'string' ? body.password : '';
     const role = typeof body.role === 'string' ? body.role : '';
@@ -292,7 +291,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
   }
   if (request.method === 'POST' && path === '/login') {
     let body: Json;
-    try { body = await parseBody(request); } catch { return json({ error: 'Invalid request' }, 400, headers); }
+    try { body = await parseBody(request); } catch(error) { return bodyFailure(error,'Invalid request',headers); }
     const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : '';
     const password = typeof body.password === 'string' ? body.password : '';
     if (!email || email.length > 254 || !password) return json({ error: 'Email and password are required' }, 400, headers);

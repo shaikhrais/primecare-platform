@@ -192,6 +192,13 @@ try {
   assert.equal(storedConfiguration.api_key_ciphertext,null);passed++;
   await db.query('DELETE FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)]);
   await db.query('DELETE FROM tenant_configuration_audit WHERE tenant_id=$1',[String(tenantId)]);
+  const countersBefore=(await db.query('SELECT COUNT(*)::int AS count FROM auth_rate_limits')).rows[0].count;
+  for(const path of ['/login','/forgot-password','/reset-password','/change-password','/admin/users','/register']) {
+    const oversized=await call(path,'POST',{value:'é'.repeat(25_000)},'A'.repeat(43));
+    assert.equal(oversized.status,413);assert.equal(oversized.headers.get('cache-control'),'no-store');
+    assert.deepEqual(await oversized.json(),{error:'Request too large'});passed++;
+  }
+  assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM auth_rate_limits')).rows[0].count,countersBefore);passed++;
   console.log(JSON.stringify({passed, database:'isolated PostgreSQL', productionVerified:false}));
 } finally {
   globalThis.__authBeforeInsert=null;

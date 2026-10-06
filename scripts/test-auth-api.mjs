@@ -293,3 +293,32 @@ for (const path of ['/maintenance/configuration','/maintenance/configuration/tes
   assert.equal(response.status,413);assert.equal(pulls,0);assert.equal(queries.length,0);
  });
 }
+
+// Batches 254–258: all JSON authentication mutations share the same byte bound.
+for(const path of ['/login','/forgot-password','/reset-password','/change-password','/admin/users','/register']) {
+ test(path+' rejects excessive multibyte JSON without database access',async()=>{
+  const raw=JSON.stringify({value:'é'.repeat(25_000)});assert.ok(raw.length<50_000);
+  const r=await auth(new Request('https://auth.test'+path,{method:'POST',headers:{authorization:'Bearer '+'A'.repeat(43)},body:raw}),env,path,{});
+  assert.equal(r.status,413);assert.equal(r.headers.get('cache-control'),'no-store');assert.deepEqual(await r.json(),{error:'Request too large'});assert.equal(queries.length,0);
+ });
+ test(path+' bounds understated streamed payloads and stops reading',async()=>{
+  let pulls=0,cancelled=false;
+  const body=new ReadableStream({pull(c){pulls++;c.enqueue(new Uint8Array(25_001));},cancel(){cancelled=true;}},{highWaterMark:0});
+  const r=await auth(new Request('https://auth.test'+path,{method:'POST',headers:{authorization:'Bearer '+'A'.repeat(43),'content-length':'1'},body,duplex:'half'}),env,path,{});
+  assert.equal(r.status,413);assert.equal(pulls,2);assert.equal(cancelled,true);assert.equal(queries.length,0);
+ });
+ test(path+' rejects declared oversize before reading or querying',async()=>{
+  let pulls=0;
+  const body=new ReadableStream({pull(){pulls++;}},{highWaterMark:0});
+  const r=await auth(new Request('https://auth.test'+path,{method:'POST',headers:{authorization:'Bearer '+'A'.repeat(43),'content-length':'50001'},body,duplex:'half'}),env,path,{});
+  assert.equal(r.status,413);assert.equal(pulls,0);assert.equal(queries.length,0);
+ });
+ test(path+' keeps malformed JSON rejection and session-first mutation validation',async()=>{
+  const r=await auth(new Request('https://auth.test'+path,{method:'POST',headers:{authorization:'Bearer '+'A'.repeat(43)},body:'{'}),env,path,{});
+  assert.equal(r.status,400);assert.equal(queries.length,0);
+  if(['/change-password','/admin/users','/register'].includes(path)){
+   const anonymous=await auth(new Request('https://auth.test'+path,{method:'POST',body:'x'.repeat(50_001)}),env,path,{});
+   assert.equal(anonymous.status,401);assert.equal(queries.length,0);
+  }
+ });
+}

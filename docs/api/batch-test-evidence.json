@@ -1,6 +1,6 @@
 {
   "scope": "local_unit_fixtures",
-  "passed": 1695,
+  "passed": 1719,
   "failed": 0,
   "productionVerified": false,
   "postgresVerified": false,
@@ -14,7 +14,7 @@
     "cloudflare/workers/src/auth-security-policy.json": "929c89cacb68845acf5843569313bb4a1b3a42c07cc0943d7964f54cbee611d5",
     "cloudflare/workers/src/auth-source-limit.ts": "1fc2aacc25c1b45c22759c8d785abcee757eac9855d5b2900828e6a78ac8538e",
     "cloudflare/workers/src/auth-source-policy.json": "ff9c585523736fcddc3e42cae945676479c3da8f6835cab489fe3d14c3c128d1",
-    "cloudflare/workers/src/auth.ts": "473575976df422aa801328d1d8833c6ee93bed3fad0361059241fae576af6bbd",
+    "cloudflare/workers/src/auth.ts": "6e92888856c98c6cf7b2222510fbe12fdd4d1bad689eb642b961fbd79c62bda7",
     "cloudflare/workers/src/client-booking-lifecycle.ts": "df89f0050cd7f75c47d26ae265bc1d462fcfa009eb2b575cc40545b958a1532b",
     "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5",
     "cloudflare/workers/src/client-self.ts": "932434c942239b5c47845205a39f3e81df1cfc2c5a81163cb4bc8f7f039986cf",
@@ -79,7 +79,7 @@
     "scripts/test-workspace.mjs": "4827b87c4406e40793631e189cb1d41bb8b74a41be3541b3b9160b46f897973a",
     "scripts/test-auth-maintenance.mjs": "d4f6880374154fc098dcae3bc74db3f5d175465992b55fa49d60ea40c68e713f",
     "scripts/test-auth-recovery.mjs": "5aada8aea2f500b87e961467836e85d23930227c6753ccb36756bc61a0c3b0cc",
-    "scripts/test-auth-api.mjs": "e3f1c8a2251655bee8cdd1d69fdc1d074b04f4c3ae6e4653cfe5271b07b564a0",
+    "scripts/test-auth-api.mjs": "64d558cc2938c20cb16546179a9e6d4541418aef8a5f640b808758e8bcbea5f4",
     "scripts/test-auth-client.mjs": "8d837401bfb71f642dd6922fd3763358357bd45c1fe621d1284518cff3b8f058",
     "scripts/test-auth-bootstrap.mjs": "6d42c33e4e1c77bd2d965dbbf04910c9aee382d98df3182d890b975127f3d3ee",
     "scripts/test-auth-management.mjs": "111e306749e3db7e9faffeca152f38bc955257200bfca90501cfe80797ec6325",
@@ -119,6 +119,7 @@
     "docs/api/existing-auth-batches-242-247.openapi.json": "63a5d964536a00a394be9db4518b96010cf9611aab82e74ce0f54b4e7e46ad29",
     "scripts/register-account-read-validation-api.py": "117b4117ef9523669a56e74ecee0512def0798dc8d8fb158b983261c24ee8717",
     "scripts/test-account-read-authority-guard.py": "9d9fb51c8850247a1c5eb9b292c970bd9c7e7de8d9130262037904a0ecb10743",
-    "docs/api/account-read-validation-batches-249-253.openapi.json": "ce33d624b69bc6a64d521649b1e98eef156eaded243aecd5ba2a2485b8a9457d"
+    "docs/api/account-read-validation-batches-249-253.openapi.json": "ce33d624b69bc6a64d521649b1e98eef156eaded243aecd5ba2a2485b8a9457d",
+    "docs/api/auth-body-bounds-batches-254-258.openapi.json": "8225665b51b97af29f6fd0fdb3993074b622ddbd8eae908f34f6eb733c0b891b"
   }
 }
