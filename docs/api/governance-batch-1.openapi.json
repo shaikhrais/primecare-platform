@@ -951,7 +951,7 @@
       "get": {
         "operationId": "governance_organization_map",
         "summary": "Read approved administrative reporting and live tenant account counts.",
-        "description": "Active bearer session and tenant required. Existing screen view grant required. Catalog evidence is recorded evidence, never a live probe.",
+        "description": "Existing active bearer session, matching tenant and catalog organization/screen authority remain required. Live counts require nonnegative safe integers; role groups must be unique nonempty strings. Invalid projections return sanitized 503 and roll back the read-only repeatable-read transaction. No new grants or production-readiness claims.",
         "security": [
           {
             "bearerAuth": []
@@ -1033,7 +1033,25 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "type": "object"
+                        "type": "object",
+                        "required": [
+                          "role",
+                          "activeAccounts",
+                          "inheritsPermissions"
+                        ],
+                        "properties": {
+                          "role": {
+                            "type": "string"
+                          },
+                          "activeAccounts": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "inheritsPermissions": {
+                            "const": false
+                          }
+                        }
                       }
                     },
                     "pagination": {
@@ -1046,13 +1064,19 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -1108,7 +1132,7 @@
       "get": {
         "operationId": "governance_overview",
         "summary": "Read live tenant-scoped account, session and domain counts.",
-        "description": "Active bearer session and tenant required. Existing organization authority required. Catalog evidence is recorded evidence, never a live probe.",
+        "description": "Existing active bearer session, matching tenant and catalog organization/screen authority remain required. Live counts require nonnegative safe integers; role groups must be unique nonempty strings. Invalid projections return sanitized 503 and roll back the read-only repeatable-read transaction. No new grants or production-readiness claims.",
         "security": [
           {
             "bearerAuth": []
@@ -1190,7 +1214,106 @@
                     "data": {
                       "type": "array",
                       "items": {
-                        "type": "object"
+                        "type": "object",
+                        "required": [
+                          "activeAccounts",
+                          "activeSessions",
+                          "accountRoles",
+                          "activity",
+                          "metrics",
+                          "scope"
+                        ],
+                        "properties": {
+                          "activeAccounts": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "activeSessions": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 9007199254740991
+                          },
+                          "accountRoles": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "required": [
+                                "role",
+                                "count"
+                              ],
+                              "properties": {
+                                "role": {
+                                  "type": "string",
+                                  "minLength": 1
+                                },
+                                "count": {
+                                  "type": "integer",
+                                  "minimum": 0,
+                                  "maximum": 9007199254740991
+                                }
+                              }
+                            }
+                          },
+                          "activity": {
+                            "type": "array",
+                            "items": {
+                              "type": "object"
+                            }
+                          },
+                          "metrics": {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "required": [
+                                    "code",
+                                    "available"
+                                  ],
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "available": {
+                                      "const": false
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "required": [
+                                    "code",
+                                    "available",
+                                    "count"
+                                  ],
+                                  "properties": {
+                                    "code": {
+                                      "type": "string"
+                                    },
+                                    "available": {
+                                      "const": true
+                                    },
+                                    "count": {
+                                      "type": "integer",
+                                      "minimum": 0,
+                                      "maximum": 9007199254740991
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "scope": {
+                            "enum": [
+                              "organization",
+                              "personal"
+                            ]
+                          }
+                        }
                       }
                     },
                     "pagination": {
@@ -1203,13 +1326,19 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"

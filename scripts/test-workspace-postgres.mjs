@@ -25,7 +25,7 @@ try {
  await db.query('CREATE TABLE IF NOT EXISTS providers(id TEXT PRIMARY KEY)');
  await db.query('INSERT INTO clients(id,tenant_id) VALUES($1,$2),($3,$4)',[ids[0],tenant,ids[2],otherTenant]);
  const response=await call('?screen=ceo_dashboard');assert.equal(response.status,200);passed++;
- const data=await response.json();assert.equal(data.overview.activeAccounts,2);assert.equal(data.overview.activeSessions,2);passed++;
+ const data=await response.json();assert.equal(data.overview.activeAccounts,2);assert.equal(typeof data.overview.activeSessions,'number');assert.ok(data.overview.accountRoles.every(r=>typeof r.count==='number'));assert.ok(data.overview.metrics.filter(m=>m.available).every(m=>typeof m.count==='number'));assert.equal(data.overview.activeSessions,2);passed++;
  assert.equal(data.overview.metrics.find(m=>m.code==='clients').count,1);assert.equal(data.overview.metrics.find(m=>m.code==='providers').available,false);passed++;
  assert.ok(data.screens.some(s=>s.code==='ceo_dashboard'));assert.ok(data.screens.every(s=>s.grants.some(g=>g.role==='ceo'&&g.view)));passed++;
  assert.equal((await call('',tokens[0],{'x-tenant-id':otherTenant})).status,403);passed++;

@@ -23,7 +23,8 @@ try {
  for(const path of ['/page-progress','/screen-health','/role-coverage','/pending-tasks','/api-contracts','/api-execution-status','/organization-map','/overview']) {
   const r=await call(path,'?limit=2');assert.equal(r.status,200,path);const data=await r.json();assert.ok(data.data.length<=2);checks++;
  }
- const org=await (await call('/organization-map','?limit=100')).json();assert.equal(org.data.find(r=>r.role==='ceo').activeAccounts,1);assert.equal(org.data.find(r=>r.role==='rmt').activeAccounts,1);checks++;
+ const serviceStatus=await (await call('/api-service-status','?limit=100')).json();assert.equal(serviceStatus.data.filter(r=>r.gatewayBound).length,12);assert.equal(serviceStatus.pagination.total,13);assert.ok(serviceStatus.data.every(r=>r.productionVerified===false));checks++;
+ const org=await (await call('/organization-map','?limit=100')).json();assert.equal(org.data.find(r=>r.role==='ceo').activeAccounts,1);assert.ok(org.data.every(r=>typeof r.activeAccounts==='number'));assert.equal(org.data.find(r=>r.role==='rmt').activeAccounts,1);checks++;
  const overview=await (await call('/overview')).json();assert.equal(overview.data[0].activeAccounts,2);checks++;
  const list=await (await accounts('?limit=100')).json();assert.equal(list.pagination.total,2);assert.ok(!list.users.some(u=>u.id===ids[2]));assert.ok(!JSON.stringify(list).includes('password_hash'));checks++;
  const literal=await (await accounts('?search=%25')).json();assert.equal(literal.pagination.total,1);assert.equal(literal.users[0].id,ids[1]);checks++;

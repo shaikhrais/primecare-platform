@@ -2,7 +2,7 @@ import catalog from './governance-api-registry.json';
 import execution from './api-execution-inventory.json';
 import registry from './workspace-registry.json';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
-import {overview,visiblePages,type Actor} from './workspace';
+import {overview,visiblePages,workspaceRoleCounts,type Actor} from './workspace';
 
 type RecordRow=Record<string,unknown>;
 type Query={limit:number;offset:number;search:string;app:string;role:string;screen:string};
@@ -90,6 +90,10 @@ export function verificationSummary(rows:RecordRow[]):RecordRow[] {
       postgresVerified:false,productionVerified:false}];
   });
 }
+export function serviceVerificationSummary(rows:RecordRow[]):RecordRow[] {
+ const services=['auth','client','provider','visit','notes','billing','scheduling','notification','verification','compliance','governance','franchise-reporting'];
+ return [...services,'unassigned'].map(service=>{const group=rows.filter(row=>service==='unassigned'?!services.includes(String(row.service)):row.service===service);return {service,gatewayBound:service!=='unassigned',declaredOperations:group.length,verificationStates:Object.fromEntries(['blocked','unit_fixtures_recorded','verification_pending'].map(state=>[state,group.filter(row=>row.verificationState===state).length])),contractGaps:Object.fromEntries(['permission','requestSchema','responseSchema','screenLink'].map(field=>[field,group.filter(row=>(row.missingContractFields as string[]).includes(field)).length])),unmappedServiceLabels:[...new Set(group.map(row=>row.service))],evidenceScope:'registered_operation_metadata',postgresVerified:false,productionVerified:false};});
+}
 function paginate(rows:RecordRow[],query:Query,evidenceType:string) {
   const filtered=filterGovernanceRows(rows,query);
   return {data:filtered.slice(query.offset,query.offset+query.limit),
@@ -126,10 +130,11 @@ export async function governanceApi(request:Request,env:Env,path:string,headers:
         if(!granted)return json({error:'Forbidden'},403,safe);
         if(path==='/overview')return json(paginate([await overview(db,actor)],query,'live_tenant_data'),200,safe);
         if(path==='/organization-map') {
-          const counts=(await db.query("SELECT roles AS role,COUNT(*)::int AS count FROM users WHERE tenant_id::text=$1 AND LOWER(status)='active' GROUP BY roles ORDER BY roles",[String(actor.tenant_id)])).rows;
-          const rows=catalog.hierarchy.map(r=>({...r,activeAccounts:Number(counts.find(c=>c.role===r.role)?.count??0),inheritsPermissions:false}));
+          const counts=workspaceRoleCounts((await db.query("SELECT roles AS role,COUNT(*)::int AS count FROM users WHERE tenant_id::text=$1 AND LOWER(status)='active' GROUP BY roles ORDER BY roles",[String(actor.tenant_id)])).rows);
+          const rows=catalog.hierarchy.map(r=>({...r,activeAccounts:counts.find(c=>c.role===r.role)?.count??0,inheritsPermissions:false}));
           return json(paginate(rows,query,'approved_reporting_and_live_tenant_counts'),200,safe);
         }
+        if(path==='/api-service-status') {const groups=serviceVerificationSummary(filterGovernanceRows(execution.data,query));return json(paginate(groups,{...query,search:'',app:'',role:'',screen:''},'registered_governance'),200,safe);}
         if(path==='/api-verification-summary') {
           const groups=verificationSummary(filterGovernanceRows(execution.data,query));
           // Scope filters apply to operation records, not the aggregated group labels.
