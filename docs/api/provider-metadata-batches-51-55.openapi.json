@@ -84,13 +84,18 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -305,13 +310,18 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -475,13 +485,18 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -744,13 +759,18 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -887,13 +907,18 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"

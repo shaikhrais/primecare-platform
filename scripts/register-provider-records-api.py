@@ -22,7 +22,7 @@ for definition in definitions:
  if definition['table']=='performance_reviews':definition.update(summaryBatch=98,summaryField='status')
  if definition['table']=='provider_availability_overrides':definition.update(summaryBatch=99,summaryField='is_available')
 paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0}}
-pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}}
+pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer','minimum':1,'maximum':100},'offset':{'type':'integer','minimum':0,'maximum':100000},'total':{'type':'integer','minimum':0},'hasMore':{'type':'boolean'}}}
 paths={};registry=[]
 with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  sid,app=db.execute("SELECT id,app_id FROM screens WHERE screen_code='psw_profile'").fetchone()
