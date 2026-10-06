@@ -46,5 +46,5 @@ try{
  await db.query('UPDATE provider_profiles SET tenant_id=$1 WHERE id=$2',[tenants[1],profiles[0]]);assert.equal((await call(aliases[4])).status,404);checks++;
  await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 second' WHERE user_id=$1",[users[0]]);for(const alias of aliases)assert.equal((await call(alias)).status,401);checks++;
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[users[1]]);for(const alias of aliases)assert.equal((await call(alias,'',tokens[1])).status,401);checks++;
- console.log(`Governed read alias collection aliases through batch 163 passed ${checks} PostgreSQL gateway checks (${process.env.AUTH_TEST_ID_TYPE} auth identities).`);
+ console.log(`Governed read alias collections and invoice validation through batch 190 passed ${checks} PostgreSQL gateway checks (${process.env.AUTH_TEST_ID_TYPE} auth identities).`);
 }finally{for(const table of created.reverse())await db.query('DROP TABLE '+table);await db.query('DELETE FROM auth_sessions WHERE user_id::text=ANY($1)',[users]);await db.query('DELETE FROM users WHERE id::text=ANY($1)',[users]);await db.end();await rm(dir,{recursive:true,force:true});}
