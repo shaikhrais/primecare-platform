@@ -1,15 +1,15 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1384,
+    "totalDeclared": 1385,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 287,
-      "verification_pending": 1087
+      "unit_fixtures_recorded": 289,
+      "verification_pending": 1086
     },
     "contractGaps": {
       "permission": 1081,
-      "requestSchema": 1084,
+      "requestSchema": 1083,
       "responseSchema": 1084,
       "screenLink": 1041
     },
@@ -14896,6 +14896,29 @@
       "productionVerified": false
     },
     {
+      "id": 16656,
+      "api": "GET /v1/governance/api-service-status",
+      "method": "GET",
+      "route": "/v1/governance/api-service-status",
+      "service": "governance",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 207,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "api_health_dashboard"
+      ],
+      "apps": [
+        "go"
+      ],
+      "roles": [
+        "governance"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16651,
       "api": "GET /v1/governance/api-unlinked-screens",
       "method": "GET",
@@ -15015,7 +15038,7 @@
       "service": "governance",
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
-      "batch": 1,
+      "batch": 206,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
@@ -15038,7 +15061,7 @@
       "service": "governance",
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
-      "batch": 1,
+      "batch": 205,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
@@ -15175,12 +15198,10 @@
       "route": "/v1/governance/workspace",
       "service": "governance",
       "declaredImplementation": "implemented",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "requestSchema"
-      ],
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 208,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
       "screens": [
         "access_review_certifier",
         "adjustment_notes",

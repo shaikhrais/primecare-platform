@@ -2,6 +2,8 @@ import registry from './workspace-registry.json';
 import {json, withDb, tokenFrom, sha256, type Env} from './auth';
 import type {Client} from 'pg';
 
+export function exactWorkspaceCount(value:unknown):number {if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid workspace count');return value;}
+export function workspaceRoleCounts(rows:Record<string,unknown>[]) {const seen=new Set<string>();return rows.map(row=>{if(typeof row.role!=='string'||!row.role||seen.has(row.role))throw Error('Invalid workspace role group');seen.add(row.role);return {role:row.role,count:exactWorkspaceCount(row.count)};});}
 export type Actor = {id:string;roles:string;tenant_id:string};
 export function visiblePages(role:string) {
   return registry.screens.filter(s=>s.renderer!=='account' && s.grants.some(g=>g.role===role && g.view===1));
@@ -14,12 +16,12 @@ const catalogPermissions = registry.permissions as Record<string,{inventory:bool
 
 export async function overview(db:Client,actor:Actor) {
   const organization=catalogPermissions[actor.roles]?.organization===true;
-  const accounts=organization ? (await db.query(
-    "SELECT roles AS role,COUNT(*)::int AS count FROM users WHERE tenant_id::text=$1 AND LOWER(status)='active' GROUP BY roles ORDER BY roles",[String(actor.tenant_id)])).rows : [{role:actor.roles,count:1}];
-  const sessionCount=(await db.query(
+  const accounts=workspaceRoleCounts(organization ? (await db.query(
+    "SELECT roles AS role,COUNT(*)::int AS count FROM users WHERE tenant_id::text=$1 AND LOWER(status)='active' GROUP BY roles ORDER BY roles",[String(actor.tenant_id)])).rows : [{role:actor.roles,count:1}]);
+  const sessionCount=exactWorkspaceCount((await db.query(
     `SELECT COUNT(*)::int AS count FROM auth_sessions s JOIN users u ON u.id=s.user_id
      WHERE s.expires_at>NOW() AND LOWER(u.status)='active' AND ${organization ? 'u.tenant_id::text=$1' : 'u.id::text=$1'}`,
-    [String(organization?actor.tenant_id:actor.id)])).rows[0].count;
+    [String(organization?actor.tenant_id:actor.id)])).rows[0].count);
   const activity=organization ? (await db.query(
     `SELECT action,created_at FROM auth_account_audit WHERE tenant_id::text=$1
      UNION ALL SELECT action,created_at FROM tenant_configuration_audit WHERE tenant_id=$1
@@ -33,10 +35,10 @@ export async function overview(db:Client,actor:Actor) {
         a.attrelid=to_regclass($1) AND a.attnum>0 AND NOT a.attisdropped`,[table])).rows.map(r=>r.attname);
       if(!fields.includes('tenant_id')) {metrics.push({code:table,available:false});continue;}
       const result=await db.query(`SELECT COUNT(*)::int AS count FROM "${table}" WHERE tenant_id::text=$1`,[String(actor.tenant_id)]);
-      metrics.push({code:table,available:true,count:result.rows[0].count});
+      metrics.push({code:table,available:true,count:exactWorkspaceCount(result.rows[0].count)});
     }
   }
-  return {activeAccounts:accounts.reduce((total,r)=>total+Number(r.count),0),activeSessions:sessionCount,
+  return {activeAccounts:accounts.reduce((total,r)=>exactWorkspaceCount(total+r.count),0),activeSessions:sessionCount,
     accountRoles:accounts,activity,metrics,scope:organization?'organization':'personal'};
 }
 
@@ -48,7 +50,9 @@ export async function workspace(request:Request,env:Env,path:string,headers:Head
   if(request.method!=='GET')return json({error:'Method not allowed'},405,safeHeaders);
   const token=request.headers.has('authorization')?tokenFrom(request):null;
   if(!token)return json({error:'No session'},401,safeHeaders);
-  const code=new URL(request.url).searchParams.get('screen');
+  const params=new URL(request.url).searchParams;
+  if(request.body!==null||[...params.keys()].some(key=>key!=='screen'||params.getAll(key).length!==1))return json({error:'Invalid query'},400,safeHeaders);
+  const code=params.get('screen');
   if(code!==null && !/^[A-Za-z0-9_]{1,160}$/.test(code))return json({error:'Invalid screen code'},400,safeHeaders);
   try {
     if(env.WORKSPACE_SOURCE_LIMIT) {

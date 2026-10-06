@@ -44,6 +44,7 @@ runpy.run_path(str(ROOT/'scripts/register-account-count-validation-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-governance-api-batch.py'))
 runpy.run_path(str(ROOT/'scripts/register-api-execution-status.py'))
 runpy.run_path(str(ROOT/'scripts/register-contract-gap-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-api-service-status.py'))
 runpy.run_path(str(ROOT/'scripts/register-governed-read-aliases.py'))
 runpy.run_path(str(ROOT/'scripts/generate-api-execution-inventory.py'))
 with sqlite3.connect(DB) as db:
@@ -103,6 +104,8 @@ with sqlite3.connect(DB) as db:
       'role_screen_permissions.can_view',?,1)''', (apps['gv'], endpoint, response_schema))
     api_id = db.execute('SELECT id FROM api_endpoints WHERE app_id=? AND route_path=? AND http_method=\'GET\'', (apps['gv'],endpoint)).fetchone()[0]
     db.execute('UPDATE api_endpoints SET rate_limit_key=\'workspace.source\',uses_pagination=0 WHERE id=?',(api_id,))
+    db.commit()
+    runpy.run_path(str(ROOT/'scripts/register-workspace-count-validation-api.py'))
     screens = []
     for row in db.execute('''SELECT s.*,r.role_code,a.app_code FROM screens s
       LEFT JOIN roles r ON r.id=s.role_id LEFT JOIN apps a ON a.id=s.app_id

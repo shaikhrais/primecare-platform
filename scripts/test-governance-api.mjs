@@ -10,7 +10,7 @@ const catalog=JSON.parse(await readFile('cloudflare/workers/src/governance-api-r
 const dir=await mkdtemp(join(tmpdir(),'governance-batch-'));
 const plugin={name:'fixture',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export class Client {async connect(){} async end(){} async query(sql,values){return globalThis.__batchQuery(sql,values)}}',loader:'js'}));}};
 await build({entryPoints:['cloudflare/workers/src/governance-api.ts'],bundle:true,platform:'node',format:'cjs',outfile:join(dir,'batch.cjs'),plugins:[plugin]});
-const {governanceApi,parseGovernanceQuery}=createRequire(import.meta.url)(join(dir,'batch.cjs'));
+const {governanceApi,parseGovernanceQuery,serviceVerificationSummary}=createRequire(import.meta.url)(join(dir,'batch.cjs'));
 const token='a'.repeat(43),env={SERVICE_NAME:'governance',DB_URL:'fixture'};
 const call=(path,query='',role='ceo',headers={},method='GET',override={})=>{
  fixture(role);
@@ -31,7 +31,7 @@ function fixture(role='ceo',tenant='tenant-a') {
  };
 }
 test('fourteen registered APIs return bounded responses and precise evidence types',async()=>{
- assert.equal(catalog.bindings.length,14);
+ assert.equal(catalog.bindings.length,15);
  for(const {path} of catalog.bindings) {
   const response=await call(path,'?limit=3');assert.equal(response.status,200,path);
   assert.equal(response.headers.get('cache-control'),'no-store');
@@ -115,3 +115,8 @@ test('page blueprints expose registered layout, requirements, grants and complet
 test('API execution inventory distinguishes declarations, blocks and recorded fixture scope',async()=>{const b=await (await call('/api-execution-status','?limit=100')).json();assert.ok(b.pagination.total>1000);for(const row of b.data){assert.ok(['blocked','unit_fixtures_recorded','verification_pending'].includes(row.verificationState));assert.equal(row.productionVerified,false);assert.equal(row.postgresVerified,false);assert.ok(Array.isArray(row.missingContractFields));assert.ok(Array.isArray(row.screens));}const blocked=await (await call('/api-execution-status','?search=%2Fapi%2Fclients&limit=100')).json();assert.equal(blocked.pagination.total,2);assert.ok(blocked.data.every(row=>row.verificationState==='blocked'));});
 test('execution inventory filters linked screens, apps and roles with bounded paging',async()=>{for(const query of ['?screen=client_profile&limit=100','?app=cl&limit=1','?role=ceo&limit=1']){const b=await (await call('/api-execution-status',query)).json();assert.ok(b.pagination.total>0);const [key,value]=query.slice(1).split('&')[0].split('=');for(const row of b.data)assert.ok(row[key==='screen'?'screens':key==='app'?'apps':'roles'].includes(value));}assert.equal((await call('/api-execution-status','?screen=client_profile&screen=psw_profile')).status,400);});
 test('execution inventory requires existing inventory authority and tenant matching',async()=>{assert.equal((await call('/api-execution-status','','patient')).status,403);assert.equal((await call('/api-execution-status','','ceo',{'x-tenant-id':'other'})).status,403);assert.equal((await call('/api-execution-status','','ceo',{},'POST')).status,405);});
+
+test('organization map rejects corrupt and duplicate role counts',async()=>{for(const rows of [...['2',null,true,-1,1.5,Infinity,Number.MAX_SAFE_INTEGER+1].map(count=>[{role:'ceo',count}]),[{role:'ceo',count:1},{role:'ceo',count:2}],[{role:null,count:1}]]){fixture();const base=globalThis.__batchQuery;globalThis.__batchQuery=async(sql,values)=>sql.includes('SELECT roles AS role')?{rows}:base(sql,values);const r=await governanceApi(new Request('https://fixture/organization-map',{headers:{authorization:'Bearer '+token}}),env,'/organization-map',{});assert.equal(r.status,503);assert.equal(queries.at(-1).sql,'ROLLBACK');assert.equal(r.headers.get('cache-control'),'no-store');assert.ok(!(await r.text()).includes('Invalid workspace'));}});
+
+test('service status preserves all declarations without assigning Prisma labels to a service',async()=>{const inventory=JSON.parse(await readFile('cloudflare/workers/src/api-execution-inventory.json','utf8'));const rows=serviceVerificationSummary(inventory.data);assert.equal(rows.length,13);assert.equal(rows.filter(r=>r.gatewayBound).length,12);assert.equal(rows.reduce((sum,r)=>sum+r.declaredOperations,0),inventory.data.length);assert.ok(rows.find(r=>r.service==='unassigned').unmappedServiceLabels.includes('PRISMA'));assert.ok(rows.every(r=>r.productionVerified===false&&r.postgresVerified===false));const r=await call('/api-service-status','?limit=100');assert.equal(r.status,200);assert.deepEqual((await r.json()).data,rows);});
+test('service status filters operation rows before aggregation and pages group rows',async()=>{const r=await call('/api-service-status','?search=no-such-operation-unique&limit=100');const body=await r.json();assert.equal(body.pagination.total,13);assert.ok(body.data.every(r=>r.declaredOperations===0));const page=await (await call('/api-service-status','?offset=12&limit=1')).json();assert.equal(page.data[0].service,'unassigned');assert.equal(page.pagination.hasMore,false);});
