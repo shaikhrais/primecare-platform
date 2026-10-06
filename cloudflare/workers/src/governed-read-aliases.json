@@ -488,5 +488,19 @@
     "service": "client",
     "targetPath": "/purchase-order-records",
     "canonical": "/v1/client/purchase-order-records"
+  },
+  {
+    "batch": 240,
+    "path": "/v1/premium/vitalsign",
+    "service": "client",
+    "targetPath": "/patient-vital-records",
+    "canonical": "/v1/client/patient-vital-records"
+  },
+  {
+    "batch": 241,
+    "path": "/v1/premium/mar_entry",
+    "service": "client",
+    "targetPath": "/medication-administration-records",
+    "canonical": "/v1/client/medication-administration-records"
   }
 ]

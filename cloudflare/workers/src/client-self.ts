@@ -98,7 +98,12 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           // Table and column identifiers come only from the generated, governed
           // projection catalog. Request input is confined to bound values.
           const column=(name:string)=>/[A-Z]/.test(name)?'"'+name+'"':name;
-          const fields=record.fields.map(column).join(','),filter=column(record.ownerField??'client_id')+'::text=$1 AND tenant_id::text=$2';
+          const ownerJoin='tenantThroughClient' in record&&record.tenantThroughClient===true;
+          const recordedTenant='recordTenantMatch' in record&&record.recordTenantMatch===true;
+          const prefix=ownerJoin?'r.':'',ownerField=column(record.ownerField??'client_id');
+          const recordValues=ownerJoin?[...values,String(actor.id)]:values,next=recordValues.length+1;
+          const fields=record.fields.map(field=>prefix+column(field)).join(',');
+          const scope=ownerJoin?' FROM '+record.table+' r JOIN client_profiles owner ON owner.id::text=r.'+ownerField+'::text WHERE r.'+ownerField+'::text=$1 AND owner.tenant_id::text=$2 AND owner.user_id::text=$3'+(recordedTenant?' AND r.tenant_id::text=$2':''):' FROM '+record.table+' WHERE '+ownerField+'::text=$1 AND tenant_id::text=$2';
           const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{
             const types=(record.types as Record<string,string|string[]>)[field],allowed=Array.isArray(types)?types:[types],value=row[field];
             const valid=value===null?allowed.includes('null'):record.dateFields.includes(field)?(typeof value==='string'||value instanceof Date)&&Number.isFinite(new Date(value as string).getTime()):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&typeof value==='string';
@@ -107,22 +112,24 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           }));
           const count=(rows:Record<string,unknown>[])=>{const value=rows[0]?.count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid record count');return value;};
           if(recordSummary){
-            const field=record.summaryField,sqlField=column(field);
-            const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+sqlField+' FROM '+record.table+' WHERE '+filter+' GROUP BY '+sqlField+') groups',values)).rows);
-            const rows=(await db.query('SELECT '+sqlField+',COUNT(*)::int AS count FROM '+record.table+' WHERE '+filter+' GROUP BY '+sqlField+' ORDER BY '+sqlField+' NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+            const field=record.summaryField,sqlField=prefix+column(field);
+            const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+sqlField+scope+' GROUP BY '+sqlField+') groups',recordValues)).rows);
+            const rows=(await db.query('SELECT '+sqlField+',COUNT(*)::int AS count'+scope+' GROUP BY '+sqlField+' ORDER BY '+sqlField+' NULLS LAST LIMIT $'+next+' OFFSET $'+(next+1),[...recordValues,Number(limit),Number(offset)])).rows;
             const groups=rows.map(row=>{
-              if(row[field]!==null&&typeof row[field]!=='string'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid summary data');
+              const declared=(record.types as Record<string,string|string[]>)[field],types=Array.isArray(declared)?declared:[declared];
+              const strict='strictSummaryTypes' in record&&record.strictSummaryTypes===true;
+              if((row[field]===null?strict&&!types.includes('null'):typeof row[field]!=='string')||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid summary data');
               return {[field]:row[field],count:row.count};
             });
             if(!Number.isSafeInteger(total)||total<0)throw Error('Invalid summary count');
             return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
           }
           if(recordId!==null){
-            const row=(await db.query('SELECT '+fields+' FROM '+record.table+' WHERE '+filter+' AND id::text=$3',[...values,recordId])).rows[0];
+            const row=(await db.query('SELECT '+fields+scope+' AND '+prefix+'id::text=$'+next,[...recordValues,recordId])).rows[0];
             return row?json({[record.item]:project(row)},200,safe):json({error:'Record not found'},404,safe);
           }
-          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM '+record.table+' WHERE '+filter,values)).rows);
-          const rows=(await db.query('SELECT '+fields+' FROM '+record.table+' WHERE '+filter+' ORDER BY '+column(record.orderField)+' DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
+          const total=count((await db.query('SELECT COUNT(*)::int AS count'+scope,recordValues)).rows);
+          const rows=(await db.query('SELECT '+fields+scope+' ORDER BY '+prefix+column(record.orderField)+' DESC,'+prefix+'id DESC LIMIT $'+next+' OFFSET $'+(next+1),[...recordValues,Number(limit),Number(offset)])).rows;
           return json({[record.collection]:rows.map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(path==='/booking-requests'||requestMatch){

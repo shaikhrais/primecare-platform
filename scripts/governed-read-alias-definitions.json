@@ -558,5 +558,21 @@
     "targetPath": "/purchase-order-records",
     "canonical": "/v1/client/purchase-order-records",
     "spec": "owned-commerce-authoring-batches-225-231.openapi.json"
+  },
+  {
+    "batch": 240,
+    "name": "vitalsign",
+    "service": "client",
+    "targetPath": "/patient-vital-records",
+    "canonical": "/v1/client/patient-vital-records",
+    "spec": "owned-patient-observations-batches-236-239.openapi.json"
+  },
+  {
+    "batch": 241,
+    "name": "mar_entry",
+    "service": "client",
+    "targetPath": "/medication-administration-records",
+    "canonical": "/v1/client/medication-administration-records",
+    "spec": "owned-patient-observations-batches-236-239.openapi.json"
   }
 ]

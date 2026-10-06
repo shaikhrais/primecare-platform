@@ -933,6 +933,7 @@
     "summaryBatch": 226,
     "summaryField": "status",
     "orderField": "created_at",
+    "strictSummaryTypes": true,
     "types": {
       "id": "string",
       "status": [
@@ -962,6 +963,7 @@
     "summaryBatch": 228,
     "summaryField": "status",
     "orderField": "created_at",
+    "strictSummaryTypes": true,
     "types": {
       "id": "string",
       "status": "string",
