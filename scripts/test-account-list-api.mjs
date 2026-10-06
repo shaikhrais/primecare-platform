@@ -1,13 +1,13 @@
 import {build} from 'esbuild';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-const queries=[];let actor;
+const queries=[];let actor,count;
 const fixture=(role='ceo',tenant='tenant-a')=>{
- queries.length=0;actor=role?{id:'actor',roles:role,tenant_id:tenant}:null;
+ queries.length=0;count=3;actor=role?{id:'actor',roles:role,tenant_id:tenant}:null;
  globalThis.__listQuery=async(sql,values)=>{
   queries.push({sql,values});
   if(sql.includes('WHERE s.token_hash=$1'))return {rows:actor?[actor]:[]};
-  if(sql.startsWith('SELECT COUNT')){assert.equal(values[0],'tenant-a');assert.ok(sql.includes('tenant_id::text=$1'));return {rows:[{count:3}]};}
+  if(sql.startsWith('SELECT COUNT')){assert.equal(values[0],'tenant-a');assert.ok(sql.includes('tenant_id::text=$1'));return {rows:[{count}]};}
   if(sql.startsWith('SELECT id,email')){assert.equal(values[0],'tenant-a');assert.ok(!sql.includes('password'));return {rows:[{id:'actor',email:'actor@example.invalid',roles:'ceo',status:'active',updated_at:null},{id:'target',email:'target@example.invalid',roles:'rmt',status:'active',updated_at:null}]};}
   assert.ok(sql.startsWith('BEGIN')||sql==='ROLLBACK',sql);return {rows:[]};
  };
@@ -67,3 +67,5 @@ test('unsupported account methods return a method contract without accessing the
  const r=await auth(new Request('https://fixture/admin/users',{method:'DELETE'}),env,'/admin/users',{});
  assert.equal(r.status,405);assert.equal(r.headers.get('allow'),'GET, POST');assert.equal(queries.length,0);
 });
+
+test("account list rejects malformed counts and rolls back",async()=>{for(const bad of ["3",null,true,-1,1.5,Infinity,Number.MAX_SAFE_INTEGER+1]){fixture();count=bad;const r=await call();assert.equal(r.status,503);assert.equal(queries.at(-1).sql,"ROLLBACK");assert.ok(!(await r.text()).includes("Invalid account count"));}});

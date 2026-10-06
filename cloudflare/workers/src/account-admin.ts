@@ -1,5 +1,6 @@
 import type {Client} from 'pg';
 import policy from './account-policy.json';
+const exactCount=(value:unknown)=>{if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid account count');return value;};
 type Actor={id:string;roles:string;tenant_id:string};
 type Operation='sessions_read'|'sessions_revoke'|'audit_read'|'account_read'|'creation_audit_read';
 export type AdminInput={operation:Operation;userId:string;limit:number;offset:number;includeExpired:boolean};
@@ -46,7 +47,7 @@ export async function accountAdministration(db:Client,actor:Actor,input:AdminInp
   if(input.operation==='creation_audit_read') {
     const values=[String(actor.tenant_id),input.userId];
     const filter="tenant_id::text=$1 AND action='account_created' AND ($2='' OR target_user_id::text=$2)";
-    const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM auth_account_audit WHERE '+filter,values)).rows[0].count);
+    const total=exactCount((await db.query('SELECT COUNT(*)::int AS count FROM auth_account_audit WHERE '+filter,values)).rows[0].count);
     const events=(await db.query(`SELECT id,actor_user_id::text AS "actorUserId",target_user_id::text AS "targetUserId",created_at
       FROM auth_account_audit WHERE ${filter} ORDER BY created_at DESC,id DESC LIMIT $3 OFFSET $4`,[...values,input.limit,input.offset])).rows;
     return {status:200,body:{events:events.map(e=>({id:String(e.id),actorUserId:String(e.actorUserId),targetUserId:String(e.targetUserId),created_at:e.created_at,action:'account_created'})),pagination:pagination(input,total)}};
@@ -54,7 +55,7 @@ export async function accountAdministration(db:Client,actor:Actor,input:AdminInp
   if(input.operation==='audit_read') {
     const values=[String(actor.tenant_id),input.userId];
     const filter="tenant_id::text=$1 AND ($2='' OR target_user_id::text=$2)";
-    const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM auth_management_audit WHERE '+filter,values)).rows[0].count);
+    const total=exactCount((await db.query('SELECT COUNT(*)::int AS count FROM auth_management_audit WHERE '+filter,values)).rows[0].count);
     const rows=(await db.query(`SELECT id,actor_user_id::text AS "actorUserId",target_user_id::text AS "targetUserId",created_at,
       CASE WHEN new_state->>'action'='sessions_revoked' THEN 'sessions_revoked' ELSE 'account_updated' END AS action,
       jsonb_build_object('role',previous_state->'role','status',previous_state->'status','sessionCount',previous_state->'sessionCount') AS previous,
@@ -68,13 +69,13 @@ export async function accountAdministration(db:Client,actor:Actor,input:AdminInp
   if(!target)return {status:404,body:{error:'Account not found'}};
   if(input.operation==='sessions_revoke') {
     if(String(target.id).toLowerCase()===String(actor.id).toLowerCase())return {status:403,body:{error:'Self revocation is not allowed'}};
-    const deleted=Number((await db.query('WITH revoked AS (DELETE FROM auth_sessions WHERE user_id=$1 RETURNING 1) SELECT COUNT(*)::int AS count FROM revoked',[target.id])).rows[0].count);
+    const deleted=exactCount((await db.query('WITH revoked AS (DELETE FROM auth_sessions WHERE user_id=$1 RETURNING 1) SELECT COUNT(*)::int AS count FROM revoked',[target.id])).rows[0].count);
     await db.query('INSERT INTO auth_management_audit(actor_user_id,target_user_id,tenant_id,previous_state,new_state) VALUES($1,$2,$3,$4,$5)',
       [actor.id,target.id,actor.tenant_id,JSON.stringify({sessionCount:deleted}),JSON.stringify({sessionCount:0,action:'sessions_revoked'})]);
     return {status:200,body:{userId:String(target.id),revokedSessions:deleted}};
   }
   const filter='user_id=$1'+(input.includeExpired?'':' AND expires_at>NOW()');
-  const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE '+filter,[target.id])).rows[0].count);
+  const total=exactCount((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE '+filter,[target.id])).rows[0].count);
   const sessions=(await db.query('SELECT created_at,expires_at FROM auth_sessions WHERE '+filter+' ORDER BY created_at DESC,expires_at DESC,token_hash LIMIT $2 OFFSET $3',[target.id,input.limit,input.offset])).rows;
   return {status:200,body:{userId:String(target.id),sessions:sessions.map(s=>({created_at:s.created_at,expires_at:s.expires_at})),pagination:pagination(input,total)}};
 }

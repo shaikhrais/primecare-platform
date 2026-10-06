@@ -40,6 +40,7 @@ runpy.run_path(str(ROOT/'scripts/register-owner-session-count-validation-api.py'
 runpy.run_path(str(ROOT/'scripts/register-account-list-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-account-admin-batch.py'))
 runpy.run_path(str(ROOT/'scripts/register-account-detail-batch.py'))
+runpy.run_path(str(ROOT/'scripts/register-account-count-validation-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-governance-api-batch.py'))
 runpy.run_path(str(ROOT/'scripts/register-api-execution-status.py'))
 runpy.run_path(str(ROOT/'scripts/register-contract-gap-api.py'))
