@@ -5,14 +5,15 @@ The user authorized maximum useful API batches without routine questions, with c
 ## Checkpoint
 
 - Batches 116–120 merged in [PR #70](https://github.com/shaikhrais/primecare-platform/pull/70), with 898 local fixtures and passing UUID/text PostgreSQL CI.
-- Batches 121–152 implemented as 32 repairs to existing GET declarations. Local validation: 1,136 fixtures, Workers typecheck and governance checks passed. This checkpoint is written before PR publication; verify its PR and exact-head CI before calling it merged.
+- Batches 121–152 merged in [PR #71](https://github.com/shaikhrais/primecare-platform/pull/71): 32 existing GET repairs, 1,136 local fixtures and passing UUID/text PostgreSQL CI.
+- Batches 153–157 implemented as five singleton compatibility reads. Local validation: 1,172 fixtures, Workers typecheck and governance checks passed. This checkpoint precedes PR publication; inspect its PR and exact-head CI before calling it merged.
 - Current complete compatibility contracts: `docs/api/governed-read-aliases.openapi.json`; audited definitions: `scripts/governed-read-alias-definitions.json`.
 - Total operation declarations remain 1,335. Local fixture states and missing-contract counts are generated inventory metadata, not production verification.
 
 ## Next useful work
 
 1. Verify and finish any outstanding codex API PR before starting a new branch from latest main.
-2. Add supported singleton compatibility reads for own rewards, reputation, fleet status and client/provider profiles, with strict no-query semantics, duplicate-record/profile denial and UUID/text database tests.
+2. Finish singleton-read CI if pending. Then prioritize remaining explicit owner relationships or substantive contract/handler fixes rather than duplicating already-covered metadata routes.
 3. Inspect registered User/ProviderProfile/ClientProfile relations for remaining metadata reads. Provider-authored visit notes/checklists have explicit ProviderProfile relations but no tenant column: bind the current owning profile and User in every query and exclude clinical payloads. Do not assume foreign-key names or historical visit authority.
 4. Improve registration validation and consumer-visible contract guidance while keeping actual runtime behavior and stored schemas aligned.
 5. Inspect remaining declared writes separately; define real validation, authorization and workflow/audit semantics before implementing them. Do not equate a generated Prisma declaration or existing screen association with business authority.

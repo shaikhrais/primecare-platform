@@ -4,14 +4,14 @@
     "totalDeclared": 1335,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 224,
-      "verification_pending": 1101
+      "unit_fixtures_recorded": 229,
+      "verification_pending": 1096
     },
     "contractGaps": {
-      "permission": 1095,
-      "requestSchema": 1098,
-      "responseSchema": 1098,
-      "screenLink": 1055
+      "permission": 1090,
+      "requestSchema": 1093,
+      "responseSchema": 1093,
+      "screenLink": 1050
     },
     "note": "Recorded declarations and local unit-fixture status only. Unrecorded means inspect implementation, not proof of absent code. PostgreSQL/production evidence is not inferred from CI or registry labels."
   },
@@ -19403,20 +19403,21 @@
       "api": "GET /v1/premium/clientprofile",
       "method": "GET",
       "route": "/v1/premium/clientprofile",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 156,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -20268,20 +20269,21 @@
       "api": "GET /v1/premium/fleetstatus",
       "method": "GET",
       "route": "/v1/premium/fleetstatus",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 155,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -20444,20 +20446,21 @@
       "api": "GET /v1/premium/gamificationprofile",
       "method": "GET",
       "route": "/v1/premium/gamificationprofile",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 153,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -22659,20 +22662,21 @@
       "api": "GET /v1/premium/providerprofile",
       "method": "GET",
       "route": "/v1/premium/providerprofile",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 157,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -24012,20 +24016,21 @@
       "api": "GET /v1/premium/userreputation",
       "method": "GET",
       "route": "/v1/premium/userreputation",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 154,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },

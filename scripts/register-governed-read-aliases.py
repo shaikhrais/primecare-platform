@@ -1,4 +1,4 @@
-"""Batches 106–152: repair existing ungoverned read declarations with owned metadata aliases."""
+"""Batches 106–157: repair existing ungoverned read declarations with owned metadata aliases."""
 import copy,json,sqlite3
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -32,4 +32,4 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
   registry.append({'batch':batch,'path':route,'service':service,'targetPath':target,'canonical':canonical})
 (ROOT/'cloudflare/workers/src/governed-read-aliases.json').write_text(json.dumps(registry,indent=2)+'\n')
 (ROOT/'docs/api/governed-read-aliases.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Governed Compatibility Reads','version':'1.0.0'},'paths':paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
-print('Registered existing owned read aliases 106–152; no new operations or grants.')
+print('Registered existing owned read aliases 106–157; no new operations or grants.')

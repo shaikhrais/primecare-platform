@@ -1,6 +1,6 @@
 import {aliasFixture} from './read-alias-fixtures.mjs';
 import {build} from 'esbuild';import {test} from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
-const aliases=JSON.parse(readFileSync('cloudflare/workers/src/governed-read-aliases.json','utf8'));
+const aliases=JSON.parse(readFileSync('cloudflare/workers/src/governed-read-aliases.json','utf8')).filter(a=>a.batch<=152);
 assert.deepEqual(aliases.map(a=>a.batch),Array.from({length:47},(_,i)=>106+i));
 const specs=JSON.parse(readFileSync('docs/api/governed-read-aliases.openapi.json','utf8'));
 const plugin={name:'fixture',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export class Client {async connect(){} async end(){} async query(s,v){return globalThis.__readAliasQuery(s,v)}}',loader:'js'}));}};

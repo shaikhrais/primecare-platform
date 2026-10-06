@@ -1,0 +1,7 @@
+import {readFileSync} from 'node:fs';
+export const aliases=JSON.parse(readFileSync('cloudflare/workers/src/governed-read-aliases.json','utf8')).filter(a=>a.batch>=153&&a.batch<=157);
+export const spec=JSON.parse(readFileSync('docs/api/governed-read-aliases.openapi.json','utf8'));
+const relationships={153:{table:'gamification_profiles',owner:'user_id',scope:'direct'},154:{table:'user_reputations',owner:'user_id',scope:'user'},155:{table:'fleet_status',owner:'provider_id',scope:'provider'},156:{table:'client_profiles',owner:'user_id',scope:'direct',profile:true},157:{table:'provider_profiles',owner:'user_id',scope:'direct',profile:true}};
+export const fixture=alias=>{const response=spec.paths[alias.path].get.responses['200'].content['application/json'].schema;const item=Object.keys(response.properties)[0];return {...relationships[alias.batch],item,record:response.properties[item]};};
+export function sample(record,id){return Object.fromEntries(Object.entries(record.properties).map(([key,definition])=>{const type=Array.isArray(definition.type)?definition.type[0]:definition.type;return [key,key==='id'?id:definition.format==='date-time'?'2026-01-01T12:00:00.000Z':Array.isArray(definition.type)?null:type==='boolean'?false:type==='integer'?10:type==='number'?12.5:'stored'];}));}
+export function ddl(record){return Object.entries(record.properties).map(([key,d])=>'"'+key+'" '+(d.format==='date-time'?'TIMESTAMP':(Array.isArray(d.type)?d.type[0]:d.type)==='integer'?'INTEGER':d.type==='boolean'?'BOOLEAN':'TEXT')).join(',');}

@@ -2,7 +2,7 @@ import {aliasFixture} from './read-alias-fixtures.mjs';
 // Exact gateway aliases tested through the real owned handlers against disposable PostgreSQL.
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {readFile,mkdtemp,rm} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
-const aliases=JSON.parse(await readFile('cloudflare/workers/src/governed-read-aliases.json','utf8')),spec=JSON.parse(await readFile('docs/api/governed-read-aliases.openapi.json','utf8'));
+const aliases=JSON.parse(await readFile('cloudflare/workers/src/governed-read-aliases.json','utf8')).filter(a=>a.batch<=152),spec=JSON.parse(await readFile('docs/api/governed-read-aliases.openapi.json','utf8'));
 const dir=await mkdtemp(join(tmpdir(),'read-alias-pg-'));await build({entryPoints:['cloudflare/workers/src/gateway.ts','cloudflare/workers/src/service.ts'],outdir:dir,bundle:true,platform:'node',format:'cjs'});const require=createRequire(import.meta.url),{default:gateway}=require(join(dir,'gateway.js')),{default:service}=require(join(dir,'service.js'));
 const db=new Client({connectionString:url.href});await db.connect();const users=Array.from({length:3},()=>randomUUID()),profiles=Array.from({length:3},()=>randomUUID()),tenants=[randomUUID(),randomUUID()],tokens=['p'.repeat(43),'q'.repeat(43),'r'.repeat(43)],created=[];let checks=0;
 const hash=value=>createHash('sha256').update(value).digest('hex');

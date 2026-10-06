@@ -327,5 +327,40 @@
     "service": "client",
     "targetPath": "/visits",
     "canonical": "/v1/client/visits"
+  },
+  {
+    "batch": 153,
+    "path": "/v1/premium/gamificationprofile",
+    "service": "auth",
+    "targetPath": "/me/rewards",
+    "canonical": "/v1/auth/me/rewards"
+  },
+  {
+    "batch": 154,
+    "path": "/v1/premium/userreputation",
+    "service": "auth",
+    "targetPath": "/me/reputation",
+    "canonical": "/v1/auth/me/reputation"
+  },
+  {
+    "batch": 155,
+    "path": "/v1/premium/fleetstatus",
+    "service": "provider",
+    "targetPath": "/fleet-status",
+    "canonical": "/v1/provider/fleet-status"
+  },
+  {
+    "batch": 156,
+    "path": "/v1/premium/clientprofile",
+    "service": "client",
+    "targetPath": "/home/profile",
+    "canonical": "/v1/client/home/profile"
+  },
+  {
+    "batch": 157,
+    "path": "/v1/premium/providerprofile",
+    "service": "provider",
+    "targetPath": "/profile",
+    "canonical": "/v1/provider/profile"
   }
 ]
