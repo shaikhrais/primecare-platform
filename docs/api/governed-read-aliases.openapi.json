@@ -646,6 +646,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "additionalProperties": false,
                   "required": [
                     "documents",
                     "pagination"
@@ -705,6 +706,7 @@
                     },
                     "pagination": {
                       "type": "object",
+                      "additionalProperties": false,
                       "required": [
                         "limit",
                         "offset",
@@ -713,13 +715,18 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -1242,6 +1249,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "additionalProperties": false,
                   "required": [
                     "availability",
                     "pagination"
@@ -1276,6 +1284,7 @@
                     },
                     "pagination": {
                       "type": "object",
+                      "additionalProperties": false,
                       "required": [
                         "limit",
                         "offset",
@@ -1284,13 +1293,18 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -7135,6 +7149,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "additionalProperties": false,
                   "required": [
                     "profile"
                   ],
@@ -7174,11 +7189,11 @@
                         "provider_type": {
                           "type": "string"
                         },
-                        "skills": {
-                          "type": "string"
-                        },
                         "is_approved": {
                           "type": "boolean"
+                        },
+                        "skills": {
+                          "type": "string"
                         }
                       }
                     }

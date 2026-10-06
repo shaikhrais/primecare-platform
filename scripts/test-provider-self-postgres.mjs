@@ -17,6 +17,7 @@ try{
  const visitPage=await (await call('/visits','?offset=1')).json();assert.equal(visitPage.visits.length,0);assert.equal(visitPage.pagination.total,1);checks++;
  const visitSummary=await (await call('/visits/summary')).json();assert.equal(visitSummary.pagination.total,1);assert.equal(visitSummary.groups[0].count,1);assert.equal(visitSummary.groups[0].durationMinutes,'60');checks++;
  const visitSummaryPage=await (await call('/visits/summary','?offset=1')).json();assert.equal(visitSummaryPage.groups.length,0);assert.equal(visitSummaryPage.pagination.total,1);checks++;
+ await db.query('ALTER TABLE visits ALTER COLUMN duration_minutes DROP NOT NULL');await db.query('UPDATE visits SET duration_minutes=NULL WHERE id=$1',[visits[0]]);assert.equal((await call('/visits/'+visits[0])).status,503);await db.query('UPDATE visits SET duration_minutes=60 WHERE id=$1',[visits[0]]);checks++;
 
  await db.query('CREATE TABLE provider_documents(id TEXT PRIMARY KEY,provider_id TEXT NOT NULL,doc_type TEXT NOT NULL,status TEXT,expiry_date TIMESTAMP,verified_at TIMESTAMP,created_at TIMESTAMP NOT NULL DEFAULT NOW(),updated_at TIMESTAMP NOT NULL DEFAULT NOW(),file_key TEXT,verified_by TEXT)');createdDocuments=true;
  const docs=[randomUUID(),randomUUID(),randomUUID()];
@@ -31,6 +32,7 @@ try{
  // Null is a distinct stored-status group; other owners/tenants remain excluded.
  await db.query('UPDATE provider_documents SET status=NULL WHERE provider_id=$1',[profiles[0]]);
  const batch15Null=await (await call('/documents/summary')).json();assert.deepEqual(batch15Null.groups,[{status:null,count:1}]);checks++;
+ await db.query('ALTER TABLE provider_documents ALTER COLUMN doc_type DROP NOT NULL');await db.query('UPDATE provider_documents SET doc_type=NULL WHERE id=$1',[docs[0]]);assert.equal((await call('/documents/'+docs[0])).status,503);await db.query("UPDATE provider_documents SET doc_type='license' WHERE id=$1",[docs[0]]);checks++;
  await db.query('DELETE FROM provider_documents WHERE provider_id=$1',[profiles[0]]);
  const batch15Empty=await (await call('/documents/summary')).json();assert.deepEqual(batch15Empty.groups,[]);assert.equal(batch15Empty.pagination.total,0);assert.equal(batch15Empty.pagination.hasMore,false);checks++;
  const own=await (await call()).json();assert.equal(own.profile.id,profiles[0]);assert.ok(!('trust_score' in own.profile));checks++;
@@ -39,6 +41,7 @@ try{
  const empty=await (await call('/availability','?offset=1')).json();assert.equal(empty.availability.length,0);assert.equal(empty.pagination.total,1);checks++;
 
  const availabilityDetail=await (await call('/availability/'+list.availability[0].id)).json();assert.equal(availabilityDetail.availability.id,list.availability[0].id);checks++;
+ await db.query('ALTER TABLE provider_availability ALTER COLUMN start_time DROP NOT NULL');await db.query('UPDATE provider_availability SET start_time=NULL WHERE id=$1',[list.availability[0].id]);assert.equal((await call('/availability/'+list.availability[0].id)).status,503);await db.query("UPDATE provider_availability SET start_time='09:00' WHERE id=$1",[list.availability[0].id]);checks++;
  const unavailable=(await db.query('SELECT id FROM provider_availability WHERE provider_id=$1 OR tenant_id=$2',[profiles[1],tenants[1]])).rows;
  for(const item of unavailable)assert.equal((await call('/availability/'+item.id)).status,404);checks++;
  for(const day of [1,3])await db.query("INSERT INTO provider_availability(id,provider_id,tenant_id,day_of_week,start_time,end_time) VALUES($1,$2,$3,$4,'18:00','20:00')",[randomUUID(),profiles[0],tenants[0],day]);
@@ -46,6 +49,7 @@ try{
  const availabilitySummaryPage=await (await call('/availability/summary','?limit=1&offset=1')).json();assert.deepEqual(availabilitySummaryPage.groups,[{day_of_week:3,count:1}]);assert.equal(availabilitySummaryPage.pagination.total,2);assert.equal(availabilitySummaryPage.pagination.hasMore,false);checks++;
  await db.query('DELETE FROM provider_availability WHERE provider_id=$1 AND tenant_id=$2',[profiles[0],tenants[0]]);
  const noAvailability=await (await call('/availability/summary')).json();assert.deepEqual(noAvailability.groups,[]);assert.equal(noAvailability.pagination.total,0);checks++;
+ await db.query('ALTER TABLE provider_profiles ALTER COLUMN skills DROP NOT NULL');await db.query('UPDATE provider_profiles SET skills=NULL WHERE id=$1',[profiles[0]]);assert.equal((await call()).status,503);await db.query("UPDATE provider_profiles SET skills='Massage' WHERE id=$1",[profiles[0]]);checks++;
  assert.equal((await call('/profile','',tokens[0],{'x-tenant-id':tenants[1]})).status,403);checks++;
  await db.query('UPDATE provider_profiles SET tenant_id=$1 WHERE id=$2',[tenants[1],profiles[0]]);assert.equal((await call()).status,404);checks++;
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[ids[1]]);assert.equal((await call('/availability','',tokens[1])).status,401);checks++;
