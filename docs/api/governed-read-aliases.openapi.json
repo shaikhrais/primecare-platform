@@ -9874,6 +9874,264 @@
           }
         }
       }
+    },
+    "/v1/premium/vitalsign": {
+      "get": {
+        "operationId": "governed_compat_vitalsign",
+        "summary": "Read own metadata through the vitalsign compatibility route",
+        "description": "Read-only compatibility route to /v1/client/patient-vital-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned projected metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "observations",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "observations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "type",
+                          "recorded_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "recorded_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100,
+                          "default": 25
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000,
+                          "default": 0
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or ID"
+          },
+          "401": {
+            "description": "No active bearer"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Unavailable or invalid data"
+          }
+        }
+      }
+    },
+    "/v1/premium/mar_entry": {
+      "get": {
+        "operationId": "governed_compat_mar_entry",
+        "summary": "Read own metadata through the mar_entry compatibility route",
+        "description": "Read-only compatibility route to /v1/client/medication-administration-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owned projected metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "entries",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "entries": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "status",
+                          "admin_time"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "admin_time": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100,
+                          "default": 25
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000,
+                          "default": 0
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or ID"
+          },
+          "401": {
+            "description": "No active bearer"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Unavailable or invalid data"
+          }
+        }
+      }
     }
   },
   "components": {

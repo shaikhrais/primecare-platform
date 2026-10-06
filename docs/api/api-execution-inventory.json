@@ -1,17 +1,17 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1410,
+    "totalDeclared": 1416,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 323,
-      "verification_pending": 1077
+      "unit_fixtures_recorded": 331,
+      "verification_pending": 1075
     },
     "contractGaps": {
-      "permission": 1072,
-      "requestSchema": 1074,
-      "responseSchema": 1075,
-      "screenLink": 1032
+      "permission": 1070,
+      "requestSchema": 1072,
+      "responseSchema": 1073,
+      "screenLink": 1030
     },
     "note": "Recorded declarations and local unit-fixture status only. Unrecorded means inspect implementation, not proof of absent code. PostgreSQL/production evidence is not inferred from CI or registry labels."
   },
@@ -11635,6 +11635,75 @@
       "productionVerified": false
     },
     {
+      "id": 16684,
+      "api": "GET /v1/client/medication-administration-records",
+      "method": "GET",
+      "route": "/v1/client/medication-administration-records",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 238,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16686,
+      "api": "GET /v1/client/medication-administration-records/summary",
+      "method": "GET",
+      "route": "/v1/client/medication-administration-records/summary",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 239,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16685,
+      "api": "GET /v1/client/medication-administration-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/medication-administration-records/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 238,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16491,
       "api": "GET /v1/client/medication-reconciliation-records",
       "method": "GET",
@@ -11781,6 +11850,75 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 183,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16681,
+      "api": "GET /v1/client/patient-vital-records",
+      "method": "GET",
+      "route": "/v1/client/patient-vital-records",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 236,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16683,
+      "api": "GET /v1/client/patient-vital-records/summary",
+      "method": "GET",
+      "route": "/v1/client/patient-vital-records/summary",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 237,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16682,
+      "api": "GET /v1/client/patient-vital-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/patient-vital-records/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 236,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
@@ -22540,20 +22678,21 @@
       "api": "GET /v1/premium/mar_entry",
       "method": "GET",
       "route": "/v1/premium/mar_entry",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 241,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -25593,20 +25732,21 @@
       "api": "GET /v1/premium/vitalsign",
       "method": "GET",
       "route": "/v1/premium/vitalsign",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 240,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },

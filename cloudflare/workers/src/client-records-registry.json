@@ -636,6 +636,7 @@
     "batch": 229,
     "summaryBatch": 0,
     "orderField": "created_at",
+    "strictSummaryTypes": true,
     "types": {
       "id": "string",
       "created_at": "string",
@@ -662,6 +663,7 @@
     "summaryBatch": 231,
     "summaryField": "status",
     "orderField": "created_at",
+    "strictSummaryTypes": true,
     "types": {
       "id": "string",
       "status": "string",
@@ -669,6 +671,61 @@
     },
     "dateFields": [
       "created_at"
+    ]
+  },
+  {
+    "path": "/patient-vital-records",
+    "table": "vital_signs",
+    "ownerField": "patient_id",
+    "tenantThroughClient": true,
+    "collection": "observations",
+    "item": "observation",
+    "fields": [
+      "id",
+      "type",
+      "recorded_at"
+    ],
+    "orderField": "recorded_at",
+    "listBatch": 236,
+    "batch": 236,
+    "summaryBatch": 237,
+    "summaryField": "type",
+    "strictSummaryTypes": true,
+    "types": {
+      "id": "string",
+      "type": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/medication-administration-records",
+    "table": "mar_entries",
+    "ownerField": "patient_id",
+    "tenantThroughClient": true,
+    "recordTenantMatch": true,
+    "collection": "entries",
+    "item": "entry",
+    "fields": [
+      "id",
+      "status",
+      "admin_time"
+    ],
+    "orderField": "admin_time",
+    "listBatch": 238,
+    "batch": 238,
+    "summaryBatch": 239,
+    "summaryField": "status",
+    "strictSummaryTypes": true,
+    "types": {
+      "id": "string",
+      "status": "string",
+      "admin_time": "string"
+    },
+    "dateFields": [
+      "admin_time"
     ]
   }
 ]

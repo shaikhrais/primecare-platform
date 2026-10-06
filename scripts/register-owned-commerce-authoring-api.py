@@ -1,4 +1,4 @@
-"""Batches 225–235: existing owner authority, explicit FKs, metadata only."""
+"""Batches 225–241: existing owner authority, explicit FKs, metadata only."""
 import json, re, sqlite3
 from pathlib import Path
 from record_authority_guard import validate_record_authority
@@ -9,6 +9,10 @@ DEFINITIONS=[
  {'service':'client','path':'/inventory-item-records','table':'inventory_items','ownerField':'clientProfileId','collection':'items','item':'item','fields':['id','created_at','updated_at'],'listBatch':229,'batch':229,'summaryBatch':0,'alias':'inventoryitem','aliasBatch':234},
  {'service':'client','path':'/purchase-order-records','table':'purchase_orders','ownerField':'clientProfileId','collection':'orders','item':'order','fields':['id','status','created_at'],'listBatch':230,'batch':230,'summaryBatch':231,'summaryField':'status','alias':'purchaseorder','aliasBatch':235},
 ]
+DEFINITIONS.extend([
+ {'service':'client','path':'/patient-vital-records','table':'vital_signs','ownerField':'patient_id','tenantThroughClient':True,'collection':'observations','item':'observation','fields':['id','type','recorded_at'],'orderField':'recorded_at','listBatch':236,'batch':236,'summaryBatch':237,'summaryField':'type','alias':'vitalsign','aliasBatch':240},
+ {'service':'client','path':'/medication-administration-records','table':'mar_entries','ownerField':'patient_id','tenantThroughClient':True,'recordTenantMatch':True,'collection':'entries','item':'entry','fields':['id','status','admin_time'],'orderField':'admin_time','listBatch':238,'batch':238,'summaryBatch':239,'summaryField':'status','alias':'mar_entry','aliasBatch':241},
+])
 PERMISSIONS={'auth':'authenticated_self_record_owner','client':'authenticated_client_profile_owner'}
 paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0}}
 pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{**paging,'total':{'type':'integer','minimum':0},'hasMore':{'type':'boolean'}}}
@@ -25,12 +29,17 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
   rows=db.execute('SELECT c.column_name,c.data_type,c.is_nullable,c.is_foreign,c.foreign_table_name,c.foreign_column_name FROM db_schema_columns c JOIN db_schema_tables t ON t.id=c.table_id WHERE t.table_name=?',(table,)).fetchall()
   columns={r[0]:r[1:] for r in rows};target='users' if service=='auth' else 'client_profiles'
   if columns.get(record['ownerField'],())[2:]!=(1,target,'id'):raise RuntimeError('Unregistered owner relation: '+table)
-  if not record.get('tenantThroughUser') and columns.get('tenant_id',())[2:]!=(1,'tenants','id'):raise RuntimeError('Unregistered tenant relation: '+table)
+  if record.get('tenantThroughClient'):
+   if record.get('recordTenantMatch'):
+    if columns.get('tenant_id')!=('text',1,0,None,None):raise RuntimeError('Recorded MAR tenant contract drift')
+   elif 'tenant_id' in columns:raise RuntimeError('Patient tenant-through-profile contract drift')
+  elif not record.get('tenantThroughUser') and columns.get('tenant_id',())[2:]!=(1,'tenants','id'):raise RuntimeError('Unregistered tenant relation: '+table)
   for field in record['fields']:
    if not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*',field) or field not in columns:raise RuntimeError('Missing projection: '+table)
-  if columns['created_at'][1] or 'timestamp' not in columns['created_at'][0]:raise RuntimeError('Stable non-null timestamp required: '+table)
+  order=record.get('orderField','created_at')
+  if columns[order][1] or 'timestamp' not in columns[order][0]:raise RuntimeError('Stable non-null timestamp required: '+table)
   properties={f:{'type':['string','null'] if columns[f][1] else 'string',**({'format':'date-time'} if 'timestamp' in columns[f][0] else {})} for f in record['fields']}
-  record.update(orderField='created_at',types={f:p['type'] for f,p in properties.items()},dateFields=[f for f,p in properties.items() if p.get('format')=='date-time'])
+  record.update(orderField=order,strictSummaryTypes=True,types={f:p['type'] for f,p in properties.items()},dateFields=[f for f,p in properties.items() if p.get('format')=='date-time'])
   alias='/v1/premium/'+record['alias'];existing=db.execute("SELECT id FROM api_endpoints WHERE route_path=? AND http_method='GET'",(alias,)).fetchall()
   if len(existing)!=1:raise RuntimeError('Unique existing compatibility declaration required: '+alias)
   prepared.append((record,properties))
@@ -44,12 +53,14 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
   projected={'type':'object','additionalProperties':False,'required':record['fields'],'properties':properties}
   root='/v1/'+service+record['path']
   description=('Only metadata owned by the active bearer actor through '+record['table']+'.'+record['ownerField']+'. '+('Every query joins the current owning User tenant. Null authors are excluded.' if record.get('tenantThroughUser') else 'Every query binds the explicit owner and matching non-null tenant. Null owners and foreign tenants are excluded.')+' Client reads require exactly one currently owned ClientProfile. Return only registered ID, stored status where available and timestamps. Exclude article contents/title/slug/SEO, ledger amounts/accounts/references/checksums/IP/metadata, inventory SKU/name/quantity/prices and order supplier/number/amount. Stored labels do not establish publication, stock availability, payment, settlement, purchase approval or accounting correctness. Strict bounded stable paging and exact owned detail, no-store read-only repeatable-read snapshot, source limits and sanitized failures. No new roles, arbitrary owner filters or writes. Summary total counts stored status groups, including nullable labels, not rows.')
+  if record.get('tenantThroughClient'):
+   description='Read own patient-linked observation metadata only. Every query joins patient_id to the current ClientProfile and rebinds the unique owned profile ID, actor tenant and actor User. VitalSign has no tenant column; scope follows the current owned profile. MAR additionally requires its recorded non-null tenant_id to match; its bare client_id grants no access. Project only ID, recorded type/status and registered ordering timestamp. Exclude vital values/unit/source, medication names/doses/routes/prescription IDs, administrator IDs and notes. Recorded admin_time and stored status do not prove actual medication administration, correctness, clinical safety or authority to act. Bounded stable paging, exact owned detail, stored label group counts, no-store read-only repeatable-read snapshots, active explicit bearer, source limits and sanitized failures. No proxy access, writes or new grants.'
   modes=['list','detail']+(['summary'] if record.get('summaryField') else [])
   for mode in modes:
    route=root+('/{recordId}' if mode=='detail' else '/summary' if mode=='summary' else '')
    paged=mode!='detail';batch=record['summaryBatch'] if mode=='summary' else record['listBatch']
    if mode=='summary':
-    group={'type':'object','additionalProperties':False,'required':['status','count'],'properties':{'status':properties['status'],'count':{'type':'integer','minimum':0}}}
+    group={'type':'object','additionalProperties':False,'required':[record['summaryField'],'count'],'properties':{record['summaryField']:properties[record['summaryField']],'count':{'type':'integer','minimum':0}}}
     response={'type':'object','additionalProperties':False,'required':['groups','pagination'],'properties':{'groups':{'type':'array','items':group},'pagination':pagination}}
    elif mode=='list':response={'type':'object','additionalProperties':False,'required':[record['collection'],'pagination'],'properties':{record['collection']:{'type':'array','items':projected},'pagination':pagination}}
    else:response={'type':'object','additionalProperties':False,'required':[record['item']],'properties':{record['item']:projected}}
@@ -70,5 +81,8 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
   registries[service]=[r for r in registries[service] if r['path']!=registered['path']]+[registered]
  for service,filename in [('auth','self-records-registry.json'),('client','client-records-registry.json')]:
   (ROOT/'cloudflare/workers/src'/filename).write_text(json.dumps(registries[service],indent=2)+'\n')
- (ROOT/'docs/api/owned-commerce-authoring-batches-225-231.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Owned Commerce and Authored Post Metadata','version':'1.0.0'},'paths':paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
-print('Registered batches 225–231 explicit owner metadata; existing permissions only.')
+ for name,title,first,last in [('owned-commerce-authoring-batches-225-231.openapi.json','PrimeCare Owned Commerce and Authored Post Metadata',225,231),('owned-patient-observations-batches-236-239.openapi.json','PrimeCare Own Patient Observation Metadata',236,239)]:
+  roots=['/v1/'+r['service']+r['path'] for r in DEFINITIONS if first<=r['listBatch']<=last]
+  selected={p:v for p,v in paths.items() if any(p==root or p.startswith(root+'/') for root in roots)}
+  (ROOT/'docs/api'/name).write_text(json.dumps({'openapi':'3.1.0','info':{'title':title,'version':'1.0.0'},'paths':selected,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
+print('Registered batches 225–239 explicit owner metadata; existing permissions only.')
