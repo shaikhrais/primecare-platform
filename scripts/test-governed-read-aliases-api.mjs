@@ -1,7 +1,7 @@
 import {build} from 'esbuild';import {test} from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
 const aliases=JSON.parse(readFileSync('cloudflare/workers/src/governed-read-aliases.json','utf8'));
-assert.deepEqual(aliases.map(a=>a.batch),[106,107,108,109,110]);
-const specs=JSON.parse(readFileSync('docs/api/governed-read-aliases-batches-106-110.openapi.json','utf8'));
+assert.deepEqual(aliases.map(a=>a.batch),[106,107,108,109,110,111,112,113,114,115]);
+const specs=JSON.parse(readFileSync('docs/api/governed-read-aliases-batches-106-115.openapi.json','utf8'));
 const plugin={name:'fixture',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export class Client {async connect(){} async end(){} async query(s,v){return globalThis.__readAliasQuery(s,v)}}',loader:'js'}));}};
 async function bundle(path,plugins=[]){const r=await build({entryPoints:[path],bundle:true,write:false,platform:'node',format:'esm',plugins});return import('data:text/javascript;base64,'+Buffer.from(r.outputFiles[0].text).toString('base64'));}
 const {default:gateway}=await bundle('cloudflare/workers/src/gateway.ts');const {default:service}=await bundle('cloudflare/workers/src/service.ts',[plugin]);
@@ -9,9 +9,9 @@ const token='n'.repeat(43);let actor,profiles,queries,forwarded,fail;
 function fixture(alias){actor={id:'actor',tenant_id:'tenant'};profiles=[{id:'profile'}];queries=[];forwarded=[];fail=false;globalThis.__readAliasQuery=async(sql,values)=>{
  queries.push({sql,values});if(fail)throw Error('private connection password');if(sql==='BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY'||sql==='ROLLBACK')return {rows:[]};if(sql.startsWith('SELECT u.id'))return {rows:actor?[actor]:[]};
  if(sql.includes('FROM client_profiles')||sql.includes('FROM provider_profiles')){assert.deepEqual(values,['actor','tenant']);assert.ok(sql.includes('user_id::text=$1 AND tenant_id::text=$2 LIMIT 2'));return {rows:profiles};}
- const table=alias.batch===106?'app_notifications':alias.batch===107?'staff_tasks':alias.batch===108?'bookings':alias.batch===109?'booking_requests':'provider_documents';assert.ok(sql.includes('FROM '+table));
+ const table=alias.batch===106?'app_notifications':alias.batch===107?'staff_tasks':alias.batch===108?'bookings':alias.batch===109?'booking_requests':alias.batch===110?'provider_documents':alias.batch===111?'daily_activities':alias.batch===112?'wellness_pulses':alias.batch===113?'iot_events':alias.batch===114?'provider_availability':'provider_availability_overrides';assert.ok(sql.includes('FROM '+table));
  if(alias.batch===110){assert.ok(sql.includes('JOIN provider_profiles p ON p.id=d.provider_id WHERE p.id::text=$1 AND p.tenant_id::text=$2 AND p.user_id::text=$3'));assert.deepEqual(values.slice(0,3),['profile','tenant','actor']);}
- else{const owner=alias.batch===106?'user_id':alias.batch===107?'assignee_id':'client_id';assert.ok(sql.includes(owner+'::text=$1 AND tenant_id::text=$2'));assert.deepEqual(values.slice(0,2),[alias.service==='client'?'profile':'actor','tenant']);}
+ else{const owner=alias.batch===106?'user_id':alias.batch===107?'assignee_id':alias.service==='provider'?'provider_id':alias.service==='auth'?'user_id':'client_id';assert.ok(sql.includes(owner+'::text=$1 AND tenant_id::text=$2'));assert.deepEqual(values.slice(0,2),[alias.service==='auth'?'actor':'profile','tenant']);}
  return {rows:sql.startsWith('SELECT COUNT')?[{count:0}]:[]};
 };}
 function env(alias,extra={}){return {[alias.service.toUpperCase()]:{fetch:async request=>{forwarded.push(request);return service.fetch(request,{SERVICE_NAME:alias.service,DB_URL:'fixture',...extra});}}};}

@@ -1,8 +1,9 @@
-"""Batches 106–110: replace five ungoverned read declarations with owned metadata aliases."""
+"""Batches 106–115: replace five ungoverned read declarations with owned metadata aliases."""
 import copy,json,sqlite3
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 definitions=[(106,'appnotification','auth','/me/notifications','/v1/auth/me/notifications','self-records-batches-26-30.openapi.json'),(107,'stafftask','auth','/me/assigned-task-records','/v1/auth/me/assigned-task-records','personal-authorship-task-batches-76-80.openapi.json'),(108,'booking','client','/bookings','/v1/client/bookings','client-bookings-batch-9.openapi.json'),(109,'bookingrequest','client','/booking-requests','/v1/client/booking-requests','client-booking-requests-batch-18.openapi.json'),(110,'providerdocument','provider','/documents','/v1/provider/documents','provider-documents-batch-13.openapi.json')]
+definitions.extend([(111,'dailyactivity','auth','/me/activities','/v1/auth/me/activities','self-records-batches-26-30.openapi.json'),(112,'wellnesspulse','auth','/me/wellness-pulses','/v1/auth/me/wellness-pulses','self-device-wellness-batches-31-35.openapi.json'),(113,'iotevent','auth','/me/device-events','/v1/auth/me/device-events','self-device-wellness-batches-31-35.openapi.json'),(114,'provideravailability','provider','/availability','/v1/provider/availability','provider-self-batch-8.openapi.json'),(115,'availabilityoverride','provider','/availability-overrides','/v1/provider/availability-overrides','provider-metadata-batches-51-55.openapi.json')])
 paths={};registry=[]
 with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  for batch,name,service,target,canonical,specname in definitions:
@@ -25,5 +26,5 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
   paths[route]={'get':operation}
   registry.append({'batch':batch,'path':route,'service':service,'targetPath':target,'canonical':canonical})
 (ROOT/'cloudflare/workers/src/governed-read-aliases.json').write_text(json.dumps(registry,indent=2)+'\n')
-(ROOT/'docs/api/governed-read-aliases-batches-106-110.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Governed Compatibility Reads','version':'1.0.0'},'paths':paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
-print('Registered existing owned read aliases 106–110; no new operations or grants.')
+(ROOT/'docs/api/governed-read-aliases-batches-106-115.openapi.json').write_text(json.dumps({'openapi':'3.1.0','info':{'title':'PrimeCare Governed Compatibility Reads','version':'1.0.0'},'paths':paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer'}}}},indent=2)+'\n')
+print('Registered existing owned read aliases 106–115; no new operations or grants.')
