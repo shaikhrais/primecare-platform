@@ -297,5 +297,83 @@
       "status": "string",
       "created_at": "string"
     }
+  },
+  {
+    "ownerField": "client_id",
+    "batch": 172,
+    "summaryBatch": 175,
+    "summaryField": "status",
+    "path": "/care-plan-records",
+    "table": "care_plans",
+    "collection": "plans",
+    "item": "plan",
+    "fields": [
+      "id",
+      "status",
+      "review_date",
+      "created_at",
+      "updated_at"
+    ],
+    "dateFields": [
+      "review_date",
+      "created_at",
+      "updated_at"
+    ],
+    "types": {
+      "id": "string",
+      "status": "string",
+      "review_date": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    }
+  },
+  {
+    "ownerField": "client_id",
+    "batch": 173,
+    "summaryBatch": 176,
+    "summaryField": "type",
+    "path": "/assessment-records",
+    "table": "clinical_assessments",
+    "collection": "assessments",
+    "item": "assessment",
+    "fields": [
+      "id",
+      "type",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "type": "string",
+      "created_at": "string"
+    }
+  },
+  {
+    "ownerField": "client_id",
+    "batch": 174,
+    "summaryBatch": 177,
+    "summaryField": "status",
+    "path": "/medication-reconciliation-records",
+    "table": "medication_reconciliations",
+    "collection": "reconciliations",
+    "item": "reconciliation",
+    "fields": [
+      "id",
+      "status",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string"
+    }
   }
 ]

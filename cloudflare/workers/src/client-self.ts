@@ -86,13 +86,14 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           const fields=record.fields.join(','),filter=(record.ownerField??'client_id')+'::text=$1 AND tenant_id::text=$2';
           const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{
             const types=(record.types as Record<string,string|string[]>)[field],allowed=Array.isArray(types)?types:[types],value=row[field];
-            const valid=value===null?allowed.includes('null'):record.dateFields.includes(field)?(typeof value==='string'||value instanceof Date)&&Number.isFinite(new Date(value as string).getTime()):allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&(typeof value==='string'||value instanceof Date&&Number.isFinite(value.getTime()));
+            const valid=value===null?allowed.includes('null'):record.dateFields.includes(field)?(typeof value==='string'||value instanceof Date)&&Number.isFinite(new Date(value as string).getTime()):allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&typeof value==='string';
             if(!valid)throw Error('Invalid record data');
             return [field,field==='id'?String(value):value];
           }));
+          const count=(rows:Record<string,unknown>[])=>{const value=rows[0]?.count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid record count');return value;};
           if(recordSummary){
             const field=record.summaryField;
-            const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+field+' FROM '+record.table+' WHERE '+filter+' GROUP BY '+field+') groups',values)).rows[0].count);
+            const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+field+' FROM '+record.table+' WHERE '+filter+' GROUP BY '+field+') groups',values)).rows);
             const rows=(await db.query('SELECT '+field+',COUNT(*)::int AS count FROM '+record.table+' WHERE '+filter+' GROUP BY '+field+' ORDER BY '+field+' NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
             const groups=rows.map(row=>{
               if(row[field]!==null&&typeof row[field]!=='string'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid summary data');
@@ -105,7 +106,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
             const row=(await db.query('SELECT '+fields+' FROM '+record.table+' WHERE '+filter+' AND id::text=$3',[...values,recordId])).rows[0];
             return row?json({[record.item]:project(row)},200,safe):json({error:'Record not found'},404,safe);
           }
-          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM '+record.table+' WHERE '+filter,values)).rows[0].count);
+          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM '+record.table+' WHERE '+filter,values)).rows);
           const rows=(await db.query('SELECT '+fields+' FROM '+record.table+' WHERE '+filter+' ORDER BY created_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
           return json({[record.collection]:rows.map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }

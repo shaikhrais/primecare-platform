@@ -1,0 +1,719 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Own Client Care Metadata",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/client/care-plan-records": {
+      "get": {
+        "operationId": "client_own_care_plans_list",
+        "summary": "Read owned care plans list",
+        "description": "Read only own care-plan, clinical-assessment or medication-reconciliation metadata. Active explicit bearer, matching non-null tenant and exactly one actor-owned ClientProfile required. Every data query binds the explicit client_id relationship to that profile and tenant_id to the actor tenant. Return only registered IDs, stored status/type labels and timestamps. Exclude diagnoses, goals, interventions, scores, recommendations, reconciliation data, discrepancies, author/RN identifiers and clinical contents. Stored labels and review dates are not clinical instructions, evidence of safety, access to contents or authority to act. Bounded stable paging, exact owned detail, no-store read-only repeatable-read snapshots and source limits. Existing authored User compatibility routes retain their original scope. No delegated access, writes or role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected owned metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "plans",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "plans": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "status",
+                          "review_date",
+                          "created_at",
+                          "updated_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "review_date": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "plans": [
+                    {
+                      "id": "record-id",
+                      "status": "stored",
+                      "review_date": "2026-01-01T12:00:00Z",
+                      "created_at": "2026-01-01T12:00:00Z",
+                      "updated_at": "2026-01-01T12:00:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Profile or record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/client/care-plan-records/{recordId}": {
+      "get": {
+        "operationId": "client_own_care_plans_detail",
+        "summary": "Read owned care plans record",
+        "description": "Read only own care-plan, clinical-assessment or medication-reconciliation metadata. Active explicit bearer, matching non-null tenant and exactly one actor-owned ClientProfile required. Every data query binds the explicit client_id relationship to that profile and tenant_id to the actor tenant. Return only registered IDs, stored status/type labels and timestamps. Exclude diagnoses, goals, interventions, scores, recommendations, reconciliation data, discrepancies, author/RN identifiers and clinical contents. Stored labels and review dates are not clinical instructions, evidence of safety, access to contents or authority to act. Bounded stable paging, exact owned detail, no-store read-only repeatable-read snapshots and source limits. Existing authored User compatibility routes retain their original scope. No delegated access, writes or role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected owned metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "plan"
+                  ],
+                  "properties": {
+                    "plan": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "status",
+                        "review_date",
+                        "created_at",
+                        "updated_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "review_date": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "plan": {
+                    "id": "record-id",
+                    "status": "stored",
+                    "review_date": "2026-01-01T12:00:00Z",
+                    "created_at": "2026-01-01T12:00:00Z",
+                    "updated_at": "2026-01-01T12:00:00Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Profile or record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/client/assessment-records": {
+      "get": {
+        "operationId": "client_own_clinical_assessments_list",
+        "summary": "Read owned clinical assessments list",
+        "description": "Read only own care-plan, clinical-assessment or medication-reconciliation metadata. Active explicit bearer, matching non-null tenant and exactly one actor-owned ClientProfile required. Every data query binds the explicit client_id relationship to that profile and tenant_id to the actor tenant. Return only registered IDs, stored status/type labels and timestamps. Exclude diagnoses, goals, interventions, scores, recommendations, reconciliation data, discrepancies, author/RN identifiers and clinical contents. Stored labels and review dates are not clinical instructions, evidence of safety, access to contents or authority to act. Bounded stable paging, exact owned detail, no-store read-only repeatable-read snapshots and source limits. Existing authored User compatibility routes retain their original scope. No delegated access, writes or role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected owned metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "assessments",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "assessments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "type",
+                          "created_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "assessments": [
+                    {
+                      "id": "record-id",
+                      "type": "stored",
+                      "created_at": "2026-01-01T12:00:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Profile or record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/client/assessment-records/{recordId}": {
+      "get": {
+        "operationId": "client_own_clinical_assessments_detail",
+        "summary": "Read owned clinical assessments record",
+        "description": "Read only own care-plan, clinical-assessment or medication-reconciliation metadata. Active explicit bearer, matching non-null tenant and exactly one actor-owned ClientProfile required. Every data query binds the explicit client_id relationship to that profile and tenant_id to the actor tenant. Return only registered IDs, stored status/type labels and timestamps. Exclude diagnoses, goals, interventions, scores, recommendations, reconciliation data, discrepancies, author/RN identifiers and clinical contents. Stored labels and review dates are not clinical instructions, evidence of safety, access to contents or authority to act. Bounded stable paging, exact owned detail, no-store read-only repeatable-read snapshots and source limits. Existing authored User compatibility routes retain their original scope. No delegated access, writes or role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected owned metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "assessment"
+                  ],
+                  "properties": {
+                    "assessment": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "type",
+                        "created_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "type": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "assessment": {
+                    "id": "record-id",
+                    "type": "stored",
+                    "created_at": "2026-01-01T12:00:00Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Profile or record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/client/medication-reconciliation-records": {
+      "get": {
+        "operationId": "client_own_medication_reconciliations_list",
+        "summary": "Read owned medication reconciliations list",
+        "description": "Read only own care-plan, clinical-assessment or medication-reconciliation metadata. Active explicit bearer, matching non-null tenant and exactly one actor-owned ClientProfile required. Every data query binds the explicit client_id relationship to that profile and tenant_id to the actor tenant. Return only registered IDs, stored status/type labels and timestamps. Exclude diagnoses, goals, interventions, scores, recommendations, reconciliation data, discrepancies, author/RN identifiers and clinical contents. Stored labels and review dates are not clinical instructions, evidence of safety, access to contents or authority to act. Bounded stable paging, exact owned detail, no-store read-only repeatable-read snapshots and source limits. Existing authored User compatibility routes retain their original scope. No delegated access, writes or role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected owned metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "reconciliations",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "reconciliations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "status",
+                          "created_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer"
+                        },
+                        "offset": {
+                          "type": "integer"
+                        },
+                        "total": {
+                          "type": "integer"
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "reconciliations": [
+                    {
+                      "id": "record-id",
+                      "status": "stored",
+                      "created_at": "2026-01-01T12:00:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Profile or record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/client/medication-reconciliation-records/{recordId}": {
+      "get": {
+        "operationId": "client_own_medication_reconciliations_detail",
+        "summary": "Read owned medication reconciliations record",
+        "description": "Read only own care-plan, clinical-assessment or medication-reconciliation metadata. Active explicit bearer, matching non-null tenant and exactly one actor-owned ClientProfile required. Every data query binds the explicit client_id relationship to that profile and tenant_id to the actor tenant. Return only registered IDs, stored status/type labels and timestamps. Exclude diagnoses, goals, interventions, scores, recommendations, reconciliation data, discrepancies, author/RN identifiers and clinical contents. Stored labels and review dates are not clinical instructions, evidence of safety, access to contents or authority to act. Bounded stable paging, exact owned detail, no-store read-only repeatable-read snapshots and source limits. Existing authored User compatibility routes retain their original scope. No delegated access, writes or role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected owned metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "reconciliation"
+                  ],
+                  "properties": {
+                    "reconciliation": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "status",
+                        "created_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "reconciliation": {
+                    "id": "record-id",
+                    "status": "stored",
+                    "created_at": "2026-01-01T12:00:00Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Profile or record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}
