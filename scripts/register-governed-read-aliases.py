@@ -4,15 +4,16 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 definitions=json.loads((ROOT/'scripts/governed-read-alias-definitions.json').read_text())
 if len({e['batch'] for e in definitions})!=len(definitions) or len({e['name'] for e in definitions})!=len(definitions):raise RuntimeError('Duplicate alias batch or path')
+permissions={'auth':'authenticated_self_record_owner','client':'authenticated_client_profile_owner','provider':'authenticated_provider_profile_owner'}
 paths={};registry=[]
 with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  for entry in definitions:
   batch,name,service,target,canonical,specname=[entry[k] for k in ['batch','name','service','targetPath','canonical','spec']]
   if canonical!='/v1/'+service+target or service not in ['auth','client','provider']:raise RuntimeError('Invalid canonical service relationship')
   route='/v1/premium/'+name
-  canonical_row=db.execute("SELECT id,permission_key,request_schema,response_schema FROM api_endpoints WHERE route_path=? AND http_method='GET'",(canonical,)).fetchall()
-  if len(canonical_row)!=1 or not canonical_row[0][1]:raise RuntimeError('Unique governed canonical endpoint required: '+canonical)
-  aid,permission,request,response=canonical_row[0]
+  canonical_row=db.execute("SELECT id,service_name,auth_required,permission_key,request_schema,response_schema FROM api_endpoints WHERE route_path=? AND http_method='GET'",(canonical,)).fetchall()
+  if len(canonical_row)!=1 or canonical_row[0][1:4]!=(service,1,permissions[service]):raise RuntimeError('Canonical owner authority drift: '+canonical)
+  aid,_,_,permission,request,response=canonical_row[0]
   request_object,response_object=json.loads(request),json.loads(response)
   if not isinstance(request_object,dict) or not isinstance(response_object,dict):raise RuntimeError('Canonical object schemas required')
   operation=copy.deepcopy(json.loads((ROOT/'docs/api'/specname).read_text())['paths'][canonical]['get'])
