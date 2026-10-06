@@ -160,21 +160,31 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           return json({bookings:rows.map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         const invoiceFields='id,status,currency,subtotal::text AS subtotal,tax::text AS tax,total::text AS total,created_at,updated_at';
-        const invoiceProject=(i:Record<string,unknown>)=>({id:String(i.id),status:i.status,currency:i.currency,subtotal:i.subtotal,tax:i.tax,total:i.total,created_at:i.created_at,updated_at:i.updated_at});
+        const nullableString=(value:unknown)=>value===null||typeof value==='string';
+        const decimal=(value:unknown)=>value===null||typeof value==='string'&&/^-?\d+(?:\.\d+)?$/.test(value);
+        const invoiceCount=(rows:Record<string,unknown>[])=>{const value=rows[0]?.count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid invoice count');return value;};
+        const invoiceProject=(i:Record<string,unknown>)=>{
+          if(typeof i.id!=='string'||![i.status,i.currency].every(nullableString)||![i.subtotal,i.tax,i.total].every(decimal)||![i.created_at,i.updated_at].every(value=>(typeof value==='string'||value instanceof Date)&&Number.isFinite(new Date(value as string).getTime())))throw Error('Invalid invoice data');
+          return {id:i.id,status:i.status,currency:i.currency,subtotal:i.subtotal,tax:i.tax,total:i.total,created_at:i.created_at,updated_at:i.updated_at};
+        };
+        const invoiceGroup=(g:Record<string,unknown>)=>{
+          if(![g.status,g.currency].every(nullableString)||![g.subtotal,g.tax,g.total].every(decimal)||typeof g.invoiceCount!=='number'||!Number.isSafeInteger(g.invoiceCount)||g.invoiceCount<0)throw Error('Invalid invoice group');
+          return {currency:g.currency,status:g.status,invoiceCount:g.invoiceCount,subtotal:g.subtotal,tax:g.tax,total:g.total};
+        };
         const invoiceFilter='client_id::text=$1 AND tenant_id::text=$2';
         if(invoiceMatch){
           const invoice=(await db.query('SELECT '+invoiceFields+' FROM invoices WHERE '+invoiceFilter+' AND id::text=$3',[...values,invoiceMatch[1]])).rows[0];
           return invoice?json({invoice:invoiceProject(invoice)},200,safe):json({error:'Invoice not found'},404,safe);
         }
         if(invoiceSummary){
-          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT currency,status FROM invoices WHERE '+invoiceFilter+' GROUP BY currency,status) groups',values)).rows[0].count);
+          const total=invoiceCount((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT currency,status FROM invoices WHERE '+invoiceFilter+' GROUP BY currency,status) groups',values)).rows);
           const groups=(await db.query('SELECT currency,status,COUNT(*)::int AS "invoiceCount",SUM(subtotal)::text AS subtotal,SUM(tax)::text AS tax,SUM(total)::text AS total FROM invoices WHERE '+invoiceFilter+' GROUP BY currency,status ORDER BY currency,status LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          return json({groups:groups.map(g=>({currency:g.currency,status:g.status,invoiceCount:g.invoiceCount,subtotal:g.subtotal,tax:g.tax,total:g.total})),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({groups:groups.map(invoiceGroup),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         const filter='client_id::text=$1 AND tenant_id::text=$2';
-        const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM invoices WHERE '+filter,values)).rows[0].count);
+        const total=invoiceCount((await db.query('SELECT COUNT(*)::int AS count FROM invoices WHERE '+filter,values)).rows);
         const rows=(await db.query('SELECT id,status,currency,subtotal::text AS subtotal,tax::text AS tax,total::text AS total,created_at,updated_at FROM invoices WHERE '+filter+' ORDER BY created_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-        return json({invoices:rows.map(i=>({id:String(i.id),status:i.status,currency:i.currency,subtotal:i.subtotal,tax:i.tax,total:i.total,created_at:i.created_at,updated_at:i.updated_at})),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        return json({invoices:rows.map(invoiceProject),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
       }finally{await db.query('ROLLBACK');}
     });
   }catch{return json({error:'Client data unavailable'},503,safe);}

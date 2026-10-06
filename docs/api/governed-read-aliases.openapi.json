@@ -6505,6 +6505,7 @@
                               "string",
                               "null"
                             ],
+                            "pattern": "^-?\\d+(?:\\.\\d+)?$",
                             "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
                           },
                           "tax": {
@@ -6512,6 +6513,7 @@
                               "string",
                               "null"
                             ],
+                            "pattern": "^-?\\d+(?:\\.\\d+)?$",
                             "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
                           },
                           "total": {
@@ -6519,6 +6521,7 @@
                               "string",
                               "null"
                             ],
+                            "pattern": "^-?\\d+(?:\\.\\d+)?$",
                             "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
                           },
                           "created_at": {
@@ -6548,7 +6551,8 @@
                           "type": "integer"
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"

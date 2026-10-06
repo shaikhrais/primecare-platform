@@ -9,7 +9,7 @@
       "get": {
         "operationId": "client_self_invoice_detail",
         "summary": "Read own invoice",
-        "description": "Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Invoice query additionally checks invoice tenant and owner profile. Missing profile returns 404; conflicting tenant header returns 403. No clinical details or payment processor identifiers are returned. Nullable stored status/currency and amounts remain null; no default currency or zero amount is inferred. Decimal values and sums remain exact strings when present. No new role grants.",
+        "description": "Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Invoice query additionally checks invoice tenant and owner profile. Missing profile returns 404; conflicting tenant header returns 403. No clinical details or payment processor identifiers are returned. Nullable stored status/currency and amounts remain null; no default currency or zero amount is inferred. Decimal values and sums remain exact finite decimal strings when present; malformed projected IDs, timestamps, labels, amounts and counts fail closed with sanitized 503. NaN/infinite numeric storage is not exposed as an amount. No new role grants.",
         "security": [
           {
             "bearerAuth": []
@@ -71,6 +71,7 @@
                             "string",
                             "null"
                           ],
+                          "pattern": "^-?\\d+(?:\\.\\d+)?$",
                           "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
                         },
                         "tax": {
@@ -78,6 +79,7 @@
                             "string",
                             "null"
                           ],
+                          "pattern": "^-?\\d+(?:\\.\\d+)?$",
                           "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
                         },
                         "total": {
@@ -85,6 +87,7 @@
                             "string",
                             "null"
                           ],
+                          "pattern": "^-?\\d+(?:\\.\\d+)?$",
                           "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
                         },
                         "created_at": {
@@ -130,7 +133,7 @@
       "get": {
         "operationId": "client_self_invoice_summary",
         "summary": "Summarize own invoices by currency and stored status",
-        "description": "Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Invoice query additionally checks invoice tenant and owner profile. Missing profile returns 404; conflicting tenant header returns 403. No clinical details or payment processor identifiers are returned. Nullable stored status/currency and amounts remain null; no default currency or zero amount is inferred. Decimal values and sums remain exact strings when present. No new role grants.",
+        "description": "Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Invoice query additionally checks invoice tenant and owner profile. Missing profile returns 404; conflicting tenant header returns 403. No clinical details or payment processor identifiers are returned. Nullable stored status/currency and amounts remain null; no default currency or zero amount is inferred. Decimal values and sums remain exact finite decimal strings when present; malformed projected IDs, timestamps, labels, amounts and counts fail closed with sanitized 503. NaN/infinite numeric storage is not exposed as an amount. No new role grants.",
         "security": [
           {
             "bearerAuth": []
@@ -197,13 +200,15 @@
                             ]
                           },
                           "invoiceCount": {
-                            "type": "integer"
+                            "type": "integer",
+                            "minimum": 0
                           },
                           "subtotal": {
                             "type": [
                               "string",
                               "null"
                             ],
+                            "pattern": "^-?\\d+(?:\\.\\d+)?$",
                             "description": "Nullable exact decimal sum within this currency/status group."
                           },
                           "tax": {
@@ -211,6 +216,7 @@
                               "string",
                               "null"
                             ],
+                            "pattern": "^-?\\d+(?:\\.\\d+)?$",
                             "description": "Nullable exact decimal sum within this currency/status group."
                           },
                           "total": {
@@ -218,6 +224,7 @@
                               "string",
                               "null"
                             ],
+                            "pattern": "^-?\\d+(?:\\.\\d+)?$",
                             "description": "Nullable exact decimal sum within this currency/status group."
                           }
                         }
@@ -239,7 +246,8 @@
                           "type": "integer"
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"
