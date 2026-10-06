@@ -29,6 +29,8 @@ try {
   assert.ok(screens.pagination.total>0);assert.equal(progress.data.reduce((sum,row)=>sum+row.total,0),screens.pagination.total);checks++;
  }
  const emptyProgress=await (await call('/page-progress','?screen=missing-screen-unique')).json();assert.equal(emptyProgress.pagination.total,0);assert.deepEqual(emptyProgress.data,[]);checks++;
+ const coverage=await (await call('/role-coverage','?screen=ceo_dashboard&role=ceo')).json();assert.equal(coverage.pagination.total,1);assert.ok(coverage.data[0].authorizedPages>0);checks++;
+ const missingCoverage=await (await call('/role-coverage','?screen=missing-screen-unique&role=ceo')).json();assert.equal(missingCoverage.pagination.total,1);assert.equal(missingCoverage.data[0].authorizedPages,0);assert.equal(missingCoverage.data[0].landingAuthorized,false);checks++;
  const serviceStatus=await (await call('/api-service-status','?limit=100')).json();assert.equal(serviceStatus.data.filter(r=>r.gatewayBound).length,12);assert.equal(serviceStatus.pagination.total,13);assert.ok(serviceStatus.data.every(r=>r.productionVerified===false));checks++;
  const org=await (await call('/organization-map','?limit=100')).json();assert.equal(org.data.find(r=>r.role==='ceo').activeAccounts,1);assert.ok(org.data.every(r=>typeof r.activeAccounts==='number'));assert.equal(org.data.find(r=>r.role==='rmt').activeAccounts,1);checks++;
  const overview=await (await call('/overview')).json();assert.equal(overview.data[0].activeAccounts,2);checks++;

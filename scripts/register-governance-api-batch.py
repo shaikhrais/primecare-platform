@@ -61,7 +61,7 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  paths={}
  for name,code,gate,purpose in ENDPOINTS:
   paths['/v1/governance/'+name]={'get':{'operationId':'governance_'+name.replace('-','_'),'summary':purpose,
-   'description':'Active bearer session and tenant required. '+('Existing inventory authority required.' if gate=='inventory' else 'Existing organization authority required.' if gate=='organization' else 'Existing screen view grant required.')+' Catalog evidence is recorded evidence, never a live probe.',
+   'description':'Active bearer session and tenant required. '+('Existing inventory authority required.' if gate=='inventory' else 'Existing organization authority required.' if gate=='organization' else 'Existing screen view grant required.')+' Catalog evidence is recorded evidence, never a live probe.'+({'page-progress':' Screen, app, role and search filters apply to source screen records before grouping by application; pagination counts application groups.','role-coverage':' App and screen filters scope granted pages before role counts; role and search select role summaries. Roles with zero matching grants remain present; landingAuthorized refers to the scoped pages.'}.get(name,'')),
    'security':[{'bearerAuth':[]}],
    'parameters':[{'name':k,'in':'query','required':False,'schema':v} for k,v in query_schema['properties'].items()],
    'responses':{'200':{'description':'Paginated result','content':{'application/json':{'schema':response_schema}}},**{str(n):{'description':d} for n,d in [(400,'Invalid query'),(401,'Missing or expired session'),(403,'Permission or tenant mismatch'),(405,'Read-only endpoint'),(429,'Rate limit'),(503,'Source unavailable')]}}}}

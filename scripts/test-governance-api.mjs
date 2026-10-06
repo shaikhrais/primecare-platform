@@ -134,3 +134,15 @@ test('page progress filters source screens before aggregating application groups
  const full=await (await call('/page-progress','?role=ceo&limit=100')).json();
  const page=await (await call('/page-progress','?role=ceo&limit=1&offset=1')).json();assert.deepEqual(page.data,full.data.slice(1,2));assert.equal(page.pagination.total,full.pagination.total);assert.equal(page.pagination.hasMore,2<full.pagination.total);
 });
+
+
+test('role coverage scopes granted pages before counting and retains zero-coverage roles',async()=>{
+ for(const scope of ['?app=co&role=ceo&limit=100','?screen=ceo_dashboard&role=ceo&limit=100','?app=co&screen=ceo_dashboard&role=ceo&limit=100']) {
+  const response=await call('/role-coverage',scope);assert.equal(response.status,200);const body=await response.json();assert.equal(body.pagination.total,1);
+  const query=new URL('https://fixture/'+scope).searchParams;
+  const expected=registry.screens.filter(page=>page.grants.some(grant=>grant.role==='ceo'&&grant.view)&&(!query.get('app')||page.appCode===query.get('app'))&&(!query.get('screen')||page.code===query.get('screen')));
+  assert.ok(expected.length>0);assert.equal(body.data[0].authorizedPages,expected.length);assert.equal(body.data[0].landingAuthorized,expected.some(page=>page.route===body.data[0].landing));
+ }
+ const empty=await (await call('/role-coverage','?app=no-such-app&role=ceo')).json();assert.equal(empty.pagination.total,1);assert.equal(empty.data[0].authorizedPages,0);assert.equal(empty.data[0].landingAuthorized,false);
+ const all=await (await call('/role-coverage','?screen=ceo_dashboard&limit=100')).json();assert.equal(all.pagination.total,catalog.roles.length);assert.ok(all.data.some(row=>row.authorizedPages===0));
+});

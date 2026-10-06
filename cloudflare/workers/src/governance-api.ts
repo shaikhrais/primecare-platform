@@ -45,11 +45,7 @@ export function governanceRows(path:string):RecordRow[] {
   }));
   if(path==='/screen-health')return pages;
   if(path==='/page-progress')return pageProgressSummary(pages);
-  if(path==='/role-coverage')return catalog.roles.map(r=>{
-    const visible=visiblePages(r.code);
-    return {role:r.code,name:r.name,landing:r.landing,authorizedPages:visible.length,
-      landingAuthorized:visible.some(p=>p.route===r.landing)};
-  });
+  if(path==='/role-coverage')return roleCoverageRows();
   if(path==='/pending-tasks')return pages.flatMap(p=>[
     ...p.blockers.map((blocker,i)=>({id:`${p.screen}:blocker:${i}`,screen:p.screen,name:p.name,app:p.app,role:p.role,route:p.route,kind:'blocker',description:blocker,status:'pending'})),
     ...p.pendingActions.map(a=>({id:`${p.screen}:action:${a.key}`,screen:p.screen,name:p.name,app:p.app,role:p.role,route:p.route,kind:'business_action',description:a.label||a.key,status:a.status})),
@@ -75,6 +71,13 @@ export function filterGovernanceRows(rows:RecordRow[],query:Query):RecordRow[] {
   return rows.filter(row=>(!query.screen||row.screen===query.screen||(row.screens as string[]|undefined)?.includes(query.screen))&&(!query.app||row.app===query.app||(row.apps as string[]|undefined)?.includes(query.app))&&
     (!query.role||row.role===query.role||(row.roles as string[]|undefined)?.includes(query.role))&&
     (!query.search||JSON.stringify(row).toLowerCase().includes(query.search.toLowerCase())));
+}
+export function roleCoverageRows(scope:{app?:string;screen?:string}={}):RecordRow[] {
+  return catalog.roles.map(role=>{
+    const visible=visiblePages(role.code).filter(page=>(!scope.app||page.appCode===scope.app)&&(!scope.screen||page.code===scope.screen));
+    return {role:role.code,name:role.name,landing:role.landing,authorizedPages:visible.length,
+      landingAuthorized:visible.some(page=>page.route===role.landing)};
+  });
 }
 export function pageProgressSummary(rows:RecordRow[]):RecordRow[] {
   return [...new Set(rows.map(row=>String(row.app)))].sort().map(app=>{
@@ -137,6 +140,9 @@ export async function governanceApi(request:Request,env:Env,path:string,headers:
           const counts=workspaceRoleCounts((await db.query("SELECT roles AS role,COUNT(*)::int AS count FROM users WHERE tenant_id::text=$1 AND LOWER(status)='active' GROUP BY roles ORDER BY roles",[String(actor.tenant_id)])).rows);
           const rows=catalog.hierarchy.map(r=>({...r,activeAccounts:counts.find(c=>c.role===r.role)?.count??0,inheritsPermissions:false}));
           return json(paginate(rows,query,'approved_reporting_and_live_tenant_counts'),200,safe);
+        }
+        if(path==='/role-coverage') {
+          return json(paginate(roleCoverageRows(query),{...query,app:'',screen:''},'registered_governance'),200,safe);
         }
         if(path==='/page-progress') {
           const groups=pageProgressSummary(filterGovernanceRows(pageRows(),query));
