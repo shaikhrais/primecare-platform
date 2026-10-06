@@ -3,6 +3,7 @@ import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 const idPattern=/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/;
 const fields='id,service_type,preferred_date,preferred_time,status,created_at,updated_at';
 const project=(r:Record<string,unknown>)=>({id:String(r.id),service_type:r.service_type,preferred_date:r.preferred_date,preferred_time:r.preferred_time,status:r.status,created_at:r.created_at,updated_at:r.updated_at});
+const exactCount=(value:unknown)=>{if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid booking audit count');return value;};
 
 async function createInput(request:Request):Promise<Record<string,unknown>>{
   if(!/^application\/json(?:\s*;|$)/i.test(request.headers.get('content-type')??''))throw Error('JSON required');
@@ -54,7 +55,7 @@ export async function clientBookingLifecycle(request:Request,env:Env,path:string
         if(audit){
           if(!(await db.query('SELECT id FROM booking_requests WHERE '+filter,[...scope,match![1]])).rows.length)return json({error:'Booking request not found'},404,safe);
           const values=[match![1],String(actor.id),String(actor.tenant_id)],where='request_id=$1 AND actor_user_id=$2 AND tenant_id=$3';
-          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM booking_request_audit WHERE '+where,values)).rows[0].count);
+          const total=exactCount((await db.query('SELECT COUNT(*)::int AS count FROM booking_request_audit WHERE '+where,values)).rows[0].count);
           const rows=(await db.query('SELECT id::text AS id,action,previous_status,new_status,created_at FROM booking_request_audit WHERE '+where+' ORDER BY created_at DESC,id DESC LIMIT $4 OFFSET $5',[...values,Number(limit),Number(offset)])).rows;
           return json({events:rows.map(r=>({id:r.id,action:r.action,previous_status:r.previous_status,new_status:r.new_status,created_at:r.created_at})),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }

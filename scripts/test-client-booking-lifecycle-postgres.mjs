@@ -25,7 +25,7 @@ try{
  assert.equal((await call('/booking-requests','wrong-tenant',input,tokens[0],{'x-tenant-id':tenants[1]})).status,403);checks++;
  const cancelPath='/booking-requests/'+id+'/cancel';const cancellations=await Promise.all([call(cancelPath,'cancel-one'),call(cancelPath,'cancel-two')]);assert.deepEqual(cancellations.map(r=>r.status).sort(),[200,409]);checks++;
  const winningKey=cancellations[0].status===200?'cancel-one':'cancel-two';const replay=await call(cancelPath,winningKey);assert.equal(replay.status,200);assert.equal(replay.headers.get('idempotency-replayed'),'true');assert.equal((await replay.json()).request.status,'cancelled');checks++;
- const history=await (await call('/booking-requests/'+id+'/audit')).json();assert.equal(history.pagination.total,2);assert.deepEqual(history.events.map(e=>e.action),['cancelled','created']);assert.ok(!JSON.stringify(history).includes('private'));checks++;
+ const history=await (await call('/booking-requests/'+id+'/audit')).json();assert.equal(history.pagination.total,2);assert.equal(typeof history.pagination.total,'number');assert.deepEqual(history.events.map(e=>e.action),['cancelled','created']);assert.ok(!JSON.stringify(history).includes('private'));checks++;
  const historyPage=await (await call('/booking-requests/'+id+'/audit?limit=1&offset=1')).json();assert.equal(historyPage.events.length,1);assert.equal(historyPage.pagination.total,2);checks++;
  // Idempotency stores the original response even after a later cancellation.
  const submitReplay=await call();assert.equal(submitReplay.status,201);assert.equal((await submitReplay.json()).request.status,'pending');checks++;
@@ -41,5 +41,5 @@ try{
  await db.query('UPDATE client_profiles SET id=$1 WHERE id=$2',[randomUUID(),profiles[0]]);assert.equal((await call()).status,404);checks++;
  await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 second' WHERE user_id=$1",[ids[1]]);assert.equal((await call('/booking-requests','expired-session',input,tokens[1])).status,401);checks++;
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[ids[2]]);assert.equal((await call('/booking-requests','inactive',input,tokens[2])).status,401);checks++;
- console.log(`Booking request lifecycle passed ${checks} PostgreSQL checks (${process.env.AUTH_TEST_ID_TYPE} auth identities).`);
+ console.log(`Booking request lifecycle batches 19 and 201 passed ${checks} PostgreSQL checks (${process.env.AUTH_TEST_ID_TYPE} auth identities).`);
 }finally{if(createdAudit)await db.query('DROP TABLE booking_request_audit');if(createdRequests)await db.query('DROP TABLE booking_requests');if(createdProfiles)await db.query('DROP TABLE client_profiles');await db.query('DELETE FROM auth_sessions WHERE user_id::text=ANY($1)',[ids]);await db.query('DELETE FROM users WHERE id::text=ANY($1)',[ids]);await db.end();}
