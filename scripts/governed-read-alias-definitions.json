@@ -462,5 +462,29 @@
     "targetPath": "/authored-checklist-records",
     "canonical": "/v1/provider/authored-checklist-records",
     "spec": "own-provider-work-batches-160-163.openapi.json"
+  },
+  {
+    "batch": 166,
+    "name": "patientalert",
+    "service": "client",
+    "targetPath": "/alert-records",
+    "canonical": "/v1/client/alert-records",
+    "spec": "own-patient-metadata-batches-166-168.openapi.json"
+  },
+  {
+    "batch": 167,
+    "name": "claim",
+    "service": "client",
+    "targetPath": "/insurance-claim-records",
+    "canonical": "/v1/client/insurance-claim-records",
+    "spec": "own-patient-metadata-batches-166-168.openapi.json"
+  },
+  {
+    "batch": 168,
+    "name": "prescription",
+    "service": "client",
+    "targetPath": "/prescription-records",
+    "canonical": "/v1/client/prescription-records",
+    "spec": "own-patient-metadata-batches-166-168.openapi.json"
   }
 ]

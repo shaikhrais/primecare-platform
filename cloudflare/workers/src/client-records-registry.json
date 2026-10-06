@@ -1,5 +1,6 @@
 [
   {
+    "ownerField": "client_id",
     "batch": 21,
     "summaryBatch": 22,
     "summaryField": "status",
@@ -14,6 +15,12 @@
       "signed_at",
       "expires_at",
       "template_version",
+      "created_at",
+      "updated_at"
+    ],
+    "dateFields": [
+      "signed_at",
+      "expires_at",
       "created_at",
       "updated_at"
     ],
@@ -35,6 +42,7 @@
     }
   },
   {
+    "ownerField": "client_id",
     "batch": 21,
     "summaryBatch": 22,
     "summaryField": "status",
@@ -51,6 +59,12 @@
       "start_date",
       "end_date",
       "status",
+      "created_at",
+      "updated_at"
+    ],
+    "dateFields": [
+      "start_date",
+      "end_date",
       "created_at",
       "updated_at"
     ],
@@ -71,6 +85,7 @@
     }
   },
   {
+    "ownerField": "client_id",
     "batch": 21,
     "summaryBatch": 22,
     "summaryField": "status",
@@ -83,6 +98,10 @@
       "service_id",
       "priority",
       "status",
+      "requested_start_at",
+      "created_at"
+    ],
+    "dateFields": [
       "requested_start_at",
       "created_at"
     ],
@@ -99,6 +118,7 @@
     }
   },
   {
+    "ownerField": "client_id",
     "batch": 36,
     "summaryBatch": 37,
     "summaryField": "status",
@@ -110,6 +130,10 @@
       "id",
       "rating",
       "status",
+      "created_at",
+      "updated_at"
+    ],
+    "dateFields": [
       "created_at",
       "updated_at"
     ],
@@ -125,6 +149,7 @@
     }
   },
   {
+    "ownerField": "client_id",
     "batch": 38,
     "summaryBatch": 39,
     "summaryField": "triage_status",
@@ -138,6 +163,9 @@
       "triage_status",
       "created_at"
     ],
+    "dateFields": [
+      "created_at"
+    ],
     "types": {
       "id": "string",
       "rating": "integer",
@@ -146,6 +174,7 @@
     }
   },
   {
+    "ownerField": "client_id",
     "batch": 46,
     "summaryBatch": 47,
     "summaryField": "thread_type",
@@ -158,6 +187,9 @@
       "thread_type",
       "created_at"
     ],
+    "dateFields": [
+      "created_at"
+    ],
     "types": {
       "id": "string",
       "thread_type": "string",
@@ -165,6 +197,7 @@
     }
   },
   {
+    "ownerField": "client_id",
     "batch": 48,
     "summaryBatch": 49,
     "summaryField": "relationship",
@@ -178,11 +211,91 @@
       "created_at",
       "updated_at"
     ],
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ],
     "types": {
       "id": "string",
       "relationship": "string",
       "created_at": "string",
       "updated_at": "string"
+    }
+  },
+  {
+    "ownerField": "patient_id",
+    "batch": 166,
+    "summaryBatch": 169,
+    "summaryField": "status",
+    "path": "/alert-records",
+    "table": "patient_alerts",
+    "collection": "alerts",
+    "item": "alert",
+    "fields": [
+      "id",
+      "type",
+      "severity",
+      "status",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "type": "string",
+      "severity": "string",
+      "status": "string",
+      "created_at": "string"
+    }
+  },
+  {
+    "ownerField": "patient_id",
+    "batch": 167,
+    "summaryBatch": 170,
+    "summaryField": "status",
+    "path": "/insurance-claim-records",
+    "table": "claims",
+    "collection": "claims",
+    "item": "claim",
+    "fields": [
+      "id",
+      "status",
+      "service_date",
+      "created_at"
+    ],
+    "dateFields": [
+      "service_date",
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "status": "string",
+      "service_date": "string",
+      "created_at": "string"
+    }
+  },
+  {
+    "ownerField": "patient_id",
+    "batch": 168,
+    "summaryBatch": 171,
+    "summaryField": "status",
+    "path": "/prescription-records",
+    "table": "prescriptions",
+    "collection": "prescriptions",
+    "item": "prescription",
+    "fields": [
+      "id",
+      "status",
+      "created_at"
+    ],
+    "dateFields": [
+      "created_at"
+    ],
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string"
     }
   }
 ]
