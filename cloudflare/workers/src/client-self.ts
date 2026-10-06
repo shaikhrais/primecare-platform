@@ -98,7 +98,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           // Table and column identifiers come only from the generated, governed
           // projection catalog. Request input is confined to bound values.
           const column=(name:string)=>/[A-Z]/.test(name)?'"'+name+'"':name;
-          const fields=record.fields.map(column).join(','),filter=(record.ownerField??'client_id')+'::text=$1 AND tenant_id::text=$2';
+          const fields=record.fields.map(column).join(','),filter=column(record.ownerField??'client_id')+'::text=$1 AND tenant_id::text=$2';
           const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{
             const types=(record.types as Record<string,string|string[]>)[field],allowed=Array.isArray(types)?types:[types],value=row[field];
             const valid=value===null?allowed.includes('null'):record.dateFields.includes(field)?(typeof value==='string'||value instanceof Date)&&Number.isFinite(new Date(value as string).getTime()):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&typeof value==='string';

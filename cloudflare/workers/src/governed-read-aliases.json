@@ -460,5 +460,33 @@
     "service": "client",
     "targetPath": "/family-notification-records",
     "canonical": "/v1/client/family-notification-records"
+  },
+  {
+    "batch": 232,
+    "path": "/v1/premium/blogpost",
+    "service": "auth",
+    "targetPath": "/me/authored-post-records",
+    "canonical": "/v1/auth/me/authored-post-records"
+  },
+  {
+    "batch": 233,
+    "path": "/v1/premium/transactionledger",
+    "service": "auth",
+    "targetPath": "/me/ledger-event-records",
+    "canonical": "/v1/auth/me/ledger-event-records"
+  },
+  {
+    "batch": 234,
+    "path": "/v1/premium/inventoryitem",
+    "service": "client",
+    "targetPath": "/inventory-item-records",
+    "canonical": "/v1/client/inventory-item-records"
+  },
+  {
+    "batch": 235,
+    "path": "/v1/premium/purchaseorder",
+    "service": "client",
+    "targetPath": "/purchase-order-records",
+    "canonical": "/v1/client/purchase-order-records"
   }
 ]

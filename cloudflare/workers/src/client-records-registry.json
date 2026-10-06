@@ -620,5 +620,55 @@
       "is_read": "boolean",
       "created_at": "string"
     }
+  },
+  {
+    "path": "/inventory-item-records",
+    "table": "inventory_items",
+    "ownerField": "clientProfileId",
+    "collection": "items",
+    "item": "item",
+    "fields": [
+      "id",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 229,
+    "batch": 229,
+    "summaryBatch": 0,
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/purchase-order-records",
+    "table": "purchase_orders",
+    "ownerField": "clientProfileId",
+    "collection": "orders",
+    "item": "order",
+    "fields": [
+      "id",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 230,
+    "batch": 230,
+    "summaryBatch": 231,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
   }
 ]
