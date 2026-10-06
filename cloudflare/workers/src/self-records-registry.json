@@ -894,5 +894,26 @@
     "dateFields": [
       "created_at"
     ]
+  },
+  {
+    "path": "/me/authored-message-records",
+    "table": "messages",
+    "collection": "messages",
+    "item": "message",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 220,
+    "ownerField": "sender_user_id",
+    "tenantThroughUser": true,
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
   }
 ]

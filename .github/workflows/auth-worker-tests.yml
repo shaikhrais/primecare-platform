@@ -65,6 +65,7 @@ jobs:
           node scripts/test-client-care-events-postgres.mjs
           node scripts/test-booking-payment-reads-postgres.mjs
           node scripts/test-provider-timesheet-items-postgres.mjs
+          node scripts/test-training-message-postgres.mjs
           node scripts/test-self-records-postgres.mjs
           node scripts/test-self-device-wellness-postgres.mjs
           node scripts/test-feedback-reputation-postgres.mjs

@@ -502,5 +502,21 @@
     "targetPath": "/timesheet-items",
     "canonical": "/v1/provider/timesheet-items",
     "spec": "provider-timesheet-items-batches-213-215.openapi.json"
+  },
+  {
+    "batch": 219,
+    "name": "trainingassignment",
+    "service": "provider",
+    "targetPath": "/training-assignment-records",
+    "canonical": "/v1/provider/training-assignment-records",
+    "spec": "provider-training-batches-217-218.openapi.json"
+  },
+  {
+    "batch": 221,
+    "name": "message",
+    "service": "auth",
+    "targetPath": "/me/authored-message-records",
+    "canonical": "/v1/auth/me/authored-message-records",
+    "spec": "authored-message-batch-220.openapi.json"
   }
 ]
