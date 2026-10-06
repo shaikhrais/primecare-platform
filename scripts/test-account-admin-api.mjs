@@ -109,7 +109,7 @@ test("account administration rejects malformed counts without commit or audit",a
 
 for(const [name,path,invalid] of [
  ['account detail','/admin/users/target',[{id:null},{id:{}},{email:{}},{roles:{}},{status:42},{updated_at:undefined},{updated_at:'invalid'}]],
- ['session dates','/admin/users/target/sessions',[{created_at:null},{created_at:42},{expires_at:'invalid'},{expires_at:new Date(NaN)},{created_at:'2026-02-30T00:00:00Z'}]],
+ ['session dates','/admin/users/target/sessions',[{created_at:null},{created_at:42},{expires_at:'invalid'},{expires_at:new Date(NaN)},{expires_at:new Date('+010000-01-01T00:00:00Z')},{created_at:'2026-02-30T00:00:00Z'}]],
  ['management audit','/admin/users/audit',[{id:null},{actorUserId:{}},{targetUserId:42},{created_at:null},{created_at:'invalid'},{action:'unexpected'}]],
  ['creation audit','/admin/users/creation-audit',[{id:null},{actorUserId:{}},{targetUserId:42},{created_at:null},{created_at:'invalid'}]]
 ]) {

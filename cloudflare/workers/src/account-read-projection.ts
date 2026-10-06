@@ -6,7 +6,7 @@ export function accountId(value: unknown): string {
 export function accountTimestamp(value: unknown, nullable = false): string | null {
   if (nullable && value === null) return null;
   if (value instanceof Date) {
-    if (!Number.isFinite(value.getTime())) throw Error('Invalid account timestamp');
+    if (!Number.isFinite(value.getTime()) || value.getUTCFullYear() < 0 || value.getUTCFullYear() > 9999) throw Error('Invalid account timestamp');
     return value.toISOString();
   }
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)$/.test(value) || !Number.isFinite(Date.parse(value))) throw Error('Invalid account timestamp');
