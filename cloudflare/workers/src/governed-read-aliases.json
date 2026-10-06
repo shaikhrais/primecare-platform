@@ -362,5 +362,47 @@
     "service": "provider",
     "targetPath": "/profile",
     "canonical": "/v1/provider/profile"
+  },
+  {
+    "batch": 158,
+    "path": "/v1/premium/auditlog",
+    "service": "auth",
+    "targetPath": "/me/audit-event-records",
+    "canonical": "/v1/auth/me/audit-event-records"
+  },
+  {
+    "batch": 159,
+    "path": "/v1/premium/systemevent",
+    "service": "auth",
+    "targetPath": "/me/system-event-records",
+    "canonical": "/v1/auth/me/system-event-records"
+  },
+  {
+    "batch": 160,
+    "path": "/v1/premium/shiftassignment",
+    "service": "provider",
+    "targetPath": "/shift-assignment-records",
+    "canonical": "/v1/provider/shift-assignment-records"
+  },
+  {
+    "batch": 161,
+    "path": "/v1/premium/shifthandover",
+    "service": "provider",
+    "targetPath": "/handover-records",
+    "canonical": "/v1/provider/handover-records"
+  },
+  {
+    "batch": 162,
+    "path": "/v1/premium/visitnote",
+    "service": "provider",
+    "targetPath": "/authored-visit-note-records",
+    "canonical": "/v1/provider/authored-visit-note-records"
+  },
+  {
+    "batch": 163,
+    "path": "/v1/premium/visitchecklist",
+    "service": "provider",
+    "targetPath": "/authored-checklist-records",
+    "canonical": "/v1/provider/authored-checklist-records"
   }
 ]
