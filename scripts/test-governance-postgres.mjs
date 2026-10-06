@@ -23,6 +23,12 @@ try {
  for(const path of ['/page-progress','/screen-health','/role-coverage','/pending-tasks','/api-contracts','/api-execution-status','/organization-map','/overview']) {
   const r=await call(path,'?limit=2');assert.equal(r.status,200,path);const data=await r.json();assert.ok(data.data.length<=2);checks++;
  }
+ for(const query of ['?role=ceo&limit=100','?screen=ceo_dashboard&limit=100','?app=co&role=ceo&limit=100','?search=ceo_dashboard&limit=100']) {
+  const screens=await (await call('/screen-health',query)).json();
+  const progress=await (await call('/page-progress',query)).json();
+  assert.ok(screens.pagination.total>0);assert.equal(progress.data.reduce((sum,row)=>sum+row.total,0),screens.pagination.total);checks++;
+ }
+ const emptyProgress=await (await call('/page-progress','?screen=missing-screen-unique')).json();assert.equal(emptyProgress.pagination.total,0);assert.deepEqual(emptyProgress.data,[]);checks++;
  const serviceStatus=await (await call('/api-service-status','?limit=100')).json();assert.equal(serviceStatus.data.filter(r=>r.gatewayBound).length,12);assert.equal(serviceStatus.pagination.total,13);assert.ok(serviceStatus.data.every(r=>r.productionVerified===false));checks++;
  const org=await (await call('/organization-map','?limit=100')).json();assert.equal(org.data.find(r=>r.role==='ceo').activeAccounts,1);assert.ok(org.data.every(r=>typeof r.activeAccounts==='number'));assert.equal(org.data.find(r=>r.role==='rmt').activeAccounts,1);checks++;
  const overview=await (await call('/overview')).json();assert.equal(overview.data[0].activeAccounts,2);checks++;
