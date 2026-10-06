@@ -20,7 +20,7 @@
     "cloudflare/workers/src/email-templates.json": "fac27367d39bf30caebacb76c4cc4919e181e47348aa75cc40780124c9a79446",
     "cloudflare/workers/src/email.ts": "3fbc322d8ee953eb1c13f2a31f0fc1cb9a33aaaacdfe338a5f207b593c017357",
     "cloudflare/workers/src/gateway.ts": "7405befbc6d8e6d6b90812a9a0149ea7adb7b278e824fa605e404a0f96cc5317",
-    "cloudflare/workers/src/governance-api-registry.json": "06e350e5aed14620d2fb138dc0826ddf5db7c28cd5ea24b3109948358f2ab6e5",
+    "cloudflare/workers/src/governance-api-registry.json": "42577eaafc3705c5e103d2e2230f1597d17374cdae58a18367178b98ffa99c2a",
     "cloudflare/workers/src/governance-api.ts": "c63d90909388067f4a2eef6d61931e57d0af69c86bb58139c4b661609aad8ee6",
     "cloudflare/workers/src/governed-read-aliases.json": "9113afeafb9812dd24e50704ef90e087767c890d6464584e27dc81ce64c0b228",
     "cloudflare/workers/src/legacy-domain-registry.json": "ebb5891fa57650c61b749b4817a1f8bfc5b1722ba425488dfc460216e1de7336",
@@ -90,8 +90,8 @@
     "scripts/register-client-record-summaries-api.py": "ce281fdb6613a23d6cb70c373051b64f82051b2f3a409421cb5defba328a53cd",
     "scripts/register-client-operational-projections-api.py": "99627a0d915b5787f518fb5b347d88ff35f634cef3d12c0445f1e7f60222fb61",
     "scripts/register-client-count-validation-api.py": "eaca4ebc5dd5dd940779632c443260d08eda07171a5093066bc1ebae269d66b4",
-    "scripts/register-provider-records-api.py": "f5968542827916509f79f99ca4cf1fa81b5083cd1ebd96ec470bcd24c98ae0c0",
-    "scripts/register-self-records-api.py": "dd1a24e32cea6cc677d5b0d7e16edcc098f2b4e461c2e3567b1495041743d18e",
+    "scripts/register-provider-records-api.py": "dbb71691237ad2a3ef42236271f14b39ac562e86b41365099ec9f3033201c0c4",
+    "scripts/register-self-records-api.py": "b5e5f20be9f3db92d4109fc06cac4024be122cef60b229903c480a880c26b2d3",
     "scripts/register-provider-operational-projections-api.py": "05036d1e5bedc763b000986142c8d75d7d168799b5ce19c0b24c50897131159a",
     "scripts/register-generated-record-count-validation-api.py": "2b3e8836deb17b14a4c32d167ad02aaafa25bf31a9dcf6b3d0752391e75fe4c7",
     "scripts/register-client-booking-lifecycle-api.py": "fb7e1f8673295ae7cc6792d0e4027b11ae2cc27cd15b9e4525df06430bcc61e7",
@@ -104,6 +104,8 @@
     "scripts/register-account-detail-batch.py": "980f9475c55b8b18501757d730041c91b856c993ea8e8d450c6f183e44888f76",
     "scripts/register-account-count-validation-api.py": "f48de29c41543cf1c59dd1b9f325d47e4f1e36b97b360a2302619c9ecd502eb1",
     "scripts/register-workspace-count-validation-api.py": "405b55af49245f1dbadd88723843aefb9ac37b62bbcca4ee3b3520f1d729fb3d",
-    "scripts/register-api-service-status.py": "46a46b0da30ac2b502523f1b6be9dac438a8efb79eaa427d28af7fad5b8f4977"
+    "scripts/register-api-service-status.py": "46a46b0da30ac2b502523f1b6be9dac438a8efb79eaa427d28af7fad5b8f4977",
+    "scripts/record_authority_guard.py": "729a91791a50c1dcdb5985db1508927609f6481b9880102de669cf8ca12e1a98",
+    "scripts/test-record-authority-guard.py": "efa5bb0636a522baf1fd65d1b0da642b178b063f15b2c4d16cc0078bcb23e5ae"
   }
 }

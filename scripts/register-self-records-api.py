@@ -1,6 +1,7 @@
 """Batches 26–30: direct user/tenant-owned account records; no role grants."""
 import json,re,sqlite3
 from pathlib import Path
+from record_authority_guard import validate_record_authority
 ROOT=Path(__file__).resolve().parents[1]
 definitions=[{'path':'/me/notifications','table':'app_notifications','collection':'notifications','item':'notification','fields':['id','title','message','type','is_read','created_at'],'listBatch':26,'summaryBatch':27,'summaryField':'is_read'}, {'path':'/me/activities','table':'daily_activities','collection':'activities','item':'activity','fields':['id','role','title','description','status','due_date','created_at','updated_at'],'listBatch':28,'summaryBatch':29,'summaryField':'status'}, {'path':'/me/rewards','table':'gamification_profiles','item':'profile','fields':['id','care_coins','current_tier','lifetime_points','updated_at'],'listBatch':30,'singleton':True}]
 definitions.extend([
@@ -61,6 +62,7 @@ paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offse
 pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer','minimum':1,'maximum':100},'offset':{'type':'integer','minimum':0,'maximum':100000},'total':{'type':'integer','minimum':0},'hasMore':{'type':'boolean'}}}
 paths={};registry=[]
 with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
+ validate_record_authority(db, definitions, 'auth', 'authenticated_self_record_owner')
  app=db.execute("SELECT id FROM apps WHERE app_code='at'").fetchone()[0];sid=db.execute("SELECT id FROM screens WHERE screen_code='login'").fetchone()[0]
  for definition in definitions:
   record=dict(definition);table=record['table'];fields=record['fields']
