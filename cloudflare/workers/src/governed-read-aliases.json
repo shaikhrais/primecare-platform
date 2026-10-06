@@ -425,5 +425,19 @@
     "service": "client",
     "targetPath": "/prescription-records",
     "canonical": "/v1/client/prescription-records"
+  },
+  {
+    "batch": 212,
+    "path": "/v1/premium/payment",
+    "service": "client",
+    "targetPath": "/payments",
+    "canonical": "/v1/client/payments"
+  },
+  {
+    "batch": 216,
+    "path": "/v1/premium/timesheetitem",
+    "service": "provider",
+    "targetPath": "/timesheet-items",
+    "canonical": "/v1/provider/timesheet-items"
   }
 ]

@@ -1,3 +1,4 @@
+import {providerTimesheetItems} from './provider-timesheet-items';
 import {clientBookingLifecycle} from './client-booking-lifecycle';
 import {legacyDomain} from './legacy-domain';
 import {providerSelf} from './provider-self';
@@ -53,6 +54,8 @@ export default {
       }
       const lifecycleResponse=await clientBookingLifecycle(request,env,path,headers);
       if(lifecycleResponse)return lifecycleResponse;
+      const timesheetItemResponse=await providerTimesheetItems(request,env,path,headers);
+      if(timesheetItemResponse)return timesheetItemResponse;
       const providerRecordResponse=await providerRecords(request,env,path,headers);
       if(providerRecordResponse)return providerRecordResponse;
       const providerResponse=await providerSelf(request,env,path,headers);
