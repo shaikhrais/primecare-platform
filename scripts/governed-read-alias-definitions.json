@@ -518,5 +518,13 @@
     "targetPath": "/me/authored-message-records",
     "canonical": "/v1/auth/me/authored-message-records",
     "spec": "authored-message-batch-220.openapi.json"
+  },
+  {
+    "batch": 224,
+    "name": "familynotification",
+    "service": "client",
+    "targetPath": "/family-notification-records",
+    "canonical": "/v1/client/family-notification-records",
+    "spec": "client-family-notifications-batch-222.openapi.json"
   }
 ]

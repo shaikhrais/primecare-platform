@@ -101,7 +101,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           const fields=record.fields.map(column).join(','),filter=(record.ownerField??'client_id')+'::text=$1 AND tenant_id::text=$2';
           const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{
             const types=(record.types as Record<string,string|string[]>)[field],allowed=Array.isArray(types)?types:[types],value=row[field];
-            const valid=value===null?allowed.includes('null'):record.dateFields.includes(field)?(typeof value==='string'||value instanceof Date)&&Number.isFinite(new Date(value as string).getTime()):allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&typeof value==='string';
+            const valid=value===null?allowed.includes('null'):record.dateFields.includes(field)?(typeof value==='string'||value instanceof Date)&&Number.isFinite(new Date(value as string).getTime()):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&typeof value==='string';
             if(!valid)throw Error('Invalid record data');
             return [field,field==='id'?String(value):value];
           }));

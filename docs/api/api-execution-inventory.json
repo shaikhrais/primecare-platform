@@ -1,17 +1,17 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1396,
+    "totalDeclared": 1399,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 304,
-      "verification_pending": 1082
+      "unit_fixtures_recorded": 308,
+      "verification_pending": 1081
     },
     "contractGaps": {
-      "permission": 1077,
-      "requestSchema": 1079,
-      "responseSchema": 1080,
-      "screenLink": 1037
+      "permission": 1076,
+      "requestSchema": 1078,
+      "responseSchema": 1079,
+      "screenLink": 1036
     },
     "note": "Recorded declarations and local unit-fixture status only. Unrecorded means inspect implementation, not proof of absent code. PostgreSQL/production evidence is not inferred from CI or registry labels."
   },
@@ -10817,6 +10817,75 @@
       "productionVerified": false
     },
     {
+      "id": 16673,
+      "api": "GET /v1/client/family-notification-records",
+      "method": "GET",
+      "route": "/v1/client/family-notification-records",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 222,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16675,
+      "api": "GET /v1/client/family-notification-records/summary",
+      "method": "GET",
+      "route": "/v1/client/family-notification-records/summary",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 223,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16674,
+      "api": "GET /v1/client/family-notification-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/client/family-notification-records/{recordId}",
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 222,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 560,
       "api": "POST /v1/client/family/hub-overview",
       "method": "POST",
@@ -21173,20 +21242,21 @@
       "api": "GET /v1/premium/familynotification",
       "method": "GET",
       "route": "/v1/premium/familynotification",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 224,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
