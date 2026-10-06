@@ -241,7 +241,8 @@
                           "type": "integer"
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -478,7 +479,8 @@
                           "type": "integer"
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"
