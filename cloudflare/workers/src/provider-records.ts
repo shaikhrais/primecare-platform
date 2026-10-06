@@ -2,6 +2,7 @@ import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import generatedRegistry from './provider-records-registry.json';
 type RecordDefinition={path:string;table:string;item:string;collection?:string;fields:string[];types:Record<string,string|string[]>;dateFields:string[];singleton?:boolean;summaryField?:string;orderField:string;tenantThroughProvider?:boolean};
 const registry:RecordDefinition[]=generatedRegistry;
+const exactCount=(value:unknown,message:string)=>{if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error(message);return value;};
 /** Provider profile ownership is derived exclusively from the active session.
  * SQL identifiers come from the generated governance projection, never input. */
 export async function providerRecords(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null>{
@@ -37,9 +38,8 @@ export async function providerRecords(request:Request,env:Env,path:string,header
         const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{if(!valid(field,row[field]))throw Error('Invalid provider record');return [field,row[field]];}));
         if(summary){
           const field=record.summaryField!,groupField=prefix+field;
-          const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+groupField+scope+' GROUP BY '+groupField+') groups',values)).rows[0].count);
+          const total=exactCount((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+groupField+scope+' GROUP BY '+groupField+') groups',values)).rows[0].count,'Invalid provider summary count');
           const rows=(await db.query('SELECT '+groupField+',COUNT(*)::int AS count'+scope+' GROUP BY '+groupField+' ORDER BY '+groupField+' NULLS LAST LIMIT $'+(values.length+1)+' OFFSET $'+(values.length+2),[...values,Number(limit),Number(offset)])).rows;
-          if(!Number.isSafeInteger(total)||total<0)throw Error('Invalid provider summary count');
           const groups=rows.map(row=>{if(!valid(field,row[field])||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid provider summary');return {[field]:row[field],count:row.count};});
           return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
@@ -50,8 +50,7 @@ export async function providerRecords(request:Request,env:Env,path:string,header
           return json({[record.item]:project(rows[0])},200,safe);
         }
         if(detail){const row=(await db.query('SELECT '+fields+scope+' AND '+prefix+'id::text=$'+(values.length+1),[...values,suffix])).rows[0];return row?json({[record.item]:project(row)},200,safe):json({error:'Record not found'},404,safe);}
-        const total=Number((await db.query('SELECT COUNT(*)::int AS count'+scope,values)).rows[0].count);
-        if(!Number.isSafeInteger(total)||total<0)throw Error('Invalid provider record count');
+        const total=exactCount((await db.query('SELECT COUNT(*)::int AS count'+scope,values)).rows[0].count,'Invalid provider record count');
         const rows=(await db.query('SELECT '+fields+scope+' ORDER BY '+prefix+record.orderField+' DESC,'+prefix+'id DESC LIMIT $'+(values.length+1)+' OFFSET $'+(values.length+2),[...values,Number(limit),Number(offset)])).rows;
         return json({[record.collection!]:rows.map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
       }finally{await db.query('ROLLBACK');}

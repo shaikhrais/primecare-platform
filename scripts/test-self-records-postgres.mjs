@@ -20,12 +20,12 @@ try{
    await db.query('DELETE FROM '+record.table+' WHERE id=$1',[ids[0]]);assert.equal((await call(record.path)).status,404);checks++;
   }else{
    for(let i=0;i<3;i++)await insert(i,users[0],tenants[0]);await insert(3,users[1],tenants[0]);await insert(4,users[0],tenants[1]);if(record.table!=='daily_activities')await insert(5,users[0],null);
-   const response=await call(record.path,'?limit=1');assert.equal(response.status,200);const list=await response.json();assert.equal(list.pagination.total,3);assert.equal(list[record.collection][0].id,ids[2]);assert.deepEqual(Object.keys(list[record.collection][0]),record.fields);assert.ok(!JSON.stringify(list).includes('navigation-link'));checks++;
+   const response=await call(record.path,'?limit=1');assert.equal(response.status,200);const list=await response.json();assert.equal(list.pagination.total,3);assert.equal(typeof list.pagination.total,'number');assert.equal(list[record.collection][0].id,ids[2]);assert.deepEqual(Object.keys(list[record.collection][0]),record.fields);assert.ok(!JSON.stringify(list).includes('navigation-link'));checks++;
    const page=await (await call(record.path,'?limit=1&offset=1')).json();assert.equal(page[record.collection][0].id,ids[1]);assert.equal(page.pagination.hasMore,true);checks++;
    const detail=await (await call(record.path+'/'+ids[0])).json();assert.equal(detail[record.item].id,ids[0]);checks++;
    for(const id of ids.slice(3))assert.equal((await call(record.path+'/'+id)).status,404);checks++;
    const other=await (await call(record.path,'',tokens[1])).json();assert.equal(other.pagination.total,1);assert.equal(other[record.collection][0].id,ids[3]);checks++;
-   const summary=await (await call(record.path+'/summary')).json(),key=record.summaryField,expected=key==='is_read'?[{is_read:false,count:2},{is_read:true,count:1}]:[{status:'COMPLETED',count:1},{status:'PENDING',count:2}];assert.deepEqual(summary.groups,expected);assert.equal(summary.pagination.total,2);checks++;
+   const summary=await (await call(record.path+'/summary')).json(),key=record.summaryField,expected=key==='is_read'?[{is_read:false,count:2},{is_read:true,count:1}]:[{status:'COMPLETED',count:1},{status:'PENDING',count:2}];assert.deepEqual(summary.groups,expected);assert.equal(summary.pagination.total,2);assert.equal(typeof summary.pagination.total,'number');checks++;
    const summaryPage=await (await call(record.path+'/summary','?limit=1&offset=1')).json();assert.deepEqual(summaryPage.groups,[expected[1]]);assert.equal(summaryPage.pagination.hasMore,false);checks++;
    await db.query('DELETE FROM '+record.table+' WHERE id=ANY($1)',[ids.slice(0,3)]);const empty=await (await call(record.path)).json();assert.deepEqual(empty[record.collection],[]);assert.equal(empty.pagination.total,0);const emptySummary=await (await call(record.path+'/summary')).json();assert.deepEqual(emptySummary.groups,[]);assert.equal(emptySummary.pagination.total,0);checks++;
   }
@@ -33,5 +33,5 @@ try{
  assert.equal((await call(registry[0].path,'',tokens[0],{'x-tenant-id':tenants[1]})).status,403);checks++;
  await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 second' WHERE user_id=$1",[users[0]]);for(const r of registry)assert.equal((await call(r.path)).status,401);checks++;
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[users[1]]);for(const r of registry)assert.equal((await call(r.path,'',tokens[1])).status,401);checks++;
- console.log(`Personal record batches 26–30 passed ${checks} PostgreSQL checks (${process.env.AUTH_TEST_ID_TYPE} auth identities).`);
+ console.log(`Personal record batches 26–30 and 200 passed ${checks} PostgreSQL checks (${process.env.AUTH_TEST_ID_TYPE} auth identities).`);
 }finally{for(const table of created.reverse())await db.query('DROP TABLE '+table);await db.query('DELETE FROM auth_sessions WHERE user_id::text=ANY($1)',[users]);await db.query('DELETE FROM users WHERE id::text=ANY($1)',[users]);await db.end();}

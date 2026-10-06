@@ -57,7 +57,7 @@ for definition in definitions:
  if definition['table'] in {'technical_audits':96,'daily_audit_signoffs':97}:
   definition.update(summaryBatch={'technical_audits':96,'daily_audit_signoffs':97}[definition['table']],summaryField='status')
 paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0}}
-pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}}
+pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer','minimum':1,'maximum':100},'offset':{'type':'integer','minimum':0,'maximum':100000},'total':{'type':'integer','minimum':0},'hasMore':{'type':'boolean'}}}
 paths={};registry=[]
 with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  app=db.execute("SELECT id FROM apps WHERE app_code='at'").fetchone()[0];sid=db.execute("SELECT id FROM screens WHERE screen_code='login'").fetchone()[0]

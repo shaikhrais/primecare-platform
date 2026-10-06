@@ -26,3 +26,4 @@ for(const record of registry){
  }
 }
 test('personal records refuse other services, nested detail and rewards aliases',async()=>{fixture(registry[0]);assert.equal(await call('/me/notifications','',{},'GET',{SERVICE_NAME:'client'}),null);assert.equal(await call('/me/notifications/record/extra'),null);assert.equal(await call('/me/rewards/record'),null);assert.equal(await call('/me/rewards/summary'),null);});
+test('personal records reject coercible list and summary totals',async()=>{for(const record of registry){if(record.singleton)continue;fixture(record);total='2';assert.equal((await call(record.path)).status,503);fixture(record);total='2';assert.equal((await call(record.path+'/summary')).status,503);}});
