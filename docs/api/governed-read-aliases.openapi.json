@@ -6489,22 +6489,37 @@
                             "type": "string"
                           },
                           "status": {
-                            "type": "string"
+                            "type": [
+                              "string",
+                              "null"
+                            ]
                           },
                           "currency": {
-                            "type": "string"
+                            "type": [
+                              "string",
+                              "null"
+                            ]
                           },
                           "subtotal": {
-                            "type": "string",
-                            "description": "Exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
                           },
                           "tax": {
-                            "type": "string",
-                            "description": "Exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
                           },
                           "total": {
-                            "type": "string",
-                            "description": "Exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "description": "Nullable exact PostgreSQL decimal value; do not convert to binary float for financial calculations."
                           },
                           "created_at": {
                             "type": "string",
