@@ -1,6 +1,7 @@
 """Batches 51–65: provider-owned operational metadata; no grants or writes."""
 import json,re,sqlite3
 from pathlib import Path
+from record_authority_guard import validate_record_authority
 ROOT=Path(__file__).resolve().parents[1]
 definitions=[
  {'path':'/conversation-threads','table':'messages_threads','collection':'threads','item':'thread','fields':['id','thread_type','created_at'],'listBatch':51,'summaryBatch':52,'summaryField':'thread_type','orderField':'created_at'},
@@ -26,6 +27,7 @@ paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offse
 pagination={'type':'object','additionalProperties':False,'required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer','minimum':1,'maximum':100},'offset':{'type':'integer','minimum':0,'maximum':100000},'total':{'type':'integer','minimum':0},'hasMore':{'type':'boolean'}}}
 paths={};registry=[]
 with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
+ validate_record_authority(db, definitions, 'provider', 'authenticated_provider_profile_owner')
  sid,app=db.execute("SELECT id,app_id FROM screens WHERE screen_code='psw_profile'").fetchone()
  for definition in definitions:
   record=dict(definition);table=record['table'];fields=record['fields']
