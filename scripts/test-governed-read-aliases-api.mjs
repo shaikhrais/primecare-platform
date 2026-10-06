@@ -1,20 +1,20 @@
 import {aliasFixture} from './read-alias-fixtures.mjs';
 import {build} from 'esbuild';import {test} from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
-const aliases=JSON.parse(readFileSync('cloudflare/workers/src/governed-read-aliases.json','utf8')).filter(a=>a.batch<=152);
-assert.deepEqual(aliases.map(a=>a.batch),Array.from({length:47},(_,i)=>106+i));
+const aliases=JSON.parse(readFileSync('cloudflare/workers/src/governed-read-aliases.json','utf8')).filter(a=>a.batch<=152||a.batch>=158);
+assert.deepEqual(aliases.map(a=>a.batch),[...Array.from({length:47},(_,i)=>106+i),158,159,160,161,162,163]);
 const specs=JSON.parse(readFileSync('docs/api/governed-read-aliases.openapi.json','utf8'));
 const plugin={name:'fixture',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export class Client {async connect(){} async end(){} async query(s,v){return globalThis.__readAliasQuery(s,v)}}',loader:'js'}));}};
 async function bundle(path,plugins=[]){const r=await build({entryPoints:[path],bundle:true,write:false,platform:'node',format:'esm',plugins});return import('data:text/javascript;base64,'+Buffer.from(r.outputFiles[0].text).toString('base64'));}
 const {default:gateway}=await bundle('cloudflare/workers/src/gateway.ts');const {default:service}=await bundle('cloudflare/workers/src/service.ts',[plugin]);
-const token='n'.repeat(43);let actor,profiles,queries,forwarded,fail;
-function fixture(alias){actor={id:'actor',tenant_id:'tenant'};profiles=[{id:'profile'}];queries=[];forwarded=[];fail=false;globalThis.__readAliasQuery=async(sql,values)=>{
+const token='n'.repeat(43);let actor,profiles,queries,forwarded,fail,recordRows;
+function fixture(alias){actor={id:'actor',tenant_id:'tenant'};profiles=[{id:'profile'}];queries=[];forwarded=[];fail=false;recordRows=[];globalThis.__readAliasQuery=async(sql,values)=>{
  queries.push({sql,values});if(fail)throw Error('private connection password');if(sql==='BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY'||sql==='ROLLBACK')return {rows:[]};if(sql.startsWith('SELECT u.id'))return {rows:actor?[actor]:[]};
  if(sql.includes('FROM client_profiles')||sql.includes('FROM provider_profiles')){assert.deepEqual(values,['actor','tenant']);assert.ok(sql.includes('user_id::text=$1 AND tenant_id::text=$2 LIMIT 2'));return {rows:profiles};}
  const {table,ownerField,tenantMode}=aliasFixture(alias);assert.ok(sql.includes('FROM '+table));
- if(tenantMode==='provider'){assert.ok(sql.includes('JOIN provider_profiles p ON p.id=d.provider_id WHERE p.id::text=$1 AND p.tenant_id::text=$2 AND p.user_id::text=$3'));assert.deepEqual(values.slice(0,3),['profile','tenant','actor']);}
+ if(tenantMode==='provider'){assert.ok(sql.includes(alias.batch===110?'JOIN provider_profiles p ON p.id=d.provider_id WHERE p.id::text=$1 AND p.tenant_id::text=$2 AND p.user_id::text=$3':'JOIN provider_profiles owner ON owner.id::text=r.provider_id::text WHERE r.provider_id::text=$1 AND owner.tenant_id::text=$2 AND owner.user_id::text=$3'));assert.deepEqual(values.slice(0,3),['profile','tenant','actor']);}
  else if(tenantMode==='user'){assert.ok(sql.includes('JOIN users owner ON owner.id::text=r.user_id::text WHERE r.user_id::text=$1 AND owner.tenant_id::text=$2'));assert.deepEqual(values.slice(0,2),['actor','tenant']);}
  else{assert.ok(sql.includes(ownerField+'::text=$1 AND tenant_id::text=$2'));assert.deepEqual(values.slice(0,2),[alias.service==='auth'?'actor':'profile','tenant']);}
- return {rows:sql.startsWith('SELECT COUNT')?[{count:0}]:[]};
+ return {rows:sql.startsWith('SELECT COUNT')?[{count:recordRows.length}]:recordRows};
 };}
 function env(alias,extra={}){return {[alias.service.toUpperCase()]:{fetch:async request=>{forwarded.push(request);return service.fetch(request,{SERVICE_NAME:alias.service,DB_URL:'fixture',...extra});}}};}
 const call=(alias,query='',headers={},method='GET',extra={})=>gateway.fetch(new Request('https://gateway'+alias.path+query,{method,headers:{authorization:'Bearer '+token,...headers}}),env(alias,extra));
@@ -27,4 +27,13 @@ for(const alias of aliases){
  test(alias.path+' canonical source limit and error sanitization remain active',async()=>{fixture(alias);const limited=await call(alias,'',{},'GET',{WORKSPACE_SOURCE_LIMIT:{limit:async()=>({success:false})}});assert.equal(limited.status,429);assert.equal(limited.headers.get('retry-after'),'60');assert.equal(queries.length,0);fixture(alias);fail=true;const failed=await call(alias);assert.equal(failed.status,503);assert.ok(!(await failed.text()).includes('password'));});
  if(alias.service!=='auth')test(alias.path+' requires a unique actor-owned client/provider profile',async()=>{fixture(alias);profiles=[];assert.equal((await call(alias)).status,404);fixture(alias);profiles.push(profiles[0]);assert.equal((await call(alias)).status,503);});
  test(alias.path+' contract permits only the registered GET metadata operation',()=>{assert.deepEqual(Object.keys(specs.paths[alias.path]),['get']);assert.equal(specs.paths[alias.path].get.security[0].bearerAuth.length,0);assert.ok(specs.paths[alias.path].get.description.includes(alias.canonical));});
+}
+
+const canonicalCall=(alias,suffix='',query='')=>gateway.fetch(new Request('https://gateway'+alias.canonical+suffix+query,{headers:{authorization:'Bearer '+token}}),env(alias));
+for(const alias of aliases.filter(a=>a.batch>=158)){
+ const properties=specs.paths[alias.path].get.responses['200'].content['application/json'].schema.properties,collection=Object.keys(properties).find(k=>k!=='pagination'),schema=properties[collection].items;
+ const row=()=>Object.fromEntries(Object.entries(schema.properties).map(([key,d])=>[key,key==='id'?'record':d.format==='date-time'?'2026-01-01T12:00:00Z':'stored']));
+ test(alias.canonical+' canonical list returns only registered metadata',async()=>{fixture(alias);recordRows=[{...row(),private_payload:'excluded'}];const response=await canonicalCall(alias,'','?limit=1');assert.equal(response.status,200);assert.deepEqual((await response.json())[collection],[row()]);assert.equal(queries.at(-1).sql,'ROLLBACK');});
+ test(alias.canonical+' exact owned detail binds the record ID and foreign absence returns 404',async()=>{fixture(alias);recordRows=[row()];const response=await canonicalCall(alias,'/record');assert.equal(response.status,200);const body=await response.json();assert.deepEqual(Object.values(body),[row()]);const data=queries.find(q=>q.sql.includes(' AND ')&&q.values?.includes('record'));assert.ok(data.sql.includes('id::text=$'));assert.equal(data.values.at(-1),'record');fixture(alias);assert.equal((await canonicalCall(alias,'/foreign')).status,404);assert.equal(queries.at(-1).sql,'ROLLBACK');});
+ test(alias.canonical+' malformed projected timestamps and IDs remain sanitized',async()=>{for(const bad of [{...row(),id:12},{...row(),[Object.keys(schema.properties).find(k=>schema.properties[k].format==='date-time')]:'invalid'}]){fixture(alias);recordRows=[bad];const response=await canonicalCall(alias);assert.equal(response.status,503);assert.ok(!(await response.text()).includes('private'));}});
 }

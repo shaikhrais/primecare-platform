@@ -414,5 +414,53 @@
     "targetPath": "/profile",
     "canonical": "/v1/provider/profile",
     "spec": "provider-self-batch-8.openapi.json"
+  },
+  {
+    "batch": 158,
+    "name": "auditlog",
+    "service": "auth",
+    "targetPath": "/me/audit-event-records",
+    "canonical": "/v1/auth/me/audit-event-records",
+    "spec": "own-audit-events-batches-158-159.openapi.json"
+  },
+  {
+    "batch": 159,
+    "name": "systemevent",
+    "service": "auth",
+    "targetPath": "/me/system-event-records",
+    "canonical": "/v1/auth/me/system-event-records",
+    "spec": "own-audit-events-batches-158-159.openapi.json"
+  },
+  {
+    "batch": 160,
+    "name": "shiftassignment",
+    "service": "provider",
+    "targetPath": "/shift-assignment-records",
+    "canonical": "/v1/provider/shift-assignment-records",
+    "spec": "own-provider-work-batches-160-163.openapi.json"
+  },
+  {
+    "batch": 161,
+    "name": "shifthandover",
+    "service": "provider",
+    "targetPath": "/handover-records",
+    "canonical": "/v1/provider/handover-records",
+    "spec": "own-provider-work-batches-160-163.openapi.json"
+  },
+  {
+    "batch": 162,
+    "name": "visitnote",
+    "service": "provider",
+    "targetPath": "/authored-visit-note-records",
+    "canonical": "/v1/provider/authored-visit-note-records",
+    "spec": "own-provider-work-batches-160-163.openapi.json"
+  },
+  {
+    "batch": 163,
+    "name": "visitchecklist",
+    "service": "provider",
+    "targetPath": "/authored-checklist-records",
+    "canonical": "/v1/provider/authored-checklist-records",
+    "spec": "own-provider-work-batches-160-163.openapi.json"
   }
 ]

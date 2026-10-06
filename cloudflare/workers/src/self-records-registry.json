@@ -840,6 +840,46 @@
     ]
   },
   {
+    "path": "/me/audit-event-records",
+    "table": "audit_logs",
+    "collection": "events",
+    "item": "event",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 158,
+    "ownerField": "actor_user_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/system-event-records",
+    "table": "system_events",
+    "collection": "events",
+    "item": "event",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 159,
+    "ownerField": "actor_user_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
     "path": "/me/bootstrap-record",
     "table": "auth_bootstrap_audit",
     "item": "bootstrap",

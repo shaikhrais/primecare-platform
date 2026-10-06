@@ -1,17 +1,17 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1335,
+    "totalDeclared": 1347,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 229,
-      "verification_pending": 1096
+      "unit_fixtures_recorded": 247,
+      "verification_pending": 1090
     },
     "contractGaps": {
-      "permission": 1090,
-      "requestSchema": 1093,
-      "responseSchema": 1093,
-      "screenLink": 1050
+      "permission": 1084,
+      "requestSchema": 1087,
+      "responseSchema": 1087,
+      "screenLink": 1044
     },
     "note": "Recorded declarations and local unit-fixture status only. Unrecorded means inspect implementation, not proof of absent code. PostgreSQL/production evidence is not inferred from CI or registry labels."
   },
@@ -6908,6 +6908,52 @@
       "productionVerified": false
     },
     {
+      "id": 16605,
+      "api": "GET /v1/auth/me/audit-event-records",
+      "method": "GET",
+      "route": "/v1/auth/me/audit-event-records",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 158,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16606,
+      "api": "GET /v1/auth/me/audit-event-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/audit-event-records/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 158,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 16543,
       "api": "GET /v1/auth/me/audit-signoff-records",
       "method": "GET",
@@ -8250,6 +8296,52 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 43,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16607,
+      "api": "GET /v1/auth/me/system-event-records",
+      "method": "GET",
+      "route": "/v1/auth/me/system-event-records",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 159,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16608,
+      "api": "GET /v1/auth/me/system-event-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/auth/me/system-event-records/{recordId}",
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 159,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [
@@ -18912,20 +19004,21 @@
       "api": "GET /v1/premium/auditlog",
       "method": "GET",
       "route": "/v1/premium/auditlog",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 158,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -23194,20 +23287,21 @@
       "api": "GET /v1/premium/shiftassignment",
       "method": "GET",
       "route": "/v1/premium/shiftassignment",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 160,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -23216,20 +23310,21 @@
       "api": "GET /v1/premium/shifthandover",
       "method": "GET",
       "route": "/v1/premium/shifthandover",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 161,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -23594,20 +23689,21 @@
       "api": "GET /v1/premium/systemevent",
       "method": "GET",
       "route": "/v1/premium/systemevent",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 159,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -24107,20 +24203,21 @@
       "api": "GET /v1/premium/visitchecklist",
       "method": "GET",
       "route": "/v1/premium/visitchecklist",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 163,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -24152,20 +24249,21 @@
       "api": "GET /v1/premium/visitnote",
       "method": "GET",
       "route": "/v1/premium/visitnote",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 162,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -24300,6 +24398,98 @@
       "screens": [],
       "apps": [],
       "roles": [],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16615,
+      "api": "GET /v1/provider/authored-checklist-records",
+      "method": "GET",
+      "route": "/v1/provider/authored-checklist-records",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 163,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16616,
+      "api": "GET /v1/provider/authored-checklist-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/provider/authored-checklist-records/{recordId}",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 163,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16613,
+      "api": "GET /v1/provider/authored-visit-note-records",
+      "method": "GET",
+      "route": "/v1/provider/authored-visit-note-records",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 162,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16614,
+      "api": "GET /v1/provider/authored-visit-note-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/provider/authored-visit-note-records/{recordId}",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 162,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -24647,6 +24837,52 @@
       "productionVerified": false
     },
     {
+      "id": 16611,
+      "api": "GET /v1/provider/handover-records",
+      "method": "GET",
+      "route": "/v1/provider/handover-records",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 161,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16612,
+      "api": "GET /v1/provider/handover-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/provider/handover-records/{recordId}",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 161,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
       "id": 787,
       "api": "POST /v1/provider/metrics",
       "method": "POST",
@@ -24884,6 +25120,52 @@
       "declaredImplementation": "implemented",
       "verificationState": "unit_fixtures_recorded",
       "batch": 8,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16609,
+      "api": "GET /v1/provider/shift-assignment-records",
+      "method": "GET",
+      "route": "/v1/provider/shift-assignment-records",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 160,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "psw_profile"
+      ],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
+      "postgresVerified": false,
+      "productionVerified": false
+    },
+    {
+      "id": 16610,
+      "api": "GET /v1/provider/shift-assignment-records/{recordId}",
+      "method": "GET",
+      "route": "/v1/provider/shift-assignment-records/{recordId}",
+      "service": "provider",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 160,
       "recordedUnitStatus": "unit_tested",
       "missingContractFields": [],
       "screens": [

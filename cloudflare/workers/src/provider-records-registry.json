@@ -285,5 +285,85 @@
     "dateFields": [
       "created_at"
     ]
+  },
+  {
+    "path": "/shift-assignment-records",
+    "table": "shift_assignments",
+    "collection": "assignments",
+    "item": "assignment",
+    "fields": [
+      "id",
+      "status",
+      "assigned_at"
+    ],
+    "listBatch": 160,
+    "orderField": "assigned_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "assigned_at": "string"
+    },
+    "dateFields": [
+      "assigned_at"
+    ]
+  },
+  {
+    "path": "/handover-records",
+    "table": "shift_handovers",
+    "collection": "handovers",
+    "item": "handover",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 161,
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/authored-visit-note-records",
+    "table": "visit_notes",
+    "collection": "notes",
+    "item": "note",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 162,
+    "orderField": "created_at",
+    "tenantThroughProvider": true,
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/authored-checklist-records",
+    "table": "visit_checklists",
+    "collection": "checklists",
+    "item": "checklist",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 163,
+    "orderField": "created_at",
+    "tenantThroughProvider": true,
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
   }
 ]
