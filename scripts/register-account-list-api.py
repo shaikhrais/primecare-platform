@@ -10,7 +10,7 @@ response={'type':'object','required':['users','assignableRoles','pagination'],'p
  'users':{'type':'array','items':{'type':'object','additionalProperties':False,'required':['id','email','roles','status','canModify'],'properties':{
  'id':{'type':'string'},'email':{'type':'string'},'roles':{'type':'string'},'status':{'type':'string'},'updated_at':{'type':['string','null']},'canModify':{'type':'boolean'}}}},
  'assignableRoles':{'type':'array','items':{'type':'string'}},'pagination':{'type':'object','required':['limit','offset','total','hasMore'],'properties':{
- 'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}}}}
+ 'limit':{'type':'integer','minimum':1,'maximum':100},'offset':{'type':'integer','minimum':0,'maximum':100000},'total':{'type':'integer','minimum':0},'hasMore':{'type':'boolean'}}}}}
 with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  db.execute('''CREATE TABLE IF NOT EXISTS governance_api_batches (
    route TEXT PRIMARY KEY,screen_id INTEGER NOT NULL REFERENCES screens(id),batch INTEGER NOT NULL,

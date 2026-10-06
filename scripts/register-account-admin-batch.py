@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 id_schema={'type':'string','pattern':'^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$','maxLength':200}
 paging={'limit':{'type':'integer','minimum':1,'maximum':100,'default':25},'offset':{'type':'integer','minimum':0,'maximum':100000,'default':0}}
-pagination={'type':'object','required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer'},'offset':{'type':'integer'},'total':{'type':'integer'},'hasMore':{'type':'boolean'}}}
+pagination={'type':'object','required':['limit','offset','total','hasMore'],'properties':{'limit':{'type':'integer','minimum':1,'maximum':100},'offset':{'type':'integer','minimum':0,'maximum':100000},'total':{'type':'integer','minimum':0},'hasMore':{'type':'boolean'}}}
 session_response={'type':'object','required':['userId','sessions','pagination'],'properties':{'userId':id_schema,
  'sessions':{'type':'array','items':{'type':'object','additionalProperties':False,'required':['created_at','expires_at'],'properties':{'created_at':{'type':'string','format':'date-time'},'expires_at':{'type':'string','format':'date-time'}}}},'pagination':pagination}}
 revoke_response={'type':'object','additionalProperties':False,'required':['userId','revokedSessions'],'properties':{'userId':id_schema,'revokedSessions':{'type':'integer','minimum':0}}}

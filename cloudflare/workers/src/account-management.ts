@@ -1,5 +1,6 @@
 import type {Client} from 'pg';
 import policy from './account-policy.json';
+const exactCount=(value:unknown)=>{if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid account count');return value;};
 
 /** Read authorized account fields only, with literal search and bounded paging. */
 export async function listAccounts(db:Client,actor:{id:string;roles:string;tenant_id:string},url:URL):Promise<{status:number;body:unknown}> {
@@ -15,7 +16,7 @@ export async function listAccounts(db:Client,actor:{id:string;roles:string;tenan
   const pattern='%'+search.replace(/[\\%_]/g,'\\$&')+'%';
   const filter="tenant_id::text=$1 AND ($2='' OR roles=$2) AND ($3='' OR LOWER(status)=$3) AND ($4='' OR email ILIKE $5 ESCAPE E'\\\\')";
   const values=[String(actor.tenant_id),role,status,search,pattern];
-  const total=Number((await db.query('SELECT COUNT(*)::int AS count FROM users WHERE '+filter,values)).rows[0].count);
+  const total=exactCount((await db.query('SELECT COUNT(*)::int AS count FROM users WHERE '+filter,values)).rows[0].count);
   const users=(await db.query('SELECT id,email,roles,status,updated_at FROM users WHERE '+filter+' ORDER BY LOWER(email),id LIMIT $6 OFFSET $7',
     [...values,Number(limit),Number(offset)])).rows;
   return {status:200,body:{users:users.map(u=>({...u,canModify:String(u.id).toLowerCase()!==actor.id.toLowerCase()})),

@@ -1,8 +1,8 @@
 import {build} from 'esbuild';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-let actor,target,queries,failAudit,rateAttempts;
-function fixture(role='ceo',found=true){actor=role?{id:'actor',roles:role,tenant_id:'tenant-a'}:null;target=found?{id:'target'}:null;queries=[];failAudit=false;rateAttempts=0;
+let actor,target,queries,failAudit,rateAttempts,count;
+function fixture(role='ceo',found=true){actor=role?{id:'actor',roles:role,tenant_id:'tenant-a'}:null;target=found?{id:'target'}:null;queries=[];failAudit=false;rateAttempts=0;count=2;
  globalThis.__adminQuery=async(sql,values)=>{
   queries.push({sql,values});
   if(sql.includes('WHERE s.token_hash=$1'))return {rows:actor?[actor]:[]};
@@ -10,9 +10,9 @@ function fixture(role='ceo',found=true){actor=role?{id:'actor',roles:role,tenant
   if(sql.startsWith('SELECT id,email,roles,status,updated_at')){assert.deepEqual(values,['target','tenant-a']);return {rows:target?[{id:'target',email:'target@example.invalid',roles:'rmt',status:'active',updated_at:null,password_hash:'should-not-leak',tenant_id:'should-not-leak'}]:[]};}
   if(sql.startsWith('SELECT id,actor_user_id')&&sql.includes('FROM auth_account_audit'))return {rows:[{id:'creation',actorUserId:'actor',targetUserId:'target',created_at:'2026-01-01T00:00:00Z',secret:'should-not-leak'}]};
   if(sql.startsWith('SELECT id FROM users')){assert.deepEqual(values,['target','tenant-a']);return {rows:target?[target]:[]};}
-  if(sql.startsWith('WITH revoked AS'))return {rows:[{count:2}]};
+  if(sql.startsWith('WITH revoked AS'))return {rows:[{count}]};
   if(sql.startsWith('INSERT INTO auth_management_audit')){if(failAudit)throw Error('private-audit-secret');return {rows:[]};}
-  if(sql.startsWith('SELECT COUNT'))return {rows:[{count:2}]};
+  if(sql.startsWith('SELECT COUNT'))return {rows:[{count}]};
   if(sql.startsWith('SELECT created_at'))return {rows:[{created_at:'2026-01-01T00:00:00Z',expires_at:'2026-01-02T00:00:00Z',token_hash:'should-not-leak'}]};
   if(sql.startsWith('SELECT id,actor_user_id'))return {rows:[{id:'audit',actorUserId:'actor',targetUserId:'target',created_at:'2026-01-01T00:00:00Z',action:'sessions_revoked',previous:{role:'rmt',sessionCount:2,password:'should-not-leak'},current:{role:{private:'should-not-leak'},status:'inactive',sessionCount:0,key:'should-not-leak'},unexpected:'should-not-leak'}]};
   assert.ok(sql.startsWith('BEGIN')||['COMMIT','ROLLBACK'].includes(sql),sql);return {rows:[]};
@@ -104,3 +104,5 @@ test('gateway forwards new account read routes and source limits apply before da
  }
  fixture();const limited=await auth(new Request('https://fixture/admin/users/target',{headers:{authorization:'Bearer '+token}}),{...env,WORKSPACE_SOURCE_LIMIT:{limit:async()=>({success:false})}},'/admin/users/target',{});assert.equal(limited.status,429);assert.equal(queries.length,0);
 });
+
+test("account administration rejects malformed counts without commit or audit",async()=>{for(const [path,method] of [["/admin/users/target/sessions","GET"],["/admin/users/target/sessions","DELETE"],["/admin/users/audit","GET"],["/admin/users/creation-audit","GET"]])for(const bad of ["2",null,true,-1,1.5,Infinity,Number.MAX_SAFE_INTEGER+1]){fixture();count=bad;const r=await call(path,method);assert.equal(r.status,503);assert.equal(queries.at(-1).sql,"ROLLBACK");assert.ok(!queries.some(q=>q.sql==="COMMIT"||q.sql.startsWith("INSERT INTO auth_management_audit")));assert.ok(!(await r.text()).includes("Invalid account count"));}});

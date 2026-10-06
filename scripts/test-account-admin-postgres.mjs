@@ -25,16 +25,16 @@ try {
  const self=await (await call('/admin/users/'+ids[0])).json();assert.equal(self.user.canModify,false);checks++;
  assert.equal((await call('/admin/users/'+ids[2])).status,404);assert.equal((await call('/admin/users/'+ids[0],'GET','',tokens[1])).status,403);checks++;
  await db.query("INSERT INTO auth_account_audit(actor_user_id,target_user_id,tenant_id,action) VALUES($1,$2,$3,'account_created'),($4,$4,$5,'account_created')",[ids[0],ids[1],tenants[0],ids[2],tenants[1]]);
- const creation=await (await call('/admin/users/creation-audit','GET','?userId='+ids[1]+'&limit=1')).json();assert.equal(creation.pagination.total,1);assert.equal(creation.events[0].targetUserId,ids[1]);assert.equal(creation.events[0].action,'account_created');checks++;
+ const creation=await (await call('/admin/users/creation-audit','GET','?userId='+ids[1]+'&limit=1')).json();assert.equal(creation.pagination.total,1);assert.equal(typeof creation.pagination.total,'number');assert.equal(creation.events[0].targetUserId,ids[1]);assert.equal(creation.events[0].action,'account_created');checks++;
  const crossCreation=await (await call('/admin/users/creation-audit','GET','?userId='+ids[2])).json();assert.equal(crossCreation.pagination.total,0);checks++;
  const emptyPage=await (await call('/admin/users/creation-audit','GET','?offset=1')).json();assert.equal(emptyPage.events.length,0);assert.equal(emptyPage.pagination.total,1);checks++;
- const active=await (await call(sessions)).json();assert.equal(active.pagination.total,1);assert.equal(active.sessions.length,1);assert.ok(!JSON.stringify(active).includes('token_hash'));checks++;
+ const active=await (await call(sessions)).json();assert.equal(active.pagination.total,1);assert.equal(typeof active.pagination.total,'number');assert.equal(active.sessions.length,1);assert.ok(!JSON.stringify(active).includes('token_hash'));checks++;
  const all=await (await call(sessions,'GET','?includeExpired=true')).json();assert.equal(all.pagination.total,2);checks++;
  assert.equal((await call('/admin/users/'+ids[2]+'/sessions')).status,404);assert.equal((await call('/admin/users/'+ids[2]+'/sessions','DELETE')).status,404);checks++;
  assert.equal((await call('/admin/users/'+ids[0]+'/sessions','DELETE')).status,403);checks++;
  assert.equal((await call('/admin/users/audit','GET','',tokens[1])).status,403);checks++;
  await db.query("INSERT INTO auth_management_audit(actor_user_id,target_user_id,tenant_id,previous_state,new_state) VALUES($1,$2,$3,$4,$5)",[ids[0],ids[1],tenants[0],JSON.stringify({role:'rmt',password:'never-return-this-secret'}),JSON.stringify({status:'active',token:'never-return-this-secret'})]);
- const history=await (await call('/admin/users/audit','GET','?userId='+ids[1])).json();assert.equal(history.pagination.total,1);assert.ok(!JSON.stringify(history).includes('never-return'));checks++;
+ const history=await (await call('/admin/users/audit','GET','?userId='+ids[1])).json();assert.equal(history.pagination.total,1);assert.equal(typeof history.pagination.total,'number');assert.ok(!JSON.stringify(history).includes('never-return'));checks++;
  const foreign=await (await call('/admin/users/audit','GET','?userId='+ids[2])).json();assert.equal(foreign.pagination.total,0);checks++;
  // Deliberately fail the audit insert, using a fixture trigger in this disposable
  // database. Both deletion and audit must roll back before a success is returned.
@@ -42,7 +42,7 @@ try {
  await db.query('CREATE TRIGGER test_admin_audit_failure BEFORE INSERT ON auth_management_audit FOR EACH ROW EXECUTE FUNCTION test_admin_audit_failure()');triggerInstalled=true;
  assert.equal((await call(sessions,'DELETE')).status,503);assert.equal(Number((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[ids[1]])).rows[0].count),2);checks++;
  await db.query('DROP TRIGGER test_admin_audit_failure ON auth_management_audit');triggerInstalled=false;
- const revoked=await call(sessions,'DELETE');assert.equal(revoked.status,200);assert.equal((await revoked.json()).revokedSessions,2);checks++;
+ const revoked=await call(sessions,'DELETE');assert.equal(revoked.status,200);const revokedBody=await revoked.json();assert.equal(revokedBody.revokedSessions,2);assert.equal(typeof revokedBody.revokedSessions,'number');checks++;
  assert.equal((await call('/me','GET','',tokens[1])).status,401);assert.equal((await call('/me','GET','',tokens[2])).status,200);checks++;
  const audit=await (await call('/admin/users/audit','GET','?userId='+ids[1]+'&limit=100')).json();assert.ok(audit.events.some(e=>e.action==='sessions_revoked'&&e.previous.sessionCount===2&&e.current.sessionCount===0));checks++;
  const again=await (await call(sessions,'DELETE')).json();assert.equal(again.revokedSessions,0);checks++;
