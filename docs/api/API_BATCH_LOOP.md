@@ -72,3 +72,20 @@ The existing maintenance parser is now the shared authentication parser. Declare
 This hardening adds no routes, grants or business writes and does not promote the pending public-auth governance declarations. Inventory remains 1,416 declarations, 337 with local fixture evidence, 1,069 pending and 10 blocked. The supplemental OpenAPI documents actual runtime bounds without changing pending declaration authority. Exact-head PostgreSQL and security CI passed before merge.
 
 Local validation: 1,719 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. The PostgreSQL suite adds six oversized-route checks plus an unchanged-counter assertion per identity. Exact-head UUID/text PostgreSQL and security CI passed in run 37545086290 at de30fded7c3875a60c2ecf08092d0f2ca698ca08. PR #106 merged as 57a004e9b057c6c1a6ad6116a2a0ebca8835c43a. Latest completed batch is 258; next batch is 259. No deployment or production database changes.
+
+
+## Iteration 8 — batches 259–263, authentication result validation, in review
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 259 | Personal session listing | Validate date-time values and boolean current flag; keep explicit projection. |
+| 260 | Login | Validate user identifier and nonempty bounded role before issuing a session; do not coerce active status. |
+| 261 | Current identity GET/POST | Validate returned claims and reject unexpected duplicate rows before serialization. |
+| 262 | Account creation | Require one returned account matching generated ID, email, tenant, role and status; project five fields before audit and commit. |
+| 263 | Account management | Require one returned account matching target ID, tenant, requested role and status; project five fields before revocation and audit. |
+
+Malformed claims and projected session/mutation rows return sanitized no-store 503. Non-string login status is denied as invalid credentials. Login issues no token/cookie on invalid claims. Invalid creation/update results roll back before audit, revocation or success. Existing bearer/cookie, tenant, role-assignment and transactional controls remain intact. Twelve new grouped unit regressions cover malformed claims and rows, unexpected fields, absent/ambiguous results and PostgreSQL Date serialization. PostgreSQL adds empty-role login and GET/POST identity rejection, infinity session-date rejection, and trigger-induced malformed creation/update results with rollback assertions.
+
+Supplemental OpenAPI records runtime validation without promoting pending governance authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants or deployments. Exact-head PostgreSQL/security CI and merge remain pending.
+
+Local validation: 1,731 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Remote unchanged-head PostgreSQL/security CI and merge remain pending.

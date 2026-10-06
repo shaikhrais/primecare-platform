@@ -1,3 +1,4 @@
+import {accountTimestamp} from './account-read-projection';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import {authRateLimit} from './auth-rate-limit';
 const exactCount=(value:unknown)=>{if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid session count');return value;};
@@ -43,7 +44,7 @@ export async function selfSessions(request:Request,env:Env,path:string,headers:H
       }
       const total=exactCount((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1 AND expires_at>NOW()',[actor.id])).rows[0].count);
       const rows=(await db.query('SELECT created_at,expires_at,(token_hash=$2) AS current FROM auth_sessions WHERE user_id=$1 AND expires_at>NOW() ORDER BY created_at DESC,expires_at DESC,token_hash LIMIT $3 OFFSET $4',[actor.id,hash,Number(limit),Number(offset)])).rows;
-      return json({sessions:rows.map(s=>({created_at:s.created_at,expires_at:s.expires_at,current:s.current})),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(offset)+Number(limit)<total}},200,safe);
+      return json({sessions:rows.map(s=>{if(typeof s.current!=='boolean')throw Error('Invalid current-session flag');return {created_at:accountTimestamp(s.created_at),expires_at:accountTimestamp(s.expires_at),current:s.current};}),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(offset)+Number(limit)<total}},200,safe);
     }finally{if(!committed)await db.query('ROLLBACK');}
   }).catch(()=>json({error:'Session service unavailable'},503,safe));
 }

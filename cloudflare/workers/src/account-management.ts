@@ -1,3 +1,4 @@
+import {mutatedAccount} from './auth-projection';
 import {accountUser} from './account-read-projection';
 import type {Client} from 'pg';
 import policy from './account-policy.json';
@@ -45,8 +46,10 @@ export async function manageAccount(db:Client, actor:{id:string;roles:string;ten
     return {status:403,body:{error:'Forbidden'}};
   const result=await db.query('UPDATE users SET roles=$1,status=$2,updated_at=NOW() WHERE id=$3 AND tenant_id=$4 RETURNING id,email,roles,status,tenant_id',
     [input.role,input.status,input.id,actor.tenant_id]);
+  if(result.rows.length!==1)throw Error('Invalid account update result');
+  const updatedUser=mutatedAccount(result.rows[0],{id:input.id,role:input.role,status:input.status,tenantId:actor.tenant_id});
   await db.query('DELETE FROM auth_sessions WHERE user_id=$1',[input.id]);
   await db.query('INSERT INTO auth_management_audit(actor_user_id,target_user_id,tenant_id,previous_state,new_state) VALUES($1,$2,$3,$4,$5)',
     [actor.id,input.id,actor.tenant_id,JSON.stringify({role:target.rows[0].roles,status:target.rows[0].status}),JSON.stringify({role:input.role,status:input.status})]);
-  return {status:200,body:{user:result.rows[0]}};
+  return {status:200,body:{user:updatedUser}};
 }
