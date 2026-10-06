@@ -21,6 +21,7 @@ try{
  const bookingPage=await (await call('/bookings','?offset=1')).json();assert.equal(bookingPage.bookings.length,0);assert.equal(bookingPage.pagination.total,1);checks++;
  const bookingSummary=await (await call('/bookings/summary')).json();assert.equal(bookingSummary.pagination.total,1);assert.equal(bookingSummary.groups[0].count,1);assert.equal(bookingSummary.groups[0].status,'pending');checks++;
  const bookingSummaryPage=await (await call('/bookings/summary','?offset=1')).json();assert.equal(bookingSummaryPage.groups.length,0);assert.equal(bookingSummaryPage.pagination.total,1);checks++;
+ await db.query('ALTER TABLE bookings ALTER COLUMN priority DROP NOT NULL');await db.query('UPDATE bookings SET priority=NULL WHERE id=$1',[bookings[0]]);assert.equal((await call('/bookings/'+bookings[0])).status,503);await db.query("UPDATE bookings SET priority='normal' WHERE id=$1",[bookings[0]]);checks++;
 
  await db.query('CREATE TABLE visits(id TEXT PRIMARY KEY,client_id TEXT NOT NULL,tenant_id TEXT NOT NULL,service_id TEXT NOT NULL,requested_start_at TIMESTAMP NOT NULL,duration_minutes INTEGER NOT NULL,status TEXT,priority TEXT,updated_at TIMESTAMP NOT NULL DEFAULT NOW(),management_notes TEXT)');createdVisits=true;
  const visits=[randomUUID(),randomUUID(),randomUUID()];
@@ -35,6 +36,7 @@ try{
  // Null is a distinct stored-status group; other owners/tenants remain excluded.
  await db.query('UPDATE visits SET status=NULL WHERE client_id=$1',[profiles[0]]);
  const batch15Null=await (await call('/visits/summary')).json();assert.deepEqual(batch15Null.groups,[{status:null,count:1}]);checks++;
+ await db.query('ALTER TABLE visits ALTER COLUMN duration_minutes DROP NOT NULL');await db.query('UPDATE visits SET duration_minutes=NULL WHERE id=$1',[visits[0]]);assert.equal((await call('/visits/'+visits[0])).status,503);await db.query('UPDATE visits SET duration_minutes=60 WHERE id=$1',[visits[0]]);checks++;
  await db.query('DELETE FROM visits WHERE client_id=$1',[profiles[0]]);
  const batch15Empty=await (await call('/visits/summary')).json();assert.deepEqual(batch15Empty.groups,[]);assert.equal(batch15Empty.pagination.total,0);assert.equal(batch15Empty.pagination.hasMore,false);checks++;
 
@@ -45,9 +47,11 @@ try{
  const requestDetail=await (await call('/booking-requests/'+requests[0])).json();assert.equal(requestDetail.request.preferred_time,null);assert.equal(requestDetail.request.id,requests[0]);checks++;
  for(const id of requests.slice(1))assert.equal((await call('/booking-requests/'+id)).status,404);checks++;
  const requestPage=await (await call('/booking-requests','?offset=1')).json();assert.deepEqual(requestPage.requests,[]);assert.equal(requestPage.pagination.total,1);checks++;
+ await db.query('ALTER TABLE booking_requests ALTER COLUMN service_type DROP NOT NULL');await db.query('UPDATE booking_requests SET service_type=NULL WHERE id=$1',[requests[0]]);assert.equal((await call('/booking-requests/'+requests[0])).status,503);await db.query("UPDATE booking_requests SET service_type='massage' WHERE id=$1",[requests[0]]);checks++;
  await db.query('DELETE FROM booking_requests WHERE id=$1',[requests[0]]);
  const noRequests=await (await call('/booking-requests')).json();assert.deepEqual(noRequests.requests,[]);assert.equal(noRequests.pagination.total,0);checks++;
  const own=await (await call()).json();assert.equal(own.profile.id,profiles[0]);assert.ok(!('dob' in own.profile));checks++;
+ await db.query('ALTER TABLE client_profiles ALTER COLUMN updated_at DROP NOT NULL');await db.query('UPDATE client_profiles SET updated_at=NULL WHERE id=$1',[profiles[0]]);assert.equal((await call()).status,503);await db.query('UPDATE client_profiles SET updated_at=NOW() WHERE id=$1',[profiles[0]]);checks++;
  const list=await (await call('/invoices')).json();assert.equal(list.pagination.total,1);assert.equal(list.invoices[0].total,'113.11');assert.ok(!JSON.stringify(list).includes('private-processor'));checks++;
  const detail=await (await call('/invoices/'+list.invoices[0].id)).json();assert.equal(detail.invoice.total,'113.11');assert.ok(!JSON.stringify(detail).includes('private-processor'));checks++;
  const foreignInvoice=(await db.query('SELECT id FROM invoices WHERE client_id=$1',[profiles[1]])).rows[0].id;assert.equal((await call('/invoices/'+foreignInvoice)).status,404);checks++;

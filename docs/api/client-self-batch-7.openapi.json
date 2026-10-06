@@ -23,6 +23,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "additionalProperties": false,
                   "required": [
                     "profile"
                   ],
@@ -64,10 +65,8 @@
                           ]
                         },
                         "updated_at": {
-                          "type": [
-                            "string",
-                            "null"
-                          ]
+                          "type": "string",
+                          "format": "date-time"
                         }
                       }
                     }

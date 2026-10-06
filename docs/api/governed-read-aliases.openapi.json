@@ -351,6 +351,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "additionalProperties": false,
                   "required": [
                     "bookings",
                     "pagination"
@@ -402,6 +403,7 @@
                     },
                     "pagination": {
                       "type": "object",
+                      "additionalProperties": false,
                       "required": [
                         "limit",
                         "offset",
@@ -410,13 +412,18 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -491,6 +498,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "additionalProperties": false,
                   "required": [
                     "requests",
                     "pagination"
@@ -543,6 +551,7 @@
                     },
                     "pagination": {
                       "type": "object",
+                      "additionalProperties": false,
                       "required": [
                         "limit",
                         "offset",
@@ -551,13 +560,18 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -6627,6 +6641,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "additionalProperties": false,
                   "required": [
                     "visits",
                     "pagination"
@@ -6681,6 +6696,7 @@
                     },
                     "pagination": {
                       "type": "object",
+                      "additionalProperties": false,
                       "required": [
                         "limit",
                         "offset",
@@ -6689,13 +6705,18 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -7020,6 +7041,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "additionalProperties": false,
                   "required": [
                     "profile"
                   ],
@@ -7061,10 +7083,8 @@
                           ]
                         },
                         "updated_at": {
-                          "type": [
-                            "string",
-                            "null"
-                          ]
+                          "type": "string",
+                          "format": "date-time"
                         }
                       }
                     }
