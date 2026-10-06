@@ -170,6 +170,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
+                  "additionalProperties": false,
                   "required": [
                     "groups",
                     "pagination"
@@ -193,10 +194,12 @@
                             ]
                           },
                           "count": {
-                            "type": "integer"
+                            "type": "integer",
+                            "minimum": 0
                           },
                           "durationMinutes": {
                             "type": "string",
+                            "pattern": "^-?\\d+$",
                             "description": "Exact sum of recorded duration_minutes; not billable or completed time."
                           }
                         }
@@ -204,6 +207,7 @@
                     },
                     "pagination": {
                       "type": "object",
+                      "additionalProperties": false,
                       "required": [
                         "limit",
                         "offset",
@@ -212,13 +216,18 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "hasMore": {
                           "type": "boolean"
