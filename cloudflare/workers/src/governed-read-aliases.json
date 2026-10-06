@@ -33,5 +33,40 @@
     "service": "provider",
     "targetPath": "/documents",
     "canonical": "/v1/provider/documents"
+  },
+  {
+    "batch": 111,
+    "path": "/v1/premium/dailyactivity",
+    "service": "auth",
+    "targetPath": "/me/activities",
+    "canonical": "/v1/auth/me/activities"
+  },
+  {
+    "batch": 112,
+    "path": "/v1/premium/wellnesspulse",
+    "service": "auth",
+    "targetPath": "/me/wellness-pulses",
+    "canonical": "/v1/auth/me/wellness-pulses"
+  },
+  {
+    "batch": 113,
+    "path": "/v1/premium/iotevent",
+    "service": "auth",
+    "targetPath": "/me/device-events",
+    "canonical": "/v1/auth/me/device-events"
+  },
+  {
+    "batch": 114,
+    "path": "/v1/premium/provideravailability",
+    "service": "provider",
+    "targetPath": "/availability",
+    "canonical": "/v1/provider/availability"
+  },
+  {
+    "batch": 115,
+    "path": "/v1/premium/availabilityoverride",
+    "service": "provider",
+    "targetPath": "/availability-overrides",
+    "canonical": "/v1/provider/availability-overrides"
   }
 ]
