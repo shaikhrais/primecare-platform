@@ -1,3 +1,4 @@
+import {summaryRows} from './summary-results';
 import {scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {accountId} from './account-read-projection';
 import {validRecordTimestamp} from './record-date-validation';
@@ -54,7 +55,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
           if(documentSummary){
             const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT d.status'+scope+' GROUP BY d.status) groups',documentValues)).rows,'document summary');
             const rows=(await db.query('SELECT d.status,COUNT(*)::int AS count'+scope+' GROUP BY d.status ORDER BY d.status NULLS LAST LIMIT $4 OFFSET $5',[...documentValues,Number(limit),Number(offset)])).rows;
-            return json({groups:resultRows(rows,Number(limit)).map(g=>statusGroup(g,'document')),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+            return json({groups:summaryRows(rows,Number(limit),['status']).map(g=>statusGroup(g,'document')),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
           }
           const fields='d.id,d.doc_type,d.status,d.expiry_date,d.verified_at,d.created_at,d.updated_at';
           const project=(d:Record<string,unknown>)=>{
@@ -73,7 +74,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
           const filter='assigned_provider_id::text=$1 AND tenant_id::text=$2';
           const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM visits WHERE '+filter+' GROUP BY status) groups',values)).rows,'visit summary');
           const rows=(await db.query('SELECT status,COUNT(*)::int AS count,SUM(duration_minutes)::text AS "durationMinutes" FROM visits WHERE '+filter+' GROUP BY status ORDER BY status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          return json({groups:resultRows(rows,Number(limit)).map(g=>statusGroup(g,'visit',true)),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({groups:summaryRows(rows,Number(limit),['status']).map(g=>statusGroup(g,'visit',true)),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(path==='/visits'||visitMatch){
           const fields='id,service_id,requested_start_at,duration_minutes,status,priority,updated_at';
@@ -100,7 +101,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
         if(availabilitySummary){
           const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT day_of_week FROM provider_availability WHERE '+filter+' GROUP BY day_of_week) groups',values)).rows,'availability summary');
           const rows=(await db.query('SELECT day_of_week,COUNT(*)::int AS count FROM provider_availability WHERE '+filter+' GROUP BY day_of_week ORDER BY day_of_week LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          const groups=resultRows(rows,Number(limit)).map(g=>{if(typeof g.day_of_week!=='number'||!Number.isSafeInteger(g.day_of_week)||typeof g.count!=='number'||!Number.isSafeInteger(g.count)||g.count<0)throw Error('Invalid availability summary');return {day_of_week:g.day_of_week,count:g.count};});
+          const groups=summaryRows(rows,Number(limit),['day_of_week']).map(g=>{if(typeof g.day_of_week!=='number'||!Number.isSafeInteger(g.day_of_week)||typeof g.count!=='number'||!Number.isSafeInteger(g.count)||g.count<0)throw Error('Invalid availability summary');return {day_of_week:g.day_of_week,count:g.count};});
           return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         const total=count((await db.query('SELECT COUNT(*)::int AS count FROM provider_availability WHERE '+filter,values)).rows,'availability');

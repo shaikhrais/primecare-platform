@@ -273,7 +273,14 @@ try {
   for(const mode of ['suppress','corrupt']) {
     await db.query(`CREATE OR REPLACE FUNCTION fixture_password_audit_confirmation() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN ${mode==='suppress'?'RETURN NULL;':"NEW.created_at := 'infinity'; RETURN NEW;"} END $$`);
     await db.query('CREATE TRIGGER fixture_password_audit_confirmation BEFORE INSERT ON auth_password_audit FOR EACH ROW EXECUTE FUNCTION fixture_password_audit_confirmation()');
-    try{await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[mutationHash]);const before=await snapshot();const r=await call('/change-password','POST',{currentPassword:resetPasswordValue,newPassword:randomUUID()},maintenanceToken);assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.deepEqual(await snapshot(),before);passed++;}finally{await db.query('DROP TRIGGER fixture_password_audit_confirmation ON auth_password_audit');}
+    try{
+      await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[mutationHash]);const before=await snapshot();const r=await call('/change-password','POST',{currentPassword:resetPasswordValue,newPassword:randomUUID()},maintenanceToken);assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.deepEqual(await snapshot(),before);passed++;
+      await db.query("INSERT INTO auth_password_resets(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '15 minutes')",[resetHash,userId]);
+      await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update('reset:'+email).digest('hex')]);
+      const resetBefore=await snapshot(),codesBefore=(await db.query('SELECT * FROM auth_password_resets ORDER BY token_hash')).rows;
+      const rejected=await call('/reset-password','POST',{email,code,newPassword:randomUUID()});assert.equal(rejected.status,503);assert.equal(rejected.headers.get('set-cookie'),null);assert.equal(rejected.headers.get('cache-control'),'no-store');assert.deepEqual(await snapshot(),resetBefore);assert.deepEqual((await db.query('SELECT * FROM auth_password_resets ORDER BY token_hash')).rows,codesBefore);passed++;
+      await db.query('DELETE FROM auth_password_resets WHERE token_hash=$1',[resetHash]);
+    }finally{await db.query('DROP TRIGGER fixture_password_audit_confirmation ON auth_password_audit');}
   }
   // Real trigger suppression/corruption must never yield password success or
   // revoke sessions. Reset rollback also restores the consumed one-time code.

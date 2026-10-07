@@ -1,3 +1,4 @@
+import {summaryRows} from './summary-results';
 import {scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
@@ -43,7 +44,7 @@ export async function providerTimesheetItems(request:Request,env:Env,path:string
         if(summary){
           const total=count(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT sheet.status'+scope+' GROUP BY sheet.status) groups',values)).rows).count);
           const rows=(await db.query('SELECT sheet.status,COUNT(*)::int AS count,SUM(item.minutes)::text AS "totalMinutes"'+scope+' GROUP BY sheet.status ORDER BY sheet.status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          const groups=resultRows(rows,Number(limit)).map(row=>{
+          const groups=summaryRows(rows,Number(limit),['status']).map(row=>{
             if(row.status!==null&&typeof row.status!=='string'||typeof row.totalMinutes!=='string'||! /^-?\d+$/.test(row.totalMinutes))throw Error('Invalid timesheet item summary');
             return {status:row.status,count:count(row.count),totalMinutes:row.totalMinutes};
           });

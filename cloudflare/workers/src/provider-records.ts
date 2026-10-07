@@ -1,3 +1,4 @@
+import {summaryRows} from './summary-results';
 import {scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {accountId} from './account-read-projection';
 import {validRecordTimestamp} from './record-date-validation';
@@ -44,7 +45,7 @@ export async function providerRecords(request:Request,env:Env,path:string,header
           const field=record.summaryField!,groupField=prefix+field;
           const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+groupField+scope+' GROUP BY '+groupField+') groups',values)).rows).count,'Invalid provider summary count');
           const rows=(await db.query('SELECT '+groupField+',COUNT(*)::int AS count'+scope+' GROUP BY '+groupField+' ORDER BY '+groupField+' NULLS LAST LIMIT $'+(values.length+1)+' OFFSET $'+(values.length+2),[...values,Number(limit),Number(offset)])).rows;
-          const groups=resultRows(rows,Number(limit)).map(row=>{if(!valid(field,row[field])||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid provider summary');return {[field]:row[field],count:row.count};});
+          const groups=summaryRows(rows,Number(limit),[field]).map(row=>{if(!valid(field,row[field])||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid provider summary');return {[field]:row[field],count:row.count};});
           return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(record.singleton){

@@ -300,3 +300,42 @@ New unit regressions corrupt metadata and audit identities, state, cardinality a
 Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
 
 Local validation: 2,125 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37560808726 at 6eccd2944fcb728856e2865ec0c266caeaaa57d5. PR #115 merged as 981c02fdf0f4f0f4c840ce9d4a290c99496df0e5. Latest completed batch is 363; next batch is 364. No deployment or production database changes.
+
+
+## Iteration 17 — batches 364–388, recovery and summary group boundaries, in review
+
+- Batch 364 confirmed reset-password audit.
+- Batch 365 recovery account result shapes.
+- Batch 366 recovery code storage result shapes.
+- Batch 367 locked reset account and consumption result shapes.
+- Batch 368 client invoice compound groups.
+- Batch 369 owned and nested payment groups.
+- Batch 370 client booking request groups.
+- Batch 371 client visit groups.
+- Batch 372 client booking groups.
+- Batch 373 provider document groups.
+- Batch 374 provider visit groups.
+- Batch 375 provider availability groups.
+- Batch 376 timesheet item groups.
+- Batch 377 client consent, authorization and waitlist groups.
+- Batch 378 client feedback groups.
+- Batch 379 client thread and family-link groups.
+- Batch 380 client alert, claim and prescription groups.
+- Batch 381 client care-plan, assessment and reconciliation groups.
+- Batch 382 client shift-log groups.
+- Batch 383 client notification, purchase, vital and medication groups.
+- Batch 384 provider thread, timesheet and override groups.
+- Batch 385 provider mileage, payout and review groups.
+- Batch 386 provider check, match and training groups.
+- Batch 387 personal notification, activity, wellness, device and task groups.
+- Batch 388 personal reconciliation, audit, authoring, review and telehealth groups.
+
+Reset password now confirms a persisted audit before success and commit; failure restores credentials, sessions and the consumed reset code. Recovery account lookup, code storage, locked account lookup and code consumption use object-row/cardinality checks. Valid unknown/ambiguous account privacy responses, invalid-code responses, budgets, lock order, code binding and native email handling remain.
+
+All existing approved summary handlers validate unique typed GROUP BY keys and strictly positive safe-integer source counts before projection. Invoice keys include currency and status; nullable, boolean, numeric and string keys remain distinct. The shared boundary covers client/provider base summaries, timesheet items and every registered approved client/provider/account summary. Existing decimal/SUM string precision, nullable labels, schemas, owner/tenant filters, pagination bounds and repeatable-read rollback remain. Unsupported summaries are not added.
+
+New gateway fixtures cover duplicate/null/boolean/compound keys, zero group counts, valid projected groups and empty summaries across all approved families. Recovery fixtures reject malformed result shapes and failed audit confirmations. Disposable PostgreSQL audit triggers suppress or corrupt reset audits and assert restored code rows plus unchanged account/session/audit snapshots. Existing synthetic summary PostgreSQL suites now verify positive counts and unique returned keys as well as first/empty pages.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,271 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.
