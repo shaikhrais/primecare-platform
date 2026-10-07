@@ -714,7 +714,7 @@ Gateway tests reject malformed tenant strings and non-string values before owned
 
 Local validation: 3,103 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37640526635 at cc138ff6220ad7d7381b9ec2bab936c425a838fa. PR #122 merged as 879e0404cb6156194a58ed5b42b3805d4e5fc735. Latest completed batch is 688; next batch is 689. No deployment or production database changes.
 
-## Iteration 24 — batches 689–738 (in review)
+## Iteration 24 — batches 689–738 (merged)
 
 - Batch 689 configuration rows: sparse.
 - Batch 690 configuration rows: inherited entry.
@@ -771,4 +771,4 @@ The shared result-row object checks are now reusable for nested adapter data. Ma
 
 Fifty numbered boundary cases plus eight gateway regressions check malformed data, privacy, blocked email delivery, and rejected account mutations. Disposable real PostgreSQL faults preserve actual SQL and verify stored rows remain unchanged; failed account updates, session revocation and audit insertion roll back together. Existing maintenance GET commits and failed test-email rate-counter commits remain; malformed mail sends nothing and appends no acceptance audit. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants, authority promotions, deployment or production database changes.
 
-Local validation: 3,161 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI pending.
+Local validation: 3,161 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37646701791 at 7cb5be583ffe8e9623b966d7472bb0c59e29afe7. PR #123 merged as 91405fb2ef8e23e807f5934f40ea2f0170b1aca3. Latest completed batch is 738; next batch is 739. No deployment or production database changes.
