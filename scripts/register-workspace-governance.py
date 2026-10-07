@@ -10,6 +10,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DB = ROOT / '.agents/governance/governance.db'
+import subprocess,sys
+subprocess.run([sys.executable,str(ROOT/'scripts/repair-local-api-metadata.py'),str(DB)],check=True)
 PORTALS = {'corporate': 'co', 'clinic': 'ci', 'clinical': 'ci', 'client': 'cl',
            'support': 'su', 'franchise': 'fr', 'marketing': 'ma',
            'business-development': 'bd', 'governance': 'go'}

@@ -20175,52 +20175,28 @@
     {
       "api": "GET /v1/admin/api-keys",
       "apiId": 832,
-      "grantGroups": [
-        {
-          "permissionKey": "api_permission_api_v1_ceo_alerts_and_risks_list_get",
-          "roleRows": 64,
-          "enabledRoleRows": 64
-        }
-      ]
+      "grantGroups": []
     },
     {
       "api": "GET /v1/admin/audit-logs",
       "apiId": 833,
-      "grantGroups": [
-        {
-          "permissionKey": "api_permission_api_v1_ceo_approvals_list_get",
-          "roleRows": 64,
-          "enabledRoleRows": 64
-        }
-      ]
+      "grantGroups": []
     },
     {
       "api": "GET /v1/admin/bot-audits",
       "apiId": 855,
-      "grantGroups": [
-        {
-          "permissionKey": "api_permission_api_v1_corrective_actions_list_get",
-          "roleRows": 64,
-          "enabledRoleRows": 64
-        }
-      ]
+      "grantGroups": []
     },
     {
       "api": "GET /v1/admin/capacity/forecast",
       "apiId": 860,
-      "grantGroups": [
-        {
-          "permissionKey": "api_permission_api_v1_risk_register_create_post",
-          "roleRows": 64,
-          "enabledRoleRows": 64
-        }
-      ]
+      "grantGroups": []
     }
   ],
   "sourceHashes": {
     "docs/api/api-delivery-checklist.json": "44226f3cc477944d4de76b2c45d20c6aa88252feb1a83fc36d2c9cb23ae3abe9",
     "docs/api/api-reachability-audit.json": "45e99973ee1cb55558f6c68360fcb0bc13dda096fdb4a76d18828238717f7bcb",
     "docs/api/api-delivery-work-package.json": "c8130a42c5738fa616d3a7b8b11d94741bda26abe2c75ed7abea4d9024a87335",
-    ".agents/governance/governance.db": "82d6caac4bc1167eb303ca89b3fb477f9dff92d59d691076584ccac983a3f988"
+    ".agents/governance/governance.db": "d49b7f39cc893518562a002b657448e3e0febaaf6c1d948f817810dfb22fcf45"
   }
 }

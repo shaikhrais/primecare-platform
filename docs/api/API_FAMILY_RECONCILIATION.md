@@ -40,7 +40,3 @@ Choose families with reviewed canonical authority first. Resolve exact callers, 
 
 These existing records demonstrate why generic role-grant rows require scrutiny; their presence does not establish permission for the advertised operation.
 
-- `GET /v1/admin/api-keys` (ID 832): `api_permission_api_v1_ceo_alerts_and_risks_list_get` across 64 role rows (64 enabled).
-- `GET /v1/admin/audit-logs` (ID 833): `api_permission_api_v1_ceo_approvals_list_get` across 64 role rows (64 enabled).
-- `GET /v1/admin/bot-audits` (ID 855): `api_permission_api_v1_corrective_actions_list_get` across 64 role rows (64 enabled).
-- `GET /v1/admin/capacity/forecast` (ID 860): `api_permission_api_v1_risk_register_create_post` across 64 role rows (64 enabled).

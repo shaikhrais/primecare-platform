@@ -233,9 +233,21 @@
     "scripts/reconcile-client-read-declarations.py": "7594a2f140f0123be5069452430e1af313976534d930c5f650e85fadf6af7727",
     "scripts/test-client-read-retirements.py": "bc510e189335beb77cd7b180939c2ad6f13c2c60c4399d0d119964d6e880f5f6",
     "docs/api/client-read-retirement-package.json": "5282e7e77156860cce134920e0b59aab8a994aa7ea4f8fafa849e501bc716103",
-    "scripts/migrate_architecture_tables.py": "b3dd4007fc025dc2fd0e530ce1fcdfaeff3849553f927e23295884cf709adf08",
+    "scripts/migrate_architecture_tables.py": "62c3d8066f5cb7b4c48cdd06bdd808f752646d0b272fe54932dca4197c177597",
     "scripts/test-api-grant-mapping.py": "2a71ff360b2211fa073abcf16d7e7e296420b048facc7e4e7eb224f57d8f22cc",
     "scripts/generate-api-family-reconciliation.py": "0413cc6f7cbfd1222742b015baeb546340ae750300f75381b19fdefc536023ba",
-    "scripts/test-api-family-reconciliation.py": "3b76040d62d13ad2856cc9286dbb2f8ff1b38aa34584297d3e627f60fab7d608"
+    "scripts/test-api-family-reconciliation.py": "3b76040d62d13ad2856cc9286dbb2f8ff1b38aa34584297d3e627f60fab7d608",
+    "scripts/api_authority_integrity.py": "a47bcfafe9ff53d3ff7cad97f01c4f084c78450241704fb764199d8451bed272",
+    "scripts/governance_schema_integrity.py": "4f2ee8f464af89fe7517aa44f4cf88e0da6f62012faadca797f152daa2cde07f",
+    "scripts/quarantine-api-grants.py": "14973f47a8eee3f88f749d905875cadab168e6076e015cc5b03be58f0aef116e",
+    "scripts/quarantine-api-schemas.py": "32fa50e6668be55e825a7de1f785bdcf4673eff2e4f6fad2ecc6bf27695fcb94",
+    "scripts/repair-local-api-metadata.py": "351b768ab49e819da486e9a056ef092d9f1f559fd508a7120e915dd6a4e20f5e",
+    "scripts/check-api-catalog-identity.py": "a037f0480193b8c6dbb0d694d2cd8cbadf40aefee6dd6c3b029410c013956caf",
+    "scripts/register-workspace-governance.py": "1d3baa26acf32b08d342c2d6bd156800bf107bc92c128365e28e7e0b7645dc7d",
+    "scripts/validate_architecture_db.py": "0c08ca18eb2bcd92552bd93a3a70e2d46662a04adb1c584c09bcebd3739cf0c5",
+    "scripts/test-api-authority-integrity.py": "41ec4d8c71d197d40211b1936ff0874a6e94da1381f263d34ae3fe0ca1cc3fd8",
+    "scripts/test-quarantine-api-grants.py": "c8403cba28bcaa20725c21062cfb8683f861fd19deb318f42a25df0663cf1bb6",
+    "scripts/test-governance-schema-integrity.py": "a06b1cddd5d981358e1bd11b21b21018494ddd06e35872a8256ca2f72965cbf7",
+    "scripts/test-api-catalog-identity.py": "f2336c8b71e4f4d8cf0330c9ba99c81679a230dab5b294a29a646fd6a23257ea"
   }
 }
