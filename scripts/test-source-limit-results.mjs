@@ -19,12 +19,22 @@ test('source provider result requires an actual boolean in an object',()=>{
  assert.equal(sourceLimitAllowed({success:true,private:'ignored'}),true);
  assert.equal(sourceLimitAllowed({success:false}),false);
 });
+const providerRecords=JSON.parse(readFileSync('cloudflare/workers/src/provider-records-registry.json','utf8'));
+const selfRecords=JSON.parse(readFileSync('cloudflare/workers/src/self-records-registry.json','utf8'));
+const clientRecords=JSON.parse(readFileSync('cloudflare/workers/src/client-records-registry.json','utf8'));
+const recordRoutes=records=>records.flatMap(r=>[[r.path,'GET'],...(!r.singleton?[[r.path+'/fixture-record','GET']]:[]),...(r.summaryField&&r.summaryBatch!==0?[[r.path+'/summary','GET']]:[])]);
 const families=[
  {batch:269,name:'public authentication',service:'auth',binding:'AUTH_SOURCE_LIMIT',routes:[['/login','POST'],['/forgot-password','POST'],['/reset-password','POST']]},
  {batch:270,name:'workspace',service:'governance',routes:[['/workspace','GET']]},
  {batch:271,name:'governance catalog',service:'governance',routes:governance.bindings.map(b=>[b.path,'GET'])},
  {batch:272,name:'account reads and revocation',service:'auth',routes:[['/admin/users','GET'],['/admin/users/fixture-user','GET'],['/admin/users/fixture-user/sessions','DELETE']]},
  {batch:273,name:'personal sessions',service:'auth',routes:[['/user/sessions','GET'],['/user/sessions','DELETE']]},
+ {batch:274,name:'client owned reads',service:'client',routes:[...['/home/profile','/invoices','/invoices/summary','/invoices/fixture-invoice','/bookings','/bookings/summary','/visits','/payments','/invoices/fixture-invoice/payments'].map(p=>[p,'GET']),...recordRoutes(clientRecords)]},
+ {batch:275,name:'provider owned reads',service:'provider',routes:['/profile','/availability','/availability/summary','/availability/fixture-record','/visits','/visits/summary','/visits/fixture-record','/documents','/documents/summary','/documents/fixture-record'].map(p=>[p,'GET'])},
+ {batch:276,name:'provider registered records',service:'provider',routes:recordRoutes(providerRecords)},
+ {batch:277,name:'account owned records',service:'auth',routes:recordRoutes(selfRecords)},
+ {batch:278,name:'client booking lifecycle',service:'client',routes:[['/booking-requests','POST'],['/booking-requests/fixture-record/cancel','POST'],['/booking-requests/fixture-record/audit','GET']]},
+ {batch:279,name:'provider timesheet items',service:'provider',routes:[['/timesheet-items','GET'],['/timesheet-items/summary','GET'],['/timesheet-items/fixture-record','GET']]},
 ];
 for(const family of families){
  const binding=family.binding??'WORKSPACE_SOURCE_LIMIT';
@@ -33,8 +43,9 @@ for(const family of families){
   globalThis.__sourceDbTouches=0;const keys=[];
   const env={SERVICE_NAME:family.service,DB_URL:'fixture',
    [binding]:{limit:async({key})=>{keys.push(key);if(fail)throw Error('private-source-provider');return result;}}};
-  const headers={'cf-connecting-ip':'192.0.2.10',origin:'https://primecare-clinic.pages.dev','content-type':'application/json',...(authenticated?{authorization:'Bearer '+token}:{})};
+  const headers={'cf-connecting-ip':'192.0.2.10',origin:'https://primecare-clinic.pages.dev','content-type':'application/json','idempotency-key':'source-fixture-key',...(authenticated?{authorization:'Bearer '+token}:{})};
   const bodies={
+   '/booking-requests':{service_type:'Massage',preferred_date:new Date(Date.now()+86400000).toISOString()},
    '/login':{email:'fixture@example.invalid',password:'fixture-password'},
    '/forgot-password':{email:'fixture@example.invalid'},
    '/reset-password':{email:'fixture@example.invalid',code:'ABC123ABC123',newPassword:'new-fixture-password'},
@@ -69,3 +80,8 @@ for(const family of families){
   for(const [path,method] of family.routes){const {response,keys,touches}=await call(path,method,{success:true},{authenticated:false});assert.equal(response.status,401);assert.equal(keys.length,0);assert.equal(touches,0);}
  });
 }
+
+test('source success is read once, without a second accessor decision',()=>{
+ let reads=0;const result={get success(){return ++reads===1?false:'true';}};
+ assert.equal(sourceLimitAllowed(result),false);assert.equal(reads,1);
+});

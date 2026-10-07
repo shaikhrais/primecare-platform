@@ -5,10 +5,10 @@ import bcrypt from 'bcryptjs';
 
 // Test fixtures only: no network, production credentials, or PostgreSQL writes.
 const fixtureHash = await bcrypt.hash('fixture-password', 4);
-let sessions, user, queries, failWrite, failRead, ambiguous, rateAttempts, changedBeforeInsert, createdOverride, creationRows, rateResult;
+let sessions, user, queries, failWrite, failRead, ambiguous, rateAttempts, changedBeforeInsert, createdOverride, creationRows, rateResult, configurationRows, configurationAuditRows, recoveryTenants;
 beforeEach(() => {
   sessions = new Map(); queries = []; failWrite = false; failRead = false; ambiguous = false; rateAttempts=new Map(); changedBeforeInsert=false;createdOverride={};creationRows=1;
-  rateResult=undefined;
+  rateResult=undefined;configurationRows=[];configurationAuditRows=[];recoveryTenants=[];
   user = { id: 'fixture-user', roles: 'fixture-role', tenant_id:'fixture-tenant', status: 'active', password_hash: fixtureHash };
 });
 globalThis.__authQuery = async (sql, values) => {
@@ -19,7 +19,9 @@ globalThis.__authQuery = async (sql, values) => {
     const attempts=(rateAttempts.get(values[0])??0)+1;
     rateAttempts.set(values[0],attempts);return {rows:[{attempts,retry_after:60}]};
   }
-  if(sql.startsWith('SELECT tenant_id FROM users'))return {rows:[]};
+  if(sql.startsWith('SELECT tenant_id FROM users'))return {rows:recoveryTenants};
+  if(sql.includes('FROM tenant_mail_configuration'))return {rows:configurationRows};
+  if(sql.includes('FROM tenant_configuration_audit'))return {rows:configurationAuditRows};
   if (['BEGIN','COMMIT','ROLLBACK'].includes(sql) || sql.startsWith('SELECT pg_advisory') || sql.startsWith('INSERT INTO auth_account_audit')) return {rows:[]};
   if (sql.startsWith('SELECT id FROM users')) return {rows:[]};
   if (sql.startsWith('INSERT INTO users')) return {rows:creationRows?[{id:values[4],email:values[0],tenant_id:values[1],roles:values[2],status:'active',...createdOverride}]:[]};
@@ -380,3 +382,27 @@ for(const [path,input,authenticated] of [
   }
  });
 }
+
+test('maintenance configuration rejects malformed persisted metadata, templates and audits with rollback',async()=>{
+ user.roles='maintenance';user.email='fixture@example.invalid';const {token}=await (await login()).json();
+ const valid={sender:'mail@example.invalid',templates:{},revision:1,updated_at:new Date('2026-01-01T00:00:00Z')};
+ for(const [rows,audit] of [
+  [[{...valid,revision:'1'}],[]],[[{...valid,revision:0}],[]],[[{...valid,updated_at:'infinity'}],[]],
+  [[{...valid,sender:'private-invalid-address'}],[]],[[{...valid,templates:{private:{}}}],[]],
+  [[valid,valid],[]],[[valid],[{action:'private-invalid-action',created_at:valid.updated_at}]],
+  [[valid],[{action:'email_configuration_changed',created_at:'infinity'}]],
+ ]){
+  configurationRows=rows;configurationAuditRows=audit;queries=[];
+  const response=await auth(request('/maintenance/configuration','GET',undefined,token),env,'/maintenance/configuration',{});
+  assert.equal(response.status,503);assert.deepEqual(await response.json(),{error:'Authentication service unavailable'});
+  assert.equal(response.headers.get('cache-control'),'no-store');assert.equal(queries.at(-1).sql,'ROLLBACK');
+  assert.ok(!queries.some(q=>q.sql==='COMMIT'||q.sql.startsWith('INSERT')));
+ }
+});
+test('corrupt stored recovery configuration stops before rate counters and email delivery',async()=>{
+ recoveryTenants=[{tenant_id:user.tenant_id}];configurationRows=[{sender:'private-invalid-address',templates:{}}];queries=[];
+ const mailEnv={...env,EMAIL_FROM:'mail@example.invalid',EMAIL:{send:async()=>assert.fail('must not send')}};
+ const response=await auth(request('/forgot-password','POST',{email:'fixture@example.invalid'}),mailEnv,'/forgot-password',{});
+ assert.equal(response.status,503);assert.deepEqual(await response.json(),{error:'Authentication service unavailable'});
+ assert.equal(response.headers.get('cache-control'),'no-store');assert.ok(!queries.some(q=>q.sql.startsWith('INSERT')));
+});

@@ -1,3 +1,4 @@
+import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 
 const identifier=/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/;
@@ -26,7 +27,7 @@ export async function providerTimesheetItems(request:Request,env:Env,path:string
   const token=request.headers.has('authorization')?tokenFrom(request):null;
   if(!token)return json({error:'No session'},401,safe);
   try{
-    if(env.WORKSPACE_SOURCE_LIMIT&&!(await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('provider-timesheet-items:'+(request.headers.get('cf-connecting-ip')??'unknown'))})).success){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
+    if(env.WORKSPACE_SOURCE_LIMIT&&!sourceLimitAllowed(await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('provider-timesheet-items:'+(request.headers.get('cf-connecting-ip')??'unknown'))}))){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
     return await withDb(env,async db=>{
       await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
       try{

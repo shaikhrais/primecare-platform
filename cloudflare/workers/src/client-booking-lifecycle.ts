@@ -1,3 +1,4 @@
+import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 
 const idPattern=/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/;
@@ -54,7 +55,7 @@ export async function clientBookingLifecycle(request:Request,env:Env,path:string
   const key=request.headers.get('idempotency-key');if(!audit&&(!key||!/^[A-Za-z0-9_-]{8,100}$/.test(key)))return json({error:'Valid Idempotency-Key required'},400,safe);
   let input:Record<string,unknown>={};try{if(create)input=await createInput(request);}catch{return json({error:'Invalid booking request'},400,safe);}
   try{
-    if(env.WORKSPACE_SOURCE_LIMIT&&!(await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('client-booking-lifecycle:'+(request.headers.get('cf-connecting-ip')??'unknown'))})).success){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
+    if(env.WORKSPACE_SOURCE_LIMIT&&!sourceLimitAllowed(await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('client-booking-lifecycle:'+(request.headers.get('cf-connecting-ip')??'unknown'))}))){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
     const hash=await sha256(token),fingerprint=await sha256(JSON.stringify({action:create?'created':'cancelled',id:match?.[1]??null,input}));
     return await withDb(env,async db=>{
       await db.query(audit?'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY':'BEGIN');let committed=false;

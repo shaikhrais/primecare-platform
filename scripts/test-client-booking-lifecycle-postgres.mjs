@@ -5,7 +5,7 @@ const db=new Client({connectionString:url.href});await db.connect();
 const ids=[randomUUID(),randomUUID(),randomUUID()],tenants=[randomUUID(),randomUUID()],profiles=[randomUUID(),randomUUID(),randomUUID()],tokens=['x'.repeat(43),'y'.repeat(43),'z'.repeat(43)],hash=s=>createHash('sha256').update(s).digest('hex');
 let checks=0,createdProfiles=false,createdRequests=false,createdAudit=false;
 const input={service_type:'massage',preferred_date:'2026-10-06T12:00:00Z',preferred_time:null,notes:'private note'};
-function call(path='/booking-requests',key='create-key',body=path==='/booking-requests'?input:undefined,token=tokens[0],headers={}){return clientBookingLifecycle(new Request('https://fixture'+path,{method:path.includes('/audit')?'GET':'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json','idempotency-key':key,...headers},body:body===undefined?undefined:JSON.stringify(body)}),{DB_URL:url.href,SERVICE_NAME:'client'},path.split('?')[0],{});}
+function call(path='/booking-requests',key='create-key',body=path==='/booking-requests'?input:undefined,token=tokens[0],headers={},sourceLimit){return clientBookingLifecycle(new Request('https://fixture'+path,{method:path.includes('/audit')?'GET':'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json','idempotency-key':key,...headers},body:body===undefined?undefined:JSON.stringify(body)}),{DB_URL:url.href,SERVICE_NAME:'client',...(sourceLimit?{WORKSPACE_SOURCE_LIMIT:sourceLimit}:{})},path.split('?')[0],{});}
 try{
  await db.query('CREATE TABLE client_profiles(id TEXT PRIMARY KEY,user_id TEXT NOT NULL,tenant_id TEXT NOT NULL)');createdProfiles=true;
  await db.query('CREATE TABLE booking_requests(id TEXT PRIMARY KEY,client_id TEXT NOT NULL,tenant_id TEXT NOT NULL,service_type TEXT NOT NULL,preferred_date TIMESTAMP NOT NULL,preferred_time TEXT,notes TEXT,status TEXT NOT NULL,created_at TIMESTAMP NOT NULL,updated_at TIMESTAMP NOT NULL)');createdRequests=true;
@@ -15,6 +15,17 @@ try{
  for(let i=0;i<3;i++){await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,'patient',$3,'unused','active')",[ids[i],ids[i]+'@example.invalid',tenants[i===2?1:0]]);await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '1 hour')",[hash(tokens[i]),ids[i]]);await db.query('INSERT INTO client_profiles(id,user_id,tenant_id) VALUES($1,$2,$3)',[profiles[i],ids[i],tenants[i===2?1:0]]);}
  const concurrent=await Promise.all([call(),call()]);for(const r of concurrent)assert.equal(r.status,201);const results=await Promise.all(concurrent.map(r=>r.json()));assert.equal(results[0].request.id,results[1].request.id);const id=results[0].request.id;checks++;
  assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM booking_requests')).rows[0].count,1);assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM booking_request_audit')).rows[0].count,1);checks++;
+ const snapshot=async()=>({requests:(await db.query('SELECT * FROM booking_requests ORDER BY id')).rows,audit:(await db.query('SELECT * FROM booking_request_audit ORDER BY id')).rows});
+ for(const path of ['/booking-requests','/booking-requests/'+id+'/cancel','/booking-requests/'+id+'/audit']) {
+  for(const result of [{success:'true'},{success:1},{success:'false'},{success:false}]) {
+   const before=await snapshot();let calls=0;
+   const response=await call(path,'malformed-source',path==='/booking-requests'?input:undefined,tokens[0],{}, {limit:async()=>{calls++;return result;}});
+   assert.equal(response.status,result.success===false?429:503);assert.equal(calls,1);
+   assert.equal(response.headers.get('cache-control'),'no-store');assert.equal(response.headers.get('set-cookie'),null);
+   assert.equal(response.headers.get('retry-after'),result.success===false?'60':null);
+   assert.deepEqual(await snapshot(),before);checks++;
+  }
+ }
  const saved=(await db.query('SELECT * FROM booking_requests WHERE id=$1',[id])).rows[0];assert.equal(saved.client_id,profiles[0]);assert.equal(saved.tenant_id,tenants[0]);assert.equal(saved.status,'pending');assert.equal(saved.notes,'private note');assert.ok(!JSON.stringify(results).includes('private'));checks++;
  assert.equal((await call('/booking-requests','create-key',{...input,service_type:'different'})).status,409);checks++;
  const foreign=(await (await call('/booking-requests','other-create',input,tokens[1])).json()).request.id;

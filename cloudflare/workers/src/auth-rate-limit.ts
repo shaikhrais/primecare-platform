@@ -18,7 +18,7 @@ export async function authRateLimit(db: Client, subjectHash: string, operation: 
         ELSE LEAST(auth_rate_limits.attempts+1,$3+1) END,
       reset_at=CASE WHEN auth_rate_limits.reset_at<=NOW() THEN NOW()+($2 * INTERVAL '1 second')
         ELSE auth_rate_limits.reset_at END
-    RETURNING attempts,GREATEST(1,CEIL(EXTRACT(EPOCH FROM reset_at-NOW())))::int AS retry_after`,
+    RETURNING attempts,GREATEST(1,CEIL(EXTRACT(EPOCH FROM reset_at-clock_timestamp())))::int AS retry_after`,
     [subjectHash,windowSeconds,maxAttempts]);
   // PostgreSQL int4 values arrive as numbers. Never coerce malformed results
   // into an allowed attempt or serialize an invalid Retry-After value.
