@@ -56,6 +56,7 @@ runpy.run_path(str(ROOT/'scripts/register-summary-contracts-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-list-page-contracts-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-response-envelope-contracts-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-read-envelope-page-contracts-api.py'))
+runpy.run_path(str(ROOT/'scripts/register-timestamp-contracts-api.py'))
 runpy.run_path(str(ROOT/'scripts/register-governed-read-aliases.py'))
 runpy.run_path(str(ROOT/'scripts/generate-api-execution-inventory.py'))
 with sqlite3.connect(DB) as db:

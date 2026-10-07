@@ -67,7 +67,9 @@
                           },
                           "recorded_at": {
                             "type": "string",
-                            "format": "date-time"
+                            "format": "date-time",
+                            "minLength": 20,
+                            "pattern": "^\\d{4}-\\d{2}-\\d{2}T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|[+-](?:[01]\\d|2[0-3]):[0-5]\\d)$"
                           }
                         }
                       },
@@ -195,7 +197,9 @@
                         },
                         "recorded_at": {
                           "type": "string",
-                          "format": "date-time"
+                          "format": "date-time",
+                          "minLength": 20,
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|[+-](?:[01]\\d|2[0-3]):[0-5]\\d)$"
                         }
                       }
                     }
@@ -297,7 +301,9 @@
                           },
                           "recorded_at": {
                             "type": "string",
-                            "format": "date-time"
+                            "format": "date-time",
+                            "minLength": 20,
+                            "pattern": "^\\d{4}-\\d{2}-\\d{2}T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|[+-](?:[01]\\d|2[0-3]):[0-5]\\d)$"
                           }
                         }
                       },
@@ -425,7 +431,9 @@
                         },
                         "recorded_at": {
                           "type": "string",
-                          "format": "date-time"
+                          "format": "date-time",
+                          "minLength": 20,
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|[+-](?:[01]\\d|2[0-3]):[0-5]\\d)$"
                         }
                       }
                     }
@@ -527,7 +535,9 @@
                           },
                           "recorded_at": {
                             "type": "string",
-                            "format": "date-time"
+                            "format": "date-time",
+                            "minLength": 20,
+                            "pattern": "^\\d{4}-\\d{2}-\\d{2}T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|[+-](?:[01]\\d|2[0-3]):[0-5]\\d)$"
                           }
                         }
                       },
@@ -655,7 +665,9 @@
                         },
                         "recorded_at": {
                           "type": "string",
-                          "format": "date-time"
+                          "format": "date-time",
+                          "minLength": 20,
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|[+-](?:[01]\\d|2[0-3]):[0-5]\\d)$"
                         }
                       }
                     }
@@ -757,7 +769,9 @@
                           },
                           "recorded_at": {
                             "type": "string",
-                            "format": "date-time"
+                            "format": "date-time",
+                            "minLength": 20,
+                            "pattern": "^\\d{4}-\\d{2}-\\d{2}T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|[+-](?:[01]\\d|2[0-3]):[0-5]\\d)$"
                           }
                         }
                       },
@@ -885,7 +899,9 @@
                         },
                         "recorded_at": {
                           "type": "string",
-                          "format": "date-time"
+                          "format": "date-time",
+                          "minLength": 20,
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|[+-](?:[01]\\d|2[0-3]):[0-5]\\d)$"
                         }
                       }
                     }
@@ -987,7 +1003,9 @@
                           },
                           "recorded_at": {
                             "type": "string",
-                            "format": "date-time"
+                            "format": "date-time",
+                            "minLength": 20,
+                            "pattern": "^\\d{4}-\\d{2}-\\d{2}T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|[+-](?:[01]\\d|2[0-3]):[0-5]\\d)$"
                           }
                         }
                       },
@@ -1115,7 +1133,9 @@
                         },
                         "recorded_at": {
                           "type": "string",
-                          "format": "date-time"
+                          "format": "date-time",
+                          "minLength": 20,
+                          "pattern": "^\\d{4}-\\d{2}-\\d{2}T(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|[+-](?:[01]\\d|2[0-3]):[0-5]\\d)$"
                         }
                       }
                     }
