@@ -66,7 +66,9 @@
                             "type": "string"
                           },
                           "rating": {
-                            "type": "integer"
+                            "type": "integer",
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "status": {
                             "type": [
@@ -184,7 +186,9 @@
                           "type": "string"
                         },
                         "rating": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
                         },
                         "status": {
                           "type": [
@@ -291,7 +295,9 @@
                             "type": "string"
                           },
                           "rating": {
-                            "type": "integer"
+                            "type": "integer",
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "triage_status": {
                             "type": "string"
@@ -401,7 +407,9 @@
                           "type": "string"
                         },
                         "rating": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
                         },
                         "triage_status": {
                           "type": "string"

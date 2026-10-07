@@ -890,3 +890,22 @@ Persisted PostgreSQL Int columns use signed int4 bounds without coercion. SUM(In
 Fifty numbered cases plus seven summary/absence regressions cover malformed integers and exact bigint sums. Disposable PostgreSQL tests preserve ownership SQL and verify rollback, privacy, stored rows, foreign record denial and tenant isolation. No new routes, grants, authority promotions, deployment or production database changes.
 
 Local validation: 3,271 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37655612979 at 135ccc9c8268c797a9cdd431b0f80485b97f684e. Each identity mode passed 411 new real PostgreSQL integer checks. PR #125 merged as 96e3eac5e53cceb4cc6d32f019e72424988d3a43. Latest completed batch is 838; next batch is 839. No deployment or production database changes.
+
+## Iteration 27 — batches 839–850 (in review)
+
+- Batch 839 client /consents template_version: align published/stored signed int4 bounds.
+- Batch 840 client /waitlist priority: align published/stored signed int4 bounds.
+- Batch 841 client /feedback rating: align published/stored signed int4 bounds.
+- Batch 842 client /care-feedback rating: align published/stored signed int4 bounds.
+- Batch 843 provider /timesheets total_minutes: align published/stored signed int4 bounds.
+- Batch 844 provider /mileage-logs travel_minutes: align published/stored signed int4 bounds.
+- Batch 845 provider /fleet-status battery_level: align published/stored signed int4 bounds.
+- Batch 846 auth /me/rewards care_coins: align published/stored signed int4 bounds.
+- Batch 847 auth /me/rewards lifetime_points: align published/stored signed int4 bounds.
+- Batch 848 auth /me/wellness-pulses score: align published/stored signed int4 bounds.
+- Batch 849 auth /me/reputation points: align published/stored signed int4 bounds.
+- Batch 850 auth /me/reputation crises_resolved: align published/stored signed int4 bounds.
+
+Twelve existing read fields now declare the same signed int4 limits enforced by the runtime. Registration verifies exact existing service, bearer and owner permission plus registered int4 column type. Canonical and compatibility schemas are synchronized; declared nullability remains unchanged. No new endpoints, permissions or business workflow claims.
+
+Local validation: 3,283 API fixtures, Worker TypeScript and governance guardian passed. Exact-head remote UUID/text PostgreSQL and security CI pending. Latest merged numbered batch remains 838 until this change passes CI and merges. No deployment or production database changes.

@@ -43,13 +43,17 @@
                           "type": "string"
                         },
                         "points": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
                         },
                         "elite_status": {
                           "type": "boolean"
                         },
                         "crises_resolved": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
                         },
                         "created_at": {
                           "type": "string",

@@ -329,7 +329,9 @@
                             "type": [
                               "integer",
                               "null"
-                            ]
+                            ],
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "submitted_at": {
                             "type": [
@@ -867,7 +869,9 @@
                             "type": [
                               "integer",
                               "null"
-                            ]
+                            ],
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "status": {
                             "type": "string"
@@ -2598,6 +2602,270 @@
         }
       }
     },
+    "/v1/provider/training-assignment-records": {
+      "get": {
+        "operationId": "validate_provider_training_assignments_list",
+        "summary": "Read validated owner-scoped training assignments records",
+        "description": "Active explicit bearer session, matching non-null tenant and ProviderProfile owner required. Every query retains the registered owner and tenant bindings. Pagination totals must be nonnegative safe integers returned by the database driver without coercion; malformed totals return a sanitized 503. Summary totals count stored groups, not records. Existing projections, no-store, bounded paging, read-only repeatable-read isolation and source limits remain unchanged. No owner overrides, role grants, business mutations, clinical interpretation, approval or completion claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated scoped records or stored groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "assignments",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "assignments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "status",
+                          "assigned_at",
+                          "due_date",
+                          "completed_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "assigned_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "due_date": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "completed_at": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/provider/training-assignment-records/summary": {
+      "get": {
+        "operationId": "validate_provider_training_assignments_summary",
+        "summary": "Read validated owner-scoped training assignments groups",
+        "description": "Active explicit bearer session, matching non-null tenant and ProviderProfile owner required. Every query retains the registered owner and tenant bindings. Pagination totals must be nonnegative safe integers returned by the database driver without coercion; malformed totals return a sanitized 503. Summary totals count stored groups, not records. Existing projections, no-store, bounded paging, read-only repeatable-read isolation and source limits remain unchanged. No owner overrides, role grants, business mutations, clinical interpretation, approval or completion claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated scoped records or stored groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "groups",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "status",
+                          "count"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": "string"
+                          },
+                          "count": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
     "/v1/auth/me/notifications": {
       "get": {
         "operationId": "validate_auth_app_notifications_list",
@@ -3191,7 +3459,9 @@
                             "type": [
                               "integer",
                               "null"
-                            ]
+                            ],
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "status": {
                             "type": "string"
@@ -8784,6 +9054,128 @@
                   ],
                   "properties": {
                     "events": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "created_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query or body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/auth/me/authored-message-records": {
+      "get": {
+        "operationId": "validate_auth_messages_list",
+        "summary": "Read validated owner-scoped messages records",
+        "description": "Active explicit bearer session, matching non-null tenant and active bearer User owner required. Every query retains the registered owner and tenant bindings. Pagination totals must be nonnegative safe integers returned by the database driver without coercion; malformed totals return a sanitized 503. Summary totals count stored groups, not records. Existing projections, no-store, bounded paging, read-only repeatable-read isolation and source limits remain unchanged. No owner overrides, role grants, business mutations, clinical interpretation, approval or completion claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated scoped records or stored groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "messages",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "messages": {
                       "type": "array",
                       "items": {
                         "type": "object",

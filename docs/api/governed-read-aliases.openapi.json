@@ -1003,7 +1003,9 @@
                             "type": [
                               "integer",
                               "null"
-                            ]
+                            ],
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "status": {
                             "type": "string"
@@ -4935,7 +4937,9 @@
                             "format": "date-time"
                           },
                           "template_version": {
-                            "type": "integer"
+                            "type": "integer",
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "created_at": {
                             "type": "string",
@@ -5219,7 +5223,9 @@
                             "type": "string"
                           },
                           "priority": {
-                            "type": "integer"
+                            "type": "integer",
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "status": {
                             "type": "string"
@@ -5351,7 +5357,9 @@
                             "type": "string"
                           },
                           "rating": {
-                            "type": "integer"
+                            "type": "integer",
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "status": {
                             "type": [
@@ -5482,7 +5490,9 @@
                             "type": "string"
                           },
                           "rating": {
-                            "type": "integer"
+                            "type": "integer",
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "triage_status": {
                             "type": "string"
@@ -5898,7 +5908,9 @@
                             "type": [
                               "integer",
                               "null"
-                            ]
+                            ],
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "submitted_at": {
                             "type": [
@@ -6075,7 +6087,9 @@
                             "type": [
                               "integer",
                               "null"
-                            ]
+                            ],
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "status": {
                             "type": "string"
@@ -6973,13 +6987,17 @@
                           "type": "string"
                         },
                         "care_coins": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
                         },
                         "current_tier": {
                           "type": "string"
                         },
                         "lifetime_points": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
                         },
                         "updated_at": {
                           "type": "string",
@@ -7063,13 +7081,17 @@
                           "type": "string"
                         },
                         "points": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
                         },
                         "elite_status": {
                           "type": "boolean"
                         },
                         "crises_resolved": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
                         },
                         "created_at": {
                           "type": "string",
@@ -7162,7 +7184,9 @@
                           "type": [
                             "integer",
                             "null"
-                          ]
+                          ],
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
                         },
                         "last_heartbeat_at": {
                           "type": "string",
