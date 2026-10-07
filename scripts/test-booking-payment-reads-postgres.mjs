@@ -1,3 +1,4 @@
+import {assertOwnedPageBoundaries} from './owned-result-postgres-fixtures.mjs';
 import {assertReadDateRejections} from './read-date-postgres-fixtures.mjs';
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
@@ -38,6 +39,7 @@ try{
  assert.equal((await call('/payments/'+payments[0],'',tokens[2])).status,404);checks++;
  for(const path of ['/payments','/payments/summary','/payments/'+payments[0]])assert.equal((await call(path,'',tokens[0],{'x-tenant-id':tenants[1]})).status,403);checks++;
  const compatibility=await (await alias('?limit=2')).json();assert.deepEqual(compatibility,all);checks++;const compatibilityOther=await (await alias('',tokens[1])).json();assert.deepEqual(compatibilityOther.payments.map(x=>x.id),[payments[3]]);checks++;for(const [query,status] of [['?clientId=other',400],['/summary',404]])assert.equal((await alias(query)).status,status);assert.equal((await alias('',tokens[0],'POST')).status,405);checks++;
+ for(const [path,collection] of [[base,'payments'],[base+'/summary','groups'],['/payments','payments'],['/payments/summary','groups'],['/booking-requests/summary','groups']])checks+=await assertOwnedPageBoundaries(call,path,collection);
  const duplicate=randomUUID();await db.query("INSERT INTO client_profiles(id,user_id,tenant_id,full_name) VALUES($1,$2,$3,'Duplicate')",[duplicate,users[0],tenants[0]]);
  try{for(const path of ['/payments','/payments/summary','/payments/'+payments[0]])assert.equal((await call(path)).status,503);checks++;}finally{await db.query('DELETE FROM client_profiles WHERE id=$1',[duplicate]);}
  for(let i=0;i<4;i++)await db.query('INSERT INTO booking_requests VALUES($1,$2,$3,$4)',[randomUUID(),profiles[i===2?1:0],tenants[i===3?1:0],i===1?'cancelled':'pending']);

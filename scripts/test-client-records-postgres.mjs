@@ -1,3 +1,4 @@
+import {assertOwnedPageBoundaries} from './owned-result-postgres-fixtures.mjs';
 import {assertReadDateRejections} from './read-date-postgres-fixtures.mjs';
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp,readFile} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
@@ -27,6 +28,7 @@ try{
   const summaryResponse=await call(record.path+'/summary');assert.equal(summaryResponse.status,200);const summary=await summaryResponse.json();assert.deepEqual(summary.groups,[{status:'pending',count:1},{status:'value',count:2}]);assert.equal(summary.pagination.total,2);checks++;
   const summaryPage=await (await call(record.path+'/summary','?limit=1&offset=1')).json();assert.deepEqual(summaryPage.groups,[{status:'value',count:2}]);assert.equal(summaryPage.pagination.hasMore,false);checks++;
   const otherSummary=await (await call(record.path+'/summary','',tokens[1])).json();assert.deepEqual(otherSummary.groups,[{status:'value',count:1}]);checks++;
+  checks+=await assertOwnedPageBoundaries(call,record.path,record.collection);checks+=await assertOwnedPageBoundaries(call,record.path+'/summary','groups');
   await db.query('DELETE FROM '+record.table+' WHERE id=ANY($1)',[extra]);
   await db.query('DELETE FROM '+record.table+' WHERE id=$1',[records[0]]);const empty=await (await call(record.path)).json();assert.deepEqual(empty[record.collection],[]);assert.equal(empty.pagination.total,0);checks++;const emptySummary=await (await call(record.path+'/summary')).json();assert.deepEqual(emptySummary.groups,[]);assert.equal(emptySummary.pagination.total,0);checks++;
  }

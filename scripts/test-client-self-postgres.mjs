@@ -1,3 +1,4 @@
+import {assertOwnedPageBoundaries} from './owned-result-postgres-fixtures.mjs';
 import {assertReadDateRejections} from './read-date-postgres-fixtures.mjs';
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
@@ -69,6 +70,7 @@ try{
  await db.query("DELETE FROM invoices WHERE client_id=$1 AND (currency='USD' OR total=0.10)",[profiles[0]]);
  const other=await (await call('/invoices','',tokens[1])).json();assert.equal(other.pagination.total,1);assert.notEqual(other.invoices[0].id,list.invoices[0].id);checks++;
  const empty=await (await call('/invoices','?offset=1')).json();assert.equal(empty.invoices.length,0);assert.equal(empty.pagination.total,1);checks++;
+ for(const [path,collection] of [['/invoices','invoices'],['/bookings','bookings'],['/visits','visits'],['/booking-requests','requests']]) {checks+=await assertOwnedPageBoundaries(call,path,collection);checks+=await assertOwnedPageBoundaries(call,path+'/summary','groups');}
  assert.equal((await call('/home/profile','',tokens[0],{'x-tenant-id':tenants[1]})).status,403);checks++;
  await db.query('UPDATE client_profiles SET tenant_id=$1 WHERE id=$2',[tenants[1],profiles[0]]);assert.equal((await call()).status,404);checks++;
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[ids[1]]);assert.equal((await call('/invoices','',tokens[1])).status,401);checks++;

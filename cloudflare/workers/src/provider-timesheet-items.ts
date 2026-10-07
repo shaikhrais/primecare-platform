@@ -1,3 +1,4 @@
+import {scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 
@@ -31,18 +32,18 @@ export async function providerTimesheetItems(request:Request,env:Env,path:string
     return await withDb(env,async db=>{
       await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
       try{
-        const actor=(await db.query("SELECT u.id,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1",[await sha256(token)])).rows[0];
+        const actor=scopedActor((await db.query("SELECT u.id,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1",[await sha256(token)])).rows);
         if(!actor)return json({error:'Invalid session'},401,safe);
         if(!actor.tenant_id||request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id))return json({error:'Forbidden'},403,safe);
-        const profiles=(await db.query('SELECT id FROM provider_profiles WHERE user_id::text=$1 AND tenant_id::text=$2 LIMIT 2',[String(actor.id),String(actor.tenant_id)])).rows;
+        const profiles=resultRows((await db.query('SELECT id FROM provider_profiles WHERE user_id::text=$1 AND tenant_id::text=$2 LIMIT 2',[String(actor.id),String(actor.tenant_id)])).rows,1);
         if(!profiles.length)return json({error:'Provider profile not found'},404,safe);
         if(profiles.length!==1||typeof profiles[0].id!=='string'||!identifier.test(profiles[0].id))throw Error('Invalid owned provider profile');
         const values=[profiles[0].id,String(actor.tenant_id)];
         const scope=' FROM timesheet_items item JOIN timesheets sheet ON sheet.id=item.timesheet_id WHERE sheet.provider_id::text=$1 AND sheet.tenant_id::text=$2';
         if(summary){
-          const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT sheet.status'+scope+' GROUP BY sheet.status) groups',values)).rows[0]?.count);
+          const total=count(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT sheet.status'+scope+' GROUP BY sheet.status) groups',values)).rows).count);
           const rows=(await db.query('SELECT sheet.status,COUNT(*)::int AS count,SUM(item.minutes)::text AS "totalMinutes"'+scope+' GROUP BY sheet.status ORDER BY sheet.status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          const groups=rows.map(row=>{
+          const groups=resultRows(rows,Number(limit)).map(row=>{
             if(row.status!==null&&typeof row.status!=='string'||typeof row.totalMinutes!=='string'||! /^-?\d+$/.test(row.totalMinutes))throw Error('Invalid timesheet item summary');
             return {status:row.status,count:count(row.count),totalMinutes:row.totalMinutes};
           });
@@ -50,15 +51,14 @@ export async function providerTimesheetItems(request:Request,env:Env,path:string
         }
         const fields='item.id,item.minutes,item.created_at';
         if(detail){
-          const rows=(await db.query('SELECT '+fields+scope+' AND item.id::text=$3',[...values,detail[1]])).rows;
-          if(!rows.length)return json({error:'Timesheet item not found'},404,safe);
-          if(rows.length!==1)throw Error('Ambiguous timesheet item');
-          const item=project(rows[0]);if(item.id!==detail[1])throw Error('Timesheet item identity mismatch');
+          const row=boundRow((await db.query('SELECT '+fields+scope+' AND item.id::text=$3',[...values,detail[1]])).rows,detail[1]);
+          if(!row)return json({error:'Timesheet item not found'},404,safe);
+          const item=project(row);
           return json({item},200,safe);
         }
-        const total=count((await db.query('SELECT COUNT(*)::int AS count'+scope,values)).rows[0]?.count);
+        const total=count(requiredRow((await db.query('SELECT COUNT(*)::int AS count'+scope,values)).rows).count);
         const rows=(await db.query('SELECT '+fields+scope+' ORDER BY item.created_at DESC,item.id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-        return json({items:rows.map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        return json({items:resultRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
       }finally{await db.query('ROLLBACK');}
     });
   }catch{return json({error:'Timesheet item data unavailable'},503,safe);}
