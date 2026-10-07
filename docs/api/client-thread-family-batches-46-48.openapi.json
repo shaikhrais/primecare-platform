@@ -104,9 +104,11 @@
                         "hasMore": {
                           "type": "boolean"
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "threads": [
@@ -206,7 +208,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "thread": {
@@ -346,9 +349,11 @@
                         "hasMore": {
                           "type": "boolean"
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "links": [
@@ -454,7 +459,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "link": {

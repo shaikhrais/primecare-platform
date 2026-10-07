@@ -135,9 +135,11 @@
                         "hasMore": {
                           "type": "boolean"
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
               }
             }
@@ -253,7 +255,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
               }
             }
@@ -415,9 +418,11 @@
                         "hasMore": {
                           "type": "boolean"
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
               }
             }
@@ -536,7 +541,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
               }
             }
@@ -682,9 +688,11 @@
                         "hasMore": {
                           "type": "boolean"
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
               }
             }
@@ -787,7 +795,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
               }
             }

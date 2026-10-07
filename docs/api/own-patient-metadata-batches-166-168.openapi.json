@@ -112,9 +112,11 @@
                         "hasMore": {
                           "type": "boolean"
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "alerts": [
@@ -224,7 +226,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "alert": {
@@ -366,9 +369,11 @@
                         "hasMore": {
                           "type": "boolean"
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "claims": [
@@ -474,7 +479,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "claim": {
@@ -610,9 +616,11 @@
                         "hasMore": {
                           "type": "boolean"
                         }
-                      }
+                      },
+                      "additionalProperties": false
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "prescriptions": [
@@ -712,7 +720,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "prescription": {

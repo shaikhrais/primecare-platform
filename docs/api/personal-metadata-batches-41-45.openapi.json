@@ -112,7 +112,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "healthIds": [
@@ -218,7 +219,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "healthId": {
@@ -496,7 +498,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "submissions": [
@@ -596,7 +599,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "submission": {
@@ -877,7 +881,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "memberships": [
@@ -982,7 +987,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "membership": {
