@@ -1260,8 +1260,14 @@ The generated [API delivery checklist](API_DELIVERY_CHECKLIST.md) and JSON count
 
 Validation: four counting regressions and 3,583 API fixtures passed. Checklist regeneration is integrated with inventory generation and CI verification. Existing global PostgreSQL CI does not automatically become operation-specific evidence; production readiness is not inferred. Exact-head UUID/text PostgreSQL and security CI passed on `089656de23814437d7dc6f492f3a9a5a570948a2`, run 37678887518. PR #134 merged as `284b7159fc67ca57b6da4f476218f54008984e3d`. No business endpoint count advanced in this tracking change.
 
-## Finite auth work package (in review)
+## Finite auth work package (merged)
 
 Reviewed 14/14 unresolved auth declarations and resolved four existing handlers: POST /v1/auth/login, logout, forgot-password and reset-password. Corrected their service, credential policy, pre-auth requirements, request/response schemas and existing login-screen associations; no handler or grant was added. Ten declarations retain unresolved findings: eight lack auth handlers and two are service-root status entries. [Detailed outcomes](AUTH_DELIVERY_WORK_PACKAGE.md).
 
-Unique operations with unit evidence increased from 336 to 340; pending contract/verification work fell from 1,069 to 1,065. Ten existing registered blockers remain. Local validation: 3,597 API fixtures, four counting regressions, authority drift regressions, Worker types and 100% governance compliance. Exact-head PostgreSQL and security CI pending. This is measurable operation-level progress, not an increase to numbered repair batches.
+Unique operations with unit evidence increased from 336 to 340; pending contract/verification work fell from 1,069 to 1,065. Ten existing registered blockers remain. Local validation: 3,597 API fixtures, four counting regressions, authority drift regressions, Worker types and 100% governance compliance. Exact-head UUID/text PostgreSQL and security CI passed on `72aada99f6a87fdcea0b968980c4b620888392d8`, run 37680700500. PR #135 merged as `75d3d2882503e710ae03af49d7018395421b55ea`. Operation-level counters replace numbered repair batches.
+
+## Full remaining-backlog routing triage (in review)
+
+Probed all 1,065 unique pending operations locally with declared methods, no credentials and synthetic path IDs. Results: 1,016 gateway-route misses, 37 Worker-route misses, nine declared-method rejections, two service-status responses and one protected-handler encounter. Connections are disabled before SQL; production and email are not contacted. These are routing findings, not authenticated business verification. Dynamic ID handlers can capture workflow names, so 401/405 responses do not establish the advertised workflow.
+
+[Full triage report](API_REACHABILITY_AUDIT.md) and per-operation JSON include exact method/path, status, forwarding destination, allowed method and source hashes. CI refreshes this audit after the final inventory/evidence snapshot. The next work is to reconcile callers and legacy declarations with canonical service workflows; undeclared business authority must not be invented. API completion counters remain 340 with unit evidence, 1,065 pending and 10 blocked. Exact-head audit integration CI pending.
