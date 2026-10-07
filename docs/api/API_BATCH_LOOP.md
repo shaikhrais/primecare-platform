@@ -531,3 +531,67 @@ Gateway regressions test every projected date field on list/detail/singleton pat
 Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
 
 Local validation: 2,734 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37623868986 at 3feb0664d1ce964a421328a1ac54285d9fa7ce5f. PR #119 merged as 37d996b9c253797db2f994e6700415c776a55ac6. Latest completed batch is 538; next batch is 539. No deployment or production database changes.
+
+
+## Iteration 21 — batches 539–588, dense own-data result rows, in review
+
+- Batch 539 client invoices.
+- Batch 540 owned payments.
+- Batch 541 nested invoice payments.
+- Batch 542 client booking requests.
+- Batch 543 client visits.
+- Batch 544 client bookings.
+- Batch 545 provider documents.
+- Batch 546 provider visits.
+- Batch 547 provider availability.
+- Batch 548 timesheet items.
+- Batch 549 client /consents.
+- Batch 550 client /service-authorizations.
+- Batch 551 client /waitlist.
+- Batch 552 client /feedback.
+- Batch 553 client /care-feedback.
+- Batch 554 client /conversation-threads.
+- Batch 555 client /family-links.
+- Batch 556 client /alert-records.
+- Batch 557 client /insurance-claim-records.
+- Batch 558 client /prescription-records.
+- Batch 559 client /care-plan-records.
+- Batch 560 client /assessment-records.
+- Batch 561 client /medication-reconciliation-records.
+- Batch 562 client /shift-log-records.
+- Batch 563 client /adl-records.
+- Batch 564 client /vital-observation-records.
+- Batch 565 client /behavior-observation-records.
+- Batch 566 client /nutrition-observation-records.
+- Batch 567 client /mobility-observation-records.
+- Batch 568 client /infection-checklist-records.
+- Batch 569 client /progress-note-records.
+- Batch 570 client /care-follow-up-records.
+- Batch 571 client /family-notification-records.
+- Batch 572 client /inventory-item-records.
+- Batch 573 client /purchase-order-records.
+- Batch 574 client /patient-vital-records.
+- Batch 575 client /medication-administration-records.
+- Batch 576 provider /conversation-threads.
+- Batch 577 provider /timesheets.
+- Batch 578 provider /availability-overrides.
+- Batch 579 provider /mileage-logs.
+- Batch 580 provider /payouts.
+- Batch 581 provider /performance-reviews.
+- Batch 582 provider /visit-check-events.
+- Batch 583 provider /visit-matches.
+- Batch 584 provider /shift-assignment-records.
+- Batch 585 provider /handover-records.
+- Batch 586 provider /authored-visit-note-records.
+- Batch 587 provider /authored-checklist-records.
+- Batch 588 provider /training-assignment-records.
+
+The shared database result validator no longer dispatches through an adapter-owned array map method. It inspects each indexed own data descriptor, rejects sparse/inherited/accessor entries, and returns a fresh dense array. Object rows must have Object.prototype or a null prototype and own data properties; inherited/class rows and getter/setter fields are rejected before projection or authority reads. Cardinality bounds require nonnegative safe integers.
+
+The guard applies to 50 numbered client/provider list families, their existing detail/summary routes, registered personal records, the provider singleton and other existing users of the shared result helpers. Malformed rows use existing sanitized no-store failures and rollback. Legitimate empty results retain missing/empty semantics; malformed sparse authority cannot masquerade as a missing record. Plain/null-prototype rows, frozen rows/arrays, array subclasses and Date-valued cells retain support. Explicit projections, timestamp/identity/count validation, paging, authorization and owner/tenant SQL remain.
+
+Gateway regressions cover sparse/inherited/getter array entries, inherited/class/accessor rows and valid dense data throughout lists/details/summaries/singletons, with zero getter/map calls. A disposable real PostgreSQL adapter regression changes only returned arrays/rows, verifies rejected reads and valid null-prototype/frozen rows, confirms no getter/map execution and rollback, and compares stored rows before/after. UUID/text CI includes that test and all earlier PostgreSQL suites.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,891 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.
