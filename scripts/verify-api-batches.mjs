@@ -36,3 +36,6 @@ evidence.passed=count;evidence.sourceHashes=Object.fromEntries(sources.map(p=>[p
 writeFileSync('docs/api/batch-test-evidence.json',JSON.stringify(evidence,null,2)+'\n');
 execFileSync('python3',['scripts/record-api-batch-evidence.py'],{stdio:'inherit'});
 console.log(`${count} API fixture tests passed; runtime and PostgreSQL gates remain separate.`);
+
+// Keep pending-operation route triage current without promoting any API evidence.
+execFileSync(process.execPath,['scripts/audit-api-reachability.mjs'],{stdio:'inherit'});

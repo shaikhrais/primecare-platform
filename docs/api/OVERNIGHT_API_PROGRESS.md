@@ -4,6 +4,8 @@ The user authorized maximum useful API batches without routine questions across 
 
 ## Checkpoint
 
+**Full pending-backlog triage: 1,065/1,065 reviewed locally.** [Routing report](API_REACHABILITY_AUDIT.md): 1,016 gateway misses, 37 Worker misses, nine method rejections, two status-only roots and one protected handler. These unauthenticated probes organize work; they do not verify business workflows. First auth fixes merged in PR #135 with passing UUID/text PostgreSQL and security CI.
+
 **Future progress uses the [finite API delivery checklist](API_DELIVERY_CHECKLIST.md), not numbered repair batches.** Baseline: 1,415 unique method/path operations (1,416 declarations, one duplicate); **340 have unit evidence, 1,065 need contract reconciliation/verification, and 10 are blocked**. First work package: **14/14 auth declarations reviewed; 4/14 resolved**. See [auth delivery outcomes](AUTH_DELIVERY_WORK_PACKAGE.md) for the ten unresolved declarations. Field repairs and additional test cases do not increment completed operations. Operation-specific PostgreSQL evidence and production checks remain separate gates. Historical batch 1150 below is preserved as a repair checkpoint.
 
 
