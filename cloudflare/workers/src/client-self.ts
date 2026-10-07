@@ -1,3 +1,4 @@
+import {validDatabaseInteger} from './database-integer-validation';
 import {projectReferenceId} from './reference-read-projection';
 import {summaryRows} from './summary-results';
 import {pageRows,recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
@@ -112,7 +113,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           const scope=ownerJoin?' FROM '+record.table+' r JOIN client_profiles owner ON owner.id::text=r.'+ownerField+'::text WHERE r.'+ownerField+'::text=$1 AND owner.tenant_id::text=$2 AND owner.user_id::text=$3'+(recordedTenant?' AND r.tenant_id::text=$2':''):' FROM '+record.table+' WHERE '+ownerField+'::text=$1 AND tenant_id::text=$2';
           const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{
             const types=(record.types as Record<string,string|string[]>)[field],allowed=Array.isArray(types)?types:[types],value=row[field];
-            const valid=value===null?allowed.includes('null'):record.dateFields.includes(field)?validRecordTimestamp(value):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&typeof value==='string';
+            const valid=value===null?allowed.includes('null'):record.dateFields.includes(field)?validRecordTimestamp(value):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('integer')?validDatabaseInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&typeof value==='string';
             if(!valid)throw Error('Invalid record data');
             return [field,field==='id'?String(value):field.endsWith('_id')?projectReferenceId(value,allowed.includes('null')):record.dateFields.includes(field)?projectRecordTimestamp(value):value];
           }));
@@ -162,7 +163,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
         if(path==='/visits'||visitMatch){
           const fields='id,service_id,requested_start_at,duration_minutes,status,priority,updated_at';
           const project=(v:Record<string,unknown>)=>{
-            if(![v.id,v.service_id].every(requiredString)||![v.requested_start_at,v.updated_at].every(dateTime)||typeof v.duration_minutes!=='number'||!Number.isSafeInteger(v.duration_minutes)||!nullableString(v.status)||!nullableString(v.priority))throw Error('Invalid visit data');
+            if(![v.id,v.service_id].every(requiredString)||![v.requested_start_at,v.updated_at].every(dateTime)||!validDatabaseInteger(v.duration_minutes)||!nullableString(v.status)||!nullableString(v.priority))throw Error('Invalid visit data');
             return {id:v.id,service_id:projectReferenceId(v.service_id),requested_start_at:projectRecordTimestamp(v.requested_start_at),duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:projectRecordTimestamp(v.updated_at)};
           };
           const filter='client_id::text=$1 AND tenant_id::text=$2';

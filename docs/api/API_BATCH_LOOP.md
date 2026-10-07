@@ -831,3 +831,62 @@ Client/provider visit service references and registered service, week, survey an
 Fifty numbered gateway/helper cases plus three summary/absence regressions reject empty, padded, invalid, oversized, missing and non-string reference values; preserve UUID/text strings through list/detail/summary reads; and verify compatible row shapes, shared references, null semantics, privacy and rollback. A disposable PostgreSQL adapter fault regression checks all seven reader families with real SQL, unchanged stored rows, inaccessible foreign-owned details and tenant mismatch denial. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants, authority promotions, deployment or production database changes.
 
 Local validation: 3,214 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37651980486 at b09abac9a5e7961e876d10cf80a910ebcf43b582. PR #124 merged as 5f4f377c2baba4d2b676345bcb88d913fb57f4dc. Latest completed batch is 788; next batch is 789. No deployment or production database changes.
+
+## Iteration 26 — batches 789–838 (in review)
+
+- Batch 789 client /visits duration_minutes: int4 overflow rejection.
+- Batch 790 client /visits duration_minutes: untyped/fractional/nonfinite rejection.
+- Batch 791 client /visits duration_minutes: signed bounds and declared nulls.
+- Batch 792 provider /visits duration_minutes: int4 overflow rejection.
+- Batch 793 provider /visits duration_minutes: untyped/fractional/nonfinite rejection.
+- Batch 794 provider /visits duration_minutes: signed bounds and declared nulls.
+- Batch 795 provider /availability day_of_week: int4 overflow rejection.
+- Batch 796 provider /availability day_of_week: untyped/fractional/nonfinite rejection.
+- Batch 797 provider /availability day_of_week: signed bounds and declared nulls.
+- Batch 798 provider /timesheet-items minutes: int4 overflow rejection.
+- Batch 799 provider /timesheet-items minutes: untyped/fractional/nonfinite rejection.
+- Batch 800 provider /timesheet-items minutes: signed bounds and declared nulls.
+- Batch 801 client /consents template_version: int4 overflow rejection.
+- Batch 802 client /consents template_version: untyped/fractional/nonfinite rejection.
+- Batch 803 client /consents template_version: signed bounds and declared nulls.
+- Batch 804 client /waitlist priority: int4 overflow rejection.
+- Batch 805 client /waitlist priority: untyped/fractional/nonfinite rejection.
+- Batch 806 client /waitlist priority: signed bounds and declared nulls.
+- Batch 807 client /feedback rating: int4 overflow rejection.
+- Batch 808 client /feedback rating: untyped/fractional/nonfinite rejection.
+- Batch 809 client /feedback rating: signed bounds and declared nulls.
+- Batch 810 client /care-feedback rating: int4 overflow rejection.
+- Batch 811 client /care-feedback rating: untyped/fractional/nonfinite rejection.
+- Batch 812 client /care-feedback rating: signed bounds and declared nulls.
+- Batch 813 provider /timesheets total_minutes: int4 overflow rejection.
+- Batch 814 provider /timesheets total_minutes: untyped/fractional/nonfinite rejection.
+- Batch 815 provider /timesheets total_minutes: signed bounds and declared nulls.
+- Batch 816 provider /mileage-logs travel_minutes: int4 overflow rejection.
+- Batch 817 provider /mileage-logs travel_minutes: untyped/fractional/nonfinite rejection.
+- Batch 818 provider /mileage-logs travel_minutes: signed bounds and declared nulls.
+- Batch 819 provider /fleet-status battery_level: int4 overflow rejection.
+- Batch 820 provider /fleet-status battery_level: untyped/fractional/nonfinite rejection.
+- Batch 821 provider /fleet-status battery_level: signed bounds and declared nulls.
+- Batch 822 auth /me/rewards care_coins: int4 overflow rejection.
+- Batch 823 auth /me/rewards care_coins: untyped/fractional/nonfinite rejection.
+- Batch 824 auth /me/rewards care_coins: signed bounds and declared nulls.
+- Batch 825 auth /me/rewards lifetime_points: int4 overflow rejection.
+- Batch 826 auth /me/rewards lifetime_points: untyped/fractional/nonfinite rejection.
+- Batch 827 auth /me/rewards lifetime_points: signed bounds and declared nulls.
+- Batch 828 auth /me/wellness-pulses score: int4 overflow rejection.
+- Batch 829 auth /me/wellness-pulses score: untyped/fractional/nonfinite rejection.
+- Batch 830 auth /me/wellness-pulses score: signed bounds and declared nulls.
+- Batch 831 auth /me/reputation points: int4 overflow rejection.
+- Batch 832 auth /me/reputation points: untyped/fractional/nonfinite rejection.
+- Batch 833 auth /me/reputation points: signed bounds and declared nulls.
+- Batch 834 auth /me/reputation crises_resolved: int4 overflow rejection.
+- Batch 835 auth /me/reputation crises_resolved: untyped/fractional/nonfinite rejection.
+- Batch 836 auth /me/reputation crises_resolved: signed bounds and declared nulls.
+- Batch 837 shared integer helper without coercion.
+- Batch 838 canonical signed bigint sum text.
+
+Persisted PostgreSQL Int columns use signed int4 bounds without coercion. SUM(Int) values retain exact canonical signed int8 text. Declared nulls, signed values, compatible rows, ownership SQL and private-field projection remain supported.
+
+Fifty numbered cases plus seven summary/absence regressions cover malformed integers and exact bigint sums. Disposable PostgreSQL tests preserve ownership SQL and verify rollback, privacy, stored rows, foreign record denial and tenant isolation. No new routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 3,271 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI pending. Latest completed batch is 788; next batch is 789.
