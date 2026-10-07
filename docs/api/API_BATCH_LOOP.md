@@ -1024,7 +1024,7 @@ Fifty existing summary routes now declare positive safe-integer group counts, at
 
 Local validation: 3,383 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `5ac8e93380182bd08e3a2258120658c27fe1e702`, run 37670095453. PR #129 merged as `860a944fe34e3e51620bf403e0af397641607d01`. Latest completed numbered batch is 950; next is 951.
 
-## Iteration 30 — batches 951–1000 (in review)
+## Iteration 30 — batches 951–1000 (merged)
 
 - Batch 951 client /consents: align bounded collection and pagination contracts.
 - Batch 952 provider /conversation-threads: align bounded collection and pagination contracts.
@@ -1079,4 +1079,4 @@ Local validation: 3,383 API fixtures, eight authority regressions, Worker TypeSc
 
 Fifty existing list routes and their authoritative compatibility aliases now declare at most 100 records, pagination limits 1–100, offsets 0–100000 and nonnegative safe-integer totals. Empty collections and zero totals remain valid. Registration verifies existing bearer and owner authority. Existing identifiers, nullability and projections remain intact. No new routes, grants, deployment or production database changes.
 
-Local validation: 3,433 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head PostgreSQL and security CI pending. Latest merged numbered batch remains 950 until merge.
+Local validation: 3,433 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `4d6969b55ef3a18350d80cabbc8bd6c57aa3efd1`, run 37671492558. PR #130 merged as `36c0e7ae492611bdc76160c3b40b3781be454387`. Latest completed numbered batch is 1000; next is 1001.
