@@ -16,25 +16,74 @@
     "POST /v1/auth/switch-role",
     "POST /v1/auth/whoami"
   ],
-  "retirements": {},
-  "reviews": {
+  "retirements": {
     "POST /v1/auth": {
-      "disposition": "requires_workflow_contract",
+      "reason": "Scanner-shaped service namespace metadata declaration; no auth business workflow or request caller; runtime service-status metadata remains compatible, and conflicting generated metadata was quarantined first.",
       "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/flutter_core/lib/src/network/api_client.dart",
         "cloudflare/workers/src/gateway.ts",
         "cloudflare/workers/src/service.ts",
-        "cloudflare/workers/src/auth.ts"
+        "scripts/reconcile-auth-root-declarations.py",
+        "scripts/test-auth-root-retirements.py",
+        "scripts/test-auth-delivery-work-package.mjs",
+        "docs/api/auth-root-retirement-package.json"
       ],
-      "finding": "Service status only; no authentication workflow"
+      "declarationIds": [
+        1490
+      ]
     },
     "POST /v1/auth/": {
-      "disposition": "requires_workflow_contract",
+      "reason": "Scanner-shaped service namespace metadata declaration; no auth business workflow or request caller; runtime service-status metadata remains compatible, and conflicting generated metadata was quarantined first.",
       "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/flutter_core/lib/src/network/api_client.dart",
         "cloudflare/workers/src/gateway.ts",
         "cloudflare/workers/src/service.ts",
-        "cloudflare/workers/src/auth.ts"
+        "scripts/reconcile-auth-root-declarations.py",
+        "scripts/test-auth-root-retirements.py",
+        "scripts/test-auth-delivery-work-package.mjs",
+        "docs/api/auth-root-retirement-package.json"
       ],
-      "finding": "Service status only; no authentication workflow"
+      "declarationIds": [
+        822
+      ]
+    }
+  },
+  "reviews": {
+    "POST /v1/auth": {
+      "declarationIds": [
+        1490
+      ],
+      "disposition": "retire_namespace_declaration",
+      "finding": "Scanner-shaped service namespace metadata declaration; no auth business workflow or request caller",
+      "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/flutter_core/lib/src/network/api_client.dart",
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "scripts/reconcile-auth-root-declarations.py",
+        "scripts/test-auth-root-retirements.py",
+        "scripts/test-auth-delivery-work-package.mjs",
+        "docs/api/auth-root-retirement-package.json"
+      ]
+    },
+    "POST /v1/auth/": {
+      "declarationIds": [
+        822
+      ],
+      "disposition": "retire_namespace_declaration",
+      "finding": "Scanner-shaped service namespace metadata declaration; no auth business workflow or request caller",
+      "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/flutter_core/lib/src/network/api_client.dart",
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "scripts/reconcile-auth-root-declarations.py",
+        "scripts/test-auth-root-retirements.py",
+        "scripts/test-auth-delivery-work-package.mjs",
+        "docs/api/auth-root-retirement-package.json"
+      ]
     },
     "POST /v1/auth/forgot-password": {
       "disposition": "verify_existing",

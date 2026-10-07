@@ -1,0 +1,64 @@
+{
+  "name": "Auth namespace root declaration retirement",
+  "operations": [
+    "POST /v1/auth",
+    "POST /v1/auth/"
+  ],
+  "implementedOperations": 0,
+  "retiredOperations": 2,
+  "reviews": {
+    "POST /v1/auth": {
+      "declarationIds": [
+        1490
+      ],
+      "disposition": "retire_namespace_declaration",
+      "finding": "Scanner-shaped service namespace metadata declaration; no auth business workflow or request caller",
+      "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/flutter_core/lib/src/network/api_client.dart",
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "scripts/reconcile-auth-root-declarations.py"
+      ]
+    },
+    "POST /v1/auth/": {
+      "declarationIds": [
+        822
+      ],
+      "disposition": "retire_namespace_declaration",
+      "finding": "Scanner-shaped service namespace metadata declaration; no auth business workflow or request caller",
+      "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/flutter_core/lib/src/network/api_client.dart",
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "scripts/reconcile-auth-root-declarations.py"
+      ]
+    }
+  },
+  "provenance": {
+    "creator": ".agents/governance/reconcile_db.py",
+    "mechanism": "Quoted Dart /v1/... literals scanned by regex, default method POST; records inserted app_id1/servicePRISMA/auth_required1/active/controller empty. Prefix-classification literals were treated as business declarations. Exact original source file for 2026-06-19 insertion is not retained; scanner provenance is structural evidence, not a historical execution claim.",
+    "currentNonCaller": "packages/flutter_core/lib/src/network/api_client.dart: _isAuthenticationRoute classifies root and prefix; does not send a request",
+    "callerScan": "rg -n -F /v1/auth apps packages --glob '*.dart' --glob '*.ts' --glob '*.tsx' --glob '!openapi_types.d.ts'",
+    "callerReview": "Exact root quoted occurrences are classification checks; longer paths and route prefixes are not root operation consumers.",
+    "runtime": "gateway.ts generic auth routing forwards both roots to /. service.ts returns {status:ok,service} before handleAuth; no SQL/session/credential workflow.",
+    "namespace": "screen_endpoint_map.endpoint_id822 identifies api_endpoint_registry822 -> api_endpoints5069 GET /v1/psw-my-clients. Preserve this legitimate registry-domain link; do not confuse numeric IDs.",
+    "prerequisite": "Reviewed schema and permission quarantine must remove proven mismatched PSW-origin api_id822 contracts/grants before this retirement can proceed."
+  },
+  "guards": [
+    "Exact IDs, endpoint codes, paths, POST, PRISMA, auth_required1, empty controller, app_id1, runtime_artifact_id NULL",
+    "All canonical inline contracts/permission/rate-limit/controller/service/schema references NULL",
+    "No canonical api_id inbound rows in any table, including future tables",
+    "No registered exact-path references in route_path/endpoint_path columns",
+    "Any future foreign-key reference to canonical API refuses retirement",
+    "Only known closed missing_test_coverage governance diagnostic without screen/file references is preserved",
+    "Both tombstones changed atomically under SAVEPOINT; missing record/status drift rejects; idempotent"
+  ],
+  "countingRule": "Retire namespace declarations only; implemented API count does not increase; runtime behavior remains unchanged.",
+  "validation": [
+    "python scripts/test-auth-root-retirements.py",
+    "python scripts/reconcile-auth-root-declarations.py",
+    "Existing scripts/test-auth-delivery-work-package.mjs confirms service-root metadata with zero SQL"
+  ]
+}

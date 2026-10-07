@@ -1,17 +1,17 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1414,
+    "totalDeclared": 1412,
     "verificationStates": {
       "blocked": 10,
       "unit_fixtures_recorded": 344,
-      "verification_pending": 1060
+      "verification_pending": 1058
     },
     "contractGaps": {
-      "permission": 1060,
-      "requestSchema": 1060,
-      "responseSchema": 1060,
-      "screenLink": 1015
+      "permission": 1058,
+      "requestSchema": 1058,
+      "responseSchema": 1058,
+      "screenLink": 1013
     },
     "note": "Recorded declarations and local unit-fixture status only. Unrecorded means inspect implementation, not proof of absent code. PostgreSQL/production evidence is not inferred from CI or registry labels."
   },
@@ -6492,50 +6492,6 @@
       "api": "POST /v1/audit-review/compliance/scan",
       "method": "POST",
       "route": "/v1/audit-review/compliance/scan",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
-      "postgresVerified": false,
-      "productionVerified": false
-    },
-    {
-      "id": 1490,
-      "api": "POST /v1/auth",
-      "method": "POST",
-      "route": "/v1/auth",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
-      "postgresVerified": false,
-      "productionVerified": false
-    },
-    {
-      "id": 822,
-      "api": "POST /v1/auth/",
-      "method": "POST",
-      "route": "/v1/auth/",
       "service": "PRISMA",
       "declaredImplementation": "active",
       "verificationState": "verification_pending",

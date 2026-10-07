@@ -21,6 +21,7 @@ execFileSync('python3',['scripts/test-booking-requests-authority-guard.py'],{std
 execFileSync('python3',['scripts/test-booking-collection-authority-guard.py'],{stdio:'inherit'});
 execFileSync('python3',['scripts/test-api-grant-mapping.py'],{stdio:'inherit'});
 execFileSync('python3',['scripts/test-client-read-retirements.py'],{stdio:'inherit'});
+execFileSync('python3',['scripts/test-auth-root-retirements.py'],{stdio:'inherit'});
 execFileSync('python3',['scripts/test-api-family-reconciliation.py'],{stdio:'inherit'});
 execFileSync('python3',['scripts/test-api-authority-integrity.py'],{stdio:'inherit'});
 execFileSync('python3',['scripts/test-quarantine-api-grants.py'],{stdio:'inherit'});
@@ -36,6 +37,7 @@ const sources=[...readdirSync('cloudflare/workers/src').filter(f=>/\.(ts|json)$/
 sources.push('scripts/register-booking-collection-delivery.py','scripts/test-booking-collection-authority-guard.py','docs/api/booking-collection-delivery.openapi.json','packages/domain/src/registries/button_registry.ts');
 sources.push('scripts/reconcile-client-read-declarations.py','scripts/test-client-read-retirements.py','docs/api/client-read-retirement-package.json','scripts/migrate_architecture_tables.py','scripts/test-api-grant-mapping.py','scripts/generate-api-family-reconciliation.py','scripts/test-api-family-reconciliation.py');
 sources.push('scripts/api_authority_integrity.py','scripts/governance_schema_integrity.py','scripts/quarantine-api-grants.py','scripts/quarantine-api-schemas.py','scripts/repair-local-api-metadata.py','scripts/check-api-catalog-identity.py','scripts/register-workspace-governance.py','scripts/validate_architecture_db.py','scripts/test-api-authority-integrity.py','scripts/test-quarantine-api-grants.py','scripts/test-governance-schema-integrity.py','scripts/test-api-catalog-identity.py');
+sources.push('scripts/reconcile-auth-root-declarations.py','scripts/test-auth-root-retirements.py','docs/api/auth-root-retirement-package.json');
 const hashes=Object.fromEntries(sources.map(p=>[p,createHash('sha256').update(readFileSync(p)).digest('hex')]));
 const evidence={scope:'local_unit_fixtures',passed:count,failed:fail,productionVerified:false,postgresVerified:false,sourceHashes:hashes};
 mkdirSync('docs/api',{recursive:true});writeFileSync('docs/api/batch-test-evidence.json',JSON.stringify(evidence,null,2)+'\n');
