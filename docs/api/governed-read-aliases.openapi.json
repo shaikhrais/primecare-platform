@@ -64,7 +64,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "title": {
                             "type": "string"
@@ -833,7 +836,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "role": {
                             "type": "string"
@@ -997,7 +1003,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "score": {
                             "type": [
@@ -1148,7 +1157,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "device_type": {
                             "type": "string"
@@ -1425,7 +1437,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "date": {
                             "type": "string",
@@ -2314,7 +2329,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "device_name": {
                             "type": [
@@ -2504,7 +2522,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "status": {
                             "type": "string"
@@ -2650,7 +2671,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "survey_id": {
                             "type": "string"
@@ -2792,7 +2816,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "group_id": {
                             "type": "string"
@@ -2939,7 +2966,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "date": {
                             "type": "string",
@@ -3094,7 +3124,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "status": {
                             "type": "string"
@@ -3239,7 +3272,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "created_at": {
                             "type": "string",
@@ -3375,7 +3411,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "recorded_at": {
                             "type": "string",
@@ -3511,7 +3550,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "recorded_at": {
                             "type": "string",
@@ -3647,7 +3689,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "recorded_at": {
                             "type": "string",
@@ -3783,7 +3828,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "recorded_at": {
                             "type": "string",
@@ -3919,7 +3967,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "recorded_at": {
                             "type": "string",
@@ -4055,7 +4106,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "recorded_at": {
                             "type": "string",
@@ -4914,7 +4968,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "form_type": {
                             "type": "string"
@@ -5067,7 +5124,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "service_id": {
                             "type": [
@@ -5217,7 +5277,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "service_id": {
                             "type": "string"
@@ -5354,7 +5417,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "rating": {
                             "type": "integer",
@@ -5487,7 +5553,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "rating": {
                             "type": "integer",
@@ -5613,7 +5682,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "relationship": {
                             "type": "string"
@@ -5753,7 +5825,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "thread_type": {
                             "type": "string"
@@ -5893,7 +5968,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "week_id": {
                             "type": "string"
@@ -6074,7 +6152,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "date": {
                             "type": "string",
@@ -6235,7 +6316,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "currency": {
                             "type": "string"
@@ -6391,7 +6475,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "event_type": {
                             "type": "string"
@@ -6552,7 +6639,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "status": {
                             "type": "string"
@@ -7748,7 +7838,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "status": {
                             "type": "string"
@@ -7888,7 +7981,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "created_at": {
                             "type": "string",
@@ -8024,7 +8120,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "created_at": {
                             "type": "string",
@@ -8160,7 +8259,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "created_at": {
                             "type": "string",
@@ -8299,7 +8401,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "type": {
                             "type": "string"
@@ -8443,7 +8548,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "status": {
                             "type": "string"
@@ -8583,7 +8691,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "status": {
                             "type": "string"
@@ -8997,7 +9108,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "status": {
                             "type": "string"

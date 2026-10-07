@@ -1,0 +1,307 @@
+{
+  "scope": "contract_alignment",
+  "authorityAdded": false,
+  "routesAdded": false,
+  "changes": [
+    {
+      "batch": 851,
+      "service": "client",
+      "path": "/consents",
+      "field": "id"
+    },
+    {
+      "batch": 852,
+      "service": "provider",
+      "path": "/conversation-threads",
+      "field": "id"
+    },
+    {
+      "batch": 853,
+      "service": "auth",
+      "path": "/me/notifications",
+      "field": "id"
+    },
+    {
+      "batch": 854,
+      "service": "client",
+      "path": "/service-authorizations",
+      "field": "id"
+    },
+    {
+      "batch": 855,
+      "service": "provider",
+      "path": "/timesheets",
+      "field": "id"
+    },
+    {
+      "batch": 856,
+      "service": "auth",
+      "path": "/me/activities",
+      "field": "id"
+    },
+    {
+      "batch": 857,
+      "service": "client",
+      "path": "/waitlist",
+      "field": "id"
+    },
+    {
+      "batch": 858,
+      "service": "provider",
+      "path": "/availability-overrides",
+      "field": "id"
+    },
+    {
+      "batch": 859,
+      "service": "auth",
+      "path": "/me/wellness-pulses",
+      "field": "id"
+    },
+    {
+      "batch": 860,
+      "service": "client",
+      "path": "/feedback",
+      "field": "id"
+    },
+    {
+      "batch": 861,
+      "service": "provider",
+      "path": "/mileage-logs",
+      "field": "id"
+    },
+    {
+      "batch": 862,
+      "service": "auth",
+      "path": "/me/device-events",
+      "field": "id"
+    },
+    {
+      "batch": 863,
+      "service": "client",
+      "path": "/care-feedback",
+      "field": "id"
+    },
+    {
+      "batch": 864,
+      "service": "provider",
+      "path": "/payouts",
+      "field": "id"
+    },
+    {
+      "batch": 865,
+      "service": "auth",
+      "path": "/me/devices",
+      "field": "id"
+    },
+    {
+      "batch": 866,
+      "service": "client",
+      "path": "/conversation-threads",
+      "field": "id"
+    },
+    {
+      "batch": 867,
+      "service": "provider",
+      "path": "/performance-reviews",
+      "field": "id"
+    },
+    {
+      "batch": 868,
+      "service": "auth",
+      "path": "/me/health-ids",
+      "field": "id"
+    },
+    {
+      "batch": 869,
+      "service": "client",
+      "path": "/family-links",
+      "field": "id"
+    },
+    {
+      "batch": 870,
+      "service": "provider",
+      "path": "/visit-check-events",
+      "field": "id"
+    },
+    {
+      "batch": 871,
+      "service": "auth",
+      "path": "/me/survey-submissions",
+      "field": "id"
+    },
+    {
+      "batch": 872,
+      "service": "client",
+      "path": "/alert-records",
+      "field": "id"
+    },
+    {
+      "batch": 873,
+      "service": "provider",
+      "path": "/visit-matches",
+      "field": "id"
+    },
+    {
+      "batch": 874,
+      "service": "auth",
+      "path": "/me/group-memberships",
+      "field": "id"
+    },
+    {
+      "batch": 875,
+      "service": "client",
+      "path": "/insurance-claim-records",
+      "field": "id"
+    },
+    {
+      "batch": 876,
+      "service": "provider",
+      "path": "/shift-assignment-records",
+      "field": "id"
+    },
+    {
+      "batch": 877,
+      "service": "auth",
+      "path": "/me/password-history",
+      "field": "id"
+    },
+    {
+      "batch": 878,
+      "service": "client",
+      "path": "/prescription-records",
+      "field": "id"
+    },
+    {
+      "batch": 879,
+      "service": "provider",
+      "path": "/handover-records",
+      "field": "id"
+    },
+    {
+      "batch": 880,
+      "service": "auth",
+      "path": "/me/shift-logs",
+      "field": "id"
+    },
+    {
+      "batch": 881,
+      "service": "client",
+      "path": "/care-plan-records",
+      "field": "id"
+    },
+    {
+      "batch": 882,
+      "service": "provider",
+      "path": "/authored-visit-note-records",
+      "field": "id"
+    },
+    {
+      "batch": 883,
+      "service": "auth",
+      "path": "/me/daily-entry-records",
+      "field": "id"
+    },
+    {
+      "batch": 884,
+      "service": "client",
+      "path": "/assessment-records",
+      "field": "id"
+    },
+    {
+      "batch": 885,
+      "service": "provider",
+      "path": "/authored-checklist-records",
+      "field": "id"
+    },
+    {
+      "batch": 886,
+      "service": "auth",
+      "path": "/me/adl-log-records",
+      "field": "id"
+    },
+    {
+      "batch": 887,
+      "service": "client",
+      "path": "/medication-reconciliation-records",
+      "field": "id"
+    },
+    {
+      "batch": 888,
+      "service": "provider",
+      "path": "/training-assignment-records",
+      "field": "id"
+    },
+    {
+      "batch": 889,
+      "service": "auth",
+      "path": "/me/vital-sign-records",
+      "field": "id"
+    },
+    {
+      "batch": 890,
+      "service": "client",
+      "path": "/shift-log-records",
+      "field": "id"
+    },
+    {
+      "batch": 891,
+      "service": "auth",
+      "path": "/me/behavior-note-records",
+      "field": "id"
+    },
+    {
+      "batch": 892,
+      "service": "client",
+      "path": "/adl-records",
+      "field": "id"
+    },
+    {
+      "batch": 893,
+      "service": "auth",
+      "path": "/me/nutrition-records",
+      "field": "id"
+    },
+    {
+      "batch": 894,
+      "service": "client",
+      "path": "/vital-observation-records",
+      "field": "id"
+    },
+    {
+      "batch": 895,
+      "service": "auth",
+      "path": "/me/mobility-records",
+      "field": "id"
+    },
+    {
+      "batch": 896,
+      "service": "client",
+      "path": "/behavior-observation-records",
+      "field": "id"
+    },
+    {
+      "batch": 897,
+      "service": "auth",
+      "path": "/me/infection-control-records",
+      "field": "id"
+    },
+    {
+      "batch": 898,
+      "service": "client",
+      "path": "/nutrition-observation-records",
+      "field": "id"
+    },
+    {
+      "batch": 899,
+      "service": "auth",
+      "path": "/me/narrative-note-records",
+      "field": "id"
+    },
+    {
+      "batch": 900,
+      "service": "client",
+      "path": "/mobility-observation-records",
+      "field": "id"
+    }
+  ]
+}

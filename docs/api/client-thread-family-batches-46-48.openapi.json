@@ -61,7 +61,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "thread_type": {
                             "type": "string"
@@ -182,7 +185,10 @@
                       ],
                       "properties": {
                         "id": {
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                         },
                         "thread_type": {
                           "type": "string"
@@ -286,7 +292,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "relationship": {
                             "type": "string"
@@ -413,7 +422,10 @@
                       ],
                       "properties": {
                         "id": {
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                         },
                         "relationship": {
                           "type": "string"

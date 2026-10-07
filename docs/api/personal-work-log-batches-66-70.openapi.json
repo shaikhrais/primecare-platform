@@ -63,7 +63,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "date": {
                             "type": "string",
@@ -205,7 +208,10 @@
                       ],
                       "properties": {
                         "id": {
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                         },
                         "date": {
                           "type": "string",
@@ -458,7 +464,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "status": {
                             "type": "string"
@@ -591,7 +600,10 @@
                       ],
                       "properties": {
                         "id": {
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                         },
                         "status": {
                           "type": "string"
@@ -834,7 +846,10 @@
                         ],
                         "properties": {
                           "id": {
-                            "type": "string"
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                           },
                           "created_at": {
                             "type": "string",
@@ -956,7 +971,10 @@
                       ],
                       "properties": {
                         "id": {
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
                         },
                         "created_at": {
                           "type": "string",
