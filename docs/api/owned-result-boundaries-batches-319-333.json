@@ -1,0 +1,108 @@
+{
+  "title": "Existing owned-read result boundaries",
+  "scope": "Supplemental runtime validation; no declaration authority promoted",
+  "batches": [
+    {
+      "batch": 319,
+      "family": "Client owned profile/authority",
+      "validation": "Validate unambiguous actor/profile rows and string identifiers before deriving ownership."
+    },
+    {
+      "batch": 320,
+      "family": "Client invoices",
+      "validation": "Validate exact-one totals, list/summary page bounds and detail identity."
+    },
+    {
+      "batch": 321,
+      "family": "Client payments",
+      "validation": "Validate own/nested payment pages, totals, detail IDs and the parent invoice binding."
+    },
+    {
+      "batch": 322,
+      "family": "Client booking requests",
+      "validation": "Validate list/summary page bounds, total cardinality and requested detail identity."
+    },
+    {
+      "batch": 323,
+      "family": "Client visits",
+      "validation": "Validate list/summary page bounds, total cardinality and requested visit identity."
+    },
+    {
+      "batch": 324,
+      "family": "Client bookings",
+      "validation": "Validate list/summary page bounds, total cardinality and requested booking identity."
+    },
+    {
+      "batch": 325,
+      "family": "Client registered records",
+      "validation": "Apply cardinality, page and detail binding checks to every registered list/detail/summary family."
+    },
+    {
+      "batch": 326,
+      "family": "Provider owned profile/authority",
+      "validation": "Validate unambiguous actor/profile rows and string identifiers before deriving ownership."
+    },
+    {
+      "batch": 327,
+      "family": "Provider documents",
+      "validation": "Validate total cardinality, bounded list/summary results and requested document identity."
+    },
+    {
+      "batch": 328,
+      "family": "Provider visits",
+      "validation": "Validate total cardinality, bounded list/summary results and requested visit identity."
+    },
+    {
+      "batch": 329,
+      "family": "Provider availability",
+      "validation": "Validate total cardinality, bounded list/summary results and requested availability identity."
+    },
+    {
+      "batch": 330,
+      "family": "Provider registered records",
+      "validation": "Validate actor/profile authority, counts, pages, singleton rows and requested details across all registered records."
+    },
+    {
+      "batch": 331,
+      "family": "Account owned registered records",
+      "validation": "Validate actor authority, counts, pages, singleton rows and requested detail identity."
+    },
+    {
+      "batch": 332,
+      "family": "Provider timesheet item list/detail",
+      "validation": "Validate actor/profile rows, exact-one total and bounded item results; retain exact detail binding."
+    },
+    {
+      "batch": 333,
+      "family": "Provider timesheet item summary",
+      "validation": "Require one total row and bound returned status/minute groups to the requested limit."
+    }
+  ],
+  "results": {
+    "actor": "Zero/one object result. Valid string account ID and uncoerced string tenant; absent session or tenant retains denial.",
+    "profile": "Zero/one object with valid string profile ID; absent profile retains 404.",
+    "aggregate": "Exactly one object with the existing nonnegative safe-integer total.",
+    "page": "Object-row array no larger than the requested validated limit, including summary groups.",
+    "detail": "Zero/one object; present ID matches the requested route ID exactly. Nested payment parent invoice is checked before payment lookup.",
+    "singleton": "Zero/one object; no new caller-selected identity."
+  },
+  "failure": {
+    "status": 503,
+    "cacheControl": "no-store",
+    "errors": [
+      "Client data unavailable",
+      "Provider data unavailable",
+      "Account data unavailable",
+      "Timesheet item data unavailable"
+    ]
+  },
+  "preserved": [
+    "Existing 401/403/404 responses",
+    "Explicit registered projections and nullability",
+    "Owner/tenant SQL bridges",
+    "Decimal and timestamp contracts",
+    "Source budgets and read-only rollback"
+  ],
+  "authority": "No new routes, grants, unapproved summary routes or business writes.",
+  "verification": "Gateway fixtures and disposable UUID/text PostgreSQL checks remain separate from production verification."
+}

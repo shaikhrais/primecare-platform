@@ -213,3 +213,34 @@ Twenty-eight new grouped gateway regressions cover all fifteen families, ambiguo
 Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
 
 Local validation: 1,902 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37557619387 at 9aa0a4c6680bbcf9c25472b700d1e94a85e0d9e4. PR #112 merged as 84b51d0ebfbd384e27268c652b85b25d219e86a8. Latest completed batch is 318; next batch is 319. No deployment or production database changes.
+
+
+## Iteration 14 — batches 319–333, owned read result boundaries, in review
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 319 | Client owned profile/authority | Validate unambiguous actor/profile rows and string identifiers before deriving ownership. |
+| 320 | Client invoices | Validate exact-one totals, list/summary page bounds and detail identity. |
+| 321 | Client payments | Validate own/nested payment pages, totals, detail IDs and the parent invoice binding. |
+| 322 | Client booking requests | Validate list/summary page bounds, total cardinality and requested detail identity. |
+| 323 | Client visits | Validate list/summary page bounds, total cardinality and requested visit identity. |
+| 324 | Client bookings | Validate list/summary page bounds, total cardinality and requested booking identity. |
+| 325 | Client registered records | Apply cardinality, page and detail binding checks to every registered list/detail/summary family. |
+| 326 | Provider owned profile/authority | Validate unambiguous actor/profile rows and string identifiers before deriving ownership. |
+| 327 | Provider documents | Validate total cardinality, bounded list/summary results and requested document identity. |
+| 328 | Provider visits | Validate total cardinality, bounded list/summary results and requested visit identity. |
+| 329 | Provider availability | Validate total cardinality, bounded list/summary results and requested availability identity. |
+| 330 | Provider registered records | Validate actor/profile authority, counts, pages, singleton rows and requested details across all registered records. |
+| 331 | Account owned registered records | Validate actor authority, counts, pages, singleton rows and requested detail identity. |
+| 332 | Provider timesheet item list/detail | Validate actor/profile rows, exact-one total and bounded item results; retain exact detail binding. |
+| 333 | Provider timesheet item summary | Require one total row and bound returned status/minute groups to the requested limit. |
+
+Owned-read authority is now an unambiguous object row with a valid string account/profile identifier. Tenant values are not coerced; absent tenants retain denial. Exactly-one aggregate results and requested page limits are enforced before projection. Detail rows must match the requested identifier, including the invoice parent of nested payment routes. The shared helpers retain explicit field projection, declared nullable values, decimal precision, strict date validation, existing tenant/owner SQL joins, active explicit bearer sessions, source budgets and repeatable-read rollback.
+
+All existing registered client/provider/account record definitions receive these runtime boundaries. Singleton absence remains 404, missing actors remain 401, missing profiles remain 404 and valid empty pages retain zero totals. Unsupported summary routes are not introduced. Invalid or ambiguous adapter results return the existing sanitized no-store 503 before returning data or deriving another owned query. No business mutations are added.
+
+Sixty-one new grouped gateway regressions cover every registered family, malformed actor/tenant/profile identities, duplicate and nonobject rows, exact-one aggregate counts, oversized list/summary pages, detail/parent binding and valid/missing/empty responses. Existing focused suites passed without changing their success fixtures. Additional disposable PostgreSQL checks verify one-row caps and maximum empty offsets across base reads, nested/own payments, timesheet items, representative registered metadata and their approved summaries. Existing database detail identity, tenant isolation, ambiguous profile and nullable-value tests remain.
+
+Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
+
+Local validation: 1,963 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.

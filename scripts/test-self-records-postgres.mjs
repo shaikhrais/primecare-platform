@@ -1,3 +1,4 @@
+import {assertOwnedPageBoundaries} from './owned-result-postgres-fixtures.mjs';
 import {assertReadDateRejections} from './read-date-postgres-fixtures.mjs';
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp,readFile} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
@@ -30,7 +31,8 @@ try{
    const other=await (await call(record.path,'',tokens[1])).json();assert.equal(other.pagination.total,1);assert.equal(other[record.collection][0].id,ids[3]);checks++;
    const summary=await (await call(record.path+'/summary')).json(),key=record.summaryField,expected=key==='is_read'?[{is_read:false,count:2},{is_read:true,count:1}]:[{status:'COMPLETED',count:1},{status:'PENDING',count:2}];assert.deepEqual(summary.groups,expected);assert.equal(summary.pagination.total,2);assert.equal(typeof summary.pagination.total,'number');checks++;
    const summaryPage=await (await call(record.path+'/summary','?limit=1&offset=1')).json();assert.deepEqual(summaryPage.groups,[expected[1]]);assert.equal(summaryPage.pagination.hasMore,false);checks++;
-   await db.query('DELETE FROM '+record.table+' WHERE id=ANY($1)',[ids.slice(0,3)]);const empty=await (await call(record.path)).json();assert.deepEqual(empty[record.collection],[]);assert.equal(empty.pagination.total,0);const emptySummary=await (await call(record.path+'/summary')).json();assert.deepEqual(emptySummary.groups,[]);assert.equal(emptySummary.pagination.total,0);checks++;
+   checks+=await assertOwnedPageBoundaries(call,record.path,record.collection);if(record.summaryField)checks+=await assertOwnedPageBoundaries(call,record.path+'/summary','groups');
+  await db.query('DELETE FROM '+record.table+' WHERE id=ANY($1)',[ids.slice(0,3)]);const empty=await (await call(record.path)).json();assert.deepEqual(empty[record.collection],[]);assert.equal(empty.pagination.total,0);const emptySummary=await (await call(record.path+'/summary')).json();assert.deepEqual(emptySummary.groups,[]);assert.equal(emptySummary.pagination.total,0);checks++;
   }
  }
  assert.equal((await call(registry[0].path,'',tokens[0],{'x-tenant-id':tenants[1]})).status,403);checks++;

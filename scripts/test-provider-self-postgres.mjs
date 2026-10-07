@@ -1,3 +1,4 @@
+import {assertOwnedPageBoundaries} from './owned-result-postgres-fixtures.mjs';
 import {assertReadDateRejections} from './read-date-postgres-fixtures.mjs';
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
@@ -53,6 +54,7 @@ try{
  await db.query('DELETE FROM provider_availability WHERE provider_id=$1 AND tenant_id=$2',[profiles[0],tenants[0]]);
  const noAvailability=await (await call('/availability/summary')).json();assert.deepEqual(noAvailability.groups,[]);assert.equal(noAvailability.pagination.total,0);checks++;
  await db.query('ALTER TABLE provider_profiles ALTER COLUMN skills DROP NOT NULL');await db.query('UPDATE provider_profiles SET skills=NULL WHERE id=$1',[profiles[0]]);assert.equal((await call()).status,503);await db.query("UPDATE provider_profiles SET skills='Massage' WHERE id=$1",[profiles[0]]);checks++;
+ for(const [path,collection] of [['/documents','documents'],['/visits','visits'],['/availability','availability']]) {checks+=await assertOwnedPageBoundaries(call,path,collection);checks+=await assertOwnedPageBoundaries(call,path+'/summary','groups');}
  assert.equal((await call('/profile','',tokens[0],{'x-tenant-id':tenants[1]})).status,403);checks++;
  await db.query('UPDATE provider_profiles SET tenant_id=$1 WHERE id=$2',[tenants[1],profiles[0]]);assert.equal((await call()).status,404);checks++;
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[ids[1]]);assert.equal((await call('/availability','',tokens[1])).status,401);checks++;

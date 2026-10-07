@@ -1,3 +1,4 @@
+import {assertOwnedPageBoundaries} from './owned-result-postgres-fixtures.mjs';
 import {assertReadDateRejections} from './read-date-postgres-fixtures.mjs';
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp,rm} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
@@ -25,6 +26,7 @@ try{
  const before=forwarded;for(const method of ['POST','PUT','PATCH','DELETE'])assert.equal((await call(alias,'',tokens[0],{},method)).status,405);assert.equal(forwarded,before);assert.equal((await call(alias+'/summary')).status,404);checks++;
  const duplicate=randomUUID();await db.query('INSERT INTO provider_profiles VALUES($1,$2,$3)',[duplicate,users[0],tenants[0]]);try{assert.equal((await call(base)).status,503);checks++;}finally{await db.query('DELETE FROM provider_profiles WHERE id=$1',[duplicate]);}
  await db.query('UPDATE provider_profiles SET tenant_id=$1 WHERE id=$2',[tenants[1],profiles[0]]);assert.equal((await call(base)).status,404);checks++;await db.query('UPDATE provider_profiles SET tenant_id=$1 WHERE id=$2',[tenants[0],profiles[0]]);
+ for(const [path,collection] of [[base,'items'],[alias,'items'],[base+'/summary','groups']])checks+=await assertOwnedPageBoundaries(call,path,collection);
  await db.query('DELETE FROM timesheet_items WHERE id=ANY($1)',[items.slice(0,3)]);for(const path of [base,base+'/summary',alias]){const r=await call(path);assert.equal(r.status,200);const b=await r.json();assert.deepEqual(b.items??b.groups,[]);assert.equal(b.pagination.total,0);checks++;}assert.equal((await call(base+'/'+items[0])).status,404);checks++;
  await db.query("UPDATE auth_sessions SET expires_at=NOW()-INTERVAL '1 second' WHERE user_id=$1",[users[0]]);for(const path of [base,base+'/summary',alias])assert.equal((await call(path)).status,401);checks++;
  await db.query("UPDATE users SET status='inactive' WHERE id=$1",[users[1]]);assert.equal((await call(base,'',tokens[1])).status,401);checks++;

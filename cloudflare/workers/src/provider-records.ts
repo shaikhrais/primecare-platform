@@ -1,3 +1,5 @@
+import {scopedActor,boundRow,resultRows,requiredRow} from './database-results';
+import {accountId} from './account-read-projection';
 import {validRecordTimestamp} from './record-date-validation';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
@@ -22,13 +24,13 @@ export async function providerRecords(request:Request,env:Env,path:string,header
     return await withDb(env,async db=>{
       await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
       try{
-        const actor=(await db.query("SELECT u.id,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1",[await sha256(token)])).rows[0];
+        const actor=scopedActor((await db.query("SELECT u.id,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1",[await sha256(token)])).rows);
         if(!actor)return json({error:'Invalid session'},401,safe);
         if(!actor.tenant_id||request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id))return json({error:'Forbidden'},403,safe);
-        const profiles=(await db.query('SELECT id FROM provider_profiles WHERE user_id::text=$1 AND tenant_id::text=$2 LIMIT 2',[String(actor.id),String(actor.tenant_id)])).rows;
+        const profiles=resultRows((await db.query('SELECT id FROM provider_profiles WHERE user_id::text=$1 AND tenant_id::text=$2 LIMIT 2',[String(actor.id),String(actor.tenant_id)])).rows,1);
         if(!profiles.length)return json({error:'Provider profile not found'},404,safe);
         if(profiles.length!==1)return json({error:'Provider data unavailable'},503,safe);
-        const values=[String(profiles[0].id),String(actor.tenant_id),...(record.tenantThroughProvider?[String(actor.id)]:[])],prefix=record.tenantThroughProvider?'r.':'';
+        const values=[accountId(profiles[0].id),String(actor.tenant_id),...(record.tenantThroughProvider?[String(actor.id)]:[])],prefix=record.tenantThroughProvider?'r.':'';
         const scope=record.tenantThroughProvider?' FROM '+record.table+' r JOIN provider_profiles owner ON owner.id::text=r.provider_id::text WHERE r.provider_id::text=$1 AND owner.tenant_id::text=$2 AND owner.user_id::text=$3':' FROM '+record.table+' WHERE provider_id::text=$1 AND tenant_id::text=$2';
         const fields=record.fields.map(field=>prefix+field).join(',');
         const valid=(field:string,value:unknown)=>{
@@ -40,21 +42,21 @@ export async function providerRecords(request:Request,env:Env,path:string,header
         const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{if(!valid(field,row[field]))throw Error('Invalid provider record');return [field,row[field]];}));
         if(summary){
           const field=record.summaryField!,groupField=prefix+field;
-          const total=exactCount((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+groupField+scope+' GROUP BY '+groupField+') groups',values)).rows[0].count,'Invalid provider summary count');
+          const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+groupField+scope+' GROUP BY '+groupField+') groups',values)).rows).count,'Invalid provider summary count');
           const rows=(await db.query('SELECT '+groupField+',COUNT(*)::int AS count'+scope+' GROUP BY '+groupField+' ORDER BY '+groupField+' NULLS LAST LIMIT $'+(values.length+1)+' OFFSET $'+(values.length+2),[...values,Number(limit),Number(offset)])).rows;
-          const groups=rows.map(row=>{if(!valid(field,row[field])||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid provider summary');return {[field]:row[field],count:row.count};});
+          const groups=resultRows(rows,Number(limit)).map(row=>{if(!valid(field,row[field])||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid provider summary');return {[field]:row[field],count:row.count};});
           return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(record.singleton){
-          const rows=(await db.query('SELECT '+fields+scope+' LIMIT 2',values)).rows;
+          const rows=resultRows((await db.query('SELECT '+fields+scope+' LIMIT 2',values)).rows,1);
           if(!rows.length)return json({error:'Profile not found'},404,safe);
           if(rows.length!==1)return json({error:'Provider data unavailable'},503,safe);
           return json({[record.item]:project(rows[0])},200,safe);
         }
-        if(detail){const row=(await db.query('SELECT '+fields+scope+' AND '+prefix+'id::text=$'+(values.length+1),[...values,suffix])).rows[0];return row?json({[record.item]:project(row)},200,safe):json({error:'Record not found'},404,safe);}
-        const total=exactCount((await db.query('SELECT COUNT(*)::int AS count'+scope,values)).rows[0].count,'Invalid provider record count');
+        if(detail){const row=boundRow((await db.query('SELECT '+fields+scope+' AND '+prefix+'id::text=$'+(values.length+1),[...values,suffix])).rows,suffix);return row?json({[record.item]:project(row)},200,safe):json({error:'Record not found'},404,safe);}
+        const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count'+scope,values)).rows).count,'Invalid provider record count');
         const rows=(await db.query('SELECT '+fields+scope+' ORDER BY '+prefix+record.orderField+' DESC,'+prefix+'id DESC LIMIT $'+(values.length+1)+' OFFSET $'+(values.length+2),[...values,Number(limit),Number(offset)])).rows;
-        return json({[record.collection!]:rows.map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        return json({[record.collection!]:resultRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
       }finally{await db.query('ROLLBACK');}
     });
   }catch{return json({error:'Provider data unavailable'},503,safe);}

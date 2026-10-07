@@ -1,3 +1,4 @@
+import {assertOwnedPageBoundaries} from './owned-result-postgres-fixtures.mjs';
 import {assertReadDateRejections} from './read-date-postgres-fixtures.mjs';
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp,readFile,rm} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
@@ -21,6 +22,7 @@ try{
   for(const id of ids.slice(3))assert.equal((await call(record.path+'/'+id)).status,404);checks++;
   for(let i=1;i<3;i++){const other=await (await call(record.path,'',tokens[i])).json();assert.equal(other.pagination.total,1);assert.equal(other[record.collection][0].id,ids[i===1?3:5]);}checks++;
   if(record.summaryField){const field=record.summaryField,expected=field==='is_available'?[{[field]:false,count:2},{[field]:true,count:1}]:record.table==='timesheets'?[{[field]:'COMPLETED',count:1},{[field]:'PENDING',count:1},{[field]:null,count:1}]:[{[field]:'COMPLETED',count:1},{[field]:'PENDING',count:2}];const summaryResponse=await call(record.path+'/summary');assert.equal(summaryResponse.status,200);const summary=await summaryResponse.json();assert.deepEqual(summary.groups,expected);assert.equal(summary.pagination.total,expected.length);assert.equal(typeof summary.pagination.total,'number');checks++;const summaryPage=await (await call(record.path+'/summary','?limit=1&offset=1')).json();assert.deepEqual(summaryPage.groups,[expected[1]]);assert.equal(summaryPage.pagination.hasMore,expected.length>2);checks++;}
+  checks+=await assertOwnedPageBoundaries(call,record.path,record.collection);if(record.summaryField)checks+=await assertOwnedPageBoundaries(call,record.path+'/summary','groups');
   await db.query('DELETE FROM '+record.table+' WHERE id=ANY($1)',[ids.slice(0,3)]);const empty=await (await call(record.path)).json();assert.deepEqual(empty[record.collection],[]);assert.equal(empty.pagination.total,0);if(record.summaryField){const emptySummary=await (await call(record.path+'/summary')).json();assert.deepEqual(emptySummary.groups,[]);assert.equal(emptySummary.pagination.total,0);}checks++;
  }
  assert.equal((await call(records[0].path,'',tokens[0],{'x-tenant-id':tenants[1]})).status,403);checks++;
