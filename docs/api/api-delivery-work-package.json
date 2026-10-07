@@ -181,6 +181,23 @@
           ]
         }
       }
+    },
+    {
+      "name": "Client booking collection submission reconciliation",
+      "operations": [
+        "POST /v1/client/bookings"
+      ],
+      "reviews": {
+        "POST /v1/client/bookings": {
+          "finding": "Request Booking touchpoint submits an owner-scoped pending request through the canonical lifecycle; GET retains the list alias. Exact POST authority, contract, auditing and idempotency match canonical submission.",
+          "evidence": [
+            "packages/domain/src/registries/button_registry.ts",
+            "cloudflare/workers/src/gateway.ts",
+            "scripts/test-client-booking-lifecycle-api.mjs",
+            "scripts/test-client-booking-lifecycle-postgres.mjs"
+          ]
+        }
+      }
     }
   ]
 }
