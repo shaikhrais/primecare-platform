@@ -1,3 +1,4 @@
+import {summaryRows} from './summary-results';
 import {scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {accountId} from './account-read-projection';
 import {validRecordTimestamp} from './record-date-validation';
@@ -75,7 +76,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           if(paymentSummary){
             const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT pay.status'+scope+' GROUP BY pay.status) groups',paymentValues)).rows,'payment summary');
             const rows=(await db.query('SELECT pay.status,COUNT(*)::int AS count'+scope+' GROUP BY pay.status ORDER BY pay.status NULLS LAST'+paging,[...paymentValues,Number(limit),Number(offset)])).rows;
-            const groups=resultRows(rows,Number(limit)).map(row=>{if((row.status!==null&&typeof row.status!=='string')||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid payment summary');return {status:row.status,count:row.count};});
+            const groups=summaryRows(rows,Number(limit),['status']).map(row=>{if((row.status!==null&&typeof row.status!=='string')||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid payment summary');return {status:row.status,count:row.count};});
             return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
           }
           const fields='pay.id,pay.amount::text AS amount,pay.status,pay.created_at,pay.updated_at';
@@ -95,7 +96,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           const filter='client_id::text=$1 AND tenant_id::text=$2';
           const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM booking_requests WHERE '+filter+' GROUP BY status) groups',values)).rows,'booking request summary');
           const rows=(await db.query('SELECT status,COUNT(*)::int AS count FROM booking_requests WHERE '+filter+' GROUP BY status ORDER BY status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          const groups=resultRows(rows,Number(limit)).map(row=>{if((row.status!==null&&typeof row.status!=='string')||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid booking request summary');return {status:row.status,count:row.count};});
+          const groups=summaryRows(rows,Number(limit),['status']).map(row=>{if((row.status!==null&&typeof row.status!=='string')||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid booking request summary');return {status:row.status,count:row.count};});
           return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(record){
@@ -119,7 +120,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
             const field=record.summaryField,sqlField=prefix+column(field);
             const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+sqlField+scope+' GROUP BY '+sqlField+') groups',recordValues)).rows);
             const rows=(await db.query('SELECT '+sqlField+',COUNT(*)::int AS count'+scope+' GROUP BY '+sqlField+' ORDER BY '+sqlField+' NULLS LAST LIMIT $'+next+' OFFSET $'+(next+1),[...recordValues,Number(limit),Number(offset)])).rows;
-            const groups=resultRows(rows,Number(limit)).map(row=>{
+            const groups=summaryRows(rows,Number(limit),[field]).map(row=>{
               const declared=(record.types as Record<string,string|string[]>)[field],types=Array.isArray(declared)?declared:[declared];
               const strict='strictSummaryTypes' in record&&record.strictSummaryTypes===true;
               if((row[field]===null?strict&&!types.includes('null'):typeof row[field]!=='string')||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid summary data');
@@ -155,7 +156,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           const filter='client_id::text=$1 AND tenant_id::text=$2';
           const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM visits WHERE '+filter+' GROUP BY status) groups',values)).rows,'visit summary');
           const rows=(await db.query('SELECT status,COUNT(*)::int AS count FROM visits WHERE '+filter+' GROUP BY status ORDER BY status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          return json({groups:resultRows(rows,Number(limit)).map(g=>statusGroup(g,'visit')),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({groups:summaryRows(rows,Number(limit),['status']).map(g=>statusGroup(g,'visit')),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(path==='/visits'||visitMatch){
           const fields='id,service_id,requested_start_at,duration_minutes,status,priority,updated_at';
@@ -176,7 +177,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           const filter='client_id::text=$1 AND tenant_id::text=$2';
           const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT status FROM bookings WHERE '+filter+' GROUP BY status) groups',values)).rows,'booking summary');
           const rows=(await db.query('SELECT status,COUNT(*)::int AS count FROM bookings WHERE '+filter+' GROUP BY status ORDER BY status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          return json({groups:resultRows(rows,Number(limit)).map(g=>statusGroup(g,'booking')),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({groups:summaryRows(rows,Number(limit),['status']).map(g=>statusGroup(g,'booking')),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(path==='/bookings'||bookingMatch){
           const fields='id,start_at,end_at,service_type,priority,status,recurrence_rule';
@@ -212,7 +213,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
         if(invoiceSummary){
           const total=invoiceCount((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT currency,status FROM invoices WHERE '+invoiceFilter+' GROUP BY currency,status) groups',values)).rows);
           const groups=(await db.query('SELECT currency,status,COUNT(*)::int AS "invoiceCount",SUM(subtotal)::text AS subtotal,SUM(tax)::text AS tax,SUM(total)::text AS total FROM invoices WHERE '+invoiceFilter+' GROUP BY currency,status ORDER BY currency,status LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          return json({groups:resultRows(groups,Number(limit)).map(invoiceGroup),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({groups:summaryRows(groups,Number(limit),['currency','status'],'invoiceCount').map(invoiceGroup),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         const filter='client_id::text=$1 AND tenant_id::text=$2';
         const total=invoiceCount((await db.query('SELECT COUNT(*)::int AS count FROM invoices WHERE '+filter,values)).rows);

@@ -9,5 +9,15 @@ export async function assertOwnedPageBoundaries(call,path,collection) {
  assert.equal(beyond.headers.get('cache-control'),'no-store');
  const empty=await beyond.json();assert.deepEqual(empty[collection],[]);assert.equal(empty.pagination.total,page.pagination.total);
  assert.equal(empty.pagination.limit,1);assert.equal(empty.pagination.offset,100000);assert.equal(empty.pagination.hasMore,false);
+ if(collection==='groups') {
+  const response=await call(path,'?limit=100');assert.equal(response.status,200,path);const all=await response.json();
+  assert.equal(all.pagination.total,page.pagination.total);const seen=new Set();
+  for(const group of all.groups) {
+   const count=group.invoiceCount??group.count;assert.ok(Number.isSafeInteger(count)&&count>0,path);
+   const fields=Object.keys(group).filter(f=>!['count','invoiceCount','durationMinutes','totalMinutes','subtotal','tax','total'].includes(f)).sort();
+   assert.ok(fields.length>0,path);const key=JSON.stringify(fields.map(f=>[f,group[f]]));assert.ok(!seen.has(key),path);seen.add(key);
+  }
+  return 3;
+ }
  return 2;
 }
