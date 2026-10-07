@@ -1,3 +1,5 @@
+import {requiredRow} from './database-results';
+import {accountId} from './account-read-projection';
 import {singleConfiguration,configuredMailFields,configurationRevision,configurationUpdatedAt,configurationAudit} from './maintenance-projection';
 import type {Client} from 'pg';
 import templates from './email-templates.json';
@@ -6,7 +8,7 @@ export interface MaintenanceEnv extends MailEnv {CONFIG_ENCRYPTION_KEY?:string}
 export const maintenanceRoles=['ceo','maintenance'];
 type Template=typeof templates.password_reset;
 export function validateSettings(v:Record<string,unknown>) {
- if(Object.keys(v).some(k=>!['sender','templates','revision'].includes(k)) || !Number.isSafeInteger(v.revision) || Number(v.revision)<0)return null;
+ if(Object.keys(v).some(k=>!['sender','templates','revision'].includes(k)) || !Number.isSafeInteger(v.revision) || Number(v.revision)<0 || Number(v.revision)>2147483646)return null;
  const sender=typeof v.sender==='string'?v.sender.trim():'';
  if(sender.length>254 || /[\r\n]/.test(sender) || !/^[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+$/.test(sender))return null;
  if(!v.templates || typeof v.templates!=='object' || Array.isArray(v.templates))return null;
@@ -70,17 +72,30 @@ export async function maintenance(db:Client,env:MaintenanceEnv,actor:{id:string;
   if(Object.keys(body).length)return {status:400,body:{error:'Test email always goes to your signed-in account'}};
   try {const mail=await configuredMail(db,env,tenant);await sendEmail(mail,actor.email,'security_notice',{message:'PrimeCare maintenance email test.',support:'your IT team'},'maintenance-test-'+crypto.randomUUID());}
   catch {return {status:503,body:{error:'Email provider did not accept the test. Check Cloudflare sender verification, recipient eligibility and EMAIL binding.'}};}
-  await db.query("INSERT INTO tenant_configuration_audit(tenant_id,actor_user_id,action) VALUES($1,$2,'test_email_accepted')",[tenant,actor.id]);
+  confirmConfigurationAudit((await db.query("INSERT INTO tenant_configuration_audit(tenant_id,actor_user_id,action) VALUES($1,$2,'test_email_accepted') RETURNING tenant_id,actor_user_id,action",[tenant,actor.id])).rows,tenant,actor.id,'test_email_accepted');
   return {status:200,body:{message:'Provider accepted the test. Check your inbox/spam to confirm delivery.'}};
  }
  const input=validateSettings(body);
  if(!input)return {status:400,body:{error:'Invalid settings. Use a sender email and retain all required template placeholders.'}};
- const existing=(await db.query('SELECT revision,api_key_ciphertext FROM tenant_mail_configuration WHERE tenant_id=$1 FOR UPDATE',[tenant])).rows[0];
- if((existing?.revision??0)!==input.revision)return {status:409,body:{error:'Settings changed. Reload before saving.'}};
+ const existing=singleConfiguration((await db.query('SELECT revision,api_key_ciphertext FROM tenant_mail_configuration WHERE tenant_id=$1 FOR UPDATE',[tenant])).rows);
+ const revision=existing?configurationRevision(existing.revision):0;
+ if(existing && !(existing.api_key_ciphertext===null || typeof existing.api_key_ciphertext==='string'))throw Error('Invalid retained credential');
+ if(revision!==input.revision)return {status:409,body:{error:'Settings changed. Reload before saving.'}};
  if(env.EMAIL_ALLOWED_SENDER && emailSender(input.sender)?.email.toLowerCase()!==env.EMAIL_ALLOWED_SENDER.toLowerCase())return {status:400,body:{error:'Use the sender address configured for the Cloudflare Worker.'}};
  // Retain legacy encrypted credentials for rollback; native delivery never reads them.
  const ciphertext=existing?.api_key_ciphertext??null;
- await db.query('INSERT INTO tenant_mail_configuration(tenant_id,sender,api_key_ciphertext,templates,revision,updated_at) VALUES($1,$2,$3,$4,1,NOW()) ON CONFLICT(tenant_id) DO UPDATE SET sender=$2,api_key_ciphertext=$3,templates=$4,revision=tenant_mail_configuration.revision+1,updated_at=NOW()',[tenant,input.sender,ciphertext,JSON.stringify(input.templates)]);
- await db.query("INSERT INTO tenant_configuration_audit(tenant_id,actor_user_id,action) VALUES($1,$2,'email_configuration_changed')",[tenant,actor.id]);
+ const saved=requiredRow((await db.query('INSERT INTO tenant_mail_configuration(tenant_id,sender,api_key_ciphertext,templates,revision,updated_at) VALUES($1,$2,$3,$4,1,NOW()) ON CONFLICT(tenant_id) DO UPDATE SET sender=$2,api_key_ciphertext=$3,templates=$4,revision=tenant_mail_configuration.revision+1,updated_at=NOW() RETURNING tenant_id,sender,api_key_ciphertext,templates,revision,updated_at',[tenant,input.sender,ciphertext,JSON.stringify(input.templates)])).rows);
+ const savedMail=configuredMailFields(saved);
+ if(saved.tenant_id!==tenant || savedMail.sender!==input.sender || saved.api_key_ciphertext!==ciphertext || configurationRevision(saved.revision)!==revision+1)throw Error('Invalid configuration save');
+ configurationUpdatedAt(saved.updated_at);
+ const expectedKeys=Object.keys(input.templates).sort(),actualKeys=Object.keys(savedMail.templates).sort();
+ if(JSON.stringify(expectedKeys)!==JSON.stringify(actualKeys) || expectedKeys.some(id=>['subject','title','body'].some(field=>savedMail.templates[id as keyof typeof templates]![field as keyof Template]!==input.templates[id][field as keyof Template])))throw Error('Invalid saved template');
+ confirmConfigurationAudit((await db.query("INSERT INTO tenant_configuration_audit(tenant_id,actor_user_id,action) VALUES($1,$2,'email_configuration_changed') RETURNING tenant_id,actor_user_id,action",[tenant,actor.id])).rows,tenant,actor.id,'email_configuration_changed');
  return {status:200,body:{message:'Settings saved. Send a test email to check delivery.'}};
+}
+
+/** Caller rolls back unconfirmed audit writes together with the setting save. */
+function confirmConfigurationAudit(rows:unknown,tenant:string,actor:string,action:string) {
+ const row=requiredRow(rows);
+ if(row.tenant_id!==tenant || accountId(row.actor_user_id)!==actor || row.action!==action)throw Error('Invalid configuration audit write');
 }

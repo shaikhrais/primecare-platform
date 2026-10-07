@@ -309,6 +309,53 @@ try {
   const baselineConfig=(await db.query('SELECT * FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)])).rows[0];
   const restoreConfig=()=>db.query('UPDATE tenant_mail_configuration SET sender=$2,templates=$3,revision=$4,updated_at=$5 WHERE tenant_id=$1',[String(tenantId),baselineConfig.sender,JSON.stringify(baselineConfig.templates),baselineConfig.revision,baselineConfig.updated_at]);
   const maintenanceState=async()=>({accounts:await snapshot(),audit:(await db.query('SELECT * FROM tenant_configuration_audit WHERE tenant_id=$1 ORDER BY id',[String(tenantId)])).rows});
+  const saveState=async()=>({...await maintenanceState(),configuration:(await db.query('SELECT * FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)])).rows});
+  const clearMaintenanceRate=()=>db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update('maintenance:'+userId).digest('hex')]);
+  // int4 overflow is a request failure; corrupt locked revision is a service
+  // failure. Neither may mutate configuration or append an audit.
+  const beforeOverflow=await saveState();
+  assert.equal((await call('/maintenance/configuration','POST',{...settings,revision:2147483647},maintenanceToken)).status,400);
+  assert.deepEqual(await saveState(),beforeOverflow);passed++;
+  await db.query('UPDATE tenant_mail_configuration SET revision=0 WHERE tenant_id=$1',[String(tenantId)]);
+  try {
+    const before=await saveState();
+    assert.equal((await call('/maintenance/configuration','POST',settings,maintenanceToken)).status,503);
+    assert.deepEqual(await saveState(),before);passed++;
+  }finally {await restoreConfig();}
+  for(const mode of ['suppress','corrupt']) {
+    await db.query(`CREATE OR REPLACE FUNCTION fixture_configuration_result() RETURNS trigger LANGUAGE plpgsql AS $$
+      BEGIN ${mode==='suppress'?'RETURN NULL;':"NEW.sender='other@example.invalid'; RETURN NEW;"} END $$`);
+    await db.query('CREATE TRIGGER fixture_configuration_result BEFORE INSERT OR UPDATE ON tenant_mail_configuration FOR EACH ROW EXECUTE FUNCTION fixture_configuration_result()');
+    try {
+      await clearMaintenanceRate();const before=await saveState();
+      const rejected=await call('/maintenance/configuration','POST',{...settings,revision:1},maintenanceToken);
+      assert.equal(rejected.status,503);assert.equal(rejected.headers.get('cache-control'),'no-store');
+      assert.deepEqual(await rejected.json(),{error:'Authentication service unavailable'});
+      assert.deepEqual(await saveState(),before);passed++;
+    }finally {
+      await db.query('DROP TRIGGER IF EXISTS fixture_configuration_result ON tenant_mail_configuration');
+      await db.query('DROP FUNCTION IF EXISTS fixture_configuration_result()');
+    }
+    await db.query(`CREATE OR REPLACE FUNCTION fixture_configuration_audit_result() RETURNS trigger LANGUAGE plpgsql AS $$
+      BEGIN ${mode==='suppress'?'RETURN NULL;':"NEW.action='fixture-corrupt-action'; RETURN NEW;"} END $$`);
+    await db.query('CREATE TRIGGER fixture_configuration_audit_result BEFORE INSERT ON tenant_configuration_audit FOR EACH ROW EXECUTE FUNCTION fixture_configuration_audit_result()');
+    try {
+      env.EMAIL_FROM='it@example.com';let sends=0;env.EMAIL={send:async()=>{sends++;return {messageId:'fixture-only'};}};
+      for(const path of ['/maintenance/configuration','/maintenance/configuration/test-email']) {
+        await clearMaintenanceRate();const before=await saveState(),sentBefore=sends;
+        const rejected=await call(path,'POST',path.endsWith('/test-email')?{}:{...settings,revision:1},maintenanceToken);
+        assert.equal(rejected.status,503);assert.equal(rejected.headers.get('cache-control'),'no-store');
+        assert.deepEqual(await rejected.json(),{error:'Authentication service unavailable'});
+        assert.equal(sends-sentBefore,path.endsWith('/test-email')?1:0);
+        assert.deepEqual(await saveState(),before);passed++;
+      }
+    }finally {
+      await db.query('DROP TRIGGER IF EXISTS fixture_configuration_audit_result ON tenant_configuration_audit');
+      await db.query('DROP FUNCTION IF EXISTS fixture_configuration_audit_result()');
+      delete env.EMAIL;delete env.EMAIL_FROM;
+    }
+  }
+
   try {
     for(const [set,value] of [['revision=$2',0],["updated_at=$2",'infinity'],['templates=$2',JSON.stringify({password_reset:{subject:'Reset',title:'Reset',body:'missing required code'}})],['sender=$2','private-invalid-address']]) {
       await db.query('UPDATE tenant_mail_configuration SET '+set+' WHERE tenant_id=$1',[String(tenantId),value]);

@@ -1,0 +1,101 @@
+{
+  "title": "Existing account, session, workspace and maintenance result boundaries",
+  "scope": "Supplemental runtime validation; no declaration authority promoted",
+  "batches": [
+    {
+      "batch": 304,
+      "family": "Account management",
+      "validation": "Validate locked target cardinality, identity and prior state before update, revocation and audit."
+    },
+    {
+      "batch": 305,
+      "family": "Maintenance revisions",
+      "validation": "Bound request revisions to incrementable int4 values; validate locked revision, cardinality and retained credential type."
+    },
+    {
+      "batch": 306,
+      "family": "Maintenance configuration save",
+      "validation": "Confirm returned tenant, sender, templates, retained ciphertext, next revision, date and configuration audit."
+    },
+    {
+      "batch": 307,
+      "family": "Maintenance test email",
+      "validation": "Confirm acceptance audit tenant, actor, action and cardinality before reporting success."
+    },
+    {
+      "batch": 308,
+      "family": "Account listing",
+      "validation": "Require one count row and bound returned users to the requested limit."
+    },
+    {
+      "batch": 309,
+      "family": "Account details",
+      "validation": "Require zero/one detail row whose identifier matches the requested account."
+    },
+    {
+      "batch": 310,
+      "family": "Admin session listing",
+      "validation": "Validate target identity/cardinality, count cardinality and returned page bounds."
+    },
+    {
+      "batch": 311,
+      "family": "Admin session revocation",
+      "validation": "Validate target identity/cardinality and deletion count cardinality before audit."
+    },
+    {
+      "batch": 312,
+      "family": "Management audit reads",
+      "validation": "Require one count row and bound returned events to the requested limit."
+    },
+    {
+      "batch": 313,
+      "family": "Creation audit reads",
+      "validation": "Require one count row and bound returned events to the requested limit."
+    },
+    {
+      "batch": 314,
+      "family": "Own session listing",
+      "validation": "Validate actor identity/cardinality, count cardinality and page bounds."
+    },
+    {
+      "batch": 315,
+      "family": "Own session revocation",
+      "validation": "Validate preflight/locked actor, bearer recheck cardinality and deletion count cardinality before audit."
+    },
+    {
+      "batch": 316,
+      "family": "Workspace identity",
+      "validation": "Reject ambiguous actor rows and malformed IDs/roles before grants or overview queries."
+    },
+    {
+      "batch": 317,
+      "family": "Workspace session totals",
+      "validation": "Require exactly one session aggregate row before projecting counts."
+    },
+    {
+      "batch": 318,
+      "family": "Workspace tenant metrics",
+      "validation": "Require exactly one aggregate row for each available tenant-bound metric."
+    }
+  ],
+  "results": {
+    "authorityLookup": "Array of zero/one nonarray object row; absence retains existing 401/404.",
+    "aggregate": "Exactly one object row with existing nonnegative integer count validation.",
+    "page": "Array of object rows no longer than requested validated limit; empty pages retained.",
+    "maintenanceRevision": "Request integer 0–2147483646; stored integer 1–2147483647; stale valid revision retains 409.",
+    "configurationWrite": "One returned configuration matches intended tenant/sender/ciphertext/template content/revision and valid date; matching audit required.",
+    "testEmail": "Matching acceptance audit required after provider acceptance. Database rollback cannot retract an accepted email."
+  },
+  "failure": {
+    "status": 503,
+    "cacheControl": "no-store",
+    "errors": [
+      "Authentication service unavailable",
+      "Account list unavailable",
+      "Session service unavailable",
+      "Workspace unavailable"
+    ]
+  },
+  "authority": "Existing role/tenant/active bearer, source budgets, locks and transaction boundaries retained.",
+  "verification": "Local fixtures and disposable UUID/text PostgreSQL CI remain separate from production verification."
+}
