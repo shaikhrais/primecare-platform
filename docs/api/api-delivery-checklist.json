@@ -6,12 +6,12 @@
     "duplicateDeclarationRows": 1,
     "stages": {
       "blocked": 10,
-      "needs_contract_and_verification": 1063,
-      "unit_evidence_recorded": 342
+      "needs_contract_and_verification": 1062,
+      "unit_evidence_recorded": 343
     },
     "pendingByDeclaredMethod": {
       "GET": 255,
-      "POST": 808
+      "POST": 807
     },
     "postgresEvidenceMapped": 0,
     "productionEvidenceMapped": 0
@@ -419,9 +419,9 @@
     {
       "area": "client",
       "total": 121,
-      "unitEvidenceRecorded": 96,
+      "unitEvidenceRecorded": 97,
       "blocked": 0,
-      "needsWork": 25
+      "needsWork": 24
     },
     {
       "area": "client-intake",
@@ -21197,20 +21197,15 @@
         237
       ],
       "services": [
-        "PRISMA"
+        "client"
       ],
       "area": "client",
-      "stage": "needs_contract_and_verification",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "unitEvidenceRecorded": false,
+      "stage": "unit_evidence_recorded",
+      "missingContractFields": [],
+      "unitEvidenceRecorded": true,
       "postgresEvidence": "not_mapped_per_operation",
       "productionEvidence": "not_mapped_per_operation",
-      "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
+      "nextAction": "Map operation-specific PostgreSQL evidence and release checks"
     },
     {
       "api": "POST /v1/client/bookings/request",
@@ -33235,10 +33230,22 @@
         "POST /v1/client/bookings/requests"
       ],
       "reviewed": 1
+    },
+    {
+      "name": "Client booking collection submission reconciliation",
+      "total": 1,
+      "resolved": 1,
+      "operations": [
+        "POST /v1/client/bookings"
+      ],
+      "resolvedOperations": [
+        "POST /v1/client/bookings"
+      ],
+      "reviewed": 1
     }
   ],
   "source": {
     "path": "docs/api/api-execution-inventory.json",
-    "sha256": "147873490bd193e8a00eb651cc9097acd1920721ce0e391ce0e402ef94681a2c"
+    "sha256": "38bbb2112ae47de95daa4fcc0cbb07fb2b418cd59908a4c7bcf76c1f682edd46"
   }
 }
