@@ -832,7 +832,7 @@ Fifty numbered gateway/helper cases plus three summary/absence regressions rejec
 
 Local validation: 3,214 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37651980486 at b09abac9a5e7961e876d10cf80a910ebcf43b582. PR #124 merged as 5f4f377c2baba4d2b676345bcb88d913fb57f4dc. Latest completed batch is 788; next batch is 789. No deployment or production database changes.
 
-## Iteration 26 — batches 789–838 (in review)
+## Iteration 26 — batches 789–838 (merged)
 
 - Batch 789 client /visits duration_minutes: int4 overflow rejection.
 - Batch 790 client /visits duration_minutes: untyped/fractional/nonfinite rejection.
@@ -889,4 +889,4 @@ Persisted PostgreSQL Int columns use signed int4 bounds without coercion. SUM(In
 
 Fifty numbered cases plus seven summary/absence regressions cover malformed integers and exact bigint sums. Disposable PostgreSQL tests preserve ownership SQL and verify rollback, privacy, stored rows, foreign record denial and tenant isolation. No new routes, grants, authority promotions, deployment or production database changes.
 
-Local validation: 3,271 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI pending. Latest completed batch is 788; next batch is 789.
+Local validation: 3,271 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37655612979 at 135ccc9c8268c797a9cdd431b0f80485b97f684e. Each identity mode passed 411 new real PostgreSQL integer checks. PR #125 merged as 96e3eac5e53cceb4cc6d32f019e72424988d3a43. Latest completed batch is 838; next batch is 839. No deployment or production database changes.
