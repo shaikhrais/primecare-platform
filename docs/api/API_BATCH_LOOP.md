@@ -215,7 +215,7 @@ Supplemental runtime documentation adds no authority. Inventory remains 1,416 de
 Local validation: 1,902 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37557619387 at 9aa0a4c6680bbcf9c25472b700d1e94a85e0d9e4. PR #112 merged as 84b51d0ebfbd384e27268c652b85b25d219e86a8. Latest completed batch is 318; next batch is 319. No deployment or production database changes.
 
 
-## Iteration 14 — batches 319–333, owned read result boundaries, in review
+## Iteration 14 — batches 319–333, owned read result boundaries, merged
 
 | Batch | Existing handler family | Change |
 | --- | --- | --- |
@@ -243,4 +243,4 @@ Sixty-one new grouped gateway regressions cover every registered family, malform
 
 Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
 
-Local validation: 1,963 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.
+Local validation: 1,963 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37558568217 at cfd5650b48a370e0dce098ec7ef0c8276d7a08ef. PR #113 merged as 60e5ea13f0f5fe61ab331d2df94332ac7aae0468. Latest completed batch is 333; next batch is 334. No deployment or production database changes.
