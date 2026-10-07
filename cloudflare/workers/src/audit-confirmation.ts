@@ -1,10 +1,10 @@
-import {requiredRow} from './database-results';
+import {requiredRow,dataObject} from './database-results';
 import {accountId,accountTimestamp} from './account-read-projection';
 
 function sameValue(actual:unknown,expected:unknown):boolean {
  if(expected===null||typeof expected!=='object')return actual===expected;
  if(!actual||typeof actual!=='object'||Array.isArray(actual)||Array.isArray(expected))return false;
- const a=actual as Record<string,unknown>,e=expected as Record<string,unknown>;
+ const a=dataObject(actual),e=expected as Record<string,unknown>;
  const keys=Object.keys(e);return Object.keys(a).length===keys.length&&keys.every(k=>Object.hasOwn(a,k)&&sameValue(a[k],e[k]));
 }
 /** Confirm database persistence inside the caller's transaction, before success. */

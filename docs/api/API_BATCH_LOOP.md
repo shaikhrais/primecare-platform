@@ -713,3 +713,62 @@ Shared actor validation now requires nonempty tenant claims to follow the existi
 Gateway tests reject malformed tenant strings and non-string values before owned queries, check absent/mismatched tenant denial, and verify UUID/text tenant bindings and public privacy. Disposable real PostgreSQL faults alter returned actor values only, test list/summary/personal/account/session readers, confirm rollback and compare stored rows before/after. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants, authority promotions, deployment or production database changes.
 
 Local validation: 3,103 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37640526635 at cc138ff6220ad7d7381b9ec2bab936c425a838fa. PR #122 merged as 879e0404cb6156194a58ed5b42b3805d4e5fc735. Latest completed batch is 688; next batch is 689. No deployment or production database changes.
+
+## Iteration 24 — batches 689–738 (in review)
+
+- Batch 689 configuration rows: sparse.
+- Batch 690 configuration rows: inherited entry.
+- Batch 691 configuration rows: getter entry.
+- Batch 692 configuration rows: inherited row.
+- Batch 693 configuration rows: class row.
+- Batch 694 configuration rows: getter field.
+- Batch 695 configuration rows: absent defaults.
+- Batch 696 configuration rows: null prototype.
+- Batch 697 configuration rows: frozen data.
+- Batch 698 configuration rows: duplicate rows.
+- Batch 699 stored template maps: null.
+- Batch 700 stored template maps: array.
+- Batch 701 stored template maps: inherited.
+- Batch 702 stored template maps: class.
+- Batch 703 stored template maps: template getter.
+- Batch 704 stored template maps: extra getter.
+- Batch 705 stored template maps: frozen.
+- Batch 706 stored template maps: null prototype.
+- Batch 707 stored template maps: unknown template.
+- Batch 708 stored template maps: private projection.
+- Batch 709 template fields: null.
+- Batch 710 template fields: array.
+- Batch 711 template fields: inherited.
+- Batch 712 template fields: class.
+- Batch 713 template fields: subject getter.
+- Batch 714 template fields: private getter.
+- Batch 715 template fields: placeholder rules.
+- Batch 716 template fields: frozen.
+- Batch 717 template fields: null prototype.
+- Batch 718 template fields: canonical variables.
+- Batch 719 maintenance audit rows: sparse.
+- Batch 720 maintenance audit rows: inherited entry.
+- Batch 721 maintenance audit rows: getter entry.
+- Batch 722 maintenance audit rows: inherited row.
+- Batch 723 maintenance audit rows: class row.
+- Batch 724 maintenance audit rows: action getter.
+- Batch 725 maintenance audit rows: twenty row limit.
+- Batch 726 maintenance audit rows: empty.
+- Batch 727 maintenance audit rows: map override.
+- Batch 728 maintenance audit rows: null prototype privacy.
+- Batch 729 persisted audit states: inherited state.
+- Batch 730 persisted audit states: class state.
+- Batch 731 persisted audit states: role getter.
+- Batch 732 persisted audit states: nested getter.
+- Batch 733 persisted audit states: array state.
+- Batch 734 persisted audit states: wrong primitive.
+- Batch 735 persisted audit states: extra field.
+- Batch 736 persisted audit states: missing field.
+- Batch 737 persisted audit states: frozen nested.
+- Batch 738 persisted audit states: null prototype nested.
+
+The shared result-row object checks are now reusable for nested adapter data. Maintenance configuration and audit rows use validated dense arrays instead of adapter array methods. Stored template maps/fields and nested persisted/read account audit states reject class/inherited/accessor objects before reading fields. Getter/map code is not invoked. Plain/null-prototype objects, frozen rows, absent defaults, canonical template variables, explicit private-field projection and ordinary timestamp values remain supported.
+
+Fifty numbered boundary cases plus eight gateway regressions check malformed data, privacy, blocked email delivery, and rejected account mutations. Disposable real PostgreSQL faults preserve actual SQL and verify stored rows remain unchanged; failed account updates, session revocation and audit insertion roll back together. Existing maintenance GET commits and failed test-email rate-counter commits remain; malformed mail sends nothing and appends no acceptance audit. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 3,161 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI pending.

@@ -1,6 +1,6 @@
 import {sessionRows} from './session-read-projection';
 import {confirmedAudit} from './audit-confirmation';
-import {optionalRow,requiredRow,pageRows,recordRows} from './database-results';
+import {optionalRow,requiredRow,pageRows,recordRows,dataObject} from './database-results';
 import {accountId,accountTimestamp,accountUser,accountAuditIdentity} from './account-read-projection';
 import type {Client} from 'pg';
 import policy from './account-policy.json';
@@ -32,7 +32,7 @@ export function parseAccountAdminRequest(request:Request,path:string):Parsed {
 const pagination=(input:AdminInput,total:number)=>({limit:input.limit,offset:input.offset,total,hasMore:input.offset+input.limit<total});
 const auditIdentity=(row:Record<string,unknown>,userId:string)=>{const projected=accountAuditIdentity(row);if(userId&&projected.targetUserId!==userId)throw Error('Invalid audit target binding');return projected;};
 const safeState=(raw:unknown)=>{
-  const state=(raw&&typeof raw==='object'?raw:{}) as Record<string,unknown>;
+  const state=raw&&typeof raw==='object'?dataObject(raw):{};
   return {role:typeof state.role==='string'&&policy.ceo.includes(state.role)?state.role:null,
     status:state.status==='active'||state.status==='inactive'?state.status:null,
     sessionCount:typeof state.sessionCount==='number'&&Number.isSafeInteger(state.sessionCount)&&state.sessionCount>=0?state.sessionCount:null};
