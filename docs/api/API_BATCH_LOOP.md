@@ -1195,7 +1195,7 @@ Repaired 41 existing grouped-read routes and nine existing record families selec
 
 Fifty new regression checks exercise actual Worker populated and empty responses plus applicable details, reject private envelope/pagination fields and missing payloads, and reject out-of-range pagination values. Local validation: 3,533 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `6db2d2803b81d5d0d177fe4f8c9b56d9c4719a14`, run 37674947440. PR #132 merged as `c40b2cb050aeb0eef43ddbb1f4d69286291aa33a`. Latest completed numbered batch is 1100; next is 1101.
 
-## Iteration 33 — batches 1101–1150 (in review)
+## Iteration 33 — batches 1101–1150 (merged)
 
 - Batch 1101 auth /me/notifications created_at: align existing timestamp response syntax.
 - Batch 1102 auth /me/activities due_date: align existing timestamp response syntax.
@@ -1250,4 +1250,4 @@ Fifty new regression checks exercise actual Worker populated and empty responses
 
 Fifty existing response timestamp fields now declare the minimum length and exact uppercase RFC3339 syntax accepted by the runtime: four-digit years, valid hour/minute/second ranges, optional fractional seconds and Z or numeric timezone offsets. Existing date-time formats, nullable types, payloads and owner scopes remain intact. This is syntax alignment, not new endpoint implementation; calendar validity remains checked by the runtime and date-time format. Authoritative collection aliases inherit applicable repairs. No new business endpoints, grants, deployment or production database changes.
 
-Fifty new regression checks exercise actual Worker list/detail timestamps with UTC, fractional timezone-offset strings, Date serialization and allowed nulls; malformed timestamps, impossible calendar dates, invalid Date objects and forbidden nulls fail closed. Local validation: 3,583 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head PostgreSQL and security CI pending. Latest merged numbered batch remains 1100 until merge.
+Fifty new regression checks exercise actual Worker list/detail timestamps with UTC, fractional timezone-offset strings, Date serialization and allowed nulls; malformed timestamps, impossible calendar dates, invalid Date objects and forbidden nulls fail closed. Local validation: 3,583 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `75e49fc621ba1308cfecd417d0067639b33ea264`, run 37676628275. PR #133 merged as `a412b335dd9ec1e02f96ffd4eb5cf8a619dacac7`. Latest completed numbered batch is 1150; next is 1151.
