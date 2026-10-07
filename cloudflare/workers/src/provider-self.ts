@@ -1,3 +1,4 @@
+import {projectReferenceId} from './reference-read-projection';
 import {summaryRows} from './summary-results';
 import {pageRows,recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {accountId} from './account-read-projection';
@@ -80,7 +81,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
           const fields='id,service_id,requested_start_at,duration_minutes,status,priority,updated_at';
           const project=(v:Record<string,unknown>)=>{
             if(![v.id,v.service_id].every(requiredString)||![v.requested_start_at,v.updated_at].every(dateTime)||typeof v.duration_minutes!=='number'||!Number.isSafeInteger(v.duration_minutes)||!nullableString(v.status)||!nullableString(v.priority))throw Error('Invalid provider visit data');
-            return {id:v.id,service_id:v.service_id,requested_start_at:projectRecordTimestamp(v.requested_start_at),duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:projectRecordTimestamp(v.updated_at)};
+            return {id:v.id,service_id:projectReferenceId(v.service_id),requested_start_at:projectRecordTimestamp(v.requested_start_at),duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:projectRecordTimestamp(v.updated_at)};
           };
           const filter='assigned_provider_id::text=$1 AND tenant_id::text=$2';
           if(visitMatch){
