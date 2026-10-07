@@ -1,0 +1,73 @@
+{
+  "title": "Existing read date, activity and email runtime validation",
+  "batches": [
+    {
+      "batch": 284,
+      "family": "Client profile update date"
+    },
+    {
+      "batch": 285,
+      "family": "Client invoice dates"
+    },
+    {
+      "batch": 286,
+      "family": "Client payment dates"
+    },
+    {
+      "batch": 287,
+      "family": "Client visit dates"
+    },
+    {
+      "batch": 288,
+      "family": "Client booking dates"
+    },
+    {
+      "batch": 289,
+      "family": "Client booking-request dates"
+    },
+    {
+      "batch": 290,
+      "family": "Client registered record dates"
+    },
+    {
+      "batch": 291,
+      "family": "Provider visit/document dates"
+    },
+    {
+      "batch": 292,
+      "family": "Provider registered record dates"
+    },
+    {
+      "batch": 293,
+      "family": "Account owned record dates"
+    },
+    {
+      "batch": 294,
+      "family": "Booking lifecycle/audit result dates"
+    },
+    {
+      "batch": 295,
+      "family": "Timesheet item result dates"
+    },
+    {
+      "batch": 296,
+      "family": "Workspace activity projection"
+    },
+    {
+      "batch": 297,
+      "family": "Native email transport receipt/address validation"
+    },
+    {
+      "batch": 298,
+      "family": "Runtime email template validation"
+    }
+  ],
+  "readDates": "Finite RFC3339 strings with calendar/time validation, or finite PostgreSQL Date instances within years 0000\u20139999. Declared nullable dates remain allowed. Date-only strings and JavaScript-normalized impossible dates are rejected. Valid responses retain existing fields and precision.",
+  "failure": "Sanitized no-store 503; reads roll back and invalid booking mutation results roll back before audit/commit",
+  "workspaceActivity": "At most 20 entries; only account_created, email_configuration_changed, test_email_accepted; explicit action/created_at projection",
+  "nativeEmail": "Callable EMAIL binding; uncoerced addresses normalized to bare emails; actual nonempty trimmed messageId string without control characters, read once. Malformed receipt is a generic delivery error. Failed recovery removes its reset code; failed test email writes no acceptance audit.",
+  "templates": "Known static IDs, bounded plain-text content, canonical required variables, valid placeholders; HTML escaping retained; untrusted required arrays ignored; native delivery remains the only transport.",
+  "governancePromotion": false,
+  "inventoryChanged": false,
+  "deployment": false
+}

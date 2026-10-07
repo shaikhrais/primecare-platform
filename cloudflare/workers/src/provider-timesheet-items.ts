@@ -4,7 +4,7 @@ import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 const identifier=/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/;
 const count=(value:unknown)=>{if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid timesheet item count');return value;};
 const timestamp=(value:unknown)=>{
-  if(value instanceof Date){if(!Number.isFinite(value.getTime()))throw Error('Invalid timesheet item timestamp');return value.toISOString();}
+  if(value instanceof Date){if(!Number.isFinite(value.getTime())||value.getUTCFullYear()<0||value.getUTCFullYear()>9999)throw Error('Invalid timesheet item timestamp');return value.toISOString();}
   if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(value)||!Number.isFinite(Date.parse(value)))throw Error('Invalid timesheet item timestamp');
   const result=new Date(value).toISOString();if(result.slice(0,19)!==value.slice(0,19))throw Error('Invalid timesheet item timestamp');return result;
 };

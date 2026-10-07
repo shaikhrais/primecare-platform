@@ -1,3 +1,4 @@
+import {assertReadDateRejections} from './read-date-postgres-fixtures.mjs';
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
 const dir=await mkdtemp(join(tmpdir(),'provider-self-pg-'));await build({entryPoints:['cloudflare/workers/src/provider-self.ts'],outfile:join(dir,'provider.cjs'),bundle:true,platform:'node',format:'cjs'});const {providerSelf}=createRequire(import.meta.url)(join(dir,'provider.cjs'));const db=new Client({connectionString:url.href});await db.connect();
@@ -11,6 +12,7 @@ try{
  await db.query('CREATE TABLE visits(id TEXT PRIMARY KEY,assigned_provider_id TEXT,tenant_id TEXT NOT NULL,service_id TEXT NOT NULL,requested_start_at TIMESTAMP NOT NULL,duration_minutes INTEGER NOT NULL,status TEXT,priority TEXT,updated_at TIMESTAMP NOT NULL DEFAULT NOW(),client_id TEXT,management_notes TEXT)');createdVisits=true;
  const visits=[randomUUID(),randomUUID(),randomUUID(),randomUUID()];
  for(let i=0;i<4;i++)await db.query("INSERT INTO visits(id,assigned_provider_id,tenant_id,service_id,requested_start_at,duration_minutes,status,priority,client_id,management_notes) VALUES($1,$2,$3,'service',NOW(),60,'requested','normal','private-client','private-notes')",[visits[i],i===3?null:profiles[i===2?0:i],tenants[i===2?1:0]]);
+ checks+=await assertReadDateRejections(db,()=>call('/visits'),{table:'visits',field:'updated_at',id:visits[0]});
  const visitList=await (await call('/visits','?limit=1')).json();assert.equal(visitList.pagination.total,1);assert.equal(visitList.visits[0].id,visits[0]);assert.ok(!JSON.stringify(visitList).includes('private'));checks++;
  const visitDetail=await (await call('/visits/'+visits[0])).json();assert.equal(visitDetail.visit.duration_minutes,60);checks++;
  for(const id of visits.slice(1))assert.equal((await call('/visits/'+id)).status,404);checks++;
@@ -22,6 +24,7 @@ try{
  await db.query('CREATE TABLE provider_documents(id TEXT PRIMARY KEY,provider_id TEXT NOT NULL,doc_type TEXT NOT NULL,status TEXT,expiry_date TIMESTAMP,verified_at TIMESTAMP,created_at TIMESTAMP NOT NULL DEFAULT NOW(),updated_at TIMESTAMP NOT NULL DEFAULT NOW(),file_key TEXT,verified_by TEXT)');createdDocuments=true;
  const docs=[randomUUID(),randomUUID(),randomUUID()];
  for(let i=0;i<3;i++)await db.query("INSERT INTO provider_documents(id,provider_id,doc_type,status,file_key,verified_by) VALUES($1,$2,'license','pending','private-key','private-verifier')",[docs[i],profiles[i]]);
+ checks+=await assertReadDateRejections(db,()=>call('/documents'),{table:'provider_documents',field:'verified_at',id:docs[0]});
  const docList=await (await call('/documents','?limit=1')).json();assert.equal(docList.pagination.total,1);assert.equal(docList.documents[0].id,docs[0]);assert.ok(!JSON.stringify(docList).includes('private'));checks++;
  const docDetail=await (await call('/documents/'+docs[0])).json();assert.equal(docDetail.document.doc_type,'license');checks++;
  for(const id of docs.slice(1))assert.equal((await call('/documents/'+id)).status,404);checks++;

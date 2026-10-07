@@ -322,6 +322,22 @@ try {
   }finally {await restoreConfig();delete env.EMAIL;delete env.EMAIL_FROM;}
   await db.query('DELETE FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)]);
   await db.query('DELETE FROM tenant_configuration_audit WHERE tenant_id=$1',[String(tenantId)]);
+  // A truthy malformed native receipt must not leave a usable reset code or
+  // create an acceptance audit. Test only the synthetic fixture address/binding.
+  env.EMAIL_FROM='it@example.com';
+  try {
+    for(const messageId of [1,' ']) {
+      let sends=0;env.EMAIL={send:async()=>{sends++;return {messageId};}};
+      const before=await snapshot();
+      const recovery=await call('/forgot-password','POST',{email});
+      assert.equal(recovery.status,503);assert.equal(recovery.headers.get('cache-control'),'no-store');
+      assert.equal(sends,1);assert.deepEqual(await snapshot(),before);passed++;
+    }
+    const auditCount=(await db.query('SELECT COUNT(*)::int AS count FROM tenant_configuration_audit WHERE tenant_id=$1',[String(tenantId)])).rows[0].count;
+    const testEmail=await call('/maintenance/configuration/test-email','POST',{},maintenanceToken);
+    assert.equal(testEmail.status,503);assert.equal(testEmail.headers.get('cache-control'),'no-store');
+    assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM tenant_configuration_audit WHERE tenant_id=$1',[String(tenantId)])).rows[0].count,auditCount);passed++;
+  }finally {delete env.EMAIL;delete env.EMAIL_FROM;}
   const countersBefore=(await db.query('SELECT COUNT(*)::int AS count FROM auth_rate_limits')).rows[0].count;
   for(const path of ['/login','/forgot-password','/reset-password','/change-password','/admin/users','/register']) {
     const oversized=await call(path,'POST',{value:'é'.repeat(25_000)},'A'.repeat(43));

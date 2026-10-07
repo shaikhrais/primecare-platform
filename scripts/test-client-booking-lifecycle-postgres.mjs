@@ -26,6 +26,24 @@ try{
    assert.deepEqual(await snapshot(),before);checks++;
   }
  }
+ const originalDate=(await db.query('SELECT created_at FROM booking_requests WHERE id=$1',[id])).rows[0].created_at;
+ try {
+  for(const value of ['infinity','10000-01-01 00:00:00']) {
+   await db.query('UPDATE booking_requests SET created_at=$2 WHERE id=$1',[id,value]);
+   const before=await snapshot();const response=await call('/booking-requests/'+id+'/cancel','bad-date-cancel');
+   assert.equal(response.status,503);assert.equal(response.headers.get('cache-control'),'no-store');assert.deepEqual(await snapshot(),before);checks++;
+   await db.query('UPDATE booking_requests SET created_at=$2 WHERE id=$1',[id,originalDate]);
+  }
+ }finally {await db.query('UPDATE booking_requests SET created_at=$2 WHERE id=$1',[id,originalDate]);}
+ const auditDate=(await db.query('SELECT id,created_at FROM booking_request_audit WHERE request_id=$1 LIMIT 1',[id])).rows[0];
+ try {
+  for(const value of ['infinity','10000-01-01 00:00:00']) {
+   await db.query('UPDATE booking_request_audit SET created_at=$2 WHERE id=$1',[auditDate.id,value]);
+   const before=await snapshot();const response=await call('/booking-requests/'+id+'/audit');
+   assert.equal(response.status,503);assert.equal(response.headers.get('cache-control'),'no-store');assert.deepEqual(await snapshot(),before);checks++;
+   await db.query('UPDATE booking_request_audit SET created_at=$2 WHERE id=$1',[auditDate.id,auditDate.created_at]);
+  }
+ }finally {await db.query('UPDATE booking_request_audit SET created_at=$2 WHERE id=$1',[auditDate.id,auditDate.created_at]);}
  const saved=(await db.query('SELECT * FROM booking_requests WHERE id=$1',[id])).rows[0];assert.equal(saved.client_id,profiles[0]);assert.equal(saved.tenant_id,tenants[0]);assert.equal(saved.status,'pending');assert.equal(saved.notes,'private note');assert.ok(!JSON.stringify(results).includes('private'));checks++;
  assert.equal((await call('/booking-requests','create-key',{...input,service_type:'different'})).status,409);checks++;
  const foreign=(await (await call('/booking-requests','other-create',input,tokens[1])).json()).request.id;

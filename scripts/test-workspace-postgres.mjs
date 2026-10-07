@@ -1,3 +1,4 @@
+import {assertReadDateRejections} from './read-date-postgres-fixtures.mjs';
 import {Client} from 'pg';
 import {build} from 'esbuild';
 import bcrypt from 'bcryptjs';
@@ -24,6 +25,12 @@ try {
  await db.query('CREATE TABLE IF NOT EXISTS clients(id TEXT PRIMARY KEY,tenant_id TEXT)');
  await db.query('CREATE TABLE IF NOT EXISTS providers(id TEXT PRIMARY KEY)');
  await db.query('INSERT INTO clients(id,tenant_id) VALUES($1,$2),($3,$4)',[ids[0],tenant,ids[2],otherTenant]);
+ const activityId=(await db.query("INSERT INTO tenant_configuration_audit(tenant_id,actor_user_id,action) VALUES($1,$2,'email_configuration_changed') RETURNING id",[tenant,String(ids[0])])).rows[0].id;
+ try {
+  passed+=await assertReadDateRejections(db,()=>call(),{table:'tenant_configuration_audit',field:'created_at',id:activityId});
+  await db.query('UPDATE tenant_configuration_audit SET action=$2 WHERE id=$1',[activityId,'private-unknown-action']);
+  const badActivity=await call();assert.equal(badActivity.status,503);assert.equal(badActivity.headers.get('cache-control'),'no-store');passed++;
+ }finally {await db.query('DELETE FROM tenant_configuration_audit WHERE id=$1',[activityId]);}
  const response=await call('?screen=ceo_dashboard');assert.equal(response.status,200);passed++;
  const data=await response.json();assert.equal(data.overview.activeAccounts,2);assert.equal(typeof data.overview.activeSessions,'number');assert.ok(data.overview.accountRoles.every(r=>typeof r.count==='number'));assert.ok(data.overview.metrics.filter(m=>m.available).every(m=>typeof m.count==='number'));assert.equal(data.overview.activeSessions,2);passed++;
  assert.equal(data.overview.metrics.find(m=>m.code==='clients').count,1);assert.equal(data.overview.metrics.find(m=>m.code==='providers').available,false);passed++;

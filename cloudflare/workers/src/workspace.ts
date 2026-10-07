@@ -2,6 +2,15 @@ import {sourceLimitAllowed} from './source-limit-result';
 import registry from './workspace-registry.json';
 import {json, withDb, tokenFrom, sha256, type Env} from './auth';
 import type {Client} from 'pg';
+import {accountTimestamp} from './account-read-projection';
+
+export function workspaceActivity(rows:unknown) {
+  if(!Array.isArray(rows)||rows.length>20)throw Error('Invalid workspace activity');
+  return rows.map(row=>{
+    if(!row||!['account_created','email_configuration_changed','test_email_accepted'].includes(row.action))throw Error('Invalid workspace activity action');
+    return {action:row.action,created_at:accountTimestamp(row.created_at)};
+  });
+}
 
 export function exactWorkspaceCount(value:unknown):number {if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid workspace count');return value;}
 export function workspaceRoleCounts(rows:Record<string,unknown>[]) {const seen=new Set<string>();return rows.map(row=>{if(typeof row.role!=='string'||!row.role||seen.has(row.role))throw Error('Invalid workspace role group');seen.add(row.role);return {role:row.role,count:exactWorkspaceCount(row.count)};});}
@@ -23,10 +32,10 @@ export async function overview(db:Client,actor:Actor) {
     `SELECT COUNT(*)::int AS count FROM auth_sessions s JOIN users u ON u.id=s.user_id
      WHERE s.expires_at>NOW() AND LOWER(u.status)='active' AND ${organization ? 'u.tenant_id::text=$1' : 'u.id::text=$1'}`,
     [String(organization?actor.tenant_id:actor.id)])).rows[0].count);
-  const activity=organization ? (await db.query(
+  const activity=organization ? workspaceActivity((await db.query(
     `SELECT action,created_at FROM auth_account_audit WHERE tenant_id::text=$1
      UNION ALL SELECT action,created_at FROM tenant_configuration_audit WHERE tenant_id=$1
-     ORDER BY created_at DESC LIMIT 20`,[String(actor.tenant_id)])).rows : [];
+     ORDER BY created_at DESC LIMIT 20`,[String(actor.tenant_id)])).rows) : [];
   const metrics: {code:string;available:boolean;count?:number}[]=[];
   if(organization) {
     // Never read an unscoped table. Missing tenant bindings are unavailable,

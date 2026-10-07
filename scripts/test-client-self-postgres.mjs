@@ -1,3 +1,4 @@
+import {assertReadDateRejections} from './read-date-postgres-fixtures.mjs';
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
 const dir=await mkdtemp(join(tmpdir(),'client-self-pg-'));await build({entryPoints:['cloudflare/workers/src/client-self.ts'],outfile:join(dir,'client.cjs'),bundle:true,platform:'node',format:'cjs'});const {clientSelf}=createRequire(import.meta.url)(join(dir,'client.cjs'));const db=new Client({connectionString:url.href});await db.connect();
@@ -15,6 +16,10 @@ try{
  await db.query('CREATE TABLE bookings(id TEXT PRIMARY KEY,client_id TEXT NOT NULL,tenant_id TEXT NOT NULL,start_at TIMESTAMP NOT NULL,end_at TIMESTAMP NOT NULL,service_type TEXT NOT NULL,priority TEXT NOT NULL,status TEXT NOT NULL,recurrence_rule TEXT,notes TEXT)');createdBookings=true;
  const bookings=[randomUUID(),randomUUID(),randomUUID()];
  for(let i=0;i<3;i++)await db.query("INSERT INTO bookings(id,client_id,tenant_id,start_at,end_at,service_type,priority,status,notes) VALUES($1,$2,$3,NOW(),NOW()+INTERVAL '1 hour','massage','normal','pending','private-note')",[bookings[i],profiles[i===2?0:i],tenants[i===2?1:0]]);
+ checks+=await assertReadDateRejections(db,()=>call('/home/profile'),{table:'client_profiles',field:'updated_at',id:profiles[0]});
+ const dateInvoice=(await db.query('SELECT id FROM invoices WHERE client_id=$1 AND tenant_id=$2 LIMIT 1',[profiles[0],tenants[0]])).rows[0].id;
+ checks+=await assertReadDateRejections(db,()=>call('/invoices'),{table:'invoices',field:'created_at',id:dateInvoice});
+ checks+=await assertReadDateRejections(db,()=>call('/bookings'),{table:'bookings',field:'end_at',id:bookings[0]});
  const bookingList=await (await call('/bookings','?limit=1')).json();assert.equal(bookingList.pagination.total,1);assert.equal(bookingList.bookings[0].id,bookings[0]);assert.ok(!JSON.stringify(bookingList).includes('private-note'));checks++;
  const bookingDetail=await (await call('/bookings/'+bookings[0])).json();assert.equal(bookingDetail.booking.id,bookings[0]);checks++;
  assert.equal((await call('/bookings/'+bookings[1])).status,404);assert.equal((await call('/bookings/'+bookings[2])).status,404);checks++;
@@ -26,6 +31,7 @@ try{
  await db.query('CREATE TABLE visits(id TEXT PRIMARY KEY,client_id TEXT NOT NULL,tenant_id TEXT NOT NULL,service_id TEXT NOT NULL,requested_start_at TIMESTAMP NOT NULL,duration_minutes INTEGER NOT NULL,status TEXT,priority TEXT,updated_at TIMESTAMP NOT NULL DEFAULT NOW(),management_notes TEXT)');createdVisits=true;
  const visits=[randomUUID(),randomUUID(),randomUUID()];
  for(let i=0;i<3;i++)await db.query("INSERT INTO visits(id,client_id,tenant_id,service_id,requested_start_at,duration_minutes,status,priority,management_notes) VALUES($1,$2,$3,'service',NOW(),60,'requested','normal','private-notes')",[visits[i],profiles[i===2?0:i],tenants[i===2?1:0]]);
+ checks+=await assertReadDateRejections(db,()=>call('/visits'),{table:'visits',field:'requested_start_at',id:visits[0]});
  const visitList=await (await call('/visits','?limit=1')).json();assert.equal(visitList.pagination.total,1);assert.equal(visitList.visits[0].id,visits[0]);assert.ok(!JSON.stringify(visitList).includes('private'));checks++;
  const visitDetail=await (await call('/visits/'+visits[0])).json();assert.equal(visitDetail.visit.duration_minutes,60);checks++;
  for(const id of visits.slice(1))assert.equal((await call('/visits/'+id)).status,404);checks++;
@@ -43,6 +49,7 @@ try{
  await db.query('CREATE TABLE booking_requests(id TEXT PRIMARY KEY,client_id TEXT NOT NULL,tenant_id TEXT NOT NULL,service_type TEXT NOT NULL,preferred_date TIMESTAMP NOT NULL,preferred_time TEXT,status TEXT NOT NULL,created_at TIMESTAMP NOT NULL DEFAULT NOW(),updated_at TIMESTAMP NOT NULL DEFAULT NOW(),notes TEXT)');createdRequests=true;
  const requests=[randomUUID(),randomUUID(),randomUUID()];
  for(let i=0;i<3;i++)await db.query("INSERT INTO booking_requests(id,client_id,tenant_id,service_type,preferred_date,status,notes) VALUES($1,$2,$3,'massage',NOW(),'pending','private-request-note')",[requests[i],profiles[i===2?0:i],tenants[i===2?1:0]]);
+ checks+=await assertReadDateRejections(db,()=>call('/booking-requests'),{table:'booking_requests',field:'preferred_date',id:requests[0]});
  const requestList=await (await call('/booking-requests','?limit=1')).json();assert.equal(requestList.pagination.total,1);assert.equal(requestList.requests[0].id,requests[0]);assert.ok(!JSON.stringify(requestList).includes('private'));checks++;
  const requestDetail=await (await call('/booking-requests/'+requests[0])).json();assert.equal(requestDetail.request.preferred_time,null);assert.equal(requestDetail.request.id,requests[0]);checks++;
  for(const id of requests.slice(1))assert.equal((await call('/booking-requests/'+id)).status,404);checks++;
