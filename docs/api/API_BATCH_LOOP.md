@@ -108,7 +108,7 @@ Supplemental OpenAPI documents runtime validation without promoting pending auth
 Local validation: 1,759 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37547360252 at e207571810670445bdd98b4692d9d58309ffe988. PR #108 merged as e50b5b170d3d27e89635dc0530781ba17c1fc3e7. Latest completed batch is 268; next batch is 269. No deployment or production database changes.
 
 
-## Iteration 10 — batches 269–283, source decisions and maintenance validation, in review
+## Iteration 10 — batches 269–283, source decisions and maintenance validation, merged
 
 | Batch | Existing handler family | Change |
 | --- | --- | --- |
@@ -134,4 +134,4 @@ Maintenance returns explicit template/audit projections and rejects corrupt stor
 
 PostgreSQL CI exposed a shared counter timing race: transaction-start NOW can produce a 61-second retry for a 60-second window when a request waits on a row lock. Retry projection now uses clock_timestamp after the wait. A deterministic PostgreSQL lock-wait regression accompanies the existing concurrent budget and saturation tests. Strict result bounds and atomic counters remain in place.
 
-Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments. Local validation: 1,808 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments. Local validation: 1,808 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37552341294 at 5826243ebbb7b1b527273f0651943ba455245e4b. PR #109 merged as 8098c497b871b68ff15ab5fa978fec4704f6cf7f. Latest completed batch is 283; next batch is 284. No deployment or production database changes.
