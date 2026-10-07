@@ -997,53 +997,10 @@ def main():
     """, layout_behavior_rows)
     print(f"Hydrated layout behavior profiles for {len(layout_behavior_rows)} screens.")
 
-    # K. Hydrate api_request_schemas, api_response_schemas, api_services, api_controllers, api_permissions
-    c.execute("SELECT id, api_id, endpoint_code, app_id, method, endpoint_path FROM api_endpoint_registry;")
-    endpoints_all = c.fetchall()
-    
-    req_schemas = []
-    res_schemas = []
-    api_svcs = []
-    api_ctrls = []
-    api_perms = []
-    
-    default_schema = '{"type": "object", "properties": {"id": {"type": "integer"}}}'
-    
-    for ep in endpoints_all:
-        ep_id = validated_api_endpoint_id(c, ep)
-        ep_code = ep['endpoint_code']
-        app_id = ep['app_id']
-        
-        req_schemas.append((ep_id, 1, f"Req_{ep_code}", default_schema))
-        res_schemas.append((ep_id, 1, f"Res_{ep_code}", default_schema))
-        
-        api_svcs.append((app_id, 1, f"{ep_code}_service", f"services/api/{ep_code}_service.ts", "implemented"))
-        api_ctrls.append((app_id, 1, f"{ep_code}_controller", f"services/controllers/{ep_code}_controller.ts", "implemented"))
-        
-        for role_id in roles.keys():
-            api_perms.append((ep_id, role_id, 1, f"api_permission_{ep_code}", 1))
-            
-    c.executemany("""
-        INSERT INTO api_request_schemas (api_id, runtime_artifact_id, schema_name, schema_json)
-        VALUES (?, ?, ?, ?)
-    """, req_schemas)
-    c.executemany("""
-        INSERT INTO api_response_schemas (api_id, runtime_artifact_id, schema_name, schema_json)
-        VALUES (?, ?, ?, ?)
-    """, res_schemas)
-    c.executemany("""
-        INSERT INTO api_services (app_id, runtime_artifact_id, service_name, file_path, status)
-        VALUES (?, ?, ?, ?, ?)
-    """, api_svcs)
-    c.executemany("""
-        INSERT INTO api_controllers (app_id, runtime_artifact_id, controller_name, file_path, status)
-        VALUES (?, ?, ?, ?, ?)
-    """, api_ctrls)
-    c.executemany("""
-        INSERT INTO api_permissions (api_id, role_id, runtime_artifact_id, permission_key, can_access)
-        VALUES (?, ?, ?, ?, ?)
-    """, api_perms)
-    print(f"Hydrated API request/response schemas, services, controllers, and permissions.")
+    # K. Do not manufacture API contracts, handlers, or authority from identities.
+    # Endpoint linkage proves naming only. Synthetic object schemas, fictitious
+    # implemented service paths, and grants for every role have no reviewed origin.
+    print("Skipped API contract/permission hydration: reviewed endpoint contracts required.")
 
     # L. Hydrate workflow_definitions & workflow_steps
     screens_by_role = {}
