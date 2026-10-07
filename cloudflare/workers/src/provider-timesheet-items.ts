@@ -1,5 +1,5 @@
 import {summaryRows} from './summary-results';
-import {recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
+import {pageRows,recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 
@@ -44,7 +44,7 @@ export async function providerTimesheetItems(request:Request,env:Env,path:string
         if(summary){
           const total=count(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT sheet.status'+scope+' GROUP BY sheet.status) groups',values)).rows).count);
           const rows=(await db.query('SELECT sheet.status,COUNT(*)::int AS count,SUM(item.minutes)::text AS "totalMinutes"'+scope+' GROUP BY sheet.status ORDER BY sheet.status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          const groups=summaryRows(rows,Number(limit),['status']).map(row=>{
+          const groups=summaryRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit),['status']).map(row=>{
             if(row.status!==null&&typeof row.status!=='string'||typeof row.totalMinutes!=='string'||! /^-?\d+$/.test(row.totalMinutes))throw Error('Invalid timesheet item summary');
             return {status:row.status,count:count(row.count),totalMinutes:row.totalMinutes};
           });
@@ -59,7 +59,7 @@ export async function providerTimesheetItems(request:Request,env:Env,path:string
         }
         const total=count(requiredRow((await db.query('SELECT COUNT(*)::int AS count'+scope,values)).rows).count);
         const rows=(await db.query('SELECT '+fields+scope+' ORDER BY item.created_at DESC,item.id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-        return json({items:recordRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        return json({items:recordRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
       }finally{await db.query('ROLLBACK');}
     });
   }catch{return json({error:'Timesheet item data unavailable'},503,safe);}

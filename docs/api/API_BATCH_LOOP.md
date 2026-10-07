@@ -403,3 +403,67 @@ New gateway regressions exercise all 50 batch families, including malformed IDs,
 Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
 
 Local validation: 2,423 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37613650641 at 32107db6e638f1c9969711579f2401d0bab4e218. PR #117 merged as 48d0accde4ce4a9bf081e382e0dfe1fd4c4bd86a. Latest completed batch is 438; next batch is 439. No deployment or production database changes.
+
+
+## Iteration 19 — batches 439–488, count and offset consistency, in review
+
+- Batch 439 client invoices.
+- Batch 440 owned payments.
+- Batch 441 nested invoice payments.
+- Batch 442 client booking requests.
+- Batch 443 client visits.
+- Batch 444 client bookings.
+- Batch 445 provider documents.
+- Batch 446 provider visits.
+- Batch 447 provider availability.
+- Batch 448 timesheet items.
+- Batch 449 client /consents.
+- Batch 450 client /service-authorizations.
+- Batch 451 client /waitlist.
+- Batch 452 client /feedback.
+- Batch 453 client /care-feedback.
+- Batch 454 client /conversation-threads.
+- Batch 455 client /family-links.
+- Batch 456 client /alert-records.
+- Batch 457 client /insurance-claim-records.
+- Batch 458 client /prescription-records.
+- Batch 459 client /care-plan-records.
+- Batch 460 client /assessment-records.
+- Batch 461 client /medication-reconciliation-records.
+- Batch 462 client /shift-log-records.
+- Batch 463 client /adl-records.
+- Batch 464 client /vital-observation-records.
+- Batch 465 client /behavior-observation-records.
+- Batch 466 client /nutrition-observation-records.
+- Batch 467 client /mobility-observation-records.
+- Batch 468 client /infection-checklist-records.
+- Batch 469 client /progress-note-records.
+- Batch 470 client /care-follow-up-records.
+- Batch 471 client /family-notification-records.
+- Batch 472 client /inventory-item-records.
+- Batch 473 client /purchase-order-records.
+- Batch 474 client /patient-vital-records.
+- Batch 475 client /medication-administration-records.
+- Batch 476 provider /conversation-threads.
+- Batch 477 provider /timesheets.
+- Batch 478 provider /availability-overrides.
+- Batch 479 provider /mileage-logs.
+- Batch 480 provider /payouts.
+- Batch 481 provider /performance-reviews.
+- Batch 482 provider /visit-check-events.
+- Batch 483 provider /visit-matches.
+- Batch 484 provider /shift-assignment-records.
+- Batch 485 provider /handover-records.
+- Batch 486 provider /authored-visit-note-records.
+- Batch 487 provider /authored-checklist-records.
+- Batch 488 provider /training-assignment-records.
+
+Existing client/provider base lists, timesheet items and all registered client/provider/personal pages validate the relationship between returned rows, reported total and requested offset in their existing read-only repeatable-read snapshot. A page cannot contain more rows than min(limit, max(0,total-offset)). The same guard covers every existing supported summary, where total counts groups rather than source records. Typed safe-integer pagination inputs and bounded object rows are required before projection.
+
+Understated totals, nonempty zero-total pages and rows at or beyond an exhausted offset use existing sanitized no-store 503 responses and rollback. Partial pages remain permitted; this checks contradictions rather than requiring full pages. Valid final pages, empty/exhausted pages, hasMore calculation, explicit projections, decimal/date and identity validation, missing details, singleton contracts, active bearer authority, owner/tenant joins and budgets remain.
+
+New gateway regressions exercise total/offset contradictions and valid final/empty pages across all 50 numbered client/provider list families plus every registered personal list and supported summary. Existing identity and group corruption fixtures now provide sufficient totals so their original validation still receives independent coverage. Real PostgreSQL page helpers verify final-page cardinality. A separate disposable PostgreSQL test changes only the adapter's returned count after real SQL, verifies rejection and rollback, and compares all stored fixture rows before and after for client/provider/personal lists and summaries.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,579 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.

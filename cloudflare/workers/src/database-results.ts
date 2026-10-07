@@ -37,3 +37,13 @@ export function recordRows(value:unknown,maximum:number):Record<string,unknown>[
   seen.add(id);return row;
  });
 }
+
+/** A page cannot contain rows beyond its count in the same read snapshot.
+ * Partial pages remain valid; this checks contradictions, not page fullness.
+ */
+export function pageRows(value:unknown,limit:number,offset:number,total:number):Record<string,unknown>[] {
+ if(!Number.isSafeInteger(limit)||limit<1||limit>100||!Number.isSafeInteger(offset)||offset<0||offset>100000||!Number.isSafeInteger(total)||total<0)throw Error('Invalid database pagination');
+ const rows=resultRows(value,limit);
+ if(rows.length>Math.max(0,total-offset))throw Error('Inconsistent database pagination');
+ return rows;
+}
