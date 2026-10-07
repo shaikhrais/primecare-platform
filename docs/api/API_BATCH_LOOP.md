@@ -165,7 +165,7 @@ Disposable PostgreSQL checks inject infinity and year-10000 timestamps into owne
 
 Local validation: 1,845 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37554565922 at 06ae62d8b1089421fcd688eec5565abd6cda0f91. PR #110 merged as e973f171fe4f1668c14292283e55b6aee399f531. Latest completed batch is 298; next batch is 299. No deployment or production database changes.
 
-## Iteration 12 — batches 299–303, password mutation results, in review
+## Iteration 12 — batches 299–303, password mutation results, merged
 
 | Batch | Existing handler family | Change |
 | --- | --- | --- |
@@ -181,4 +181,4 @@ Twenty-eight new focused fixtures and one grouped gateway regression cover inval
 
 Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
 
-Local validation: 1,874 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.
+Local validation: 1,874 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37556707433 at 03b0f4f230df14948afe3979dd433974a0f570b0. PR #111 merged as 7ed767f13eb913c07a1419b3d25108f22931a287. Latest completed batch is 303; next batch is 304. No deployment or production database changes.
