@@ -1,3 +1,4 @@
+import {optionalRow,scopedActor} from './database-results';
 import {accountId} from './account-read-projection';
 
 /** Validate claims before session issuance or serialization; never coerce values. */
@@ -14,4 +15,11 @@ export function mutatedAccount(row: Record<string, unknown>, expected: {id: stri
       expected.email !== undefined && row.email !== expected.email || row.roles !== expected.role ||
       row.status !== expected.status || row.tenant_id !== expected.tenantId) throw Error('Invalid account mutation result');
   return {id, email: row.email, roles: row.roles, status: row.status, tenant_id: row.tenant_id};
+}
+
+/** Privileged routes validate database authority before consulting role policy. */
+export function privilegedActor(value:unknown): (Record<string,unknown> & {id:string;roles:string;tenant_id:string|null}) | null {
+ const row=optionalRow(value);if(!row)return null;
+ const scope=scopedActor([row])!,claims=authIdentity(row);
+ return {...row,id:scope.id,roles:claims.roles,tenant_id:scope.tenant_id};
 }
