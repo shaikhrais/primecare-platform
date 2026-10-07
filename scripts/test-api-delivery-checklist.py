@@ -24,6 +24,20 @@ class ChecklistTests(unittest.TestCase):
         self.assertEqual(data['firstWorkPackage']['total'],1)
         self.assertEqual(data['firstWorkPackage']['resolved'],0)
 
+    def test_retirements_preserve_baseline_without_earning_unit_api_credit(self):
+        api='POST /v1/auth/retired'
+        ledger={api:{'reason':'No matching workflow','evidence':['review.json'],'declarationIds':[9]}}
+        data=module.build([row(1)],retirement_ledger=ledger)
+        self.assertEqual(data['summary']['uniqueOperations'],2)
+        self.assertEqual(data['summary']['activeUniqueOperations'],1)
+        self.assertEqual(data['summary']['retiredOperations'],1)
+        self.assertEqual(data['summary']['stages']['retired_with_evidence'],1)
+        retired=next(o for o in data['operations'] if o['api']==api)
+        self.assertFalse(retired['unitEvidenceRecorded'])
+        self.assertEqual(data['summary']['pendingByDeclaredMethod'],{})
+        with self.assertRaises(ValueError):module.build([row(1)],retirement_ledger={'GET /v1/auth/example':ledger[api]})
+        with self.assertRaises(ValueError):module.build([row(1)],retirement_ledger={api:{'reason':'Insufficient evidence'}})
+
     def test_fixed_package_denominator_and_retirement_evidence(self):
         package={'name':'fixed','operations':['GET /v1/auth/example','POST /v1/auth/example'],'retirements':{}}
         data=module.build([row(1)],package)

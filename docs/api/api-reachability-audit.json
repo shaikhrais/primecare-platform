@@ -3,24 +3,24 @@
   "request": "Declared method with no bearer/cookie/tenant override; GET has no body, other methods use empty JSON; path parameters use synthetic audit-record IDs.",
   "database": "Connections disabled before SQL; no email or external requests.",
   "summary": {
-    "uniquePendingOperations": 1062,
-    "reviewed": 1062,
+    "uniquePendingOperations": 1060,
+    "reviewed": 1060,
     "classifications": {
       "gateway_route_not_found": 1016,
-      "declared_method_rejected": 6,
+      "declared_method_rejected": 4,
       "credential_or_authority_required": 1,
       "service_status_only": 2,
       "worker_route_not_found": 37
     }
   },
   "sourceHashes": {
-    "docs/api/api-execution-inventory.json": "38bbb2112ae47de95daa4fcc0cbb07fb2b418cd59908a4c7bcf76c1f682edd46",
+    "docs/api/api-execution-inventory.json": "73865ad1df4d0fef5f56e7fb899e45259bcfdda1994d479c5ca13645dd9e253c",
     "scripts/audit-api-reachability.mjs": "76db548f8db687f5dfba0f113b4edd5e972542719330dfee62e4943f576e810f",
     "cloudflare/workers/src/account-admin.ts": "b93b16c000f0c02e387fef5b3566b79f2c786f8b62fb23176471b506390d9b92",
     "cloudflare/workers/src/account-management.ts": "4508680cbafbf98725d54103e1d759865d2f2a3742b3f6f960880a3166632b09",
     "cloudflare/workers/src/account-policy.json": "74d51cb199e3ac6522acd0723561d7af93327bb80114ad8de96b5ddebdc432ce",
     "cloudflare/workers/src/account-read-projection.ts": "9a0b5e79d92f9878b8521f67a237fba0e88430f27122478bf63f5e7723333b0e",
-    "cloudflare/workers/src/api-execution-inventory.json": "6a3f120a96eeb8da650595d33e1279f46c467337b141dd80531a931b69050ee0",
+    "cloudflare/workers/src/api-execution-inventory.json": "5bfbb685f0b95d53765d219f445c04ae4d6d1152ffd8eaeaacbd5a1339517939",
     "cloudflare/workers/src/audit-confirmation.ts": "1580f31385bdbd842a78583caa5c8936f88089c2964ab2feb63e1e1cf666606c",
     "cloudflare/workers/src/auth-projection.ts": "ba81cd5f65cf27c48b642c004e9a0919eb48bd4599fc76af3d1e484968dbc7da",
     "cloudflare/workers/src/auth-rate-limit.ts": "57fc7f10de02980d1496d400c033715ee30a43c90f6b2d32171278bd7edd0e84",
@@ -4954,25 +4954,6 @@
       "productionVerified": false
     },
     {
-      "api": "POST /v1/client/home/profile",
-      "probePath": "/v1/client/home/profile",
-      "declarationIds": [
-        235
-      ],
-      "classification": "declared_method_rejected",
-      "status": 405,
-      "allow": "GET",
-      "forwarded": [
-        {
-          "binding": "CLIENT",
-          "workerPath": "/home/profile"
-        }
-      ],
-      "databaseConnectionAttempts": 0,
-      "businessOperationVerified": false,
-      "productionVerified": false
-    },
-    {
       "api": "POST /v1/client/home/stats",
       "probePath": "/v1/client/home/stats",
       "declarationIds": [
@@ -4985,25 +4966,6 @@
         {
           "binding": "CLIENT",
           "workerPath": "/home/stats"
-        }
-      ],
-      "databaseConnectionAttempts": 0,
-      "businessOperationVerified": false,
-      "productionVerified": false
-    },
-    {
-      "api": "POST /v1/client/invoices",
-      "probePath": "/v1/client/invoices",
-      "declarationIds": [
-        239
-      ],
-      "classification": "declared_method_rejected",
-      "status": 405,
-      "allow": "GET",
-      "forwarded": [
-        {
-          "binding": "CLIENT",
-          "workerPath": "/invoices"
         }
       ],
       "databaseConnectionAttempts": 0,

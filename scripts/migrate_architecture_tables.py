@@ -4,6 +4,23 @@ import os
 PROJECT_ROOT = r"C:\Users\Admin2\Documents\GitHub\primecare-platform"
 DB_PATH = os.path.join(PROJECT_ROOT, ".agents", "governance", "governance.db")
 
+def validated_api_endpoint_id(cursor, registry_row):
+    """Registry IDs and API IDs are separate domains; reject drift, never guess.
+
+    Even a matching identity is metadata, not proof of scoped business authority.
+    """
+    targets = cursor.execute(
+        'SELECT id FROM api_endpoints WHERE http_method = ? AND route_path = ?',
+        (registry_row['method'], registry_row['endpoint_path']),
+    ).fetchall()
+    if len(targets) != 1:
+        raise ValueError(
+            f"API mapping rejected: registry id {registry_row['id']} "
+            f"{registry_row['method']} {registry_row['endpoint_path']} "
+            f"has {len(targets)} exact api_endpoints matches; no API-linked rows written"
+        )
+    return targets[0]['id']
+
 def main():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -981,7 +998,7 @@ def main():
     print(f"Hydrated layout behavior profiles for {len(layout_behavior_rows)} screens.")
 
     # K. Hydrate api_request_schemas, api_response_schemas, api_services, api_controllers, api_permissions
-    c.execute("SELECT id, endpoint_code, app_id FROM api_endpoint_registry;")
+    c.execute("SELECT id, api_id, endpoint_code, app_id, method, endpoint_path FROM api_endpoint_registry;")
     endpoints_all = c.fetchall()
     
     req_schemas = []
@@ -993,7 +1010,7 @@ def main():
     default_schema = '{"type": "object", "properties": {"id": {"type": "integer"}}}'
     
     for ep in endpoints_all:
-        ep_id = ep['id']
+        ep_id = validated_api_endpoint_id(c, ep)
         ep_code = ep['endpoint_code']
         app_id = ep['app_id']
         
