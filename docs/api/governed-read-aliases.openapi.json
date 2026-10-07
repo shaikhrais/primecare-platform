@@ -274,14 +274,16 @@
                         },
                         "total": {
                           "type": "integer",
-                          "minimum": 0
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "tasks": [
@@ -1638,14 +1640,16 @@
                         },
                         "total": {
                           "type": "integer",
-                          "minimum": 0
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "signoffs": [
@@ -1787,14 +1791,16 @@
                         },
                         "total": {
                           "type": "integer",
-                          "minimum": 0
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "incidents": [
@@ -1929,14 +1935,16 @@
                         },
                         "total": {
                           "type": "integer",
-                          "minimum": 0
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "reconciliations": [
@@ -2229,14 +2237,16 @@
                         },
                         "total": {
                           "type": "integer",
-                          "minimum": 0
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "audits": [
@@ -4330,14 +4340,16 @@
                         },
                         "total": {
                           "type": "integer",
-                          "minimum": 0
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "records": [
@@ -4471,14 +4483,16 @@
                         },
                         "total": {
                           "type": "integer",
-                          "minimum": 0
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "assessments": [
@@ -4608,14 +4622,16 @@
                         },
                         "total": {
                           "type": "integer",
-                          "minimum": 0
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "logs": [
@@ -4753,14 +4769,16 @@
                         },
                         "total": {
                           "type": "integer",
-                          "minimum": 0
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "plans": [

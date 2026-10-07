@@ -1,0 +1,307 @@
+{
+  "scope": "contract_alignment",
+  "authorityAdded": false,
+  "routesAdded": false,
+  "changes": [
+    {
+      "batch": 1051,
+      "service": "auth",
+      "path": "/me/activities/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1052,
+      "service": "auth",
+      "path": "/me/assigned-task-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1053,
+      "service": "auth",
+      "path": "/me/audit-signoff-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1054,
+      "service": "auth",
+      "path": "/me/authored-care-plan-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1055,
+      "service": "auth",
+      "path": "/me/authored-review-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1056,
+      "service": "auth",
+      "path": "/me/daily-entry-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1057,
+      "service": "auth",
+      "path": "/me/device-events/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1058,
+      "service": "auth",
+      "path": "/me/health-ids/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1059,
+      "service": "auth",
+      "path": "/me/medication-reconciliation-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1060,
+      "service": "auth",
+      "path": "/me/notifications/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1061,
+      "service": "auth",
+      "path": "/me/reported-incident-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1062,
+      "service": "auth",
+      "path": "/me/reviewed-timesheet-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1063,
+      "service": "auth",
+      "path": "/me/shift-logs/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1064,
+      "service": "auth",
+      "path": "/me/survey-submissions/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1065,
+      "service": "auth",
+      "path": "/me/technical-audit-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1066,
+      "service": "auth",
+      "path": "/me/telehealth-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1067,
+      "service": "auth",
+      "path": "/me/wellness-pulses/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1068,
+      "service": "client",
+      "path": "/alert-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1069,
+      "service": "client",
+      "path": "/assessment-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1070,
+      "service": "client",
+      "path": "/care-feedback/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1071,
+      "service": "client",
+      "path": "/care-plan-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1072,
+      "service": "client",
+      "path": "/consents/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1073,
+      "service": "client",
+      "path": "/conversation-threads/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1074,
+      "service": "client",
+      "path": "/family-links/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1075,
+      "service": "client",
+      "path": "/family-notification-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1076,
+      "service": "client",
+      "path": "/feedback/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1077,
+      "service": "client",
+      "path": "/insurance-claim-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1078,
+      "service": "client",
+      "path": "/medication-reconciliation-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1079,
+      "service": "client",
+      "path": "/prescription-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1080,
+      "service": "client",
+      "path": "/service-authorizations/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1081,
+      "service": "client",
+      "path": "/shift-log-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1082,
+      "service": "client",
+      "path": "/waitlist/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1083,
+      "service": "provider",
+      "path": "/availability-overrides/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1084,
+      "service": "provider",
+      "path": "/conversation-threads/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1085,
+      "service": "provider",
+      "path": "/mileage-logs/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1086,
+      "service": "provider",
+      "path": "/payouts/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1087,
+      "service": "provider",
+      "path": "/performance-reviews/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1088,
+      "service": "provider",
+      "path": "/timesheets/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1089,
+      "service": "provider",
+      "path": "/training-assignment-records/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1090,
+      "service": "provider",
+      "path": "/visit-check-events/summary",
+      "kind": "summary"
+    },
+    {
+      "batch": 1091,
+      "service": "provider",
+      "path": "/visit-matches/summary",
+      "kind": "summary"
+    },
+    {
+      "service": "auth",
+      "path": "/me/care-plan-follow-up-records",
+      "kind": "record",
+      "batch": 1092
+    },
+    {
+      "service": "auth",
+      "path": "/me/assigned-task-records",
+      "kind": "record",
+      "batch": 1093
+    },
+    {
+      "service": "auth",
+      "path": "/me/audit-signoff-records",
+      "kind": "record",
+      "batch": 1094
+    },
+    {
+      "service": "auth",
+      "path": "/me/reported-incident-records",
+      "kind": "record",
+      "batch": 1095
+    },
+    {
+      "service": "auth",
+      "path": "/me/assessment-records",
+      "kind": "record",
+      "batch": 1096
+    },
+    {
+      "service": "auth",
+      "path": "/me/medication-reconciliation-records",
+      "kind": "record",
+      "batch": 1097
+    },
+    {
+      "service": "auth",
+      "path": "/me/supervision-records",
+      "kind": "record",
+      "batch": 1098
+    },
+    {
+      "service": "auth",
+      "path": "/me/technical-audit-records",
+      "kind": "record",
+      "batch": 1099
+    },
+    {
+      "service": "auth",
+      "path": "/me/authored-care-plan-records",
+      "kind": "record",
+      "batch": 1100
+    }
+  ]
+}
