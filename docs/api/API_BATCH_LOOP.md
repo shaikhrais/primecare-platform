@@ -246,7 +246,7 @@ Supplemental runtime documentation adds no authority. Inventory remains 1,416 de
 Local validation: 1,963 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37558568217 at cfd5650b48a370e0dce098ec7ef0c8276d7a08ef. PR #113 merged as 60e5ea13f0f5fe61ab331d2df94332ac7aae0468. Latest completed batch is 333; next batch is 334. No deployment or production database changes.
 
 
-## Iteration 15 — batches 334–348, authentication and booking result boundaries, in review
+## Iteration 15 — batches 334–348, authentication and booking result boundaries, merged
 
 - Batch 334 maintenance actor.
 - Batch 335 account list actor.
@@ -270,4 +270,4 @@ Booking lifecycle checks actor, profile and session rows, replay cardinality, re
 
 New unit corruption regressions exercise these boundaries. Disposable PostgreSQL triggers suppress or corrupt session and booking audit inserts and assert unchanged snapshots after rejection. No routes, grants, authority promotions, deployment or production database changes. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked.
 
-Local validation: 2,033 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.
+Local validation: 2,033 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37559453465 at ca4cae0a1afd33a27d067aa0a9c0e88c8a7d2522. PR #114 merged as 6e89226a70e498c2e95977c95a1d4b2c92657dd2. Latest completed batch is 348; next batch is 349. No deployment or production database changes.
