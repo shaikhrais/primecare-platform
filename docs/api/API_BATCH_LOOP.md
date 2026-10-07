@@ -271,3 +271,32 @@ Booking lifecycle checks actor, profile and session rows, replay cardinality, re
 New unit corruption regressions exercise these boundaries. Disposable PostgreSQL triggers suppress or corrupt session and booking audit inserts and assert unchanged snapshots after rejection. No routes, grants, authority promotions, deployment or production database changes. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked.
 
 Local validation: 2,033 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37559453465 at ca4cae0a1afd33a27d067aa0a9c0e88c8a7d2522. PR #114 merged as 6e89226a70e498c2e95977c95a1d4b2c92657dd2. Latest completed batch is 348; next batch is 349. No deployment or production database changes.
+
+
+## Iteration 16 — batches 349–363, workspace metadata and account audit persistence, in review
+
+- Batch 349 workspace actor tenant validation.
+- Batch 350 workspace activity object rows.
+- Batch 351 workspace role group values.
+- Batch 352 client metric schema metadata.
+- Batch 353 provider metric schema metadata.
+- Batch 354 visit metric schema metadata.
+- Batch 355 invoice metric schema metadata.
+- Batch 356 schedule metric schema metadata.
+- Batch 357 personal session tenant validation.
+- Batch 358 confirmed personal revocation audit.
+- Batch 359 confirmed administrative revocation audit.
+- Batch 360 confirmed account management audit.
+- Batch 361 confirmed account creation audit.
+- Batch 362 confirmed own-password audit.
+- Batch 363 account adapter result shapes.
+
+Workspace authority validates an uncoerced tenant before reading organization data. Activity uses bounded object rows and role groups reject blank or oversized values. Each existing client/provider/visit/invoice/schedule metric validates a bounded, unique column-name list before deriving tenant-scoped SQL. Missing tenant columns remain unavailable; no global fallback is added.
+
+Personal session authority validates tenant types under the existing lock. Personal/admin session revocation, account management/creation and own-password changes require exactly one persisted audit row with a valid identity/timestamp and matching account/tenant/action/state bindings before reporting success. JSON states compare by keys and values, independent of PostgreSQL JSONB key order. Callers retain transactional rollback and only clear cookies after successful commit. Existing duplicate probes and created/updated/session identity rows use shared result-shape checks.
+
+New unit regressions corrupt metadata and audit identities, state, cardinality and timestamps and verify rollback/no success headers. Disposable PostgreSQL BEFORE INSERT triggers suppress or corrupt audit rows and require unchanged account/session/audit snapshots. Existing explicit projections, authorization, budgets, locks, tenant filters, nullable values and retry behavior remain.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,125 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.

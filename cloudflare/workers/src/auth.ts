@@ -1,3 +1,4 @@
+import {confirmedAudit} from './audit-confirmation';
 import {optionalRow,requiredRow,resultRows} from './database-results';
 import {accountId} from './account-read-projection';
 import {sourceLimitAllowed} from './source-limit-result';
@@ -280,15 +281,14 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
         }
         await db.query('SELECT pg_advisory_xact_lock(hashtext($1))',[email]);
         const duplicate = await db.query('SELECT id FROM users WHERE LOWER(email)=$1 LIMIT 1',[email]);
-        if (duplicate.rows.length) { await db.query('ROLLBACK'); return json({error:'Account cannot be created'},409,headers); }
+        if (optionalRow(duplicate.rows)) { await db.query('ROLLBACK'); return json({error:'Account cannot be created'},409,headers); }
         const createdId = crypto.randomUUID();
         const created = await db.query(
           "INSERT INTO users(email,tenant_id,roles,password_hash,status,id,updated_at) VALUES($1,$2,$3,$4,'active',$5,NOW()) RETURNING id,email,tenant_id,roles,status",
           [email,actor.tenant_id,role,await bcrypt.hash(password,12),createdId]);
-        if(created.rows.length!==1)throw Error('Invalid account creation result');
-        const createdUser = mutatedAccount(created.rows[0],{id:createdId,email,role,status:'active',tenantId:actor.tenant_id});
-        await db.query("INSERT INTO auth_account_audit(actor_user_id,target_user_id,tenant_id,action) VALUES($1,$2,$3,'account_created')",
-          [actor.id,createdUser.id,actor.tenant_id]);
+        const createdUser = mutatedAccount(requiredRow(created.rows),{id:createdId,email,role,status:'active',tenantId:actor.tenant_id});
+        confirmedAudit((await db.query("INSERT INTO auth_account_audit(actor_user_id,target_user_id,tenant_id,action) VALUES($1,$2,$3,'account_created') RETURNING id,actor_user_id,target_user_id,tenant_id,action,created_at",
+          [actor.id,createdUser.id,actor.tenant_id])).rows,{actor_user_id:actor.id,target_user_id:createdUser.id,tenant_id:actor.tenant_id,action:'account_created'});
         await db.query('COMMIT');
         return json({user:createdUser},201,headers);
       } catch(error) {
@@ -353,8 +353,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
       const result = await db.query(
         "SELECT u.id, u.roles FROM auth_sessions s JOIN users u ON u.id = s.user_id WHERE s.token_hash = $1 AND s.expires_at > NOW() AND LOWER(u.status) = 'active' LIMIT 1",
         [await sha256(token)]);
-      const user = result.rows[0];
-      if(result.rows.length>1)throw Error('Ambiguous session identity');
+      const user = optionalRow(result.rows);
       return user
         ? json({ ...authIdentity(user), status: 'authenticated' }, 200, { ...headers, 'cache-control': 'no-store' })
         : json({ error: 'Invalid session' }, 401, headers);

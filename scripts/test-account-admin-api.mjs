@@ -1,3 +1,4 @@
+import {auditFixture} from './auth-audit-fixtures.mjs';
 import {build} from 'esbuild';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
@@ -11,7 +12,7 @@ function fixture(role='ceo',found=true){actor=role?{id:'actor',roles:role,tenant
   if(sql.startsWith('SELECT id,actor_user_id')&&sql.includes('FROM auth_account_audit'))return {rows:[{id:'creation',actorUserId:'actor',targetUserId:'target',created_at:'2026-01-01T00:00:00Z',secret:'should-not-leak',...rowOverride}]};
   if(sql.startsWith('SELECT id FROM users')){assert.deepEqual(values,['target','tenant-a']);return {rows:target?[target]:[]};}
   if(sql.startsWith('WITH revoked AS'))return {rows:[{count}]};
-  if(sql.startsWith('INSERT INTO auth_management_audit')){if(failAudit)throw Error('private-audit-secret');return {rows:[]};}
+  if(sql.startsWith('INSERT INTO auth_management_audit')){if(failAudit)throw Error('private-audit-secret');return auditFixture(sql,values);}
   if(sql.startsWith('SELECT COUNT'))return {rows:[{count}]};
   if(sql.startsWith('SELECT created_at'))return {rows:[{created_at:'2026-01-01T00:00:00Z',expires_at:'2026-01-02T00:00:00Z',token_hash:'should-not-leak',...rowOverride}]};
   if(sql.startsWith('SELECT id,actor_user_id'))return {rows:[{id:'audit',actorUserId:'actor',targetUserId:'target',created_at:'2026-01-01T00:00:00Z',action:'sessions_revoked',previous:{role:'rmt',sessionCount:2,password:'should-not-leak'},current:{role:{private:'should-not-leak'},status:'inactive',sessionCount:0,key:'should-not-leak'},unexpected:'should-not-leak',...rowOverride}]};
@@ -117,3 +118,5 @@ for(const [name,path,invalid] of [
 }
 test('account detail retains registered nullable role and status fields',async()=>{fixture();rowOverride={roles:null,status:null};const r=await call('/admin/users/target');assert.equal(r.status,200);const data=await r.json();assert.equal(data.user.roles,null);assert.equal(data.user.status,null);});
 test('PostgreSQL Date instances serialize to contract timestamps for all admin reads',async()=>{for(const path of ['/admin/users/target','/admin/users/target/sessions','/admin/users/audit','/admin/users/creation-audit']){fixture();const date=new Date('2026-01-01T00:00:00Z');rowOverride={updated_at:date,created_at:date,expires_at:date};const r=await call(path);assert.equal(r.status,200);assert.ok((await r.text()).includes(date.toISOString()));}});
+
+for(const mode of ['missing','duplicate','identity','tenant','previous','current','timestamp'])test('batch 358–359 revocation audit '+mode,async()=>{fixture();const base=globalThis.__adminQuery;globalThis.__adminQuery=async(sql,v)=>{const r=await base(sql,v);if(sql.startsWith('INSERT INTO auth_management_audit')){if(mode==='missing')r.rows=[];else if(mode==='duplicate')r.rows.push({...r.rows[0]});else if(mode==='identity')r.rows[0].target_user_id='foreign';else if(mode==='tenant')r.rows[0].tenant_id='foreign';else if(mode==='previous')r.rows[0].previous_state.sessionCount=99;else if(mode==='current')r.rows[0].new_state.sessionCount=1;else r.rows[0].created_at='private-invalid-date';}return r;};const r=await call('/admin/users/target/sessions','DELETE');assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql==='COMMIT'));});

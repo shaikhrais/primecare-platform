@@ -1,5 +1,5 @@
 import {optionalRow,requiredRow,resultRows} from './database-results';
-import {authIdentity} from './auth-projection';
+import {privilegedActor} from './auth-projection';
 import {sourceLimitAllowed} from './source-limit-result';
 import registry from './workspace-registry.json';
 import {json, withDb, tokenFrom, sha256, type Env} from './auth';
@@ -7,15 +7,21 @@ import type {Client} from 'pg';
 import {accountTimestamp} from './account-read-projection';
 
 export function workspaceActivity(rows:unknown) {
-  if(!Array.isArray(rows)||rows.length>20)throw Error('Invalid workspace activity');
-  return rows.map(row=>{
-    if(!row||!['account_created','email_configuration_changed','test_email_accepted'].includes(row.action))throw Error('Invalid workspace activity action');
+  return resultRows(rows,20).map(row=>{
+    if(typeof row.action!=='string'||!['account_created','email_configuration_changed','test_email_accepted'].includes(row.action))throw Error('Invalid workspace activity action');
     return {action:row.action,created_at:accountTimestamp(row.created_at)};
   });
 }
 
 export function exactWorkspaceCount(value:unknown):number {if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid workspace count');return value;}
-export function workspaceRoleCounts(rows:Record<string,unknown>[]) {const seen=new Set<string>();return resultRows(rows).map(row=>{if(typeof row.role!=='string'||!row.role||seen.has(row.role))throw Error('Invalid workspace role group');seen.add(row.role);return {role:row.role,count:exactWorkspaceCount(row.count)};});}
+export function workspaceRoleCounts(rows:Record<string,unknown>[]) {const seen=new Set<string>();return resultRows(rows).map(row=>{if(typeof row.role!=='string'||!row.role.trim()||row.role.length>200||seen.has(row.role))throw Error('Invalid workspace role group');seen.add(row.role);return {role:row.role,count:exactWorkspaceCount(row.count)};});}
+/** Schema metadata must be a unique list of PostgreSQL column names. */
+export function workspaceColumns(rows:unknown) {
+ const seen=new Set<string>();return resultRows(rows,1600).map(row=>{
+  if(typeof row.attname!=='string'||!row.attname||new TextEncoder().encode(row.attname).length>63||row.attname.includes('\u0000')||seen.has(row.attname))throw Error('Invalid workspace schema metadata');
+  seen.add(row.attname);return row.attname;
+ });
+}
 export type Actor = {id:string;roles:string;tenant_id:string};
 export function visiblePages(role:string) {
   return registry.screens.filter(s=>s.renderer!=='account' && s.grants.some(g=>g.role===role && g.view===1));
@@ -43,8 +49,8 @@ export async function overview(db:Client,actor:Actor) {
     // Never read an unscoped table. Missing tenant bindings are unavailable,
     // rather than a fabricated zero or a global healthcare record count.
     for(const table of ['clients','providers','visits','invoices','schedules']) {
-      const fields=(await db.query(`SELECT a.attname FROM pg_attribute a WHERE
-        a.attrelid=to_regclass($1) AND a.attnum>0 AND NOT a.attisdropped`,[table])).rows.map(r=>r.attname);
+      const fields=workspaceColumns((await db.query(`SELECT a.attname FROM pg_attribute a WHERE
+        a.attrelid=to_regclass($1) AND a.attnum>0 AND NOT a.attisdropped`,[table])).rows);
       if(!fields.includes('tenant_id')) {metrics.push({code:table,available:false});continue;}
       const result=await db.query(`SELECT COUNT(*)::int AS count FROM "${table}" WHERE tenant_id::text=$1`,[String(actor.tenant_id)]);
       metrics.push({code:table,available:true,count:exactWorkspaceCount(requiredRow(result.rows).count)});
@@ -75,10 +81,8 @@ export async function workspace(request:Request,env:Env,path:string,headers:Head
     return await withDb(env,async db=>{
       await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
       try {
-        const actorRow=optionalRow((await db.query(`SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id
+        const actor=privilegedActor((await db.query(`SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id
           WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1`,[await sha256(token)])).rows);
-        const claims=actorRow?authIdentity(actorRow):null;
-        const actor=actorRow&&claims?{id:claims.userId,roles:claims.roles,tenant_id:actorRow.tenant_id as string}:null;
         if(!actor)return json({error:'Invalid session'},401,safeHeaders);
         if(!actor.tenant_id || (request.headers.has('x-tenant-id') && request.headers.get('x-tenant-id')!==String(actor.tenant_id)))return json({error:'Forbidden'},403,safeHeaders);
         if(code) {const status=pageAccess(actor.roles,code);if(status!==200)return json({error:status===404?'Page not found':'Forbidden'},status,safeHeaders);}

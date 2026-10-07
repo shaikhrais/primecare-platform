@@ -1,3 +1,4 @@
+import {confirmedAudit} from './audit-confirmation';
 import {mutatedAccount} from './auth-projection';
 import {optionalRow,requiredRow,resultRows} from './database-results';
 import {accountId,accountUser} from './account-read-projection';
@@ -50,10 +51,10 @@ export async function manageAccount(db:Client, actor:{id:string;roles:string;ten
     !(target.status===null || typeof target.status==='string' && ['active','inactive'].includes(target.status.toLowerCase())))throw Error('Invalid managed account');
   const result=await db.query('UPDATE users SET roles=$1,status=$2,updated_at=NOW() WHERE id=$3 AND tenant_id=$4 RETURNING id,email,roles,status,tenant_id',
     [input.role,input.status,input.id,actor.tenant_id]);
-  if(result.rows.length!==1)throw Error('Invalid account update result');
-  const updatedUser=mutatedAccount(result.rows[0],{id:input.id,role:input.role,status:input.status,tenantId:actor.tenant_id});
+  const updatedUser=mutatedAccount(requiredRow(result.rows),{id:input.id,role:input.role,status:input.status,tenantId:actor.tenant_id});
   await db.query('DELETE FROM auth_sessions WHERE user_id=$1',[input.id]);
-  await db.query('INSERT INTO auth_management_audit(actor_user_id,target_user_id,tenant_id,previous_state,new_state) VALUES($1,$2,$3,$4,$5)',
-    [actor.id,input.id,actor.tenant_id,JSON.stringify({role:target.roles,status:target.status}),JSON.stringify({role:input.role,status:input.status})]);
+  const previous={role:target.roles,status:target.status},current={role:input.role,status:input.status};
+  confirmedAudit((await db.query('INSERT INTO auth_management_audit(actor_user_id,target_user_id,tenant_id,previous_state,new_state) VALUES($1,$2,$3,$4,$5) RETURNING id,actor_user_id,target_user_id,tenant_id,previous_state,new_state,created_at',
+    [actor.id,input.id,actor.tenant_id,JSON.stringify(previous),JSON.stringify(current)])).rows,{actor_user_id:actor.id,target_user_id:updatedUser.id,tenant_id:actor.tenant_id,previous_state:previous,new_state:current});
   return {status:200,body:{user:updatedUser}};
 }

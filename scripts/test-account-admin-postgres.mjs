@@ -70,6 +70,17 @@ try {
  }finally {await db.query('DROP TRIGGER test_corrupt_auth_return ON users');await db.query('DROP FUNCTION test_corrupt_auth_return()');}
  // Deliberately fail the audit insert, using a fixture trigger in this disposable
  // database. Both deletion and audit must roll back before a success is returned.
+ const auditSnapshot=async()=>({users:(await db.query('SELECT * FROM users ORDER BY id')).rows,sessions:(await db.query('SELECT * FROM auth_sessions ORDER BY token_hash')).rows,management:(await db.query('SELECT * FROM auth_management_audit ORDER BY id')).rows,creation:(await db.query('SELECT * FROM auth_account_audit ORDER BY id')).rows});
+ for(const mode of ['suppress','corrupt'])for(const [table,path,method,body] of [
+  ['auth_management_audit',sessions,'DELETE',undefined],
+  ['auth_management_audit','/admin/users','POST',{id:ids[1],role:'rmt',status:'inactive'}],
+  ['auth_account_audit','/register','POST',{email:randomUUID()+'@example.invalid',password:'fixture-new-password',role:'rmt'}]
+ ]) {
+  await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=ANY($1)',[[hash('manageAccount:'+ids[0]),hash('createAccount:'+ids[0])]]);
+  await db.query(`CREATE OR REPLACE FUNCTION fixture_admin_audit_confirmation() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN ${mode==='suppress'?'RETURN NULL;':"NEW.created_at := 'infinity'; RETURN NEW;"} END $$`);
+  await db.query('CREATE TRIGGER fixture_admin_audit_confirmation BEFORE INSERT ON '+table+' FOR EACH ROW EXECUTE FUNCTION fixture_admin_audit_confirmation()');
+  try{const before=await auditSnapshot();const r=await call(path,method,'',tokens[0],body);assert.equal(r.status,503);assert.equal(r.headers.get('cache-control'),'no-store');assert.deepEqual(await auditSnapshot(),before);checks++;}finally{await db.query('DROP TRIGGER fixture_admin_audit_confirmation ON '+table);}
+ }
  await db.query(`CREATE OR REPLACE FUNCTION test_admin_audit_failure() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF NEW.target_user_id::text='${ids[1]}' AND NEW.new_state->>'action'='sessions_revoked' THEN RAISE EXCEPTION 'fixture audit failure'; END IF; RETURN NEW; END $$`);
  await db.query('CREATE TRIGGER test_admin_audit_failure BEFORE INSERT ON auth_management_audit FOR EACH ROW EXECUTE FUNCTION test_admin_audit_failure()');triggerInstalled=true;
  assert.equal((await call(sessions,'DELETE')).status,503);assert.equal(Number((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[ids[1]])).rows[0].count),2);checks++;
