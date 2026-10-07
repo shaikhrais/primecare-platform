@@ -6,10 +6,12 @@ on:
     branches: [main]
     paths:
       - 'scripts/reconcile_governance_screens.py'
+      - 'scripts/test-reconcile-governance-screens.py'
+      - 'cloudflare/workers/src/workspace-registry.json'
       - '.github/workflows/reconcile-screen-governance.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: reconcile-screen-governance
@@ -20,34 +22,48 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout repository
+      - name: Checkout reviewed sources
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Reconcile source evidence into governance database
+      - name: Test auditor and derive disposable metadata
         run: |
-          python scripts/reconcile_governance_screens.py --write --report governance-screen-audit.json
-          python scripts/reconcile_governance_screens.py --check
+          python scripts/test-reconcile-governance-screens.py
+          python - <<'PYCODE'
+          import hashlib, json, os, sqlite3
+          from pathlib import Path
+          seed = Path('.agents/governance/governance.db')
+          Path('governance-seed-digest.json').write_text(json.dumps({'sha256': hashlib.sha256(seed.read_bytes()).hexdigest()}))
+          source = sqlite3.connect('file:' + str(seed) + '?mode=ro', uri=True)
+          derived = sqlite3.connect(os.path.join(os.environ['RUNNER_TEMP'], 'screen-governance-derived.db'))
+          source.backup(derived)
+          derived.close()
+          source.close()
+          PYCODE
+          python scripts/reconcile_governance_screens.py --db "$RUNNER_TEMP/screen-governance-derived.db" --write --report governance-screen-reconciliation.json
+          python scripts/reconcile_governance_screens.py --db "$RUNNER_TEMP/screen-governance-derived.db" --check --report governance-screen-audit.json
+          python - <<'PYCODE'
+          import hashlib, json, os, sqlite3
+          from pathlib import Path
+          seed = Path('.agents/governance/governance.db')
+          assert hashlib.sha256(seed.read_bytes()).hexdigest() == json.loads(Path('governance-seed-digest.json').read_text())['sha256'], 'Tracked seed changed'
+          derived = sqlite3.connect(os.path.join(os.environ['RUNNER_TEMP'], 'screen-governance-derived.db'))
+          derived.row_factory = sqlite3.Row
+          archive = [dict(row) for row in derived.execute('SELECT * FROM screen_metadata_reconciliation_archive ORDER BY screen_id,original_digest')]
+          Path('governance-screen-metadata-archive.json').write_text(json.dumps(archive, indent=2))
+          assert derived.execute('SELECT COUNT(*) FROM screens WHERE active=1 AND production_ready<>0').fetchone()[0] == 0
+          derived.close()
+          PYCODE
+          git diff --exit-code -- .agents/governance/governance.db
 
-      - name: Commit reconciled database
-        shell: bash
-        run: |
-          if git diff --quiet -- .agents/governance/governance.db; then
-            echo "Governance database is already synchronized."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .agents/governance/governance.db
-          git commit -m "Reconcile governed screen metadata [skip ci]"
-          git push
-
-      - name: Upload evidence report
+      - name: Upload structural evidence and original metadata archive
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: governance-screen-audit
-          path: governance-screen-audit.json
+          name: governance-screen-source-audit
+          path: |
+            governance-screen-audit.json
+            governance-screen-reconciliation.json
+            governance-screen-metadata-archive.json
+            governance-seed-digest.json
           if-no-files-found: warn
           retention-days: 14
