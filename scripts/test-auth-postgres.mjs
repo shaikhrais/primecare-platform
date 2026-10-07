@@ -156,6 +156,11 @@ try {
       (SELECT COUNT(*)::int FROM auth_password_audit) AS password,
       (SELECT COUNT(*)::int FROM auth_password_resets) AS resets`)).rows,
   });
+  for(const mode of ['suppress','corrupt']) {
+    await db.query(`CREATE OR REPLACE FUNCTION fixture_session_result() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN ${mode==='suppress'?'RETURN NULL;':"NEW.token_hash := repeat('f',64); RETURN NEW;"} END $$`);
+    await db.query('CREATE TRIGGER fixture_session_result BEFORE INSERT ON auth_sessions FOR EACH ROW EXECUTE FUNCTION fixture_session_result()');
+    try{await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[loginHash]);const before=await snapshot();const r=await call('/login','POST',{email,password:changedPassword});assert.equal(r.status,mode==='suppress'?401:503);assert.equal(r.headers.get('set-cookie'),null);assert.deepEqual(await snapshot(),before);passed++;}finally{await db.query('DROP TRIGGER fixture_session_result ON auth_sessions');}
+  }
   env.EMAIL_FROM='PrimeCare <test@example.com>';
   env.EMAIL={send:async()=>assert.fail('malformed rate result must not send email')};
   try {

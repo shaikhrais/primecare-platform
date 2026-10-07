@@ -7,6 +7,7 @@ import bcrypt from 'bcryptjs';
 const fixtureHash = await bcrypt.hash('fixture-password', 4);
 let sessions, user, queries, failWrite, failRead, ambiguous, rateAttempts, changedBeforeInsert, createdOverride, creationRows, rateResult, configurationRows, configurationAuditRows, recoveryTenants;
 beforeEach(() => {
+  globalThis.__authQuery=baseAuthQuery;
   sessions = new Map(); queries = []; failWrite = false; failRead = false; ambiguous = false; rateAttempts=new Map(); changedBeforeInsert=false;createdOverride={};creationRows=1;
   rateResult=undefined;configurationRows=[];configurationAuditRows=[];recoveryTenants=[];
   user = { id: 'fixture-user', roles: 'fixture-role', tenant_id:'fixture-tenant', status: 'active', password_hash: fixtureHash };
@@ -29,7 +30,7 @@ globalThis.__authQuery = async (sql, values) => {
   if (sql.startsWith('INSERT INTO auth_sessions')) {
     if (failWrite) throw new Error('fixture-write-failure');
     if (changedBeforeInsert && sql.includes('FOR SHARE OF u')) return {rows:[]};
-    sessions.set(values[0], {userId: values[1], expired:false}); return {rows:[{token_hash:values[0]}]};
+    sessions.set(values[0], {userId: values[1], expired:false}); return {rows:[{token_hash:values[0],user_id:values[1]}]};
   }
   if (sql.startsWith('SELECT u.id')) {
     assert.match(sql, /s.expires_at\s*>\s*NOW\(\)/);
@@ -40,6 +41,7 @@ globalThis.__authQuery = async (sql, values) => {
   if (sql.startsWith('DELETE FROM auth_sessions')) { sessions.delete(values[0]); return {rows:[]}; }
   throw new Error('Unexpected SQL in auth test');
 };
+const baseAuthQuery=globalThis.__authQuery;
 const result = await build({entryPoints:['cloudflare/workers/src/auth.ts'],bundle:true,write:false,
   platform:'node',format:'esm',plugins:[{name:'fixture-db',setup(builder){
     builder.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));
@@ -406,3 +408,8 @@ test('corrupt stored recovery configuration stops before rate counters and email
  assert.equal(response.status,503);assert.deepEqual(await response.json(),{error:'Authentication service unavailable'});
  assert.equal(response.headers.get('cache-control'),'no-store');assert.ok(!queries.some(q=>q.sql.startsWith('INSERT')));
 });
+
+for(const rows of [null,[null],[{},{}],[{token_hash:'wrong',user_id:'fixture-user'}],[{token_hash:'wrong',user_id:null}]])test('batch 341 persisted session rejects '+JSON.stringify(rows),async()=>{const base=globalThis.__authQuery;globalThis.__authQuery=async(sql,v)=>{const r=await base(sql,v);if(sql.startsWith('INSERT INTO auth_sessions'))r.rows=rows;return r;};const r=await login();assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql==='COMMIT'));});
+for(const [path,method,body] of [['/maintenance/configuration','GET',undefined],['/admin/users/other-user','GET',undefined],['/admin/users','GET',undefined],['/register','POST',{email:'new@example.invalid',password:'new-password-fixture',role:'rmt'}],['/admin/users','POST',{id:'other-user',role:'rmt',status:'inactive'}],['/change-password','POST',{currentPassword:'fixture-password',newPassword:'new-password-fixture'}]])for(const change of (path==='/change-password'?[{id:1}]:[{id:1},{tenant_id:1},{roles:1}]))test('batch 334–340 actor '+path+' '+JSON.stringify(change),async()=>{user.roles='ceo';const token=(await (await login()).json()).token;Object.assign(user,change);queries=[];const r=await auth(request(path,method,body,token),env,path,{});assert.equal(r.status,503);assert.ok(!queries.some(q=>q.sql==='COMMIT'));});
+
+for(const rows of [null,[null],[{tenant_id:1}],[{},{},{}]])test('batch 342 recovery rejects malformed tenant lookup '+JSON.stringify(rows),async()=>{recoveryTenants=rows;const r=await auth(request('/forgot-password','POST',{email:'fixture@example.invalid'}),env,'/forgot-password',{});assert.equal(r.status,503);assert.equal(r.headers.get('cache-control'),'no-store');assert.ok(!queries.some(q=>q.sql.startsWith('INSERT INTO auth_password_resets')));});

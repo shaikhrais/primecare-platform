@@ -1,5 +1,7 @@
+import {optionalRow,requiredRow,resultRows} from './database-results';
+import {accountId} from './account-read-projection';
 import {sourceLimitAllowed} from './source-limit-result';
-import {authIdentity,mutatedAccount} from './auth-projection';
+import {authIdentity,mutatedAccount,privilegedActor} from './auth-projection';
 import {selfRecords} from './self-records';
 import {selfSessions} from './self-sessions';
 import {recoverPassword,resetPassword,validateRecovery} from './password-recovery';
@@ -77,7 +79,8 @@ export async function auth(request: Request, env: Env, path: string, headers: He
 /** Authenticate before creating a counter. Mutations revalidate under their
  * existing locks, so this preflight never replaces authorization or revocation. */
 async function mutationLimit(db:Client,token:string,operation:AuthOperation,headers:HeadersInit):Promise<Response|null> {
-  const actor=(await db.query("SELECT u.id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1",[await sha256(token)])).rows[0];
+  const actor=optionalRow((await db.query("SELECT u.id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1",[await sha256(token)])).rows);
+  if(actor)accountId(actor.id);
   if(!actor)return json({error:'Invalid session'},401,headers);
   const retryAfter=await authRateLimit(db,await sha256(operation+':'+String(actor.id)),operation);
   return retryAfter===null?null:json({error:'Too many authentication attempts'},429,
@@ -135,7 +138,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
       await db.query(mutating?'BEGIN':'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
       let finished=false;
       try {
-        const actor=(await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active'"+(mutating?' FOR SHARE OF u,s':' LIMIT 1'),[await sha256(token)])).rows[0];
+        const actor=privilegedActor((await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active'"+(mutating?' FOR SHARE OF u,s':' LIMIT 1'),[await sha256(token)])).rows);
         if(!actor)return json({error:'Invalid session'},401,headers);
         if(!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id)))return json({error:'Forbidden'},403,headers);
         const result=await accountAdministration(db,actor,adminRequest.input);
@@ -154,12 +157,12 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     return withDb(env,async db=>{
       await db.query('BEGIN');
       try {
-        const actor=(await db.query("SELECT u.id,u.email,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' FOR SHARE OF u,s",[await sha256(token)])).rows[0];
+        const actor=privilegedActor((await db.query("SELECT u.id,u.email,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' FOR SHARE OF u,s",[await sha256(token)])).rows);
         if(!actor){await db.query('ROLLBACK');return json({error:'Invalid session'},401,headers);}
         if(!actor.tenant_id || !maintenanceRoles.includes(String(actor.roles)) || (request.headers.has('x-tenant-id') && request.headers.get('x-tenant-id')!==String(actor.tenant_id))){await db.query('ROLLBACK');return json({error:'Forbidden'},403,headers);}
         await db.query('SELECT pg_advisory_xact_lock(hashtext($1))',['maintenance:'+String(actor.tenant_id)]);
         if(request.method==='POST') {const retry=await authRateLimit(db,await sha256('maintenance:'+String(actor.id)),'maintenance');if(retry!==null){await db.query('COMMIT');return json({error:'Too many configuration requests'},429,headers);}}
-        const result=await maintenance(db,env,actor,request.method,path,body);
+        const result=await maintenance(db,env,{...actor,tenant_id:actor.tenant_id,email:typeof actor.email==='string'?actor.email:''},request.method,path,body);
         await db.query('COMMIT');return json(result.body,result.status,headers);
       }catch(error){await db.query('ROLLBACK');throw error;}
     });
@@ -171,8 +174,9 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     return withDb(env,async db=>{
       let mail:MaintenanceEnv=env;
       if(path==='/forgot-password') {
-        const accounts=(await db.query("SELECT tenant_id FROM users WHERE LOWER(email)=$1 AND LOWER(status)='active' LIMIT 2",[input.email])).rows;
-        if(accounts.length===1 && accounts[0].tenant_id)mail=await configuredMail(db,env,String(accounts[0].tenant_id));
+        const accounts=resultRows((await db.query("SELECT tenant_id FROM users WHERE LOWER(email)=$1 AND LOWER(status)='active' LIMIT 2",[input.email])).rows,2);
+        if(accounts.length===1 && accounts[0].tenant_id!=null && typeof accounts[0].tenant_id!=='string')throw Error('Invalid recovery tenant');
+        if(accounts.length===1 && typeof accounts[0].tenant_id==='string' && accounts[0].tenant_id)mail=await configuredMail(db,env,accounts[0].tenant_id);
       }
       const result=path==='/forgot-password'?await recoverPassword(db,mail,input.email):await resetPassword(db,input);
       return json(result.body,result.status,headers);
@@ -189,9 +193,9 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
       if(limited)return limited;
       await db.query('BEGIN');
       try{
-        const user=(await db.query("SELECT u.id,u.password_hash FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' FOR UPDATE OF u,s",[await sha256(token)])).rows[0];
+        const user=optionalRow((await db.query("SELECT u.id,u.password_hash FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' FOR UPDATE OF u,s",[await sha256(token)])).rows);
         if(!user){await db.query('ROLLBACK');return json({error:'Invalid session'},401,headers);}
-        const result=await changePassword(db,user,input);
+        const result=await changePassword(db,{id:accountId(user.id),password_hash:typeof user.password_hash==='string'?user.password_hash:''},input);
         await db.query(result.status===200?'COMMIT':'ROLLBACK');
         return json(result.body,result.status,result.status===200?{...headers,'set-cookie':'session_token=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0'}:headers);
       }catch(error){await db.query('ROLLBACK');throw error;}
@@ -213,7 +217,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
       return await withDb(env,async db=>{
         await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
         try {
-          const actor=(await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1",[await sha256(token)])).rows[0];
+          const actor=privilegedActor((await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1",[await sha256(token)])).rows);
           if(!actor)return json({error:'Invalid session'},401,safe);
           if(!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id)))return json({error:'Forbidden'},403,safe);
           const result=await listAccounts(db,actor,new URL(request.url));return json(result.body,result.status,safe);
@@ -232,7 +236,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
       if(limited)return limited;
       await db.query('BEGIN');
       try{
-        const actor=(await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' FOR SHARE OF u,s",[await sha256(token)])).rows[0];
+        const actor=privilegedActor((await db.query("SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' FOR SHARE OF u,s",[await sha256(token)])).rows);
         if(!actor){await db.query('ROLLBACK');return json({error:'Invalid session'},401,headers);}
         const tenant=request.headers.get('x-tenant-id');
         if(tenant && tenant!==String(actor.tenant_id)){await db.query('ROLLBACK');return json({error:'Forbidden'},403,headers);}
@@ -264,7 +268,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
         const result = await db.query(
           "SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' FOR SHARE OF u,s",
           [await sha256(token)]);
-        const actor = result.rows[0];
+        const actor = privilegedActor(result.rows);
         const policy = accountPolicy as Record<string,string[]>;
         if (!actor) { await db.query('ROLLBACK'); return json({error:'Invalid session'},401,headers); }
         if (!actor.tenant_id || !Object.hasOwn(policy,String(actor.roles)) || !policy[String(actor.roles)].includes(role)) {
@@ -319,13 +323,20 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
       // Revalidate the checked credential while locking the user until the insert
       // commits. Password/status updates either win first (no session is issued),
       // or wait for this insert and then revoke it in their existing transaction.
-      const session = await db.query(
-        `INSERT INTO auth_sessions (token_hash, user_id, expires_at)
-         SELECT $1, u.id, NOW() + INTERVAL '12 hours' FROM users u
-         WHERE u.id=$2 AND u.password_hash=$3 AND LOWER(u.status)='active'
-         FOR SHARE OF u RETURNING token_hash`,
-        [await sha256(token), user.id, user.password_hash]);
-      if (session.rows.length !== 1) return json({error:'Invalid credentials'},401,headers);
+      const tokenHash=await sha256(token);
+      await db.query('BEGIN');
+      try {
+        const session = await db.query(
+          `INSERT INTO auth_sessions (token_hash, user_id, expires_at)
+           SELECT $1, u.id, NOW() + INTERVAL '12 hours' FROM users u
+           WHERE u.id=$2 AND u.password_hash=$3 AND LOWER(u.status)='active'
+           FOR SHARE OF u RETURNING token_hash,user_id`,
+          [tokenHash, user.id, user.password_hash]);
+        if(resultRows(session.rows).length===0){await db.query('ROLLBACK');return json({error:'Invalid credentials'},401,headers);}
+        const stored=requiredRow(session.rows);
+        if(stored.token_hash!==tokenHash || accountId(stored.user_id)!==identity.userId)throw Error('Invalid persisted session');
+        await db.query('COMMIT');
+      }catch(error){await db.query('ROLLBACK');throw error;}
       return json({ userId: identity.userId, role: identity.roles, token, status: 'authenticated' }, 200, {
         ...headers,
         'set-cookie': `session_token=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=43200`,

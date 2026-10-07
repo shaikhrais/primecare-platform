@@ -1,9 +1,10 @@
+import {privilegedActor} from './auth-projection';
 import {sourceLimitAllowed} from './source-limit-result';
 import catalog from './governance-api-registry.json';
 import execution from './api-execution-inventory.json';
 import registry from './workspace-registry.json';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
-import {overview,visiblePages,workspaceRoleCounts,type Actor} from './workspace';
+import {overview,visiblePages,workspaceRoleCounts} from './workspace';
 
 type RecordRow=Record<string,unknown>;
 type Query={limit:number;offset:number;search:string;app:string;role:string;screen:string};
@@ -128,8 +129,8 @@ export async function governanceApi(request:Request,env:Env,path:string,headers:
     return await withDb(env,async db=>{
       await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
       try {
-        const actor=(await db.query(`SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id
-          WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1`,[await sha256(token)])).rows[0] as Actor|undefined;
+        const actor=privilegedActor((await db.query(`SELECT u.id,u.roles,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id
+          WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active' LIMIT 1`,[await sha256(token)])).rows);
         if(!actor)return json({error:'Invalid session'},401,safe);
         if(!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id)))return json({error:'Forbidden'},403,safe);
         const granted=binding.gate==='inventory'?permissions[actor.roles]?.inventory===true:

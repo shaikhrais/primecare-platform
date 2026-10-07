@@ -1,3 +1,5 @@
+import {accountId} from './account-read-projection';
+import {scopedActor,optionalRow,requiredRow,boundRow,resultRows} from './database-results';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 
@@ -19,7 +21,7 @@ const projectEvent=(r:Record<string,unknown>)=>{
     !(r.action==='created'&&r.previous_status===null&&r.new_status==='pending'||r.action==='cancelled'&&r.previous_status==='pending'&&r.new_status==='cancelled'))throw Error('Invalid booking audit event');
   return {id:r.id,action:r.action,previous_status:r.previous_status,new_status:r.new_status,created_at:timestamp(r.created_at)};
 };
-const oneRow=(rows:Record<string,unknown>[])=>{if(rows.length!==1)throw Error('Invalid booking result cardinality');return rows[0];};
+const oneRow=requiredRow;
 const exactCount=(value:unknown)=>{if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid booking audit count');return value;};
 
 async function createInput(request:Request):Promise<Record<string,unknown>>{
@@ -60,30 +62,32 @@ export async function clientBookingLifecycle(request:Request,env:Env,path:string
     return await withDb(env,async db=>{
       await db.query(audit?'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY':'BEGIN');let committed=false;
       try{
-        const actor=(await db.query("SELECT u.id,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>clock_timestamp() AND LOWER(u.status)='active' LIMIT 1"+(audit?'':' FOR SHARE OF u'),[hash])).rows[0];
+        const actor=scopedActor((await db.query("SELECT u.id,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>clock_timestamp() AND LOWER(u.status)='active' LIMIT 1"+(audit?'':' FOR SHARE OF u'),[hash])).rows);
         if(!actor)return json({error:'Invalid session'},401,safe);
         if(!actor.tenant_id||request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id))return json({error:'Forbidden'},403,safe);
-        const profiles=(await db.query('SELECT id FROM client_profiles WHERE user_id::text=$1 AND tenant_id::text=$2 LIMIT 2'+(audit?'':' FOR SHARE'),[String(actor.id),String(actor.tenant_id)])).rows;
+        const profiles=resultRows((await db.query('SELECT id FROM client_profiles WHERE user_id::text=$1 AND tenant_id::text=$2 LIMIT 2'+(audit?'':' FOR SHARE'),[actor.id,actor.tenant_id])).rows,1);
         if(!profiles.length)return json({error:'Client profile not found'},404,safe);if(profiles.length!==1)return json({error:'Client data unavailable'},503,safe);
         // Recheck the session after acquiring user/profile locks.
-        if(!audit&&!(await db.query('SELECT 1 FROM auth_sessions WHERE token_hash=$1 AND user_id=$2 AND expires_at>clock_timestamp()',[hash,actor.id])).rows.length)return json({error:'Invalid session'},401,safe);
-        const scope=[String(profiles[0].id),String(actor.tenant_id)];
+        if(!audit&&!optionalRow((await db.query('SELECT 1 FROM auth_sessions WHERE token_hash=$1 AND user_id=$2 AND expires_at>clock_timestamp()',[hash,actor.id])).rows))return json({error:'Invalid session'},401,safe);
+        const scope=[accountId(profiles[0].id),actor.tenant_id];
         const filter='client_id::text=$1 AND tenant_id::text=$2 AND id::text=$3';
         if(audit){
-          if(!(await db.query('SELECT id FROM booking_requests WHERE '+filter,[...scope,match![1]])).rows.length)return json({error:'Booking request not found'},404,safe);
+          if(!boundRow((await db.query('SELECT id FROM booking_requests WHERE '+filter,[...scope,match![1]])).rows,match![1]))return json({error:'Booking request not found'},404,safe);
           const values=[match![1],String(actor.id),String(actor.tenant_id)],where='request_id=$1 AND actor_user_id=$2 AND tenant_id=$3';
-          const total=exactCount((await db.query('SELECT COUNT(*)::int AS count FROM booking_request_audit WHERE '+where,values)).rows[0].count);
-          const rows=(await db.query('SELECT id::text AS id,action,previous_status,new_status,created_at FROM booking_request_audit WHERE '+where+' ORDER BY created_at DESC,id DESC LIMIT $4 OFFSET $5',[...values,Number(limit),Number(offset)])).rows;
+          const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM booking_request_audit WHERE '+where,values)).rows).count);
+          const rows=resultRows((await db.query('SELECT id::text AS id,action,previous_status,new_status,created_at FROM booking_request_audit WHERE '+where+' ORDER BY created_at DESC,id DESC LIMIT $4 OFFSET $5',[...values,Number(limit),Number(offset)])).rows,Number(limit));
           return json({events:rows.map(projectEvent),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         await db.query('SELECT pg_advisory_xact_lock(hashtext($1))',[JSON.stringify([String(actor.id),String(actor.tenant_id),key])]);
-        const previous=(await db.query('SELECT request_id,request_hash,response_json FROM booking_request_audit WHERE actor_user_id=$1 AND tenant_id=$2 AND idempotency_key=$3',[String(actor.id),String(actor.tenant_id),key])).rows[0];
+        const previous=optionalRow((await db.query('SELECT request_id,request_hash,response_json FROM booking_request_audit WHERE actor_user_id=$1 AND tenant_id=$2 AND idempotency_key=$3',[actor.id,actor.tenant_id,key])).rows);
         if(previous){
-          if(!(await db.query('SELECT id FROM booking_requests WHERE '+filter,[...scope,previous.request_id])).rows.length)return json({error:'Booking request not found'},404,safe);
+          const replayId=accountId(previous.request_id);
+          if(!boundRow((await db.query('SELECT id FROM booking_requests WHERE '+filter,[...scope,replayId])).rows,replayId))return json({error:'Booking request not found'},404,safe);
+          if(typeof previous.request_hash!=='string'||!/^[a-f0-9]{64}$/.test(previous.request_hash))throw Error('Invalid booking replay hash');
           if(previous.request_hash!==fingerprint)return json({error:'Idempotency key already used for another request'},409,safe);
           const stored=previous.response_json;
           if(!stored||typeof stored!=='object'||Array.isArray(stored))throw Error('Invalid booking replay');
-          const response={request:project(stored.request,previous.request_id,create?'pending':'cancelled')};
+          const response={request:project((stored as Record<string,unknown>).request as Record<string,unknown>,replayId,create?'pending':'cancelled')};
           safe.set('idempotency-replayed','true');return json(response,create?201:200,safe);
         }
         let row:Record<string,unknown>,previousStatus:string|null=null;
@@ -91,12 +95,17 @@ export async function clientBookingLifecycle(request:Request,env:Env,path:string
         if(create){
           row=oneRow((await db.query('INSERT INTO booking_requests(id,client_id,tenant_id,service_type,preferred_date,preferred_time,notes,status,created_at,updated_at) VALUES($1,$2,$3,$4,$5,$6,$7,\'pending\',NOW(),NOW()) RETURNING '+fields,[requestId,...scope,input.service_type,input.preferred_date,input.preferred_time,input.notes])).rows);
         }else{
-          const owned=(await db.query('SELECT '+fields+' FROM booking_requests WHERE '+filter+' FOR UPDATE',[...scope,match![1]])).rows[0];
+          const owned=boundRow((await db.query('SELECT '+fields+' FROM booking_requests WHERE '+filter+' FOR UPDATE',[...scope,match![1]])).rows,match![1]);
           if(!owned)return json({error:'Booking request not found'},404,safe);if(owned.status!=='pending')return json({error:'Only pending requests can be cancelled'},409,safe);
           previousStatus='pending';row=oneRow((await db.query("UPDATE booking_requests SET status='cancelled',updated_at=NOW() WHERE "+filter+" AND status='pending' RETURNING "+fields,[...scope,match![1]])).rows);
         }
         const response={request:project(row,requestId,create?'pending':'cancelled')};
-        await db.query('INSERT INTO booking_request_audit(request_id,actor_user_id,tenant_id,action,previous_status,new_status,idempotency_key,request_hash,response_json) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',[String(row.id),String(actor.id),String(actor.tenant_id),create?'created':'cancelled',previousStatus,create?'pending':'cancelled',key,fingerprint,JSON.stringify(response)]);
+        const auditValues=[requestId,actor.id,actor.tenant_id,create?'created':'cancelled',previousStatus,create?'pending':'cancelled',key,fingerprint,JSON.stringify(response)];
+        const saved=requiredRow((await db.query('INSERT INTO booking_request_audit(request_id,actor_user_id,tenant_id,action,previous_status,new_status,idempotency_key,request_hash,response_json) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING id::text AS id,request_id,actor_user_id,tenant_id,action,previous_status,new_status,idempotency_key,request_hash,response_json,created_at',auditValues)).rows);
+        projectEvent(saved);
+        for(const [index,field] of ['request_id','actor_user_id','tenant_id','action','previous_status','new_status','idempotency_key','request_hash'].entries())if(saved[field]!==auditValues[index])throw Error('Invalid booking audit binding');
+        const stored=saved.response_json;
+        if(!stored||typeof stored!=='object'||Array.isArray(stored)||JSON.stringify({request:project((stored as Record<string,unknown>).request as Record<string,unknown>,requestId,create?'pending':'cancelled')})!==JSON.stringify(response))throw Error('Invalid persisted booking response');
         await db.query('COMMIT');committed=true;return json(response,create?201:200,safe);
       }finally{if(!committed)await db.query('ROLLBACK');}
     });

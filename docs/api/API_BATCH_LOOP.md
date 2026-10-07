@@ -244,3 +244,30 @@ Sixty-one new grouped gateway regressions cover every registered family, malform
 Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
 
 Local validation: 1,963 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37558568217 at cfd5650b48a370e0dce098ec7ef0c8276d7a08ef. PR #113 merged as 60e5ea13f0f5fe61ab331d2df94332ac7aae0468. Latest completed batch is 333; next batch is 334. No deployment or production database changes.
+
+
+## Iteration 15 — batches 334–348, authentication and booking result boundaries, in review
+
+- Batch 334 maintenance actor.
+- Batch 335 account list actor.
+- Batch 336 account administration actor.
+- Batch 337 mutation budget actor.
+- Batch 338 locked password actor.
+- Batch 339 locked account creation actor.
+- Batch 340 locked account management actor.
+- Batch 341 confirmed session insert.
+- Batch 342 recovery tenant rows.
+- Batch 343 governance actor.
+- Batch 344 booking actor/profile/session.
+- Batch 345 booking replay binding.
+- Batch 346 booking audit reads.
+- Batch 347 confirmed creation audit.
+- Batch 348 cancellation binding and confirmed audit.
+
+Privileged actor rows now require one object, a string account ID and role, and an uncoerced tenant. Mutation preflight validates identity before allocating a budget; locked authorization remains authoritative. Password authority, recovery tenant lookup and governance catalog reads enforce result shape and cardinality. Login confirms the persisted token hash and account inside a transaction before issuing a token or cookie.
+
+Booking lifecycle checks actor, profile and session rows, replay cardinality, request hash and current owned parent identity. Audit reads enforce parent binding, exact aggregate cardinality and requested page bounds. Creation and cancellation confirm every audit binding and the persisted response before commit; cancellation also verifies the locked target. Missing actors/profiles, valid empty pages and conflicting retries preserve their existing responses. Malformed adapter results use sanitized no-store failures and rollback.
+
+New unit corruption regressions exercise these boundaries. Disposable PostgreSQL triggers suppress or corrupt session and booking audit inserts and assert unchanged snapshots after rejection. No routes, grants, authority promotions, deployment or production database changes. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked.
+
+Local validation: 2,033 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.

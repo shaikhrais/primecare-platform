@@ -80,6 +80,12 @@ try{
  assert.equal((await call('/booking-requests/'+rollbackId+'/cancel','rollback-cancel')).status,503);
  assert.equal((await db.query('SELECT status FROM booking_requests WHERE id=$1',[rollbackId])).rows[0].status,'pending');assert.equal((await db.query("SELECT COUNT(*)::int AS count FROM booking_request_audit WHERE request_id=$1 AND action='cancelled'",[rollbackId])).rows[0].count,0);checks++;
  await db.query('ALTER TABLE booking_request_audit DROP CONSTRAINT reject_cancel_fixture');
+ // Audit RETURNING confirms persistence before either mutation can commit.
+ for(const mode of ['suppress','corrupt']) {
+  await db.query(`CREATE OR REPLACE FUNCTION fixture_booking_audit_result() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN ${mode==='suppress'?'RETURN NULL;':"NEW.request_hash := repeat('f',64); RETURN NEW;"} END $$`);
+  await db.query('CREATE TRIGGER fixture_booking_audit_result BEFORE INSERT ON booking_request_audit FOR EACH ROW EXECUTE FUNCTION fixture_booking_audit_result()');
+  try{for(const [path,key,body] of [['/booking-requests','audit-'+mode,input],['/booking-requests/'+rollbackId+'/cancel','audit-cancel-'+mode,undefined]]){const before=await snapshot();const r=await call(path,key,body);assert.equal(r.status,503);assert.equal(r.headers.get('cache-control'),'no-store');assert.deepEqual(await snapshot(),before);checks++;}}finally{await db.query('DROP TRIGGER fixture_booking_audit_result ON booking_request_audit');}
+ }
  // Missing audit storage must prevent creation, not produce unaudited success.
  await db.query('ALTER TABLE booking_request_audit RENAME TO booking_request_audit_hidden');
  try{const before=(await db.query('SELECT COUNT(*)::int AS count FROM booking_requests')).rows[0].count;assert.equal((await call('/booking-requests','missing-audit')).status,503);assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM booking_requests')).rows[0].count,before);checks++;}finally{await db.query('ALTER TABLE booking_request_audit_hidden RENAME TO booking_request_audit');}
