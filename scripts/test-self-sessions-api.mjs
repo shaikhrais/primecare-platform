@@ -1,3 +1,4 @@
+import {createHash} from 'node:crypto';
 import {auditFixture} from './auth-audit-fixtures.mjs';
 import {build} from 'esbuild';
 import {test} from 'node:test';
@@ -12,7 +13,7 @@ function fixture(){queries=[];actor={id:'own-user',tenant_id:'tenant-a'};attempt
  if(sql.startsWith('INSERT INTO auth_rate_limits'))return {rows:[{attempts:++attempts,retry_after:60}]};
  if(sql.startsWith('SELECT 1 FROM auth_sessions'))return {rows:recheck?[{}]:[]};
  if(sql.startsWith('SELECT COUNT')||sql.startsWith('WITH revoked'))return {rows:[{count}]};
- if(sql.startsWith('SELECT created_at'))return {rows:[{created_at:'2026-01-01T00:00:00Z',expires_at:'2026-01-02T00:00:00Z',current:true,token_hash:'never-expose-this',...rowOverride}]};
+ if(sql.startsWith('SELECT created_at'))return {rows:[{created_at:'2026-01-01T00:00:00Z',expires_at:'2026-01-02T00:00:00Z',current:true,token_hash:createHash('sha256').update('a'.repeat(43)).digest('hex'),...rowOverride}]};
  if(sql.startsWith('INSERT INTO auth_management_audit')){if(failAudit)throw Error('private-audit');return auditFixture(sql,values);}
  assert.ok(sql.startsWith('BEGIN')||['COMMIT','ROLLBACK'].includes(sql),sql);return {rows:[]};
 };}

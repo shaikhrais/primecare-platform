@@ -595,3 +595,62 @@ Gateway regressions cover sparse/inherited/getter array entries, inherited/class
 Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
 
 Local validation: 2,891 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37625916340 at 49b41663e837b901cd46955f03f6b7ef93dfc88d. PR #120 merged as 88b0488639f63beb691feca682fbd75638d02878. Latest completed batch is 588; next batch is 589. No deployment or production database changes.
+
+## Iteration 22 — batches 589–638 (in review)
+
+- Batch 589 account list: zero total.
+- Batch 590 account list: exhausted offset.
+- Batch 591 account list: malformed identity.
+- Batch 592 account list: duplicate identity.
+- Batch 593 account list: requested binding.
+- Batch 594 account list: invalid timestamp.
+- Batch 595 account list: compatible row shapes.
+- Batch 596 account list: sparse aggregate.
+- Batch 597 account list: empty exhausted page.
+- Batch 598 account list: valid final page and privacy.
+- Batch 599 creation audit: zero total.
+- Batch 600 creation audit: exhausted offset.
+- Batch 601 creation audit: malformed identity.
+- Batch 602 creation audit: duplicate identity.
+- Batch 603 creation audit: requested binding.
+- Batch 604 creation audit: invalid timestamp.
+- Batch 605 creation audit: compatible row shapes.
+- Batch 606 creation audit: sparse aggregate.
+- Batch 607 creation audit: empty exhausted page.
+- Batch 608 creation audit: valid final page and privacy.
+- Batch 609 management audit: zero total.
+- Batch 610 management audit: exhausted offset.
+- Batch 611 management audit: malformed identity.
+- Batch 612 management audit: duplicate identity.
+- Batch 613 management audit: requested binding.
+- Batch 614 management audit: invalid timestamp.
+- Batch 615 management audit: compatible row shapes.
+- Batch 616 management audit: sparse aggregate.
+- Batch 617 management audit: empty exhausted page.
+- Batch 618 management audit: valid final page and privacy.
+- Batch 619 admin sessions: zero total.
+- Batch 620 admin sessions: exhausted offset.
+- Batch 621 admin sessions: malformed identity.
+- Batch 622 admin sessions: duplicate identity.
+- Batch 623 admin sessions: requested binding.
+- Batch 624 admin sessions: invalid timestamp.
+- Batch 625 admin sessions: compatible row shapes.
+- Batch 626 admin sessions: sparse aggregate.
+- Batch 627 admin sessions: empty exhausted page.
+- Batch 628 admin sessions: valid final page and privacy.
+- Batch 629 personal sessions: zero total.
+- Batch 630 personal sessions: exhausted offset.
+- Batch 631 personal sessions: malformed identity.
+- Batch 632 personal sessions: duplicate identity.
+- Batch 633 personal sessions: requested binding.
+- Batch 634 personal sessions: invalid timestamp.
+- Batch 635 personal sessions: compatible row shapes.
+- Batch 636 personal sessions: sparse aggregate.
+- Batch 637 personal sessions: empty exhausted page.
+- Batch 638 personal sessions: valid final page and privacy.
+
+Account, creation audit, management audit, admin session and personal session pages now validate total/offset consistency and unique record identities. Filtered audits bind targets to the requested user. Session hashes are canonical private identities; personal current flags must match the bearer hash. Public fields and ownership SQL remain unchanged. Malformed reads return sanitized no-store errors and rollback. Dense null-prototype/frozen rows, empty exhausted pages and final pages retain support.
+
+Gateway fixtures and a real PostgreSQL adapter regression cover these boundaries, privacy, rollback and unchanged stored data. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,944 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI pending.

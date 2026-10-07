@@ -1,3 +1,4 @@
+import {createHash} from 'node:crypto';
 import {auditFixture} from './auth-audit-fixtures.mjs';
 import {build} from 'esbuild';
 import {test} from 'node:test';
@@ -10,7 +11,7 @@ const {validateSettings}=await load('cloudflare/workers/src/maintenance.ts');
 const actor={id:'actor',roles:'ceo',tenant_id:'tenant-a',email:'it@example.com'},date='2026-01-01T00:00:00Z';
 const user={id:'target',email:'target@example.com',roles:'rmt',status:'active',updated_at:date};
 const event={id:'event',actorUserId:'actor',targetUserId:'target',created_at:date,action:'account_updated',previous:{},current:{}};
-const session={created_at:date,expires_at:'2026-01-02T00:00:00Z',current:true};
+const session={created_at:date,expires_at:'2026-01-02T00:00:00Z',current:true,token_hash:createHash('sha256').update('a'.repeat(43)).digest('hex')};
 const settings={sender:'it@example.com',revision:1,templates:{}};
 function fixture(change=()=>undefined){
  const calls=[];let sends=0;

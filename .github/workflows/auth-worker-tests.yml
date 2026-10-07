@@ -88,3 +88,4 @@ jobs:
           node scripts/test-pagination-consistency-postgres.mjs
           node scripts/test-date-serialization-postgres.mjs
           node scripts/test-dense-result-postgres.mjs
+          node scripts/test-account-session-pages-postgres.mjs
