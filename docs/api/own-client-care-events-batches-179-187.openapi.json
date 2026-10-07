@@ -82,7 +82,8 @@
                             "format": "date-time"
                           }
                         }
-                      }
+                      },
+                      "maxItems": 100
                     },
                     "pagination": {
                       "type": "object",
@@ -94,13 +95,19 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -318,7 +325,8 @@
                             "format": "date-time"
                           }
                         }
-                      }
+                      },
+                      "maxItems": 100
                     },
                     "pagination": {
                       "type": "object",
@@ -330,13 +338,19 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -538,7 +552,8 @@
                             "format": "date-time"
                           }
                         }
-                      }
+                      },
+                      "maxItems": 100
                     },
                     "pagination": {
                       "type": "object",
@@ -550,13 +565,19 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -758,7 +779,8 @@
                             "format": "date-time"
                           }
                         }
-                      }
+                      },
+                      "maxItems": 100
                     },
                     "pagination": {
                       "type": "object",
@@ -770,13 +792,19 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -978,7 +1006,8 @@
                             "format": "date-time"
                           }
                         }
-                      }
+                      },
+                      "maxItems": 100
                     },
                     "pagination": {
                       "type": "object",
@@ -990,13 +1019,19 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -1198,7 +1233,8 @@
                             "format": "date-time"
                           }
                         }
-                      }
+                      },
+                      "maxItems": 100
                     },
                     "pagination": {
                       "type": "object",
@@ -1210,13 +1246,19 @@
                       ],
                       "properties": {
                         "limit": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
                         },
                         "offset": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
                         },
                         "total": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
