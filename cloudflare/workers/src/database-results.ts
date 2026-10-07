@@ -32,8 +32,7 @@ export function scopedActor(value:unknown):{id:string;tenant_id:string|null}|nul
  const row=optionalRow(value);if(!row)return null;
  const id=accountId(row.id),tenant=row.tenant_id;
  if(tenant===null || tenant===undefined || tenant==='')return {id,tenant_id:null};
- if(typeof tenant!=='string')throw Error('Invalid actor tenant');
- return {id,tenant_id:tenant};
+ return {id,tenant_id:accountId(tenant)};
 }
 export function boundRow(value:unknown,expected:string|null):Record<string,unknown>|null {
  const row=optionalRow(value);

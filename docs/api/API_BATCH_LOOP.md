@@ -654,3 +654,62 @@ Account, creation audit, management audit, admin session and personal session pa
 Gateway fixtures and a real PostgreSQL adapter regression cover these boundaries, privacy, rollback and unchanged stored data. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
 
 Local validation: 2,944 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37629952666 at e8038c658507ca21ead43eb8944473535fef3935. PR #121 merged as 284608ec1d879d1a1904b9ae7aaf6a474da5cc68. Latest completed batch is 638; next batch is 639. No deployment or production database changes.
+
+## Iteration 23 — batches 639–688 (in review)
+
+- Batch 639 client /invoices.
+- Batch 640 client /payments.
+- Batch 641 client /invoices/invoice/payments.
+- Batch 642 client /booking-requests.
+- Batch 643 client /visits.
+- Batch 644 client /bookings.
+- Batch 645 provider /documents.
+- Batch 646 provider /visits.
+- Batch 647 provider /availability.
+- Batch 648 provider /timesheet-items.
+- Batch 649 client /consents.
+- Batch 650 client /service-authorizations.
+- Batch 651 client /waitlist.
+- Batch 652 client /feedback.
+- Batch 653 client /care-feedback.
+- Batch 654 client /conversation-threads.
+- Batch 655 client /family-links.
+- Batch 656 client /alert-records.
+- Batch 657 client /insurance-claim-records.
+- Batch 658 client /prescription-records.
+- Batch 659 client /care-plan-records.
+- Batch 660 client /assessment-records.
+- Batch 661 client /medication-reconciliation-records.
+- Batch 662 client /shift-log-records.
+- Batch 663 client /adl-records.
+- Batch 664 client /vital-observation-records.
+- Batch 665 client /behavior-observation-records.
+- Batch 666 client /nutrition-observation-records.
+- Batch 667 client /mobility-observation-records.
+- Batch 668 client /infection-checklist-records.
+- Batch 669 client /progress-note-records.
+- Batch 670 client /care-follow-up-records.
+- Batch 671 client /family-notification-records.
+- Batch 672 client /inventory-item-records.
+- Batch 673 client /purchase-order-records.
+- Batch 674 client /patient-vital-records.
+- Batch 675 client /medication-administration-records.
+- Batch 676 provider /conversation-threads.
+- Batch 677 provider /timesheets.
+- Batch 678 provider /availability-overrides.
+- Batch 679 provider /mileage-logs.
+- Batch 680 provider /payouts.
+- Batch 681 provider /performance-reviews.
+- Batch 682 provider /visit-check-events.
+- Batch 683 provider /visit-matches.
+- Batch 684 provider /shift-assignment-records.
+- Batch 685 provider /handover-records.
+- Batch 686 provider /authored-visit-note-records.
+- Batch 687 provider /authored-checklist-records.
+- Batch 688 provider /training-assignment-records.
+
+Shared actor validation now requires nonempty tenant claims to follow the existing account identifier grammar before ownership SQL or privileged role policy. Missing/null/empty tenant claims retain denial semantics. This strengthens 50 numbered client/provider route families and their existing detail/summary readers; personal records, provider singleton, session and administrative readers retain the same shared protection. Valid UUID/text identities, null-prototype/frozen actor rows and parameterized owner/tenant joins are preserved.
+
+Gateway tests reject malformed tenant strings and non-string values before owned queries, check absent/mismatched tenant denial, and verify UUID/text tenant bindings and public privacy. Disposable real PostgreSQL faults alter returned actor values only, test list/summary/personal/account/session readers, confirm rollback and compare stored rows before/after. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 3,103 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI pending.
