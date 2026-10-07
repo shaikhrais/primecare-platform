@@ -1,6 +1,6 @@
 import {confirmedAudit} from './audit-confirmation';
 import {mutatedAccount} from './auth-projection';
-import {optionalRow,requiredRow,resultRows} from './database-results';
+import {optionalRow,requiredRow,pageRows,recordRows} from './database-results';
 import {accountId,accountUser} from './account-read-projection';
 import type {Client} from 'pg';
 import policy from './account-policy.json';
@@ -23,7 +23,7 @@ export async function listAccounts(db:Client,actor:{id:string;roles:string;tenan
   const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM users WHERE '+filter,values)).rows).count);
   const users=(await db.query('SELECT id,email,roles,status,updated_at FROM users WHERE '+filter+' ORDER BY LOWER(email),id LIMIT $6 OFFSET $7',
     [...values,Number(limit),Number(offset)])).rows;
-  return {status:200,body:{users:resultRows(users,Number(limit)).map(u=>accountUser(u,actor.id)),
+  return {status:200,body:{users:recordRows(pageRows(users,Number(limit),Number(offset),total),Number(limit)).map(u=>accountUser(u,actor.id)),
     assignableRoles:policy.ceo,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(offset)+Number(limit)<total}}};
 }
 

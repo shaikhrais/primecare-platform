@@ -1,5 +1,6 @@
+import {sessionRows} from './session-read-projection';
 import {confirmedAudit} from './audit-confirmation';
-import {scopedActor,optionalRow,requiredRow,resultRows} from './database-results';
+import {scopedActor,optionalRow,requiredRow,pageRows} from './database-results';
 import {sourceLimitAllowed} from './source-limit-result';
 import {accountId,accountTimestamp} from './account-read-projection';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
@@ -49,8 +50,8 @@ export async function selfSessions(request:Request,env:Env,path:string,headers:H
         return json({revokedSessions:count,status:'signed_out_all_devices'},200,safe);
       }
       const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1 AND expires_at>NOW()',[actor.id])).rows).count);
-      const rows=(await db.query('SELECT created_at,expires_at,(token_hash=$2) AS current FROM auth_sessions WHERE user_id=$1 AND expires_at>NOW() ORDER BY created_at DESC,expires_at DESC,token_hash LIMIT $3 OFFSET $4',[actor.id,hash,Number(limit),Number(offset)])).rows;
-      return json({sessions:resultRows(rows,Number(limit)).map(s=>{if(typeof s.current!=='boolean')throw Error('Invalid current-session flag');return {created_at:accountTimestamp(s.created_at),expires_at:accountTimestamp(s.expires_at),current:s.current};}),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(offset)+Number(limit)<total}},200,safe);
+      const rows=(await db.query('SELECT created_at,expires_at,token_hash,(token_hash=$2) AS current FROM auth_sessions WHERE user_id=$1 AND expires_at>NOW() ORDER BY created_at DESC,expires_at DESC,token_hash LIMIT $3 OFFSET $4',[actor.id,hash,Number(limit),Number(offset)])).rows;
+      return json({sessions:sessionRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit),hash).map(s=>{if(typeof s.current!=='boolean')throw Error('Invalid current-session flag');return {created_at:accountTimestamp(s.created_at),expires_at:accountTimestamp(s.expires_at),current:s.current};}),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(offset)+Number(limit)<total}},200,safe);
     }finally{if(!committed)await db.query('ROLLBACK');}
   }).catch(()=>json({error:'Session service unavailable'},503,safe));
 }

@@ -1,5 +1,6 @@
+import {sessionRows} from './session-read-projection';
 import {confirmedAudit} from './audit-confirmation';
-import {optionalRow,requiredRow,resultRows} from './database-results';
+import {optionalRow,requiredRow,pageRows,recordRows} from './database-results';
 import {accountId,accountTimestamp,accountUser,accountAuditIdentity} from './account-read-projection';
 import type {Client} from 'pg';
 import policy from './account-policy.json';
@@ -29,6 +30,7 @@ export function parseAccountAdminRequest(request:Request,path:string):Parsed {
   return {input:{operation,userId,limit:Number(limit),offset:Number(offset),includeExpired:expired==='true'}};
 }
 const pagination=(input:AdminInput,total:number)=>({limit:input.limit,offset:input.offset,total,hasMore:input.offset+input.limit<total});
+const auditIdentity=(row:Record<string,unknown>,userId:string)=>{const projected=accountAuditIdentity(row);if(userId&&projected.targetUserId!==userId)throw Error('Invalid audit target binding');return projected;};
 const safeState=(raw:unknown)=>{
   const state=(raw&&typeof raw==='object'?raw:{}) as Record<string,unknown>;
   return {role:typeof state.role==='string'&&policy.ceo.includes(state.role)?state.role:null,
@@ -53,7 +55,7 @@ export async function accountAdministration(db:Client,actor:Actor,input:AdminInp
     const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM auth_account_audit WHERE '+filter,values)).rows).count);
     const events=(await db.query(`SELECT id,actor_user_id::text AS "actorUserId",target_user_id::text AS "targetUserId",created_at
       FROM auth_account_audit WHERE ${filter} ORDER BY created_at DESC,id DESC LIMIT $3 OFFSET $4`,[...values,input.limit,input.offset])).rows;
-    return {status:200,body:{events:resultRows(events,input.limit).map(e=>({...accountAuditIdentity(e),action:'account_created'})),pagination:pagination(input,total)}};
+    return {status:200,body:{events:recordRows(pageRows(events,input.limit,input.offset,total),input.limit).map(e=>({...auditIdentity(e,input.userId),action:'account_created'})),pagination:pagination(input,total)}};
   }
   if(input.operation==='audit_read') {
     const values=[String(actor.tenant_id),input.userId];
@@ -64,7 +66,7 @@ export async function accountAdministration(db:Client,actor:Actor,input:AdminInp
       jsonb_build_object('role',previous_state->'role','status',previous_state->'status','sessionCount',previous_state->'sessionCount') AS previous,
       jsonb_build_object('role',new_state->'role','status',new_state->'status','sessionCount',new_state->'sessionCount') AS current
       FROM auth_management_audit WHERE ${filter} ORDER BY created_at DESC,id DESC LIMIT $3 OFFSET $4`,[...values,input.limit,input.offset])).rows;
-    return {status:200,body:{events:resultRows(rows,input.limit).map(r=>{if(typeof r.action!=='string' || !['account_updated','sessions_revoked'].includes(r.action))throw Error('Invalid account audit action');return {...accountAuditIdentity(r),action:r.action,previous:safeState(r.previous),current:safeState(r.current)};}),pagination:pagination(input,total)}};
+    return {status:200,body:{events:recordRows(pageRows(rows,input.limit,input.offset,total),input.limit).map(r=>{if(typeof r.action!=='string' || !['account_updated','sessions_revoked'].includes(r.action))throw Error('Invalid account audit action');return {...auditIdentity(r,input.userId),action:r.action,previous:safeState(r.previous),current:safeState(r.current)};}),pagination:pagination(input,total)}};
   }
   if(input.operation==='sessions_revoke'&&input.userId.toLowerCase()===String(actor.id).toLowerCase())return {status:403,body:{error:'Self revocation is not allowed'}};
   const target=optionalRow((await db.query('SELECT id FROM users WHERE id::text=$1 AND tenant_id::text=$2'+(input.operation==='sessions_revoke'?' FOR UPDATE':''),[input.userId,String(actor.tenant_id)])).rows);
@@ -80,6 +82,6 @@ export async function accountAdministration(db:Client,actor:Actor,input:AdminInp
   }
   const filter='user_id=$1'+(input.includeExpired?'':' AND expires_at>NOW()');
   const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE '+filter,[target.id])).rows).count);
-  const sessions=(await db.query('SELECT created_at,expires_at FROM auth_sessions WHERE '+filter+' ORDER BY created_at DESC,expires_at DESC,token_hash LIMIT $2 OFFSET $3',[target.id,input.limit,input.offset])).rows;
-  return {status:200,body:{userId:accountId(target.id),sessions:resultRows(sessions,input.limit).map(s=>({created_at:accountTimestamp(s.created_at),expires_at:accountTimestamp(s.expires_at)})),pagination:pagination(input,total)}};
+  const sessions=(await db.query('SELECT created_at,expires_at,token_hash FROM auth_sessions WHERE '+filter+' ORDER BY created_at DESC,expires_at DESC,token_hash LIMIT $2 OFFSET $3',[target.id,input.limit,input.offset])).rows;
+  return {status:200,body:{userId:accountId(target.id),sessions:sessionRows(pageRows(sessions,input.limit,input.offset,total),input.limit).map(s=>({created_at:accountTimestamp(s.created_at),expires_at:accountTimestamp(s.expires_at)})),pagination:pagination(input,total)}};
 }

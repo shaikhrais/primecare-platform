@@ -14,7 +14,7 @@ function fixture(role='ceo',found=true){actor=role?{id:'actor',roles:role,tenant
   if(sql.startsWith('WITH revoked AS'))return {rows:[{count}]};
   if(sql.startsWith('INSERT INTO auth_management_audit')){if(failAudit)throw Error('private-audit-secret');return auditFixture(sql,values);}
   if(sql.startsWith('SELECT COUNT'))return {rows:[{count}]};
-  if(sql.startsWith('SELECT created_at'))return {rows:[{created_at:'2026-01-01T00:00:00Z',expires_at:'2026-01-02T00:00:00Z',token_hash:'should-not-leak',...rowOverride}]};
+  if(sql.startsWith('SELECT created_at'))return {rows:[{created_at:'2026-01-01T00:00:00Z',expires_at:'2026-01-02T00:00:00Z',token_hash:'b'.repeat(64),...rowOverride}]};
   if(sql.startsWith('SELECT id,actor_user_id'))return {rows:[{id:'audit',actorUserId:'actor',targetUserId:'target',created_at:'2026-01-01T00:00:00Z',action:'sessions_revoked',previous:{role:'rmt',sessionCount:2,password:'should-not-leak'},current:{role:{private:'should-not-leak'},status:'inactive',sessionCount:0,key:'should-not-leak'},unexpected:'should-not-leak',...rowOverride}]};
   assert.ok(sql.startsWith('BEGIN')||['COMMIT','ROLLBACK'].includes(sql),sql);return {rows:[]};
  };
