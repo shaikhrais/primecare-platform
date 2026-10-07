@@ -655,7 +655,7 @@ Gateway fixtures and a real PostgreSQL adapter regression cover these boundaries
 
 Local validation: 2,944 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37629952666 at e8038c658507ca21ead43eb8944473535fef3935. PR #121 merged as 284608ec1d879d1a1904b9ae7aaf6a474da5cc68. Latest completed batch is 638; next batch is 639. No deployment or production database changes.
 
-## Iteration 23 — batches 639–688 (in review)
+## Iteration 23 — batches 639–688 (merged)
 
 - Batch 639 client /invoices.
 - Batch 640 client /payments.
@@ -712,4 +712,4 @@ Shared actor validation now requires nonempty tenant claims to follow the existi
 
 Gateway tests reject malformed tenant strings and non-string values before owned queries, check absent/mismatched tenant denial, and verify UUID/text tenant bindings and public privacy. Disposable real PostgreSQL faults alter returned actor values only, test list/summary/personal/account/session readers, confirm rollback and compare stored rows before/after. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants, authority promotions, deployment or production database changes.
 
-Local validation: 3,103 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI pending.
+Local validation: 3,103 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37640526635 at cc138ff6220ad7d7381b9ec2bab936c425a838fa. PR #122 merged as 879e0404cb6156194a58ed5b42b3805d4e5fc735. Latest completed batch is 688; next batch is 689. No deployment or production database changes.
