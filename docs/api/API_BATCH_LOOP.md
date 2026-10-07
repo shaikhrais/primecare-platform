@@ -967,7 +967,7 @@ Fifty existing paged read families now publish 1–200 character ASCII record id
 
 Local validation: 3,333 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `33ff5f007e15a2c5eb6bdf8bf9cbd0acc273de16`, run 37667771787. PR #128 merged as `dccd86bdbd17f7e11395d7df809045799865e070`. Latest completed numbered batch is 900; next is 901. No new endpoints, grants, deployment or production database changes.
 
-## Iteration 29 — batches 901–950 (in review)
+## Iteration 29 — batches 901–950 (merged)
 
 - Batch 901 client /consents/summary: align positive safe-integer group counts and bounded summary pages.
 - Batch 902 client /service-authorizations/summary: align positive safe-integer group counts and bounded summary pages.
@@ -1022,4 +1022,4 @@ Local validation: 3,333 API fixtures, eight authority regressions, Worker TypeSc
 
 Fifty existing summary routes now declare positive safe-integer group counts, at most 100 groups and nonnegative safe-integer pagination totals. Empty groups and zero totals remain valid. Registration verifies existing service/bearer/owner authority, including the distinct assigned-provider visit permission. Stored and canonical schemas retain their existing labels, nullability and payload fields. No runtime routes, grants, clinical authority, deployment or production database changes.
 
-Local validation: 3,383 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI pending. Latest merged numbered batch remains 900 until this change passes CI and merges.
+Local validation: 3,383 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `5ac8e93380182bd08e3a2258120658c27fe1e702`, run 37670095453. PR #129 merged as `860a944fe34e3e51620bf403e0af397641607d01`. Latest completed numbered batch is 950; next is 951.
