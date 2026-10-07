@@ -1,3 +1,4 @@
+import {auditFixture} from './auth-audit-fixtures.mjs';
 import {build} from 'esbuild';
 import {test,beforeEach} from 'node:test';
 import assert from 'node:assert/strict';
@@ -15,6 +16,7 @@ beforeEach(()=>{
  actor={id:'actor',roles:'ceo',tenant_id:'tenant-a',password_hash:hash};queries=[];duplicate=false;targetExists=true;revoked=false;passwordResult=null;
  globalThis.__contractQuery=async(sql,values=[])=>{
   queries.push({sql,values});
+  const audit=auditFixture(sql,values);if(audit)return audit;
   if(sql.includes('WHERE s.token_hash'))return {rows:actor&&!revoked?[actor]:[]};
   if(sql.startsWith('INSERT INTO auth_rate_limits'))return {rows:[{attempts:1,retry_after:60}]};
   if(sql.startsWith('SELECT id FROM users'))return {rows:duplicate?[{id:'existing'}]:[]};
@@ -91,3 +93,6 @@ test('invalid own-password write results return sanitized 503 and roll back with
   assert.equal((await call('/v1/auth/me','GET')).status,200);
  }
 });
+
+for(const [path,body,table] of [['/v1/auth/register',creation,'auth_account_audit'],['/v1/admin/users',management,'auth_management_audit'],['/v1/user/change-password',{currentPassword:password,newPassword:'fixture-new-password'},'auth_password_audit']])for(const mode of ['missing','duplicate','identity','timestamp','payload'])test('batch 360–362 confirmed audit '+path+' '+mode,async()=>{const base=globalThis.__contractQuery;globalThis.__contractQuery=async(sql,v)=>{const r=await base(sql,v);if(sql.startsWith('INSERT INTO '+table)){if(mode==='missing')r.rows=[];else if(mode==='duplicate')r.rows.push({...r.rows[0]});else if(mode==='identity')r.rows[0][table==='auth_password_audit'?'user_id':'target_user_id']='foreign';else if(mode==='timestamp')r.rows[0].created_at='private-corrupt-date';else if(table==='auth_management_audit')r.rows[0].new_state.status='active';else r.rows[0].action='foreign';}return r;};const r=await call(path,'POST',body);assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.equal(r.headers.get('cache-control'),'no-store');assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql==='COMMIT'));assert.ok(!(await r.text()).includes('private'));});
+for(const rows of [null,[null],[{},{}]])test('batch 363 account duplicate probe validates shape '+JSON.stringify(rows),async()=>{const base=globalThis.__contractQuery;globalThis.__contractQuery=async(sql,v)=>sql.startsWith('SELECT id FROM users')?{rows}:base(sql,v);const r=await call('/v1/auth/register','POST',creation);assert.equal(r.status,503);assert.ok(!queries.some(q=>q.sql.startsWith('INSERT INTO users')));assert.equal(queries.at(-1).sql,'ROLLBACK');});

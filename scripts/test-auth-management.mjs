@@ -1,3 +1,4 @@
+import {auditFixture} from './auth-audit-fixtures.mjs';
 import {build} from 'esbuild';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
@@ -6,6 +7,7 @@ const {manageAccount,validateAccountUpdate}=await import('data:text/javascript;b
 const actor={id:'actor',roles:'ceo',tenant_id:'tenant-a'};
 const input={id:'11111111-1111-1111-1111-111111111111',role:'rmt',status:'inactive'};
 function fixture(found=true){const calls=[];return {calls,async query(sql,values){calls.push({sql,values});
+  const audit=auditFixture(sql,values);if(audit)return audit;
   return {rows:sql.startsWith('SELECT')?(found?[{id:input.id,roles:'rmt',status:'active'}]:[]):sql.startsWith('UPDATE')?[{id:input.id,email:'target@example.invalid',roles:input.role,status:input.status,tenant_id:actor.tenant_id}]:[]};}};}
 test('rejects unknown role, mass assignment and invalid statuses',()=>{
  assert.deepEqual(validateAccountUpdate(input),input);

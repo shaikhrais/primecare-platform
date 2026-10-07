@@ -1,3 +1,4 @@
+import {auditFixture} from './auth-audit-fixtures.mjs';
 import {build} from 'esbuild';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
@@ -33,7 +34,7 @@ function fixture(change=()=>undefined){
   else if(sql.startsWith('INSERT INTO tenant_mail_configuration'))rows=[{tenant_id:values[0],sender:values[1],api_key_ciphertext:values[2],templates:JSON.parse(values[3]),revision:2,updated_at:date}];
   else if(sql.startsWith('INSERT INTO tenant_configuration_audit'))rows=[{tenant_id:values[0],actor_user_id:values[1],action:sql.includes('test_email_accepted')?'test_email_accepted':'email_configuration_changed'}];
   const replacement=change(sql,rows,values);
-  return {rows:replacement===undefined?rows:replacement};
+  return replacement===undefined?(auditFixture(sql,values)??{rows}):{rows:replacement};
  };
  return {calls,get sends(){return sends;},async call(path,method='GET',body,query='') {
   const publicPath=path==='/workspace'?'/v1/governance/workspace':path.startsWith('/admin/')?'/v1'+path:path==='/user/sessions'?'/v1'+path:'/v1/auth'+path;

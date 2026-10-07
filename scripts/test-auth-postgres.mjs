@@ -270,6 +270,11 @@ try {
   // Live authorization, tenant binding, encrypted persistence and stale-save behavior.
   const maintenanceToken=(await (await call('/login','POST',{email,password:resetPasswordValue})).json()).token;
   assert.ok(maintenanceToken);
+  for(const mode of ['suppress','corrupt']) {
+    await db.query(`CREATE OR REPLACE FUNCTION fixture_password_audit_confirmation() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN ${mode==='suppress'?'RETURN NULL;':"NEW.created_at := 'infinity'; RETURN NEW;"} END $$`);
+    await db.query('CREATE TRIGGER fixture_password_audit_confirmation BEFORE INSERT ON auth_password_audit FOR EACH ROW EXECUTE FUNCTION fixture_password_audit_confirmation()');
+    try{await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[mutationHash]);const before=await snapshot();const r=await call('/change-password','POST',{currentPassword:resetPasswordValue,newPassword:randomUUID()},maintenanceToken);assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.deepEqual(await snapshot(),before);passed++;}finally{await db.query('DROP TRIGGER fixture_password_audit_confirmation ON auth_password_audit');}
+  }
   // Real trigger suppression/corruption must never yield password success or
   // revoke sessions. Reset rollback also restores the consumed one-time code.
   for(const mode of ['suppress','corrupt']) {

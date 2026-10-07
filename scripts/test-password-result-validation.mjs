@@ -1,3 +1,4 @@
+import {auditFixture} from './auth-audit-fixtures.mjs';
 import {build} from 'esbuild';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
@@ -11,6 +12,7 @@ function fixture(overrides={}) {
  const env={EMAIL_FROM:'test@example.com',EMAIL:{send:async()=>{sends++;return {messageId:'fixture'};}}};
  const db={query:async(sql,values)=>{
   calls.push({sql,values});
+  const audit=auditFixture(sql,values);if(audit)return audit;
   if(sql.includes('auth_rate_limits'))return {rows:[{attempts:1,retry_after:900}]};
   if(sql.startsWith('SELECT id,email'))return {rows:overrides.lookup??[{id:'user',email:input.email}]};
   if(sql.startsWith('SELECT id FROM'))return {rows:overrides.resetLookup??[{id:'user'}]};

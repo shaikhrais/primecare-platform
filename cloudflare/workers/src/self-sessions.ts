@@ -1,4 +1,5 @@
-import {optionalRow,requiredRow,resultRows} from './database-results';
+import {confirmedAudit} from './audit-confirmation';
+import {scopedActor,optionalRow,requiredRow,resultRows} from './database-results';
 import {sourceLimitAllowed} from './source-limit-result';
 import {accountId,accountTimestamp} from './account-read-projection';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
@@ -33,15 +34,16 @@ export async function selfSessions(request:Request,env:Env,path:string,headers:H
     try {
       // Exclusive user lock serializes with login's shared user lock and other
       // account changes. Recheck the bearer after acquiring this lock.
-      const actor=optionalRow((await db.query(actorSql+(mutating?' FOR UPDATE OF u':' LIMIT 1'),[hash])).rows);
+      const actor=scopedActor((await db.query(actorSql+(mutating?' FOR UPDATE OF u':' LIMIT 1'),[hash])).rows);
       if(actor)accountId(actor.id);
       if(!actor)return json({error:'Invalid session'},401,safe);
       if(!actor.tenant_id||(request.headers.has('x-tenant-id')&&request.headers.get('x-tenant-id')!==String(actor.tenant_id)))return json({error:'Forbidden'},403,safe);
       if(mutating){
         if(!optionalRow((await db.query('SELECT 1 FROM auth_sessions WHERE token_hash=$1 AND user_id=$2 AND expires_at>NOW()',[hash,actor.id])).rows))return json({error:'Invalid session'},401,safe);
         const count=exactCount(requiredRow((await db.query('WITH revoked AS (DELETE FROM auth_sessions WHERE user_id=$1 RETURNING 1) SELECT COUNT(*)::int AS count FROM revoked',[actor.id])).rows).count);
-        await db.query('INSERT INTO auth_management_audit(actor_user_id,target_user_id,tenant_id,previous_state,new_state) VALUES($1,$1,$2,$3,$4)',
-          [actor.id,actor.tenant_id,JSON.stringify({sessionCount:count}),JSON.stringify({sessionCount:0,action:'sessions_revoked',initiatedBy:'self'})]);
+        const previous={sessionCount:count},current={sessionCount:0,action:'sessions_revoked',initiatedBy:'self'};
+        confirmedAudit((await db.query('INSERT INTO auth_management_audit(actor_user_id,target_user_id,tenant_id,previous_state,new_state) VALUES($1,$1,$2,$3,$4) RETURNING id,actor_user_id,target_user_id,tenant_id,previous_state,new_state,created_at',
+          [actor.id,actor.tenant_id,JSON.stringify(previous),JSON.stringify(current)])).rows,{actor_user_id:actor.id,target_user_id:actor.id,tenant_id:actor.tenant_id,previous_state:previous,new_state:current});
         await db.query('COMMIT');committed=true;
         safe.set('set-cookie','session_token=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0');
         return json({revokedSessions:count,status:'signed_out_all_devices'},200,safe);

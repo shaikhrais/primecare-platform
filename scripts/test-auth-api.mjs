@@ -1,3 +1,4 @@
+import {auditFixture} from './auth-audit-fixtures.mjs';
 import { build } from 'esbuild';
 import assert from 'node:assert/strict';
 import { test, beforeEach } from 'node:test';
@@ -14,6 +15,7 @@ beforeEach(() => {
 });
 globalThis.__authQuery = async (sql, values) => {
   queries.push({sql, values});
+  const audit=auditFixture(sql,values);if(audit)return audit;
   if (failRead) throw new Error('fixture-private-database-details');
   if(sql.startsWith('INSERT INTO auth_rate_limits')) {
     if(rateResult!==undefined)return rateResult;

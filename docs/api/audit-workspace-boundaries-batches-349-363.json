@@ -1,0 +1,25 @@
+{
+  "scope": "supplemental_runtime_validation",
+  "batches": "349–363",
+  "authorityAdded": false,
+  "routesAdded": false,
+  "changes": [
+    "349 workspace actor tenant validation",
+    "350 workspace activity object rows",
+    "351 workspace role group values",
+    "352 client metric schema metadata",
+    "353 provider metric schema metadata",
+    "354 visit metric schema metadata",
+    "355 invoice metric schema metadata",
+    "356 schedule metric schema metadata",
+    "357 personal session tenant validation",
+    "358 confirmed personal revocation audit",
+    "359 confirmed administrative revocation audit",
+    "360 confirmed account management audit",
+    "361 confirmed account creation audit",
+    "362 confirmed own-password audit",
+    "363 account adapter result shapes"
+  ],
+  "failure": "Existing sanitized no-store 503; callers roll back before success. Missing tenant metadata remains unavailable.",
+  "verification": "Unit result corruption and disposable PostgreSQL suppression/corruption trigger checks; exact unchanged-head UUID/text CI required."
+}

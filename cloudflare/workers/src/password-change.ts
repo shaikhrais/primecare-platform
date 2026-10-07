@@ -1,3 +1,4 @@
+import {confirmedAudit} from './audit-confirmation';
 import type {Client} from 'pg';
 import bcrypt from 'bcryptjs';
 import {accountId} from './account-read-projection';
@@ -24,7 +25,7 @@ export async function changePassword(db:Client,user:{id:string;password_hash:str
  const id=accountId(user.id),hash=await bcrypt.hash(input.newPassword,12);
  confirmedPasswordUpdate((await db.query('UPDATE users SET password_hash=$1,updated_at=NOW() WHERE id=$2 RETURNING id,password_hash',[hash,id])).rows,id,hash);
  await db.query('DELETE FROM auth_sessions WHERE user_id=$1',[user.id]);
- await db.query("INSERT INTO auth_password_audit(user_id,action) VALUES($1,'password_changed')",[user.id]);
+ confirmedAudit((await db.query("INSERT INTO auth_password_audit(user_id,action) VALUES($1,'password_changed') RETURNING id,user_id,action,created_at",[id])).rows,{user_id:id,action:'password_changed'});
  await db.query('DELETE FROM auth_password_resets WHERE user_id=$1',[user.id]);
  return {status:200,body:{status:'password_changed',reauthenticationRequired:true}};
 }

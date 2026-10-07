@@ -1,3 +1,4 @@
+import {auditFixture} from './auth-audit-fixtures.mjs';
 import {build} from 'esbuild';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
@@ -12,7 +13,7 @@ function fixture(){queries=[];actor={id:'own-user',tenant_id:'tenant-a'};attempt
  if(sql.startsWith('SELECT 1 FROM auth_sessions'))return {rows:recheck?[{}]:[]};
  if(sql.startsWith('SELECT COUNT')||sql.startsWith('WITH revoked'))return {rows:[{count}]};
  if(sql.startsWith('SELECT created_at'))return {rows:[{created_at:'2026-01-01T00:00:00Z',expires_at:'2026-01-02T00:00:00Z',current:true,token_hash:'never-expose-this',...rowOverride}]};
- if(sql.startsWith('INSERT INTO auth_management_audit')){if(failAudit)throw Error('private-audit');return {rows:[]};}
+ if(sql.startsWith('INSERT INTO auth_management_audit')){if(failAudit)throw Error('private-audit');return auditFixture(sql,values);}
  assert.ok(sql.startsWith('BEGIN')||['COMMIT','ROLLBACK'].includes(sql),sql);return {rows:[]};
 };}
 const token='a'.repeat(43),path='/user/sessions',env={DB_URL:'fixture',SERVICE_NAME:'auth'};
@@ -27,3 +28,7 @@ test('revocation budget persists after rejection and gateway preserves methods',
 
 test('personal sessions reject corrupt dates and nonboolean current flags',async()=>{for(const row of [{created_at:null},{expires_at:'invalid'},{created_at:new Date(NaN)},{expires_at:new Date('+010000-01-01T00:00:00Z')},{current:'false'},{current:0},{current:null}]){fixture();rowOverride=row;const r=await call();assert.equal(r.status,503);assert.deepEqual(await r.json(),{error:'Session service unavailable'});assert.equal(queries.at(-1).sql,'ROLLBACK');}});
 test('personal session PostgreSQL dates serialize without exposing adapter fields',async()=>{fixture();rowOverride={created_at:new Date('2026-01-01T00:00:00Z'),expires_at:new Date('2026-01-02T00:00:00Z'),private:'never-return-this'};const r=await call();assert.equal(r.status,200);const data=await r.json();assert.equal(data.sessions[0].created_at,'2026-01-01T00:00:00.000Z');assert.deepEqual(Object.keys(data.sessions[0]).sort(),['created_at','expires_at','current'].sort());});
+
+for(const mode of ['missing','duplicate','identity','tenant','previous','current','timestamp'])test('batch 358–359 revocation audit '+mode,async()=>{fixture();const base=globalThis.__selfQuery;globalThis.__selfQuery=async(sql,v)=>{const r=await base(sql,v);if(sql.startsWith('INSERT INTO auth_management_audit')){if(mode==='missing')r.rows=[];else if(mode==='duplicate')r.rows.push({...r.rows[0]});else if(mode==='identity')r.rows[0].target_user_id='foreign';else if(mode==='tenant')r.rows[0].tenant_id='foreign';else if(mode==='previous')r.rows[0].previous_state.sessionCount=99;else if(mode==='current')r.rows[0].new_state.sessionCount=1;else r.rows[0].created_at='private-invalid-date';}return r;};const r=await call('DELETE');assert.equal(r.status,503);assert.equal(r.headers.get('set-cookie'),null);assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql==='COMMIT'));});
+
+for(const method of ['GET','DELETE'])test('batch 357 session actor tenant is never coerced '+method,async()=>{fixture();actor.tenant_id=1;const r=await call(method);assert.equal(r.status,503);assert.ok(!queries.some(q=>q.sql.startsWith('WITH revoked')||q.sql==='COMMIT'));});
