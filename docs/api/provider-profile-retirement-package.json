@@ -1,0 +1,23 @@
+{
+  "name": "Reconcile provider self-profile caller with the existing owner-authorized profile",
+  "operations": [
+    "POST /v1/provider/dashboard"
+  ],
+  "retirements": {
+    "POST /v1/provider/dashboard": {
+      "reason": "Scanner POST declaration has no business authority or contract. The actual self-profile caller performs GET and now uses the existing canonical owner-scoped profile operation.",
+      "replacement": "GET /v1/provider/profile",
+      "canonicalId": 16446,
+      "evidence": [
+        "packages/flutter_core/lib/provider_service.dart: getSelfProfile validates the canonical profile envelope and propagates failures",
+        "packages/flutter_core/lib/src/network/api_client.dart: providerProfile and legacy providerDashboard config keys target the canonical GET; owner profile transport bypasses cache and mocks",
+        "cloudflare/workers/src/provider-self.ts: profile read uses authenticated user and tenant ownership; no new authority is introduced",
+        "scripts/reconcile-provider-profile-declaration.py: exact canonical identity, authority, schema, caller and incoming-reference guards preserve an atomic retirement tombstone",
+        "packages/flutter_core/test/provider_profile_test.dart: actual transport and service routing, DTO and failure regression coverage"
+      ],
+      "declarationIds": [
+        786
+      ]
+    }
+  }
+}

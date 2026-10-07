@@ -76,3 +76,12 @@ Audited all 12 legacy service entry points and seven route libraries at main `0e
 ## Client booking submission work package
 
 Reconciled one existing operation, POST /v1/client/bookings/request, with the canonical owner-scoped pending-request lifecycle. The exact gateway alias preserves idempotency and authority; two form declarations now match the strict request fields and required retry header. [Package outcomes](BOOKING_SUBMISSION_DELIVERY.md). Current finite counters: 341 unique operations with unit evidence, 1,064 pending and 10 blocked (1,415 total). PostgreSQL CI must pass on the exact PR head before merge; production/UI verification is separate.
+
+
+## Parallel routing reconciliation wave
+
+This bounded wave reconciles billing invoice list/detail callers with existing owner GET handlers, and moves the provider self-profile caller to its registered owner GET with strict envelope validation and preserved transport failures. Protected provider profile requests bypass path-only cache and synthetic mock fallback. No new authority or business workflow is inferred.
+
+Five unique legacy POST declarations are retired with guarded source, contract and reference checks: three middleware namespace prefixes (`/v1/public/`, `/v1/debug/`, `/v1/marketing/`), `/v1/client/billing/invoices`, and `/v1/provider/dashboard`. These are retirement credits, not implemented APIs. The finite denominator remains 1,415 operations; after derived reconciliation it is 343 with unit evidence, 9 retired, 1,053 pending and 10 explicitly blocked. Production verification remains unrecorded.
+
+Provider validation passed 57 new actual Flutter tests plus 246 auth transport regressions, targeted analysis, and 8 retirement safety tests. The invoice and prefix package adds 17 actual registry/gateway/handler or negative-routing checks. Full fixture and exact-head PostgreSQL/Flutter CI evidence is recorded separately before merge. The separate screen-auditor repair preserves original metadata and keeps readiness false; it earns zero API completion credit.

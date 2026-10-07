@@ -2,22 +2,22 @@
 
 One exact HTTP method + path; field repairs and test totals do not increment completed operations.
 
-**1058 active pending operations classified exactly once.**
+**1053 active pending operations classified exactly once.**
 
 | Baseline evidence stage | Unique operations |
 | --- | ---: |
 | blocked | 10 |
-| needs_contract_and_verification | 1058 |
-| retired_with_evidence | 4 |
+| needs_contract_and_verification | 1053 |
+| retired_with_evidence | 9 |
 | unit_evidence_recorded | 343 |
 
-Documented retirements outside the active denominator: **4**. Retirements are not implemented APIs.
+Documented retirements outside the active denominator: **9**. Retirements are not implemented APIs.
 
 | Pending family | Operations |
 | --- | ---: |
 | compliance_scan_requires_workflow_contract | 292 |
-| forwarded_operation_requires_handler_review | 28 |
-| gateway_unmapped_requires_workflow_review | 546 |
+| forwarded_operation_requires_handler_review | 26 |
+| gateway_unmapped_requires_workflow_review | 543 |
 | legacy_auth_method_or_workflow_reconciliation | 8 |
 | legacy_model_collection_requires_contract_review | 179 |
 | method_or_dynamic_capture_requires_caller_review | 4 |
@@ -25,10 +25,10 @@ Documented retirements outside the active denominator: **4**. Retirements are no
 
 | Missing pending contract field | Operations |
 | --- | ---: |
-| permission | 1058 |
-| requestSchema | 1058 |
-| responseSchema | 1058 |
-| screenLink | 1013 |
+| permission | 1053 |
+| requestSchema | 1053 |
+| responseSchema | 1053 |
+| screenLink | 1008 |
 
 Missing declaration authority can be reconciled with a reviewed existing canonical handler. Route responses and full-path literal absence do not prove business implementation, absence, or obsolescence. Generic role grants are not workflow authority. No new resolved API credit is awarded by this report.
 

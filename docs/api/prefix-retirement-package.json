@@ -1,0 +1,107 @@
+{
+  "name": "Middleware namespace prefix declaration retirement",
+  "operations": [
+    "POST /v1/public/",
+    "POST /v1/debug/",
+    "POST /v1/marketing/"
+  ],
+  "implementedOperations": 0,
+  "retiredOperations": 3,
+  "reviews": {
+    "POST /v1/public/": {
+      "declarationIds": [
+        810
+      ],
+      "endpointCode": "API__V1_PUBLIC_",
+      "disposition": "retire_namespace_declaration",
+      "finding": "Middleware prefix-classification literal has no exact-root business request or gateway handler",
+      "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/infrastructure/src/prisma_client.ts",
+        "packages/infrastructure/src/security_utils.ts",
+        "cloudflare/workers/src/gateway.ts",
+        "scripts/test-prefix-root-routing.mjs",
+        "scripts/reconcile-prefix-declarations.py"
+      ]
+    },
+    "POST /v1/debug/": {
+      "declarationIds": [
+        811
+      ],
+      "endpointCode": "API__V1_DEBUG_",
+      "disposition": "retire_namespace_declaration",
+      "finding": "Middleware prefix-classification literal has no exact-root business request or gateway handler",
+      "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/infrastructure/src/prisma_client.ts",
+        "packages/infrastructure/src/security_utils.ts",
+        "cloudflare/workers/src/gateway.ts",
+        "scripts/test-prefix-root-routing.mjs",
+        "scripts/reconcile-prefix-declarations.py"
+      ]
+    },
+    "POST /v1/marketing/": {
+      "declarationIds": [
+        812
+      ],
+      "endpointCode": "API__V1_MARKETING_",
+      "disposition": "retire_namespace_declaration",
+      "finding": "Middleware prefix-classification literal has no exact-root business request or gateway handler",
+      "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/infrastructure/src/prisma_client.ts",
+        "packages/infrastructure/src/security_utils.ts",
+        "cloudflare/workers/src/gateway.ts",
+        "scripts/test-prefix-root-routing.mjs",
+        "scripts/reconcile-prefix-declarations.py"
+      ]
+    }
+  },
+  "countingRule": "Three declarations retired with preserved tombstones; zero business APIs implemented. Remaining operation count may decrease only through the separate retirement ledger.",
+  "provenance": {
+    "creatorPattern": ".agents/governance/reconcile_db.py scans quoted /v1/... literals and guesses POST. Candidate records have exact scanner-shaped identity: app1, PRISMA, auth1, active, empty controller, API__V1_* codes. Historical source insertion files are not retained, so this is structural provenance rather than a claimed historical execution trace.",
+    "currentUses": {
+      "/v1/public/": [
+        "packages/infrastructure/src/prisma_client.ts: startsWith prefix",
+        "packages/infrastructure/src/security_utils.ts: includes prefix"
+      ],
+      "/v1/debug/": [
+        "packages/infrastructure/src/prisma_client.ts: startsWith prefix",
+        "packages/infrastructure/src/security_utils.ts: includes prefix"
+      ],
+      "/v1/marketing/": [
+        "packages/infrastructure/src/prisma_client.ts: startsWith prefix"
+      ]
+    },
+    "callerScan": "rg -n \"['\\\"]/v1/(public/|debug/|marketing/)['\\\"]\" --glob '*.dart' --glob '*.ts' --glob '*.tsx' --glob '*.py' --glob '*.mjs' --glob '!node_modules/**' --glob '!openapi_types.d.ts'",
+    "callerFinding": "Exact prefix literals classify middleware behavior, with no exact-root request caller. Generated contract declarations are metadata, not runtime caller evidence.",
+    "runtime": "Gateway routes dictionary has no public/debug/marketing service bindings. Exact namespace roots return404 without accessing any binding. They have no metadata handler; no equivalence to auth service-root status responses is claimed.",
+    "authority": "Derived reviewed-quarantine database has no api_id inbound rows for these three candidates. Null canonical inline contracts/permissions/artifact/controller/service/schema IDs required before retirement. Closed missing-test diagnostics are preserved as evidence, not authority."
+  },
+  "guards": [
+    "Exact IDs/codes/POST/path/PRISMA/app1/auth1/empty controller",
+    "No artifact/inline contracts/permission/rate-limit/controller/service/schema authority",
+    "All canonical api_id inbound tables rejected including future consumers",
+    "Registered exact path references and unknown FK consumers rejected",
+    "Only exact closed missing_test_coverage diagnostic without screen/file links preserved",
+    "Registry-domain screen_endpoint_map links preserved",
+    "SAVEPOINT atomic three-operation retirement; status drift/missing candidate refuses; idempotent"
+  ],
+  "exclusions": [
+    "ID795 business-development has actual GET callers",
+    "ID813 health has a real GET handler; requires separate method reconciliation",
+    "ID1491 test is fixture-only, not a namespace prefix",
+    "ID710 messages has a business form caller"
+  ],
+  "validation": {
+    "commands": [
+      "python scripts/test-prefix-retirements.py",
+      "node --test scripts/test-prefix-root-routing.mjs"
+    ],
+    "results": {
+      "retirementTests": 12,
+      "gatewayTests": 15
+    },
+    "databaseMutation": "No real database mutation performed by this agent; root applies registrations sequentially."
+  }
+}
