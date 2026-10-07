@@ -10,7 +10,7 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  db.row_factory=sqlite3.Row
  batches={(r['route'] if r['route'].split(' ',1)[0] in ['GET','POST','PUT','PATCH','DELETE'] else 'GET '+r['route']):dict(r) for r in db.execute('SELECT * FROM governance_api_batches')}
  rows=[]
- for a in db.execute('SELECT id,http_method,route_path,service_name,implementation_status,permission_key,request_schema,response_schema FROM api_endpoints ORDER BY route_path,http_method,id').fetchall():
+ for a in db.execute("SELECT id,http_method,route_path,service_name,implementation_status,permission_key,request_schema,response_schema FROM api_endpoints WHERE implementation_status IS NULL OR implementation_status!='retired' ORDER BY route_path,http_method,id").fetchall():
   key=a['http_method']+' '+a['route_path'];b=batches.get(key)
   if b and b['permission']!=a['permission_key']:b=None
   links=db.execute('''SELECT DISTINCT s.screen_code,a.app_code,r.role_code FROM screens s JOIN apps a ON a.id=s.app_id LEFT JOIN roles r ON r.id=s.role_id WHERE s.id IN (SELECT screen_id FROM screen_api_links WHERE api_id=? UNION SELECT screen_id FROM screen_api_map WHERE api_id=?)''',(a['id'],a['id'])).fetchall()

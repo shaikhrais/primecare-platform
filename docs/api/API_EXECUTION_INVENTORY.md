@@ -2,20 +2,20 @@
 
 Recorded declarations and local unit-fixture status only. Unrecorded means inspect implementation, not proof of absent code. PostgreSQL/production evidence is not inferred from CI or registry labels.
 
-Declared operations: 1416
+Declared operations: 1414
 
 | Recorded verification state | Operations |
 | --- | --- |
 | blocked | 10 |
 | unit_fixtures_recorded | 344 |
-| verification_pending | 1062 |
+| verification_pending | 1060 |
 
 | Missing contract field | Operations |
 | --- | --- |
-| permission | 1062 |
-| requestSchema | 1062 |
-| responseSchema | 1062 |
-| screenLink | 1017 |
+| permission | 1060 |
+| requestSchema | 1060 |
+| responseSchema | 1060 |
+| screenLink | 1015 |
 
 The JSON inventory includes every registered API, linked screens, apps, roles and missing fields. Use `/v1/governance/api-execution-status` with existing inventory authority to query this snapshot. `search`, `app`, `role` and `screen` filters plus bounded paging are supported.
 

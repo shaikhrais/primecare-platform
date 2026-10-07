@@ -4,7 +4,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
-def build(rows, work_package=None):
+def build(rows, work_package=None, retirement_ledger=None):
     grouped = defaultdict(list)
     for row in rows:
         grouped[row['method']+' '+row['route']].append(row)
@@ -27,14 +27,30 @@ def build(rows, work_package=None):
             'nextAction':('Resolve registered business/authority blocker' if stage=='blocked' else
                 'Map operation-specific PostgreSQL evidence and release checks' if stage=='unit_evidence_recorded' else
                 'Reconcile method/path with handler and callers; register authority and schemas; test before marking verified')})
+    active_count = len(operations)
+    for api, retirement in sorted((retirement_ledger or {}).items()):
+        if api in grouped:
+            raise ValueError('Retirement still has active declaration: '+api)
+        if not retirement.get('reason') or not retirement.get('evidence') or not retirement.get('declarationIds'):
+            raise ValueError('Retirement requires reason, evidence and historical IDs: '+api)
+        method, route = api.split(' ',1)
+        operations.append({'api':api,'method':method,'route':route,
+            'declarationIds':retirement['declarationIds'],'services':[],
+            'area':route.split('/')[2] if route.startswith('/v1/') else 'other',
+            'stage':'retired_with_evidence','missingContractFields':[],
+            'unitEvidenceRecorded':False,'postgresEvidence':'replacement_evidence_required',
+            'productionEvidence':'not_mapped_per_operation','nextAction':'Retired; preserve historical identity',
+            'retirement':retirement})
+    operations.sort(key=lambda o:o['api'])
     stages = dict(sorted(Counter(o['stage'] for o in operations).items()))
-    pending = [o for o in operations if o['stage'] not in ['unit_evidence_recorded','blocked']]
+    terminal_stages = ['unit_evidence_recorded','blocked','retired_with_evidence']
+    pending = [o for o in operations if o['stage'] not in terminal_stages]
     auth = [o['api'] for o in pending if o['area']=='auth']
     package = work_package or {'name':'Reconcile legacy auth declarations with existing handlers and callers','operations':auth,'retirements':{}}
     if len(package['operations']) != len(set(package['operations'])): raise ValueError('Duplicate work-package operation')
     lookup = {o['api']:o for o in operations}; resolved = []
     for api in package['operations']:
-        if lookup.get(api,{}).get('unitEvidenceRecorded'): resolved.append(api)
+        if lookup.get(api,{}).get('unitEvidenceRecorded') or lookup.get(api,{}).get('stage')=='retired_with_evidence': resolved.append(api)
         elif api not in lookup:
             retirement = package.get('retirements',{}).get(api,{})
             if retirement.get('reason') and retirement.get('evidence'): resolved.append(api)
@@ -44,10 +60,12 @@ def build(rows, work_package=None):
         areas.append({'area':area,'total':len(members),
             'unitEvidenceRecorded':sum(o['unitEvidenceRecorded'] for o in members),
             'blocked':sum(o['stage']=='blocked' for o in members),
-            'needsWork':sum(o['stage'] not in ['unit_evidence_recorded','blocked'] for o in members)})
+            'retired':sum(o['stage']=='retired_with_evidence' for o in members),
+            'needsWork':sum(o['stage'] not in terminal_stages for o in members)})
     return {'countingRule':'One exact HTTP method + path; field repairs and test totals do not increment completed operations.',
         'summary':{'declarations':len(rows),'uniqueOperations':len(operations),
-            'duplicateDeclarationRows':len(rows)-len(operations),'stages':stages,
+            'activeUniqueOperations':active_count,'retiredOperations':len(operations)-active_count,
+            'duplicateDeclarationRows':len(rows)-active_count,'stages':stages,
             'pendingByDeclaredMethod':dict(sorted(Counter(o['method'] for o in pending).items())),
             'postgresEvidenceMapped':0,'productionEvidenceMapped':0},
         'firstWorkPackage':{'name':package['name'],'total':len(package['operations']),
@@ -57,13 +75,18 @@ def build(rows, work_package=None):
 def main():
     source = ROOT/'docs/api/api-execution-inventory.json'
     package = json.loads((ROOT/'docs/api/api-delivery-work-package.json').read_text())
-    data = build(json.loads(source.read_text())['data'],package)
-    data['additionalWorkPackages'] = [build(json.loads(source.read_text())['data'],p)['firstWorkPackage'] for p in package.get('additionalWorkPackages',[])]
+    retirements = {}
+    for p in [package,*package.get('additionalWorkPackages',[])]:
+        for api,r in p.get('retirements',{}).items():
+            if api in retirements and retirements[api]!=r: raise ValueError('Conflicting retirement '+api)
+            retirements[api]=r
+    data = build(json.loads(source.read_text())['data'],package,retirements)
+    data['additionalWorkPackages'] = [build(json.loads(source.read_text())['data'],p,retirements)['firstWorkPackage'] for p in package.get('additionalWorkPackages',[])]
     data['source'] = {'path':'docs/api/api-execution-inventory.json','sha256':hashlib.sha256(source.read_bytes()).hexdigest()}
     (ROOT/'docs/api/api-delivery-checklist.json').write_text(json.dumps(data,indent=2)+'\n')
     s=data['summary']; states=s['stages']; package=data['firstWorkPackage']
     lines=['# Finite API delivery checklist','',data['countingRule'],'',
-        f"Baseline: **{s['uniqueOperations']} unique operations** from {s['declarations']} declarations; {s['duplicateDeclarationRows']} duplicate declaration row.",'',
+        f"Baseline: **{s['uniqueOperations']} unique operations**; {s['activeUniqueOperations']} active, {s['retiredOperations']} retired with evidence. {s['declarations']} active declarations; {s['duplicateDeclarationRows']} duplicate declaration row.",'',
         '| Evidence stage | Unique operations |','| --- | ---: |']
     lines += [f'| {stage} | {count} |' for stage,count in states.items()]
     lines += ['', 'Unit evidence is a completed test milestone, not proof of complete business workflows or deployment. PostgreSQL CI has passed globally, but this checklist does not invent operation-specific coverage. Production status remains unverified here.','',
@@ -75,8 +98,8 @@ def main():
     for extra in data['additionalWorkPackages']:
         lines += ['', '## Next finite work package', '', f"**{extra['reviewed']}/{extra['total']} reviewed; {extra['resolved']}/{extra['total']} resolved: {extra['name']}.**", '']
         lines += [('- [x] ' if api in extra['resolvedOperations'] else '- [ ] ')+api for api in extra['operations']]
-    lines += ['', '## Work by route area','', '| Area | Total | Unit evidence | Needs work | Blocked |','| --- | ---: | ---: | ---: | ---: |']
-    lines += [f"| {a['area']} | {a['total']} | {a['unitEvidenceRecorded']} | {a['needsWork']} | {a['blocked']} |" for a in data['areas']]
+    lines += ['', '## Work by route area','', '| Area | Baseline | Unit evidence | Needs work | Blocked | Retired |','| --- | ---: | ---: | ---: | ---: | ---: |']
+    lines += [f"| {a['area']} | {a['total']} | {a['unitEvidenceRecorded']} | {a['needsWork']} | {a['blocked']} | {a['retired']} |" for a in data['areas']]
     lines += ['', 'Route areas are catalog prefixes, not independently deployed services. The JSON checklist contains every unique operation, source declaration IDs, missing fields and next action. Regenerate through generate-api-execution-inventory.py; never advance this counter for repeated field repairs.','']
     (ROOT/'docs/api/API_DELIVERY_CHECKLIST.md').write_text('\n'.join(lines))
     print(json.dumps(s))

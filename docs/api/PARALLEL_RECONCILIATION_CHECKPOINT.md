@@ -1,0 +1,13 @@
+# Parallel PrimeCare reconciliation checkpoint
+
+Six independent reviewers examined client, provider/staff, auth/account, administration/governance, service workflows, and the complete remaining declaration map. The snapshot before this package held 1,062 pending operations, 343 with unit evidence and 10 declared blockers, over a historical baseline of 1,415.
+
+The main finding is a catalog ID-domain collision in migrate_architecture_tables.py: api_endpoint_registry.id was written into API-linked tables whose api_id references api_endpoints.id. The audit found 79,936 grant rows: 57,984 reference mismatched endpoint identities and 21,952 reference absent endpoints. The source now resolves a unique exact method/path identity, refusing missing or ambiguous mappings before API-linked inserts. Existing database grants and runtime owner policies are not remapped by this change. Identity equality alone is not business authorization.
+
+Two unused client POST read declarations are retired in favor of their existing owner-scoped GET contracts. Endpoint tombstones preserve foreign-key identities. The finite ledger keeps the original 1,415-operation baseline and separately records 2 retirements; no implementation credit is added. Caller links, canonical service/auth/schemas and historical IDs are checked before retirement. Tests exercise retained grant references, idempotency, linked callers and package rollback.
+
+Resulting checkpoint after passing unit evidence: 343 unit-evidenced operations, 2 evidence-backed retirements, 1,060 pending and 10 declared blockers. These four categories sum to 1,415. Pending declaration-level authorization and request/response contracts are absent; a generic CRUD gateway would not resolve those business workflows. The reusable family report separates compliance scan placeholders, premium model exposures, auth, method captures and genuinely unrouted declarations. Retirement and routing probes do not prove business implementation.
+
+Provider review: 84 operations, 25 declared POST/historical GET conflicts; no safe aliases because resource and response semantics differ. Administration review: 36 GETs; generic role edges are not scoped authority. Service review: 292 compliance scans lack defined contracts. Auth review: eight unsupported feature workflows and two service-status roots. These findings overlap the full map and must not be added as separate completion counts.
+
+Validation: full API fixtures, mapping/retirement/accounting regressions, Worker typechecks, governance guardian and UUID/text PostgreSQL CI must pass on the published package head before merge. Production deployment and UI verification remain separate, unclaimed gates.

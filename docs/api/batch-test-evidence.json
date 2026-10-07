@@ -9,7 +9,7 @@
     "cloudflare/workers/src/account-management.ts": "4508680cbafbf98725d54103e1d759865d2f2a3742b3f6f960880a3166632b09",
     "cloudflare/workers/src/account-policy.json": "74d51cb199e3ac6522acd0723561d7af93327bb80114ad8de96b5ddebdc432ce",
     "cloudflare/workers/src/account-read-projection.ts": "9a0b5e79d92f9878b8521f67a237fba0e88430f27122478bf63f5e7723333b0e",
-    "cloudflare/workers/src/api-execution-inventory.json": "6a3f120a96eeb8da650595d33e1279f46c467337b141dd80531a931b69050ee0",
+    "cloudflare/workers/src/api-execution-inventory.json": "5bfbb685f0b95d53765d219f445c04ae4d6d1152ffd8eaeaacbd5a1339517939",
     "cloudflare/workers/src/audit-confirmation.ts": "1580f31385bdbd842a78583caa5c8936f88089c2964ab2feb63e1e1cf666606c",
     "cloudflare/workers/src/auth-projection.ts": "ba81cd5f65cf27c48b642c004e9a0919eb48bd4599fc76af3d1e484968dbc7da",
     "cloudflare/workers/src/auth-rate-limit.ts": "57fc7f10de02980d1496d400c033715ee30a43c90f6b2d32171278bd7edd0e84",
@@ -206,10 +206,10 @@
     "docs/api/read-envelope-page-contract-batches-1051-1100.json": "316de6d7c7e91af9f20c5ef474274c2269691d478495a0f845941d914d05f08d",
     "scripts/register-timestamp-contracts-api.py": "4635c973ca44526fd0f682d99ebfe34c4a4298cdff787111269dcb77004d6836",
     "docs/api/timestamp-contract-batches-1101-1150.json": "64357546684e8ca1c98beda1b41f704bc65701331815a83734c6bf9dc8712030",
-    "scripts/generate-api-delivery-checklist.py": "7f3b222d6615b5431f3ec30d45ba460d497b28127ad0fd1c814dd98a644ea994",
-    "scripts/test-api-delivery-checklist.py": "0075fb102d67b3d0eb752e7739d79f985f067db0c3ed29f885ae256560e95be9",
-    "scripts/generate-api-execution-inventory.py": "3fddd26b985511cf1e314a187cf4a7ee1b97c6acd108470b2ae08262bfb3e7d2",
-    "docs/api/api-delivery-work-package.json": "0f58b08520163d932e4392c772cab10d20ed8a443e7f7ba9410671521cfb3daa",
+    "scripts/generate-api-delivery-checklist.py": "d850706e9a40957c7f6cfd9a65e84b2e17d071393bb0576e531e2cc510c7c7dc",
+    "scripts/test-api-delivery-checklist.py": "11dbec1f28f6b3471dce3d4c6c690b1b0eadeb6b43bf29736e4a520e181eef90",
+    "scripts/generate-api-execution-inventory.py": "f965ba8fd17e0be016adcbb007d86baca962742ddb3a932a23460408339b06bc",
+    "docs/api/api-delivery-work-package.json": "c8130a42c5738fa616d3a7b8b11d94741bda26abe2c75ed7abea4d9024a87335",
     "scripts/register-auth-delivery-work-package.py": "7b8b3bb27f5988d15e70533a6703e5dd426554ea72e4bf45884bf159039bce87",
     "scripts/record-api-batch-evidence.py": "6eba0e00524dc3c0719a95b32bd35cf1746aff47bee46a3e3127581be4039f15",
     "docs/api/auth-delivery-work-package.openapi.json": "3128e6d12c7fe754a5c317fcef166a30511b7f22673a763ffa0a9d56a4f63880",
@@ -229,6 +229,13 @@
     "scripts/register-booking-collection-delivery.py": "877ebf375bb4d3cf362f028d40930f6c3f10a96658506331095541da6279f96c",
     "scripts/test-booking-collection-authority-guard.py": "13ea2cb8032a987cca26853a246d3f05fa5552fcfb7af590c078b956c67a6a11",
     "docs/api/booking-collection-delivery.openapi.json": "0871a783d592cbc56ba04a8215b9522b0a51baf7f8f75800cadc695f3aac11bc",
-    "packages/domain/src/registries/button_registry.ts": "ca0604b6f2a3ff8de32098e976d0ca6cbdf16661f58438cbe1700f603fa404d4"
+    "packages/domain/src/registries/button_registry.ts": "ca0604b6f2a3ff8de32098e976d0ca6cbdf16661f58438cbe1700f603fa404d4",
+    "scripts/reconcile-client-read-declarations.py": "7594a2f140f0123be5069452430e1af313976534d930c5f650e85fadf6af7727",
+    "scripts/test-client-read-retirements.py": "bc510e189335beb77cd7b180939c2ad6f13c2c60c4399d0d119964d6e880f5f6",
+    "docs/api/client-read-retirement-package.json": "5282e7e77156860cce134920e0b59aab8a994aa7ea4f8fafa849e501bc716103",
+    "scripts/migrate_architecture_tables.py": "b3dd4007fc025dc2fd0e530ce1fcdfaeff3849553f927e23295884cf709adf08",
+    "scripts/test-api-grant-mapping.py": "2a71ff360b2211fa073abcf16d7e7e296420b048facc7e4e7eb224f57d8f22cc",
+    "scripts/generate-api-family-reconciliation.py": "0413cc6f7cbfd1222742b015baeb546340ae750300f75381b19fdefc536023ba",
+    "scripts/test-api-family-reconciliation.py": "3b76040d62d13ad2856cc9286dbb2f8ff1b38aa34584297d3e627f60fab7d608"
   }
 }

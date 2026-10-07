@@ -1,0 +1,3273 @@
+{
+  "scope": "provider_psw_rn_staff_caregiver_pending_operations",
+  "countingRule": "No operation is resolved by this audit. Historical type declarations are method evidence, not runtime or authorization evidence.",
+  "summary": {
+    "reviewedUniqueOperations": 84,
+    "resolved": 0,
+    "methodConflicts": 25,
+    "missingEndpointAuthorization": 84,
+    "pendingByFamily": {
+      "caregiver": 2,
+      "provider": 3,
+      "psw": 42,
+      "rn": 22,
+      "staff": 15
+    }
+  },
+  "operations": [
+    {
+      "api": "POST /v1/caregiver/activity/log",
+      "declarationIds": [
+        1247
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 1247,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/caregiver/activity/log",
+        "probePath": "/v1/caregiver/activity/log",
+        "declarationIds": [
+          1247
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/caregiver/meds/acknowledge",
+      "declarationIds": [
+        1248
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 1248,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/caregiver/meds/acknowledge",
+        "probePath": "/v1/caregiver/meds/acknowledge",
+        "declarationIds": [
+          1248
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/provider/checkin",
+      "declarationIds": [
+        802
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 802,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/provider/checkin",
+        "probePath": "/v1/provider/checkin",
+        "declarationIds": [
+          802
+        ],
+        "classification": "worker_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [
+          {
+            "binding": "PROVIDER",
+            "workerPath": "/checkin"
+          }
+        ],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/provider/dashboard",
+      "declarationIds": [
+        786
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 786,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/provider/dashboard",
+        "probePath": "/v1/provider/dashboard",
+        "declarationIds": [
+          786
+        ],
+        "classification": "worker_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [
+          {
+            "binding": "PROVIDER",
+            "workerPath": "/dashboard"
+          }
+        ],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/provider/metrics",
+      "declarationIds": [
+        787
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 787,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/provider/metrics",
+        "probePath": "/v1/provider/metrics",
+        "declarationIds": [
+          787
+        ],
+        "classification": "worker_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [
+          {
+            "binding": "PROVIDER",
+            "workerPath": "/metrics"
+          }
+        ],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/availability/sync",
+      "declarationIds": [
+        225
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 225,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/availability/sync",
+        "probePath": "/v1/psw/availability/sync",
+        "declarationIds": [
+          225
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/check-in",
+      "declarationIds": [
+        791
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 791,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/check-in",
+        "probePath": "/v1/psw/check-in",
+        "declarationIds": [
+          791
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/credentials/vault",
+      "declarationIds": [
+        577
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 577,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/credentials/vault",
+        "probePath": "/v1/psw/credentials/vault",
+        "declarationIds": [
+          577
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/daily-entry",
+      "declarationIds": [
+        221
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 221,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/daily-entry",
+        "probePath": "/v1/psw/daily-entry",
+        "declarationIds": [
+          221
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/daily-entry/history",
+      "declarationIds": [
+        222
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 222,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/daily-entry/history",
+        "probePath": "/v1/psw/daily-entry/history",
+        "declarationIds": [
+          222
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/documents",
+      "declarationIds": [
+        790
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 790,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/documents",
+        "probePath": "/v1/psw/documents",
+        "declarationIds": [
+          790
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/expenses",
+      "declarationIds": [
+        702
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 702,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/expenses",
+        "probePath": "/v1/psw/expenses",
+        "declarationIds": [
+          702
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/feed/social",
+      "declarationIds": [
+        579
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 579,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/feed/social",
+        "probePath": "/v1/psw/feed/social",
+        "declarationIds": [
+          579
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/fleet/heartbeat",
+      "declarationIds": [
+        584
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 584,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/fleet/heartbeat",
+        "probePath": "/v1/psw/fleet/heartbeat",
+        "declarationIds": [
+          584
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/guide",
+      "declarationIds": [
+        587
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 587,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/guide",
+        "probePath": "/v1/psw/guide",
+        "declarationIds": [
+          587
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/handover",
+      "declarationIds": [
+        224
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 224,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/handover",
+        "probePath": "/v1/psw/handover",
+        "declarationIds": [
+          224
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/help-support",
+      "declarationIds": [
+        794
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 794,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/help-support",
+        "probePath": "/v1/psw/help-support",
+        "declarationIds": [
+          794
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/home/hardware/purchase",
+      "declarationIds": [
+        212
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 212,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/home/hardware/purchase",
+        "probePath": "/v1/psw/home/hardware/purchase",
+        "declarationIds": [
+          212
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/home/incident",
+      "declarationIds": [
+        213
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 213,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/home/incident",
+        "probePath": "/v1/psw/home/incident",
+        "declarationIds": [
+          213
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/home/stats",
+      "declarationIds": [
+        211
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 211,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/home/stats",
+        "probePath": "/v1/psw/home/stats",
+        "declarationIds": [
+          211
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/home/store/redeem",
+      "declarationIds": [
+        215
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 215,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/home/store/redeem",
+        "probePath": "/v1/psw/home/store/redeem",
+        "declarationIds": [
+          215
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/home/wellness",
+      "declarationIds": [
+        214
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 214,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/home/wellness",
+        "probePath": "/v1/psw/home/wellness",
+        "declarationIds": [
+          214
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/incident/report",
+      "declarationIds": [
+        580
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 580,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/incident/report",
+        "probePath": "/v1/psw/incident/report",
+        "declarationIds": [
+          580
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/incidents",
+      "declarationIds": [
+        223
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 223,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/incidents",
+        "probePath": "/v1/psw/incidents",
+        "declarationIds": [
+          223
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/mar",
+      "declarationIds": [
+        234
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 234,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/mar",
+        "probePath": "/v1/psw/mar",
+        "declarationIds": [
+          234
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/messages",
+      "declarationIds": [
+        783
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 783,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/messages",
+        "probePath": "/v1/psw/messages",
+        "declarationIds": [
+          783
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/mileage",
+      "declarationIds": [
+        228
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 228,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/mileage",
+        "probePath": "/v1/psw/mileage",
+        "declarationIds": [
+          228
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/mileage/calculate",
+      "declarationIds": [
+        229
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 229,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/mileage/calculate",
+        "probePath": "/v1/psw/mileage/calculate",
+        "declarationIds": [
+          229
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/mileage/submit-override",
+      "declarationIds": [
+        231
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 231,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/mileage/submit-override",
+        "probePath": "/v1/psw/mileage/submit-override",
+        "declarationIds": [
+          231
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/mileage/summary",
+      "declarationIds": [
+        230
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 230,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/mileage/summary",
+        "probePath": "/v1/psw/mileage/summary",
+        "declarationIds": [
+          230
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/notifications",
+      "declarationIds": [
+        793
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 793,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/notifications",
+        "probePath": "/v1/psw/notifications",
+        "declarationIds": [
+          793
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/payouts/history",
+      "declarationIds": [
+        226
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 226,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/payouts/history",
+        "probePath": "/v1/psw/payouts/history",
+        "declarationIds": [
+          226
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/profile",
+      "declarationIds": [
+        788
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 788,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/profile",
+        "probePath": "/v1/psw/profile",
+        "declarationIds": [
+          788
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/reports",
+      "declarationIds": [
+        789
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 789,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/reports",
+        "probePath": "/v1/psw/reports",
+        "declarationIds": [
+          789
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/schedule",
+      "declarationIds": [
+        305
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 305,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/schedule",
+        "probePath": "/v1/psw/schedule",
+        "declarationIds": [
+          305
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/schedule/availability",
+      "declarationIds": [
+        218
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 218,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/schedule/availability",
+        "probePath": "/v1/psw/schedule/availability",
+        "declarationIds": [
+          218
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/schedule/marketplace",
+      "declarationIds": [
+        219
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 219,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/schedule/marketplace",
+        "probePath": "/v1/psw/schedule/marketplace",
+        "declarationIds": [
+          219
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/schedule/marketplace/swaps",
+      "declarationIds": [
+        220
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 220,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/schedule/marketplace/swaps",
+        "probePath": "/v1/psw/schedule/marketplace/swaps",
+        "declarationIds": [
+          220
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/schedule/offers",
+      "declarationIds": [
+        217
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 217,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/schedule/offers",
+        "probePath": "/v1/psw/schedule/offers",
+        "declarationIds": [
+          217
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/schedule/payouts/request",
+      "declarationIds": [
+        330
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 330,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/schedule/payouts/request",
+        "probePath": "/v1/psw/schedule/payouts/request",
+        "declarationIds": [
+          330
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/schedule/visits",
+      "declarationIds": [
+        216
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 216,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/schedule/visits",
+        "probePath": "/v1/psw/schedule/visits",
+        "declarationIds": [
+          216
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/schedule/visits/check-in",
+      "declarationIds": [
+        329
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 329,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/schedule/visits/check-in",
+        "probePath": "/v1/psw/schedule/visits/check-in",
+        "declarationIds": [
+          329
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/sos/trigger",
+      "declarationIds": [
+        586
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 586,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/sos/trigger",
+        "probePath": "/v1/psw/sos/trigger",
+        "declarationIds": [
+          586
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/system-logs",
+      "declarationIds": [
+        792
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 792,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/system-logs",
+        "probePath": "/v1/psw/system-logs",
+        "declarationIds": [
+          792
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/training/assigned",
+      "declarationIds": [
+        232
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 232,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/training/assigned",
+        "probePath": "/v1/psw/training/assigned",
+        "declarationIds": [
+          232
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/visit-notes",
+      "declarationIds": [
+        233
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 233,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/visit-notes",
+        "probePath": "/v1/psw/visit-notes",
+        "declarationIds": [
+          233
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/psw/wellness/pulse",
+      "declarationIds": [
+        227
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 227,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/psw/wellness/pulse",
+        "probePath": "/v1/psw/wellness/pulse",
+        "declarationIds": [
+          227
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/assessments",
+      "declarationIds": [
+        210
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 210,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/assessments",
+        "probePath": "/v1/rn/assessments",
+        "declarationIds": [
+          210
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/assessments/signoff",
+      "declarationIds": [
+        1417
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 1417,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/assessments/signoff",
+        "probePath": "/v1/rn/assessments/signoff",
+        "declarationIds": [
+          1417
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/assessments/templates",
+      "declarationIds": [
+        209
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 209,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/assessments/templates",
+        "probePath": "/v1/rn/assessments/templates",
+        "declarationIds": [
+          209
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/audits/submit",
+      "declarationIds": [
+        1416
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 1416,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/audits/submit",
+        "probePath": "/v1/rn/audits/submit",
+        "declarationIds": [
+          1416
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/clinical/assessments",
+      "declarationIds": [
+        199
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 199,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/clinical/assessments",
+        "probePath": "/v1/rn/clinical/assessments",
+        "declarationIds": [
+          199
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/clinical/audit/entries/verify",
+      "declarationIds": [
+        328
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 328,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/clinical/audit/entries/verify",
+        "probePath": "/v1/rn/clinical/audit/entries/verify",
+        "declarationIds": [
+          328
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/clinical/audit/list",
+      "declarationIds": [
+        203
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 203,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/clinical/audit/list",
+        "probePath": "/v1/rn/clinical/audit/list",
+        "declarationIds": [
+          203
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/clinical/audit/sign-off",
+      "declarationIds": [
+        591
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 591,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/clinical/audit/sign-off",
+        "probePath": "/v1/rn/clinical/audit/sign-off",
+        "declarationIds": [
+          591
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/clinical/care-plans",
+      "declarationIds": [
+        197
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 197,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/clinical/care-plans",
+        "probePath": "/v1/rn/clinical/care-plans",
+        "declarationIds": [
+          197
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/clinical/care-plans/review",
+      "declarationIds": [
+        327
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 327,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/clinical/care-plans/review",
+        "probePath": "/v1/rn/clinical/care-plans/review",
+        "declarationIds": [
+          327
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/clinical/recon",
+      "declarationIds": [
+        200
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 200,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/clinical/recon",
+        "probePath": "/v1/rn/clinical/recon",
+        "declarationIds": [
+          200
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/clinical/reconciliation/pending",
+      "declarationIds": [
+        204
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 204,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/clinical/reconciliation/pending",
+        "probePath": "/v1/rn/clinical/reconciliation/pending",
+        "declarationIds": [
+          204
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/clinical/scribe-parse/parse",
+      "declarationIds": [
+        198
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 198,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/clinical/scribe-parse/parse",
+        "probePath": "/v1/rn/clinical/scribe-parse/parse",
+        "declarationIds": [
+          198
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/clinical/sign-off",
+      "declarationIds": [
+        202
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 202,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/clinical/sign-off",
+        "probePath": "/v1/rn/clinical/sign-off",
+        "declarationIds": [
+          202
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/clinical/supervision",
+      "declarationIds": [
+        201
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 201,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/clinical/supervision",
+        "probePath": "/v1/rn/clinical/supervision",
+        "declarationIds": [
+          201
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/clinical/supervision/roster",
+      "declarationIds": [
+        595
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 595,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/clinical/supervision/roster",
+        "probePath": "/v1/rn/clinical/supervision/roster",
+        "declarationIds": [
+          595
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/home/stats",
+      "declarationIds": [
+        588
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 588,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/home/stats",
+        "probePath": "/v1/rn/home/stats",
+        "declarationIds": [
+          588
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/mar/administer",
+      "declarationIds": [
+        205
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 205,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/mar/administer",
+        "probePath": "/v1/rn/mar/administer",
+        "declarationIds": [
+          205
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/mar/prn",
+      "declarationIds": [
+        206
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 206,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/mar/prn",
+        "probePath": "/v1/rn/mar/prn",
+        "declarationIds": [
+          206
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/mar/review",
+      "declarationIds": [
+        207
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 207,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/mar/review",
+        "probePath": "/v1/rn/mar/review",
+        "declarationIds": [
+          207
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/supervision/roster",
+      "declarationIds": [
+        196
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 196,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/supervision/roster",
+        "probePath": "/v1/rn/supervision/roster",
+        "declarationIds": [
+          196
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/rn/wound-care/assessments",
+      "declarationIds": [
+        208
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 208,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/rn/wound-care/assessments",
+        "probePath": "/v1/rn/wound-care/assessments",
+        "declarationIds": [
+          208
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/allied/home/stats",
+      "declarationIds": [
+        194
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 194,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/allied/home/stats",
+        "probePath": "/v1/staff/allied/home/stats",
+        "declarationIds": [
+          194
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/allied/treatments",
+      "declarationIds": [
+        195
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 195,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/allied/treatments",
+        "probePath": "/v1/staff/allied/treatments",
+        "declarationIds": [
+          195
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/customers",
+      "declarationIds": [
+        185
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 185,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/customers",
+        "probePath": "/v1/staff/customers",
+        "declarationIds": [
+          185
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/home/stats",
+      "declarationIds": [
+        182
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 182,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/home/stats",
+        "probePath": "/v1/staff/home/stats",
+        "declarationIds": [
+          182
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/messages/hub",
+      "declarationIds": [
+        191
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 191,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/messages/hub",
+        "probePath": "/v1/staff/messages/hub",
+        "declarationIds": [
+          191
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/messages/hub/audit",
+      "declarationIds": [
+        192
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 192,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/messages/hub/audit",
+        "probePath": "/v1/staff/messages/hub/audit",
+        "declarationIds": [
+          192
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/messages/hub/multidisciplinary",
+      "declarationIds": [
+        193
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 193,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/messages/hub/multidisciplinary",
+        "probePath": "/v1/staff/messages/hub/multidisciplinary",
+        "declarationIds": [
+          193
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/ops/compliance/scan",
+      "declarationIds": [
+        186
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 186,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/ops/compliance/scan",
+        "probePath": "/v1/staff/ops/compliance/scan",
+        "declarationIds": [
+          186
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/ops/incidents",
+      "declarationIds": [
+        189
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 189,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/ops/incidents",
+        "probePath": "/v1/staff/ops/incidents",
+        "declarationIds": [
+          189
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/ops/incidents/submit",
+      "declarationIds": [
+        190
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 190,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/ops/incidents/submit",
+        "probePath": "/v1/staff/ops/incidents/submit",
+        "declarationIds": [
+          190
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/tasks",
+      "declarationIds": [
+        188
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 188,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/tasks",
+        "probePath": "/v1/staff/tasks",
+        "declarationIds": [
+          188
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/tasks/grid",
+      "declarationIds": [
+        187
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 187,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/tasks/grid",
+        "probePath": "/v1/staff/tasks/grid",
+        "declarationIds": [
+          187
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/tickets",
+      "declarationIds": [
+        184
+      ],
+      "historicalMethods": [
+        "GET"
+      ],
+      "governance": [
+        {
+          "id": 184,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "declared_method_conflicts_with_historical_contract",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/tickets",
+        "probePath": "/v1/staff/tickets",
+        "declarationIds": [
+          184
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/training/summary",
+      "declarationIds": [
+        715
+      ],
+      "historicalMethods": [],
+      "governance": [
+        {
+          "id": 715,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/training/summary",
+        "probePath": "/v1/staff/training/summary",
+        "declarationIds": [
+          715
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    },
+    {
+      "api": "POST /v1/staff/visits",
+      "declarationIds": [
+        183
+      ],
+      "historicalMethods": [
+        "POST"
+      ],
+      "governance": [
+        {
+          "id": 183,
+          "http_method": "POST",
+          "permission_key": null,
+          "request_schema": null,
+          "response_schema": null,
+          "rate_limit_key": null
+        }
+      ],
+      "blockers": [
+        "no_verified_runtime_handler_for_declared_workflow",
+        "missing_endpoint_specific_authorization",
+        "missing_governance_request_or_response_schema"
+      ],
+      "reachability": {
+        "api": "POST /v1/staff/visits",
+        "probePath": "/v1/staff/visits",
+        "declarationIds": [
+          183
+        ],
+        "classification": "gateway_route_not_found",
+        "status": 404,
+        "allow": null,
+        "forwarded": [],
+        "databaseConnectionAttempts": 0,
+        "businessOperationVerified": false,
+        "productionVerified": false
+      },
+      "disposition": "review_required_no_delivery_credit"
+    }
+  ]
+}
