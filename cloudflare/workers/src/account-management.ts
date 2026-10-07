@@ -1,5 +1,6 @@
 import {mutatedAccount} from './auth-projection';
-import {accountUser} from './account-read-projection';
+import {optionalRow,requiredRow,resultRows} from './database-results';
+import {accountId,accountUser} from './account-read-projection';
 import type {Client} from 'pg';
 import policy from './account-policy.json';
 const exactCount=(value:unknown)=>{if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid account count');return value;};
@@ -18,10 +19,10 @@ export async function listAccounts(db:Client,actor:{id:string;roles:string;tenan
   const pattern='%'+search.replace(/[\\%_]/g,'\\$&')+'%';
   const filter="tenant_id::text=$1 AND ($2='' OR roles=$2) AND ($3='' OR LOWER(status)=$3) AND ($4='' OR email ILIKE $5 ESCAPE E'\\\\')";
   const values=[String(actor.tenant_id),role,status,search,pattern];
-  const total=exactCount((await db.query('SELECT COUNT(*)::int AS count FROM users WHERE '+filter,values)).rows[0].count);
+  const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM users WHERE '+filter,values)).rows).count);
   const users=(await db.query('SELECT id,email,roles,status,updated_at FROM users WHERE '+filter+' ORDER BY LOWER(email),id LIMIT $6 OFFSET $7',
     [...values,Number(limit),Number(offset)])).rows;
-  return {status:200,body:{users:users.map(u=>accountUser(u,actor.id)),
+  return {status:200,body:{users:resultRows(users,Number(limit)).map(u=>accountUser(u,actor.id)),
     assignableRoles:policy.ceo,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(offset)+Number(limit)<total}}};
 }
 
@@ -40,16 +41,19 @@ export async function manageAccount(db:Client, actor:{id:string;roles:string;ten
   input:{id:string;role:string;status:string}):Promise<{status:number;body:unknown}> {
   if(actor.roles!=='ceo' || !actor.tenant_id || input.id.toLowerCase()===actor.id.toLowerCase())
     return {status:403,body:{error:'Forbidden'}};
-  const target=await db.query('SELECT id,roles,status FROM users WHERE id=$1 AND tenant_id=$2 FOR UPDATE',[input.id,actor.tenant_id]);
-  if(!target.rows.length) return {status:404,body:{error:'Account not found'}};
-  if(String(target.rows[0].id).toLowerCase()===actor.id.toLowerCase())
+  const target=optionalRow((await db.query('SELECT id,roles,status FROM users WHERE id=$1 AND tenant_id=$2 FOR UPDATE',[input.id,actor.tenant_id])).rows);
+  if(!target) return {status:404,body:{error:'Account not found'}};
+  if(accountId(target.id).toLowerCase()===actor.id.toLowerCase())
     return {status:403,body:{error:'Forbidden'}};
+  if(accountId(target.id).toLowerCase()!==input.id.toLowerCase() ||
+    !(target.roles===null || typeof target.roles==='string' && target.roles.length>0 && target.roles.length<=200) ||
+    !(target.status===null || typeof target.status==='string' && ['active','inactive'].includes(target.status.toLowerCase())))throw Error('Invalid managed account');
   const result=await db.query('UPDATE users SET roles=$1,status=$2,updated_at=NOW() WHERE id=$3 AND tenant_id=$4 RETURNING id,email,roles,status,tenant_id',
     [input.role,input.status,input.id,actor.tenant_id]);
   if(result.rows.length!==1)throw Error('Invalid account update result');
   const updatedUser=mutatedAccount(result.rows[0],{id:input.id,role:input.role,status:input.status,tenantId:actor.tenant_id});
   await db.query('DELETE FROM auth_sessions WHERE user_id=$1',[input.id]);
   await db.query('INSERT INTO auth_management_audit(actor_user_id,target_user_id,tenant_id,previous_state,new_state) VALUES($1,$2,$3,$4,$5)',
-    [actor.id,input.id,actor.tenant_id,JSON.stringify({role:target.rows[0].roles,status:target.rows[0].status}),JSON.stringify({role:input.role,status:input.status})]);
+    [actor.id,input.id,actor.tenant_id,JSON.stringify({role:target.roles,status:target.status}),JSON.stringify({role:input.role,status:input.status})]);
   return {status:200,body:{user:updatedUser}};
 }

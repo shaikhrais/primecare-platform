@@ -8,6 +8,12 @@ const env={CONFIG_ENCRYPTION_KEY:'a'.repeat(64),EMAIL:{send:async()=>({messageId
 const legacyKey='re_test_fixture_key';
 const actor={id:'user',roles:'maintenance',tenant_id:'tenant-a',email:'it@example.com'};
 const input={sender:'mail@example.com',revision:0,templates:{password_reset:{subject:'Reset',title:'Your code',body:'Use {{code}} within 15 minutes.'}}};
+function writeRows(sql,values,revision=1) {
+ if(sql.startsWith('INSERT INTO tenant_mail_configuration'))return [{tenant_id:values[0],sender:values[1],api_key_ciphertext:values[2],templates:JSON.parse(values[3]),revision,updated_at:new Date('2026-01-01T00:00:00Z')}];
+ if(sql.startsWith('INSERT INTO tenant_configuration_audit'))return [{tenant_id:values[0],actor_user_id:values[1],action:sql.includes('test_email_accepted')?'test_email_accepted':'email_configuration_changed'}];
+ return [];
+}
+
 test('settings reject overrides, invalid sender, removed placeholders, unsupported fields and templates',()=>{
  assert.ok(validateSettings(input));
  for(const value of [{...input,tenant_id:'tenant-b'},{...input,sender:'x\nBcc: a@example.com'},{...input,apiKey:'bad'},{...input,revision:-1},{...input,templates:{password_reset:{subject:'Reset',title:'Reset',body:'no code'}}},{...input,templates:{password_reset:{subject:'Reset',title:'Reset',body:'{{code}} {{password}}'}}},{...input,templates:{arbitrary:{subject:'x',title:'x',body:'x'}}}])assert.equal(validateSettings(value),null);
@@ -32,7 +38,7 @@ test('read returns setup status and templates, never ciphertext or provider cred
 });
 test('saving preserves existing key, refuses stale edits and records no secrets in audit',async()=>{
  const secret=await encryptCredential(env,legacyKey,actor.tenant_id),calls=[];
- const db={query:async(sql,values)=>{calls.push({sql,values});return {rows:sql.startsWith('SELECT revision')?[{revision:3,api_key_ciphertext:secret}]:[]};}};
+ const db={query:async(sql,values)=>{calls.push({sql,values});return {rows:sql.startsWith('SELECT revision')?[{revision:3,api_key_ciphertext:secret}]:writeRows(sql,values,4)};}};
  assert.equal((await maintenance(db,env,actor,'POST','/maintenance/configuration',{...input,revision:2})).status,409);
  assert.ok(!calls.some(c=>c.sql.startsWith('INSERT')));
  const withoutKey=input;
@@ -41,7 +47,7 @@ test('saving preserves existing key, refuses stale edits and records no secrets 
  assert.ok(!JSON.stringify(calls.at(-1)).includes(secret));
 });
 test('test email cannot override recipient, always goes to current account',async()=>{
- const db={query:async()=>({rows:[]})};
+ const db={query:async(sql,values)=>({rows:writeRows(sql,values)})};
  assert.equal((await maintenance(db,env,actor,'POST','/maintenance/configuration/test-email',{to:'victim@example.com'})).status,400);
  const original=env.EMAIL.send;let recipient;
  try {
@@ -58,11 +64,11 @@ test('runtime preserves native binding and does not decrypt legacy provider cred
 });
 
 test('Cloudflare sender restriction rejects spoofed organization sender',async()=>{
- const db={query:async()=>({rows:[]})};
+ const db={query:async(sql,values)=>({rows:writeRows(sql,values)})};
  const limited={...env,EMAIL_ALLOWED_SENDER:'noreply@15minutes-email.com'};
  assert.equal((await maintenance(db,limited,actor,'POST','/maintenance/configuration',input)).status,400);
 });
 test('native settings can be saved without any provider encryption key',async()=>{
- const db={query:async()=>({rows:[]})};
+ const db={query:async(sql,values)=>({rows:writeRows(sql,values)})};
  assert.equal((await maintenance(db,{},actor,'POST','/maintenance/configuration',input)).status,200);
 });

@@ -182,3 +182,34 @@ Twenty-eight new focused fixtures and one grouped gateway regression cover inval
 Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
 
 Local validation: 1,874 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37556707433 at 03b0f4f230df14948afe3979dd433974a0f570b0. PR #111 merged as 7ed767f13eb913c07a1419b3d25108f22931a287. Latest completed batch is 303; next batch is 304. No deployment or production database changes.
+
+
+## Iteration 13 — batches 304–318, account and maintenance result boundaries, in review
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 304 | Account management | Validate locked target cardinality, identity and prior state before update, revocation and audit. |
+| 305 | Maintenance revisions | Bound request revisions to incrementable int4 values; validate locked revision, cardinality and retained credential type. |
+| 306 | Maintenance configuration save | Confirm returned tenant, sender, templates, retained ciphertext, next revision, date and configuration audit. |
+| 307 | Maintenance test email | Confirm acceptance audit tenant, actor, action and cardinality before reporting success. |
+| 308 | Account listing | Require one count row and bound returned users to the requested limit. |
+| 309 | Account details | Require zero/one detail row whose identifier matches the requested account. |
+| 310 | Admin session listing | Validate target identity/cardinality, count cardinality and returned page bounds. |
+| 311 | Admin session revocation | Validate target identity/cardinality and deletion count cardinality before audit. |
+| 312 | Management audit reads | Require one count row and bound returned events to the requested limit. |
+| 313 | Creation audit reads | Require one count row and bound returned events to the requested limit. |
+| 314 | Own session listing | Validate actor identity/cardinality, count cardinality and page bounds. |
+| 315 | Own session revocation | Validate preflight/locked actor, bearer recheck cardinality and deletion count cardinality before audit. |
+| 316 | Workspace identity | Reject ambiguous actor rows and malformed IDs/roles before grants or overview queries. |
+| 317 | Workspace session totals | Require exactly one session aggregate row before projecting counts. |
+| 318 | Workspace tenant metrics | Require exactly one aggregate row for each available tenant-bound metric. |
+
+A shared adapter-result guard validates arrays, object rows, zero/one authority lookups, exactly-one aggregates and requested page limits. Duplicate or malformed rows cannot silently become the first account/session/count. Target detail and revocation rows must bind to the requested account. Existing missing-target 404, absent-session 401, authorization, source/rate controls, SQL scope, read-only transactions and explicit field projections remain.
+
+Management validates prior account role/status before changing the row or serializing audit state; declared legacy nulls remain allowed. Maintenance request revisions are 0–2147483646 so the next persisted revision fits int4. Locked configuration revisions must be positive int4, and retained ciphertext must be string/null. Saves confirm one returned configuration matching all intended fields and the next revision before confirming the audit. Invalid inserts/updates/audits roll back with sanitized no-store 503. A test-email acceptance audit must match tenant, actor and action before success is reported. Provider acceptance occurs before that audit and cannot be undone by database rollback; failure responses do not assert delivery.
+
+Twenty-eight new grouped gateway regressions cover all fifteen families, ambiguous/malformed rows, wrong target IDs, count cardinality, oversized pages, revision overflow, corrupt save fields, unconfirmed audits, stop-before-work and rollback behavior. Existing maintenance fixtures now return actual mutation projections. Disposable PostgreSQL adds eight maintenance checks, two corrupt prior-state checks, six session pagination boundary checks and one workspace identity check, using synthetic fixtures only. Existing real database success, tenant isolation, revocation and audit rollback checks remain.
+
+Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
+
+Local validation: 1,902 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.

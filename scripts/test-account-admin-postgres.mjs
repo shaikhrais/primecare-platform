@@ -36,6 +36,22 @@ try {
  await db.query("INSERT INTO auth_management_audit(actor_user_id,target_user_id,tenant_id,previous_state,new_state) VALUES($1,$2,$3,$4,$5)",[ids[0],ids[1],tenants[0],JSON.stringify({role:'rmt',password:'never-return-this-secret'}),JSON.stringify({status:'active',token:'never-return-this-secret'})]);
  const history=await (await call('/admin/users/audit','GET','?userId='+ids[1])).json();assert.equal(history.pagination.total,1);assert.equal(typeof history.pagination.total,'number');assert.ok(!JSON.stringify(history).includes('never-return'));checks++;
  const foreign=await (await call('/admin/users/audit','GET','?userId='+ids[2])).json();assert.equal(foreign.pagination.total,0);checks++;
+
+ // Invalid persisted prior account state must be rejected before mutation,
+ // revocation or audit. Preserve the source row exactly on failure.
+ for(const [field,value] of [['roles',''],['status','fixture-invalid']]) {
+  await db.query('UPDATE users SET '+field+'=$2 WHERE id=$1',[ids[1],value]);
+  try {
+   const before={users:(await db.query('SELECT * FROM users WHERE id=$1',[ids[1]])).rows,sessions:(await db.query('SELECT * FROM auth_sessions WHERE user_id=$1 ORDER BY token_hash',[ids[1]])).rows,audit:(await db.query('SELECT * FROM auth_management_audit WHERE target_user_id=$1 ORDER BY id',[ids[1]])).rows};
+   const rejected=await call('/admin/users','POST','',tokens[0],{id:ids[1],role:'rmt',status:'inactive'});
+   assert.equal(rejected.status,503);assert.equal(rejected.headers.get('cache-control'),'no-store');
+   assert.deepEqual({users:(await db.query('SELECT * FROM users WHERE id=$1',[ids[1]])).rows,sessions:(await db.query('SELECT * FROM auth_sessions WHERE user_id=$1 ORDER BY token_hash',[ids[1]])).rows,audit:(await db.query('SELECT * FROM auth_management_audit WHERE target_user_id=$1 ORDER BY id',[ids[1]])).rows},before);checks++;
+  }finally {await db.query('UPDATE users SET '+field+'=$2 WHERE id=$1',[ids[1],field==='roles'?'rmt':'active']);}
+ }
+ for(const offset of [0,1,2]) {
+  const page=await call(sessions,'GET','?includeExpired=true&limit=1&offset='+offset);
+  assert.equal(page.status,200);const data=await page.json();assert.equal(data.pagination.total,2);assert.equal(data.sessions.length,offset<2?1:0);checks++;
+ }
  // A corrupt RETURNING row must roll back before success, audit or revocation.
  const badEmail='projection-'+randomUUID()+'@example.invalid';
  await db.query(`CREATE FUNCTION test_corrupt_auth_return() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF (TG_OP='INSERT' AND NEW.email='${badEmail}') OR (TG_OP='UPDATE' AND NEW.id::text='${ids[1]}' AND NEW.status='inactive') THEN NEW.roles:='ceo'; END IF; RETURN NEW; END $$`);
