@@ -9,6 +9,8 @@ on:
       - '.agents/governance/governance.db'
       - 'packages/primecare_ui/lib/**/*.dart'
       - 'scripts/reconcile_governance_screens.py'
+      - 'scripts/test-reconcile-governance-screens.py'
+      - 'cloudflare/workers/src/workspace-registry.json'
       - '.github/workflows/maven-test.yml'
       - '.github/workflows/production-deploy.yml'
       - 'services/api_gateway/**'
@@ -21,6 +23,8 @@ on:
       - '.agents/governance/governance.db'
       - 'packages/primecare_ui/lib/**/*.dart'
       - 'scripts/reconcile_governance_screens.py'
+      - 'scripts/test-reconcile-governance-screens.py'
+      - 'cloudflare/workers/src/workspace-registry.json'
       - '.github/workflows/maven-test.yml'
       - '.github/workflows/production-deploy.yml'
       - 'services/api_gateway/**'
@@ -49,6 +53,8 @@ jobs:
             .agents/governance/governance.db
             packages/primecare_ui/lib
             scripts/reconcile_governance_screens.py
+            scripts/test-reconcile-governance-screens.py
+            cloudflare/workers/src/workspace-registry.json
           sparse-checkout-cone-mode: false
 
       - name: Set up Java 21 JDK
@@ -61,7 +67,18 @@ jobs:
 
       - name: Audit screen governance evidence
         run: |
-          python scripts/reconcile_governance_screens.py --check --report governance-screen-audit.json
+          python scripts/test-reconcile-governance-screens.py
+          python - <<'PYCODE'
+          import os, sqlite3
+          source = sqlite3.connect('file:.agents/governance/governance.db?mode=ro', uri=True)
+          derived = sqlite3.connect(os.path.join(os.environ['RUNNER_TEMP'], 'screen-governance-derived.db'))
+          source.backup(derived)
+          derived.close()
+          source.close()
+          PYCODE
+          python scripts/reconcile_governance_screens.py --db "$RUNNER_TEMP/screen-governance-derived.db" --write --report governance-screen-reconciliation.json
+          python scripts/reconcile_governance_screens.py --db "$RUNNER_TEMP/screen-governance-derived.db" --check --report governance-screen-audit.json
+          git diff --exit-code -- .agents/governance/governance.db
 
       - name: Validate all active-screen POM mappings
         working-directory: testingFramework1.0
@@ -70,7 +87,7 @@ jobs:
         run: |
           mvn --batch-mode --no-transfer-progress test \
             -Dtest=PageObjectCoverageTest \
-            -Ddb.url="jdbc:sqlite:../.agents/governance/governance.db" \
+            -Ddb.url="jdbc:sqlite:$RUNNER_TEMP/screen-governance-derived.db" \
             -Dsurefire.printSummary=true \
             -Dsurefire.useFile=true
 
@@ -98,5 +115,6 @@ jobs:
             testingFramework1.0/target-maven/surefire-reports/
             testingFramework1.0/screenshots/
             governance-screen-audit.json
+            governance-screen-reconciliation.json
           if-no-files-found: warn
           retention-days: 14
