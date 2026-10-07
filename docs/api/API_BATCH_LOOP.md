@@ -910,7 +910,7 @@ Twelve existing read fields now declare the same signed int4 limits enforced by 
 
 Local validation: 3,283 API fixtures, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `2f2fcd779ee7a4a49b6473261cbef14a2b7dfa2f`, run 37663643441. PR #127 merged as `aad478a46b4bf3fe17c7a3e632490d0f2b7ca21b`. Latest completed numbered batch is 850; next is 851. No deployment or production database changes.
 
-## Iteration 28 — batches 851–900 (in review)
+## Iteration 28 — batches 851–900 (merged)
 
 - Batch 851 client /consents: align record ID response constraints with the existing runtime grammar.
 - Batch 852 provider /conversation-threads: align record ID response constraints with the existing runtime grammar.
@@ -965,4 +965,4 @@ Local validation: 3,283 API fixtures, Worker TypeScript and governance guardian 
 
 Fifty existing paged read families now publish 1–200 character ASCII record identifiers matching runtime validation. Registration verifies the existing service, bearer/owner authority and registered string ID column before updating stored response schemas. Exact canonical list/detail schemas and authoritative compatibility schemas are aligned. Older client care contract assertions retain ownership separation checks and now include the ID bounds. The verifier preserves complete failure diagnostics when a fixture run fails.
 
-Local validation: 3,333 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI pending. Latest merged numbered batch remains 850 until this change passes CI and merges. No new endpoints, grants, deployment or production database changes.
+Local validation: 3,333 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `33ff5f007e15a2c5eb6bdf8bf9cbd0acc273de16`, run 37667771787. PR #128 merged as `dccd86bdbd17f7e11395d7df809045799865e070`. Latest completed numbered batch is 900; next is 901. No new endpoints, grants, deployment or production database changes.
