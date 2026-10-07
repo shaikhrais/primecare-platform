@@ -3,24 +3,24 @@
   "request": "Declared method with no bearer/cookie/tenant override; GET has no body, other methods use empty JSON; path parameters use synthetic audit-record IDs.",
   "database": "Connections disabled before SQL; no email or external requests.",
   "summary": {
-    "uniquePendingOperations": 1064,
-    "reviewed": 1064,
+    "uniquePendingOperations": 1063,
+    "reviewed": 1063,
     "classifications": {
       "gateway_route_not_found": 1016,
-      "declared_method_rejected": 8,
+      "declared_method_rejected": 7,
       "credential_or_authority_required": 1,
       "service_status_only": 2,
       "worker_route_not_found": 37
     }
   },
   "sourceHashes": {
-    "docs/api/api-execution-inventory.json": "0905f1b51a4625650c9855ce83adc87445acbcecb029efac1ab93cd5a050a613",
+    "docs/api/api-execution-inventory.json": "147873490bd193e8a00eb651cc9097acd1920721ce0e391ce0e402ef94681a2c",
     "scripts/audit-api-reachability.mjs": "76db548f8db687f5dfba0f113b4edd5e972542719330dfee62e4943f576e810f",
     "cloudflare/workers/src/account-admin.ts": "b93b16c000f0c02e387fef5b3566b79f2c786f8b62fb23176471b506390d9b92",
     "cloudflare/workers/src/account-management.ts": "4508680cbafbf98725d54103e1d759865d2f2a3742b3f6f960880a3166632b09",
     "cloudflare/workers/src/account-policy.json": "74d51cb199e3ac6522acd0723561d7af93327bb80114ad8de96b5ddebdc432ce",
     "cloudflare/workers/src/account-read-projection.ts": "9a0b5e79d92f9878b8521f67a237fba0e88430f27122478bf63f5e7723333b0e",
-    "cloudflare/workers/src/api-execution-inventory.json": "22f45a200824f772fac274f144d5213bfbef7d57d75859bf7c9f2c75a9dafd8c",
+    "cloudflare/workers/src/api-execution-inventory.json": "3d6429a96f60b60421b629bcafb3ad99b8452481b919036988e559e5d62c3b95",
     "cloudflare/workers/src/audit-confirmation.ts": "1580f31385bdbd842a78583caa5c8936f88089c2964ab2feb63e1e1cf666606c",
     "cloudflare/workers/src/auth-projection.ts": "ba81cd5f65cf27c48b642c004e9a0919eb48bd4599fc76af3d1e484968dbc7da",
     "cloudflare/workers/src/auth-rate-limit.ts": "57fc7f10de02980d1496d400c033715ee30a43c90f6b2d32171278bd7edd0e84",
@@ -36,8 +36,8 @@
     "cloudflare/workers/src/email-template-validation.ts": "ee234127bc2db6033e3cad49b35ef5e1e1d243c030da21d95e4198876e655df0",
     "cloudflare/workers/src/email-templates.json": "fac27367d39bf30caebacb76c4cc4919e181e47348aa75cc40780124c9a79446",
     "cloudflare/workers/src/email.ts": "077c20aaa21de6112319c25672d92ea62619fa9b207839f50a46aef8805f6c17",
-    "cloudflare/workers/src/gateway.ts": "a2196d717095ef90a3bd519b3ddde75062062050b6ec0a1a8fae6eadee231f81",
-    "cloudflare/workers/src/governance-api-registry.json": "ffd8527fff8e682e12b1df7c713fbd212975087b6786773dfc405f1aaba5a7e6",
+    "cloudflare/workers/src/gateway.ts": "36029f6a2be3e74d66af9415b582e2d28c6d4e607072c900120d1700aa8ad1cc",
+    "cloudflare/workers/src/governance-api-registry.json": "68cb1cdbe9f213ff1d5ab1e5d1df49c581c7a56a8b9eca8ccc2b75d0a4a33905",
     "cloudflare/workers/src/governance-api.ts": "b89f1564feae8ab896a0a45f1dcb471b8905a3eccf19dc4375364ade1c2b4d7b",
     "cloudflare/workers/src/governed-read-aliases.json": "e1779921d40058db203523b045b94d65ce1098bf968482a81904f35ab9e00a43",
     "cloudflare/workers/src/legacy-domain-registry.json": "ebb5891fa57650c61b749b4817a1f8bfc5b1722ba425488dfc460216e1de7336",
@@ -59,7 +59,7 @@
     "cloudflare/workers/src/session-read-projection.ts": "50aaa07ff4ad414b231a4f79581c4fbcaf0261df2b67eb96391b2f21c97b3ac5",
     "cloudflare/workers/src/source-limit-result.ts": "d15fe5f654b002fe783d574060288ebc0a1a2042b0d8ffb8731b379b17081d7c",
     "cloudflare/workers/src/summary-results.ts": "f3a6d24f0b8ceef1596e5e760790635b2d4f5cdad7b710b2164eda265aad9fb9",
-    "cloudflare/workers/src/workspace-registry.json": "1c9d459346de2de448345112c28a0261c4150a0b0cf8557fdc955f49a59d7092",
+    "cloudflare/workers/src/workspace-registry.json": "b58b5b67b9e88bb6386cc07e8a9cecd3408b780cb1cdeb3936125416c775a887",
     "cloudflare/workers/src/workspace.ts": "c1d0a24f202f96133fe000db6972cff73bf7052eaac6196fbf2db2b93d41d247"
   },
   "operations": [
@@ -4795,25 +4795,6 @@
         {
           "binding": "CLIENT",
           "workerPath": "/bookings"
-        }
-      ],
-      "databaseConnectionAttempts": 0,
-      "businessOperationVerified": false,
-      "productionVerified": false
-    },
-    {
-      "api": "POST /v1/client/bookings/requests",
-      "probePath": "/v1/client/bookings/requests",
-      "declarationIds": [
-        238
-      ],
-      "classification": "declared_method_rejected",
-      "status": 405,
-      "allow": "GET",
-      "forwarded": [
-        {
-          "binding": "CLIENT",
-          "workerPath": "/bookings/requests"
         }
       ],
       "databaseConnectionAttempts": 0,

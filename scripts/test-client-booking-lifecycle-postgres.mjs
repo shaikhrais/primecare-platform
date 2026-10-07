@@ -5,10 +5,10 @@ const db=new Client({connectionString:url.href});await db.connect();
 const ids=[randomUUID(),randomUUID(),randomUUID()],tenants=[randomUUID(),randomUUID()],profiles=[randomUUID(),randomUUID(),randomUUID()],tokens=['x'.repeat(43),'y'.repeat(43),'z'.repeat(43)],hash=s=>createHash('sha256').update(s).digest('hex');
 let checks=0,createdProfiles=false,createdRequests=false,createdAudit=false;
 const input={service_type:'massage',preferred_date:'2026-10-06T12:00:00Z',preferred_time:null,notes:'private note'};
-function call(path='/booking-requests',key='create-key',body=path==='/booking-requests'?input:undefined,token=tokens[0],headers={},sourceLimit){
+function call(path='/booking-requests',key='create-key',body=path==='/booking-requests'?input:undefined,token=tokens[0],headers={},sourceLimit,submissionPath='/v1/client/bookings/requests'){
  const request=new Request('https://fixture'+path,{method:path.includes('/audit')?'GET':'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json','idempotency-key':key,...headers},body:body===undefined?undefined:JSON.stringify(body)});
  const env={DB_URL:url.href,SERVICE_NAME:'client',...(sourceLimit?{WORKSPACE_SOURCE_LIMIT:sourceLimit}:{})};
- if(path==='/booking-requests')return gateway.fetch(new Request('https://gateway/v1/client/bookings/request',request),{CLIENT:{fetch:r=>clientBookingLifecycle(r,env,new URL(r.url).pathname,{})}});
+ if(path==='/booking-requests')return gateway.fetch(new Request('https://gateway'+submissionPath,request),{CLIENT:{fetch:r=>clientBookingLifecycle(r,env,new URL(r.url).pathname,{})}});
  return clientBookingLifecycle(request,env,path.split('?')[0],{});
 }
 try{
@@ -18,7 +18,7 @@ try{
  // Applying the additive migration twice must preserve data and constraints.
  await db.query(await readFile('packages/database/migrations/20261005_booking_request_audit.sql','utf8'));
  for(let i=0;i<3;i++){await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,'patient',$3,'unused','active')",[ids[i],ids[i]+'@example.invalid',tenants[i===2?1:0]]);await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '1 hour')",[hash(tokens[i]),ids[i]]);await db.query('INSERT INTO client_profiles(id,user_id,tenant_id) VALUES($1,$2,$3)',[profiles[i],ids[i],tenants[i===2?1:0]]);}
- const concurrent=await Promise.all([call(),call()]);for(const r of concurrent)assert.equal(r.status,201);const results=await Promise.all(concurrent.map(r=>r.json()));assert.equal(results[0].request.id,results[1].request.id);const id=results[0].request.id;checks++;
+ const concurrent=await Promise.all([call(),call('/booking-requests','create-key',input,tokens[0],{},undefined,'/v1/client/bookings/request')]);for(const r of concurrent)assert.equal(r.status,201);const results=await Promise.all(concurrent.map(r=>r.json()));assert.equal(results[0].request.id,results[1].request.id);const id=results[0].request.id;checks++;
  assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM booking_requests')).rows[0].count,1);assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM booking_request_audit')).rows[0].count,1);checks++;
  const snapshot=async()=>({requests:(await db.query('SELECT * FROM booking_requests ORDER BY id')).rows,audit:(await db.query('SELECT * FROM booking_request_audit ORDER BY id')).rows});
  for(const path of ['/booking-requests','/booking-requests/'+id+'/cancel','/booking-requests/'+id+'/audit']) {
