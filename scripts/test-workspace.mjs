@@ -87,3 +87,16 @@ test('workspace rejects corrupt counts, groups and aggregate overflow',async()=>
  for(const rows of [[{role:'ceo',count:1},{role:'ceo',count:2}],[{role:null,count:1}],[{role:'ceo',count:Number.MAX_SAFE_INTEGER},{role:'rmt',count:1}]]){fixture();const base=globalThis.__workspaceQuery;globalThis.__workspaceQuery=async(sql,values)=>sql.includes('SELECT roles AS role')?{rows}:base(sql,values);assert.equal((await call()).status,503);}});
 
 test('workspace rejects unknown and duplicate query fields before database access',async()=>{globalThis.__workspaceQuery=()=>assert.fail('Database touched');for(const query of ['?screen=ceo_dashboard&screen=ceo_dashboard','?tenant=other','?limit=100','?screen=']){const r=await call('GET',query);assert.equal(r.status,400);assert.equal(r.headers.get('cache-control'),'no-store');}});
+
+test('batch 296 workspace activity rejects malformed actions, dates and oversized adapter results',async()=>{
+ for(const rows of [[{action:'private-action',created_at:'2026-01-01T00:00:00Z'}],[{action:'account_created',created_at:'2026-02-30T00:00:00Z'}],[{action:'account_created',created_at:new Date('+010000-01-01T00:00:00Z')}],[null],Array(21).fill({action:'account_created',created_at:'2026-01-01T00:00:00Z'})]){
+  const queries=fixture();const original=globalThis.__workspaceQuery;
+  globalThis.__workspaceQuery=async(sql,values)=>sql.includes('FROM auth_account_audit')?(queries.push({sql,values}),{rows}):original(sql,values);
+  const response=await call();assert.equal(response.status,503);assert.equal(response.headers.get('cache-control'),'no-store');assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!(await response.text()).includes('private-action'));
+ }
+});
+test('batch 296 workspace activity projects only persisted action/date fields',async()=>{
+ const queries=fixture();const original=globalThis.__workspaceQuery;
+ globalThis.__workspaceQuery=async(sql,values)=>sql.includes('FROM auth_account_audit')?(queries.push({sql,values}),{rows:[{action:'account_created',created_at:new Date('2026-01-01T00:00:00Z'),private:'private-secret',actor_user_id:'private-actor'}]}):original(sql,values);
+ const response=await call();assert.equal(response.status,200);const body=await response.json();assert.deepEqual(body.overview.activity,[{action:'account_created',created_at:'2026-01-01T00:00:00.000Z'}]);assert.ok(!JSON.stringify(body.overview).includes('private-'));
+});

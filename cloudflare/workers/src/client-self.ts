@@ -1,3 +1,4 @@
+import {validRecordTimestamp} from './record-date-validation';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import recordRegistry from './client-records-registry.json';
@@ -50,7 +51,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
         const p=profiles[0];
         const requiredString=(value:unknown)=>typeof value==='string';
         const nullableString=(value:unknown)=>value===null||typeof value==='string';
-        const dateTime=(value:unknown)=>(typeof value==='string'||value instanceof Date)&&Number.isFinite(new Date(value as string).getTime());
+        const dateTime=(value:unknown)=>validRecordTimestamp(value);
         const count=(rows:Record<string,unknown>[],label:string)=>{const value=rows[0]?.count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid '+label+' count');return value;};
         const statusGroup=(row:Record<string,unknown>,label:string)=>{if(!nullableString(row.status)||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid '+label+' summary');return {status:row.status,count:row.count};};
         if(path==='/home/profile'){
@@ -77,7 +78,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           }
           const fields='pay.id,pay.amount::text AS amount,pay.status,pay.created_at,pay.updated_at';
           const project=(row:Record<string,unknown>)=>{
-            if(typeof row.id!=='string'||(row.amount!==null&&(typeof row.amount!=='string'||! /^-?\d+(?:\.\d+)?$/.test(row.amount)))||(row.status!==null&&typeof row.status!=='string')||![row.created_at,row.updated_at].every(v=>(typeof v==='string'||v instanceof Date)&&Number.isFinite(new Date(v as string).getTime())))throw Error('Invalid payment data');
+            if(typeof row.id!=='string'||(row.amount!==null&&(typeof row.amount!=='string'||! /^-?\d+(?:\.\d+)?$/.test(row.amount)))||(row.status!==null&&typeof row.status!=='string')||![row.created_at,row.updated_at].every(v=>validRecordTimestamp(v)))throw Error('Invalid payment data');
             return {id:row.id,amount:row.amount,status:row.status,created_at:row.created_at,updated_at:row.updated_at};
           };
           if(paymentId!==null){
@@ -107,7 +108,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           const scope=ownerJoin?' FROM '+record.table+' r JOIN client_profiles owner ON owner.id::text=r.'+ownerField+'::text WHERE r.'+ownerField+'::text=$1 AND owner.tenant_id::text=$2 AND owner.user_id::text=$3'+(recordedTenant?' AND r.tenant_id::text=$2':''):' FROM '+record.table+' WHERE '+ownerField+'::text=$1 AND tenant_id::text=$2';
           const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{
             const types=(record.types as Record<string,string|string[]>)[field],allowed=Array.isArray(types)?types:[types],value=row[field];
-            const valid=value===null?allowed.includes('null'):record.dateFields.includes(field)?(typeof value==='string'||value instanceof Date)&&Number.isFinite(new Date(value as string).getTime()):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&typeof value==='string';
+            const valid=value===null?allowed.includes('null'):record.dateFields.includes(field)?validRecordTimestamp(value):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&typeof value==='string';
             if(!valid)throw Error('Invalid record data');
             return [field,field==='id'?String(value):value];
           }));
@@ -194,7 +195,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
         const decimal=(value:unknown)=>value===null||typeof value==='string'&&/^-?\d+(?:\.\d+)?$/.test(value);
         const invoiceCount=(rows:Record<string,unknown>[])=>{const value=rows[0]?.count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid invoice count');return value;};
         const invoiceProject=(i:Record<string,unknown>)=>{
-          if(typeof i.id!=='string'||![i.status,i.currency].every(nullableString)||![i.subtotal,i.tax,i.total].every(decimal)||![i.created_at,i.updated_at].every(value=>(typeof value==='string'||value instanceof Date)&&Number.isFinite(new Date(value as string).getTime())))throw Error('Invalid invoice data');
+          if(typeof i.id!=='string'||![i.status,i.currency].every(nullableString)||![i.subtotal,i.tax,i.total].every(decimal)||![i.created_at,i.updated_at].every(value=>validRecordTimestamp(value)))throw Error('Invalid invoice data');
           return {id:i.id,status:i.status,currency:i.currency,subtotal:i.subtotal,tax:i.tax,total:i.total,created_at:i.created_at,updated_at:i.updated_at};
         };
         const invoiceGroup=(g:Record<string,unknown>)=>{

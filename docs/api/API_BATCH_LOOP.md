@@ -135,3 +135,32 @@ Maintenance returns explicit template/audit projections and rejects corrupt stor
 PostgreSQL CI exposed a shared counter timing race: transaction-start NOW can produce a 61-second retry for a 60-second window when a request waits on a row lock. Retry projection now uses clock_timestamp after the wait. A deterministic PostgreSQL lock-wait regression accompanies the existing concurrent budget and saturation tests. Strict result bounds and atomic counters remain in place.
 
 Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments. Local validation: 1,808 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37552341294 at 5826243ebbb7b1b527273f0651943ba455245e4b. PR #109 merged as 8098c497b871b68ff15ab5fa978fec4704f6cf7f. Latest completed batch is 283; next batch is 284. No deployment or production database changes.
+
+
+## Iteration 11 — batches 284–298, read dates and native email results, in review
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 284 | Client profile | Validate the registered update date without JavaScript coercion or calendar normalization. |
+| 285 | Client invoices | Validate list/detail date-time fields while preserving decimal precision. |
+| 286 | Client payments | Validate own/nested list/detail dates without changing invoice ownership. |
+| 287 | Client visits | Validate requested start and update dates. |
+| 288 | Client bookings | Validate start/end dates. |
+| 289 | Client booking requests | Validate preferred, creation and update dates. |
+| 290 | Client registered records | Validate every registered date field in list/detail projections; retain declared nullable values. |
+| 291 | Provider documents/visits | Validate required and nullable dates under existing ownership. |
+| 292 | Provider registered records | Validate registered date fields across existing list/detail projections. |
+| 293 | Account owned records | Validate registered date fields while retaining existing owner/tenant scope. |
+| 294 | Booking lifecycle/audit | Reject extended-year Date results before mutation audit/commit or audit serialization. |
+| 295 | Provider timesheet items | Reject extended-year Date results in list/detail responses. |
+| 296 | Workspace activity | Validate existing event actions and dates; explicitly project action/date within the twenty-row bound. |
+| 297 | Native email transport | Require callable binding, uncoerced normalized addresses and a valid string acceptance ID read once. |
+| 298 | Runtime email templates | Validate IDs, bounded content and placeholders before rendering; derive canonical required variables. |
+
+Existing read contracts require finite RFC3339 date-times. JavaScript parsing alone previously accepted date-only strings, impossible calendar dates normalized into another month, and extended-year Date values outside the four-digit contract. A shared validator now enforces the same calendar/time bounds as account reads, preserving valid RFC3339 strings, PostgreSQL Date serialization and declared nulls. Old unit fixtures containing date-only strings are corrected to explicit UTC date-times. Direct Worker tests cover list/detail routes across every registered date family. Invalid results return sanitized no-store 503 with rollback. Booking/timesheet Date projections now also reject years outside 0000–9999; booking failures precede audit/commit.
+
+Workspace activity permits only the three persisted event actions from the selected account/configuration audit sources, and returns two fields. Native email results must contain an actual nonempty trimmed messageId string without control characters. Addresses are validated without coercion and passed to the native transport as bare emails. Malformed send receipts are generic failures; recovery removes its reset code and maintenance writes no acceptance audit. One template validator is shared by maintenance projection and rendering: content/placeholder bounds and canonical required variables cannot be overridden by stored/deployment variable arrays. HTML escaping and native-only transport remain intact.
+
+Disposable PostgreSQL checks inject infinity and year-10000 timestamps into owned rows across the read families, assert rejection and unchanged state, and restore each fixture. Additional checks cover workspace activity, booking mutation/audit rollback, and malformed native receipts during recovery/test delivery. Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
+
+Local validation: 1,845 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.

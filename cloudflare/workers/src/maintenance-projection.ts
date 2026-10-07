@@ -1,3 +1,4 @@
+import {validatedEmailTemplate} from './email-template-validation';
 import templates from './email-templates.json';
 import {accountTimestamp} from './account-read-projection';
 
@@ -26,16 +27,7 @@ export function configuredMailFields(value:unknown) {
   const overrides=object(row.templates);
   const projected:Partial<typeof templates>={};
   for(const [id,value] of Object.entries(overrides)) {
-    if(!Object.hasOwn(templates,id))throw Error('Invalid maintenance template');
-    const fields=object(value),base=templates[id as keyof typeof templates];
-    for(const key of ['subject','title','body']) {
-      if(typeof fields[key]!=='string' || !(fields[key] as string).trim() || (fields[key] as string).length>(key==='body'?4000:200))throw Error('Invalid maintenance template');
-    }
-    if(/[\r\n]/.test(fields.subject as string))throw Error('Invalid maintenance subject');
-    const combined=[fields.subject,fields.title,fields.body].join(' ');
-    const variables=[...combined.matchAll(/\{\{([a-zA-Z]+)\}\}/g)].map(m=>m[1]);
-    if(variables.some(k=>!base.required.includes(k)) || base.required.some(k=>!variables.includes(k)) || combined.replace(/\{\{[a-zA-Z]+\}\}/g,'').includes('{{'))throw Error('Invalid maintenance placeholders');
-    projected[id as keyof typeof templates]={subject:fields.subject as string,title:fields.title as string,body:fields.body as string,required:[...base.required]};
+    projected[id as keyof typeof templates]=validatedEmailTemplate(id,value);
   }
   return {sender,templates:projected};
 }

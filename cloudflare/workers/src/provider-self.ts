@@ -1,3 +1,4 @@
+import {validRecordTimestamp} from './record-date-validation';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 
@@ -34,7 +35,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
         const p=profiles[0];
         const requiredString=(value:unknown)=>typeof value==='string';
         const nullableString=(value:unknown)=>value===null||typeof value==='string';
-        const dateTime=(value:unknown)=>(typeof value==='string'||value instanceof Date)&&Number.isFinite(new Date(value as string).getTime());
+        const dateTime=(value:unknown)=>validRecordTimestamp(value);
         const nullableDateTime=(value:unknown)=>value===null||dateTime(value);
         const count=(rows:Record<string,unknown>[],label:string)=>{const value=rows[0]?.count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid '+label+' count');return value;};
         const statusGroup=(row:Record<string,unknown>,label:string,withDuration=false)=>{if(!nullableString(row.status)||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0||withDuration&&(typeof row.durationMinutes!=='string'||! /^-?\d+$/.test(row.durationMinutes)))throw Error('Invalid '+label+' summary');return withDuration?{status:row.status,count:row.count,durationMinutes:row.durationMinutes}:{status:row.status,count:row.count};};

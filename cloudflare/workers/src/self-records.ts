@@ -1,3 +1,4 @@
+import {validRecordTimestamp} from './record-date-validation';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import generatedRegistry from './self-records-registry.json';
@@ -33,7 +34,7 @@ export async function selfRecords(request:Request,env:Env,path:string,headers:He
         const valid=(field:string,value:unknown)=>{
           const type=record.types[field],allowed=Array.isArray(type)?type:[type];
           if(value===null)return allowed.includes('null');
-          if(record.dateFields.includes(field))return (typeof value==='string'||value instanceof Date)&&Number.isFinite(new Date(value as string).getTime());
+          if(record.dateFields.includes(field))return validRecordTimestamp(value);
           return allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('string')&&typeof value==='string';
         };
         const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{if(!valid(field,row[field]))throw Error('Invalid account record');return [field,row[field]];}));

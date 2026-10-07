@@ -61,3 +61,12 @@ test('failed replay rollback removes the success replay marker',async()=>{
  fixture();await call();const values=queries.find(q=>q.sql.startsWith('INSERT INTO booking_request_audit')).values;fixture();prior={request_id:values[0],request_hash:values[7],response_json:JSON.parse(values[8])};const base=globalThis.__lifecycleQuery;globalThis.__lifecycleQuery=async(sql,values)=>{if(sql==='ROLLBACK')throw Error('private-rollback-error');return base(sql,values);};
  const response=await call();assert.equal(response.status,503);assert.equal(response.headers.get('idempotency-replayed'),null);assert.deepEqual(await response.json(),{error:'Booking request service unavailable'});
 });
+
+test('batch 294 booking creation and cancellation reject extended-year Date results before audit',async()=>{
+ for(const path of ['/booking-requests','/booking-requests/request/cancel'])for(const value of [new Date('+010000-01-01T00:00:00Z'),new Date('-000001-01-01T00:00:00Z')]){
+  fixture();const original=globalThis.__lifecycleQuery;
+  globalThis.__lifecycleQuery=async(sql,values)=>{const result=await original(sql,values);if(sql.startsWith('INSERT INTO booking_requests')||sql.startsWith('UPDATE booking_requests'))result.rows[0].created_at=value;return result;};
+  const response=await call(path,path==='/booking-requests'?input:undefined);
+  assert.equal(response.status,503);assert.equal(response.headers.get('cache-control'),'no-store');assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql.startsWith('INSERT INTO booking_request_audit')||q.sql==='COMMIT'));
+ }
+});
