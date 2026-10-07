@@ -773,7 +773,7 @@ Fifty numbered boundary cases plus eight gateway regressions check malformed dat
 
 Local validation: 3,161 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37646701791 at 7cb5be583ffe8e9623b966d7472bb0c59e29afe7. PR #123 merged as 91405fb2ef8e23e807f5934f40ea2f0170b1aca3. Latest completed batch is 738; next batch is 739. No deployment or production database changes.
 
-## Iteration 25 — batches 739–788 (in review)
+## Iteration 25 — batches 739–788 (merged)
 
 - Batch 739 client /visits service_id: empty reference.
 - Batch 740 client /visits service_id: padded reference.
@@ -830,4 +830,4 @@ Client/provider visit service references and registered service, week, survey an
 
 Fifty numbered gateway/helper cases plus three summary/absence regressions reject empty, padded, invalid, oversized, missing and non-string reference values; preserve UUID/text strings through list/detail/summary reads; and verify compatible row shapes, shared references, null semantics, privacy and rollback. A disposable PostgreSQL adapter fault regression checks all seven reader families with real SQL, unchanged stored rows, inaccessible foreign-owned details and tenant mismatch denial. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants, authority promotions, deployment or production database changes.
 
-Local validation: 3,214 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI pending.
+Local validation: 3,214 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37651980486 at b09abac9a5e7961e876d10cf80a910ebcf43b582. PR #124 merged as 5f4f377c2baba4d2b676345bcb88d913fb57f4dc. Latest completed batch is 788; next batch is 789. No deployment or production database changes.
