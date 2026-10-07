@@ -1,5 +1,5 @@
 import {summaryRows} from './summary-results';
-import {scopedActor,boundRow,resultRows,requiredRow} from './database-results';
+import {recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {accountId} from './account-read-projection';
 import {validRecordTimestamp} from './record-date-validation';
 import {sourceLimitAllowed} from './source-limit-result';
@@ -40,7 +40,7 @@ export async function providerRecords(request:Request,env:Env,path:string,header
           if(record.dateFields.includes(field))return validRecordTimestamp(value);
           return allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('string')&&typeof value==='string';
         };
-        const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{if(!valid(field,row[field]))throw Error('Invalid provider record');return [field,row[field]];}));
+        const project=(row:Record<string,unknown>)=>{if(record.fields.includes('id'))accountId(row.id);return Object.fromEntries(record.fields.map(field=>{if(!valid(field,row[field]))throw Error('Invalid provider record');return [field,row[field]];}));};
         if(summary){
           const field=record.summaryField!,groupField=prefix+field;
           const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+groupField+scope+' GROUP BY '+groupField+') groups',values)).rows).count,'Invalid provider summary count');
@@ -57,7 +57,7 @@ export async function providerRecords(request:Request,env:Env,path:string,header
         if(detail){const row=boundRow((await db.query('SELECT '+fields+scope+' AND '+prefix+'id::text=$'+(values.length+1),[...values,suffix])).rows,suffix);return row?json({[record.item]:project(row)},200,safe):json({error:'Record not found'},404,safe);}
         const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count'+scope,values)).rows).count,'Invalid provider record count');
         const rows=(await db.query('SELECT '+fields+scope+' ORDER BY '+prefix+record.orderField+' DESC,'+prefix+'id DESC LIMIT $'+(values.length+1)+' OFFSET $'+(values.length+2),[...values,Number(limit),Number(offset)])).rows;
-        return json({[record.collection!]:resultRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        return json({[record.collection!]:recordRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
       }finally{await db.query('ROLLBACK');}
     });
   }catch{return json({error:'Provider data unavailable'},503,safe);}

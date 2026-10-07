@@ -1,5 +1,5 @@
 import {summaryRows} from './summary-results';
-import {scopedActor,boundRow,resultRows,requiredRow} from './database-results';
+import {recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {accountId} from './account-read-projection';
 import {validRecordTimestamp} from './record-date-validation';
 import {sourceLimitAllowed} from './source-limit-result';
@@ -90,7 +90,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           }
           const total=count((await db.query('SELECT COUNT(*)::int AS count'+scope,paymentValues)).rows,'payment');
           const rows=(await db.query('SELECT '+fields+scope+' ORDER BY pay.created_at DESC,pay.id DESC'+paging,[...paymentValues,Number(limit),Number(offset)])).rows;
-          return json({payments:resultRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({payments:recordRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(requestSummary){
           const filter='client_id::text=$1 AND tenant_id::text=$2';
@@ -135,7 +135,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           }
           const total=count((await db.query('SELECT COUNT(*)::int AS count'+scope,recordValues)).rows);
           const rows=(await db.query('SELECT '+fields+scope+' ORDER BY '+prefix+column(record.orderField)+' DESC,'+prefix+'id DESC LIMIT $'+next+' OFFSET $'+(next+1),[...recordValues,Number(limit),Number(offset)])).rows;
-          return json({[record.collection]:resultRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({[record.collection]:recordRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(path==='/booking-requests'||requestMatch){
           const fields='id,service_type,preferred_date,preferred_time,status,created_at,updated_at';
@@ -150,7 +150,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           }
           const total=count((await db.query('SELECT COUNT(*)::int AS count FROM booking_requests WHERE '+filter,values)).rows,'booking request');
           const rows=(await db.query('SELECT '+fields+' FROM booking_requests WHERE '+filter+' ORDER BY created_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          return json({requests:resultRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({requests:recordRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(visitSummary){
           const filter='client_id::text=$1 AND tenant_id::text=$2';
@@ -171,7 +171,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           }
           const total=count((await db.query('SELECT COUNT(*)::int AS count FROM visits WHERE '+filter,values)).rows,'visit');
           const rows=(await db.query('SELECT '+fields+' FROM visits WHERE '+filter+' ORDER BY requested_start_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          return json({visits:resultRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({visits:recordRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(statusSummary){
           const filter='client_id::text=$1 AND tenant_id::text=$2';
@@ -192,7 +192,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           }
           const total=count((await db.query('SELECT COUNT(*)::int AS count FROM bookings WHERE '+filter,values)).rows,'booking');
           const rows=(await db.query('SELECT '+fields+' FROM bookings WHERE '+filter+' ORDER BY start_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          return json({bookings:resultRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({bookings:recordRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         const invoiceFields='id,status,currency,subtotal::text AS subtotal,tax::text AS tax,total::text AS total,created_at,updated_at';
         const decimal=(value:unknown)=>value===null||typeof value==='string'&&/^-?\d+(?:\.\d+)?$/.test(value);
@@ -218,7 +218,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
         const filter='client_id::text=$1 AND tenant_id::text=$2';
         const total=invoiceCount((await db.query('SELECT COUNT(*)::int AS count FROM invoices WHERE '+filter,values)).rows);
         const rows=(await db.query('SELECT id,status,currency,subtotal::text AS subtotal,tax::text AS tax,total::text AS total,created_at,updated_at FROM invoices WHERE '+filter+' ORDER BY created_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-        return json({invoices:resultRows(rows,Number(limit)).map(invoiceProject),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        return json({invoices:recordRows(rows,Number(limit)).map(invoiceProject),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
       }finally{await db.query('ROLLBACK');}
     });
   }catch{return json({error:'Client data unavailable'},503,safe);}

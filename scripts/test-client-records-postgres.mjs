@@ -1,3 +1,4 @@
+import {assertReadIdentityRejections} from './record-identity-postgres-fixtures.mjs';
 import {assertOwnedPageBoundaries} from './owned-result-postgres-fixtures.mjs';
 import {assertReadDateRejections} from './read-date-postgres-fixtures.mjs';
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp,readFile} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
@@ -17,7 +18,8 @@ try{
    const values=record.fields.map(f=>{const t=record.types[f],base=Array.isArray(t)?t[0]:t;return f==='id'?records[i]:Array.isArray(t)?null:base==='integer'?1:base==='number'?1.5:isDate(f)?'2026-01-01T12:00:00Z':'value';});values.push(profiles[i===1?1:0],tenants[i===2?1:0],'private note','private signature','private key','private code');
    await db.query('INSERT INTO '+record.table+'('+[...record.fields,'client_id','tenant_id','notes','signature_data_url','document_key','auth_code'].join(',')+') VALUES('+values.map((_,j)=>'$'+(j+1)).join(',')+')',values);
   }
-  if(record.dateFields.length)checks+=await assertReadDateRejections(db,()=>call(record.path),{table:record.table,field:record.dateFields[0],id:records[0]});
+  checks+=await assertReadIdentityRejections(db,()=>call(record.path),{table:record.table,id:records[0],duplicate:!record.singleton});
+   if(record.dateFields.length)checks+=await assertReadDateRejections(db,()=>call(record.path),{table:record.table,field:record.dateFields[0],id:records[0]});
   const response=await call(record.path,'?limit=1');assert.equal(response.status,200);const list=await response.json();assert.equal(list.pagination.total,1);assert.equal(list[record.collection][0].id,records[0]);assert.ok(!JSON.stringify(list).includes('private'));checks++;
   const detail=await (await call(record.path+'/'+records[0])).json();assert.equal(detail[record.item].id,records[0]);checks++;
   for(const id of records.slice(1))assert.equal((await call(record.path+'/'+id)).status,404);checks++;

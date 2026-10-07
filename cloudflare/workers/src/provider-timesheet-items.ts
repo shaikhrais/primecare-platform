@@ -1,5 +1,5 @@
 import {summaryRows} from './summary-results';
-import {scopedActor,boundRow,resultRows,requiredRow} from './database-results';
+import {recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 
@@ -59,7 +59,7 @@ export async function providerTimesheetItems(request:Request,env:Env,path:string
         }
         const total=count(requiredRow((await db.query('SELECT COUNT(*)::int AS count'+scope,values)).rows).count);
         const rows=(await db.query('SELECT '+fields+scope+' ORDER BY item.created_at DESC,item.id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-        return json({items:resultRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        return json({items:recordRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
       }finally{await db.query('ROLLBACK');}
     });
   }catch{return json({error:'Timesheet item data unavailable'},503,safe);}

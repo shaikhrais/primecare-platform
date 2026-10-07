@@ -1,3 +1,4 @@
+import {assertReadIdentityRejections} from './record-identity-postgres-fixtures.mjs';
 import {assertOwnedPageBoundaries} from './owned-result-postgres-fixtures.mjs';
 import {assertReadDateRejections} from './read-date-postgres-fixtures.mjs';
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp,readFile} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
@@ -16,6 +17,7 @@ try{
   const insert=async(i,user,tenant)=>{const id=randomUUID();ids.push(id);const values=record.fields.map(f=>f==='id'?id:record.dateFields.includes(f)?'2026-01-0'+(i+1)+'T12:00:00Z':record.types[f]==='integer'?10:record.types[f]==='boolean'?i===2:f==='status'?(i===2?'COMPLETED':'PENDING'):'stored');values.push(user,tenant);const fields=[...record.fields,'user_id','tenant_id'];if(record.table==='app_notifications'){fields.push('link');values.push('private-navigation-link');}await db.query('INSERT INTO '+record.table+'('+fields.join(',')+') VALUES('+values.map((_,j)=>'$'+(j+1)).join(',')+')',values);return id;};
   if(record.singleton){
    await insert(0,users[0],tenants[0]);await insert(1,users[1],tenants[0]);await insert(2,users[0],tenants[1]);await insert(3,users[0],null);
+   checks+=await assertReadIdentityRejections(db,()=>call(record.path),{table:record.table,id:ids[0],duplicate:!record.singleton});
    if(record.dateFields.length)checks+=await assertReadDateRejections(db,()=>call(record.path),{table:record.table,field:record.dateFields[0],id:ids[0]});
    const response=await call(record.path);assert.equal(response.status,200);const body=await response.json();assert.equal(body.profile.id,ids[0]);assert.equal(body.profile.care_coins,10);assert.deepEqual(Object.keys(body.profile),record.fields);checks++;
    assert.equal((await (await call(record.path,'',tokens[1])).json()).profile.id,ids[1]);checks++;
@@ -23,6 +25,7 @@ try{
    await db.query('DELETE FROM '+record.table+' WHERE id=$1',[ids[0]]);assert.equal((await call(record.path)).status,404);checks++;
   }else{
    for(let i=0;i<3;i++)await insert(i,users[0],tenants[0]);await insert(3,users[1],tenants[0]);await insert(4,users[0],tenants[1]);if(record.table!=='daily_activities')await insert(5,users[0],null);
+   checks+=await assertReadIdentityRejections(db,()=>call(record.path),{table:record.table,id:ids[0],duplicate:!record.singleton});
    if(record.dateFields.length)checks+=await assertReadDateRejections(db,()=>call(record.path),{table:record.table,field:record.dateFields[0],id:ids[0]});
    const response=await call(record.path,'?limit=1');assert.equal(response.status,200);const list=await response.json();assert.equal(list.pagination.total,3);assert.equal(typeof list.pagination.total,'number');assert.equal(list[record.collection][0].id,ids[2]);assert.deepEqual(Object.keys(list[record.collection][0]),record.fields);assert.ok(!JSON.stringify(list).includes('navigation-link'));checks++;
    const page=await (await call(record.path,'?limit=1&offset=1')).json();assert.equal(page[record.collection][0].id,ids[1]);assert.equal(page.pagination.hasMore,true);checks++;
