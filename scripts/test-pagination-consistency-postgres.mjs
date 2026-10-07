@@ -31,13 +31,13 @@ try {
  await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '1 hour')",[createHash('sha256').update(token).digest('hex'),user]);
  for(const [table,columns] of [
   ['client_profiles','id TEXT PRIMARY KEY,user_id TEXT,tenant_id TEXT,full_name TEXT,city TEXT,province TEXT,postal_code TEXT,updated_at TIMESTAMP'],
-  ['provider_profiles','id TEXT PRIMARY KEY,user_id TEXT,tenant_id TEXT'],
+  ['provider_profiles','id TEXT PRIMARY KEY,user_id TEXT,tenant_id TEXT,full_name TEXT,bio TEXT,languages TEXT,service_areas TEXT,provider_type TEXT,is_approved BOOLEAN,skills TEXT'],
   ['invoices','id TEXT PRIMARY KEY,client_id TEXT,tenant_id TEXT,status TEXT,currency TEXT,subtotal NUMERIC,tax NUMERIC,total NUMERIC,created_at TIMESTAMP,updated_at TIMESTAMP'],
   ['provider_availability','id TEXT PRIMARY KEY,provider_id TEXT,tenant_id TEXT,day_of_week INTEGER,start_time TEXT,end_time TEXT'],
   ['app_notifications','id TEXT PRIMARY KEY,user_id TEXT,tenant_id TEXT,title TEXT,message TEXT,type TEXT,is_read BOOLEAN,created_at TIMESTAMP'],
  ]){await db.query('CREATE TABLE '+table+'('+columns+')');tables.push(table);}
  await db.query("INSERT INTO client_profiles VALUES($1,$2,$3,'Fixture',NULL,NULL,NULL,NOW())",[client,user,tenant]);
- await db.query('INSERT INTO provider_profiles VALUES($1,$2,$3)',[provider,user,tenant]);
+ await db.query("INSERT INTO provider_profiles VALUES($1,$2,$3,'Fixture',NULL,'English','Hamilton','provider',true,'Fixture')",[provider,user,tenant]);
  for(let i=0;i<3;i++) {
   await db.query("INSERT INTO invoices VALUES($1,$2,$3,$4,'CAD',10,1,11,NOW(),NOW())",[randomUUID(),client,tenant,i===0?'paid':'pending']);
   await db.query("INSERT INTO provider_availability VALUES($1,$2,$3,$4,'09:00','17:00')",[randomUUID(),provider,tenant,i===0?1:2]);
@@ -50,6 +50,7 @@ try {
     globalThis.__paginationFixture={count,queries:[]};
     const response=await call(name,path+suffix,query);
     assert.equal(response.status,503,name+path+suffix);assert.equal(response.headers.get('cache-control'),'no-store');assert.equal(response.headers.get('set-cookie'),null);
+    assert.ok(globalThis.__paginationFixture.queries.some(sql=>sql.startsWith('SELECT COUNT')),name+path+suffix+' must reach its count query');assert.ok(globalThis.__paginationFixture.queries.some(sql=>sql.includes('ORDER BY')),name+path+suffix+' must reach its page query');
     assert.equal(globalThis.__paginationFixture.queries.at(-1),'ROLLBACK');assert.ok(!globalThis.__paginationFixture.queries.includes('COMMIT'));
     assert.deepEqual(await snapshot(),before);checks++;
    }

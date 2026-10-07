@@ -159,6 +159,6 @@
     "docs/api/record-identity-boundaries-batches-389-438.json": "1c0f0db784986acc248a3434759264a98d3af9822fbbbaf3f5c9eab6938c5388",
     "scripts/record-identity-postgres-fixtures.mjs": "9e2f34c7c685f3076ddbef4f2f16d43cc1bf16d382019599559c12e72b830127",
     "docs/api/pagination-consistency-batches-439-488.json": "6ded0d27c9a0a01da47385f73ad9b31268822adcb6605906ad516822a60ef8da",
-    "scripts/test-pagination-consistency-postgres.mjs": "ee2eb46657e204d10defff22933a6228f390d62aaa77775f15fc52e5d4cb76fb"
+    "scripts/test-pagination-consistency-postgres.mjs": "2073d96c7011213f8ed423893902a54496661a283df92ed13340516ad29f4173"
   }
 }
