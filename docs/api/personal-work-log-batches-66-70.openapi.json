@@ -87,7 +87,8 @@
                             "type": "string"
                           }
                         }
-                      }
+                      },
+                      "maxItems": 100
                     },
                     "pagination": {
                       "type": "object",
@@ -111,7 +112,8 @@
                         },
                         "total": {
                           "type": "integer",
-                          "minimum": 0
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -484,7 +486,8 @@
                             "format": "date-time"
                           }
                         }
-                      }
+                      },
+                      "maxItems": 100
                     },
                     "pagination": {
                       "type": "object",
@@ -508,7 +511,8 @@
                         },
                         "total": {
                           "type": "integer",
-                          "minimum": 0
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"
@@ -862,7 +866,8 @@
                             "format": "date-time"
                           }
                         }
-                      }
+                      },
+                      "maxItems": 100
                     },
                     "pagination": {
                       "type": "object",
@@ -886,7 +891,8 @@
                         },
                         "total": {
                           "type": "integer",
-                          "minimum": 0
+                          "minimum": 0,
+                          "maximum": 9007199254740991
                         },
                         "hasMore": {
                           "type": "boolean"

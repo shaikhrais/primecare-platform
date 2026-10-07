@@ -1023,3 +1023,60 @@ Local validation: 3,333 API fixtures, eight authority regressions, Worker TypeSc
 Fifty existing summary routes now declare positive safe-integer group counts, at most 100 groups and nonnegative safe-integer pagination totals. Empty groups and zero totals remain valid. Registration verifies existing service/bearer/owner authority, including the distinct assigned-provider visit permission. Stored and canonical schemas retain their existing labels, nullability and payload fields. No runtime routes, grants, clinical authority, deployment or production database changes.
 
 Local validation: 3,383 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `5ac8e93380182bd08e3a2258120658c27fe1e702`, run 37670095453. PR #129 merged as `860a944fe34e3e51620bf403e0af397641607d01`. Latest completed numbered batch is 950; next is 951.
+
+## Iteration 30 — batches 951–1000 (in review)
+
+- Batch 951 client /consents: align bounded collection and pagination contracts.
+- Batch 952 provider /conversation-threads: align bounded collection and pagination contracts.
+- Batch 953 auth /me/notifications: align bounded collection and pagination contracts.
+- Batch 954 client /service-authorizations: align bounded collection and pagination contracts.
+- Batch 955 provider /timesheets: align bounded collection and pagination contracts.
+- Batch 956 auth /me/activities: align bounded collection and pagination contracts.
+- Batch 957 client /waitlist: align bounded collection and pagination contracts.
+- Batch 958 provider /availability-overrides: align bounded collection and pagination contracts.
+- Batch 959 auth /me/wellness-pulses: align bounded collection and pagination contracts.
+- Batch 960 client /feedback: align bounded collection and pagination contracts.
+- Batch 961 provider /mileage-logs: align bounded collection and pagination contracts.
+- Batch 962 auth /me/device-events: align bounded collection and pagination contracts.
+- Batch 963 client /care-feedback: align bounded collection and pagination contracts.
+- Batch 964 provider /payouts: align bounded collection and pagination contracts.
+- Batch 965 auth /me/devices: align bounded collection and pagination contracts.
+- Batch 966 client /conversation-threads: align bounded collection and pagination contracts.
+- Batch 967 provider /performance-reviews: align bounded collection and pagination contracts.
+- Batch 968 auth /me/health-ids: align bounded collection and pagination contracts.
+- Batch 969 client /family-links: align bounded collection and pagination contracts.
+- Batch 970 provider /visit-check-events: align bounded collection and pagination contracts.
+- Batch 971 auth /me/survey-submissions: align bounded collection and pagination contracts.
+- Batch 972 client /alert-records: align bounded collection and pagination contracts.
+- Batch 973 provider /visit-matches: align bounded collection and pagination contracts.
+- Batch 974 auth /me/group-memberships: align bounded collection and pagination contracts.
+- Batch 975 client /insurance-claim-records: align bounded collection and pagination contracts.
+- Batch 976 provider /shift-assignment-records: align bounded collection and pagination contracts.
+- Batch 977 auth /me/password-history: align bounded collection and pagination contracts.
+- Batch 978 client /prescription-records: align bounded collection and pagination contracts.
+- Batch 979 provider /handover-records: align bounded collection and pagination contracts.
+- Batch 980 auth /me/shift-logs: align bounded collection and pagination contracts.
+- Batch 981 client /care-plan-records: align bounded collection and pagination contracts.
+- Batch 982 provider /authored-visit-note-records: align bounded collection and pagination contracts.
+- Batch 983 auth /me/daily-entry-records: align bounded collection and pagination contracts.
+- Batch 984 client /assessment-records: align bounded collection and pagination contracts.
+- Batch 985 provider /authored-checklist-records: align bounded collection and pagination contracts.
+- Batch 986 auth /me/adl-log-records: align bounded collection and pagination contracts.
+- Batch 987 client /medication-reconciliation-records: align bounded collection and pagination contracts.
+- Batch 988 provider /training-assignment-records: align bounded collection and pagination contracts.
+- Batch 989 auth /me/vital-sign-records: align bounded collection and pagination contracts.
+- Batch 990 client /shift-log-records: align bounded collection and pagination contracts.
+- Batch 991 auth /me/behavior-note-records: align bounded collection and pagination contracts.
+- Batch 992 client /adl-records: align bounded collection and pagination contracts.
+- Batch 993 auth /me/nutrition-records: align bounded collection and pagination contracts.
+- Batch 994 client /vital-observation-records: align bounded collection and pagination contracts.
+- Batch 995 auth /me/mobility-records: align bounded collection and pagination contracts.
+- Batch 996 client /behavior-observation-records: align bounded collection and pagination contracts.
+- Batch 997 auth /me/infection-control-records: align bounded collection and pagination contracts.
+- Batch 998 client /nutrition-observation-records: align bounded collection and pagination contracts.
+- Batch 999 auth /me/narrative-note-records: align bounded collection and pagination contracts.
+- Batch 1000 client /mobility-observation-records: align bounded collection and pagination contracts.
+
+Fifty existing list routes and their authoritative compatibility aliases now declare at most 100 records, pagination limits 1–100, offsets 0–100000 and nonnegative safe-integer totals. Empty collections and zero totals remain valid. Registration verifies existing bearer and owner authority. Existing identifiers, nullability and projections remain intact. No new routes, grants, deployment or production database changes.
+
+Local validation: 3,433 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head PostgreSQL and security CI pending. Latest merged numbered batch remains 950 until merge.
