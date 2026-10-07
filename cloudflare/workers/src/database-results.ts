@@ -1,4 +1,15 @@
 import {accountId} from './account-read-projection';
+/** Reject inherited and accessor data without invoking it. */
+export function dataObject(row:unknown):Record<string,unknown> {
+ if(!row||typeof row!=='object'||Array.isArray(row))throw Error('Invalid database result row');
+ const prototype=Object.getPrototypeOf(row);
+ if(prototype!==Object.prototype&&prototype!==null)throw Error('Invalid database result prototype');
+ for(const key of Reflect.ownKeys(row)) {
+  const field=Object.getOwnPropertyDescriptor(row,key);
+  if(!field||!('value' in field))throw Error('Invalid database result field');
+ }
+ return row as Record<string,unknown>;
+}
 /** Validate adapter cardinality before using database rows as authority. */
 export function resultRows(value:unknown,maximum=Number.MAX_SAFE_INTEGER):Record<string,unknown>[] {
  if(!Number.isSafeInteger(maximum)||maximum<0||!Array.isArray(value)||value.length>maximum)throw Error('Invalid database result cardinality');
@@ -6,15 +17,7 @@ export function resultRows(value:unknown,maximum=Number.MAX_SAFE_INTEGER):Record
  for(let index=0;index<value.length;index++) {
   const entry=Object.getOwnPropertyDescriptor(value,String(index));
   if(!entry||!('value' in entry))throw Error('Invalid database result entry');
-  const row:unknown=entry.value;
-  if(!row||typeof row!=='object'||Array.isArray(row))throw Error('Invalid database result row');
-  const prototype=Object.getPrototypeOf(row);
-  if(prototype!==Object.prototype&&prototype!==null)throw Error('Invalid database result prototype');
-  for(const key of Reflect.ownKeys(row)) {
-   const field=Object.getOwnPropertyDescriptor(row,key);
-   if(!field||!('value' in field))throw Error('Invalid database result field');
-  }
-  rows.push(row as Record<string,unknown>);
+  rows.push(dataObject(entry.value));
  }
  return rows;
 }

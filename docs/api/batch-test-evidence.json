@@ -1,16 +1,16 @@
 {
   "scope": "local_unit_fixtures",
-  "passed": 3103,
+  "passed": 3161,
   "failed": 0,
   "productionVerified": false,
   "postgresVerified": false,
   "sourceHashes": {
-    "cloudflare/workers/src/account-admin.ts": "80c934c99a2069c1e03969f0c28430907bad36823d4d8e71a20854352e9ed134",
+    "cloudflare/workers/src/account-admin.ts": "b93b16c000f0c02e387fef5b3566b79f2c786f8b62fb23176471b506390d9b92",
     "cloudflare/workers/src/account-management.ts": "4508680cbafbf98725d54103e1d759865d2f2a3742b3f6f960880a3166632b09",
     "cloudflare/workers/src/account-policy.json": "74d51cb199e3ac6522acd0723561d7af93327bb80114ad8de96b5ddebdc432ce",
     "cloudflare/workers/src/account-read-projection.ts": "9a0b5e79d92f9878b8521f67a237fba0e88430f27122478bf63f5e7723333b0e",
     "cloudflare/workers/src/api-execution-inventory.json": "8ba394a94a2786b0ca0c64bb9b159809ef716af9f1965ae3a476189eba322b63",
-    "cloudflare/workers/src/audit-confirmation.ts": "36ac3b4c4cfb12ad489930d350aa90b79b20c889c703201af7adc28d94015646",
+    "cloudflare/workers/src/audit-confirmation.ts": "1580f31385bdbd842a78583caa5c8936f88089c2964ab2feb63e1e1cf666606c",
     "cloudflare/workers/src/auth-projection.ts": "ba81cd5f65cf27c48b642c004e9a0919eb48bd4599fc76af3d1e484968dbc7da",
     "cloudflare/workers/src/auth-rate-limit.ts": "57fc7f10de02980d1496d400c033715ee30a43c90f6b2d32171278bd7edd0e84",
     "cloudflare/workers/src/auth-security-policy.json": "929c89cacb68845acf5843569313bb4a1b3a42c07cc0943d7964f54cbee611d5",
@@ -20,8 +20,8 @@
     "cloudflare/workers/src/client-booking-lifecycle.ts": "f1407914da8a425576fe0ede136c2c8b2a77b3dac1ffd6f29169e35e09e3ea53",
     "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5",
     "cloudflare/workers/src/client-self.ts": "2e62f7630e722f52d13fe2397a4786532e96b986a051b05d539a7aa350a427de",
-    "cloudflare/workers/src/database-results.ts": "92bd916002586382cdfe6a5acb90a69667db4bc8379c5508202c1a7f10007913",
-    "cloudflare/workers/src/email-template-validation.ts": "176442b274a4072e8b855ebdc72cea6a2c2a0abcd191da83b1656c0b9fd5262e",
+    "cloudflare/workers/src/database-results.ts": "f1cd0256b9f60894e332ffa781a763308d36ced024faec35c7372cd073dddaec",
+    "cloudflare/workers/src/email-template-validation.ts": "ee234127bc2db6033e3cad49b35ef5e1e1d243c030da21d95e4198876e655df0",
     "cloudflare/workers/src/email-templates.json": "fac27367d39bf30caebacb76c4cc4919e181e47348aa75cc40780124c9a79446",
     "cloudflare/workers/src/email.ts": "077c20aaa21de6112319c25672d92ea62619fa9b207839f50a46aef8805f6c17",
     "cloudflare/workers/src/gateway.ts": "7405befbc6d8e6d6b90812a9a0149ea7adb7b278e824fa605e404a0f96cc5317",
@@ -30,7 +30,7 @@
     "cloudflare/workers/src/governed-read-aliases.json": "e1779921d40058db203523b045b94d65ce1098bf968482a81904f35ab9e00a43",
     "cloudflare/workers/src/legacy-domain-registry.json": "ebb5891fa57650c61b749b4817a1f8bfc5b1722ba425488dfc460216e1de7336",
     "cloudflare/workers/src/legacy-domain.ts": "3065972b37a81b95724a53d1351a987c3b0b8666b60d9fc8d30035ae247e973d",
-    "cloudflare/workers/src/maintenance-projection.ts": "a884274fcacf7eb644c1091615da7ce72fbbb65abc84c644a22bf0d1ac46daf3",
+    "cloudflare/workers/src/maintenance-projection.ts": "24d962cab3013d48c93adbfe215b4968a9493dc9bbc5323979c28f900412e588",
     "cloudflare/workers/src/maintenance.ts": "bf46a0c1d6f0e4fc18fe88fb02ca114c2dcc638fbc0614ea7457ea534b46cc68",
     "cloudflare/workers/src/password-change.ts": "260c0413ad13965feabdb44793f530fb73f4b3c49e17b1d96344adb33b596c08",
     "cloudflare/workers/src/password-recovery.ts": "b5b21a3be45c83e307efebe96a05571591ef59f7660e079e7f3a57adf5554e17",
@@ -112,6 +112,7 @@
     "scripts/test-dense-result-boundaries.mjs": "f54d006e46b11e0800344b4f8cd8153e22ee2c34c9de992cae0e885f45696d39",
     "scripts/test-account-session-page-boundaries.mjs": "15f699cdb5708725e633f334c1aa6a646273741cc38e4922e8707b8e9f9bf6ef",
     "scripts/test-tenant-authority-boundaries.mjs": "956a8e2a123bd8f3f82fe8c7b2f4520672cbe17274efd41b75231adbb234bc24",
+    "scripts/test-nested-adapter-boundaries.mjs": "8b5bb0a419c79e1c81d3aae5f69b951e2a36c4a34b493e833b3ed74f8e668437",
     "scripts/read-alias-fixtures.mjs": "0308bc3df0aacea06cc95c9881729950931a7c9c5d1d4c0b049c3faf0413490f",
     "scripts/singleton-read-alias-fixtures.mjs": "347746e21ebb0d30aab1060111eb51dd8576ed76fdced87501a4637476da8551",
     "scripts/governed-read-alias-definitions.json": "e3be043c827985877d924cd401efc79d4c45f0e16a95ab67e20221d5162b02c5",
@@ -172,6 +173,8 @@
     "docs/api/account-session-page-batches-589-638.json": "a4baef87cb413789800338b0045873ac1778540fe6cf3046fe02b3fd6496e8b1",
     "scripts/test-account-session-pages-postgres.mjs": "3c81d5af136142c16594772ae4681d9514a55749dec224cd8beb22e6ed89131a",
     "docs/api/tenant-authority-batches-639-688.json": "eb9030153b711a8adf1c72a45a3330deb6867e1b197d213a664127ae9c182da3",
-    "scripts/test-tenant-authority-postgres.mjs": "033440ea584c67960776e3260aed7bcd99efab19ebe6fe67d6b25841593b7043"
+    "scripts/test-tenant-authority-postgres.mjs": "033440ea584c67960776e3260aed7bcd99efab19ebe6fe67d6b25841593b7043",
+    "docs/api/nested-adapter-batches-689-738.json": "d93671ad775ed9a88ca967e83483cebebd10a357cab3355c21ddf17a9d2a0294",
+    "scripts/test-nested-adapter-postgres.mjs": "a566065792ea2803e68e62ef121006875ca40466d4fbc74ddec641328e7492a6"
   }
 }

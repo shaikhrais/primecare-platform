@@ -1,3 +1,4 @@
+import {dataObject} from './database-results';
 import templates from './email-templates.json';
 
 /** Static template IDs and required variables are authoritative. Stored or
@@ -5,7 +6,7 @@ import templates from './email-templates.json';
  */
 export function validatedEmailTemplate(id:string,value:unknown) {
   if(!Object.hasOwn(templates,id)||!value||typeof value!=='object'||Array.isArray(value))throw Error('Invalid email template');
-  const fields=value as Record<string,unknown>,base=templates[id as keyof typeof templates];
+  const fields=dataObject(value),base=templates[id as keyof typeof templates];
   for(const key of ['subject','title','body']) {
     if(typeof fields[key]!=='string'||!(fields[key] as string).trim()||(fields[key] as string).length>(key==='body'?4000:200))throw Error('Invalid email template');
   }

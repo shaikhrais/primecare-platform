@@ -1,15 +1,12 @@
+import {dataObject,optionalRow,resultRows} from './database-results';
 import {validatedEmailTemplate} from './email-template-validation';
 import templates from './email-templates.json';
 import {accountTimestamp} from './account-read-projection';
 
-const object=(value:unknown):Record<string,unknown>=>{
-  if(!value || typeof value!=='object' || Array.isArray(value))throw Error('Invalid maintenance result');
-  return value as Record<string,unknown>;
-};
+const object=dataObject;
 /** Absent configuration uses deployment defaults; ambiguous results never do. */
 export function singleConfiguration(rows:unknown):Record<string,unknown>|null {
-  if(!Array.isArray(rows) || rows.length>1)throw Error('Invalid maintenance cardinality');
-  return rows.length?object(rows[0]):null;
+  return optionalRow(rows);
 }
 export function configurationRevision(value:unknown):number {
   if(typeof value!=='number' || !Number.isSafeInteger(value) || value<1 || value>2147483647)throw Error('Invalid maintenance revision');
@@ -32,8 +29,7 @@ export function configuredMailFields(value:unknown) {
   return {sender,templates:projected};
 }
 export function configurationAudit(rows:unknown) {
-  if(!Array.isArray(rows) || rows.length>20)throw Error('Invalid maintenance audit');
-  return rows.map(value=>{
+  return resultRows(rows,20).map(value=>{
     const row=object(value);
     if(!['email_configuration_changed','test_email_accepted'].includes(row.action as string))throw Error('Invalid maintenance audit action');
     return {action:row.action as string,created_at:accountTimestamp(row.created_at)};
