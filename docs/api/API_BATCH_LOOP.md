@@ -1138,7 +1138,7 @@ Fifty existing read families now declare fixed list and detail response envelope
 
 Fifty new regression checks exercise actual Worker populated lists, empty lists and details against the contracts, reject added private envelope/pagination fields and missing required collections/items, and confirm database-only canaries are projected out. Local validation: 3,483 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `f8a5c733370166291d0dd1b24c95fd58323e8ca5`, run 37672991556. PR #131 merged as `5afeb746d52d68b6a95bcd067ed3d41458b82f62`. Latest completed numbered batch is 1050; next is 1051.
 
-## Iteration 32 — batches 1051–1100 (in review)
+## Iteration 32 — batches 1051–1100 (merged)
 
 - Batch 1051 auth /me/activities/summary: align grouped-read response envelopes and page bounds.
 - Batch 1052 auth /me/assigned-task-records/summary: align grouped-read response envelopes and page bounds.
@@ -1193,4 +1193,4 @@ Fifty new regression checks exercise actual Worker populated lists, empty lists 
 
 Repaired 41 existing grouped-read routes and nine existing record families selected from actual schema gaps. Fixed response envelopes reject undeclared properties; pagination declares limits 1–100, offsets 0–100000 and nonnegative safe-integer totals. Empty groups/lists and zero totals remain valid. Required fields, labels, nullability, payload projections, IDs and owner authority remain intact. Authoritative collection aliases inherit applicable list repairs. No new business endpoints, grants, deployment or production database changes.
 
-Fifty new regression checks exercise actual Worker populated and empty responses plus applicable details, reject private envelope/pagination fields and missing payloads, and reject out-of-range pagination values. Local validation: 3,533 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head PostgreSQL and security CI pending. Latest merged numbered batch remains 1050 until merge.
+Fifty new regression checks exercise actual Worker populated and empty responses plus applicable details, reject private envelope/pagination fields and missing payloads, and reject out-of-range pagination values. Local validation: 3,533 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `6db2d2803b81d5d0d177fe4f8c9b56d9c4719a14`, run 37674947440. PR #132 merged as `c40b2cb050aeb0eef43ddbb1f4d69286291aa33a`. Latest completed numbered batch is 1100; next is 1101.
