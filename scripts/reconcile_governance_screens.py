@@ -12,16 +12,21 @@ Use --check in CI (read-only) and --write to update the SQLite database.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sqlite3
 import sys
 from dataclasses import asdict, dataclass
+from functools import lru_cache
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB = ROOT / ".agents" / "governance" / "governance.db"
+WORKSPACE_RENDERER = 'packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart'
+# Bounded reviewed renderer: changed control flow requires another source review.
+WORKSPACE_RENDERER_SHA256 = '89b02a3fda665d96419d641f57878ee072587fa7133c5ab8c40b1b47e1a1f4ea'
 CLASS_RE = re.compile(r"\bclass\s+([A-Za-z_]\w*)\b")
 CONSTRUCTOR_RE = re.compile(r"(?<![.\w])([A-Z][A-Za-z0-9_]*)\s*\(")
 SCREEN_CLASS_RE = re.compile(
@@ -51,6 +56,41 @@ class ScreenResult:
 
 def normalize(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", value.lower())
+
+@lru_cache(maxsize=8)
+def registry_pages(path: Path, modified_ns: int, size: int) -> list[dict]:
+    return json.loads(path.read_text())['screens']
+
+
+def dynamic_sections(root: Path, screen: sqlite3.Row, names: list[str], source: str) -> list[str]:
+    """Registered structural rendering evidence, never business completion.
+
+    This reviewed renderer selects the authorized page by route, iterates its
+    registered sections inside the returned ListView, calls _section, and
+    returns a visible card containing section name and stable semantics.
+    Pinning its full source rejects dead loops or non-rendering modifications.
+    """
+    if screen['actual_file_path'] != WORKSPACE_RENDERER:
+        return []
+    if hashlib.sha256(source.encode()).hexdigest() != WORKSPACE_RENDERER_SHA256:
+        return []
+    path = root / 'cloudflare/workers/src/workspace-registry.json'
+    try:
+        stat = path.stat()
+        pages = registry_pages(path, stat.st_mtime_ns, stat.st_size)
+        matches = [p for p in pages if p['code'] == screen['screen_code'] and p['route'] == screen['route_path']]
+        if len(matches) != 1:
+            return []
+        sections = matches[0]['sections']
+        if any(not s.get('code') or not s.get('name') or s.get('testId') != 'section-' + s['code'] for s in sections):
+            return []
+        codes = [s['code'] for s in sections]
+        if len(codes) != len(set(codes)):
+            return []
+        registered = [s['name'] for s in sections]
+        return sorted(names) if all(registered.count(name) == 1 for name in names) else []
+    except (OSError, ValueError, KeyError, TypeError):
+        return []
 
 
 def table_columns(conn: sqlite3.Connection, table: str) -> set[str]:
@@ -93,6 +133,8 @@ def inspect_screen(
         name for name in section_names
         if normalize(name) in normalize(source)
     )
+    if not rendered_sections and section_names:
+        rendered_sections = dynamic_sections(root, screen, section_names, source)
 
     score = 25  # physical Dart implementation exists
     if screen_classes:
@@ -136,6 +178,8 @@ def inspect_screen(
 
 
 def reconcile(db_path: Path, write: bool, report_path: Path | None) -> int:
+    if write and db_path.resolve() == DEFAULT_DB.resolve():
+        raise ValueError("Tracked seed is immutable; use a disposable derived database")
     conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     columns = table_columns(conn, "screens")
@@ -149,6 +193,8 @@ def reconcile(db_path: Path, write: bool, report_path: Path | None) -> int:
     ).fetchall()
     results: list[ScreenResult] = []
     metadata_drift: list[str] = []
+    section_snapshot = [tuple(r) for r in conn.execute('SELECT * FROM screen_sections ORDER BY rowid')]
+    schema_snapshot = [tuple(r) for r in conn.execute('PRAGMA table_info(screens)')]
     for screen in screens:
         section_names = [
             row[0] for row in conn.execute(
@@ -162,31 +208,66 @@ def reconcile(db_path: Path, write: bool, report_path: Path | None) -> int:
             "component_summary": ", ".join(result.components),
             "section_summary": ", ".join(result.sections),
             "completeness_score": result.score,
-            "production_ready": int(result.score == 100 and not result.issues),
+            # Static structure and source bindings never establish readiness.
+            "production_ready": 0,
         }
         if any(key in columns and screen[key] != value for key, value in expected.items()):
             metadata_drift.append(result.screen_code)
 
     if write:
-        conn.execute("BEGIN")
-        for result in results:
-            values: dict[str, object] = {}
-            if "component_summary" in columns:
-                values["component_summary"] = ", ".join(result.components)
-            if "section_summary" in columns:
-                values["section_summary"] = ", ".join(result.sections)
-            if "completeness_score" in columns:
-                values["completeness_score"] = result.score
-            # Production readiness must be supported by every evidence category.
-            if "production_ready" in columns:
-                values["production_ready"] = int(result.score == 100 and not result.issues)
-            if values:
-                assignments = ", ".join(f"{key} = ?" for key in values)
-                conn.execute(
-                    f"UPDATE screens SET {assignments} WHERE id = ?",
-                    (*values.values(), result.screen_id),
-                )
-        conn.commit()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            locked_screens = conn.execute('SELECT * FROM screens WHERE active=1 ORDER BY id').fetchall()
+            if [dict(r) for r in locked_screens] != [dict(r) for r in screens] or section_snapshot != [tuple(r) for r in conn.execute('SELECT * FROM screen_sections ORDER BY rowid')] or schema_snapshot != [tuple(r) for r in conn.execute('PRAGMA table_info(screens)')]:
+                raise ValueError('Source metadata changed before archive lock; no corrections applied')
+            for trigger in conn.execute("SELECT name,sql FROM sqlite_master WHERE type='trigger'"):
+                if re.search(r'\b(screens|screen_metadata_reconciliation_archive)\b', trigger['sql'] or '', re.I):
+                    raise ValueError('Unreviewed screen/archive trigger: ' + trigger['name'])
+            existing_archive = list(conn.execute('PRAGMA table_info(screen_metadata_reconciliation_archive)'))
+            expected_archive = [('screen_id','INTEGER',1,1),('original_digest','TEXT',1,2),('original_row_json','TEXT',1,0),('corrected_metadata_json','TEXT',1,0),('evidence_policy','TEXT',1,0),('archived_at','TEXT',1,0)]
+            if existing_archive and [(r['name'],r['type'],r['notnull'],r['pk']) for r in existing_archive] != expected_archive:
+                raise ValueError('Unreviewed archive schema')
+            conn.execute('''CREATE TABLE IF NOT EXISTS screen_metadata_reconciliation_archive (
+                screen_id INTEGER NOT NULL, original_digest TEXT NOT NULL,
+                original_row_json TEXT NOT NULL, corrected_metadata_json TEXT NOT NULL,
+                evidence_policy TEXT NOT NULL, archived_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY(screen_id, original_digest))''')
+            for result in results:
+                values: dict[str, object] = {}
+                if "component_summary" in columns:
+                    values["component_summary"] = ", ".join(result.components)
+                if "section_summary" in columns:
+                    values["section_summary"] = ", ".join(result.sections)
+                if "completeness_score" in columns:
+                    values["completeness_score"] = result.score
+                # Production readiness must be supported by every evidence category.
+                if "production_ready" in columns:
+                    values["production_ready"] = 0
+                original = next(s for s in screens if s['id'] == result.screen_id)
+                if values and any(original[key] != value for key, value in values.items()):
+                    raw = json.dumps(dict(original), sort_keys=True, ensure_ascii=False)
+                    original_digest = hashlib.sha256(raw.encode()).hexdigest()
+                    corrected = json.dumps(values, sort_keys=True)
+                    policy = 'Reviewed source structure only; production readiness remains false'
+                    previous = conn.execute('SELECT original_row_json,corrected_metadata_json,evidence_policy FROM screen_metadata_reconciliation_archive WHERE screen_id=? AND original_digest=?',(result.screen_id,original_digest)).fetchone()
+                    if previous and tuple(previous) != (raw,corrected,policy):
+                        raise ValueError('Archived provenance conflict')
+                    conn.execute('''INSERT OR IGNORE INTO screen_metadata_reconciliation_archive
+                        (screen_id,original_digest,original_row_json,corrected_metadata_json,evidence_policy)
+                        VALUES (?,?,?,?,?)''', (result.screen_id, original_digest, raw,corrected,policy))
+                    stored = conn.execute('SELECT original_row_json,corrected_metadata_json,evidence_policy FROM screen_metadata_reconciliation_archive WHERE screen_id=? AND original_digest=?',(result.screen_id,original_digest)).fetchone()
+                    if not stored or tuple(stored) != (raw,corrected,policy):
+                        raise ValueError('Archive preservation verification failed')
+                    assignments = ", ".join(f"{key} = ?" for key in values)
+                    conn.execute(
+                        f"UPDATE screens SET {assignments} WHERE id = ?",
+                        (*values.values(), result.screen_id),
+                    )
+            conn.commit()
+        except BaseException:
+            conn.rollback()
+            conn.close()
+            raise
 
     issue_counts: dict[str, int] = {}
     for result in results:
@@ -196,8 +277,10 @@ def reconcile(db_path: Path, write: bool, report_path: Path | None) -> int:
     summary = {
         "active_screens": len(results),
         "files_present": sum("missing_file" not in r.issues for r in results),
-        "fully_evidenced": sum(not r.issues for r in results),
-        "average_score": round(sum(r.score for r in results) / max(len(results), 1), 2),
+        "static_structure_evidenced": sum(not r.issues for r in results),
+        "evidence_scope": "static_source_structure_and_registered_bindings; no runtime, accessibility or business completion",
+        "production_ready_promotions": 0,
+        "average_static_source_score": round(sum(r.score for r in results) / max(len(results), 1), 2),
         "metadata_drift": 0 if write else len(metadata_drift),
         "issue_counts": dict(sorted(issue_counts.items())),
         "screens": [asdict(r) for r in results if r.issues],
@@ -226,6 +309,8 @@ def main() -> int:
     args = parser.parse_args()
     if not args.db.is_file():
         parser.error(f"database not found: {args.db}")
+    if args.write and args.db.resolve() == DEFAULT_DB.resolve():
+        parser.error('--write requires a disposable derived database; the tracked seed is immutable')
     return reconcile(args.db.resolve(), args.write, args.report)
 
 
