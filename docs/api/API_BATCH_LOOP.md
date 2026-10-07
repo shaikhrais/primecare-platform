@@ -1137,3 +1137,60 @@ Local validation: 3,433 API fixtures, eight authority regressions, Worker TypeSc
 Fifty existing read families now declare fixed list and detail response envelopes; list pagination also rejects undeclared properties. Existing payload fields, required fields, nullability, identifiers and owner scopes remain intact. Authoritative collection compatibility aliases inherit the corrected list contracts. No new business endpoints, access grants, deployment or production database changes.
 
 Fifty new regression checks exercise actual Worker populated lists, empty lists and details against the contracts, reject added private envelope/pagination fields and missing required collections/items, and confirm database-only canaries are projected out. Local validation: 3,483 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `f8a5c733370166291d0dd1b24c95fd58323e8ca5`, run 37672991556. PR #131 merged as `5afeb746d52d68b6a95bcd067ed3d41458b82f62`. Latest completed numbered batch is 1050; next is 1051.
+
+## Iteration 32 — batches 1051–1100 (in review)
+
+- Batch 1051 auth /me/activities/summary: align grouped-read response envelopes and page bounds.
+- Batch 1052 auth /me/assigned-task-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1053 auth /me/audit-signoff-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1054 auth /me/authored-care-plan-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1055 auth /me/authored-review-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1056 auth /me/daily-entry-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1057 auth /me/device-events/summary: align grouped-read response envelopes and page bounds.
+- Batch 1058 auth /me/health-ids/summary: align grouped-read response envelopes and page bounds.
+- Batch 1059 auth /me/medication-reconciliation-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1060 auth /me/notifications/summary: align grouped-read response envelopes and page bounds.
+- Batch 1061 auth /me/reported-incident-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1062 auth /me/reviewed-timesheet-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1063 auth /me/shift-logs/summary: align grouped-read response envelopes and page bounds.
+- Batch 1064 auth /me/survey-submissions/summary: align grouped-read response envelopes and page bounds.
+- Batch 1065 auth /me/technical-audit-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1066 auth /me/telehealth-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1067 auth /me/wellness-pulses/summary: align grouped-read response envelopes and page bounds.
+- Batch 1068 client /alert-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1069 client /assessment-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1070 client /care-feedback/summary: align grouped-read response envelopes and page bounds.
+- Batch 1071 client /care-plan-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1072 client /consents/summary: align grouped-read response envelopes and page bounds.
+- Batch 1073 client /conversation-threads/summary: align grouped-read response envelopes and page bounds.
+- Batch 1074 client /family-links/summary: align grouped-read response envelopes and page bounds.
+- Batch 1075 client /family-notification-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1076 client /feedback/summary: align grouped-read response envelopes and page bounds.
+- Batch 1077 client /insurance-claim-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1078 client /medication-reconciliation-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1079 client /prescription-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1080 client /service-authorizations/summary: align grouped-read response envelopes and page bounds.
+- Batch 1081 client /shift-log-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1082 client /waitlist/summary: align grouped-read response envelopes and page bounds.
+- Batch 1083 provider /availability-overrides/summary: align grouped-read response envelopes and page bounds.
+- Batch 1084 provider /conversation-threads/summary: align grouped-read response envelopes and page bounds.
+- Batch 1085 provider /mileage-logs/summary: align grouped-read response envelopes and page bounds.
+- Batch 1086 provider /payouts/summary: align grouped-read response envelopes and page bounds.
+- Batch 1087 provider /performance-reviews/summary: align grouped-read response envelopes and page bounds.
+- Batch 1088 provider /timesheets/summary: align grouped-read response envelopes and page bounds.
+- Batch 1089 provider /training-assignment-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1090 provider /visit-check-events/summary: align grouped-read response envelopes and page bounds.
+- Batch 1091 provider /visit-matches/summary: align grouped-read response envelopes and page bounds.
+- Batch 1092 auth /me/care-plan-follow-up-records: align list/detail response envelopes and page bounds.
+- Batch 1093 auth /me/assigned-task-records: align list/detail response envelopes and page bounds.
+- Batch 1094 auth /me/audit-signoff-records: align list/detail response envelopes and page bounds.
+- Batch 1095 auth /me/reported-incident-records: align list/detail response envelopes and page bounds.
+- Batch 1096 auth /me/assessment-records: align list/detail response envelopes and page bounds.
+- Batch 1097 auth /me/medication-reconciliation-records: align list/detail response envelopes and page bounds.
+- Batch 1098 auth /me/supervision-records: align list/detail response envelopes and page bounds.
+- Batch 1099 auth /me/technical-audit-records: align list/detail response envelopes and page bounds.
+- Batch 1100 auth /me/authored-care-plan-records: align list/detail response envelopes and page bounds.
+
+Repaired 41 existing grouped-read routes and nine existing record families selected from actual schema gaps. Fixed response envelopes reject undeclared properties; pagination declares limits 1–100, offsets 0–100000 and nonnegative safe-integer totals. Empty groups/lists and zero totals remain valid. Required fields, labels, nullability, payload projections, IDs and owner authority remain intact. Authoritative collection aliases inherit applicable list repairs. No new business endpoints, grants, deployment or production database changes.
+
+Fifty new regression checks exercise actual Worker populated and empty responses plus applicable details, reject private envelope/pagination fields and missing payloads, and reject out-of-range pagination values. Local validation: 3,533 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head PostgreSQL and security CI pending. Latest merged numbered batch remains 1050 until merge.

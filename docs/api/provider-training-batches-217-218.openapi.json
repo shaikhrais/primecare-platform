@@ -377,7 +377,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "groups": [
