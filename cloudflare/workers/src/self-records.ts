@@ -1,7 +1,7 @@
 import {accountId} from './account-read-projection';
 import {summaryRows} from './summary-results';
 import {pageRows,recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
-import {validRecordTimestamp} from './record-date-validation';
+import {projectRecordTimestamp,validRecordTimestamp} from './record-date-validation';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import generatedRegistry from './self-records-registry.json';
@@ -40,7 +40,7 @@ export async function selfRecords(request:Request,env:Env,path:string,headers:He
           if(record.dateFields.includes(field))return validRecordTimestamp(value);
           return allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('string')&&typeof value==='string';
         };
-        const project=(row:Record<string,unknown>)=>{if(record.fields.includes('id'))accountId(row.id);return Object.fromEntries(record.fields.map(field=>{if(!valid(field,row[field]))throw Error('Invalid account record');return [field,row[field]];}));};
+        const project=(row:Record<string,unknown>)=>{if(record.fields.includes('id'))accountId(row.id);return Object.fromEntries(record.fields.map(field=>{if(!valid(field,row[field]))throw Error('Invalid account record');return [field,record.dateFields.includes(field)?projectRecordTimestamp(row[field]):row[field]];}));};
         if(summary){
           const field=record.summaryField!,groupField=prefix+identifier(field);
           const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+groupField+scope+' GROUP BY '+groupField+') groups',values)).rows).count,'Invalid account summary count');

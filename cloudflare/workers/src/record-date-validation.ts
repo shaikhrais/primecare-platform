@@ -6,3 +6,8 @@ import {accountTimestamp} from './account-read-projection';
 export function validRecordTimestamp(value:unknown):boolean {
   try {accountTimestamp(value);return true;}catch {return false;}
 }
+
+/** Serialize dates as checked primitives rather than adapter-owned objects. */
+export function projectRecordTimestamp(value:unknown):string|null {
+  return accountTimestamp(value,value===null);
+}

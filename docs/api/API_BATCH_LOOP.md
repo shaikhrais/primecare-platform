@@ -467,3 +467,67 @@ New gateway regressions exercise total/offset contradictions and valid final/emp
 Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
 
 Local validation: 2,579 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37617430613 at a4cc05418437b99b4e390b78d992ae85109f7957. PR #118 merged as a3b7bd1fd7f45fc6b5481e2f656d824ca2fb9f4b. Latest completed batch is 488; next batch is 489. No deployment or production database changes.
+
+
+## Iteration 20 — batches 489–538, primitive timestamp projections, in review
+
+- Batch 489 client profile.
+- Batch 490 client invoices.
+- Batch 491 owned payments.
+- Batch 492 nested invoice payments.
+- Batch 493 client booking requests.
+- Batch 494 client visits.
+- Batch 495 client bookings.
+- Batch 496 provider documents.
+- Batch 497 provider visits.
+- Batch 498 timesheet items.
+- Batch 499 client /consents.
+- Batch 500 client /service-authorizations.
+- Batch 501 client /waitlist.
+- Batch 502 client /feedback.
+- Batch 503 client /care-feedback.
+- Batch 504 client /conversation-threads.
+- Batch 505 client /family-links.
+- Batch 506 client /alert-records.
+- Batch 507 client /insurance-claim-records.
+- Batch 508 client /prescription-records.
+- Batch 509 client /care-plan-records.
+- Batch 510 client /assessment-records.
+- Batch 511 client /medication-reconciliation-records.
+- Batch 512 client /shift-log-records.
+- Batch 513 client /adl-records.
+- Batch 514 client /vital-observation-records.
+- Batch 515 client /behavior-observation-records.
+- Batch 516 client /nutrition-observation-records.
+- Batch 517 client /mobility-observation-records.
+- Batch 518 client /infection-checklist-records.
+- Batch 519 client /progress-note-records.
+- Batch 520 client /care-follow-up-records.
+- Batch 521 client /family-notification-records.
+- Batch 522 client /inventory-item-records.
+- Batch 523 client /purchase-order-records.
+- Batch 524 client /patient-vital-records.
+- Batch 525 client /medication-administration-records.
+- Batch 526 provider /conversation-threads.
+- Batch 527 provider /timesheets.
+- Batch 528 provider /availability-overrides.
+- Batch 529 provider /mileage-logs.
+- Batch 530 provider /payouts.
+- Batch 531 provider /performance-reviews.
+- Batch 532 provider /visit-check-events.
+- Batch 533 provider /visit-matches.
+- Batch 534 provider /shift-assignment-records.
+- Batch 535 provider /handover-records.
+- Batch 536 provider /authored-visit-note-records.
+- Batch 537 provider /authored-checklist-records.
+- Batch 538 provider /training-assignment-records.
+
+Existing owned date projections now serialize checked string/null primitives instead of returning adapter-owned Date objects. Native Date state is read through Date.prototype getTime/getUTCFullYear/toISOString calls, so instance/subclass overrides cannot disguise invalid dates, forge timestamp text or inject private data through toJSON. The change covers every projected date field in the 50 numbered client/provider families, all registered personal records and the provider fleet singleton. Existing account/audit/workspace timestamp projections also use the hardened shared Date path.
+
+Precise RFC3339 strings retain their original spelling and fractional precision; Date values retain native ISO formatting. Nullable dates remain allowed only by their existing validators. Timesheet items retain their existing stricter UTC string acceptance and normalization. List/detail/singleton fields, empty/missing behavior, pagination, decimal/identity validation, authorization, owner/tenant SQL and read-only rollback remain.
+
+Gateway regressions test every projected date field on list/detail/singleton paths, overridden Date methods, native invalid/out-of-range Dates with forged methods, subclasses, precise strings and declared nulls. A disposable real PostgreSQL adapter test changes only returned Date objects, verifies primitive response values and zero override calls, rejects disguised invalid dates, confirms rollback, and compares stored fixture rows before/after. UUID/text CI includes that test and all prior PostgreSQL suites.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,734 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.

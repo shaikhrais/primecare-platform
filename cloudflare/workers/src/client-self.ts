@@ -1,7 +1,7 @@
 import {summaryRows} from './summary-results';
 import {pageRows,recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {accountId} from './account-read-projection';
-import {validRecordTimestamp} from './record-date-validation';
+import {projectRecordTimestamp,validRecordTimestamp} from './record-date-validation';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import recordRegistry from './client-records-registry.json';
@@ -59,7 +59,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
         const statusGroup=(row:Record<string,unknown>,label:string)=>{if(!nullableString(row.status)||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid '+label+' summary');return {status:row.status,count:row.count};};
         if(path==='/home/profile'){
           if(!requiredString(p.id)||!requiredString(p.full_name)||![p.city,p.province,p.postal_code].every(nullableString)||!dateTime(p.updated_at))throw Error('Invalid client profile data');
-          return json({profile:{id:p.id,full_name:p.full_name,city:p.city,province:p.province,postal_code:p.postal_code,updated_at:p.updated_at}},200,safe);
+          return json({profile:{id:p.id,full_name:p.full_name,city:p.city,province:p.province,postal_code:p.postal_code,updated_at:projectRecordTimestamp(p.updated_at)}},200,safe);
         }
         const values=[String(p.id),String(actor.tenant_id)];
         if(paymentMatch||ownedPayments){
@@ -82,7 +82,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           const fields='pay.id,pay.amount::text AS amount,pay.status,pay.created_at,pay.updated_at';
           const project=(row:Record<string,unknown>)=>{
             if(typeof row.id!=='string'||(row.amount!==null&&(typeof row.amount!=='string'||! /^-?\d+(?:\.\d+)?$/.test(row.amount)))||(row.status!==null&&typeof row.status!=='string')||![row.created_at,row.updated_at].every(v=>validRecordTimestamp(v)))throw Error('Invalid payment data');
-            return {id:row.id,amount:row.amount,status:row.status,created_at:row.created_at,updated_at:row.updated_at};
+            return {id:row.id,amount:row.amount,status:row.status,created_at:projectRecordTimestamp(row.created_at),updated_at:projectRecordTimestamp(row.updated_at)};
           };
           if(paymentId!==null){
             const row=boundRow((await db.query('SELECT '+fields+scope+' AND pay.id::text=$'+next,[...paymentValues,paymentId])).rows,paymentId);
@@ -113,7 +113,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
             const types=(record.types as Record<string,string|string[]>)[field],allowed=Array.isArray(types)?types:[types],value=row[field];
             const valid=value===null?allowed.includes('null'):record.dateFields.includes(field)?validRecordTimestamp(value):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&typeof value==='string';
             if(!valid)throw Error('Invalid record data');
-            return [field,field==='id'?String(value):value];
+            return [field,field==='id'?String(value):record.dateFields.includes(field)?projectRecordTimestamp(value):value];
           }));
           const count=(rows:Record<string,unknown>[])=>{const value=requiredRow(rows).count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid record count');return value;};
           if(recordSummary){
@@ -141,7 +141,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           const fields='id,service_type,preferred_date,preferred_time,status,created_at,updated_at';
           const project=(r:Record<string,unknown>)=>{
             if(![r.id,r.service_type,r.status].every(requiredString)||!nullableString(r.preferred_time)||![r.preferred_date,r.created_at,r.updated_at].every(dateTime))throw Error('Invalid booking request data');
-            return {id:r.id,service_type:r.service_type,preferred_date:r.preferred_date,preferred_time:r.preferred_time,status:r.status,created_at:r.created_at,updated_at:r.updated_at};
+            return {id:r.id,service_type:r.service_type,preferred_date:projectRecordTimestamp(r.preferred_date),preferred_time:r.preferred_time,status:r.status,created_at:projectRecordTimestamp(r.created_at),updated_at:projectRecordTimestamp(r.updated_at)};
           };
           const filter='client_id::text=$1 AND tenant_id::text=$2';
           if(requestMatch){
@@ -162,7 +162,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           const fields='id,service_id,requested_start_at,duration_minutes,status,priority,updated_at';
           const project=(v:Record<string,unknown>)=>{
             if(![v.id,v.service_id].every(requiredString)||![v.requested_start_at,v.updated_at].every(dateTime)||typeof v.duration_minutes!=='number'||!Number.isSafeInteger(v.duration_minutes)||!nullableString(v.status)||!nullableString(v.priority))throw Error('Invalid visit data');
-            return {id:v.id,service_id:v.service_id,requested_start_at:v.requested_start_at,duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:v.updated_at};
+            return {id:v.id,service_id:v.service_id,requested_start_at:projectRecordTimestamp(v.requested_start_at),duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:projectRecordTimestamp(v.updated_at)};
           };
           const filter='client_id::text=$1 AND tenant_id::text=$2';
           if(visitMatch){
@@ -183,7 +183,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           const fields='id,start_at,end_at,service_type,priority,status,recurrence_rule';
           const project=(b:Record<string,unknown>)=>{
             if(![b.id,b.service_type,b.priority,b.status].every(requiredString)||![b.start_at,b.end_at].every(dateTime)||!nullableString(b.recurrence_rule))throw Error('Invalid booking data');
-            return {id:b.id,start_at:b.start_at,end_at:b.end_at,service_type:b.service_type,priority:b.priority,status:b.status,recurrence_rule:b.recurrence_rule};
+            return {id:b.id,start_at:projectRecordTimestamp(b.start_at),end_at:projectRecordTimestamp(b.end_at),service_type:b.service_type,priority:b.priority,status:b.status,recurrence_rule:b.recurrence_rule};
           };
           const filter='client_id::text=$1 AND tenant_id::text=$2';
           if(bookingMatch){
@@ -199,7 +199,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
         const invoiceCount=(rows:Record<string,unknown>[])=>{const value=requiredRow(rows).count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid invoice count');return value;};
         const invoiceProject=(i:Record<string,unknown>)=>{
           if(typeof i.id!=='string'||![i.status,i.currency].every(nullableString)||![i.subtotal,i.tax,i.total].every(decimal)||![i.created_at,i.updated_at].every(value=>validRecordTimestamp(value)))throw Error('Invalid invoice data');
-          return {id:i.id,status:i.status,currency:i.currency,subtotal:i.subtotal,tax:i.tax,total:i.total,created_at:i.created_at,updated_at:i.updated_at};
+          return {id:i.id,status:i.status,currency:i.currency,subtotal:i.subtotal,tax:i.tax,total:i.total,created_at:projectRecordTimestamp(i.created_at),updated_at:projectRecordTimestamp(i.updated_at)};
         };
         const invoiceGroup=(g:Record<string,unknown>)=>{
           if(![g.status,g.currency].every(nullableString)||![g.subtotal,g.tax,g.total].every(decimal)||typeof g.invoiceCount!=='number'||!Number.isSafeInteger(g.invoiceCount)||g.invoiceCount<0)throw Error('Invalid invoice group');

@@ -1,7 +1,7 @@
 import {summaryRows} from './summary-results';
 import {pageRows,recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {accountId} from './account-read-projection';
-import {validRecordTimestamp} from './record-date-validation';
+import {projectRecordTimestamp,validRecordTimestamp} from './record-date-validation';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 
@@ -60,7 +60,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
           const fields='d.id,d.doc_type,d.status,d.expiry_date,d.verified_at,d.created_at,d.updated_at';
           const project=(d:Record<string,unknown>)=>{
             if(![d.id,d.doc_type].every(requiredString)||!nullableString(d.status)||![d.expiry_date,d.verified_at].every(nullableDateTime)||![d.created_at,d.updated_at].every(dateTime))throw Error('Invalid provider document data');
-            return {id:d.id,doc_type:d.doc_type,status:d.status,expiry_date:d.expiry_date,verified_at:d.verified_at,created_at:d.created_at,updated_at:d.updated_at};
+            return {id:d.id,doc_type:d.doc_type,status:d.status,expiry_date:projectRecordTimestamp(d.expiry_date),verified_at:projectRecordTimestamp(d.verified_at),created_at:projectRecordTimestamp(d.created_at),updated_at:projectRecordTimestamp(d.updated_at)};
           };
           if(documentMatch){
             const document=boundRow((await db.query('SELECT '+fields+scope+' AND d.id::text=$4',[...documentValues,documentMatch[1]])).rows,documentMatch[1]);
@@ -80,7 +80,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
           const fields='id,service_id,requested_start_at,duration_minutes,status,priority,updated_at';
           const project=(v:Record<string,unknown>)=>{
             if(![v.id,v.service_id].every(requiredString)||![v.requested_start_at,v.updated_at].every(dateTime)||typeof v.duration_minutes!=='number'||!Number.isSafeInteger(v.duration_minutes)||!nullableString(v.status)||!nullableString(v.priority))throw Error('Invalid provider visit data');
-            return {id:v.id,service_id:v.service_id,requested_start_at:v.requested_start_at,duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:v.updated_at};
+            return {id:v.id,service_id:v.service_id,requested_start_at:projectRecordTimestamp(v.requested_start_at),duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:projectRecordTimestamp(v.updated_at)};
           };
           const filter='assigned_provider_id::text=$1 AND tenant_id::text=$2';
           if(visitMatch){
