@@ -4,7 +4,7 @@ The user authorized maximum useful API batches without routine questions across 
 
 ## Checkpoint
 
-Latest completed feature batch: **204**. Batches **203–204** merged in [PR #90](https://github.com/shaikhrais/primecare-platform/pull/90). The current unit suite has **1,438 fixtures**, all passing. Exact-head unit/type checks, GitHub Advanced Security, and both UUID/text PostgreSQL jobs passed. No API feature PR remains outstanding at this checkpoint.
+Latest merged numbered batch: **850**. Batches **839–850** merged in [PR #127](https://github.com/shaikhrais/primecare-platform/pull/127), merge `aad478a46b4bf3fe17c7a3e632490d0f2b7ca21b`. **3,283 API fixtures** passed locally. Exact-head [CI run 37663643441](https://github.com/shaikhrais/primecare-platform/actions/runs/37663643441) passed UUID/text PostgreSQL, unit tests and Worker typechecks; GitHub Advanced Security passed on head `2f2fcd779ee7a4a49b6473261cbef14a2b7dfa2f`. **Next numbered batch: 851.** Batches 839–850 align twelve existing integer read contracts with runtime bounds; they add no new business endpoints. Sections below retain historical evidence and inventory counts; use the current generated inventory for remaining work.
 
 - Batches 116–120 merged in [PR #70](https://github.com/shaikhrais/primecare-platform/pull/70), with 898 local fixtures and passing UUID/text PostgreSQL CI.
 - Batches 121–152 merged in [PR #71](https://github.com/shaikhrais/primecare-platform/pull/71): 32 existing GET repairs, 1,136 local fixtures and passing UUID/text PostgreSQL CI.
