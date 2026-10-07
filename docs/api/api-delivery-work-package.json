@@ -16,5 +16,133 @@
     "POST /v1/auth/switch-role",
     "POST /v1/auth/whoami"
   ],
-  "retirements": {}
+  "retirements": {},
+  "reviews": {
+    "POST /v1/auth": {
+      "disposition": "requires_workflow_contract",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "Service status only; no authentication workflow"
+    },
+    "POST /v1/auth/": {
+      "disposition": "requires_workflow_contract",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "Service status only; no authentication workflow"
+    },
+    "POST /v1/auth/forgot-password": {
+      "disposition": "verify_existing",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "Public, enumeration-resistant recovery with rate limits and configured mail"
+    },
+    "POST /v1/auth/impersonate": {
+      "disposition": "requires_workflow_contract",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "No registered auth handler; returns route-not-found without business execution"
+    },
+    "POST /v1/auth/login": {
+      "disposition": "verify_existing",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "Credential login with active-user/password revalidation and session persistence"
+    },
+    "POST /v1/auth/logout": {
+      "disposition": "verify_existing",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "Idempotent own-session logout; optional bearer/cookie"
+    },
+    "POST /v1/auth/onboard-business": {
+      "disposition": "requires_workflow_contract",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "No registered auth handler; returns route-not-found without business execution"
+    },
+    "POST /v1/auth/osm": {
+      "disposition": "requires_workflow_contract",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "No registered auth handler; returns route-not-found without business execution"
+    },
+    "POST /v1/auth/osm/callback": {
+      "disposition": "requires_workflow_contract",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "No registered auth handler; returns route-not-found without business execution"
+    },
+    "POST /v1/auth/profile": {
+      "disposition": "requires_workflow_contract",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "No registered auth handler; returns route-not-found without business execution"
+    },
+    "POST /v1/auth/refresh": {
+      "disposition": "requires_workflow_contract",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "No registered auth handler; returns route-not-found without business execution"
+    },
+    "POST /v1/auth/reset-password": {
+      "disposition": "verify_existing",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "Secret-code reset with user lock, revocation and confirmed audit"
+    },
+    "POST /v1/auth/switch-role": {
+      "disposition": "requires_workflow_contract",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "No registered auth handler; returns route-not-found without business execution"
+    },
+    "POST /v1/auth/whoami": {
+      "disposition": "requires_workflow_contract",
+      "evidence": [
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "cloudflare/workers/src/auth.ts"
+      ],
+      "finding": "No registered auth handler; returns route-not-found without business execution"
+    }
+  }
 }
