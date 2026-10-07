@@ -117,6 +117,25 @@ try {
   const rateHash=createHash('sha256').update('login:'+rateEmail).digest('hex');
   await db.query("UPDATE auth_rate_limits SET reset_at=NOW()-INTERVAL '1 second' WHERE subject_hash=$1",[rateHash]);
   assert.equal((await call('/login','POST',{email:rateEmail,password:'not-a-real-password'})).status,401);passed++;
+  // NOW() is the queued transaction's start time. If a locked row's reset
+  // advances while that request waits, using NOW() produces a false 61-second
+  // retry. Actual wall time must be used when projecting the returned retry.
+  await db.query('BEGIN');
+  await db.query('SELECT subject_hash FROM auth_rate_limits WHERE subject_hash=$1 FOR UPDATE',[rateHash]);
+  const blocker=(await db.query('SELECT pg_backend_pid() AS pid')).rows[0].pid;
+  const queued=call('/login','POST',{email:rateEmail,password:'not-a-real-password'});
+  try {
+    const deadline=Date.now()+5000;let waiting=false;
+    while(Date.now()<deadline){
+      await db.query('SELECT pg_stat_clear_snapshot()');
+      waiting=(await db.query('SELECT COUNT(*)::int AS count FROM pg_stat_activity WHERE $1=ANY(pg_blocking_pids(pid))',[blocker])).rows[0].count>0;
+      if(waiting)break;await new Promise(resolve=>setTimeout(resolve,5));
+    }
+    assert.ok(waiting,'queued rate attempt must wait on the held row');
+    await db.query("UPDATE auth_rate_limits SET reset_at=clock_timestamp()+INTERVAL '60 seconds' WHERE subject_hash=$1",[rateHash]);
+    await db.query('COMMIT');
+    assert.equal((await queued).status,401);passed++;
+  }finally {await db.query('ROLLBACK');await queued.catch(()=>{});}
   const changedPassword=randomUUID();
   assert.equal((await call('/change-password','POST',{currentPassword:password,newPassword:changedPassword},admin.token)).status,200);passed++;
   assert.equal((await call('/me','GET',undefined,admin.token)).status,401);
@@ -166,6 +185,22 @@ try {
       }finally {await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[hash]);}
     }
   }finally {delete env.EMAIL;delete env.EMAIL_FROM;}
+  // Private source-provider corruption is rejected before reads/revocation.
+  let sourceCalls=0;
+  env.WORKSPACE_SOURCE_LIMIT={limit:async()=>{sourceCalls++;return {success:'true'};}};
+  try {
+    for(const [path,method] of [
+      ['/admin/users','GET'],['/admin/users/'+createdId,'GET'],
+      ['/admin/users/'+createdId+'/sessions','DELETE'],
+      ['/user/sessions','GET'],['/user/sessions','DELETE'],
+    ]) {
+      const before=await snapshot(),callsBefore=sourceCalls;
+      const rejected=await call(path,method,undefined,latestToken);
+      assert.equal(rejected.status,503);assert.equal(rejected.headers.get('cache-control'),'no-store');
+      assert.equal(rejected.headers.get('set-cookie'),null);assert.equal(rejected.headers.get('retry-after'),null);
+      assert.equal(sourceCalls,callsBefore+1);assert.deepEqual(await snapshot(),before);passed++;
+    }
+  }finally {delete env.WORKSPACE_SOURCE_LIMIT;}
   const previousRole=(await db.query('SELECT roles FROM users WHERE id=$1',[userId])).rows[0].roles;
   const priorSessionCount=(await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[userId])).rows[0].count;
   await db.query("UPDATE users SET roles='' WHERE id=$1",[userId]);
@@ -242,6 +277,49 @@ try {
   assert.equal(visible.keyConfigured,false);assert.equal(visible.provider,'cloudflare');assert.equal(visible.revision,1);passed++;
   const storedConfiguration=(await db.query('SELECT api_key_ciphertext FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)])).rows[0];
   assert.equal(storedConfiguration.api_key_ciphertext,null);passed++;
+  const baselineConfig=(await db.query('SELECT * FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)])).rows[0];
+  const restoreConfig=()=>db.query('UPDATE tenant_mail_configuration SET sender=$2,templates=$3,revision=$4,updated_at=$5 WHERE tenant_id=$1',[String(tenantId),baselineConfig.sender,JSON.stringify(baselineConfig.templates),baselineConfig.revision,baselineConfig.updated_at]);
+  const maintenanceState=async()=>({accounts:await snapshot(),audit:(await db.query('SELECT * FROM tenant_configuration_audit WHERE tenant_id=$1 ORDER BY id',[String(tenantId)])).rows});
+  try {
+    for(const [set,value] of [['revision=$2',0],["updated_at=$2",'infinity'],['templates=$2',JSON.stringify({password_reset:{subject:'Reset',title:'Reset',body:'missing required code'}})],['sender=$2','private-invalid-address']]) {
+      await db.query('UPDATE tenant_mail_configuration SET '+set+' WHERE tenant_id=$1',[String(tenantId),value]);
+      const before=await maintenanceState();
+      const rejected=await call('/maintenance/configuration','GET',undefined,maintenanceToken);
+      assert.equal(rejected.status,503);assert.equal(rejected.headers.get('cache-control'),'no-store');
+      assert.deepEqual(await rejected.json(),{error:'Authentication service unavailable'});
+      assert.deepEqual(await maintenanceState(),before);passed++;
+      await restoreConfig();
+    }
+    // Ignore unapproved stored fields, but derive the real required variables.
+    await db.query('UPDATE tenant_mail_configuration SET templates=$2 WHERE tenant_id=$1',[String(tenantId),JSON.stringify({password_reset:{subject:'Reset',title:'Reset',body:'Use {{code}}.',required:['private-variable'],private:'private-template'}})]);
+    const projected=await (await call('/maintenance/configuration','GET',undefined,maintenanceToken)).json();
+    assert.deepEqual(projected.templates.password_reset,{subject:'Reset',title:'Reset',body:'Use {{code}}.',required:['code']});
+    assert.ok(!JSON.stringify(projected).includes('private-'));passed++;
+    await restoreConfig();
+    const audit=(await db.query('SELECT id,action,created_at FROM tenant_configuration_audit WHERE tenant_id=$1 ORDER BY id LIMIT 1',[String(tenantId)])).rows[0];
+    assert.ok(audit);
+    try {
+      for(const [set,value] of [['action=$2','private-action'],['created_at=$2','infinity']]) {
+        await db.query('UPDATE tenant_configuration_audit SET '+set+' WHERE id=$1',[audit.id,value]);
+        const before=await maintenanceState();
+        const rejected=await call('/maintenance/configuration','GET',undefined,maintenanceToken);
+        assert.equal(rejected.status,503);assert.equal(rejected.headers.get('cache-control'),'no-store');
+        assert.deepEqual(await maintenanceState(),before);passed++;
+        await db.query('UPDATE tenant_configuration_audit SET action=$2,created_at=$3 WHERE id=$1',[audit.id,audit.action,audit.created_at]);
+      }
+    }finally {await db.query('UPDATE tenant_configuration_audit SET action=$2,created_at=$3 WHERE id=$1',[audit.id,audit.action,audit.created_at]);}
+    await db.query('UPDATE tenant_mail_configuration SET sender=$2 WHERE tenant_id=$1',[String(tenantId),'private-invalid-address']);
+    let sends=0;env.EMAIL={send:async()=>{sends++;assert.fail('corrupt stored sender must not send')}};env.EMAIL_FROM='it@example.com';
+    const counters=(await db.query('SELECT * FROM auth_rate_limits ORDER BY subject_hash')).rows;
+    const before=await maintenanceState();
+    const recovery=await call('/forgot-password','POST',{email});
+    assert.equal(recovery.status,503);assert.equal(recovery.headers.get('cache-control'),'no-store');
+    assert.deepEqual((await db.query('SELECT * FROM auth_rate_limits ORDER BY subject_hash')).rows,counters);
+    assert.deepEqual(await maintenanceState(),before);passed++;
+    const testMail=await call('/maintenance/configuration/test-email','POST',{},maintenanceToken);
+    assert.equal(testMail.status,503);assert.equal(testMail.headers.get('cache-control'),'no-store');
+    assert.deepEqual(await maintenanceState(),before);assert.equal(sends,0);passed++;
+  }finally {await restoreConfig();delete env.EMAIL;delete env.EMAIL_FROM;}
   await db.query('DELETE FROM tenant_mail_configuration WHERE tenant_id=$1',[String(tenantId)]);
   await db.query('DELETE FROM tenant_configuration_audit WHERE tenant_id=$1',[String(tenantId)]);
   const countersBefore=(await db.query('SELECT COUNT(*)::int AS count FROM auth_rate_limits')).rows[0].count;

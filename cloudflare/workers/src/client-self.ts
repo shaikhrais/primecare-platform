@@ -1,3 +1,4 @@
+import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import recordRegistry from './client-records-registry.json';
 
@@ -36,7 +37,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
   if(ownedPaymentMatch&&!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(ownedPaymentMatch[1]))return json({error:'Invalid payment identifier'},400,safe);
   const token=request.headers.has('authorization')?tokenFrom(request):null;if(!token)return json({error:'No session'},401,safe);
   try{
-    if(env.WORKSPACE_SOURCE_LIMIT&&!(await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('client-self:'+(request.headers.get('cf-connecting-ip')??'unknown'))})).success){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
+    if(env.WORKSPACE_SOURCE_LIMIT&&!sourceLimitAllowed(await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('client-self:'+(request.headers.get('cf-connecting-ip')??'unknown'))}))){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
     return await withDb(env,async db=>{
       await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
       try{

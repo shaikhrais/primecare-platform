@@ -106,3 +106,32 @@ The shared PostgreSQL limiter requires exactly one result row, positive integer 
 Supplemental OpenAPI documents runtime validation without promoting pending authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes or grants added. No deployment or production database changes.
 
 Local validation: 1,759 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37547360252 at e207571810670445bdd98b4692d9d58309ffe988. PR #108 merged as e50b5b170d3d27e89635dc0530781ba17c1fc3e7. Latest completed batch is 268; next batch is 269. No deployment or production database changes.
+
+
+## Iteration 10 — batches 269–283, source decisions and maintenance validation, in review
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 269 | Login and password recovery | Require boolean source decisions before parsing credentials or opening PostgreSQL. |
+| 270 | Workspace bootstrap | Validate source provider decisions before workspace queries. |
+| 271 | Governance catalog reads | Validate provider decisions across every catalog binding. |
+| 272 | Account reads and session revocation | Validate account-list and account-admin source budgets. |
+| 273 | Personal session list/revocation | Validate provider decisions before database access or revocation. |
+| 274 | Client owned reads | Validate decisions before client profile, invoice, booking, visit, payment and registered record reads. |
+| 275 | Provider owned reads | Validate decisions before profile, availability, visit and document reads. |
+| 276 | Provider registered records | Validate decisions before existing list, detail and summary source boundaries. |
+| 277 | Account owned records | Validate decisions before account-owned metadata projections. |
+| 278 | Client booking lifecycle | Validate decisions before submission, cancellation and audit access. |
+| 279 | Provider timesheet items | Validate decisions before existing list, detail and summary reads. |
+| 280 | Maintenance configuration metadata | Validate positive int4 revision and finite update date; retain absent-configuration defaults. |
+| 281 | Maintenance templates | Validate persisted content and placeholders; derive required variables from canonical templates and discard extra fields. |
+| 282 | Maintenance audit | Validate the two existing actions and finite dates; return only action/date within the twenty-row bound. |
+| 283 | Configured native mail | Require zero/one configuration row and valid stored sender/templates before recovery or test delivery. |
+
+Only an object containing an actual boolean source success value is accepted, read once. False retains no-store 429 and the existing 60-second retry; malformed or failed providers return sanitized no-store 503 before PostgreSQL. Existing hashed keys, optional workspace bindings and bearer/tenant/owner/grant checks remain intact. Direct Worker and gateway tests cover all registered source boundaries, CORS, hashed keys, boolean decisions, bearer ordering and zero database access on rejection. Five PostgreSQL account/session corruption checks and twelve booking checks assert unchanged protected state.
+
+Maintenance returns explicit template/audit projections and rejects corrupt stored revisions, dates, senders, placeholders and ambiguous configuration results. Canonical required variables replace untrusted stored arrays. Invalid configuration reads roll back; invalid runtime mail configuration sends no email and writes no acceptance audit. Nine PostgreSQL checks cover corrupt configuration, audit, field projection and rejected recovery/test delivery. Supplemental documents record runtime hardening without promoting authority.
+
+PostgreSQL CI exposed a shared counter timing race: transaction-start NOW can produce a 61-second retry for a 60-second window when a request waits on a row lock. Retry projection now uses clock_timestamp after the wait. A deterministic PostgreSQL lock-wait regression accompanies the existing concurrent budget and saturation tests. Strict result bounds and atomic counters remain in place.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments. Local validation: 1,808 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.

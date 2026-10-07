@@ -1,3 +1,4 @@
+import {sourceLimitAllowed} from './source-limit-result';
 import {accountTimestamp} from './account-read-projection';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import {authRateLimit} from './auth-rate-limit';
@@ -15,7 +16,7 @@ export async function selfSessions(request:Request,env:Env,path:string,headers:H
     !/^[1-9]\d{0,2}$/.test(limit)||Number(limit)>100||!/^\d{1,6}$/.test(offset)||Number(offset)>100000)return json({error:'Invalid query or body'},400,safe);
   const token=request.headers.has('authorization')?tokenFrom(request):null;
   if(!token)return json({error:'No session'},401,safe);
-  if(env.WORKSPACE_SOURCE_LIMIT&&!(await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('self-sessions:'+(request.headers.get('cf-connecting-ip')??'unknown'))})).success){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
+  if(env.WORKSPACE_SOURCE_LIMIT&&!sourceLimitAllowed(await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('self-sessions:'+(request.headers.get('cf-connecting-ip')??'unknown'))}))){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
   const hash=await sha256(token);
   return withDb(env,async db=>{
     const actorSql="SELECT u.id,u.tenant_id FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.token_hash=$1 AND s.expires_at>NOW() AND LOWER(u.status)='active'";

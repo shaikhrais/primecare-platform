@@ -1,3 +1,4 @@
+import {sourceLimitAllowed} from './source-limit-result';
 import catalog from './governance-api-registry.json';
 import execution from './api-execution-inventory.json';
 import registry from './workspace-registry.json';
@@ -122,7 +123,7 @@ export async function governanceApi(request:Request,env:Env,path:string,headers:
   try {
     if(env.WORKSPACE_SOURCE_LIMIT) {
       const key=await sha256('governance-api:'+(request.headers.get('cf-connecting-ip')??'unknown'));
-      if(!(await env.WORKSPACE_SOURCE_LIMIT.limit({key})).success){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
+      if(!sourceLimitAllowed(await env.WORKSPACE_SOURCE_LIMIT.limit({key}))){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
     }
     return await withDb(env,async db=>{
       await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');

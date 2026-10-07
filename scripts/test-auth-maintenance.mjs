@@ -25,7 +25,7 @@ test('unauthorized role is denied without configuration database access',async()
 });
 test('read returns setup status and templates, never ciphertext or provider credentials',async()=>{
  const secret=await encryptCredential(env,legacyKey,actor.tenant_id);
- const db={query:async(sql,values)=>{assert.equal(values[0],actor.tenant_id);return {rows:sql.includes('FROM tenant_mail_configuration')?[{sender:input.sender,api_key_ciphertext:secret,revision:2,templates:{}}]:[]};}};
+ const db={query:async(sql,values)=>{assert.equal(values[0],actor.tenant_id);return {rows:sql.includes('FROM tenant_mail_configuration')?[{sender:input.sender,api_key_ciphertext:secret,revision:2,updated_at:new Date('2026-01-01T00:00:00Z'),templates:{}}]:[]};}};
  const r=await maintenance(db,env,actor,'GET','/maintenance/configuration',{});
  assert.equal(r.status,200);assert.equal(r.body.keyConfigured,false);assert.equal(r.body.provider,'cloudflare');assert.equal(r.body.bindingConfigured,true);assert.equal(r.body.emailReady,true);
  assert.ok(!JSON.stringify(r).includes(secret));assert.ok(!JSON.stringify(r).includes(legacyKey));assert.equal(r.body.deliveryVerified,false);

@@ -1,0 +1,39 @@
+{
+  "title": "Existing source limiter result validation",
+  "scope": "Runtime hardening; registered contracts and authority unchanged",
+  "batches": [
+    {
+      "batch": 274,
+      "family": "client owned reads"
+    },
+    {
+      "batch": 275,
+      "family": "provider owned reads"
+    },
+    {
+      "batch": 276,
+      "family": "provider registered records"
+    },
+    {
+      "batch": 277,
+      "family": "account owned records"
+    },
+    {
+      "batch": 278,
+      "family": "client booking submission/cancellation/audit"
+    }
+  ],
+  "providerResult": {
+    "success": "boolean; no coercion",
+    "allow": true,
+    "deny": false,
+    "invalidStatus": 503,
+    "denyStatus": 429,
+    "denyRetrySeconds": 60
+  },
+  "failureBehavior": "Sanitized no-store response before database access; no session cookie or protected mutation",
+  "workspaceBinding": "Optional as before",
+  "authBinding": "Required as before",
+  "governancePromotion": false,
+  "coverage": "All existing registered list/detail/summary projections use their same source boundary. Booking input and idempotency checks still precede the source budget; rejected decisions cause no transaction or business mutation."
+}

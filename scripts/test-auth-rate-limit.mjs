@@ -33,6 +33,7 @@ for(const [operation,{maxAttempts,windowSeconds}] of Object.entries(policy)) {
   assert.equal(await authRateLimit(db,'fixture-hashed-subject',operation),null);
   assert.deepEqual(query.values,['fixture-hashed-subject',windowSeconds,maxAttempts]);
   assert.match(query.sql,/LEAST\(auth_rate_limits.attempts\+1,\$3\+1\)/);
+  assert.match(query.sql,/reset_at-clock_timestamp\(\)/);
  });
 }
 test('login wrapper enforces the same validated database result',async()=>{
