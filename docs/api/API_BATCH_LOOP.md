@@ -469,7 +469,7 @@ Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending a
 Local validation: 2,579 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37617430613 at a4cc05418437b99b4e390b78d992ae85109f7957. PR #118 merged as a3b7bd1fd7f45fc6b5481e2f656d824ca2fb9f4b. Latest completed batch is 488; next batch is 489. No deployment or production database changes.
 
 
-## Iteration 20 — batches 489–538, primitive timestamp projections, in review
+## Iteration 20 — batches 489–538, primitive timestamp projections, merged
 
 - Batch 489 client profile.
 - Batch 490 client invoices.
@@ -530,4 +530,4 @@ Gateway regressions test every projected date field on list/detail/singleton pat
 
 Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
 
-Local validation: 2,734 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.
+Local validation: 2,734 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37623868986 at 3feb0664d1ce964a421328a1ac54285d9fa7ce5f. PR #119 merged as 37d996b9c253797db2f994e6700415c776a55ac6. Latest completed batch is 538; next batch is 539. No deployment or production database changes.
