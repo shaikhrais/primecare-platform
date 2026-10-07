@@ -273,7 +273,7 @@ New unit corruption regressions exercise these boundaries. Disposable PostgreSQL
 Local validation: 2,033 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37559453465 at ca4cae0a1afd33a27d067aa0a9c0e88c8a7d2522. PR #114 merged as 6e89226a70e498c2e95977c95a1d4b2c92657dd2. Latest completed batch is 348; next batch is 349. No deployment or production database changes.
 
 
-## Iteration 16 — batches 349–363, workspace metadata and account audit persistence, in review
+## Iteration 16 — batches 349–363, workspace metadata and account audit persistence, merged
 
 - Batch 349 workspace actor tenant validation.
 - Batch 350 workspace activity object rows.
@@ -299,4 +299,4 @@ New unit regressions corrupt metadata and audit identities, state, cardinality a
 
 Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
 
-Local validation: 2,125 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.
+Local validation: 2,125 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37560808726 at 6eccd2944fcb728856e2865ec0c266caeaaa57d5. PR #115 merged as 981c02fdf0f4f0f4c840ce9d4a290c99496df0e5. Latest completed batch is 363; next batch is 364. No deployment or production database changes.
