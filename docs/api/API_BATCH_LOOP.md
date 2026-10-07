@@ -1081,7 +1081,7 @@ Fifty existing list routes and their authoritative compatibility aliases now dec
 
 Local validation: 3,433 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `4d6969b55ef3a18350d80cabbc8bd6c57aa3efd1`, run 37671492558. PR #130 merged as `36c0e7ae492611bdc76160c3b40b3781be454387`. Latest completed numbered batch is 1000; next is 1001.
 
-## Iteration 31 — batches 1001–1050 (in review)
+## Iteration 31 — batches 1001–1050 (merged)
 
 - Batch 1001 client /consents: close existing list/detail response envelopes.
 - Batch 1002 provider /conversation-threads: close existing list/detail response envelopes.
@@ -1136,4 +1136,4 @@ Local validation: 3,433 API fixtures, eight authority regressions, Worker TypeSc
 
 Fifty existing read families now declare fixed list and detail response envelopes; list pagination also rejects undeclared properties. Existing payload fields, required fields, nullability, identifiers and owner scopes remain intact. Authoritative collection compatibility aliases inherit the corrected list contracts. No new business endpoints, access grants, deployment or production database changes.
 
-Fifty new regression checks exercise actual Worker populated lists, empty lists and details against the contracts, reject added private envelope/pagination fields and missing required collections/items, and confirm database-only canaries are projected out. Local validation: 3,483 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head PostgreSQL and security CI pending. Latest merged numbered batch remains 1000 until merge.
+Fifty new regression checks exercise actual Worker populated lists, empty lists and details against the contracts, reject added private envelope/pagination fields and missing required collections/items, and confirm database-only canaries are projected out. Local validation: 3,483 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `f8a5c733370166291d0dd1b24c95fd58323e8ca5`, run 37672991556. PR #131 merged as `5afeb746d52d68b6a95bcd067ed3d41458b82f62`. Latest completed numbered batch is 1050; next is 1051.
