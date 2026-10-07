@@ -162,6 +162,25 @@
           ]
         }
       }
+    },
+    {
+      "name": "Legacy client booking request action routing",
+      "operations": [
+        "POST /v1/client/bookings/requests"
+      ],
+      "reviews": {
+        "POST /v1/client/bookings/requests": {
+          "finding": "Two submission action declarations use this POST; exact POST forwards to the existing owner-scoped idempotent request lifecycle. The separate list registry now uses the canonical GET /v1/client/booking-requests. No confirmed appointment, coordinator approval, new grants or collection booking writes are introduced.",
+          "evidence": [
+            "packages/domain/src/registries/ButtonRegistry/tenancy-buttons.ts",
+            "packages/domain/src/registries/InteractionRegistry/base.ts",
+            "packages/domain/src/registries/ApiRegistry/tenancy.ts",
+            "cloudflare/workers/src/gateway.ts",
+            "scripts/test-client-booking-lifecycle-api.mjs",
+            "scripts/test-client-booking-lifecycle-postgres.mjs"
+          ]
+        }
+      }
     }
   ]
 }

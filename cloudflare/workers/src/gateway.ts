@@ -44,7 +44,7 @@ export default {
     }
     const url = new URL(request.url);
     // Exact submission compatibility route; share canonical ownership and retry semantics.
-    if(url.pathname==='/v1/client/bookings/request') {
+    if(url.pathname==='/v1/client/bookings/request'||url.pathname==='/v1/client/bookings/requests'&&request.method==='POST') {
       if(request.method!=='POST')return withGatewayHeaders(request,new Response(JSON.stringify({error:'Method not allowed'}),{status:405,headers:{'content-type':'application/json','allow':'POST'}}));
       url.hostname='service';url.pathname='/booking-requests';
       return withGatewayHeaders(request,await env.CLIENT.fetch(new Request(url,request)));

@@ -24,3 +24,6 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
 
 with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  db.execute("UPDATE governance_api_batches SET test_status='unit_tested' WHERE route='POST /v1/client/bookings/request' AND batch=0 AND permission='authenticated_client_profile_owner'")
+
+with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
+ db.execute("UPDATE governance_api_batches SET test_status='unit_tested' WHERE route='POST /v1/client/bookings/requests' AND batch=0 AND permission='authenticated_client_profile_owner'")

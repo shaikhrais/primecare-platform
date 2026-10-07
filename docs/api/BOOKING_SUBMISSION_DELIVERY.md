@@ -4,7 +4,7 @@ Fixed scope: **1 unique operation**, `POST /v1/client/bookings/request`.
 
 The routing audit found this POST rejected by the client booking detail handler. Caller review found two explicit POST forms in `packages/domain/src/registries/FormRegistry/client-forms.ts`. Their request intent matches the existing pending-request lifecycle at `POST /v1/client/booking-requests`.
 
-The gateway now forwards only this exact POST to the canonical lifecycle. It preserves bearer, body, tenant header and Idempotency-Key; other methods receive 405 with Allow: POST before forwarding. Booking collection/list POSTs remain denied. This creates a pending request, not a confirmed appointment. No new role grants or independent write implementation are introduced.
+The gateway forwards this exact POST to the canonical lifecycle. It preserves bearer, body, tenant header and Idempotency-Key; other methods receive 405 with Allow: POST before forwarding. The confirmed-booking collection POST remains denied. A subsequent [legacy action package](BOOKING_REQUESTS_DELIVERY.md) also reconciles POST /v1/client/bookings/requests with this same pending-request lifecycle and separates its list reference. This creates a pending request, not a confirmed appointment. No new role grants or independent write implementation are introduced.
 
 The two form declarations now use service_type, preferred_date (explicit UTC timestamp), optional preferred_time and notes, and declare the required Idempotency-Key. Old serviceTypeId/date/time/duration bodies fail validation instead of being silently interpreted. Form catalog alignment does not establish an authenticated browser journey or UI readiness.
 

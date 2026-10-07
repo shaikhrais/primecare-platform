@@ -93,10 +93,37 @@ test('booking submission alias preserves negative authority, strict input and au
 });
 test('submission alias matches only its exact path and POST; collection writes remain denied',async()=>{
  for(const method of ['GET','PUT','PATCH','DELETE']){fixture();const response=await aliasCall(input,{},method);assert.equal(response.status,405);assert.equal(response.headers.get('allow'),'POST');assert.equal(queries.length,0);}
- for(const path of ['/v1/client/bookings','/v1/client/bookings/requests']){fixture();const response=await aliasCall(input,{},'POST',path);assert.equal(response.status,405);assert.equal(response.headers.get('allow'),'GET');assert.equal(queries.length,0);}
+ for(const path of ['/v1/client/bookings']){fixture();const response=await aliasCall(input,{},'POST',path);assert.equal(response.status,405);assert.equal(response.headers.get('allow'),'GET');assert.equal(queries.length,0);}
 });
 test('both booking form declarations use the exact submission contract and required retry header',async()=>{
  const {CLIENT_FORMS}=await bundle('packages/domain/src/registries/FormRegistry/client-forms.ts');
  const forms=CLIENT_FORMS.filter(f=>['client.booking-request','client.service-booking-modal'].includes(f.id));assert.equal(forms.length,2);
  for(const form of forms){assert.equal(form.apiEndpoint,'/v1/client/bookings/request');assert.equal(form.method,'POST');assert.deepEqual(form.requiredHeaders,['Idempotency-Key']);assert.deepEqual(form.fields.map(f=>f.name),['service_type','preferred_date','preferred_time','notes']);assert.deepEqual(form.fields.filter(f=>f.required).map(f=>f.name),['service_type','preferred_date']);assert.equal(form.fields[1].type,'text');assert.ok(form.description.includes('UTC'));}
+});
+
+const pluralPath='/v1/client/bookings/requests';
+test('legacy plural submission reaches owner lifecycle and shares retry scope with singular submission',async()=>{
+ fixture();const response=await aliasCall(input,{},'POST',pluralPath);assert.equal(response.status,201);const data=await response.json();assert.equal(data.request.status,'pending');assert.equal(response.headers.get('cache-control'),'no-store');assert.ok(!JSON.stringify(data).includes('private'));
+ const values=queries.find(q=>q.sql.startsWith('INSERT INTO booking_request_audit')).values;
+ for(const path of [pluralPath,'/v1/client/bookings/request']){fixture();prior={request_id:values[0],request_hash:values[7],response_json:JSON.parse(values[8])};const replay=await aliasCall(input,{},'POST',path);assert.equal(replay.status,201);assert.equal(replay.headers.get('idempotency-replayed'),'true');assert.deepEqual(await replay.json(),data);assert.ok(!queries.some(q=>q.sql.startsWith('INSERT')||q.sql==='COMMIT'));}
+ fixture();prior={request_id:values[0],request_hash:values[7],response_json:JSON.parse(values[8])};assert.equal((await aliasCall({...input,service_type:'different'},{},'POST',pluralPath)).status,409);assert.ok(!queries.some(q=>q.sql.startsWith('INSERT')));
+});
+test('plural request submission enforces credentials, owner profile, tenant and atomic audit',async()=>{
+ for(const [headers,setup,status] of [[{authorization:''},()=>{},401],[{},()=>{actor=null;},401],[{'x-tenant-id':'other'},()=>{},403],[{},()=>{profiles=[];},404],[{},()=>{profiles=[{id:'a'},{id:'b'}];},503],[{},()=>{sessionValid=false;},401],[{},()=>{auditFail=true;},503]]){
+  fixture();setup();const response=await aliasCall(input,headers,'POST',pluralPath);assert.equal(response.status,status);assert.equal(response.headers.get('cache-control'),'no-store');assert.ok(!queries.some(q=>q.sql==='COMMIT'));if(auditFail)assert.equal(queries.at(-1).sql,'ROLLBACK');else assert.ok(!queries.some(q=>q.sql.startsWith('INSERT')));
+ }
+});
+test('plural request submission rejects invalid input and owner overrides before SQL',async()=>{
+ for(const body of [{...input,client_id:'other'},{...input,tenant_id:'other'},{...input,preferred_date:'2026-02-30T12:00:00Z'},{...input,preferred_time:'25:00'},{serviceTypeId:'legacy',date:'2026-10-08'}]){fixture();assert.equal((await aliasCall(body,{},'POST',pluralPath)).status,400);assert.equal(queries.length,0);}
+ fixture();assert.equal((await aliasCall(input,{'idempotency-key':''},'POST',pluralPath)).status,400);assert.equal(queries.length,0);
+ fixture();assert.equal((await aliasCall(input,{},'POST',pluralPath+'?tenant_id=other')).status,400);assert.equal(queries.length,0);
+ for(const method of ['PUT','PATCH','DELETE']){fixture();const response=await aliasCall(input,{},method,pluralPath);assert.equal(response.status,405);assert.equal(queries.length,0);}
+ fixture();assert.equal((await aliasCall(input,{},'POST',pluralPath+'/extra')).status,404);assert.equal(queries.length,0);
+});
+test('legacy submission actions and separate list registry resolve to their intended contracts',async()=>{
+ const {TENANCY}=await bundle('packages/domain/src/registries/ApiRegistry/tenancy.ts');
+ const {TENANCY_BUTTONS}=await bundle('packages/domain/src/registries/ButtonRegistry/tenancy-buttons.ts');
+ const {BASE}=await bundle('packages/domain/src/registries/InteractionRegistry/base.ts');
+ assert.equal(TENANCY.CLIENT.BOOKING_REQUESTS,pluralPath);assert.equal(TENANCY.CLIENT.BOOKING_REQUEST_LIST,'/v1/client/booking-requests');
+ const actions=TENANCY_BUTTONS.filter(b=>b.id==='btn-client-booking-request');assert.equal(actions.length,1);assert.equal(actions[0].apiPath,pluralPath);assert.equal(actions[0].action,'API_TRIGGER');assert.equal(BASE.CLIENT.ENGAGEMENT.BOOKING_REQUEST.apiEndpoint,pluralPath);
 });
