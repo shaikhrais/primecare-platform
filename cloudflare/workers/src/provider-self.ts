@@ -1,3 +1,4 @@
+import {validDatabaseInteger,validDatabaseIntegerSum} from './database-integer-validation';
 import {projectReferenceId} from './reference-read-projection';
 import {summaryRows} from './summary-results';
 import {pageRows,recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
@@ -42,7 +43,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
         const dateTime=(value:unknown)=>validRecordTimestamp(value);
         const nullableDateTime=(value:unknown)=>value===null||dateTime(value);
         const count=(rows:Record<string,unknown>[],label:string)=>{const value=requiredRow(rows).count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid '+label+' count');return value;};
-        const statusGroup=(row:Record<string,unknown>,label:string,withDuration=false)=>{if(!nullableString(row.status)||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0||withDuration&&(typeof row.durationMinutes!=='string'||! /^-?\d+$/.test(row.durationMinutes)))throw Error('Invalid '+label+' summary');return withDuration?{status:row.status,count:row.count,durationMinutes:row.durationMinutes}:{status:row.status,count:row.count};};
+        const statusGroup=(row:Record<string,unknown>,label:string,withDuration=false)=>{if(!nullableString(row.status)||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0||withDuration&&!validDatabaseIntegerSum(row.durationMinutes))throw Error('Invalid '+label+' summary');return withDuration?{status:row.status,count:row.count,durationMinutes:row.durationMinutes}:{status:row.status,count:row.count};};
         if(path==='/profile'){
           if(![p.id,p.full_name,p.languages,p.service_areas,p.provider_type,p.skills].every(requiredString)||!nullableString(p.bio)||typeof p.is_approved!=='boolean')throw Error('Invalid provider profile data');
           return json({profile:{id:p.id,full_name:p.full_name,bio:p.bio,languages:p.languages,service_areas:p.service_areas,provider_type:p.provider_type,is_approved:p.is_approved,skills:p.skills}},200,safe);
@@ -80,7 +81,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
         if(path==='/visits'||visitMatch){
           const fields='id,service_id,requested_start_at,duration_minutes,status,priority,updated_at';
           const project=(v:Record<string,unknown>)=>{
-            if(![v.id,v.service_id].every(requiredString)||![v.requested_start_at,v.updated_at].every(dateTime)||typeof v.duration_minutes!=='number'||!Number.isSafeInteger(v.duration_minutes)||!nullableString(v.status)||!nullableString(v.priority))throw Error('Invalid provider visit data');
+            if(![v.id,v.service_id].every(requiredString)||![v.requested_start_at,v.updated_at].every(dateTime)||!validDatabaseInteger(v.duration_minutes)||!nullableString(v.status)||!nullableString(v.priority))throw Error('Invalid provider visit data');
             return {id:v.id,service_id:projectReferenceId(v.service_id),requested_start_at:projectRecordTimestamp(v.requested_start_at),duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:projectRecordTimestamp(v.updated_at)};
           };
           const filter='assigned_provider_id::text=$1 AND tenant_id::text=$2';
@@ -94,7 +95,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
         }
         const filter='provider_id::text=$1 AND tenant_id::text=$2';
         const availabilityFields='id,day_of_week,start_time,end_time';
-        const projectAvailability=(i:Record<string,unknown>)=>{if(!requiredString(i.id)||typeof i.day_of_week!=='number'||!Number.isSafeInteger(i.day_of_week)||![i.start_time,i.end_time].every(requiredString))throw Error('Invalid provider availability data');return {id:i.id,day_of_week:i.day_of_week,start_time:i.start_time,end_time:i.end_time};};
+        const projectAvailability=(i:Record<string,unknown>)=>{if(!requiredString(i.id)||!validDatabaseInteger(i.day_of_week)||![i.start_time,i.end_time].every(requiredString))throw Error('Invalid provider availability data');return {id:i.id,day_of_week:i.day_of_week,start_time:i.start_time,end_time:i.end_time};};
         if(availabilityMatch){
           const item=boundRow((await db.query('SELECT '+availabilityFields+' FROM provider_availability WHERE '+filter+' AND id::text=$3',[...values,availabilityMatch[1]])).rows,availabilityMatch[1]);
           return item?json({availability:projectAvailability(item)},200,safe):json({error:'Availability not found'},404,safe);
@@ -102,7 +103,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
         if(availabilitySummary){
           const total=count((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT day_of_week FROM provider_availability WHERE '+filter+' GROUP BY day_of_week) groups',values)).rows,'availability summary');
           const rows=(await db.query('SELECT day_of_week,COUNT(*)::int AS count FROM provider_availability WHERE '+filter+' GROUP BY day_of_week ORDER BY day_of_week LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          const groups=summaryRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit),['day_of_week']).map(g=>{if(typeof g.day_of_week!=='number'||!Number.isSafeInteger(g.day_of_week)||typeof g.count!=='number'||!Number.isSafeInteger(g.count)||g.count<0)throw Error('Invalid availability summary');return {day_of_week:g.day_of_week,count:g.count};});
+          const groups=summaryRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit),['day_of_week']).map(g=>{if(!validDatabaseInteger(g.day_of_week)||typeof g.count!=='number'||!Number.isSafeInteger(g.count)||g.count<0)throw Error('Invalid availability summary');return {day_of_week:g.day_of_week,count:g.count};});
           return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         const total=count((await db.query('SELECT COUNT(*)::int AS count FROM provider_availability WHERE '+filter,values)).rows,'availability');

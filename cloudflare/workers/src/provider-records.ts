@@ -1,3 +1,4 @@
+import {validDatabaseInteger} from './database-integer-validation';
 import {projectReferenceId} from './reference-read-projection';
 import {summaryRows} from './summary-results';
 import {pageRows,recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
@@ -40,7 +41,7 @@ export async function providerRecords(request:Request,env:Env,path:string,header
           if(value===null)return allowed.includes('null');
           if(record.dateFields.includes(field))return validRecordTimestamp(value);
           if(allowed.includes('string')&&field.endsWith('_id')){projectReferenceId(value);return true;}
-          return allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('string')&&typeof value==='string';
+          return allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('integer')?validDatabaseInteger(value):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('string')&&typeof value==='string';
         };
         const project=(row:Record<string,unknown>)=>{if(record.fields.includes('id'))accountId(row.id);return Object.fromEntries(record.fields.map(field=>{if(!valid(field,row[field]))throw Error('Invalid provider record');return [field,record.dateFields.includes(field)?projectRecordTimestamp(row[field]):row[field]];}));};
         if(summary){

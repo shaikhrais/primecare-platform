@@ -1,3 +1,4 @@
+import {validDatabaseInteger,validDatabaseIntegerSum} from './database-integer-validation';
 import {accountTimestamp} from './account-read-projection';
 import {summaryRows} from './summary-results';
 import {pageRows,recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
@@ -12,7 +13,7 @@ const timestamp=(value:unknown)=>{
   const result=new Date(value).toISOString();if(result.slice(0,19)!==value.slice(0,19))throw Error('Invalid timesheet item timestamp');return result;
 };
 const project=(row:Record<string,unknown>)=>{
-  if(typeof row.id!=='string'||!identifier.test(row.id)||typeof row.minutes!=='number'||!Number.isInteger(row.minutes)||row.minutes< -2147483648||row.minutes>2147483647)throw Error('Invalid timesheet item');
+  if(typeof row.id!=='string'||!identifier.test(row.id)||!validDatabaseInteger(row.minutes))throw Error('Invalid timesheet item');
   return {id:row.id,minutes:row.minutes,created_at:timestamp(row.created_at)};
 };
 
@@ -46,7 +47,7 @@ export async function providerTimesheetItems(request:Request,env:Env,path:string
           const total=count(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT sheet.status'+scope+' GROUP BY sheet.status) groups',values)).rows).count);
           const rows=(await db.query('SELECT sheet.status,COUNT(*)::int AS count,SUM(item.minutes)::text AS "totalMinutes"'+scope+' GROUP BY sheet.status ORDER BY sheet.status NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
           const groups=summaryRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit),['status']).map(row=>{
-            if(row.status!==null&&typeof row.status!=='string'||typeof row.totalMinutes!=='string'||! /^-?\d+$/.test(row.totalMinutes))throw Error('Invalid timesheet item summary');
+            if(row.status!==null&&typeof row.status!=='string'||!validDatabaseIntegerSum(row.totalMinutes))throw Error('Invalid timesheet item summary');
             return {status:row.status,count:count(row.count),totalMinutes:row.totalMinutes};
           });
           return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
