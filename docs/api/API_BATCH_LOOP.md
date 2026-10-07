@@ -772,3 +772,62 @@ The shared result-row object checks are now reusable for nested adapter data. Ma
 Fifty numbered boundary cases plus eight gateway regressions check malformed data, privacy, blocked email delivery, and rejected account mutations. Disposable real PostgreSQL faults preserve actual SQL and verify stored rows remain unchanged; failed account updates, session revocation and audit insertion roll back together. Existing maintenance GET commits and failed test-email rate-counter commits remain; malformed mail sends nothing and appends no acceptance audit. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants, authority promotions, deployment or production database changes.
 
 Local validation: 3,161 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37646701791 at 7cb5be583ffe8e9623b966d7472bb0c59e29afe7. PR #123 merged as 91405fb2ef8e23e807f5934f40ea2f0170b1aca3. Latest completed batch is 738; next batch is 739. No deployment or production database changes.
+
+## Iteration 25 — batches 739–788 (in review)
+
+- Batch 739 client /visits service_id: empty reference.
+- Batch 740 client /visits service_id: padded reference.
+- Batch 741 client /visits service_id: invalid characters.
+- Batch 742 client /visits service_id: untyped and missing reference.
+- Batch 743 client /visits service_id: UUID reference projection.
+- Batch 744 client /visits service_id: text and null boundaries.
+- Batch 745 client /visits service_id: compatible rows and shared references.
+- Batch 746 provider /visits service_id: empty reference.
+- Batch 747 provider /visits service_id: padded reference.
+- Batch 748 provider /visits service_id: invalid characters.
+- Batch 749 provider /visits service_id: untyped and missing reference.
+- Batch 750 provider /visits service_id: UUID reference projection.
+- Batch 751 provider /visits service_id: text and null boundaries.
+- Batch 752 provider /visits service_id: compatible rows and shared references.
+- Batch 753 client /service-authorizations service_id: empty reference.
+- Batch 754 client /service-authorizations service_id: padded reference.
+- Batch 755 client /service-authorizations service_id: invalid characters.
+- Batch 756 client /service-authorizations service_id: untyped and missing reference.
+- Batch 757 client /service-authorizations service_id: UUID reference projection.
+- Batch 758 client /service-authorizations service_id: text and null boundaries.
+- Batch 759 client /service-authorizations service_id: compatible rows and shared references.
+- Batch 760 client /waitlist service_id: empty reference.
+- Batch 761 client /waitlist service_id: padded reference.
+- Batch 762 client /waitlist service_id: invalid characters.
+- Batch 763 client /waitlist service_id: untyped and missing reference.
+- Batch 764 client /waitlist service_id: UUID reference projection.
+- Batch 765 client /waitlist service_id: text and null boundaries.
+- Batch 766 client /waitlist service_id: compatible rows and shared references.
+- Batch 767 provider /timesheets week_id: empty reference.
+- Batch 768 provider /timesheets week_id: padded reference.
+- Batch 769 provider /timesheets week_id: invalid characters.
+- Batch 770 provider /timesheets week_id: untyped and missing reference.
+- Batch 771 provider /timesheets week_id: UUID reference projection.
+- Batch 772 provider /timesheets week_id: text and null boundaries.
+- Batch 773 provider /timesheets week_id: compatible rows and shared references.
+- Batch 774 auth /me/survey-submissions survey_id: empty reference.
+- Batch 775 auth /me/survey-submissions survey_id: padded reference.
+- Batch 776 auth /me/survey-submissions survey_id: invalid characters.
+- Batch 777 auth /me/survey-submissions survey_id: untyped and missing reference.
+- Batch 778 auth /me/survey-submissions survey_id: UUID reference projection.
+- Batch 779 auth /me/survey-submissions survey_id: text and null boundaries.
+- Batch 780 auth /me/survey-submissions survey_id: compatible rows and shared references.
+- Batch 781 auth /me/group-memberships group_id: empty reference.
+- Batch 782 auth /me/group-memberships group_id: padded reference.
+- Batch 783 auth /me/group-memberships group_id: invalid characters.
+- Batch 784 auth /me/group-memberships group_id: untyped and missing reference.
+- Batch 785 auth /me/group-memberships group_id: UUID reference projection.
+- Batch 786 auth /me/group-memberships group_id: text and null boundaries.
+- Batch 787 auth /me/group-memberships group_id: compatible rows and shared references.
+- Batch 788 reference helper coercion and nullable boundaries.
+
+Client/provider visit service references and registered service, week, survey and group reference fields now require usable identifiers under the existing account identifier grammar. Foreign references remain independently shareable across records; nullable service-authorization references remain null. Survey summary keys receive the same validation. No reference is coerced or used to expand ownership access. Owner/tenant SQL and public fields remain unchanged.
+
+Fifty numbered gateway/helper cases plus three summary/absence regressions reject empty, padded, invalid, oversized, missing and non-string reference values; preserve UUID/text strings through list/detail/summary reads; and verify compatible row shapes, shared references, null semantics, privacy and rollback. A disposable PostgreSQL adapter fault regression checks all seven reader families with real SQL, unchanged stored rows, inaccessible foreign-owned details and tenant mismatch denial. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 3,214 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI pending.

@@ -1,3 +1,4 @@
+import {projectReferenceId} from './reference-read-projection';
 import {summaryRows} from './summary-results';
 import {pageRows,recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {accountId} from './account-read-projection';
@@ -113,7 +114,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
             const types=(record.types as Record<string,string|string[]>)[field],allowed=Array.isArray(types)?types:[types],value=row[field];
             const valid=value===null?allowed.includes('null'):record.dateFields.includes(field)?validRecordTimestamp(value):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('number')?typeof value==='number'&&Number.isFinite(value):allowed.includes('string')&&typeof value==='string';
             if(!valid)throw Error('Invalid record data');
-            return [field,field==='id'?String(value):record.dateFields.includes(field)?projectRecordTimestamp(value):value];
+            return [field,field==='id'?String(value):field.endsWith('_id')?projectReferenceId(value,allowed.includes('null')):record.dateFields.includes(field)?projectRecordTimestamp(value):value];
           }));
           const count=(rows:Record<string,unknown>[])=>{const value=requiredRow(rows).count;if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid record count');return value;};
           if(recordSummary){
@@ -162,7 +163,7 @@ export async function clientSelf(request:Request,env:Env,path:string,headers:Hea
           const fields='id,service_id,requested_start_at,duration_minutes,status,priority,updated_at';
           const project=(v:Record<string,unknown>)=>{
             if(![v.id,v.service_id].every(requiredString)||![v.requested_start_at,v.updated_at].every(dateTime)||typeof v.duration_minutes!=='number'||!Number.isSafeInteger(v.duration_minutes)||!nullableString(v.status)||!nullableString(v.priority))throw Error('Invalid visit data');
-            return {id:v.id,service_id:v.service_id,requested_start_at:projectRecordTimestamp(v.requested_start_at),duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:projectRecordTimestamp(v.updated_at)};
+            return {id:v.id,service_id:projectReferenceId(v.service_id),requested_start_at:projectRecordTimestamp(v.requested_start_at),duration_minutes:v.duration_minutes,status:v.status,priority:v.priority,updated_at:projectRecordTimestamp(v.updated_at)};
           };
           const filter='client_id::text=$1 AND tenant_id::text=$2';
           if(visitMatch){
