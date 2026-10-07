@@ -1194,3 +1194,60 @@ Fifty new regression checks exercise actual Worker populated lists, empty lists 
 Repaired 41 existing grouped-read routes and nine existing record families selected from actual schema gaps. Fixed response envelopes reject undeclared properties; pagination declares limits 1–100, offsets 0–100000 and nonnegative safe-integer totals. Empty groups/lists and zero totals remain valid. Required fields, labels, nullability, payload projections, IDs and owner authority remain intact. Authoritative collection aliases inherit applicable list repairs. No new business endpoints, grants, deployment or production database changes.
 
 Fifty new regression checks exercise actual Worker populated and empty responses plus applicable details, reject private envelope/pagination fields and missing payloads, and reject out-of-range pagination values. Local validation: 3,533 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `6db2d2803b81d5d0d177fe4f8c9b56d9c4719a14`, run 37674947440. PR #132 merged as `c40b2cb050aeb0eef43ddbb1f4d69286291aa33a`. Latest completed numbered batch is 1100; next is 1101.
+
+## Iteration 33 — batches 1101–1150 (in review)
+
+- Batch 1101 auth /me/notifications created_at: align existing timestamp response syntax.
+- Batch 1102 auth /me/activities due_date: align existing timestamp response syntax.
+- Batch 1103 auth /me/activities created_at: align existing timestamp response syntax.
+- Batch 1104 auth /me/activities updated_at: align existing timestamp response syntax.
+- Batch 1105 auth /me/wellness-pulses created_at: align existing timestamp response syntax.
+- Batch 1106 auth /me/device-events created_at: align existing timestamp response syntax.
+- Batch 1107 auth /me/devices authorized_at: align existing timestamp response syntax.
+- Batch 1108 auth /me/devices expires_at: align existing timestamp response syntax.
+- Batch 1109 auth /me/devices last_active_at: align existing timestamp response syntax.
+- Batch 1110 auth /me/devices created_at: align existing timestamp response syntax.
+- Batch 1111 auth /me/devices updated_at: align existing timestamp response syntax.
+- Batch 1112 auth /me/health-ids created_at: align existing timestamp response syntax.
+- Batch 1113 auth /me/health-ids updated_at: align existing timestamp response syntax.
+- Batch 1114 auth /me/survey-submissions created_at: align existing timestamp response syntax.
+- Batch 1115 auth /me/group-memberships created_at: align existing timestamp response syntax.
+- Batch 1116 auth /me/password-history created_at: align existing timestamp response syntax.
+- Batch 1117 auth /me/shift-logs date: align existing timestamp response syntax.
+- Batch 1118 auth /me/shift-logs start_time: align existing timestamp response syntax.
+- Batch 1119 auth /me/shift-logs end_time: align existing timestamp response syntax.
+- Batch 1120 auth /me/daily-entry-records created_at: align existing timestamp response syntax.
+- Batch 1121 auth /me/daily-entry-records updated_at: align existing timestamp response syntax.
+- Batch 1122 auth /me/adl-log-records created_at: align existing timestamp response syntax.
+- Batch 1123 auth /me/vital-sign-records recorded_at: align existing timestamp response syntax.
+- Batch 1124 auth /me/behavior-note-records recorded_at: align existing timestamp response syntax.
+- Batch 1125 auth /me/nutrition-records recorded_at: align existing timestamp response syntax.
+- Batch 1126 auth /me/mobility-records recorded_at: align existing timestamp response syntax.
+- Batch 1127 auth /me/infection-control-records recorded_at: align existing timestamp response syntax.
+- Batch 1128 auth /me/narrative-note-records recorded_at: align existing timestamp response syntax.
+- Batch 1129 auth /me/care-plan-follow-up-records recorded_at: align existing timestamp response syntax.
+- Batch 1130 auth /me/assigned-task-records due_date: align existing timestamp response syntax.
+- Batch 1131 auth /me/assigned-task-records created_at: align existing timestamp response syntax.
+- Batch 1132 auth /me/assigned-task-records updated_at: align existing timestamp response syntax.
+- Batch 1133 auth /me/audit-signoff-records signed_at: align existing timestamp response syntax.
+- Batch 1134 auth /me/reported-incident-records created_at: align existing timestamp response syntax.
+- Batch 1135 auth /me/reported-incident-records updated_at: align existing timestamp response syntax.
+- Batch 1136 auth /me/assessment-records created_at: align existing timestamp response syntax.
+- Batch 1137 auth /me/assessment-records updated_at: align existing timestamp response syntax.
+- Batch 1138 auth /me/medication-reconciliation-records created_at: align existing timestamp response syntax.
+- Batch 1139 auth /me/supervision-records created_at: align existing timestamp response syntax.
+- Batch 1140 auth /me/technical-audit-records performed_at: align existing timestamp response syntax.
+- Batch 1141 auth /me/authored-care-plan-records created_at: align existing timestamp response syntax.
+- Batch 1142 auth /me/authored-care-plan-records updated_at: align existing timestamp response syntax.
+- Batch 1143 auth /me/authored-review-records period_start: align existing timestamp response syntax.
+- Batch 1144 auth /me/authored-review-records period_end: align existing timestamp response syntax.
+- Batch 1145 auth /me/authored-review-records created_at: align existing timestamp response syntax.
+- Batch 1146 auth /me/authored-review-records updated_at: align existing timestamp response syntax.
+- Batch 1147 auth /me/reviewed-timesheet-records reviewed_at: align existing timestamp response syntax.
+- Batch 1148 auth /me/reviewed-timesheet-records created_at: align existing timestamp response syntax.
+- Batch 1149 auth /me/reviewed-timesheet-records updated_at: align existing timestamp response syntax.
+- Batch 1150 auth /me/telehealth-records start_time: align existing timestamp response syntax.
+
+Fifty existing response timestamp fields now declare the minimum length and exact uppercase RFC3339 syntax accepted by the runtime: four-digit years, valid hour/minute/second ranges, optional fractional seconds and Z or numeric timezone offsets. Existing date-time formats, nullable types, payloads and owner scopes remain intact. This is syntax alignment, not new endpoint implementation; calendar validity remains checked by the runtime and date-time format. Authoritative collection aliases inherit applicable repairs. No new business endpoints, grants, deployment or production database changes.
+
+Fifty new regression checks exercise actual Worker list/detail timestamps with UTC, fractional timezone-offset strings, Date serialization and allowed nulls; malformed timestamps, impossible calendar dates, invalid Date objects and forbidden nulls fail closed. Local validation: 3,583 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head PostgreSQL and security CI pending. Latest merged numbered batch remains 1100 until merge.

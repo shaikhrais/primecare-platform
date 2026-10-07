@@ -1,6 +1,6 @@
 {
   "scope": "local_unit_fixtures",
-  "passed": 3533,
+  "passed": 3583,
   "failed": 0,
   "productionVerified": false,
   "postgresVerified": false,
@@ -123,6 +123,7 @@
     "scripts/test-list-page-contracts.mjs": "f034f430c02216fca8a217b98f6ad0442df28bc008c7a08ed93c6669dce7d0a5",
     "scripts/test-response-envelope-contracts.mjs": "2ee74cc07a54d839d0edf2e8a391f1be59e6630b693f1fcbb670ac55215182bd",
     "scripts/test-read-envelope-page-contracts.mjs": "0dad1945df44f755a096c09cda455fc0536c8cc602dfabe6af4e2c0f338c6933",
+    "scripts/test-timestamp-contracts.mjs": "c690a1a3482430255fcef8ec34f579588fb8ccea05d4ea04a4a8168ed47a3ec0",
     "scripts/read-alias-fixtures.mjs": "0308bc3df0aacea06cc95c9881729950931a7c9c5d1d4c0b049c3faf0413490f",
     "scripts/singleton-read-alias-fixtures.mjs": "347746e21ebb0d30aab1060111eb51dd8576ed76fdced87501a4637476da8551",
     "scripts/governed-read-alias-definitions.json": "e3be043c827985877d924cd401efc79d4c45f0e16a95ab67e20221d5162b02c5",
@@ -201,6 +202,8 @@
     "scripts/register-response-envelope-contracts-api.py": "110b926ce2e703214d7be9e9271c04b6aa872f4692c49fab4473942d4227267b",
     "docs/api/response-envelope-contract-batches-1001-1050.json": "dd32f76a3dddf42fe9d77a05ce788306784ba73c8c35e722e062c2a43bda925d",
     "scripts/register-read-envelope-page-contracts-api.py": "50582f9e9e28dbb5187abf6c001e2b713674d049499452e899e51b1275314b52",
-    "docs/api/read-envelope-page-contract-batches-1051-1100.json": "316de6d7c7e91af9f20c5ef474274c2269691d478495a0f845941d914d05f08d"
+    "docs/api/read-envelope-page-contract-batches-1051-1100.json": "316de6d7c7e91af9f20c5ef474274c2269691d478495a0f845941d914d05f08d",
+    "scripts/register-timestamp-contracts-api.py": "4635c973ca44526fd0f682d99ebfe34c4a4298cdff787111269dcb77004d6836",
+    "docs/api/timestamp-contract-batches-1101-1150.json": "64357546684e8ca1c98beda1b41f704bc65701331815a83734c6bf9dc8712030"
   }
 }

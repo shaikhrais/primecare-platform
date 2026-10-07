@@ -1,0 +1,307 @@
+{
+  "scope": "contract_alignment",
+  "authorityAdded": false,
+  "routesAdded": false,
+  "changes": [
+    {
+      "batch": 1101,
+      "service": "auth",
+      "path": "/me/notifications",
+      "field": "created_at"
+    },
+    {
+      "batch": 1102,
+      "service": "auth",
+      "path": "/me/activities",
+      "field": "due_date"
+    },
+    {
+      "batch": 1103,
+      "service": "auth",
+      "path": "/me/activities",
+      "field": "created_at"
+    },
+    {
+      "batch": 1104,
+      "service": "auth",
+      "path": "/me/activities",
+      "field": "updated_at"
+    },
+    {
+      "batch": 1105,
+      "service": "auth",
+      "path": "/me/wellness-pulses",
+      "field": "created_at"
+    },
+    {
+      "batch": 1106,
+      "service": "auth",
+      "path": "/me/device-events",
+      "field": "created_at"
+    },
+    {
+      "batch": 1107,
+      "service": "auth",
+      "path": "/me/devices",
+      "field": "authorized_at"
+    },
+    {
+      "batch": 1108,
+      "service": "auth",
+      "path": "/me/devices",
+      "field": "expires_at"
+    },
+    {
+      "batch": 1109,
+      "service": "auth",
+      "path": "/me/devices",
+      "field": "last_active_at"
+    },
+    {
+      "batch": 1110,
+      "service": "auth",
+      "path": "/me/devices",
+      "field": "created_at"
+    },
+    {
+      "batch": 1111,
+      "service": "auth",
+      "path": "/me/devices",
+      "field": "updated_at"
+    },
+    {
+      "batch": 1112,
+      "service": "auth",
+      "path": "/me/health-ids",
+      "field": "created_at"
+    },
+    {
+      "batch": 1113,
+      "service": "auth",
+      "path": "/me/health-ids",
+      "field": "updated_at"
+    },
+    {
+      "batch": 1114,
+      "service": "auth",
+      "path": "/me/survey-submissions",
+      "field": "created_at"
+    },
+    {
+      "batch": 1115,
+      "service": "auth",
+      "path": "/me/group-memberships",
+      "field": "created_at"
+    },
+    {
+      "batch": 1116,
+      "service": "auth",
+      "path": "/me/password-history",
+      "field": "created_at"
+    },
+    {
+      "batch": 1117,
+      "service": "auth",
+      "path": "/me/shift-logs",
+      "field": "date"
+    },
+    {
+      "batch": 1118,
+      "service": "auth",
+      "path": "/me/shift-logs",
+      "field": "start_time"
+    },
+    {
+      "batch": 1119,
+      "service": "auth",
+      "path": "/me/shift-logs",
+      "field": "end_time"
+    },
+    {
+      "batch": 1120,
+      "service": "auth",
+      "path": "/me/daily-entry-records",
+      "field": "created_at"
+    },
+    {
+      "batch": 1121,
+      "service": "auth",
+      "path": "/me/daily-entry-records",
+      "field": "updated_at"
+    },
+    {
+      "batch": 1122,
+      "service": "auth",
+      "path": "/me/adl-log-records",
+      "field": "created_at"
+    },
+    {
+      "batch": 1123,
+      "service": "auth",
+      "path": "/me/vital-sign-records",
+      "field": "recorded_at"
+    },
+    {
+      "batch": 1124,
+      "service": "auth",
+      "path": "/me/behavior-note-records",
+      "field": "recorded_at"
+    },
+    {
+      "batch": 1125,
+      "service": "auth",
+      "path": "/me/nutrition-records",
+      "field": "recorded_at"
+    },
+    {
+      "batch": 1126,
+      "service": "auth",
+      "path": "/me/mobility-records",
+      "field": "recorded_at"
+    },
+    {
+      "batch": 1127,
+      "service": "auth",
+      "path": "/me/infection-control-records",
+      "field": "recorded_at"
+    },
+    {
+      "batch": 1128,
+      "service": "auth",
+      "path": "/me/narrative-note-records",
+      "field": "recorded_at"
+    },
+    {
+      "batch": 1129,
+      "service": "auth",
+      "path": "/me/care-plan-follow-up-records",
+      "field": "recorded_at"
+    },
+    {
+      "batch": 1130,
+      "service": "auth",
+      "path": "/me/assigned-task-records",
+      "field": "due_date"
+    },
+    {
+      "batch": 1131,
+      "service": "auth",
+      "path": "/me/assigned-task-records",
+      "field": "created_at"
+    },
+    {
+      "batch": 1132,
+      "service": "auth",
+      "path": "/me/assigned-task-records",
+      "field": "updated_at"
+    },
+    {
+      "batch": 1133,
+      "service": "auth",
+      "path": "/me/audit-signoff-records",
+      "field": "signed_at"
+    },
+    {
+      "batch": 1134,
+      "service": "auth",
+      "path": "/me/reported-incident-records",
+      "field": "created_at"
+    },
+    {
+      "batch": 1135,
+      "service": "auth",
+      "path": "/me/reported-incident-records",
+      "field": "updated_at"
+    },
+    {
+      "batch": 1136,
+      "service": "auth",
+      "path": "/me/assessment-records",
+      "field": "created_at"
+    },
+    {
+      "batch": 1137,
+      "service": "auth",
+      "path": "/me/assessment-records",
+      "field": "updated_at"
+    },
+    {
+      "batch": 1138,
+      "service": "auth",
+      "path": "/me/medication-reconciliation-records",
+      "field": "created_at"
+    },
+    {
+      "batch": 1139,
+      "service": "auth",
+      "path": "/me/supervision-records",
+      "field": "created_at"
+    },
+    {
+      "batch": 1140,
+      "service": "auth",
+      "path": "/me/technical-audit-records",
+      "field": "performed_at"
+    },
+    {
+      "batch": 1141,
+      "service": "auth",
+      "path": "/me/authored-care-plan-records",
+      "field": "created_at"
+    },
+    {
+      "batch": 1142,
+      "service": "auth",
+      "path": "/me/authored-care-plan-records",
+      "field": "updated_at"
+    },
+    {
+      "batch": 1143,
+      "service": "auth",
+      "path": "/me/authored-review-records",
+      "field": "period_start"
+    },
+    {
+      "batch": 1144,
+      "service": "auth",
+      "path": "/me/authored-review-records",
+      "field": "period_end"
+    },
+    {
+      "batch": 1145,
+      "service": "auth",
+      "path": "/me/authored-review-records",
+      "field": "created_at"
+    },
+    {
+      "batch": 1146,
+      "service": "auth",
+      "path": "/me/authored-review-records",
+      "field": "updated_at"
+    },
+    {
+      "batch": 1147,
+      "service": "auth",
+      "path": "/me/reviewed-timesheet-records",
+      "field": "reviewed_at"
+    },
+    {
+      "batch": 1148,
+      "service": "auth",
+      "path": "/me/reviewed-timesheet-records",
+      "field": "created_at"
+    },
+    {
+      "batch": 1149,
+      "service": "auth",
+      "path": "/me/reviewed-timesheet-records",
+      "field": "updated_at"
+    },
+    {
+      "batch": 1150,
+      "service": "auth",
+      "path": "/me/telehealth-records",
+      "field": "start_time"
+    }
+  ]
+}
