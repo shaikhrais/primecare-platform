@@ -20,7 +20,7 @@ An operation earns one completed API credit only when its exact method/path and 
 
 **0/14 resolved: Reconcile legacy auth declarations with existing handlers and callers.**
 
-Check handler and gateway behavior, caller methods and schema/authority registration for each item. Record one disposition per operation: verify implementation, implement a justified missing operation, or retire/replace a stale declaration. No broad access grants may be inferred from a catalog label.
+The work-package denominator is fixed; a missing declaration only resolves through a documented retirement with evidence. Check handler and gateway behavior, caller methods and schema/authority registration for each item. Record one disposition per operation: verify implementation, implement a justified missing operation, or retire/replace a stale declaration. No broad access grants may be inferred from a catalog label.
 
 - [ ] POST /v1/auth
 - [ ] POST /v1/auth/

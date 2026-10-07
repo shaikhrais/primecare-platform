@@ -24,4 +24,14 @@ class ChecklistTests(unittest.TestCase):
         self.assertEqual(data['firstWorkPackage']['total'],1)
         self.assertEqual(data['firstWorkPackage']['resolved'],0)
 
+    def test_fixed_package_denominator_and_retirement_evidence(self):
+        package={'name':'fixed','operations':['GET /v1/auth/example','POST /v1/auth/example'],'retirements':{}}
+        data=module.build([row(1)],package)
+        self.assertEqual(data['firstWorkPackage']['total'],2)
+        self.assertEqual(data['firstWorkPackage']['resolved'],1)
+        package['retirements']={'POST /v1/auth/example':{'reason':'obsolete'}}
+        self.assertEqual(module.build([row(1)],package)['firstWorkPackage']['resolved'],1)
+        package['retirements']['POST /v1/auth/example']['evidence']='reviewed removal commit'
+        self.assertEqual(module.build([row(1)],package)['firstWorkPackage']['resolved'],2)
+
 if __name__=='__main__': unittest.main()

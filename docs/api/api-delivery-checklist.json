@@ -35,7 +35,8 @@
       "POST /v1/auth/reset-password",
       "POST /v1/auth/switch-role",
       "POST /v1/auth/whoami"
-    ]
+    ],
+    "resolvedOperations": []
   },
   "areas": [
     {

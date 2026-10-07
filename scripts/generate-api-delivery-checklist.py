@@ -4,7 +4,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
-def build(rows):
+def build(rows, work_package=None):
     grouped = defaultdict(list)
     for row in rows:
         grouped[row['method']+' '+row['route']].append(row)
@@ -30,6 +30,14 @@ def build(rows):
     stages = dict(sorted(Counter(o['stage'] for o in operations).items()))
     pending = [o for o in operations if o['stage'] not in ['unit_evidence_recorded','blocked']]
     auth = [o['api'] for o in pending if o['area']=='auth']
+    package = work_package or {'name':'Reconcile legacy auth declarations with existing handlers and callers','operations':auth,'retirements':{}}
+    if len(package['operations']) != len(set(package['operations'])): raise ValueError('Duplicate work-package operation')
+    lookup = {o['api']:o for o in operations}; resolved = []
+    for api in package['operations']:
+        if lookup.get(api,{}).get('unitEvidenceRecorded'): resolved.append(api)
+        elif api not in lookup:
+            retirement = package.get('retirements',{}).get(api,{})
+            if retirement.get('reason') and retirement.get('evidence'): resolved.append(api)
     areas = []
     for area in sorted({o['area'] for o in operations}):
         members = [o for o in operations if o['area']==area]
@@ -42,12 +50,13 @@ def build(rows):
             'duplicateDeclarationRows':len(rows)-len(operations),'stages':stages,
             'pendingByDeclaredMethod':dict(sorted(Counter(o['method'] for o in pending).items())),
             'postgresEvidenceMapped':0,'productionEvidenceMapped':0},
-        'firstWorkPackage':{'name':'Reconcile legacy auth declarations with existing handlers and callers',
-            'total':len(auth),'resolved':0,'operations':auth},'areas':areas,'operations':operations}
+        'firstWorkPackage':{'name':package['name'],'total':len(package['operations']),
+            'resolved':len(resolved),'operations':package['operations'],'resolvedOperations':resolved},'areas':areas,'operations':operations}
 
 def main():
     source = ROOT/'docs/api/api-execution-inventory.json'
-    data = build(json.loads(source.read_text())['data'])
+    package = json.loads((ROOT/'docs/api/api-delivery-work-package.json').read_text())
+    data = build(json.loads(source.read_text())['data'],package)
     data['source'] = {'path':'docs/api/api-execution-inventory.json','sha256':hashlib.sha256(source.read_bytes()).hexdigest()}
     (ROOT/'docs/api/api-delivery-checklist.json').write_text(json.dumps(data,indent=2)+'\n')
     s=data['summary']; states=s['stages']; package=data['firstWorkPackage']
@@ -59,8 +68,8 @@ def main():
         '## Completion rule','',
         'An operation earns one completed API credit only when its exact method/path and callers are reconciled, its handler and registered authority/request/response contracts exist, its unit/negative authorization tests pass, and operation-specific PostgreSQL evidence is linked. Deployment and authenticated production checks are separate release gates. Duplicate/stale declarations must be retired with recorded rationale rather than implemented blindly. A POST declaration is not automatically a business write.','',
         '## First finite work package','',f"**{package['resolved']}/{package['total']} resolved: {package['name']}.**",'',
-        'Check handler and gateway behavior, caller methods and schema/authority registration for each item. Record one disposition per operation: verify implementation, implement a justified missing operation, or retire/replace a stale declaration. No broad access grants may be inferred from a catalog label.','']
-    lines += ['- [ ] '+api for api in package['operations']]
+        'The work-package denominator is fixed; a missing declaration only resolves through a documented retirement with evidence. Check handler and gateway behavior, caller methods and schema/authority registration for each item. Record one disposition per operation: verify implementation, implement a justified missing operation, or retire/replace a stale declaration. No broad access grants may be inferred from a catalog label.','']
+    lines += [('- [x] ' if api in package['resolvedOperations'] else '- [ ] ')+api for api in package['operations']]
     lines += ['', '## Work by route area','', '| Area | Total | Unit evidence | Needs work | Blocked |','| --- | ---: | ---: | ---: | ---: |']
     lines += [f"| {a['area']} | {a['total']} | {a['unitEvidenceRecorded']} | {a['needsWork']} | {a['blocked']} |" for a in data['areas']]
     lines += ['', 'Route areas are catalog prefixes, not independently deployed services. The JSON checklist contains every unique operation, source declaration IDs, missing fields and next action. Regenerate through generate-api-execution-inventory.py; never advance this counter for repeated field repairs.','']
