@@ -137,7 +137,7 @@ PostgreSQL CI exposed a shared counter timing race: transaction-start NOW can pr
 Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments. Local validation: 1,808 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37552341294 at 5826243ebbb7b1b527273f0651943ba455245e4b. PR #109 merged as 8098c497b871b68ff15ab5fa978fec4704f6cf7f. Latest completed batch is 283; next batch is 284. No deployment or production database changes.
 
 
-## Iteration 11 — batches 284–298, read dates and native email results, in review
+## Iteration 11 — batches 284–298, read dates and native email results, merged
 
 | Batch | Existing handler family | Change |
 | --- | --- | --- |
@@ -163,4 +163,4 @@ Workspace activity permits only the three persisted event actions from the selec
 
 Disposable PostgreSQL checks inject infinity and year-10000 timestamps into owned rows across the read families, assert rejection and unchanged state, and restore each fixture. Additional checks cover workspace activity, booking mutation/audit rollback, and malformed native receipts during recovery/test delivery. Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
 
-Local validation: 1,845 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.
+Local validation: 1,845 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37554565922 at 06ae62d8b1089421fcd688eec5565abd6cda0f91. PR #110 merged as e973f171fe4f1668c14292283e55b6aee399f531. Latest completed batch is 298; next batch is 299. No deployment or production database changes.
