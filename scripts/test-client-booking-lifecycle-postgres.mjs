@@ -1,11 +1,16 @@
 import {Client} from 'pg';import {build} from 'esbuild';import assert from 'node:assert/strict';import {randomUUID,createHash} from 'node:crypto';import {mkdtemp,readFile} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {createRequire} from 'node:module';
 const url=new URL(process.env.AUTH_TEST_DATABASE_URL||'');if(!['127.0.0.1','localhost'].includes(url.hostname)||url.pathname!=='/auth_test')throw Error('Disposable loopback auth_test required');
-const dir=await mkdtemp(join(tmpdir(),'booking-lifecycle-pg-'));await build({entryPoints:['cloudflare/workers/src/client-booking-lifecycle.ts'],outfile:join(dir,'lifecycle.cjs'),bundle:true,platform:'node',format:'cjs'});const {clientBookingLifecycle}=createRequire(import.meta.url)(join(dir,'lifecycle.cjs'));
+const dir=await mkdtemp(join(tmpdir(),'booking-lifecycle-pg-'));await build({entryPoints:['cloudflare/workers/src/client-booking-lifecycle.ts'],outfile:join(dir,'lifecycle.cjs'),bundle:true,platform:'node',format:'cjs'});await build({entryPoints:['cloudflare/workers/src/gateway.ts'],outfile:join(dir,'gateway.cjs'),bundle:true,platform:'node',format:'cjs'});const {default:gateway}=createRequire(import.meta.url)(join(dir,'gateway.cjs'));const {clientBookingLifecycle}=createRequire(import.meta.url)(join(dir,'lifecycle.cjs'));
 const db=new Client({connectionString:url.href});await db.connect();
 const ids=[randomUUID(),randomUUID(),randomUUID()],tenants=[randomUUID(),randomUUID()],profiles=[randomUUID(),randomUUID(),randomUUID()],tokens=['x'.repeat(43),'y'.repeat(43),'z'.repeat(43)],hash=s=>createHash('sha256').update(s).digest('hex');
 let checks=0,createdProfiles=false,createdRequests=false,createdAudit=false;
 const input={service_type:'massage',preferred_date:'2026-10-06T12:00:00Z',preferred_time:null,notes:'private note'};
-function call(path='/booking-requests',key='create-key',body=path==='/booking-requests'?input:undefined,token=tokens[0],headers={},sourceLimit){return clientBookingLifecycle(new Request('https://fixture'+path,{method:path.includes('/audit')?'GET':'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json','idempotency-key':key,...headers},body:body===undefined?undefined:JSON.stringify(body)}),{DB_URL:url.href,SERVICE_NAME:'client',...(sourceLimit?{WORKSPACE_SOURCE_LIMIT:sourceLimit}:{})},path.split('?')[0],{});}
+function call(path='/booking-requests',key='create-key',body=path==='/booking-requests'?input:undefined,token=tokens[0],headers={},sourceLimit){
+ const request=new Request('https://fixture'+path,{method:path.includes('/audit')?'GET':'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json','idempotency-key':key,...headers},body:body===undefined?undefined:JSON.stringify(body)});
+ const env={DB_URL:url.href,SERVICE_NAME:'client',...(sourceLimit?{WORKSPACE_SOURCE_LIMIT:sourceLimit}:{})};
+ if(path==='/booking-requests')return gateway.fetch(new Request('https://gateway/v1/client/bookings/request',request),{CLIENT:{fetch:r=>clientBookingLifecycle(r,env,new URL(r.url).pathname,{})}});
+ return clientBookingLifecycle(request,env,path.split('?')[0],{});
+}
 try{
  await db.query('CREATE TABLE client_profiles(id TEXT PRIMARY KEY,user_id TEXT NOT NULL,tenant_id TEXT NOT NULL)');createdProfiles=true;
  await db.query('CREATE TABLE booking_requests(id TEXT PRIMARY KEY,client_id TEXT NOT NULL,tenant_id TEXT NOT NULL,service_type TEXT NOT NULL,preferred_date TIMESTAMP NOT NULL,preferred_time TEXT,notes TEXT,status TEXT NOT NULL,created_at TIMESTAMP NOT NULL,updated_at TIMESTAMP NOT NULL)');createdRequests=true;

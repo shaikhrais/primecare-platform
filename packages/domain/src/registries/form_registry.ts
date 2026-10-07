@@ -47,6 +47,8 @@ export interface FormEntry {
     /** GET endpoint for editing / pre-fill */
     fetchEndpoint?: string;
     method?: 'POST' | 'PUT' | 'PATCH';
+    /** Headers required by the backend; submission retries must retain the same idempotency key. */
+    requiredHeaders?: string[];
     /** data-cy attribute prefix used for testing hooks */
     dataCyPrefix?: string;
     /** Ordered list of form fields */

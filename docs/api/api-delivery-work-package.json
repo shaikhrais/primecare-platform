@@ -144,5 +144,24 @@
       ],
       "finding": "No registered auth handler; returns route-not-found without business execution"
     }
-  }
+  },
+  "additionalWorkPackages": [
+    {
+      "name": "Client booking request submission compatibility",
+      "operations": [
+        "POST /v1/client/bookings/request"
+      ],
+      "reviews": {
+        "POST /v1/client/bookings/request": {
+          "finding": "Two form declarations submit a request; exact POST now forwards to the existing owner-scoped, idempotent booking request lifecycle. Fields and required header match its contract. Collection/list POSTs remain denied.",
+          "evidence": [
+            "packages/domain/src/registries/FormRegistry/client-forms.ts",
+            "cloudflare/workers/src/gateway.ts",
+            "scripts/test-client-booking-lifecycle-api.mjs",
+            "scripts/test-client-booking-lifecycle-postgres.mjs"
+          ]
+        }
+      }
+    }
+  ]
 }

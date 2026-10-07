@@ -7,8 +7,8 @@ Baseline: **1415 unique operations** from 1416 declarations; 1 duplicate declara
 | Evidence stage | Unique operations |
 | --- | ---: |
 | blocked | 10 |
-| needs_contract_and_verification | 1065 |
-| unit_evidence_recorded | 340 |
+| needs_contract_and_verification | 1064 |
+| unit_evidence_recorded | 341 |
 
 Unit evidence is a completed test milestone, not proof of complete business workflows or deployment. PostgreSQL CI has passed globally, but this checklist does not invent operation-specific coverage. Production status remains unverified here.
 
@@ -36,6 +36,12 @@ The work-package denominator is fixed; a missing declaration only resolves throu
 - [x] POST /v1/auth/reset-password
 - [ ] POST /v1/auth/switch-role
 - [ ] POST /v1/auth/whoami
+
+## Next finite work package
+
+**1/1 reviewed; 1/1 resolved: Client booking request submission compatibility.**
+
+- [x] POST /v1/client/bookings/request
 
 ## Work by route area
 
@@ -94,7 +100,7 @@ The work-package denominator is fixed; a missing declaration only resolves throu
 | cisoanalytics | 1 | 0 | 1 | 0 |
 | cisoworkflow | 1 | 0 | 1 | 0 |
 | claims-processing | 1 | 0 | 1 | 0 |
-| client | 121 | 94 | 27 | 0 |
+| client | 121 | 95 | 26 | 0 |
 | client-intake | 1 | 0 | 1 | 0 |
 | client-issue | 1 | 0 | 1 | 0 |
 | client-progress | 1 | 0 | 1 | 0 |
