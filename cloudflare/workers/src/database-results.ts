@@ -29,3 +29,11 @@ export function boundRow(value:unknown,expected:string|null):Record<string,unkno
  if(row && accountId(row.id)!==expected)throw Error('Invalid requested record binding');
  return row;
 }
+
+/** Record pages expose identifiers usable by their existing detail routes. */
+export function recordRows(value:unknown,maximum:number):Record<string,unknown>[] {
+ const seen=new Set<string>();return resultRows(value,maximum).map(row=>{
+  const id=accountId(row.id);if(seen.has(id))throw Error('Duplicate record identity');
+  seen.add(id);return row;
+ });
+}

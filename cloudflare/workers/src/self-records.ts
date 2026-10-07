@@ -1,5 +1,6 @@
+import {accountId} from './account-read-projection';
 import {summaryRows} from './summary-results';
-import {scopedActor,boundRow,resultRows,requiredRow} from './database-results';
+import {recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {validRecordTimestamp} from './record-date-validation';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
@@ -39,7 +40,7 @@ export async function selfRecords(request:Request,env:Env,path:string,headers:He
           if(record.dateFields.includes(field))return validRecordTimestamp(value);
           return allowed.includes('integer')?typeof value==='number'&&Number.isSafeInteger(value):allowed.includes('boolean')?typeof value==='boolean':allowed.includes('string')&&typeof value==='string';
         };
-        const project=(row:Record<string,unknown>)=>Object.fromEntries(record.fields.map(field=>{if(!valid(field,row[field]))throw Error('Invalid account record');return [field,row[field]];}));
+        const project=(row:Record<string,unknown>)=>{if(record.fields.includes('id'))accountId(row.id);return Object.fromEntries(record.fields.map(field=>{if(!valid(field,row[field]))throw Error('Invalid account record');return [field,row[field]];}));};
         if(summary){
           const field=record.summaryField!,groupField=prefix+identifier(field);
           const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+groupField+scope+' GROUP BY '+groupField+') groups',values)).rows).count,'Invalid account summary count');
@@ -56,7 +57,7 @@ export async function selfRecords(request:Request,env:Env,path:string,headers:He
         if(detail){const row=boundRow((await db.query('SELECT '+fields+scope+' AND '+prefix+'id::text=$3',[...values,suffix])).rows,suffix);return row?json({[record.item]:project(row)},200,safe):json({error:'Record not found'},404,safe);}
         const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count'+scope,values)).rows).count,'Invalid account record count');
         const rows=(await db.query('SELECT '+fields+scope+' ORDER BY '+prefix+(record.orderField??'created_at')+' DESC,'+prefix+'id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-        return json({[record.collection!]:resultRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        return json({[record.collection!]:recordRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
       }finally{await db.query('ROLLBACK');}
     });
   }catch{return json({error:'Account data unavailable'},503,safe);}

@@ -1,5 +1,5 @@
 import {summaryRows} from './summary-results';
-import {scopedActor,boundRow,resultRows,requiredRow} from './database-results';
+import {recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {accountId} from './account-read-projection';
 import {validRecordTimestamp} from './record-date-validation';
 import {sourceLimitAllowed} from './source-limit-result';
@@ -68,7 +68,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
           }
           const total=count((await db.query('SELECT COUNT(*)::int AS count'+scope,documentValues)).rows,'document');
           const rows=(await db.query('SELECT '+fields+scope+' ORDER BY d.created_at DESC,d.id DESC LIMIT $4 OFFSET $5',[...documentValues,Number(limit),Number(offset)])).rows;
-          return json({documents:resultRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({documents:recordRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(statusSummary){
           const filter='assigned_provider_id::text=$1 AND tenant_id::text=$2';
@@ -89,7 +89,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
           }
           const total=count((await db.query('SELECT COUNT(*)::int AS count FROM visits WHERE '+filter,values)).rows,'visit');
           const rows=(await db.query('SELECT '+fields+' FROM visits WHERE '+filter+' ORDER BY requested_start_at DESC,id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          return json({visits:resultRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+          return json({visits:recordRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         const filter='provider_id::text=$1 AND tenant_id::text=$2';
         const availabilityFields='id,day_of_week,start_time,end_time';
@@ -106,7 +106,7 @@ export async function providerSelf(request:Request,env:Env,path:string,headers:H
         }
         const total=count((await db.query('SELECT COUNT(*)::int AS count FROM provider_availability WHERE '+filter,values)).rows,'availability');
         const rows=(await db.query('SELECT id,day_of_week,start_time,end_time FROM provider_availability WHERE '+filter+' ORDER BY day_of_week,start_time,id LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-        return json({availability:resultRows(rows,Number(limit)).map(projectAvailability),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        return json({availability:recordRows(rows,Number(limit)).map(projectAvailability),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
       }finally{await db.query('ROLLBACK');}
     });
   }catch{return json({error:'Provider data unavailable'},503,safe);}

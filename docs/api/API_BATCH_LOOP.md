@@ -339,3 +339,67 @@ New gateway fixtures cover duplicate/null/boolean/compound keys, zero group coun
 Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
 
 Local validation: 2,271 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37565154858 at 23f89529845451c85c1908a8d43838af82c3987d. PR #116 merged as 8f0cf75ad071c7d290357e42c0b43cd7779a7d07. Latest completed batch is 388; next batch is 389. No deployment or production database changes.
+
+
+## Iteration 18 — batches 389–438, owned record identity boundaries, in review
+
+- Batch 389 client invoices.
+- Batch 390 owned payments.
+- Batch 391 nested invoice payments.
+- Batch 392 client booking requests.
+- Batch 393 client visits.
+- Batch 394 client bookings.
+- Batch 395 provider documents.
+- Batch 396 provider visits.
+- Batch 397 provider availability.
+- Batch 398 timesheet items.
+- Batch 399 client /consents.
+- Batch 400 client /service-authorizations.
+- Batch 401 client /waitlist.
+- Batch 402 client /feedback.
+- Batch 403 client /care-feedback.
+- Batch 404 client /conversation-threads.
+- Batch 405 client /family-links.
+- Batch 406 client /alert-records.
+- Batch 407 client /insurance-claim-records.
+- Batch 408 client /prescription-records.
+- Batch 409 client /care-plan-records.
+- Batch 410 client /assessment-records.
+- Batch 411 client /medication-reconciliation-records.
+- Batch 412 client /shift-log-records.
+- Batch 413 client /adl-records.
+- Batch 414 client /vital-observation-records.
+- Batch 415 client /behavior-observation-records.
+- Batch 416 client /nutrition-observation-records.
+- Batch 417 client /mobility-observation-records.
+- Batch 418 client /infection-checklist-records.
+- Batch 419 client /progress-note-records.
+- Batch 420 client /care-follow-up-records.
+- Batch 421 client /family-notification-records.
+- Batch 422 client /inventory-item-records.
+- Batch 423 client /purchase-order-records.
+- Batch 424 client /patient-vital-records.
+- Batch 425 client /medication-administration-records.
+- Batch 426 provider threads.
+- Batch 427 provider timesheets.
+- Batch 428 availability overrides.
+- Batch 429 mileage logs.
+- Batch 430 payouts.
+- Batch 431 performance reviews.
+- Batch 432 visit checks and fleet singleton.
+- Batch 433 visit matches and shift assignments.
+- Batch 434 handover, authored note/checklist and training records.
+- Batch 435 personal notification, activity, reward, device and membership records.
+- Batch 436 personal password, shift, daily and observation records.
+- Batch 437 personal assigned tasks, audit, incident, assessment and supervision records.
+- Batch 438 personal authoring, review, telehealth, event and ledger records.
+
+Existing client/provider base lists, timesheet items and every registered client/provider/personal record page require valid string identifiers compatible with their existing detail routes and unique IDs within the returned page. Registered provider and personal singleton records with ID fields also validate their identities. Distinct case-sensitive text IDs remain distinct. The bootstrap singleton has no ID field and retains its declared projection.
+
+The shared helper validates row shape and page bounds before identity checks. Malformed or duplicate records use existing sanitized no-store errors with read-only rollback. Missing details/singletons retain 404; empty pages retain 200; projections, nullable fields, decimal/date validation, count and summary checks, active bearer authority, owner/tenant joins and query budgets remain.
+
+New gateway regressions exercise all 50 batch families, including malformed IDs, duplicate rows within the requested limit, valid distinct IDs and empty/missing results. Disposable PostgreSQL tests temporarily corrupt IDs and duplicate synthetic owned rows, assert rejected reads leave them unchanged, and restore each fixture. Existing page checks now verify valid unique IDs in full fixture pages.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,423 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.
