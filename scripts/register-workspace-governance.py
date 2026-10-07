@@ -10,6 +10,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DB = ROOT / '.agents/governance/governance.db'
+import subprocess,sys
+subprocess.run([sys.executable,str(ROOT/'scripts/repair-local-api-metadata.py'),str(DB)],check=True)
 PORTALS = {'corporate': 'co', 'clinic': 'ci', 'clinical': 'ci', 'client': 'cl',
            'support': 'su', 'franchise': 'fr', 'marketing': 'ma',
            'business-development': 'bd', 'governance': 'go'}
@@ -63,6 +65,7 @@ runpy.run_path(str(ROOT/'scripts/register-booking-submission-delivery.py'))
 runpy.run_path(str(ROOT/'scripts/register-booking-requests-delivery.py'))
 runpy.run_path(str(ROOT/'scripts/register-booking-collection-delivery.py'))
 runpy.run_path(str(ROOT/'scripts/reconcile-client-read-declarations.py'),run_name='__main__')
+runpy.run_path(str(ROOT/'scripts/reconcile-auth-root-declarations.py'),run_name='__main__')
 runpy.run_path(str(ROOT/'scripts/generate-api-execution-inventory.py'))
 with sqlite3.connect(DB) as db:
     db.row_factory = sqlite3.Row

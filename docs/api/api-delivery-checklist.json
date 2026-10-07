@@ -1,20 +1,20 @@
 {
   "countingRule": "One exact HTTP method + path; field repairs and test totals do not increment completed operations.",
   "summary": {
-    "declarations": 1414,
+    "declarations": 1412,
     "uniqueOperations": 1415,
-    "activeUniqueOperations": 1413,
-    "retiredOperations": 2,
+    "activeUniqueOperations": 1411,
+    "retiredOperations": 4,
     "duplicateDeclarationRows": 1,
     "stages": {
       "blocked": 10,
-      "needs_contract_and_verification": 1060,
-      "retired_with_evidence": 2,
+      "needs_contract_and_verification": 1058,
+      "retired_with_evidence": 4,
       "unit_evidence_recorded": 343
     },
     "pendingByDeclaredMethod": {
       "GET": 255,
-      "POST": 805
+      "POST": 803
     },
     "postgresEvidenceMapped": 0,
     "productionEvidenceMapped": 0
@@ -22,7 +22,7 @@
   "firstWorkPackage": {
     "name": "Reconcile legacy auth declarations with existing handlers and callers",
     "total": 14,
-    "resolved": 4,
+    "resolved": 6,
     "operations": [
       "POST /v1/auth",
       "POST /v1/auth/",
@@ -40,6 +40,8 @@
       "POST /v1/auth/whoami"
     ],
     "resolvedOperations": [
+      "POST /v1/auth",
+      "POST /v1/auth/",
       "POST /v1/auth/forgot-password",
       "POST /v1/auth/login",
       "POST /v1/auth/logout",
@@ -165,8 +167,8 @@
       "total": 109,
       "unitEvidenceRecorded": 99,
       "blocked": 0,
-      "retired": 0,
-      "needsWork": 10
+      "retired": 2,
+      "needsWork": 8
     },
     {
       "area": "billing",
@@ -20116,21 +20118,30 @@
       "declarationIds": [
         1490
       ],
-      "services": [
-        "PRISMA"
-      ],
+      "services": [],
       "area": "auth",
-      "stage": "needs_contract_and_verification",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
+      "stage": "retired_with_evidence",
+      "missingContractFields": [],
       "unitEvidenceRecorded": false,
-      "postgresEvidence": "not_mapped_per_operation",
+      "postgresEvidence": "replacement_evidence_required",
       "productionEvidence": "not_mapped_per_operation",
-      "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
+      "nextAction": "Retired; preserve historical identity",
+      "retirement": {
+        "reason": "Scanner-shaped service namespace metadata declaration; no auth business workflow or request caller; runtime service-status metadata remains compatible, and conflicting generated metadata was quarantined first.",
+        "evidence": [
+          ".agents/governance/reconcile_db.py",
+          "packages/flutter_core/lib/src/network/api_client.dart",
+          "cloudflare/workers/src/gateway.ts",
+          "cloudflare/workers/src/service.ts",
+          "scripts/reconcile-auth-root-declarations.py",
+          "scripts/test-auth-root-retirements.py",
+          "scripts/test-auth-delivery-work-package.mjs",
+          "docs/api/auth-root-retirement-package.json"
+        ],
+        "declarationIds": [
+          1490
+        ]
+      }
     },
     {
       "api": "POST /v1/auth/",
@@ -20139,21 +20150,30 @@
       "declarationIds": [
         822
       ],
-      "services": [
-        "PRISMA"
-      ],
+      "services": [],
       "area": "auth",
-      "stage": "needs_contract_and_verification",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
+      "stage": "retired_with_evidence",
+      "missingContractFields": [],
       "unitEvidenceRecorded": false,
-      "postgresEvidence": "not_mapped_per_operation",
+      "postgresEvidence": "replacement_evidence_required",
       "productionEvidence": "not_mapped_per_operation",
-      "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
+      "nextAction": "Retired; preserve historical identity",
+      "retirement": {
+        "reason": "Scanner-shaped service namespace metadata declaration; no auth business workflow or request caller; runtime service-status metadata remains compatible, and conflicting generated metadata was quarantined first.",
+        "evidence": [
+          ".agents/governance/reconcile_db.py",
+          "packages/flutter_core/lib/src/network/api_client.dart",
+          "cloudflare/workers/src/gateway.ts",
+          "cloudflare/workers/src/service.ts",
+          "scripts/reconcile-auth-root-declarations.py",
+          "scripts/test-auth-root-retirements.py",
+          "scripts/test-auth-delivery-work-package.mjs",
+          "docs/api/auth-root-retirement-package.json"
+        ],
+        "declarationIds": [
+          822
+        ]
+      }
     },
     {
       "api": "POST /v1/auth/forgot-password",
@@ -33625,6 +33645,6 @@
   ],
   "source": {
     "path": "docs/api/api-execution-inventory.json",
-    "sha256": "73865ad1df4d0fef5f56e7fb899e45259bcfdda1994d479c5ca13645dd9e253c"
+    "sha256": "911443ff2fa1dce33de2cf0506e0d600bad37ac1f69fed02717cd6cacfd2dbda"
   }
 }

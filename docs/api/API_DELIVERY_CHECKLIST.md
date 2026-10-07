@@ -2,13 +2,13 @@
 
 One exact HTTP method + path; field repairs and test totals do not increment completed operations.
 
-Baseline: **1415 unique operations**; 1413 active, 2 retired with evidence. 1414 active declarations; 1 duplicate declaration row.
+Baseline: **1415 unique operations**; 1411 active, 4 retired with evidence. 1412 active declarations; 1 duplicate declaration row.
 
 | Evidence stage | Unique operations |
 | --- | ---: |
 | blocked | 10 |
-| needs_contract_and_verification | 1060 |
-| retired_with_evidence | 2 |
+| needs_contract_and_verification | 1058 |
+| retired_with_evidence | 4 |
 | unit_evidence_recorded | 343 |
 
 Unit evidence is a completed test milestone, not proof of complete business workflows or deployment. PostgreSQL CI has passed globally, but this checklist does not invent operation-specific coverage. Production status remains unverified here.
@@ -19,12 +19,12 @@ An operation earns one completed API credit only when its exact method/path and 
 
 ## First finite work package
 
-**14/14 reviewed; 4/14 resolved: Reconcile legacy auth declarations with existing handlers and callers.**
+**14/14 reviewed; 6/14 resolved: Reconcile legacy auth declarations with existing handlers and callers.**
 
 The work-package denominator is fixed; a missing declaration only resolves through a documented retirement with evidence. Check handler and gateway behavior, caller methods and schema/authority registration for each item. Record one disposition per operation: verify implementation, implement a justified missing operation, or retire/replace a stale declaration. No broad access grants may be inferred from a catalog label.
 
-- [ ] POST /v1/auth
-- [ ] POST /v1/auth/
+- [x] POST /v1/auth
+- [x] POST /v1/auth/
 - [x] POST /v1/auth/forgot-password
 - [ ] POST /v1/auth/impersonate
 - [x] POST /v1/auth/login
@@ -81,7 +81,7 @@ The work-package denominator is fixed; a missing declaration only resolves throu
 | assessment | 1 | 0 | 1 | 0 | 0 |
 | attendance | 1 | 0 | 1 | 0 | 0 |
 | audit-review | 1 | 0 | 1 | 0 | 0 |
-| auth | 109 | 99 | 10 | 0 | 0 |
+| auth | 109 | 99 | 8 | 0 | 2 |
 | billing | 2 | 0 | 2 | 0 | 0 |
 | billing-overview | 1 | 0 | 1 | 0 | 0 |
 | booking | 1 | 0 | 1 | 0 | 0 |

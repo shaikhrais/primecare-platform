@@ -2,25 +2,25 @@
   "countingRule": "One exact HTTP method + path; field repairs and test totals do not increment completed operations.",
   "summary": {
     "baselineUniqueOperations": 1415,
-    "activeUniqueOperations": 1413,
+    "activeUniqueOperations": 1411,
     "baselineStages": {
       "blocked": 10,
-      "needs_contract_and_verification": 1060,
-      "retired_with_evidence": 2,
+      "needs_contract_and_verification": 1058,
+      "retired_with_evidence": 4,
       "unit_evidence_recorded": 343
     },
     "activeStages": {
       "blocked": 10,
-      "needs_contract_and_verification": 1060,
+      "needs_contract_and_verification": 1058,
       "unit_evidence_recorded": 343
     },
-    "pendingOperations": 1060,
-    "documentedRetiredOperations": 2,
+    "pendingOperations": 1058,
+    "documentedRetiredOperations": 4,
     "pendingFamilyCounts": {
       "compliance_scan_requires_workflow_contract": 292,
       "forwarded_operation_requires_handler_review": 28,
       "gateway_unmapped_requires_workflow_review": 546,
-      "legacy_auth_method_or_workflow_reconciliation": 10,
+      "legacy_auth_method_or_workflow_reconciliation": 8,
       "legacy_model_collection_requires_contract_review": 179,
       "method_or_dynamic_capture_requires_caller_review": 4,
       "protected_route_requires_authenticated_workflow_review": 1
@@ -29,17 +29,50 @@
       "credential_or_authority_required": 1,
       "declared_method_rejected": 4,
       "gateway_route_not_found": 1016,
-      "service_status_only": 2,
       "worker_route_not_found": 37
     },
     "pendingMissingContractCounts": {
-      "permission": 1060,
-      "requestSchema": 1060,
-      "responseSchema": 1060,
-      "screenLink": 1015
+      "permission": 1058,
+      "requestSchema": 1058,
+      "responseSchema": 1058,
+      "screenLink": 1013
     }
   },
   "retiredOperations": [
+    {
+      "api": "POST /v1/auth",
+      "reason": "Scanner-shaped service namespace metadata declaration; no auth business workflow or request caller; runtime service-status metadata remains compatible, and conflicting generated metadata was quarantined first.",
+      "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/flutter_core/lib/src/network/api_client.dart",
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "scripts/reconcile-auth-root-declarations.py",
+        "scripts/test-auth-root-retirements.py",
+        "scripts/test-auth-delivery-work-package.mjs",
+        "docs/api/auth-root-retirement-package.json"
+      ],
+      "declarationIds": [
+        1490
+      ]
+    },
+    {
+      "api": "POST /v1/auth/",
+      "reason": "Scanner-shaped service namespace metadata declaration; no auth business workflow or request caller; runtime service-status metadata remains compatible, and conflicting generated metadata was quarantined first.",
+      "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/flutter_core/lib/src/network/api_client.dart",
+        "cloudflare/workers/src/gateway.ts",
+        "cloudflare/workers/src/service.ts",
+        "scripts/reconcile-auth-root-declarations.py",
+        "scripts/test-auth-root-retirements.py",
+        "scripts/test-auth-delivery-work-package.mjs",
+        "docs/api/auth-root-retirement-package.json"
+      ],
+      "declarationIds": [
+        822
+      ]
+    },
     {
       "api": "POST /v1/client/home/profile",
       "replacement": "GET /v1/client/home/profile",
@@ -9277,44 +9310,6 @@
       ],
       "familyClassification": "compliance_scan_requires_workflow_contract",
       "routingClassification": "gateway_route_not_found",
-      "authorizationContractStatus": "requires_business_authorization_contract",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "businessOperationVerified": false
-    },
-    {
-      "api": "POST /v1/auth",
-      "method": "POST",
-      "route": "/v1/auth",
-      "area": "auth",
-      "declarationIds": [
-        1490
-      ],
-      "familyClassification": "legacy_auth_method_or_workflow_reconciliation",
-      "routingClassification": "service_status_only",
-      "authorizationContractStatus": "requires_business_authorization_contract",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "businessOperationVerified": false
-    },
-    {
-      "api": "POST /v1/auth/",
-      "method": "POST",
-      "route": "/v1/auth/",
-      "area": "auth",
-      "declarationIds": [
-        822
-      ],
-      "familyClassification": "legacy_auth_method_or_workflow_reconciliation",
-      "routingClassification": "service_status_only",
       "authorizationContractStatus": "requires_business_authorization_contract",
       "missingContractFields": [
         "permission",
@@ -20175,52 +20170,28 @@
     {
       "api": "GET /v1/admin/api-keys",
       "apiId": 832,
-      "grantGroups": [
-        {
-          "permissionKey": "api_permission_api_v1_ceo_alerts_and_risks_list_get",
-          "roleRows": 64,
-          "enabledRoleRows": 64
-        }
-      ]
+      "grantGroups": []
     },
     {
       "api": "GET /v1/admin/audit-logs",
       "apiId": 833,
-      "grantGroups": [
-        {
-          "permissionKey": "api_permission_api_v1_ceo_approvals_list_get",
-          "roleRows": 64,
-          "enabledRoleRows": 64
-        }
-      ]
+      "grantGroups": []
     },
     {
       "api": "GET /v1/admin/bot-audits",
       "apiId": 855,
-      "grantGroups": [
-        {
-          "permissionKey": "api_permission_api_v1_corrective_actions_list_get",
-          "roleRows": 64,
-          "enabledRoleRows": 64
-        }
-      ]
+      "grantGroups": []
     },
     {
       "api": "GET /v1/admin/capacity/forecast",
       "apiId": 860,
-      "grantGroups": [
-        {
-          "permissionKey": "api_permission_api_v1_risk_register_create_post",
-          "roleRows": 64,
-          "enabledRoleRows": 64
-        }
-      ]
+      "grantGroups": []
     }
   ],
   "sourceHashes": {
-    "docs/api/api-delivery-checklist.json": "44226f3cc477944d4de76b2c45d20c6aa88252feb1a83fc36d2c9cb23ae3abe9",
-    "docs/api/api-reachability-audit.json": "45e99973ee1cb55558f6c68360fcb0bc13dda096fdb4a76d18828238717f7bcb",
-    "docs/api/api-delivery-work-package.json": "c8130a42c5738fa616d3a7b8b11d94741bda26abe2c75ed7abea4d9024a87335",
-    ".agents/governance/governance.db": "82d6caac4bc1167eb303ca89b3fb477f9dff92d59d691076584ccac983a3f988"
+    "docs/api/api-delivery-checklist.json": "aa5ef06af96cf18affbfa52f0530fb7d54419cca089794b691f0ca633e98eda4",
+    "docs/api/api-reachability-audit.json": "c4045d46cd6c9574f6568e8849796973387083820311808c01793f1bc2b0c007",
+    "docs/api/api-delivery-work-package.json": "c925cc1775561f7f5483b31da27d48ac95623ec3b66cb067b3b0793a4bbe1763",
+    ".agents/governance/governance.db": "ec388d4335c5c99919ed81b44d9bfadb9005b9a90b166fbedbf803a100acaadc"
   }
 }

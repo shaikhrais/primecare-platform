@@ -97,11 +97,11 @@ def main():
     lines += [f'| {name} | {count} |' for name, count in s['pendingMissingContractCounts'].items()]
     lines += ['', report['limitations'], '', '## Parallel work boundaries', '',
               'Choose families with reviewed canonical authority first. Resolve exact callers, methods and ownership before adding adapters. Review unreferenced declarations for evidence-backed retirement; never infer retirement from a failed probe. Keep premium model collections behind explicit entity scope. Run shared routing contract tests plus operation-specific negative authorization and PostgreSQL tests before claiming implementation.', '',
-              '## Catalog grant examples', '', 'These existing records demonstrate why generic role-grant rows require scrutiny; their presence does not establish permission for the advertised operation.', '']
+              '## Catalog grant examples', '', ('These active records require scrutiny; their presence does not establish permission for the advertised operation.' if examples else 'No active grant rows remain in this derived catalog; source rows are preserved in quarantine. This establishes no business authority.'), '']
     for example in examples:
         for grant in example['grantGroups']:
             lines.append(f"- `{example['api']}` (ID {example['apiId']}): `{grant['permissionKey']}` across {grant['roleRows']} role rows ({grant['enabledRoleRows']} enabled).")
-    (ROOT / 'docs/api/API_FAMILY_RECONCILIATION.md').write_text('\n'.join(lines) + '\n')
+    (ROOT / 'docs/api/API_FAMILY_RECONCILIATION.md').write_text('\n'.join(lines).rstrip() + '\n')
     print(json.dumps(s, sort_keys=True))
 
 
