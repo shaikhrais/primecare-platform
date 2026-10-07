@@ -1,0 +1,257 @@
+{
+  "scope": "contract_alignment",
+  "authorityAdded": false,
+  "routesAdded": false,
+  "changes": [
+    {
+      "batch": 901,
+      "service": "client",
+      "path": "/consents/summary"
+    },
+    {
+      "batch": 902,
+      "service": "client",
+      "path": "/service-authorizations/summary"
+    },
+    {
+      "batch": 903,
+      "service": "client",
+      "path": "/waitlist/summary"
+    },
+    {
+      "batch": 904,
+      "service": "client",
+      "path": "/feedback/summary"
+    },
+    {
+      "batch": 905,
+      "service": "client",
+      "path": "/care-feedback/summary"
+    },
+    {
+      "batch": 906,
+      "service": "client",
+      "path": "/conversation-threads/summary"
+    },
+    {
+      "batch": 907,
+      "service": "client",
+      "path": "/family-links/summary"
+    },
+    {
+      "batch": 908,
+      "service": "client",
+      "path": "/alert-records/summary"
+    },
+    {
+      "batch": 909,
+      "service": "client",
+      "path": "/insurance-claim-records/summary"
+    },
+    {
+      "batch": 910,
+      "service": "client",
+      "path": "/prescription-records/summary"
+    },
+    {
+      "batch": 911,
+      "service": "client",
+      "path": "/care-plan-records/summary"
+    },
+    {
+      "batch": 912,
+      "service": "client",
+      "path": "/assessment-records/summary"
+    },
+    {
+      "batch": 913,
+      "service": "client",
+      "path": "/medication-reconciliation-records/summary"
+    },
+    {
+      "batch": 914,
+      "service": "client",
+      "path": "/shift-log-records/summary"
+    },
+    {
+      "batch": 915,
+      "service": "client",
+      "path": "/family-notification-records/summary"
+    },
+    {
+      "batch": 916,
+      "service": "client",
+      "path": "/purchase-order-records/summary"
+    },
+    {
+      "batch": 917,
+      "service": "client",
+      "path": "/patient-vital-records/summary"
+    },
+    {
+      "batch": 918,
+      "service": "client",
+      "path": "/medication-administration-records/summary"
+    },
+    {
+      "batch": 919,
+      "service": "provider",
+      "path": "/conversation-threads/summary"
+    },
+    {
+      "batch": 920,
+      "service": "provider",
+      "path": "/timesheets/summary"
+    },
+    {
+      "batch": 921,
+      "service": "provider",
+      "path": "/availability-overrides/summary"
+    },
+    {
+      "batch": 922,
+      "service": "provider",
+      "path": "/mileage-logs/summary"
+    },
+    {
+      "batch": 923,
+      "service": "provider",
+      "path": "/payouts/summary"
+    },
+    {
+      "batch": 924,
+      "service": "provider",
+      "path": "/performance-reviews/summary"
+    },
+    {
+      "batch": 925,
+      "service": "provider",
+      "path": "/visit-check-events/summary"
+    },
+    {
+      "batch": 926,
+      "service": "provider",
+      "path": "/visit-matches/summary"
+    },
+    {
+      "batch": 927,
+      "service": "provider",
+      "path": "/training-assignment-records/summary"
+    },
+    {
+      "batch": 928,
+      "service": "auth",
+      "path": "/me/notifications/summary"
+    },
+    {
+      "batch": 929,
+      "service": "auth",
+      "path": "/me/activities/summary"
+    },
+    {
+      "batch": 930,
+      "service": "auth",
+      "path": "/me/wellness-pulses/summary"
+    },
+    {
+      "batch": 931,
+      "service": "auth",
+      "path": "/me/device-events/summary"
+    },
+    {
+      "batch": 932,
+      "service": "auth",
+      "path": "/me/health-ids/summary"
+    },
+    {
+      "batch": 933,
+      "service": "auth",
+      "path": "/me/survey-submissions/summary"
+    },
+    {
+      "batch": 934,
+      "service": "auth",
+      "path": "/me/shift-logs/summary"
+    },
+    {
+      "batch": 935,
+      "service": "auth",
+      "path": "/me/daily-entry-records/summary"
+    },
+    {
+      "batch": 936,
+      "service": "auth",
+      "path": "/me/assigned-task-records/summary"
+    },
+    {
+      "batch": 937,
+      "service": "auth",
+      "path": "/me/audit-signoff-records/summary"
+    },
+    {
+      "batch": 938,
+      "service": "auth",
+      "path": "/me/reported-incident-records/summary"
+    },
+    {
+      "batch": 939,
+      "service": "auth",
+      "path": "/me/medication-reconciliation-records/summary"
+    },
+    {
+      "batch": 940,
+      "service": "auth",
+      "path": "/me/technical-audit-records/summary"
+    },
+    {
+      "batch": 941,
+      "service": "auth",
+      "path": "/me/authored-care-plan-records/summary"
+    },
+    {
+      "batch": 942,
+      "service": "auth",
+      "path": "/me/authored-review-records/summary"
+    },
+    {
+      "batch": 943,
+      "service": "auth",
+      "path": "/me/reviewed-timesheet-records/summary"
+    },
+    {
+      "batch": 944,
+      "service": "auth",
+      "path": "/me/telehealth-records/summary"
+    },
+    {
+      "batch": 945,
+      "service": "auth",
+      "path": "/me/authored-post-records/summary"
+    },
+    {
+      "batch": 946,
+      "service": "auth",
+      "path": "/me/ledger-event-records/summary"
+    },
+    {
+      "batch": 947,
+      "service": "provider",
+      "path": "/visits/summary"
+    },
+    {
+      "batch": 948,
+      "service": "provider",
+      "path": "/documents/summary"
+    },
+    {
+      "batch": 949,
+      "service": "provider",
+      "path": "/availability/summary"
+    },
+    {
+      "batch": 950,
+      "service": "provider",
+      "path": "/timesheet-items/summary"
+    }
+  ]
+}

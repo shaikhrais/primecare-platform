@@ -966,3 +966,60 @@ Local validation: 3,283 API fixtures, Worker TypeScript and governance guardian 
 Fifty existing paged read families now publish 1–200 character ASCII record identifiers matching runtime validation. Registration verifies the existing service, bearer/owner authority and registered string ID column before updating stored response schemas. Exact canonical list/detail schemas and authoritative compatibility schemas are aligned. Older client care contract assertions retain ownership separation checks and now include the ID bounds. The verifier preserves complete failure diagnostics when a fixture run fails.
 
 Local validation: 3,333 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `33ff5f007e15a2c5eb6bdf8bf9cbd0acc273de16`, run 37667771787. PR #128 merged as `dccd86bdbd17f7e11395d7df809045799865e070`. Latest completed numbered batch is 900; next is 901. No new endpoints, grants, deployment or production database changes.
+
+## Iteration 29 — batches 901–950 (in review)
+
+- Batch 901 client /consents/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 902 client /service-authorizations/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 903 client /waitlist/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 904 client /feedback/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 905 client /care-feedback/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 906 client /conversation-threads/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 907 client /family-links/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 908 client /alert-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 909 client /insurance-claim-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 910 client /prescription-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 911 client /care-plan-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 912 client /assessment-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 913 client /medication-reconciliation-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 914 client /shift-log-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 915 client /family-notification-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 916 client /purchase-order-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 917 client /patient-vital-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 918 client /medication-administration-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 919 provider /conversation-threads/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 920 provider /timesheets/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 921 provider /availability-overrides/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 922 provider /mileage-logs/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 923 provider /payouts/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 924 provider /performance-reviews/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 925 provider /visit-check-events/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 926 provider /visit-matches/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 927 provider /training-assignment-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 928 auth /me/notifications/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 929 auth /me/activities/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 930 auth /me/wellness-pulses/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 931 auth /me/device-events/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 932 auth /me/health-ids/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 933 auth /me/survey-submissions/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 934 auth /me/shift-logs/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 935 auth /me/daily-entry-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 936 auth /me/assigned-task-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 937 auth /me/audit-signoff-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 938 auth /me/reported-incident-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 939 auth /me/medication-reconciliation-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 940 auth /me/technical-audit-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 941 auth /me/authored-care-plan-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 942 auth /me/authored-review-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 943 auth /me/reviewed-timesheet-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 944 auth /me/telehealth-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 945 auth /me/authored-post-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 946 auth /me/ledger-event-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 947 provider /visits/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 948 provider /documents/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 949 provider /availability/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 950 provider /timesheet-items/summary: align positive safe-integer group counts and bounded summary pages.
+
+Fifty existing summary routes now declare positive safe-integer group counts, at most 100 groups and nonnegative safe-integer pagination totals. Empty groups and zero totals remain valid. Registration verifies existing service/bearer/owner authority, including the distinct assigned-provider visit permission. Stored and canonical schemas retain their existing labels, nullability and payload fields. No runtime routes, grants, clinical authority, deployment or production database changes.
+
+Local validation: 3,383 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI pending. Latest merged numbered batch remains 900 until this change passes CI and merges.
