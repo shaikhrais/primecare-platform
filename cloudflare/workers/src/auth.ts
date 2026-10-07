@@ -1,3 +1,4 @@
+import {sourceLimitAllowed} from './source-limit-result';
 import {authIdentity,mutatedAccount} from './auth-projection';
 import {selfRecords} from './self-records';
 import {selfSessions} from './self-sessions';
@@ -126,7 +127,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     if(!token)return json({error:'No session'},401,headers);
     if(env.WORKSPACE_SOURCE_LIMIT) {
       const key=await sha256('account-admin:'+(request.headers.get('cf-connecting-ip')??'unknown'));
-      if(!(await env.WORKSPACE_SOURCE_LIMIT.limit({key})).success)return json({error:'Too many requests'},429,{...headers,'retry-after':'60'});
+      if(!sourceLimitAllowed(await env.WORKSPACE_SOURCE_LIMIT.limit({key})))return json({error:'Too many requests'},429,{...headers,'retry-after':'60'});
     }
     const mutating=adminRequest.input.operation==='sessions_revoke';
     return withDb(env,async db=>{
@@ -207,7 +208,7 @@ async function handleAuth(request: Request, env: Env, path: string, headers: Hea
     try {
       if(env.WORKSPACE_SOURCE_LIMIT) {
         const key=await sha256('account-list:'+(request.headers.get('cf-connecting-ip')??'unknown'));
-        if(!(await env.WORKSPACE_SOURCE_LIMIT.limit({key})).success){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
+        if(!sourceLimitAllowed(await env.WORKSPACE_SOURCE_LIMIT.limit({key}))){safe.set('retry-after','60');return json({error:'Too many requests'},429,safe);}
       }
       return await withDb(env,async db=>{
         await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');

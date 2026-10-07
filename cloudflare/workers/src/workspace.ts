@@ -1,3 +1,4 @@
+import {sourceLimitAllowed} from './source-limit-result';
 import registry from './workspace-registry.json';
 import {json, withDb, tokenFrom, sha256, type Env} from './auth';
 import type {Client} from 'pg';
@@ -58,7 +59,7 @@ export async function workspace(request:Request,env:Env,path:string,headers:Head
     if(env.WORKSPACE_SOURCE_LIMIT) {
       const source=request.headers.get('cf-connecting-ip')??'unknown';
       const allowed=await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('workspace:'+source)});
-      if(!allowed.success){safeHeaders.set('retry-after','60');return json({error:'Too many workspace requests'},429,safeHeaders);}
+      if(!sourceLimitAllowed(allowed)){safeHeaders.set('retry-after','60');return json({error:'Too many workspace requests'},429,safeHeaders);}
     }
     return await withDb(env,async db=>{
       await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');

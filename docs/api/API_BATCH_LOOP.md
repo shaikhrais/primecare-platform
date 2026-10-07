@@ -106,3 +106,18 @@ The shared PostgreSQL limiter requires exactly one result row, positive integer 
 Supplemental OpenAPI documents runtime validation without promoting pending authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes or grants added. No deployment or production database changes.
 
 Local validation: 1,759 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37547360252 at e207571810670445bdd98b4692d9d58309ffe988. PR #108 merged as e50b5b170d3d27e89635dc0530781ba17c1fc3e7. Latest completed batch is 268; next batch is 269. No deployment or production database changes.
+
+
+## Iteration 10 — batches 269–273, source limiter result validation, in review
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 269 | Login and password recovery | Require boolean Cloudflare source decisions before parsing credentials or opening PostgreSQL. |
+| 270 | Workspace bootstrap | Validate optional source provider decisions before workspace queries. |
+| 271 | Governance catalog reads | Validate provider decisions across every catalog binding. |
+| 272 | Account reads and session revocation | Validate both account-list and account-admin source budgets. |
+| 273 | Personal session list/revocation | Validate provider decisions before any database access or revocation. |
+
+Only a non-array object containing an actual boolean success value is accepted. Boolean false retains no-store 429 and the existing 60-second retry metadata. Malformed or failed providers return sanitized no-store 503; truthy strings and numbers cannot bypass the limiter. Boolean true retains the existing authentication, tenant and grant checks. Existing hashed keys and optional workspace bindings are unchanged. Focused direct Worker and gateway tests assert zero database access on rejection, same source keys, CORS preservation and bearer-first ordering for private routes. No routes, grants or authority promotions; inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked.
+
+Local validation: 1,774 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Five real PostgreSQL source-corruption rejection checks are included. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.

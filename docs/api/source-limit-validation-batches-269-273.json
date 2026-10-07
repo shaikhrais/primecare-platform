@@ -1,0 +1,73 @@
+{
+  "title": "Existing source limiter result validation",
+  "scope": "Runtime hardening; registered contracts and authority unchanged",
+  "batches": [
+    {
+      "batch": 269,
+      "family": "auth-source",
+      "paths": [
+        "/login",
+        "/forgot-password",
+        "/reset-password"
+      ]
+    },
+    {
+      "batch": 270,
+      "family": "workspace",
+      "paths": [
+        "/workspace"
+      ]
+    },
+    {
+      "batch": 271,
+      "family": "governance-api",
+      "paths": [
+        "/page-blueprints",
+        "/page-progress",
+        "/screen-health",
+        "/role-coverage",
+        "/pending-tasks",
+        "/api-contracts",
+        "/organization-map",
+        "/overview",
+        "/api-execution-status",
+        "/api-verification-summary",
+        "/api-missing-permissions",
+        "/api-missing-request-schemas",
+        "/api-missing-response-schemas",
+        "/api-unlinked-screens",
+        "/api-service-status"
+      ]
+    },
+    {
+      "batch": 272,
+      "family": "account-list/account-admin",
+      "paths": [
+        "/admin/users",
+        "/admin/users/{userId}",
+        "/admin/users/{userId}/sessions",
+        "/admin/users/audit",
+        "/admin/users/creation-audit"
+      ]
+    },
+    {
+      "batch": 273,
+      "family": "self-sessions",
+      "paths": [
+        "/user/sessions"
+      ]
+    }
+  ],
+  "providerResult": {
+    "success": "boolean; no coercion",
+    "allow": true,
+    "deny": false,
+    "invalidStatus": 503,
+    "denyStatus": 429,
+    "denyRetrySeconds": 60
+  },
+  "failureBehavior": "Sanitized no-store response before database access; no session cookie or protected mutation",
+  "workspaceBinding": "Optional as before",
+  "authBinding": "Required as before",
+  "governancePromotion": false
+}

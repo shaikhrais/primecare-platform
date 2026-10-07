@@ -166,6 +166,22 @@ try {
       }finally {await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[hash]);}
     }
   }finally {delete env.EMAIL;delete env.EMAIL_FROM;}
+  // Private source-provider corruption is rejected before reads/revocation.
+  let sourceCalls=0;
+  env.WORKSPACE_SOURCE_LIMIT={limit:async()=>{sourceCalls++;return {success:'true'};}};
+  try {
+    for(const [path,method] of [
+      ['/admin/users','GET'],['/admin/users/'+createdId,'GET'],
+      ['/admin/users/'+createdId+'/sessions','DELETE'],
+      ['/user/sessions','GET'],['/user/sessions','DELETE'],
+    ]) {
+      const before=await snapshot(),callsBefore=sourceCalls;
+      const rejected=await call(path,method,undefined,latestToken);
+      assert.equal(rejected.status,503);assert.equal(rejected.headers.get('cache-control'),'no-store');
+      assert.equal(rejected.headers.get('set-cookie'),null);assert.equal(rejected.headers.get('retry-after'),null);
+      assert.equal(sourceCalls,callsBefore+1);assert.deepEqual(await snapshot(),before);passed++;
+    }
+  }finally {delete env.WORKSPACE_SOURCE_LIMIT;}
   const previousRole=(await db.query('SELECT roles FROM users WHERE id=$1',[userId])).rows[0].roles;
   const priorSessionCount=(await db.query('SELECT COUNT(*)::int AS count FROM auth_sessions WHERE user_id=$1',[userId])).rows[0].count;
   await db.query("UPDATE users SET roles='' WHERE id=$1",[userId]);
