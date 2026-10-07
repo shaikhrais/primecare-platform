@@ -89,7 +89,9 @@
                             "format": "date-time"
                           },
                           "template_version": {
-                            "type": "integer"
+                            "type": "integer",
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "created_at": {
                             "type": "string",
@@ -224,7 +226,9 @@
                           "format": "date-time"
                         },
                         "template_version": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
                         },
                         "created_at": {
                           "type": "string",
@@ -600,7 +604,9 @@
                             "type": "string"
                           },
                           "priority": {
-                            "type": "integer"
+                            "type": "integer",
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "status": {
                             "type": "string"
@@ -722,7 +728,9 @@
                           "type": "string"
                         },
                         "priority": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
                         },
                         "status": {
                           "type": "string"

@@ -75,6 +75,7 @@ with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
   for field in fields:
    kind,nullable=columns[field];typ='boolean' if kind in ['bool','boolean'] else 'integer' if kind in ['int4','int8','bigint','integer'] else 'string'
    properties[field]={'type':[typ,'null'] if nullable else typ}
+   if kind in ['int4','integer']:properties[field].update(minimum=-2147483648,maximum=2147483647)
    if 'timestamp' in kind or kind=='timestamptz':properties[field]['format']='date-time'
   record['types']={k:v['type'] for k,v in properties.items()};record['dateFields']=[k for k,v in properties.items() if v.get('format')=='date-time'];registry.append(record)
   projected={'type':'object','additionalProperties':False,'required':fields,'properties':properties}

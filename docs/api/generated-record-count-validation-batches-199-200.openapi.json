@@ -329,7 +329,9 @@
                             "type": [
                               "integer",
                               "null"
-                            ]
+                            ],
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "submitted_at": {
                             "type": [
@@ -867,7 +869,9 @@
                             "type": [
                               "integer",
                               "null"
-                            ]
+                            ],
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "status": {
                             "type": "string"
@@ -3191,7 +3195,9 @@
                             "type": [
                               "integer",
                               "null"
-                            ]
+                            ],
+                            "minimum": -2147483648,
+                            "maximum": 2147483647
                           },
                           "status": {
                             "type": "string"

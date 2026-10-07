@@ -459,7 +459,9 @@
                           "type": [
                             "integer",
                             "null"
-                          ]
+                          ],
+                          "minimum": -2147483648,
+                          "maximum": 2147483647
                         },
                         "last_heartbeat_at": {
                           "type": "string",
