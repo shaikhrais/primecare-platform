@@ -1,6 +1,6 @@
 {
   "scope": "local_unit_fixtures",
-  "passed": 3583,
+  "passed": 3597,
   "failed": 0,
   "productionVerified": false,
   "postgresVerified": false,
@@ -9,7 +9,7 @@
     "cloudflare/workers/src/account-management.ts": "4508680cbafbf98725d54103e1d759865d2f2a3742b3f6f960880a3166632b09",
     "cloudflare/workers/src/account-policy.json": "74d51cb199e3ac6522acd0723561d7af93327bb80114ad8de96b5ddebdc432ce",
     "cloudflare/workers/src/account-read-projection.ts": "9a0b5e79d92f9878b8521f67a237fba0e88430f27122478bf63f5e7723333b0e",
-    "cloudflare/workers/src/api-execution-inventory.json": "28d3b7e261a380fc60da9685182e0134fdbc5a91b45113b4115c6de42341e06c",
+    "cloudflare/workers/src/api-execution-inventory.json": "24d6d97b524742f6c133247fff4f2ee2dcf3e1843e776698818e94155a123340",
     "cloudflare/workers/src/audit-confirmation.ts": "1580f31385bdbd842a78583caa5c8936f88089c2964ab2feb63e1e1cf666606c",
     "cloudflare/workers/src/auth-projection.ts": "ba81cd5f65cf27c48b642c004e9a0919eb48bd4599fc76af3d1e484968dbc7da",
     "cloudflare/workers/src/auth-rate-limit.ts": "57fc7f10de02980d1496d400c033715ee30a43c90f6b2d32171278bd7edd0e84",
@@ -124,6 +124,7 @@
     "scripts/test-response-envelope-contracts.mjs": "2ee74cc07a54d839d0edf2e8a391f1be59e6630b693f1fcbb670ac55215182bd",
     "scripts/test-read-envelope-page-contracts.mjs": "0dad1945df44f755a096c09cda455fc0536c8cc602dfabe6af4e2c0f338c6933",
     "scripts/test-timestamp-contracts.mjs": "c690a1a3482430255fcef8ec34f579588fb8ccea05d4ea04a4a8168ed47a3ec0",
+    "scripts/test-auth-delivery-work-package.mjs": "efd1617eb3681f180e2f5d1f5cb5ffab9da1bdc46218e312b688c6a64cad9a3c",
     "scripts/read-alias-fixtures.mjs": "0308bc3df0aacea06cc95c9881729950931a7c9c5d1d4c0b049c3faf0413490f",
     "scripts/singleton-read-alias-fixtures.mjs": "347746e21ebb0d30aab1060111eb51dd8576ed76fdced87501a4637476da8551",
     "scripts/governed-read-alias-definitions.json": "e3be043c827985877d924cd401efc79d4c45f0e16a95ab67e20221d5162b02c5",
@@ -205,9 +206,13 @@
     "docs/api/read-envelope-page-contract-batches-1051-1100.json": "316de6d7c7e91af9f20c5ef474274c2269691d478495a0f845941d914d05f08d",
     "scripts/register-timestamp-contracts-api.py": "4635c973ca44526fd0f682d99ebfe34c4a4298cdff787111269dcb77004d6836",
     "docs/api/timestamp-contract-batches-1101-1150.json": "64357546684e8ca1c98beda1b41f704bc65701331815a83734c6bf9dc8712030",
-    "scripts/generate-api-delivery-checklist.py": "26d72592075847c728af5785aaec45cedc5e8268820389954437765f5649f695",
+    "scripts/generate-api-delivery-checklist.py": "35a0dd94e327a34ecf2393ecd62753d3f3c62fccf47a8e000a701472d4e8a353",
     "scripts/test-api-delivery-checklist.py": "0075fb102d67b3d0eb752e7739d79f985f067db0c3ed29f885ae256560e95be9",
     "scripts/generate-api-execution-inventory.py": "3fddd26b985511cf1e314a187cf4a7ee1b97c6acd108470b2ae08262bfb3e7d2",
-    "docs/api/api-delivery-work-package.json": "0df3c1b2feea36638a51ffdab5d28a85bb737350e0b0bcf0eadfd84848673e5c"
+    "docs/api/api-delivery-work-package.json": "e07cf8f816fe68e97cd6ad177e02c8d69cf2e75a834b2866c6c6f4139bd5471d",
+    "scripts/register-auth-delivery-work-package.py": "7b8b3bb27f5988d15e70533a6703e5dd426554ea72e4bf45884bf159039bce87",
+    "scripts/record-api-batch-evidence.py": "b3e4302cec226545ba015a7c22c06120359716afeacfc3e87371bdffb53a79b4",
+    "docs/api/auth-delivery-work-package.openapi.json": "3128e6d12c7fe754a5c317fcef166a30511b7f22673a763ffa0a9d56a4f63880",
+    "scripts/test-auth-delivery-authority-guard.py": "af8b1808fdf540900e59b45ba533eb24a96fb6f628bb53a493adf74f0e9e045e"
   }
 }

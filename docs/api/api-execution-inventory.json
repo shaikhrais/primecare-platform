@@ -4,14 +4,14 @@
     "totalDeclared": 1416,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 337,
-      "verification_pending": 1069
+      "unit_fixtures_recorded": 341,
+      "verification_pending": 1065
     },
     "contractGaps": {
-      "permission": 1069,
-      "requestSchema": 1069,
-      "responseSchema": 1069,
-      "screenLink": 1024
+      "permission": 1065,
+      "requestSchema": 1065,
+      "responseSchema": 1065,
+      "screenLink": 1020
     },
     "note": "Recorded declarations and local unit-fixture status only. Unrecorded means inspect implementation, not proof of absent code. PostgreSQL/production evidence is not inferred from CI or registry labels."
   },
@@ -6558,20 +6558,21 @@
       "api": "POST /v1/auth/forgot-password",
       "method": "POST",
       "route": "/v1/auth/forgot-password",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 0,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -6602,20 +6603,21 @@
       "api": "POST /v1/auth/login",
       "method": "POST",
       "route": "/v1/auth/login",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 0,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -6624,20 +6626,21 @@
       "api": "POST /v1/auth/logout",
       "method": "POST",
       "route": "/v1/auth/logout",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 0,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -7148,7 +7151,7 @@
       "productionVerified": false
     },
     {
-      "id": 16668,
+      "id": 16660,
       "api": "GET /v1/auth/me/authored-post-records",
       "method": "GET",
       "route": "/v1/auth/me/authored-post-records",
@@ -7171,7 +7174,7 @@
       "productionVerified": false
     },
     {
-      "id": 16670,
+      "id": 16662,
       "api": "GET /v1/auth/me/authored-post-records/summary",
       "method": "GET",
       "route": "/v1/auth/me/authored-post-records/summary",
@@ -7194,7 +7197,7 @@
       "productionVerified": false
     },
     {
-      "id": 16669,
+      "id": 16661,
       "api": "GET /v1/auth/me/authored-post-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/authored-post-records/{recordId}",
@@ -7746,7 +7749,7 @@
       "productionVerified": false
     },
     {
-      "id": 16671,
+      "id": 16663,
       "api": "GET /v1/auth/me/ledger-event-records",
       "method": "GET",
       "route": "/v1/auth/me/ledger-event-records",
@@ -7769,7 +7772,7 @@
       "productionVerified": false
     },
     {
-      "id": 16673,
+      "id": 16665,
       "api": "GET /v1/auth/me/ledger-event-records/summary",
       "method": "GET",
       "route": "/v1/auth/me/ledger-event-records/summary",
@@ -7792,7 +7795,7 @@
       "productionVerified": false
     },
     {
-      "id": 16672,
+      "id": 16664,
       "api": "GET /v1/auth/me/ledger-event-records/{recordId}",
       "method": "GET",
       "route": "/v1/auth/me/ledger-event-records/{recordId}",
@@ -8941,20 +8944,21 @@
       "api": "POST /v1/auth/reset-password",
       "method": "POST",
       "route": "/v1/auth/reset-password",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "auth",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 0,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "login"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },
@@ -11442,7 +11446,7 @@
       "productionVerified": false
     },
     {
-      "id": 16674,
+      "id": 16666,
       "api": "GET /v1/client/inventory-item-records",
       "method": "GET",
       "route": "/v1/client/inventory-item-records",
@@ -11465,7 +11469,7 @@
       "productionVerified": false
     },
     {
-      "id": 16675,
+      "id": 16667,
       "api": "GET /v1/client/inventory-item-records/{recordId}",
       "method": "GET",
       "route": "/v1/client/inventory-item-records/{recordId}",
@@ -11648,7 +11652,7 @@
       "productionVerified": false
     },
     {
-      "id": 16684,
+      "id": 16674,
       "api": "GET /v1/client/medication-administration-records",
       "method": "GET",
       "route": "/v1/client/medication-administration-records",
@@ -11671,7 +11675,7 @@
       "productionVerified": false
     },
     {
-      "id": 16686,
+      "id": 16676,
       "api": "GET /v1/client/medication-administration-records/summary",
       "method": "GET",
       "route": "/v1/client/medication-administration-records/summary",
@@ -11694,7 +11698,7 @@
       "productionVerified": false
     },
     {
-      "id": 16685,
+      "id": 16675,
       "api": "GET /v1/client/medication-administration-records/{recordId}",
       "method": "GET",
       "route": "/v1/client/medication-administration-records/{recordId}",
@@ -11878,7 +11882,7 @@
       "productionVerified": false
     },
     {
-      "id": 16681,
+      "id": 16671,
       "api": "GET /v1/client/patient-vital-records",
       "method": "GET",
       "route": "/v1/client/patient-vital-records",
@@ -11901,7 +11905,7 @@
       "productionVerified": false
     },
     {
-      "id": 16683,
+      "id": 16673,
       "api": "GET /v1/client/patient-vital-records/summary",
       "method": "GET",
       "route": "/v1/client/patient-vital-records/summary",
@@ -11924,7 +11928,7 @@
       "productionVerified": false
     },
     {
-      "id": 16682,
+      "id": 16672,
       "api": "GET /v1/client/patient-vital-records/{recordId}",
       "method": "GET",
       "route": "/v1/client/patient-vital-records/{recordId}",
@@ -12153,7 +12157,7 @@
       "productionVerified": false
     },
     {
-      "id": 16676,
+      "id": 16668,
       "api": "GET /v1/client/purchase-order-records",
       "method": "GET",
       "route": "/v1/client/purchase-order-records",
@@ -12176,7 +12180,7 @@
       "productionVerified": false
     },
     {
-      "id": 16678,
+      "id": 16670,
       "api": "GET /v1/client/purchase-order-records/summary",
       "method": "GET",
       "route": "/v1/client/purchase-order-records/summary",
@@ -12199,7 +12203,7 @@
       "productionVerified": false
     },
     {
-      "id": 16677,
+      "id": 16669,
       "api": "GET /v1/client/purchase-order-records/{recordId}",
       "method": "GET",
       "route": "/v1/client/purchase-order-records/{recordId}",
@@ -15392,7 +15396,7 @@
       "productionVerified": false
     },
     {
-      "id": 16660,
+      "id": 16677,
       "api": "GET /v1/governance/api-execution-status",
       "method": "GET",
       "route": "/v1/governance/api-execution-status",
@@ -15415,7 +15419,7 @@
       "productionVerified": false
     },
     {
-      "id": 16662,
+      "id": 16679,
       "api": "GET /v1/governance/api-missing-permissions",
       "method": "GET",
       "route": "/v1/governance/api-missing-permissions",
@@ -15438,7 +15442,7 @@
       "productionVerified": false
     },
     {
-      "id": 16663,
+      "id": 16680,
       "api": "GET /v1/governance/api-missing-request-schemas",
       "method": "GET",
       "route": "/v1/governance/api-missing-request-schemas",
@@ -15461,7 +15465,7 @@
       "productionVerified": false
     },
     {
-      "id": 16664,
+      "id": 16681,
       "api": "GET /v1/governance/api-missing-response-schemas",
       "method": "GET",
       "route": "/v1/governance/api-missing-response-schemas",
@@ -15484,7 +15488,7 @@
       "productionVerified": false
     },
     {
-      "id": 16666,
+      "id": 16683,
       "api": "GET /v1/governance/api-service-status",
       "method": "GET",
       "route": "/v1/governance/api-service-status",
@@ -15507,7 +15511,7 @@
       "productionVerified": false
     },
     {
-      "id": 16665,
+      "id": 16682,
       "api": "GET /v1/governance/api-unlinked-screens",
       "method": "GET",
       "route": "/v1/governance/api-unlinked-screens",
@@ -15530,7 +15534,7 @@
       "productionVerified": false
     },
     {
-      "id": 16661,
+      "id": 16678,
       "api": "GET /v1/governance/api-verification-summary",
       "method": "GET",
       "route": "/v1/governance/api-verification-summary",

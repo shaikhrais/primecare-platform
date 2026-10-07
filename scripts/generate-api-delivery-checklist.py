@@ -51,7 +51,8 @@ def build(rows, work_package=None):
             'pendingByDeclaredMethod':dict(sorted(Counter(o['method'] for o in pending).items())),
             'postgresEvidenceMapped':0,'productionEvidenceMapped':0},
         'firstWorkPackage':{'name':package['name'],'total':len(package['operations']),
-            'resolved':len(resolved),'operations':package['operations'],'resolvedOperations':resolved},'areas':areas,'operations':operations}
+            'resolved':len(resolved),'operations':package['operations'],'resolvedOperations':resolved,
+            'reviewed':sum(bool(r.get('finding') and r.get('evidence')) for api,r in package.get('reviews',{}).items() if api in package['operations'])},'areas':areas,'operations':operations}
 
 def main():
     source = ROOT/'docs/api/api-execution-inventory.json'
@@ -67,7 +68,7 @@ def main():
     lines += ['', 'Unit evidence is a completed test milestone, not proof of complete business workflows or deployment. PostgreSQL CI has passed globally, but this checklist does not invent operation-specific coverage. Production status remains unverified here.','',
         '## Completion rule','',
         'An operation earns one completed API credit only when its exact method/path and callers are reconciled, its handler and registered authority/request/response contracts exist, its unit/negative authorization tests pass, and operation-specific PostgreSQL evidence is linked. Deployment and authenticated production checks are separate release gates. Duplicate/stale declarations must be retired with recorded rationale rather than implemented blindly. A POST declaration is not automatically a business write.','',
-        '## First finite work package','',f"**{package['resolved']}/{package['total']} resolved: {package['name']}.**",'',
+        '## First finite work package','',f"**{package.get('reviewed',0)}/{package['total']} reviewed; {package['resolved']}/{package['total']} resolved: {package['name']}.**",'',
         'The work-package denominator is fixed; a missing declaration only resolves through a documented retirement with evidence. Check handler and gateway behavior, caller methods and schema/authority registration for each item. Record one disposition per operation: verify implementation, implement a justified missing operation, or retire/replace a stale declaration. No broad access grants may be inferred from a catalog label.','']
     lines += [('- [x] ' if api in package['resolvedOperations'] else '- [ ] ')+api for api in package['operations']]
     lines += ['', '## Work by route area','', '| Area | Total | Unit evidence | Needs work | Blocked |','| --- | ---: | ---: | ---: | ---: |']

@@ -1,0 +1,499 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Existing Auth Delivery Reconciliation",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/auth/login": {
+      "post": {
+        "operationId": "authDeliverylogin",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Nonempty after trimming; normalized to lowercase; maximum 254 code units."
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 1,
+                    "writeOnly": true,
+                    "description": "Maximum 72 UTF-8 bytes."
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Existing handler success; account recovery remains enumeration resistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "userId",
+                    "role",
+                    "token",
+                    "status"
+                  ],
+                  "properties": {
+                    "userId": {
+                      "type": "string",
+                      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$",
+                      "maxLength": 200
+                    },
+                    "role": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200
+                    },
+                    "token": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "const": "authenticated"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload exceeds 50,000 wire bytes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Request too large"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-batch": 254,
+        "x-max-body-bytes": 50000,
+        "x-governance-promotion": false,
+        "description": " Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.",
+        "x-governance-permission": "credential_login"
+      }
+    },
+    "/v1/auth/logout": {
+      "post": {
+        "operationId": "authDeliveryLogout",
+        "security": [],
+        "description": "Idempotent logout. Bearer or cookie is optional; only the supplied session hash is deleted. Body/query are ignored.",
+        "responses": {
+          "200": {
+            "description": "Signed out",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "status"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "signed_out"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-governance-permission": "optional_self_session_logout"
+      }
+    },
+    "/v1/auth/forgot-password": {
+      "post": {
+        "operationId": "authDeliveryforgot_password",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Trimmed and normalized to lowercase; valid email, maximum 254 code units."
+                  }
+                },
+                "required": [
+                  "email"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Existing handler success; account recovery remains enumeration resistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload exceeds 50,000 wire bytes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Request too large"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-batch": 255,
+        "x-max-body-bytes": 50000,
+        "x-governance-promotion": false,
+        "description": " Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.",
+        "x-governance-permission": "public_password_recovery"
+      }
+    },
+    "/v1/auth/reset-password": {
+      "post": {
+        "operationId": "authDeliveryreset_password",
+        "security": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "Trimmed and normalized to lowercase; valid email, maximum 254 code units."
+                  },
+                  "code": {
+                    "type": "string",
+                    "description": "Trimmed and uppercased to exactly 12 hexadecimal characters."
+                  },
+                  "newPassword": {
+                    "type": "string",
+                    "minLength": 12,
+                    "writeOnly": true,
+                    "description": "At least 12 JavaScript string code units; maximum 72 UTF-8 bytes."
+                  }
+                },
+                "required": [
+                  "email",
+                  "code",
+                  "newPassword"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Existing handler success; account recovery remains enumeration resistant.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "reauthenticationRequired"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "password_reset"
+                    },
+                    "reauthenticationRequired": {
+                      "const": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Existing authentication/recovery error; no new authority or contract registration.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Payload exceeds 50,000 wire bytes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "const": "no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Request too large"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-batch": 255,
+        "x-max-body-bytes": 50000,
+        "x-governance-promotion": false,
+        "description": " Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.",
+        "x-governance-permission": "secret_code_password_reset"
+      }
+    }
+  }
+}
