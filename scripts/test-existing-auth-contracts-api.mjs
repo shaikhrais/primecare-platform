@@ -10,9 +10,9 @@ const plugin={name:'auth-contract-fixture',setup(b){b.onResolve({filter:/^pg$/},
 const {auth}=await bundle('cloudflare/workers/src/auth.ts',[plugin]);
 const {default:gateway}=await bundle('cloudflare/workers/src/gateway.ts');
 const token='a'.repeat(43),password='fixture-old-password',hash=await bcrypt.hash(password,4);
-let actor,queries,duplicate,targetExists,revoked;
+let actor,queries,duplicate,targetExists,revoked,passwordResult;
 beforeEach(()=>{
- actor={id:'actor',roles:'ceo',tenant_id:'tenant-a',password_hash:hash};queries=[];duplicate=false;targetExists=true;revoked=false;
+ actor={id:'actor',roles:'ceo',tenant_id:'tenant-a',password_hash:hash};queries=[];duplicate=false;targetExists=true;revoked=false;passwordResult=null;
  globalThis.__contractQuery=async(sql,values=[])=>{
   queries.push({sql,values});
   if(sql.includes('WHERE s.token_hash'))return {rows:actor&&!revoked?[actor]:[]};
@@ -22,7 +22,8 @@ beforeEach(()=>{
   if(sql.startsWith('SELECT id,roles,status')){assert.deepEqual(values,['target','tenant-a']);return {rows:targetExists?[{id:'target',roles:'rn',status:'active'}]:[]};}
   if(sql.startsWith('UPDATE users SET roles')){assert.deepEqual(values,['rmt','inactive','target','tenant-a']);return {rows:[{id:'target',email:'target@example.invalid',roles:values[0],status:values[1],tenant_id:values[3]}]};}
   if(sql.startsWith('DELETE FROM auth_sessions')){if(values[0]==='actor')revoked=true;return {rows:[]};}
-  if(sql.startsWith('UPDATE users SET password_hash')||sql.startsWith('DELETE FROM auth_password_resets')||sql.startsWith('INSERT INTO auth_')||sql.startsWith('SELECT pg_advisory')||['BEGIN','COMMIT','ROLLBACK'].includes(sql))return {rows:[]};
+  if(sql.startsWith('UPDATE users SET password_hash'))return {rows:passwordResult?passwordResult(values):[{id:values[1],password_hash:values[0]}]};
+  if(sql.startsWith('DELETE FROM auth_password_resets')||sql.startsWith('INSERT INTO auth_')||sql.startsWith('SELECT pg_advisory')||['BEGIN','COMMIT','ROLLBACK'].includes(sql))return {rows:[]};
   throw Error('Unexpected fixture query: '+sql);
  };
 });
@@ -78,4 +79,15 @@ test('contracts retain current policy roles and describe byte/code-unit password
  assert.deepEqual(spec.paths['/v1/admin/users'].post.requestBody.content['application/json'].schema.properties.role.enum,policy.ceo);
  assert.ok(spec.paths['/v1/auth/register'].post.requestBody.content['application/json'].schema.properties.role.enum.includes('maintenance'));
  assert.match(spec.paths['/v1/user/change-password'].post.requestBody.content['application/json'].schema.properties.newPassword.description,/72 UTF-8 bytes/);
+});
+
+test('invalid own-password write results return sanitized 503 and roll back without revocation',async()=>{
+ for(const result of [()=>[],v=>[{id:'other',password_hash:v[0]}],()=>[{id:'actor',password_hash:'private-hash'}],v=>[{id:1,password_hash:v[0]}],v=>[{id:'actor',password_hash:v[0]},{id:'actor',password_hash:v[0]}]]) {
+  queries=[];passwordResult=result;
+  const response=await call('/v1/user/change-password','POST',{currentPassword:password,newPassword:'fixture-new-password'});
+  assert.equal(response.status,503);assert.equal(response.headers.get('cache-control'),'no-store');assert.equal(response.headers.get('set-cookie'),null);
+  assert.deepEqual(await response.json(),{error:'Authentication service unavailable'});
+  assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql.startsWith('DELETE FROM auth_sessions')||q.sql.startsWith('INSERT INTO auth_password_audit')||q.sql==='COMMIT'));
+  assert.equal((await call('/v1/auth/me','GET')).status,200);
+ }
 });
