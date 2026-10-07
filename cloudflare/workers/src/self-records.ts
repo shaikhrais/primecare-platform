@@ -1,6 +1,6 @@
 import {accountId} from './account-read-projection';
 import {summaryRows} from './summary-results';
-import {recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
+import {pageRows,recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {validRecordTimestamp} from './record-date-validation';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
@@ -45,7 +45,7 @@ export async function selfRecords(request:Request,env:Env,path:string,headers:He
           const field=record.summaryField!,groupField=prefix+identifier(field);
           const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count FROM (SELECT '+groupField+scope+' GROUP BY '+groupField+') groups',values)).rows).count,'Invalid account summary count');
           const rows=(await db.query('SELECT '+groupField+',COUNT(*)::int AS count'+scope+' GROUP BY '+groupField+' ORDER BY '+groupField+' NULLS LAST LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-          const groups=summaryRows(rows,Number(limit),[field]).map(row=>{if(!valid(field,row[field])||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid account summary');return {[field]:row[field],count:row.count};});
+          const groups=summaryRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit),[field]).map(row=>{if(!valid(field,row[field])||typeof row.count!=='number'||!Number.isSafeInteger(row.count)||row.count<0)throw Error('Invalid account summary');return {[field]:row[field],count:row.count};});
           return json({groups,pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
         }
         if(record.singleton){
@@ -57,7 +57,7 @@ export async function selfRecords(request:Request,env:Env,path:string,headers:He
         if(detail){const row=boundRow((await db.query('SELECT '+fields+scope+' AND '+prefix+'id::text=$3',[...values,suffix])).rows,suffix);return row?json({[record.item]:project(row)},200,safe):json({error:'Record not found'},404,safe);}
         const total=exactCount(requiredRow((await db.query('SELECT COUNT(*)::int AS count'+scope,values)).rows).count,'Invalid account record count');
         const rows=(await db.query('SELECT '+fields+scope+' ORDER BY '+prefix+(record.orderField??'created_at')+' DESC,'+prefix+'id DESC LIMIT $3 OFFSET $4',[...values,Number(limit),Number(offset)])).rows;
-        return json({[record.collection!]:recordRows(rows,Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
+        return json({[record.collection!]:recordRows(pageRows(rows,Number(limit),Number(offset),total),Number(limit)).map(project),pagination:{limit:Number(limit),offset:Number(offset),total,hasMore:Number(limit)+Number(offset)<total}},200,safe);
       }finally{await db.query('ROLLBACK');}
     });
   }catch{return json({error:'Account data unavailable'},503,safe);}

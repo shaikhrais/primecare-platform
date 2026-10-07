@@ -52,10 +52,10 @@ for(let batch=389;batch<=438;batch++) {
   for(const c of family)for(const id of ['',1,null,' bad','x'.repeat(201),{}]){const f=fixture(c,(sql,rows)=>isRecord(sql)?rows.map(r=>({...r,id})):undefined);await rejected(f);}
  });
  test('batch '+batch+' record pages reject duplicate IDs within the requested limit',async()=>{
-  for(const c of family){const f=fixture(c,(sql,rows)=>isRecord(sql)?[rows[0],{...rows[0]}]:undefined);await rejected(f);}
+  for(const c of family){const f=fixture(c,(sql,rows)=>sql.startsWith('SELECT COUNT')?[{count:2}]:isRecord(sql)?[rows[0],{...rows[0]}]:undefined);await rejected(f);}
  });
  test('batch '+batch+' valid distinct IDs and empty pages retain declared responses',async()=>{
-  for(const c of family){let f=fixture(c,(sql,rows)=>isRecord(sql)&&!c.record?.singleton?[rows[0],{...rows[0],id:'another-record'}]:undefined);let r=await f.call();assert.equal(r.status,200);let body=await r.json();assert.ok(!JSON.stringify(body).includes('private'));if(!c.record?.singleton)assert.equal(body[c.record?.collection??(c.path==='/invoices'?'invoices':c.path.includes('/payments')?'payments':c.path==='/booking-requests'?'requests':c.path==='/visits'?'visits':c.path==='/bookings'?'bookings':c.path==='/documents'?'documents':c.path==='/availability'?'availability':'items')].length,2);
+  for(const c of family){let f=fixture(c,(sql,rows)=>sql.startsWith('SELECT COUNT')?[{count:2}]:isRecord(sql)&&!c.record?.singleton?[rows[0],{...rows[0],id:'another-record'}]:undefined);let r=await f.call();assert.equal(r.status,200);let body=await r.json();assert.ok(!JSON.stringify(body).includes('private'));if(!c.record?.singleton)assert.equal(body[c.record?.collection??(c.path==='/invoices'?'invoices':c.path.includes('/payments')?'payments':c.path==='/booking-requests'?'requests':c.path==='/visits'?'visits':c.path==='/bookings'?'bookings':c.path==='/documents'?'documents':c.path==='/availability'?'availability':'items')].length,2);
    f=fixture(c,(sql)=>isRecord(sql)?[]:sql.startsWith('SELECT COUNT')?[{count:0}]:undefined);r=await f.call();assert.equal(r.status,c.record?.singleton?404:200);assert.equal(f.calls.at(-1).sql,'ROLLBACK');
   }
  });

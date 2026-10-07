@@ -64,7 +64,7 @@ async function rejected(f) {
 for(const c of cases) {
  test('batch '+c.batch+' '+c.service+c.path+' rejects duplicate group keys and zero source counts',async()=>{
   for(const mutation of [rows=>[rows[0],{...rows[0]}],rows=>[{...rows[0],[c.path==='/invoices'?'invoiceCount':'count']:0}]]) {
-   const f=fixture(c,(sql,rows)=>sql.includes('GROUP BY')&&!sql.startsWith('SELECT COUNT')?mutation(rows):undefined);await rejected(f);
+   const f=fixture(c,(sql,rows)=>sql.startsWith('SELECT COUNT')?[{count:2}]:sql.includes('GROUP BY')?mutation(rows):undefined);await rejected(f);
   }
  });
  test('batch '+c.batch+' '+c.service+c.path+' retains safe valid and empty summaries',async()=>{
