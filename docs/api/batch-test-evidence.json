@@ -1,6 +1,6 @@
 {
   "scope": "local_unit_fixtures",
-  "passed": 3333,
+  "passed": 3383,
   "failed": 0,
   "productionVerified": false,
   "postgresVerified": false,
@@ -26,7 +26,7 @@
     "cloudflare/workers/src/email-templates.json": "fac27367d39bf30caebacb76c4cc4919e181e47348aa75cc40780124c9a79446",
     "cloudflare/workers/src/email.ts": "077c20aaa21de6112319c25672d92ea62619fa9b207839f50a46aef8805f6c17",
     "cloudflare/workers/src/gateway.ts": "7405befbc6d8e6d6b90812a9a0149ea7adb7b278e824fa605e404a0f96cc5317",
-    "cloudflare/workers/src/governance-api-registry.json": "4995e025ce9c49e43b2f1657245dc6b8d5ef456a334a839018e3fe1b5c2e9d03",
+    "cloudflare/workers/src/governance-api-registry.json": "120750bb06fe6149e6cd04a7b3facaeb6614fe1ab0336b0c0e2573896a840ea4",
     "cloudflare/workers/src/governance-api.ts": "b89f1564feae8ab896a0a45f1dcb471b8905a3eccf19dc4375364ade1c2b4d7b",
     "cloudflare/workers/src/governed-read-aliases.json": "e1779921d40058db203523b045b94d65ce1098bf968482a81904f35ab9e00a43",
     "cloudflare/workers/src/legacy-domain-registry.json": "ebb5891fa57650c61b749b4817a1f8bfc5b1722ba425488dfc460216e1de7336",
@@ -48,7 +48,7 @@
     "cloudflare/workers/src/session-read-projection.ts": "50aaa07ff4ad414b231a4f79581c4fbcaf0261df2b67eb96391b2f21c97b3ac5",
     "cloudflare/workers/src/source-limit-result.ts": "d15fe5f654b002fe783d574060288ebc0a1a2042b0d8ffb8731b379b17081d7c",
     "cloudflare/workers/src/summary-results.ts": "f3a6d24f0b8ceef1596e5e760790635b2d4f5cdad7b710b2164eda265aad9fb9",
-    "cloudflare/workers/src/workspace-registry.json": "8af366ca5644673d05f264781ce37a5d1df1374fa3b133adced3ccd07384ed93",
+    "cloudflare/workers/src/workspace-registry.json": "10d2bb8e878de962e029b612ab2f838caa761d85a476a8923a7db9d712d07203",
     "cloudflare/workers/src/workspace.ts": "c1d0a24f202f96133fe000db6972cff73bf7052eaac6196fbf2db2b93d41d247",
     "scripts/test-existing-auth-contracts-api.mjs": "fa5d40147e96fdf6631e6fed27e85e1356af7de13ddb18a99038d658f41e6396",
     "scripts/test-owned-patient-observations-api.mjs": "8003df477b802866cb5ffbdb4d27a0cc83c23f4b8ef226b10c470eccf1bdfdf8",
@@ -119,6 +119,7 @@
     "scripts/test-database-integer-boundaries.mjs": "484e81bb073d0dce1e6ae9486e8e3e5bcf1522e0acafa2328e210120b4020f11",
     "scripts/test-database-integer-contracts.mjs": "b7fdebabea58cc87ee30b9863f9a21638ca8f0358d9900b108dd9cd14a55f52a",
     "scripts/test-record-identifier-contracts.mjs": "4d30a0d21acc5d160d5e59938270b61e5e21bfd601980694e150728608ba3214",
+    "scripts/test-summary-contracts.mjs": "bb1349ab3691707269421cc4a0ecae3b60d4ba00a3f38a0feb47c9b4b01c5226",
     "scripts/read-alias-fixtures.mjs": "0308bc3df0aacea06cc95c9881729950931a7c9c5d1d4c0b049c3faf0413490f",
     "scripts/singleton-read-alias-fixtures.mjs": "347746e21ebb0d30aab1060111eb51dd8576ed76fdced87501a4637476da8551",
     "scripts/governed-read-alias-definitions.json": "e3be043c827985877d924cd401efc79d4c45f0e16a95ab67e20221d5162b02c5",
@@ -189,6 +190,8 @@
     "docs/api/integer-contract-batches-839-850.json": "b1e34025e2bebf8382993f7fb3e2c25b10bf5beed21810551084fafab33b4272",
     "scripts/register-integer-contracts-api.py": "130c1e44bb1b533f49e8444b8e709764684685556051589a32c510e3980ecf07",
     "scripts/register-identifier-contracts-api.py": "4c65bc8b836e6df44f294756701a064748fc7aa4f0bac474f1043e73d7923a38",
-    "docs/api/identifier-contract-batches-851-900.json": "20518997d025538b9b5354148559b62a776cfaf3c787732c60e290b3ca664ff1"
+    "docs/api/identifier-contract-batches-851-900.json": "20518997d025538b9b5354148559b62a776cfaf3c787732c60e290b3ca664ff1",
+    "scripts/register-summary-contracts-api.py": "723bd1986cb453d20e5b424197d8138d4976cdc017837e74a88750aa3f4952c4",
+    "docs/api/summary-contract-batches-901-950.json": "be5e165f8cbbde2bccc006aea6c087807b376cffa37035b8f763cd6c2c1ed6a2"
   }
 }

@@ -288,7 +288,7 @@
                           },
                           "count": {
                             "type": "integer",
-                            "minimum": 0,
+                            "minimum": 1,
                             "maximum": 9007199254740991
                           },
                           "totalMinutes": {
@@ -297,7 +297,8 @@
                             "description": "Exact sum of signed stored item minutes; no payroll or approval inference."
                           }
                         }
-                      }
+                      },
+                      "maxItems": 100
                     },
                     "pagination": {
                       "type": "object",
