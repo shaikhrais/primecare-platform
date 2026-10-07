@@ -909,3 +909,60 @@ Local validation: 3,271 API fixtures, eight authority regressions, Worker TypeSc
 Twelve existing read fields now declare the same signed int4 limits enforced by the runtime. Registration verifies exact existing service, bearer and owner permission plus registered int4 column type. Canonical and compatibility schemas are synchronized; declared nullability remains unchanged. No new endpoints, permissions or business workflow claims.
 
 Local validation: 3,283 API fixtures, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `2f2fcd779ee7a4a49b6473261cbef14a2b7dfa2f`, run 37663643441. PR #127 merged as `aad478a46b4bf3fe17c7a3e632490d0f2b7ca21b`. Latest completed numbered batch is 850; next is 851. No deployment or production database changes.
+
+## Iteration 28 — batches 851–900 (in review)
+
+- Batch 851 client /consents: align record ID response constraints with the existing runtime grammar.
+- Batch 852 provider /conversation-threads: align record ID response constraints with the existing runtime grammar.
+- Batch 853 auth /me/notifications: align record ID response constraints with the existing runtime grammar.
+- Batch 854 client /service-authorizations: align record ID response constraints with the existing runtime grammar.
+- Batch 855 provider /timesheets: align record ID response constraints with the existing runtime grammar.
+- Batch 856 auth /me/activities: align record ID response constraints with the existing runtime grammar.
+- Batch 857 client /waitlist: align record ID response constraints with the existing runtime grammar.
+- Batch 858 provider /availability-overrides: align record ID response constraints with the existing runtime grammar.
+- Batch 859 auth /me/wellness-pulses: align record ID response constraints with the existing runtime grammar.
+- Batch 860 client /feedback: align record ID response constraints with the existing runtime grammar.
+- Batch 861 provider /mileage-logs: align record ID response constraints with the existing runtime grammar.
+- Batch 862 auth /me/device-events: align record ID response constraints with the existing runtime grammar.
+- Batch 863 client /care-feedback: align record ID response constraints with the existing runtime grammar.
+- Batch 864 provider /payouts: align record ID response constraints with the existing runtime grammar.
+- Batch 865 auth /me/devices: align record ID response constraints with the existing runtime grammar.
+- Batch 866 client /conversation-threads: align record ID response constraints with the existing runtime grammar.
+- Batch 867 provider /performance-reviews: align record ID response constraints with the existing runtime grammar.
+- Batch 868 auth /me/health-ids: align record ID response constraints with the existing runtime grammar.
+- Batch 869 client /family-links: align record ID response constraints with the existing runtime grammar.
+- Batch 870 provider /visit-check-events: align record ID response constraints with the existing runtime grammar.
+- Batch 871 auth /me/survey-submissions: align record ID response constraints with the existing runtime grammar.
+- Batch 872 client /alert-records: align record ID response constraints with the existing runtime grammar.
+- Batch 873 provider /visit-matches: align record ID response constraints with the existing runtime grammar.
+- Batch 874 auth /me/group-memberships: align record ID response constraints with the existing runtime grammar.
+- Batch 875 client /insurance-claim-records: align record ID response constraints with the existing runtime grammar.
+- Batch 876 provider /shift-assignment-records: align record ID response constraints with the existing runtime grammar.
+- Batch 877 auth /me/password-history: align record ID response constraints with the existing runtime grammar.
+- Batch 878 client /prescription-records: align record ID response constraints with the existing runtime grammar.
+- Batch 879 provider /handover-records: align record ID response constraints with the existing runtime grammar.
+- Batch 880 auth /me/shift-logs: align record ID response constraints with the existing runtime grammar.
+- Batch 881 client /care-plan-records: align record ID response constraints with the existing runtime grammar.
+- Batch 882 provider /authored-visit-note-records: align record ID response constraints with the existing runtime grammar.
+- Batch 883 auth /me/daily-entry-records: align record ID response constraints with the existing runtime grammar.
+- Batch 884 client /assessment-records: align record ID response constraints with the existing runtime grammar.
+- Batch 885 provider /authored-checklist-records: align record ID response constraints with the existing runtime grammar.
+- Batch 886 auth /me/adl-log-records: align record ID response constraints with the existing runtime grammar.
+- Batch 887 client /medication-reconciliation-records: align record ID response constraints with the existing runtime grammar.
+- Batch 888 provider /training-assignment-records: align record ID response constraints with the existing runtime grammar.
+- Batch 889 auth /me/vital-sign-records: align record ID response constraints with the existing runtime grammar.
+- Batch 890 client /shift-log-records: align record ID response constraints with the existing runtime grammar.
+- Batch 891 auth /me/behavior-note-records: align record ID response constraints with the existing runtime grammar.
+- Batch 892 client /adl-records: align record ID response constraints with the existing runtime grammar.
+- Batch 893 auth /me/nutrition-records: align record ID response constraints with the existing runtime grammar.
+- Batch 894 client /vital-observation-records: align record ID response constraints with the existing runtime grammar.
+- Batch 895 auth /me/mobility-records: align record ID response constraints with the existing runtime grammar.
+- Batch 896 client /behavior-observation-records: align record ID response constraints with the existing runtime grammar.
+- Batch 897 auth /me/infection-control-records: align record ID response constraints with the existing runtime grammar.
+- Batch 898 client /nutrition-observation-records: align record ID response constraints with the existing runtime grammar.
+- Batch 899 auth /me/narrative-note-records: align record ID response constraints with the existing runtime grammar.
+- Batch 900 client /mobility-observation-records: align record ID response constraints with the existing runtime grammar.
+
+Fifty existing paged read families now publish 1–200 character ASCII record identifiers matching runtime validation. Registration verifies the existing service, bearer/owner authority and registered string ID column before updating stored response schemas. Exact canonical list/detail schemas and authoritative compatibility schemas are aligned. Older client care contract assertions retain ownership separation checks and now include the ID bounds. The verifier preserves complete failure diagnostics when a fixture run fails.
+
+Local validation: 3,333 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI pending. Latest merged numbered batch remains 850 until this change passes CI and merges. No new endpoints, grants, deployment or production database changes.
