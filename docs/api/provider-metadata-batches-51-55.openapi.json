@@ -107,7 +107,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "threads": [
@@ -207,7 +208,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "thread": {
@@ -521,7 +523,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "timesheets": [
@@ -663,7 +666,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "timesheet": {
@@ -956,7 +960,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "overrides": [
@@ -1066,7 +1071,8 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 },
                 "example": {
                   "override": {

@@ -1080,3 +1080,60 @@ Local validation: 3,383 API fixtures, eight authority regressions, Worker TypeSc
 Fifty existing list routes and their authoritative compatibility aliases now declare at most 100 records, pagination limits 1–100, offsets 0–100000 and nonnegative safe-integer totals. Empty collections and zero totals remain valid. Registration verifies existing bearer and owner authority. Existing identifiers, nullability and projections remain intact. No new routes, grants, deployment or production database changes.
 
 Local validation: 3,433 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `4d6969b55ef3a18350d80cabbc8bd6c57aa3efd1`, run 37671492558. PR #130 merged as `36c0e7ae492611bdc76160c3b40b3781be454387`. Latest completed numbered batch is 1000; next is 1001.
+
+## Iteration 31 — batches 1001–1050 (in review)
+
+- Batch 1001 client /consents: close existing list/detail response envelopes.
+- Batch 1002 provider /conversation-threads: close existing list/detail response envelopes.
+- Batch 1003 auth /me/notifications: close existing list/detail response envelopes.
+- Batch 1004 client /service-authorizations: close existing list/detail response envelopes.
+- Batch 1005 provider /timesheets: close existing list/detail response envelopes.
+- Batch 1006 auth /me/activities: close existing list/detail response envelopes.
+- Batch 1007 client /waitlist: close existing list/detail response envelopes.
+- Batch 1008 provider /availability-overrides: close existing list/detail response envelopes.
+- Batch 1009 auth /me/wellness-pulses: close existing list/detail response envelopes.
+- Batch 1010 client /feedback: close existing list/detail response envelopes.
+- Batch 1011 provider /mileage-logs: close existing list/detail response envelopes.
+- Batch 1012 auth /me/device-events: close existing list/detail response envelopes.
+- Batch 1013 client /care-feedback: close existing list/detail response envelopes.
+- Batch 1014 provider /payouts: close existing list/detail response envelopes.
+- Batch 1015 auth /me/devices: close existing list/detail response envelopes.
+- Batch 1016 client /conversation-threads: close existing list/detail response envelopes.
+- Batch 1017 provider /performance-reviews: close existing list/detail response envelopes.
+- Batch 1018 auth /me/health-ids: close existing list/detail response envelopes.
+- Batch 1019 client /family-links: close existing list/detail response envelopes.
+- Batch 1020 provider /visit-check-events: close existing list/detail response envelopes.
+- Batch 1021 auth /me/survey-submissions: close existing list/detail response envelopes.
+- Batch 1022 client /alert-records: close existing list/detail response envelopes.
+- Batch 1023 provider /visit-matches: close existing list/detail response envelopes.
+- Batch 1024 auth /me/group-memberships: close existing list/detail response envelopes.
+- Batch 1025 client /insurance-claim-records: close existing list/detail response envelopes.
+- Batch 1026 provider /shift-assignment-records: close existing list/detail response envelopes.
+- Batch 1027 auth /me/password-history: close existing list/detail response envelopes.
+- Batch 1028 client /prescription-records: close existing list/detail response envelopes.
+- Batch 1029 provider /handover-records: close existing list/detail response envelopes.
+- Batch 1030 auth /me/shift-logs: close existing list/detail response envelopes.
+- Batch 1031 client /care-plan-records: close existing list/detail response envelopes.
+- Batch 1032 provider /authored-visit-note-records: close existing list/detail response envelopes.
+- Batch 1033 auth /me/daily-entry-records: close existing list/detail response envelopes.
+- Batch 1034 client /assessment-records: close existing list/detail response envelopes.
+- Batch 1035 provider /authored-checklist-records: close existing list/detail response envelopes.
+- Batch 1036 auth /me/adl-log-records: close existing list/detail response envelopes.
+- Batch 1037 client /medication-reconciliation-records: close existing list/detail response envelopes.
+- Batch 1038 provider /training-assignment-records: close existing list/detail response envelopes.
+- Batch 1039 auth /me/vital-sign-records: close existing list/detail response envelopes.
+- Batch 1040 client /shift-log-records: close existing list/detail response envelopes.
+- Batch 1041 auth /me/behavior-note-records: close existing list/detail response envelopes.
+- Batch 1042 client /adl-records: close existing list/detail response envelopes.
+- Batch 1043 auth /me/nutrition-records: close existing list/detail response envelopes.
+- Batch 1044 client /vital-observation-records: close existing list/detail response envelopes.
+- Batch 1045 auth /me/mobility-records: close existing list/detail response envelopes.
+- Batch 1046 client /behavior-observation-records: close existing list/detail response envelopes.
+- Batch 1047 auth /me/infection-control-records: close existing list/detail response envelopes.
+- Batch 1048 client /nutrition-observation-records: close existing list/detail response envelopes.
+- Batch 1049 auth /me/narrative-note-records: close existing list/detail response envelopes.
+- Batch 1050 client /mobility-observation-records: close existing list/detail response envelopes.
+
+Fifty existing read families now declare fixed list and detail response envelopes; list pagination also rejects undeclared properties. Existing payload fields, required fields, nullability, identifiers and owner scopes remain intact. Authoritative collection compatibility aliases inherit the corrected list contracts. No new business endpoints, access grants, deployment or production database changes.
+
+Fifty new regression checks exercise actual Worker populated lists, empty lists and details against the contracts, reject added private envelope/pagination fields and missing required collections/items, and confirm database-only canaries are projected out. Local validation: 3,483 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head PostgreSQL and security CI pending. Latest merged numbered batch remains 1000 until merge.
