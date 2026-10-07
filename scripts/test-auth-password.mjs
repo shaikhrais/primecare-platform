@@ -20,7 +20,7 @@ test('current password rejects bcrypt suffix aliases in ASCII and Unicode',()=>{
  }
 });
 test('changes hash, revokes all sessions and appends audit without logging secrets',async()=>{
- const calls=[];const db={query:async(sql,values)=>{calls.push({sql,values});return {rows:[]};}};
+ const calls=[];const db={query:async(sql,values)=>{calls.push({sql,values});return {rows:sql.startsWith('UPDATE users')?[{id:values[1],password_hash:values[0]}]:[]};}};
  const result=await changePassword(db,user,input);
  assert.equal(result.status,200);assert.equal(result.body.reauthenticationRequired,true);
  assert.ok(await bcrypt.compare(input.newPassword,calls[0].values[0]));

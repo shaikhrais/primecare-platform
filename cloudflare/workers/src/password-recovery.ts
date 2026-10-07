@@ -2,6 +2,8 @@ import type {Client} from 'pg';
 import bcrypt from 'bcryptjs';
 import {sendEmail,mailReady,type MailEnv} from './email';
 import {authRateLimit} from './auth-rate-limit';
+import {accountId} from './account-read-projection';
+import {confirmedPasswordUpdate} from './password-change';
 export const recoveryMessage='If an active account matches, recovery instructions will be emailed. Check your inbox and spam folder.';
 export async function recoveryHash(value:string) {
  const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value));
@@ -23,9 +25,16 @@ export async function recoverPassword(db:Client,env:MailEnv,email:string) {
  if(retry!==null)return {status:429,body:{error:'Too many recovery requests. Please try again later.'}};
  const user=(await db.query("SELECT id,email FROM users WHERE LOWER(email)=$1 AND LOWER(status)='active' LIMIT 2",[email])).rows;
  if(user.length!==1)return {status:200,body:{message:recoveryMessage}};
+ const id=accountId(user[0].id);
+ if(typeof user[0].email!=='string' || user[0].email.toLowerCase()!==email)throw Error('Invalid recovery account');
  const code=[...crypto.getRandomValues(new Uint8Array(6))].map(b=>b.toString(16).padStart(2,'0')).join('').toUpperCase();
  const hash=await recoveryHash(email+':'+code);
- await db.query("INSERT INTO auth_password_resets(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '15 minutes')",[hash,user[0].id]);
+ await db.query('BEGIN');
+ try {
+  const stored=(await db.query("INSERT INTO auth_password_resets(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '15 minutes') RETURNING token_hash,user_id",[hash,id])).rows;
+  if(stored.length!==1 || accountId(stored[0].user_id)!==id || stored[0].token_hash!==hash)throw Error('Invalid recovery storage');
+  await db.query('COMMIT');
+ }catch(error){await db.query('ROLLBACK');throw error;}
  try {await sendEmail(env,email,'password_reset',{code},'password-reset-'+hash);}
  catch {await db.query('DELETE FROM auth_password_resets WHERE token_hash=$1',[hash]);return {status:503,body:{error:'Password recovery email is temporarily unavailable. Please try again later.'}};}
  return {status:200,body:{message:recoveryMessage}};
@@ -38,10 +47,11 @@ export async function resetPassword(db:Client,input:{email:string;code:string;ne
  try {
   // Lock user first (same order as password/account changes), then consume code.
   const users=(await db.query("SELECT id FROM users WHERE LOWER(email)=$1 AND LOWER(status)='active' FOR UPDATE",[input.email])).rows;
-  const consumed=users.length===1?(await db.query('DELETE FROM auth_password_resets WHERE token_hash=$1 AND user_id=$2 AND expires_at>NOW() RETURNING user_id',[await recoveryHash(input.email+':'+input.code),users[0].id])).rows:[];
-  if(consumed.length!==1){await db.query('ROLLBACK');return {status:400,body:{error:'Invalid or expired reset code. Request a new code.'}};}
-  const id=users[0].id;
-  await db.query('UPDATE users SET password_hash=$1,updated_at=NOW() WHERE id=$2',[passwordHash,id]);
+  const id=users.length===1?accountId(users[0].id):null;
+  const consumed=id!==null?(await db.query('DELETE FROM auth_password_resets WHERE token_hash=$1 AND user_id=$2 AND expires_at>NOW() RETURNING user_id',[await recoveryHash(input.email+':'+input.code),id])).rows:[];
+  if(consumed.length===0){await db.query('ROLLBACK');return {status:400,body:{error:'Invalid or expired reset code. Request a new code.'}};}
+  if(consumed.length!==1 || accountId(consumed[0].user_id)!==id)throw Error('Invalid reset consumption');
+  confirmedPasswordUpdate((await db.query('UPDATE users SET password_hash=$1,updated_at=NOW() WHERE id=$2 RETURNING id,password_hash',[passwordHash,id])).rows,id!,passwordHash);
   await db.query('DELETE FROM auth_sessions WHERE user_id=$1',[id]);
   await db.query('DELETE FROM auth_password_resets WHERE user_id=$1',[id]);
   await db.query("INSERT INTO auth_password_audit(user_id,action) VALUES($1,'password_changed')",[id]);

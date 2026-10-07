@@ -265,6 +265,35 @@ try {
   // Live authorization, tenant binding, encrypted persistence and stale-save behavior.
   const maintenanceToken=(await (await call('/login','POST',{email,password:resetPasswordValue})).json()).token;
   assert.ok(maintenanceToken);
+  // Real trigger suppression/corruption must never yield password success or
+  // revoke sessions. Reset rollback also restores the consumed one-time code.
+  for(const mode of ['suppress','corrupt']) {
+    await db.query(`CREATE OR REPLACE FUNCTION fixture_password_result() RETURNS trigger LANGUAGE plpgsql AS $$
+      BEGIN IF NEW.id::text='${userId}' AND NEW.password_hash IS DISTINCT FROM OLD.password_hash THEN
+        ${mode==='suppress'?'RETURN NULL;':"NEW.password_hash='fixture-corrupt-hash';"}
+      END IF; RETURN NEW; END $$`);
+    await db.query('CREATE TRIGGER fixture_password_result BEFORE UPDATE ON users FOR EACH ROW EXECUTE FUNCTION fixture_password_result()');
+    try {
+      await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[mutationHash]);
+      const before=await snapshot();
+      const own=await call('/change-password','POST',{currentPassword:resetPasswordValue,newPassword:randomUUID()},maintenanceToken);
+      assert.equal(own.status,503);assert.equal(own.headers.get('cache-control'),'no-store');
+      assert.deepEqual(await own.json(),{error:'Authentication service unavailable'});
+      assert.deepEqual(await snapshot(),before);passed++;
+      await db.query("INSERT INTO auth_password_resets(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '15 minutes')",[resetHash,userId]);
+      await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update('reset:'+email).digest('hex')]);
+      const resetBefore=await snapshot();
+      const reset=await call('/reset-password','POST',{email,code,newPassword:randomUUID()});
+      assert.equal(reset.status,503);assert.equal(reset.headers.get('cache-control'),'no-store');
+      assert.deepEqual(await reset.json(),{error:'Authentication service unavailable'});
+      assert.deepEqual(await snapshot(),resetBefore);passed++;
+      await db.query('DELETE FROM auth_password_resets WHERE token_hash=$1',[resetHash]);
+    }finally {
+      await db.query('DROP TRIGGER IF EXISTS fixture_password_result ON users');
+      await db.query('DROP FUNCTION IF EXISTS fixture_password_result()');
+    }
+  }
+
   env.CONFIG_ENCRYPTION_KEY='a'.repeat(64);
   await db.query("UPDATE users SET roles='rmt' WHERE id=$1",[userId]);
   assert.equal((await call('/maintenance/configuration','GET',undefined,maintenanceToken)).status,403);passed++;
@@ -337,6 +366,29 @@ try {
     const testEmail=await call('/maintenance/configuration/test-email','POST',{},maintenanceToken);
     assert.equal(testEmail.status,503);assert.equal(testEmail.headers.get('cache-control'),'no-store');
     assert.equal((await db.query('SELECT COUNT(*)::int AS count FROM tenant_configuration_audit WHERE tenant_id=$1',[String(tenantId)])).rows[0].count,auditCount);passed++;
+  }finally {delete env.EMAIL;delete env.EMAIL_FROM;}
+
+  // Recovery validates actual persisted identity/hash and rolls back suppressed
+  // or corrupted inserts before invoking the synthetic native mail binding.
+  env.EMAIL_FROM='it@example.com';
+  try {
+    for(const mode of ['suppress','corrupt']) {
+      let sends=0;env.EMAIL={send:async()=>{sends++;return {messageId:'fixture'};}};
+      await db.query(`CREATE OR REPLACE FUNCTION fixture_reset_result() RETURNS trigger LANGUAGE plpgsql AS $$
+        BEGIN ${mode==='suppress'?'RETURN NULL;':"NEW.token_hash=repeat('f',64); RETURN NEW;"} END $$`);
+      await db.query('CREATE TRIGGER fixture_reset_result BEFORE INSERT ON auth_password_resets FOR EACH ROW EXECUTE FUNCTION fixture_reset_result()');
+      try {
+        await db.query('DELETE FROM auth_rate_limits WHERE subject_hash=$1',[createHash('sha256').update('forgot:'+email).digest('hex')]);
+        const before=await snapshot();
+        const recovery=await call('/forgot-password','POST',{email});
+        assert.equal(recovery.status,503);assert.equal(recovery.headers.get('cache-control'),'no-store');
+        assert.deepEqual(await recovery.json(),{error:'Authentication service unavailable'});
+        assert.equal(sends,0);assert.deepEqual(await snapshot(),before);passed++;
+      }finally {
+        await db.query('DROP TRIGGER IF EXISTS fixture_reset_result ON auth_password_resets');
+        await db.query('DROP FUNCTION IF EXISTS fixture_reset_result()');
+      }
+    }
   }finally {delete env.EMAIL;delete env.EMAIL_FROM;}
   const countersBefore=(await db.query('SELECT COUNT(*)::int AS count FROM auth_rate_limits')).rows[0].count;
   for(const path of ['/login','/forgot-password','/reset-password','/change-password','/admin/users','/register']) {

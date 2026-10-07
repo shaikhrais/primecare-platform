@@ -164,3 +164,21 @@ Workspace activity permits only the three persisted event actions from the selec
 Disposable PostgreSQL checks inject infinity and year-10000 timestamps into owned rows across the read families, assert rejection and unchanged state, and restore each fixture. Additional checks cover workspace activity, booking mutation/audit rollback, and malformed native receipts during recovery/test delivery. Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
 
 Local validation: 1,845 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37554565922 at 06ae62d8b1089421fcd688eec5565abd6cda0f91. PR #110 merged as e973f171fe4f1668c14292283e55b6aee399f531. Latest completed batch is 298; next batch is 299. No deployment or production database changes.
+
+## Iteration 12 — batches 299–303, password mutation results, in review
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 299 | Recovery/reset account lookup | Validate account identifiers and bind recovery email to the normalized requested address. |
+| 300 | Recovery code storage | Confirm exactly one stored account/hash inside a transaction before delivery. |
+| 301 | Reset code consumption | Require exactly one consumed code belonging to the locked account before updating credentials. |
+| 302 | Reset credential update | Confirm returned account and exact new hash before revocation, audit and commit. |
+| 303 | Own password change | Confirm returned account and exact new hash before revocation and audit under the caller's transaction. |
+
+Unknown and ambiguous recovery accounts retain generic success; absent or expired reset codes retain 400. Malformed persisted or adapter results return sanitized no-store 503. Recovery storage rolls back invalid insert results before native delivery. Reset failures roll back code consumption and credential writes; own password failures use the existing caller rollback. Password hashes remain internal and excluded from responses and audit.
+
+Twenty-eight new focused fixtures and one grouped gateway regression cover invalid lookup identities/email, absent/ambiguous accounts, mixed-case stored email, insert cardinality/binding, consumed-code ownership and update cardinality/identity/hash. Six disposable PostgreSQL trigger checks suppress or corrupt recovery inserts and password updates through the gateway, asserting no delivery and unchanged protected state, including restored reset codes and retained sessions. Existing successful bcrypt, revocation, expiry and replay tests remain.
+
+Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
+
+Local validation: 1,874 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL/security CI and merge remain pending.
