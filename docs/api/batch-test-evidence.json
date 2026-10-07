@@ -204,6 +204,10 @@
     "scripts/register-read-envelope-page-contracts-api.py": "50582f9e9e28dbb5187abf6c001e2b713674d049499452e899e51b1275314b52",
     "docs/api/read-envelope-page-contract-batches-1051-1100.json": "316de6d7c7e91af9f20c5ef474274c2269691d478495a0f845941d914d05f08d",
     "scripts/register-timestamp-contracts-api.py": "4635c973ca44526fd0f682d99ebfe34c4a4298cdff787111269dcb77004d6836",
-    "docs/api/timestamp-contract-batches-1101-1150.json": "64357546684e8ca1c98beda1b41f704bc65701331815a83734c6bf9dc8712030"
+    "docs/api/timestamp-contract-batches-1101-1150.json": "64357546684e8ca1c98beda1b41f704bc65701331815a83734c6bf9dc8712030",
+    "scripts/generate-api-delivery-checklist.py": "26d72592075847c728af5785aaec45cedc5e8268820389954437765f5649f695",
+    "scripts/test-api-delivery-checklist.py": "0075fb102d67b3d0eb752e7739d79f985f067db0c3ed29f885ae256560e95be9",
+    "scripts/generate-api-execution-inventory.py": "3fddd26b985511cf1e314a187cf4a7ee1b97c6acd108470b2ae08262bfb3e7d2",
+    "docs/api/api-delivery-work-package.json": "0df3c1b2feea36638a51ffdab5d28a85bb737350e0b0bcf0eadfd84848673e5c"
   }
 }

@@ -1,0 +1,20 @@
+{
+  "name": "Reconcile legacy auth declarations with existing handlers and callers",
+  "operations": [
+    "POST /v1/auth",
+    "POST /v1/auth/",
+    "POST /v1/auth/forgot-password",
+    "POST /v1/auth/impersonate",
+    "POST /v1/auth/login",
+    "POST /v1/auth/logout",
+    "POST /v1/auth/onboard-business",
+    "POST /v1/auth/osm",
+    "POST /v1/auth/osm/callback",
+    "POST /v1/auth/profile",
+    "POST /v1/auth/refresh",
+    "POST /v1/auth/reset-password",
+    "POST /v1/auth/switch-role",
+    "POST /v1/auth/whoami"
+  ],
+  "retirements": {}
+}
