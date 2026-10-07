@@ -4,14 +4,14 @@
     "totalDeclared": 1416,
     "verificationStates": {
       "blocked": 10,
-      "unit_fixtures_recorded": 341,
-      "verification_pending": 1065
+      "unit_fixtures_recorded": 342,
+      "verification_pending": 1064
     },
     "contractGaps": {
-      "permission": 1065,
-      "requestSchema": 1065,
-      "responseSchema": 1065,
-      "screenLink": 1020
+      "permission": 1064,
+      "requestSchema": 1064,
+      "responseSchema": 1064,
+      "screenLink": 1019
     },
     "note": "Recorded declarations and local unit-fixture status only. Unrecorded means inspect implementation, not proof of absent code. PostgreSQL/production evidence is not inferred from CI or registry labels."
   },
@@ -10451,20 +10451,21 @@
       "api": "POST /v1/client/bookings/request",
       "method": "POST",
       "route": "/v1/client/bookings/request",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
+      "service": "client",
+      "declaredImplementation": "implemented",
+      "verificationState": "unit_fixtures_recorded",
+      "batch": 0,
+      "recordedUnitStatus": "unit_tested",
+      "missingContractFields": [],
+      "screens": [
+        "client_profile"
       ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
+      "apps": [
+        "ci"
+      ],
+      "roles": [
+        "guest"
+      ],
       "postgresVerified": false,
       "productionVerified": false
     },

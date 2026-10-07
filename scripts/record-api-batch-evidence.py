@@ -21,3 +21,6 @@ print('Recorded current API unit-fixture evidence; no production or PostgreSQL c
 with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
  for name,permission in [('login','credential_login'),('logout','optional_self_session_logout'),('forgot-password','public_password_recovery'),('reset-password','secret_code_password_reset')]:
   db.execute("UPDATE governance_api_batches SET test_status='unit_tested' WHERE route=? AND batch=0 AND permission=?",('POST /v1/auth/'+name,permission))
+
+with sqlite3.connect(ROOT/'.agents/governance/governance.db') as db:
+ db.execute("UPDATE governance_api_batches SET test_status='unit_tested' WHERE route='POST /v1/client/bookings/request' AND batch=0 AND permission='authenticated_client_profile_owner'")

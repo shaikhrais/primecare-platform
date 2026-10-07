@@ -75,3 +75,28 @@ for(const path of ['/booking-requests','/booking-requests/request/cancel'])for(c
 for(const prefix of ['SELECT u.id','SELECT id FROM client_profiles','SELECT 1 FROM auth_sessions','SELECT request_id,request_hash','INSERT INTO booking_request_audit'])for(const rows of [null,[null],[{},{}]])test('batch 344–348 invalid cardinality '+prefix+' '+JSON.stringify(rows),async()=>{fixture();corruptResult(prefix,r=>{r.rows=rows;});assert.equal((await call()).status,503);assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql==='COMMIT'));});
 for(const prefix of ['SELECT id FROM booking_requests','SELECT COUNT','SELECT id::text'])test('batch 346 audit read cardinality '+prefix,async()=>{fixture();corruptResult(prefix,r=>{r.rows=[...r.rows,...r.rows];});assert.equal((await call('/booking-requests/request/audit?limit=1',undefined,'GET')).status,503);assert.equal(queries.at(-1).sql,'ROLLBACK');});
 test('batch 348 cancellation rejects a different locked target',async()=>{fixture();owned.id='foreign';assert.equal((await call('/booking-requests/request/cancel')).status,503);assert.ok(!queries.some(q=>q.sql.startsWith('UPDATE')));});
+const {default:deliveryWorker}=await bundle('cloudflare/workers/src/service.ts');
+const aliasCall=(body=input,headers={},method='POST',path='/v1/client/bookings/request')=>gateway.fetch(new Request('https://gateway'+path,{method,headers:{authorization:'Bearer '+token,'content-type':'application/json','idempotency-key':'request-key',...headers},body:method==='POST'?JSON.stringify(body):undefined}),{CLIENT:{fetch:r=>deliveryWorker.fetch(r,env)}});
+test('legacy booking submission reaches canonical transaction and retries without another write',async()=>{
+ fixture();const response=await aliasCall();assert.equal(response.status,201);assert.equal(response.headers.get('x-primecare-gateway'),'cloudflare-worker-typescript');assert.equal(response.headers.get('cache-control'),'no-store');const data=await response.json();assert.equal(data.request.status,'pending');assert.ok(!JSON.stringify(data).includes('private'));
+ const values=queries.find(q=>q.sql.startsWith('INSERT INTO booking_request_audit')).values;
+ fixture();prior={request_id:values[0],request_hash:values[7],response_json:JSON.parse(values[8])};const replay=await aliasCall();assert.equal(replay.status,201);assert.equal(replay.headers.get('idempotency-replayed'),'true');assert.ok(!queries.some(q=>q.sql.startsWith('INSERT')));
+});
+test('booking submission alias preserves negative authority, strict input and audit rollback',async()=>{
+ fixture();assert.equal((await aliasCall(input,{authorization:''})).status,401);assert.equal(queries.length,0);
+ fixture();assert.equal((await aliasCall(input,{'x-tenant-id':'other'})).status,403);assert.ok(!queries.some(q=>q.sql.startsWith('INSERT')));
+ fixture();profiles=[];assert.equal((await aliasCall()).status,404);assert.ok(!queries.some(q=>q.sql.startsWith('INSERT')));
+ fixture();auditFail=true;assert.equal((await aliasCall()).status,503);assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql==='COMMIT'));
+ for(const body of [{...input,client_id:'other'},{...input,tenant_id:'other'},{serviceTypeId:'legacy',date:'2026-10-08',time:'12:00',duration:1}]){fixture();assert.equal((await aliasCall(body)).status,400);assert.equal(queries.length,0);}
+ fixture();assert.equal((await aliasCall(input,{'idempotency-key':''})).status,400);assert.equal(queries.length,0);
+ fixture();assert.equal((await aliasCall(input,{},'POST','/v1/client/bookings/request?tenant_id=other')).status,400);assert.equal(queries.length,0);
+});
+test('submission alias matches only its exact path and POST; collection writes remain denied',async()=>{
+ for(const method of ['GET','PUT','PATCH','DELETE']){fixture();const response=await aliasCall(input,{},method);assert.equal(response.status,405);assert.equal(response.headers.get('allow'),'POST');assert.equal(queries.length,0);}
+ for(const path of ['/v1/client/bookings','/v1/client/bookings/requests']){fixture();const response=await aliasCall(input,{},'POST',path);assert.equal(response.status,405);assert.equal(response.headers.get('allow'),'GET');assert.equal(queries.length,0);}
+});
+test('both booking form declarations use the exact submission contract and required retry header',async()=>{
+ const {CLIENT_FORMS}=await bundle('packages/domain/src/registries/FormRegistry/client-forms.ts');
+ const forms=CLIENT_FORMS.filter(f=>['client.booking-request','client.service-booking-modal'].includes(f.id));assert.equal(forms.length,2);
+ for(const form of forms){assert.equal(form.apiEndpoint,'/v1/client/bookings/request');assert.equal(form.method,'POST');assert.deepEqual(form.requiredHeaders,['Idempotency-Key']);assert.deepEqual(form.fields.map(f=>f.name),['service_type','preferred_date','preferred_time','notes']);assert.deepEqual(form.fields.filter(f=>f.required).map(f=>f.name),['service_type','preferred_date']);assert.equal(form.fields[1].type,'text');assert.ok(form.description.includes('UTC'));}
+});

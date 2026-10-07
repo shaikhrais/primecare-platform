@@ -6,12 +6,12 @@
     "duplicateDeclarationRows": 1,
     "stages": {
       "blocked": 10,
-      "needs_contract_and_verification": 1065,
-      "unit_evidence_recorded": 340
+      "needs_contract_and_verification": 1064,
+      "unit_evidence_recorded": 341
     },
     "pendingByDeclaredMethod": {
       "GET": 255,
-      "POST": 810
+      "POST": 809
     },
     "postgresEvidenceMapped": 0,
     "productionEvidenceMapped": 0
@@ -419,9 +419,9 @@
     {
       "area": "client",
       "total": 121,
-      "unitEvidenceRecorded": 94,
+      "unitEvidenceRecorded": 95,
       "blocked": 0,
-      "needsWork": 27
+      "needsWork": 26
     },
     {
       "area": "client-intake",
@@ -21220,20 +21220,15 @@
         566
       ],
       "services": [
-        "PRISMA"
+        "client"
       ],
       "area": "client",
-      "stage": "needs_contract_and_verification",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "unitEvidenceRecorded": false,
+      "stage": "unit_evidence_recorded",
+      "missingContractFields": [],
+      "unitEvidenceRecorded": true,
       "postgresEvidence": "not_mapped_per_operation",
       "productionEvidence": "not_mapped_per_operation",
-      "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
+      "nextAction": "Map operation-specific PostgreSQL evidence and release checks"
     },
     {
       "api": "POST /v1/client/bookings/requests",
@@ -33221,8 +33216,22 @@
       "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
     }
   ],
+  "additionalWorkPackages": [
+    {
+      "name": "Client booking request submission compatibility",
+      "total": 1,
+      "resolved": 1,
+      "operations": [
+        "POST /v1/client/bookings/request"
+      ],
+      "resolvedOperations": [
+        "POST /v1/client/bookings/request"
+      ],
+      "reviewed": 1
+    }
+  ],
   "source": {
     "path": "docs/api/api-execution-inventory.json",
-    "sha256": "729c84b72d26cac4f51008cddd5bdf013332bb2a3a07ef6198152fead93042fa"
+    "sha256": "0905f1b51a4625650c9855ce83adc87445acbcecb029efac1ab93cd5a050a613"
   }
 }

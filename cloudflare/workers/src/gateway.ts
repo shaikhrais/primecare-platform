@@ -43,6 +43,12 @@ export default {
       return new Response(null, { status: origin && headers.has('Access-Control-Allow-Origin') ? 204 : 403, headers });
     }
     const url = new URL(request.url);
+    // Exact submission compatibility route; share canonical ownership and retry semantics.
+    if(url.pathname==='/v1/client/bookings/request') {
+      if(request.method!=='POST')return withGatewayHeaders(request,new Response(JSON.stringify({error:'Method not allowed'}),{status:405,headers:{'content-type':'application/json','allow':'POST'}}));
+      url.hostname='service';url.pathname='/booking-requests';
+      return withGatewayHeaders(request,await env.CLIENT.fetch(new Request(url,request)));
+    }
     const alias=governedReadAliases.find(item=>item.path===url.pathname);
     if(alias) {
       // Exact read aliases only: never forward writes to the canonical lifecycle handler.
