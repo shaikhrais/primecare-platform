@@ -314,26 +314,6 @@ class ApiClient {
       );
     }
 
-    if (cleanPath.startsWith('/v1/business-development')) {
-      return ApiResponse(
-        statusCode: 200,
-        data: {
-          'message': 'Business Development Data successfully fetched.',
-          'data': {
-            'metrics': {
-              'leadsGenerated': 120,
-              'dealsClosed': 15,
-              'pipelineValue': 5000000,
-            },
-            'recentActivities': [
-              {'type': 'MEETING', 'desc': 'Meeting with Hospital ABC'},
-              {'type': 'PROPOSAL', 'desc': 'Proposal sent to Region XYZ'},
-            ]
-          }
-        },
-      );
-    }
-
     // Generic fallbacks for any other endpoints to ensure they never crash
     return ApiResponse(
       statusCode: 200,
@@ -388,19 +368,41 @@ class ApiClient {
     return route == '/v1/provider/profile' || route == '/v1/provider/dashboard';
   }
 
+  // These real workflows must surface their server errors. A path-only
+  // cache or mock result cannot establish authority or business completion.
+  static bool _isUncachedWorkflowPath(String path) {
+    final route = (Uri.tryParse(path)?.normalizePath().path ?? path)
+        .replaceFirst(RegExp(r'/+$'), '');
+    return route == '/v1/business-development' ||
+        route.startsWith('/v1/business-development-') ||
+        route.startsWith('/v1/business-development/') ||
+        route == '/v1/auth/me/notifications' ||
+        route.startsWith('/v1/auth/me/notifications/');
+  }
+
+  static ApiResponse _workflowFailure(Object error) {
+    final response = error is DioException ? error.response : null;
+    return ApiResponse(
+      data: response?.data ?? <String, dynamic>{},
+      statusCode: response?.statusCode ?? 503,
+      error: 'Workflow request failed.',
+    );
+  }
+
   /// Performs a GET request.
   Future<ApiResponse> get(
     String path, {
     Map<String, dynamic>? queryParameters,
   }) async {
     final protectedProfile = _isOwnerProfilePath(path);
+    final protectedWorkflow = _isUncachedWorkflowPath(path);
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         path,
         queryParameters: queryParameters,
       );
       
-      if (!protectedProfile && !_isAuthPath(path) && response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
+      if (!protectedProfile && !protectedWorkflow && !_isAuthPath(path) && response.statusCode != null && response.statusCode! >= 200 && response.statusCode! < 300) {
         try {
           final cacheService = _ref.read(localCacheServiceProvider);
           await cacheService.cacheResponse(path, response.data ?? {});
@@ -411,9 +413,10 @@ class ApiClient {
 
       return ApiResponse(
         data: response.data,
-        statusCode: response.statusCode ?? (protectedProfile ? 503 : 200),
+        statusCode: response.statusCode ?? ((protectedProfile || protectedWorkflow) ? 503 : 200),
       );
     } catch (e) {
+      if (protectedWorkflow) return _workflowFailure(e);
       if (protectedProfile) {
         final response = e is DioException ? e.response : null;
         return ApiResponse(
@@ -481,6 +484,7 @@ class ApiClient {
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      if (_isUncachedWorkflowPath(path)) return _workflowFailure(e);
       if (_isAuthPath(path)) return _authFailure(e);
       if (e is DioException && e.response != null) {
         final status = e.response!.statusCode;
@@ -511,6 +515,7 @@ class ApiClient {
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      if (_isUncachedWorkflowPath(path)) return _workflowFailure(e);
       if (_isAuthPath(path)) return _authFailure(e);
       if (e is DioException && e.response != null) {
         final status = e.response!.statusCode;
@@ -541,6 +546,7 @@ class ApiClient {
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      if (_isUncachedWorkflowPath(path)) return _workflowFailure(e);
       if (_isAuthPath(path)) return _authFailure(e);
       if (e is DioException && e.response != null) {
         final status = e.response!.statusCode;
@@ -571,6 +577,7 @@ class ApiClient {
         statusCode: response.statusCode ?? 200,
       );
     } catch (e) {
+      if (_isUncachedWorkflowPath(path)) return _workflowFailure(e);
       if (_isAuthPath(path)) return _authFailure(e);
       if (e is DioException && e.response != null) {
         final status = e.response!.statusCode;

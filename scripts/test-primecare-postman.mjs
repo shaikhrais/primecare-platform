@@ -22,3 +22,9 @@ test('bootstrap pending evidence stays pending until verification records a mile
  assert.equal(before.item.filter(i=>i.request.header[1].value==='unit_evidence_recorded').length,343);assert.equal(rebuilt.item.filter(i=>i.request.header[1].value==='unit_evidence_recorded').length,336);
  assert.deepEqual(new Set(rebuilt.item.map(i=>i.name)),new Set(before.item.map(i=>i.name)));
 });
+
+test('only the three reviewed canonical bodyless mutations omit diagnostic JSON',()=>{
+ const bodyless=['DELETE /v1/user/sessions','DELETE /v1/admin/users/{userId}/sessions','POST /v1/client/booking-requests/{requestId}/cancel'];
+ for(const api of bodyless){const item=c.item.find(i=>i.name===api);assert.ok(item);assert.equal(item.request.body,undefined);assert.ok(!item.request.header.some(h=>h.key==='Content-Type'));}
+ for(const api of ['POST /v1/auth/login','POST /v1/client/feedback'])assert.equal(c.item.find(i=>i.name===api).request.body.raw,'{}');
+});

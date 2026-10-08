@@ -20097,6 +20097,6 @@
     "docs/api/api-delivery-checklist.json": "654f5e898ed10281b931c5d4817a99dcad56ae8b0a91951fbf01ded48672934d",
     "docs/api/api-reachability-audit.json": "ea3462cfbc5111abf0f0fab0f5ceef3b7e8383cfe8d324ae1f7ddd908c605d3b",
     "docs/api/api-delivery-work-package.json": "0047e477b23fe01a8be7dde97cf394de2b04ad495612121ab86f0ce79196bc6b",
-    ".agents/governance/governance.db": "a5f85fbb491e847f49ece69f9b3e4aff11c5b0c1ee4e889aaf9688ca3eb9cd70"
+    ".agents/governance/governance.db": "7710d92d84f5da5c7cbce72b9a2d4eb5f7e22fa8964c4bab04238b44d3420156"
   }
 }

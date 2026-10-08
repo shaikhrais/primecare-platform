@@ -1,6 +1,6 @@
 {
   "scope": "local_unit_fixtures",
-  "passed": 3658,
+  "passed": 3660,
   "failed": 0,
   "productionVerified": false,
   "postgresVerified": false,
@@ -128,8 +128,8 @@
     "scripts/test-prefix-root-routing.mjs": "b17cd7286e41796cbd74aafdcd9f6afabb3ac9e2f4a55a53c0ff692a426fce2e",
     "scripts/test-client-billing-reconciliation.mjs": "7609fabee697eb3135c220e0a3fed51db08a8a4a9fef95014da233200c710856",
     "scripts/test-method-capture-blockers.mjs": "65c4ab5da0407c1f385aa362e531999278c1a5c75fb7933b0293b161f18b5a02",
-    "scripts/test-primecare-postman.mjs": "f433f61a60bbbc97f8b98548bb4858c6fb1701cc5f1f4b3090de77b90c422c71",
-    "scripts/test-primecare-api-diagnostics.mjs": "bdbfe58fc4ac7334e1138e17e1765601c421e1bcf3649850bc8f6517689bff29",
+    "scripts/test-primecare-postman.mjs": "20e1611ebe2a76578d68e9813ccf68de8ac02de0035ba5f078680d8ca048b68e",
+    "scripts/test-primecare-api-diagnostics.mjs": "1add46f7784b272dfb8c9e8524aadb3a5ebfa9e406172b9b9c0a73b606aa2599",
     "scripts/read-alias-fixtures.mjs": "0308bc3df0aacea06cc95c9881729950931a7c9c5d1d4c0b049c3faf0413490f",
     "scripts/singleton-read-alias-fixtures.mjs": "347746e21ebb0d30aab1060111eb51dd8576ed76fdced87501a4637476da8551",
     "scripts/governed-read-alias-definitions.json": "e3be043c827985877d924cd401efc79d4c45f0e16a95ab67e20221d5162b02c5",
@@ -270,8 +270,12 @@
     "scripts/test-method-capture-blockers.py": "c75297e97668734b8f5ce9eaa830488ee60e34ff7a30a93065a7431f381e62da",
     "scripts/audit-api-reachability.mjs": "58e8e88455dc676ddc3b2f5e34679414ac0c5f4eb5b6a1b0ca3c35b168b2ae6c",
     "docs/api/method-capture-blocker-package.json": "6306d89f9913d96ec60ad293def7cae967fcaa34bf8d5ea7eab4c3ca477c684c",
-    "scripts/generate-primecare-postman.mjs": "389e9e51e575441cd92282546243a056acc67e6965221f88e17ec428538f9d1b",
-    "scripts/run-primecare-api-diagnostics.mjs": "78aab6d4a2fa7bd8093179fea04f66b858dd554c05632c6c235b72e59cd7d97f",
-    "docs/api/POSTMAN_API_DIAGNOSTICS.md": "667c6ecd150c4a077bac29a8284eb8a0e62c723b6a831967c487be39fd9e1256"
+    "scripts/generate-primecare-postman.mjs": "f45749b42ba6c00e3aa83c438ff504f0c2dbcc029a3a257340a80d2e8ea1ba8a",
+    "scripts/run-primecare-api-diagnostics.mjs": "a01bff5f0c558c866d15eba5001e1ef510fd90eeac232445df91b27a69f807ec",
+    "scripts/primecare-diagnostic-body-policy.mjs": "b95ab340ba232adfbc071d46ff7ee0aeaf2066e7a0374bc711bf022c393b39ba",
+    "docs/api/POSTMAN_API_DIAGNOSTICS.md": "990bd8e5121ebda9846ad3df4283ab899e9cd8608dceb4bfa7eb2132e892d784",
+    "docs/api/self-sessions-batch-6.openapi.json": "d28dab37ae9a1a34df807d6cf74db0a0f905df578fc89b230e2b746aeeda1dc2",
+    "docs/api/account-batch-3.openapi.json": "d4ed1808d0f0f73b9c032ade34667bcca99dcbe7ee56785614b379286a217d7d",
+    "docs/api/client-booking-lifecycle-batch-19.openapi.json": "3a9b49b83716538e236f1a41bb29802eeacdf7578d98cfcb4e8caa98b5efdefd"
   }
 }
