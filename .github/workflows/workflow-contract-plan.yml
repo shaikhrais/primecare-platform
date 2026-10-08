@@ -1,0 +1,35 @@
+name: Workflow contract review coverage
+on:
+  pull_request:
+    paths:
+      - 'scripts/**'
+      - 'docs/**'
+      - '.agents/**'
+      - 'cloudflare/**'
+      - 'packages/**'
+      - 'apps/**'
+      - 'services/**'
+      - 'generated_screen_backup_before_template_reset/**'
+      - '.github/workflows/workflow-contract-plan.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**'
+      - 'docs/**'
+      - '.agents/**'
+      - 'cloudflare/**'
+      - 'packages/**'
+      - 'apps/**'
+      - 'services/**'
+      - 'generated_screen_backup_before_template_reset/**'
+      - '.github/workflows/workflow-contract-plan.yml'
+permissions:
+  contents: read
+jobs:
+  contract-plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 scripts/test-workflow-contract-plan.py
+      - run: python3 scripts/generate-workflow-contract-plan.py --check
