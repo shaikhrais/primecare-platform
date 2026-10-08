@@ -4,17 +4,17 @@
     "baselineUniqueOperations": 1415,
     "activeUniqueOperations": 1406,
     "baselineStages": {
-      "blocked": 10,
-      "needs_contract_and_verification": 1053,
+      "blocked": 14,
+      "needs_contract_and_verification": 1049,
       "retired_with_evidence": 9,
       "unit_evidence_recorded": 343
     },
     "activeStages": {
-      "blocked": 10,
-      "needs_contract_and_verification": 1053,
+      "blocked": 14,
+      "needs_contract_and_verification": 1049,
       "unit_evidence_recorded": 343
     },
-    "pendingOperations": 1053,
+    "pendingOperations": 1049,
     "documentedRetiredOperations": 9,
     "pendingFamilyCounts": {
       "compliance_scan_requires_workflow_contract": 292,
@@ -22,20 +22,18 @@
       "gateway_unmapped_requires_workflow_review": 543,
       "legacy_auth_method_or_workflow_reconciliation": 8,
       "legacy_model_collection_requires_contract_review": 179,
-      "method_or_dynamic_capture_requires_caller_review": 4,
       "protected_route_requires_authenticated_workflow_review": 1
     },
     "pendingRoutingCounts": {
       "credential_or_authority_required": 1,
-      "declared_method_rejected": 4,
       "gateway_route_not_found": 1013,
       "worker_route_not_found": 35
     },
     "pendingMissingContractCounts": {
-      "permission": 1053,
-      "requestSchema": 1053,
-      "responseSchema": 1053,
-      "screenLink": 1008
+      "permission": 1049,
+      "requestSchema": 1049,
+      "responseSchema": 1049,
+      "screenLink": 1004
     }
   },
   "retiredOperations": [
@@ -8924,25 +8922,6 @@
       "businessOperationVerified": false
     },
     {
-      "api": "POST /v1/admin/users/churn-heatmap",
-      "method": "POST",
-      "route": "/v1/admin/users/churn-heatmap",
-      "area": "admin",
-      "declarationIds": [
-        12
-      ],
-      "familyClassification": "method_or_dynamic_capture_requires_caller_review",
-      "routingClassification": "declared_method_rejected",
-      "authorizationContractStatus": "requires_business_authorization_contract",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "businessOperationVerified": false
-    },
-    {
       "api": "POST /v1/admin/visits",
       "method": "POST",
       "route": "/v1/admin/visits",
@@ -10506,63 +10485,6 @@
       ],
       "familyClassification": "forwarded_operation_requires_handler_review",
       "routingClassification": "worker_route_not_found",
-      "authorizationContractStatus": "requires_business_authorization_contract",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "businessOperationVerified": false
-    },
-    {
-      "api": "POST /v1/client/feedback",
-      "method": "POST",
-      "route": "/v1/client/feedback",
-      "area": "client",
-      "declarationIds": [
-        251
-      ],
-      "familyClassification": "method_or_dynamic_capture_requires_caller_review",
-      "routingClassification": "declared_method_rejected",
-      "authorizationContractStatus": "requires_business_authorization_contract",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "businessOperationVerified": false
-    },
-    {
-      "api": "POST /v1/client/feedback/analytics",
-      "method": "POST",
-      "route": "/v1/client/feedback/analytics",
-      "area": "client",
-      "declarationIds": [
-        253
-      ],
-      "familyClassification": "method_or_dynamic_capture_requires_caller_review",
-      "routingClassification": "declared_method_rejected",
-      "authorizationContractStatus": "requires_business_authorization_contract",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "businessOperationVerified": false
-    },
-    {
-      "api": "POST /v1/client/feedback/surveys",
-      "method": "POST",
-      "route": "/v1/client/feedback/surveys",
-      "area": "client",
-      "declarationIds": [
-        252
-      ],
-      "familyClassification": "method_or_dynamic_capture_requires_caller_review",
-      "routingClassification": "declared_method_rejected",
       "authorizationContractStatus": "requires_business_authorization_contract",
       "missingContractFields": [
         "permission",
@@ -20172,9 +20094,9 @@
     }
   ],
   "sourceHashes": {
-    "docs/api/api-delivery-checklist.json": "55850380dbe41574ba75be459a6edcf65b1a7bfb423c169eeba7dba3a83595fa",
-    "docs/api/api-reachability-audit.json": "e89a8a0c6407d4dc47f3944c09d4f691699546e3e95099087e65c887e0ba5c29",
-    "docs/api/api-delivery-work-package.json": "465dc4b45dcba88abbd935ab1cf59f1e4eaaa6bfb672f9a47ff3820d4c7865a4",
-    ".agents/governance/governance.db": "014880b9d547eb4bb14b441de47cab905e2784e9e9c9dc227e6d5810214bc46c"
+    "docs/api/api-delivery-checklist.json": "654f5e898ed10281b931c5d4817a99dcad56ae8b0a91951fbf01ded48672934d",
+    "docs/api/api-reachability-audit.json": "ea3462cfbc5111abf0f0fab0f5ceef3b7e8383cfe8d324ae1f7ddd908c605d3b",
+    "docs/api/api-delivery-work-package.json": "0047e477b23fe01a8be7dde97cf394de2b04ad495612121ab86f0ce79196bc6b",
+    ".agents/governance/governance.db": "a5f85fbb491e847f49ece69f9b3e4aff11c5b0c1ee4e889aaf9688ca3eb9cd70"
   }
 }

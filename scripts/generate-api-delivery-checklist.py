@@ -4,7 +4,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
-def build(rows, work_package=None, retirement_ledger=None):
+def build(rows, work_package=None, retirement_ledger=None, blocker_ledger=None):
     grouped = defaultdict(list)
     for row in rows:
         grouped[row['method']+' '+row['route']].append(row)
@@ -27,6 +27,15 @@ def build(rows, work_package=None, retirement_ledger=None):
             'nextAction':('Resolve registered business/authority blocker' if stage=='blocked' else
                 'Map operation-specific PostgreSQL evidence and release checks' if stage=='unit_evidence_recorded' else
                 'Reconcile method/path with handler and callers; register authority and schemas; test before marking verified')})
+    lookup = {o['api']:o for o in operations}
+    for api, blocker in (blocker_ledger or {}).items():
+        operation = lookup.get(api)
+        if (not operation or operation['stage'] != 'blocked' or
+            operation['declarationIds'] != blocker.get('declarationIds') or
+            not blocker.get('blockerReason') or not blocker.get('finding') or not blocker.get('evidence')):
+            raise ValueError('Blocker evidence must match exact blocked declarations: '+api)
+        operation['blocker'] = blocker
+        operation['nextAction'] = blocker['finding']
     active_count = len(operations)
     for api, retirement in sorted((retirement_ledger or {}).items()):
         if api in grouped:
@@ -76,12 +85,17 @@ def main():
     source = ROOT/'docs/api/api-execution-inventory.json'
     package = json.loads((ROOT/'docs/api/api-delivery-work-package.json').read_text())
     retirements = {}
+    blockers = {}
     for p in [package,*package.get('additionalWorkPackages',[])]:
         for api,r in p.get('retirements',{}).items():
             if api in retirements and retirements[api]!=r: raise ValueError('Conflicting retirement '+api)
             retirements[api]=r
-    data = build(json.loads(source.read_text())['data'],package,retirements)
-    data['additionalWorkPackages'] = [build(json.loads(source.read_text())['data'],p,retirements)['firstWorkPackage'] for p in package.get('additionalWorkPackages',[])]
+        for api, review in p.get('reviews',{}).items():
+            if review.get('verificationState') == 'blocked':
+                if api in blockers and blockers[api] != review: raise ValueError('Conflicting blocker '+api)
+                blockers[api] = review
+    data = build(json.loads(source.read_text())['data'],package,retirements,blockers)
+    data['additionalWorkPackages'] = [build(json.loads(source.read_text())['data'],p,retirements,blockers)['firstWorkPackage'] for p in package.get('additionalWorkPackages',[])]
     data['source'] = {'path':'docs/api/api-execution-inventory.json','sha256':hashlib.sha256(source.read_bytes()).hexdigest()}
     (ROOT/'docs/api/api-delivery-checklist.json').write_text(json.dumps(data,indent=2)+'\n')
     s=data['summary']; states=s['stages']; package=data['firstWorkPackage']

@@ -7,14 +7,14 @@
     "retiredOperations": 9,
     "duplicateDeclarationRows": 1,
     "stages": {
-      "blocked": 10,
-      "needs_contract_and_verification": 1053,
+      "blocked": 14,
+      "needs_contract_and_verification": 1049,
       "retired_with_evidence": 9,
       "unit_evidence_recorded": 343
     },
     "pendingByDeclaredMethod": {
       "GET": 255,
-      "POST": 798
+      "POST": 794
     },
     "postgresEvidenceMapped": 0,
     "productionEvidenceMapped": 0
@@ -62,9 +62,9 @@
       "area": "admin",
       "total": 252,
       "unitEvidenceRecorded": 7,
-      "blocked": 0,
+      "blocked": 1,
       "retired": 0,
-      "needsWork": 245
+      "needsWork": 244
     },
     {
       "area": "agent-dispatch",
@@ -478,9 +478,9 @@
       "area": "client",
       "total": 121,
       "unitEvidenceRecorded": 97,
-      "blocked": 0,
+      "blocked": 3,
       "retired": 3,
-      "needsWork": 21
+      "needsWork": 18
     },
     {
       "area": "client-intake",
@@ -19548,7 +19548,7 @@
         "PRISMA"
       ],
       "area": "admin",
-      "stage": "needs_contract_and_verification",
+      "stage": "blocked",
       "missingContractFields": [
         "permission",
         "requestSchema",
@@ -19558,7 +19558,51 @@
       "unitEvidenceRecorded": false,
       "postgresEvidence": "not_mapped_per_operation",
       "productionEvidence": "not_mapped_per_operation",
-      "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
+      "nextAction": "The advertised workflow has no defined authority/contract; the observed handler implements account/feedback owner reads only.",
+      "blocker": {
+        "declarationIds": [
+          12
+        ],
+        "method": "POST",
+        "path": "/v1/admin/users/churn-heatmap",
+        "disposition": "requires_workflow_contract",
+        "verificationState": "blocked",
+        "blockerReason": "generic_owned_detail_capture_not_workflow",
+        "routingClassification": "workflow_name_captured_as_record_id",
+        "observed": {
+          "status": 405,
+          "allow": "GET",
+          "forwarded": [
+            {
+              "binding": "AUTH",
+              "workerPath": "/admin/users/churn-heatmap"
+            }
+          ],
+          "databaseConnectionAttempts": 0
+        },
+        "matchedHandler": {
+          "pattern": "/admin/users/{userId}",
+          "parameter": "userId",
+          "value": "churn-heatmap",
+          "source": "cloudflare/workers/src/account-admin.ts"
+        },
+        "missingAuthority": [
+          "permission_key",
+          "request_schema",
+          "response_schema"
+        ],
+        "finding": "The advertised workflow has no defined authority/contract; the observed handler implements account/feedback owner reads only.",
+        "evidence": [
+          "scripts/test-method-capture-blockers.mjs",
+          "scripts/register-method-capture-blockers.py",
+          "scripts/test-method-capture-blockers.py",
+          "cloudflare/workers/src/gateway.ts",
+          "cloudflare/workers/src/account-admin.ts",
+          "cloudflare/workers/src/client-self.ts",
+          "cloudflare/workers/src/client-records-registry.json",
+          "packages/domain/src/registries/FormRegistry/client-forms.ts"
+        ]
+      }
     },
     {
       "api": "POST /v1/admin/visits",
@@ -21770,7 +21814,7 @@
         "PRISMA"
       ],
       "area": "client",
-      "stage": "needs_contract_and_verification",
+      "stage": "blocked",
       "missingContractFields": [
         "permission",
         "requestSchema",
@@ -21780,7 +21824,51 @@
       "unitEvidenceRecorded": false,
       "postgresEvidence": "not_mapped_per_operation",
       "productionEvidence": "not_mapped_per_operation",
-      "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
+      "nextAction": "The advertised workflow has no defined authority/contract; the observed handler implements account/feedback owner reads only.",
+      "blocker": {
+        "declarationIds": [
+          251
+        ],
+        "method": "POST",
+        "path": "/v1/client/feedback",
+        "disposition": "requires_workflow_contract",
+        "verificationState": "blocked",
+        "blockerReason": "feedback_submission_authority_and_write_handler_missing",
+        "routingClassification": "unsupported_feedback_submission",
+        "observed": {
+          "status": 405,
+          "allow": "GET",
+          "forwarded": [
+            {
+              "binding": "CLIENT",
+              "workerPath": "/feedback"
+            }
+          ],
+          "databaseConnectionAttempts": 0
+        },
+        "matchedHandler": {
+          "pattern": "/feedback",
+          "parameter": null,
+          "value": null,
+          "source": "cloudflare/workers/src/client-self.ts"
+        },
+        "missingAuthority": [
+          "permission_key",
+          "request_schema",
+          "response_schema"
+        ],
+        "finding": "The advertised workflow has no defined authority/contract; the observed handler implements account/feedback owner reads only.",
+        "evidence": [
+          "scripts/test-method-capture-blockers.mjs",
+          "scripts/register-method-capture-blockers.py",
+          "scripts/test-method-capture-blockers.py",
+          "cloudflare/workers/src/gateway.ts",
+          "cloudflare/workers/src/account-admin.ts",
+          "cloudflare/workers/src/client-self.ts",
+          "cloudflare/workers/src/client-records-registry.json",
+          "packages/domain/src/registries/FormRegistry/client-forms.ts"
+        ]
+      }
     },
     {
       "api": "POST /v1/client/feedback/analytics",
@@ -21793,7 +21881,7 @@
         "PRISMA"
       ],
       "area": "client",
-      "stage": "needs_contract_and_verification",
+      "stage": "blocked",
       "missingContractFields": [
         "permission",
         "requestSchema",
@@ -21803,7 +21891,51 @@
       "unitEvidenceRecorded": false,
       "postgresEvidence": "not_mapped_per_operation",
       "productionEvidence": "not_mapped_per_operation",
-      "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
+      "nextAction": "The advertised workflow has no defined authority/contract; the observed handler implements account/feedback owner reads only.",
+      "blocker": {
+        "declarationIds": [
+          253
+        ],
+        "method": "POST",
+        "path": "/v1/client/feedback/analytics",
+        "disposition": "requires_workflow_contract",
+        "verificationState": "blocked",
+        "blockerReason": "generic_owned_detail_capture_not_workflow",
+        "routingClassification": "workflow_name_captured_as_record_id",
+        "observed": {
+          "status": 405,
+          "allow": "GET",
+          "forwarded": [
+            {
+              "binding": "CLIENT",
+              "workerPath": "/feedback/analytics"
+            }
+          ],
+          "databaseConnectionAttempts": 0
+        },
+        "matchedHandler": {
+          "pattern": "/feedback/{recordId}",
+          "parameter": "recordId",
+          "value": "analytics",
+          "source": "cloudflare/workers/src/client-self.ts"
+        },
+        "missingAuthority": [
+          "permission_key",
+          "request_schema",
+          "response_schema"
+        ],
+        "finding": "The advertised workflow has no defined authority/contract; the observed handler implements account/feedback owner reads only.",
+        "evidence": [
+          "scripts/test-method-capture-blockers.mjs",
+          "scripts/register-method-capture-blockers.py",
+          "scripts/test-method-capture-blockers.py",
+          "cloudflare/workers/src/gateway.ts",
+          "cloudflare/workers/src/account-admin.ts",
+          "cloudflare/workers/src/client-self.ts",
+          "cloudflare/workers/src/client-records-registry.json",
+          "packages/domain/src/registries/FormRegistry/client-forms.ts"
+        ]
+      }
     },
     {
       "api": "POST /v1/client/feedback/surveys",
@@ -21816,7 +21948,7 @@
         "PRISMA"
       ],
       "area": "client",
-      "stage": "needs_contract_and_verification",
+      "stage": "blocked",
       "missingContractFields": [
         "permission",
         "requestSchema",
@@ -21826,7 +21958,51 @@
       "unitEvidenceRecorded": false,
       "postgresEvidence": "not_mapped_per_operation",
       "productionEvidence": "not_mapped_per_operation",
-      "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
+      "nextAction": "The advertised workflow has no defined authority/contract; the observed handler implements account/feedback owner reads only.",
+      "blocker": {
+        "declarationIds": [
+          252
+        ],
+        "method": "POST",
+        "path": "/v1/client/feedback/surveys",
+        "disposition": "requires_workflow_contract",
+        "verificationState": "blocked",
+        "blockerReason": "generic_owned_detail_capture_not_workflow",
+        "routingClassification": "workflow_name_captured_as_record_id",
+        "observed": {
+          "status": 405,
+          "allow": "GET",
+          "forwarded": [
+            {
+              "binding": "CLIENT",
+              "workerPath": "/feedback/surveys"
+            }
+          ],
+          "databaseConnectionAttempts": 0
+        },
+        "matchedHandler": {
+          "pattern": "/feedback/{recordId}",
+          "parameter": "recordId",
+          "value": "surveys",
+          "source": "cloudflare/workers/src/client-self.ts"
+        },
+        "missingAuthority": [
+          "permission_key",
+          "request_schema",
+          "response_schema"
+        ],
+        "finding": "The advertised workflow has no defined authority/contract; the observed handler implements account/feedback owner reads only.",
+        "evidence": [
+          "scripts/test-method-capture-blockers.mjs",
+          "scripts/register-method-capture-blockers.py",
+          "scripts/test-method-capture-blockers.py",
+          "cloudflare/workers/src/gateway.ts",
+          "cloudflare/workers/src/account-admin.ts",
+          "cloudflare/workers/src/client-self.ts",
+          "cloudflare/workers/src/client-records-registry.json",
+          "packages/domain/src/registries/FormRegistry/client-forms.ts"
+        ]
+      }
     },
     {
       "api": "POST /v1/client/home/profile",
@@ -33719,10 +33895,23 @@
         "POST /v1/provider/dashboard"
       ],
       "reviewed": 0
+    },
+    {
+      "name": "Explicit method-capture and unsupported-feedback blockers",
+      "total": 4,
+      "resolved": 0,
+      "operations": [
+        "POST /v1/admin/users/churn-heatmap",
+        "POST /v1/client/feedback",
+        "POST /v1/client/feedback/surveys",
+        "POST /v1/client/feedback/analytics"
+      ],
+      "resolvedOperations": [],
+      "reviewed": 4
     }
   ],
   "source": {
     "path": "docs/api/api-execution-inventory.json",
-    "sha256": "7b9254c744e3eba2b324db5172c1c5b8a1345ca75c2610e9ee4a0dff59036619"
+    "sha256": "69978f96753f7c93c4c81db41d2ef0dd427879ffd7e58e55432287d0d0da7b79"
   }
 }

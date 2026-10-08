@@ -85,3 +85,19 @@ This bounded wave reconciles billing invoice list/detail callers with existing o
 Five unique legacy POST declarations are retired with guarded source, contract and reference checks: three middleware namespace prefixes (`/v1/public/`, `/v1/debug/`, `/v1/marketing/`), `/v1/client/billing/invoices`, and `/v1/provider/dashboard`. These are retirement credits, not implemented APIs. The finite denominator remains 1,415 operations; after derived reconciliation it is 343 with unit evidence, 9 retired, 1,053 pending and 10 explicitly blocked. Production verification remains unrecorded.
 
 Provider validation passed 57 new actual Flutter tests plus 246 auth transport regressions, targeted analysis, and 8 retirement safety tests. The invoice and prefix package adds 17 actual registry/gateway/handler or negative-routing checks. Full fixture and exact-head PostgreSQL/Flutter CI evidence is recorded separately before merge. The separate screen-auditor repair preserves original metadata and keeps readiness false; it earns zero API completion credit.
+
+
+## Parallel method-capture blocker package
+
+Reviewed the four remaining POST method-rejection observations against actual callers and handlers. `/v1/admin/users/churn-heatmap` reaches account detail with `churn-heatmap` as `userId`; `/v1/client/feedback/surveys` and `/analytics` reach feedback detail with the suffix as `recordId`. Their GET behavior is an owned resource lookup, not the advertised churn/survey/analytics workflow. The `/v1/client/feedback` POST form is a real submission with visit/rating/comment fields; its owner GET collection is not a write replacement.
+
+The guarded derived registration preserves all declarations, canonical operations, callers, contracts and findings, and changes only these four statuses to blocked/unverified. Exact source hashes, complete declaration identities, manifest dispositions and atomic mutation guards prevent this evidence from being reused after drift. The finite baseline remains 1,415: 343 unit-evidence operations, 9 retirements, 1,049 pending and 14 explicit blockers. This wave resolves zero APIs and adds zero retirements; moving pending operations into a documented blocker category is not completion.
+
+Actual bundled gateway/handler tests cover negative POST routing, owner/authentication checks, real resource identifier capture and SQL projection shape. The generated pending audit excludes blocked operations and records these four reviewed blocked probes separately. No runtime handler, method alias, business authorization or production database is changed.
+
+
+## Postman batch diagnostics
+
+Generated an importable Postman 2.1 collection and local environment from all 1,406 active unique operations; nine retired operations are excluded and every original HTTP method is preserved. Unknown mutation requests contain empty diagnostic JSON and synthetic record IDs, with no supplied credentials. The exported pre-request and aggregation scripts were tested in the actual Newman sandbox, including refusal before dispatch for credential-bearing or unreviewed remote destinations.
+
+A reproducible loopback-only Newman runner bundles the actual gateway and service Workers, denies PostgreSQL before SQL and external Worker networking, and emits one sanitized result per exact operation with source hashes and evidence stage. The full unauthenticated batch recorded 1,055 route-not-found responses, 337 authentication-required responses, six request-contract responses, four method rejections, and four unverified successful responses. These observations neither prove authorized workflows nor establish production failures. All 1,406 are accounted for; no completed API credit is added.

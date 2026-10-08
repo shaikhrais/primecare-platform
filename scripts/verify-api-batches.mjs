@@ -7,7 +7,7 @@ import {join} from 'node:path';
 function runFixtures(suites){
  const directory=mkdtempSync(join(tmpdir(),'primecare-api-fixtures-'));
  try{return execFileSync(process.execPath,['--test',...suites.map(f=>'scripts/'+f)],{encoding:'utf8',maxBuffer:16*1024*1024,env:{...process.env,TMPDIR:directory,TMP:directory,TEMP:directory}});}
- catch(error){writeFileSync(join(tmpdir(),'primecare-api-fixture-failure.log'),String(error.stdout??'')+String(error.stderr??''));throw Error('API fixture run failed; see '+join(tmpdir(),'primecare-api-fixture-failure.log'),{cause:error.code??error.status});}
+ catch(error){const output=String(error.stdout??'')+String(error.stderr??'');writeFileSync(join(tmpdir(),'primecare-api-fixture-failure.log'),output);process.stderr.write(output);throw Error('API fixture run failed; see '+join(tmpdir(),'primecare-api-fixture-failure.log'),{cause:error.code??error.status});}
  finally{rmSync(directory,{recursive:true,force:true});}
 }
 execFileSync('python3',['scripts/test-record-authority-guard.py'],{stdio:'inherit'});
@@ -25,6 +25,7 @@ execFileSync('python3',['scripts/test-auth-root-retirements.py'],{stdio:'inherit
 execFileSync('python3',['scripts/test-prefix-retirements.py'],{stdio:'inherit'});
 execFileSync('python3',['scripts/test-client-billing-retirements.py'],{stdio:'inherit'});
 execFileSync('python3',['scripts/test-provider-profile-retirement.py'],{stdio:'inherit'});
+execFileSync('python3',['scripts/test-method-capture-blockers.py'],{stdio:'inherit'});
 execFileSync('python3',['scripts/test-api-family-reconciliation.py'],{stdio:'inherit'});
 execFileSync('python3',['scripts/test-api-authority-integrity.py'],{stdio:'inherit'});
 execFileSync('python3',['scripts/test-quarantine-api-grants.py'],{stdio:'inherit'});
@@ -33,6 +34,8 @@ execFileSync('python3',['scripts/test-api-catalog-identity.py'],{stdio:'inherit'
 execFileSync('python3',['scripts/check-api-catalog-identity.py'],{stdio:'inherit'});
 const suites=['test-existing-auth-contracts-api.mjs','test-owned-patient-observations-api.mjs','test-owned-commerce-authoring-api.mjs','test-client-family-notifications-api.mjs','test-training-message-api.mjs','test-provider-timesheet-items-api.mjs','test-client-care-events-api.mjs','test-client-care-metadata-api.mjs','test-owned-singleton-aliases-api.mjs','test-governed-read-aliases-api.mjs','test-contract-gap-api.mjs','test-operational-audit-api.mjs','test-owned-status-summaries-api.mjs','test-review-telehealth-api.mjs','test-report-audit-api.mjs','test-authorship-task-api.mjs','test-care-metadata-api.mjs','test-work-log-metadata-api.mjs','test-provider-event-metadata-api.mjs','test-provider-finance-metadata-api.mjs','test-provider-metadata-api.mjs','test-thread-family-api.mjs','test-password-history-api.mjs','test-personal-metadata-api.mjs','test-feedback-reputation-api.mjs','test-self-device-wellness-api.mjs','test-self-records-api.mjs','test-booking-payment-reads-api.mjs','test-client-records-api.mjs','test-client-booking-lifecycle-api.mjs','test-legacy-domain-api.mjs','test-provider-self-api.mjs','test-client-self-api.mjs','test-self-sessions-api.mjs','test-account-admin-api.mjs','test-governance-api.mjs','test-account-list-api.mjs','test-workspace.mjs','test-auth-maintenance.mjs','test-auth-recovery.mjs','test-auth-api.mjs','test-auth-client.mjs','test-auth-bootstrap.mjs','test-auth-management.mjs','test-auth-password.mjs','test-auth-schema.mjs','test-auth-cleanup.mjs','test-auth-source.mjs','test-auth-rate-limit.mjs','test-source-limit-results.mjs','test-maintenance-projection.mjs','test-read-date-boundaries.mjs','test-email-runtime-validation.mjs','test-password-result-validation.mjs','test-database-result-boundaries.mjs','test-owned-result-boundaries.mjs','test-audit-workspace-boundaries.mjs','test-summary-group-boundaries.mjs','test-record-identity-boundaries.mjs','test-pagination-consistency.mjs','test-date-serialization-boundaries.mjs','test-dense-result-boundaries.mjs','test-account-session-page-boundaries.mjs','test-tenant-authority-boundaries.mjs','test-nested-adapter-boundaries.mjs','test-reference-read-boundaries.mjs','test-database-integer-boundaries.mjs','test-database-integer-contracts.mjs','test-record-identifier-contracts.mjs','test-summary-contracts.mjs','test-list-page-contracts.mjs','test-response-envelope-contracts.mjs','test-read-envelope-page-contracts.mjs','test-timestamp-contracts.mjs','test-auth-delivery-work-package.mjs'];
 suites.push('test-prefix-root-routing.mjs','test-client-billing-reconciliation.mjs');
+suites.push('test-method-capture-blockers.mjs');
+suites.push('test-primecare-postman.mjs','test-primecare-api-diagnostics.mjs');
 let output=runFixtures(suites);
 let count=Number(/(?:#|ℹ) tests (\d+)/.exec(output)?.[1]);
 let fail=Number(/(?:#|ℹ) fail (\d+)/.exec(output)?.[1]);
@@ -43,6 +46,8 @@ sources.push('scripts/reconcile-client-read-declarations.py','scripts/test-clien
 sources.push('scripts/api_authority_integrity.py','scripts/governance_schema_integrity.py','scripts/quarantine-api-grants.py','scripts/quarantine-api-schemas.py','scripts/repair-local-api-metadata.py','scripts/check-api-catalog-identity.py','scripts/register-workspace-governance.py','scripts/validate_architecture_db.py','scripts/test-api-authority-integrity.py','scripts/test-quarantine-api-grants.py','scripts/test-governance-schema-integrity.py','scripts/test-api-catalog-identity.py');
 sources.push('scripts/reconcile-auth-root-declarations.py','scripts/test-auth-root-retirements.py','docs/api/auth-root-retirement-package.json');
 sources.push('scripts/test-prefix-retirements.py','scripts/test-client-billing-retirements.py','scripts/test-provider-profile-retirement.py','scripts/reconcile-prefix-declarations.py','scripts/reconcile-client-billing-declarations.py','scripts/reconcile-provider-profile-declaration.py','scripts/test-prefix-root-routing.mjs','scripts/test-client-billing-reconciliation.mjs','docs/api/prefix-retirement-package.json','docs/api/client-billing-retirement-package.json','docs/api/provider-profile-retirement-package.json');
+sources.push('scripts/register-method-capture-blockers.py','scripts/test-method-capture-blockers.py','scripts/audit-api-reachability.mjs','docs/api/method-capture-blocker-package.json');
+sources.push('scripts/generate-primecare-postman.mjs','scripts/run-primecare-api-diagnostics.mjs','docs/api/POSTMAN_API_DIAGNOSTICS.md');
 const hashes=Object.fromEntries(sources.map(p=>[p,createHash('sha256').update(readFileSync(p)).digest('hex')]));
 const evidence={scope:'local_unit_fixtures',passed:count,failed:fail,productionVerified:false,postgresVerified:false,sourceHashes:hashes};
 mkdirSync('docs/api',{recursive:true});writeFileSync('docs/api/batch-test-evidence.json',JSON.stringify(evidence,null,2)+'\n');
@@ -62,3 +67,7 @@ console.log(`${count} API fixture tests passed; runtime and PostgreSQL gates rem
 execFileSync(process.execPath,['scripts/audit-api-reachability.mjs'],{stdio:'inherit'});
 
 execFileSync('python3',['scripts/generate-api-family-reconciliation.py'],{stdio:'inherit'});
+
+// Keep the importable diagnostics synchronized with the final finite checklist.
+execFileSync(process.execPath,['scripts/generate-primecare-postman.mjs'],{stdio:'inherit'});
+execFileSync(process.execPath,['scripts/run-primecare-api-diagnostics.mjs'],{stdio:'inherit'});

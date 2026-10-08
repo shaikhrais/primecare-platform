@@ -6,8 +6,8 @@ Baseline: **1415 unique operations**; 1406 active, 9 retired with evidence. 1407
 
 | Evidence stage | Unique operations |
 | --- | ---: |
-| blocked | 10 |
-| needs_contract_and_verification | 1053 |
+| blocked | 14 |
+| needs_contract_and_verification | 1049 |
 | retired_with_evidence | 9 |
 | unit_evidence_recorded | 343 |
 
@@ -83,12 +83,21 @@ The work-package denominator is fixed; a missing declaration only resolves throu
 
 - [x] POST /v1/provider/dashboard
 
+## Next finite work package
+
+**4/4 reviewed; 0/4 resolved: Explicit method-capture and unsupported-feedback blockers.**
+
+- [ ] POST /v1/admin/users/churn-heatmap
+- [ ] POST /v1/client/feedback
+- [ ] POST /v1/client/feedback/surveys
+- [ ] POST /v1/client/feedback/analytics
+
 ## Work by route area
 
 | Area | Baseline | Unit evidence | Needs work | Blocked | Retired |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | adjustment-notes | 1 | 0 | 1 | 0 | 0 |
-| admin | 252 | 7 | 245 | 0 | 0 |
+| admin | 252 | 7 | 244 | 1 | 0 |
 | agent-dispatch | 1 | 0 | 1 | 0 | 0 |
 | ai | 9 | 0 | 9 | 0 | 0 |
 | allied | 1 | 0 | 1 | 0 | 0 |
@@ -140,7 +149,7 @@ The work-package denominator is fixed; a missing declaration only resolves throu
 | cisoanalytics | 1 | 0 | 1 | 0 | 0 |
 | cisoworkflow | 1 | 0 | 1 | 0 | 0 |
 | claims-processing | 1 | 0 | 1 | 0 | 0 |
-| client | 121 | 97 | 21 | 0 | 3 |
+| client | 121 | 97 | 18 | 3 | 3 |
 | client-intake | 1 | 0 | 1 | 0 | 0 |
 | client-issue | 1 | 0 | 1 | 0 | 0 |
 | client-progress | 1 | 0 | 1 | 0 | 0 |
