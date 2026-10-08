@@ -1,15 +1,11 @@
-import {accountId} from './account-read-projection';
+import {accountId,accountUtcTimestamp} from './account-read-projection';
 import {scopedActor,optionalRow,requiredRow,boundRow,resultRows} from './database-results';
 import {sourceLimitAllowed} from './source-limit-result';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 
 const idPattern=/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/;
 const fields='id,service_type,preferred_date,preferred_time,status,created_at,updated_at';
-const timestamp=(value:unknown):string=>{
-  if(value instanceof Date){if(!Number.isFinite(value.getTime())||value.getUTCFullYear()<0||value.getUTCFullYear()>9999)throw Error('Invalid booking timestamp');return value.toISOString();}
-  if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(value)||!Number.isFinite(Date.parse(value)))throw Error('Invalid booking timestamp');
-  const iso=new Date(value).toISOString();if(iso.slice(0,19)!==value.slice(0,19))throw Error('Invalid booking timestamp');return iso;
-};
+const timestamp=accountUtcTimestamp;
 const project=(r:Record<string,unknown>,expectedId:string,expectedStatus:'pending'|'cancelled')=>{
   if(!r||typeof r!=='object'||Array.isArray(r)||typeof r.id!=='string'||!idPattern.test(r.id)||r.id!==expectedId||
     typeof r.service_type!=='string'||!r.service_type.trim()||r.service_type.length>100||/[\u0000-\u001f]/.test(r.service_type)||
@@ -33,10 +29,8 @@ async function createInput(request:Request):Promise<Record<string,unknown>>{
   const b=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
   if(!b||typeof b!=='object'||Array.isArray(b)||Object.keys(b).some(k=>!['service_type','preferred_date','preferred_time','notes'].includes(k)))throw Error('Invalid fields');
   if(typeof b.service_type!=='string'||!b.service_type.trim()||b.service_type.length>100||/[\u0000-\u001f]/.test(b.service_type))throw Error('Invalid service');
-  if(typeof b.preferred_date!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(b.preferred_date)||!Number.isFinite(Date.parse(b.preferred_date)))throw Error('Invalid date');
-  const date=new Date(b.preferred_date).toISOString();
-  // Reject normalized impossible calendar dates such as February 30.
-  if(date.slice(0,19)!==b.preferred_date.slice(0,19))throw Error('Invalid date');
+  if(typeof b.preferred_date!=='string')throw Error('Invalid date');
+  const date=timestamp(b.preferred_date);
   if(b.preferred_time!=null&&(typeof b.preferred_time!=='string'||!/^([01]\d|2[0-3]):[0-5]\d$/.test(b.preferred_time)))throw Error('Invalid time');
   if(b.notes!=null&&(typeof b.notes!=='string'||b.notes.length>2000||b.notes.includes('\u0000')))throw Error('Invalid notes');
   return {service_type:b.service_type.trim(),preferred_date:date,preferred_time:b.preferred_time??null,notes:b.notes??null};
@@ -111,3 +105,4 @@ export async function clientBookingLifecycle(request:Request,env:Env,path:string
     });
   }catch{safe.delete('idempotency-replayed');return json({error:'Booking request service unavailable'},503,safe);}
 }
+

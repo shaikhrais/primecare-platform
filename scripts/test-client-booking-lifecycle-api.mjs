@@ -39,6 +39,23 @@ test('gateway preserves idempotency headers, body and CORS for submission',async
 
 
 const corruptResult=(prefix,change)=>{const base=globalThis.__lifecycleQuery;globalThis.__lifecycleQuery=async(sql,values)=>{const result=await base(sql,values);if(sql.startsWith(prefix))change(result);return result;};};
+test('booking mutation and audit dates reuse safe intrinsic Date serialization',async()=>{
+ for(const path of ['/booking-requests','/booking-requests/request/cancel']) {
+  fixture();let calls=0;const value=new Date(row.created_at);
+  for(const method of ['getTime','getUTCFullYear','toISOString','toJSON'])value[method]=()=>{calls++;return {private:'adapter-date-secret'};};
+  corruptResult(path==='/booking-requests'?'INSERT INTO booking_requests':'UPDATE booking_requests',result=>{for(const field of ['preferred_date','created_at','updated_at'])result.rows[0][field]=value;});
+  corruptResult('INSERT INTO booking_request_audit',result=>{result.rows[0].created_at=value;});
+  const response=await call(path,path==='/booking-requests'?input:undefined);
+  assert.equal(response.status,path==='/booking-requests'?201:200);
+  const body=await response.json();
+  for(const field of ['preferred_date','created_at','updated_at'])assert.equal(body.request[field],row.created_at);
+  assert.equal(calls,0);assert.ok(!JSON.stringify(body).includes('private'));assert.equal(queries.at(-1).sql,'COMMIT');
+ }
+ fixture();let calls=0;const value=new Date(row.created_at);value.toISOString=()=>{calls++;return {private:'audit-secret'};};
+ corruptResult('SELECT id::text',result=>{result.rows[0].created_at=value;});
+ const response=await call('/booking-requests/request/audit',undefined,'GET');
+ assert.equal(response.status,200);assert.equal((await response.json()).events[0].created_at,row.created_at);assert.equal(calls,0);
+});
 test('mutation result corruption prevents audit insertion and commit',async()=>{
  for(const path of ['/booking-requests','/booking-requests/request/cancel'])for(const [field,value] of [['id',null],['id','foreign'],['service_type',null],['service_type',''],['preferred_time','25:00'],['preferred_date','2026-02-30T12:00:00Z'],['created_at','now'],['updated_at',null],['status','approved']]){
   fixture();corruptResult(path==='/booking-requests'?'INSERT INTO booking_requests':'UPDATE booking_requests',result=>{result.rows[0][field]=value;});const response=await call(path);assert.equal(response.status,503,field);assert.deepEqual(await response.json(),{error:'Booking request service unavailable'});assert.equal(queries.at(-1).sql,'ROLLBACK');assert.ok(!queries.some(q=>q.sql==='COMMIT'||q.sql.startsWith('INSERT INTO booking_request_audit')));
@@ -147,3 +164,4 @@ test('collection submission shares idempotency with both request aliases and pre
  let forwarded;const list=await gateway.fetch(new Request('https://fixture/v1/client/bookings'),{CLIENT:{fetch:async r=>{forwarded=r;return Response.json({bookings:[]});}}});assert.equal(list.status,200);assert.equal(new URL(forwarded.url).pathname,'/bookings');assert.equal(forwarded.method,'GET');
  const {readFileSync}=await import('node:fs');const caller=readFileSync('packages/domain/src/registries/button_registry.ts','utf8').split('\n').find(s=>s.includes("id: 'client-book-req'"));assert.ok(caller.includes("path: '/v1/client/bookings'"));assert.ok(caller.includes('client-booking-form'));assert.ok(caller.includes('Idempotency-Key'));
 });
+

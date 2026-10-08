@@ -1,5 +1,5 @@
 import {validDatabaseInteger,validDatabaseIntegerSum} from './database-integer-validation';
-import {accountTimestamp} from './account-read-projection';
+import {accountUtcTimestamp} from './account-read-projection';
 import {summaryRows} from './summary-results';
 import {pageRows,recordRows,scopedActor,boundRow,resultRows,requiredRow} from './database-results';
 import {sourceLimitAllowed} from './source-limit-result';
@@ -7,11 +7,7 @@ import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 
 const identifier=/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/;
 const count=(value:unknown)=>{if(typeof value!=='number'||!Number.isSafeInteger(value)||value<0)throw Error('Invalid timesheet item count');return value;};
-const timestamp=(value:unknown)=>{
-  if(value instanceof Date)return accountTimestamp(value);
-  if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(value)||!Number.isFinite(Date.parse(value)))throw Error('Invalid timesheet item timestamp');
-  const result=new Date(value).toISOString();if(result.slice(0,19)!==value.slice(0,19))throw Error('Invalid timesheet item timestamp');return result;
-};
+const timestamp=accountUtcTimestamp;
 const project=(row:Record<string,unknown>)=>{
   if(typeof row.id!=='string'||!identifier.test(row.id)||!validDatabaseInteger(row.minutes))throw Error('Invalid timesheet item');
   return {id:row.id,minutes:row.minutes,created_at:timestamp(row.created_at)};
@@ -66,3 +62,4 @@ export async function providerTimesheetItems(request:Request,env:Env,path:string
     });
   }catch{return json({error:'Timesheet item data unavailable'},503,safe);}
 }
+

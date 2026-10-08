@@ -46119,7 +46119,7 @@
     "cloudflare/workers/src/account-admin.ts": "b93b16c000f0c02e387fef5b3566b79f2c786f8b62fb23176471b506390d9b92",
     "cloudflare/workers/src/account-policy.json": "74d51cb199e3ac6522acd0723561d7af93327bb80114ad8de96b5ddebdc432ce",
     "cloudflare/workers/src/auth.ts": "84c264df6d5f3c4e72a8e86dc45e560fa2e1eaa4a32f41b48f752cdabb4ce4d1",
-    "cloudflare/workers/src/client-booking-lifecycle.ts": "f1407914da8a425576fe0ede136c2c8b2a77b3dac1ffd6f29169e35e09e3ea53",
+    "cloudflare/workers/src/client-booking-lifecycle.ts": "2eeaf8a0f563a6de1dc3b9add19e37bc32107856a9138b5cacc1714cc0be443c",
     "cloudflare/workers/src/client-records-registry.json": "376620e3a45a9276bd751e79e000b223ac8dd280395b13ac46773bbb618738f5",
     "cloudflare/workers/src/client-self.ts": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5",
     "cloudflare/workers/src/gateway.ts": "8ec518ef8d8bf5577da2f049abd02c089e4d4405060adf71655487ee12851fb9",
