@@ -27,3 +27,10 @@ See `api-execution-status-batch-20.openapi.json`. No permission inheritance or n
 ## Verification
 
 219 local API fixtures pass. Added coverage includes creation, cancellation, idempotency conflicts/replay, ownership reassignment, audit failures, validation, authentication, tenant scope, throttling, projected history, gateway/CORS and inventory authorization/filtering. PostgreSQL CI covers concurrent identical submissions, competing cancellations, foreign owners/tenants, atomic rollback, missing audit storage, expired sessions and text/UUID auth identity schemas. Local evidence does not claim PostgreSQL or production verification. No UI changes or deployment are included.
+
+## Shared timestamp validation
+
+Booking input, mutation projections and audit metadata reuse `accountUtcTimestamp` from the existing `account-read-projection.ts` module. Provider timesheet-item projections use the same boundary. The helper reuses the established account calendar and intrinsic Date checks while retaining these contracts' UTC-only syntax, zero to three fractional digits, and normalized ISO output. General `accountTimestamp` read contracts retain their offset/fraction-preserving behavior.
+
+Adapter-provided Date objects cannot override instance methods to leak private fields or masquerade as valid timestamps. Booking mutation/audit regression fixtures exercise the actual handler and verify audit-before-commit behavior. `scripts/test-shared-utc-timestamps.mjs` checks normalization, calendar boundaries, invalid input, expanded years and Date overrides; the existing API verification runner includes it. No routes, permissions, business transitions or governance records are added. This reuse repair earns zero new API completion credits. PostgreSQL, exact-head CI and production evidence remain separately required.
+
