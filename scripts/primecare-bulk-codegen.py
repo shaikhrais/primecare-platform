@@ -92,7 +92,7 @@ export const unimplementedWorkflowContracts: readonly UnimplementedWorkflowContr
 '''
     for row in descriptors:
         scalar = {k: v for k, v in row.items() if k not in ('declarationIds', 'missingSlots')}
-        ts += '  Object.freeze({ ...(' + serialize(scalar).strip() + ' as const), declarationIds: Object.freeze(' + serialize(row['declarationIds']).strip() + '), missingSlots: Object.freeze(' + serialize(row['missingSlots']).strip() + ') }),\n'
+        ts += '  Object.freeze<UnimplementedWorkflowContract>({ ...(' + serialize(scalar).strip() + ' as const), declarationIds: Object.freeze(' + serialize(row['declarationIds']).strip() + '), missingSlots: Object.freeze(' + serialize(row['missingSlots']).strip() + ') }),\n'
     ts += ''']);
 export class MissingWorkflowContractError extends Error {
   readonly api: string;
