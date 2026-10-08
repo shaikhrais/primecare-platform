@@ -104,3 +104,11 @@ jobs:
             docs/api/PrimeCare.local.postman_environment.json
             docs/api/primecare-api-error-report.json
           if-no-files-found: error
+
+      - name: Upload API fixture failure details
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: primecare-api-fixture-failure-${{ matrix.identity }}
+          path: /tmp/primecare-api-fixture-failure.log
+          if-no-files-found: ignore

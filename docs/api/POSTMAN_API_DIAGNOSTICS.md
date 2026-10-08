@@ -7,8 +7,8 @@ With repository dependencies installed, run from the repository root to generate
 ```sh
 npm install --no-save --package-lock=false --ignore-scripts newman@6.2.1
 node scripts/generate-primecare-postman.mjs
-PRIMECARE_NEWMAN_PACKAGE=/tmp/primecare-wave-node/package.json node scripts/run-primecare-api-diagnostics.mjs
-PRIMECARE_NEWMAN_PACKAGE=/tmp/primecare-wave-node/package.json node --test scripts/test-primecare-api-diagnostics.mjs
+node scripts/run-primecare-api-diagnostics.mjs
+node --test scripts/test-primecare-api-diagnostics.mjs
 ```
 
 The runner verifies exact active checklist membership before execution. It executes Newman requests on a randomly assigned IPv4 loopback port against the actual bundled gateway and Worker service sources. Every PostgreSQL connection/query is denied before SQL, external Worker `fetch` is denied, email is disabled, and rate-limit fixtures permit requests. The offline view strips scripts, credentials, imported payloads and arbitrary variables; uses synthetic identifiers and empty JSON; preserves each declared HTTP method; and does not follow redirects. A separate integration test executes the generated collection's original pre-request and aggregation scripts in the actual Newman sandbox.

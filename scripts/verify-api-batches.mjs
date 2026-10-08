@@ -7,7 +7,7 @@ import {join} from 'node:path';
 function runFixtures(suites){
  const directory=mkdtempSync(join(tmpdir(),'primecare-api-fixtures-'));
  try{return execFileSync(process.execPath,['--test',...suites.map(f=>'scripts/'+f)],{encoding:'utf8',maxBuffer:16*1024*1024,env:{...process.env,TMPDIR:directory,TMP:directory,TEMP:directory}});}
- catch(error){writeFileSync(join(tmpdir(),'primecare-api-fixture-failure.log'),String(error.stdout??'')+String(error.stderr??''));throw Error('API fixture run failed; see '+join(tmpdir(),'primecare-api-fixture-failure.log'),{cause:error.code??error.status});}
+ catch(error){const output=String(error.stdout??'')+String(error.stderr??'');writeFileSync(join(tmpdir(),'primecare-api-fixture-failure.log'),output);process.stderr.write(output);throw Error('API fixture run failed; see '+join(tmpdir(),'primecare-api-fixture-failure.log'),{cause:error.code??error.status});}
  finally{rmSync(directory,{recursive:true,force:true});}
 }
 execFileSync('python3',['scripts/test-record-authority-guard.py'],{stdio:'inherit'});
