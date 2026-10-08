@@ -22,7 +22,7 @@ void main() {
       () async {
         final repository = FakeOwnNotifications()
           ..responses.addAll([
-            ApiResponse(data: {}, statusCode: 401, error: 'Session expired'),
+            ApiResponse(data: <String, dynamic>{}, statusCode: 401, error: 'Session expired'),
             ApiResponse(data: records, statusCode: 200),
           ]);
         final container = ProviderContainer(
