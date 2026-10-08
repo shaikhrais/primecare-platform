@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_ui/src/screens/clinical/clinical_director_dashboard_screen.dart';
 import 'auth_design_test.dart' show localized;
+import 'package:primecare_ui/primecare_ui.dart' show GovMetricCard;
 
 Map<String, dynamic> validData() => {
   'residentsToday': 3,
@@ -303,4 +304,36 @@ void main() {
       expect(find.textContaining('successfully'), findsNothing);
     },
   );
+  testWidgets('metric status wraps within 230px at enlarged text scale', (
+    tester,
+  ) async {
+    const status = 'Active Quarantine Requires Clinical Review';
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: MediaQuery(
+            data: const MediaQueryData(textScaler: TextScaler.linear(2)),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: SizedBox(
+                width: 230,
+                child: GovMetricCard(
+                  title: 'Active Outbreaks',
+                  value: '3',
+                  trendLabel: status,
+                  progress: 0,
+                  icon: Icons.warning,
+                  brandColor: Colors.red,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text(status), findsOneWidget);
+    expect(tester.takeException(), isNull);
+    expect(tester.getSize(find.text(status)).width, lessThan(230));
+  });
 }

@@ -236,7 +236,8 @@ class GovMetricCard extends StatelessWidget {
                         ),
                         child: Icon(icon, color: brandColor, size: 20),
                       ),
-                      Container(
+                      const SizedBox(width: 8),
+                      Flexible(child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: const Color(0xFFDCFCE7),
@@ -252,17 +253,17 @@ class GovMetricCard extends StatelessWidget {
                               color: Color(0xFF15803D),
                             ),
                             const SizedBox(width: 4),
-                            Text(
+                            Flexible(child: Text(
                               trendLabel,
                               style: theme.typography.bodySmall.copyWith(
                                 color: const Color(0xFF15803D),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
-                            ),
+                            )),
                           ],
                         ),
-                      ),
+                      )),
                     ],
                   ),
                   const SizedBox(height: 20),

@@ -91787,6 +91787,7 @@
     "packages/infrastructure/src/constants/route_metadata/staff_rn.ts": "4e41f31c7fabf86c473e433b345b53fa68d47395659d84b0cbe69cef1de13a38",
     "packages/infrastructure/src/services/billing_service.ts": "99e37ae2002ddd3da25b717b8b5c50e7412623f2912f1f91631cd2e5d79b40c1",
     "packages/primecare_ui/lib/src/api/generated/api_clients.dart": "d2e396c3ff438b0474343dcc589b6b6132ab4953f59afbbfa292ba52c740bb53",
+    "packages/primecare_ui/lib/src/components/governance_components.dart": "5eab0003510602db746502d3f95a3eb126e1dd4b7dfa74bbe32c8df320ddde9a",
     "packages/primecare_ui/lib/src/features/admin/audit_log_viewer.dart": "d2f86ae383e6374d958f1f6ead6e8cedca8bcff135677b64ea21422c58a52dc8",
     "packages/primecare_ui/lib/src/features/admin/device_fleet_manager.dart": "51e3d0edb219a29bc295a312c160c92d80b08f500a20dec3669088dcc4fd47a3",
     "packages/primecare_ui/lib/src/features/admin/global_settings_screen.dart": "95491ed96910738f1f8e0cb3e8a43c624f898c563cf40f49072e8967b3de03b3",
