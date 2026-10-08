@@ -66,8 +66,21 @@ def validate_requests(submitted, expected):
 
 
 def dart_literal(value):
-    # JSON literals are Dart-compatible except interpolation: escape every dollar.
-    return json.dumps(value, ensure_ascii=True).replace('$', r'\$')
+    if not isinstance(value, str):
+        return json.dumps(value, ensure_ascii=True)
+    escaped = []
+    for char in value:
+        if char == "'":
+            escaped.append("\\'")
+        elif char == "\\":
+            escaped.append("\\\\")
+        elif char == '$':
+            escaped.append(r'\$')
+        elif ord(char) < 32 or ord(char) > 126:
+            escaped.append('\\u{' + format(ord(char), 'x') + '}')
+        else:
+            escaped.append(char)
+    return "'" + ''.join(escaped) + "'"
 
 
 def build(checklist, manifest, requests=None, validate_sources=None):
