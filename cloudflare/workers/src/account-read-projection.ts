@@ -15,6 +15,14 @@ export function accountTimestamp(value: unknown, nullable = false): string | nul
   if (calendar.getUTCFullYear() !== year || calendar.getUTCMonth() !== month - 1 || calendar.getUTCDate() !== day) throw Error('Invalid account timestamp');
   return value;
 }
+/** UTC-only normalized boundary for existing booking and timesheet contracts.
+ * Keep accountTimestamp's offset/fraction-preserving read contracts unchanged. */
+export function accountUtcTimestamp(value: unknown): string {
+  if (value instanceof Date) return accountTimestamp(value) as string;
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(value)) throw Error('Invalid UTC timestamp');
+  accountTimestamp(value);
+  return new Date(value).toISOString();
+}
 export function accountUser(row: Record<string, unknown>, actorId: string, nullableState = false) {
   const id = accountId(row.id);
   if (typeof row.email !== 'string' || !row.email ||
@@ -27,3 +35,4 @@ export function accountAuditIdentity(row: Record<string, unknown>) {
   return {id: accountId(row.id), actorUserId: accountId(row.actorUserId), targetUserId: accountId(row.targetUserId),
     created_at: accountTimestamp(row.created_at)};
 }
+
