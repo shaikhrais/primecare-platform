@@ -313,17 +313,20 @@ void main() {
         home: Scaffold(
           body: MediaQuery(
             data: const MediaQueryData(textScaler: TextScaler.linear(2)),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: SizedBox(
-                width: 230,
-                child: GovMetricCard(
-                  title: 'Active Outbreaks',
-                  value: '3',
-                  trendLabel: status,
-                  progress: 0,
-                  icon: Icons.warning,
-                  brandColor: Colors.red,
+            // Production ResponsiveSplitDashboard gives metric cards vertical scrolling.
+            child: SingleChildScrollView(
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: SizedBox(
+                  width: 230,
+                  child: GovMetricCard(
+                    title: 'Active Outbreaks',
+                    value: '3',
+                    trendLabel: status,
+                    progress: 0,
+                    icon: Icons.warning,
+                    brandColor: Colors.red,
+                  ),
                 ),
               ),
             ),
@@ -333,6 +336,8 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.text(status), findsOneWidget);
+    expect(find.text('Utilization'), findsOneWidget);
+    expect(find.text('0%'), findsOneWidget);
     expect(tester.takeException(), isNull);
     expect(tester.getSize(find.text(status)).width, lessThan(230));
   });

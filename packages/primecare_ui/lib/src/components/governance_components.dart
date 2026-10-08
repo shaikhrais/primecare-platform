@@ -222,6 +222,7 @@ class GovMetricCard extends StatelessWidget {
                 ],
               ),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -291,21 +292,22 @@ class GovMetricCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          Flexible(child: Text(
                             'Utilization',
                             style: theme.typography.bodySmall.copyWith(
                               color: theme.colors.outline,
                               fontSize: 10,
                             ),
-                          ),
-                          Text(
+                          )),
+                          const SizedBox(width: 8),
+                          Flexible(child: Text(
                             '${(progress * animValue * 100).toInt()}%',
                             style: theme.typography.bodySmall.copyWith(
                               color: brandColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 10,
                             ),
-                          ),
+                          )),
                         ],
                       ),
                       const SizedBox(height: 6),
