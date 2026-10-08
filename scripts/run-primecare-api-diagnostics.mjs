@@ -1,3 +1,4 @@
+import {isBodylessDiagnostic,BODYLESS_CONTRACTS} from './primecare-diagnostic-body-policy.mjs';
 /** Loopback-only Newman diagnostics against the actual bundled gateway/Workers. */
 import {createServer} from 'node:http';
 import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
@@ -33,7 +34,7 @@ export function safeCollection(collection,baseUrl){
   const [api,method,route]=match;if(seen.has(api))throw Error('Duplicate operation identity');seen.add(api);
   const concrete=route.replace(/\{[^}]+\}/g,'diagnostic-record').replace(/:[A-Za-z_][A-Za-z0-9_]*/g,'diagnostic-record');
   if(concrete.includes('{{')||concrete.includes('..')||concrete.includes('?')||concrete.includes('#'))throw Error('Unsafe canonical diagnostic path');
-  return {name:api,request:{method,url:base.origin+concrete,header:[{key:'Content-Type',value:'application/json'}],...(method==='GET'||method==='HEAD'?{}:{body:{mode:'raw',raw:'{}'}})}};
+  return {name:api,request:{method,url:base.origin+concrete,header:[{key:'Content-Type',value:'application/json'}],...(method==='GET'||method==='HEAD'||isBodylessDiagnostic(api)?{}:{body:{mode:'raw',raw:'{}'}})}};
  });
  return {info:{name:'PrimeCare offline diagnostic requests',schema:'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'},item};
 }
@@ -55,7 +56,7 @@ export async function startGateway(){
  const server=createServer(async(req,res)=>{
   try{let body='';for await(const chunk of req){body+=chunk;if(body.length>4096)throw Error('Unexpected request body');}
    guard.methodObservations.push({method:req.method,path:new URL(req.url,'http://127.0.0.1').pathname});
-   const response=await gateway.fetch(new Request('http://127.0.0.1'+req.url,{method:req.method,headers:{...req.headers,'cf-connecting-ip':'127.0.0.1'},...(req.method==='GET'||req.method==='HEAD'?{}:{body})}),env);
+   const response=await gateway.fetch(new Request('http://127.0.0.1'+req.url,{method:req.method,headers:{...req.headers,'cf-connecting-ip':'127.0.0.1'},...(req.method==='GET'||req.method==='HEAD'||body.length===0?{}:{body})}),env);
    res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));
   }catch{res.writeHead(500,{'content-type':'application/json'});res.end('{}');}
  });
@@ -74,7 +75,7 @@ export async function diagnose(collection,{newman=loadNewman(),baseUrl,guard={da
  });
  const operations=[...records.values()],counts={};for(const row of operations)counts[row.classification]=(counts[row.classification]??0)+1;
  if(operations.some(x=>x.classification==='not_executed'))throw Error('Incomplete diagnostic collection execution');
- return {scope:'offline_loopback_unauthenticated_newman',productionVerified:false,authorizationVerified:false,newmanVersion:NEWMAN_VERSION,countingRule:'Diagnostics and field repairs do not complete APIs.',limitations:'Unauthenticated synthetic probes cannot verify ownership or business behavior. Namespace or dynamic captures may return 2xx; responses remain unverified. Offline database denial can produce 5xx without implying a production outage.',baselineUniqueOperations:summary.uniqueOperations??1415,activeUniqueOperations:summary.activeUniqueOperations??operations.length,retiredOperations:summary.retiredOperations??9,executedUniqueOperations:operations.length,databaseAttemptsBlocked:guard.databaseAttempts,externalNetworkAttemptsBlocked:guard.externalNetworkAttempts,classificationCounts:counts,sourceHashes:{...guard.sourceHashes,...sourceHashes},operations};
+ return {scope:'offline_loopback_unauthenticated_newman',productionVerified:false,authorizationVerified:false,newmanVersion:NEWMAN_VERSION,countingRule:'Diagnostics and field repairs do not complete APIs.',limitations:'Unauthenticated synthetic probes cannot verify ownership or business behavior. Namespace or dynamic captures may return 2xx; responses remain unverified. Offline database denial can produce 5xx without implying a production outage.',baselineUniqueOperations:summary.uniqueOperations??1415,activeUniqueOperations:summary.activeUniqueOperations??operations.length,retiredOperations:summary.retiredOperations??9,executedUniqueOperations:operations.length,databaseAttemptsBlocked:guard.databaseAttempts,externalNetworkAttemptsBlocked:guard.externalNetworkAttempts,classificationCounts:counts,sourceHashes:{...guard.sourceHashes,...Object.fromEntries(['scripts/primecare-diagnostic-body-policy.mjs',...new Set(Object.values(BODYLESS_CONTRACTS))].map(p=>[p,sha256(readFileSync(p))])),...sourceHashes},operations};
 }
 async function main(){
  const collectionPath=process.argv[2]??'docs/api/PrimeCare.postman_collection.json',reportPath=process.argv[3]??'docs/api/primecare-api-error-report.json';

@@ -12,11 +12,11 @@
   "databaseAttemptsBlocked": 0,
   "externalNetworkAttemptsBlocked": 0,
   "classificationCounts": {
-    "request_contract_needed": 6,
+    "authentication_required": 340,
     "route_not_found": 1055,
     "response_observed_not_verified": 4,
-    "authentication_required": 337,
-    "method_rejected": 4
+    "method_rejected": 4,
+    "request_contract_needed": 3
   },
   "sourceHashes": {
     "cloudflare/workers/src/governed-read-aliases.json": "e1779921d40058db203523b045b94d65ce1098bf968482a81904f35ab9e00a43",
@@ -65,10 +65,14 @@
     "cloudflare/workers/src/api-execution-inventory.json": "afa0473b786852db6887977aade234dafe7e15c39a19ae1edfe33f379da2bec9",
     "cloudflare/workers/src/governance-api.ts": "b89f1564feae8ab896a0a45f1dcb471b8905a3eccf19dc4375364ade1c2b4d7b",
     "cloudflare/workers/src/service.ts": "7c6b5dbfde7fcb84ce8f211a4577a5819d45ecdf1e205db838a00f898484383f",
-    "docs/api/PrimeCare.postman_collection.json": "83838fd0055db32b54c5be989c44c1c641778703a8014709d220892cf2e859d5",
+    "scripts/primecare-diagnostic-body-policy.mjs": "b95ab340ba232adfbc071d46ff7ee0aeaf2066e7a0374bc711bf022c393b39ba",
+    "docs/api/self-sessions-batch-6.openapi.json": "d28dab37ae9a1a34df807d6cf74db0a0f905df578fc89b230e2b746aeeda1dc2",
+    "docs/api/account-batch-3.openapi.json": "d4ed1808d0f0f73b9c032ade34667bcca99dcbe7ee56785614b379286a217d7d",
+    "docs/api/client-booking-lifecycle-batch-19.openapi.json": "3a9b49b83716538e236f1a41bb29802eeacdf7578d98cfcb4e8caa98b5efdefd",
+    "docs/api/PrimeCare.postman_collection.json": "3e9c6136d35fa7a5afc10cfc65caf049e33b89175596a760c6e8f37660a7d713",
     "docs/api/api-delivery-checklist.json": "654f5e898ed10281b931c5d4817a99dcad56ae8b0a91951fbf01ded48672934d",
-    "scripts/run-primecare-api-diagnostics.mjs": "78aab6d4a2fa7bd8093179fea04f66b858dd554c05632c6c235b72e59cd7d97f",
-    "scripts/generate-primecare-postman.mjs": "389e9e51e575441cd92282546243a056acc67e6965221f88e17ec428538f9d1b"
+    "scripts/run-primecare-api-diagnostics.mjs": "a01bff5f0c558c866d15eba5001e1ef510fd90eeac232445df91b27a69f807ec",
+    "scripts/generate-primecare-postman.mjs": "f45749b42ba6c00e3aa83c438ff504f0c2dbcc029a3a257340a80d2e8ea1ba8a"
   },
   "operations": [
     {
@@ -76,8 +80,8 @@
       "method": "DELETE",
       "path": "/v1/admin/users/{userId}/sessions",
       "stage": "unit_evidence_recorded",
-      "status": 400,
-      "classification": "request_contract_needed",
+      "status": 401,
+      "classification": "authentication_required",
       "transportFailure": false
     },
     {
@@ -85,8 +89,8 @@
       "method": "DELETE",
       "path": "/v1/user/sessions",
       "stage": "unit_evidence_recorded",
-      "status": 400,
-      "classification": "request_contract_needed",
+      "status": 401,
+      "classification": "authentication_required",
       "transportFailure": false
     },
     {
@@ -8050,8 +8054,8 @@
       "method": "POST",
       "path": "/v1/client/booking-requests/{requestId}/cancel",
       "stage": "unit_evidence_recorded",
-      "status": 400,
-      "classification": "request_contract_needed",
+      "status": 401,
+      "classification": "authentication_required",
       "transportFailure": false
     },
     {

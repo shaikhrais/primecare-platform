@@ -40,3 +40,14 @@ test('generated Postman collection scripts execute in the real Newman sandbox',a
 });
 
 test('generated remote guard skips credential-bearing loopback URL before dispatch',async()=>{const {readFileSync}=await import('node:fs');const {flatten,loadNewman}=await import('./run-primecare-api-diagnostics.mjs');const original=JSON.parse(readFileSync('docs/api/PrimeCare.postman_collection.json','utf8'));const fixture=await startGateway();try{const sample={...original,item:flatten(original.item).slice(0,1)};const summary=await new Promise((resolve,reject)=>loadNewman().run({collection:sample,reporters:[],environment:{values:[{key:'baseUrl',value:fixture.baseUrl.replace('http://','http://invalid-user@')},{key:'allowRemote',value:'false'}]},ignoreRedirects:true,timeoutRequest:1000},(error,result)=>error?reject(error):resolve(result)));assert.equal(summary.run.stats.requests.total,0);assert.equal(fixture.guard.methodObservations.length,0);}finally{await fixture.close();}});
+
+test('reviewed bodyless mutations reach auth; injected JSON bodies are rejected by actual handlers',async()=>{
+ const apis=['DELETE /v1/user/sessions','DELETE /v1/admin/users/{userId}/sessions','POST /v1/client/booking-requests/{requestId}/cancel'];
+ const fixture=await startGateway();try{
+ const safe=safeCollection(collection(apis),fixture.baseUrl);assert.ok(safe.item.every(i=>!Object.hasOwn(i.request,'body')));
+ const report=await diagnose(collection(apis),{baseUrl:fixture.baseUrl,guard:fixture.guard});assert.deepEqual(report.operations.map(o=>o.status),[401,401,401]);
+ const {loadNewman}=await import('./run-primecare-api-diagnostics.mjs');for(const i of safe.item)i.request.body={mode:'raw',raw:'{}'};
+ const result=await new Promise((resolve,reject)=>loadNewman().run({collection:safe,reporters:[],ignoreRedirects:true,timeoutRequest:5000},(error,summary)=>error?reject(error):resolve(summary)));
+ assert.deepEqual(result.run.executions.map(e=>e.response.code),[400,400,400]);assert.equal(fixture.guard.databaseAttempts,0);assert.equal(fixture.guard.externalNetworkAttempts,0);
+ }finally{await fixture.close();}
+});

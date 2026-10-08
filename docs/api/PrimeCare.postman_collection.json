@@ -75,10 +75,6 @@
           {
             "key": "X-PrimeCare-Diagnostic-Stage",
             "value": "unit_evidence_recorded"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
           }
         ],
         "auth": {
@@ -104,16 +100,7 @@
             }
           ]
         },
-        "description": "Stage: unit_evidence_recorded. Map operation-specific PostgreSQL evidence and release checks; no automatic retry or business verification.",
-        "body": {
-          "mode": "raw",
-          "raw": "{}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        }
+        "description": "Stage: unit_evidence_recorded. Map operation-specific PostgreSQL evidence and release checks; no automatic retry or business verification."
       }
     },
     {
@@ -128,10 +115,6 @@
           {
             "key": "X-PrimeCare-Diagnostic-Stage",
             "value": "unit_evidence_recorded"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
           }
         ],
         "auth": {
@@ -148,16 +131,7 @@
             "sessions"
           ]
         },
-        "description": "Stage: unit_evidence_recorded. Map operation-specific PostgreSQL evidence and release checks; no automatic retry or business verification.",
-        "body": {
-          "mode": "raw",
-          "raw": "{}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        }
+        "description": "Stage: unit_evidence_recorded. Map operation-specific PostgreSQL evidence and release checks; no automatic retry or business verification."
       }
     },
     {
@@ -32632,10 +32606,6 @@
           {
             "key": "X-PrimeCare-Diagnostic-Stage",
             "value": "unit_evidence_recorded"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
           }
         ],
         "auth": {
@@ -32661,16 +32631,7 @@
             }
           ]
         },
-        "description": "Stage: unit_evidence_recorded. Map operation-specific PostgreSQL evidence and release checks; no automatic retry or business verification.",
-        "body": {
-          "mode": "raw",
-          "raw": "{}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        }
+        "description": "Stage: unit_evidence_recorded. Map operation-specific PostgreSQL evidence and release checks; no automatic retry or business verification."
       }
     },
     {

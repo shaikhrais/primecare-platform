@@ -1,3 +1,4 @@
+import {isBodylessDiagnostic} from './primecare-diagnostic-body-policy.mjs';
 import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';
 export const remoteGuard=`const refuse=(message)=>{pm.execution.skipRequest();throw new Error(message);};
 const raw=pm.variables.replaceIn(pm.request.url.toString());
@@ -25,7 +26,7 @@ export function buildCollection(checklist,openapi={}){
  const params=[...o.route.matchAll(/\{([^}]+)\}/g)].map(m=>({key:m[1],value:'audit-record',description:'Synthetic diagnostic identifier; replace only in your reviewed environment.'}));
  const route=o.route.replace(/\{([^}]+)\}/g,':$1');
  const request={method:o.method,header:[{key:'X-PrimeCare-Diagnostic-Operation',value:o.api},{key:'X-PrimeCare-Diagnostic-Stage',value:o.stage}],auth:{type:'noauth'},url:{raw:'{{baseUrl}}'+route,host:['{{baseUrl}}'],path:route.slice(1).split('/'),...(params.length?{variable:params}:{})},description:'Stage: '+o.stage+'. '+o.nextAction+'; no automatic retry or business verification.'};
- if(!['GET','HEAD'].includes(o.method)){
+ if(!['GET','HEAD'].includes(o.method)&&!isBodylessDiagnostic(o.api)){
   const media=openapi.paths?.[o.route]?.[o.method.toLowerCase()]?.requestBody?.content?.['application/json'];
   const example=media?.example??Object.values(media?.examples??{}).find(e=>Object.hasOwn(e,'value'))?.value;
   request.body={mode:'raw',raw:JSON.stringify(example??{}),options:{raw:{language:'json'}}};request.header.push({key:'Content-Type',value:'application/json'});
