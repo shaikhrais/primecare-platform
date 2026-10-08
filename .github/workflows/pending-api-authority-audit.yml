@@ -1,0 +1,50 @@
+name: Pending API authority evidence
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit-pending-api-authority.py'
+      - 'scripts/test-audit-pending-api-authority.py'
+      - 'docs/api/api-delivery-checklist.json'
+      - '.agents/governance/governance.db'
+      - '.github/workflows/pending-api-authority-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  authority-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test read-only authority audit
+        run: python3 scripts/test-audit-pending-api-authority.py
+      - name: Read tracked governance authority evidence
+        run: python3 scripts/audit-pending-api-authority.py --database .agents/governance/governance.db --output "$RUNNER_TEMP/pending-api-authority.json"
+      - name: Summarize source-bound authority evidence
+        env:
+          REVIEWED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          report = json.loads((Path(os.environ['RUNNER_TEMP']) / 'pending-api-authority.json').read_text())
+          candidates = [row for row in report['operations'] if row['disposition'] == 'explicit_grant_observed']
+          print(json.dumps({'reviewedHead': os.environ['REVIEWED_HEAD'], 'databaseSha256': report['databaseSha256'], 'summary': report['summary'], 'candidateCount': len(candidates)}, sort_keys=True))
+          for row in candidates[:100]:
+              print(json.dumps({'api': row['api'], 'endpointIds': row['exactEndpointIds'], 'roles': sorted({grant['roleCode'] for grant in row['explicitGrants']})}, sort_keys=True))
+          if len(candidates) > 100:
+              print('Candidate log limited to 100 operations; full evidence is in the artifact.')
+          PY
+      - name: Publish read-only authority evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: pending-api-authority
+          path: ${{ runner.temp }}/pending-api-authority.json
+          if-no-files-found: error
+          retention-days: 7
