@@ -6,9 +6,9 @@ Declared operations: 1407
 
 | Recorded verification state | Operations |
 | --- | --- |
-| blocked | 10 |
+| blocked | 14 |
 | unit_fixtures_recorded | 344 |
-| verification_pending | 1053 |
+| verification_pending | 1049 |
 
 | Missing contract field | Operations |
 | --- | --- |

@@ -3,23 +3,23 @@
   "request": "Declared method with no bearer/cookie/tenant override; GET has no body, other methods use empty JSON; path parameters use synthetic audit-record IDs.",
   "database": "Connections disabled before SQL; no email or external requests.",
   "summary": {
-    "uniquePendingOperations": 1053,
-    "reviewed": 1053,
+    "uniquePendingOperations": 1049,
+    "reviewed": 1049,
     "classifications": {
       "gateway_route_not_found": 1013,
-      "declared_method_rejected": 4,
       "credential_or_authority_required": 1,
       "worker_route_not_found": 35
     }
   },
   "sourceHashes": {
-    "docs/api/api-execution-inventory.json": "7b9254c744e3eba2b324db5172c1c5b8a1345ca75c2610e9ee4a0dff59036619",
-    "scripts/audit-api-reachability.mjs": "76db548f8db687f5dfba0f113b4edd5e972542719330dfee62e4943f576e810f",
+    "docs/api/api-execution-inventory.json": "69978f96753f7c93c4c81db41d2ef0dd427879ffd7e58e55432287d0d0da7b79",
+    "scripts/audit-api-reachability.mjs": "58e8e88455dc676ddc3b2f5e34679414ac0c5f4eb5b6a1b0ca3c35b168b2ae6c",
+    "packages/domain/src/registries/FormRegistry/client-forms.ts": "f05ee6ccd060907a6672b869434782508ac7f65a1d2cfaacf3391e0953799516",
     "cloudflare/workers/src/account-admin.ts": "b93b16c000f0c02e387fef5b3566b79f2c786f8b62fb23176471b506390d9b92",
     "cloudflare/workers/src/account-management.ts": "4508680cbafbf98725d54103e1d759865d2f2a3742b3f6f960880a3166632b09",
     "cloudflare/workers/src/account-policy.json": "74d51cb199e3ac6522acd0723561d7af93327bb80114ad8de96b5ddebdc432ce",
     "cloudflare/workers/src/account-read-projection.ts": "9a0b5e79d92f9878b8521f67a237fba0e88430f27122478bf63f5e7723333b0e",
-    "cloudflare/workers/src/api-execution-inventory.json": "1743245662d4f09338dc06d76c9a40b055686345d7716cd38f71976dc78c005f",
+    "cloudflare/workers/src/api-execution-inventory.json": "afa0473b786852db6887977aade234dafe7e15c39a19ae1edfe33f379da2bec9",
     "cloudflare/workers/src/audit-confirmation.ts": "1580f31385bdbd842a78583caa5c8936f88089c2964ab2feb63e1e1cf666606c",
     "cloudflare/workers/src/auth-projection.ts": "ba81cd5f65cf27c48b642c004e9a0919eb48bd4599fc76af3d1e484968dbc7da",
     "cloudflare/workers/src/auth-rate-limit.ts": "57fc7f10de02980d1496d400c033715ee30a43c90f6b2d32171278bd7edd0e84",
@@ -3409,25 +3409,6 @@
       "productionVerified": false
     },
     {
-      "api": "POST /v1/admin/users/churn-heatmap",
-      "probePath": "/v1/admin/users/churn-heatmap",
-      "declarationIds": [
-        12
-      ],
-      "classification": "declared_method_rejected",
-      "status": 405,
-      "allow": "GET",
-      "forwarded": [
-        {
-          "binding": "AUTH",
-          "workerPath": "/admin/users/churn-heatmap"
-        }
-      ],
-      "databaseConnectionAttempts": 0,
-      "businessOperationVerified": false,
-      "productionVerified": false
-    },
-    {
       "api": "GET /v1/admin/users/privileged",
       "probePath": "/v1/admin/users/privileged",
       "declarationIds": [
@@ -4832,63 +4813,6 @@
         {
           "binding": "CLIENT",
           "workerPath": "/family/schedule/upcoming"
-        }
-      ],
-      "databaseConnectionAttempts": 0,
-      "businessOperationVerified": false,
-      "productionVerified": false
-    },
-    {
-      "api": "POST /v1/client/feedback",
-      "probePath": "/v1/client/feedback",
-      "declarationIds": [
-        251
-      ],
-      "classification": "declared_method_rejected",
-      "status": 405,
-      "allow": "GET",
-      "forwarded": [
-        {
-          "binding": "CLIENT",
-          "workerPath": "/feedback"
-        }
-      ],
-      "databaseConnectionAttempts": 0,
-      "businessOperationVerified": false,
-      "productionVerified": false
-    },
-    {
-      "api": "POST /v1/client/feedback/analytics",
-      "probePath": "/v1/client/feedback/analytics",
-      "declarationIds": [
-        253
-      ],
-      "classification": "declared_method_rejected",
-      "status": 405,
-      "allow": "GET",
-      "forwarded": [
-        {
-          "binding": "CLIENT",
-          "workerPath": "/feedback/analytics"
-        }
-      ],
-      "databaseConnectionAttempts": 0,
-      "businessOperationVerified": false,
-      "productionVerified": false
-    },
-    {
-      "api": "POST /v1/client/feedback/surveys",
-      "probePath": "/v1/client/feedback/surveys",
-      "declarationIds": [
-        252
-      ],
-      "classification": "declared_method_rejected",
-      "status": 405,
-      "allow": "GET",
-      "forwarded": [
-        {
-          "binding": "CLIENT",
-          "workerPath": "/feedback/surveys"
         }
       ],
       "databaseConnectionAttempts": 0,
@@ -15004,5 +14928,127 @@
       "businessOperationVerified": false,
       "productionVerified": false
     }
-  ]
+  ],
+  "reviewedBlockedOperations": [
+    {
+      "classification": "workflow_name_captured_as_record_id",
+      "matchedHandler": {
+        "pattern": "/admin/users/{userId}",
+        "parameter": "userId",
+        "value": "churn-heatmap",
+        "source": "cloudflare/workers/src/account-admin.ts",
+        "sourceSha256": "b93b16c000f0c02e387fef5b3566b79f2c786f8b62fb23176471b506390d9b92"
+      },
+      "workflowImplemented": false,
+      "reason": "Named business workflow is captured as a resource identifier; GET is not workflow-equivalent",
+      "api": "POST /v1/admin/users/churn-heatmap",
+      "probePath": "/v1/admin/users/churn-heatmap",
+      "declarationIds": [
+        12
+      ],
+      "status": 405,
+      "allow": "GET",
+      "forwarded": [
+        {
+          "binding": "AUTH",
+          "workerPath": "/admin/users/churn-heatmap"
+        }
+      ],
+      "databaseConnectionAttempts": 0,
+      "businessOperationVerified": false,
+      "productionVerified": false
+    },
+    {
+      "classification": "unsupported_feedback_submission",
+      "matchedHandler": {
+        "pattern": "/feedback",
+        "parameter": null,
+        "value": null,
+        "source": "cloudflare/workers/src/client-self.ts",
+        "sourceSha256": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5"
+      },
+      "workflowImplemented": false,
+      "reason": "Defined submission caller has no governed write handler; existing handler is owner GET only",
+      "api": "POST /v1/client/feedback",
+      "probePath": "/v1/client/feedback",
+      "declarationIds": [
+        251
+      ],
+      "status": 405,
+      "allow": "GET",
+      "forwarded": [
+        {
+          "binding": "CLIENT",
+          "workerPath": "/feedback"
+        }
+      ],
+      "databaseConnectionAttempts": 0,
+      "businessOperationVerified": false,
+      "productionVerified": false
+    },
+    {
+      "classification": "workflow_name_captured_as_record_id",
+      "matchedHandler": {
+        "pattern": "/feedback/{recordId}",
+        "parameter": "recordId",
+        "value": "analytics",
+        "source": "cloudflare/workers/src/client-self.ts",
+        "sourceSha256": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5"
+      },
+      "workflowImplemented": false,
+      "reason": "Named business workflow is captured as a resource identifier; GET is not workflow-equivalent",
+      "api": "POST /v1/client/feedback/analytics",
+      "probePath": "/v1/client/feedback/analytics",
+      "declarationIds": [
+        253
+      ],
+      "status": 405,
+      "allow": "GET",
+      "forwarded": [
+        {
+          "binding": "CLIENT",
+          "workerPath": "/feedback/analytics"
+        }
+      ],
+      "databaseConnectionAttempts": 0,
+      "businessOperationVerified": false,
+      "productionVerified": false
+    },
+    {
+      "classification": "workflow_name_captured_as_record_id",
+      "matchedHandler": {
+        "pattern": "/feedback/{recordId}",
+        "parameter": "recordId",
+        "value": "surveys",
+        "source": "cloudflare/workers/src/client-self.ts",
+        "sourceSha256": "61f8bb9dd63b7d99f0760f9364c4bef709e73a451db8c68f526e82f39d69f9a5"
+      },
+      "workflowImplemented": false,
+      "reason": "Named business workflow is captured as a resource identifier; GET is not workflow-equivalent",
+      "api": "POST /v1/client/feedback/surveys",
+      "probePath": "/v1/client/feedback/surveys",
+      "declarationIds": [
+        252
+      ],
+      "status": 405,
+      "allow": "GET",
+      "forwarded": [
+        {
+          "binding": "CLIENT",
+          "workerPath": "/feedback/surveys"
+        }
+      ],
+      "databaseConnectionAttempts": 0,
+      "businessOperationVerified": false,
+      "productionVerified": false
+    }
+  ],
+  "reviewedBlockedSummary": {
+    "uniqueReviewedBlockedOperations": 4,
+    "reviewed": 4,
+    "classifications": {
+      "workflow_name_captured_as_record_id": 3,
+      "unsupported_feedback_submission": 1
+    }
+  }
 }

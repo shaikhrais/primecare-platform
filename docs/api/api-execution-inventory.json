@@ -3,9 +3,9 @@
   "summary": {
     "totalDeclared": 1407,
     "verificationStates": {
-      "blocked": 10,
+      "blocked": 14,
       "unit_fixtures_recorded": 344,
-      "verification_pending": 1053
+      "verification_pending": 1049
     },
     "contractGaps": {
       "permission": 1053,
@@ -5610,8 +5610,8 @@
       "method": "POST",
       "route": "/v1/admin/users/churn-heatmap",
       "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
+      "declaredImplementation": "blocked",
+      "verificationState": "blocked",
       "batch": null,
       "recordedUnitStatus": "unrecorded",
       "missingContractFields": [
@@ -11094,8 +11094,8 @@
       "method": "POST",
       "route": "/v1/client/feedback",
       "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
+      "declaredImplementation": "blocked",
+      "verificationState": "blocked",
       "batch": null,
       "recordedUnitStatus": "unrecorded",
       "missingContractFields": [
@@ -11116,8 +11116,8 @@
       "method": "POST",
       "route": "/v1/client/feedback/analytics",
       "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
+      "declaredImplementation": "blocked",
+      "verificationState": "blocked",
       "batch": null,
       "recordedUnitStatus": "unrecorded",
       "missingContractFields": [
@@ -11161,8 +11161,8 @@
       "method": "POST",
       "route": "/v1/client/feedback/surveys",
       "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
+      "declaredImplementation": "blocked",
+      "verificationState": "blocked",
       "batch": null,
       "recordedUnitStatus": "unrecorded",
       "missingContractFields": [
