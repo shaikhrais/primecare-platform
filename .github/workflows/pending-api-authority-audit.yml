@@ -25,7 +25,7 @@ jobs:
       - name: Test read-only authority audit
         run: python3 scripts/test-audit-pending-api-authority.py
       - name: Read tracked governance authority evidence
-        run: python3 scripts/audit-pending-api-authority.py --database .agents/governance/governance.db --output "$RUNNER_TEMP/pending-api-authority.json"
+        run: python3 scripts/audit-pending-api-authority.py --database .agents/governance/governance.db --include-blocked --output "$RUNNER_TEMP/pending-api-authority.json"
       - name: Summarize source-bound authority evidence
         env:
           REVIEWED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -40,6 +40,9 @@ jobs:
               print(json.dumps({'api': row['api'], 'endpointIds': row['exactEndpointIds'], 'roles': sorted({grant['roleCode'] for grant in row['explicitGrants']})}, sort_keys=True))
           if len(candidates) > 100:
               print('Candidate log limited to 100 operations; full evidence is in the artifact.')
+          for row in report['operations']:
+              if row['api'] in ('GET /v1/auth/whoami', 'POST /v1/auth/whoami'):
+                  print(json.dumps({'selectedOperation': row['api'], 'stage': row['stage'], 'endpointIds': row['exactEndpointIds'], 'rawGrantEvidence': row['rawGrantEvidence'], 'functionEvidence': row['functionEvidence'], 'screenContext': row['screenContext']}, sort_keys=True))
           PY
       - name: Publish read-only authority evidence
         uses: actions/upload-artifact@v4
