@@ -1,6 +1,6 @@
 {
   "scope": "local_unit_fixtures",
-  "passed": 3657,
+  "passed": 3658,
   "failed": 0,
   "productionVerified": false,
   "postgresVerified": false,
@@ -128,7 +128,7 @@
     "scripts/test-prefix-root-routing.mjs": "b17cd7286e41796cbd74aafdcd9f6afabb3ac9e2f4a55a53c0ff692a426fce2e",
     "scripts/test-client-billing-reconciliation.mjs": "7609fabee697eb3135c220e0a3fed51db08a8a4a9fef95014da233200c710856",
     "scripts/test-method-capture-blockers.mjs": "65c4ab5da0407c1f385aa362e531999278c1a5c75fb7933b0293b161f18b5a02",
-    "scripts/test-primecare-postman.mjs": "903059db4787d7d665b420b195f88f23d83ea09bdb81f806db79a508e5e8880c",
+    "scripts/test-primecare-postman.mjs": "f433f61a60bbbc97f8b98548bb4858c6fb1701cc5f1f4b3090de77b90c422c71",
     "scripts/test-primecare-api-diagnostics.mjs": "bdbfe58fc4ac7334e1138e17e1765601c421e1bcf3649850bc8f6517689bff29",
     "scripts/read-alias-fixtures.mjs": "0308bc3df0aacea06cc95c9881729950931a7c9c5d1d4c0b049c3faf0413490f",
     "scripts/singleton-read-alias-fixtures.mjs": "347746e21ebb0d30aab1060111eb51dd8576ed76fdced87501a4637476da8551",
@@ -272,6 +272,6 @@
     "docs/api/method-capture-blocker-package.json": "6306d89f9913d96ec60ad293def7cae967fcaa34bf8d5ea7eab4c3ca477c684c",
     "scripts/generate-primecare-postman.mjs": "389e9e51e575441cd92282546243a056acc67e6965221f88e17ec428538f9d1b",
     "scripts/run-primecare-api-diagnostics.mjs": "78aab6d4a2fa7bd8093179fea04f66b858dd554c05632c6c235b72e59cd7d97f",
-    "docs/api/POSTMAN_API_DIAGNOSTICS.md": "e55af7f9fb6033deca40db02cf49b4e1e19f08c96602c9d4f0fbdf61efa49575"
+    "docs/api/POSTMAN_API_DIAGNOSTICS.md": "667c6ecd150c4a077bac29a8284eb8a0e62c723b6a831967c487be39fd9e1256"
   }
 }
