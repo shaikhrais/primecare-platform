@@ -2,24 +2,24 @@
   "countingRule": "One exact HTTP method + path; field repairs and test totals do not increment completed operations.",
   "summary": {
     "baselineUniqueOperations": 1415,
-    "activeUniqueOperations": 1411,
+    "activeUniqueOperations": 1406,
     "baselineStages": {
       "blocked": 10,
-      "needs_contract_and_verification": 1058,
-      "retired_with_evidence": 4,
+      "needs_contract_and_verification": 1053,
+      "retired_with_evidence": 9,
       "unit_evidence_recorded": 343
     },
     "activeStages": {
       "blocked": 10,
-      "needs_contract_and_verification": 1058,
+      "needs_contract_and_verification": 1053,
       "unit_evidence_recorded": 343
     },
-    "pendingOperations": 1058,
-    "documentedRetiredOperations": 4,
+    "pendingOperations": 1053,
+    "documentedRetiredOperations": 9,
     "pendingFamilyCounts": {
       "compliance_scan_requires_workflow_contract": 292,
-      "forwarded_operation_requires_handler_review": 28,
-      "gateway_unmapped_requires_workflow_review": 546,
+      "forwarded_operation_requires_handler_review": 26,
+      "gateway_unmapped_requires_workflow_review": 543,
       "legacy_auth_method_or_workflow_reconciliation": 8,
       "legacy_model_collection_requires_contract_review": 179,
       "method_or_dynamic_capture_requires_caller_review": 4,
@@ -28,14 +28,14 @@
     "pendingRoutingCounts": {
       "credential_or_authority_required": 1,
       "declared_method_rejected": 4,
-      "gateway_route_not_found": 1016,
-      "worker_route_not_found": 37
+      "gateway_route_not_found": 1013,
+      "worker_route_not_found": 35
     },
     "pendingMissingContractCounts": {
-      "permission": 1058,
-      "requestSchema": 1058,
-      "responseSchema": 1058,
-      "screenLink": 1013
+      "permission": 1053,
+      "requestSchema": 1053,
+      "responseSchema": 1053,
+      "screenLink": 1008
     }
   },
   "retiredOperations": [
@@ -74,6 +74,23 @@
       ]
     },
     {
+      "api": "POST /v1/client/billing/invoices",
+      "declarationIds": [
+        248
+      ],
+      "replacement": "GET /v1/client/invoices",
+      "reason": "Unlinked legacy billing list POST declaration duplicates canonical owner invoice GET. Billing registry list/detail now target canonical invoice read routes; source billing content specifies invoice viewing. No executable legacy method caller or legacy response contract exists. Tombstone retains declaration identity and dependent references; no invoice write grant is introduced.",
+      "evidence": [
+        "packages/domain/src/registries/ApiRegistry/tenancy.ts",
+        "packages/domain/src/registries/content/domain_features_r2r3.ts",
+        "scripts/reconcile-client-billing-declarations.py",
+        "scripts/test-client-billing-retirements.py",
+        "scripts/test-client-billing-reconciliation.mjs",
+        "scripts/test-client-self-api.mjs",
+        "scripts/test-client-self-postgres.mjs"
+      ]
+    },
+    {
       "api": "POST /v1/client/home/profile",
       "replacement": "GET /v1/client/home/profile",
       "reason": "Unused legacy POST declaration has no registered screen link or map and no executable caller; existing canonical GET defines authenticated client-profile ownership and read contract. POST runtime already rejects this method with 405.",
@@ -103,6 +120,67 @@
       ],
       "declarationIds": [
         239
+      ]
+    },
+    {
+      "api": "POST /v1/debug/",
+      "reason": "Middleware prefix-classification literal has no exact-root business request or gateway handler",
+      "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/infrastructure/src/prisma_client.ts",
+        "packages/infrastructure/src/security_utils.ts",
+        "cloudflare/workers/src/gateway.ts",
+        "scripts/test-prefix-root-routing.mjs",
+        "scripts/reconcile-prefix-declarations.py"
+      ],
+      "declarationIds": [
+        811
+      ]
+    },
+    {
+      "api": "POST /v1/marketing/",
+      "reason": "Middleware prefix-classification literal has no exact-root business request or gateway handler",
+      "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/infrastructure/src/prisma_client.ts",
+        "packages/infrastructure/src/security_utils.ts",
+        "cloudflare/workers/src/gateway.ts",
+        "scripts/test-prefix-root-routing.mjs",
+        "scripts/reconcile-prefix-declarations.py"
+      ],
+      "declarationIds": [
+        812
+      ]
+    },
+    {
+      "api": "POST /v1/provider/dashboard",
+      "reason": "Scanner POST declaration has no business authority or contract. The actual self-profile caller performs GET and now uses the existing canonical owner-scoped profile operation.",
+      "replacement": "GET /v1/provider/profile",
+      "canonicalId": 16446,
+      "evidence": [
+        "packages/flutter_core/lib/provider_service.dart: getSelfProfile validates the canonical profile envelope and propagates failures",
+        "packages/flutter_core/lib/src/network/api_client.dart: providerProfile and legacy providerDashboard config keys target the canonical GET; owner profile transport bypasses cache and mocks",
+        "cloudflare/workers/src/provider-self.ts: profile read uses authenticated user and tenant ownership; no new authority is introduced",
+        "scripts/reconcile-provider-profile-declaration.py: exact canonical identity, authority, schema, caller and incoming-reference guards preserve an atomic retirement tombstone",
+        "packages/flutter_core/test/provider_profile_test.dart: actual transport and service routing, DTO and failure regression coverage"
+      ],
+      "declarationIds": [
+        786
+      ]
+    },
+    {
+      "api": "POST /v1/public/",
+      "reason": "Middleware prefix-classification literal has no exact-root business request or gateway handler",
+      "evidence": [
+        ".agents/governance/reconcile_db.py",
+        "packages/infrastructure/src/prisma_client.ts",
+        "packages/infrastructure/src/security_utils.ts",
+        "cloudflare/workers/src/gateway.ts",
+        "scripts/test-prefix-root-routing.mjs",
+        "scripts/reconcile-prefix-declarations.py"
+      ],
+      "declarationIds": [
+        810
       ]
     }
   ],
@@ -10286,25 +10364,6 @@
       "businessOperationVerified": false
     },
     {
-      "api": "POST /v1/client/billing/invoices",
-      "method": "POST",
-      "route": "/v1/client/billing/invoices",
-      "area": "client",
-      "declarationIds": [
-        248
-      ],
-      "familyClassification": "forwarded_operation_requires_handler_review",
-      "routingClassification": "worker_route_not_found",
-      "authorizationContractStatus": "requires_business_authorization_contract",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "businessOperationVerified": false
-    },
-    {
       "api": "POST /v1/client/billing/payment-methods",
       "method": "POST",
       "route": "/v1/client/billing/payment-methods",
@@ -11786,25 +11845,6 @@
         1362
       ],
       "familyClassification": "compliance_scan_requires_workflow_contract",
-      "routingClassification": "gateway_route_not_found",
-      "authorizationContractStatus": "requires_business_authorization_contract",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "businessOperationVerified": false
-    },
-    {
-      "api": "POST /v1/debug/",
-      "method": "POST",
-      "route": "/v1/debug/",
-      "area": "debug",
-      "declarationIds": [
-        811
-      ],
-      "familyClassification": "gateway_unmapped_requires_workflow_review",
       "routingClassification": "gateway_route_not_found",
       "authorizationContractStatus": "requires_business_authorization_contract",
       "missingContractFields": [
@@ -14315,25 +14355,6 @@
       "businessOperationVerified": false
     },
     {
-      "api": "POST /v1/marketing/",
-      "method": "POST",
-      "route": "/v1/marketing/",
-      "area": "marketing",
-      "declarationIds": [
-        812
-      ],
-      "familyClassification": "gateway_unmapped_requires_workflow_review",
-      "routingClassification": "gateway_route_not_found",
-      "authorizationContractStatus": "requires_business_authorization_contract",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "businessOperationVerified": false
-    },
-    {
       "api": "POST /v1/marketing/leads",
       "method": "POST",
       "route": "/v1/marketing/leads",
@@ -15430,25 +15451,6 @@
       "businessOperationVerified": false
     },
     {
-      "api": "POST /v1/provider/dashboard",
-      "method": "POST",
-      "route": "/v1/provider/dashboard",
-      "area": "provider",
-      "declarationIds": [
-        786
-      ],
-      "familyClassification": "forwarded_operation_requires_handler_review",
-      "routingClassification": "worker_route_not_found",
-      "authorizationContractStatus": "requires_business_authorization_contract",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "businessOperationVerified": false
-    },
-    {
       "api": "POST /v1/provider/metrics",
       "method": "POST",
       "route": "/v1/provider/metrics",
@@ -16424,25 +16426,6 @@
       "area": "psw",
       "declarationIds": [
         227
-      ],
-      "familyClassification": "gateway_unmapped_requires_workflow_review",
-      "routingClassification": "gateway_route_not_found",
-      "authorizationContractStatus": "requires_business_authorization_contract",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "businessOperationVerified": false
-    },
-    {
-      "api": "POST /v1/public/",
-      "method": "POST",
-      "route": "/v1/public/",
-      "area": "public",
-      "declarationIds": [
-        810
       ],
       "familyClassification": "gateway_unmapped_requires_workflow_review",
       "routingClassification": "gateway_route_not_found",
@@ -20189,9 +20172,9 @@
     }
   ],
   "sourceHashes": {
-    "docs/api/api-delivery-checklist.json": "aa5ef06af96cf18affbfa52f0530fb7d54419cca089794b691f0ca633e98eda4",
-    "docs/api/api-reachability-audit.json": "c4045d46cd6c9574f6568e8849796973387083820311808c01793f1bc2b0c007",
-    "docs/api/api-delivery-work-package.json": "c925cc1775561f7f5483b31da27d48ac95623ec3b66cb067b3b0793a4bbe1763",
-    ".agents/governance/governance.db": "ec388d4335c5c99919ed81b44d9bfadb9005b9a90b166fbedbf803a100acaadc"
+    "docs/api/api-delivery-checklist.json": "55850380dbe41574ba75be459a6edcf65b1a7bfb423c169eeba7dba3a83595fa",
+    "docs/api/api-reachability-audit.json": "e89a8a0c6407d4dc47f3944c09d4f691699546e3e95099087e65c887e0ba5c29",
+    "docs/api/api-delivery-work-package.json": "465dc4b45dcba88abbd935ab1cf59f1e4eaaa6bfb672f9a47ff3820d4c7865a4",
+    ".agents/governance/governance.db": "014880b9d547eb4bb14b441de47cab905e2784e9e9c9dc227e6d5810214bc46c"
   }
 }

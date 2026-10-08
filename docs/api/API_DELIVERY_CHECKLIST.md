@@ -2,13 +2,13 @@
 
 One exact HTTP method + path; field repairs and test totals do not increment completed operations.
 
-Baseline: **1415 unique operations**; 1411 active, 4 retired with evidence. 1412 active declarations; 1 duplicate declaration row.
+Baseline: **1415 unique operations**; 1406 active, 9 retired with evidence. 1407 active declarations; 1 duplicate declaration row.
 
 | Evidence stage | Unique operations |
 | --- | ---: |
 | blocked | 10 |
-| needs_contract_and_verification | 1058 |
-| retired_with_evidence | 4 |
+| needs_contract_and_verification | 1053 |
+| retired_with_evidence | 9 |
 | unit_evidence_recorded | 343 |
 
 Unit evidence is a completed test milestone, not proof of complete business workflows or deployment. PostgreSQL CI has passed globally, but this checklist does not invent operation-specific coverage. Production status remains unverified here.
@@ -62,6 +62,26 @@ The work-package denominator is fixed; a missing declaration only resolves throu
 
 - [x] POST /v1/client/home/profile
 - [x] POST /v1/client/invoices
+
+## Next finite work package
+
+**3/3 reviewed; 3/3 resolved: Middleware namespace prefix declaration retirement.**
+
+- [x] POST /v1/public/
+- [x] POST /v1/debug/
+- [x] POST /v1/marketing/
+
+## Next finite work package
+
+**1/1 reviewed; 1/1 resolved: Reconcile client billing invoice read callers with canonical owner reads.**
+
+- [x] POST /v1/client/billing/invoices
+
+## Next finite work package
+
+**0/1 reviewed; 1/1 resolved: Reconcile provider self-profile caller with the existing owner-authorized profile.**
+
+- [x] POST /v1/provider/dashboard
 
 ## Work by route area
 
@@ -120,7 +140,7 @@ The work-package denominator is fixed; a missing declaration only resolves throu
 | cisoanalytics | 1 | 0 | 1 | 0 | 0 |
 | cisoworkflow | 1 | 0 | 1 | 0 | 0 |
 | claims-processing | 1 | 0 | 1 | 0 | 0 |
-| client | 121 | 97 | 22 | 0 | 2 |
+| client | 121 | 97 | 21 | 0 | 3 |
 | client-intake | 1 | 0 | 1 | 0 | 0 |
 | client-issue | 1 | 0 | 1 | 0 | 0 |
 | client-progress | 1 | 0 | 1 | 0 | 0 |
@@ -158,7 +178,7 @@ The work-package denominator is fixed; a missing declaration only resolves throu
 | cx-director-analytics | 1 | 0 | 1 | 0 | 0 |
 | cx-director-workflow | 1 | 0 | 1 | 0 | 0 |
 | daily-operations | 1 | 0 | 1 | 0 | 0 |
-| debug | 2 | 0 | 2 | 0 | 0 |
+| debug | 2 | 0 | 1 | 0 | 1 |
 | defect-tracking | 1 | 0 | 1 | 0 | 0 |
 | deployment-center | 1 | 0 | 1 | 0 | 0 |
 | documents | 1 | 0 | 1 | 0 | 0 |
@@ -242,7 +262,7 @@ The work-package denominator is fixed; a missing declaration only resolves throu
 | lpn-analytics | 1 | 0 | 1 | 0 | 0 |
 | lpn-workflow | 1 | 0 | 1 | 0 | 0 |
 | manager | 42 | 0 | 42 | 0 | 0 |
-| marketing | 12 | 0 | 12 | 0 | 0 |
+| marketing | 12 | 0 | 11 | 0 | 1 |
 | massage-assessment | 1 | 0 | 1 | 0 | 0 |
 | medication | 1 | 0 | 1 | 0 | 0 |
 | medication-administration | 1 | 0 | 1 | 0 | 0 |
@@ -296,7 +316,7 @@ The work-package denominator is fixed; a missing declaration only resolves throu
 | premium-concierge-analytics | 1 | 0 | 1 | 0 | 0 |
 | premium-concierge-workflow | 1 | 0 | 1 | 0 | 0 |
 | progress-tracking | 1 | 0 | 1 | 0 | 0 |
-| provider | 52 | 49 | 3 | 0 | 0 |
+| provider | 52 | 49 | 2 | 0 | 1 |
 | psw | 42 | 0 | 42 | 0 | 0 |
 | psw-care-plan | 1 | 0 | 1 | 0 | 0 |
 | psw-client-profile | 1 | 0 | 1 | 0 | 0 |
@@ -307,7 +327,7 @@ The work-package denominator is fixed; a missing declaration only resolves throu
 | psw-my-shifts | 1 | 0 | 1 | 0 | 0 |
 | psw-visit-notes | 1 | 0 | 1 | 0 | 0 |
 | psw-vitals-log | 1 | 0 | 1 | 0 | 0 |
-| public | 8 | 0 | 8 | 0 | 0 |
+| public | 8 | 0 | 7 | 0 | 1 |
 | quality-audit | 1 | 0 | 1 | 0 | 0 |
 | referral-management | 1 | 0 | 1 | 0 | 0 |
 | refund-management | 1 | 0 | 1 | 0 | 0 |

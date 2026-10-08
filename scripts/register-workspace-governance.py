@@ -66,6 +66,9 @@ runpy.run_path(str(ROOT/'scripts/register-booking-requests-delivery.py'))
 runpy.run_path(str(ROOT/'scripts/register-booking-collection-delivery.py'))
 runpy.run_path(str(ROOT/'scripts/reconcile-client-read-declarations.py'),run_name='__main__')
 runpy.run_path(str(ROOT/'scripts/reconcile-auth-root-declarations.py'),run_name='__main__')
+runpy.run_path(str(ROOT/'scripts/reconcile-prefix-declarations.py'),run_name='__main__')
+runpy.run_path(str(ROOT/'scripts/reconcile-client-billing-declarations.py'),run_name='__main__')
+runpy.run_path(str(ROOT/'scripts/reconcile-provider-profile-declaration.py'),run_name='__main__')
 runpy.run_path(str(ROOT/'scripts/generate-api-execution-inventory.py'))
 with sqlite3.connect(DB) as db:
     db.row_factory = sqlite3.Row

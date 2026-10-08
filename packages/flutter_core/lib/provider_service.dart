@@ -23,7 +23,7 @@ class ProviderProfile {
   final ProviderRole role;
   final String bio;
   final String serviceAreas;
-  final int trustScore;
+  final int? trustScore;
   final bool isApproved;
   final String? avatarUrl;
 
@@ -33,21 +33,55 @@ class ProviderProfile {
     required this.role,
     this.bio = '',
     this.serviceAreas = '',
-    this.trustScore = 100,
+    this.trustScore,
     this.isApproved = false,
     this.avatarUrl,
   });
 
   factory ProviderProfile.fromJson(Map<String, dynamic> json) {
+    const fields = {
+      'id',
+      'full_name',
+      'bio',
+      'languages',
+      'service_areas',
+      'provider_type',
+      'is_approved',
+      'skills',
+    };
+    if (json.length != fields.length ||
+        !fields.every(json.containsKey) ||
+        ![
+          'id',
+          'full_name',
+          'languages',
+          'service_areas',
+          'provider_type',
+          'skills',
+        ].every((field) => json[field] is String) ||
+        (json['id'] as String).isEmpty ||
+        (json['bio'] != null && json['bio'] is! String) ||
+        json['is_approved'] is! bool) {
+      throw const FormatException('Invalid provider profile contract');
+    }
     return ProviderProfile(
-      id: (json['provider_id'] as String?) ?? (json['id'] as String?) ?? '',
-      fullName: (json['full_name'] as String?) ?? 'Unknown Provider',
-      role: _parseRole(json['provider_type'] as String?),
+      id: json['id'] as String,
+      fullName: json['full_name'] as String,
+      role: _parseRole(json['provider_type'] as String),
       bio: (json['bio'] as String?) ?? '',
-      serviceAreas: (json['service_areas'] as String?) ?? '',
-      trustScore: (json['trust_score'] as num?)?.toInt() ?? 100,
-      isApproved: (json['is_approved'] as bool?) ?? false,
-      avatarUrl: (json['avatar_url'] as String?),
+      serviceAreas: json['service_areas'] as String,
+      isApproved: json['is_approved'] as bool,
+    );
+  }
+
+  factory ProviderProfile.fromResponse(Object? response) {
+    if (response is! Map<String, dynamic> ||
+        response.length != 1 ||
+        response['profile'] is! Map<String, dynamic>) {
+      throw const FormatException('Invalid provider profile envelope');
+    }
+    return ProviderProfile.fromJson(
+      response['profile'] as Map<String, dynamic>,
     );
   }
 }
@@ -64,23 +98,20 @@ class ProviderService {
   Future<Result<ProviderProfile>> getSelfProfile() async {
     return Result.guardFuture<ProviderProfile>(
       () async {
-        final endpoint = ApiConfig.endpoints['providerDashboard']!;
+        final endpoint = ApiConfig.endpoints['providerProfile']!;
         final response = await _apiClient.get(endpoint);
 
         if (response.statusCode == 200) {
+          final profile = ProviderProfile.fromResponse(response.data);
           _telemetry.passGate(
             ExecutionGateCategory.domainApi,
             'Provider self-profile fetched successfully',
-            metadata: {'endpoint': 'providerDashboard'},
+            metadata: {'endpoint': 'providerProfile'},
           );
-          return ProviderProfile.fromJson(
-            response.data as Map<String, dynamic>,
-          );
+          return profile;
         }
-        return ProviderProfile(
-          id: 'fallback',
-          fullName: 'Provider (Degraded)',
-          role: ProviderRole.unknown,
+        throw StateError(
+          'Provider profile request failed (${response.statusCode})',
         );
       },
       onError: (Object e, StackTrace st) {
@@ -89,14 +120,9 @@ class ProviderService {
           'Failed to fetch provider self-profile',
           error: e,
           stackTrace: st,
-          metadata: {'endpoint': 'providerDashboard'},
+          metadata: {'endpoint': 'providerProfile'},
         );
-        // Return a safe fallback profile
-        return ProviderProfile(
-          id: 'fallback',
-          fullName: 'Provider (Offline)',
-          role: ProviderRole.unknown,
-        );
+        Error.throwWithStackTrace(e, st);
       },
     );
   }

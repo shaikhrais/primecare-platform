@@ -1,17 +1,17 @@
 {
   "source": "governance.db",
   "summary": {
-    "totalDeclared": 1412,
+    "totalDeclared": 1407,
     "verificationStates": {
       "blocked": 10,
       "unit_fixtures_recorded": 344,
-      "verification_pending": 1058
+      "verification_pending": 1053
     },
     "contractGaps": {
-      "permission": 1058,
-      "requestSchema": 1058,
-      "responseSchema": 1058,
-      "screenLink": 1013
+      "permission": 1053,
+      "requestSchema": 1053,
+      "responseSchema": 1053,
+      "screenLink": 1008
     },
     "note": "Recorded declarations and local unit-fixture status only. Unrecorded means inspect implementation, not proof of absent code. PostgreSQL/production evidence is not inferred from CI or registry labels."
   },
@@ -10154,28 +10154,6 @@
       "productionVerified": false
     },
     {
-      "id": 248,
-      "api": "POST /v1/client/billing/invoices",
-      "method": "POST",
-      "route": "/v1/client/billing/invoices",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
-      "postgresVerified": false,
-      "productionVerified": false
-    },
-    {
       "id": 250,
       "api": "POST /v1/client/billing/payment-methods",
       "method": "POST",
@@ -13969,28 +13947,6 @@
       "api": "POST /v1/daily-operations/compliance/scan",
       "method": "POST",
       "route": "/v1/daily-operations/compliance/scan",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
-      "postgresVerified": false,
-      "productionVerified": false
-    },
-    {
-      "id": 811,
-      "api": "POST /v1/debug/",
-      "method": "POST",
-      "route": "/v1/debug/",
       "service": "PRISMA",
       "declaredImplementation": "active",
       "verificationState": "verification_pending",
@@ -18635,28 +18591,6 @@
       "api": "POST /v1/manager/training/modules",
       "method": "POST",
       "route": "/v1/manager/training/modules",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
-      "postgresVerified": false,
-      "productionVerified": false
-    },
-    {
-      "id": 812,
-      "api": "POST /v1/marketing/",
-      "method": "POST",
-      "route": "/v1/marketing/",
       "service": "PRISMA",
       "declaredImplementation": "active",
       "verificationState": "verification_pending",
@@ -26116,28 +26050,6 @@
       "productionVerified": false
     },
     {
-      "id": 786,
-      "api": "POST /v1/provider/dashboard",
-      "method": "POST",
-      "route": "/v1/provider/dashboard",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
-      "postgresVerified": false,
-      "productionVerified": false
-    },
-    {
       "id": 16438,
       "api": "GET /v1/provider/documents",
       "method": "GET",
@@ -28092,28 +28004,6 @@
       "api": "POST /v1/psw/wellness/pulse",
       "method": "POST",
       "route": "/v1/psw/wellness/pulse",
-      "service": "PRISMA",
-      "declaredImplementation": "active",
-      "verificationState": "verification_pending",
-      "batch": null,
-      "recordedUnitStatus": "unrecorded",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
-      "screens": [],
-      "apps": [],
-      "roles": [],
-      "postgresVerified": false,
-      "productionVerified": false
-    },
-    {
-      "id": 810,
-      "api": "POST /v1/public/",
-      "method": "POST",
-      "route": "/v1/public/",
       "service": "PRISMA",
       "declaredImplementation": "active",
       "verificationState": "verification_pending",

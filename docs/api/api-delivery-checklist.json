@@ -1,20 +1,20 @@
 {
   "countingRule": "One exact HTTP method + path; field repairs and test totals do not increment completed operations.",
   "summary": {
-    "declarations": 1412,
+    "declarations": 1407,
     "uniqueOperations": 1415,
-    "activeUniqueOperations": 1411,
-    "retiredOperations": 4,
+    "activeUniqueOperations": 1406,
+    "retiredOperations": 9,
     "duplicateDeclarationRows": 1,
     "stages": {
       "blocked": 10,
-      "needs_contract_and_verification": 1058,
-      "retired_with_evidence": 4,
+      "needs_contract_and_verification": 1053,
+      "retired_with_evidence": 9,
       "unit_evidence_recorded": 343
     },
     "pendingByDeclaredMethod": {
       "GET": 255,
-      "POST": 803
+      "POST": 798
     },
     "postgresEvidenceMapped": 0,
     "productionEvidenceMapped": 0
@@ -479,8 +479,8 @@
       "total": 121,
       "unitEvidenceRecorded": 97,
       "blocked": 0,
-      "retired": 2,
-      "needsWork": 22
+      "retired": 3,
+      "needsWork": 21
     },
     {
       "area": "client-intake",
@@ -783,8 +783,8 @@
       "total": 2,
       "unitEvidenceRecorded": 0,
       "blocked": 0,
-      "retired": 0,
-      "needsWork": 2
+      "retired": 1,
+      "needsWork": 1
     },
     {
       "area": "defect-tracking",
@@ -1455,8 +1455,8 @@
       "total": 12,
       "unitEvidenceRecorded": 0,
       "blocked": 0,
-      "retired": 0,
-      "needsWork": 12
+      "retired": 1,
+      "needsWork": 11
     },
     {
       "area": "massage-assessment",
@@ -1887,8 +1887,8 @@
       "total": 52,
       "unitEvidenceRecorded": 49,
       "blocked": 0,
-      "retired": 0,
-      "needsWork": 3
+      "retired": 1,
+      "needsWork": 2
     },
     {
       "area": "psw",
@@ -1975,8 +1975,8 @@
       "total": 8,
       "unitEvidenceRecorded": 0,
       "blocked": 0,
-      "retired": 0,
-      "needsWork": 8
+      "retired": 1,
+      "needsWork": 7
     },
     {
       "area": "quality-audit",
@@ -21460,21 +21460,30 @@
       "declarationIds": [
         248
       ],
-      "services": [
-        "PRISMA"
-      ],
+      "services": [],
       "area": "client",
-      "stage": "needs_contract_and_verification",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
+      "stage": "retired_with_evidence",
+      "missingContractFields": [],
       "unitEvidenceRecorded": false,
-      "postgresEvidence": "not_mapped_per_operation",
+      "postgresEvidence": "replacement_evidence_required",
       "productionEvidence": "not_mapped_per_operation",
-      "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
+      "nextAction": "Retired; preserve historical identity",
+      "retirement": {
+        "declarationIds": [
+          248
+        ],
+        "replacement": "GET /v1/client/invoices",
+        "reason": "Unlinked legacy billing list POST declaration duplicates canonical owner invoice GET. Billing registry list/detail now target canonical invoice read routes; source billing content specifies invoice viewing. No executable legacy method caller or legacy response contract exists. Tombstone retains declaration identity and dependent references; no invoice write grant is introduced.",
+        "evidence": [
+          "packages/domain/src/registries/ApiRegistry/tenancy.ts",
+          "packages/domain/src/registries/content/domain_features_r2r3.ts",
+          "scripts/reconcile-client-billing-declarations.py",
+          "scripts/test-client-billing-retirements.py",
+          "scripts/test-client-billing-reconciliation.mjs",
+          "scripts/test-client-self-api.mjs",
+          "scripts/test-client-self-postgres.mjs"
+        ]
+      }
     },
     {
       "api": "POST /v1/client/billing/payment-methods",
@@ -23443,21 +23452,28 @@
       "declarationIds": [
         811
       ],
-      "services": [
-        "PRISMA"
-      ],
+      "services": [],
       "area": "debug",
-      "stage": "needs_contract_and_verification",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
+      "stage": "retired_with_evidence",
+      "missingContractFields": [],
       "unitEvidenceRecorded": false,
-      "postgresEvidence": "not_mapped_per_operation",
+      "postgresEvidence": "replacement_evidence_required",
       "productionEvidence": "not_mapped_per_operation",
-      "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
+      "nextAction": "Retired; preserve historical identity",
+      "retirement": {
+        "reason": "Middleware prefix-classification literal has no exact-root business request or gateway handler",
+        "evidence": [
+          ".agents/governance/reconcile_db.py",
+          "packages/infrastructure/src/prisma_client.ts",
+          "packages/infrastructure/src/security_utils.ts",
+          "cloudflare/workers/src/gateway.ts",
+          "scripts/test-prefix-root-routing.mjs",
+          "scripts/reconcile-prefix-declarations.py"
+        ],
+        "declarationIds": [
+          811
+        ]
+      }
     },
     {
       "api": "POST /v1/debug/hash",
@@ -26493,21 +26509,28 @@
       "declarationIds": [
         812
       ],
-      "services": [
-        "PRISMA"
-      ],
+      "services": [],
       "area": "marketing",
-      "stage": "needs_contract_and_verification",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
+      "stage": "retired_with_evidence",
+      "missingContractFields": [],
       "unitEvidenceRecorded": false,
-      "postgresEvidence": "not_mapped_per_operation",
+      "postgresEvidence": "replacement_evidence_required",
       "productionEvidence": "not_mapped_per_operation",
-      "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
+      "nextAction": "Retired; preserve historical identity",
+      "retirement": {
+        "reason": "Middleware prefix-classification literal has no exact-root business request or gateway handler",
+        "evidence": [
+          ".agents/governance/reconcile_db.py",
+          "packages/infrastructure/src/prisma_client.ts",
+          "packages/infrastructure/src/security_utils.ts",
+          "cloudflare/workers/src/gateway.ts",
+          "scripts/test-prefix-root-routing.mjs",
+          "scripts/reconcile-prefix-declarations.py"
+        ],
+        "declarationIds": [
+          812
+        ]
+      }
     },
     {
       "api": "POST /v1/marketing/leads",
@@ -27844,21 +27867,29 @@
       "declarationIds": [
         786
       ],
-      "services": [
-        "PRISMA"
-      ],
+      "services": [],
       "area": "provider",
-      "stage": "needs_contract_and_verification",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
+      "stage": "retired_with_evidence",
+      "missingContractFields": [],
       "unitEvidenceRecorded": false,
-      "postgresEvidence": "not_mapped_per_operation",
+      "postgresEvidence": "replacement_evidence_required",
       "productionEvidence": "not_mapped_per_operation",
-      "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
+      "nextAction": "Retired; preserve historical identity",
+      "retirement": {
+        "reason": "Scanner POST declaration has no business authority or contract. The actual self-profile caller performs GET and now uses the existing canonical owner-scoped profile operation.",
+        "replacement": "GET /v1/provider/profile",
+        "canonicalId": 16446,
+        "evidence": [
+          "packages/flutter_core/lib/provider_service.dart: getSelfProfile validates the canonical profile envelope and propagates failures",
+          "packages/flutter_core/lib/src/network/api_client.dart: providerProfile and legacy providerDashboard config keys target the canonical GET; owner profile transport bypasses cache and mocks",
+          "cloudflare/workers/src/provider-self.ts: profile read uses authenticated user and tenant ownership; no new authority is introduced",
+          "scripts/reconcile-provider-profile-declaration.py: exact canonical identity, authority, schema, caller and incoming-reference guards preserve an atomic retirement tombstone",
+          "packages/flutter_core/test/provider_profile_test.dart: actual transport and service routing, DTO and failure regression coverage"
+        ],
+        "declarationIds": [
+          786
+        ]
+      }
     },
     {
       "api": "POST /v1/provider/metrics",
@@ -29063,21 +29094,28 @@
       "declarationIds": [
         810
       ],
-      "services": [
-        "PRISMA"
-      ],
+      "services": [],
       "area": "public",
-      "stage": "needs_contract_and_verification",
-      "missingContractFields": [
-        "permission",
-        "requestSchema",
-        "responseSchema",
-        "screenLink"
-      ],
+      "stage": "retired_with_evidence",
+      "missingContractFields": [],
       "unitEvidenceRecorded": false,
-      "postgresEvidence": "not_mapped_per_operation",
+      "postgresEvidence": "replacement_evidence_required",
       "productionEvidence": "not_mapped_per_operation",
-      "nextAction": "Reconcile method/path with handler and callers; register authority and schemas; test before marking verified"
+      "nextAction": "Retired; preserve historical identity",
+      "retirement": {
+        "reason": "Middleware prefix-classification literal has no exact-root business request or gateway handler",
+        "evidence": [
+          ".agents/governance/reconcile_db.py",
+          "packages/infrastructure/src/prisma_client.ts",
+          "packages/infrastructure/src/security_utils.ts",
+          "cloudflare/workers/src/gateway.ts",
+          "scripts/test-prefix-root-routing.mjs",
+          "scripts/reconcile-prefix-declarations.py"
+        ],
+        "declarationIds": [
+          810
+        ]
+      }
     },
     {
       "api": "POST /v1/public/blog",
@@ -33641,10 +33679,50 @@
         "POST /v1/client/invoices"
       ],
       "reviewed": 2
+    },
+    {
+      "name": "Middleware namespace prefix declaration retirement",
+      "total": 3,
+      "resolved": 3,
+      "operations": [
+        "POST /v1/public/",
+        "POST /v1/debug/",
+        "POST /v1/marketing/"
+      ],
+      "resolvedOperations": [
+        "POST /v1/public/",
+        "POST /v1/debug/",
+        "POST /v1/marketing/"
+      ],
+      "reviewed": 3
+    },
+    {
+      "name": "Reconcile client billing invoice read callers with canonical owner reads",
+      "total": 1,
+      "resolved": 1,
+      "operations": [
+        "POST /v1/client/billing/invoices"
+      ],
+      "resolvedOperations": [
+        "POST /v1/client/billing/invoices"
+      ],
+      "reviewed": 1
+    },
+    {
+      "name": "Reconcile provider self-profile caller with the existing owner-authorized profile",
+      "total": 1,
+      "resolved": 1,
+      "operations": [
+        "POST /v1/provider/dashboard"
+      ],
+      "resolvedOperations": [
+        "POST /v1/provider/dashboard"
+      ],
+      "reviewed": 0
     }
   ],
   "source": {
     "path": "docs/api/api-execution-inventory.json",
-    "sha256": "911443ff2fa1dce33de2cf0506e0d600bad37ac1f69fed02717cd6cacfd2dbda"
+    "sha256": "7b9254c744e3eba2b324db5172c1c5b8a1345ca75c2610e9ee4a0dff59036619"
   }
 }
