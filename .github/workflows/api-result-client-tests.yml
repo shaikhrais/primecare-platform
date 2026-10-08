@@ -9,6 +9,9 @@ on:
       - 'packages/flutter_core/test/own_notifications_repository_test.dart'
       - 'apps/primecare_clinic/lib/features/psw/screens/psw_notifications_screen.dart'
       - 'apps/primecare_clinic/test/psw_notifications_controller_test.dart'
+      - 'packages/primecare_ui/lib/src/components/governance_components.dart'
+      - 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_dashboard_screen.dart'
+      - 'packages/primecare_ui/test/clinical_dashboard_failclosed_test.dart'
       - '.github/workflows/api-result-client-tests.yml'
   push:
     branches: [main]
@@ -20,6 +23,9 @@ on:
       - 'packages/flutter_core/test/own_notifications_repository_test.dart'
       - 'apps/primecare_clinic/lib/features/psw/screens/psw_notifications_screen.dart'
       - 'apps/primecare_clinic/test/psw_notifications_controller_test.dart'
+      - 'packages/primecare_ui/lib/src/components/governance_components.dart'
+      - 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_dashboard_screen.dart'
+      - 'packages/primecare_ui/test/clinical_dashboard_failclosed_test.dart'
       - '.github/workflows/api-result-client-tests.yml'
 permissions:
   contents: read
@@ -46,3 +52,9 @@ jobs:
         working-directory: apps/primecare_clinic
       - run: flutter analyze --no-fatal-warnings --no-fatal-infos lib/features/psw/screens/psw_notifications_screen.dart
         working-directory: apps/primecare_clinic
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter test test/clinical_dashboard_failclosed_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter analyze --no-fatal-warnings --no-fatal-infos lib/src/components/governance_components.dart lib/src/screens/clinical/clinical_director_dashboard_screen.dart test/clinical_dashboard_failclosed_test.dart
+        working-directory: packages/primecare_ui

@@ -222,6 +222,7 @@ class GovMetricCard extends StatelessWidget {
                 ],
               ),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -236,7 +237,8 @@ class GovMetricCard extends StatelessWidget {
                         ),
                         child: Icon(icon, color: brandColor, size: 20),
                       ),
-                      Container(
+                      const SizedBox(width: 8),
+                      Flexible(child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: const Color(0xFFDCFCE7),
@@ -252,17 +254,17 @@ class GovMetricCard extends StatelessWidget {
                               color: Color(0xFF15803D),
                             ),
                             const SizedBox(width: 4),
-                            Text(
+                            Flexible(child: Text(
                               trendLabel,
                               style: theme.typography.bodySmall.copyWith(
                                 color: const Color(0xFF15803D),
                                 fontWeight: FontWeight.bold,
                                 fontSize: 10,
                               ),
-                            ),
+                            )),
                           ],
                         ),
-                      ),
+                      )),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -290,21 +292,22 @@ class GovMetricCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          Flexible(child: Text(
                             'Utilization',
                             style: theme.typography.bodySmall.copyWith(
                               color: theme.colors.outline,
                               fontSize: 10,
                             ),
-                          ),
-                          Text(
+                          )),
+                          const SizedBox(width: 8),
+                          Flexible(child: Text(
                             '${(progress * animValue * 100).toInt()}%',
                             style: theme.typography.bodySmall.copyWith(
                               color: brandColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 10,
                             ),
-                          ),
+                          )),
                         ],
                       ),
                       const SizedBox(height: 6),

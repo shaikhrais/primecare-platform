@@ -373,7 +373,8 @@ class ApiClient {
   static bool _isUncachedWorkflowPath(String path) {
     final route = (Uri.tryParse(path)?.normalizePath().path ?? path)
         .replaceFirst(RegExp(r'/+$'), '');
-    return route == '/v1/business-development' ||
+    return route == '/v1/clinical/dashboard' ||
+        route == '/v1/business-development' ||
         route.startsWith('/v1/business-development-') ||
         route.startsWith('/v1/business-development/') ||
         route == '/v1/auth/me/notifications' ||
