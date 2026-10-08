@@ -137,6 +137,75 @@ class AuthorityAuditTests(unittest.TestCase):
         self.assertEqual(row['explicitGrants'], [])
         self.assertEqual(row['disposition'], 'no_explicit_grant')
 
+    def test_unbound_raw_grant_is_preserved_without_activation(self):
+        self.execute('UPDATE api_endpoints SET permission_key=NULL WHERE id=100')
+        self.execute("INSERT INTO api_permissions VALUES(100,10,'client.read',1)")
+        row = self.audit()['GET /v1/client/pending']
+        self.assertEqual(row['explicitGrants'], [])
+        self.assertEqual(row['rawGrantEvidence'][0]['permissionKey'], 'client.read')
+        self.assertEqual(row['rawGrantEvidence'][0]['roleCode'], 'client')
+        self.assertFalse(row['rawGrantEvidence'][0]['matchesEndpointKey'])
+        self.assertEqual(row['disposition'], 'unknown_schema')
+
+    def test_blocked_inclusion_is_explicit_and_preserves_stage(self):
+        default = authority.audit(self.database, self.source)
+        included = authority.audit(self.database, self.source, include_blocked=True)
+        self.assertEqual(default['summary']['pendingUniqueOperations'], 2)
+        self.assertEqual(default['summary']['blockedUniqueOperations'], 0)
+        self.assertEqual(included['summary']['pendingUniqueOperations'], 2)
+        self.assertEqual(included['summary']['blockedUniqueOperations'], 1)
+        self.assertEqual(len(included['operations']), 3)
+        self.assertEqual(next(r for r in included['operations'] if r['api'].endswith('/blocked'))['stage'], 'blocked')
+
+    def test_exact_function_grants_and_screen_context_do_not_replace_endpoint_authority(self):
+        db = sqlite3.connect(self.database)
+        db.executescript("""
+            CREATE TABLE screen_functions(id INTEGER,api_id INTEGER,screen_id INTEGER,function_code TEXT,permission_key TEXT);
+            CREATE TABLE role_function_permissions(role_id INTEGER,function_id INTEGER,can_execute INTEGER);
+            CREATE TABLE screen_api_links(screen_id INTEGER,api_id INTEGER,purpose TEXT);
+            CREATE TABLE screens(id INTEGER,screen_code TEXT);
+            CREATE TABLE role_screen_permissions(role_id INTEGER,screen_id INTEGER,can_view INTEGER);
+            INSERT INTO screen_functions VALUES(5,100,7,'self.read','client.read'),(6,101,8,'unrelated','client.read');
+            INSERT INTO role_function_permissions VALUES(10,5,1),(11,6,1);
+            INSERT INTO screen_api_links VALUES(7,100,'self identity');
+            INSERT INTO screens VALUES(7,'identity');
+            INSERT INTO role_screen_permissions VALUES(11,7,1);
+        """)
+        db.commit(); db.close()
+        row = self.audit()['GET /v1/client/pending']
+        self.assertEqual([f['id'] for f in row['functionEvidence']], [5])
+        self.assertEqual(row['functionEvidence'][0]['roleExecuteEvidence'][0]['roleCode'], 'client')
+        self.assertTrue(row['screenContext'][0]['contextOnly'])
+        self.assertEqual(row['explicitGrants'], [])
+        self.assertEqual(row['disposition'], 'no_explicit_grant')
+
+    def test_registry_origin_mismatch_is_preserved_not_attached_as_authority(self):
+        self.execute('CREATE TABLE api_endpoint_registry(id INTEGER,api_id INTEGER,endpoint_code TEXT,method TEXT,endpoint_path TEXT)')
+        self.execute("INSERT INTO api_endpoint_registry VALUES(100,4253,'api_v1_cns_list_get','GET','/v1/cns')")
+        self.execute('UPDATE api_endpoints SET permission_key=NULL WHERE id=100')
+        self.execute("INSERT INTO api_permissions VALUES(100,10,'api_permission_api_v1_cns_list_get',1)")
+        row = self.audit()['GET /v1/client/pending']
+        origin = row['rawGrantEvidence'][0]['registryOriginEvidence']
+        self.assertEqual(origin['disposition'], 'method_path_mismatch_observed')
+        self.assertEqual(origin['records'][0]['api_id'], 4253)
+        self.assertTrue(origin['records'][0]['referencedRegistryIdEqualsEndpointId'])
+        self.assertFalse(origin['records'][0]['sameUnderlyingApiId'])
+        self.assertEqual(row['explicitGrants'], [])
+
+    def test_registry_exact_match_is_evidence_without_activation_credit(self):
+        self.execute('CREATE TABLE api_endpoint_registry(id INTEGER,api_id INTEGER,endpoint_code TEXT,method TEXT,endpoint_path TEXT)')
+        self.execute("INSERT INTO api_endpoint_registry VALUES(7,100,'self_read','GET','/v1/client/pending')")
+        self.execute("INSERT INTO api_permissions VALUES(100,10,'api_permission_self_read',1)")
+        row = self.audit()['GET /v1/client/pending']
+        self.assertEqual(row['rawGrantEvidence'][0]['registryOriginEvidence']['disposition'], 'method_path_match_observed')
+        self.assertEqual(row['explicitGrants'], [])
+
+    def test_unknown_registry_preserves_raw_grant(self):
+        self.execute("INSERT INTO api_permissions VALUES(100,10,'client.read',1)")
+        row = self.audit()['GET /v1/client/pending']
+        self.assertEqual(row['rawGrantEvidence'][0]['registryOriginEvidence']['disposition'], 'unknown_registry_schema')
+        self.assertEqual(len(row['rawGrantEvidence']), 1)
+
     def test_missing_database_is_not_created(self):
         missing = self.database.with_name('missing.db')
         with self.assertRaises(ValueError): authority.audit(missing, self.source)
