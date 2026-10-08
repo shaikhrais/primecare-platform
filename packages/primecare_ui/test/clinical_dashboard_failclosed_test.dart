@@ -264,7 +264,7 @@ void main() {
       final c = container(
         () async => ApiResponse(data: validData(), statusCode: 200),
       );
-      await settle();
+      await tester.pump();
       await tester.pumpWidget(
         UncontrolledProviderScope(
           container: c,
