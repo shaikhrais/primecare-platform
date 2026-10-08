@@ -1,0 +1,38 @@
+name: Technical specification and traceability
+
+on:
+  pull_request:
+    paths:
+      - 'docs/technical/**'
+      - 'docs/api/api-delivery-checklist.json'
+      - 'docs/api/workflow-contract-reviews.json'
+      - 'scripts/build-technical-operation-register.py'
+      - 'scripts/check-technical-docs.py'
+      - '.github/workflows/technical-documentation.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'docs/technical/**'
+      - 'docs/api/api-delivery-checklist.json'
+      - 'docs/api/workflow-contract-reviews.json'
+      - 'scripts/build-technical-operation-register.py'
+      - 'scripts/check-technical-docs.py'
+      - '.github/workflows/technical-documentation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  technical-docs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check source-derived operation and family registers
+        run: python3 scripts/build-technical-operation-register.py --check
+      - name: Check document coverage, links, source pins and honest counts
+        run: python3 scripts/check-technical-docs.py
