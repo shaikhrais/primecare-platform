@@ -89,16 +89,20 @@ public class baseTest {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		// PageLoad TimeOuts
 		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(20));
-		// Launching the Auth Language Portal from SQLite DB
-		String authBase = primecare.testing.framework.DatabaseConfig.getAuthUrl();
-		String startUrl = primecare.testing.framework.DatabaseConfig.ensureSemanticsUrl(authBase + "/language");
-		System.out.println("  [BASE SETUP] Initializing browser to Auth Language Portal: " + startUrl);
-		driver.get(startUrl);
+		// Shared setup must not choose a website. Each test/page object opens
+		// its own entry URL (PointClickCare, PrimeCare, Google Maps, etc.).
+		System.out.println("  [BASE SETUP] Browser ready; the test selects its entry URL.");
 	}
 
-	@AfterTest
+	@AfterTest(alwaysRun = true)
 	public void tearDown() {
-		driver.close();
+		try {
+			if (driver != null) {
+				driver.quit();
+			}
+		} finally {
+			driver = null;
+		}
 		System.out.println("TearDown Successful");
 	}
 

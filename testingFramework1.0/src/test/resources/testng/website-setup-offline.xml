@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Offline website setup regressions" parallel="false">
+    <test name="URL configuration and browser cleanup">
+        <classes>
+            <class name="baseDataProviders.SharedWebsiteSetupTest"/>
+        </classes>
+    </test>
+</suite>
