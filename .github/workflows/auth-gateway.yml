@@ -48,7 +48,8 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:15-alpine
+        # Docker's official image mirror avoids Docker Hub's anonymous pull limit.
+        image: public.ecr.aws/docker/library/postgres:15-alpine
         env:
           POSTGRES_USER: primecare
           POSTGRES_PASSWORD: integration-only-password
