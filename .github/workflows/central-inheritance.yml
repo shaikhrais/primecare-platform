@@ -12,6 +12,11 @@ on:
       - 'packages/flutter_core/lib/providers/user_management_provider.dart'
       - 'packages/flutter_core/test/shared_data_model_imports_test.dart'
       - 'packages/primecare_models/**'
+      - 'scripts/refactor_screen_metadata.py'
+      - 'scripts/verify_screen_metadata_parity.py'
+      - 'docs/refactoring/screen-metadata-migration.*'
+      - 'packages/flutter_core/lib/models/screen_metadata.dart'
+      - 'packages/flutter_core/lib/models/navigation_item.dart'
       - 'scripts/refactor_platform_governance.py'
       - 'scripts/verify_platform_governance_parity.py'
       - 'docs/refactoring/platform-governance-migration.*'
@@ -109,6 +114,7 @@ jobs:
           python3 scripts/refactor_auth_layers.py --check
           python3 scripts/refactor_shared_data_models.py --check
           python3 scripts/refactor_platform_governance.py --check
+          python3 scripts/refactor_screen_metadata.py --check
           python3 scripts/refactor_gateway_layers.py --check
           python3 scripts/refactor_domain_hosts.py --check
           python3 scripts/check-app-shell-inheritance.py
@@ -127,6 +133,11 @@ jobs:
           python3 scripts/verify_platform_governance_parity.py --flutter flutter
           cd packages/flutter_core
           flutter analyze lib/models/platform_types.dart lib/registry/platform_role.dart lib/models/domain_governance.dart lib/src/domain/governance lib/src/application/services/data_logistics_hub.dart
+      - name: Verify screen metadata and navigation inheritance
+        run: |
+          python3 scripts/verify_screen_metadata_parity.py --flutter flutter
+          cd packages/flutter_core
+          flutter analyze lib/models/screen_metadata.dart lib/models/navigation_item.dart
       - name: Compile every migrated controller and test shared lifecycle
         run: |
           python3 scripts/generate-controller-compile-test.py

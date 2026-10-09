@@ -1,77 +1,147 @@
-// Flutter icon adapter for the shared screen metadata contract.
-import 'package:flutter/material.dart';
-import 'package:primecare_models/primecare_models.dart' show BaseScreenMetadata;
+import 'base_entity.dart';
 import 'governance_types.dart';
 import 'platform_geometry.dart';
 
-class ScreenMetadata extends BaseScreenMetadata<IconData> {
-  const ScreenMetadata({
-    required super.id,
-    required super.title,
-    super.route,
-    super.routePath,
-    super.subsystem,
-    super.featureName,
-    super.icon,
-    super.lifecycleStatus,
-    super.priority,
-    super.requiredApis,
-    super.requiredPermissions,
-    super.roles,
-    super.allowedRoles,
-    super.isAuditCompliant,
-    super.designSize,
-    super.designSizeValue, // Support Size or PlatformSize
-    super.implementedComponents,
-    super.pendingComponents,
-    super.sourcePath,
-    super.isVirtual,
-    super.translationKeys,
-    super.isRenderOk,
-    super.userApprovedLayout,
-    super.testPassRate,
-    super.testScenarioCount,
-    super.isPhiCompliant,
-    super.isLocalizationReady,
-    super.isDesktopVerified,
-    super.isAccessibilityVerified,
-    super.isPerformanceVerified,
-    super.accessibilityScore,
-    super.performanceScore,
-    super.isTabletVerified,
-    super.translatedLanguages,
-    super.isFullyTranslated,
-    super.hasAllTranslations,
-    super.assignedDeveloper,
-    super.complexity,
-    super.securityLevel,
-    super.sprintName,
-    super.lastVerificationHash,
-    super.deploymentEnvironment,
-    super.isMobileVerified,
-    super.uatApprover,
-    super.hasUnsavedChangeGuard,
-    super.storyPoints,
-    super.category,
-    super.hasEmptyState,
-    super.isDataBindingVerified,
-    super.isSecurityVerified,
-    super.isTelemetryVerified,
-    super.isNavigationVerified,
-    super.completionPercent,
-    super.hasRisk,
-    super.isReadyForProduction,
-    super.office,
-  });
+/// [ScreenMetadata] - Comprehensive governance model for a single platform screen.
+/// Centralizes the architectural intent, status, and requirements for UI components.
+class BaseScreenMetadata<TIcon> extends BaseEntity<String> {
+  final String title;
+  final String route;
+  final String subsystem;
+  final String featureName;
+  final TIcon? icon;
+  final LifecycleStatus lifecycleStatus;
+  final PriorityLevel priority;
+  final List<String> requiredApis;
+  final List<String> requiredPermissions;
+  final List<String> roles;
+  final bool isAuditCompliant;
+  final PlatformSize designSize;
+  final List<String> implementedComponents;
+  final List<String> pendingComponents;
+  final String sourcePath;
+  final bool isVirtual;
+  final List<String> translationKeys;
 
-  @override
-  ScreenMetadata copyWith({
+  // Readiness / QA Metrics
+  final bool isRenderOk;
+  final bool userApprovedLayout;
+  final double testPassRate;
+  final int testScenarioCount;
+  final bool isPhiCompliant;
+  final bool isLocalizationReady;
+  final bool isDesktopVerified;
+  final bool isAccessibilityVerified;
+  final bool isPerformanceVerified;
+  final bool isTabletVerified;
+  final double accessibilityScore;
+  final double performanceScore;
+  final List<String> translatedLanguages;
+  final bool isFullyTranslated;
+  final bool hasAllTranslations;
+  final bool hasEmptyState;
+
+  // Governance / Project Management
+  final String assignedDeveloper;
+  final int complexity;
+  final SecurityTier securityLevel;
+  final String sprintName;
+  final String lastVerificationHash;
+  final String deploymentEnvironment;
+  final bool isMobileVerified;
+  final String uatApprover;
+  final bool hasUnsavedChangeGuard;
+  final int storyPoints;
+  final GovernanceCategory category;
+
+  // Feature Verification Flags
+  final bool isDataBindingVerified;
+  final bool isSecurityVerified;
+  final bool isTelemetryVerified;
+  final bool isNavigationVerified;
+
+  // Extension Fields for Governance HUD
+  final double completionPercent;
+  final bool hasRisk;
+  final bool isReadyForProduction;
+  final String office;
+
+  const BaseScreenMetadata({
+    required super.id,
+    required this.title,
+    String? route,
+    String? routePath,
+    this.subsystem = 'unknown',
+    this.featureName = '',
+    this.icon,
+    this.lifecycleStatus = LifecycleStatus.backlog,
+    this.priority = PriorityLevel.p2,
+    this.requiredApis = const [],
+    this.requiredPermissions = const [],
+    List<String>? roles,
+    List<String>? allowedRoles,
+    this.isAuditCompliant = false,
+    this.designSize = const PlatformSize(3840, 2160),
+    dynamic designSizeValue, // Support Size or PlatformSize
+    this.implementedComponents = const [],
+    this.pendingComponents = const [],
+    this.sourcePath = '',
+    this.isVirtual = false,
+    this.translationKeys = const [],
+    this.isRenderOk = false,
+    this.userApprovedLayout = false,
+    this.testPassRate = 0.0,
+    this.testScenarioCount = 0,
+    this.isPhiCompliant = false,
+    this.isLocalizationReady = false,
+    this.isDesktopVerified = false,
+    this.isAccessibilityVerified = false,
+    this.isPerformanceVerified = false,
+    this.accessibilityScore = 0.0,
+    this.performanceScore = 0.0,
+    this.isTabletVerified = false,
+    this.translatedLanguages = const [],
+    this.isFullyTranslated = false,
+    this.hasAllTranslations = false,
+    this.assignedDeveloper = 'unassigned',
+    this.complexity = 5,
+    this.securityLevel = SecurityTier.medium,
+    this.sprintName = 'backlog',
+    this.lastVerificationHash = 'HASH_PENDING',
+    this.deploymentEnvironment = 'development',
+    this.isMobileVerified = false,
+    this.uatApprover = 'none',
+    this.hasUnsavedChangeGuard = false,
+    this.storyPoints = 0,
+    this.category = GovernanceCategory.audit,
+    this.hasEmptyState = false,
+    this.isDataBindingVerified = false,
+    this.isSecurityVerified = false,
+    this.isTelemetryVerified = false,
+    this.isNavigationVerified = false,
+    this.completionPercent = 0.0,
+    this.hasRisk = false,
+    this.isReadyForProduction = false,
+    this.office = 'Default',
+  })  : this.route = routePath ?? route ?? '',
+        this.roles = allowedRoles ?? roles ?? const [];
+
+  /// Compatibility aliases
+  String get routePath => route;
+  List<String> get allowedRoles => roles;
+  int get sprintPoints => storyPoints;
+  String get role => roles.isNotEmpty ? roles.first : 'None';
+
+  /// Logic to determine if implementation can proceed.
+  bool get canImplement => isAuditCompliant && lifecycleStatus != LifecycleStatus.legacy;
+
+  BaseScreenMetadata<TIcon> copyWith({
     String? id,
     String? title,
     String? route,
     String? subsystem,
     String? featureName,
-    IconData? icon,
+    TIcon? icon,
     LifecycleStatus? lifecycleStatus,
     PriorityLevel? priority,
     List<String>? requiredApis,
@@ -120,7 +190,7 @@ class ScreenMetadata extends BaseScreenMetadata<IconData> {
     bool? isReadyForProduction,
     String? office,
   }) {
-    return ScreenMetadata(
+    return BaseScreenMetadata<TIcon>(
       id: id ?? this.id,
       title: title ?? this.title,
       route: route ?? this.route,
@@ -177,8 +247,61 @@ class ScreenMetadata extends BaseScreenMetadata<IconData> {
     );
   }
 
-  factory ScreenMetadata.fromJson(Map<String, dynamic> json) {
-    return ScreenMetadata(
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'route': route,
+        'subsystem': subsystem,
+        'featureName': featureName,
+        'lifecycleStatus': lifecycleStatus.name,
+        'priority': priority.name,
+        'requiredApis': requiredApis,
+        'requiredPermissions': requiredPermissions,
+        'roles': roles,
+        'isAuditCompliant': isAuditCompliant,
+        'implementedComponents': implementedComponents,
+        'pendingComponents': pendingComponents,
+        'sourcePath': sourcePath,
+        'isVirtual': isVirtual,
+        'translationKeys': translationKeys,
+        'isRenderOk': isRenderOk,
+        'userApprovedLayout': userApprovedLayout,
+        'testPassRate': testPassRate,
+        'testScenarioCount': testScenarioCount,
+        'isPhiCompliant': isPhiCompliant,
+        'isLocalizationReady': isLocalizationReady,
+        'isDesktopVerified': isDesktopVerified,
+        'isAccessibilityVerified': isAccessibilityVerified,
+        'isPerformanceVerified': isPerformanceVerified,
+        'accessibilityScore': accessibilityScore,
+        'performanceScore': performanceScore,
+        'isTabletVerified': isTabletVerified,
+        'translatedLanguages': translatedLanguages,
+        'isFullyTranslated': isFullyTranslated,
+        'hasAllTranslations': hasAllTranslations,
+        'hasEmptyState': hasEmptyState,
+        'assignedDeveloper': assignedDeveloper,
+        'complexity': complexity,
+        'securityLevel': securityLevel.name,
+        'sprintName': sprintName,
+        'lastVerificationHash': lastVerificationHash,
+        'deploymentEnvironment': deploymentEnvironment,
+        'isMobileVerified': isMobileVerified,
+        'uatApprover': uatApprover,
+        'hasUnsavedChangeGuard': hasUnsavedChangeGuard,
+        'storyPoints': storyPoints,
+        'category': category.name,
+        'isDataBindingVerified': isDataBindingVerified,
+        'isSecurityVerified': isSecurityVerified,
+        'isTelemetryVerified': isTelemetryVerified,
+        'isNavigationVerified': isNavigationVerified,
+        'completionPercent': completionPercent,
+        'hasRisk': hasRisk,
+        'isReadyForProduction': isReadyForProduction,
+        'office': office,
+      };
+  factory BaseScreenMetadata.fromJson(Map<String, dynamic> json) {
+    return BaseScreenMetadata<TIcon>(
       id: json['id'] as String,
       title: json['title'] as String,
       route: json['route'] as String?,
@@ -245,5 +368,3 @@ class ScreenMetadata extends BaseScreenMetadata<IconData> {
     );
   }
 }
-
-

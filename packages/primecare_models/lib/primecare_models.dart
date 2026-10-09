@@ -31,3 +31,5 @@ export 'src/models/base_platform_tenant.dart';
 export 'src/models/base_platform_module.dart';
 export 'src/models/base_platform_role_definition.dart';
 export 'src/models/base_platform_application.dart';
+export 'src/models/base_screen_metadata.dart';
+export 'src/models/base_navigation_item.dart';

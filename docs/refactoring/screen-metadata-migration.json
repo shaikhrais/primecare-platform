@@ -1,0 +1,12 @@
+{
+  "sourceCommit": "6e11e02852785a3aa55430b978b193bae75147e5",
+  "files": [
+    "packages/flutter_core/lib/models/screen_metadata.dart",
+    "packages/flutter_core/lib/models/navigation_item.dart",
+    "packages/primecare_models/lib/src/models/base_screen_metadata.dart",
+    "packages/primecare_models/lib/src/models/base_navigation_item.dart"
+  ],
+  "sharedContracts": 2,
+  "flutterAdapters": 2,
+  "completedWorkflows": 0
+}
