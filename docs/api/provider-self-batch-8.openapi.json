@@ -1,0 +1,242 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Own Provider Data Batch 8",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/provider/profile": {
+      "get": {
+        "operationId": "provider_self_profile",
+        "summary": "Read own provider profile",
+        "description": "Active explicit bearer session. provider_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary providerId/userId/tenant overrides. Availability query additionally checks provider_id and tenant. Missing profile returns 404; conflicting tenant header returns 403. No client details or provider compliance/retraining fields are returned. No new role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Owner data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "profile"
+                  ],
+                  "properties": {
+                    "profile": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "full_name",
+                        "bio",
+                        "languages",
+                        "service_areas",
+                        "provider_type",
+                        "is_approved",
+                        "skills"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "full_name": {
+                          "type": "string"
+                        },
+                        "bio": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "languages": {
+                          "type": "string"
+                        },
+                        "service_areas": {
+                          "type": "string"
+                        },
+                        "provider_type": {
+                          "type": "string"
+                        },
+                        "is_approved": {
+                          "type": "boolean"
+                        },
+                        "skills": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own provider profile absent"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Database unavailable or schema dependency missing"
+          }
+        }
+      }
+    },
+    "/v1/provider/availability": {
+      "get": {
+        "operationId": "provider_self_availability",
+        "summary": "List own availability",
+        "description": "Active explicit bearer session. provider_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary providerId/userId/tenant overrides. Availability query additionally checks provider_id and tenant. Missing profile returns 404; conflicting tenant header returns 403. No client details or provider compliance/retraining fields are returned. No new role grants.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Owner data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "availability",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "availability": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "day_of_week",
+                          "start_time",
+                          "end_time"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "day_of_week": {
+                            "type": "integer"
+                          },
+                          "start_time": {
+                            "type": "string"
+                          },
+                          "end_time": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query/body"
+          },
+          "401": {
+            "description": "Invalid session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Own provider profile absent"
+          },
+          "405": {
+            "description": "Unsupported method"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Database unavailable or schema dependency missing"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

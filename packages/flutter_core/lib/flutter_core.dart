@@ -166,3 +166,4 @@ export 'registry/widgets/responsive_split_dashboard.dart';
 export 'stubs/url_strategy.dart';
 
 
+export 'src/repositories/own_notifications_repository.dart';

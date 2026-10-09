@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OperationsManagerComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class OperationsManagerComplianceScreenState
+    extends DashboardState<OperationsManagerComplianceScreenState> {
+  OperationsManagerComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  OperationsManagerComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  OperationsManagerComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return OperationsManagerComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  OperationsManagerComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => OperationsManagerComplianceScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class OperationsManagerComplianceScreenController extends StateNotifier<OperationsManagerComplianceScreenState> {
-  final Ref ref;
-  OperationsManagerComplianceScreenController(this.ref) : super(OperationsManagerComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/operations-manager-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class OperationsManagerComplianceScreenController
+    extends BaseDashboardController<OperationsManagerComplianceScreenState> {
+  OperationsManagerComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: OperationsManagerComplianceScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/management/operations-manager-compliance',
+      );
 }
 
-final operations_manager_complianceControllerProvider = StateNotifierProvider<OperationsManagerComplianceScreenController, OperationsManagerComplianceScreenState>((ref) {
-  return OperationsManagerComplianceScreenController(ref);
-});
+final operations_manager_complianceControllerProvider =
+    StateNotifierProvider<
+      OperationsManagerComplianceScreenController,
+      OperationsManagerComplianceScreenState
+    >((ref) {
+      return OperationsManagerComplianceScreenController(ref);
+    });

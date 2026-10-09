@@ -1,55 +1,35 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SsoRedirectScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class SsoRedirectScreenState extends DashboardState<SsoRedirectScreenState> {
+  SsoRedirectScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  SsoRedirectScreenState({required this.isLoading, this.error, required this.data});
-
-  SsoRedirectScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return SsoRedirectScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  SsoRedirectScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => SsoRedirectScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class SsoRedirectScreenController extends StateNotifier<SsoRedirectScreenState> {
-  final Ref ref;
-  SsoRedirectScreenController(this.ref) : super(SsoRedirectScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/generated/sso-redirect');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class SsoRedirectScreenController
+    extends BaseDashboardController<SsoRedirectScreenState> {
+  SsoRedirectScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: SsoRedirectScreenState(isLoading: true, data: {}),
+        endpoint: '/generated/sso-redirect',
+      );
 }
 
-final sso_redirectControllerProvider = StateNotifierProvider<SsoRedirectScreenController, SsoRedirectScreenState>((ref) {
-  return SsoRedirectScreenController(ref);
-});
+final sso_redirectControllerProvider =
+    StateNotifierProvider<SsoRedirectScreenController, SsoRedirectScreenState>((
+      ref,
+    ) {
+      return SsoRedirectScreenController(ref);
+    });

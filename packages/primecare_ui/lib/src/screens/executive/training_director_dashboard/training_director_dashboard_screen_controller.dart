@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TrainingDirectorDashboardScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class TrainingDirectorDashboardScreenState
+    extends DashboardState<TrainingDirectorDashboardScreenState> {
+  TrainingDirectorDashboardScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  TrainingDirectorDashboardScreenState({required this.isLoading, this.error, required this.data});
-
-  TrainingDirectorDashboardScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return TrainingDirectorDashboardScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TrainingDirectorDashboardScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => TrainingDirectorDashboardScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class TrainingDirectorDashboardScreenController extends StateNotifier<TrainingDirectorDashboardScreenState> {
-  final Ref ref;
-  TrainingDirectorDashboardScreenController(this.ref) : super(TrainingDirectorDashboardScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/corporate/roles/training_director/dashboard');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class TrainingDirectorDashboardScreenController
+    extends BaseDashboardController<TrainingDirectorDashboardScreenState> {
+  TrainingDirectorDashboardScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: TrainingDirectorDashboardScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/offices/corporate/roles/training_director/dashboard',
+      );
 }
 
-final training_director_dashboardControllerProvider = StateNotifierProvider<TrainingDirectorDashboardScreenController, TrainingDirectorDashboardScreenState>((ref) {
-  return TrainingDirectorDashboardScreenController(ref);
-});
+final training_director_dashboardControllerProvider =
+    StateNotifierProvider<
+      TrainingDirectorDashboardScreenController,
+      TrainingDirectorDashboardScreenState
+    >((ref) {
+      return TrainingDirectorDashboardScreenController(ref);
+    });

@@ -1,55 +1,35 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SocialMediaScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class SocialMediaScreenState extends DashboardState<SocialMediaScreenState> {
+  SocialMediaScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  SocialMediaScreenState({required this.isLoading, this.error, required this.data});
-
-  SocialMediaScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return SocialMediaScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  SocialMediaScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => SocialMediaScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class SocialMediaScreenController extends StateNotifier<SocialMediaScreenState> {
-  final Ref ref;
-  SocialMediaScreenController(this.ref) : super(SocialMediaScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/social-media');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class SocialMediaScreenController
+    extends BaseDashboardController<SocialMediaScreenState> {
+  SocialMediaScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: SocialMediaScreenState(isLoading: true, data: {}),
+        endpoint: '/management/social-media',
+      );
 }
 
-final social_mediaControllerProvider = StateNotifierProvider<SocialMediaScreenController, SocialMediaScreenState>((ref) {
-  return SocialMediaScreenController(ref);
-});
+final social_mediaControllerProvider =
+    StateNotifierProvider<SocialMediaScreenController, SocialMediaScreenState>((
+      ref,
+    ) {
+      return SocialMediaScreenController(ref);
+    });

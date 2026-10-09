@@ -1,55 +1,45 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LicensedPracticalNurseLpnAnalyticsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class LicensedPracticalNurseLpnAnalyticsScreenState
+    extends DashboardState<LicensedPracticalNurseLpnAnalyticsScreenState> {
+  LicensedPracticalNurseLpnAnalyticsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  LicensedPracticalNurseLpnAnalyticsScreenState({required this.isLoading, this.error, required this.data});
-
-  LicensedPracticalNurseLpnAnalyticsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return LicensedPracticalNurseLpnAnalyticsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  LicensedPracticalNurseLpnAnalyticsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => LicensedPracticalNurseLpnAnalyticsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class LicensedPracticalNurseLpnAnalyticsScreenController extends StateNotifier<LicensedPracticalNurseLpnAnalyticsScreenState> {
-  final Ref ref;
-  LicensedPracticalNurseLpnAnalyticsScreenController(this.ref) : super(LicensedPracticalNurseLpnAnalyticsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/rpn/lpn-analytics');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class LicensedPracticalNurseLpnAnalyticsScreenController
+    extends
+        BaseDashboardController<LicensedPracticalNurseLpnAnalyticsScreenState> {
+  LicensedPracticalNurseLpnAnalyticsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: LicensedPracticalNurseLpnAnalyticsScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/rpn/lpn-analytics',
+      );
 }
 
-final lpn_analyticsControllerProvider = StateNotifierProvider<LicensedPracticalNurseLpnAnalyticsScreenController, LicensedPracticalNurseLpnAnalyticsScreenState>((ref) {
-  return LicensedPracticalNurseLpnAnalyticsScreenController(ref);
-});
+final lpn_analyticsControllerProvider =
+    StateNotifierProvider<
+      LicensedPracticalNurseLpnAnalyticsScreenController,
+      LicensedPracticalNurseLpnAnalyticsScreenState
+    >((ref) {
+      return LicensedPracticalNurseLpnAnalyticsScreenController(ref);
+    });

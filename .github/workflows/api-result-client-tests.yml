@@ -1,0 +1,60 @@
+name: API result caller regressions
+on:
+  pull_request:
+    paths:
+      - 'packages/flutter_core/lib/src/network/api_client.dart'
+      - 'packages/flutter_core/lib/src/repositories/own_notifications_repository.dart'
+      - 'packages/flutter_core/lib/flutter_core.dart'
+      - 'packages/flutter_core/test/business_development_transport_test.dart'
+      - 'packages/flutter_core/test/own_notifications_repository_test.dart'
+      - 'apps/primecare_clinic/lib/features/psw/screens/psw_notifications_screen.dart'
+      - 'apps/primecare_clinic/test/psw_notifications_controller_test.dart'
+      - 'packages/primecare_ui/lib/src/components/governance_components.dart'
+      - 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_dashboard_screen.dart'
+      - 'packages/primecare_ui/test/clinical_dashboard_failclosed_test.dart'
+      - '.github/workflows/api-result-client-tests.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'packages/flutter_core/lib/src/network/api_client.dart'
+      - 'packages/flutter_core/lib/src/repositories/own_notifications_repository.dart'
+      - 'packages/flutter_core/lib/flutter_core.dart'
+      - 'packages/flutter_core/test/business_development_transport_test.dart'
+      - 'packages/flutter_core/test/own_notifications_repository_test.dart'
+      - 'apps/primecare_clinic/lib/features/psw/screens/psw_notifications_screen.dart'
+      - 'apps/primecare_clinic/test/psw_notifications_controller_test.dart'
+      - 'packages/primecare_ui/lib/src/components/governance_components.dart'
+      - 'packages/primecare_ui/lib/src/screens/clinical/clinical_director_dashboard_screen.dart'
+      - 'packages/primecare_ui/test/clinical_dashboard_failclosed_test.dart'
+      - '.github/workflows/api-result-client-tests.yml'
+permissions:
+  contents: read
+jobs:
+  caller-regressions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - run: flutter test test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/provider_profile_test.dart
+        working-directory: packages/flutter_core
+      - run: flutter analyze lib/src/network/api_client.dart lib/src/repositories/own_notifications_repository.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart
+        working-directory: packages/flutter_core
+      - run: flutter pub get
+        working-directory: apps/primecare_clinic
+      - run: flutter test test/psw_notifications_controller_test.dart
+        working-directory: apps/primecare_clinic
+      - run: flutter analyze --no-fatal-warnings --no-fatal-infos lib/features/psw/screens/psw_notifications_screen.dart
+        working-directory: apps/primecare_clinic
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter test test/clinical_dashboard_failclosed_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter analyze --no-fatal-warnings --no-fatal-infos lib/src/components/governance_components.dart lib/src/screens/clinical/clinical_director_dashboard_screen.dart test/clinical_dashboard_failclosed_test.dart
+        working-directory: packages/primecare_ui

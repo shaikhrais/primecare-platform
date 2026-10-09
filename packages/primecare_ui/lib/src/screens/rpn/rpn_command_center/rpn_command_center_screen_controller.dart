@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RpnCommandCenterScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class RpnCommandCenterScreenState
+    extends DashboardState<RpnCommandCenterScreenState> {
+  RpnCommandCenterScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  RpnCommandCenterScreenState({required this.isLoading, this.error, required this.data});
-
-  RpnCommandCenterScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return RpnCommandCenterScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  RpnCommandCenterScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => RpnCommandCenterScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class RpnCommandCenterScreenController extends StateNotifier<RpnCommandCenterScreenState> {
-  final Ref ref;
-  RpnCommandCenterScreenController(this.ref) : super(RpnCommandCenterScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/rpn/rpn-command-center');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class RpnCommandCenterScreenController
+    extends BaseDashboardController<RpnCommandCenterScreenState> {
+  RpnCommandCenterScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: RpnCommandCenterScreenState(isLoading: true, data: {}),
+        endpoint: '/offices/clinical/roles/rpn/rpn-command-center',
+      );
 }
 
-final rpn_command_centerControllerProvider = StateNotifierProvider<RpnCommandCenterScreenController, RpnCommandCenterScreenState>((ref) {
-  return RpnCommandCenterScreenController(ref);
-});
+final rpn_command_centerControllerProvider =
+    StateNotifierProvider<
+      RpnCommandCenterScreenController,
+      RpnCommandCenterScreenState
+    >((ref) {
+      return RpnCommandCenterScreenController(ref);
+    });

@@ -1,0 +1,79 @@
+{
+  "scope": "contract_alignment",
+  "authorityAdded": false,
+  "routesAdded": false,
+  "changes": [
+    {
+      "batch": 839,
+      "service": "client",
+      "path": "/consents",
+      "field": "template_version"
+    },
+    {
+      "batch": 840,
+      "service": "client",
+      "path": "/waitlist",
+      "field": "priority"
+    },
+    {
+      "batch": 841,
+      "service": "client",
+      "path": "/feedback",
+      "field": "rating"
+    },
+    {
+      "batch": 842,
+      "service": "client",
+      "path": "/care-feedback",
+      "field": "rating"
+    },
+    {
+      "batch": 843,
+      "service": "provider",
+      "path": "/timesheets",
+      "field": "total_minutes"
+    },
+    {
+      "batch": 844,
+      "service": "provider",
+      "path": "/mileage-logs",
+      "field": "travel_minutes"
+    },
+    {
+      "batch": 845,
+      "service": "provider",
+      "path": "/fleet-status",
+      "field": "battery_level"
+    },
+    {
+      "batch": 846,
+      "service": "auth",
+      "path": "/me/rewards",
+      "field": "care_coins"
+    },
+    {
+      "batch": 847,
+      "service": "auth",
+      "path": "/me/rewards",
+      "field": "lifetime_points"
+    },
+    {
+      "batch": 848,
+      "service": "auth",
+      "path": "/me/wellness-pulses",
+      "field": "score"
+    },
+    {
+      "batch": 849,
+      "service": "auth",
+      "path": "/me/reputation",
+      "field": "points"
+    },
+    {
+      "batch": 850,
+      "service": "auth",
+      "path": "/me/reputation",
+      "field": "crises_resolved"
+    }
+  ]
+}

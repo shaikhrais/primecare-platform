@@ -1,0 +1,947 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Own Provider Work Metadata",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/provider/shift-assignment-records": {
+      "get": {
+        "operationId": "provider_own_shift_assignments_list",
+        "summary": "Read own shift assignments list",
+        "description": "Read own ProviderProfile assignment, handover or authored note/checklist metadata only. An active explicit bearer, matching non-null tenant and unique actor-owned ProviderProfile are required. Assignments/handovers bind provider_id and tenant_id in every query. Authored notes/checklists have no tenant column: every query joins the current owning ProviderProfile and binds its provider ID, tenant and actor User. This is current profile authorship scope, not historical visit tenant or present visit assignment authority. Return registered IDs, stored assignment status and timestamps only; exclude visit/client IDs, scores, note/checklist contents, safety concerns and supplies. No clinical access, offers accepted, visit readiness or completed care is inferred. Bounded paging/exact owned detail, no-store, read-only repeatable-read and source limits. No grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "assignments",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "assignments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "status",
+                          "assigned_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "assigned_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      },
+                      "maxItems": 100
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "example": {
+                  "assignments": [
+                    {
+                      "id": "record-id",
+                      "status": "stored",
+                      "assigned_at": "2026-01-01T12:00:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/provider/shift-assignment-records/{recordId}": {
+      "get": {
+        "operationId": "provider_own_shift_assignments_detail",
+        "summary": "Read own shift assignments detail",
+        "description": "Read own ProviderProfile assignment, handover or authored note/checklist metadata only. An active explicit bearer, matching non-null tenant and unique actor-owned ProviderProfile are required. Assignments/handovers bind provider_id and tenant_id in every query. Authored notes/checklists have no tenant column: every query joins the current owning ProviderProfile and binds its provider ID, tenant and actor User. This is current profile authorship scope, not historical visit tenant or present visit assignment authority. Return registered IDs, stored assignment status and timestamps only; exclude visit/client IDs, scores, note/checklist contents, safety concerns and supplies. No clinical access, offers accepted, visit readiness or completed care is inferred. Bounded paging/exact owned detail, no-store, read-only repeatable-read and source limits. No grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "assignment"
+                  ],
+                  "properties": {
+                    "assignment": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "status",
+                        "assigned_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "assigned_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "example": {
+                  "assignment": {
+                    "id": "record-id",
+                    "status": "stored",
+                    "assigned_at": "2026-01-01T12:00:00Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/provider/handover-records": {
+      "get": {
+        "operationId": "provider_own_shift_handovers_list",
+        "summary": "Read own shift handovers list",
+        "description": "Read own ProviderProfile assignment, handover or authored note/checklist metadata only. An active explicit bearer, matching non-null tenant and unique actor-owned ProviderProfile are required. Assignments/handovers bind provider_id and tenant_id in every query. Authored notes/checklists have no tenant column: every query joins the current owning ProviderProfile and binds its provider ID, tenant and actor User. This is current profile authorship scope, not historical visit tenant or present visit assignment authority. Return registered IDs, stored assignment status and timestamps only; exclude visit/client IDs, scores, note/checklist contents, safety concerns and supplies. No clinical access, offers accepted, visit readiness or completed care is inferred. Bounded paging/exact owned detail, no-store, read-only repeatable-read and source limits. No grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "handovers",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "handovers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "created_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      },
+                      "maxItems": 100
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "example": {
+                  "handovers": [
+                    {
+                      "id": "record-id",
+                      "created_at": "2026-01-01T12:00:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/provider/handover-records/{recordId}": {
+      "get": {
+        "operationId": "provider_own_shift_handovers_detail",
+        "summary": "Read own shift handovers detail",
+        "description": "Read own ProviderProfile assignment, handover or authored note/checklist metadata only. An active explicit bearer, matching non-null tenant and unique actor-owned ProviderProfile are required. Assignments/handovers bind provider_id and tenant_id in every query. Authored notes/checklists have no tenant column: every query joins the current owning ProviderProfile and binds its provider ID, tenant and actor User. This is current profile authorship scope, not historical visit tenant or present visit assignment authority. Return registered IDs, stored assignment status and timestamps only; exclude visit/client IDs, scores, note/checklist contents, safety concerns and supplies. No clinical access, offers accepted, visit readiness or completed care is inferred. Bounded paging/exact owned detail, no-store, read-only repeatable-read and source limits. No grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "handover"
+                  ],
+                  "properties": {
+                    "handover": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "created_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "example": {
+                  "handover": {
+                    "id": "record-id",
+                    "created_at": "2026-01-01T12:00:00Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/provider/authored-visit-note-records": {
+      "get": {
+        "operationId": "provider_own_visit_notes_list",
+        "summary": "Read own visit notes list",
+        "description": "Read own ProviderProfile assignment, handover or authored note/checklist metadata only. An active explicit bearer, matching non-null tenant and unique actor-owned ProviderProfile are required. Assignments/handovers bind provider_id and tenant_id in every query. Authored notes/checklists have no tenant column: every query joins the current owning ProviderProfile and binds its provider ID, tenant and actor User. This is current profile authorship scope, not historical visit tenant or present visit assignment authority. Return registered IDs, stored assignment status and timestamps only; exclude visit/client IDs, scores, note/checklist contents, safety concerns and supplies. No clinical access, offers accepted, visit readiness or completed care is inferred. Bounded paging/exact owned detail, no-store, read-only repeatable-read and source limits. No grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "notes",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "notes": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "created_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      },
+                      "maxItems": 100
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "example": {
+                  "notes": [
+                    {
+                      "id": "record-id",
+                      "created_at": "2026-01-01T12:00:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/provider/authored-visit-note-records/{recordId}": {
+      "get": {
+        "operationId": "provider_own_visit_notes_detail",
+        "summary": "Read own visit notes detail",
+        "description": "Read own ProviderProfile assignment, handover or authored note/checklist metadata only. An active explicit bearer, matching non-null tenant and unique actor-owned ProviderProfile are required. Assignments/handovers bind provider_id and tenant_id in every query. Authored notes/checklists have no tenant column: every query joins the current owning ProviderProfile and binds its provider ID, tenant and actor User. This is current profile authorship scope, not historical visit tenant or present visit assignment authority. Return registered IDs, stored assignment status and timestamps only; exclude visit/client IDs, scores, note/checklist contents, safety concerns and supplies. No clinical access, offers accepted, visit readiness or completed care is inferred. Bounded paging/exact owned detail, no-store, read-only repeatable-read and source limits. No grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "note"
+                  ],
+                  "properties": {
+                    "note": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "created_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "example": {
+                  "note": {
+                    "id": "record-id",
+                    "created_at": "2026-01-01T12:00:00Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/provider/authored-checklist-records": {
+      "get": {
+        "operationId": "provider_own_visit_checklists_list",
+        "summary": "Read own visit checklists list",
+        "description": "Read own ProviderProfile assignment, handover or authored note/checklist metadata only. An active explicit bearer, matching non-null tenant and unique actor-owned ProviderProfile are required. Assignments/handovers bind provider_id and tenant_id in every query. Authored notes/checklists have no tenant column: every query joins the current owning ProviderProfile and binds its provider ID, tenant and actor User. This is current profile authorship scope, not historical visit tenant or present visit assignment authority. Return registered IDs, stored assignment status and timestamps only; exclude visit/client IDs, scores, note/checklist contents, safety concerns and supplies. No clinical access, offers accepted, visit readiness or completed care is inferred. Bounded paging/exact owned detail, no-store, read-only repeatable-read and source limits. No grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "checklists",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "checklists": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "created_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 200,
+                            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      },
+                      "maxItems": 100
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "example": {
+                  "checklists": [
+                    {
+                      "id": "record-id",
+                      "created_at": "2026-01-01T12:00:00Z"
+                    }
+                  ],
+                  "pagination": {
+                    "limit": 25,
+                    "offset": 0,
+                    "total": 1,
+                    "hasMore": false
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    },
+    "/v1/provider/authored-checklist-records/{recordId}": {
+      "get": {
+        "operationId": "provider_own_visit_checklists_detail",
+        "summary": "Read own visit checklists detail",
+        "description": "Read own ProviderProfile assignment, handover or authored note/checklist metadata only. An active explicit bearer, matching non-null tenant and unique actor-owned ProviderProfile are required. Assignments/handovers bind provider_id and tenant_id in every query. Authored notes/checklists have no tenant column: every query joins the current owning ProviderProfile and binds its provider ID, tenant and actor User. This is current profile authorship scope, not historical visit tenant or present visit assignment authority. Return registered IDs, stored assignment status and timestamps only; exclude visit/client IDs, scores, note/checklist contents, safety concerns and supplies. No clinical access, offers accepted, visit readiness or completed care is inferred. Bounded paging/exact owned detail, no-store, read-only repeatable-read and source limits. No grants or mutations.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "recordId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Projected own records or status groups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "checklist"
+                  ],
+                  "properties": {
+                    "checklist": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "created_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 200,
+                          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                },
+                "example": {
+                  "checklist": {
+                    "id": "record-id",
+                    "created_at": "2026-01-01T12:00:00Z"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID/query/body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch or missing actor tenant"
+          },
+          "404": {
+            "description": "Owned record/profile absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Data unavailable or ambiguous profile"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

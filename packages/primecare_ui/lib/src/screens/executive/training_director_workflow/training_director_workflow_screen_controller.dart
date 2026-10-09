@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TrainingDirectorWorkflowScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class TrainingDirectorWorkflowScreenState
+    extends DashboardState<TrainingDirectorWorkflowScreenState> {
+  TrainingDirectorWorkflowScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  TrainingDirectorWorkflowScreenState({required this.isLoading, this.error, required this.data});
-
-  TrainingDirectorWorkflowScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return TrainingDirectorWorkflowScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TrainingDirectorWorkflowScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => TrainingDirectorWorkflowScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class TrainingDirectorWorkflowScreenController extends StateNotifier<TrainingDirectorWorkflowScreenState> {
-  final Ref ref;
-  TrainingDirectorWorkflowScreenController(this.ref) : super(TrainingDirectorWorkflowScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/training-director-workflow');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class TrainingDirectorWorkflowScreenController
+    extends BaseDashboardController<TrainingDirectorWorkflowScreenState> {
+  TrainingDirectorWorkflowScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: TrainingDirectorWorkflowScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/executive/training-director-workflow',
+      );
 }
 
-final training_director_workflowControllerProvider = StateNotifierProvider<TrainingDirectorWorkflowScreenController, TrainingDirectorWorkflowScreenState>((ref) {
-  return TrainingDirectorWorkflowScreenController(ref);
-});
+final training_director_workflowControllerProvider =
+    StateNotifierProvider<
+      TrainingDirectorWorkflowScreenController,
+      TrainingDirectorWorkflowScreenState
+    >((ref) {
+      return TrainingDirectorWorkflowScreenController(ref);
+    });

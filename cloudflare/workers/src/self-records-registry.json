@@ -1,0 +1,976 @@
+[
+  {
+    "path": "/me/notifications",
+    "table": "app_notifications",
+    "collection": "notifications",
+    "item": "notification",
+    "fields": [
+      "id",
+      "title",
+      "message",
+      "type",
+      "is_read",
+      "created_at"
+    ],
+    "listBatch": 26,
+    "summaryBatch": 27,
+    "summaryField": "is_read",
+    "types": {
+      "id": "string",
+      "title": "string",
+      "message": "string",
+      "type": "string",
+      "is_read": "boolean",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/activities",
+    "table": "daily_activities",
+    "collection": "activities",
+    "item": "activity",
+    "fields": [
+      "id",
+      "role",
+      "title",
+      "description",
+      "status",
+      "due_date",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 28,
+    "summaryBatch": 29,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "role": "string",
+      "title": "string",
+      "description": "string",
+      "status": "string",
+      "due_date": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "due_date",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/rewards",
+    "table": "gamification_profiles",
+    "item": "profile",
+    "fields": [
+      "id",
+      "care_coins",
+      "current_tier",
+      "lifetime_points",
+      "updated_at"
+    ],
+    "listBatch": 30,
+    "singleton": true,
+    "types": {
+      "id": "string",
+      "care_coins": "integer",
+      "current_tier": "string",
+      "lifetime_points": "integer",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/wellness-pulses",
+    "table": "wellness_pulses",
+    "collection": "pulses",
+    "item": "pulse",
+    "fields": [
+      "id",
+      "score",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 31,
+    "summaryBatch": 32,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "score": [
+        "integer",
+        "null"
+      ],
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/device-events",
+    "table": "iot_events",
+    "collection": "events",
+    "item": "event",
+    "fields": [
+      "id",
+      "device_type",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 33,
+    "summaryBatch": 34,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "device_type": "string",
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/devices",
+    "table": "user_devices",
+    "collection": "devices",
+    "item": "device",
+    "fields": [
+      "id",
+      "device_name",
+      "device_type",
+      "is_authorized",
+      "is_temporary",
+      "authorized_at",
+      "expires_at",
+      "last_active_at",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 35,
+    "tenantThroughUser": true,
+    "types": {
+      "id": "string",
+      "device_name": [
+        "string",
+        "null"
+      ],
+      "device_type": [
+        "string",
+        "null"
+      ],
+      "is_authorized": "boolean",
+      "is_temporary": "boolean",
+      "authorized_at": [
+        "string",
+        "null"
+      ],
+      "expires_at": [
+        "string",
+        "null"
+      ],
+      "last_active_at": "string",
+      "status": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "authorized_at",
+      "expires_at",
+      "last_active_at",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/reputation",
+    "table": "user_reputations",
+    "item": "profile",
+    "fields": [
+      "id",
+      "points",
+      "elite_status",
+      "crises_resolved",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 40,
+    "singleton": true,
+    "tenantThroughUser": true,
+    "types": {
+      "id": "string",
+      "points": "integer",
+      "elite_status": "boolean",
+      "crises_resolved": "integer",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/health-ids",
+    "table": "health_ids",
+    "collection": "healthIds",
+    "item": "healthId",
+    "fields": [
+      "id",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 41,
+    "summaryBatch": 42,
+    "summaryField": "status",
+    "tenantThroughUser": true,
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/survey-submissions",
+    "table": "survey_responses",
+    "collection": "submissions",
+    "item": "submission",
+    "fields": [
+      "id",
+      "survey_id",
+      "created_at"
+    ],
+    "listBatch": 43,
+    "summaryBatch": 44,
+    "summaryField": "survey_id",
+    "tenantThroughUser": true,
+    "types": {
+      "id": "string",
+      "survey_id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/group-memberships",
+    "table": "staff_group_members",
+    "collection": "memberships",
+    "item": "membership",
+    "fields": [
+      "id",
+      "group_id",
+      "role",
+      "created_at"
+    ],
+    "listBatch": 45,
+    "tenantThroughUser": true,
+    "types": {
+      "id": "string",
+      "group_id": "string",
+      "role": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/password-history",
+    "table": "auth_password_audit",
+    "collection": "events",
+    "item": "event",
+    "fields": [
+      "id",
+      "action",
+      "created_at"
+    ],
+    "listBatch": 50,
+    "tenantThroughUser": true,
+    "types": {
+      "id": "string",
+      "action": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/shift-logs",
+    "table": "provider_shift_logs",
+    "collection": "logs",
+    "item": "log",
+    "fields": [
+      "id",
+      "date",
+      "start_time",
+      "end_time",
+      "shiftStatus"
+    ],
+    "listBatch": 66,
+    "summaryBatch": 67,
+    "summaryField": "shiftStatus",
+    "ownerField": "provider_id",
+    "orderField": "date",
+    "types": {
+      "id": "string",
+      "date": "string",
+      "start_time": "string",
+      "end_time": [
+        "string",
+        "null"
+      ],
+      "shiftStatus": "string"
+    },
+    "dateFields": [
+      "date",
+      "start_time",
+      "end_time"
+    ]
+  },
+  {
+    "path": "/me/daily-entry-records",
+    "table": "daily_entries",
+    "collection": "entries",
+    "item": "entry",
+    "fields": [
+      "id",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 68,
+    "summaryBatch": 69,
+    "summaryField": "status",
+    "ownerField": "staff_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/adl-log-records",
+    "table": "adl_care_logs",
+    "collection": "logs",
+    "item": "log",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 70,
+    "ownerField": "provider_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/vital-sign-records",
+    "table": "psw_vital_signs",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 71,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/me/behavior-note-records",
+    "table": "behavior_notes",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 72,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/me/nutrition-records",
+    "table": "nutrition_records",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 73,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/me/mobility-records",
+    "table": "mobility_logs",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 74,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/me/infection-control-records",
+    "table": "infection_control_checklists",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 75,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/me/narrative-note-records",
+    "table": "narrative_progress_notes",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 76,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/me/care-plan-follow-up-records",
+    "table": "care_plan_follow_ups",
+    "collection": "records",
+    "item": "record",
+    "fields": [
+      "id",
+      "recorded_at"
+    ],
+    "listBatch": 77,
+    "ownerField": "provider_id",
+    "orderField": "recorded_at",
+    "types": {
+      "id": "string",
+      "recorded_at": "string"
+    },
+    "dateFields": [
+      "recorded_at"
+    ]
+  },
+  {
+    "path": "/me/assigned-task-records",
+    "table": "staff_tasks",
+    "collection": "tasks",
+    "item": "task",
+    "fields": [
+      "id",
+      "status",
+      "priority",
+      "due_date",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 78,
+    "summaryBatch": 79,
+    "summaryField": "status",
+    "ownerField": "assignee_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "priority": "string",
+      "due_date": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "due_date",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/audit-signoff-records",
+    "table": "daily_audit_signoffs",
+    "collection": "signoffs",
+    "item": "signoff",
+    "fields": [
+      "id",
+      "status",
+      "signed_at"
+    ],
+    "listBatch": 80,
+    "ownerField": "rn_id",
+    "orderField": "signed_at",
+    "summaryBatch": 97,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "signed_at": "string"
+    },
+    "dateFields": [
+      "signed_at"
+    ]
+  },
+  {
+    "path": "/me/reported-incident-records",
+    "table": "incidents",
+    "collection": "incidents",
+    "item": "incident",
+    "fields": [
+      "id",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 81,
+    "ownerField": "reporter_user_id",
+    "orderField": "created_at",
+    "summaryBatch": 94,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "status": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/assessment-records",
+    "table": "clinical_assessments",
+    "collection": "assessments",
+    "item": "assessment",
+    "fields": [
+      "id",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 82,
+    "ownerField": "rn_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/medication-reconciliation-records",
+    "table": "medication_reconciliations",
+    "collection": "reconciliations",
+    "item": "reconciliation",
+    "fields": [
+      "id",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 83,
+    "ownerField": "rn_id",
+    "orderField": "created_at",
+    "summaryBatch": 95,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/supervision-records",
+    "table": "supervision_logs",
+    "collection": "logs",
+    "item": "log",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 84,
+    "ownerField": "rn_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/technical-audit-records",
+    "table": "technical_audits",
+    "collection": "audits",
+    "item": "audit",
+    "fields": [
+      "id",
+      "status",
+      "performed_at"
+    ],
+    "listBatch": 85,
+    "ownerField": "performed_by_id",
+    "orderField": "performed_at",
+    "summaryBatch": 96,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "performed_at": "string"
+    },
+    "dateFields": [
+      "performed_at"
+    ]
+  },
+  {
+    "path": "/me/authored-care-plan-records",
+    "table": "care_plans",
+    "collection": "plans",
+    "item": "plan",
+    "fields": [
+      "id",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 86,
+    "ownerField": "author_id",
+    "orderField": "created_at",
+    "summaryBatch": 91,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/authored-review-records",
+    "table": "performance_reviews",
+    "collection": "reviews",
+    "item": "review",
+    "fields": [
+      "id",
+      "status",
+      "period_start",
+      "period_end",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 87,
+    "ownerField": "reviewer_id",
+    "orderField": "created_at",
+    "summaryBatch": 92,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "period_start": "string",
+      "period_end": "string",
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "period_start",
+      "period_end",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/reviewed-timesheet-records",
+    "table": "timesheets",
+    "collection": "timesheets",
+    "item": "timesheet",
+    "fields": [
+      "id",
+      "status",
+      "reviewed_at",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 88,
+    "ownerField": "reviewed_by",
+    "orderField": "created_at",
+    "summaryBatch": 93,
+    "summaryField": "status",
+    "types": {
+      "id": "string",
+      "status": [
+        "string",
+        "null"
+      ],
+      "reviewed_at": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "reviewed_at",
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/telehealth-records",
+    "table": "telehealth_sessions",
+    "collection": "sessions",
+    "item": "session",
+    "fields": [
+      "id",
+      "status",
+      "start_time",
+      "end_time",
+      "created_at"
+    ],
+    "listBatch": 89,
+    "summaryBatch": 90,
+    "summaryField": "status",
+    "ownerField": "provider_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "status": "string",
+      "start_time": "string",
+      "end_time": [
+        "string",
+        "null"
+      ],
+      "created_at": "string"
+    },
+    "dateFields": [
+      "start_time",
+      "end_time",
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/audit-event-records",
+    "table": "audit_logs",
+    "collection": "events",
+    "item": "event",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 158,
+    "ownerField": "actor_user_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/system-event-records",
+    "table": "system_events",
+    "collection": "events",
+    "item": "event",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 159,
+    "ownerField": "actor_user_id",
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/bootstrap-record",
+    "table": "auth_bootstrap_audit",
+    "item": "bootstrap",
+    "fields": [
+      "created_at"
+    ],
+    "listBatch": 100,
+    "singleton": true,
+    "types": {
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/authored-message-records",
+    "table": "messages",
+    "collection": "messages",
+    "item": "message",
+    "fields": [
+      "id",
+      "created_at"
+    ],
+    "listBatch": 220,
+    "ownerField": "sender_user_id",
+    "tenantThroughUser": true,
+    "orderField": "created_at",
+    "types": {
+      "id": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  },
+  {
+    "path": "/me/authored-post-records",
+    "table": "blog_posts",
+    "ownerField": "author_user_id",
+    "tenantThroughUser": true,
+    "collection": "posts",
+    "item": "post",
+    "fields": [
+      "id",
+      "status",
+      "created_at",
+      "updated_at"
+    ],
+    "listBatch": 225,
+    "summaryBatch": 226,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "strictSummaryTypes": true,
+    "types": {
+      "id": "string",
+      "status": [
+        "string",
+        "null"
+      ],
+      "created_at": "string",
+      "updated_at": "string"
+    },
+    "dateFields": [
+      "created_at",
+      "updated_at"
+    ]
+  },
+  {
+    "path": "/me/ledger-event-records",
+    "table": "transaction_ledger",
+    "ownerField": "actor_user_id",
+    "collection": "events",
+    "item": "event",
+    "fields": [
+      "id",
+      "status",
+      "created_at"
+    ],
+    "listBatch": 227,
+    "summaryBatch": 228,
+    "summaryField": "status",
+    "orderField": "created_at",
+    "strictSummaryTypes": true,
+    "types": {
+      "id": "string",
+      "status": "string",
+      "created_at": "string"
+    },
+    "dateFields": [
+      "created_at"
+    ]
+  }
+]

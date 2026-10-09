@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class InvoiceManagementScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class InvoiceManagementScreenState
+    extends DashboardState<InvoiceManagementScreenState> {
+  InvoiceManagementScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  InvoiceManagementScreenState({required this.isLoading, this.error, required this.data});
-
-  InvoiceManagementScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return InvoiceManagementScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  InvoiceManagementScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => InvoiceManagementScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class InvoiceManagementScreenController extends StateNotifier<InvoiceManagementScreenState> {
-  final Ref ref;
-  InvoiceManagementScreenController(this.ref) : super(InvoiceManagementScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/invoice-management');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class InvoiceManagementScreenController
+    extends BaseDashboardController<InvoiceManagementScreenState> {
+  InvoiceManagementScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: InvoiceManagementScreenState(isLoading: true, data: {}),
+        endpoint: '/staff/invoice-management',
+      );
 }
 
-final invoice_managementControllerProvider = StateNotifierProvider<InvoiceManagementScreenController, InvoiceManagementScreenState>((ref) {
-  return InvoiceManagementScreenController(ref);
-});
+final invoice_managementControllerProvider =
+    StateNotifierProvider<
+      InvoiceManagementScreenController,
+      InvoiceManagementScreenState
+    >((ref) {
+      return InvoiceManagementScreenController(ref);
+    });

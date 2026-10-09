@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FinanceDirectorComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class FinanceDirectorComplianceScreenState
+    extends DashboardState<FinanceDirectorComplianceScreenState> {
+  FinanceDirectorComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  FinanceDirectorComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  FinanceDirectorComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return FinanceDirectorComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  FinanceDirectorComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => FinanceDirectorComplianceScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class FinanceDirectorComplianceScreenController extends StateNotifier<FinanceDirectorComplianceScreenState> {
-  final Ref ref;
-  FinanceDirectorComplianceScreenController(this.ref) : super(FinanceDirectorComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/finance-director-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class FinanceDirectorComplianceScreenController
+    extends BaseDashboardController<FinanceDirectorComplianceScreenState> {
+  FinanceDirectorComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: FinanceDirectorComplianceScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/executive/finance-director-compliance',
+      );
 }
 
-final finance_director_complianceControllerProvider = StateNotifierProvider<FinanceDirectorComplianceScreenController, FinanceDirectorComplianceScreenState>((ref) {
-  return FinanceDirectorComplianceScreenController(ref);
-});
+final finance_director_complianceControllerProvider =
+    StateNotifierProvider<
+      FinanceDirectorComplianceScreenController,
+      FinanceDirectorComplianceScreenState
+    >((ref) {
+      return FinanceDirectorComplianceScreenController(ref);
+    });

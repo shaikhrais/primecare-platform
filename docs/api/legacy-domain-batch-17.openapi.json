@@ -1,0 +1,424 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Disabled Legacy Domain Operations",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/clients": {
+      "get": {
+        "operationId": "legacy_disabled_client__api_clients_get",
+        "deprecated": true,
+        "summary": "Disabled legacy client operation",
+        "description": "Always fails closed without reading bodies, opening database connections or executing SQL. This is a migration boundary, not a functioning domain API. Unsupported methods return 405. OPTIONS is handled by service CORS. No role grants can enable this handler.",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "Secure domain implementation pending",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error",
+                    "status",
+                    "code"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Legacy domain operation is not implemented securely"
+                    },
+                    "status": {
+                      "const": "not_implemented"
+                    },
+                    "code": {
+                      "const": "legacy_domain_disabled"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method"
+          }
+        }
+      },
+      "post": {
+        "operationId": "legacy_disabled_client__api_clients_post",
+        "deprecated": true,
+        "summary": "Disabled legacy client operation",
+        "description": "Always fails closed without reading bodies, opening database connections or executing SQL. This is a migration boundary, not a functioning domain API. Unsupported methods return 405. OPTIONS is handled by service CORS. No role grants can enable this handler.",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "Secure domain implementation pending",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error",
+                    "status",
+                    "code"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Legacy domain operation is not implemented securely"
+                    },
+                    "status": {
+                      "const": "not_implemented"
+                    },
+                    "code": {
+                      "const": "legacy_domain_disabled"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method"
+          }
+        }
+      }
+    },
+    "/api/providers": {
+      "get": {
+        "operationId": "legacy_disabled_provider__api_providers_get",
+        "deprecated": true,
+        "summary": "Disabled legacy provider operation",
+        "description": "Always fails closed without reading bodies, opening database connections or executing SQL. This is a migration boundary, not a functioning domain API. Unsupported methods return 405. OPTIONS is handled by service CORS. No role grants can enable this handler.",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "Secure domain implementation pending",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error",
+                    "status",
+                    "code"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Legacy domain operation is not implemented securely"
+                    },
+                    "status": {
+                      "const": "not_implemented"
+                    },
+                    "code": {
+                      "const": "legacy_domain_disabled"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method"
+          }
+        }
+      }
+    },
+    "/api/providers/{providerId}": {
+      "get": {
+        "operationId": "legacy_disabled_provider__api_providers_providerid_get",
+        "deprecated": true,
+        "summary": "Disabled legacy provider operation",
+        "description": "Always fails closed without reading bodies, opening database connections or executing SQL. This is a migration boundary, not a functioning domain API. Unsupported methods return 405. OPTIONS is handled by service CORS. No role grants can enable this handler.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "providerId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "501": {
+            "description": "Secure domain implementation pending",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error",
+                    "status",
+                    "code"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Legacy domain operation is not implemented securely"
+                    },
+                    "status": {
+                      "const": "not_implemented"
+                    },
+                    "code": {
+                      "const": "legacy_domain_disabled"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method"
+          }
+        }
+      }
+    },
+    "/api/visits": {
+      "get": {
+        "operationId": "legacy_disabled_visit__api_visits_get",
+        "deprecated": true,
+        "summary": "Disabled legacy visit operation",
+        "description": "Always fails closed without reading bodies, opening database connections or executing SQL. This is a migration boundary, not a functioning domain API. Unsupported methods return 405. OPTIONS is handled by service CORS. No role grants can enable this handler.",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "Secure domain implementation pending",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error",
+                    "status",
+                    "code"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Legacy domain operation is not implemented securely"
+                    },
+                    "status": {
+                      "const": "not_implemented"
+                    },
+                    "code": {
+                      "const": "legacy_domain_disabled"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method"
+          }
+        }
+      },
+      "post": {
+        "operationId": "legacy_disabled_visit__api_visits_post",
+        "deprecated": true,
+        "summary": "Disabled legacy visit operation",
+        "description": "Always fails closed without reading bodies, opening database connections or executing SQL. This is a migration boundary, not a functioning domain API. Unsupported methods return 405. OPTIONS is handled by service CORS. No role grants can enable this handler.",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "Secure domain implementation pending",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error",
+                    "status",
+                    "code"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Legacy domain operation is not implemented securely"
+                    },
+                    "status": {
+                      "const": "not_implemented"
+                    },
+                    "code": {
+                      "const": "legacy_domain_disabled"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method"
+          }
+        }
+      }
+    },
+    "/api/invoices": {
+      "get": {
+        "operationId": "legacy_disabled_billing__api_invoices_get",
+        "deprecated": true,
+        "summary": "Disabled legacy billing operation",
+        "description": "Always fails closed without reading bodies, opening database connections or executing SQL. This is a migration boundary, not a functioning domain API. Unsupported methods return 405. OPTIONS is handled by service CORS. No role grants can enable this handler.",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "Secure domain implementation pending",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error",
+                    "status",
+                    "code"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Legacy domain operation is not implemented securely"
+                    },
+                    "status": {
+                      "const": "not_implemented"
+                    },
+                    "code": {
+                      "const": "legacy_domain_disabled"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method"
+          }
+        }
+      }
+    },
+    "/api/schedules": {
+      "get": {
+        "operationId": "legacy_disabled_scheduling__api_schedules_get",
+        "deprecated": true,
+        "summary": "Disabled legacy scheduling operation",
+        "description": "Always fails closed without reading bodies, opening database connections or executing SQL. This is a migration boundary, not a functioning domain API. Unsupported methods return 405. OPTIONS is handled by service CORS. No role grants can enable this handler.",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "Secure domain implementation pending",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error",
+                    "status",
+                    "code"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Legacy domain operation is not implemented securely"
+                    },
+                    "status": {
+                      "const": "not_implemented"
+                    },
+                    "code": {
+                      "const": "legacy_domain_disabled"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method"
+          }
+        }
+      }
+    },
+    "/api/compliance/audits": {
+      "get": {
+        "operationId": "legacy_disabled_compliance__api_compliance_audits_get",
+        "deprecated": true,
+        "summary": "Disabled legacy compliance operation",
+        "description": "Always fails closed without reading bodies, opening database connections or executing SQL. This is a migration boundary, not a functioning domain API. Unsupported methods return 405. OPTIONS is handled by service CORS. No role grants can enable this handler.",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "Secure domain implementation pending",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error",
+                    "status",
+                    "code"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Legacy domain operation is not implemented securely"
+                    },
+                    "status": {
+                      "const": "not_implemented"
+                    },
+                    "code": {
+                      "const": "legacy_domain_disabled"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method"
+          }
+        }
+      }
+    },
+    "/api/compliance/findings": {
+      "post": {
+        "operationId": "legacy_disabled_compliance__api_compliance_findings_post",
+        "deprecated": true,
+        "summary": "Disabled legacy compliance operation",
+        "description": "Always fails closed without reading bodies, opening database connections or executing SQL. This is a migration boundary, not a functioning domain API. Unsupported methods return 405. OPTIONS is handled by service CORS. No role grants can enable this handler.",
+        "parameters": [],
+        "responses": {
+          "501": {
+            "description": "Secure domain implementation pending",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error",
+                    "status",
+                    "code"
+                  ],
+                  "properties": {
+                    "error": {
+                      "const": "Legacy domain operation is not implemented securely"
+                    },
+                    "status": {
+                      "const": "not_implemented"
+                    },
+                    "code": {
+                      "const": "legacy_domain_disabled"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Unsupported method"
+          }
+        }
+      }
+    }
+  }
+}

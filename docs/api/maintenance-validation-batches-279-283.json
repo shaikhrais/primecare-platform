@@ -1,0 +1,36 @@
+{
+  "title": "Provider timesheet and maintenance runtime result validation",
+  "batches": [
+    {
+      "batch": 279,
+      "family": "provider timesheet item list/detail/summary",
+      "validation": "Actual boolean source provider result; rejected before PostgreSQL"
+    },
+    {
+      "batch": 280,
+      "family": "maintenance configuration metadata",
+      "validation": "Positive int4 revision and finite date-time; absent row uses revision 0 and null date"
+    },
+    {
+      "batch": 281,
+      "family": "maintenance template projection",
+      "validation": "Known IDs, bounded strings and canonical placeholders; explicit four-field projection"
+    },
+    {
+      "batch": 282,
+      "family": "maintenance configuration audit",
+      "validation": "Two existing action enums, finite timestamps, explicit action/date projection, maximum 20 rows"
+    },
+    {
+      "batch": 283,
+      "family": "configured native email delivery",
+      "validation": "Zero/one configuration row, valid stored sender and projected templates before recovery/test delivery"
+    }
+  ],
+  "sharedRateFix": "Calculate returned retry seconds with clock_timestamp after row-lock waits. Transaction-start NOW can produce a spurious window+1 retry under concurrency. The strict bounds remain unchanged.",
+  "failureStatus": 503,
+  "failureBehavior": "Sanitized no-store; invalid configuration reads roll back; invalid mail configuration sends nothing and writes no acceptance audit",
+  "governancePromotion": false,
+  "inventoryChanged": false,
+  "deployment": false
+}

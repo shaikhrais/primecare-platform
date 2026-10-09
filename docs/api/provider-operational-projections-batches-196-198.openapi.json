@@ -1,0 +1,1240 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PrimeCare Validated Provider Operational Reads",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/provider/profile": {
+      "get": {
+        "operationId": "provider_self_profile",
+        "summary": "Read validated provider operational data",
+        "description": "Active explicit bearer session, exactly one actor-owned ProviderProfile and matching non-null tenant are required. Availability and documents retain profile-owner authority; visits retain assigned-provider authority. Runtime projections, timestamps, nullable fields, counts and stored groups are validated without coercion; malformed database values return sanitized 503. Read only, no owner overrides, role grants, client identifiers, document contents, clinical interpretation, approval, completion or readiness claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Validated scoped provider data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "profile"
+                  ],
+                  "properties": {
+                    "profile": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "full_name",
+                        "bio",
+                        "languages",
+                        "service_areas",
+                        "provider_type",
+                        "is_approved",
+                        "skills"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "full_name": {
+                          "type": "string"
+                        },
+                        "bio": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "languages": {
+                          "type": "string"
+                        },
+                        "service_areas": {
+                          "type": "string"
+                        },
+                        "provider_type": {
+                          "type": "string"
+                        },
+                        "is_approved": {
+                          "type": "boolean"
+                        },
+                        "skills": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid identifier, query or body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile or scoped record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Provider data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/provider/availability": {
+      "get": {
+        "operationId": "provider_self_availability",
+        "summary": "Read validated provider operational data",
+        "description": "Active explicit bearer session, exactly one actor-owned ProviderProfile and matching non-null tenant are required. Availability and documents retain profile-owner authority; visits retain assigned-provider authority. Runtime projections, timestamps, nullable fields, counts and stored groups are validated without coercion; malformed database values return sanitized 503. Read only, no owner overrides, role grants, client identifiers, document contents, clinical interpretation, approval, completion or readiness claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated scoped provider data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "availability",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "availability": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "day_of_week",
+                          "start_time",
+                          "end_time"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "day_of_week": {
+                            "type": "integer"
+                          },
+                          "start_time": {
+                            "type": "string"
+                          },
+                          "end_time": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid identifier, query or body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile or scoped record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Provider data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/provider/availability/{availabilityId}": {
+      "get": {
+        "operationId": "provider_self_availability_detail",
+        "summary": "Read validated provider operational data",
+        "description": "Active explicit bearer session, exactly one actor-owned ProviderProfile and matching non-null tenant are required. Availability and documents retain profile-owner authority; visits retain assigned-provider authority. Runtime projections, timestamps, nullable fields, counts and stored groups are validated without coercion; malformed database values return sanitized 503. Read only, no owner overrides, role grants, client identifiers, document contents, clinical interpretation, approval, completion or readiness claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "availabilityId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated scoped provider data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "availability"
+                  ],
+                  "properties": {
+                    "availability": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "day_of_week",
+                        "start_time",
+                        "end_time"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "day_of_week": {
+                          "type": "integer"
+                        },
+                        "start_time": {
+                          "type": "string"
+                        },
+                        "end_time": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid identifier, query or body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile or scoped record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Provider data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/provider/availability/summary": {
+      "get": {
+        "operationId": "provider_self_availability_summary",
+        "summary": "Read validated provider operational data",
+        "description": "Active explicit bearer session, exactly one actor-owned ProviderProfile and matching non-null tenant are required. Availability and documents retain profile-owner authority; visits retain assigned-provider authority. Runtime projections, timestamps, nullable fields, counts and stored groups are validated without coercion; malformed database values return sanitized 503. Read only, no owner overrides, role grants, client identifiers, document contents, clinical interpretation, approval, completion or readiness claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated scoped provider data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "groups",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "day_of_week",
+                          "count"
+                        ],
+                        "properties": {
+                          "day_of_week": {
+                            "type": "integer"
+                          },
+                          "count": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 9007199254740991
+                          }
+                        }
+                      },
+                      "maxItems": 100
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid identifier, query or body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile or scoped record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Provider data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/provider/visits": {
+      "get": {
+        "operationId": "provider_assigned_visits",
+        "summary": "Read validated provider operational data",
+        "description": "Active explicit bearer session, exactly one actor-owned ProviderProfile and matching non-null tenant are required. Availability and documents retain profile-owner authority; visits retain assigned-provider authority. Runtime projections, timestamps, nullable fields, counts and stored groups are validated without coercion; malformed database values return sanitized 503. Read only, no owner overrides, role grants, client identifiers, document contents, clinical interpretation, approval, completion or readiness claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated scoped provider data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "visits",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "visits": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "service_id",
+                          "requested_start_at",
+                          "duration_minutes",
+                          "status",
+                          "priority",
+                          "updated_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "service_id": {
+                            "type": "string"
+                          },
+                          "requested_start_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "duration_minutes": {
+                            "type": "integer"
+                          },
+                          "status": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "priority": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid identifier, query or body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile or scoped record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Provider data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/provider/visits/{visitId}": {
+      "get": {
+        "operationId": "provider_assigned_visit_detail",
+        "summary": "Read validated provider operational data",
+        "description": "Active explicit bearer session, exactly one actor-owned ProviderProfile and matching non-null tenant are required. Availability and documents retain profile-owner authority; visits retain assigned-provider authority. Runtime projections, timestamps, nullable fields, counts and stored groups are validated without coercion; malformed database values return sanitized 503. Read only, no owner overrides, role grants, client identifiers, document contents, clinical interpretation, approval, completion or readiness claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "visitId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated scoped provider data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "visit"
+                  ],
+                  "properties": {
+                    "visit": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "service_id",
+                        "requested_start_at",
+                        "duration_minutes",
+                        "status",
+                        "priority",
+                        "updated_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "service_id": {
+                          "type": "string"
+                        },
+                        "requested_start_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "duration_minutes": {
+                          "type": "integer"
+                        },
+                        "status": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "priority": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid identifier, query or body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile or scoped record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Provider data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/provider/visits/summary": {
+      "get": {
+        "operationId": "provider_own_status_summary",
+        "summary": "Read validated provider operational data",
+        "description": "Active explicit bearer session, exactly one actor-owned ProviderProfile and matching non-null tenant are required. Availability and documents retain profile-owner authority; visits retain assigned-provider authority. Runtime projections, timestamps, nullable fields, counts and stored groups are validated without coercion; malformed database values return sanitized 503. Read only, no owner overrides, role grants, client identifiers, document contents, clinical interpretation, approval, completion or readiness claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated scoped provider data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "groups",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "status",
+                          "count",
+                          "durationMinutes"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "count": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 9007199254740991
+                          },
+                          "durationMinutes": {
+                            "type": "string",
+                            "pattern": "^-?\\d+$",
+                            "description": "Exact sum of recorded duration_minutes; not billable or completed time."
+                          }
+                        }
+                      },
+                      "maxItems": 100
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid identifier, query or body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile or scoped record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Provider data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/provider/documents": {
+      "get": {
+        "operationId": "provider_self_documents",
+        "summary": "Read validated provider operational data",
+        "description": "Active explicit bearer session, exactly one actor-owned ProviderProfile and matching non-null tenant are required. Availability and documents retain profile-owner authority; visits retain assigned-provider authority. Runtime projections, timestamps, nullable fields, counts and stored groups are validated without coercion; malformed database values return sanitized 503. Read only, no owner overrides, role grants, client identifiers, document contents, clinical interpretation, approval, completion or readiness claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated scoped provider data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "documents",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "documents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "id",
+                          "doc_type",
+                          "status",
+                          "expiry_date",
+                          "verified_at",
+                          "created_at",
+                          "updated_at"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "doc_type": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "expiry_date": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "verified_at": {
+                            "type": [
+                              "string",
+                              "null"
+                            ],
+                            "format": "date-time"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid identifier, query or body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile or scoped record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Provider data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/provider/documents/{documentId}": {
+      "get": {
+        "operationId": "provider_self_document_detail",
+        "summary": "Read validated provider operational data",
+        "description": "Active explicit bearer session, exactly one actor-owned ProviderProfile and matching non-null tenant are required. Availability and documents retain profile-owner authority; visits retain assigned-provider authority. Runtime projections, timestamps, nullable fields, counts and stored groups are validated without coercion; malformed database values return sanitized 503. Read only, no owner overrides, role grants, client identifiers, document contents, clinical interpretation, approval, completion or readiness claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "documentId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated scoped provider data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "document"
+                  ],
+                  "properties": {
+                    "document": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "doc_type",
+                        "status",
+                        "expiry_date",
+                        "verified_at",
+                        "created_at",
+                        "updated_at"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "doc_type": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "expiry_date": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "format": "date-time"
+                        },
+                        "verified_at": {
+                          "type": [
+                            "string",
+                            "null"
+                          ],
+                          "format": "date-time"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid identifier, query or body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile or scoped record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Provider data unavailable"
+          }
+        }
+      }
+    },
+    "/v1/provider/documents/summary": {
+      "get": {
+        "operationId": "provider_own_document_status_summary",
+        "summary": "Read validated provider operational data",
+        "description": "Active explicit bearer session, exactly one actor-owned ProviderProfile and matching non-null tenant are required. Availability and documents retain profile-owner authority; visits retain assigned-provider authority. Runtime projections, timestamps, nullable fields, counts and stored groups are validated without coercion; malformed database values return sanitized 503. Read only, no owner overrides, role grants, client identifiers, document contents, clinical interpretation, approval, completion or readiness claims.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Validated scoped provider data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "groups",
+                    "pagination"
+                  ],
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": [
+                          "status",
+                          "count"
+                        ],
+                        "properties": {
+                          "status": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "count": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 9007199254740991
+                          }
+                        }
+                      },
+                      "maxItems": 100
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "limit",
+                        "offset",
+                        "total",
+                        "hasMore"
+                      ],
+                      "properties": {
+                        "limit": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "offset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 100000
+                        },
+                        "total": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "hasMore": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid identifier, query or body"
+          },
+          "401": {
+            "description": "No active bearer session"
+          },
+          "403": {
+            "description": "Tenant mismatch"
+          },
+          "404": {
+            "description": "Owned profile or scoped record absent"
+          },
+          "405": {
+            "description": "Read only"
+          },
+          "429": {
+            "description": "Source limit"
+          },
+          "503": {
+            "description": "Provider data unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

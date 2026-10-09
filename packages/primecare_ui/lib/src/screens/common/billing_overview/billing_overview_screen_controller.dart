@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BillingOverviewScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class BillingOverviewScreenState
+    extends DashboardState<BillingOverviewScreenState> {
+  BillingOverviewScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  BillingOverviewScreenState({required this.isLoading, this.error, required this.data});
-
-  BillingOverviewScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return BillingOverviewScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  BillingOverviewScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => BillingOverviewScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class BillingOverviewScreenController extends StateNotifier<BillingOverviewScreenState> {
-  final Ref ref;
-  BillingOverviewScreenController(this.ref) : super(BillingOverviewScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/billing-overview');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class BillingOverviewScreenController
+    extends BaseDashboardController<BillingOverviewScreenState> {
+  BillingOverviewScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: BillingOverviewScreenState(isLoading: true, data: {}),
+        endpoint: '/common/billing-overview',
+      );
 }
 
-final billing_overviewControllerProvider = StateNotifierProvider<BillingOverviewScreenController, BillingOverviewScreenState>((ref) {
-  return BillingOverviewScreenController(ref);
-});
+final billing_overviewControllerProvider =
+    StateNotifierProvider<
+      BillingOverviewScreenController,
+      BillingOverviewScreenState
+    >((ref) {
+      return BillingOverviewScreenController(ref);
+    });

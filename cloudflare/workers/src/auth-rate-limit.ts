@@ -18,7 +18,15 @@ export async function authRateLimit(db: Client, subjectHash: string, operation: 
         ELSE LEAST(auth_rate_limits.attempts+1,$3+1) END,
       reset_at=CASE WHEN auth_rate_limits.reset_at<=NOW() THEN NOW()+($2 * INTERVAL '1 second')
         ELSE auth_rate_limits.reset_at END
-    RETURNING attempts,GREATEST(1,CEIL(EXTRACT(EPOCH FROM reset_at-NOW())))::int AS retry_after`,
+    RETURNING attempts,GREATEST(1,CEIL(EXTRACT(EPOCH FROM reset_at-clock_timestamp())))::int AS retry_after`,
     [subjectHash,windowSeconds,maxAttempts]);
-  return Number(result.rows[0].attempts)>maxAttempts ? Number(result.rows[0].retry_after) : null;
+  // PostgreSQL int4 values arrive as numbers. Never coerce malformed results
+  // into an allowed attempt or serialize an invalid Retry-After value.
+  if(!Array.isArray(result.rows) || result.rows.length!==1)throw new Error('Invalid authentication rate result');
+  const row=result.rows[0];
+  if(!row || !Number.isSafeInteger(row.attempts) || row.attempts<1 || row.attempts>maxAttempts+1 ||
+      !Number.isSafeInteger(row.retry_after) || row.retry_after<1 || row.retry_after>windowSeconds) {
+    throw new Error('Invalid authentication rate result');
+  }
+  return row.attempts>maxAttempts ? row.retry_after : null;
 }

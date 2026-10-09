@@ -1,55 +1,48 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ClinicalNurseSpecialistComplianceWorkflowScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ClinicalNurseSpecialistComplianceWorkflowScreenState
+    extends
+        DashboardState<ClinicalNurseSpecialistComplianceWorkflowScreenState> {
+  ClinicalNurseSpecialistComplianceWorkflowScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ClinicalNurseSpecialistComplianceWorkflowScreenState({required this.isLoading, this.error, required this.data});
-
-  ClinicalNurseSpecialistComplianceWorkflowScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ClinicalNurseSpecialistComplianceWorkflowScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ClinicalNurseSpecialistComplianceWorkflowScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => ClinicalNurseSpecialistComplianceWorkflowScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class ClinicalNurseSpecialistComplianceWorkflowScreenController extends StateNotifier<ClinicalNurseSpecialistComplianceWorkflowScreenState> {
-  final Ref ref;
-  ClinicalNurseSpecialistComplianceWorkflowScreenController(this.ref) : super(ClinicalNurseSpecialistComplianceWorkflowScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/rn/cns-workflow');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ClinicalNurseSpecialistComplianceWorkflowScreenController
+    extends
+        BaseDashboardController<
+          ClinicalNurseSpecialistComplianceWorkflowScreenState
+        > {
+  ClinicalNurseSpecialistComplianceWorkflowScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ClinicalNurseSpecialistComplianceWorkflowScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/rn/cns-workflow',
+      );
 }
 
-final cns_workflowControllerProvider = StateNotifierProvider<ClinicalNurseSpecialistComplianceWorkflowScreenController, ClinicalNurseSpecialistComplianceWorkflowScreenState>((ref) {
-  return ClinicalNurseSpecialistComplianceWorkflowScreenController(ref);
-});
+final cns_workflowControllerProvider =
+    StateNotifierProvider<
+      ClinicalNurseSpecialistComplianceWorkflowScreenController,
+      ClinicalNurseSpecialistComplianceWorkflowScreenState
+    >((ref) {
+      return ClinicalNurseSpecialistComplianceWorkflowScreenController(ref);
+    });

@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PhysiotherapistAssessmentScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class PhysiotherapistAssessmentScreenState
+    extends DashboardState<PhysiotherapistAssessmentScreenState> {
+  PhysiotherapistAssessmentScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  PhysiotherapistAssessmentScreenState({required this.isLoading, this.error, required this.data});
-
-  PhysiotherapistAssessmentScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return PhysiotherapistAssessmentScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  PhysiotherapistAssessmentScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => PhysiotherapistAssessmentScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class PhysiotherapistAssessmentScreenController extends StateNotifier<PhysiotherapistAssessmentScreenState> {
-  final Ref ref;
-  PhysiotherapistAssessmentScreenController(this.ref) : super(PhysiotherapistAssessmentScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/offices/clinical/roles/physiotherapist/assessment');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class PhysiotherapistAssessmentScreenController
+    extends BaseDashboardController<PhysiotherapistAssessmentScreenState> {
+  PhysiotherapistAssessmentScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: PhysiotherapistAssessmentScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/offices/clinical/roles/physiotherapist/assessment',
+      );
 }
 
-final physiotherapist_assessmentControllerProvider = StateNotifierProvider<PhysiotherapistAssessmentScreenController, PhysiotherapistAssessmentScreenState>((ref) {
-  return PhysiotherapistAssessmentScreenController(ref);
-});
+final physiotherapist_assessmentControllerProvider =
+    StateNotifierProvider<
+      PhysiotherapistAssessmentScreenController,
+      PhysiotherapistAssessmentScreenState
+    >((ref) {
+      return PhysiotherapistAssessmentScreenController(ref);
+    });

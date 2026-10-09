@@ -1,0 +1,95 @@
+name: Central Dart and UI inheritance
+on:
+  pull_request:
+    paths:
+      - 'packages/primecare_ui/lib/src/application/**'
+      - 'packages/primecare_ui/lib/primecare_ui.dart'
+      - 'packages/primecare_ui/test/base_primecare_app_test.dart'
+      - 'apps/*/lib/main.dart'
+      - 'scripts/check-app-shell-inheritance.py'
+      - 'packages/flutter_core/lib/business_core.dart'
+      - 'packages/flutter_core/lib/*_service.dart'
+      - 'packages/flutter_core/lib/models/domain_response.dart'
+      - 'packages/flutter_core/lib/network/permission_service.dart'
+      - 'packages/flutter_core/lib/src/application/**'
+      - 'packages/flutter_core/lib/src/domain/models/**'
+      - 'packages/flutter_core/lib/src/infrastructure/**'
+      - 'packages/flutter_core/lib/src/security/policies/**'
+      - 'packages/flutter_core/lib/src/models/**'
+      - 'packages/flutter_core/lib/src/repositories/**'
+      - 'packages/flutter_core/test/business_core_test.dart'
+      - 'scripts/check-core-layer-migration.py'
+      - 'packages/flutter_core/lib/controllers.dart'
+      - 'packages/flutter_core/lib/src/controllers/**'
+      - 'packages/flutter_core/test/base_controllers_test.dart'
+      - 'packages/primecare_ui/lib/**/*_screen_controller.dart'
+      - 'apps/**/lib/**/*_screen_controller.dart'
+      - 'packages/server_core/**'
+      - 'services/**/bin/server.dart'
+      - 'services/**/pubspec.yaml'
+      - 'services/**/Dockerfile'
+      - 'docker-compose.yml'
+      - 'docs/architecture/**'
+      - 'scripts/check-controller-inheritance.py'
+      - 'scripts/check-http-host-inheritance.py'
+      - 'scripts/generate-controller-compile-test.py'
+      - 'scripts/nuke_and_restore_controllers.js'
+      - '.github/workflows/central-inheritance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inheritance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CI: 'true'
+      FLUTTER_SUPPRESS_ANALYTICS: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - name: Check pinned controller identity and Dart route compatibility
+        run: |
+          python3 scripts/check-controller-inheritance.py
+          python3 scripts/check-http-host-inheritance.py
+          python3 scripts/check-app-shell-inheritance.py
+          python3 scripts/check-core-layer-migration.py
+      - name: Resolve shared Flutter dependencies
+        working-directory: packages/flutter_core
+        run: flutter pub get
+      - name: Compile every migrated controller and test shared lifecycle
+        run: |
+          python3 scripts/generate-controller-compile-test.py
+          cd packages/flutter_core
+          flutter test test/base_controllers_test.dart test/controller_migration_compile_test.dart
+          flutter analyze lib/controllers.dart lib/src/controllers test/base_controllers_test.dart
+      - name: Verify shared Dart host
+        working-directory: packages/server_core
+        run: |
+          dart pub get
+          dart analyze lib test
+          dart test
+      - name: Analyze every Dart service entry point
+        run: |
+          for service in services/*; do
+            if [ -f "$service/bin/server.dart" ]; then
+              (cd "$service" && dart pub get && dart analyze bin/server.dart)
+            fi
+          done
+      - name: Verify shared Flutter application shell
+        working-directory: packages/primecare_ui
+        run: |
+          flutter pub get
+          flutter analyze lib/src/application test/base_primecare_app_test.dart
+          flutter test test/base_primecare_app_test.dart
+      - name: Verify business, repository, model and permission parents
+        working-directory: packages/flutter_core
+        run: |
+          flutter analyze lib/business_core.dart lib/src/application lib/src/domain/models lib/src/infrastructure lib/src/security/policies lib/network/permission_service.dart test/business_core_test.dart
+          flutter test test/business_core_test.dart test/provider_profile_test.dart test/own_notifications_repository_test.dart test/business_development_transport_test.dart

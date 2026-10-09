@@ -1,0 +1,27 @@
+name: Scheduling unsupported-route regression tests
+on:
+  pull_request:
+    paths:
+      - 'services/scheduling_api/lib/routes.dart'
+      - 'services/scheduling_api/test/routes_test.dart'
+      - 'scripts/test-scheduling-screen-routes.sh'
+      - '.github/workflows/scheduling-route-tests.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'services/scheduling_api/lib/routes.dart'
+      - 'services/scheduling_api/test/routes_test.dart'
+      - 'scripts/test-scheduling-screen-routes.sh'
+      - '.github/workflows/scheduling-route-tests.yml'
+permissions:
+  contents: read
+jobs:
+  scheduling-routes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: '3.13.5'
+      - run: bash scripts/test-scheduling-screen-routes.sh

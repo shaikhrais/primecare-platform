@@ -1,55 +1,38 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ServiceQualityScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class ServiceQualityScreenState
+    extends DashboardState<ServiceQualityScreenState> {
+  ServiceQualityScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  ServiceQualityScreenState({required this.isLoading, this.error, required this.data});
-
-  ServiceQualityScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return ServiceQualityScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  ServiceQualityScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) =>
+      ServiceQualityScreenState(isLoading: isLoading, error: error, data: data);
 }
 
-class ServiceQualityScreenController extends StateNotifier<ServiceQualityScreenState> {
-  final Ref ref;
-  ServiceQualityScreenController(this.ref) : super(ServiceQualityScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/service-quality');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class ServiceQualityScreenController
+    extends BaseDashboardController<ServiceQualityScreenState> {
+  ServiceQualityScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: ServiceQualityScreenState(isLoading: true, data: {}),
+        endpoint: '/executive/service-quality',
+      );
 }
 
-final service_qualityControllerProvider = StateNotifierProvider<ServiceQualityScreenController, ServiceQualityScreenState>((ref) {
-  return ServiceQualityScreenController(ref);
-});
+final service_qualityControllerProvider =
+    StateNotifierProvider<
+      ServiceQualityScreenController,
+      ServiceQualityScreenState
+    >((ref) {
+      return ServiceQualityScreenController(ref);
+    });

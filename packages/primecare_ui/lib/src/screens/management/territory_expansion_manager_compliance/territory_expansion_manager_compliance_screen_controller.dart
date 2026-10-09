@@ -1,55 +1,47 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TerritoryExpansionManagerComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class TerritoryExpansionManagerComplianceScreenState
+    extends DashboardState<TerritoryExpansionManagerComplianceScreenState> {
+  TerritoryExpansionManagerComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  TerritoryExpansionManagerComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  TerritoryExpansionManagerComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return TerritoryExpansionManagerComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TerritoryExpansionManagerComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => TerritoryExpansionManagerComplianceScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class TerritoryExpansionManagerComplianceScreenController extends StateNotifier<TerritoryExpansionManagerComplianceScreenState> {
-  final Ref ref;
-  TerritoryExpansionManagerComplianceScreenController(this.ref) : super(TerritoryExpansionManagerComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/territory-expansion-manager-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class TerritoryExpansionManagerComplianceScreenController
+    extends
+        BaseDashboardController<
+          TerritoryExpansionManagerComplianceScreenState
+        > {
+  TerritoryExpansionManagerComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: TerritoryExpansionManagerComplianceScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/management/territory-expansion-manager-compliance',
+      );
 }
 
-final territory_expansion_manager_complianceControllerProvider = StateNotifierProvider<TerritoryExpansionManagerComplianceScreenController, TerritoryExpansionManagerComplianceScreenState>((ref) {
-  return TerritoryExpansionManagerComplianceScreenController(ref);
-});
+final territory_expansion_manager_complianceControllerProvider =
+    StateNotifierProvider<
+      TerritoryExpansionManagerComplianceScreenController,
+      TerritoryExpansionManagerComplianceScreenState
+    >((ref) {
+      return TerritoryExpansionManagerComplianceScreenController(ref);
+    });

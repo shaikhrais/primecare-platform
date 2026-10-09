@@ -4,8 +4,34 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+    paths:
+      - 'apps/**'
+      - 'packages/**/lib/**'
+      - 'packages/**/assets/**'
+      - 'packages/**/test/**'
+      - 'packages/**/pubspec*'
+      - 'services/**'
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+      - 'melos.yaml'
+      - 'analysis_options.yaml'
+      - 'scripts/frontend_spider.js'
+      - '.github/workflows/ci.yml'
   pull_request:
     branches: [main]
+    paths:
+      - 'apps/**'
+      - 'packages/**/lib/**'
+      - 'packages/**/assets/**'
+      - 'packages/**/test/**'
+      - 'packages/**/pubspec*'
+      - 'services/**'
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+      - 'melos.yaml'
+      - 'analysis_options.yaml'
+      - 'scripts/frontend_spider.js'
+      - '.github/workflows/ci.yml'
 
 permissions:
   contents: read

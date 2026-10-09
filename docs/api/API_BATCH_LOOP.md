@@ -1,0 +1,1277 @@
+# PrimeCare batch continuation loop
+
+Each iteration starts from current main. Inspect the declaration and its real schema/authority, implement a bounded related family, write request/response contracts and tests, regenerate the inventory, then run local fixture, TypeScript and governance checks. Publish a PR only after those checks pass. Merge only after that PR's unchanged head passes UUID/text PostgreSQL CI and security scanning. Record the merged checkpoint before starting the next iteration. An unreviewed model or action is not automatically made accessible.
+
+## Iteration 1 — merged
+
+Batches 225–235 implement actor-authored post metadata, actor ledger-event metadata, client-profile-linked inventory metadata and purchase-order metadata. Four existing premium GET declarations are repaired through the canonical owner-scoped handlers. The explicitly registered clientProfileId owner column is quoted in PostgreSQL. Article contents, accounting details, SKU/quantity/prices and supplier/order amounts are excluded. No new grants or business writes.
+
+Local checks: 1,613 API fixtures, five authority-preflight regression tests, Worker TypeScript and governance delta guardian pass. Dedicated disposable PostgreSQL tests are included in both identity jobs; Exact-head UUID/text PostgreSQL CI and security scanning passed; merged in PR #100 (c0ba6bfabea984eea72b526fec80843c7b6042a6). No deployment or production database changes.
+
+Inventory: 1,410 declared operations; 323 have local fixture evidence, 1,077 are verification pending, 10 are blocked. Pending is an evidence gap, not proof that every declaration lacks code. Before this iteration the 1,081 pending declarations comprised 818 POST actions and 263 GET reads. This iteration repairs four GET declarations while adding 11 canonical operations with local fixture coverage.
+
+## Iteration 2 — merged
+
+Batches 236–241 implement six canonical patient observation metadata operations and repair the existing VitalSign/MAR compatibility reads, using the explicit patient_id relations in vital_signs and mar_entries. VitalSign has no tenant column and requires the current unique actor-owned ClientProfile tenant bridge in every record query. MAR_Entry must use patient_id, not its unrelated bare client_id, and exclude null/mismatched recorded tenants. Stable order uses recorded_at and admin_time. Summaries count stored type/status groups; no medication contents or administration claims. New typed summaries reject null labels where the registered schema requires a string. Do not implement unreviewed writes from generated declarations.
+
+Full completion requires the outstanding business-action contracts, authenticated UI workflow evidence and current release/migration/performance evidence. This document never promotes release gates or asserts production readiness.
+
+Iteration 2 exact-head UUID/text PostgreSQL and security CI passed; merged in PR #101 (bd9146c49d173a281c7dcea90b728ce92645eca1).
+
+Current local checkpoint: 1,653 API fixtures pass. Inventory: 1,416 declared operations, 331 with local fixture evidence, 1,075 pending and 10 blocked. The two loop iterations add 17 canonical operations and repair six existing declarations. Production verification remains separate.
+
+## Iteration 3 — compatibility authority hardening, merged
+
+All 72 reviewed compatibility reads now require the canonical declaration to retain its exact service, active-bearer requirement and existing ownership permission before their schemas and links can be copied. A real-generator regression injects three types of canonical drift after earlier aliases have been processed, checks transaction rollback, and verifies that generated artifacts remain unchanged. This hardening does not add operations or reduce the pending declaration count. Local API fixtures and six Python regression tests pass. No release gates are promoted.
+
+Iteration 3 exact-head UUID/text PostgreSQL CI and security scanning passed; merged in PR #102 (a73a5f0608a38d1bc2588880f420a8af364c9087).
+
+## Iteration 4 — existing authentication contracts, merged
+
+Batches 242–247 reconcile six existing declarations with their real authentication handlers: account management, GET/POST session identity, policy-restricted account creation, own password change, and the legacy account-list declaration. Service labels, contracts and existing screen links are repaired without deleting declarations, enabling inactive pages or changing grants. Session identity accepts bearer or cookie and ignores body/query; mutations require explicit bearer. Password contracts describe actual UTF-16 and UTF-8 bounds. The existing disposable PostgreSQL lifecycle suite now traverses the public gateway and real handlers together.
+
+Local evidence: 1,677 API fixtures, seven Python authority regression tests, TypeScript and governance guardian pass. Inventory: 1,416 declarations, 337 with local fixture evidence, 1,069 pending and 10 blocked. Remaining pending methods: 814 POST and 255 GET. Every remaining pending declaration lacks registered permission and request/response contracts; implementing these requires the actual business rules and authority, not a generated route name. No release gates are promoted and no deployment is claimed.
+
+Iteration 4 unchanged-head UUID/text PostgreSQL CI and security scanning passed; merged in PR #103 (73e9bb62a40792fcfddffdcc4bcd8ce80378c6b6). Four iterations are now merged through batch 247. The continuation loop remains a reviewed execution process, not an unattended job that invents contracts or runs after a chat turn.
+
+
+## Iteration 5 — batch 248, maintenance payload bounds, merged
+
+Maintenance configuration and test-email POST bodies now enforce the existing 50,000-byte limit while reading the stream. Previously the fallback check counted UTF-16 characters after reading the entire body, allowing oversized multibyte payloads and unbounded buffering. Declared oversized requests reject before reading; chunked or understated-length bodies stop at the first chunk exceeding the limit. Rejections return no-store 413 before database access. JSON parsing still requires an object.
+
+Ten new focused regressions cover both routes: UTF-8 oversize, stream cancellation, exact byte boundary, split multibyte decoding and malformed JSON, and early declared-length rejection. Existing tenant and maintenance-role authorization is retained. This hardening adds no endpoint declarations and does not reduce the 1,069 pending contract declarations. Local validation: 1,687 API fixtures, seven authority regressions, Worker TypeScript and governance guardian passed. Unchanged-head UUID/text PostgreSQL and security CI passed in run 37541406409. PR #104 merged as 1a26135ad4eec11318ba866958810be9a4960c21. Latest completed batch is 248. Production deployment and the remaining contract backlog are separate.
+
+
+## Iteration 6 — batches 249–253, CEO read projections, merged
+
+| Batch | Existing GET operation | Change |
+| --- | --- | --- |
+| 249 | /v1/admin/users | Explicit account projection discards unexpected adapter fields; validates required fields and nullable updated date. |
+| 250 | /v1/admin/users/{userId} | Validates account details without coercion; preserves the registered nullable role/status contract. |
+| 251 | /v1/admin/users/{userId}/sessions | Validates session dates and target identifier; rejects missing, malformed and infinite timestamps. |
+| 252 | /v1/admin/users/audit | Validates audit identifiers, date and allowed action; keeps the existing safe-state projection. |
+| 253 | /v1/admin/users/creation-audit | Validates creation audit identifiers and date while returning only persisted creation events. |
+
+All five operations retain existing CEO, active-bearer and tenant restrictions. Invalid projected rows return sanitized no-store 503 and roll back. Tests cover unexpected fields, invalid types, calendar dates, PostgreSQL Date instances, and registered nullable values. The PostgreSQL suite adds five real infinity-timestamp rejection checks per identity type. Contract registration preflights the entire family, including both account-list declarations, before the first write; drift regression covers all five routes and the legacy list. This improves existing verified reads; declarations remain 1,416 with 337 local-fixture records, 1,069 pending and 10 blocked. Unchanged-head PostgreSQL and security CI passed before merge.
+
+Local validation: 1,695 API fixtures, eight Python authority regression tests, Worker TypeScript and governance guardian passed. Unchanged-head UUID/text PostgreSQL and security CI passed in run 37542800970 at 71e317df27a14c8045859518c4b0b478eb00f468. PR #105 merged as 9d302e1db0a79c4a93bb7e24b6d235ad7a92567e. Latest completed batch is 253; next batch is 254. No deployment or production database changes.
+
+
+## Iteration 7 — batches 254–258, authentication body bounds, merged
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 254 | Login | Stream JSON within a 50,000-byte limit before credential hashing and PostgreSQL. |
+| 255 | Forgot/reset password | Bound both recovery handlers before rate counters, bcrypt, database and email work. |
+| 256 | Own password change | Keep the explicit bearer requirement first, then enforce the byte limit. |
+| 257 | Account management | Keep the bearer requirement and existing CEO tenant policy; reject oversize before database access. |
+| 258 | Account creation | Keep the bearer requirement and role-assignment policy; reject oversize before database access. |
+
+The existing maintenance parser is now the shared authentication parser. Declared oversize rejects before reading; chunked and understated-length requests are measured by actual bytes and cancelled at the limit. Valid JSON still must be an object. Oversize returns no-store 413; malformed JSON retains its prior 400 behavior. Twenty-four new route regressions cover UTF-8, streamed bodies, misleading headers, early header rejection, malformed input and anonymous mutation denial. Existing 50,000-byte maintenance boundaries and split UTF-8 regressions continue to exercise the shared parser.
+
+This hardening adds no routes, grants or business writes and does not promote the pending public-auth governance declarations. Inventory remains 1,416 declarations, 337 with local fixture evidence, 1,069 pending and 10 blocked. The supplemental OpenAPI documents actual runtime bounds without changing pending declaration authority. Exact-head PostgreSQL and security CI passed before merge.
+
+Local validation: 1,719 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. The PostgreSQL suite adds six oversized-route checks plus an unchanged-counter assertion per identity. Exact-head UUID/text PostgreSQL and security CI passed in run 37545086290 at de30fded7c3875a60c2ecf08092d0f2ca698ca08. PR #106 merged as 57a004e9b057c6c1a6ad6116a2a0ebca8835c43a. Latest completed batch is 258; next batch is 259. No deployment or production database changes.
+
+
+## Iteration 8 — batches 259–263, authentication result validation, merged
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 259 | Personal session listing | Validate date-time values and boolean current flag; keep explicit projection. |
+| 260 | Login | Validate user identifier and nonempty bounded role before issuing a session; do not coerce active status. |
+| 261 | Current identity GET/POST | Validate returned claims and reject unexpected duplicate rows before serialization. |
+| 262 | Account creation | Require one returned account matching generated ID, email, tenant, role and status; project five fields before audit and commit. |
+| 263 | Account management | Require one returned account matching target ID, tenant, requested role and status; project five fields before revocation and audit. |
+
+Malformed claims and projected session/mutation rows return sanitized no-store 503. Non-string login status is denied as invalid credentials. Login issues no token/cookie on invalid claims. Invalid creation/update results roll back before audit, revocation or success. Existing bearer/cookie, tenant, role-assignment and transactional controls remain intact. Twelve new grouped unit regressions cover malformed claims and rows, unexpected fields, absent/ambiguous results and PostgreSQL Date serialization. PostgreSQL adds empty-role login and GET/POST identity rejection, infinity session-date rejection, and trigger-induced malformed creation/update results with rollback assertions.
+
+Supplemental OpenAPI records runtime validation without promoting pending governance authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants or deployments. Exact-head PostgreSQL/security CI passed before merge.
+
+Local validation: 1,731 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Unchanged-head UUID/text PostgreSQL and security CI passed in run 37546139108 at b6baa0f67de79696bfc99042cd9b28c2b6ae88eb. PR #107 merged as 369ff0fe6443171453c6d57c87149890001b6e6d. Latest completed batch is 263; next batch is 264. No deployment or production database changes.
+
+
+## Iteration 9 — batches 264–268, authentication rate result validation, merged
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 264 | Login | Validate the returned atomic counter before credential lookup and session issuance. |
+| 265 | Forgot/reset password | Validate counters before recovery delivery, code consumption and credential reset. |
+| 266 | Own password change | Validate the authenticated actor counter before beginning the password transaction. |
+| 267 | Account management | Validate the actor counter before management, revocation and audit. |
+| 268 | Account creation | Validate the actor counter before account insertion and creation audit. |
+
+The shared PostgreSQL limiter requires exactly one result row, positive integer attempts within the saturated budget plus one, and positive integer retry seconds within the configured window. Values are never coerced. Invalid results return sanitized no-store 503. Atomic increments, inclusive budgets, expiry resets, hashed subject keys and existing authorization remain unchanged. The same shared validation protects maintenance counters. Twenty-eight new grouped unit tests cover all seven configured operations, malformed values, row cardinality, boundary values and six public route stop-before-work checks. PostgreSQL adds six persisted future-reset rejection checks through the gateway, with unchanged account/session/audit/reset snapshots and consumed-counter assertions.
+
+Supplemental OpenAPI documents runtime validation without promoting pending authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes or grants added. No deployment or production database changes.
+
+Local validation: 1,759 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37547360252 at e207571810670445bdd98b4692d9d58309ffe988. PR #108 merged as e50b5b170d3d27e89635dc0530781ba17c1fc3e7. Latest completed batch is 268; next batch is 269. No deployment or production database changes.
+
+
+## Iteration 10 — batches 269–283, source decisions and maintenance validation, merged
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 269 | Login and password recovery | Require boolean source decisions before parsing credentials or opening PostgreSQL. |
+| 270 | Workspace bootstrap | Validate source provider decisions before workspace queries. |
+| 271 | Governance catalog reads | Validate provider decisions across every catalog binding. |
+| 272 | Account reads and session revocation | Validate account-list and account-admin source budgets. |
+| 273 | Personal session list/revocation | Validate provider decisions before database access or revocation. |
+| 274 | Client owned reads | Validate decisions before client profile, invoice, booking, visit, payment and registered record reads. |
+| 275 | Provider owned reads | Validate decisions before profile, availability, visit and document reads. |
+| 276 | Provider registered records | Validate decisions before existing list, detail and summary source boundaries. |
+| 277 | Account owned records | Validate decisions before account-owned metadata projections. |
+| 278 | Client booking lifecycle | Validate decisions before submission, cancellation and audit access. |
+| 279 | Provider timesheet items | Validate decisions before existing list, detail and summary reads. |
+| 280 | Maintenance configuration metadata | Validate positive int4 revision and finite update date; retain absent-configuration defaults. |
+| 281 | Maintenance templates | Validate persisted content and placeholders; derive required variables from canonical templates and discard extra fields. |
+| 282 | Maintenance audit | Validate the two existing actions and finite dates; return only action/date within the twenty-row bound. |
+| 283 | Configured native mail | Require zero/one configuration row and valid stored sender/templates before recovery or test delivery. |
+
+Only an object containing an actual boolean source success value is accepted, read once. False retains no-store 429 and the existing 60-second retry; malformed or failed providers return sanitized no-store 503 before PostgreSQL. Existing hashed keys, optional workspace bindings and bearer/tenant/owner/grant checks remain intact. Direct Worker and gateway tests cover all registered source boundaries, CORS, hashed keys, boolean decisions, bearer ordering and zero database access on rejection. Five PostgreSQL account/session corruption checks and twelve booking checks assert unchanged protected state.
+
+Maintenance returns explicit template/audit projections and rejects corrupt stored revisions, dates, senders, placeholders and ambiguous configuration results. Canonical required variables replace untrusted stored arrays. Invalid configuration reads roll back; invalid runtime mail configuration sends no email and writes no acceptance audit. Nine PostgreSQL checks cover corrupt configuration, audit, field projection and rejected recovery/test delivery. Supplemental documents record runtime hardening without promoting authority.
+
+PostgreSQL CI exposed a shared counter timing race: transaction-start NOW can produce a 61-second retry for a 60-second window when a request waits on a row lock. Retry projection now uses clock_timestamp after the wait. A deterministic PostgreSQL lock-wait regression accompanies the existing concurrent budget and saturation tests. Strict result bounds and atomic counters remain in place.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments. Local validation: 1,808 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37552341294 at 5826243ebbb7b1b527273f0651943ba455245e4b. PR #109 merged as 8098c497b871b68ff15ab5fa978fec4704f6cf7f. Latest completed batch is 283; next batch is 284. No deployment or production database changes.
+
+
+## Iteration 11 — batches 284–298, read dates and native email results, merged
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 284 | Client profile | Validate the registered update date without JavaScript coercion or calendar normalization. |
+| 285 | Client invoices | Validate list/detail date-time fields while preserving decimal precision. |
+| 286 | Client payments | Validate own/nested list/detail dates without changing invoice ownership. |
+| 287 | Client visits | Validate requested start and update dates. |
+| 288 | Client bookings | Validate start/end dates. |
+| 289 | Client booking requests | Validate preferred, creation and update dates. |
+| 290 | Client registered records | Validate every registered date field in list/detail projections; retain declared nullable values. |
+| 291 | Provider documents/visits | Validate required and nullable dates under existing ownership. |
+| 292 | Provider registered records | Validate registered date fields across existing list/detail projections. |
+| 293 | Account owned records | Validate registered date fields while retaining existing owner/tenant scope. |
+| 294 | Booking lifecycle/audit | Reject extended-year Date results before mutation audit/commit or audit serialization. |
+| 295 | Provider timesheet items | Reject extended-year Date results in list/detail responses. |
+| 296 | Workspace activity | Validate existing event actions and dates; explicitly project action/date within the twenty-row bound. |
+| 297 | Native email transport | Require callable binding, uncoerced normalized addresses and a valid string acceptance ID read once. |
+| 298 | Runtime email templates | Validate IDs, bounded content and placeholders before rendering; derive canonical required variables. |
+
+Existing read contracts require finite RFC3339 date-times. JavaScript parsing alone previously accepted date-only strings, impossible calendar dates normalized into another month, and extended-year Date values outside the four-digit contract. A shared validator now enforces the same calendar/time bounds as account reads, preserving valid RFC3339 strings, PostgreSQL Date serialization and declared nulls. Old unit fixtures containing date-only strings are corrected to explicit UTC date-times. Direct Worker tests cover list/detail routes across every registered date family. Invalid results return sanitized no-store 503 with rollback. Booking/timesheet Date projections now also reject years outside 0000–9999; booking failures precede audit/commit.
+
+Workspace activity permits only the three persisted event actions from the selected account/configuration audit sources, and returns two fields. Native email results must contain an actual nonempty trimmed messageId string without control characters. Addresses are validated without coercion and passed to the native transport as bare emails. Malformed send receipts are generic failures; recovery removes its reset code and maintenance writes no acceptance audit. One template validator is shared by maintenance projection and rendering: content/placeholder bounds and canonical required variables cannot be overridden by stored/deployment variable arrays. HTML escaping and native-only transport remain intact.
+
+Disposable PostgreSQL checks inject infinity and year-10000 timestamps into owned rows across the read families, assert rejection and unchanged state, and restore each fixture. Additional checks cover workspace activity, booking mutation/audit rollback, and malformed native receipts during recovery/test delivery. Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
+
+Local validation: 1,845 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37554565922 at 06ae62d8b1089421fcd688eec5565abd6cda0f91. PR #110 merged as e973f171fe4f1668c14292283e55b6aee399f531. Latest completed batch is 298; next batch is 299. No deployment or production database changes.
+
+## Iteration 12 — batches 299–303, password mutation results, merged
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 299 | Recovery/reset account lookup | Validate account identifiers and bind recovery email to the normalized requested address. |
+| 300 | Recovery code storage | Confirm exactly one stored account/hash inside a transaction before delivery. |
+| 301 | Reset code consumption | Require exactly one consumed code belonging to the locked account before updating credentials. |
+| 302 | Reset credential update | Confirm returned account and exact new hash before revocation, audit and commit. |
+| 303 | Own password change | Confirm returned account and exact new hash before revocation and audit under the caller's transaction. |
+
+Unknown and ambiguous recovery accounts retain generic success; absent or expired reset codes retain 400. Malformed persisted or adapter results return sanitized no-store 503. Recovery storage rolls back invalid insert results before native delivery. Reset failures roll back code consumption and credential writes; own password failures use the existing caller rollback. Password hashes remain internal and excluded from responses and audit.
+
+Twenty-eight new focused fixtures and one grouped gateway regression cover invalid lookup identities/email, absent/ambiguous accounts, mixed-case stored email, insert cardinality/binding, consumed-code ownership and update cardinality/identity/hash. Six disposable PostgreSQL trigger checks suppress or corrupt recovery inserts and password updates through the gateway, asserting no delivery and unchanged protected state, including restored reset codes and retained sessions. Existing successful bcrypt, revocation, expiry and replay tests remain.
+
+Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
+
+Local validation: 1,874 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37556707433 at 03b0f4f230df14948afe3979dd433974a0f570b0. PR #111 merged as 7ed767f13eb913c07a1419b3d25108f22931a287. Latest completed batch is 303; next batch is 304. No deployment or production database changes.
+
+
+## Iteration 13 — batches 304–318, account and maintenance result boundaries, merged
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 304 | Account management | Validate locked target cardinality, identity and prior state before update, revocation and audit. |
+| 305 | Maintenance revisions | Bound request revisions to incrementable int4 values; validate locked revision, cardinality and retained credential type. |
+| 306 | Maintenance configuration save | Confirm returned tenant, sender, templates, retained ciphertext, next revision, date and configuration audit. |
+| 307 | Maintenance test email | Confirm acceptance audit tenant, actor, action and cardinality before reporting success. |
+| 308 | Account listing | Require one count row and bound returned users to the requested limit. |
+| 309 | Account details | Require zero/one detail row whose identifier matches the requested account. |
+| 310 | Admin session listing | Validate target identity/cardinality, count cardinality and returned page bounds. |
+| 311 | Admin session revocation | Validate target identity/cardinality and deletion count cardinality before audit. |
+| 312 | Management audit reads | Require one count row and bound returned events to the requested limit. |
+| 313 | Creation audit reads | Require one count row and bound returned events to the requested limit. |
+| 314 | Own session listing | Validate actor identity/cardinality, count cardinality and page bounds. |
+| 315 | Own session revocation | Validate preflight/locked actor, bearer recheck cardinality and deletion count cardinality before audit. |
+| 316 | Workspace identity | Reject ambiguous actor rows and malformed IDs/roles before grants or overview queries. |
+| 317 | Workspace session totals | Require exactly one session aggregate row before projecting counts. |
+| 318 | Workspace tenant metrics | Require exactly one aggregate row for each available tenant-bound metric. |
+
+A shared adapter-result guard validates arrays, object rows, zero/one authority lookups, exactly-one aggregates and requested page limits. Duplicate or malformed rows cannot silently become the first account/session/count. Target detail and revocation rows must bind to the requested account. Existing missing-target 404, absent-session 401, authorization, source/rate controls, SQL scope, read-only transactions and explicit field projections remain.
+
+Management validates prior account role/status before changing the row or serializing audit state; declared legacy nulls remain allowed. Maintenance request revisions are 0–2147483646 so the next persisted revision fits int4. Locked configuration revisions must be positive int4, and retained ciphertext must be string/null. Saves confirm one returned configuration matching all intended fields and the next revision before confirming the audit. Invalid inserts/updates/audits roll back with sanitized no-store 503. A test-email acceptance audit must match tenant, actor and action before success is reported. Provider acceptance occurs before that audit and cannot be undone by database rollback; failure responses do not assert delivery.
+
+Twenty-eight new grouped gateway regressions cover all fifteen families, ambiguous/malformed rows, wrong target IDs, count cardinality, oversized pages, revision overflow, corrupt save fields, unconfirmed audits, stop-before-work and rollback behavior. Existing maintenance fixtures now return actual mutation projections. Disposable PostgreSQL adds eight maintenance checks, two corrupt prior-state checks, six session pagination boundary checks and one workspace identity check, using synthetic fixtures only. Existing real database success, tenant isolation, revocation and audit rollback checks remain.
+
+Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
+
+Local validation: 1,902 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37557619387 at 9aa0a4c6680bbcf9c25472b700d1e94a85e0d9e4. PR #112 merged as 84b51d0ebfbd384e27268c652b85b25d219e86a8. Latest completed batch is 318; next batch is 319. No deployment or production database changes.
+
+
+## Iteration 14 — batches 319–333, owned read result boundaries, merged
+
+| Batch | Existing handler family | Change |
+| --- | --- | --- |
+| 319 | Client owned profile/authority | Validate unambiguous actor/profile rows and string identifiers before deriving ownership. |
+| 320 | Client invoices | Validate exact-one totals, list/summary page bounds and detail identity. |
+| 321 | Client payments | Validate own/nested payment pages, totals, detail IDs and the parent invoice binding. |
+| 322 | Client booking requests | Validate list/summary page bounds, total cardinality and requested detail identity. |
+| 323 | Client visits | Validate list/summary page bounds, total cardinality and requested visit identity. |
+| 324 | Client bookings | Validate list/summary page bounds, total cardinality and requested booking identity. |
+| 325 | Client registered records | Apply cardinality, page and detail binding checks to every registered list/detail/summary family. |
+| 326 | Provider owned profile/authority | Validate unambiguous actor/profile rows and string identifiers before deriving ownership. |
+| 327 | Provider documents | Validate total cardinality, bounded list/summary results and requested document identity. |
+| 328 | Provider visits | Validate total cardinality, bounded list/summary results and requested visit identity. |
+| 329 | Provider availability | Validate total cardinality, bounded list/summary results and requested availability identity. |
+| 330 | Provider registered records | Validate actor/profile authority, counts, pages, singleton rows and requested details across all registered records. |
+| 331 | Account owned registered records | Validate actor authority, counts, pages, singleton rows and requested detail identity. |
+| 332 | Provider timesheet item list/detail | Validate actor/profile rows, exact-one total and bounded item results; retain exact detail binding. |
+| 333 | Provider timesheet item summary | Require one total row and bound returned status/minute groups to the requested limit. |
+
+Owned-read authority is now an unambiguous object row with a valid string account/profile identifier. Tenant values are not coerced; absent tenants retain denial. Exactly-one aggregate results and requested page limits are enforced before projection. Detail rows must match the requested identifier, including the invoice parent of nested payment routes. The shared helpers retain explicit field projection, declared nullable values, decimal precision, strict date validation, existing tenant/owner SQL joins, active explicit bearer sessions, source budgets and repeatable-read rollback.
+
+All existing registered client/provider/account record definitions receive these runtime boundaries. Singleton absence remains 404, missing actors remain 401, missing profiles remain 404 and valid empty pages retain zero totals. Unsupported summary routes are not introduced. Invalid or ambiguous adapter results return the existing sanitized no-store 503 before returning data or deriving another owned query. No business mutations are added.
+
+Sixty-one new grouped gateway regressions cover every registered family, malformed actor/tenant/profile identities, duplicate and nonobject rows, exact-one aggregate counts, oversized list/summary pages, detail/parent binding and valid/missing/empty responses. Existing focused suites passed without changing their success fixtures. Additional disposable PostgreSQL checks verify one-row caps and maximum empty offsets across base reads, nested/own payments, timesheet items, representative registered metadata and their approved summaries. Existing database detail identity, tenant isolation, ambiguous profile and nullable-value tests remain.
+
+Supplemental runtime documentation adds no authority. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions or deployments.
+
+Local validation: 1,963 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37558568217 at cfd5650b48a370e0dce098ec7ef0c8276d7a08ef. PR #113 merged as 60e5ea13f0f5fe61ab331d2df94332ac7aae0468. Latest completed batch is 333; next batch is 334. No deployment or production database changes.
+
+
+## Iteration 15 — batches 334–348, authentication and booking result boundaries, merged
+
+- Batch 334 maintenance actor.
+- Batch 335 account list actor.
+- Batch 336 account administration actor.
+- Batch 337 mutation budget actor.
+- Batch 338 locked password actor.
+- Batch 339 locked account creation actor.
+- Batch 340 locked account management actor.
+- Batch 341 confirmed session insert.
+- Batch 342 recovery tenant rows.
+- Batch 343 governance actor.
+- Batch 344 booking actor/profile/session.
+- Batch 345 booking replay binding.
+- Batch 346 booking audit reads.
+- Batch 347 confirmed creation audit.
+- Batch 348 cancellation binding and confirmed audit.
+
+Privileged actor rows now require one object, a string account ID and role, and an uncoerced tenant. Mutation preflight validates identity before allocating a budget; locked authorization remains authoritative. Password authority, recovery tenant lookup and governance catalog reads enforce result shape and cardinality. Login confirms the persisted token hash and account inside a transaction before issuing a token or cookie.
+
+Booking lifecycle checks actor, profile and session rows, replay cardinality, request hash and current owned parent identity. Audit reads enforce parent binding, exact aggregate cardinality and requested page bounds. Creation and cancellation confirm every audit binding and the persisted response before commit; cancellation also verifies the locked target. Missing actors/profiles, valid empty pages and conflicting retries preserve their existing responses. Malformed adapter results use sanitized no-store failures and rollback.
+
+New unit corruption regressions exercise these boundaries. Disposable PostgreSQL triggers suppress or corrupt session and booking audit inserts and assert unchanged snapshots after rejection. No routes, grants, authority promotions, deployment or production database changes. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked.
+
+Local validation: 2,033 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37559453465 at ca4cae0a1afd33a27d067aa0a9c0e88c8a7d2522. PR #114 merged as 6e89226a70e498c2e95977c95a1d4b2c92657dd2. Latest completed batch is 348; next batch is 349. No deployment or production database changes.
+
+
+## Iteration 16 — batches 349–363, workspace metadata and account audit persistence, merged
+
+- Batch 349 workspace actor tenant validation.
+- Batch 350 workspace activity object rows.
+- Batch 351 workspace role group values.
+- Batch 352 client metric schema metadata.
+- Batch 353 provider metric schema metadata.
+- Batch 354 visit metric schema metadata.
+- Batch 355 invoice metric schema metadata.
+- Batch 356 schedule metric schema metadata.
+- Batch 357 personal session tenant validation.
+- Batch 358 confirmed personal revocation audit.
+- Batch 359 confirmed administrative revocation audit.
+- Batch 360 confirmed account management audit.
+- Batch 361 confirmed account creation audit.
+- Batch 362 confirmed own-password audit.
+- Batch 363 account adapter result shapes.
+
+Workspace authority validates an uncoerced tenant before reading organization data. Activity uses bounded object rows and role groups reject blank or oversized values. Each existing client/provider/visit/invoice/schedule metric validates a bounded, unique column-name list before deriving tenant-scoped SQL. Missing tenant columns remain unavailable; no global fallback is added.
+
+Personal session authority validates tenant types under the existing lock. Personal/admin session revocation, account management/creation and own-password changes require exactly one persisted audit row with a valid identity/timestamp and matching account/tenant/action/state bindings before reporting success. JSON states compare by keys and values, independent of PostgreSQL JSONB key order. Callers retain transactional rollback and only clear cookies after successful commit. Existing duplicate probes and created/updated/session identity rows use shared result-shape checks.
+
+New unit regressions corrupt metadata and audit identities, state, cardinality and timestamps and verify rollback/no success headers. Disposable PostgreSQL BEFORE INSERT triggers suppress or corrupt audit rows and require unchanged account/session/audit snapshots. Existing explicit projections, authorization, budgets, locks, tenant filters, nullable values and retry behavior remain.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,125 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37560808726 at 6eccd2944fcb728856e2865ec0c266caeaaa57d5. PR #115 merged as 981c02fdf0f4f0f4c840ce9d4a290c99496df0e5. Latest completed batch is 363; next batch is 364. No deployment or production database changes.
+
+
+## Iteration 17 — batches 364–388, recovery and summary group boundaries, merged
+
+- Batch 364 confirmed reset-password audit.
+- Batch 365 recovery account result shapes.
+- Batch 366 recovery code storage result shapes.
+- Batch 367 locked reset account and consumption result shapes.
+- Batch 368 client invoice compound groups.
+- Batch 369 owned and nested payment groups.
+- Batch 370 client booking request groups.
+- Batch 371 client visit groups.
+- Batch 372 client booking groups.
+- Batch 373 provider document groups.
+- Batch 374 provider visit groups.
+- Batch 375 provider availability groups.
+- Batch 376 timesheet item groups.
+- Batch 377 client consent, authorization and waitlist groups.
+- Batch 378 client feedback groups.
+- Batch 379 client thread and family-link groups.
+- Batch 380 client alert, claim and prescription groups.
+- Batch 381 client care-plan, assessment and reconciliation groups.
+- Batch 382 client shift-log groups.
+- Batch 383 client notification, purchase, vital and medication groups.
+- Batch 384 provider thread, timesheet and override groups.
+- Batch 385 provider mileage, payout and review groups.
+- Batch 386 provider check, match and training groups.
+- Batch 387 personal notification, activity, wellness, device and task groups.
+- Batch 388 personal reconciliation, audit, authoring, review and telehealth groups.
+
+Reset password now confirms a persisted audit before success and commit; failure restores credentials, sessions and the consumed reset code. Recovery account lookup, code storage, locked account lookup and code consumption use object-row/cardinality checks. Valid unknown/ambiguous account privacy responses, invalid-code responses, budgets, lock order, code binding and native email handling remain.
+
+All existing approved summary handlers validate unique typed GROUP BY keys and strictly positive safe-integer source counts before projection. Invoice keys include currency and status; nullable, boolean, numeric and string keys remain distinct. The shared boundary covers client/provider base summaries, timesheet items and every registered approved client/provider/account summary. Existing decimal/SUM string precision, nullable labels, schemas, owner/tenant filters, pagination bounds and repeatable-read rollback remain. Unsupported summaries are not added.
+
+New gateway fixtures cover duplicate/null/boolean/compound keys, zero group counts, valid projected groups and empty summaries across all approved families. Recovery fixtures reject malformed result shapes and failed audit confirmations. Disposable PostgreSQL audit triggers suppress or corrupt reset audits and assert restored code rows plus unchanged account/session/audit snapshots. Existing synthetic summary PostgreSQL suites now verify positive counts and unique returned keys as well as first/empty pages.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,271 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37565154858 at 23f89529845451c85c1908a8d43838af82c3987d. PR #116 merged as 8f0cf75ad071c7d290357e42c0b43cd7779a7d07. Latest completed batch is 388; next batch is 389. No deployment or production database changes.
+
+
+## Iteration 18 — batches 389–438, owned record identity boundaries, merged
+
+- Batch 389 client invoices.
+- Batch 390 owned payments.
+- Batch 391 nested invoice payments.
+- Batch 392 client booking requests.
+- Batch 393 client visits.
+- Batch 394 client bookings.
+- Batch 395 provider documents.
+- Batch 396 provider visits.
+- Batch 397 provider availability.
+- Batch 398 timesheet items.
+- Batch 399 client /consents.
+- Batch 400 client /service-authorizations.
+- Batch 401 client /waitlist.
+- Batch 402 client /feedback.
+- Batch 403 client /care-feedback.
+- Batch 404 client /conversation-threads.
+- Batch 405 client /family-links.
+- Batch 406 client /alert-records.
+- Batch 407 client /insurance-claim-records.
+- Batch 408 client /prescription-records.
+- Batch 409 client /care-plan-records.
+- Batch 410 client /assessment-records.
+- Batch 411 client /medication-reconciliation-records.
+- Batch 412 client /shift-log-records.
+- Batch 413 client /adl-records.
+- Batch 414 client /vital-observation-records.
+- Batch 415 client /behavior-observation-records.
+- Batch 416 client /nutrition-observation-records.
+- Batch 417 client /mobility-observation-records.
+- Batch 418 client /infection-checklist-records.
+- Batch 419 client /progress-note-records.
+- Batch 420 client /care-follow-up-records.
+- Batch 421 client /family-notification-records.
+- Batch 422 client /inventory-item-records.
+- Batch 423 client /purchase-order-records.
+- Batch 424 client /patient-vital-records.
+- Batch 425 client /medication-administration-records.
+- Batch 426 provider threads.
+- Batch 427 provider timesheets.
+- Batch 428 availability overrides.
+- Batch 429 mileage logs.
+- Batch 430 payouts.
+- Batch 431 performance reviews.
+- Batch 432 visit checks and fleet singleton.
+- Batch 433 visit matches and shift assignments.
+- Batch 434 handover, authored note/checklist and training records.
+- Batch 435 personal notification, activity, reward, device and membership records.
+- Batch 436 personal password, shift, daily and observation records.
+- Batch 437 personal assigned tasks, audit, incident, assessment and supervision records.
+- Batch 438 personal authoring, review, telehealth, event and ledger records.
+
+Existing client/provider base lists, timesheet items and every registered client/provider/personal record page require valid string identifiers compatible with their existing detail routes and unique IDs within the returned page. Registered provider and personal singleton records with ID fields also validate their identities. Distinct case-sensitive text IDs remain distinct. The bootstrap singleton has no ID field and retains its declared projection.
+
+The shared helper validates row shape and page bounds before identity checks. Malformed or duplicate records use existing sanitized no-store errors with read-only rollback. Missing details/singletons retain 404; empty pages retain 200; projections, nullable fields, decimal/date validation, count and summary checks, active bearer authority, owner/tenant joins and query budgets remain.
+
+New gateway regressions exercise all 50 batch families, including malformed IDs, duplicate rows within the requested limit, valid distinct IDs and empty/missing results. Disposable PostgreSQL tests temporarily corrupt IDs and duplicate synthetic owned rows, assert rejected reads leave them unchanged, and restore each fixture. Existing page checks now verify valid unique IDs in full fixture pages.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,423 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37613650641 at 32107db6e638f1c9969711579f2401d0bab4e218. PR #117 merged as 48d0accde4ce4a9bf081e382e0dfe1fd4c4bd86a. Latest completed batch is 438; next batch is 439. No deployment or production database changes.
+
+
+## Iteration 19 — batches 439–488, count and offset consistency, merged
+
+- Batch 439 client invoices.
+- Batch 440 owned payments.
+- Batch 441 nested invoice payments.
+- Batch 442 client booking requests.
+- Batch 443 client visits.
+- Batch 444 client bookings.
+- Batch 445 provider documents.
+- Batch 446 provider visits.
+- Batch 447 provider availability.
+- Batch 448 timesheet items.
+- Batch 449 client /consents.
+- Batch 450 client /service-authorizations.
+- Batch 451 client /waitlist.
+- Batch 452 client /feedback.
+- Batch 453 client /care-feedback.
+- Batch 454 client /conversation-threads.
+- Batch 455 client /family-links.
+- Batch 456 client /alert-records.
+- Batch 457 client /insurance-claim-records.
+- Batch 458 client /prescription-records.
+- Batch 459 client /care-plan-records.
+- Batch 460 client /assessment-records.
+- Batch 461 client /medication-reconciliation-records.
+- Batch 462 client /shift-log-records.
+- Batch 463 client /adl-records.
+- Batch 464 client /vital-observation-records.
+- Batch 465 client /behavior-observation-records.
+- Batch 466 client /nutrition-observation-records.
+- Batch 467 client /mobility-observation-records.
+- Batch 468 client /infection-checklist-records.
+- Batch 469 client /progress-note-records.
+- Batch 470 client /care-follow-up-records.
+- Batch 471 client /family-notification-records.
+- Batch 472 client /inventory-item-records.
+- Batch 473 client /purchase-order-records.
+- Batch 474 client /patient-vital-records.
+- Batch 475 client /medication-administration-records.
+- Batch 476 provider /conversation-threads.
+- Batch 477 provider /timesheets.
+- Batch 478 provider /availability-overrides.
+- Batch 479 provider /mileage-logs.
+- Batch 480 provider /payouts.
+- Batch 481 provider /performance-reviews.
+- Batch 482 provider /visit-check-events.
+- Batch 483 provider /visit-matches.
+- Batch 484 provider /shift-assignment-records.
+- Batch 485 provider /handover-records.
+- Batch 486 provider /authored-visit-note-records.
+- Batch 487 provider /authored-checklist-records.
+- Batch 488 provider /training-assignment-records.
+
+Existing client/provider base lists, timesheet items and all registered client/provider/personal pages validate the relationship between returned rows, reported total and requested offset in their existing read-only repeatable-read snapshot. A page cannot contain more rows than min(limit, max(0,total-offset)). The same guard covers every existing supported summary, where total counts groups rather than source records. Typed safe-integer pagination inputs and bounded object rows are required before projection.
+
+Understated totals, nonempty zero-total pages and rows at or beyond an exhausted offset use existing sanitized no-store 503 responses and rollback. Partial pages remain permitted; this checks contradictions rather than requiring full pages. Valid final pages, empty/exhausted pages, hasMore calculation, explicit projections, decimal/date and identity validation, missing details, singleton contracts, active bearer authority, owner/tenant joins and budgets remain.
+
+New gateway regressions exercise total/offset contradictions and valid final/empty pages across all 50 numbered client/provider list families plus every registered personal list and supported summary. Existing identity and group corruption fixtures now provide sufficient totals so their original validation still receives independent coverage. Real PostgreSQL page helpers verify final-page cardinality. A separate disposable PostgreSQL test changes only the adapter's returned count after real SQL, verifies rejection and rollback, and compares all stored fixture rows before and after for client/provider/personal lists and summaries.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,579 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37617430613 at a4cc05418437b99b4e390b78d992ae85109f7957. PR #118 merged as a3b7bd1fd7f45fc6b5481e2f656d824ca2fb9f4b. Latest completed batch is 488; next batch is 489. No deployment or production database changes.
+
+
+## Iteration 20 — batches 489–538, primitive timestamp projections, merged
+
+- Batch 489 client profile.
+- Batch 490 client invoices.
+- Batch 491 owned payments.
+- Batch 492 nested invoice payments.
+- Batch 493 client booking requests.
+- Batch 494 client visits.
+- Batch 495 client bookings.
+- Batch 496 provider documents.
+- Batch 497 provider visits.
+- Batch 498 timesheet items.
+- Batch 499 client /consents.
+- Batch 500 client /service-authorizations.
+- Batch 501 client /waitlist.
+- Batch 502 client /feedback.
+- Batch 503 client /care-feedback.
+- Batch 504 client /conversation-threads.
+- Batch 505 client /family-links.
+- Batch 506 client /alert-records.
+- Batch 507 client /insurance-claim-records.
+- Batch 508 client /prescription-records.
+- Batch 509 client /care-plan-records.
+- Batch 510 client /assessment-records.
+- Batch 511 client /medication-reconciliation-records.
+- Batch 512 client /shift-log-records.
+- Batch 513 client /adl-records.
+- Batch 514 client /vital-observation-records.
+- Batch 515 client /behavior-observation-records.
+- Batch 516 client /nutrition-observation-records.
+- Batch 517 client /mobility-observation-records.
+- Batch 518 client /infection-checklist-records.
+- Batch 519 client /progress-note-records.
+- Batch 520 client /care-follow-up-records.
+- Batch 521 client /family-notification-records.
+- Batch 522 client /inventory-item-records.
+- Batch 523 client /purchase-order-records.
+- Batch 524 client /patient-vital-records.
+- Batch 525 client /medication-administration-records.
+- Batch 526 provider /conversation-threads.
+- Batch 527 provider /timesheets.
+- Batch 528 provider /availability-overrides.
+- Batch 529 provider /mileage-logs.
+- Batch 530 provider /payouts.
+- Batch 531 provider /performance-reviews.
+- Batch 532 provider /visit-check-events.
+- Batch 533 provider /visit-matches.
+- Batch 534 provider /shift-assignment-records.
+- Batch 535 provider /handover-records.
+- Batch 536 provider /authored-visit-note-records.
+- Batch 537 provider /authored-checklist-records.
+- Batch 538 provider /training-assignment-records.
+
+Existing owned date projections now serialize checked string/null primitives instead of returning adapter-owned Date objects. Native Date state is read through Date.prototype getTime/getUTCFullYear/toISOString calls, so instance/subclass overrides cannot disguise invalid dates, forge timestamp text or inject private data through toJSON. The change covers every projected date field in the 50 numbered client/provider families, all registered personal records and the provider fleet singleton. Existing account/audit/workspace timestamp projections also use the hardened shared Date path.
+
+Precise RFC3339 strings retain their original spelling and fractional precision; Date values retain native ISO formatting. Nullable dates remain allowed only by their existing validators. Timesheet items retain their existing stricter UTC string acceptance and normalization. List/detail/singleton fields, empty/missing behavior, pagination, decimal/identity validation, authorization, owner/tenant SQL and read-only rollback remain.
+
+Gateway regressions test every projected date field on list/detail/singleton paths, overridden Date methods, native invalid/out-of-range Dates with forged methods, subclasses, precise strings and declared nulls. A disposable real PostgreSQL adapter test changes only returned Date objects, verifies primitive response values and zero override calls, rejects disguised invalid dates, confirms rollback, and compares stored fixture rows before/after. UUID/text CI includes that test and all prior PostgreSQL suites.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,734 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37623868986 at 3feb0664d1ce964a421328a1ac54285d9fa7ce5f. PR #119 merged as 37d996b9c253797db2f994e6700415c776a55ac6. Latest completed batch is 538; next batch is 539. No deployment or production database changes.
+
+
+## Iteration 21 — batches 539–588, dense own-data result rows, merged
+
+- Batch 539 client invoices.
+- Batch 540 owned payments.
+- Batch 541 nested invoice payments.
+- Batch 542 client booking requests.
+- Batch 543 client visits.
+- Batch 544 client bookings.
+- Batch 545 provider documents.
+- Batch 546 provider visits.
+- Batch 547 provider availability.
+- Batch 548 timesheet items.
+- Batch 549 client /consents.
+- Batch 550 client /service-authorizations.
+- Batch 551 client /waitlist.
+- Batch 552 client /feedback.
+- Batch 553 client /care-feedback.
+- Batch 554 client /conversation-threads.
+- Batch 555 client /family-links.
+- Batch 556 client /alert-records.
+- Batch 557 client /insurance-claim-records.
+- Batch 558 client /prescription-records.
+- Batch 559 client /care-plan-records.
+- Batch 560 client /assessment-records.
+- Batch 561 client /medication-reconciliation-records.
+- Batch 562 client /shift-log-records.
+- Batch 563 client /adl-records.
+- Batch 564 client /vital-observation-records.
+- Batch 565 client /behavior-observation-records.
+- Batch 566 client /nutrition-observation-records.
+- Batch 567 client /mobility-observation-records.
+- Batch 568 client /infection-checklist-records.
+- Batch 569 client /progress-note-records.
+- Batch 570 client /care-follow-up-records.
+- Batch 571 client /family-notification-records.
+- Batch 572 client /inventory-item-records.
+- Batch 573 client /purchase-order-records.
+- Batch 574 client /patient-vital-records.
+- Batch 575 client /medication-administration-records.
+- Batch 576 provider /conversation-threads.
+- Batch 577 provider /timesheets.
+- Batch 578 provider /availability-overrides.
+- Batch 579 provider /mileage-logs.
+- Batch 580 provider /payouts.
+- Batch 581 provider /performance-reviews.
+- Batch 582 provider /visit-check-events.
+- Batch 583 provider /visit-matches.
+- Batch 584 provider /shift-assignment-records.
+- Batch 585 provider /handover-records.
+- Batch 586 provider /authored-visit-note-records.
+- Batch 587 provider /authored-checklist-records.
+- Batch 588 provider /training-assignment-records.
+
+The shared database result validator no longer dispatches through an adapter-owned array map method. It inspects each indexed own data descriptor, rejects sparse/inherited/accessor entries, and returns a fresh dense array. Object rows must have Object.prototype or a null prototype and own data properties; inherited/class rows and getter/setter fields are rejected before projection or authority reads. Cardinality bounds require nonnegative safe integers.
+
+The guard applies to 50 numbered client/provider list families, their existing detail/summary routes, registered personal records, the provider singleton and other existing users of the shared result helpers. Malformed rows use existing sanitized no-store failures and rollback. Legitimate empty results retain missing/empty semantics; malformed sparse authority cannot masquerade as a missing record. Plain/null-prototype rows, frozen rows/arrays, array subclasses and Date-valued cells retain support. Explicit projections, timestamp/identity/count validation, paging, authorization and owner/tenant SQL remain.
+
+Gateway regressions cover sparse/inherited/getter array entries, inherited/class/accessor rows and valid dense data throughout lists/details/summaries/singletons, with zero getter/map calls. A disposable real PostgreSQL adapter regression changes only returned arrays/rows, verifies rejected reads and valid null-prototype/frozen rows, confirms no getter/map execution and rollback, and compares stored rows before/after. UUID/text CI includes that test and all earlier PostgreSQL suites.
+
+Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,891 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37625916340 at 49b41663e837b901cd46955f03f6b7ef93dfc88d. PR #120 merged as 88b0488639f63beb691feca682fbd75638d02878. Latest completed batch is 588; next batch is 589. No deployment or production database changes.
+
+## Iteration 22 — batches 589–638 (merged)
+
+- Batch 589 account list: zero total.
+- Batch 590 account list: exhausted offset.
+- Batch 591 account list: malformed identity.
+- Batch 592 account list: duplicate identity.
+- Batch 593 account list: requested binding.
+- Batch 594 account list: invalid timestamp.
+- Batch 595 account list: compatible row shapes.
+- Batch 596 account list: sparse aggregate.
+- Batch 597 account list: empty exhausted page.
+- Batch 598 account list: valid final page and privacy.
+- Batch 599 creation audit: zero total.
+- Batch 600 creation audit: exhausted offset.
+- Batch 601 creation audit: malformed identity.
+- Batch 602 creation audit: duplicate identity.
+- Batch 603 creation audit: requested binding.
+- Batch 604 creation audit: invalid timestamp.
+- Batch 605 creation audit: compatible row shapes.
+- Batch 606 creation audit: sparse aggregate.
+- Batch 607 creation audit: empty exhausted page.
+- Batch 608 creation audit: valid final page and privacy.
+- Batch 609 management audit: zero total.
+- Batch 610 management audit: exhausted offset.
+- Batch 611 management audit: malformed identity.
+- Batch 612 management audit: duplicate identity.
+- Batch 613 management audit: requested binding.
+- Batch 614 management audit: invalid timestamp.
+- Batch 615 management audit: compatible row shapes.
+- Batch 616 management audit: sparse aggregate.
+- Batch 617 management audit: empty exhausted page.
+- Batch 618 management audit: valid final page and privacy.
+- Batch 619 admin sessions: zero total.
+- Batch 620 admin sessions: exhausted offset.
+- Batch 621 admin sessions: malformed identity.
+- Batch 622 admin sessions: duplicate identity.
+- Batch 623 admin sessions: requested binding.
+- Batch 624 admin sessions: invalid timestamp.
+- Batch 625 admin sessions: compatible row shapes.
+- Batch 626 admin sessions: sparse aggregate.
+- Batch 627 admin sessions: empty exhausted page.
+- Batch 628 admin sessions: valid final page and privacy.
+- Batch 629 personal sessions: zero total.
+- Batch 630 personal sessions: exhausted offset.
+- Batch 631 personal sessions: malformed identity.
+- Batch 632 personal sessions: duplicate identity.
+- Batch 633 personal sessions: requested binding.
+- Batch 634 personal sessions: invalid timestamp.
+- Batch 635 personal sessions: compatible row shapes.
+- Batch 636 personal sessions: sparse aggregate.
+- Batch 637 personal sessions: empty exhausted page.
+- Batch 638 personal sessions: valid final page and privacy.
+
+Account, creation audit, management audit, admin session and personal session pages now validate total/offset consistency and unique record identities. Filtered audits bind targets to the requested user. Session hashes are canonical private identities; personal current flags must match the bearer hash. Public fields and ownership SQL remain unchanged. Malformed reads return sanitized no-store errors and rollback. Dense null-prototype/frozen rows, empty exhausted pages and final pages retain support.
+
+Gateway fixtures and a real PostgreSQL adapter regression cover these boundaries, privacy, rollback and unchanged stored data. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 2,944 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37629952666 at e8038c658507ca21ead43eb8944473535fef3935. PR #121 merged as 284608ec1d879d1a1904b9ae7aaf6a474da5cc68. Latest completed batch is 638; next batch is 639. No deployment or production database changes.
+
+## Iteration 23 — batches 639–688 (merged)
+
+- Batch 639 client /invoices.
+- Batch 640 client /payments.
+- Batch 641 client /invoices/invoice/payments.
+- Batch 642 client /booking-requests.
+- Batch 643 client /visits.
+- Batch 644 client /bookings.
+- Batch 645 provider /documents.
+- Batch 646 provider /visits.
+- Batch 647 provider /availability.
+- Batch 648 provider /timesheet-items.
+- Batch 649 client /consents.
+- Batch 650 client /service-authorizations.
+- Batch 651 client /waitlist.
+- Batch 652 client /feedback.
+- Batch 653 client /care-feedback.
+- Batch 654 client /conversation-threads.
+- Batch 655 client /family-links.
+- Batch 656 client /alert-records.
+- Batch 657 client /insurance-claim-records.
+- Batch 658 client /prescription-records.
+- Batch 659 client /care-plan-records.
+- Batch 660 client /assessment-records.
+- Batch 661 client /medication-reconciliation-records.
+- Batch 662 client /shift-log-records.
+- Batch 663 client /adl-records.
+- Batch 664 client /vital-observation-records.
+- Batch 665 client /behavior-observation-records.
+- Batch 666 client /nutrition-observation-records.
+- Batch 667 client /mobility-observation-records.
+- Batch 668 client /infection-checklist-records.
+- Batch 669 client /progress-note-records.
+- Batch 670 client /care-follow-up-records.
+- Batch 671 client /family-notification-records.
+- Batch 672 client /inventory-item-records.
+- Batch 673 client /purchase-order-records.
+- Batch 674 client /patient-vital-records.
+- Batch 675 client /medication-administration-records.
+- Batch 676 provider /conversation-threads.
+- Batch 677 provider /timesheets.
+- Batch 678 provider /availability-overrides.
+- Batch 679 provider /mileage-logs.
+- Batch 680 provider /payouts.
+- Batch 681 provider /performance-reviews.
+- Batch 682 provider /visit-check-events.
+- Batch 683 provider /visit-matches.
+- Batch 684 provider /shift-assignment-records.
+- Batch 685 provider /handover-records.
+- Batch 686 provider /authored-visit-note-records.
+- Batch 687 provider /authored-checklist-records.
+- Batch 688 provider /training-assignment-records.
+
+Shared actor validation now requires nonempty tenant claims to follow the existing account identifier grammar before ownership SQL or privileged role policy. Missing/null/empty tenant claims retain denial semantics. This strengthens 50 numbered client/provider route families and their existing detail/summary readers; personal records, provider singleton, session and administrative readers retain the same shared protection. Valid UUID/text identities, null-prototype/frozen actor rows and parameterized owner/tenant joins are preserved.
+
+Gateway tests reject malformed tenant strings and non-string values before owned queries, check absent/mismatched tenant denial, and verify UUID/text tenant bindings and public privacy. Disposable real PostgreSQL faults alter returned actor values only, test list/summary/personal/account/session readers, confirm rollback and compare stored rows before/after. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 3,103 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37640526635 at cc138ff6220ad7d7381b9ec2bab936c425a838fa. PR #122 merged as 879e0404cb6156194a58ed5b42b3805d4e5fc735. Latest completed batch is 688; next batch is 689. No deployment or production database changes.
+
+## Iteration 24 — batches 689–738 (merged)
+
+- Batch 689 configuration rows: sparse.
+- Batch 690 configuration rows: inherited entry.
+- Batch 691 configuration rows: getter entry.
+- Batch 692 configuration rows: inherited row.
+- Batch 693 configuration rows: class row.
+- Batch 694 configuration rows: getter field.
+- Batch 695 configuration rows: absent defaults.
+- Batch 696 configuration rows: null prototype.
+- Batch 697 configuration rows: frozen data.
+- Batch 698 configuration rows: duplicate rows.
+- Batch 699 stored template maps: null.
+- Batch 700 stored template maps: array.
+- Batch 701 stored template maps: inherited.
+- Batch 702 stored template maps: class.
+- Batch 703 stored template maps: template getter.
+- Batch 704 stored template maps: extra getter.
+- Batch 705 stored template maps: frozen.
+- Batch 706 stored template maps: null prototype.
+- Batch 707 stored template maps: unknown template.
+- Batch 708 stored template maps: private projection.
+- Batch 709 template fields: null.
+- Batch 710 template fields: array.
+- Batch 711 template fields: inherited.
+- Batch 712 template fields: class.
+- Batch 713 template fields: subject getter.
+- Batch 714 template fields: private getter.
+- Batch 715 template fields: placeholder rules.
+- Batch 716 template fields: frozen.
+- Batch 717 template fields: null prototype.
+- Batch 718 template fields: canonical variables.
+- Batch 719 maintenance audit rows: sparse.
+- Batch 720 maintenance audit rows: inherited entry.
+- Batch 721 maintenance audit rows: getter entry.
+- Batch 722 maintenance audit rows: inherited row.
+- Batch 723 maintenance audit rows: class row.
+- Batch 724 maintenance audit rows: action getter.
+- Batch 725 maintenance audit rows: twenty row limit.
+- Batch 726 maintenance audit rows: empty.
+- Batch 727 maintenance audit rows: map override.
+- Batch 728 maintenance audit rows: null prototype privacy.
+- Batch 729 persisted audit states: inherited state.
+- Batch 730 persisted audit states: class state.
+- Batch 731 persisted audit states: role getter.
+- Batch 732 persisted audit states: nested getter.
+- Batch 733 persisted audit states: array state.
+- Batch 734 persisted audit states: wrong primitive.
+- Batch 735 persisted audit states: extra field.
+- Batch 736 persisted audit states: missing field.
+- Batch 737 persisted audit states: frozen nested.
+- Batch 738 persisted audit states: null prototype nested.
+
+The shared result-row object checks are now reusable for nested adapter data. Maintenance configuration and audit rows use validated dense arrays instead of adapter array methods. Stored template maps/fields and nested persisted/read account audit states reject class/inherited/accessor objects before reading fields. Getter/map code is not invoked. Plain/null-prototype objects, frozen rows, absent defaults, canonical template variables, explicit private-field projection and ordinary timestamp values remain supported.
+
+Fifty numbered boundary cases plus eight gateway regressions check malformed data, privacy, blocked email delivery, and rejected account mutations. Disposable real PostgreSQL faults preserve actual SQL and verify stored rows remain unchanged; failed account updates, session revocation and audit insertion roll back together. Existing maintenance GET commits and failed test-email rate-counter commits remain; malformed mail sends nothing and appends no acceptance audit. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 3,161 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37646701791 at 7cb5be583ffe8e9623b966d7472bb0c59e29afe7. PR #123 merged as 91405fb2ef8e23e807f5934f40ea2f0170b1aca3. Latest completed batch is 738; next batch is 739. No deployment or production database changes.
+
+## Iteration 25 — batches 739–788 (merged)
+
+- Batch 739 client /visits service_id: empty reference.
+- Batch 740 client /visits service_id: padded reference.
+- Batch 741 client /visits service_id: invalid characters.
+- Batch 742 client /visits service_id: untyped and missing reference.
+- Batch 743 client /visits service_id: UUID reference projection.
+- Batch 744 client /visits service_id: text and null boundaries.
+- Batch 745 client /visits service_id: compatible rows and shared references.
+- Batch 746 provider /visits service_id: empty reference.
+- Batch 747 provider /visits service_id: padded reference.
+- Batch 748 provider /visits service_id: invalid characters.
+- Batch 749 provider /visits service_id: untyped and missing reference.
+- Batch 750 provider /visits service_id: UUID reference projection.
+- Batch 751 provider /visits service_id: text and null boundaries.
+- Batch 752 provider /visits service_id: compatible rows and shared references.
+- Batch 753 client /service-authorizations service_id: empty reference.
+- Batch 754 client /service-authorizations service_id: padded reference.
+- Batch 755 client /service-authorizations service_id: invalid characters.
+- Batch 756 client /service-authorizations service_id: untyped and missing reference.
+- Batch 757 client /service-authorizations service_id: UUID reference projection.
+- Batch 758 client /service-authorizations service_id: text and null boundaries.
+- Batch 759 client /service-authorizations service_id: compatible rows and shared references.
+- Batch 760 client /waitlist service_id: empty reference.
+- Batch 761 client /waitlist service_id: padded reference.
+- Batch 762 client /waitlist service_id: invalid characters.
+- Batch 763 client /waitlist service_id: untyped and missing reference.
+- Batch 764 client /waitlist service_id: UUID reference projection.
+- Batch 765 client /waitlist service_id: text and null boundaries.
+- Batch 766 client /waitlist service_id: compatible rows and shared references.
+- Batch 767 provider /timesheets week_id: empty reference.
+- Batch 768 provider /timesheets week_id: padded reference.
+- Batch 769 provider /timesheets week_id: invalid characters.
+- Batch 770 provider /timesheets week_id: untyped and missing reference.
+- Batch 771 provider /timesheets week_id: UUID reference projection.
+- Batch 772 provider /timesheets week_id: text and null boundaries.
+- Batch 773 provider /timesheets week_id: compatible rows and shared references.
+- Batch 774 auth /me/survey-submissions survey_id: empty reference.
+- Batch 775 auth /me/survey-submissions survey_id: padded reference.
+- Batch 776 auth /me/survey-submissions survey_id: invalid characters.
+- Batch 777 auth /me/survey-submissions survey_id: untyped and missing reference.
+- Batch 778 auth /me/survey-submissions survey_id: UUID reference projection.
+- Batch 779 auth /me/survey-submissions survey_id: text and null boundaries.
+- Batch 780 auth /me/survey-submissions survey_id: compatible rows and shared references.
+- Batch 781 auth /me/group-memberships group_id: empty reference.
+- Batch 782 auth /me/group-memberships group_id: padded reference.
+- Batch 783 auth /me/group-memberships group_id: invalid characters.
+- Batch 784 auth /me/group-memberships group_id: untyped and missing reference.
+- Batch 785 auth /me/group-memberships group_id: UUID reference projection.
+- Batch 786 auth /me/group-memberships group_id: text and null boundaries.
+- Batch 787 auth /me/group-memberships group_id: compatible rows and shared references.
+- Batch 788 reference helper coercion and nullable boundaries.
+
+Client/provider visit service references and registered service, week, survey and group reference fields now require usable identifiers under the existing account identifier grammar. Foreign references remain independently shareable across records; nullable service-authorization references remain null. Survey summary keys receive the same validation. No reference is coerced or used to expand ownership access. Owner/tenant SQL and public fields remain unchanged.
+
+Fifty numbered gateway/helper cases plus three summary/absence regressions reject empty, padded, invalid, oversized, missing and non-string reference values; preserve UUID/text strings through list/detail/summary reads; and verify compatible row shapes, shared references, null semantics, privacy and rollback. A disposable PostgreSQL adapter fault regression checks all seven reader families with real SQL, unchanged stored rows, inaccessible foreign-owned details and tenant mismatch denial. Inventory remains 1,416 declarations, 337 local fixture records, 1,069 pending and 10 blocked. No new routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 3,214 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37651980486 at b09abac9a5e7961e876d10cf80a910ebcf43b582. PR #124 merged as 5f4f377c2baba4d2b676345bcb88d913fb57f4dc. Latest completed batch is 788; next batch is 789. No deployment or production database changes.
+
+## Iteration 26 — batches 789–838 (merged)
+
+- Batch 789 client /visits duration_minutes: int4 overflow rejection.
+- Batch 790 client /visits duration_minutes: untyped/fractional/nonfinite rejection.
+- Batch 791 client /visits duration_minutes: signed bounds and declared nulls.
+- Batch 792 provider /visits duration_minutes: int4 overflow rejection.
+- Batch 793 provider /visits duration_minutes: untyped/fractional/nonfinite rejection.
+- Batch 794 provider /visits duration_minutes: signed bounds and declared nulls.
+- Batch 795 provider /availability day_of_week: int4 overflow rejection.
+- Batch 796 provider /availability day_of_week: untyped/fractional/nonfinite rejection.
+- Batch 797 provider /availability day_of_week: signed bounds and declared nulls.
+- Batch 798 provider /timesheet-items minutes: int4 overflow rejection.
+- Batch 799 provider /timesheet-items minutes: untyped/fractional/nonfinite rejection.
+- Batch 800 provider /timesheet-items minutes: signed bounds and declared nulls.
+- Batch 801 client /consents template_version: int4 overflow rejection.
+- Batch 802 client /consents template_version: untyped/fractional/nonfinite rejection.
+- Batch 803 client /consents template_version: signed bounds and declared nulls.
+- Batch 804 client /waitlist priority: int4 overflow rejection.
+- Batch 805 client /waitlist priority: untyped/fractional/nonfinite rejection.
+- Batch 806 client /waitlist priority: signed bounds and declared nulls.
+- Batch 807 client /feedback rating: int4 overflow rejection.
+- Batch 808 client /feedback rating: untyped/fractional/nonfinite rejection.
+- Batch 809 client /feedback rating: signed bounds and declared nulls.
+- Batch 810 client /care-feedback rating: int4 overflow rejection.
+- Batch 811 client /care-feedback rating: untyped/fractional/nonfinite rejection.
+- Batch 812 client /care-feedback rating: signed bounds and declared nulls.
+- Batch 813 provider /timesheets total_minutes: int4 overflow rejection.
+- Batch 814 provider /timesheets total_minutes: untyped/fractional/nonfinite rejection.
+- Batch 815 provider /timesheets total_minutes: signed bounds and declared nulls.
+- Batch 816 provider /mileage-logs travel_minutes: int4 overflow rejection.
+- Batch 817 provider /mileage-logs travel_minutes: untyped/fractional/nonfinite rejection.
+- Batch 818 provider /mileage-logs travel_minutes: signed bounds and declared nulls.
+- Batch 819 provider /fleet-status battery_level: int4 overflow rejection.
+- Batch 820 provider /fleet-status battery_level: untyped/fractional/nonfinite rejection.
+- Batch 821 provider /fleet-status battery_level: signed bounds and declared nulls.
+- Batch 822 auth /me/rewards care_coins: int4 overflow rejection.
+- Batch 823 auth /me/rewards care_coins: untyped/fractional/nonfinite rejection.
+- Batch 824 auth /me/rewards care_coins: signed bounds and declared nulls.
+- Batch 825 auth /me/rewards lifetime_points: int4 overflow rejection.
+- Batch 826 auth /me/rewards lifetime_points: untyped/fractional/nonfinite rejection.
+- Batch 827 auth /me/rewards lifetime_points: signed bounds and declared nulls.
+- Batch 828 auth /me/wellness-pulses score: int4 overflow rejection.
+- Batch 829 auth /me/wellness-pulses score: untyped/fractional/nonfinite rejection.
+- Batch 830 auth /me/wellness-pulses score: signed bounds and declared nulls.
+- Batch 831 auth /me/reputation points: int4 overflow rejection.
+- Batch 832 auth /me/reputation points: untyped/fractional/nonfinite rejection.
+- Batch 833 auth /me/reputation points: signed bounds and declared nulls.
+- Batch 834 auth /me/reputation crises_resolved: int4 overflow rejection.
+- Batch 835 auth /me/reputation crises_resolved: untyped/fractional/nonfinite rejection.
+- Batch 836 auth /me/reputation crises_resolved: signed bounds and declared nulls.
+- Batch 837 shared integer helper without coercion.
+- Batch 838 canonical signed bigint sum text.
+
+Persisted PostgreSQL Int columns use signed int4 bounds without coercion. SUM(Int) values retain exact canonical signed int8 text. Declared nulls, signed values, compatible rows, ownership SQL and private-field projection remain supported.
+
+Fifty numbered cases plus seven summary/absence regressions cover malformed integers and exact bigint sums. Disposable PostgreSQL tests preserve ownership SQL and verify rollback, privacy, stored rows, foreign record denial and tenant isolation. No new routes, grants, authority promotions, deployment or production database changes.
+
+Local validation: 3,271 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed in run 37655612979 at 135ccc9c8268c797a9cdd431b0f80485b97f684e. Each identity mode passed 411 new real PostgreSQL integer checks. PR #125 merged as 96e3eac5e53cceb4cc6d32f019e72424988d3a43. Latest completed batch is 838; next batch is 839. No deployment or production database changes.
+
+## Iteration 27 — batches 839–850 (merged)
+
+- Batch 839 client /consents template_version: align published/stored signed int4 bounds.
+- Batch 840 client /waitlist priority: align published/stored signed int4 bounds.
+- Batch 841 client /feedback rating: align published/stored signed int4 bounds.
+- Batch 842 client /care-feedback rating: align published/stored signed int4 bounds.
+- Batch 843 provider /timesheets total_minutes: align published/stored signed int4 bounds.
+- Batch 844 provider /mileage-logs travel_minutes: align published/stored signed int4 bounds.
+- Batch 845 provider /fleet-status battery_level: align published/stored signed int4 bounds.
+- Batch 846 auth /me/rewards care_coins: align published/stored signed int4 bounds.
+- Batch 847 auth /me/rewards lifetime_points: align published/stored signed int4 bounds.
+- Batch 848 auth /me/wellness-pulses score: align published/stored signed int4 bounds.
+- Batch 849 auth /me/reputation points: align published/stored signed int4 bounds.
+- Batch 850 auth /me/reputation crises_resolved: align published/stored signed int4 bounds.
+
+Twelve existing read fields now declare the same signed int4 limits enforced by the runtime. Registration verifies exact existing service, bearer and owner permission plus registered int4 column type. Canonical and compatibility schemas are synchronized; declared nullability remains unchanged. No new endpoints, permissions or business workflow claims.
+
+Local validation: 3,283 API fixtures, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `2f2fcd779ee7a4a49b6473261cbef14a2b7dfa2f`, run 37663643441. PR #127 merged as `aad478a46b4bf3fe17c7a3e632490d0f2b7ca21b`. Latest completed numbered batch is 850; next is 851. No deployment or production database changes.
+
+## Iteration 28 — batches 851–900 (merged)
+
+- Batch 851 client /consents: align record ID response constraints with the existing runtime grammar.
+- Batch 852 provider /conversation-threads: align record ID response constraints with the existing runtime grammar.
+- Batch 853 auth /me/notifications: align record ID response constraints with the existing runtime grammar.
+- Batch 854 client /service-authorizations: align record ID response constraints with the existing runtime grammar.
+- Batch 855 provider /timesheets: align record ID response constraints with the existing runtime grammar.
+- Batch 856 auth /me/activities: align record ID response constraints with the existing runtime grammar.
+- Batch 857 client /waitlist: align record ID response constraints with the existing runtime grammar.
+- Batch 858 provider /availability-overrides: align record ID response constraints with the existing runtime grammar.
+- Batch 859 auth /me/wellness-pulses: align record ID response constraints with the existing runtime grammar.
+- Batch 860 client /feedback: align record ID response constraints with the existing runtime grammar.
+- Batch 861 provider /mileage-logs: align record ID response constraints with the existing runtime grammar.
+- Batch 862 auth /me/device-events: align record ID response constraints with the existing runtime grammar.
+- Batch 863 client /care-feedback: align record ID response constraints with the existing runtime grammar.
+- Batch 864 provider /payouts: align record ID response constraints with the existing runtime grammar.
+- Batch 865 auth /me/devices: align record ID response constraints with the existing runtime grammar.
+- Batch 866 client /conversation-threads: align record ID response constraints with the existing runtime grammar.
+- Batch 867 provider /performance-reviews: align record ID response constraints with the existing runtime grammar.
+- Batch 868 auth /me/health-ids: align record ID response constraints with the existing runtime grammar.
+- Batch 869 client /family-links: align record ID response constraints with the existing runtime grammar.
+- Batch 870 provider /visit-check-events: align record ID response constraints with the existing runtime grammar.
+- Batch 871 auth /me/survey-submissions: align record ID response constraints with the existing runtime grammar.
+- Batch 872 client /alert-records: align record ID response constraints with the existing runtime grammar.
+- Batch 873 provider /visit-matches: align record ID response constraints with the existing runtime grammar.
+- Batch 874 auth /me/group-memberships: align record ID response constraints with the existing runtime grammar.
+- Batch 875 client /insurance-claim-records: align record ID response constraints with the existing runtime grammar.
+- Batch 876 provider /shift-assignment-records: align record ID response constraints with the existing runtime grammar.
+- Batch 877 auth /me/password-history: align record ID response constraints with the existing runtime grammar.
+- Batch 878 client /prescription-records: align record ID response constraints with the existing runtime grammar.
+- Batch 879 provider /handover-records: align record ID response constraints with the existing runtime grammar.
+- Batch 880 auth /me/shift-logs: align record ID response constraints with the existing runtime grammar.
+- Batch 881 client /care-plan-records: align record ID response constraints with the existing runtime grammar.
+- Batch 882 provider /authored-visit-note-records: align record ID response constraints with the existing runtime grammar.
+- Batch 883 auth /me/daily-entry-records: align record ID response constraints with the existing runtime grammar.
+- Batch 884 client /assessment-records: align record ID response constraints with the existing runtime grammar.
+- Batch 885 provider /authored-checklist-records: align record ID response constraints with the existing runtime grammar.
+- Batch 886 auth /me/adl-log-records: align record ID response constraints with the existing runtime grammar.
+- Batch 887 client /medication-reconciliation-records: align record ID response constraints with the existing runtime grammar.
+- Batch 888 provider /training-assignment-records: align record ID response constraints with the existing runtime grammar.
+- Batch 889 auth /me/vital-sign-records: align record ID response constraints with the existing runtime grammar.
+- Batch 890 client /shift-log-records: align record ID response constraints with the existing runtime grammar.
+- Batch 891 auth /me/behavior-note-records: align record ID response constraints with the existing runtime grammar.
+- Batch 892 client /adl-records: align record ID response constraints with the existing runtime grammar.
+- Batch 893 auth /me/nutrition-records: align record ID response constraints with the existing runtime grammar.
+- Batch 894 client /vital-observation-records: align record ID response constraints with the existing runtime grammar.
+- Batch 895 auth /me/mobility-records: align record ID response constraints with the existing runtime grammar.
+- Batch 896 client /behavior-observation-records: align record ID response constraints with the existing runtime grammar.
+- Batch 897 auth /me/infection-control-records: align record ID response constraints with the existing runtime grammar.
+- Batch 898 client /nutrition-observation-records: align record ID response constraints with the existing runtime grammar.
+- Batch 899 auth /me/narrative-note-records: align record ID response constraints with the existing runtime grammar.
+- Batch 900 client /mobility-observation-records: align record ID response constraints with the existing runtime grammar.
+
+Fifty existing paged read families now publish 1–200 character ASCII record identifiers matching runtime validation. Registration verifies the existing service, bearer/owner authority and registered string ID column before updating stored response schemas. Exact canonical list/detail schemas and authoritative compatibility schemas are aligned. Older client care contract assertions retain ownership separation checks and now include the ID bounds. The verifier preserves complete failure diagnostics when a fixture run fails.
+
+Local validation: 3,333 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `33ff5f007e15a2c5eb6bdf8bf9cbd0acc273de16`, run 37667771787. PR #128 merged as `dccd86bdbd17f7e11395d7df809045799865e070`. Latest completed numbered batch is 900; next is 901. No new endpoints, grants, deployment or production database changes.
+
+## Iteration 29 — batches 901–950 (merged)
+
+- Batch 901 client /consents/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 902 client /service-authorizations/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 903 client /waitlist/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 904 client /feedback/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 905 client /care-feedback/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 906 client /conversation-threads/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 907 client /family-links/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 908 client /alert-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 909 client /insurance-claim-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 910 client /prescription-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 911 client /care-plan-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 912 client /assessment-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 913 client /medication-reconciliation-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 914 client /shift-log-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 915 client /family-notification-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 916 client /purchase-order-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 917 client /patient-vital-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 918 client /medication-administration-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 919 provider /conversation-threads/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 920 provider /timesheets/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 921 provider /availability-overrides/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 922 provider /mileage-logs/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 923 provider /payouts/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 924 provider /performance-reviews/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 925 provider /visit-check-events/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 926 provider /visit-matches/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 927 provider /training-assignment-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 928 auth /me/notifications/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 929 auth /me/activities/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 930 auth /me/wellness-pulses/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 931 auth /me/device-events/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 932 auth /me/health-ids/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 933 auth /me/survey-submissions/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 934 auth /me/shift-logs/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 935 auth /me/daily-entry-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 936 auth /me/assigned-task-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 937 auth /me/audit-signoff-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 938 auth /me/reported-incident-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 939 auth /me/medication-reconciliation-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 940 auth /me/technical-audit-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 941 auth /me/authored-care-plan-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 942 auth /me/authored-review-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 943 auth /me/reviewed-timesheet-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 944 auth /me/telehealth-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 945 auth /me/authored-post-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 946 auth /me/ledger-event-records/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 947 provider /visits/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 948 provider /documents/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 949 provider /availability/summary: align positive safe-integer group counts and bounded summary pages.
+- Batch 950 provider /timesheet-items/summary: align positive safe-integer group counts and bounded summary pages.
+
+Fifty existing summary routes now declare positive safe-integer group counts, at most 100 groups and nonnegative safe-integer pagination totals. Empty groups and zero totals remain valid. Registration verifies existing service/bearer/owner authority, including the distinct assigned-provider visit permission. Stored and canonical schemas retain their existing labels, nullability and payload fields. No runtime routes, grants, clinical authority, deployment or production database changes.
+
+Local validation: 3,383 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `5ac8e93380182bd08e3a2258120658c27fe1e702`, run 37670095453. PR #129 merged as `860a944fe34e3e51620bf403e0af397641607d01`. Latest completed numbered batch is 950; next is 951.
+
+## Iteration 30 — batches 951–1000 (merged)
+
+- Batch 951 client /consents: align bounded collection and pagination contracts.
+- Batch 952 provider /conversation-threads: align bounded collection and pagination contracts.
+- Batch 953 auth /me/notifications: align bounded collection and pagination contracts.
+- Batch 954 client /service-authorizations: align bounded collection and pagination contracts.
+- Batch 955 provider /timesheets: align bounded collection and pagination contracts.
+- Batch 956 auth /me/activities: align bounded collection and pagination contracts.
+- Batch 957 client /waitlist: align bounded collection and pagination contracts.
+- Batch 958 provider /availability-overrides: align bounded collection and pagination contracts.
+- Batch 959 auth /me/wellness-pulses: align bounded collection and pagination contracts.
+- Batch 960 client /feedback: align bounded collection and pagination contracts.
+- Batch 961 provider /mileage-logs: align bounded collection and pagination contracts.
+- Batch 962 auth /me/device-events: align bounded collection and pagination contracts.
+- Batch 963 client /care-feedback: align bounded collection and pagination contracts.
+- Batch 964 provider /payouts: align bounded collection and pagination contracts.
+- Batch 965 auth /me/devices: align bounded collection and pagination contracts.
+- Batch 966 client /conversation-threads: align bounded collection and pagination contracts.
+- Batch 967 provider /performance-reviews: align bounded collection and pagination contracts.
+- Batch 968 auth /me/health-ids: align bounded collection and pagination contracts.
+- Batch 969 client /family-links: align bounded collection and pagination contracts.
+- Batch 970 provider /visit-check-events: align bounded collection and pagination contracts.
+- Batch 971 auth /me/survey-submissions: align bounded collection and pagination contracts.
+- Batch 972 client /alert-records: align bounded collection and pagination contracts.
+- Batch 973 provider /visit-matches: align bounded collection and pagination contracts.
+- Batch 974 auth /me/group-memberships: align bounded collection and pagination contracts.
+- Batch 975 client /insurance-claim-records: align bounded collection and pagination contracts.
+- Batch 976 provider /shift-assignment-records: align bounded collection and pagination contracts.
+- Batch 977 auth /me/password-history: align bounded collection and pagination contracts.
+- Batch 978 client /prescription-records: align bounded collection and pagination contracts.
+- Batch 979 provider /handover-records: align bounded collection and pagination contracts.
+- Batch 980 auth /me/shift-logs: align bounded collection and pagination contracts.
+- Batch 981 client /care-plan-records: align bounded collection and pagination contracts.
+- Batch 982 provider /authored-visit-note-records: align bounded collection and pagination contracts.
+- Batch 983 auth /me/daily-entry-records: align bounded collection and pagination contracts.
+- Batch 984 client /assessment-records: align bounded collection and pagination contracts.
+- Batch 985 provider /authored-checklist-records: align bounded collection and pagination contracts.
+- Batch 986 auth /me/adl-log-records: align bounded collection and pagination contracts.
+- Batch 987 client /medication-reconciliation-records: align bounded collection and pagination contracts.
+- Batch 988 provider /training-assignment-records: align bounded collection and pagination contracts.
+- Batch 989 auth /me/vital-sign-records: align bounded collection and pagination contracts.
+- Batch 990 client /shift-log-records: align bounded collection and pagination contracts.
+- Batch 991 auth /me/behavior-note-records: align bounded collection and pagination contracts.
+- Batch 992 client /adl-records: align bounded collection and pagination contracts.
+- Batch 993 auth /me/nutrition-records: align bounded collection and pagination contracts.
+- Batch 994 client /vital-observation-records: align bounded collection and pagination contracts.
+- Batch 995 auth /me/mobility-records: align bounded collection and pagination contracts.
+- Batch 996 client /behavior-observation-records: align bounded collection and pagination contracts.
+- Batch 997 auth /me/infection-control-records: align bounded collection and pagination contracts.
+- Batch 998 client /nutrition-observation-records: align bounded collection and pagination contracts.
+- Batch 999 auth /me/narrative-note-records: align bounded collection and pagination contracts.
+- Batch 1000 client /mobility-observation-records: align bounded collection and pagination contracts.
+
+Fifty existing list routes and their authoritative compatibility aliases now declare at most 100 records, pagination limits 1–100, offsets 0–100000 and nonnegative safe-integer totals. Empty collections and zero totals remain valid. Registration verifies existing bearer and owner authority. Existing identifiers, nullability and projections remain intact. No new routes, grants, deployment or production database changes.
+
+Local validation: 3,433 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `4d6969b55ef3a18350d80cabbc8bd6c57aa3efd1`, run 37671492558. PR #130 merged as `36c0e7ae492611bdc76160c3b40b3781be454387`. Latest completed numbered batch is 1000; next is 1001.
+
+## Iteration 31 — batches 1001–1050 (merged)
+
+- Batch 1001 client /consents: close existing list/detail response envelopes.
+- Batch 1002 provider /conversation-threads: close existing list/detail response envelopes.
+- Batch 1003 auth /me/notifications: close existing list/detail response envelopes.
+- Batch 1004 client /service-authorizations: close existing list/detail response envelopes.
+- Batch 1005 provider /timesheets: close existing list/detail response envelopes.
+- Batch 1006 auth /me/activities: close existing list/detail response envelopes.
+- Batch 1007 client /waitlist: close existing list/detail response envelopes.
+- Batch 1008 provider /availability-overrides: close existing list/detail response envelopes.
+- Batch 1009 auth /me/wellness-pulses: close existing list/detail response envelopes.
+- Batch 1010 client /feedback: close existing list/detail response envelopes.
+- Batch 1011 provider /mileage-logs: close existing list/detail response envelopes.
+- Batch 1012 auth /me/device-events: close existing list/detail response envelopes.
+- Batch 1013 client /care-feedback: close existing list/detail response envelopes.
+- Batch 1014 provider /payouts: close existing list/detail response envelopes.
+- Batch 1015 auth /me/devices: close existing list/detail response envelopes.
+- Batch 1016 client /conversation-threads: close existing list/detail response envelopes.
+- Batch 1017 provider /performance-reviews: close existing list/detail response envelopes.
+- Batch 1018 auth /me/health-ids: close existing list/detail response envelopes.
+- Batch 1019 client /family-links: close existing list/detail response envelopes.
+- Batch 1020 provider /visit-check-events: close existing list/detail response envelopes.
+- Batch 1021 auth /me/survey-submissions: close existing list/detail response envelopes.
+- Batch 1022 client /alert-records: close existing list/detail response envelopes.
+- Batch 1023 provider /visit-matches: close existing list/detail response envelopes.
+- Batch 1024 auth /me/group-memberships: close existing list/detail response envelopes.
+- Batch 1025 client /insurance-claim-records: close existing list/detail response envelopes.
+- Batch 1026 provider /shift-assignment-records: close existing list/detail response envelopes.
+- Batch 1027 auth /me/password-history: close existing list/detail response envelopes.
+- Batch 1028 client /prescription-records: close existing list/detail response envelopes.
+- Batch 1029 provider /handover-records: close existing list/detail response envelopes.
+- Batch 1030 auth /me/shift-logs: close existing list/detail response envelopes.
+- Batch 1031 client /care-plan-records: close existing list/detail response envelopes.
+- Batch 1032 provider /authored-visit-note-records: close existing list/detail response envelopes.
+- Batch 1033 auth /me/daily-entry-records: close existing list/detail response envelopes.
+- Batch 1034 client /assessment-records: close existing list/detail response envelopes.
+- Batch 1035 provider /authored-checklist-records: close existing list/detail response envelopes.
+- Batch 1036 auth /me/adl-log-records: close existing list/detail response envelopes.
+- Batch 1037 client /medication-reconciliation-records: close existing list/detail response envelopes.
+- Batch 1038 provider /training-assignment-records: close existing list/detail response envelopes.
+- Batch 1039 auth /me/vital-sign-records: close existing list/detail response envelopes.
+- Batch 1040 client /shift-log-records: close existing list/detail response envelopes.
+- Batch 1041 auth /me/behavior-note-records: close existing list/detail response envelopes.
+- Batch 1042 client /adl-records: close existing list/detail response envelopes.
+- Batch 1043 auth /me/nutrition-records: close existing list/detail response envelopes.
+- Batch 1044 client /vital-observation-records: close existing list/detail response envelopes.
+- Batch 1045 auth /me/mobility-records: close existing list/detail response envelopes.
+- Batch 1046 client /behavior-observation-records: close existing list/detail response envelopes.
+- Batch 1047 auth /me/infection-control-records: close existing list/detail response envelopes.
+- Batch 1048 client /nutrition-observation-records: close existing list/detail response envelopes.
+- Batch 1049 auth /me/narrative-note-records: close existing list/detail response envelopes.
+- Batch 1050 client /mobility-observation-records: close existing list/detail response envelopes.
+
+Fifty existing read families now declare fixed list and detail response envelopes; list pagination also rejects undeclared properties. Existing payload fields, required fields, nullability, identifiers and owner scopes remain intact. Authoritative collection compatibility aliases inherit the corrected list contracts. No new business endpoints, access grants, deployment or production database changes.
+
+Fifty new regression checks exercise actual Worker populated lists, empty lists and details against the contracts, reject added private envelope/pagination fields and missing required collections/items, and confirm database-only canaries are projected out. Local validation: 3,483 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `f8a5c733370166291d0dd1b24c95fd58323e8ca5`, run 37672991556. PR #131 merged as `5afeb746d52d68b6a95bcd067ed3d41458b82f62`. Latest completed numbered batch is 1050; next is 1051.
+
+## Iteration 32 — batches 1051–1100 (merged)
+
+- Batch 1051 auth /me/activities/summary: align grouped-read response envelopes and page bounds.
+- Batch 1052 auth /me/assigned-task-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1053 auth /me/audit-signoff-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1054 auth /me/authored-care-plan-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1055 auth /me/authored-review-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1056 auth /me/daily-entry-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1057 auth /me/device-events/summary: align grouped-read response envelopes and page bounds.
+- Batch 1058 auth /me/health-ids/summary: align grouped-read response envelopes and page bounds.
+- Batch 1059 auth /me/medication-reconciliation-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1060 auth /me/notifications/summary: align grouped-read response envelopes and page bounds.
+- Batch 1061 auth /me/reported-incident-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1062 auth /me/reviewed-timesheet-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1063 auth /me/shift-logs/summary: align grouped-read response envelopes and page bounds.
+- Batch 1064 auth /me/survey-submissions/summary: align grouped-read response envelopes and page bounds.
+- Batch 1065 auth /me/technical-audit-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1066 auth /me/telehealth-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1067 auth /me/wellness-pulses/summary: align grouped-read response envelopes and page bounds.
+- Batch 1068 client /alert-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1069 client /assessment-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1070 client /care-feedback/summary: align grouped-read response envelopes and page bounds.
+- Batch 1071 client /care-plan-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1072 client /consents/summary: align grouped-read response envelopes and page bounds.
+- Batch 1073 client /conversation-threads/summary: align grouped-read response envelopes and page bounds.
+- Batch 1074 client /family-links/summary: align grouped-read response envelopes and page bounds.
+- Batch 1075 client /family-notification-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1076 client /feedback/summary: align grouped-read response envelopes and page bounds.
+- Batch 1077 client /insurance-claim-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1078 client /medication-reconciliation-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1079 client /prescription-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1080 client /service-authorizations/summary: align grouped-read response envelopes and page bounds.
+- Batch 1081 client /shift-log-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1082 client /waitlist/summary: align grouped-read response envelopes and page bounds.
+- Batch 1083 provider /availability-overrides/summary: align grouped-read response envelopes and page bounds.
+- Batch 1084 provider /conversation-threads/summary: align grouped-read response envelopes and page bounds.
+- Batch 1085 provider /mileage-logs/summary: align grouped-read response envelopes and page bounds.
+- Batch 1086 provider /payouts/summary: align grouped-read response envelopes and page bounds.
+- Batch 1087 provider /performance-reviews/summary: align grouped-read response envelopes and page bounds.
+- Batch 1088 provider /timesheets/summary: align grouped-read response envelopes and page bounds.
+- Batch 1089 provider /training-assignment-records/summary: align grouped-read response envelopes and page bounds.
+- Batch 1090 provider /visit-check-events/summary: align grouped-read response envelopes and page bounds.
+- Batch 1091 provider /visit-matches/summary: align grouped-read response envelopes and page bounds.
+- Batch 1092 auth /me/care-plan-follow-up-records: align list/detail response envelopes and page bounds.
+- Batch 1093 auth /me/assigned-task-records: align list/detail response envelopes and page bounds.
+- Batch 1094 auth /me/audit-signoff-records: align list/detail response envelopes and page bounds.
+- Batch 1095 auth /me/reported-incident-records: align list/detail response envelopes and page bounds.
+- Batch 1096 auth /me/assessment-records: align list/detail response envelopes and page bounds.
+- Batch 1097 auth /me/medication-reconciliation-records: align list/detail response envelopes and page bounds.
+- Batch 1098 auth /me/supervision-records: align list/detail response envelopes and page bounds.
+- Batch 1099 auth /me/technical-audit-records: align list/detail response envelopes and page bounds.
+- Batch 1100 auth /me/authored-care-plan-records: align list/detail response envelopes and page bounds.
+
+Repaired 41 existing grouped-read routes and nine existing record families selected from actual schema gaps. Fixed response envelopes reject undeclared properties; pagination declares limits 1–100, offsets 0–100000 and nonnegative safe-integer totals. Empty groups/lists and zero totals remain valid. Required fields, labels, nullability, payload projections, IDs and owner authority remain intact. Authoritative collection aliases inherit applicable list repairs. No new business endpoints, grants, deployment or production database changes.
+
+Fifty new regression checks exercise actual Worker populated and empty responses plus applicable details, reject private envelope/pagination fields and missing payloads, and reject out-of-range pagination values. Local validation: 3,533 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `6db2d2803b81d5d0d177fe4f8c9b56d9c4719a14`, run 37674947440. PR #132 merged as `c40b2cb050aeb0eef43ddbb1f4d69286291aa33a`. Latest completed numbered batch is 1100; next is 1101.
+
+## Iteration 33 — batches 1101–1150 (merged)
+
+- Batch 1101 auth /me/notifications created_at: align existing timestamp response syntax.
+- Batch 1102 auth /me/activities due_date: align existing timestamp response syntax.
+- Batch 1103 auth /me/activities created_at: align existing timestamp response syntax.
+- Batch 1104 auth /me/activities updated_at: align existing timestamp response syntax.
+- Batch 1105 auth /me/wellness-pulses created_at: align existing timestamp response syntax.
+- Batch 1106 auth /me/device-events created_at: align existing timestamp response syntax.
+- Batch 1107 auth /me/devices authorized_at: align existing timestamp response syntax.
+- Batch 1108 auth /me/devices expires_at: align existing timestamp response syntax.
+- Batch 1109 auth /me/devices last_active_at: align existing timestamp response syntax.
+- Batch 1110 auth /me/devices created_at: align existing timestamp response syntax.
+- Batch 1111 auth /me/devices updated_at: align existing timestamp response syntax.
+- Batch 1112 auth /me/health-ids created_at: align existing timestamp response syntax.
+- Batch 1113 auth /me/health-ids updated_at: align existing timestamp response syntax.
+- Batch 1114 auth /me/survey-submissions created_at: align existing timestamp response syntax.
+- Batch 1115 auth /me/group-memberships created_at: align existing timestamp response syntax.
+- Batch 1116 auth /me/password-history created_at: align existing timestamp response syntax.
+- Batch 1117 auth /me/shift-logs date: align existing timestamp response syntax.
+- Batch 1118 auth /me/shift-logs start_time: align existing timestamp response syntax.
+- Batch 1119 auth /me/shift-logs end_time: align existing timestamp response syntax.
+- Batch 1120 auth /me/daily-entry-records created_at: align existing timestamp response syntax.
+- Batch 1121 auth /me/daily-entry-records updated_at: align existing timestamp response syntax.
+- Batch 1122 auth /me/adl-log-records created_at: align existing timestamp response syntax.
+- Batch 1123 auth /me/vital-sign-records recorded_at: align existing timestamp response syntax.
+- Batch 1124 auth /me/behavior-note-records recorded_at: align existing timestamp response syntax.
+- Batch 1125 auth /me/nutrition-records recorded_at: align existing timestamp response syntax.
+- Batch 1126 auth /me/mobility-records recorded_at: align existing timestamp response syntax.
+- Batch 1127 auth /me/infection-control-records recorded_at: align existing timestamp response syntax.
+- Batch 1128 auth /me/narrative-note-records recorded_at: align existing timestamp response syntax.
+- Batch 1129 auth /me/care-plan-follow-up-records recorded_at: align existing timestamp response syntax.
+- Batch 1130 auth /me/assigned-task-records due_date: align existing timestamp response syntax.
+- Batch 1131 auth /me/assigned-task-records created_at: align existing timestamp response syntax.
+- Batch 1132 auth /me/assigned-task-records updated_at: align existing timestamp response syntax.
+- Batch 1133 auth /me/audit-signoff-records signed_at: align existing timestamp response syntax.
+- Batch 1134 auth /me/reported-incident-records created_at: align existing timestamp response syntax.
+- Batch 1135 auth /me/reported-incident-records updated_at: align existing timestamp response syntax.
+- Batch 1136 auth /me/assessment-records created_at: align existing timestamp response syntax.
+- Batch 1137 auth /me/assessment-records updated_at: align existing timestamp response syntax.
+- Batch 1138 auth /me/medication-reconciliation-records created_at: align existing timestamp response syntax.
+- Batch 1139 auth /me/supervision-records created_at: align existing timestamp response syntax.
+- Batch 1140 auth /me/technical-audit-records performed_at: align existing timestamp response syntax.
+- Batch 1141 auth /me/authored-care-plan-records created_at: align existing timestamp response syntax.
+- Batch 1142 auth /me/authored-care-plan-records updated_at: align existing timestamp response syntax.
+- Batch 1143 auth /me/authored-review-records period_start: align existing timestamp response syntax.
+- Batch 1144 auth /me/authored-review-records period_end: align existing timestamp response syntax.
+- Batch 1145 auth /me/authored-review-records created_at: align existing timestamp response syntax.
+- Batch 1146 auth /me/authored-review-records updated_at: align existing timestamp response syntax.
+- Batch 1147 auth /me/reviewed-timesheet-records reviewed_at: align existing timestamp response syntax.
+- Batch 1148 auth /me/reviewed-timesheet-records created_at: align existing timestamp response syntax.
+- Batch 1149 auth /me/reviewed-timesheet-records updated_at: align existing timestamp response syntax.
+- Batch 1150 auth /me/telehealth-records start_time: align existing timestamp response syntax.
+
+Fifty existing response timestamp fields now declare the minimum length and exact uppercase RFC3339 syntax accepted by the runtime: four-digit years, valid hour/minute/second ranges, optional fractional seconds and Z or numeric timezone offsets. Existing date-time formats, nullable types, payloads and owner scopes remain intact. This is syntax alignment, not new endpoint implementation; calendar validity remains checked by the runtime and date-time format. Authoritative collection aliases inherit applicable repairs. No new business endpoints, grants, deployment or production database changes.
+
+Fifty new regression checks exercise actual Worker list/detail timestamps with UTC, fractional timezone-offset strings, Date serialization and allowed nulls; malformed timestamps, impossible calendar dates, invalid Date objects and forbidden nulls fail closed. Local validation: 3,583 API fixtures, eight authority regressions, Worker TypeScript and governance guardian passed. Exact-head UUID/text PostgreSQL and security CI passed on `75e49fc621ba1308cfecd417d0067639b33ea264`, run 37676628275. PR #133 merged as `a412b335dd9ec1e02f96ffd4eb5cf8a619dacac7`. Latest completed numbered batch is 1150; next is 1151.
+
+## Finite counting reset — operation checklist (merged)
+
+Stop using numbered field-repair batches as API completion progress. The finite baseline is 1,415 unique HTTP method/path operations, not 1,416 declaration rows: GET /v1/admin/users has two declarations. 336 unique operations have recorded unit evidence; 1,069 need authority/contract reconciliation and verification; 10 are blocked. The unresolved declarations include 255 GETs and 814 POSTs; POST labels alone do not prove write workflows.
+
+The generated [API delivery checklist](API_DELIVERY_CHECKLIST.md) and JSON counterpart list every unique operation, source declaration IDs, missing fields, evidence stage and next action. First finite package: reconcile 14 legacy auth declarations with handlers and callers, recording verified, implemented or justified retirement/replacement outcomes. Current package progress: 0/14. The package denominator stays fixed; missing declarations require recorded retirement rationale and evidence before being resolved.
+
+Validation: four counting regressions and 3,583 API fixtures passed. Checklist regeneration is integrated with inventory generation and CI verification. Existing global PostgreSQL CI does not automatically become operation-specific evidence; production readiness is not inferred. Exact-head UUID/text PostgreSQL and security CI passed on `089656de23814437d7dc6f492f3a9a5a570948a2`, run 37678887518. PR #134 merged as `284b7159fc67ca57b6da4f476218f54008984e3d`. No business endpoint count advanced in this tracking change.
+
+## Finite auth work package (merged)
+
+Reviewed 14/14 unresolved auth declarations and resolved four existing handlers: POST /v1/auth/login, logout, forgot-password and reset-password. Corrected their service, credential policy, pre-auth requirements, request/response schemas and existing login-screen associations; no handler or grant was added. Ten declarations retain unresolved findings: eight lack auth handlers and two are service-root status entries. [Detailed outcomes](AUTH_DELIVERY_WORK_PACKAGE.md).
+
+Unique operations with unit evidence increased from 336 to 340; pending contract/verification work fell from 1,069 to 1,065. Ten existing registered blockers remain. Local validation: 3,597 API fixtures, four counting regressions, authority drift regressions, Worker types and 100% governance compliance. Exact-head UUID/text PostgreSQL and security CI passed on `72aada99f6a87fdcea0b968980c4b620888392d8`, run 37680700500. PR #135 merged as `75d3d2882503e710ae03af49d7018395421b55ea`. Operation-level counters replace numbered repair batches.
+
+## Full remaining-backlog routing triage (merged)
+
+Probed all 1,065 unique pending operations locally with declared methods, no credentials and synthetic path IDs. Results: 1,016 gateway-route misses, 37 Worker-route misses, nine declared-method rejections, two service-status responses and one protected-handler encounter. Connections are disabled before SQL; production and email are not contacted. These are routing findings, not authenticated business verification. Dynamic ID handlers can capture workflow names, so 401/405 responses do not establish the advertised workflow.
+
+[Full triage report](API_REACHABILITY_AUDIT.md) and per-operation JSON include exact method/path, status, forwarding destination, allowed method and source hashes. CI refreshes this audit after the final inventory/evidence snapshot. The next work is to reconcile callers and legacy declarations with canonical service workflows; undeclared business authority must not be invented. API completion counters remain 340 with unit evidence, 1,065 pending and 10 blocked. Exact-head audit integration, UUID/text PostgreSQL and security CI passed on `b8dcc1efa26b7f3231bf75a13900287321ef418e`, run 37682138523. PR #136 merged as `ed0a7e31a74613e0278bf788db495d1d4bb1d6f6`.
+
+## Client booking submission work package
+
+Reconciled one existing operation, POST /v1/client/bookings/request, with the canonical owner-scoped pending-request lifecycle. The exact gateway alias preserves idempotency and authority; two form declarations now match the strict request fields and required retry header. [Package outcomes](BOOKING_SUBMISSION_DELIVERY.md). Current finite counters: 341 unique operations with unit evidence, 1,064 pending and 10 blocked (1,415 total). PostgreSQL CI must pass on the exact PR head before merge; production/UI verification is separate.

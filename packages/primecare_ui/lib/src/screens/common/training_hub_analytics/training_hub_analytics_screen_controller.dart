@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TrainingHubAnalyticsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class TrainingHubAnalyticsScreenState
+    extends DashboardState<TrainingHubAnalyticsScreenState> {
+  TrainingHubAnalyticsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  TrainingHubAnalyticsScreenState({required this.isLoading, this.error, required this.data});
-
-  TrainingHubAnalyticsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return TrainingHubAnalyticsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  TrainingHubAnalyticsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => TrainingHubAnalyticsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class TrainingHubAnalyticsScreenController extends StateNotifier<TrainingHubAnalyticsScreenState> {
-  final Ref ref;
-  TrainingHubAnalyticsScreenController(this.ref) : super(TrainingHubAnalyticsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/training-hub-analytics');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class TrainingHubAnalyticsScreenController
+    extends BaseDashboardController<TrainingHubAnalyticsScreenState> {
+  TrainingHubAnalyticsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: TrainingHubAnalyticsScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/common/training-hub-analytics',
+      );
 }
 
-final training_hub_analyticsControllerProvider = StateNotifierProvider<TrainingHubAnalyticsScreenController, TrainingHubAnalyticsScreenState>((ref) {
-  return TrainingHubAnalyticsScreenController(ref);
-});
+final training_hub_analyticsControllerProvider =
+    StateNotifierProvider<
+      TrainingHubAnalyticsScreenController,
+      TrainingHubAnalyticsScreenState
+    >((ref) {
+      return TrainingHubAnalyticsScreenController(ref);
+    });

@@ -1,0 +1,25 @@
+{
+  "scope": "supplemental_runtime_validation",
+  "batches": "334–348",
+  "authorityAdded": false,
+  "routesAdded": false,
+  "changes": [
+    "334 maintenance actor",
+    "335 account list actor",
+    "336 account administration actor",
+    "337 mutation budget actor",
+    "338 locked password actor",
+    "339 locked account creation actor",
+    "340 locked account management actor",
+    "341 confirmed session insert",
+    "342 recovery tenant rows",
+    "343 governance actor",
+    "344 booking actor/profile/session",
+    "345 booking replay binding",
+    "346 booking audit reads",
+    "347 confirmed creation audit",
+    "348 cancellation binding and confirmed audit"
+  ],
+  "failure": "Existing sanitized no-store 503; transactions roll back before success.",
+  "verification": "Unit result corruption fixtures and disposable UUID/text PostgreSQL trigger tests; exact-head CI required."
+}

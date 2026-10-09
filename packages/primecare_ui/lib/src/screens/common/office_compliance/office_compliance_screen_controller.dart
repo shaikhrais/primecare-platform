@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class OfficeComplianceScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class OfficeComplianceScreenState
+    extends DashboardState<OfficeComplianceScreenState> {
+  OfficeComplianceScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  OfficeComplianceScreenState({required this.isLoading, this.error, required this.data});
-
-  OfficeComplianceScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return OfficeComplianceScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  OfficeComplianceScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => OfficeComplianceScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class OfficeComplianceScreenController extends StateNotifier<OfficeComplianceScreenState> {
-  final Ref ref;
-  OfficeComplianceScreenController(this.ref) : super(OfficeComplianceScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/office-compliance');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class OfficeComplianceScreenController
+    extends BaseDashboardController<OfficeComplianceScreenState> {
+  OfficeComplianceScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: OfficeComplianceScreenState(isLoading: true, data: {}),
+        endpoint: '/common/office-compliance',
+      );
 }
 
-final office_complianceControllerProvider = StateNotifierProvider<OfficeComplianceScreenController, OfficeComplianceScreenState>((ref) {
-  return OfficeComplianceScreenController(ref);
-});
+final office_complianceControllerProvider =
+    StateNotifierProvider<
+      OfficeComplianceScreenController,
+      OfficeComplianceScreenState
+    >((ref) {
+      return OfficeComplianceScreenController(ref);
+    });

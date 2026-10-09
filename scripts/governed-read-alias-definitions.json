@@ -1,0 +1,578 @@
+[
+  {
+    "batch": 106,
+    "name": "appnotification",
+    "service": "auth",
+    "targetPath": "/me/notifications",
+    "canonical": "/v1/auth/me/notifications",
+    "spec": "self-records-batches-26-30.openapi.json"
+  },
+  {
+    "batch": 107,
+    "name": "stafftask",
+    "service": "auth",
+    "targetPath": "/me/assigned-task-records",
+    "canonical": "/v1/auth/me/assigned-task-records",
+    "spec": "personal-authorship-task-batches-76-80.openapi.json"
+  },
+  {
+    "batch": 108,
+    "name": "booking",
+    "service": "client",
+    "targetPath": "/bookings",
+    "canonical": "/v1/client/bookings",
+    "spec": "client-bookings-batch-9.openapi.json"
+  },
+  {
+    "batch": 109,
+    "name": "bookingrequest",
+    "service": "client",
+    "targetPath": "/booking-requests",
+    "canonical": "/v1/client/booking-requests",
+    "spec": "client-booking-requests-batch-18.openapi.json"
+  },
+  {
+    "batch": 110,
+    "name": "providerdocument",
+    "service": "provider",
+    "targetPath": "/documents",
+    "canonical": "/v1/provider/documents",
+    "spec": "provider-documents-batch-13.openapi.json"
+  },
+  {
+    "batch": 111,
+    "name": "dailyactivity",
+    "service": "auth",
+    "targetPath": "/me/activities",
+    "canonical": "/v1/auth/me/activities",
+    "spec": "self-records-batches-26-30.openapi.json"
+  },
+  {
+    "batch": 112,
+    "name": "wellnesspulse",
+    "service": "auth",
+    "targetPath": "/me/wellness-pulses",
+    "canonical": "/v1/auth/me/wellness-pulses",
+    "spec": "self-device-wellness-batches-31-35.openapi.json"
+  },
+  {
+    "batch": 113,
+    "name": "iotevent",
+    "service": "auth",
+    "targetPath": "/me/device-events",
+    "canonical": "/v1/auth/me/device-events",
+    "spec": "self-device-wellness-batches-31-35.openapi.json"
+  },
+  {
+    "batch": 114,
+    "name": "provideravailability",
+    "service": "provider",
+    "targetPath": "/availability",
+    "canonical": "/v1/provider/availability",
+    "spec": "provider-self-batch-8.openapi.json"
+  },
+  {
+    "batch": 115,
+    "name": "availabilityoverride",
+    "service": "provider",
+    "targetPath": "/availability-overrides",
+    "canonical": "/v1/provider/availability-overrides",
+    "spec": "provider-metadata-batches-51-55.openapi.json"
+  },
+  {
+    "batch": 116,
+    "name": "dailyauditsignoff",
+    "service": "auth",
+    "targetPath": "/me/audit-signoff-records",
+    "canonical": "/v1/auth/me/audit-signoff-records",
+    "spec": "personal-authorship-task-batches-76-80.openapi.json"
+  },
+  {
+    "batch": 117,
+    "name": "incident",
+    "service": "auth",
+    "targetPath": "/me/reported-incident-records",
+    "canonical": "/v1/auth/me/reported-incident-records",
+    "spec": "personal-report-audit-batches-81-85.openapi.json"
+  },
+  {
+    "batch": 118,
+    "name": "medicationrecon",
+    "service": "auth",
+    "targetPath": "/me/medication-reconciliation-records",
+    "canonical": "/v1/auth/me/medication-reconciliation-records",
+    "spec": "personal-report-audit-batches-81-85.openapi.json"
+  },
+  {
+    "batch": 119,
+    "name": "performancereview",
+    "service": "auth",
+    "targetPath": "/me/authored-review-records",
+    "canonical": "/v1/auth/me/authored-review-records",
+    "spec": "personal-review-telehealth-batches-86-90.openapi.json"
+  },
+  {
+    "batch": 120,
+    "name": "technicalaudit",
+    "service": "auth",
+    "targetPath": "/me/technical-audit-records",
+    "canonical": "/v1/auth/me/technical-audit-records",
+    "spec": "personal-report-audit-batches-81-85.openapi.json"
+  },
+  {
+    "batch": 121,
+    "name": "userdevice",
+    "service": "auth",
+    "targetPath": "/me/devices",
+    "canonical": "/v1/auth/me/devices",
+    "spec": "self-device-wellness-batches-31-35.openapi.json"
+  },
+  {
+    "batch": 122,
+    "name": "healthid",
+    "service": "auth",
+    "targetPath": "/me/health-ids",
+    "canonical": "/v1/auth/me/health-ids",
+    "spec": "personal-metadata-batches-41-45.openapi.json"
+  },
+  {
+    "batch": 123,
+    "name": "surveyresponse",
+    "service": "auth",
+    "targetPath": "/me/survey-submissions",
+    "canonical": "/v1/auth/me/survey-submissions",
+    "spec": "personal-metadata-batches-41-45.openapi.json"
+  },
+  {
+    "batch": 124,
+    "name": "staffgroupmember",
+    "service": "auth",
+    "targetPath": "/me/group-memberships",
+    "canonical": "/v1/auth/me/group-memberships",
+    "spec": "personal-metadata-batches-41-45.openapi.json"
+  },
+  {
+    "batch": 125,
+    "name": "providershiftlog",
+    "service": "auth",
+    "targetPath": "/me/shift-logs",
+    "canonical": "/v1/auth/me/shift-logs",
+    "spec": "personal-work-log-batches-66-70.openapi.json"
+  },
+  {
+    "batch": 126,
+    "name": "dailyentry",
+    "service": "auth",
+    "targetPath": "/me/daily-entry-records",
+    "canonical": "/v1/auth/me/daily-entry-records",
+    "spec": "personal-work-log-batches-66-70.openapi.json"
+  },
+  {
+    "batch": 127,
+    "name": "adlcarelog",
+    "service": "auth",
+    "targetPath": "/me/adl-log-records",
+    "canonical": "/v1/auth/me/adl-log-records",
+    "spec": "personal-work-log-batches-66-70.openapi.json"
+  },
+  {
+    "batch": 128,
+    "name": "providervitalsign",
+    "service": "auth",
+    "targetPath": "/me/vital-sign-records",
+    "canonical": "/v1/auth/me/vital-sign-records",
+    "spec": "personal-care-metadata-batches-71-75.openapi.json"
+  },
+  {
+    "batch": 129,
+    "name": "behaviornote",
+    "service": "auth",
+    "targetPath": "/me/behavior-note-records",
+    "canonical": "/v1/auth/me/behavior-note-records",
+    "spec": "personal-care-metadata-batches-71-75.openapi.json"
+  },
+  {
+    "batch": 130,
+    "name": "nutritionrecord",
+    "service": "auth",
+    "targetPath": "/me/nutrition-records",
+    "canonical": "/v1/auth/me/nutrition-records",
+    "spec": "personal-care-metadata-batches-71-75.openapi.json"
+  },
+  {
+    "batch": 131,
+    "name": "mobilitylog",
+    "service": "auth",
+    "targetPath": "/me/mobility-records",
+    "canonical": "/v1/auth/me/mobility-records",
+    "spec": "personal-care-metadata-batches-71-75.openapi.json"
+  },
+  {
+    "batch": 132,
+    "name": "infectioncontrolchecklist",
+    "service": "auth",
+    "targetPath": "/me/infection-control-records",
+    "canonical": "/v1/auth/me/infection-control-records",
+    "spec": "personal-care-metadata-batches-71-75.openapi.json"
+  },
+  {
+    "batch": 133,
+    "name": "narrativeprogressnote",
+    "service": "auth",
+    "targetPath": "/me/narrative-note-records",
+    "canonical": "/v1/auth/me/narrative-note-records",
+    "spec": "personal-authorship-task-batches-76-80.openapi.json"
+  },
+  {
+    "batch": 134,
+    "name": "careplanfollowup",
+    "service": "auth",
+    "targetPath": "/me/care-plan-follow-up-records",
+    "canonical": "/v1/auth/me/care-plan-follow-up-records",
+    "spec": "personal-authorship-task-batches-76-80.openapi.json"
+  },
+  {
+    "batch": 135,
+    "name": "clinicalassessment",
+    "service": "auth",
+    "targetPath": "/me/assessment-records",
+    "canonical": "/v1/auth/me/assessment-records",
+    "spec": "personal-report-audit-batches-81-85.openapi.json"
+  },
+  {
+    "batch": 136,
+    "name": "supervisionlog",
+    "service": "auth",
+    "targetPath": "/me/supervision-records",
+    "canonical": "/v1/auth/me/supervision-records",
+    "spec": "personal-report-audit-batches-81-85.openapi.json"
+  },
+  {
+    "batch": 137,
+    "name": "careplan",
+    "service": "auth",
+    "targetPath": "/me/authored-care-plan-records",
+    "canonical": "/v1/auth/me/authored-care-plan-records",
+    "spec": "personal-review-telehealth-batches-86-90.openapi.json"
+  },
+  {
+    "batch": 138,
+    "name": "telehealthsession",
+    "service": "auth",
+    "targetPath": "/me/telehealth-records",
+    "canonical": "/v1/auth/me/telehealth-records",
+    "spec": "personal-review-telehealth-batches-86-90.openapi.json"
+  },
+  {
+    "batch": 139,
+    "name": "consentform",
+    "service": "client",
+    "targetPath": "/consents",
+    "canonical": "/v1/client/consents",
+    "spec": "client-records-batch-21.openapi.json"
+  },
+  {
+    "batch": 140,
+    "name": "serviceauthorization",
+    "service": "client",
+    "targetPath": "/service-authorizations",
+    "canonical": "/v1/client/service-authorizations",
+    "spec": "client-records-batch-21.openapi.json"
+  },
+  {
+    "batch": 141,
+    "name": "waitlistentry",
+    "service": "client",
+    "targetPath": "/waitlist",
+    "canonical": "/v1/client/waitlist",
+    "spec": "client-records-batch-21.openapi.json"
+  },
+  {
+    "batch": 142,
+    "name": "feedback",
+    "service": "client",
+    "targetPath": "/feedback",
+    "canonical": "/v1/client/feedback",
+    "spec": "client-feedback-batches-36-38.openapi.json"
+  },
+  {
+    "batch": 143,
+    "name": "carefeedback",
+    "service": "client",
+    "targetPath": "/care-feedback",
+    "canonical": "/v1/client/care-feedback",
+    "spec": "client-feedback-batches-36-38.openapi.json"
+  },
+  {
+    "batch": 144,
+    "name": "familymember",
+    "service": "client",
+    "targetPath": "/family-links",
+    "canonical": "/v1/client/family-links",
+    "spec": "client-thread-family-batches-46-48.openapi.json"
+  },
+  {
+    "batch": 145,
+    "name": "messagethread",
+    "service": "client",
+    "targetPath": "/conversation-threads",
+    "canonical": "/v1/client/conversation-threads",
+    "spec": "client-thread-family-batches-46-48.openapi.json"
+  },
+  {
+    "batch": 146,
+    "name": "timesheet",
+    "service": "provider",
+    "targetPath": "/timesheets",
+    "canonical": "/v1/provider/timesheets",
+    "spec": "provider-metadata-batches-51-55.openapi.json"
+  },
+  {
+    "batch": 147,
+    "name": "mileagelog",
+    "service": "provider",
+    "targetPath": "/mileage-logs",
+    "canonical": "/v1/provider/mileage-logs",
+    "spec": "provider-metadata-batches-56-60.openapi.json"
+  },
+  {
+    "batch": 148,
+    "name": "payout",
+    "service": "provider",
+    "targetPath": "/payouts",
+    "canonical": "/v1/provider/payouts",
+    "spec": "provider-metadata-batches-56-60.openapi.json"
+  },
+  {
+    "batch": 149,
+    "name": "visitcheckevent",
+    "service": "provider",
+    "targetPath": "/visit-check-events",
+    "canonical": "/v1/provider/visit-check-events",
+    "spec": "provider-event-fleet-match-batches-61-65.openapi.json"
+  },
+  {
+    "batch": 150,
+    "name": "visitmatch",
+    "service": "provider",
+    "targetPath": "/visit-matches",
+    "canonical": "/v1/provider/visit-matches",
+    "spec": "provider-event-fleet-match-batches-61-65.openapi.json"
+  },
+  {
+    "batch": 151,
+    "name": "invoice",
+    "service": "client",
+    "targetPath": "/invoices",
+    "canonical": "/v1/client/invoices",
+    "spec": "client-self-batch-7.openapi.json"
+  },
+  {
+    "batch": 152,
+    "name": "visit",
+    "service": "client",
+    "targetPath": "/visits",
+    "canonical": "/v1/client/visits",
+    "spec": "client-visits-batch-11.openapi.json"
+  },
+  {
+    "batch": 153,
+    "name": "gamificationprofile",
+    "service": "auth",
+    "targetPath": "/me/rewards",
+    "canonical": "/v1/auth/me/rewards",
+    "spec": "self-records-batches-26-30.openapi.json"
+  },
+  {
+    "batch": 154,
+    "name": "userreputation",
+    "service": "auth",
+    "targetPath": "/me/reputation",
+    "canonical": "/v1/auth/me/reputation",
+    "spec": "self-reputation-batch-40.openapi.json"
+  },
+  {
+    "batch": 155,
+    "name": "fleetstatus",
+    "service": "provider",
+    "targetPath": "/fleet-status",
+    "canonical": "/v1/provider/fleet-status",
+    "spec": "provider-event-fleet-match-batches-61-65.openapi.json"
+  },
+  {
+    "batch": 156,
+    "name": "clientprofile",
+    "service": "client",
+    "targetPath": "/home/profile",
+    "canonical": "/v1/client/home/profile",
+    "spec": "client-self-batch-7.openapi.json"
+  },
+  {
+    "batch": 157,
+    "name": "providerprofile",
+    "service": "provider",
+    "targetPath": "/profile",
+    "canonical": "/v1/provider/profile",
+    "spec": "provider-self-batch-8.openapi.json"
+  },
+  {
+    "batch": 158,
+    "name": "auditlog",
+    "service": "auth",
+    "targetPath": "/me/audit-event-records",
+    "canonical": "/v1/auth/me/audit-event-records",
+    "spec": "own-audit-events-batches-158-159.openapi.json"
+  },
+  {
+    "batch": 159,
+    "name": "systemevent",
+    "service": "auth",
+    "targetPath": "/me/system-event-records",
+    "canonical": "/v1/auth/me/system-event-records",
+    "spec": "own-audit-events-batches-158-159.openapi.json"
+  },
+  {
+    "batch": 160,
+    "name": "shiftassignment",
+    "service": "provider",
+    "targetPath": "/shift-assignment-records",
+    "canonical": "/v1/provider/shift-assignment-records",
+    "spec": "own-provider-work-batches-160-163.openapi.json"
+  },
+  {
+    "batch": 161,
+    "name": "shifthandover",
+    "service": "provider",
+    "targetPath": "/handover-records",
+    "canonical": "/v1/provider/handover-records",
+    "spec": "own-provider-work-batches-160-163.openapi.json"
+  },
+  {
+    "batch": 162,
+    "name": "visitnote",
+    "service": "provider",
+    "targetPath": "/authored-visit-note-records",
+    "canonical": "/v1/provider/authored-visit-note-records",
+    "spec": "own-provider-work-batches-160-163.openapi.json"
+  },
+  {
+    "batch": 163,
+    "name": "visitchecklist",
+    "service": "provider",
+    "targetPath": "/authored-checklist-records",
+    "canonical": "/v1/provider/authored-checklist-records",
+    "spec": "own-provider-work-batches-160-163.openapi.json"
+  },
+  {
+    "batch": 166,
+    "name": "patientalert",
+    "service": "client",
+    "targetPath": "/alert-records",
+    "canonical": "/v1/client/alert-records",
+    "spec": "own-patient-metadata-batches-166-168.openapi.json"
+  },
+  {
+    "batch": 167,
+    "name": "claim",
+    "service": "client",
+    "targetPath": "/insurance-claim-records",
+    "canonical": "/v1/client/insurance-claim-records",
+    "spec": "own-patient-metadata-batches-166-168.openapi.json"
+  },
+  {
+    "batch": 168,
+    "name": "prescription",
+    "service": "client",
+    "targetPath": "/prescription-records",
+    "canonical": "/v1/client/prescription-records",
+    "spec": "own-patient-metadata-batches-166-168.openapi.json"
+  },
+  {
+    "batch": 212,
+    "name": "payment",
+    "service": "client",
+    "targetPath": "/payments",
+    "canonical": "/v1/client/payments",
+    "spec": "client-payment-history-batches-209-211.openapi.json"
+  },
+  {
+    "batch": 216,
+    "name": "timesheetitem",
+    "service": "provider",
+    "targetPath": "/timesheet-items",
+    "canonical": "/v1/provider/timesheet-items",
+    "spec": "provider-timesheet-items-batches-213-215.openapi.json"
+  },
+  {
+    "batch": 219,
+    "name": "trainingassignment",
+    "service": "provider",
+    "targetPath": "/training-assignment-records",
+    "canonical": "/v1/provider/training-assignment-records",
+    "spec": "provider-training-batches-217-218.openapi.json"
+  },
+  {
+    "batch": 221,
+    "name": "message",
+    "service": "auth",
+    "targetPath": "/me/authored-message-records",
+    "canonical": "/v1/auth/me/authored-message-records",
+    "spec": "authored-message-batch-220.openapi.json"
+  },
+  {
+    "batch": 224,
+    "name": "familynotification",
+    "service": "client",
+    "targetPath": "/family-notification-records",
+    "canonical": "/v1/client/family-notification-records",
+    "spec": "client-family-notifications-batch-222.openapi.json"
+  },
+  {
+    "batch": 232,
+    "name": "blogpost",
+    "service": "auth",
+    "targetPath": "/me/authored-post-records",
+    "canonical": "/v1/auth/me/authored-post-records",
+    "spec": "owned-commerce-authoring-batches-225-231.openapi.json"
+  },
+  {
+    "batch": 233,
+    "name": "transactionledger",
+    "service": "auth",
+    "targetPath": "/me/ledger-event-records",
+    "canonical": "/v1/auth/me/ledger-event-records",
+    "spec": "owned-commerce-authoring-batches-225-231.openapi.json"
+  },
+  {
+    "batch": 234,
+    "name": "inventoryitem",
+    "service": "client",
+    "targetPath": "/inventory-item-records",
+    "canonical": "/v1/client/inventory-item-records",
+    "spec": "owned-commerce-authoring-batches-225-231.openapi.json"
+  },
+  {
+    "batch": 235,
+    "name": "purchaseorder",
+    "service": "client",
+    "targetPath": "/purchase-order-records",
+    "canonical": "/v1/client/purchase-order-records",
+    "spec": "owned-commerce-authoring-batches-225-231.openapi.json"
+  },
+  {
+    "batch": 240,
+    "name": "vitalsign",
+    "service": "client",
+    "targetPath": "/patient-vital-records",
+    "canonical": "/v1/client/patient-vital-records",
+    "spec": "owned-patient-observations-batches-236-239.openapi.json"
+  },
+  {
+    "batch": 241,
+    "name": "mar_entry",
+    "service": "client",
+    "targetPath": "/medication-administration-records",
+    "canonical": "/v1/client/medication-administration-records",
+    "spec": "owned-patient-observations-batches-236-239.openapi.json"
+  }
+]

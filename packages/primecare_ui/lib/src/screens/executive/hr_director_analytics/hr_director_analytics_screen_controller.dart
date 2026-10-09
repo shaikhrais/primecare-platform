@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HrDirectorAnalyticsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class HrDirectorAnalyticsScreenState
+    extends DashboardState<HrDirectorAnalyticsScreenState> {
+  HrDirectorAnalyticsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  HrDirectorAnalyticsScreenState({required this.isLoading, this.error, required this.data});
-
-  HrDirectorAnalyticsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return HrDirectorAnalyticsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  HrDirectorAnalyticsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => HrDirectorAnalyticsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class HrDirectorAnalyticsScreenController extends StateNotifier<HrDirectorAnalyticsScreenState> {
-  final Ref ref;
-  HrDirectorAnalyticsScreenController(this.ref) : super(HrDirectorAnalyticsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/executive/hr-director-analytics');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class HrDirectorAnalyticsScreenController
+    extends BaseDashboardController<HrDirectorAnalyticsScreenState> {
+  HrDirectorAnalyticsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: HrDirectorAnalyticsScreenState(isLoading: true, data: {}),
+        endpoint: '/executive/hr-director-analytics',
+      );
 }
 
-final hr_director_analyticsControllerProvider = StateNotifierProvider<HrDirectorAnalyticsScreenController, HrDirectorAnalyticsScreenState>((ref) {
-  return HrDirectorAnalyticsScreenController(ref);
-});
+final hr_director_analyticsControllerProvider =
+    StateNotifierProvider<
+      HrDirectorAnalyticsScreenController,
+      HrDirectorAnalyticsScreenState
+    >((ref) {
+      return HrDirectorAnalyticsScreenController(ref);
+    });

@@ -1,21 +1,24 @@
 name: Build Windows Distributions
 
 on:
+  workflow_call:
   push:
     branches: [ "main" ]
-    paths-ignore:
-      - 'docs/**'
-      - 'cloudflare/**'
-      - 'websites/typescript/**'
-      - 'scripts/test-auth-*.mjs'
-      - 'scripts/*auth*'
-      - 'scripts/bootstrap-first-ceo.mjs'
-      - '.github/workflows/verify-production-auth.yml'
-      - 'scripts/check-auth-schema.mjs'
-      - 'scripts/export-auth-openapi.py'
-      - '.github/workflows/auth-worker-tests.yml'
-      - '.github/workflows/auth-counter-cleanup.yml'
+    paths:
+      - 'apps/**'
+      - 'packages/**/lib/**'
+      - 'packages/**/assets/**'
+      - 'packages/**/pubspec*'
+      - 'pubspec.yaml'
+      - 'pubspec.lock'
+      - 'melos.yaml'
+      - 'analysis_options.yaml'
+      - '.github/workflows/build_windows.yml'
   workflow_dispatch:
+
+concurrency:
+  group: native-windows-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build_windows:
@@ -23,7 +26,10 @@ jobs:
     # Pin the compatible runner until the plugin migrates to C++20 coroutines.
     runs-on: windows-2022
     
+    timeout-minutes: 45
     strategy:
+      max-parallel: 2
+      fail-fast: false
       matrix:
         app: 
           - primecare_business_development
@@ -57,7 +63,7 @@ jobs:
         run: |
           cd apps/${{ matrix.app }}
           flutter pub get
-          flutter build windows --release
+          flutter build windows --release --dart-define=API_BASE_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev
 
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4

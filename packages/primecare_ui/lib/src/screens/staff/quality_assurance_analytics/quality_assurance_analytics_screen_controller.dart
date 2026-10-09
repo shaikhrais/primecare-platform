@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class QualityAssuranceAnalyticsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class QualityAssuranceAnalyticsScreenState
+    extends DashboardState<QualityAssuranceAnalyticsScreenState> {
+  QualityAssuranceAnalyticsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  QualityAssuranceAnalyticsScreenState({required this.isLoading, this.error, required this.data});
-
-  QualityAssuranceAnalyticsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return QualityAssuranceAnalyticsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  QualityAssuranceAnalyticsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => QualityAssuranceAnalyticsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class QualityAssuranceAnalyticsScreenController extends StateNotifier<QualityAssuranceAnalyticsScreenState> {
-  final Ref ref;
-  QualityAssuranceAnalyticsScreenController(this.ref) : super(QualityAssuranceAnalyticsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/staff/quality-assurance-analytics');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class QualityAssuranceAnalyticsScreenController
+    extends BaseDashboardController<QualityAssuranceAnalyticsScreenState> {
+  QualityAssuranceAnalyticsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: QualityAssuranceAnalyticsScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/staff/quality-assurance-analytics',
+      );
 }
 
-final quality_assurance_analyticsControllerProvider = StateNotifierProvider<QualityAssuranceAnalyticsScreenController, QualityAssuranceAnalyticsScreenState>((ref) {
-  return QualityAssuranceAnalyticsScreenController(ref);
-});
+final quality_assurance_analyticsControllerProvider =
+    StateNotifierProvider<
+      QualityAssuranceAnalyticsScreenController,
+      QualityAssuranceAnalyticsScreenState
+    >((ref) {
+      return QualityAssuranceAnalyticsScreenController(ref);
+    });

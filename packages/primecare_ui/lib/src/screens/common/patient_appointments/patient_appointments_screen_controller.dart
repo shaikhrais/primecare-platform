@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PatientAppointmentsScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class PatientAppointmentsScreenState
+    extends DashboardState<PatientAppointmentsScreenState> {
+  PatientAppointmentsScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  PatientAppointmentsScreenState({required this.isLoading, this.error, required this.data});
-
-  PatientAppointmentsScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return PatientAppointmentsScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  PatientAppointmentsScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => PatientAppointmentsScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class PatientAppointmentsScreenController extends StateNotifier<PatientAppointmentsScreenState> {
-  final Ref ref;
-  PatientAppointmentsScreenController(this.ref) : super(PatientAppointmentsScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/patient-appointments');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class PatientAppointmentsScreenController
+    extends BaseDashboardController<PatientAppointmentsScreenState> {
+  PatientAppointmentsScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: PatientAppointmentsScreenState(isLoading: true, data: {}),
+        endpoint: '/common/patient-appointments',
+      );
 }
 
-final patient_appointmentsControllerProvider = StateNotifierProvider<PatientAppointmentsScreenController, PatientAppointmentsScreenState>((ref) {
-  return PatientAppointmentsScreenController(ref);
-});
+final patient_appointmentsControllerProvider =
+    StateNotifierProvider<
+      PatientAppointmentsScreenController,
+      PatientAppointmentsScreenState
+    >((ref) {
+      return PatientAppointmentsScreenController(ref);
+    });

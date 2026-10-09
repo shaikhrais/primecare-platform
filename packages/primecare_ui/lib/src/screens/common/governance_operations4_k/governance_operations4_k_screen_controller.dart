@@ -1,55 +1,44 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class GovernanceOperations4KScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class GovernanceOperations4KScreenState
+    extends DashboardState<GovernanceOperations4KScreenState> {
+  GovernanceOperations4KScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  GovernanceOperations4KScreenState({required this.isLoading, this.error, required this.data});
-
-  GovernanceOperations4KScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return GovernanceOperations4KScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  GovernanceOperations4KScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => GovernanceOperations4KScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class GovernanceOperations4KScreenController extends StateNotifier<GovernanceOperations4KScreenState> {
-  final Ref ref;
-  GovernanceOperations4KScreenController(this.ref) : super(GovernanceOperations4KScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/common/governance-operations4-k');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class GovernanceOperations4KScreenController
+    extends BaseDashboardController<GovernanceOperations4KScreenState> {
+  GovernanceOperations4KScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: GovernanceOperations4KScreenState(
+          isLoading: true,
+          data: {},
+        ),
+        endpoint: '/common/governance-operations4-k',
+      );
 }
 
-final governance_operations4_kControllerProvider = StateNotifierProvider<GovernanceOperations4KScreenController, GovernanceOperations4KScreenState>((ref) {
-  return GovernanceOperations4KScreenController(ref);
-});
+final governance_operations4_kControllerProvider =
+    StateNotifierProvider<
+      GovernanceOperations4KScreenController,
+      GovernanceOperations4KScreenState
+    >((ref) {
+      return GovernanceOperations4KScreenController(ref);
+    });

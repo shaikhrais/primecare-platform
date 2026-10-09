@@ -1,55 +1,41 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/controllers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SchedulingHealthScreenState {
-  final bool isLoading;
-  final String? error;
-  final Map<String, dynamic> data;
+class SchedulingHealthScreenState
+    extends DashboardState<SchedulingHealthScreenState> {
+  SchedulingHealthScreenState({
+    required super.isLoading,
+    super.error,
+    required super.data,
+  });
 
-  SchedulingHealthScreenState({required this.isLoading, this.error, required this.data});
-
-  SchedulingHealthScreenState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
-    return SchedulingHealthScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      data: data ?? this.data,
-    );
-  }
+  @override
+  SchedulingHealthScreenState create({
+    required bool isLoading,
+    String? error,
+    required Map<String, dynamic> data,
+  }) => SchedulingHealthScreenState(
+    isLoading: isLoading,
+    error: error,
+    data: data,
+  );
 }
 
-class SchedulingHealthScreenController extends StateNotifier<SchedulingHealthScreenState> {
-  final Ref ref;
-  SchedulingHealthScreenController(this.ref) : super(SchedulingHealthScreenState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
-
-  Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      final response = await ref.read(apiClientProvider).get('/management/scheduling-health');
-      if (response.isSuccess) {
-        final responseData = response.data;
-        state = state.copyWith(
-          isLoading: false,
-          data: responseData is Map ? Map<String, dynamic>.from(responseData) : {},
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          error: response.error ?? 'Failed to load live data',
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
-  }
-
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+class SchedulingHealthScreenController
+    extends BaseDashboardController<SchedulingHealthScreenState> {
+  SchedulingHealthScreenController(Ref ref)
+    : super(
+        ref,
+        initialState: SchedulingHealthScreenState(isLoading: true, data: {}),
+        endpoint: '/management/scheduling-health',
+      );
 }
 
-final scheduling_healthControllerProvider = StateNotifierProvider<SchedulingHealthScreenController, SchedulingHealthScreenState>((ref) {
-  return SchedulingHealthScreenController(ref);
-});
+final scheduling_healthControllerProvider =
+    StateNotifierProvider<
+      SchedulingHealthScreenController,
+      SchedulingHealthScreenState
+    >((ref) {
+      return SchedulingHealthScreenController(ref);
+    });
