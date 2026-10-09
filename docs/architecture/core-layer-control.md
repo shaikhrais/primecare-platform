@@ -28,7 +28,9 @@ existing result/fallback behavior are preserved by a pinned transformation check
 
 BaseGuardedService owns asynchronous Result.guardFuture behavior and the injected
 telemetry dependency. BaseBusinessService owns the injected ApiRepository;
-BasePreferenceService owns the injected SharedPreferences. They do not store a
+BasePreferenceService owns the injected SharedPreferences. Business HTTP calls
+use the inherited repository forwarders, so shared transport changes apply across
+these services. They do not store a
 current user or tenant globally. Concrete methods retain their approved behavior.
 No new workflow success or completion is inferred from this source refactor.
 

@@ -10,7 +10,7 @@ class ProviderService extends BaseBusinessService {
     return guard<ProviderProfile>(
       () async {
         final endpoint = ApiConfig.endpoints['providerProfile']!;
-        final response = await apiClient.get(endpoint);
+        final response = await repository.get(endpoint);
 
         if (response.statusCode == 200) {
           final profile = ProviderProfile.fromResponse(response.data);
@@ -48,7 +48,7 @@ class ProviderService extends BaseBusinessService {
       () async {
         final baseEndpoint = ApiConfig.endpoints['providerCheckin']!;
         final endpoint = baseEndpoint.replaceAll(':visitId', visitId);
-        await apiClient.post(
+        await repository.post(
           endpoint,
           body: {
             'lat': lat,

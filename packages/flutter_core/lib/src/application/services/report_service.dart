@@ -10,7 +10,7 @@ class ReportService extends BaseBusinessService {
     return guard<ReportData>(
       () async {
         final endpoint = '/api/reports/$reportId';
-        final response = await apiClient.get(endpoint);
+        final response = await repository.get(endpoint);
 
         if (response.statusCode == 200) {
           telemetry.passGate(

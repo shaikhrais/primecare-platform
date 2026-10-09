@@ -14,7 +14,7 @@ class DomainService extends BaseBusinessService {
   Future<Result<DomainResponse>> openCase(Map<String, dynamic> data) async {
     return guard<DomainResponse>(
       () async {
-        final response = await apiClient.post(
+        final response = await repository.post(
           ApiConfig.endpoints['intakeCases']!,
           body: data,
         );
@@ -44,7 +44,7 @@ class DomainService extends BaseBusinessService {
   ) async {
     return guard<DomainResponse>(
       () async {
-        final response = await apiClient.post(
+        final response = await repository.post(
           ApiConfig.endpoints['carePlansUpdate']!,
           body: data,
         );
@@ -72,7 +72,7 @@ class DomainService extends BaseBusinessService {
   Future<Result<DomainResponse>> getTrainingMetrics() async {
     return guard<DomainResponse>(
       () async {
-        final response = await apiClient.get(
+        final response = await repository.get(
           ApiConfig.endpoints['trainingDirectorView']!,
         );
         telemetry.passGate(
@@ -100,7 +100,7 @@ class DomainService extends BaseBusinessService {
   ) async {
     return guard<DomainResponse>(
       () async {
-        final response = await apiClient.post(
+        final response = await repository.post(
           ApiConfig.endpoints['trainingComplete']!,
           body: data,
         );
@@ -130,7 +130,7 @@ class DomainService extends BaseBusinessService {
   ) async {
     return guard<DomainResponse>(
       () async {
-        final response = await apiClient.post(
+        final response = await repository.post(
           ApiConfig.endpoints['supportEscalate']!,
           body: data,
         );
@@ -160,7 +160,7 @@ class DomainService extends BaseBusinessService {
   ) async {
     return guard<DomainResponse>(
       () async {
-        final response = await apiClient.post(
+        final response = await repository.post(
           ApiConfig.endpoints['franchiseTerritoryUpdate']!,
           body: data,
         );
@@ -188,7 +188,7 @@ class DomainService extends BaseBusinessService {
   Future<Result<DomainResponse>> getReportingSummary() async {
     return guard<DomainResponse>(
       () async {
-        final response = await apiClient.get(
+        final response = await repository.get(
           ApiConfig.endpoints['reportingSummary']!,
         );
         telemetry.passGate(
@@ -217,7 +217,7 @@ class DomainService extends BaseBusinessService {
   ) async {
     return guard<DomainResponse>(
       () async {
-        final response = await apiClient.post(
+        final response = await repository.post(
           ApiConfig.endpoints['adminStaffProvision']!,
           body: data,
         );
@@ -246,7 +246,7 @@ class DomainService extends BaseBusinessService {
   ) async {
     return guard<DomainResponse>(
       () async {
-        final response = await apiClient.post(
+        final response = await repository.post(
           ApiConfig.endpoints['adminAuditOverride']!,
           body: data,
         );
@@ -274,7 +274,7 @@ class DomainService extends BaseBusinessService {
   Future<Result<DomainResponse>> getPartnershipData() async {
     return guard<DomainResponse>(
       () async {
-        final response = await apiClient.get(
+        final response = await repository.get(
           ApiConfig.endpoints['officePartnershipLeadsView']!,
         );
         telemetry.passGate(
@@ -300,7 +300,7 @@ class DomainService extends BaseBusinessService {
   Future<Result<DomainResponse>> getCoordinationMetrics() async {
     return guard<DomainResponse>(
       () async {
-        final response = await apiClient.get(
+        final response = await repository.get(
           ApiConfig.endpoints['trainingCoordinatorDashboard'] ??
               '/api/training-coordinator/dashboard',
         );
@@ -332,7 +332,7 @@ class DomainService extends BaseBusinessService {
   Future<Result<DomainResponse>> getDomainMetrics(String domain) async {
     return guard<DomainResponse>(
       () async {
-        final response = await apiClient.get(
+        final response = await repository.get(
           '${ApiConfig.endpoints['providerMetrics']}?route=$domain',
         );
         telemetry.passGate(

@@ -13,7 +13,7 @@ class VerificationService extends BaseBusinessService {
     return guard<Map<String, dynamic>>(
       () async {
         final endpoint = ApiConfig.endpoints['verificationPurposeReport']!;
-        final response = await apiClient.get(endpoint);
+        final response = await repository.get(endpoint);
 
         if (response.statusCode == 200) {
           telemetry.passGate(
@@ -47,7 +47,7 @@ class VerificationService extends BaseBusinessService {
     return guard<Map<String, dynamic>>(
       () async {
         final endpoint = ApiConfig.endpoints['verificationDatabaseReport']!;
-        final response = await apiClient.get(endpoint);
+        final response = await repository.get(endpoint);
 
         if (response.statusCode == 200) {
           telemetry.passGate(

@@ -12,7 +12,7 @@
         ],
         [
           "_apiClient",
-          "apiClient"
+          "repository"
         ],
         [
           "_telemetry",
@@ -37,7 +37,7 @@
         ],
         [
           "_apiClient",
-          "apiClient"
+          "repository"
         ],
         [
           "_telemetry",
@@ -76,7 +76,7 @@
         ],
         [
           "_apiClient",
-          "apiClient"
+          "repository"
         ],
         [
           "_telemetry",
@@ -101,7 +101,7 @@
         ],
         [
           "_apiClient",
-          "apiClient"
+          "repository"
         ],
         [
           "_telemetry",
