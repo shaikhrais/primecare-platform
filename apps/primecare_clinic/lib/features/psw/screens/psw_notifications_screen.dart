@@ -1,3 +1,4 @@
+import 'package:primecare_models/primecare_models.dart';
 /* 
 PRIME:SCREEN=psw_notifications
 PRIME:DESIGN=DESIGN_APPROVED
@@ -21,21 +22,17 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/flutter_core.dart' show ownNotificationsRepositoryProvider;
 
 // --- MVC State Model ---
-class PswNotificationsScreenState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-  final bool hasData;
+class PswNotificationsScreenState extends BaseWorkspaceState<PswNotificationsScreenState> {
 
   const PswNotificationsScreenState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-    required this.hasData,
+    required super.isLoading,
+    super.error,
+    required super.title,
+    required super.logs,
+    required super.hasData,
   });
 
+  @override
   PswNotificationsScreenState copyWith({
     bool? isLoading,
     String? error,
@@ -52,6 +49,11 @@ class PswNotificationsScreenState {
       hasData: hasData ?? this.hasData,
     );
   }
+
+  @override
+  PswNotificationsScreenState rebuild({required bool isLoading, required String? error,
+    required String title, required List<String> logs, required bool hasData}) =>
+      copyWith(isLoading: isLoading, error: error, title: title, logs: logs, hasData: hasData);
 }
 
 // --- Controller (Notifier) ---

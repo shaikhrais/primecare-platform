@@ -1,3 +1,4 @@
+import 'package:primecare_models/primecare_models.dart';
 import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=medical_library_access_portal
@@ -20,36 +21,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 // --- MVC State Model ---
-class MedicalLibraryAccessPortalScreenState {
-  final bool isLoading;
-  final String? error;
-  final String title;
-  final List<String> logs;
-  final bool hasData;
+class MedicalLibraryAccessPortalScreenState extends BaseWorkspaceState<MedicalLibraryAccessPortalScreenState> {
 
   const MedicalLibraryAccessPortalScreenState({
-    required this.isLoading,
-    this.error,
-    required this.title,
-    required this.logs,
-    required this.hasData,
+    required super.isLoading,
+    super.error,
+    required super.title,
+    required super.logs,
+    required super.hasData,
   });
 
-  MedicalLibraryAccessPortalScreenState copyWith({
-    bool? isLoading,
-    String? error,
-    String? title,
-    List<String>? logs,
-    bool? hasData,
-  }) {
-    return MedicalLibraryAccessPortalScreenState(
-      isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
-      title: title ?? this.title,
-      logs: logs ?? this.logs,
-      hasData: hasData ?? this.hasData,
-    );
-  }
+
+  @override
+  MedicalLibraryAccessPortalScreenState rebuild({required bool isLoading, required String? error,
+    required String title, required List<String> logs, required bool hasData}) =>
+      MedicalLibraryAccessPortalScreenState(isLoading: isLoading, error: error, title: title, logs: logs, hasData: hasData);
 }
 
 // --- Controller (Notifier) ---

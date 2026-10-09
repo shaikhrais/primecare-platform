@@ -4,11 +4,13 @@ set -euo pipefail
 repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 test_root=$(mktemp -d)
 trap 'rm -rf "$test_root"' EXIT
-cat > "$test_root/pubspec.yaml" <<'EOF'
+cat > "$test_root/pubspec.yaml" <<EOF
 name: scheduling_route_validation
 environment:
   sdk: '>=3.11.0 <4.0.0'
 dependencies:
+  server_core:
+    path: '$repo_root/packages/server_core'
   shelf: ^1.4.2
   shelf_router: ^1.1.4
 dev_dependencies:
