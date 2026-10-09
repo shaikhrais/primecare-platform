@@ -25,7 +25,13 @@ def check_callers(root):
     for key in ('providerProfile', 'providerDashboard'):
         if "'" + key + "': '" + CANONICAL_PATH + "'" not in source:
             raise ValueError('Provider caller config is not canonical: ' + key)
-    if "ApiConfig.endpoints['providerProfile']" not in service.read_text():
+    service_source = service.read_text()
+    facade = ("export 'package:flutter_core/src/application/services/provider_service.dart';\n"
+              "export 'package:flutter_core/src/domain/models/provider_profile.dart';\n")
+    if service_source == facade:
+        service = root / 'packages/flutter_core/lib/src/application/services/provider_service.dart'
+        service_source = service.read_text()
+    if "ApiConfig.endpoints['providerProfile']" not in service_source:
         raise ValueError('Provider self-profile caller is not canonical')
     allowed = "return route == '/v1/provider/profile' || route == '/v1/provider/dashboard';"
     for directory in ('apps', 'packages', 'services', 'cloudflare/workers/src', 'generated_screen_backup_before_template_reset'):
